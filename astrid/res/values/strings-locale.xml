@@ -16,7 +16,6 @@
       when you have any tasks in the following filter:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
-  <string name="locale_pick_filter">Filter:</string>        
       
   <!-- Locale Window Interval Label -->                                                                                                                                        
   <string name="locale_interval_label">Limit notifications to:</string>        

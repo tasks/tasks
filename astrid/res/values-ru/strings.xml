@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Опубликовать</string>
   <string name="actfm_person_hint">Контакт или его почта</string>
   <string name="actfm_person_or_tag_hint">Контакт или общий список</string>
-  <string name="actfm_toast_success">Сохранено на сервере</string>
-  <string name="actfm_tag_operation_disabled">Извините, эта операция не поддерживает общие метки</string>
   <string name="actfm_tag_operation_owner_delete">Вы владелец этого общего списка! Если вы удалите его, он будет удален для всех участников. Вы уверены, что хотите продолжить?</string>
   <string name="actfm_picture_camera">Сделать снимок</string>
   <string name="actfm_picture_gallery">Взять из галереи</string>
   <string name="actfm_picture_clear">Убрать изображение</string>
-  <string name="actfm_FLA_menu_refresh">Обновить списки</string>
   <string name="actfm_view_task_title">Просмотреть задачу?</string>
   <string name="actfm_view_task_text">Задача была отправлена %s! Сейчас вы просматриваете ваши собственные задачи. Хотите просмотреть эту и другие задачи назначенные вам?</string>
   <string name="actfm_view_task_ok">Просмотреть назначенные</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Мои общие задачи</string>
   <string name="actfm_my_shared_tasks_empty">Нет общих задач</string>
   <string name="TVA_add_comment">Добавить комментарий...</string>
-  <string name="UAd_title_comment">%1$s : %2$s</string>
   <string-array name="TVA_tabs">
     <item>Задачи</item>
     <item>Действия</item>
@@ -28,45 +23,32 @@
   <string name="actfm_TVA_no_members_alert">Приватный: нажмите, чтобы изменить или опубликовать список</string>
   <string name="actfm_TVA_menu_refresh">Обновить</string>
   <string name="actfm_TVA_tag_label">Название списка</string>
-  <string name="actfm_TVA_tag_owner_label">Создатель списка:</string>
-  <string name="actfm_TVA_tag_owner_none">нет</string>
   <string name="actfm_TVA_members_label">Опубликовано для</string>
   <string name="actfm_TVA_members_hint">Поделись с теми, у кого есть почтовый адрес</string>
   <string name="actfm_TVA_tag_picture">Укажите фото:</string>
   <string name="actfm_TVA_silence_label">Беззвучные уведомления</string>
-  <string name="actfm_TVA_list_icon_label">Значок списка:</string>
   <string name="actfm_TVA_tag_description_label">Описание</string>
   <string name="actfm_TVA_tag_settings_label">Настройки</string>
   <string name="actfm_TVA_tag_description_hint">Введите описание здесь</string>
   <string name="actfm_TVA_tag_name_hint">Введите имя списка</string>
   <string name="actfm_TVA_login_to_share">Вам нужно зарегистрироваться на Astrid.com, чтобы публиковать списки! Пожалуйста, зарегистрируйтесь или сделайте список приватным.</string>
   <string name="actfm_EPA_intro">Используйте Astrid для обмена списками покупок, планами или командными проектами и мгновенно следите за тем как люди доводят дела до конца.</string>
-  <string name="actfm_EPA_title">Общие/Присвоить</string>
-  <string name="actfm_EPA_save">Сохранить и опубликовать</string>
-  <string name="actfm_EPA_assign_label">Кто</string>
   <string name="actfm_EPA_assign_label_long">Кто должен выполнить задачу?</string>
   <string name="actfm_EPA_assign_me">Я</string>
   <string name="actfm_EPA_unassigned">Не назначен</string>
   <string name="actfm_EPA_choose_contact">Выберите контакт</string>
   <string name="actfm_EPA_task_rabbit">Делегируй это!</string>
-  <string name="actfm_EPA_assign_custom">Свой...</string>
   <string name="actfm_EPA_share_with">Опубликовать для:</string>
 
   <string name="actfm_EPA_collaborators_header">Опубликовать для друзей</string>
   <string name="actfm_EPA_list">Список: %s</string>
-  <string name="actfm_EPA_assigned_hint">Имя контакта</string>
   <string name="actfm_EPA_message_text">Приглашение:</string>
   <string name="actfm_EPA_message_body">Помогите мне выполнить это!</string>
   <string name="actfm_EPA_assign_header_members">Список участников</string>
   <string name="actfm_EPA_assign_header_friends">Друзья Astrid</string>
-  <string name="actfm_EPA_tag_label">Создать совместный тэг</string>
-  <string name="actfm_EPA_tag_hint">(например Клубный Клуб)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Твиттер</string>
-  <string name="actfm_EPA_emailed_toast">Задача опубликована для %s</string>
-  <string name="actfm_EPA_saved_toast">Настройки людей сохранены</string>
   <string name="actfm_EPA_invalid_email">Неверный адрес электронной почты: %s</string>
-  <string name="actfm_EPA_invalid_tag">Список не найден: %s</string>
   <string name="actfm_EPA_login_to_share">Вам нужно авторизоваться на Astrid.com, чтобы поделиться задачами!</string>
   <string name="actfm_EPA_login_button">Войти</string>
   <string name="actfm_EPA_dont_share_button">Сделать личной</string>
@@ -74,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com позволяет Вам получать доступ к вашим задачам онлайн, обмениваться ими и поручать их другим.</string>
   <string name="actfm_ALA_fb_login">Подключиться к Facebook</string>
   <string name="actfm_ALA_gg_login">Подключиться к Google</string>
-  <string name="actfm_ALA_pw_login">Не используете Google и Facebook?</string>
-  <string name="actfm_ALA_pw_link">Авторизоваться</string>
-  <string name="actfm_ALA_pw_new">Создать учетную запись?</string>
-  <string name="actfm_ALA_pw_returning">Уже есть учетная запись?</string>
-  <string name="actfm_ALA_name_label">Имя</string>
   <string name="actfm_ALA_firstname_label">Имя</string>
   <string name="actfm_ALA_lastname_label">Фамилия</string>
   <string name="actfm_ALA_email_label">Эл. почта</string>
-  <string name="actfm_ALA_username_email_label">Имя пользователя / Эл. почта</string>
   <string name="actfm_ALA_password_label">Пароль</string>
   <string name="actfm_ALA_signup_title">Создать новую учётную запись</string>
   <string name="actfm_ALA_login_title">Авторизоваться на Astrid.com</string>
@@ -93,8 +69,6 @@
   <string name="actfm_https_title">Использовать HTTPS</string>
   <string name="actfm_https_enabled">HTTPS включен (медленнее)</string>
   <string name="actfm_https_disabled">HTTPS отключен (быстрее)</string>
-  <string name="actfm_notification_title">Astrid.com Синхронизация</string>
-  <string name="actfm_notification_comments">Получены новые комментарии / нажмите для детального просмотра</string>
   <string name="actfm_dual_sync_warning">Сейчас происходит синхронизация с Google Tasks. Имейте в виду, что синхронизация с обеими службами в некоторых случаях может привести к ошибкам. Вы уверены, что хотите синхронизироваться с Astrid.com?</string>
   <string name="alarm_ACS_label">Напоминания</string>
   <string name="alarm_ACS_button">Добавить напоминание</string>
@@ -111,8 +85,6 @@
   <string name="backup_BPr_auto_title">Автоматическое резервирование</string>
   <string name="backup_BPr_auto_disabled">Автоматическое резервное копирование отключено</string>
   <string name="backup_BPr_auto_enabled">Резервное копирование будет производиться ежедневно</string>
-  <string name="backup_BPr_how_to_restore">Что нужно сделать для восстановления резервных копий?</string>
-  <string name="backup_BPr_how_to_restore_dialog">Необходимо добавить Astrid Power Pack для управления и восстановления резервных копий. Astrid также создаёт резервные копии задач на всякий случай.</string>
   <string name="backup_BAc_label">Диспетчер резервных копий</string>
   <string name="backup_BAc_title">Управление резервными копиями</string>
   <string name="backup_BAc_import">Импортировать задачи</string>
@@ -125,7 +97,6 @@
   <string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n %4$s существовало\n %5$s с ошибками\n</string>
   <string name="import_progress_title">Импортирование…</string>
   <string name="import_progress_read">Чтение задачи %d…</string>
-  <string name="DLG_error_opening">Не могу найти элемент:</string>
   <string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
   <string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
   <string name="import_file_prompt">Выберите файл для восстановления</string>
@@ -138,24 +109,17 @@
   <string name="DLG_delete_this_item_question">Удалить этот элемент: %s?</string>
   <string name="DLG_upgrading">Обновление ваших задач…</string>
   <string name="DLG_hour_minutes">Время (час : мин)</string>
-  <string name="DLG_please_update">Astrid необходимо обновить до последней версии на Android Market! Пожалуйста, выполните это перед продолжением или подождите несколько секунд.</string>
-  <string name="DLG_to_market">Перейти в Market</string>
   <string name="DLG_accept">Принимаю</string>
   <string name="DLG_decline">Отказываюсь</string>
   <string name="DLG_eula_title">Правила использования Astrid</string>
   <string name="DLG_please_wait">Пожалуйста, подождите</string>
   <string name="DLG_loading">Загрузка…</string>
-  <string name="DLG_dismiss">Отменить</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Отмена</string>
   <string name="DLG_more">Подробнее</string>
   <string name="DLG_undo">Назад</string>
   <string name="DLG_warning">Предупреждение</string>
   <string name="WID_dateButtonUnset">Нажмите для установки</string>
-  <string name="WID_dateButtonLabel">$D $T</string>
-  <string name="WID_disableButton">Отключить</string>
-  <string name="ENE_label">Примечания</string>
-  <string name="ENE_label_comments">Комментарии</string>
   <string name="ENA_no_comments">Нет данных для отображения</string>
   <string name="ENA_no_user">Кто-нибудь</string>
   <string name="ENA_refresh_comments">Обновить комментарии</string>
@@ -168,10 +132,8 @@
   <string name="TLA_menu_lists">Списки</string>
   <string name="TLA_menu_friends">Люди</string>
   <string name="TLA_menu_suggestions">Предложения</string>
-  <string name="TLA_menu_tutorial">Руководство</string>
   <string name="TLA_menu_settings">Параметры</string>
   <string name="TLA_menu_support">Поддержка</string>
-  <string name="TLA_search_label">Поиск по списку</string>
   <string name="TLA_custom">Другой</string>
   <string name="TLA_quick_add_hint">Добавить задачу</string>
   <string name="TLA_quick_add_hint_assign">Добавить что-нибудь для %s</string>
@@ -204,7 +166,6 @@
   <string name="TAd_actionEditTask">Правка</string>
   <string name="TAd_contextEditTask">Правка задачи</string>
   <string name="TAd_contextCopyTask">Копировать задачу</string>
-  <string name="TAd_contextHelpTask">Получить помощь</string>
   <string name="TAd_contextDeleteTask">Удалить задачу</string>
   <string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
   <string name="TAd_contextPurgeTask">Очистить задачу</string>
@@ -223,11 +184,7 @@
   <string name="SSD_save_temp">Только один раз</string>
   <string name="SSD_save_always">Всегда</string>
   <string name="FSA_label">Список или Фильтр Astrid</string>
-  <string name="FLA_title">Списки</string>
-  <string name="FLA_loading">Загрузка фильтров…</string>
   <string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
-  <string name="FLA_menu_search">Поиск задач…</string>
-  <string name="FLA_menu_help">Справка</string>
   <string name="FLA_shortcut_dialog_title">Создать ярлык</string>
   <string name="FLA_shortcut_dialog">Имя ярлыка:</string>
   <string name="FLA_search_hint">Найти задачи</string>
@@ -236,13 +193,9 @@
   <string name="FLA_new_filter">Новый фильтр</string>
   <string name="FLA_new_list">Новый список</string>
   <string name="FLA_no_filter_selected">Фильтры не выбраны! Пожалуйста, выберите фильтр или список</string>
-  <string name="TEA_view_title">Astrid: Редактирование \'%s\'</string>
-  <string name="TEA_view_titleNew">Новая задача</string>
-  <string name="TEA_title_label">Название</string>
   <string name="TEA_when_header_label">Когда</string>
   <string name="TEA_title_hint">Описание задачи</string>
   <string name="TEA_importance_label">Важность</string>
-  <string name="TEA_urgency_label">Дата окончания</string>
   <string name="TEA_urgency_specific_time">В указанное время?</string>
   <string name="TEA_urgency_none">Пусто</string>
   <string name="TEA_hideUntil_label">Отобразить задачу</string>
@@ -260,8 +213,6 @@
   <string name="TEA_menu_comments">Комментарии</string>
   <string name="TEA_onTaskSave_due">Задача сохранена: срок %s</string>
   <string name="TEA_onTaskSave_notDue">Задача сохранена</string>
-  <string name="TEA_onTaskCancel">Правка задачи отменена</string>
-  <string name="TEA_onTaskDelete">Задача удалена!</string>
   <string name="TEA_tab_activity">Действия</string>
   <string name="TEA_tab_more">Ещё</string>
   <string name="TEA_tab_web">Идеи</string>
@@ -283,7 +234,6 @@
     <item>За неделю до намеченного срока</item>
     <item>Определённый день/время</item>
   </string-array>
-  <string name="TEA_control_title">Название задачи</string>
   <string name="TEA_control_who">Кто</string>
   <string name="TEA_control_when">Когда</string>
   <string name="TEA_control_more_section">----Еще----</string>
@@ -295,20 +245,13 @@
   <string name="TEA_control_timer">Учет времени</string>
   <string name="TEA_control_share">Опубликовать для друзей</string>
   <string name="hide_until_prompt">Отобразить в моем листе</string>
-  <string name="TEA_addons_text">Ищете еще возможностей?</string>
-  <string name="TEA_addons_button">Скачать Расширенный пакет!</string>
-  <string name="TEA_more">Ещё</string>
   <string name="TEA_no_activity">Нет активности.</string>
   <string name="TEA_load_more">Загрузить больше...</string>
   <string name="TEA_when_dialog_title">Когда это должно произойти?</string>
-  <string name="TEA_date_and_time">Дата/время</string>
   <string name="TEA_new_task">Новая задача</string>
   <string name="WSV_click_to_load">Нажми меня для поиска решений этой задачи!</string>
   <string name="WSV_not_online">Я способен на большее при подключении к Интернету. Пожалуйста, проверьте ваше подключение.</string>
   <string name="TEA_contact_error">Извините, мы не мажем найти адрес эл. почты для выбранного контакта</string>
-  <string name="InA_title">Добро пожаловать в Astrid!</string>
-  <string name="InA_agree">Я согласен!!</string>
-  <string name="InA_disagree">Я не согласен</string>
   <string name="MCA_title">%1$s\nзврнил(а) в %2$s</string>
   <string name="MCA_return_call">Позвонить сейчас</string>
   <string name="MCA_add_task">Позвонить позже</string>
@@ -331,7 +274,6 @@
     <item>Вы можете это сделать!</item>
     <item>Вы можете всегда отправлять текст...</item>
   </string-array>
-  <string name="HlA_get_support">Получить поддержку</string>
   <string name="UpS_changelog_title">Что нового в Astrid?</string>
   <string name="UpS_updates_title">Последние новости Astrid</string>
   <string name="UpS_no_activity_log_in">Войдите, чтобы увидеть\nсвой прогресс и активность\nв опубликованных списках.</string>
@@ -349,8 +291,6 @@
   <string name="EPr_showNotes_desc_enabled">Заметки показываются всегда</string>
   <string name="EPr_compressTaskRows_title">Компактные строки задач</string>
   <string name="EPr_compressTaskRows_desc">Сжать строки задач до высоты названий</string>
-  <string name="EPr_userLegacyImportance_title">Использовать классический стиль важности</string>
-  <string name="EPr_userLegacyImportance_desc">Использовать классический стиль важности</string>
   <string name="EPr_fullTask_title">Показывать полное название задачи</string>
   <string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
   <string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>
@@ -362,10 +302,7 @@
   <string name="EPr_theme_desc_unsupported">Настройка требует Android 2.0+</string>
   <string name="EPr_theme_widget_title">Тема виджета</string>
   <string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
-  <string name="EPr_labs_header">Copy text \t Astrid Labs</string>
-  <string name="EPr_labs_desc">Попробуйте и настройте эксперементальные функции</string>
   <string name="EPr_swipe_lists_performance_title">Свайп между списками</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Управляет производительностью памяти свайпа между списками</string>
   <string name="EPr_use_contact_picker">Использовать системный выбор контактов</string>
   <string name="EPr_use_contact_picker_desc_enabled">Опция \"системный выбор контактов\" будет показана в окне назначения задачи</string>
   <string name="EPr_use_contact_picker_desc_disabled">Опция \"системный выбор контактов\" будет скрыта</string>
@@ -377,7 +314,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Время события</string>
   <string name="EPr_cal_end_at_due_time">Время окончания события</string>
   <string name="EPr_cal_start_at_due_time">Начать событие в своё время</string>
-  <string name="EPr_swipe_lists_restart_alert">Нужно перезапустить Astrid чтобы эти изменения вступили в силу</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Нет свайпа</item>
     <item>Беречь память</item>
@@ -390,7 +326,6 @@
     <item>Настройка по умолчанию</item>
     <item>Использовать больше системных ресурсов</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>День - Синий</item>
     <item>День - Красный</item>
@@ -429,8 +364,6 @@
   <string name="AOA_tab_installed">Установленные</string>
   <string name="AOA_tab_available">Доступные</string>
   <string name="AOA_free">Бесплатные</string>
-  <string name="AOA_visit_website">Посетить сайт</string>
-  <string name="AOA_visit_market">Android Market</string>
   <string name="AOA_no_addons">Пустой список!</string>
   <string name="TWi_loading">Загрузка…</string>
   <string name="WCA_title">Выберите задачи для просмотра…</string>
@@ -440,8 +373,6 @@
   <string name="p_forums">Форумы</string>
   <string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Astrid в список исключений иначе возможны сложности с напоминаниями.\n</string>
   <string name="task_killer_help_ok">Я не хочу убивать Astrid!</string>
-  <string name="marketplace_title">Список задач Astrid</string>
-  <string name="marketplace_description">Astrid - распространённый список задач с открытым исходным кодом призванный помочь Вам справиться с делами. В нём есть напоминания, метки, синхронизация, плагин Locale, виджет и многое другое.</string>
   <string name="DB_corrupted_title">Поврежденная база данных</string>
   <string name="DB_corrupted_body">Ой-ой! Похоже у вас повреждена база данных. Если вы постоянно видите это сообщение, мы рекомендуем вам очистить данные (Параметры-&amp;g;Управление старыми задачами-&amp;g;Очистить все данные) и восстановить ваши задачи из резервной копии (Параметры-&amp;g;Резервные копии-&amp;gtИмпортировать задачи)</string>
   <string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
@@ -484,15 +415,11 @@
     <item>Вовремя или просрочена</item>
   </string-array>
   <string name="BFE_Active">Активные задачи</string>
-  <string name="BFE_Search">Поиск…</string>
   <string name="BFE_Recent">Недавно изменённые</string>
   <string name="BFE_Assigned">Назначенные мной</string>
-  <string name="BFE_Custom">Собственный фильтр…</string>
-  <string name="BFE_Saved">Фильтры</string>
   <string name="BFE_Saved_delete">Удалить фильтр</string>
   <string name="CFA_title">Собственный фильтр</string>
   <string name="CFA_filterName_hint">Задайте имя фильтра для его сохранения…</string>
-  <string name="CFA_filterName_copy">Копия %s</string>
   <string name="CFA_universe_all">Активные задачи</string>
   <string name="CFA_type_add">или</string>
   <string name="CFA_type_subtract">не</string>
@@ -523,10 +450,8 @@
   <string name="CFC_title_contains_name">Название содержит...</string>
   <string name="CFC_title_contains_text">Название содержит: ?</string>
   <string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
-  <string name="gcal_TEA_calendar_label">Интеграция с календарём:</string>
   <string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
   <string name="gcal_TEA_showCalendar_label">Открыть календарное событие</string>
-  <string name="gcal_TEA_calendar_error">Ошибка при открытии события!</string>
   <string name="gcal_TEA_calendar_updated">Календарное событие также обновлено!</string>
   <string name="gcal_TEA_nocal">Не добавлять</string>
   <string name="gcal_TEA_none_selected">Добавить в календарь...</string>
@@ -534,31 +459,19 @@
   <string name="gcal_completed_title">%s (выполнено)</string>
   <string name="gcal_GCP_default">Календарь по умолчанию</string>
   <string name="gtasks_FEx_header">Задачи Google</string>
-  <string name="gtasks_FEx_list">По списку</string>
   <string name="gtasks_FEx_title">Задачи Google: %s</string>
   <string name="gtasks_FEx_creating_list">Создание списка...</string>
   <string name="gtasks_FEx_create_list_dialog">Имя нового списка:</string>
   <string name="gtasks_FEx_create_list_error">Ошибка при создании нового списка</string>
-  <string name="gtasks_help_title">Добро пожаловать в Google Tasks!</string>
   <string name="CFC_gtasks_list_text">В Списке: ?</string>
   <string name="CFC_gtasks_list_name">В GTask Список...</string>
   <string name="gtasks_GTA_clearing">Очистка выполненных задач...</string>
   <string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
-  <string name="gtasks_GLA_title">Подключение к Задачам Google</string>
-  <string name="gtasks_GLA_body">Пожалуйста, войдите в Google Tasks Sync (Beta!). Не переехавшие аккаунты Google Apps в данный момент не поддерживаются.</string>
   <string name="gtasks_GLA_noaccounts">Нет доступных аккаунтов Google для синхронизации</string>
-  <string name="gtasks_GLA_further_help">Чтобы увидеть задачи с уровнями и порядком, перейдите в Фильтры и выберите список Задачи Google. По умолчанию, Astrid пользуется своими настройками сортировки.</string>
-  <string name="gtasks_GLA_signIn">Войти</string>
-  <string name="gtasks_GLA_email">Электронная почта</string>
-  <string name="gtasks_GLA_password">Пароль</string>
   <string name="gtasks_GLA_authenticating">Авторизация...</string>
-  <string name="gtasks_GLA_domain">Аккаунт Приложений Google</string>
-  <string name="gtasks_GLA_errorEmpty">Ошибка: заполните все поля!</string>
   <string name="gtasks_GLA_errorAuth">Ошибка аутентификации! Пожалуйста, проверьте имя пользователя и пароль в меню управления аккаунтами телефона</string>
   <string name="gtasks_GLA_errorIOAuth">Извините, проблемы при обращении к серверам Google. Пожалуйста, попробуйте позже.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Возможно вы столкнулись с каптчей. Попробуйте войти через браузер, затем вернуться и попробовать снова:</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_notification_title">Astrid: Задачи Google</string>
   <string name="gtasks_error_backend">Google\'s Task API в стадии бета и произошла ошибка. Служба может быть не доступна, пожалуйста, попробуйте позже.</string>
   <string name="gtasks_error_accountNotFound">Аккаунт %s не найден--пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
   <string name="gtasks_error_authRefresh">Не удалось пройти аутентификацию в Google Tasks. Пожалуйста, проверьте пароль к учетной записи или попробуйте еще раз позже.</string>
@@ -571,9 +484,6 @@
   <string name="help_popover_collaborators">Люди, с которыми вы делитесь, могут помочь вам в составлении списка и выполнении задач</string>
   <string name="help_popover_add_lists">Нажмите добавить список</string>
   <string name="help_popover_switch_lists">Нажмите, чтобы добавить список или переключиться между списками</string>
-  <string name="help_popover_when_shortcut">Нажмите на ярлык для быстрого выбора даты и времени</string>
-  <string name="help_popover_when_row">Нажмите в любом месте строки для правки таких опций как повторение</string>
-  <string name="welcome_login_title">Добро пожаловать в Astrid!</string>
   <string name="welcome_login_tos_base">Используя Astrid, вы согласны с</string>
   <string name="welcome_login_tos_link">\"Условия предоставления услуг\"</string>
   <string name="welcome_login_pw">Войти, используя Имя пользователя/Пароль</string>
@@ -585,7 +495,6 @@
   <string name="help_popover_taskrabbit_type">Изменить тип задачи</string>
   <string name="locale_edit_alerts_title">Предупреждение фильтра Astrid</string>
   <string name="locale_edit_intro">Astrid отправит вам напоминание при обнаружении задач по следующим фильтрам:</string>
-  <string name="locale_pick_filter">Фильтр:</string>
   <string name="locale_interval_label">Ограничить уведомления до:</string>
   <string-array name="locale_interval">
     <item>одного в час</item>
@@ -705,22 +614,14 @@
   <string name="producteev_PLA_email">Электронная почта</string>
   <string name="producteev_PLA_password">Пароль</string>
   <string name="producteev_PLA_timezone">Часовой пояс</string>
-  <string name="producteev_PLA_confirmPassword">Подтверждение пароля</string>
   <string name="producteev_PLA_firstName">Имя</string>
   <string name="producteev_PLA_lastName">Фамилия</string>
   <string name="producteev_PLA_errorEmpty">Ошибка: заполните все поля!</string>
-  <string name="producteev_PLA_errorMatch">Ошибка: пароли не совпадают!</string>
   <string name="producteev_PLA_errorAuth">Ошибка: неправильная почта или пароль!</string>
   <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_notification_text">%s задач обновлено / кликните для подробностей</string>
-  <string name="producteev_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
-  <string name="producteev_MLA_email_empty">Не указана электронная почта!</string>
-  <string name="producteev_MLA_password_empty">Не указан пароль!</string>
   <string name="producteev_TEA_control_set_display">Назначение Producteev</string>
   <string name="producteev_TEA_task_assign_label">Назначить эту задачу этому человеку:</string>
-  <string name="producteev_TEA_task_unassigned">&lt;Без назначения&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">Назначить эту задачу для этой рабочей области:</string>
-  <string name="producteev_TEA_dashboard_default">&lt;По умолчанию&gt;</string>
   <string name="CFC_producteev_in_workspace_text">в среде: ?</string>
   <string name="CFC_producteev_in_workspace_name">в среде...</string>
   <string name="CFC_producteev_assigned_to_text">Присвоено: ?</string>
@@ -754,7 +655,6 @@
     <item>Напоминания от Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">Вы</string>
-  <string name="rmd_reengage_snooze">Всё отложить</string>
   <string name="rmd_reengage_add_tasks">Добавить задачу</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Время сократить Ваш список задач!</item>
@@ -791,8 +691,6 @@
   <string name="rmd_EPr_persistent_title">Постоянность уведомления</string>
   <string name="rmd_EPr_persistent_desc_true">Каждое уведомление должно быть просмотрено перед очисткой</string>
   <string name="rmd_EPr_persistent_desc_false">Уведомления можно очистить кнопкой \"Очистить все\"</string>
-  <string name="rmd_EPr_notificon_title">Набор иконок для уведомлений</string>
-  <string name="rmd_Epr_notificon_desc">Выберите иконку для уведомлений Astrid</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid будет максимизировать громкость для многоразовых напоминаний</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid будет использовать системные настройки громкости</string>
@@ -808,7 +706,6 @@
   <string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">У новых задач не будет случайных напоминаний</string>
   <string name="rmd_EPr_defaultRemind_desc">Случайно напоминать о новых задачах %s</string>
-  <string name="rmd_EPr_defaults_header">Параметры по умолчанию для новых задач</string>
   <string-array name="EPr_reminder_random">
     <item>отключено</item>
     <item>ежечасно</item>
@@ -1058,20 +955,12 @@
   <string name="TEA_tags_label_long">Поместить задачу в списки</string>
   <string name="TEA_tags_none">Пусто</string>
   <string name="TEA_tag_hint">Новый список</string>
-  <string name="TEA_tag_dropdown">Выберите список</string>
-  <string name="tag_TLA_menu">Списки</string>
-  <string name="TAd_contextFilterByTag">Показать список</string>
   <string name="tag_new_list">Новый список</string>
-  <string name="tag_list_saved">Список сохранен</string>
   <string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
   <string name="tag_FEx_add_new">Новый</string>
   <string name="tag_FEx_header">Списки</string>
-  <string name="tag_FEx_category_mine">Мои списки</string>
-  <string name="tag_FEx_category_shared">Общедоступно со мной</string>
-  <string name="tag_FEx_category_inactive">Не активно</string>
   <string name="tag_FEx_untagged">Не входит в списки</string>
   <string name="tag_FEx_untagged_w_astrid">Не в списке Astrid</string>
-  <string name="tag_FEx_name">Список: %s</string>
   <string name="tag_cm_rename">Переименовать список</string>
   <string name="tag_cm_delete">Удалить список</string>
   <string name="tag_cm_leave">Покинуть список</string>
@@ -1087,10 +976,7 @@
   <string name="tag_updates_title">Активность: %s</string>
   <string name="tag_delete_button">Удалить список</string>
   <string name="tag_leave_button">Покинуть этот список</string>
-  <string name="TAE_startTimer">Таймер</string>
-  <string name="TAE_stopTimer">Стоп</string>
   <string name="TPl_notification">Для %s действуют таймеры!</string>
-  <string name="TFE_category">Фильтр таймеров</string>
   <string name="TFE_workingOn">Задачи для замера времени</string>
   <string name="TEA_timer_controls">Учет времени</string>
   <string name="TEA_timer_comment_started">задача началась:</string>
@@ -1128,7 +1014,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid должен произносить название задач во время напоминаний</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
   <string name="EPr_voice_header">Параметры голосового ввода</string>
-  <string name="welcome_show_eula">Примите EULA чтобы начать!</string>
   <string name="welcome_setting">Показать обучение</string>
   <string name="welcome_title_1">Добро пожаловать в Astrid!</string>
   <string name="welcome_title_2">Пишите списки</string>
@@ -1146,7 +1031,6 @@
   <string name="welcome_body_6">Нажмите чтобы добавить заметки,\nустановить напоминания,\nи многое другое!</string>
   <string name="welcome_body_7">Вход</string>
   <string name="welcome_body_7_return">Нажми Astrid, чтобы вернуться</string>
-  <string name="welcome_back">Назад</string>
   <string name="welcome_next">Далее</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>

@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">שיתוף</string>
   <string name="actfm_person_hint">איש קשר או דוא״ל</string>
   <string name="actfm_person_or_tag_hint">איש קשר או רשימה משותפת</string>
-  <string name="actfm_toast_success">נשמר על השרת</string>
-  <string name="actfm_tag_operation_disabled">מצטערת, אך פעולה זו אינה נתמכת עדיין עבור תגיות משותפות.</string>
   <string name="actfm_tag_operation_owner_delete">אתה הבעלים של רשימה זו! אם תמחק אותה, היא תימחק עבור השותפים בה. האם אתה בטוח שברצונך להמשיך?</string>
   <string name="actfm_picture_camera">צַלֵּם תמונה</string>
   <string name="actfm_picture_gallery">בחר מגלריה</string>
   <string name="actfm_picture_clear">הסר תמונה</string>
-  <string name="actfm_FLA_menu_refresh">רַעְנֵן</string>
   <string name="actfm_view_task_title">עיין במשימה?</string>
   <string name="actfm_view_task_text">משימה נשלחה אל %s! הנך מביט במשימות שלך. האם תרצה לעיין במשימה זו ובמשימות אשר הטלת על אחרים?</string>
   <string name="actfm_view_task_ok">הצג משימות שהטלת</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">המשימות ששיתפתי</string>
   <string name="actfm_my_shared_tasks_empty">אין מטלות משותפות</string>
   <string name="TVA_add_comment">הוסף הערה</string>
-  <string name="UAd_title_comment">%1$s תגובה: %2$s</string>
   <string-array name="TVA_tabs">
     <item>מטלות</item>
     <item>פעילות</item>
@@ -28,45 +23,32 @@
   <string name="actfm_TVA_no_members_alert">פרטי: גע כדי לערוך או לשתף</string>
   <string name="actfm_TVA_menu_refresh">רענן</string>
   <string name="actfm_TVA_tag_label">רשימה</string>
-  <string name="actfm_TVA_tag_owner_label">יוצר הרשימה</string>
-  <string name="actfm_TVA_tag_owner_none">אין</string>
   <string name="actfm_TVA_members_label">משותפת עם</string>
   <string name="actfm_TVA_members_hint">שתף עם אי מי שיש לו כתובת דוא״ל</string>
   <string name="actfm_TVA_tag_picture">תמונת רשימה</string>
   <string name="actfm_TVA_silence_label">השתק הודעות</string>
-  <string name="actfm_TVA_list_icon_label">סמל רשימה</string>
   <string name="actfm_TVA_tag_description_label">תיאור</string>
   <string name="actfm_TVA_tag_settings_label">הגדרות</string>
   <string name="actfm_TVA_tag_description_hint">הכנס תיאור כאן</string>
   <string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
   <string name="actfm_TVA_login_to_share">עליך להיות מחובר לאתר אסטריד בכדי לשתף רשימות. אנא התחבר או סמן רשימה זו כפרטית.</string>
   <string name="actfm_EPA_intro">השתמש באסטריד לשתף רשימות קניות, תכנוני מסיבות או פרויקטים ותדע מיד כשהמשימה בוצעה!</string>
-  <string name="actfm_EPA_title">שתף/הטל משימה</string>
-  <string name="actfm_EPA_save">שמור ושתף</string>
-  <string name="actfm_EPA_assign_label">מי</string>
   <string name="actfm_EPA_assign_label_long">על מי להטיל את המשימה?</string>
   <string name="actfm_EPA_assign_me">עלי</string>
   <string name="actfm_EPA_unassigned">לא מוטלת</string>
   <string name="actfm_EPA_choose_contact">בחר איש קשר</string>
   <string name="actfm_EPA_task_rabbit">העבר למיקור חוץ!</string>
-  <string name="actfm_EPA_assign_custom">מותאם...</string>
   <string name="actfm_EPA_share_with">שתף עם:</string>
 
   <string name="actfm_EPA_collaborators_header">שתף עם חברים</string>
   <string name="actfm_EPA_list">רשימה: %s</string>
-  <string name="actfm_EPA_assigned_hint">שם איש הקשר</string>
   <string name="actfm_EPA_message_text">הזמנה</string>
   <string name="actfm_EPA_message_body">עזור לי לבצע את זה!</string>
   <string name="actfm_EPA_assign_header_members">חברים ברשימה</string>
   <string name="actfm_EPA_assign_header_friends">שותפים באסטריד</string>
-  <string name="actfm_EPA_tag_label">ליצור תגית משותפת?</string>
-  <string name="actfm_EPA_tag_hint">(למשל מועדון אספני הגוגואים)</string>
   <string name="actfm_EPA_facebook">פייסבוק</string>
   <string name="actfm_EPA_twitter">טוויטר</string>
-  <string name="actfm_EPA_emailed_toast">המשימה שותפה עם %s</string>
-  <string name="actfm_EPA_saved_toast">הגדרות שותפים נשמרו</string>
   <string name="actfm_EPA_invalid_email">כתובת דוא״ל לא חוקית: %s</string>
-  <string name="actfm_EPA_invalid_tag">רשימה לא נמצאה: %s</string>
   <string name="actfm_EPA_login_to_share">עליך להתחבר לאתר אסטריד כדי לשתף משימות!</string>
   <string name="actfm_EPA_login_button">כניסה</string>
   <string name="actfm_EPA_dont_share_button">אל תשתף</string>
@@ -74,15 +56,9 @@
   <string name="actfm_ALA_body">אתר אסטריד מאפשר גישה מקוונת למשימות, ומאפשר לך לשתף אותן או להקצותן לאחרים</string>
   <string name="actfm_ALA_fb_login">התחבר באמצעות פייסבוק</string>
   <string name="actfm_ALA_gg_login">התחבר באמצעות גוגל</string>
-  <string name="actfm_ALA_pw_login">לא משתמש בגוגל או בפייסבוק?</string>
-  <string name="actfm_ALA_pw_link">הרשם כאן</string>
-  <string name="actfm_ALA_pw_new">ליצור חשבון חדש?</string>
-  <string name="actfm_ALA_pw_returning">כבר יש לך חשבון?</string>
-  <string name="actfm_ALA_name_label">שם</string>
   <string name="actfm_ALA_firstname_label">שם פרטי</string>
   <string name="actfm_ALA_lastname_label">שם משפחה</string>
   <string name="actfm_ALA_email_label">דוא״ל</string>
-  <string name="actfm_ALA_username_email_label">שם משתמש / דוא״ל</string>
   <string name="actfm_ALA_password_label">סיסמא</string>
   <string name="actfm_ALA_signup_title">צור חשבון חדש</string>
   <string name="actfm_ALA_login_title">התחבר לאתר אסטריד</string>
@@ -93,8 +69,6 @@
   <string name="actfm_https_title">השתמש ב־HTTPS</string>
   <string name="actfm_https_enabled">HTTPS מופעל (איטי יותר)</string>
   <string name="actfm_https_disabled">HTTPS מבוטל (מהיר יותר)</string>
-  <string name="actfm_notification_title">סינכרון עם אתר אסטריד</string>
-  <string name="actfm_notification_comments">התקבלו הערות חדשות / הקלק לפרטים</string>
   <string name="actfm_dual_sync_warning">אתה מסנכרן כעת עם ״משימות גוגל״. שים לב שסינכרון מול שני השירותים יכול במקרים מסויימים להביא לתוצאות בלתי צפויות. האם אתה בטוח שברצונך להסתנכרן גם עם אתר אסטריד?</string>
   <string name="alarm_ACS_label">התראות</string>
   <string name="alarm_ACS_button">הוסף התראה</string>
@@ -111,8 +85,6 @@
   <string name="backup_BPr_auto_title">גיבויים אוטומטיים</string>
   <string name="backup_BPr_auto_disabled">הגיבויים האוטומטיים הופסקו</string>
   <string name="backup_BPr_auto_enabled">הגיבוי יתבצע מדי יום</string>
-  <string name="backup_BPr_how_to_restore">איך אני משחזר גיבויים?</string>
-  <string name="backup_BPr_how_to_restore_dialog">אסטריד תְּגַבֶּה את הנתונים שלך, על כל צרה שלא תבוא. אבל, עליך להוסיף את חבילת הַכֹּחַ של אסטריד כדי לנהל ולאחזר גיבויים.</string>
   <string name="backup_BAc_label">ניהול גיבויים</string>
   <string name="backup_BAc_title">ניהול הגיבויים שלך</string>
   <string name="backup_BAc_import">ייבוא משימות</string>
@@ -125,7 +97,6 @@
   <string name="import_summary_message">"הקובץ \' %1$s\' הכיל  %2$s משימות: \n\n %3$s יובאו,\n %4$s היו קיימות כבר,\nוב־%5$s היו שגיאות.\n"</string>
   <string name="import_progress_title">מייבאת...</string>
   <string name="import_progress_read">קוראת משימה %d...</string>
-  <string name="DLG_error_opening">לא ניתן למצוא פריט זה:</string>
   <string name="DLG_error_sdcard">לא ניתן לגשת לתיקיה: %s</string>
   <string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
   <string name="import_file_prompt">נא לבחור קובץ לשחזור</string>
@@ -138,24 +109,17 @@
   <string name="DLG_delete_this_item_question">למחוק את %s?</string>
   <string name="DLG_upgrading">משדרגת את משימותיך...</string>
   <string name="DLG_hour_minutes">זמן (שעות : דקות)</string>
-  <string name="DLG_please_update">נדרש עדכון לתכנת אסטריד לגירסה האחרונה בחנות היישומים של גוגל. אנא עשה זאת לפני שתמשיך, או המתן מספר שניות.</string>
-  <string name="DLG_to_market">לך לחנות של גוגל</string>
   <string name="DLG_accept">אני מקבל</string>
   <string name="DLG_decline">אני מסרב</string>
   <string name="DLG_eula_title">Astrid תנאי שימוש</string>
   <string name="DLG_please_wait">אנא המתן</string>
   <string name="DLG_loading">בטעינה...</string>
-  <string name="DLG_dismiss">סגור</string>
   <string name="DLG_ok">אישור</string>
   <string name="DLG_cancel">בטל</string>
   <string name="DLG_more">עוד</string>
   <string name="DLG_undo">בטל פעולה אחרונה</string>
   <string name="DLG_warning">התראה</string>
   <string name="WID_dateButtonUnset">לחיצה להגדרה</string>
-  <string name="WID_dateButtonLabel">$D $T</string>
-  <string name="WID_disableButton">נטרול</string>
-  <string name="ENE_label">הערות</string>
-  <string name="ENE_label_comments">הערות</string>
   <string name="ENA_no_comments">אין פעילות עדיין</string>
   <string name="ENA_no_user">מישהו</string>
   <string name="ENA_refresh_comments">רַעְנֵן הערות</string>
@@ -168,10 +132,8 @@
   <string name="TLA_menu_lists">רשימות</string>
   <string name="TLA_menu_friends">אנשים</string>
   <string name="TLA_menu_suggestions">הצעות</string>
-  <string name="TLA_menu_tutorial">מדריך</string>
   <string name="TLA_menu_settings">הגדרות</string>
   <string name="TLA_menu_support">תמיכה</string>
-  <string name="TLA_search_label">חיפוש ברשימה זו</string>
   <string name="TLA_custom">מותאם אישית</string>
   <string name="TLA_quick_add_hint">הוסף משימה</string>
   <string name="TLA_quick_add_hint_assign">משהו לעשות %s תן ל</string>
@@ -204,7 +166,6 @@
   <string name="TAd_actionEditTask">עריכה</string>
   <string name="TAd_contextEditTask">עריכת משימה</string>
   <string name="TAd_contextCopyTask">העתק משימה</string>
-  <string name="TAd_contextHelpTask">קבל עזרה</string>
   <string name="TAd_contextDeleteTask">מחיקת משימה</string>
   <string name="TAd_contextUndeleteTask">החזרת המשימה</string>
   <string name="TAd_contextPurgeTask">אַיֵּן משימה</string>
@@ -223,11 +184,7 @@
   <string name="SSD_save_temp">רק הפעם</string>
   <string name="SSD_save_always">תמיד</string>
   <string name="FSA_label">רשימת משימות או מַסְנֵן</string>
-  <string name="FLA_title">רשימות</string>
-  <string name="FLA_loading">טוענת מסננים...</string>
   <string name="FLA_context_shortcut">צור קיצור על שולחן העבודה</string>
-  <string name="FLA_menu_search">חיפוש במשימות...</string>
-  <string name="FLA_menu_help">עזרה</string>
   <string name="FLA_shortcut_dialog_title">יצירת קיצור</string>
   <string name="FLA_shortcut_dialog">שם הקיצור:</string>
   <string name="FLA_search_hint">חיפוש אחר משימות</string>
@@ -236,13 +193,9 @@
   <string name="FLA_new_filter">מַסְנֵן חדש</string>
   <string name="FLA_new_list">רשימה חדשה</string>
   <string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
-  <string name="TEA_view_title">Astrid:‏ \'%s\' בעריכה</string>
-  <string name="TEA_view_titleNew">משימה חדשה</string>
-  <string name="TEA_title_label">כותרת</string>
   <string name="TEA_when_header_label">מתי</string>
   <string name="TEA_title_hint">תקציר המשימה</string>
   <string name="TEA_importance_label">עדימות</string>
-  <string name="TEA_urgency_label">מועד סף</string>
   <string name="TEA_urgency_specific_time">בזמן מסויים?</string>
   <string name="TEA_urgency_none">ללא</string>
   <string name="TEA_hideUntil_label">הצג משימה</string>
@@ -260,8 +213,6 @@
   <string name="TEA_menu_comments">הערות</string>
   <string name="TEA_onTaskSave_due">המשימה נשמרה: יעד %s</string>
   <string name="TEA_onTaskSave_notDue">המשימה נשמרה</string>
-  <string name="TEA_onTaskCancel">עריכת המשימה בוטלה</string>
-  <string name="TEA_onTaskDelete">המשימה נמחקה!</string>
   <string name="TEA_tab_activity">פעילות</string>
   <string name="TEA_tab_more">עוד</string>
   <string name="TEA_tab_web">רעיונות</string>
@@ -283,7 +234,6 @@
     <item>שבוע לפקיעה</item>
     <item>תאריך/שעה מסוימים</item>
   </string-array>
-  <string name="TEA_control_title">כותרת משימה</string>
   <string name="TEA_control_who">מי</string>
   <string name="TEA_control_when">מתי</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -295,20 +245,13 @@
   <string name="TEA_control_timer">הערכת זמן</string>
   <string name="TEA_control_share">שתף עם חברים</string>
   <string name="hide_until_prompt">הצג ברשימה שלי</string>
-  <string name="TEA_addons_text">מחפש תכונות נוספות?</string>
-  <string name="TEA_addons_button">קבל את חבילת הַכֹּחַ!</string>
-  <string name="TEA_more">עוד</string>
   <string name="TEA_no_activity">אין משימות להצגה</string>
   <string name="TEA_load_more">טען עוד...</string>
   <string name="TEA_when_dialog_title">מה תאריך היעד?</string>
-  <string name="TEA_date_and_time">תאריך\\שעה</string>
   <string name="TEA_new_task">משימה חדשה</string>
   <string name="WSV_click_to_load">גע בי כדי למצוא דרכים לבצע זאת!</string>
   <string name="WSV_not_online">ביכולתי לעשות יותר למענך כאשר אני מחוברת לאינטרנט. אנא בדוק את החיבור.</string>
   <string name="TEA_contact_error">מצטערת, לא מצאתי את כתובת הדוא״ל עבור איש קשר זה.</string>
-  <string name="InA_title">ברוך בואך ל־Astrid!</string>
-  <string name="InA_agree">מוסכם!!</string>
-  <string name="InA_disagree">לא מוסכם</string>
   <string name="MCA_title">%1$s \nהתקשר ב־%2$s</string>
   <string name="MCA_return_call">התקשר כעת</string>
   <string name="MCA_add_task">התקשר מאוחר יותר</string>
@@ -331,7 +274,6 @@
     <item>אתה יכול!</item>
     <item>תמיד תוכל לשלוח מסרון...</item>
   </string-array>
-  <string name="HlA_get_support">קבלת תמיכה</string>
   <string name="UpS_changelog_title">מה חדש ב־Astrid?</string>
   <string name="UpS_updates_title">חדשות Astrid אחרונות</string>
   <string name="UpS_no_activity_log_in">התחבר כדי לראות דו״ח על\n\nהתקדמותך ועל הפעילות\n\nברשימות המשותפות.</string>
@@ -349,8 +291,6 @@
   <string name="EPr_showNotes_desc_enabled">הערות תוצגנה תמיד</string>
   <string name="EPr_compressTaskRows_title">שורת משימות דחוסה</string>
   <string name="EPr_compressTaskRows_desc">דחוס את שורות המשימות כך שיתאימו לכותרת.</string>
-  <string name="EPr_userLegacyImportance_title">השתמש ברמות עדיפות בסגנון הישן</string>
-  <string name="EPr_userLegacyImportance_desc">השתמש ברמות עדיפות בסגנון הישן</string>
   <string name="EPr_fullTask_title">הצג את שם המשימה המלא</string>
   <string name="EPr_fullTask_desc_enabled">שם המשימה המלא יוצג</string>
   <string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>
@@ -362,10 +302,7 @@
   <string name="EPr_theme_desc_unsupported">הפעלת הגדרות דורשת גירסא 2.0 ומעלה של אנדרואיד</string>
   <string name="EPr_theme_widget_title">ערכת חֲפִיץ מסך</string>
   <string name="EPr_taskRowPrefs_title">חזות שורת המשימה</string>
-  <string name="EPr_labs_header">מעבדות אסטריד</string>
-  <string name="EPr_labs_desc">התנסות בהרחבות ניסיוניות</string>
   <string name="EPr_swipe_lists_performance_title">עִלְעוּל בין רשימות</string>
-  <string name="EPr_swipe_lists_performance_subtitle">בקרת ביצועי זיכרון של פעולת הַעִלְעוּל בין רשימות</string>
   <string name="EPr_use_contact_picker">השתמש בבוחר אנשי הקשר</string>
   <string name="EPr_use_contact_picker_desc_enabled">בוחר אנשי הקשר של המערכת יוצג בחלון הטלת משימה</string>
   <string name="EPr_use_contact_picker_desc_disabled">בוחר אנשי הקשר של המערכת לא יוצג</string>
@@ -377,7 +314,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">זמן בלוח שנה</string>
   <string name="EPr_cal_end_at_due_time">סיים אירוע בלוח שנה בשעת היעד</string>
   <string name="EPr_cal_start_at_due_time">התחל אירועי לוח שנה בשעת היעד</string>
-  <string name="EPr_swipe_lists_restart_alert">יהיה עליך לאתחל את אסטריד כדי להפעיל שינוי זה</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>ללא עִלְעוּל</item>
     <item>חיסכון בזיכרון</item>
@@ -390,7 +326,6 @@
     <item>הגדרות ברירת מחדל</item>
     <item>השתמש ביותר משאבי מערכת</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>יום - כחול</item>
     <item>יום - אדום</item>
@@ -429,8 +364,6 @@
   <string name="AOA_tab_installed">מותקן</string>
   <string name="AOA_tab_available">זמין</string>
   <string name="AOA_free">חינם</string>
-  <string name="AOA_visit_website">בקר באתר</string>
-  <string name="AOA_visit_market">חנות גוגל</string>
   <string name="AOA_no_addons">רשימה ריקה!</string>
   <string name="TWi_loading">טוענת...</string>
   <string name="WCA_title">בחר משימות להצגה...</string>
@@ -440,8 +373,6 @@
   <string name="p_forums">פורומים</string>
   <string name="task_killer_help">ככל הנראה הנך משתמש ביישום אשר יכול להרוג תהליכים (%s)! אם הדבר אפשרי, אנא הוסף את אסטריד לרשימת התכנות אשר היישום לא יהרוג. אחרת, יתכן שאסטריד לא תוכל להודיע לך כאשר המשימות שלך הגיעו לפרקן.\n</string>
   <string name="task_killer_help_ok">אני לא אהרוג את אסטריד!</string>
-  <string name="marketplace_title">אסטריד מנהלת המשימות</string>
-  <string name="marketplace_description">אסטריד הינה תכנת קוד פתוח פופולרית לניהול משימות ומטלות אשר תוכננה כדי לסייע לך לעשות יותר. התכנה כוללת תזכורות, תגיות, התאמה מקומית, חפיץ מסך, ועוד.</string>
   <string name="DB_corrupted_title">בסיס נתונים פגום</string>
   <string name="DB_corrupted_body">שים לב! יתכן שבסיס הנתונים שלך נפגם. אם אתה רואה הודעה זו לעיתים תכופות, אני מציעה שתמחק את כל הנתונים (הגדרות-&gt;ניהול כל המשימות-&gt;אפס את כל הנתונים) ואחר כך, שחזר את המשימות מגיבוי (הגדרות-&gt;גיבוי-&gt;יבוא משימות).</string>
   <string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
@@ -484,15 +415,11 @@
     <item>במועד הסף או אחריו</item>
   </string-array>
   <string name="BFE_Active">משימות פעילות</string>
-  <string name="BFE_Search">חיפוש...</string>
   <string name="BFE_Recent">עודכנו לאחרונה</string>
   <string name="BFE_Assigned">משימות שהטלתי</string>
-  <string name="BFE_Custom">מַסְנֵן מותאם אישית</string>
-  <string name="BFE_Saved">מַסְנְנִים</string>
   <string name="BFE_Saved_delete">מחק מַסְנֵן</string>
   <string name="CFA_title">מַסְנֵן מותאם אישית</string>
   <string name="CFA_filterName_hint">בחר שם לַמַּסְנֵן כדי לשמור אותו...</string>
-  <string name="CFA_filterName_copy">העתק של %s</string>
   <string name="CFA_universe_all">משימות פעילות</string>
   <string name="CFA_type_add">או</string>
   <string name="CFA_type_subtract">לא</string>
@@ -523,10 +450,8 @@
   <string name="CFC_title_contains_name">כותרת מכילה...</string>
   <string name="CFC_title_contains_text">כותרת מכילה: ?</string>
   <string name="gcal_TEA_error">שגיאה בהוספת המשימה ללוח השנה!</string>
-  <string name="gcal_TEA_calendar_label">שילוב עם לוח השנה:</string>
   <string name="gcal_TEA_addToCalendar_label">הוסף אירוע ללוח השנה</string>
   <string name="gcal_TEA_showCalendar_label">פתח אירוע בלוח השנה</string>
-  <string name="gcal_TEA_calendar_error">לא הצלחתי לפתוח את האירוע!</string>
   <string name="gcal_TEA_calendar_updated">האירוע בלוח השנה עודכן אף הוא!</string>
   <string name="gcal_TEA_nocal">אל תוסיף!</string>
   <string name="gcal_TEA_none_selected">הוסף ללוח שנה...</string>
@@ -534,31 +459,19 @@
   <string name="gcal_completed_title">%s (הושלמה)</string>
   <string name="gcal_GCP_default">לוח שנה ברירת מחדל</string>
   <string name="gtasks_FEx_header">״משימות גוגל״</string>
-  <string name="gtasks_FEx_list">לפי רשימה</string>
   <string name="gtasks_FEx_title">״משימות גוגל״: %s</string>
   <string name="gtasks_FEx_creating_list">יוצרת רשימה...</string>
   <string name="gtasks_FEx_create_list_dialog">שם הרשימה החדשה:</string>
   <string name="gtasks_FEx_create_list_error">יצירת משימה חדשה נכשלה</string>
-  <string name="gtasks_help_title">ברוך הבא ל״משימות גוגל״!</string>
   <string name="CFC_gtasks_list_text">ברשימה: ?</string>
   <string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
   <string name="gtasks_GTA_clearing">מְנַקָּה משימות שהושלמו...</string>
   <string name="gtasks_GTA_clear_completed">מחק משימות שהושלמו</string>
-  <string name="gtasks_GLA_title">התחבר ל״משימות גוגל״...</string>
-  <string name="gtasks_GLA_body">אנא התחבר לשירותי הסנכרון של ״משימות גוגל״. חשבונות של יישומי הרשת של גוגל אשר לא הומרו, אינם נתמכים כעת.</string>
   <string name="gtasks_GLA_noaccounts">לא מצאתי חשבון גוגל לסנכרן איתו</string>
-  <string name="gtasks_GLA_further_help">כדי לראות את המשימות שלך מוזחות ובסדרן הנכון, לך למסך הַמַּסְנְנִים ובחר ברשימה של משימות גוגל. כברירת מחדל, אסטריד משתמשת בהגדרות המיון שלה עבור משימות.</string>
-  <string name="gtasks_GLA_signIn">התחבר</string>
-  <string name="gtasks_GLA_email">דוא״ל</string>
-  <string name="gtasks_GLA_password">סיסמא</string>
   <string name="gtasks_GLA_authenticating">מאמתת...</string>
-  <string name="gtasks_GLA_domain">חשבון של יישומי הרשת של גוגל</string>
-  <string name="gtasks_GLA_errorEmpty">שגיאה: אנא מַלֵּא את כל השדות!</string>
   <string name="gtasks_GLA_errorAuth">האימות נכשל! אנא בדוק את שם המשתמש והסיסמא במנהל החשבונות של הטלפון שלך.</string>
   <string name="gtasks_GLA_errorIOAuth">מצטערת, נתקלתי בבעיה בהתקשרות לשרתי גוגל. אנא נסה שוב מאוחר יותר.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">יתכן שנתקלת בקאפצ\'ה. אנא נסה להתחבר מהדפדפן, ואחר כך חזור לכאן ונסה שנית:</string>
   <string name="gtasks_GPr_header">״משימות גוגל״</string>
-  <string name="gtasks_notification_title">אסטריד: ״משימות גוגל״</string>
   <string name="gtasks_error_backend">מנשק התכנה של ״משימות גוגל״ הוא בשלב ביתא, ונתקל בשגיאה. יתכן אף שהשירות אינו מקוון. אנא נסה שנית מאוחר יותר.</string>
   <string name="gtasks_error_accountNotFound">החשבון %s לא נמצא. אנא התנתק והתחבר שוב במסך הגדרות של ״משימות גוגל״.</string>
   <string name="gtasks_error_authRefresh">איני מצליחה לאמת אותך מול ״משימות גוגל״. אנא בדוק את הסיסמא שהזנת, או נסה מאוחר יותר.</string>
@@ -571,9 +484,6 @@
   <string name="help_popover_collaborators">שותפים יכולים לעזור לך לבנות רשימות ולהשלים משימות</string>
   <string name="help_popover_add_lists">גע כדי להוסיף רשימה</string>
   <string name="help_popover_switch_lists">גע כדי להוסיף רשימה או לעבור בין רשימות</string>
-  <string name="help_popover_when_shortcut">גע בקיצור הדרך הזה כדי לבחור במהירות תאריך ושעה</string>
-  <string name="help_popover_when_row">גע בכל נקודה בשורה זו כדי לגשת לאפשרויות וחזרות</string>
-  <string name="welcome_login_title">ברוך בואך לאסטריד!</string>
   <string name="welcome_login_tos_base">בשימוש בתכנת אסטריד אתה מסכים ל</string>
   <string name="welcome_login_tos_link">\"תנאי שימוש\"</string>
   <string name="welcome_login_pw">התחבר עם שם משתמש/סיסמא</string>
@@ -585,7 +495,6 @@
   <string name="help_popover_taskrabbit_type">שנה את סוג המשימה</string>
   <string name="locale_edit_alerts_title">התראת מַסְנֵן של אסטריד</string>
   <string name="locale_edit_intro">אסטריד תציג תזכורת כאשר יש משימות בַּמַּסְנֵן</string>
-  <string name="locale_pick_filter">מַסְנֵן:</string>
   <string name="locale_interval_label">הגבלת האתראות ל־</string>
   <string-array name="locale_interval">
     <item>אחת לשעה</item>
@@ -705,22 +614,14 @@
   <string name="producteev_PLA_email">דוא״ל</string>
   <string name="producteev_PLA_password">סיסמא</string>
   <string name="producteev_PLA_timezone">איזור זמן</string>
-  <string name="producteev_PLA_confirmPassword">הקש סיסמא שנית</string>
   <string name="producteev_PLA_firstName">שם פרטי</string>
   <string name="producteev_PLA_lastName">שם משפחה</string>
   <string name="producteev_PLA_errorEmpty">שגיאה: אנא מלא את כל השדות!</string>
-  <string name="producteev_PLA_errorMatch">שגיאה: הסיסמאות אינן מתאימות!</string>
   <string name="producteev_PLA_errorAuth">שגיאה: כתובת דוא״ל או סיסמא אינם נכונים!</string>
   <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_notification_text">%s משימות עודכנו / הקלק לפרטים נוספים</string>
-  <string name="producteev_ioerror">שגיאת חיבור. בדוק את החיבו שלך לאינטרנט.</string>
-  <string name="producteev_MLA_email_empty">לא הקלדת כתובת דוא״ל</string>
-  <string name="producteev_MLA_password_empty">לא הקלדת סיסמא</string>
   <string name="producteev_TEA_control_set_display">הטלת משימה של Producteev</string>
   <string name="producteev_TEA_task_assign_label">הטל משימה זו על אדם זה:</string>
-  <string name="producteev_TEA_task_unassigned">&lt;לא מוטלת&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">הצב משימה זו במשטח עבודה:</string>
-  <string name="producteev_TEA_dashboard_default">&lt;ברירת מחדל&gt;</string>
   <string name="CFC_producteev_in_workspace_text">במשטח עבודה: ?</string>
   <string name="CFC_producteev_in_workspace_name">במשטח עבודה...</string>
   <string name="CFC_producteev_assigned_to_text">הוטל על: ?</string>
@@ -754,7 +655,6 @@
     <item>תזכורות מאסטריד</item>
   </string-array>
   <string name="rmd_reengage_name_default">אתה</string>
-  <string name="rmd_reengage_snooze">השתק הכל</string>
   <string name="rmd_reengage_add_tasks">הוסף משימה</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>הגיע הזמן לקצר את רשימת המשימות שלך!</item>
@@ -791,8 +691,6 @@
   <string name="rmd_EPr_persistent_title">התמדת אתראות</string>
   <string name="rmd_EPr_persistent_desc_true">יש לצפות בכל אתראה בנפרד כדי להסירה</string>
   <string name="rmd_EPr_persistent_desc_false">כפתור «הסר הכל» יסיר את כל האתראות</string>
-  <string name="rmd_EPr_notificon_title">ערכת צלמיות לאתראות</string>
-  <string name="rmd_Epr_notificon_desc">בחר צלמית לסרגל האתראות של אסטריד</string>
   <string name="rmd_EPr_multiple_maxvolume_title">עוצמת קול מירבית לתזכורות מרובות צילצולים</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">אסטריד תשתמש בהגדרות המערכת של עצמת קול</string>
@@ -808,7 +706,6 @@
   <string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
   <string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>
-  <string name="rmd_EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
   <string-array name="EPr_reminder_random">
     <item>מופסק</item>
     <item>שְׁעָתִי</item>
@@ -1058,20 +955,12 @@
   <string name="TEA_tags_label_long">הצב את המשימה ברשימה אחת או יותר</string>
   <string name="TEA_tags_none">אין</string>
   <string name="TEA_tag_hint">רשימה חדשה</string>
-  <string name="TEA_tag_dropdown">בחר רשימה</string>
-  <string name="tag_TLA_menu">רשימות</string>
-  <string name="TAd_contextFilterByTag">הצג רשימה</string>
   <string name="tag_new_list">רשימה חדשה</string>
-  <string name="tag_list_saved">רשימה נשמהה</string>
   <string name="tag_no_title_error">אנא הכנס שם לרשימה זו</string>
   <string name="tag_FEx_add_new">חדש</string>
   <string name="tag_FEx_header">רשימות</string>
-  <string name="tag_FEx_category_mine">הרשימות שלי</string>
-  <string name="tag_FEx_category_shared">שותפו איתי</string>
-  <string name="tag_FEx_category_inactive">לא פעיל</string>
   <string name="tag_FEx_untagged">לא בשום רשמיה</string>
   <string name="tag_FEx_untagged_w_astrid">לא ברשימה של אסטריד</string>
-  <string name="tag_FEx_name">רשימה: %s</string>
   <string name="tag_cm_rename">שנה שם רשימה</string>
   <string name="tag_cm_delete">מחק רשימה</string>
   <string name="tag_cm_leave">עזוב רשימה</string>
@@ -1087,10 +976,7 @@
   <string name="tag_updates_title">פעילות: %s</string>
   <string name="tag_delete_button">מחק רשימה</string>
   <string name="tag_leave_button">עזוב רשימה זו</string>
-  <string name="TAE_startTimer">קוצב זמן</string>
-  <string name="TAE_stopTimer">עצור</string>
   <string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
-  <string name="TFE_category">מסנני הערכת זמן</string>
   <string name="TFE_workingOn">משימות עם הערכת זמן</string>
   <string name="TEA_timer_controls">הערכת זמן</string>
   <string name="TEA_timer_comment_started">התחיל משימה זו:</string>
@@ -1128,7 +1014,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שמות המשימות כחלק מהתזכורות</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>
   <string name="EPr_voice_header">הגדרות קלט קולי</string>
-  <string name="welcome_show_eula">אשר את הרישיון למשתמש כדי להתחיל!</string>
   <string name="welcome_setting">הצג מדריך</string>
   <string name="welcome_title_1">ברוך בואך לאסטריד!</string>
   <string name="welcome_title_2">הכנת רשימות</string>
@@ -1146,7 +1031,6 @@
   <string name="welcome_body_6">גע כדי להוסיף הערות, לקבוע\nתזכורות, ועוד הרבה יותר!</string>
   <string name="welcome_body_7">התחבר</string>
   <string name="welcome_body_7_return">גע באסטריד כדי לחזור</string>
-  <string name="welcome_back">הקודם</string>
   <string name="welcome_next">הבא</string>
   <string name="PPW_widget_42_label">אסטריד מתקדם 4x2</string>
   <string name="PPW_widget_43_label">אסטריד מתקדם 4x3</string>

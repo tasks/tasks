@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">共有</string>
   <string name="actfm_person_hint">連絡先またはEメール</string>
   <string name="actfm_person_or_tag_hint">連絡先または共有リスト</string>
-  <string name="actfm_toast_success">サーバに保存</string>
-  <string name="actfm_tag_operation_disabled">すみません、この操作は共有タグではまだサポートされていません。</string>
   <string name="actfm_tag_operation_owner_delete">あなたはこの共有リストの所有者です！もしリストを削除すると、リストのすべてのメンバーからも削除されます。本当によろしいですか？</string>
   <string name="actfm_picture_camera">写真を撮る</string>
   <string name="actfm_picture_gallery">ギャラリーから選択</string>
   <string name="actfm_picture_clear">写真を削除</string>
-  <string name="actfm_FLA_menu_refresh">リストを更新</string>
   <string name="actfm_view_task_title">View Task?</string>
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
   <string name="actfm_view_task_ok">View Assigned</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
   <string name="actfm_my_shared_tasks_empty">No shared tasks</string>
   <string name="TVA_add_comment">コメントを追加する...</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>タスク</item>
     <item>アクティビティ</item>
@@ -28,45 +23,32 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">更新</string>
   <string name="actfm_TVA_tag_label">リスト</string>
-  <string name="actfm_TVA_tag_owner_label">リスト作成者:</string>
-  <string name="actfm_TVA_tag_owner_none">なし</string>
   <string name="actfm_TVA_members_label">だれと共有しますか</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">List Picture</string>
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   <string name="actfm_TVA_tag_description_label">概要</string>
   <string name="actfm_TVA_tag_settings_label">設定</string>
   <string name="actfm_TVA_tag_description_hint">ここに概要を記入してください</string>
   <string name="actfm_TVA_tag_name_hint">リスト名称を記入してください</string>
   <string name="actfm_TVA_login_to_share">リストを共有するためにはAstrid.comへのログインが必要です！ログインするか、プライベートリストに設定してください。</string>
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-  <string name="actfm_EPA_title">共有 / アサイン</string>
-  <string name="actfm_EPA_save">保存＆共有</string>
-  <string name="actfm_EPA_assign_label">誰が</string>
   <string name="actfm_EPA_assign_label_long">これは誰がすべきですか？</string>
   <string name="actfm_EPA_assign_me">自分</string>
   <string name="actfm_EPA_unassigned">アサインなし</string>
   <string name="actfm_EPA_choose_contact">Choose a contact</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
-  <string name="actfm_EPA_assign_custom">Custom...</string>
   <string name="actfm_EPA_share_with">共有者:</string>
 
   <string name="actfm_EPA_collaborators_header">ともだちと共有する</string>
   <string name="actfm_EPA_list">リスト: %s</string>
-  <string name="actfm_EPA_assigned_hint">連絡先名</string>
   <string name="actfm_EPA_message_text">招待メッセージ:</string>
   <string name="actfm_EPA_message_body">Help me get this done!</string>
   <string name="actfm_EPA_assign_header_members">List Members</string>
   <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
-  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">タスクは%sと共有されました</string>
-  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
   <string name="actfm_EPA_invalid_email">無効なEメール: %s</string>
-  <string name="actfm_EPA_invalid_tag">リストが見つかりません: %s</string>
   <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
   <string name="actfm_EPA_login_button">ログイン</string>
   <string name="actfm_EPA_dont_share_button">Don\'t share</string>
@@ -74,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
   <string name="actfm_ALA_fb_login">Facebookと接続する</string>
   <string name="actfm_ALA_gg_login">Googleと接続する</string>
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
-  <string name="actfm_ALA_pw_new">新しいアカウントを作成しますか?</string>
-  <string name="actfm_ALA_pw_returning">すでにアカウントをお持ちですか？</string>
-  <string name="actfm_ALA_name_label">名前</string>
   <string name="actfm_ALA_firstname_label">名</string>
   <string name="actfm_ALA_lastname_label">姓</string>
   <string name="actfm_ALA_email_label">Eメール</string>
-  <string name="actfm_ALA_username_email_label">ユーザ名 / Eメール</string>
   <string name="actfm_ALA_password_label">パスワード</string>
   <string name="actfm_ALA_signup_title">新規アカウント作成</string>
   <string name="actfm_ALA_login_title">Astrid.comにログイン</string>
@@ -93,8 +69,6 @@
   <string name="actfm_https_title">HTTPS を使う</string>
   <string name="actfm_https_enabled">HTTPS有効(遅い)</string>
   <string name="actfm_https_disabled">HTTPS無効(早い)</string>
-  <string name="actfm_notification_title">Astrid.com Sync</string>
-  <string name="actfm_notification_comments">New comments received / click for more details</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">アラーム</string>
   <string name="alarm_ACS_button">アラームを追加する</string>
@@ -111,8 +85,6 @@
   <string name="backup_BPr_auto_title">自動的なバックアップ</string>
   <string name="backup_BPr_auto_disabled">自動的なバックアップは無効です</string>
   <string name="backup_BPr_auto_enabled">バックアップは毎日行われます</string>
-  <string name="backup_BPr_how_to_restore">How do I restore backups?</string>
-  <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
   <string name="backup_BAc_label">バックアップ</string>
   <string name="backup_BAc_title">バックアップの管理</string>
   <string name="backup_BAc_import">タスクのインポート</string>
@@ -125,7 +97,6 @@
   <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
   <string name="import_progress_title">インポート中</string>
   <string name="import_progress_read">タスク %d を読み込み中</string>
-  <string name="DLG_error_opening">ファイルを開けませんでした</string>
   <string name="DLG_error_sdcard">フォルダ %s を開けません</string>
   <string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
   <string name="import_file_prompt">復元に使うファイルを選択してください</string>
@@ -138,24 +109,17 @@
   <string name="DLG_delete_this_item_question">項目 %s を削除しますか?</string>
   <string name="DLG_upgrading">タスクを更新しています</string>
   <string name="DLG_hour_minutes">時間 (時:分)</string>
-  <string name="DLG_please_update">Astrid should to be updated to the latest version in the Android market! Please do that before continuing, or wait a few seconds.</string>
-  <string name="DLG_to_market">マーケットへ</string>
   <string name="DLG_accept">同意する</string>
   <string name="DLG_decline">同意しない</string>
   <string name="DLG_eula_title">Astrid 利用規定</string>
   <string name="DLG_please_wait">お待ちください</string>
   <string name="DLG_loading">読み込み中...</string>
-  <string name="DLG_dismiss">Dismiss</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">キャンセル</string>
   <string name="DLG_more">もっと</string>
   <string name="DLG_undo">元に戻す</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">入力する</string>
-  <string name="WID_dateButtonLabel">$D 日 $T 時間</string>
-  <string name="WID_disableButton">無効にする</string>
-  <string name="ENE_label">メモ</string>
-  <string name="ENE_label_comments">コメント</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">コメントを更新</string>
@@ -167,10 +131,8 @@
   <string name="TLA_menu_lists">リスト</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">提案</string>
-  <string name="TLA_menu_tutorial">チュートリアル</string>
   <string name="TLA_menu_settings">設定</string>
   <string name="TLA_menu_support">サポート</string>
-  <string name="TLA_search_label">このリストの検索</string>
   <string name="TLA_custom">カスタムフィルタ</string>
   <string name="TLA_quick_add_hint">タスクを追加</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -203,7 +165,6 @@
   <string name="TAd_actionEditTask">編集</string>
   <string name="TAd_contextEditTask">タスクを編集</string>
   <string name="TAd_contextCopyTask">タスクをコピー</string>
-  <string name="TAd_contextHelpTask">ヘルプを読む</string>
   <string name="TAd_contextDeleteTask">タスクを削除</string>
   <string name="TAd_contextUndeleteTask">元に戻す</string>
   <string name="TAd_contextPurgeTask">タスクを削除</string>
@@ -222,11 +183,7 @@
   <string name="SSD_save_temp">今回のみ</string>
   <string name="SSD_save_always">設定の保存</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">リスト</string>
-  <string name="FLA_loading">フィルタの読み込み中</string>
   <string name="FLA_context_shortcut">ショートカットの作成</string>
-  <string name="FLA_menu_search">タスクの検索</string>
-  <string name="FLA_menu_help">ヘルプ</string>
   <string name="FLA_shortcut_dialog_title">ショートカットを作る</string>
   <string name="FLA_shortcut_dialog">ショートカットの名称</string>
   <string name="FLA_search_hint">タスクの検索</string>
@@ -235,13 +192,9 @@
   <string name="FLA_new_filter">新しいフィルタ</string>
   <string name="FLA_new_list">新しいリスト</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: 「%s」の編集</string>
-  <string name="TEA_view_titleNew">新しいタスク</string>
-  <string name="TEA_title_label">タスク名</string>
   <string name="TEA_when_header_label">いつ</string>
   <string name="TEA_title_hint">タスクの概要</string>
   <string name="TEA_importance_label">重要性</string>
-  <string name="TEA_urgency_label">期限</string>
   <string name="TEA_urgency_specific_time">時刻を設定する</string>
   <string name="TEA_urgency_none">なし</string>
   <string name="TEA_hideUntil_label">タスクを表示</string>
@@ -259,8 +212,6 @@
   <string name="TEA_menu_comments">コメント</string>
   <string name="TEA_onTaskSave_due">タスクは保存されました: 期限は%s</string>
   <string name="TEA_onTaskSave_notDue">タスクは保存されました</string>
-  <string name="TEA_onTaskCancel">編集は中断されました</string>
-  <string name="TEA_onTaskDelete">タスクは削除されました！</string>
   <string name="TEA_tab_activity">Activity</string>
   <string name="TEA_tab_more">さらに</string>
   <string name="TEA_tab_web">アイデア</string>
@@ -282,7 +233,6 @@
     <item>期限の一週間前から</item>
     <item>日時を指定</item>
   </string-array>
-  <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">誰が</string>
   <string name="TEA_control_when">いつ</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -294,20 +244,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">ともだちと共有</string>
   <string name="hide_until_prompt">Show in my list</string>
-  <string name="TEA_addons_text">追加機能を探す</string>
-  <string name="TEA_addons_button">Get the Power Pack!</string>
-  <string name="TEA_more">さらに</string>
   <string name="TEA_no_activity">No Activity to Show.</string>
   <string name="TEA_load_more">Load more...</string>
   <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">日付/時刻</string>
   <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">Welcome to Astrid!</string>
-  <string name="InA_agree">同意する</string>
-  <string name="InA_disagree">同意しない</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">Call now</string>
   <string name="MCA_add_task">Call later</string>
@@ -330,7 +273,6 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="HlA_get_support">サポートサイト</string>
   <string name="UpS_changelog_title">Astrid の変更点</string>
   <string name="UpS_updates_title">最新のAstridニュース</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -348,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">メモは常に表示されます</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
@@ -361,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   <string name="EPr_theme_widget_title">Widget Theme</string>
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
-  <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">Try and configure experimental features</string>
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   <string name="EPr_use_contact_picker">Use contact picker</string>
   <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
@@ -376,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>No swipe</item>
     <item>Conserve Memory</item>
@@ -389,7 +325,6 @@
     <item>Default setting</item>
     <item>Uses more system resources</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
@@ -428,8 +363,6 @@
   <string name="AOA_tab_installed">インストール済</string>
   <string name="AOA_tab_available">追加</string>
   <string name="AOA_free">無料</string>
-  <string name="AOA_visit_website">Web サイトの表示</string>
-  <string name="AOA_visit_market">Android マーケット</string>
   <string name="AOA_no_addons">Empty List!</string>
   <string name="TWi_loading">読み込み中...</string>
   <string name="WCA_title">ウィジェットに表示する項目</string>
@@ -439,8 +372,6 @@
   <string name="p_forums">Forums</string>
   <string name="task_killer_help">タスクキラー (%s) を使用中です。Astrid が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
   <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
-  <string name="marketplace_title">Astrid Task/Todo List</string>
-  <string name="marketplace_description">Astrid is the much loved open-source todo list / task manager designed to help you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more.</string>
   <string name="DB_corrupted_title">Corrupted Database</string>
   <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Manage All Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Backup-&gt;Import Tasks) in Astrid.</string>
   <string name="EPr_defaults_header">タスクのデフォルト設定</string>
@@ -483,15 +414,11 @@
     <item>At deadline or overdue</item>
   </string-array>
   <string name="BFE_Active">進行中のタスク</string>
-  <string name="BFE_Search">検索…</string>
   <string name="BFE_Recent">最近編集したタスク</string>
   <string name="BFE_Assigned">I\'ve Assigned</string>
-  <string name="BFE_Custom">カスタムフィルタ</string>
-  <string name="BFE_Saved">Filters</string>
   <string name="BFE_Saved_delete">フィルタの削除</string>
   <string name="CFA_title">カスタムフィルタ</string>
   <string name="CFA_filterName_hint">フィルタの名称</string>
-  <string name="CFA_filterName_copy">%s のコピー</string>
   <string name="CFA_universe_all">進行中のタスク</string>
   <string name="CFA_type_add">または</string>
   <string name="CFA_type_subtract">除外</string>
@@ -522,10 +449,8 @@
   <string name="CFC_title_contains_name">タイトル中の語句</string>
   <string name="CFC_title_contains_text">タイトルに ? を含む</string>
   <string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
-  <string name="gcal_TEA_calendar_label">カレンダーと連携</string>
   <string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
   <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
-  <string name="gcal_TEA_calendar_error">カレンダーを開けませんでした</string>
   <string name="gcal_TEA_calendar_updated">カレンダーの項目も更新しました</string>
   <string name="gcal_TEA_nocal">Don\'t add</string>
   <string name="gcal_TEA_none_selected">Add to cal...</string>
@@ -533,31 +458,19 @@
   <string name="gcal_completed_title">%s（完了）</string>
   <string name="gcal_GCP_default">Default Calendar</string>
   <string name="gtasks_FEx_header">Google Tasks</string>
-  <string name="gtasks_FEx_list">リスト別</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Creating list...</string>
   <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
   <string name="gtasks_FEx_create_list_error">Error creating new list</string>
-  <string name="gtasks_help_title">Welcome to Google Tasks!</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks List...</string>
   <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
   <string name="gtasks_GTA_clear_completed">Clear Completed</string>
-  <string name="gtasks_GLA_title">Google Tasks のログイン</string>
-  <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps accounts are currently unsupported.</string>
   <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-  <string name="gtasks_GLA_further_help">To view your tasks with indentation and order preserved, go to the Filters page and select a Google Tasks list. By default, Astrid uses its own sort settings for tasks.</string>
-  <string name="gtasks_GLA_signIn">サインイン</string>
-  <string name="gtasks_GLA_email">メールアドレス</string>
-  <string name="gtasks_GLA_password">パスワード</string>
   <string name="gtasks_GLA_authenticating">Authenticating...</string>
-  <string name="gtasks_GLA_domain">Google Apps for Domain のアカウント</string>
-  <string name="gtasks_GLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
   <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
   <string name="gtasks_GLA_errorIOAuth">すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。</string>
-  <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. Try logging in from the browser, then come back to try again:</string>
   <string name="gtasks_GPr_header">Google Tasks (ベータ版!)</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
@@ -570,9 +483,6 @@
   <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
   <string name="help_popover_add_lists">Tap add a list</string>
   <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
-  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
-  <string name="welcome_login_title">Welcome to Astrid!</string>
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
   <string name="welcome_login_tos_link">\"Terms of Service\"</string>
   <string name="welcome_login_pw">Login with Username/Password</string>
@@ -584,7 +494,6 @@
   <string name="help_popover_taskrabbit_type">Change the type of task</string>
   <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
   <string name="locale_edit_intro">Astrid will send you a reminder when you have any tasks in the following filter:</string>
-  <string name="locale_pick_filter">フィルタ:</string>
   <string name="locale_interval_label">Limit notifications to:</string>
   <string-array name="locale_interval">
     <item>1時間に一度</item>
@@ -704,22 +613,14 @@
   <string name="producteev_PLA_email">メールアドレス</string>
   <string name="producteev_PLA_password">パスワード</string>
   <string name="producteev_PLA_timezone">タイムゾーン</string>
-  <string name="producteev_PLA_confirmPassword">Confirm Password</string>
   <string name="producteev_PLA_firstName">First Name</string>
   <string name="producteev_PLA_lastName">Last Name</string>
   <string name="producteev_PLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
-  <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
   <string name="producteev_PLA_errorAuth">エラー: メールアドレスかパスワードが正しくありません</string>
   <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_notification_text">%s tasks updated / click for more details</string>
-  <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
-  <string name="producteev_MLA_password_empty">Password was not specified!</string>
   <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
   <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
-  <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
-  <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
   <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
   <string name="CFC_producteev_in_workspace_name">In workspace...</string>
   <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
@@ -753,7 +654,6 @@
     <item>Reminders from Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_snooze">Snooze all</string>
   <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -790,8 +690,6 @@
   <string name="rmd_EPr_persistent_title">通知の持続</string>
   <string name="rmd_EPr_persistent_desc_true">通知はひとつひとつ削除する必要があります</string>
   <string name="rmd_EPr_persistent_desc_false">通知は\"通知を消去\"ボタンで消えます</string>
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
@@ -807,7 +705,6 @@
   <string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">新規タスクにランダムな通知を設定しません</string>
   <string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します:%s</string>
-  <string name="rmd_EPr_defaults_header">タスクのデフォルト設定</string>
   <string-array name="EPr_reminder_random">
     <item>無効</item>
     <item>1時間毎</item>
@@ -1057,20 +954,12 @@
   <string name="TEA_tags_label_long">Put task on one or more lists</string>
   <string name="TEA_tags_none">None</string>
   <string name="TEA_tag_hint">New list</string>
-  <string name="TEA_tag_dropdown">Select a list</string>
-  <string name="tag_TLA_menu">リスト</string>
-  <string name="TAd_contextFilterByTag">Show List</string>
   <string name="tag_new_list">New List</string>
-  <string name="tag_list_saved">List Saved</string>
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
   <string name="tag_FEx_add_new">New</string>
   <string name="tag_FEx_header">リスト</string>
-  <string name="tag_FEx_category_mine">My Lists</string>
-  <string name="tag_FEx_category_shared">Shared With Me</string>
-  <string name="tag_FEx_category_inactive">Inactive</string>
   <string name="tag_FEx_untagged">Not in any List</string>
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  <string name="tag_FEx_name">List: %s</string>
   <string name="tag_cm_rename">Rename List</string>
   <string name="tag_cm_delete">Delete List</string>
   <string name="tag_cm_leave">Leave List</string>
@@ -1086,10 +975,7 @@
   <string name="tag_updates_title">Activity: %s</string>
   <string name="tag_delete_button">Delete List</string>
   <string name="tag_leave_button">Leave This List</string>
-  <string name="TAE_startTimer">Timer</string>
-  <string name="TAE_stopTimer">Stop</string>
   <string name="TPl_notification">Timers Active for %s!</string>
-  <string name="TFE_category">Timer Filters</string>
   <string name="TFE_workingOn">Tasks Being Timed</string>
   <string name="TEA_timer_controls">Timer Controls</string>
   <string name="TEA_timer_comment_started">started this task:</string>
@@ -1127,7 +1013,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>
   <string name="EPr_voice_header">Voice Input Settings</string>
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
   <string name="welcome_setting">Show Tutorial</string>
   <string name="welcome_title_1">Welcome to Astrid!</string>
   <string name="welcome_title_2">Make lists</string>
@@ -1145,7 +1030,6 @@
   <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
   <string name="welcome_body_7">Login</string>
   <string name="welcome_body_7_return">Tap Astrid to return.</string>
-  <string name="welcome_back">Back</string>
   <string name="welcome_next">Next</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>

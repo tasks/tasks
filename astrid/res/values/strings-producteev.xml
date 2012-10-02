@@ -83,7 +83,6 @@
     <string name="producteev_PLA_timezone">Timezone</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
 
     <!-- First Name Label -->    
     <string name="producteev_PLA_firstName">First Name</string>
@@ -95,7 +94,6 @@
     <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
@@ -106,16 +104,12 @@
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
@@ -126,13 +120,11 @@
     <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
     <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
 
     <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
 

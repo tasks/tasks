@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">分享</string>
   <string name="actfm_person_hint">聯絡人或電郵地址</string>
   <string name="actfm_person_or_tag_hint">聯絡人或已分享清單</string>
-  <string name="actfm_toast_success">已存到伺服器</string>
-  <string name="actfm_tag_operation_disabled">抱歉，共享標籤並不支持此項操作。</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
   <string name="actfm_picture_camera">拍下照片</string>
   <string name="actfm_picture_gallery">從圖庫選擇</string>
   <string name="actfm_picture_clear">清除圖片</string>
-  <string name="actfm_FLA_menu_refresh">重新整理清單</string>
   <string name="actfm_view_task_title">檢視工作？</string>
   <string name="actfm_view_task_text">工作已被送到 %s！您目前正在查看自己的任務，你要查看你其餘被指派的工作嗎？</string>
   <string name="actfm_view_task_ok">查看被指派的工作</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
   <string name="actfm_my_shared_tasks_empty">未有共享工作</string>
   <string name="TVA_add_comment">添加評論</string>
-  <string name="UAd_title_comment">%1$s 關於: %2$s</string>
   <string-array name="TVA_tabs">
     <item>工作</item>
     <item>活動</item>
@@ -28,45 +23,32 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">重新整理</string>
   <string name="actfm_TVA_tag_label">List</string>
-  <string name="actfm_TVA_tag_owner_label">新增清單</string>
-  <string name="actfm_TVA_tag_owner_none">無</string>
   <string name="actfm_TVA_members_label">Shared With</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">清單圖片</string>
   <string name="actfm_TVA_silence_label">靜音提醒</string>
-  <string name="actfm_TVA_list_icon_label">清單圖示</string>
   <string name="actfm_TVA_tag_description_label">Description</string>
   <string name="actfm_TVA_tag_settings_label">設定</string>
   <string name="actfm_TVA_tag_description_hint">Type a description here</string>
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
   <string name="actfm_TVA_login_to_share">您需要登錄 Astrid.com 以共享清單！請登錄或把清單列為私密。</string>
   <string name="actfm_EPA_intro">使用Astrid分享購物清單，派對計劃，或團隊項目。當其他人把事情做完就能立刻看到！</string>
-  <string name="actfm_EPA_title">分享/指派</string>
-  <string name="actfm_EPA_save">Save &amp; Share</string>
-  <string name="actfm_EPA_assign_label">參與人</string>
   <string name="actfm_EPA_assign_label_long">Who should do this?</string>
   <string name="actfm_EPA_assign_me">Me</string>
   <string name="actfm_EPA_unassigned">Unassigned</string>
   <string name="actfm_EPA_choose_contact">Choose a contact</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
-  <string name="actfm_EPA_assign_custom">自訂…</string>
   <string name="actfm_EPA_share_with">加入合作者：</string>
 
   <string name="actfm_EPA_collaborators_header">與朋友分享</string>
   <string name="actfm_EPA_list">清單：%s</string>
-  <string name="actfm_EPA_assigned_hint">聯絡人名稱</string>
   <string name="actfm_EPA_message_text">邀請訊息：</string>
   <string name="actfm_EPA_message_body">請幫我完成這分工作！</string>
   <string name="actfm_EPA_assign_header_members">List Members</string>
   <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
-  <string name="actfm_EPA_tag_label">新建一個共享的標籤嗎？</string>
-  <string name="actfm_EPA_tag_hint">例如：俱樂部</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">工作已與 %s 共享</string>
-  <string name="actfm_EPA_saved_toast">已更新參與人設定</string>
   <string name="actfm_EPA_invalid_email">無效的電郵地址：%s</string>
-  <string name="actfm_EPA_invalid_tag">無效的清單: %s</string>
   <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
   <string name="actfm_EPA_login_button">登入</string>
   <string name="actfm_EPA_dont_share_button">Don\'t share</string>
@@ -74,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com讓你在線上存取你的工作表，與朋友分享或委派工作。</string>
   <string name="actfm_ALA_fb_login">連接到Facebook賬戶</string>
   <string name="actfm_ALA_gg_login">連接到Google賬戶</string>
-  <string name="actfm_ALA_pw_login">沒有 Google 或 Facebook 賬戶?</string>
-  <string name="actfm_ALA_pw_link">在此登入</string>
-  <string name="actfm_ALA_pw_new">建立新帳號</string>
-  <string name="actfm_ALA_pw_returning">已有帳戶？</string>
-  <string name="actfm_ALA_name_label">姓名</string>
   <string name="actfm_ALA_firstname_label">名字</string>
   <string name="actfm_ALA_lastname_label">姓氏</string>
   <string name="actfm_ALA_email_label">電郵地址</string>
-  <string name="actfm_ALA_username_email_label">用戶名稱/電郵地址</string>
   <string name="actfm_ALA_password_label">密碼</string>
   <string name="actfm_ALA_signup_title">建立新帳號</string>
   <string name="actfm_ALA_login_title">登入Asrid.com</string>
@@ -93,8 +69,6 @@
   <string name="actfm_https_title">使用 HTTPS</string>
   <string name="actfm_https_enabled">使用 HTTPS (緩慢)</string>
   <string name="actfm_https_disabled">不使用 HTTPS (較快)</string>
-  <string name="actfm_notification_title">Astrid.com 同步</string>
-  <string name="actfm_notification_comments">收到新的備註 / 點擊觀看</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">警示</string>
   <string name="alarm_ACS_button">加入警示</string>
@@ -111,8 +85,6 @@
   <string name="backup_BPr_auto_title">自動備份</string>
   <string name="backup_BPr_auto_disabled">停用自動備份</string>
   <string name="backup_BPr_auto_enabled">備份將每天執行</string>
-  <string name="backup_BPr_how_to_restore">如何還原備份?</string>
-  <string name="backup_BPr_how_to_restore_dialog">你需要使用Astrid強化套件去管理和還原您的備份.Astrid會自動備份您的工作以防萬一.</string>
   <string name="backup_BAc_label">Manage Backups</string>
   <string name="backup_BAc_title">管理備份</string>
   <string name="backup_BAc_import">匯入工作</string>
@@ -125,7 +97,6 @@
   <string name="import_summary_message">檔案 %1$s 已包含 %2$s.\n\n %3$s 已匯入,\n %4$s 已存在\n %5$s 有問題\n</string>
   <string name="import_progress_title">匯入中...</string>
   <string name="import_progress_read">讀取工作 %d...</string>
-  <string name="DLG_error_opening">無法找到此項目</string>
   <string name="DLG_error_sdcard">無法開啟資料夾: %s</string>
   <string name="DLG_error_sdcard_general">無法存取您的SD卡!</string>
   <string name="import_file_prompt">選取欲還原的檔案</string>
@@ -138,24 +109,17 @@
   <string name="DLG_delete_this_item_question">刪除此項目: %s?</string>
   <string name="DLG_upgrading">升級您的工作...</string>
   <string name="DLG_hour_minutes">時間 (小時:分鐘)</string>
-  <string name="DLG_please_update">Astrid應該要從Android市集下載最新版本! 請執行以繼續, 或稍待片刻.</string>
-  <string name="DLG_to_market">前往市集</string>
   <string name="DLG_accept">接受</string>
   <string name="DLG_decline">不接受</string>
   <string name="DLG_eula_title">Astrid 使用條款</string>
   <string name="DLG_please_wait">Please Wait</string>
   <string name="DLG_loading">載入中...</string>
-  <string name="DLG_dismiss">Dismiss</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Cancel</string>
   <string name="DLG_more">More</string>
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">點選</string>
-  <string name="WID_dateButtonLabel">$D $T</string>
-  <string name="WID_disableButton">停用</string>
-  <string name="ENE_label">備註</string>
-  <string name="ENE_label_comments">Comments</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -168,10 +132,8 @@
   <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">設定</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">尋找此列表</string>
   <string name="TLA_custom">自訂</string>
   <string name="TLA_quick_add_hint">Add a task</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -204,7 +166,6 @@
   <string name="TAd_actionEditTask">編輯</string>
   <string name="TAd_contextEditTask">編輯工作</string>
   <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">刪除工作</string>
   <string name="TAd_contextUndeleteTask">還原工作刪除</string>
   <string name="TAd_contextPurgeTask">清除工作</string>
@@ -223,11 +184,7 @@
   <string name="SSD_save_temp">僅一次</string>
   <string name="SSD_save_always">總是</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">清單</string>
-  <string name="FLA_loading">啟動篩選...</string>
   <string name="FLA_context_shortcut">在桌面建立捷徑</string>
-  <string name="FLA_menu_search">搜尋工作...</string>
-  <string name="FLA_menu_help">幫助</string>
   <string name="FLA_shortcut_dialog_title">建立捷徑</string>
   <string name="FLA_shortcut_dialog">捷徑名稱</string>
   <string name="FLA_search_hint">工作搜尋</string>
@@ -236,13 +193,9 @@
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: 編輯 \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">主旨</string>
   <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">工作摘要</string>
   <string name="TEA_importance_label">重要性</string>
-  <string name="TEA_urgency_label">截止日期</string>
   <string name="TEA_urgency_specific_time">指定時間?</string>
   <string name="TEA_urgency_none">None</string>
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -260,8 +213,6 @@
   <string name="TEA_menu_comments">Comments</string>
   <string name="TEA_onTaskSave_due">工作已儲存: %s 到期</string>
   <string name="TEA_onTaskSave_notDue">工作已儲存</string>
-  <string name="TEA_onTaskCancel">編輯工作已取消</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">Activity</string>
   <string name="TEA_tab_more">更多</string>
   <string name="TEA_tab_web">Ideas</string>
@@ -283,7 +234,6 @@
     <item>到期前週數</item>
     <item>指定日期/時間</item>
   </string-array>
-  <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -295,20 +245,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
   <string name="hide_until_prompt">Show in my list</string>
-  <string name="TEA_addons_text">尋找更多功能嗎?</string>
-  <string name="TEA_addons_button">取得強化套件</string>
-  <string name="TEA_more">更多</string>
   <string name="TEA_no_activity">No Activity to Show.</string>
   <string name="TEA_load_more">Load more...</string>
   <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">Date/Time</string>
   <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">歡迎使用Astrid!</string>
-  <string name="InA_agree">我同意!!</string>
-  <string name="InA_disagree">我不同意!!</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">Call now</string>
   <string name="MCA_add_task">Call later</string>
@@ -331,7 +274,6 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="HlA_get_support">取得協助</string>
   <string name="UpS_changelog_title">Astrid 有哪些最新消息?</string>
   <string name="UpS_updates_title">Astrid 最新消息</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -349,8 +291,6 @@
   <string name="EPr_showNotes_desc_enabled">總是顯示備註</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
@@ -362,10 +302,7 @@
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   <string name="EPr_theme_widget_title">Widget Theme</string>
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
-  <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">Try and configure experimental features</string>
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   <string name="EPr_use_contact_picker">Use contact picker</string>
   <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
@@ -377,7 +314,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>No swipe</item>
     <item>Conserve Memory</item>
@@ -390,7 +326,6 @@
     <item>Default setting</item>
     <item>Uses more system resources</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
@@ -429,8 +364,6 @@
   <string name="AOA_tab_installed">已安裝</string>
   <string name="AOA_tab_available">可用</string>
   <string name="AOA_free">免費</string>
-  <string name="AOA_visit_website">訪問網站</string>
-  <string name="AOA_visit_market">Android市集</string>
   <string name="AOA_no_addons">空的清單!</string>
   <string name="TWi_loading">載入中...</string>
   <string name="WCA_title">選擇工作顯示...</string>
@@ -440,8 +373,6 @@
   <string name="p_forums">Forums</string>
   <string name="task_killer_help">似乎您有使用會刪除程序的應用程式 (%s)! 假如可以,將Astrid加入到例外清單避免被關閉.\n</string>
   <string name="task_killer_help_ok">我不會中止Astrid!</string>
-  <string name="marketplace_title">Astricd工作/待辦清單</string>
-  <string name="marketplace_description">Astrid工作管理是受到高度喜愛的開放源碼應用程式且可以非常簡單的完成工作。內含工作標籤、提醒、同步 、本地端插件、widget和其他功能。</string>
   <string name="DB_corrupted_title">Corrupted Database</string>
   <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Manage All Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Backup-&gt;Import Tasks) in Astrid.</string>
   <string name="EPr_defaults_header">工作預設值</string>
@@ -484,15 +415,11 @@
     <item>在截止期限或過期時</item>
   </string-array>
   <string name="BFE_Active">進行中的工作</string>
-  <string name="BFE_Search">搜尋...</string>
   <string name="BFE_Recent">最近修改過</string>
   <string name="BFE_Assigned">I\'ve Assigned</string>
-  <string name="BFE_Custom">自訂篩選...</string>
-  <string name="BFE_Saved">Filters</string>
   <string name="BFE_Saved_delete">刪除篩選</string>
   <string name="CFA_title">自訂篩選</string>
   <string name="CFA_filterName_hint">命名篩選並儲存...</string>
-  <string name="CFA_filterName_copy">複製 %s</string>
   <string name="CFA_universe_all">進行中的工作</string>
   <string name="CFA_type_add">或</string>
   <string name="CFA_type_subtract">非</string>
@@ -523,10 +450,8 @@
   <string name="CFC_title_contains_name">主旨含...</string>
   <string name="CFC_title_contains_text">主旨含: ?</string>
   <string name="gcal_TEA_error">工作加入行事曆錯誤</string>
-  <string name="gcal_TEA_calendar_label">整合行事曆</string>
   <string name="gcal_TEA_addToCalendar_label">建立行事曆事項</string>
   <string name="gcal_TEA_showCalendar_label">打開行事曆事項</string>
-  <string name="gcal_TEA_calendar_error">事件開啟錯誤!</string>
   <string name="gcal_TEA_calendar_updated">行事曆事件也更新了!</string>
   <string name="gcal_TEA_nocal">事件開啟錯誤!</string>
   <string name="gcal_TEA_none_selected">加到日曆...</string>
@@ -534,31 +459,19 @@
   <string name="gcal_completed_title">%s （已完成）</string>
   <string name="gcal_GCP_default">預設行事曆</string>
   <string name="gtasks_FEx_header">Google Tasks</string>
-  <string name="gtasks_FEx_list">依清單</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Creating list...</string>
   <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
   <string name="gtasks_FEx_create_list_error">Error creating new list</string>
-  <string name="gtasks_help_title">歡迎使用Google Tasks!</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks List...</string>
   <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
   <string name="gtasks_GTA_clear_completed">Clear Completed</string>
-  <string name="gtasks_GLA_title">登入Google Tasks</string>
-  <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps accounts are currently unsupported.</string>
   <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-  <string name="gtasks_GLA_further_help">檢視工作時若想保留縮排與排序，請到篩選頁面選擇Google Tasks的工作清單。Astrid預設採用自有的工作排序。</string>
-  <string name="gtasks_GLA_signIn">登入</string>
-  <string name="gtasks_GLA_email">電子郵件</string>
-  <string name="gtasks_GLA_password">密碼</string>
   <string name="gtasks_GLA_authenticating">Authenticating...</string>
-  <string name="gtasks_GLA_domain">Google Apps for Domain帳號</string>
-  <string name="gtasks_GLA_errorEmpty">錯誤: 所有欄位需要填寫!</string>
   <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
   <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">您可能需要輸入captcha(驗證碼)。嘗試從瀏覽器登入後再回來重試:</string>
   <string name="gtasks_GPr_header">Google Tasks (測試中!)</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
@@ -571,9 +484,6 @@
   <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
   <string name="help_popover_add_lists">Tap add a list</string>
   <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
-  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
-  <string name="welcome_login_title">歡迎使用Astrid!</string>
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
   <string name="welcome_login_tos_link">\"Terms of Service\"</string>
   <string name="welcome_login_pw">Login with Username/Password</string>
@@ -585,7 +495,6 @@
   <string name="help_popover_taskrabbit_type">Change the type of task</string>
   <string name="locale_edit_alerts_title">Astrid篩選警示</string>
   <string name="locale_edit_intro">當您有工作在篩選內時，Astrid將送出提醒</string>
-  <string name="locale_pick_filter">篩選：</string>
   <string name="locale_interval_label">限制提醒:</string>
   <string-array name="locale_interval">
     <item>每小時一次</item>
@@ -705,22 +614,14 @@
   <string name="producteev_PLA_email">電子郵件</string>
   <string name="producteev_PLA_password">密碼</string>
   <string name="producteev_PLA_timezone">時區</string>
-  <string name="producteev_PLA_confirmPassword">確認密碼</string>
   <string name="producteev_PLA_firstName">名字</string>
   <string name="producteev_PLA_lastName">姓氏</string>
   <string name="producteev_PLA_errorEmpty">錯誤: 所有欄位需要填寫!</string>
-  <string name="producteev_PLA_errorMatch">錯誤: 密碼不一致!</string>
   <string name="producteev_PLA_errorAuth">錯誤: 電子郵件或密碼不正確!</string>
   <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_notification_text">%s 工作已更新/點選檢視細節</string>
-  <string name="producteev_ioerror">連結錯誤! 檢查您的網際網路連線.</string>
-  <string name="producteev_MLA_email_empty">電子郵件未指定!</string>
-  <string name="producteev_MLA_password_empty">密碼未指定!</string>
   <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
   <string name="producteev_TEA_task_assign_label">指派工作給此人:</string>
-  <string name="producteev_TEA_task_unassigned">反指派</string>
   <string name="producteev_TEA_dashboard_assign_label">指派工作給此工作區:</string>
-  <string name="producteev_TEA_dashboard_default">預設</string>
   <string name="CFC_producteev_in_workspace_text">在工作區: ?</string>
   <string name="CFC_producteev_in_workspace_name">在工作區...</string>
   <string name="CFC_producteev_assigned_to_text">指派改: ?</string>
@@ -754,7 +655,6 @@
     <item>Reminders from Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_snooze">Snooze all</string>
   <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -791,8 +691,6 @@
   <string name="rmd_EPr_persistent_title">持續通知</string>
   <string name="rmd_EPr_persistent_desc_true">通知必須個別地清除</string>
   <string name="rmd_EPr_persistent_desc_false">通知可經由點選 \"清除全部\" 清除</string>
-  <string name="rmd_EPr_notificon_title">通知圖示集</string>
-  <string name="rmd_Epr_notificon_desc">選擇Astrid通知列圖示</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
@@ -808,7 +706,6 @@
   <string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">隨機提醒功能關閉</string>
   <string name="rmd_EPr_defaultRemind_desc">工作將隨機提醒: %s</string>
-  <string name="rmd_EPr_defaults_header">工作預設值</string>
   <string-array name="EPr_reminder_random">
     <item>停用</item>
     <item>每小時</item>
@@ -1058,20 +955,12 @@
   <string name="TEA_tags_label_long">Put task on one or more lists</string>
   <string name="TEA_tags_none">None</string>
   <string name="TEA_tag_hint">New list</string>
-  <string name="TEA_tag_dropdown">Select a list</string>
-  <string name="tag_TLA_menu">清單</string>
-  <string name="TAd_contextFilterByTag">Show List</string>
   <string name="tag_new_list">New List</string>
-  <string name="tag_list_saved">List Saved</string>
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
   <string name="tag_FEx_add_new">New</string>
   <string name="tag_FEx_header">清單</string>
-  <string name="tag_FEx_category_mine">My Lists</string>
-  <string name="tag_FEx_category_shared">Shared With Me</string>
-  <string name="tag_FEx_category_inactive">Inactive</string>
   <string name="tag_FEx_untagged">Not in any List</string>
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  <string name="tag_FEx_name">List: %s</string>
   <string name="tag_cm_rename">Rename List</string>
   <string name="tag_cm_delete">Delete List</string>
   <string name="tag_cm_leave">Leave List</string>
@@ -1087,10 +976,7 @@
   <string name="tag_updates_title">Activity: %s</string>
   <string name="tag_delete_button">Delete List</string>
   <string name="tag_leave_button">Leave This List</string>
-  <string name="TAE_startTimer">Timer</string>
-  <string name="TAE_stopTimer">Stop</string>
   <string name="TPl_notification">%s 啟動計時!</string>
-  <string name="TFE_category">時間篩選</string>
   <string name="TFE_workingOn">工作已開始計時</string>
   <string name="TEA_timer_controls">Timer Controls</string>
   <string name="TEA_timer_comment_started">started this task:</string>
@@ -1128,7 +1014,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid在工作提醒時會以語音說出工作名稱</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid在工作提醒時將會播放鈴聲</string>
   <string name="EPr_voice_header">語音輸入設定</string>
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
   <string name="welcome_setting">Show Tutorial</string>
   <string name="welcome_title_1">歡迎使用Astrid!</string>
   <string name="welcome_title_2">Make lists</string>
@@ -1146,7 +1031,6 @@
   <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
   <string name="welcome_body_7">Login</string>
   <string name="welcome_body_7_return">Tap Astrid to return.</string>
-  <string name="welcome_back">Back</string>
   <string name="welcome_next">Next</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>

@@ -9,7 +9,6 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Share</string>
   
   <!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact or Email</string>
@@ -18,10 +17,8 @@
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
-  <string name="actfm_toast_success">Saved on Server</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
   
   <!-- warning before deleting a list you're the owner of -->
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
@@ -36,7 +33,6 @@
   <string name="actfm_picture_clear">Clear Picture</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
   
   <!-- Title for prompt after sharing a task -->
   <string name="actfm_view_task_title">View Task?</string>
@@ -62,7 +58,6 @@
   <string name="TVA_add_comment">Add a comment...</string>
 
   <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   
   <!-- Tabs for Tag view -->
   <string-array name="TVA_tabs">
@@ -90,10 +85,8 @@
   <string name="actfm_TVA_tag_label">List</string>
 
   <!-- Tag Settings: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
   <!-- Tag Settings: tag owner value when there is no owner -->
-  <string name="actfm_TVA_tag_owner_none">none</string>
 
   <!-- slide 26a and 27b: Tag Settings: list collaborators label -->
   <string name="actfm_TVA_members_label">Shared With</string>
@@ -108,7 +101,6 @@
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
   
   <!-- Tag Settings: list icon label -->
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   
   <!-- slide 25b/27d: Tag Settings: list description label -->
   <string name="actfm_TVA_tag_description_label">Description</string>
@@ -132,13 +124,10 @@
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
     
   <!-- task sharing dialog: window title -->
-  <string name="actfm_EPA_title">Share / Assign</string>
     
   <!-- task sharing dialog: save button -->
-  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Who</string>
   
   <!-- slide 18a: task sharing dialog: assigned label long version -->
   <string name="actfm_EPA_assign_label_long">Who should do this?</string>
@@ -156,7 +145,6 @@
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   
   <!-- task sharing dialog: custom email assignment -->
-  <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Share with:</string>
@@ -168,7 +156,6 @@
   <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
   
   <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">Invitation Message:</string>
@@ -183,10 +170,8 @@
   <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
 
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
   
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
   
   <!-- task sharing dialog: share with Facebook -->
   <string name="actfm_EPA_facebook">Facebook</string>
@@ -195,16 +180,13 @@
   <string name="actfm_EPA_twitter">Twitter</string>
 
   <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-  <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
 
   <!-- task sharing dialog: edit people settings saved -->
-  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
 
   <!-- task sharing dialog: invalid email (%s => email) -->
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
   
   <!-- task sharing login prompt -->
   <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
@@ -230,19 +212,14 @@
   <string name="actfm_ALA_gg_login">Connect with Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
 
   <!-- share login: Sharing Password Link -->
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
 
   <!-- share login: Password Are you a New User? -->
-  <string name="actfm_ALA_pw_new">Create a new account?</string>
 
   <!-- share login: Password Are you a Returning User? -->
-  <string name="actfm_ALA_pw_returning">Already have an account?</string>
 
   <!-- share login: Name -->
-  <string name="actfm_ALA_name_label">Name</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">First Name</string>
@@ -254,7 +231,6 @@
   <string name="actfm_ALA_email_label">Email</string>
 
   <!-- share login: Username / Email -->
-  <string name="actfm_ALA_username_email_label">Username / Email</string>
 
   <!-- share login: Password -->
   <string name="actfm_ALA_password_label">Password</string>
@@ -298,10 +274,8 @@
   <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
 
   <!-- title for notification tray after synchronizing -->
-  <string name="actfm_notification_title">Astrid.com Sync</string>
   
   <!-- text for notification when comments are received -->
-  <string name="actfm_notification_comments">New comments received / click for more details</string>
     
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. 
       Be advised that synchronizing with both services can in some cases lead to unexpected results. 
@@ -317,7 +291,6 @@
   
   <string name="actfm_account_premium">Premium</string>
   <string name="actfm_account_basic">Basic</string>
-  <string name="actfm_account_none">None</string>
   
   <string name="actfm_inapp_billing">Upgrade to Premium</string>
   <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>

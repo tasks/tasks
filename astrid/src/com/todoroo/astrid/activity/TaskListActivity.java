@@ -227,7 +227,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         tlfPager.setOnPageChangeListener(this);
     }
 
-    protected int getHeaderView() {
+    private int getHeaderView() {
         return R.layout.header_nav_views;
     }
 

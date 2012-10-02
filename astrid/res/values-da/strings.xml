@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Del</string>
   <string name="actfm_person_hint">Kontaktperson eller email</string>
   <string name="actfm_person_or_tag_hint">Kontaktperson eller delt liste</string>
-  <string name="actfm_toast_success">Gemt på server</string>
-  <string name="actfm_tag_operation_disabled">Beklager, denne handling er endnu ikke mulig for delte nøgleord.</string>
   <string name="actfm_tag_operation_owner_delete">Du er ejeren af dette delte nøgleord! Hvis du sletter det, bliver det slettet for alle liste medlemmer. Er du sikker på du vil fortsætte?</string>
   <string name="actfm_picture_camera">Tag et billede</string>
   <string name="actfm_picture_gallery">Vælg fra galleri</string>
   <string name="actfm_picture_clear">Ryd markering</string>
-  <string name="actfm_FLA_menu_refresh">Genopfrisk liste</string>
   <string name="actfm_view_task_title">Vis opgave?</string>
   <string name="actfm_view_task_text">Opgaven blev sendt til %s! Du ser lige nu dine egne opgaver. Vil du se disse og andre opgaver, du har tildelt?</string>
   <string name="actfm_view_task_ok">Vis tildelte</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Mine delte opgaver</string>
   <string name="actfm_my_shared_tasks_empty">Ingen delte opgaver</string>
   <string name="TVA_add_comment">Tilføj en kommentar</string>
-  <string name="UAd_title_comment">%1$s sv:%2$s</string>
   <string-array name="TVA_tabs">
     <item>Opgaver</item>
     <item>Aktivitet</item>
@@ -28,45 +23,32 @@
   <string name="actfm_TVA_no_members_alert">Privat: tryk for at redigere eller dele listen</string>
   <string name="actfm_TVA_menu_refresh">Opdater</string>
   <string name="actfm_TVA_tag_label">Listenavn</string>
-  <string name="actfm_TVA_tag_owner_label">Listeejer</string>
-  <string name="actfm_TVA_tag_owner_none">ingen</string>
   <string name="actfm_TVA_members_label">Delt med</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">Liste billede</string>
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   <string name="actfm_TVA_tag_description_label">Description</string>
   <string name="actfm_TVA_tag_settings_label">Settings</string>
   <string name="actfm_TVA_tag_description_hint">Type a description here</string>
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
   <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
   <string name="actfm_EPA_intro">Brug Astrid til at dele indkøbssedler, festplaner eller projektplaner og følg løbende med i, hvornår folk får afsluttet opgaver!</string>
-  <string name="actfm_EPA_title">Del / tildel</string>
-  <string name="actfm_EPA_save">Save &amp; Share</string>
-  <string name="actfm_EPA_assign_label">Hvem</string>
   <string name="actfm_EPA_assign_label_long">Who should do this?</string>
   <string name="actfm_EPA_assign_me">Mig</string>
   <string name="actfm_EPA_unassigned">Hvem som helst</string>
   <string name="actfm_EPA_choose_contact">Choose a contact</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
-  <string name="actfm_EPA_assign_custom">Brugerdefineret...</string>
   <string name="actfm_EPA_share_with">Del med:</string>
 
   <string name="actfm_EPA_collaborators_header">Del med venner</string>
   <string name="actfm_EPA_list">List: %s</string>
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
   <string name="actfm_EPA_message_text">Invitation Message:</string>
   <string name="actfm_EPA_message_body">Hjælp mig med at få opgaven færdig!</string>
   <string name="actfm_EPA_assign_header_members">List Members</string>
   <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
-  <string name="actfm_EPA_tag_label">Vil du lave et delt emneord?</string>
-  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">Opgave delt med %s</string>
-  <string name="actfm_EPA_saved_toast">Indstillinger for kontaktpersoner gemt</string>
   <string name="actfm_EPA_invalid_email">Forkert emailadresse: %s</string>
-  <string name="actfm_EPA_invalid_tag">Opgaveliste ikke fundet: %s</string>
   <string name="actfm_EPA_login_to_share">Du skal være logget ind på Astrid.com for at dele en opgave!</string>
   <string name="actfm_EPA_login_button">Log in</string>
   <string name="actfm_EPA_dont_share_button">Don\'t share</string>
@@ -74,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
   <string name="actfm_ALA_fb_login">Connect with Facebook</string>
   <string name="actfm_ALA_gg_login">Connect with Google</string>
-  <string name="actfm_ALA_pw_login">Bruger du hverken Google eller Facebook?</string>
-  <string name="actfm_ALA_pw_link">Login her</string>
-  <string name="actfm_ALA_pw_new">Opret ny brugerkonto?</string>
-  <string name="actfm_ALA_pw_returning">Har du allerede en brugerkonto?</string>
-  <string name="actfm_ALA_name_label">Navn</string>
   <string name="actfm_ALA_firstname_label">First Name</string>
   <string name="actfm_ALA_lastname_label">Last Name</string>
   <string name="actfm_ALA_email_label">E-mail</string>
-  <string name="actfm_ALA_username_email_label">Brugernavn / email</string>
   <string name="actfm_ALA_password_label">Adgangskode</string>
   <string name="actfm_ALA_signup_title">Opret ny brugerkonto</string>
   <string name="actfm_ALA_login_title">Login på Astrid.com</string>
@@ -93,8 +69,6 @@
   <string name="actfm_https_title">Brug HTTPS</string>
   <string name="actfm_https_enabled">HTTPS aktiveret (langsommere)</string>
   <string name="actfm_https_disabled">HTTPS deaktiveret (hurtigere)</string>
-  <string name="actfm_notification_title">Astrid.com synkroniser</string>
-  <string name="actfm_notification_comments">Ny kommentar modtaget / vælg for flere detaljer</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">Alarmer</string>
   <string name="alarm_ACS_button">Tilføj en alarm</string>
@@ -111,8 +85,6 @@
   <string name="backup_BPr_auto_title">Automatisk backup</string>
   <string name="backup_BPr_auto_disabled">Automatisk backup deaktiveret</string>
   <string name="backup_BPr_auto_enabled">Backup vil ske dagligt</string>
-  <string name="backup_BPr_how_to_restore">Hvordan gendanner jeg en backup?</string>
-  <string name="backup_BPr_how_to_restore_dialog">Du skal have Astrid Power Pack for at håndtere og gendanne dine backups. Som en hjælp tager Astrid også automatisk backup af dine opgaver for en sikkerheds skyld.</string>
   <string name="backup_BAc_label">Håndter sikkerhedskopier</string>
   <string name="backup_BAc_title">Håndter dine sikkerhedskopier</string>
   <string name="backup_BAc_import">Importér opgaver</string>
@@ -125,7 +97,6 @@
   <string name="import_summary_message">Filen %1$s indeholdt %2$s.\n\n %3$s importeret,\n %4$s findes allerede\n %5$s indeholdt fejl\n</string>
   <string name="import_progress_title">Importerer...</string>
   <string name="import_progress_read">Læser opgave %d...</string>
-  <string name="DLG_error_opening">Kunne ikke finde dette element:</string>
   <string name="DLG_error_sdcard">Kan ikke få adgang til mappen: %s</string>
   <string name="DLG_error_sdcard_general">Kan ikke få adgang til dig SD-kort!</string>
   <string name="import_file_prompt">Vælg en fil for at gendanne</string>
@@ -138,24 +109,17 @@
   <string name="DLG_delete_this_item_question">Slet dette element: %s?</string>
   <string name="DLG_upgrading">Opgraderer dine opgaver...</string>
   <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
-  <string name="DLG_please_update">Astrid bør opdateres til den seneste version på Android Market! Gør venligst dette før du fortsætter, eller vent nogle få sekunder.</string>
-  <string name="DLG_to_market">Gå til Market</string>
   <string name="DLG_accept">Jeg accepterer</string>
   <string name="DLG_decline">Jeg accepterer ikke</string>
   <string name="DLG_eula_title">Astrid Brugsbetingelser</string>
   <string name="DLG_please_wait">Please Wait</string>
   <string name="DLG_loading">Indlæser...</string>
-  <string name="DLG_dismiss">Dismiss</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Cancel</string>
   <string name="DLG_more">More</string>
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Tryk for at indstille</string>
-  <string name="WID_dateButtonLabel">$D $T</string>
-  <string name="WID_disableButton">Deaktiver</string>
-  <string name="ENE_label">Noter</string>
-  <string name="ENE_label_comments">Comments</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -167,10 +131,8 @@
   <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">Opsætning</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">Søge i denne liste</string>
   <string name="TLA_custom">Tilpasset</string>
   <string name="TLA_quick_add_hint">Add a task</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -203,7 +165,6 @@
   <string name="TAd_actionEditTask">Rediger</string>
   <string name="TAd_contextEditTask">Rediger opgave</string>
   <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">Slet opgave</string>
   <string name="TAd_contextUndeleteTask">Gendan opgave</string>
   <string name="TAd_contextPurgeTask">Ryd opgave</string>
@@ -222,11 +183,7 @@
   <string name="SSD_save_temp">Kun en gang</string>
   <string name="SSD_save_always">Altid</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">Lists</string>
-  <string name="FLA_loading">Indlæser filtre...</string>
   <string name="FLA_context_shortcut">Opret genvej på skrivebordet</string>
-  <string name="FLA_menu_search">Søg i opgaver...</string>
-  <string name="FLA_menu_help">Hjælp</string>
   <string name="FLA_shortcut_dialog_title">Opret genvej</string>
   <string name="FLA_shortcut_dialog">Navn på genvej:</string>
   <string name="FLA_search_hint">Søg efter opgaver</string>
@@ -235,13 +192,9 @@
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: Redigerer \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">Titel</string>
   <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">Opgave Overskrift</string>
   <string name="TEA_importance_label">Vigtighed</string>
-  <string name="TEA_urgency_label">Deadline</string>
   <string name="TEA_urgency_specific_time">På bestemt tidspunkt?</string>
   <string name="TEA_urgency_none">None</string>
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -259,8 +212,6 @@
   <string name="TEA_menu_comments">Comments</string>
   <string name="TEA_onTaskSave_due">Opgave gemt: deadline %s</string>
   <string name="TEA_onTaskSave_notDue">Opgave gemt</string>
-  <string name="TEA_onTaskCancel">Opgaveredigering blev annulleret</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">Aktivitet</string>
   <string name="TEA_tab_more">Mere</string>
   <string name="TEA_tab_web">Ideas</string>
@@ -282,7 +233,6 @@
     <item>Uge før deadline</item>
     <item>Specifik dag/tid</item>
   </string-array>
-  <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Hvem</string>
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -294,20 +244,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
   <string name="hide_until_prompt">Show in my list</string>
-  <string name="TEA_addons_text">Leder du efter flere features?</string>
-  <string name="TEA_addons_button">Få Power Pack!</string>
-  <string name="TEA_more">Mere</string>
   <string name="TEA_no_activity">No Activity to Show.</string>
   <string name="TEA_load_more">Load more...</string>
   <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">Date/Time</string>
   <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">Velkommen til Astrid!</string>
-  <string name="InA_agree">Jeg er enig!!</string>
-  <string name="InA_disagree">Jeg er ikke enig</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">Call now</string>
   <string name="MCA_add_task">Call later</string>
@@ -330,7 +273,6 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="HlA_get_support">Få support</string>
   <string name="UpS_changelog_title">Hvad er nyt i Astrid</string>
   <string name="UpS_updates_title">Seneste Astrid-nyheder</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -348,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Noter vises altid</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
@@ -361,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   <string name="EPr_theme_widget_title">Widget Theme</string>
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
-  <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">Try and configure experimental features</string>
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   <string name="EPr_use_contact_picker">Use contact picker</string>
   <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
@@ -376,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>No swipe</item>
     <item>Conserve Memory</item>
@@ -389,7 +325,6 @@
     <item>Default setting</item>
     <item>Uses more system resources</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
@@ -428,8 +363,6 @@
   <string name="AOA_tab_installed">Installerede</string>
   <string name="AOA_tab_available">Tilgængelige</string>
   <string name="AOA_free">Gratis</string>
-  <string name="AOA_visit_website">Besøg hjemmeside</string>
-  <string name="AOA_visit_market">Android Market</string>
   <string name="AOA_no_addons">Tom liste!</string>
   <string name="TWi_loading">Indlæser...</string>
   <string name="WCA_title">Vælg opgaver der skal vises...</string>
@@ -439,8 +372,6 @@
   <string name="p_forums">Forums</string>
   <string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Astrid til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Astrid muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
   <string name="task_killer_help_ok">Jeg vil ikke dræbe Astrid!</string>
-  <string name="marketplace_title">Astrid Opgave/Huskeliste</string>
-  <string name="marketplace_description">Astrid er den højtelskede open-source huskeliste / opgavehåndtering designet til at hjælpe dig med at få ting ordnet. Den har påmindelser, tags, synkronisering, Locale-plug-in, et widget og meget mere.</string>
   <string name="DB_corrupted_title">Corrupted Database</string>
   <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Manage All Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Backup-&gt;Import Tasks) in Astrid.</string>
   <string name="EPr_defaults_header">Standard for nye opgaver</string>
@@ -483,15 +414,11 @@
     <item>Ved deadline eller overskredet</item>
   </string-array>
   <string name="BFE_Active">Aktive opgaver</string>
-  <string name="BFE_Search">Søg...</string>
   <string name="BFE_Recent">Senest ændrede</string>
   <string name="BFE_Assigned">I\'ve Assigned</string>
-  <string name="BFE_Custom">Tilpasset filter...</string>
-  <string name="BFE_Saved">Filters</string>
   <string name="BFE_Saved_delete">Slet filter</string>
   <string name="CFA_title">Tilpasset filter</string>
   <string name="CFA_filterName_hint">Navngiv dette filter for at gemme det...</string>
-  <string name="CFA_filterName_copy">Kopi af %s</string>
   <string name="CFA_universe_all">Aktive opgaver</string>
   <string name="CFA_type_add">eller</string>
   <string name="CFA_type_subtract">ikke</string>
@@ -522,10 +449,8 @@
   <string name="CFC_title_contains_name">Titel indeholder...</string>
   <string name="CFC_title_contains_text">Titel indeholder: ?</string>
   <string name="gcal_TEA_error">Fejl ved tilføjelse af opgave til kalender!</string>
-  <string name="gcal_TEA_calendar_label">Kalenderintegration:</string>
   <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
   <string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
-  <string name="gcal_TEA_calendar_error">Fejl ved åbning af begivenhed!</string>
   <string name="gcal_TEA_calendar_updated">Kalenderbegivenhed også opdateret!</string>
   <string name="gcal_TEA_nocal">Don\'t add</string>
   <string name="gcal_TEA_none_selected">Add to cal...</string>
@@ -533,31 +458,19 @@
   <string name="gcal_completed_title">%s (fuldført)</string>
   <string name="gcal_GCP_default">Standardkalender</string>
   <string name="gtasks_FEx_header">Google Tasks</string>
-  <string name="gtasks_FEx_list">Efter liste</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Creating list...</string>
   <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
   <string name="gtasks_FEx_create_list_error">Error creating new list</string>
-  <string name="gtasks_help_title">Velkommen til Google Tasks!</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks List...</string>
   <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
   <string name="gtasks_GTA_clear_completed">Clear Completed</string>
-  <string name="gtasks_GLA_title">Log ind på Google Tasks</string>
-  <string name="gtasks_GLA_body">Vær venlig at logge ind to Google Tasks-synkronisering (beta!). Google Apps for Domain understøttes i øjeblikket ikke, men vi arbejder på sagen!</string>
   <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-  <string name="gtasks_GLA_further_help">For at vise dine opgaver med indryk og orden bevaret, skal du gå til Filtre-siden og vælge en Google Tasks-liste. Som standard bruger Astrid sin egen sorteringsopsætning til opgaver.</string>
-  <string name="gtasks_GLA_signIn">Log ind</string>
-  <string name="gtasks_GLA_email">E-mail</string>
-  <string name="gtasks_GLA_password">Adgangskode</string>
   <string name="gtasks_GLA_authenticating">Authenticating...</string>
-  <string name="gtasks_GLA_domain">Google Apps for Domain-konto</string>
-  <string name="gtasks_GLA_errorEmpty">Fejl: Udfyld alle felter!</string>
   <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
   <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Du har muligvis støt på en captcha. Prøv at logge ind fra din standard browser, log da ind her igen:</string>
   <string name="gtasks_GPr_header">Google Tasks (beta!)</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
@@ -570,9 +483,6 @@
   <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
   <string name="help_popover_add_lists">Tap add a list</string>
   <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
-  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
-  <string name="welcome_login_title">Velkommen til Astrid!</string>
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
   <string name="welcome_login_tos_link">\"Terms of Service\"</string>
   <string name="welcome_login_pw">Login with Username/Password</string>
@@ -584,7 +494,6 @@
   <string name="help_popover_taskrabbit_type">Change the type of task</string>
   <string name="locale_edit_alerts_title">Astrid filter alarm</string>
   <string name="locale_edit_intro">Astrid vil sende dig en påmindelse når du har opgaver i det følgende filter:</string>
-  <string name="locale_pick_filter">Filter:</string>
   <string name="locale_interval_label">Begræns påmindelser til:</string>
   <string-array name="locale_interval">
     <item>en gang i timen</item>
@@ -704,22 +613,14 @@
   <string name="producteev_PLA_email">E-mail</string>
   <string name="producteev_PLA_password">Adgangskode</string>
   <string name="producteev_PLA_timezone">Tidszone</string>
-  <string name="producteev_PLA_confirmPassword">Bekræft adgangskode</string>
   <string name="producteev_PLA_firstName">Fornavn</string>
   <string name="producteev_PLA_lastName">Efternavn</string>
   <string name="producteev_PLA_errorEmpty">Fejl: Udfyld alle felter!</string>
-  <string name="producteev_PLA_errorMatch">Fejl: adgangskoder matcher ikke!</string>
   <string name="producteev_PLA_errorAuth">Fejl: E-mail eller adgangskode er forkert!</string>
   <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_notification_text">%s opgaver opdateret / tryk for flere detaljer</string>
-  <string name="producteev_ioerror">Forbindelsesfejl! Tjek din internetforbindelse.</string>
-  <string name="producteev_MLA_email_empty">E-mail blev ikke angivet!</string>
-  <string name="producteev_MLA_password_empty">Adgangskode blev ikke angivet!</string>
   <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
   <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
-  <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
-  <string name="producteev_TEA_dashboard_default">&lt;Standard&gt;</string>
   <string name="CFC_producteev_in_workspace_text">I arbejdsområde: ?</string>
   <string name="CFC_producteev_in_workspace_name">I arbejdsområde...</string>
   <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
@@ -753,7 +654,6 @@
     <item>Reminders from Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_snooze">Snooze all</string>
   <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -790,8 +690,6 @@
   <string name="rmd_EPr_persistent_title">Notification Persistence</string>
   <string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
   <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
-  <string name="rmd_EPr_notificon_title">Påmindelsers-ikonsæt</string>
-  <string name="rmd_Epr_notificon_desc">Vælg Astrid\'s ikon i statuslinjen</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
@@ -807,7 +705,6 @@
   <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
-  <string name="rmd_EPr_defaults_header">Standard for nye opgaver</string>
   <string-array name="EPr_reminder_random">
     <item>disabled</item>
     <item>hourly</item>
@@ -1057,20 +954,12 @@
   <string name="TEA_tags_label_long">Put task on one or more lists</string>
   <string name="TEA_tags_none">None</string>
   <string name="TEA_tag_hint">New list</string>
-  <string name="TEA_tag_dropdown">Select a list</string>
-  <string name="tag_TLA_menu">Lists</string>
-  <string name="TAd_contextFilterByTag">Show List</string>
   <string name="tag_new_list">New List</string>
-  <string name="tag_list_saved">List Saved</string>
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
   <string name="tag_FEx_add_new">New</string>
   <string name="tag_FEx_header">Lists</string>
-  <string name="tag_FEx_category_mine">My Lists</string>
-  <string name="tag_FEx_category_shared">Shared With Me</string>
-  <string name="tag_FEx_category_inactive">Inactive</string>
   <string name="tag_FEx_untagged">Not in any List</string>
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  <string name="tag_FEx_name">List: %s</string>
   <string name="tag_cm_rename">Rename List</string>
   <string name="tag_cm_delete">Delete List</string>
   <string name="tag_cm_leave">Leave List</string>
@@ -1086,10 +975,7 @@
   <string name="tag_updates_title">Activity: %s</string>
   <string name="tag_delete_button">Delete List</string>
   <string name="tag_leave_button">Leave This List</string>
-  <string name="TAE_startTimer">Timer</string>
-  <string name="TAE_stopTimer">Stop</string>
   <string name="TPl_notification">Timers Active for %s!</string>
-  <string name="TFE_category">Timer Filters</string>
   <string name="TFE_workingOn">Tasks Being Timed</string>
   <string name="TEA_timer_controls">Timer Controls</string>
   <string name="TEA_timer_comment_started">started this task:</string>
@@ -1127,7 +1013,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>
   <string name="EPr_voice_header">Stemmeinput-opsætning</string>
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
   <string name="welcome_setting">Show Tutorial</string>
   <string name="welcome_title_1">Velkommen til Astrid!</string>
   <string name="welcome_title_2">Make lists</string>
@@ -1145,7 +1030,6 @@
   <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
   <string name="welcome_body_7">Login</string>
   <string name="welcome_body_7_return">Tap Astrid to return.</string>
-  <string name="welcome_back">Back</string>
   <string name="welcome_next">Next</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
