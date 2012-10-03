@@ -1,6 +1,6 @@
 package com.todoroo.astrid.actfm.sync;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -21,7 +21,7 @@ import com.todoroo.astrid.data.TaskOutstanding;
 
 public class ActFmSyncThread {
 
-    private final Queue<Pair<Long, Class<? extends RemoteModel>>> queue;
+    private final Queue<Pair<Long, Class<? extends RemoteModel>>> changesQueue;
     private final Object monitor;
     private Thread thread;
 
@@ -39,7 +39,7 @@ public class ActFmSyncThread {
 
     public ActFmSyncThread(Queue<Pair<Long, Class<? extends RemoteModel>>> queue, Object syncMonitor) {
         DependencyInjectionService.getInstance().inject(this);
-        this.queue = queue;
+        this.changesQueue = queue;
         this.monitor = syncMonitor;
     }
 
@@ -57,10 +57,10 @@ public class ActFmSyncThread {
 
     private void sync() {
         int batchSize = 1;
-        List<ClientToServerMessage<?>> messages = new ArrayList<ClientToServerMessage<?>>();
+        List<ClientToServerMessage<?>> messages = new LinkedList<ClientToServerMessage<?>>();
         while(true) {
             synchronized(monitor) {
-                while (queue.isEmpty() && !timeForBackgroundSync()) {
+                while (changesQueue.isEmpty() && !timeForBackgroundSync()) {
                     try {
                         monitor.wait();
                     } catch (InterruptedException e) {
@@ -70,15 +70,25 @@ public class ActFmSyncThread {
             }
 
             // Stuff in the document
-            while (messages.size() < batchSize && !queue.isEmpty()) {
-                Pair<Long, Class<? extends RemoteModel>> tuple = queue.poll();
+            while (messages.size() < batchSize && !changesQueue.isEmpty()) {
+                Pair<Long, Class<? extends RemoteModel>> tuple = changesQueue.poll();
                 if (tuple != null) {
-                    messages.add(getChangesHappened(tuple));
+                    ClientToServerMessage<?> changes = getChangesHappened(tuple);
+                    if (changes != null)
+                        messages.add(changes);
                 }
             }
 
             if (messages.isEmpty() && timeForBackgroundSync()) {
-                // Populate messages with BriefMes
+                // Add BriefMe messages
+            }
+
+            if (!messages.isEmpty()) {
+                // Get List<ServerToClientMessage> responses
+                // foreach response response.process
+                // if (responses.didntFinish) batchSize = Math.max(batchSize / 2, 1)
+                // else batchSize = min(batchSize, messages.size()) * 2
+                messages = new LinkedList<ClientToServerMessage<?>>();
             }
         }
     }
