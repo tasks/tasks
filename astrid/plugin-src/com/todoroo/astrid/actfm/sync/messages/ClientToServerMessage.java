@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 
@@ -9,6 +10,13 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
     protected final long id;
     protected final String uuid;
     protected final long pushedAt;
+
+    public ClientToServerMessage(Class<TYPE> modelClass, String uuid, long pushedAt) {
+        this.modelClass = modelClass;
+        this.uuid = uuid;
+        this.pushedAt = pushedAt;
+        this.id = AbstractModel.NO_ID;
+    }
 
     public ClientToServerMessage(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao) {
         this.id = id;

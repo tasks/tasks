@@ -9,6 +9,10 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
         super(id, modelClass, modelDao);
     }
 
+    public BriefMe(Class<TYPE> modelClass, String uuid, long pushedAt) {
+        super(modelClass, uuid, pushedAt);
+    }
+
     @Override
     public void sendMessage() {
         // Send message

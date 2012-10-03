@@ -7,6 +7,7 @@ import java.util.Queue;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Pair;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -80,7 +81,8 @@ public class ActFmSyncThread {
             }
 
             if (messages.isEmpty() && timeForBackgroundSync()) {
-                // Add BriefMe messages
+                messages.add(getBriefMe(Task.class));
+                messages.add(getBriefMe(TagData.class));
             }
 
             if (!messages.isEmpty()) {
@@ -102,6 +104,12 @@ public class ActFmSyncThread {
         }
 
         return null;
+    }
+
+    private <TYPE extends RemoteModel> BriefMe<TYPE> getBriefMe(Class<TYPE> cls) {
+        // TODO: compute last pushed at value for model class
+        long pushedAt = 0;
+        return new BriefMe<TYPE>(cls, null, pushedAt);
     }
 
     private boolean timeForBackgroundSync() {
