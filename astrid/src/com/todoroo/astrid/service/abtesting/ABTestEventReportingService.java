@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.os.Looper;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -66,11 +67,12 @@ public final class ABTestEventReportingService {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Looper.prepare(); // In case something goes wrong
                 try {
                     abTestEventDao.createRelativeDateEvents();
                     pushAllUnreportedABTestEvents();
                 } catch (SQLiteException e) {
-                    StartupService.handleSQLiteColumnMissing(context, e);
+                    StartupService.handleSQLiteError(context, e);
                 }
             }
         }).start();

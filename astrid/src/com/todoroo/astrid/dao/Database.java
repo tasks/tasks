@@ -6,6 +6,7 @@
 package com.todoroo.astrid.dao;
 
 import android.database.sqlite.SQLiteException;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.AbstractDatabase;
@@ -333,6 +334,19 @@ public class Database extends AbstractDatabase {
         }
 
         return false;
+    }
+
+    public void tryAddColumn(Table table, Property<?> column, String defaultValue) {
+        try {
+            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
+            String sql = "ALTER TABLE " + table.name + " ADD " +  //$NON-NLS-1$//$NON-NLS-2$
+                    column.accept(visitor, null);
+            if (!TextUtils.isEmpty(defaultValue))
+                sql += " DEFAULT " + defaultValue;
+            database.execSQL(sql);
+        } catch (SQLiteException e) {
+            // ignored, column already exists
+        }
     }
 
     /**

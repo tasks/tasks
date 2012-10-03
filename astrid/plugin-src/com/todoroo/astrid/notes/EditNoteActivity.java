@@ -139,7 +139,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         try {
             task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
         } catch (SQLiteException e) {
-            StartupService.handleSQLiteColumnMissing(ContextManager.getContext(), e);
+            StartupService.handleSQLiteError(ContextManager.getContext(), e);
         }
         if(task == null) {
             return;

@@ -28,10 +28,12 @@ import android.widget.Toast;
 
 import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -42,6 +44,7 @@ import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
@@ -127,8 +130,9 @@ public class StartupService {
 
         try {
             database.openForWriting();
+            checkForMissingColumns();
         } catch (SQLiteException e) {
-            handleSQLiteColumnMissing(context, e);
+            handleSQLiteError(context, e);
             return;
         }
 
@@ -251,13 +255,30 @@ public class StartupService {
      * @param context
      * @param e error that was raised
      */
-    public static void handleSQLiteColumnMissing(Context context, final SQLiteException e) {
+    public static void handleSQLiteError(Context context, final SQLiteException e) {
         new AlertDialog.Builder(context)
-            .setTitle(R.string.DB_corrupted_title)
-            .setMessage(R.string.DB_corrupted_body)
-            .setPositiveButton(R.string.DLG_ok, null)
-            .create().show();
+        .setTitle(R.string.DB_corrupted_title)
+        .setMessage(R.string.DB_corrupted_body)
+        .setPositiveButton(R.string.DLG_ok, null)
+        .create().show();
         e.printStackTrace();
+    }
+
+    private void checkForMissingColumns() {
+        // For some reason these properties are missing for some users.
+        // Make them exist!
+        try {
+            TodorooCursor<Task> tasks = taskService.query(Query.select(Task.REMOTE_ID, Task.USER_ID, Task.USER).limit(1));
+            try {
+                System.err.println(tasks.getCount());
+            } finally {
+                tasks.close();
+            }
+        } catch (SQLiteException e) {
+            database.tryAddColumn(Task.TABLE, Task.REMOTE_ID, "0"); //$NON-NLS-1$
+            database.tryAddColumn(Task.TABLE, Task.USER_ID, "0"); //$NON-NLS-1$
+            database.tryAddColumn(Task.TABLE, Task.USER, null);
+        }
     }
 
     /**
