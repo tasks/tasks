@@ -24,19 +24,16 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     private final long id;
     private final String uuid;
     private final List<OE> changes;
-    private long pushedAt;
+    private final long pushedAt;
 
-    public ChangesHappened(TYPE entity, RemoteModelDao<TYPE> modelDao,
+    public ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
             OutstandingEntryDao<OE> outstandingDao) {
-        this.modelClass = entity.getClass();
+        this.modelClass = modelClass;
         this.outstandingClass = getOutstandingClass(modelClass);
-        this.id = entity.getId();
+        this.id = id;
         this.changes = new ArrayList<OE>();
 
-        if (!entity.containsValue(RemoteModel.UUID_PROPERTY)
-                || !entity.containsValue(RemoteModel.PUSHED_AT_PROPERTY)) {
-            entity = modelDao.fetch(entity.getId(), getModelProperties(modelClass));
-        }
+        TYPE entity = getEntity(id, modelDao);
         if (entity == null) {
             this.uuid = RemoteModel.NO_UUID;
             this.pushedAt = 0;
@@ -53,6 +50,22 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     public List<OE> getChanges() {
         return changes;
+    }
+
+    public int numChanges() {
+        return changes.size();
+    }
+
+    public String getUUID() {
+        return uuid;
+    }
+
+    public long getPushedAt() {
+        return pushedAt;
+    }
+
+    private TYPE getEntity(long localId, RemoteModelDao<TYPE> modelDao) {
+        return modelDao.fetch(localId, RemoteModel.UUID_PROPERTY, RemoteModel.PUSHED_AT_PROPERTY);
     }
 
     private void populateChanges(OutstandingEntryDao<OE> outstandingDao) {
