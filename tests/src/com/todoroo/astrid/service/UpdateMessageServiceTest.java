@@ -17,6 +17,7 @@ import android.text.style.ClickableSpan;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -32,7 +33,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
+            void verifyMessage(Pair<String, Spannable> message) {
                 fail("should not have displayed updates");
             }
 
@@ -51,7 +52,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
+            void verifyMessage(Pair<String, Spannable> message) {
                 fail("should not have displayed updates");
             }
 
@@ -68,8 +69,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message.toString().contains("yo"));
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertTrue(message.getLeft().toString().contains("yo"));
             }
 
             @Override
@@ -85,9 +86,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message.toString().contains("yo"));
-                assertFalse(message.toString().contains("cat")); // We only process the first update now
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertTrue(message.getLeft().toString().contains("yo"));
+                assertFalse(message.getLeft().toString().contains("cat")); // We only process the first update now
             }
 
             @Override
@@ -103,8 +104,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message.toString().contains("yo"));
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertTrue(message.getLeft().toString().contains("yo"));
             }
 
             @Override
@@ -116,7 +117,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
+            void verifyMessage(Pair<String, Spannable> message) {
                 fail("should have not displayed again");
             }
 
@@ -138,9 +139,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message.toString().contains("yo"));
-                assertTrue(message.toString().contains("date"));
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertTrue(message.getLeft().toString().contains("yo"));
+                assertTrue(message.getLeft().toString().contains("date"));
             }
 
             @Override
@@ -157,8 +158,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message.toString().contains("rmilk man"));
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertTrue(message.getLeft().toString().contains("rmilk man"));
             }
 
             @Override
@@ -175,7 +176,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
+            void verifyMessage(Pair<String, Spannable> message) {
                 fail("displayed update");
             }
 
@@ -197,8 +198,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message.toString().contains("astrid man"));
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertTrue(message.getLeft().toString().contains("astrid man"));
             }
 
             @Override
@@ -214,7 +215,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
+            void verifyMessage(Pair<String, Spannable> message) {
                 fail("displayed update");
             }
 
@@ -236,9 +237,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message instanceof Spannable);
-                assertTrue(((Spannable)message).getSpans(0, message.length(), ClickableSpan.class).length > 0);
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertNotNull(message.getRight());
+                assertTrue(((Spannable)message).getSpans(0, message.getRight().length(), ClickableSpan.class).length > 0);
             }
 
             @Override
@@ -254,9 +255,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(CharSequence message) {
-                assertTrue(message instanceof Spannable);
-                assertTrue(((Spannable)message).getSpans(0, message.length(), ClickableSpan.class).length > 0);
+            void verifyMessage(Pair<String, Spannable> message) {
+                assertNotNull(message.getRight());
+                assertTrue(((Spannable)message).getSpans(0, message.getRight().length(), ClickableSpan.class).length > 0);
             }
 
             @Override
@@ -289,7 +290,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             };
         }
 
-        abstract void verifyMessage(CharSequence message);
+        abstract void verifyMessage(Pair<String, Spannable> message);
 
         abstract String getUpdates(String url) throws IOException;
 
@@ -298,15 +299,15 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         }
 
         @Override
-        protected CharSequence buildUpdateMessage(JSONArray updates) {
-            CharSequence builder = super.buildUpdateMessage(updates);
-            if(builder.length() == 0)
+        protected Pair<String, Spannable> buildUpdateMessage(JSONArray updates) {
+            Pair<String, Spannable> message = super.buildUpdateMessage(updates);
+            if(message == null || message.getLeft().length() == 0)
                 onEmptyMessage();
-            return builder;
+            return message;
         }
 
         @Override
-        protected void displayUpdateDialog(CharSequence builder) {
+        protected void displayUpdateDialog(Pair<String, Spannable> builder) {
             verifyMessage(builder);
         }
     }

@@ -373,6 +373,19 @@ public class Database extends AbstractDatabase {
         return builder.toString();
     }
 
+    public void tryAddColumn(Table table, Property<?> column, String defaultValue) {
+        try {
+            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
+            String sql = "ALTER TABLE " + table.name + " ADD " +  //$NON-NLS-1$//$NON-NLS-2$
+                    column.accept(visitor, null);
+            if (!TextUtils.isEmpty(defaultValue))
+                sql += " DEFAULT " + defaultValue;
+            database.execSQL(sql);
+        } catch (SQLiteException e) {
+            // ignored, column already exists
+        }
+    }
+
     /**
      * Create table generation SQL
      * @param sql
