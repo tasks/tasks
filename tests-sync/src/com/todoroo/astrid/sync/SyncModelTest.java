@@ -3,31 +3,25 @@ package com.todoroo.astrid.sync;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TagOutstandingDao;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class SyncModelTest extends NewSyncTestCase {
 	
 	public void testCreateTaskMakesUuid() {
 		Task task = createTask();
-		assertTrue(task.getValue(Task.REMOTE_ID) != 0);
+		assertFalse(RemoteModel.NO_UUID.equals(task.getValue(Task.UUID)));
 		assertFalse(TextUtils.isEmpty(task.getValue(Task.PROOF_TEXT)));
 	}
 
 	public void testCreateTagMakesUuid() {
 		TagData tag = createTagData();
-		assertTrue(tag.getValue(TagData.REMOTE_ID) != 0);
+		assertFalse(RemoteModel.NO_UUID.equals(tag.getValue(TagData.UUID)));
 		assertFalse(TextUtils.isEmpty(tag.getValue(TagData.PROOF_TEXT)));		
 	}
 	

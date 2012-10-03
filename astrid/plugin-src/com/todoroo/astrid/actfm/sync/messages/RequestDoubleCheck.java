@@ -1,17 +1,15 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 
-public class RequestDoubleCheck<TYPE extends RemoteModel> implements ClientToServerMessage {
+public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServerMessage<TYPE> {
 
-    private final Class<? extends RemoteModel> modelClass;
-    private final String uuid;
-
-    public RequestDoubleCheck(TYPE entity) {
-        this.modelClass = entity.getClass();
-        this.uuid = entity.getValue(RemoteModel.UUID_PROPERTY);
+    public RequestDoubleCheck(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao) {
+        super(id, modelClass, modelDao);
     }
 
+    @Override
     public void sendMessage() {
         // Send message
     }

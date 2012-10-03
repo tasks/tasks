@@ -17,33 +17,23 @@ import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 
 @SuppressWarnings("nls")
-public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> implements ClientToServerMessage {
+public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
 
-    private final Class<? extends RemoteModel> modelClass;
     private final Class<OE> outstandingClass;
-    private final long id;
-    private final String uuid;
     private final List<OE> changes;
-    private final long pushedAt;
 
     public ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
             OutstandingEntryDao<OE> outstandingDao) {
-        this.modelClass = modelClass;
+        super(id, modelClass, modelDao);
+
         this.outstandingClass = getOutstandingClass(modelClass);
-        this.id = id;
         this.changes = new ArrayList<OE>();
 
-        TYPE entity = getEntity(id, modelDao);
-        if (entity == null) {
-            this.uuid = RemoteModel.NO_UUID;
-            this.pushedAt = 0;
-        } else {
-            this.uuid = entity.getValue(RemoteModel.UUID_PROPERTY);
-            this.pushedAt = entity.getValue(RemoteModel.PUSHED_AT_PROPERTY);
+        if (!RemoteModel.NO_UUID.equals(uuid))
             populateChanges(outstandingDao);
-        }
     }
 
+    @Override
     public void sendMessage() {
         // Process changes list and send to server
     }
@@ -54,18 +44,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     public int numChanges() {
         return changes.size();
-    }
-
-    public String getUUID() {
-        return uuid;
-    }
-
-    public long getPushedAt() {
-        return pushedAt;
-    }
-
-    private TYPE getEntity(long localId, RemoteModelDao<TYPE> modelDao) {
-        return modelDao.fetch(localId, RemoteModel.UUID_PROPERTY, RemoteModel.PUSHED_AT_PROPERTY);
     }
 
     private void populateChanges(OutstandingEntryDao<OE> outstandingDao) {
