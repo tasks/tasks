@@ -148,7 +148,7 @@ public class UpdateMessageService {
         } else {
             String color = ThemeService.getDialogTextColorString();
             final String html = "<html><body style='color: " + color + "'>" +
-                    message + "</body></html>";
+                    message.getLeft() + "</body></html>";
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
