@@ -104,8 +104,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** Pattern for matching filter counts in listing titles */
     private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
 
-    private int mSelectedIndex;
-
     private final HashMap<Filter, Integer> filterCounts;
 
     private FilterDataSourceChangedListener listener;
@@ -220,10 +218,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             ((FilterWithUpdate) to).imageUrl = ((FilterWithUpdate) from).imageUrl;
         else
             to.listingIcon = from.listingIcon;
-    }
-
-    public void setLastSelected(int lastSelected) {
-        mSelectedIndex = lastSelected;
     }
 
     public int adjustFilterCount(Filter filter, int delta) {
@@ -407,9 +401,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 }
             }
 
-            if (mSelectedIndex < getCount()) {
-                listView.setItemChecked(mSelectedIndex, true);
-            }
             notifyDataSetChanged();
         }
     }
