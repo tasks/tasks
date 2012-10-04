@@ -36,6 +36,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -256,11 +257,11 @@ public class StartupService {
      * @param e error that was raised
      */
     public static void handleSQLiteError(Context context, final SQLiteException e) {
-        new AlertDialog.Builder(context)
-        .setTitle(R.string.DB_corrupted_title)
-        .setMessage(R.string.DB_corrupted_body)
-        .setPositiveButton(R.string.DLG_ok, null)
-        .create().show();
+        if (context instanceof Activity) {
+            Activity activity = (Activity) context;
+            DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title),
+                    0, activity.getString(R.string.DB_corrupted_body), null);
+        }
         e.printStackTrace();
     }
 
