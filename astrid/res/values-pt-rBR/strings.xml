@@ -657,7 +657,7 @@
   <string name="cannot_connect_title">Não pode se conectar ao Market.</string>
   <string name="cannot_connect_message">Este aplicativo não pode conectar ao Market. Sua versão do Market deve estar desatualizada. Você pode continuar a usar este aplicativo mas não poderá fazer compras.</string>
   <string name="restoring_transactions">Restaurando transações.</string>
-  <string name="subscriptions_learn_more">Aprenda mais\"\n\"region%</string>
+  <string name="subscriptions_learn_more">Aprenda mais</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 Mês</string>
   <string name="premium_buy_year">1 Ano</string>
@@ -669,7 +669,7 @@
   <string name="premium_description_5">Visualizar os próximos recursos</string>
   <string name="premium_description_6">Apoie a equipe Astrid!</string>
   <string name="premium_speech_bubble_1">Premium vai aumentar sua produtividade!</string>
-  <string name="premium_speech_bubble_2">Contrate um ano e tenha 25% de desconto</string>
+  <string name="premium_speech_bubble_2">Contrate um ano e tenha 25%% de desconto</string>
   <string name="premium_already_subscribed">Você já se inscreveu para o Astrid Premium!</string>
   <string name="premium_login_prompt">Você precisa ter uma conta Astrid.com para solicitar a inscrição para o Premium. Por favor, faça o login ou registre-se.</string>
   <string name="premium_success">Obrigado por se inscrever no Astrid Premium!</string>

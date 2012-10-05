@@ -669,7 +669,7 @@
   <string name="premium_description_5">Bénéficiez des nouvelles fonctionnalités en avant-première</string>
   <string name="premium_description_6">Soutenez l\'équipe Astrid !</string>
   <string name="premium_speech_bubble_1">Premium va booster votre productivité !</string>
-  <string name="premium_speech_bubble_2">Commandez pour un an et économisez 25% !</string>
+  <string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
   <string name="premium_already_subscribed">Vous êtes déjà Astrid Premium !</string>
   <string name="premium_login_prompt">Vous devez avoir un compte Astrid.com pour passer en premium. Connectez-vous ou inscrivez-vous.</string>
   <string name="premium_success">Merci pour votre inscription à Astrid Premium !</string>
