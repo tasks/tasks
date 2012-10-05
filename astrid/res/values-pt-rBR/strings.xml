@@ -657,8 +657,7 @@
   <string name="cannot_connect_title">Não pode se conectar ao Market.</string>
   <string name="cannot_connect_message">Este aplicativo não pode conectar ao Market. Sua versão do Market deve estar desatualizada. Você pode continuar a usar este aplicativo mas não poderá fazer compras.</string>
   <string name="restoring_transactions">Restaurando transações.</string>
-  <string name="subscriptions_learn_more">Aprenda mais</string>
-  <string name="subscriptions_help_url">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
+  <string name="subscriptions_learn_more">Aprenda mais\"\n\"region%</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 Mês</string>
   <string name="premium_buy_year">1 Ano</string>

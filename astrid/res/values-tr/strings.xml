@@ -658,7 +658,6 @@
   <string name="cannot_connect_message">Bu uygulama Market\'e bağlanamıyor. Market sürümünüz güncel olmayabilir. Uygulamayı kullanabilirsiniz ama satınalma işlemi yapamayabilirsiniz.</string>
   <string name="restoring_transactions">İşlemler geri yükleniyor</string>
   <string name="subscriptions_learn_more">Daha fazla bilgi</string>
-  <string name="subscriptions_help_url">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 Ay</string>
   <string name="premium_buy_year">1 Yıl</string>

@@ -658,7 +658,6 @@
   <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
   <string name="restoring_transactions">Restoring transactions</string>
   <string name="subscriptions_learn_more">Learn more</string>
-  <string name="subscriptions_help_url">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 Month</string>
   <string name="premium_buy_year">1 Year</string>
@@ -990,7 +989,7 @@
     <item>En Dos Semanas</item>
     <item>Mes próximo</item>
   </string-array>
-  <string name="repeat_until_title">Repetir hasta...</string>
+  <string name="repeat_until_title">Repetir hasta…</string>
   <string name="repeat_keep_going">Continúe</string>
   <string-array name="repeat_type">
     <item>desde la fecha límite</item>
@@ -998,7 +997,7 @@
   </string-array>
   <string name="repeat_detail_byday">$I en $D</string>
   <string name="repeat_detail_duedate">Cada %s</string>
-  <string name="repeat_detail_duedate_until">Cada %1s\nhasta %2s</string>
+  <string name="repeat_detail_duedate_until">Cada %1$s\nhasta %2$s</string>
   <string name="repeat_detail_completion">%s después de la finalización</string>
   <string name="repeat_forever">Repetir por siempre</string>
   <string name="repeat_until">Repetir hasta %s</string>
@@ -1009,7 +1008,7 @@
   <string name="repeat_rescheduling_dialog_bubble_last_time">Tenía esta tarea recurrente programada hasta %1$s, y ahora ya terminó. %2$s</string>
   <string-array name="repeat_encouragement">
     <item>¡Buen trabajo!</item>
-    <item>¡Guao... Estoy muy orgulloso de usted!</item>
+    <item>¡Guao… Estoy muy orgulloso de usted!</item>
     <item>¡Me encanta cuando usted es productivo!</item>
     <item>¿No se siente bien por haber concluido algo?</item>
   </string-array>

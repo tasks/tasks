@@ -658,7 +658,6 @@
   <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
   <string name="restoring_transactions">Restoring transactions</string>
   <string name="subscriptions_learn_more">Learn more</string>
-  <string name="subscriptions_help_url">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 Month</string>
   <string name="premium_buy_year">1 Year</string>

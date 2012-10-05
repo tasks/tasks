@@ -658,7 +658,6 @@
   <string name="cannot_connect_message">L\'application ne peut pas se connecter au marché. Votre version du marché est peut-être trop vieille. Vous pouvez continuer à utiliser l\'application mais vous ne pourrez pas faire d\'achats.</string>
   <string name="restoring_transactions">Rétablissement des transactions</string>
   <string name="subscriptions_learn_more">Pour en savoir plus</string>
-  <string name="subscriptions_help_url">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 mois</string>
   <string name="premium_buy_year">1 an</string>
