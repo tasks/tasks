@@ -3365,13 +3365,6 @@ msgctxt "subscriptions_learn_more"
 msgid "Learn more"
 msgstr "Aprenda mais"
 
-#, c-format
-msgctxt "subscriptions_help_url"
-msgid ""
-"http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%"
-"region%"
-msgstr ""
-"http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%"
 "region%"
 
 msgctxt "premium_billing_title"

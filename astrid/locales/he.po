@@ -3313,13 +3313,6 @@ msgctxt "subscriptions_learn_more"
 msgid "Learn more"
 msgstr "מידע נוסף"
 
-#, c-format
-msgctxt "subscriptions_help_url"
-msgid ""
-"http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%"
-"region%"
-msgstr ""
-
 msgctxt "premium_billing_title"
 msgid "Astrid Premium"
 msgstr ""
