@@ -1,4 +1,4 @@
-# Spanish translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
+"POT-Creation-Date: 2012-08-06 21:20-0700\n"
 "PO-Revision-Date: 2012-06-12 00:36+0000\n"
 "Last-Translator: Juan David Angarita <Unknown>\n"
-"Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -242,13 +243,8 @@ msgstr "Sincronizando..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
-msgstr ""
-
-#. Sync label subtitle
-msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
-msgstr ""
+msgid "Synchronization"
+msgstr "Sincronización"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -339,7 +335,8 @@ msgstr "Opción de solo WiFi"
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr "La sincronización en segundo plano sólo funciona con el Wifi activado"
+msgstr ""
+"La sincronización en segundo plano sólo funciona con el Wifi activado"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
@@ -400,11 +397,11 @@ msgstr "Cerrar sesión / ¿limpiar datos de sincronización?"
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
-"Ha ocurrido un problema conectando a la red durante la última "
-"sincronización con %s. Por favor inténtelo nuevamente después."
+"Ha ocurrido un problema conectando a la red durante la última sincronización "
+"con %s. Por favor inténtelo nuevamente después."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
@@ -445,8 +442,3 @@ msgstr "cada tres días"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "cada semana"
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "Sincronización"
-

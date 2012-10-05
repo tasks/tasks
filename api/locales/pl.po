@@ -1,4 +1,4 @@
-# Polish translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
+"POT-Creation-Date: 2012-08-06 21:20-0700\n"
 "PO-Revision-Date: 2012-07-10 12:22+0000\n"
 "Last-Translator: noisy <Unknown>\n"
-"Language-Team: pl <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
-"(n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -243,13 +243,8 @@ msgstr "Synchronizacja..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
-msgstr ""
-
-#. Sync label subtitle
-msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
-msgstr ""
+msgid "Synchronization"
+msgstr "Synchronizacja"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -401,11 +396,11 @@ msgstr "Wyloguj / wyczyść dane synchronizacji?"
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
-"Wystąpił problem łączenia się z siecią w trakcie ostatniej synchronizacji"
-" z %s. Spróbuj jeszcze raz."
+"Wystąpił problem łączenia się z siecią w trakcie ostatniej synchronizacji z "
+"%s. Spróbuj jeszcze raz."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
@@ -446,8 +441,3 @@ msgstr "co 3 dni"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "co tydzień"
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "Synchronizacja"
-

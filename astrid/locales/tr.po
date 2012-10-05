@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
+"POT-Creation-Date: 2012-08-06 21:19-0700\n"
 "PO-Revision-Date: 2012-08-03 19:25+0000\n"
 "Last-Translator: Hasan Yılmaz <iletisim@hasanyilmaz.net>\n"
 "Language-Team: tr <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -46,11 +47,11 @@ msgstr "Üzgünüz, bu işlem paylaşılan etiketler için henüz desteklenmiyor
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
-"You are the owner of this shared list! If you delete it, it will be "
-"deleted for all list members. Are you sure you want to continue?"
+"You are the owner of this shared list! If you delete it, it will be deleted "
+"for all list members. Are you sure you want to continue?"
 msgstr ""
-"Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri "
-"için silinecek. Devam etmek istiyor musunuz?"
+"Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri için "
+"silinecek. Devam etmek istiyor musunuz?"
 
 #. slide 29a: menu item to take a picture
 msgctxt "actfm_picture_camera"
@@ -81,11 +82,11 @@ msgstr "Görevi görüntüle?"
 #, c-format
 msgctxt "actfm_view_task_text"
 msgid ""
-"Task was sent to %s! You're currently viewing your own tasks. Do you want"
-" to view this and other tasks you've assigned?"
+"Task was sent to %s! You're currently viewing your own tasks. Do you want to "
+"view this and other tasks you've assigned?"
 msgstr ""
-"Görev gönderildi: %s! Şu anda kendi görevlerinizi görüntülüyorsunuz. Bunu"
-" ve diğer atanmış olduğunuz görevleri görmek istiyor musunuz?"
+"Görev gönderildi: %s! Şu anda kendi görevlerinizi görüntülüyorsunuz. Bunu ve "
+"diğer atanmış olduğunuz görevleri görmek istiyor musunuz?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
@@ -218,11 +219,11 @@ msgstr "Liste adı girin"
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
 msgid ""
-"You need to be logged in to Astrid.com to share lists! Please log in or "
-"make this a private list."
+"You need to be logged in to Astrid.com to share lists! Please log in or make "
+"this a private list."
 msgstr ""
-"Liste paylaşmak için Astrid.com'da oturum açmış olmalısınız! Lütfen "
-"oturum açın ya da bunu özel bir liste yapın."
+"Liste paylaşmak için Astrid.com'da oturum açmış olmalısınız! Lütfen oturum "
+"açın ya da bunu özel bir liste yapın."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -232,8 +233,8 @@ msgid ""
 "instantly see when people get stuff done!"
 msgstr ""
 "Alışveriş listelerinizi, parti planlarınızı ya da ekip projelerinizi "
-"paylaşmak için Astrid 'i kullanın ve kimlerin işleri tamamladığını anında"
-" görün!"
+"paylaşmak için Astrid 'i kullanın ve kimlerin işleri tamamladığını anında "
+"görün!"
 
 #. task sharing dialog: window title
 msgctxt "actfm_EPA_title"
@@ -284,6 +285,13 @@ msgstr "Özel..."
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
 msgstr "Şununla paylaş:"
+
+#. Toast when assigning a task
+#, c-format
+msgctxt "actfm_EPA_assigned_toast"
+msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
+msgstr ""
+"Gönderilen yer: %1$s (bunu sen ve %2$s arasındaki listede görebilirsin)."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
@@ -389,8 +397,8 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
-"Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve "
-"diğerleriyle görev paylaşımı yapmanızı sağlar."
+"Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle "
+"görev paylaşımı yapmanızı sağlar."
 
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
@@ -454,14 +462,13 @@ msgstr "Parola"
 
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
-msgid "Sign Up"
-msgstr ""
+msgid "Create New Account"
+msgstr "Yeni Hesap Oluştur"
 
 #. share login: Login Title
-#, fuzzy
 msgctxt "actfm_ALA_login_title"
-msgid "Sign In"
-msgstr "Oturum aç!"
+msgid "Login to Astrid.com"
+msgstr "Astrid.com'a Bağlan"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
@@ -472,34 +479,6 @@ msgstr "Kullanmak istediğiniz Google hesabını seçin:"
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
 msgstr "Lütfen oturum açın:"
-
-#. ================================================ Featured Lists
-#, fuzzy
-msgctxt "actfm_feat_list_clone"
-msgid "Copy list"
-msgstr "Listeye Göre"
-
-msgctxt "actfm_feat_list_suffix"
-msgid "(Copy)"
-msgstr ""
-
-#, fuzzy
-msgctxt "actfm_feat_list_cloning"
-msgid "Copying..."
-msgstr "Kodlanıyor..."
-
-msgctxt "actfm_feat_list_clone_success"
-msgid "Success!"
-msgstr ""
-
-msgctxt "actfm_feat_list_task_clone_success"
-msgid "Task copied"
-msgstr ""
-
-#, fuzzy
-msgctxt "actfm_feat_list_clone_empty"
-msgid "No tasks to copy"
-msgstr "Görevlerin tekrarlanmasına izin ver"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
@@ -541,77 +520,9 @@ msgid ""
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Astrid.com?"
 msgstr ""
-"Google Görevleri ile eşleştirme yapıyordunuz. Her iki hizmetle eşleştirme"
-" yapmanız istenmeyen sonuçlara sebep olabilir. Astrid.com ile eşleştirmek"
-" istediğinize emin misiniz?"
-
-#. account types
-msgctxt "actfm_account_type"
-msgid "Account Type"
-msgstr ""
-
-msgctxt "actfm_account_info"
-msgid "Account Info"
-msgstr ""
-
-msgctxt "actfm_account_info_summary"
-msgid "Status and options"
-msgstr ""
-
-#, fuzzy
-msgctxt "account_type_title_not_logged_in"
-msgid "Sign up for a free account"
-msgstr "Alanadı hesabı için Google Apps"
-
-#, fuzzy
-msgctxt "account_type_summary_not_logged_in"
-msgid "Access tasks online, share lists and delegate"
-msgstr ""
-"Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve "
-"diğerleriyle görev paylaşımı yapmanızı sağlar."
-
-msgctxt "actfm_account_premium"
-msgid "Premium"
-msgstr ""
-
-msgctxt "actfm_account_basic"
-msgid "Basic"
-msgstr ""
-
-#, fuzzy
-msgctxt "actfm_account_none"
-msgid "None"
-msgstr "Hiçbiri/Sahipsiz"
-
-msgctxt "actfm_inapp_billing"
-msgid "Upgrade to Premium"
-msgstr ""
-
-msgctxt "actfm_inapp_billing_summary"
-msgid "Attach files, voice backups, premium support & more"
-msgstr ""
-
-#. Sharing
-msgctxt "share_with_facebook"
-msgid "Like on Facebook"
-msgstr ""
-
-msgctxt "share_with_twitter"
-msgid "Follow on Twitter"
-msgstr ""
-
-msgctxt "share_with_google"
-msgid "Share on Google+"
-msgstr ""
-
-#, fuzzy
-msgctxt "share_title"
-msgid "Share the love!"
-msgstr "Benimle Paylaşılan"
-
-msgctxt "share_speech_bubble"
-msgid "By sharing, you'll help others be more productive!"
-msgstr ""
+"Google Görevleri ile eşleştirme yapıyordunuz. Her iki hizmetle eşleştirme "
+"yapmanız istenmeyen sonuçlara sebep olabilir. Astrid.com ile eşleştirmek "
+"istediğinize emin misiniz?"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -697,16 +608,12 @@ msgstr "Yedeklerimi nasıl geri yüklerim?"
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_how_to_restore_dialog"
 msgid ""
-"You need to add the Astrid Power Pack to manage and restore your backups."
-" As a favor, Astrid also automatically backs up your tasks, just in case."
+"You need to add the Astrid Power Pack to manage and restore your backups. As "
+"a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
-"Yedeklerinizi yönetmek ve geri yüklemek için Astrid Güç Paketi'ni "
-"eklemeniz gerekmektedir. Bunun karşılığında Astrid görevlerinizi "
-"kendiliğinden yedekleyecektir."
-
-msgctxt "backup_BPr_cloud_already_logged_in"
-msgid "You already have cloud backup on Astrid.com!"
-msgstr ""
+"Yedeklerinizi yönetmek ve geri yüklemek için Astrid Güç Paketi'ni eklemeniz "
+"gerekmektedir. Bunun karşılığında Astrid görevlerinizi kendiliğinden "
+"yedekleyecektir."
 
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
@@ -728,11 +635,6 @@ msgstr "Görevleri İçe Aktar"
 msgctxt "backup_BAc_export"
 msgid "Export Tasks"
 msgstr "Görevleri Dışa Aktar"
-
-#. backup activity cloud (Astrid.com) option
-msgctxt "backup_BAc_cloud"
-msgid "Click for free cloud backup on Astrid.com"
-msgstr ""
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
@@ -864,8 +766,8 @@ msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
 msgstr ""
-"Astrid Google Play'deki en son sürüme yükseltilmelidir! Lütfen devam "
-"etmeden bunu yapın ya da bir kaç saniye bekleyin."
+"Astrid Google Play'deki en son sürüme yükseltilmelidir! Lütfen devam etmeden "
+"bunu yapın ya da bir kaç saniye bekleyin."
 
 #. Button for going to Market
 msgctxt "DLG_to_market"
@@ -1017,12 +919,6 @@ msgctxt "TLA_menu_friends"
 msgid "People"
 msgstr "Kişiler"
 
-#. Menu: Featured Lists
-#, fuzzy
-msgctxt "TLA_menu_featured_lists"
-msgid "Featured Lists"
-msgstr "Liste paylaş"
-
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
@@ -1034,10 +930,9 @@ msgid "Tutorial"
 msgstr "Kılavuz"
 
 #. Menu: Settings
-#, fuzzy
 msgctxt "TLA_menu_settings"
-msgid "Account & Settings"
-msgstr "Öntanımlı ayar"
+msgid "Settings"
+msgstr "Ayarlar"
 
 #. slide 30b: Menu: Support
 msgctxt "TLA_menu_support"
@@ -1424,21 +1319,18 @@ msgid "Notes"
 msgstr "Notlar"
 
 #. Task note hint
-#, fuzzy
 msgctxt "TEA_notes_hint"
-msgid "Enter task notes..."
+msgid "Enter Task Notes..."
 msgstr "Görev Notlarını Girin..."
 
 #. Estimated time label
-#, fuzzy
 msgctxt "TEA_estimatedDuration_label"
-msgid "How long will it take?"
+msgid "How Long Will it Take?"
 msgstr "Ne kadar Sürecek?"
 
 #. Elapsed time label
-#, fuzzy
 msgctxt "TEA_elapsedDuration_label"
-msgid "Time already spent on task"
+msgid "Time Already Spent on Task"
 msgstr "Bu görev için harcanan zaman"
 
 #. Menu: Save
@@ -1501,10 +1393,9 @@ msgctxt "TEA_urgency:0"
 msgid "No deadline"
 msgstr "Son tarih yok"
 
-#, fuzzy
 msgctxt "TEA_urgency:1"
-msgid "Specific day"
-msgstr "Belirli Gün"
+msgid "Specific Day"
+msgstr "Belirlenmiş Gün"
 
 msgctxt "TEA_urgency:2"
 msgid "Today"
@@ -1518,19 +1409,16 @@ msgctxt "TEA_urgency:4"
 msgid "(day after)"
 msgstr "(ertesi gün)"
 
-#, fuzzy
 msgctxt "TEA_urgency:5"
-msgid "Next week"
+msgid "Next Week"
 msgstr "Gelecek Hafta"
 
-#, fuzzy
 msgctxt "TEA_urgency:6"
-msgid "In two weeks"
-msgstr "iki hafta içinde"
+msgid "In Two Weeks"
+msgstr "2 Hafta İçinde"
 
-#, fuzzy
 msgctxt "TEA_urgency:7"
-msgid "Next month"
+msgid "Next Month"
 msgstr "Gelecek Ay"
 
 msgctxt "TEA_no_time"
@@ -1611,11 +1499,6 @@ msgctxt "TEA_control_share"
 msgid "Share With Friends"
 msgstr "Arkadaşlarla Paylaş"
 
-#, fuzzy
-msgctxt "TEA_control_hidden_section"
-msgid "----Hide Always----"
-msgstr "----Daha fazla----"
-
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
 msgstr "Listemde göster"
@@ -1636,10 +1519,9 @@ msgid "More"
 msgstr "Daha Fazla"
 
 #. slide 15c: Text when no activity to show
-#, fuzzy
 msgctxt "TEA_no_activity"
-msgid "No activity"
-msgstr "Gösterecek öğe yok"
+msgid "No Activity to Show."
+msgstr "Gösterilecek Etkinlik Yok."
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
@@ -1665,8 +1547,7 @@ msgstr "Bunu yapmanın yollarını bulmak için bana dokunun!"
 
 msgctxt "WSV_not_online"
 msgid ""
-"I can do more when connected to the Internet. Please check your "
-"connection."
+"I can do more when connected to the Internet. Please check your connection."
 msgstr ""
 "İnternete bağlanırsam daha fazlasını yapabilirim. Lütfen bağlantınızı "
 "denetleyin."
@@ -1727,7 +1608,8 @@ msgctxt "MCA_ignore_body"
 msgid ""
 "You've ignored several missed calls. Should Astrid stop asking you about "
 "them?"
-msgstr "Birkaç çağrıyı yoksaydınız. Astrid bunlar hakkında soru sormayı kessin mi?"
+msgstr ""
+"Birkaç çağrıyı yoksaydınız. Astrid bunlar hakkında soru sormayı kessin mi?"
 
 #. Missed call: dialog to ignore all missed calls ignore all button
 msgctxt "MCA_ignore_all"
@@ -1747,11 +1629,10 @@ msgstr "Cevapsız çağrı alanı"
 #. slide 49c: Missed call: preference description
 msgctxt "MCA_missed_calls_pref_desc_enabled"
 msgid ""
-"Astrid will notify you about missed calls and offer to remind you to call"
-" back"
+"Astrid will notify you about missed calls and offer to remind you to call "
+"back"
 msgstr ""
-"Astrid cevapsız çağrıları size bildirecek ve geri aramanız için "
-"hatırlatacak"
+"Astrid cevapsız çağrıları size bildirecek ve geri aramanız için hatırlatacak"
 
 msgctxt "MCA_missed_calls_pref_desc_disabled"
 msgid "Astrid will not notify you about missed calls"
@@ -1839,19 +1720,6 @@ msgctxt "EPr_title"
 msgid "Astrid: Settings"
 msgstr "Astrid: Ayarlar"
 
-#, fuzzy
-msgctxt "EPr_title_short"
-msgid "Settings"
-msgstr "Ayarlar"
-
-msgctxt "EPr_share_astrid"
-msgid "Tell others about Astrid"
-msgstr ""
-
-msgctxt "EPr_share_astrid_summary"
-msgid "Share about Astrid on your favorite social network"
-msgstr ""
-
 #. slide 46a
 msgctxt "EPr_deactivated"
 msgid "deactivated"
@@ -1861,27 +1729,6 @@ msgstr "devre dışı"
 msgctxt "EPr_appearance_header"
 msgid "Appearance"
 msgstr "Görünüm"
-
-#. Preference Category: Appearance Summary
-msgctxt "EPr_appearance_summary"
-msgid "Themes, Widgets, Task Rows, Edit Screen"
-msgstr ""
-
-#. FAQ Preference title
-msgctxt "EPr_faq_title"
-msgid "FAQ"
-msgstr ""
-
-#. Account status preference (%s -> account type)
-#, c-format
-msgctxt "EPr_account_title"
-msgid "Account: %s"
-msgstr ""
-
-#. Support preferences summary
-msgctxt "EPr_support_summary"
-msgid "Tutorial, FAQ, About Astrid"
-msgstr ""
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
@@ -1897,12 +1744,6 @@ msgstr "Akıllı hatırlatıcılar için doğrulamayı göster"
 msgctxt "EPr_fontSize_desc"
 msgid "Font size on the main listing page"
 msgstr "Ana listedeki yazı boyutu"
-
-#. Preferemce: Show task edit confirmation toasts
-#, fuzzy
-msgctxt "EPr_showEditToasts_title"
-msgid "Show task edit confirmations"
-msgstr "İleriki doğrulamaları gösterme"
 
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
@@ -1979,10 +1820,10 @@ msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr "Fikirler için olan aramalar sekmesi, sekme tıklandığında belirecek"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed only when manually requested"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
-"Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle "
-"belirecek"
+"Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle belirecek"
 
 #. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
@@ -2020,6 +1861,15 @@ msgctxt "EPr_labs_desc"
 msgid "Try and configure experimental features"
 msgstr "Deneysel özellikleri dene ve yapılandır"
 
+#. Preference: swipe between lists performance
+msgctxt "EPr_swipe_lists_performance_title"
+msgid "Swipe between lists"
+msgstr "Listeler arası sürükleme"
+
+msgctxt "EPr_swipe_lists_performance_subtitle"
+msgid "Controls the memory performance of swipe between lists"
+msgstr "Listeler arası sürüklemenin bellek başarımını denetler"
+
 #. slide 49g: Preferences: use the system contact picker for task assignment
 msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
@@ -2028,9 +1878,10 @@ msgstr "Kişi seçiciyi kullan"
 #. slide 49b
 msgctxt "EPr_use_contact_picker_desc_enabled"
 msgid ""
-"The system contact picker option will be displayed in the task assignment"
-" window"
-msgstr "Sistemin kişi seçici seçeneği görev atama penceresinde görüntülenecek"
+"The system contact picker option will be displayed in the task assignment "
+"window"
+msgstr ""
+"Sistemin kişi seçici seçeneği görev atama penceresinde görüntülenecek"
 
 msgctxt "EPr_use_contact_picker_desc_disabled"
 msgid "The system contact picker option will not be displayed"
@@ -2072,28 +1923,9 @@ msgctxt "EPr_cal_start_at_due_time"
 msgid "Start calendar events at due time"
 msgstr "Takvim olaylarını bitiş tarihinde başlat"
 
-msgctxt "EPr_force_phone_layout"
-msgid "Use phone layout"
-msgstr ""
-
-#, fuzzy
-msgctxt "EPr_show_featured_lists"
-msgid "Show featured lists"
-msgstr "Liste paylaş"
-
 msgctxt "EPr_swipe_lists_restart_alert"
 msgid "You will need to restart Astrid for this change to take effect"
 msgstr "Bu değişikliğin etkin olabilmesi için Astrid yeniden başlatılmalı"
-
-#. Swipe between lists
-#. Preference: swipe between lists performance
-msgctxt "EPr_swipe_lists_performance_title"
-msgid "Swipe between lists"
-msgstr "Listeler arası sürükleme"
-
-msgctxt "EPr_swipe_lists_performance_subtitle"
-msgid "Controls the memory performance of swipe between lists"
-msgstr "Listeler arası sürüklemenin bellek başarımını denetler"
 
 msgctxt "EPr_swipe_lists_performance_mode:0"
 msgid "No swipe"
@@ -2126,19 +1958,6 @@ msgstr "Öntanımlı ayar"
 msgctxt "EPr_swipe_lists_performance_desc:3"
 msgid "Uses more system resources"
 msgstr "Daha çok sistem kaynağı kullan"
-
-#, fuzzy
-msgctxt "swipe_lists_helper_title"
-msgid "Swipe between lists"
-msgstr "Listeler arası sürükleme"
-
-msgctxt "swipe_lists_helper_header"
-msgid "Swipe left or right to quickly move between lists"
-msgstr ""
-
-msgctxt "swipe_lists_helper_subtitle"
-msgid "Change settings in Settings -&gt; Appearance"
-msgstr ""
 
 #. Format string for displaying the currently selected preference. $1 is name
 #. of selected mode, $2 is description
@@ -2267,7 +2086,8 @@ msgstr "Tamamlanan görevler için Takvim olaylarını sil"
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
 msgid "Do you really want to delete all your events for completed tasks?"
-msgstr "Tamamlanmış görevlerden bütün olayları silmek istediğinize emin misiniz?"
+msgstr ""
+"Tamamlanmış görevlerden bütün olayları silmek istediğinize emin misiniz?"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_gcal_status"
@@ -2290,10 +2110,9 @@ msgstr "%d takvim olayı silindi!"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
-#, fuzzy
 msgctxt "AOA_title"
-msgid "Add-ons"
-msgstr "Eklentiler"
+msgid "Astrid: Add Ons"
+msgstr "Astrid: Eklentiler"
 
 #. Add-on Activity: author for internal authors
 msgctxt "AOA_internal_author"
@@ -2370,24 +2189,18 @@ msgctxt "p_forums"
 msgid "Forums"
 msgstr "Forum"
 
-#. Title of "Premium" option in settings
-msgctxt "p_premium"
-msgid "Premium"
-msgstr ""
-
 #. ============================================================= Misc ==
 #. Displayed when task killer found. %s => name of the application
 #, c-format
 msgctxt "task_killer_help"
 msgid ""
-"It looks like you are using an app that can kill processes (%s)! If you "
-"can, add Astrid to the exclusion list so it doesn't get killed. "
-"Otherwise, Astrid might not let you know when your tasks are due.\n"
+"It looks like you are using an app that can kill processes (%s)! If you can, "
+"add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
+"might not let you know when your tasks are due.\n"
 msgstr ""
 "Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! "
-"Mümkünse, Astrid'i programın muafiyet listesine ekleyin ki kapatılamasın."
-" Aksi takdirde, Astrid görevlerin tarihi geldiğinde size "
-"bildiremeyebilir.\n"
+"Mümkünse, Astrid'i programın muafiyet listesine ekleyin ki kapatılamasın. "
+"Aksi takdirde, Astrid görevlerin tarihi geldiğinde size bildiremeyebilir.\n"
 
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
@@ -2403,14 +2216,13 @@ msgstr "Astrid İş/Görev Listesi"
 #. itself.
 msgctxt "marketplace_description"
 msgid ""
-"Astrid is the much loved open-source todo list / task manager designed to"
-" help you get stuff done. It features reminders, tags, sync, Locale plug-"
-"in, a widget and more."
+"Astrid is the much loved open-source todo list / task manager designed to "
+"help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
+"a widget and more."
 msgstr ""
-"Astrid çok sevilen, yapacaklarınızı yapmanıza yardım eden açık kaynak "
-"kodlu bir hatırlatma / görev yönetimi programıdır. Hatırlatmalar, "
-"etiketlemeler, senkronizasyon, Locale eklentisi, widget ve daha fazla "
-"özelliğe sahiptir."
+"Astrid çok sevilen, yapacaklarınızı yapmanıza yardım eden açık kaynak kodlu "
+"bir hatırlatma / görev yönetimi programıdır. Hatırlatmalar, etiketlemeler, "
+"senkronizasyon, Locale eklentisi, widget ve daha fazla özelliğe sahiptir."
 
 msgctxt "DB_corrupted_title"
 msgid "Corrupted Database"
@@ -2420,21 +2232,13 @@ msgctxt "DB_corrupted_body"
 msgid ""
 "Uh oh! It looks like you may have a corrupted database. If you see this "
 "error regularly, we suggest you clear all data (Settings-&gt;Manage All "
-"Tasks-&gt;Clear all data) and restore your tasks from a backup "
-"(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
+"Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-"
+"&gt;Backup-&gt;Import Tasks) in Astrid."
 msgstr ""
 "Olamaz! Bozuk bir veritabanına sahip görünüyorsunuz. Bu hatayı sık sık "
-"alıyorsanız, tüm veriyi temizlemenizi (Ayarlar-&gt;Tüm Görevleri "
-"Yönet-&gt;Tüm veriyi temizle) ve görevlerinizi Astrid içindeki bir "
-"yedekten geri yüklemenizi (Ayarlar-&gt;Yedekleme-&gt;Görevleri İçe Aktar)"
-" tavsiye ediyoruz."
-
-#, fuzzy
-msgctxt "market_unavailable"
-msgid "Unfortunately the market is not available for your system."
-msgstr ""
-"Malesef market işletim sisteminiz için mevcut değil.\n"
-"Mümkünse sesli aramayı başka bir kaynaktan indirin."
+"alıyorsanız, tüm veriyi temizlemenizi (Ayarlar-&gt;Tüm Görevleri Yönet-"
+"&gt;Tüm veriyi temizle) ve görevlerinizi Astrid içindeki bir yedekten geri "
+"yüklemenizi (Ayarlar-&gt;Yedekleme-&gt;Görevleri İçe Aktar) tavsiye ediyoruz."
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -2442,10 +2246,6 @@ msgstr ""
 msgctxt "EPr_defaults_header"
 msgid "New Task Defaults"
 msgstr "Yeni Görev Öntanımlıları"
-
-msgctxt "EPr_defaults_summary"
-msgid "Importance, Due Date, Add to Calendar"
-msgstr ""
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
@@ -2680,9 +2480,9 @@ msgid ""
 "This screen lets you create a new filters. Add criteria using the button "
 "below, short or long-press them to adjust, and then click \"View\"!"
 msgstr ""
-"Bu ekran yeni süzgeçler oluşturmanızı sağlar. Aşağıdaki tuşa basarak "
-"kriter belirleyin, kısa ya da uzun basarak hızını ayarlayın ve sonra "
-"\"Görüntüle\" ye basın!"
+"Bu ekran yeni süzgeçler oluşturmanızı sağlar. Aşağıdaki tuşa basarak kriter "
+"belirleyin, kısa ya da uzun basarak hızını ayarlayın ve sonra \"Görüntüle\" "
+"ye basın!"
 
 #. slide 30c: Filter Button: add new
 msgctxt "CFA_button_add"
@@ -2916,13 +2716,13 @@ msgstr "Eşleştirilecek Google hesabı mevcut değil."
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
 msgid ""
-"To view your tasks with indentation and order preserved, go to the "
-"Filters page and select a Google Tasks list. By default, Astrid uses its "
-"own sort settings for tasks."
+"To view your tasks with indentation and order preserved, go to the Filters "
+"page and select a Google Tasks list. By default, Astrid uses its own sort "
+"settings for tasks."
 msgstr ""
 "Görevleri, sıralaması korunmuş ve girintili görebilmek için süzgeçler "
-"sayfasına gidin ve bir Google Görevler Listesine ekleyin. Öntanımlı "
-"olarak, Astrid görevler için kendi sınıflama ayarlarını kullanır."
+"sayfasına gidin ve bir Google Görevler Listesine ekleyin. Öntanımlı olarak, "
+"Astrid görevler için kendi sınıflama ayarlarını kullanır."
 
 #. Sign In Button
 msgctxt "gtasks_GLA_signIn"
@@ -2966,17 +2766,17 @@ msgstr ""
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
 msgid ""
-"Sorry, we had trouble communicating with Google servers. Please try again"
-" later."
+"Sorry, we had trouble communicating with Google servers. Please try again "
+"later."
 msgstr ""
-"Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha"
-" sonra yeniden deneyin."
+"Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha "
+"sonra yeniden deneyin."
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
 msgid ""
-"You may have encountered a captcha. Try logging in from the browser, then"
-" come back to try again:"
+"You may have encountered a captcha. Try logging in from the browser, then "
+"come back to try again:"
 msgstr ""
 "Doğrulama (CAPTCHA) ile karşılaşmış olabilirsiniz. İnternet gezgini ile "
 "giriş yapıp sonra tekrar buradan deneyin:"
@@ -2996,8 +2796,8 @@ msgstr "Astrid: Google Görevleri"
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
 msgid ""
-"Google's Task API is in beta and has encountered an error. The service "
-"may be down, please try again later."
+"Google's Task API is in beta and has encountered an error. The service may "
+"be down, please try again later."
 msgstr ""
 "Google Görev API Beta sürümü bir hata ile karşılaştı. Hizmet çalışmıyor "
 "olabilir, lütfen sonra tekrar deneyin."
@@ -3006,17 +2806,17 @@ msgstr ""
 #, c-format
 msgctxt "gtasks_error_accountNotFound"
 msgid ""
-"Account %s not found--please log out and log back in from the Google "
-"Tasks settings."
+"Account %s not found--please log out and log back in from the Google Tasks "
+"settings."
 msgstr ""
-"%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar"
-" giriş yapın."
+"%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar "
+"giriş yapın."
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
 msgid ""
-"Unable to authenticate with Google Tasks. Please check your account "
-"password or try again later."
+"Unable to authenticate with Google Tasks. Please check your account password "
+"or try again later."
 msgstr ""
 "Google Görevlere giriş başarısız. Lütfen hesap parolanızı kontrol edip "
 "tekrar deneyin."
@@ -3024,11 +2824,11 @@ msgstr ""
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
 msgid ""
-"Error in your phone's account manager. Please log out and log back in "
-"from the Google Tasks settings."
+"Error in your phone's account manager. Please log out and log back in from "
+"the Google Tasks settings."
 msgstr ""
-"Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google "
-"Görevler Ayarlarından tekrar giriş yapın."
+"Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google Görevler "
+"Ayarlarından tekrar giriş yapın."
 
 #. Error when authorization error happens in background sync
 msgctxt "gtasks_error_background_sync_auth"
@@ -3045,9 +2845,9 @@ msgid ""
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Google Tasks?"
 msgstr ""
-"Şu anda Astrid.com ile eşleştirme yapıyorsunuz. Şu aklınızda olsun ki iki"
-" hizmet ile de eşleştirme yapmak bazı istenmeyen durumlara sebep "
-"olabilir. Google Görevleri ile eşleştirme yapmak istiyor musunuz?"
+"Şu anda Astrid.com ile eşleştirme yapıyorsunuz. Şu aklınızda olsun ki iki "
+"hizmet ile de eşleştirme yapmak bazı istenmeyen durumlara sebep olabilir. "
+"Google Görevleri ile eşleştirme yapmak istiyor musunuz?"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3069,19 +2869,15 @@ msgid "Tap to edit or share this list"
 msgstr "Değiştirmek veya paylaşmak için listeye dokunun"
 
 #. slide 26c: Shown the first time a user sees the list settings tab
-#, fuzzy
 msgctxt "help_popover_collaborators"
-msgid ""
-"People you share with can help\n"
-"you build your list or finish tasks"
+msgid "People you share with can help you build your list or finish tasks"
 msgstr ""
-"Paylaştığınız insanlar listenizi oluşturmanıza veya görevleri bitirmenize"
-" yardımcı olabilir"
+"Paylaştığınız insanlar listenizi oluşturmanıza veya görevleri bitirmenize "
+"yardımcı olabilir"
 
 #. Shown after user adds a task on tablet
-#, fuzzy
 msgctxt "help_popover_add_lists"
-msgid "Tap to add a list"
+msgid "Tap add a list"
 msgstr "Bir liste eklemek için dokunun"
 
 #. Shown after a user adds a task on phones
@@ -3095,7 +2891,8 @@ msgstr "Tarih ve saati seçmek için bu kısayola dokunun"
 
 msgctxt "help_popover_when_row"
 msgid "Tap anywhere on this row to access options like repeat"
-msgstr "Tekrarlama gibi özellikler için bu satırdaki herhangi bir yere dokunun"
+msgstr ""
+"Tekrarlama gibi özellikler için bu satırdaki herhangi bir yere dokunun"
 
 #. Login activity
 msgctxt "welcome_login_title"
@@ -3107,20 +2904,14 @@ msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
 msgstr "Astridi kullanarak kabul ettiğiniz metin:"
 
-#, fuzzy
 msgctxt "welcome_login_tos_link"
-msgid "Terms of Service"
+msgid "\"Terms of Service\""
 msgstr "\"Kullanıcı Sözleşmesi\""
 
 #. slide 7e
 msgctxt "welcome_login_pw"
-msgid "Sign up with email"
-msgstr ""
-
-#, fuzzy
-msgctxt "welcome_sign_in"
-msgid "Sign in"
-msgstr "Oturum aç!"
+msgid "Login with Username/Password"
+msgstr "Kullanıcı adı/Parola ile giriş yap"
 
 #. slide 7f
 msgctxt "welcome_login_later"
@@ -3141,13 +2932,13 @@ msgstr "Hayır, teşekkürler"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
-"Sign in to get the most out of Astrid! For free, you get online backup, "
-"full synchronization with Astrid.com, the ability to add tasks via email,"
-" and you can even share task lists with friends!"
+"Sign in to get the most out of Astrid! For free, you get online backup, full "
+"synchronization with Astrid.com, the ability to add tasks via email, and you "
+"can even share task lists with friends!"
 msgstr ""
 "Astridden mümkün olduğunca faydalanmak için giriş yapın. Ücretsiz olarak "
-"çevirimiçi yedekleme, Astrid.com ile senkronizasyon, email ile görev "
-"ekleme ve arkadaşlar ile görev listesi paylaşma özelliklerine ulaşın."
+"çevirimiçi yedekleme, Astrid.com ile senkronizasyon, email ile görev ekleme "
+"ve arkadaşlar ile görev listesi paylaşma özelliklerine ulaşın."
 
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
@@ -3461,14 +3252,9 @@ msgstr "Atandı..."
 #. full license governing this code.
 #. ================================================== EditPreferences ==
 #. slide 32j: Preference Category: Power Pack
-#, fuzzy
 msgctxt "EPr_powerpack_header"
-msgid "Premium and Misc. Settings"
-msgstr "Hatırlatıcı Ayarları"
-
-msgctxt "EPr_powerpack_summary"
-msgid "Missed call reminders, voice input and miscellaneous settings"
-msgstr ""
+msgid "Astrid Power Pack"
+msgstr "Astrid Güç Paketi"
 
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
@@ -3484,13 +3270,14 @@ msgstr "Kullanım verisi raporlanmadı"
 msgctxt "EPr_statistics_desc_enabled"
 msgid "Help us make Astrid better by sending anonymous usage data"
 msgstr ""
-"Anonim kullanım istatistiklerini göndererek Astrid'i geliştirmemize "
-"yardımcı olun"
+"Anonim kullanım istatistiklerini göndererek Astrid'i geliştirmemize yardımcı "
+"olun"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 msgctxt "speech_err_network"
-msgid "Network error! Speech recognition requires a network connection to work."
+msgid ""
+"Network error! Speech recognition requires a network connection to work."
 msgstr ""
 "Ağ hatası! Konuşmanın tanınması çalışması için bir ağ bağlantısına gerek "
 "duyar."
@@ -3557,8 +3344,8 @@ msgstr "Ses oynatıcı bulunamadı"
 
 msgctxt "search_market_pdf"
 msgid ""
-"No PDF reader was found. Would you like to download a PDF reader from the"
-" Android Market?"
+"No PDF reader was found. Would you like to download a PDF reader from the "
+"Android Market?"
 msgstr ""
 "PDF okuyucu bulunamadı. Google Play'den bir PDF okuyucu indirmek iste "
 "misiniz?"
@@ -3572,8 +3359,8 @@ msgid ""
 "No MS Office reader was found. Would you like to download an MS Office "
 "reader from the Android Market?"
 msgstr ""
-"MS Office okuyucu bulunamadı. Google Play'den bir MS Office okuyucu "
-"indirmek iste misiniz?"
+"MS Office okuyucu bulunamadı. Google Play'den bir MS Office okuyucu indirmek "
+"iste misiniz?"
 
 msgctxt "search_market_ms_title"
 msgid "No MS Office reader found"
@@ -3603,18 +3390,13 @@ msgctxt "file_browser_title"
 msgid "Choose a file"
 msgstr "Bir dosya seçin"
 
-#, fuzzy
-msgctxt "dir_browser_title"
-msgid "Choose a directory"
-msgstr "Bir dosya seçin"
-
 msgctxt "file_browser_err_permissions"
 msgid ""
 "Permissions error! Please make sure you have not blocked Astrid from "
 "accessing the SD card."
 msgstr ""
-"İzin hatası! Astrid'in SD kartınıza erişiminin engellenmediğinden emin "
-"olun lütfen."
+"İzin hatası! Astrid'in SD kartınıza erişiminin engellenmediğinden emin olun "
+"lütfen."
 
 msgctxt "file_add_picture"
 msgid "Attach a picture"
@@ -3648,167 +3430,9 @@ msgctxt "file_err_download"
 msgid "Error downloading file"
 msgstr "Dosya indirilirken hata"
 
-msgctxt "file_err_no_directory"
-msgid ""
-"Whoops! Looks like the files directory doesn't exist. Please choose a "
-"directory to save files to in the Astrid Preferences."
-msgstr ""
-
 msgctxt "file_err_show"
 msgid "Sorry, the system does not yet support this type of file"
 msgstr "Üzgünüm, sistem henüz bu dosya türünü desteklemiyor"
-
-msgctxt "file_dir_dialog_ok"
-msgid "Use this directory"
-msgstr ""
-
-#, fuzzy
-msgctxt "file_dir_dialog_default"
-msgid "Reset to default"
-msgstr "Varsayılanlara sıfırla"
-
-msgctxt "p_files_dir"
-msgid "Premium Downloads Directory"
-msgstr ""
-
-#. Description for file download directory preference. %s -> chosen directory
-#, c-format
-msgctxt "p_files_dir_desc"
-msgid "Task attachments saved to: %s"
-msgstr ""
-
-#, fuzzy
-msgctxt "p_files_dir_desc_default"
-msgid "Default directory"
-msgstr "Öntanımlı Aciliyet"
-
-#. in app billing
-msgctxt "billing_not_supported_title"
-msgid "Can't make purchases"
-msgstr ""
-
-msgctxt "billing_not_supported_message"
-msgid ""
-"The Market billing service is not available at this time. You can "
-"continue to use this app but you won't be able to make purchases."
-msgstr ""
-
-msgctxt "subscriptions_not_supported_title"
-msgid "Can't purchase subscriptions"
-msgstr ""
-
-msgctxt "subscriptions_not_supported_message"
-msgid ""
-"The Market billing service on this device does not support subscriptions "
-"at this time. You can subscribe to Astrid Premium at "
-"http://astrid.com/premium."
-msgstr ""
-
-msgctxt "cannot_connect_title"
-msgid "Can't connect to Market"
-msgstr ""
-
-msgctxt "cannot_connect_message"
-msgid ""
-"This app cannot connect to Market. Your version of Market may be out of "
-"date. You can continue to use this app but you won't be able to make "
-"purchases."
-msgstr ""
-
-msgctxt "restoring_transactions"
-msgid "Restoring transactions"
-msgstr ""
-
-#, fuzzy
-msgctxt "subscriptions_learn_more"
-msgid "Learn more"
-msgstr "Daha çok öğrenmek için dokunun!"
-
-#, c-format
-msgctxt "subscriptions_help_url"
-msgid "http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%region%"
-msgstr ""
-
-#, fuzzy
-msgctxt "premium_billing_title"
-msgid "Astrid Premium"
-msgstr "Astrid Ücretli 4x4"
-
-#, fuzzy
-msgctxt "premium_buy_month"
-msgid "1 Month"
-msgstr "bir ay"
-
-msgctxt "premium_buy_year"
-msgid "1 Year"
-msgstr ""
-
-msgctxt "premium_description_header"
-msgid "Do more with premium!"
-msgstr ""
-
-msgctxt "premium_description_1"
-msgid ""
-"Attach files to to-dos \n"
-"(pdfs, doc, ppt…)"
-msgstr ""
-
-msgctxt "premium_description_2"
-msgid "Syncs files with astrid.com"
-msgstr ""
-
-msgctxt "premium_description_3"
-msgid "Add attachments via email"
-msgstr ""
-
-msgctxt "premium_description_4"
-msgid "Save voice notes as audio files"
-msgstr ""
-
-msgctxt "premium_description_5"
-msgid "Preview upcoming features"
-msgstr ""
-
-msgctxt "premium_description_6"
-msgid "Support the Astrid Team!"
-msgstr ""
-
-msgctxt "premium_speech_bubble_1"
-msgid "Premium will power up your productivity!"
-msgstr ""
-
-#, c-format
-msgctxt "premium_speech_bubble_2"
-msgid "Order one year and save 25%!"
-msgstr ""
-
-msgctxt "premium_already_subscribed"
-msgid "You are already subscribed to Astrid Premium!"
-msgstr ""
-
-msgctxt "premium_login_prompt"
-msgid ""
-"You need to have an Astrid.com account in order to subscribe to premium. "
-"Please log in or sign up."
-msgstr ""
-
-msgctxt "premium_success"
-msgid "Thanks for subscribing to Astrid Premium!"
-msgstr ""
-
-msgctxt "premium_success_with_server_error"
-msgid ""
-"Thanks for subscribing to Astrid Premium! The new features will be "
-"unlocked for you on astrid.com soon, and should be available on your "
-"phone right away."
-msgstr ""
-
-msgctxt "premium_verification_error"
-msgid ""
-"The premium subscription for this Google Play account is connected to a "
-"different user. To link additional emails to your account, visit "
-"astrid.com/users/profile"
-msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3901,7 +3525,8 @@ msgstr "Producteev'e giriş yap"
 
 #. Instructions: Producteev login
 msgctxt "producteev_PLA_body"
-msgid "Sign in with your existing Producteev account, or create a new account!"
+msgid ""
+"Sign in with your existing Producteev account, or create a new account!"
 msgstr "Mevcut Producteev hesabı ile giriş yap"
 
 #. Producteev Terms Link
@@ -4222,8 +3847,7 @@ msgstr "Ben Astrid! Daha çalışkan olman için buradayım!"
 msgctxt "rmd_reengage_dialog_empty_options:2"
 msgid "You look busy! Let me take some of those tasks off of your plate."
 msgstr ""
-"Meşgul görünüyorsun! Görevlerinden bazılarını listenden kaldırmama izin "
-"ver."
+"Meşgul görünüyorsun! Görevlerinden bazılarını listenden kaldırmama izin ver."
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
@@ -4249,10 +3873,6 @@ msgctxt "rmd_EPr_alerts_header"
 msgid "Reminder Settings"
 msgstr "Hatırlatıcı Ayarları"
 
-msgctxt "rmd_EPr_alerts_summary"
-msgid "Quiet hours, snooze options, persistence level"
-msgstr ""
-
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders Enabled?"
@@ -4274,11 +3894,11 @@ msgid "Quiet Hours Start"
 msgstr "Sessiz saatlerin başlangıcı"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
-#, fuzzy, c-format
+#, c-format
 msgctxt "rmd_EPr_quiet_hours_start_desc"
 msgid ""
 "Notifications will be silent after %s.\n"
-"Note: vibrations are controlled by the Vibrate on Alert setting"
+"Note: vibrations are controlled by the setting below!"
 msgstr ""
 "%s sonrasında bildirimler sessizleştirilecek.\n"
 " Not: titreşimler aşağıdaki ayarla belirlenecek."
@@ -4305,9 +3925,9 @@ msgid "Default Reminder"
 msgstr "Öntanımlı Hatırlatma"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
-#, fuzzy, c-format
+#, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
-msgid "Notifications for tasks without due times will appear at %s"
+msgid "Notifications for tasks without duetimes will appear at %s"
 msgstr "Son tarihi olmayan görevlerin bildirimleri %s iken görünecektir."
 
 #. Reminder Preference: Notification Ringtone Title
@@ -4368,14 +3988,12 @@ msgstr "Çoklu çalan hatırlatmalar için en yüksek ses seviyesi"
 msgctxt "rmd_EPr_multiple_maxvolume_desc_true"
 msgid "Astrid will max out the volume for multiple-ring reminders"
 msgstr ""
-"Çoklu çalan hatırlatmalar için Astrid ses seviyesini en yükseğe "
-"çıkaracaktır"
+"Çoklu çalan hatırlatmalar için Astrid ses seviyesini en yükseğe çıkaracaktır"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
-#, fuzzy
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
-msgid "Astrid will use the system setting for the volume"
+msgid "Astrid will use the system-setting for the volume"
 msgstr "Astrid ses seviyesi için sistem ayarlarını kullanacak"
 
 #. Reminder Preference: Vibrate Title
@@ -4979,7 +4597,8 @@ msgid "A spot of tea while you work on this?"
 msgstr "Bunu yaparken bir çaya ne dersin?"
 
 msgctxt "reminder_responses:24"
-msgid "If only you had already done this, then you could go outside and play."
+msgid ""
+"If only you had already done this, then you could go outside and play."
 msgstr "Bunu yapmış olsaydın şimdi dışarıda geziyor olabilirdin."
 
 msgctxt "reminder_responses:25"
@@ -5076,9 +4695,8 @@ msgid "Repeat Interval"
 msgstr "Yineleme Aralığı"
 
 #. slide 19b
-#, fuzzy
 msgctxt "repeat_never"
-msgid "Make repeating?"
+msgid "Make Repeating?"
 msgstr "Yineleme mi?"
 
 #. slide 20f
@@ -5255,7 +4873,8 @@ msgstr "%1$s Bu yinelenen görevi yeniden zamanladım: %2$s"
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble_last_time"
 msgid "You had this repeating until %1$s, and now you're all done. %2$s"
-msgstr "Bu yinelemeyi %1$s tarihine kadar alacaksınız, ve şimdi işiniz bitti. %2$s"
+msgstr ""
+"Bu yinelemeyi %1$s tarihine kadar alacaksınız, ve şimdi işiniz bitti. %2$s"
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
@@ -5360,8 +4979,7 @@ msgid ""
 "\n"
 " Error Message: %s"
 msgstr ""
-"Üzgünüz, kullanıcı adınızı doğrulamada hata oluştu. Lütfen tekrar "
-"deneyin. \n"
+"Üzgünüz, kullanıcı adınızı doğrulamada hata oluştu. Lütfen tekrar deneyin. \n"
 "\n"
 " Hata Mesajı: %s"
 
@@ -5377,8 +4995,8 @@ msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
 msgstr ""
-"Bağlantı Hatası! İnternet bağlantınızı kontrol edin ya da muhtemel "
-"çözümler için RTM sunucularını kontrol edin (status.rememberthemilk.com)"
+"Bağlantı Hatası! İnternet bağlantınızı kontrol edin ya da muhtemel çözümler "
+"için RTM sunucularını kontrol edin (status.rememberthemilk.com)"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -5565,14 +5183,14 @@ msgid ""
 "different capitalizations. We think you may have intended them to be the "
 "same list, so we've combined the duplicates. Don't worry though: the "
 "original lists are simply renamed with numbers (e.g. Shopping_1, "
-"Shopping_2). If you don't want this, you can simply delete the new "
-"combined list!"
+"Shopping_2). If you don't want this, you can simply delete the new combined "
+"list!"
 msgstr ""
-"Farklı büyük harflere sahip aynı isimli listeler olduğunu farkettik. "
-"Belki de aynı isimli olması gerekir diye bunları birleştirdik. Merak "
-"etme, orjinallere birşey olmadı, sadece isimleri değişti. (Alışveriş "
-"listesi_1,Alışveriş listesi_2 vb) İstediğin bu değilse tek yapman gereken"
-" birleşmiş listeyi silmek!"
+"Farklı büyük harflere sahip aynı isimli listeler olduğunu farkettik. Belki "
+"de aynı isimli olması gerekir diye bunları birleştirdik. Merak etme, "
+"orjinallere birşey olmadı, sadece isimleri değişti. (Alışveriş "
+"listesi_1,Alışveriş listesi_2 vb) İstediğin bu değilse tek yapman gereken "
+"birleşmiş listeyi silmek!"
 
 #. Header for tag settings
 msgctxt "tag_settings_title"
@@ -5586,15 +5204,13 @@ msgid "Activity: %s"
 msgstr "Etkinlik: %s"
 
 #. Delete button for tag settings
-#, fuzzy
 msgctxt "tag_delete_button"
-msgid "Delete list"
+msgid "Delete List"
 msgstr "Listeyi Sil"
 
 #. slide 28d: Leave button for tag settings
-#, fuzzy
 msgctxt "tag_leave_button"
-msgid "Leave this list"
+msgid "Leave This List"
 msgstr "Bu Listeden Çık"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -5976,11 +5592,11 @@ msgid "Astrid Scrollable Premium"
 msgstr ""
 
 msgctxt "PPW_widget_custom_label"
-msgid "Astrid Custom Launcher Premium"
+msgid "Astrid Scrollable Premium for Custom Launchers"
 msgstr ""
 
 msgctxt "PPW_widget_custom_launcherpro_label"
-msgid "Astrid Launcher Pro Premium"
+msgid "Astrid Scrollable Premium 4x4 for Launcher Pro"
 msgstr ""
 
 msgctxt "PPW_configure_title"
@@ -5999,11 +5615,6 @@ msgctxt "PPW_disable_encouragements"
 msgid "Hide encouragements"
 msgstr "Teşvikleri gizle"
 
-#, fuzzy
-msgctxt "PPW_show_dates"
-msgid "Show due dates"
-msgstr "son tarihten itibaren"
-
 msgctxt "PPW_filter"
 msgid "Select Filter"
 msgstr "Süzgeç Seç"
@@ -6018,11 +5629,10 @@ msgstr "Gecikmiş:"
 
 msgctxt "PPW_old_astrid_notice"
 msgid ""
-"You need at least version 3.6 of Astrid in order to use this widget. "
-"Sorry!"
+"You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
 msgstr ""
-"Bu bileşeni kullanmak için Astrid'in son sürümü olan 3.6'ya ihtiyacınız "
-"var. Üzgünüm!"
+"Bu bileşeni kullanmak için Astrid'in son sürümü olan 3.6'ya ihtiyacınız var. "
+"Üzgünüm!"
 
 msgctxt "PPW_encouragements:0"
 msgid "Hi there!"
@@ -6154,8 +5764,8 @@ msgstr "Sonra"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
-"Share lists with friends! Unlock the free Power Pack when 3 friends sign "
-"up with Astrid."
+"Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
+"with Astrid."
 msgstr ""
 "Listeleri arkadaşlarınızla paylaşın! Güç Paketi, 3 arkadaşınız Astrid'le "
 "oturum açtığında ücretsiz olacak."
@@ -6167,53 +5777,3 @@ msgstr "Güç Paketi'ni ücretsiz alın!"
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr "Listeleri paylaş!"
-
-msgctxt "PPW_api_level"
-msgid "Sorry! This widget is only supported on Android 3.0 or higher."
-msgstr ""
-
-msgctxt "EPr_widget_enabled_title"
-msgid "Enable/Disable Widgets"
-msgstr ""
-
-#, fuzzy
-msgctxt "PPW_restart_for_enabled_state"
-msgid "You may need to restart your phone for this change to take effect."
-msgstr "Bu değişikliğin etkin olabilmesi için Astrid yeniden başlatılmalı"
-
-#~ msgctxt "actfm_ALA_signup_title"
-#~ msgid "Create New Account"
-#~ msgstr "Yeni Hesap Oluştur"
-
-#~ msgctxt "actfm_ALA_login_title"
-#~ msgid "Login to Astrid.com"
-#~ msgstr "Astrid.com'a Bağlan"
-
-#~ msgctxt "TEA_urgency:1"
-#~ msgid "Specific Day"
-#~ msgstr "Belirlenmiş Gün"
-
-#~ msgctxt "TEA_urgency:5"
-#~ msgid "Next Week"
-#~ msgstr "Gelecek Hafta"
-
-#~ msgctxt "TEA_urgency:6"
-#~ msgid "In Two Weeks"
-#~ msgstr "2 Hafta İçinde"
-
-#~ msgctxt "TEA_urgency:7"
-#~ msgid "Next Month"
-#~ msgstr "Gelecek Ay"
-
-#~ msgctxt "AOA_title"
-#~ msgid "Astrid: Add Ons"
-#~ msgstr "Astrid: Eklentiler"
-
-#~ msgctxt "welcome_login_pw"
-#~ msgid "Login with Username/Password"
-#~ msgstr "Kullanıcı adı/Parola ile giriş yap"
-
-#~ msgctxt "EPr_powerpack_header"
-#~ msgid "Astrid Power Pack"
-#~ msgstr "Astrid Güç Paketi"
-
