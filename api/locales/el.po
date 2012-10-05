@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-06 21:20-0700\n"
+"POT-Creation-Date: 2012-10-02 15:44-0700\n"
 "PO-Revision-Date: 2012-03-01 08:24+0000\n"
 "Last-Translator: Tim Su <tim@todoroo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
-"X-Generator: Launchpad (build 15780)\n"
+"X-Launchpad-Export-Date: 2012-10-05 00:21+0000\n"
+"X-Generator: Launchpad (build 16061)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -240,8 +240,13 @@ msgstr "Γίνεται συγχρονισμός..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Synchronization"
+msgid "Sync & backup"
 msgstr "Συγχρονισμός"
+
+#. Sync label subtitle
+msgctxt "SyP_summary"
+msgid "Astrid.com, Google Tasks, saved data, local backup"
+msgstr ""
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -262,43 +267,43 @@ msgstr ""
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
+msgid "Not logged in"
 msgstr ""
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
+msgid "Sync ongoing..."
 msgstr ""
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
 msgctxt "sync_status_success"
 msgid ""
-"Last Sync:\n"
+"Last sync:\n"
 "%s"
 msgstr ""
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
-msgid "Failed On: %s"
+msgid "Failed on: %s"
 msgstr ""
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
+msgid "Sync w/ errors: %s"
 msgstr ""
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
+msgid "Last successful sync: %s"
 msgstr ""
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
-msgid "Never Synchronized!"
+msgid "Never synchronized!"
 msgstr ""
 
 #. Options Group Label
@@ -308,7 +313,7 @@ msgstr "Επιλογές"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
+msgid "Background sync"
 msgstr ""
 
 #. Preference: Synchronization Interval Description (when disabled)
@@ -324,7 +329,7 @@ msgstr ""
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
+msgid "Wifi only setting"
 msgstr ""
 
 #. Preference: Background Wifi Description (enabled)
@@ -344,12 +349,12 @@ msgstr "Ενέργειες"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
+msgid "Synchronize now"
 msgstr ""
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
+msgid "Log in & synchronize!"
 msgstr ""
 
 #. Sync: Prefix string before logged in identifier
@@ -359,7 +364,7 @@ msgstr ""
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
-msgid "Status Report"
+msgid "Status report"
 msgstr ""
 
 #. Sync: last error click for more
@@ -369,12 +374,12 @@ msgstr ""
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
-msgid "Send Report"
+msgid "Send report"
 msgstr ""
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
-msgid "Log Out"
+msgid "Log out"
 msgstr "Αποσύνδεση"
 
 #. Sync: Clear Data Description
@@ -384,7 +389,7 @@ msgstr "Διαγραφή όλων των δεδομένων συγχρονισμ
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
+msgid "Log out/clear synchronization data?"
 msgstr "Αποσύνδεση / διαγραφή δεδομένων συγχρονισμού"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
