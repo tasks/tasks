@@ -246,8 +246,10 @@ public class BillingActivity extends FragmentActivity {
         }
     }
 
+    @SuppressWarnings("nls")
     private Dialog createDialog(int titleId, int messageId) {
-        String helpUrl = replaceLanguageAndRegion(getString(R.string.subscriptions_help_url));
+        String helpUrl = "http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%";
+        helpUrl = replaceLanguageAndRegion(helpUrl);
         if (BillingConstants.DEBUG) {
             Log.i("billing-activity-url", helpUrl); //$NON-NLS-1$
         }
