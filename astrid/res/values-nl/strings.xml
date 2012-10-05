@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Delen</string>
   <string name="actfm_person_hint">Naam contactpersoon of e-mail adres</string>
   <string name="actfm_person_or_tag_hint">Contactpersoon of Gedeelde Lijst</string>
-  <string name="actfm_toast_success">Opgeslagen op de Server</string>
-  <string name="actfm_tag_operation_disabled">Sorry, maar deze handeling wordt nog niet ondersteund voor gedeelde tags</string>
   <string name="actfm_tag_operation_owner_delete">Je bent de eigenaar van deze gedeelde lijst! Als jij de lijst verwijdert, wordt deze verwijderd voor alle leden van de lijst. Weet je zeker dat je verder wilt gaan?</string>
   <string name="actfm_picture_camera">Maak een Foto</string>
   <string name="actfm_picture_gallery">Maak een keuze uit de Gallerij</string>
   <string name="actfm_picture_clear">Verwijder Foto</string>
-  <string name="actfm_FLA_menu_refresh">Vernieuw lijsten</string>
   <string name="actfm_view_task_title">Taak bekijken?</string>
   <string name="actfm_view_task_text">Taak is naar %s gestuurd! Je bekijkt op dit moment je eigen taken. Wil je deze en andere taken die je hebt toegewezen bekijken?</string>
   <string name="actfm_view_task_ok">Bekijk toegewezen taken</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Mijn Gedeelde Taken</string>
   <string name="actfm_my_shared_tasks_empty">Geen gedeelde taken</string>
   <string name="TVA_add_comment">Voeg een opmerking toe</string>
-  <string name="UAd_title_comment">%1$s m.b.t.: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Taken</item>
     <item>Activiteit</item>
@@ -28,45 +23,31 @@
   <string name="actfm_TVA_no_members_alert">Privé: raak aan om te veranderen of om de lijst te delen</string>
   <string name="actfm_TVA_menu_refresh">Vernieuwen</string>
   <string name="actfm_TVA_tag_label">Lijst</string>
-  <string name="actfm_TVA_tag_owner_label">Eigenaar Lijst:</string>
-  <string name="actfm_TVA_tag_owner_none">geen</string>
   <string name="actfm_TVA_members_label">Gedeeld met:</string>
   <string name="actfm_TVA_members_hint">Deel met iedereen met een e-mailadres</string>
   <string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
   <string name="actfm_TVA_silence_label">Stille waarschuwingen</string>
-  <string name="actfm_TVA_list_icon_label">Lijst Icoon:</string>
   <string name="actfm_TVA_tag_description_label">Omschrijving</string>
   <string name="actfm_TVA_tag_settings_label">Voorkeuren</string>
   <string name="actfm_TVA_tag_description_hint">Type hier een beschrijving</string>
   <string name="actfm_TVA_tag_name_hint">Geef de lijst een naam</string>
   <string name="actfm_TVA_login_to_share">Je moet bij Astrid.com zijn ingelogd om lijsten te delen! Log alsjeblieft in, of maak dit een privé lijst.</string>
   <string name="actfm_EPA_intro">Gebruik Astrid om boodschappenlijstjes, feestplanningen of projecten te delen en zie gelijk wanneer mensen hun taken voltooien!</string>
-  <string name="actfm_EPA_title">Delen/toewijzen</string>
-  <string name="actfm_EPA_save">Opslaan &amp; Delen</string>
-  <string name="actfm_EPA_assign_label">Wie</string>
   <string name="actfm_EPA_assign_label_long">Wie zou dit moeten doen?</string>
   <string name="actfm_EPA_assign_me">Ik</string>
   <string name="actfm_EPA_unassigned">Niet toegewezen</string>
   <string name="actfm_EPA_choose_contact">Kies een contactpersoon</string>
   <string name="actfm_EPA_task_rabbit">Besteed dit uit!</string>
-  <string name="actfm_EPA_assign_custom">Aangepast...</string>
   <string name="actfm_EPA_share_with">Deel met:</string>
-
   <string name="actfm_EPA_collaborators_header">Deel met Vrienden</string>
   <string name="actfm_EPA_list">Lijst: %s</string>
-  <string name="actfm_EPA_assigned_hint">Naam van contactpersoon</string>
   <string name="actfm_EPA_message_text">Tekst voor uitnodiging:</string>
   <string name="actfm_EPA_message_body">Help mij dit gedaan te krijgen!</string>
   <string name="actfm_EPA_assign_header_members">Leden Lijst</string>
   <string name="actfm_EPA_assign_header_friends">Astrid Vrienden</string>
-  <string name="actfm_EPA_tag_label">Een gedeelde tag aanmaken?</string>
-  <string name="actfm_EPA_tag_hint">(bv. Rare Hoedjes Club)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">Taak gedeeld met %s</string>
-  <string name="actfm_EPA_saved_toast">Voorkeuren Personen opgeslagen</string>
   <string name="actfm_EPA_invalid_email">Ongeldig e-mailadres: %s</string>
-  <string name="actfm_EPA_invalid_tag">Lijst niet gevonden: %s</string>
   <string name="actfm_EPA_login_to_share">Je moet ingelogd zijn op Astrid.com om taken te kunnen delen!</string>
   <string name="actfm_EPA_login_button">Aanmelden</string>
   <string name="actfm_EPA_dont_share_button">Niet delen</string>
@@ -74,28 +55,40 @@
   <string name="actfm_ALA_body">Astrid.com geeft je online toegang tot je taken, deel en verdeel met anderen.</string>
   <string name="actfm_ALA_fb_login">Aanmelden via Facebook</string>
   <string name="actfm_ALA_gg_login">Aanmelden via Google</string>
-  <string name="actfm_ALA_pw_login">Geen gebruik maken van Google of Facebook?</string>
-  <string name="actfm_ALA_pw_link">Registreer hier</string>
-  <string name="actfm_ALA_pw_new">Nieuw account aanmaken?</string>
-  <string name="actfm_ALA_pw_returning">Bestaand account?</string>
-  <string name="actfm_ALA_name_label">Naam</string>
   <string name="actfm_ALA_firstname_label">Voornaam</string>
   <string name="actfm_ALA_lastname_label">Achternaam</string>
   <string name="actfm_ALA_email_label">E-mailadres</string>
-  <string name="actfm_ALA_username_email_label">Gebruikersnaam/e-mailadres</string>
   <string name="actfm_ALA_password_label">Wachtwoord</string>
-  <string name="actfm_ALA_signup_title">Nieuw account aanmaken</string>
-  <string name="actfm_ALA_login_title">Aanmelden bij Astrid.com</string>
+  <string name="actfm_ALA_signup_title">Sign Up</string>
+  <string name="actfm_ALA_login_title">Sign In</string>
   <string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
   <string name="actfm_OLA_prompt">A.u.b. met Google verbinden:</string>
+  <string name="actfm_feat_list_clone">Copy list</string>
+  <string name="actfm_feat_list_suffix">(Copy)</string>
+  <string name="actfm_feat_list_cloning">Copying...</string>
+  <string name="actfm_feat_list_clone_success">Success!</string>
+  <string name="actfm_feat_list_task_clone_success">Task copied</string>
+  <string name="actfm_feat_list_clone_empty">No tasks to copy</string>
   <string name="actfm_status_title_logged_in">Statis - Ingelogd als %s</string>
   <string name="actfm_APr_header">Astrid.com</string>
   <string name="actfm_https_title">HTTPS gebruiken</string>
   <string name="actfm_https_enabled">HTTPS ingeschakeld (langzamer)</string>
   <string name="actfm_https_disabled">HTTPS uitgeschakeld (sneller)</string>
-  <string name="actfm_notification_title">Astrid.com synchronisatie</string>
-  <string name="actfm_notification_comments">Nieuw commentaar ontvangen; klik voor meer details</string>
   <string name="actfm_dual_sync_warning">Op dit moment synchroniseer je met Google Tasks. Let erop dat synchroniseren met beide diensten in sommige gevallen kan leiden tot onverwachte resultaten. Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
+  <string name="actfm_account_type">Account type</string>
+  <string name="actfm_account_info">Account info</string>
+  <string name="actfm_account_info_summary">Status and options</string>
+  <string name="account_type_title_not_logged_in">Sign up for a free account</string>
+  <string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
+  <string name="actfm_account_premium">Premium</string>
+  <string name="actfm_account_basic">Basic</string>
+  <string name="actfm_inapp_billing">Upgrade to Premium</string>
+  <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
+  <string name="share_with_facebook">Like on Facebook</string>
+  <string name="share_with_twitter">Follow on Twitter</string>
+  <string name="share_with_google">Share on Google+</string>
+  <string name="share_title">Share the love!</string>
+  <string name="share_speech_bubble">By sharing, you\'ll help others be more productive!</string>
   <string name="alarm_ACS_label">Herinneringen</string>
   <string name="alarm_ACS_button">Voeg Alarm toe</string>
   <string-array name="reminders_alarm">
@@ -111,12 +104,12 @@
   <string name="backup_BPr_auto_title">Automatische back-ups</string>
   <string name="backup_BPr_auto_disabled">Automatische back-ups uitgeschakeld</string>
   <string name="backup_BPr_auto_enabled">Back-up dagelijks uitvoeren</string>
-  <string name="backup_BPr_how_to_restore">Hoe back-ups te herstellen?</string>
-  <string name="backup_BPr_how_to_restore_dialog">Voor het beheren van back-ups heeft u het Astrid Power Pack nodig. Astrid maakt voor de veiligheid wel altijd een automatische kopie van de taken, voor het geval dat.</string>
+  <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
   <string name="backup_BAc_label">Back-ups beheren</string>
   <string name="backup_BAc_title">Back-ups beheren</string>
   <string name="backup_BAc_import">Taken importeren</string>
   <string name="backup_BAc_export">Taken exporteren</string>
+  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
   <string name="backup_TXI_error">Importfout</string>
   <string name="export_toast">Back-up gemaakt van %1$s naar %2$s.</string>
   <string name="export_toast_no_tasks">Geen taken om te exporteren</string>
@@ -125,7 +118,6 @@
   <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n %3$s geïmporteerd,\n %4$s bestaan al\n %5$s hadden fouten\n</string>
   <string name="import_progress_title">Importeren…</string>
   <string name="import_progress_read">Taak %d lezen...</string>
-  <string name="DLG_error_opening">Item niet gevonden:</string>
   <string name="DLG_error_sdcard">Toegang geweigerd tot map: %s</string>
   <string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
   <string name="import_file_prompt">Selecteer een back-up om te herstellen</string>
@@ -139,23 +131,17 @@
   <string name="DLG_upgrading">Taken bijwerken...</string>
   <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
   <string name="DLG_please_update">Er is een nieuwe versie van Astrid beschikbaar in de Android Market! Update Astrid voor u verder gaat, of wacht een paar seconden.</string>
-  <string name="DLG_to_market">Ga naar Market</string>
   <string name="DLG_accept">Accoord</string>
   <string name="DLG_decline">Afwijzen</string>
   <string name="DLG_eula_title">Astrid Algemene Voorwaarden</string>
   <string name="DLG_please_wait">Even geduld a.u.b.</string>
   <string name="DLG_loading">Laden…</string>
-  <string name="DLG_dismiss">Afwijzen</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Annuleren</string>
   <string name="DLG_more">Meer</string>
   <string name="DLG_undo">Ongedaan Maken</string>
   <string name="DLG_warning">Waarschuwing</string>
   <string name="WID_dateButtonUnset">Klikken om in te stellen</string>
-  <string name="WID_dateButtonLabel">$D $T</string>
-  <string name="WID_disableButton">Uitschakelen</string>
-  <string name="ENE_label">Notities</string>
-  <string name="ENE_label_comments">Opmerkingen</string>
   <string name="ENA_no_comments">Niets om weer te geven</string>
   <string name="ENA_no_user">Iemand</string>
   <string name="ENA_refresh_comments">Opmerkingen vernieuwen</string>
@@ -167,11 +153,10 @@
   <string name="TLA_menu_search">Zoek</string>
   <string name="TLA_menu_lists">Lijsten</string>
   <string name="TLA_menu_friends">Personen</string>
+  <string name="TLA_menu_featured_lists">Featured Lists</string>
   <string name="TLA_menu_suggestions">Suggesties</string>
-  <string name="TLA_menu_tutorial">Handleiding</string>
   <string name="TLA_menu_settings">Instellingen</string>
   <string name="TLA_menu_support">Ondersteuning</string>
-  <string name="TLA_search_label">In deze lijst zoeken</string>
   <string name="TLA_custom">Aangepast</string>
   <string name="TLA_quick_add_hint">Taak toevoegen</string>
   <string name="TLA_quick_add_hint_assign">Voeg iets toe voor %s</string>
@@ -204,8 +189,6 @@
   <string name="TAd_actionEditTask">Bewerken</string>
   <string name="TAd_contextEditTask">Taak bewerken</string>
   <string name="TAd_contextCopyTask">Taak kopiëren</string>
-  <string name="TAd_contextHelpTask">Hulp zoeken</string>
-  <string name="TAd_contextDeleteTask">Taak verwijderen</string>
   <string name="TAd_contextUndeleteTask">Taak herstellen</string>
   <string name="TAd_contextPurgeTask">Taak opruimen</string>
   <string name="SSD_title">Sorteren en verborgen taken</string>
@@ -223,11 +206,7 @@
   <string name="SSD_save_temp">Eenmalig</string>
   <string name="SSD_save_always">Altijd</string>
   <string name="FSA_label">Astrid Lijst of Filter</string>
-  <string name="FLA_title">Lijsten</string>
-  <string name="FLA_loading">Filters laden...</string>
   <string name="FLA_context_shortcut">Snelkoppeling op bureaublad maken</string>
-  <string name="FLA_menu_search">Taken zoeken...</string>
-  <string name="FLA_menu_help">Help</string>
   <string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
   <string name="FLA_shortcut_dialog">Naam snelkoppeling:</string>
   <string name="FLA_search_hint">Naar taken zoeken</string>
@@ -236,13 +215,9 @@
   <string name="FLA_new_filter">Nieuw Filter</string>
   <string name="FLA_new_list">Nieuwe lijst</string>
   <string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>
-  <string name="TEA_view_title">Astrid: \'%s\' bewerken</string>
-  <string name="TEA_view_titleNew">Nieuwe Taak</string>
-  <string name="TEA_title_label">Titel</string>
   <string name="TEA_when_header_label">Wanneer</string>
   <string name="TEA_title_hint">Samenvatting taak</string>
   <string name="TEA_importance_label">Belangrijkheid</string>
-  <string name="TEA_urgency_label">Einddatum</string>
   <string name="TEA_urgency_specific_time">Specifieke tijd?</string>
   <string name="TEA_urgency_none">Geen</string>
   <string name="TEA_hideUntil_label">Taak Weergeven</string>
@@ -260,8 +235,6 @@
   <string name="TEA_menu_comments">Opmerkingen</string>
   <string name="TEA_onTaskSave_due">Taak opgeslagen: eind %s</string>
   <string name="TEA_onTaskSave_notDue">Taak opgeslagen</string>
-  <string name="TEA_onTaskCancel">Taakbewerking afgebroken</string>
-  <string name="TEA_onTaskDelete">Taak verwijderd!</string>
   <string name="TEA_tab_activity">Activiteit</string>
   <string name="TEA_tab_more">Meer</string>
   <string name="TEA_tab_web">Ideeën</string>
@@ -283,7 +256,6 @@
     <item>Week voor einddatum</item>
     <item>Specifieke dag/tijd</item>
   </string-array>
-  <string name="TEA_control_title">Taak Titel</string>
   <string name="TEA_control_who">Wie</string>
   <string name="TEA_control_when">Wanneer</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -294,21 +266,15 @@
   <string name="TEA_control_reminders">Herinneringen</string>
   <string name="TEA_control_timer">Tijd Controlers</string>
   <string name="TEA_control_share">Deel Met Vrienden</string>
+  <string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
   <string name="hide_until_prompt">Laat zien in mijn lijst</string>
-  <string name="TEA_addons_text">Meer functies</string>
-  <string name="TEA_addons_button">Power Pack downloaden</string>
-  <string name="TEA_more">Meer</string>
-  <string name="TEA_no_activity">Geen activiteiten weer te geven.</string>
+  <string name="TEA_no_activity">Geen taken</string>
   <string name="TEA_load_more">Laad meer...</string>
   <string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
-  <string name="TEA_date_and_time">Datum/tijd</string>
   <string name="TEA_new_task">Nieuwe Taak</string>
   <string name="WSV_click_to_load">Klik hier om een manier te zoeken om dit af te krijgen!</string>
   <string name="WSV_not_online">Ik kan meer als ik verbonden ben met internet. Controleer je internetverbinding.</string>
   <string name="TEA_contact_error">Sorry! We konden geen emailadres vinden voor de geselecteerde contactpersoon.</string>
-  <string name="InA_title">Welkom bij Astrid!</string>
-  <string name="InA_agree">Accoord</string>
-  <string name="InA_disagree">Niet accoord</string>
   <string name="MCA_title">%1$s\nheeft gebeld (%2$s)</string>
   <string name="MCA_return_call">Bel nu</string>
   <string name="MCA_add_task">Bel later</string>
@@ -331,13 +297,19 @@
     <item>Je kan het!</item>
     <item>Je kan altijd een smsje sturen..</item>
   </string-array>
-  <string name="HlA_get_support">Ondersteuning</string>
   <string name="UpS_changelog_title">Nieuw in Astrid</string>
   <string name="UpS_updates_title">Laatste Astrid nieuws</string>
   <string name="UpS_no_activity_log_in">Log in om een geschiedenis\nvan je vooruitgang en activiteiten\nop gedeelde lijsten te bekijken.</string>
   <string name="EPr_title">Astrid: Instellingen</string>
+  <string name="EPr_title_short">Settings</string>
+  <string name="EPr_share_astrid">Tell others about Astrid</string>
+  <string name="EPr_share_astrid_summary">Share about Astrid on your favorite social network</string>
   <string name="EPr_deactivated">uitgeschakeld</string>
   <string name="EPr_appearance_header">Uiterlijk</string>
+  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
+  <string name="EPr_faq_title">FAQ</string>
+  <string name="EPr_account_title">Account: %s</string>
+  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
   <string name="EPr_fontSize_title">Taaklijst lettertypegrootte</string>
   <string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
   <string name="EPr_fontSize_desc">Lettertypegrootte takenlijst</string>
@@ -349,35 +321,35 @@
   <string name="EPr_showNotes_desc_enabled">Notities altijd weergeven</string>
   <string name="EPr_compressTaskRows_title">Compacte Taakrij</string>
   <string name="EPr_compressTaskRows_desc">Comprimeer taak rijen zodat de titel past</string>
-  <string name="EPr_userLegacyImportance_title">Gebruik eerdere prioriteit stijl</string>
-  <string name="EPr_userLegacyImportance_desc">Gebruik eerdere prioriteit stijl</string>
   <string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
   <string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
   <string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
   <string name="EPr_ideaAuto_title">Ideeëntabblad Automatisch Laden</string>
   <string name="EPr_ideaAuto_desc_enabled">Zoekopdrachten voor ideeën tablad zullen worden weergeven wanneer er op de tab is geklikt</string>
   <string name="EPr_ideaAuto_desc_disabled">Web zoekopdrachten voor Ideeëntabblad worden alleen uitgevoerd als daar handmatig om gevraagd wordt</string>
+  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
+  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
+  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
+  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   <string name="EPr_theme_title">Kleuren Thema</string>
   <string name="EPr_theme_desc">Nu: %s</string>
   <string name="EPr_theme_desc_unsupported">Instelllingen vereisen Android 2.0+</string>
   <string name="EPr_theme_widget_title">Widget Thema</string>
   <string name="EPr_taskRowPrefs_title">Taakrij Weergave</string>
-  <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">Probeer expirimentele functies</string>
-  <string name="EPr_swipe_lists_performance_title">Swipe tussen lijsten</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Beheert de geheugen performantie van het swipen tussen lijsten</string>
   <string name="EPr_use_contact_picker">Gebruik contact kiezer</string>
   <string name="EPr_use_contact_picker_desc_enabled">De systeem contact optie is uitgeschakeld in het taak uitdeel venster</string>
   <string name="EPr_use_contact_picker_desc_disabled">De systeem contact optie is uitgeschakeld</string>
-  <string name="EPr_third_party_addons">Schakel Add-ons van derden in</string>
+  <string name="EPr_third_party_addons">Enable third party add-ons</string>
   <string name="EPr_third_party_addons_desc_enabled">Add-ons van derden worden ingeschakeld</string>
   <string name="EPr_third_party_addons_desc_disabled">Add-ons van derden worden uitgeschakeld</string>
-  <string name="EPr_ideas_tab_enabled">Taak-ideeën</string>
+  <string name="EPr_ideas_tab_enabled">Task ideas</string>
   <string name="EPr_ideas_tab_description">Krijg ideeën om je te helpen taken te voltooien</string>
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_swipe_lists_restart_alert">Je moet Astrid opnieuw opstarten om deze wijziging door te voeren</string>
+  <string name="EPr_force_phone_layout">Use phone layout</string>
+  <string name="EPr_show_featured_lists">Show featured lists</string>
+  <string name="EPr_swipe_lists_performance_title">Swipe tussen lijsten</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Geen swipe</item>
     <item>Spaar geheugen</item>
@@ -390,7 +362,9 @@
     <item>Standaardinstelling</item>
     <item>Gebruikt meer systeemgeheugen</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
+  <string name="swipe_lists_helper_title">Swipe between lists</string>
+  <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
+  <string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
   <string-array name="EPr_themes">
     <item>Dag - Blauw</item>
     <item>Dag - Rood</item>
@@ -429,22 +403,26 @@
   <string name="AOA_tab_installed">Geïnstalleerd</string>
   <string name="AOA_tab_available">Beschikbaar</string>
   <string name="AOA_free">Gratis</string>
-  <string name="AOA_visit_website">Website bezoeken</string>
-  <string name="AOA_visit_market">Android Market</string>
   <string name="AOA_no_addons">Lijst is leeg!</string>
+  <string name="AOA_ppack_title">Astrid Power Pack</string>
+  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
+  <string name="AOA_locale_title">Astrid Locale Plugin</string>
+  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   <string name="TWi_loading">Laden…</string>
   <string name="WCA_title">Selecteer weer te geven taken...</string>
   <string name="p_about">Over Astrid</string>
   <string name="p_about_text">Huidige versie: %s\n\n Astrid is open-source en wordt onderhouden door Todoroo, Inc.</string>
   <string name="p_help">Ondersteuning</string>
   <string name="p_forums">Forums</string>
+  <string name="p_premium">Premium</string>
   <string name="task_killer_help">U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! Voeg Astrid indien mogelijk toe aan de lijst met uitgezonderde programma\'s. Als u dit niet doet kan Astrid u niet helpen met taken herinneren!\n</string>
   <string name="task_killer_help_ok">Astrid niet afsluiten</string>
-  <string name="marketplace_title">Astrid Takenlijst</string>
   <string name="marketplace_description">Astrid is de geliefde open-source Takenbeheerder, ontworpen om je taken gedaan te krijgen. Astrid heeft functies als herinneringen, bundelen van taken, synchronisatie, LBS plug-ins, widgets en nog veel meer!</string>
   <string name="DB_corrupted_title">Database Corrupt</string>
   <string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Astrid.</string>
+  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   <string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
+  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
   <string name="EPr_default_urgency_title">Standaard prioriteit</string>
   <string name="EPr_default_urgency_desc">Nu: %s</string>
   <string name="EPr_default_importance_title">Standaard prioriteit</string>
@@ -484,15 +462,11 @@
     <item>Op of na de einddatum</item>
   </string-array>
   <string name="BFE_Active">Actieve taken</string>
-  <string name="BFE_Search">Zoeken…</string>
   <string name="BFE_Recent">Onlangs aangepast</string>
   <string name="BFE_Assigned">Ik heb toegekend</string>
-  <string name="BFE_Custom">Aangepast filter...</string>
-  <string name="BFE_Saved">Filters</string>
   <string name="BFE_Saved_delete">Filter verwijderen</string>
   <string name="CFA_title">Aangepast filter</string>
   <string name="CFA_filterName_hint">Naam geven om op te slaan...</string>
-  <string name="CFA_filterName_copy">Kopie van %s</string>
   <string name="CFA_universe_all">Actieve taken</string>
   <string name="CFA_type_add">of</string>
   <string name="CFA_type_subtract">niet</string>
@@ -523,10 +497,8 @@
   <string name="CFC_title_contains_name">Naam bevat...</string>
   <string name="CFC_title_contains_text">Naam bevat: ?</string>
   <string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
-  <string name="gcal_TEA_calendar_label">Agenda integratie:</string>
   <string name="gcal_TEA_addToCalendar_label">Toevoegen aan Agenda</string>
   <string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
-  <string name="gcal_TEA_calendar_error">Fout bij openen gebeurtenis!</string>
   <string name="gcal_TEA_calendar_updated">Gebeurtenis ook bijgewerkt!</string>
   <string name="gcal_TEA_nocal">Niet toevoegen</string>
   <string name="gcal_TEA_none_selected">Toev. aan agenda...</string>
@@ -534,31 +506,22 @@
   <string name="gcal_completed_title">%s (voltooid)</string>
   <string name="gcal_GCP_default">Standaard agenda</string>
   <string name="gtasks_FEx_header">Google Taken</string>
-  <string name="gtasks_FEx_list">Op lijst</string>
   <string name="gtasks_FEx_title">Google Taken: %s</string>
   <string name="gtasks_FEx_creating_list">Lijst wordt gemaakt...</string>
   <string name="gtasks_FEx_create_list_dialog">Naam nieuwe lijst:</string>
   <string name="gtasks_FEx_create_list_error">Fout bij aanmaken nieuwe lijst</string>
-  <string name="gtasks_help_title">Welkom bij Google Taken!</string>
   <string name="CFC_gtasks_list_text">In lijst: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks lijst...</string>
   <string name="gtasks_GTA_clearing">Verwijderen voltooide taken...</string>
   <string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
-  <string name="gtasks_GLA_title">Aanmelden bij Google Taken</string>
   <string name="gtasks_GLA_body">Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps voor Domeinen is op dit moment nog niet ondersteund, daar wordt aan gewerkt!</string>
   <string name="gtasks_GLA_noaccounts">Geen Google account beschikbaar voor synchronisatie</string>
   <string name="gtasks_GLA_further_help">Om taken met inspringing en behoud van volgorde weer te geven, gebruik de Filter pagina en selecteer een Google Takenlijst. Astrid gebruikt eigen instellingen om taken te sorteren.</string>
-  <string name="gtasks_GLA_signIn">Aanmelden</string>
-  <string name="gtasks_GLA_email">E-mail</string>
-  <string name="gtasks_GLA_password">Wachtwoord</string>
   <string name="gtasks_GLA_authenticating">Verifiëren...</string>
-  <string name="gtasks_GLA_domain">Google Apps voor Domeinen account</string>
-  <string name="gtasks_GLA_errorEmpty">Fout: vul alle velden in!</string>
   <string name="gtasks_GLA_errorAuth">Authenticatiefout! Controleer je gebruikersnaam en wachtwoord in de accountinstellingen van je telefoon.</string>
   <string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
   <string name="gtasks_GLA_errorAuth_captcha">Er kan een captcha zijn getoond. Probeer in te loggen via de browser, kom dan terug en probeer het opnieuw:</string>
   <string name="gtasks_GPr_header">Google Taken (Beta!)</string>
-  <string name="gtasks_notification_title">Google Taken</string>
   <string name="gtasks_error_backend">De Google Taken API is een beta-versie en is een fout tegengekomen. De service kan tijdelijk uitgeschakeld zijn, probeer het later opnieuw.</string>
   <string name="gtasks_error_accountNotFound">Account %s niet gevonden--probeer opnieuw in te loggen vanuit de instellingen van Google Taken.</string>
   <string name="gtasks_error_authRefresh">Authenticatieprobleem bij Google Taken. Controleer je wachtwoord of probeer het later opnieuw.</string>
@@ -571,12 +534,10 @@
   <string name="help_popover_collaborators">Mensen waar je mee deelt kunnen je helpen bij het maken of voltooien van taken</string>
   <string name="help_popover_add_lists">Druk om een lijst toe te voegen</string>
   <string name="help_popover_switch_lists">Klik om een lijst toe te voegen of een andere lijst te selecteren</string>
-  <string name="help_popover_when_shortcut">Druk op deze snelkoppeling om snel datum en tijd te selecteren</string>
-  <string name="help_popover_when_row">Klik op deze rij om opties weer te geven zoals herhalen</string>
-  <string name="welcome_login_title">Welkom bij Astrid!</string>
   <string name="welcome_login_tos_base">Door Astrid te gebruiken ga je akkoord met de</string>
   <string name="welcome_login_tos_link">\"Algemene Voorwaarden\"</string>
   <string name="welcome_login_pw">Log in met Gebruikersnaam/Wachtwoord</string>
+  <string name="welcome_sign_in">Sign in</string>
   <string name="welcome_login_later">Later verbinden</string>
   <string name="welcome_login_confirm_later_title">Waarom log je niet in?</string>
   <string name="welcome_login_confirm_later_ok">Ik doe het!</string>
@@ -585,7 +546,6 @@
   <string name="help_popover_taskrabbit_type">Verander het type taak</string>
   <string name="locale_edit_alerts_title">Astrid Filter waarschuwing</string>
   <string name="locale_edit_intro">Astrid zal waarschuwen als er een taak is met het volgende filter:</string>
-  <string name="locale_pick_filter">Filter:</string>
   <string name="locale_interval_label">Waarschuwingen beperken tot:</string>
   <string-array name="locale_interval">
     <item>eens per uur</item>
@@ -643,7 +603,8 @@
   <string name="CFC_opencrx_in_workspace_name">In Workspace...</string>
   <string name="CFC_opencrx_assigned_to_text">Toegewezen aan: ?</string>
   <string name="CFC_opencrx_assigned_to_name">Toegewezen aan...</string>
-  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  <string name="EPr_powerpack_header">Premium and misc. settings</string>
+  <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
   <string name="EPr_statistics_title">Anonieme statistieken</string>
   <string name="EPr_statistics_desc_disabled">Geen gebruikersgegevens doorgeven</string>
   <string name="EPr_statistics_desc_enabled">Help ons Astrid nóg beter te maken door anoniem statistieken over uw gebruik met ons te delen</string>
@@ -672,6 +633,7 @@
   <string name="file_prefix_voice">Spraak</string>
   <string name="file_browser_up">Omhoog</string>
   <string name="file_browser_title">Bestand kiezen</string>
+  <string name="dir_browser_title">Choose a directory</string>
   <string name="file_browser_err_permissions">Bestandsrechtenfout! Let erop dat Astrid toegang heeft tot de SD-kaart.</string>
   <string name="file_add_picture">Afbeelding toevoegen</string>
   <string name="file_add_sdcard">Bestand toevoegen vanaf SD-kaart</string>
@@ -681,7 +643,39 @@
   <string name="file_err_memory">Afbeelding past niet in het geheugen</string>
   <string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
   <string name="file_err_download">Fout bij downloaden bestand</string>
+  <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
   <string name="file_err_show">Sorry, het systeem ondersteunt dit bestandstype niet</string>
+  <string name="file_dir_dialog_ok">Use this directory</string>
+  <string name="file_dir_dialog_default">Reset to default</string>
+  <string name="p_files_dir">Premium downloads directory</string>
+  <string name="p_files_dir_desc">Task attachments saved to: %s</string>
+  <string name="p_files_dir_desc_default">Default directory</string>
+  <string name="billing_not_supported_title">Can\'t make purchases</string>
+  <string name="billing_not_supported_message">The Market billing service is not available at this time. You can continue to use this app but you won\'t be able to make purchases.</string>
+  <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
+  <string name="subscriptions_not_supported_message">The Market billing service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
+  <string name="cannot_connect_title">Can\'t connect to Market</string>
+  <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
+  <string name="restoring_transactions">Restoring transactions</string>
+  <string name="subscriptions_learn_more">Learn more</string>
+  <string name="subscriptions_help_url">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
+  <string name="premium_billing_title">Astrid Premium</string>
+  <string name="premium_buy_month">1 Month</string>
+  <string name="premium_buy_year">1 Year</string>
+  <string name="premium_description_header">Do more with premium!</string>
+  <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
+  <string name="premium_description_2">Syncs files with astrid.com</string>
+  <string name="premium_description_3">Add attachments via email</string>
+  <string name="premium_description_4">Save voice notes as audio files</string>
+  <string name="premium_description_5">Preview upcoming features</string>
+  <string name="premium_description_6">Support the Astrid Team!</string>
+  <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
+  <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
+  <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
+  <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
+  <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
+  <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
+  <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Werkbladen</string>
   <string name="producteev_FEx_responsible_byme">Ook aan mij toegewezen</string>
@@ -705,22 +699,14 @@
   <string name="producteev_PLA_email">E-mail</string>
   <string name="producteev_PLA_password">Wachtwoord</string>
   <string name="producteev_PLA_timezone">Tijdzone</string>
-  <string name="producteev_PLA_confirmPassword">Bevestig Wachtwoord</string>
   <string name="producteev_PLA_firstName">Voornaam</string>
   <string name="producteev_PLA_lastName">Achternaam</string>
   <string name="producteev_PLA_errorEmpty">Fout: vul alle velden in!</string>
-  <string name="producteev_PLA_errorMatch">Fout: Wachtwoorden niet hetzelfde</string>
   <string name="producteev_PLA_errorAuth">Fout: e-mail of wachtwoord verkeerd ingevuld!</string>
   <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_notification_text">%s taken bijgewerkt / klik voor details</string>
-  <string name="producteev_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
-  <string name="producteev_MLA_email_empty">E-mailadres niet ingevoerd!</string>
-  <string name="producteev_MLA_password_empty">Wachtwoord niet ingevoerd!</string>
   <string name="producteev_TEA_control_set_display">Producteev Toewijzing</string>
   <string name="producteev_TEA_task_assign_label">Taak aan deze persoon toewijzen:</string>
-  <string name="producteev_TEA_task_unassigned">&lt;Niemand&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">Taak aan deze Workspace toewijzen:</string>
-  <string name="producteev_TEA_dashboard_default">&lt;Standaard&gt;</string>
   <string name="CFC_producteev_in_workspace_text">In Workspace: ?</string>
   <string name="CFC_producteev_in_workspace_name">In Workspace...</string>
   <string name="CFC_producteev_assigned_to_text">Toegewezen aan: ?</string>
@@ -754,7 +740,6 @@
     <item>Herinneringen van Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">jij</string>
-  <string name="rmd_reengage_snooze">Alles uitstellen</string>
   <string name="rmd_reengage_add_tasks">Taak toevoegen</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Het is tijd om je to-do lijst op te schonen!</item>
@@ -774,6 +759,7 @@
     <item>Aangenaam kennis te maken!</item>
   </string-array>
   <string name="rmd_EPr_alerts_header">Instellingen herinneringen</string>
+  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
   <string name="rmd_EPr_enabled_title">Herinneringen Ingeschakeld?</string>
   <string name="rmd_EPr_enabled_desc_true">Astrid herinneringen zijn ingeschakeld (dit is normaal)</string>
   <string name="rmd_EPr_enabled_desc_false">Astrid herinneringen zullen nooit weergegeven worden op je telefoon</string>
@@ -791,8 +777,6 @@
   <string name="rmd_EPr_persistent_title">Herinneringen aanhouden</string>
   <string name="rmd_EPr_persistent_desc_true">Herinneringen moeten individueel worden gewist</string>
   <string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
-  <string name="rmd_EPr_notificon_title">Herinneringen pictogram</string>
-  <string name="rmd_Epr_notificon_desc">Selecteer Astrid pictogram in waarschuwingen balk</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid zal het volume voor multi-ring herinneringen maximaliseren</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid zal de systeem-instellingen voor het volume gebruiken</string>
@@ -808,7 +792,6 @@
   <string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nieuwe taken hebben geen willekeurige herinneringen</string>
   <string name="rmd_EPr_defaultRemind_desc">Nieuwe taken willekeurig herinneren: %s</string>
-  <string name="rmd_EPr_defaults_header">Basisinstellingen nieuwe taak</string>
   <string-array name="EPr_reminder_random">
     <item>uitgeschakeld</item>
     <item>uurlijks</item>
@@ -979,7 +962,7 @@
   <string name="repeat_enabled">Herhalingen</string>
   <string name="repeat_every">Elke %d</string>
   <string name="repeat_interval_prompt">Herhaal interval</string>
-  <string name="repeat_never">No Repeat</string>
+  <string name="repeat_never">Make repeating?</string>
   <string name="repeat_dont">Niet herhalen</string>
   <string-array name="repeat_interval_short">
     <item>d</item>
@@ -1058,20 +1041,12 @@
   <string name="TEA_tags_label_long">Zet taak op een of meer lijsten</string>
   <string name="TEA_tags_none">Geen</string>
   <string name="TEA_tag_hint">Nieuwe lijst</string>
-  <string name="TEA_tag_dropdown">Selecteer een lijst</string>
-  <string name="tag_TLA_menu">Lijsten</string>
-  <string name="TAd_contextFilterByTag">Lijst weergeven</string>
   <string name="tag_new_list">Nieuwe lijst</string>
-  <string name="tag_list_saved">Lijst opgeslagen</string>
   <string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
   <string name="tag_FEx_add_new">Nieuw</string>
   <string name="tag_FEx_header">Lijsten</string>
-  <string name="tag_FEx_category_mine">Lijsten</string>
-  <string name="tag_FEx_category_shared">Met mij gedeeld</string>
-  <string name="tag_FEx_category_inactive">Niet actief</string>
   <string name="tag_FEx_untagged">Niet in een Lijst</string>
   <string name="tag_FEx_untagged_w_astrid">Niet in een Astrid Lijst</string>
-  <string name="tag_FEx_name">Lijst: %s</string>
   <string name="tag_cm_rename">Lijst hernoemen</string>
   <string name="tag_cm_delete">Lijst verwijderen</string>
   <string name="tag_cm_leave">Verlaat Lijst</string>
@@ -1087,10 +1062,7 @@
   <string name="tag_updates_title">Activiteit: %s</string>
   <string name="tag_delete_button">Lijst verwijderen</string>
   <string name="tag_leave_button">Verlaat Deze Lijst</string>
-  <string name="TAE_startTimer">Klok starten</string>
-  <string name="TAE_stopTimer">Klok stoppen</string>
   <string name="TPl_notification">Timers ingeschakeld voor %s!</string>
-  <string name="TFE_category">Timer filters</string>
   <string name="TFE_workingOn">Taken met timer</string>
   <string name="TEA_timer_controls">Tijd Controlers</string>
   <string name="TEA_timer_comment_started">taak begonnen:</string>
@@ -1128,7 +1100,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
   <string name="EPr_voice_header">Spraakinstellingen</string>
-  <string name="welcome_show_eula">Accepteer de licentie om aan de slag te kunnen gaan!</string>
   <string name="welcome_setting">Laat handleiding zien</string>
   <string name="welcome_title_1">Welkom bij Astrid!</string>
   <string name="welcome_title_2">Maak lijsten</string>
@@ -1146,18 +1117,18 @@
   <string name="welcome_body_6">Klik om notities toe te voegen,\nherinneringen in te stellen,\nen nog veel meer!</string>
   <string name="welcome_body_7">Aanmelden</string>
   <string name="welcome_body_7_return">Klik Astrid om terug te gaan.</string>
-  <string name="welcome_back">Terug</string>
   <string name="welcome_next">Verder</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
   <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
-  <string name="PPW_widget_custom_label">Astrid Scrollable Premium for Custom Launchers</string>
-  <string name="PPW_widget_custom_launcherpro_label">Astrid Scrollable Premium 4x4 for Launcher Pro</string>
+  <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
+  <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
   <string name="PPW_configure_title">Widget instellen</string>
   <string name="PPW_color">Widget kleur</string>
   <string name="PPW_enable_calendar">Agenda items weergeven</string>
   <string name="PPW_disable_encouragements">Motiverend commentaar verbergen</string>
+  <string name="PPW_show_dates">Show due dates</string>
   <string name="PPW_filter">Filter selecteren</string>
   <string name="PPW_due">Gereed:</string>
   <string name="PPW_past_due">Verlopen:</string>
@@ -1204,4 +1175,7 @@
   <string name="PPW_unlock_howto">Deel lijsten met vrienden! Krijg een gratis Power Pack als 3 vrienden zich aanmelden voor Astrid.</string>
   <string name="PPW_check_button">Krijg het Power Pack gratis!</string>
   <string name="PPW_check_share_lists">Deel lijsten!</string>
+  <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
+  <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
+  <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>
