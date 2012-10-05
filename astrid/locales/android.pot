@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
+"POT-Creation-Date: 2012-10-05 15:19-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -529,11 +529,11 @@ msgstr ""
 
 #. account types
 msgctxt "actfm_account_type"
-msgid "Account Type"
+msgid "Account type"
 msgstr ""
 
 msgctxt "actfm_account_info"
-msgid "Account Info"
+msgid "Account info"
 msgstr ""
 
 msgctxt "actfm_account_info_summary"
@@ -630,7 +630,7 @@ msgstr ""
 
 #. Backup Status: last error failed. Keep it short!
 msgctxt "backup_status_failed"
-msgid "Last Backup Failed"
+msgid "Last backup failed"
 msgstr ""
 
 #. Backup Status: error subtitle
@@ -640,7 +640,7 @@ msgstr ""
 
 #. slide 48a: Backup Status: never backed up
 msgctxt "backup_status_never"
-msgid "Never Backed Up!"
+msgid "Never backed up!"
 msgstr ""
 
 #. slide 48f/ 50e: Backup Options Group Label
@@ -650,12 +650,12 @@ msgstr ""
 
 #. slide 48b: Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
-msgid "Automatic Backups"
+msgid "Automatic backups"
 msgstr ""
 
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
-msgid "Automatic Backups Disabled"
+msgid "Automatic backups disabled"
 msgstr ""
 
 #. slide 48g: Preference: Automatic Backup Description (when enabled)
@@ -682,22 +682,22 @@ msgstr ""
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
 msgctxt "backup_BAc_label"
-msgid "Manage Backups"
+msgid "Manage backups"
 msgstr ""
 
 #. backup activity title
 msgctxt "backup_BAc_title"
-msgid "Manage Your Backups"
+msgid "Manage your backups"
 msgstr ""
 
 #. backup activity import button
 msgctxt "backup_BAc_import"
-msgid "Import Tasks"
+msgid "Import tasks"
 msgstr ""
 
 #. backup activity export button
 msgctxt "backup_BAc_export"
-msgid "Export Tasks"
+msgid "Export tasks"
 msgstr ""
 
 #. backup activity cloud (Astrid.com) option
@@ -708,16 +708,16 @@ msgstr ""
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
 msgctxt "backup_TXI_error"
-msgid "Import Error"
+msgid "Import error"
 msgstr ""
 
 #, c-format
 msgctxt "export_toast"
-msgid "Backed Up %1$s to %2$s."
+msgid "Backed up %1$s to %2$s."
 msgstr ""
 
 msgctxt "export_toast_no_tasks"
-msgid "No Tasks to Export."
+msgid "No tasks to export."
 msgstr ""
 
 #. Progress Dialog Title for exporting
@@ -727,7 +727,7 @@ msgstr ""
 
 #. Backup: Title of Import Summary Dialog
 msgctxt "import_summary_title"
-msgid "Restore Summary"
+msgid "Restore summary"
 msgstr ""
 
 #. Backup: Summary message for import. (%s => file name, %s => total # tasks,
@@ -771,7 +771,7 @@ msgstr ""
 
 #. Backup: File Selector dialog for import
 msgctxt "import_file_prompt"
-msgid "Select a File to Restore"
+msgid "Select a file to restore"
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -1801,7 +1801,7 @@ msgstr ""
 
 #. Preference Category: Appearance Summary
 msgctxt "EPr_appearance_summary"
-msgid "Themes, Widgets, Task Rows, Edit Screen"
+msgid "Themes, widgets, task rows, edit screen"
 msgstr ""
 
 #. FAQ Preference title
@@ -1817,12 +1817,12 @@ msgstr ""
 
 #. Support preferences summary
 msgctxt "EPr_support_summary"
-msgid "Tutorial, FAQ, About Astrid"
+msgid "Tutorial, FAQ, about"
 msgstr ""
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
-msgid "Task List Size"
+msgid "Task list size"
 msgstr ""
 
 #. slide 32a: Preference: Show confirmation for smart reminders
@@ -1842,17 +1842,17 @@ msgstr ""
 
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
-msgid "Show Notes In Task"
+msgid "Show notes in task"
 msgstr ""
 
 #. slide 30e: Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
-msgid "Customize Task Edit Screen"
+msgid "Customize task edit screen"
 msgstr ""
 
 #. slide 35h
 msgctxt "EPr_beastMode_desc"
-msgid "Customize the layout of the Task Edit Screen"
+msgid "Customize the layout of the task edit screen"
 msgstr ""
 
 #. slide 35j
@@ -1862,7 +1862,7 @@ msgstr ""
 
 #. slide 34i: Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
-msgid "Notes will be accessible from the Task Edit Page"
+msgid "Notes will be accessible from the task edit screen"
 msgstr ""
 
 #. Preference: Task List Show Notes Description (enabled)
@@ -1872,7 +1872,7 @@ msgstr ""
 
 #. slide 34d: Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
-msgid "Compact Task Row"
+msgid "Compact task row"
 msgstr ""
 
 #. slide 34j
@@ -1906,21 +1906,38 @@ msgstr ""
 
 #. slide 32b: Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
-msgid "Auto-load Ideas Tab"
+msgid "Auto-load ideas tab"
 msgstr ""
 
 #. slide 32c
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid "Web searches for ideas tab will be performed when tab is clicked"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed only when manually requested"
+msgid "Web searches for ideas tab will be performed only when manually requested"
+msgstr ""
+
+#. Preferences: task row style
+msgctxt "EPr_task_row_style_title_simple"
+msgid "Row style: Simple"
+msgstr ""
+
+msgctxt "EPr_task_row_style_title_legacy"
+msgid "Row style: Original"
+msgstr ""
+
+msgctxt "EPr_task_row_style_summary_simple"
+msgid "Truncate title to one line with date and lists below"
+msgstr ""
+
+msgctxt "EPr_task_row_style_summary_legacy"
+msgid "Truncate title to two lines with date on right"
 msgstr ""
 
 #. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
-msgid "Color Theme"
+msgid "Color theme"
 msgstr ""
 
 #. Preference: Theme Description (%s => value)
@@ -1936,12 +1953,12 @@ msgstr ""
 
 #. slide 32h/ 37b
 msgctxt "EPr_theme_widget_title"
-msgid "Widget Theme"
+msgid "Widget theme"
 msgstr ""
 
 #. slide 30d/ 34f: Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
-msgid "Task Row Appearance"
+msgid "Task row appearance"
 msgstr ""
 
 #. slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)
@@ -1972,7 +1989,7 @@ msgstr ""
 
 #. slide 49i: Preferences: Third party addons
 msgctxt "EPr_third_party_addons"
-msgid "Enable Third Party Add-ons"
+msgid "Enable third party add-ons"
 msgstr ""
 
 msgctxt "EPr_third_party_addons_desc_enabled"
@@ -1986,7 +2003,7 @@ msgstr ""
 
 #. Preferences: ideas tab
 msgctxt "EPr_ideas_tab_enabled"
-msgid "Task Ideas"
+msgid "Task ideas"
 msgstr ""
 
 msgctxt "EPr_ideas_tab_description"
@@ -2130,12 +2147,12 @@ msgstr ""
 #. ========================================== Task Management Settings ==
 #. slide 33a/47c: Preference Screen Header: Old Task Management
 msgctxt "EPr_manage_header"
-msgid "Manage Old Tasks"
+msgid "Manage old tasks"
 msgstr ""
 
 #. slide 47d
 msgctxt "EPr_manage_delete_completed"
-msgid "Delete Completed Tasks"
+msgid "Delete completed tasks"
 msgstr ""
 
 msgctxt "EPr_manage_delete_completed_message"
@@ -2154,7 +2171,7 @@ msgstr ""
 
 #. slide 47e
 msgctxt "EPr_manage_purge_deleted"
-msgid "Purge Deleted Tasks"
+msgid "Purge deleted tasks"
 msgstr ""
 
 msgctxt "EPr_manage_purge_deleted_message"
@@ -2176,7 +2193,7 @@ msgstr ""
 
 #. slide 47h
 msgctxt "EPr_manage_clear_all"
-msgid "Clear All Data"
+msgid "Clear all data"
 msgstr ""
 
 msgctxt "EPr_manage_clear_all_message"
@@ -2188,7 +2205,7 @@ msgstr ""
 
 #. slide 47f
 msgctxt "EPr_manage_delete_completed_gcal"
-msgid "Delete Calendar Events for Completed Tasks"
+msgid "Delete calendar events for completed tasks"
 msgstr ""
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
@@ -2202,7 +2219,7 @@ msgstr ""
 
 #. slide 47g
 msgctxt "EPr_manage_delete_all_gcal"
-msgid "Delete All Calendar Events for Tasks"
+msgid "Delete all calendar events for tasks"
 msgstr ""
 
 msgctxt "EPr_manage_delete_all_gcal_message"
@@ -2253,6 +2270,26 @@ msgstr ""
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
 msgid "Empty List!"
+msgstr ""
+
+msgctxt "AOA_ppack_title"
+msgid "Astrid Power Pack"
+msgstr ""
+
+msgctxt "AOA_ppack_description"
+msgid ""
+"Support Astrid and get more productive with the Astrid Power Pack. 4x2 "
+"and 4x4 widgets and voice integration. Power up today!"
+msgstr ""
+
+msgctxt "AOA_locale_title"
+msgid "Astrid Locale Plugin"
+msgstr ""
+
+msgctxt "AOA_locale_description"
+msgid ""
+"Allows Astrid to make use of the Locale application to send you "
+"notifications based on filter conditions. Requires Locale."
 msgstr ""
 
 #. ====================================================== TasksWidget ==
@@ -2332,9 +2369,10 @@ msgstr ""
 msgctxt "DB_corrupted_body"
 msgid ""
 "Uh oh! It looks like you may have a corrupted database. If you see this "
-"error regularly, we suggest you clear all data (Settings-&gt;Manage All "
-"Tasks-&gt;Clear all data) and restore your tasks from a backup "
-"(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
+"error regularly, we suggest you clear all data (Settings-&gt;Sync and "
+"backup-&gt;Manage old tasks-&gt;Clear all data) and restore your tasks "
+"from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) "
+"in Astrid."
 msgstr ""
 
 msgctxt "market_unavailable"
@@ -2345,16 +2383,16 @@ msgstr ""
 #. full license governing this code.
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
-msgid "New Task Defaults"
+msgid "New task defaults"
 msgstr ""
 
 msgctxt "EPr_defaults_summary"
-msgid "Importance, Due Date, Add to Calendar"
+msgid "Importance, due date, add to calendar"
 msgstr ""
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
-msgid "Default Urgency"
+msgid "Default deadline"
 msgstr ""
 
 #. Preference: Default Urgency Description (%s => setting)
@@ -2365,7 +2403,7 @@ msgstr ""
 
 #. slide 40a: Preference: Default Importance Title
 msgctxt "EPr_default_importance_title"
-msgid "Default Importance"
+msgid "Default importance"
 msgstr ""
 
 #. Preference: Default Importance Description (%s => setting)
@@ -2376,7 +2414,7 @@ msgstr ""
 
 #. slide 42e: Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
-msgid "Default Hide Until"
+msgid "Default hide until"
 msgstr ""
 
 #. Preference: Default Hide Until Description (%s => setting)
@@ -2387,7 +2425,7 @@ msgstr ""
 
 #. slide 43e: Preference: Default Reminders Title
 msgctxt "EPr_default_reminders_title"
-msgid "Default Reminders"
+msgid "Default reminders"
 msgstr ""
 
 #. Preference: Default Reminders Description (%s => setting)
@@ -2398,7 +2436,7 @@ msgstr ""
 
 #. slide 19a/46c: Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
-msgid "Default Add To Calendar"
+msgid "Default add to calendar"
 msgstr ""
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
@@ -2414,7 +2452,7 @@ msgstr ""
 
 #. slide 45d: Reminder Mode Preference: Default Reminders Duration
 msgctxt "EPr_default_reminders_mode_title"
-msgid "Default Ring/Vibrate type"
+msgid "Default ring/vibrate type"
 msgstr ""
 
 #. Preference: Default Reminders Description (%s => setting)
@@ -2440,7 +2478,7 @@ msgid "o (Lowest)"
 msgstr ""
 
 msgctxt "EPr_default_urgency:0"
-msgid "No Deadline"
+msgid "No deadline"
 msgstr ""
 
 msgctxt "EPr_default_urgency:1"
@@ -2452,11 +2490,11 @@ msgid "Tomorrow"
 msgstr ""
 
 msgctxt "EPr_default_urgency:3"
-msgid "Day After Tomorrow"
+msgid "Day after tomorrow"
 msgstr ""
 
 msgctxt "EPr_default_urgency:4"
-msgid "Next Week"
+msgid "Next week"
 msgstr ""
 
 msgctxt "EPr_default_hideUntil:0"
@@ -3329,7 +3367,7 @@ msgstr ""
 #. ================================================== EditPreferences ==
 #. slide 32j: Preference Category: Power Pack
 msgctxt "EPr_powerpack_header"
-msgid "Premium and Misc. Settings"
+msgid "Premium and misc. settings"
 msgstr ""
 
 msgctxt "EPr_powerpack_summary"
@@ -3338,7 +3376,7 @@ msgstr ""
 
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
-msgid "Anonymous Usage Stats"
+msgid "Anonymous usage stats"
 msgstr ""
 
 #. Preference: User Statistics (disabled)
@@ -3520,7 +3558,7 @@ msgid "Reset to default"
 msgstr ""
 
 msgctxt "p_files_dir"
-msgid "Premium Downloads Directory"
+msgid "Premium downloads directory"
 msgstr ""
 
 #. Description for file download directory preference. %s -> chosen directory
@@ -3620,7 +3658,6 @@ msgctxt "premium_speech_bubble_1"
 msgid "Premium will power up your productivity!"
 msgstr ""
 
-#, c-format
 msgctxt "premium_speech_bubble_2"
 msgid "Order one year and save 25%%!"
 msgstr ""
@@ -3888,7 +3925,7 @@ msgstr ""
 
 #. Task Edit: Reminder header label
 msgctxt "TEA_reminder_label"
-msgid "Remind Me:"
+msgid "Remind me:"
 msgstr ""
 
 #. Task Edit: Reminder @ deadline
@@ -3908,22 +3945,22 @@ msgstr ""
 
 #. Task Edit: Reminder alarm clock label
 msgctxt "TEA_reminder_alarm_label"
-msgid "Ring/Vibrate Type:"
+msgid "Ring/vibrate type:"
 msgstr ""
 
 #. slide 45a: Task Edit: Reminder mode: ring once
 msgctxt "TEA_reminder_mode_once"
-msgid "Ring Once"
+msgid "Ring once"
 msgstr ""
 
 #. slide 45b: Task Edit: Reminder mode: ring five times
 msgctxt "TEA_reminder_mode_five"
-msgid "Ring Five Times"
+msgid "Ring five times"
 msgstr ""
 
 #. slide 45c: Task Edit: Reminder mode: ring nonstop
 msgctxt "TEA_reminder_mode_nonstop"
-msgid "Ring Until I Dismiss Alarm"
+msgid "Ring until I dismiss alarm"
 msgstr ""
 
 msgctxt "TEA_reminder_random:0"
@@ -4087,7 +4124,7 @@ msgstr ""
 #. ============================================= reminder preferences ==
 #. slide 33d: Reminder Preference Screen Title
 msgctxt "rmd_EPr_alerts_header"
-msgid "Reminder Settings"
+msgid "Reminder settings"
 msgstr ""
 
 msgctxt "rmd_EPr_alerts_summary"
@@ -4096,7 +4133,7 @@ msgstr ""
 
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
-msgid "Reminders Enabled?"
+msgid "Reminders enabled?"
 msgstr ""
 
 #. Reminder Preference Reminders Enabled Description (true)
@@ -4111,7 +4148,7 @@ msgstr ""
 
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
-msgid "Quiet Hours Start"
+msgid "Quiet hours start"
 msgstr ""
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
@@ -4119,7 +4156,7 @@ msgstr ""
 msgctxt "rmd_EPr_quiet_hours_start_desc"
 msgid ""
 "Notifications will be silent after %s.\n"
-"Note: vibrations are controlled by the Vibrate on Alert setting"
+"Note: vibrations are controlled by the Vibrate on alert setting"
 msgstr ""
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
@@ -4129,7 +4166,7 @@ msgstr ""
 
 #. Reminder Preference: Quiet Hours End Title
 msgctxt "rmd_EPr_quiet_hours_end_title"
-msgid "Quiet Hours End"
+msgid "Quiet hours end"
 msgstr ""
 
 #. Reminder Preference: Quiet Hours End Description (%s => time set)
@@ -4140,7 +4177,7 @@ msgstr ""
 
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
-msgid "Default Reminder"
+msgid "Default reminder"
 msgstr ""
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
@@ -4151,7 +4188,7 @@ msgstr ""
 
 #. Reminder Preference: Notification Ringtone Title
 msgctxt "rmd_EPr_ringtone_title"
-msgid "Notification Ringtone"
+msgid "Notification ringtone"
 msgstr ""
 
 #. Reminder Preference: Notification Ringtone Description (when custom tone is
@@ -4174,7 +4211,7 @@ msgstr ""
 
 #. Reminder Preference: Notification Persistence Title
 msgctxt "rmd_EPr_persistent_title"
-msgid "Notification Persistence"
+msgid "Notification persistence"
 msgstr ""
 
 #. Reminder Preference: Notification Persistence Description (true)
@@ -4189,7 +4226,7 @@ msgstr ""
 
 #. Reminder Preference: Notification Icon Title
 msgctxt "rmd_EPr_notificon_title"
-msgid "Notification Icon Set"
+msgid "Notification icon set"
 msgstr ""
 
 #. Reminder Preference: Notification Icon Description
@@ -4216,7 +4253,7 @@ msgstr ""
 
 #. Reminder Preference: Vibrate Title
 msgctxt "rmd_EPr_vibrate_title"
-msgid "Vibrate on Alert"
+msgid "Vibrate on alert"
 msgstr ""
 
 #. Reminder Preference: Vibrate Description (true)
@@ -4231,7 +4268,7 @@ msgstr ""
 
 #. Reminder Preference: Nagging Title
 msgctxt "rmd_EPr_nagging_title"
-msgid "Astrid Encouragements"
+msgid "Astrid encouragements"
 msgstr ""
 
 #. Reminder Preference: Nagging Description (true)
@@ -4246,7 +4283,7 @@ msgstr ""
 
 #. Reminder Preference: Snooze Dialog Title
 msgctxt "rmd_EPr_snooze_dialog_title"
-msgid "Snooze Dialog HH:MM"
+msgid "Snooze dialog HH:MM"
 msgstr ""
 
 #. Reminder Preference: Snooze Dialog Description (true)
@@ -4261,7 +4298,7 @@ msgstr ""
 
 #. slide 44g: Reminder Preference: Default Reminders Title
 msgctxt "rmd_EPr_defaultRemind_title"
-msgid "Random Reminders"
+msgid "Random reminders"
 msgstr ""
 
 #. Reminder Preference: Default Reminders Setting (disabled)
@@ -4277,7 +4314,7 @@ msgstr ""
 
 #. slide 39a: Defaults Title
 msgctxt "rmd_EPr_defaults_header"
-msgid "New Task Defaults"
+msgid "New task defaults"
 msgstr ""
 
 msgctxt "EPr_reminder_random:0"
@@ -5594,7 +5631,7 @@ msgstr ""
 #. slide 38d:  Preference: Task List Show Voice-button if recognition-service
 #. is available
 msgctxt "EPr_voiceInputEnabled_title"
-msgid "Voice Input"
+msgid "Voice input"
 msgstr ""
 
 #. slide 38a: Preference: voice button description (true)
@@ -5609,7 +5646,7 @@ msgstr ""
 
 #. slide 38e: Preference: Task List Voice-button directly creates tasks
 msgctxt "EPr_voiceInputCreatesTask_title"
-msgid "Directly Create Tasks"
+msgid "Directly create tasks"
 msgstr ""
 
 #. Preference: Task List Voice-creation description (true)
@@ -5624,7 +5661,7 @@ msgstr ""
 
 #. slide 38f: Preference: Voice reminders if TTS-service is available
 msgctxt "EPr_voiceRemindersEnabled_title"
-msgid "Voice Reminders"
+msgid "Voice reminders"
 msgstr ""
 
 #. Preference: Voice reminders description (true)
@@ -5639,7 +5676,7 @@ msgstr ""
 
 #. slide 32d: Preference Category: Voice Title
 msgctxt "EPr_voice_header"
-msgid "Voice Input Settings"
+msgid "Voice input settings"
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -5650,7 +5687,7 @@ msgstr ""
 
 #. slide 30a
 msgctxt "welcome_setting"
-msgid "Show Tutorial"
+msgid "Show tutorial"
 msgstr ""
 
 msgctxt "welcome_title_1"
