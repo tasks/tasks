@@ -3293,8 +3293,6 @@ msgctxt "subscriptions_learn_more"
 msgid "Learn more"
 msgstr "더 알아보기"
 
-"region%"
-
 msgctxt "premium_billing_title"
 msgid "Astrid Premium"
 msgstr "Astrid 프리미엄"
@@ -3345,8 +3343,8 @@ msgstr "프리미엄은 당신의 생산성을 높여 줄 것입니다!"
 
 #, c-format
 msgctxt "premium_speech_bubble_2"
-msgid "Order one year and save 25%!"
-msgstr "1년 사용권 구매시 25% 할인!"
+msgid "Order one year and save 25%%!"
+msgstr "1년 사용권 구매시 25%% 할인!"
 
 msgctxt "premium_already_subscribed"
 msgid "You are already subscribed to Astrid Premium!"

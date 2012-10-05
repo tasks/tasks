@@ -3409,8 +3409,8 @@ msgstr "Premium hesap verimliliğinizi arttırır!"
 
 #, c-format
 msgctxt "premium_speech_bubble_2"
-msgid "Order one year and save 25%!"
-msgstr "Bir yıllık satın alın ve %25 kâr yapın!"
+msgid "Order one year and save 25%%!"
+msgstr "Bir yıllık satın alın ve %%25 kâr yapın!"
 
 msgctxt "premium_already_subscribed"
 msgid "You are already subscribed to Astrid Premium!"

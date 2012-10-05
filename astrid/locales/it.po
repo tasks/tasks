@@ -3356,7 +3356,7 @@ msgstr ""
 
 #, c-format
 msgctxt "premium_speech_bubble_2"
-msgid "Order one year and save 25%!"
+msgid "Order one year and save 25%%!"
 msgstr ""
 
 msgctxt "premium_already_subscribed"

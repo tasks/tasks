@@ -2774,7 +2774,7 @@ msgctxt "locale_edit_intro"
 msgid ""
 "Astrid will send you a reminder when you have any tasks in the following "
 "filter:"
-msgstr "אסטריד תציג תזכורת כאשר יש משימות בַּמַּסְנֵן %s"
+msgstr "אסטריד תציג תזכורת כאשר יש משימות בַּמַּסְנֵן"
 
 #. Locale Window Filter Picker UI
 #. Locale Window Interval Label
@@ -3361,7 +3361,7 @@ msgstr ""
 
 #, c-format
 msgctxt "premium_speech_bubble_2"
-msgid "Order one year and save 25%!"
+msgid "Order one year and save 25%%!"
 msgstr ""
 
 msgctxt "premium_already_subscribed"
