@@ -160,7 +160,7 @@
   <string name="TLA_custom">Benutzerdefiniert</string>
   <string name="TLA_quick_add_hint">Aufgabe hinzufügen</string>
   <string name="TLA_quick_add_hint_assign">Etwas hinzufügen für %s</string>
-  <string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Astrid nicht höhren!</string>
+  <string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Astrid nicht hören!</string>
   <string name="TLA_notification_disabled">Astrids Erinnerungen sind ausgeschaltet! Du wirst keine Erinnerungen mehr erhalten!</string>
   <string-array name="TLA_filters">
     <item>Aktiviert</item>
