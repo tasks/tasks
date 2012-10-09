@@ -271,6 +271,12 @@
   <!-- share login: OAUTH Login Prompt -->
   <string name="actfm_OLA_prompt">Please log in:</string>
   
+  <!-- Login error: user exists -->
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  
+  <!-- Login error: wrong password -->
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
+  
   <!-- ================================================ Featured Lists -->
 
   <string name="actfm_feat_list_clone">Copy list</string>

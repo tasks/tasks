@@ -60,6 +60,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmServiceException;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -546,6 +547,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         }
     }
 
+    @SuppressWarnings("nls")
     private void handleError(final Throwable e) {
         DialogUtilities.dismissDialog(this, progressDialog);
         exceptionService.reportError("astrid-sharing-login", e); //$NON-NLS-1$
@@ -553,7 +555,19 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                errors.setText(e.getMessage());
+                String message = e.getMessage();
+                if (e instanceof ActFmServiceException) {
+                    ActFmServiceException ae = (ActFmServiceException) e;
+                    JSONObject result = ae.result;
+                    if (result != null && result.has("code")) {
+                        String code = result.optString("code");
+                        if ("user_exists".equals(code))
+                            message = getString(R.string.actfm_ALA_error_user_exists);
+                        else if ("incorrect_password".equals(code))
+                            message = getString(R.string.actfm_ALA_error_wrong_password);
+                    }
+                }
+                errors.setText(message);
                 errors.setVisibility(View.VISIBLE);
             }
         });
