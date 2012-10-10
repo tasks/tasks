@@ -561,6 +561,9 @@
   <!-- Calendar reminder: list title hint -->
   <string name="CRA_list_name_hint">List name</string>
   
+  <!-- Calendar reminder: include event members -->
+  <string name="CRA_include_members">Share with event members</string>
+  
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
