@@ -49,6 +49,9 @@
   <!-- field missed calls preference -->
   <string name="p_field_missed_calls">field_missed_calls</string>
   
+  <!-- calendar reminders preference -->
+  <string name="p_calendar_reminders">p_calendar_reminder</string>
+  
   <!-- show friends view preference -->
   <string name="p_show_friends_view">show_friends_view</string>
   

@@ -18,6 +18,10 @@
 	        android:title="@string/MCA_missed_calls_pref_title"/>
 	    
 	    <CheckBoxPreference
+	        android:key="@string/p_calendar_reminders"
+	        android:title="@string/CRA_calendar_reminders_pref_title" />
+	    
+	    <CheckBoxPreference
 	        android:key="@string/p_third_party_addons"
 	        android:title="@string/EPr_third_party_addons" />
 	    

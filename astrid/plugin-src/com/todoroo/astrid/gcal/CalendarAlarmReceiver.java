@@ -11,7 +11,9 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
@@ -33,6 +35,8 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true))
+            return;
         try {
             ContentResolver cr = context.getContentResolver();
             long eventId = intent.getLongExtra(TOKEN_EVENT_ID, -1);
