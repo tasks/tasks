@@ -24,6 +24,7 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 @SuppressWarnings("nls")
@@ -120,6 +121,8 @@ public class CalendarReminderActivity extends Activity {
 
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
         dialogView.setText(getString(R.string.CRA_speech_bubble));
+
+        createListButton.setBackgroundColor(getResources().getColor(ThemeService.getThemeColor()));
     }
 
     private void addListeners() {

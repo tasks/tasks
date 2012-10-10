@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -32,6 +33,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.utility.Constants;
 
 public class CreateEventListActivity extends Activity {
 
@@ -124,6 +126,9 @@ public class CreateEventListActivity extends Activity {
 
         if (loggedIn) { // include members
             JSONArray membersArray = getMembersArray();
+            if (Constants.DEBUG)
+                Log.w(CalendarAlarmScheduler.TAG, "Creating tag with members: " + membersArray.toString()); //$NON-NLS-1$
+
             newTag.setValue(TagData.MEMBERS, membersArray.toString());
             newTag.setValue(TagData.MEMBER_COUNT, membersArray.length());
         }
@@ -144,11 +149,11 @@ public class CreateEventListActivity extends Activity {
         if (loggedIn) {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1);
             membersList.setAdapter(adapter);
+            membersList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
+            emails.remove(ActFmPreferenceService.thisUser().optString("email", null)); //$NON-NLS-1$
             for (int i = 0; i < emails.size(); i++) {
                 String email = emails.get(i);
-                if (email.equals(ActFmPreferenceService.thisUser().optString("email", null))) //$NON-NLS-1$
-                    continue;
                 adapter.add(email);
                 membersList.setItemChecked(i, true);
             }
