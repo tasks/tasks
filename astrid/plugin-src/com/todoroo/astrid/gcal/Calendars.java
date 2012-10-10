@@ -27,6 +27,7 @@ public class Calendars {
 
     public static final String CALENDAR_CONTENT_CALENDARS = "calendars";
     public static final String CALENDAR_CONTENT_EVENTS = "events";
+    public static final String CALENDAR_CONTENT_ATTENDEES = "attendees";
 
 	private static final String ID_COLUMN_NAME = "_id";
 	private static final boolean USE_ICS_NAMES = AndroidUtilities.getSdkVersion() >= 14;
@@ -66,6 +67,8 @@ public class Calendars {
 	        return CalendarContract.Calendars.CONTENT_URI;
 	    else if (CALENDAR_CONTENT_EVENTS.equals(table))
 	        return CalendarContract.Events.CONTENT_URI;
+	    else if (CALENDAR_CONTENT_ATTENDEES.equals(table))
+	        return CalendarContract.Attendees.CONTENT_URI;
 	    return null;
 	}
 
