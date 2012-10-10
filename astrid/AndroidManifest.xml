@@ -293,6 +293,10 @@
     <activity android:name="com.todoroo.astrid.calls.MissedCallActivity"
               android:theme="@android:style/Theme.Translucent.NoTitleBar">
     </activity>
+
+    <activity android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    </activity>
     
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">

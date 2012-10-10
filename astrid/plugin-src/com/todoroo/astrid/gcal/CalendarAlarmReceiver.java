@@ -1,11 +1,15 @@
 package com.todoroo.astrid.gcal;
 
+import java.util.ArrayList;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Constants;
@@ -19,6 +23,7 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     private static final String[] EVENTS_PROJECTION = {
         Calendars.EVENTS_DTSTART_COL,
+        Calendars.EVENTS_NAME_COL,
     };
 
     private static final String[] ATTENDEES_PROJECTION = {
@@ -43,6 +48,9 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                 try {
                     if (event.moveToFirst()) {
                         int timeIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
+                        int titleIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_NAME_COL);
+
+                        String title = event.getString(titleIndex);
                         long startTime = event.getLong(timeIndex);
                         long timeUntil = startTime - DateUtilities.now();
 
@@ -55,6 +63,32 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                                     null);
                             try {
                                 // Do something with attendees
+                                int emailIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_EMAIL_COL);
+                                int nameIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_NAME_COL);
+
+                                ArrayList<String> names = new ArrayList<String>();
+                                ArrayList<String> emails = new ArrayList<String>();
+
+                                for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
+                                    String name = attendees.getString(nameIndex);
+                                    String email = attendees.getString(emailIndex);
+                                    if (!TextUtils.isEmpty(email)) {
+                                        if (Constants.DEBUG)
+                                            Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
+                                        names.add(name);
+                                        emails.add(email);
+                                    }
+                                }
+
+                                if (emails.size() > 0) {
+                                    Intent reminderActivity = new Intent(context, CalendarReminderActivity.class);
+                                    reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
+                                    reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, title);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_TIME, startTime);
+                                    reminderActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                    context.startActivity(reminderActivity);
+                                }
                             } finally {
                                 attendees.close();
                             }

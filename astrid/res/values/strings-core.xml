@@ -520,6 +520,44 @@
   </string-array>
   
   
+  <!-- ======================================= Calendar reminder activity == -->
+  
+  <!-- Calendar remindeer ignore button -->
+  <string name="CRA_ignore">Ignore</string>
+  
+  <!-- Calendar event (%s -> event name)-->
+  <string name="CRA_title">Calendar event: %s</string>
+  
+  <!-- Calendar reminder: dialog to ignore all missed calls title -->
+  <string name="CRA_ignore_title">Ignore all calendar events?</string>
+
+  <!-- Calendar reminder: dialog to ignore all missed calls body -->
+  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
+
+  <!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
+  <string name="CRA_ignore_all">Ignore all events</string>
+
+  <!-- Calendar reminder: dialog to ignore all missed calls ignore just this button -->
+  <string name="CRA_ignore_this">Ignore this event only</string>
+  
+  <!-- Calendar reminder: astrid speech bubble -->
+  <string name="CRA_speech_bubble">Looks like you\'ve got a meeting coming up! Want to create a list for taking note of action items?</string>
+  
+  <!-- Calendar reminder: create list button -->
+  <string name="CRA_create_list">Create list</string>
+  
+  <!-- Calendar reminder: list exists dialog title -->
+  <string name="CRA_list_exists_title">List already exists</string>
+  
+  <!-- Calendar reminder: list exists dialog body (%s -> list name)-->
+  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
+  
+  <!-- Calendar reminder: list exists dialog create new button -->
+  <string name="CRA_create_new">Create new</string>
+
+  <!-- Calendar reminder: list exists dialog use existing button -->
+  <string name="CRA_use_existing">Use existing</string>
+  
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->

@@ -46,6 +46,7 @@ import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.CalendarAlarmScheduler;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
@@ -190,6 +191,8 @@ public class StartupService {
             AstridPreferences.setCurrentVersion(version);
             AstridPreferences.setCurrentVersionName(versionName);
         }
+
+        CalendarAlarmScheduler.scheduleAllCalendarAlarms(context);
 
         upgradeService.performSecondaryUpgrade(context);
 

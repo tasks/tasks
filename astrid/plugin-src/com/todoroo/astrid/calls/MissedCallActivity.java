@@ -168,8 +168,8 @@ public class MissedCallActivity extends Activity {
         ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent labsPreferences = new Intent(MissedCallActivity.this, EditPreferences.class);
-                startActivity(labsPreferences);
+                Intent editPreferences = new Intent(MissedCallActivity.this, EditPreferences.class);
+                startActivity(editPreferences);
                 finish();
             }
         });
