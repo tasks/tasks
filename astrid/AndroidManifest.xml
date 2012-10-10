@@ -297,6 +297,10 @@
     <activity android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
               android:theme="@android:style/Theme.Translucent.NoTitleBar">
     </activity>
+
+    <activity android:name="com.todoroo.astrid.gcal.CreateEventListActivity"
+              android:theme="@android:style/Theme.Dialog">
+    </activity>
     
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">

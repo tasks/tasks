@@ -1,35 +1,30 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.EditPreferences;
-import com.todoroo.astrid.dao.UserDao;
+import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagFilterExposer;
 
 @SuppressWarnings("nls")
 public class CalendarReminderActivity extends Activity {
@@ -45,14 +40,8 @@ public class CalendarReminderActivity extends Activity {
     private static final int IGNORE_PROMPT_COUNT = 3;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private TagDataService tagDataService;
 
-    private ArrayList<String> names;
-    private ArrayList<String> emails;
-    private HashMap<String, User> emailsToUsers;
     private String eventName;
     private long eventTime;
 
@@ -112,8 +101,6 @@ public class CalendarReminderActivity extends Activity {
 
 
         Intent intent = getIntent();
-        names = intent.getStringArrayListExtra(TOKEN_NAMES);
-        emails = intent.getStringArrayListExtra(TOKEN_EMAILS);
         eventName = intent.getStringExtra(TOKEN_EVENT_NAME);
         eventTime = intent.getLongExtra(TOKEN_EVENT_TIME, DateUtilities.now());
 
@@ -122,49 +109,14 @@ public class CalendarReminderActivity extends Activity {
         ignoreSettingsButton = findViewById(R.id.ignore_settings);
         dismissButton = findViewById(R.id.dismiss);
 
-        initializeUserMap();
-
         setupUi();
 
         addListeners();
     }
 
-    private void initializeUserMap() {
-        emailsToUsers = new HashMap<String, User>();
-        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).where(User.EMAIL.in(emails.toArray(new String[emails.size()]))));
-        try {
-          for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
-              User u = new User(users);
-              emailsToUsers.put(u.getValue(User.EMAIL), u);
-          }
-        } finally {
-            users.close();
-        }
-    }
-
     private void setupUi() {
         ((TextView) findViewById(R.id.reminder_title))
             .setText(getString(R.string.CRA_title, eventName));
-
-        LinearLayout root = (LinearLayout) findViewById(R.id.reminder_root);
-
-        for (int i = 0; i < emails.size(); i++) {
-            String email = emails.get(i);
-            if (email.equals(ActFmPreferenceService.thisUser().optString("email", null)))
-                continue;
-            String displayString = email;
-            if (!TextUtils.isEmpty(names.get(i))) {
-                displayString = names.get(i);
-            } else if (emailsToUsers.containsKey(email)) {
-                User u = emailsToUsers.get(email);
-                displayString = u.getDisplayName();
-            }
-
-            TextView tv = new TextView(this);
-            tv.setText(displayString);
-            tv.setTextColor(getResources().getColor(android.R.color.white));
-            root.addView(tv);
-        }
 
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
         dialogView.setText(getString(R.string.CRA_speech_bubble));
@@ -213,13 +165,26 @@ public class CalendarReminderActivity extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // use existing list
+                        FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(CalendarReminderActivity.this, tag);
+
+                        Intent listIntent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
+                        listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+                        listIntent.putExtras(filter.customExtras);
+
+                        startActivity(listIntent);
+                        dismissButton.performClick();
                     }
                 });
     }
 
     private void createNewList(String defaultName) {
-        // Do something
+        Intent newListIntent = new Intent(this, CreateEventListActivity.class);
+        newListIntent.putStringArrayListExtra(TOKEN_NAMES, getIntent().getStringArrayListExtra(TOKEN_NAMES));
+        newListIntent.putStringArrayListExtra(TOKEN_EMAILS, getIntent().getStringArrayListExtra(TOKEN_EMAILS));
+        newListIntent.putExtra(CreateEventListActivity.TOKEN_LIST_NAME, defaultName);
+
+        startActivity(newListIntent);
+        dismissButton.performClick(); // finish with animation
     }
 
 }

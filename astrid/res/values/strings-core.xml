@@ -558,6 +558,9 @@
   <!-- Calendar reminder: list exists dialog use existing button -->
   <string name="CRA_use_existing">Use existing</string>
   
+  <!-- Calendar reminder: list title hint -->
+  <string name="CRA_list_name_hint">List name</string>
+  
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
