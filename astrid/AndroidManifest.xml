@@ -227,6 +227,8 @@
         </intent-filter>
     </receiver>
     
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
+    
     <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
         <intent-filter>
             <action android:name="com.timsu.astrid.SHOW_REENGAGEMENT"/> 
