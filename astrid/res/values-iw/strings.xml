@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">התחברות</string>
   <string name="actfm_GAA_title">בחר חשבון גוגל</string>
   <string name="actfm_OLA_prompt">אנא התחבר למערכת</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">העתקת רשימה</string>
   <string name="actfm_feat_list_suffix">(העתק)</string>
   <string name="actfm_feat_list_cloning">מעתיקה...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">עריכה</string>
   <string name="TAd_contextEditTask">עריכת משימה</string>
   <string name="TAd_contextCopyTask">העתק משימה</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">החזרת המשימה</string>
   <string name="TAd_contextPurgeTask">אַיֵּן משימה</string>
   <string name="SSD_title">מיון, תתי-משימות, ומשימות מוסתרות</string>

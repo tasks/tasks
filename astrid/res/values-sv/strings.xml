@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Logga in på Astrid.com</string>
   <string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
   <string name="actfm_OLA_prompt">Logga in:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Copy list</string>
   <string name="actfm_feat_list_suffix">(Copy)</string>
   <string name="actfm_feat_list_cloning">Copying...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">Redigera</string>
   <string name="TAd_contextEditTask">Redigera uppgift</string>
   <string name="TAd_contextCopyTask">Kopiera uppgift</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
   <string name="TAd_contextPurgeTask">Rensa uppgift</string>
   <string name="SSD_title">Sortering och Dolda Uppgifter</string>
@@ -327,6 +330,7 @@
   <string name="EPr_ideaAuto_title">Ladda fliken Idéer automatiskt</string>
   <string name="EPr_ideaAuto_desc_enabled">Webbsökning till fliken Idéer utförs när du klickar på fliken</string>
   <string name="EPr_ideaAuto_desc_disabled">Webbsökning till fliken Idéer utförs manuellt</string>
+  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
   <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
   <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
   <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>

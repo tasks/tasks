@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Entrar</string>
   <string name="actfm_GAA_title">Selecione a conta do Google que deseja usar:</string>
   <string name="actfm_OLA_prompt">Por favor conecte ao Google:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Copiar lista</string>
   <string name="actfm_feat_list_suffix">(Cópia)</string>
   <string name="actfm_feat_list_cloning">Copiando...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">Editar</string>
   <string name="TAd_contextEditTask">Editar tarefa</string>
   <string name="TAd_contextCopyTask">Copiar tarefa</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Restaurar tarefa</string>
   <string name="TAd_contextPurgeTask">Destruir tarefa</string>
   <string name="SSD_title">Ordenando e ocultando tarefas</string>

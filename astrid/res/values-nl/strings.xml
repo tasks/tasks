@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Sign In</string>
   <string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
   <string name="actfm_OLA_prompt">A.u.b. met Google verbinden:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Copy list</string>
   <string name="actfm_feat_list_suffix">(Copy)</string>
   <string name="actfm_feat_list_cloning">Copying...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">Bewerken</string>
   <string name="TAd_contextEditTask">Taak bewerken</string>
   <string name="TAd_contextCopyTask">Taak kopiëren</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Taak herstellen</string>
   <string name="TAd_contextPurgeTask">Taak opruimen</string>
   <string name="SSD_title">Sorteren en verborgen taken</string>

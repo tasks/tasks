@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Oturum Aç</string>
   <string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
   <string name="actfm_OLA_prompt">Lütfen oturum açın:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Listeyi kopyala</string>
   <string name="actfm_feat_list_suffix">(Kopyala)</string>
   <string name="actfm_feat_list_cloning">Kopyalanıyor...</string>
@@ -75,8 +77,8 @@
   <string name="actfm_https_enabled">HTTPS etkin (yavaş)</string>
   <string name="actfm_https_disabled">HTTPS etkin değil (hızlı)</string>
   <string name="actfm_dual_sync_warning">Google Görevleri ile eşleştirme yapıyordunuz. Her iki hizmetle eşleştirme yapmanız istenmeyen sonuçlara sebep olabilir. Astrid.com ile eşleştirmek istediğinize emin misiniz?</string>
-  <string name="actfm_account_type">Account type</string>
-  <string name="actfm_account_info">Account info</string>
+  <string name="actfm_account_type">Hesap Türü</string>
+  <string name="actfm_account_info">Hesap Bilgisi</string>
   <string name="actfm_account_info_summary">Durum ve seçenekler</string>
   <string name="account_type_title_not_logged_in">Ücretsiz bir hesap için üye ol</string>
   <string name="account_type_summary_not_logged_in">Görevlerine çevrimiçi ulaş, listelerini paylaş ve atama yap</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">Düzenle</string>
   <string name="TAd_contextEditTask">Görevi Düzenle</string>
   <string name="TAd_contextCopyTask">Görevi Kopyala</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Görevi Kurtar</string>
   <string name="TAd_contextPurgeTask">Görevi Temizle</string>
   <string name="SSD_title">Sınıflama, Altgörevler ve Gizli</string>

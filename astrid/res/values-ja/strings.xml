@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Sign In</string>
   <string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
   <string name="actfm_OLA_prompt">ログインしてください:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Copy list</string>
   <string name="actfm_feat_list_suffix">(Copy)</string>
   <string name="actfm_feat_list_cloning">Copying...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">編集</string>
   <string name="TAd_contextEditTask">タスクを編集</string>
   <string name="TAd_contextCopyTask">タスクをコピー</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">元に戻す</string>
   <string name="TAd_contextPurgeTask">タスクを削除</string>
   <string name="SSD_title">並び順と表示項目</string>
@@ -398,7 +401,7 @@
   <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
-  <string name="AOA_title">" アドオン"</string>
+  <string name="AOA_title">アドオン</string>
   <string name="AOA_internal_author">Astrid Team</string>
   <string name="AOA_tab_installed">インストール済</string>
   <string name="AOA_tab_available">追加</string>

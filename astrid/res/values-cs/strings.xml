@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Sign In</string>
   <string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
   <string name="actfm_OLA_prompt">Prosím připojte se do Googlu:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Copy list</string>
   <string name="actfm_feat_list_suffix">(Copy)</string>
   <string name="actfm_feat_list_cloning">Copying...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">Upravit</string>
   <string name="TAd_contextEditTask">Upravit úkol</string>
   <string name="TAd_contextCopyTask">Kopírovat úkol</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Obnovit úkol</string>
   <string name="TAd_contextPurgeTask">Smazat úkol</string>
   <string name="SSD_title">Tříděné a skryté úkoly</string>

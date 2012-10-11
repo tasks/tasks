@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">로그인</string>
   <string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
   <string name="actfm_OLA_prompt">로그인하세요:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">목록 복사하기</string>
   <string name="actfm_feat_list_suffix">(복사)</string>
   <string name="actfm_feat_list_cloning">복사중...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">편집</string>
   <string name="TAd_contextEditTask">일정 편집</string>
   <string name="TAd_contextCopyTask">일정 복사</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">일정 삭제 취소</string>
   <string name="TAd_contextPurgeTask">일정 비우기</string>
   <string name="SSD_title">정렬, 하위일정 및 숨김</string>

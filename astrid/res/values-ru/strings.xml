@@ -63,6 +63,8 @@
   <string name="actfm_ALA_login_title">Войти</string>
   <string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
   <string name="actfm_OLA_prompt">Пожалуйста, войдите:</string>
+  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
+  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Копировать список</string>
   <string name="actfm_feat_list_suffix">(Копия)</string>
   <string name="actfm_feat_list_cloning">Копирование...</string>
@@ -189,6 +191,7 @@
   <string name="TAd_actionEditTask">Правка</string>
   <string name="TAd_contextEditTask">Правка задачи</string>
   <string name="TAd_contextCopyTask">Копировать задачу</string>
+  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
   <string name="TAd_contextPurgeTask">Очистить задачу</string>
   <string name="SSD_title">Сортировка и скрытые задачи</string>
@@ -711,7 +714,7 @@
   <string name="CFC_producteev_assigned_to_text">Присвоено: ?</string>
   <string name="CFC_producteev_assigned_to_name">Присвоено ...</string>
   <string name="TEA_reminders_group_label">Напоминания</string>
-  <string name="TEA_reminder_label">Remind me:</string>
+  <string name="TEA_reminder_label">Напомнить мне:</string>
   <string name="TEA_reminder_due">… при наступлении срока задания</string>
   <string name="TEA_reminder_overdue">… при завершении намеченного времени</string>
   <string name="TEA_reminder_randomly">Случайно один раз</string>
