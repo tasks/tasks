@@ -91,12 +91,19 @@ public class ThemeService {
     }
 
     public static int getEditDialogTheme() {
+        boolean ics = AndroidUtilities.getSdkVersion() >= 14;
         int themeSetting = ThemeService.getTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
-            theme = R.style.TEA_Dialog;
+            if (ics)
+                theme = R.style.TEA_Dialog_ICS;
+            else
+                theme = R.style.TEA_Dialog;
         } else {
-            theme = R.style.TEA_Dialog_White;
+            if (ics)
+                theme = R.style.TEA_Dialog_White_ICS;
+            else
+                theme = R.style.TEA_Dialog_White;
         }
         return theme;
     }

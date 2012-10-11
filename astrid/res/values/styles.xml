@@ -321,7 +321,7 @@
    	<style name="TEA_Dialog" parent="@android:style/Theme.Dialog">
 	    <item name="android:windowFrame">@null</item>
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
-	    <item name="android:windowBackground">@drawable/task_edit_dialog_background</item>
+	    <item name="android:windowBackground">@drawable/dialog_full_holo_dark</item>
 	    <item name="android:windowIsFloating">true</item>
 	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
@@ -330,8 +330,28 @@
 	</style>
 	
    	<style name="TEA_Dialog.White">
-   	    <item name="android:windowBackground">@drawable/task_edit_dialog_background_white</item>
+   	    <item name="android:windowBackground">@drawable/dialog_full_holo_light</item>
    	    <item name="asTextColor">#000000</item>
+   	</style>
+   	
+   	<style name="TEA_Dialog_ICS" parent="@android:style/Theme.Holo.Dialog">
+	    <item name="android:windowFrame">@null</item>
+	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
+	    <item name="android:windowIsFloating">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+	    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	    <item name="asTextColor">#ffffff</item>   	    
+   	</style>
+
+    <style name="TEA_Dialog_White_ICS" parent="@android:style/Theme.Holo.Light.Dialog">
+	    <item name="android:windowFrame">@null</item>
+	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
+	    <item name="android:windowIsFloating">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+	    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	    <item name="asTextColor">#000000</item>   	    
    	</style>
 	
     <style name="TEA_DialogWindowTitle">
