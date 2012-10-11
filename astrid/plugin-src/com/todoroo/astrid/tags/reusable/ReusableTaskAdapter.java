@@ -68,6 +68,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
         task.readFromCursor(cursor);
 
         viewHolder.title.setText(task.getValue(Task.TITLE));
+        view.setMinimumHeight(minRowHeight);
     }
 
     public static class ReusableTaskViewHolder {

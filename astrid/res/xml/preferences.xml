@@ -47,6 +47,12 @@
 	            android:defaultValue="false" />
 	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_allowCompressedTaskRows"
+                android:title="@string/EPr_compressTaskRows_title"
+                android:summary="@string/EPr_compressTaskRows_desc"
+                android:defaultValue="false" />
+	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	            android:key="@string/p_showNotes"
 	            android:title="@string/EPr_showNotes_title"
 	            android:defaultValue="false" />

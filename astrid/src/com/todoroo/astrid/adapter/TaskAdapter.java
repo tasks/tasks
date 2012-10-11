@@ -200,6 +200,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final DisplayMetrics displayMetrics;
 
     private final boolean simpleLayout;
+    protected final int minRowHeight;
 
     // --- task detail and decoration soft caches
 
@@ -239,6 +240,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         this.simpleLayout = (resource == R.layout.task_adapter_row_simple);
+        this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
         startTaskActionsThread();
@@ -249,6 +251,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
 
+    }
+
+    private int computeMinRowHeight() {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        if (simpleLayout) {
+            return (int) (metrics.density * 40);
+        } else {
+            return (int) (metrics.density * 45);
+        }
     }
 
     private void startDetailThread() {
@@ -382,6 +393,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
+        if (Preferences.getBoolean(R.string.p_allowCompressedTaskRows, false)) {
+            viewHolder.rowBody.setMinimumHeight(0);
+            viewHolder.completeBox.setMinimumHeight(0);
+        } else {
+            viewHolder.rowBody.setMinimumHeight(minRowHeight);
+            viewHolder.completeBox.setMinimumHeight(minRowHeight);
+        }
 
         // name
         final TextView nameView = viewHolder.nameView; {

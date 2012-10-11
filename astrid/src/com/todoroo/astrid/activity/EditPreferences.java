@@ -635,7 +635,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     public void addPreferenceListeners() {
-        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_THEME_CHANGED));
+        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
@@ -645,6 +645,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 return true;
             }
         });
+
+        findPreference(getString(R.string.p_allowCompressedTaskRows)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_THEME_CHANGED));
 
         findPreference(getString(R.string.p_statistics)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
