@@ -212,6 +212,7 @@
   <string name="TAd_contextCopyTask">Copy Task</string>
 
   <!-- Context Item: delete task -->
+  <string name="TAd_contextDeleteTask">Delete Task</string>
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
