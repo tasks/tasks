@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
@@ -56,13 +57,29 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     AndroidUtilities.sleepDeep(WAIT_BEFORE_READ_LOG);
-                    Cursor calls = context.getContentResolver().query(
+                    Cursor calls;
+                    try {
+                        calls = context.getContentResolver().query(
                             Calls.CONTENT_URI,
                             new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
                             Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
                             new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
                             Calls.DATE + " DESC"
                             );
+                    } catch (SQLiteException e) { // Sometimes database is locked, retry once
+                        AndroidUtilities.sleepDeep(300L);
+                        try {
+                            calls = context.getContentResolver().query(
+                                    Calls.CONTENT_URI,
+                                    new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
+                                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+                                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
+                                    Calls.DATE + " DESC"
+                                    );
+                        } catch (SQLiteException e2) {
+                            calls = null;
+                        }
+                    }
                     try {
                         if (calls == null)
                             return;
