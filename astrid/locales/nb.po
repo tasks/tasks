@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-02 15:43-0700\n"
-"PO-Revision-Date: 2012-03-01 08:24+0000\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-10-05 22:28+0000\n"
 "Last-Translator: Tim Su <tim@todoroo.com>\n"
 "Language-Team: nb <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-05 00:21+0000\n"
-"X-Generator: Launchpad (build 16061)\n"
+"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
+"X-Generator: Launchpad (build 16130)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -361,6 +361,16 @@ msgstr ""
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
+msgstr ""
+
+#. Login error: user exists
+msgctxt "actfm_ALA_error_user_exists"
+msgid "User already exists. Please sign in instead."
+msgstr ""
+
+#. Login error: wrong password
+msgctxt "actfm_ALA_error_wrong_password"
+msgid "Sorry, that password was incorrect. Please try again."
 msgstr ""
 
 #. ================================================ Featured Lists
@@ -1001,6 +1011,10 @@ msgid "Copy Task"
 msgstr ""
 
 #. Context Item: delete task
+msgctxt "TAd_contextDeleteTask"
+msgid "Delete Task"
+msgstr ""
+
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
 msgid "Undelete Task"
@@ -3315,7 +3329,6 @@ msgctxt "premium_speech_bubble_1"
 msgid "Premium will power up your productivity!"
 msgstr ""
 
-#, c-format
 msgctxt "premium_speech_bubble_2"
 msgid "Order one year and save 25%%!"
 msgstr ""
