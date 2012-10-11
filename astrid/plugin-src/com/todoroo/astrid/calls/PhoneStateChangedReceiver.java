@@ -11,7 +11,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
@@ -66,7 +65,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
                             Calls.DATE + " DESC"
                             );
-                    } catch (SQLiteException e) { // Sometimes database is locked, retry once
+                    } catch (Exception e) { // Sometimes database is locked, retry once
                         AndroidUtilities.sleepDeep(300L);
                         try {
                             calls = context.getContentResolver().query(
@@ -76,7 +75,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                                     new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
                                     Calls.DATE + " DESC"
                                     );
-                        } catch (SQLiteException e2) {
+                        } catch (Exception e2) {
                             calls = null;
                         }
                     }
