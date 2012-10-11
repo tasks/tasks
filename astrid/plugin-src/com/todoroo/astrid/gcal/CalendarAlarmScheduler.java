@@ -28,6 +28,7 @@ public class CalendarAlarmScheduler {
 
         long now = DateUtilities.now();
 
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Cursor events = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS),
                 new String[] { Calendars.ID_COLUMN_NAME, Calendars.EVENTS_DTSTART_COL },
                 Calendars.EVENTS_DTSTART_COL + " > ? AND " + Calendars.EVENTS_DTSTART_COL + " < ?",
@@ -50,7 +51,6 @@ public class CalendarAlarmScheduler {
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                             CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
 
-                    AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                     am.cancel(pendingIntent);
 
                     long alarmTime = start - DateUtilities.ONE_MINUTE * 15;
@@ -61,6 +61,13 @@ public class CalendarAlarmScheduler {
                 }
 
             }
+
+            // Schedule alarm to recheck and reschedule calendar alarms in 12 hours
+            Intent rescheduleAlarm = new Intent(CalendarStartupReceiver.BROADCAST_RESCHEDULE_CAL_ALARMS);
+            PendingIntent pendingReschedule = PendingIntent.getBroadcast(context, 0,
+                    rescheduleAlarm, 0);
+            am.cancel(pendingReschedule);
+            am.set(AlarmManager.RTC, DateUtilities.now() + DateUtilities.ONE_HOUR * 12, pendingReschedule);
         } finally {
             events.close();
         }
