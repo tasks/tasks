@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-05 15:19-0700\n"
+"POT-Creation-Date: 2012-10-11 12:29-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,10 +19,6 @@ msgstr ""
 
 #. ================================================== general terms ==
 #. People Editing Activity
-msgctxt "EPE_action"
-msgid "Share"
-msgstr ""
-
 #. slide 18b/ 25e/ 27c: task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
@@ -34,15 +30,7 @@ msgid "Contact or Shared List"
 msgstr ""
 
 #. toast on transmit success
-msgctxt "actfm_toast_success"
-msgid "Saved on Server"
-msgstr ""
-
 #. can't rename or delete shared tag message
-msgctxt "actfm_tag_operation_disabled"
-msgid "Sorry, this operation is not yet supported for shared tags."
-msgstr ""
-
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
@@ -66,10 +54,6 @@ msgid "Clear Picture"
 msgstr ""
 
 #. filter list activity: refresh tags
-msgctxt "actfm_FLA_menu_refresh"
-msgid "Refresh Lists"
-msgstr ""
-
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
@@ -110,21 +94,18 @@ msgid "Add a comment..."
 msgstr ""
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
-#, c-format
-msgctxt "UAd_title_comment"
-msgid "%1$s re: %2$s"
-msgstr ""
-
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
 msgid "Tasks"
 msgstr ""
 
+#. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
 msgstr ""
 
+#. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
@@ -157,15 +138,7 @@ msgid "List"
 msgstr ""
 
 #. Tag Settings: tag owner label
-msgctxt "actfm_TVA_tag_owner_label"
-msgid "List Creator:"
-msgstr ""
-
 #. Tag Settings: tag owner value when there is no owner
-msgctxt "actfm_TVA_tag_owner_none"
-msgid "none"
-msgstr ""
-
 #. slide 26a and 27b: Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
@@ -187,10 +160,6 @@ msgid "Silence Notifications"
 msgstr ""
 
 #. Tag Settings: list icon label
-msgctxt "actfm_TVA_list_icon_label"
-msgid "List Icon:"
-msgstr ""
-
 #. slide 25b/27d: Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
@@ -227,20 +196,8 @@ msgid ""
 msgstr ""
 
 #. task sharing dialog: window title
-msgctxt "actfm_EPA_title"
-msgid "Share / Assign"
-msgstr ""
-
 #. task sharing dialog: save button
-msgctxt "actfm_EPA_save"
-msgid "Save & Share"
-msgstr ""
-
 #. task sharing dialog: assigned label
-msgctxt "actfm_EPA_assign_label"
-msgid "Who"
-msgstr ""
-
 #. slide 18a: task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
@@ -267,10 +224,6 @@ msgid "Outsource it!"
 msgstr ""
 
 #. task sharing dialog: custom email assignment
-msgctxt "actfm_EPA_assign_custom"
-msgid "Custom..."
-msgstr ""
-
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
@@ -288,10 +241,6 @@ msgid "List: %s"
 msgstr ""
 
 #. task sharing dialog: assigned hint
-msgctxt "actfm_EPA_assigned_hint"
-msgid "Contact Name"
-msgstr ""
-
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
@@ -313,15 +262,6 @@ msgid "Astrid Friends"
 msgstr ""
 
 #. task sharing dialog: message hint
-msgctxt "actfm_EPA_tag_label"
-msgid "Create a shared tag?"
-msgstr ""
-
-#. task sharing dialog: message hint
-msgctxt "actfm_EPA_tag_hint"
-msgid "(i.e. Silly Hats Club)"
-msgstr ""
-
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
@@ -333,16 +273,7 @@ msgid "Twitter"
 msgstr ""
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
-#, c-format
-msgctxt "actfm_EPA_emailed_toast"
-msgid "Task shared with %s"
-msgstr ""
-
 #. task sharing dialog: edit people settings saved
-msgctxt "actfm_EPA_saved_toast"
-msgid "People Settings Saved"
-msgstr ""
-
 #. task sharing dialog: invalid email (%s => email)
 #, c-format
 msgctxt "actfm_EPA_invalid_email"
@@ -350,11 +281,6 @@ msgid "Invalid E-mail: %s"
 msgstr ""
 
 #. task sharing dialog: tag not found (%s => tag)
-#, c-format
-msgctxt "actfm_EPA_invalid_tag"
-msgid "List Not Found: %s"
-msgstr ""
-
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
 msgid "You need to be logged in to Astrid.com to share tasks!"
@@ -392,30 +318,9 @@ msgid "Connect with Google"
 msgstr ""
 
 #. share login: Sharing Footer Password Label
-msgctxt "actfm_ALA_pw_login"
-msgid "Don't use Google or Facebook?"
-msgstr ""
-
 #. share login: Sharing Password Link
-msgctxt "actfm_ALA_pw_link"
-msgid "Sign In Here"
-msgstr ""
-
 #. share login: Password Are you a New User?
-msgctxt "actfm_ALA_pw_new"
-msgid "Create a new account?"
-msgstr ""
-
 #. share login: Password Are you a Returning User?
-msgctxt "actfm_ALA_pw_returning"
-msgid "Already have an account?"
-msgstr ""
-
-#. share login: Name
-msgctxt "actfm_ALA_name_label"
-msgid "Name"
-msgstr ""
-
 #. share login: Name
 msgctxt "actfm_ALA_firstname_label"
 msgid "First Name"
@@ -432,10 +337,6 @@ msgid "Email"
 msgstr ""
 
 #. share login: Username / Email
-msgctxt "actfm_ALA_username_email_label"
-msgid "Username / Email"
-msgstr ""
-
 #. share login: Password
 msgctxt "actfm_ALA_password_label"
 msgid "Password"
@@ -459,6 +360,16 @@ msgstr ""
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
+msgstr ""
+
+#. Login error: user exists
+msgctxt "actfm_ALA_error_user_exists"
+msgid "User already exists. Please sign in instead."
+msgstr ""
+
+#. Login error: wrong password
+msgctxt "actfm_ALA_error_wrong_password"
+msgid "Sorry, that password was incorrect. Please try again."
 msgstr ""
 
 #. ================================================ Featured Lists
@@ -511,15 +422,7 @@ msgid "HTTPS disabled (faster)"
 msgstr ""
 
 #. title for notification tray after synchronizing
-msgctxt "actfm_notification_title"
-msgid "Astrid.com Sync"
-msgstr ""
-
 #. text for notification when comments are received
-msgctxt "actfm_notification_comments"
-msgid "New comments received / click for more details"
-msgstr ""
-
 msgctxt "actfm_dual_sync_warning"
 msgid ""
 "You are currently synchronizing with Google Tasks. Be advised that "
@@ -554,10 +457,6 @@ msgstr ""
 
 msgctxt "actfm_account_basic"
 msgid "Basic"
-msgstr ""
-
-msgctxt "actfm_account_none"
-msgid "None"
 msgstr ""
 
 msgctxt "actfm_inapp_billing"
@@ -664,17 +563,7 @@ msgid "Backup will occur daily"
 msgstr ""
 
 #. Preference screen restoring Tasks Help
-msgctxt "backup_BPr_how_to_restore"
-msgid "How do I restore backups?"
-msgstr ""
-
 #. Preference screen Restoring Tasks Help Dialog Text
-msgctxt "backup_BPr_how_to_restore_dialog"
-msgid ""
-"You need to add the Astrid Power Pack to manage and restore your backups."
-" As a favor, Astrid also automatically backs up your tasks, just in case."
-msgstr ""
-
 msgctxt "backup_BPr_cloud_already_logged_in"
 msgid "You already have cloud backup on Astrid.com!"
 msgstr ""
@@ -754,10 +643,6 @@ msgid "Reading task %d..."
 msgstr ""
 
 #. Backup: Dialog when unable to open a file
-msgctxt "DLG_error_opening"
-msgid "Could not find this item:"
-msgstr ""
-
 #. Backup: Dialog when unable to open SD card folder (%s => folder)
 #, c-format
 msgctxt "DLG_error_sdcard"
@@ -832,10 +717,6 @@ msgid ""
 msgstr ""
 
 #. Button for going to Market
-msgctxt "DLG_to_market"
-msgid "Go To Market"
-msgstr ""
-
 #. Button for accepting EULA
 msgctxt "DLG_accept"
 msgid "I Accept"
@@ -862,10 +743,6 @@ msgid "Loading..."
 msgstr ""
 
 #. Dialog - dismiss
-msgctxt "DLG_dismiss"
-msgid "Dismiss"
-msgstr ""
-
 #. slide 20d
 msgctxt "DLG_ok"
 msgid "OK"
@@ -895,26 +772,10 @@ msgid "Click To Set"
 msgstr ""
 
 #. String formatter for DateButtons ($D => date, $T => time)
-msgctxt "WID_dateButtonLabel"
-msgid "$D $T"
-msgstr ""
-
 #. String formatter for Disable button
-msgctxt "WID_disableButton"
-msgid "Disable"
-msgstr ""
-
 #. ============================================================= notes
 #. Note Exposer
-msgctxt "ENE_label"
-msgid "Notes"
-msgstr ""
-
 #. Note Exposer / Comments
-msgctxt "ENE_label_comments"
-msgid "Comments"
-msgstr ""
-
 #. EditNoteActivity - no comments
 msgctxt "ENA_no_comments"
 msgid "No activity yet"
@@ -988,10 +849,6 @@ msgid "Suggestions"
 msgstr ""
 
 #. Menu: Tutorial
-msgctxt "TLA_menu_tutorial"
-msgid "Tutorial"
-msgstr ""
-
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
 msgid "Account & Settings"
@@ -1003,10 +860,6 @@ msgid "Support"
 msgstr ""
 
 #. Search Label
-msgctxt "TLA_search_label"
-msgid "Search This List"
-msgstr ""
-
 #. Window title for displaying Custom Filter
 msgctxt "TLA_custom"
 msgid "Custom"
@@ -1125,6 +978,7 @@ msgctxt "TAd_deletedFormat"
 msgid "%s [deleted]"
 msgstr ""
 
+#. Displayed when adapter is flung (scrolled quickly)
 #. slide 22b: indicates task was completed. %s => date or time ago
 #, c-format
 msgctxt "TAd_completed"
@@ -1149,10 +1003,6 @@ msgid "Copy Task"
 msgstr ""
 
 #. Context Item: delete task
-msgctxt "TAd_contextHelpTask"
-msgid "Get help"
-msgstr ""
-
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
 msgstr ""
@@ -1245,30 +1095,14 @@ msgid "Astrid List or Filter"
 msgstr ""
 
 #. Filter List Activity Title
-msgctxt "FLA_title"
-msgid "Lists"
-msgstr ""
-
 #. Displayed when loading filters
-msgctxt "FLA_loading"
-msgid "Loading Filters..."
-msgstr ""
-
 #. Context Menu: Create Shortcut
 msgctxt "FLA_context_shortcut"
 msgid "Create Shortcut On Desktop"
 msgstr ""
 
 #. Menu: Search
-msgctxt "FLA_menu_search"
-msgid "Search Tasks..."
-msgstr ""
-
 #. Menu: Help
-msgctxt "FLA_menu_help"
-msgid "Help"
-msgstr ""
-
 #. slide 28c: Create Shortcut Dialog Title
 msgctxt "FLA_shortcut_dialog_title"
 msgid "Create Desktop Shortcut"
@@ -1313,21 +1147,8 @@ msgstr ""
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
-#, c-format
-msgctxt "TEA_view_title"
-msgid "Astrid: Editing '%s'"
-msgstr ""
-
 #. Title when creating a new task
-msgctxt "TEA_view_titleNew"
-msgid "New Task"
-msgstr ""
-
 #. Task title label
-msgctxt "TEA_title_label"
-msgid "Title"
-msgstr ""
-
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
@@ -1344,10 +1165,6 @@ msgid "Importance"
 msgstr ""
 
 #. Task urgency label
-msgctxt "TEA_urgency_label"
-msgid "Deadline"
-msgstr ""
-
 #. Task urgency specific time checkbox
 msgctxt "TEA_urgency_specific_time"
 msgid "At specific time?"
@@ -1426,15 +1243,7 @@ msgid "Task Saved"
 msgstr ""
 
 #. Toast: task was not saved
-msgctxt "TEA_onTaskCancel"
-msgid "Task Editing Was Canceled"
-msgstr ""
-
 #. Toast: task was deleted
-msgctxt "TEA_onTaskDelete"
-msgid "Task deleted!"
-msgstr ""
-
 #. slide 15b: Task edit tab: activity
 msgctxt "TEA_tab_activity"
 msgid "Activity"
@@ -1507,10 +1316,6 @@ msgid "Specific Day/Time"
 msgstr ""
 
 #. Task edit control set descriptors
-msgctxt "TEA_control_title"
-msgid "Task Title"
-msgstr ""
-
 #. slide 9b/35i
 msgctxt "TEA_control_who"
 msgid "Who"
@@ -1569,20 +1374,8 @@ msgid "Show in my list"
 msgstr ""
 
 #. Add Ons tab when no add-ons found
-msgctxt "TEA_addons_text"
-msgid "Looking for more features?"
-msgstr ""
-
 #. Add Ons button
-msgctxt "TEA_addons_button"
-msgid "Get the Power Pack!"
-msgstr ""
-
 #. More row
-msgctxt "TEA_more"
-msgid "More"
-msgstr ""
-
 #. slide 15c: Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No activity"
@@ -1596,10 +1389,6 @@ msgstr ""
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
-
-msgctxt "TEA_date_and_time"
-msgid "Date/Time"
 msgstr ""
 
 msgctxt "TEA_new_task"
@@ -1622,20 +1411,8 @@ msgstr ""
 
 #. ============================================= IntroductionActivity ==
 #. slide 1a: Introduction Window title
-msgctxt "InA_title"
-msgid "Welcome to Astrid!"
-msgstr ""
-
 #. Button to agree to EULA
-msgctxt "InA_agree"
-msgid "I Agree!!"
-msgstr ""
-
 #. Button to disagree with EULA
-msgctxt "InA_disagree"
-msgid "I Disagree"
-msgstr ""
-
 #. ===================================================== MissedCallActivity ==
 #. Missed call: return call (%1$s -> caller, %2$s -> time of call)
 #, c-format
@@ -1748,10 +1525,6 @@ msgstr ""
 
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
-msgctxt "HlA_get_support"
-msgid "Get Support"
-msgstr ""
-
 #. ==================================================== UpdateService ==
 #. Changelog Window Title
 msgctxt "UpS_changelog_title"
@@ -1836,10 +1609,6 @@ msgid "Font size on the main listing page"
 msgstr ""
 
 #. Preferemce: Show task edit confirmation toasts
-msgctxt "EPr_showEditToasts_title"
-msgid "Show task edit confirmations"
-msgstr ""
-
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show notes in task"
@@ -1881,15 +1650,7 @@ msgid "Compress task rows to fit title"
 msgstr ""
 
 #. slide 34e: Preferences: Use legacy importance and checkbox style
-msgctxt "EPr_userLegacyImportance_title"
-msgid "Use legacy importance style"
-msgstr ""
-
 #. slide 34k
-msgctxt "EPr_userLegacyImportance_desc"
-msgid "Use legacy importance style"
-msgstr ""
-
 #. slide 34b: Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
@@ -1962,15 +1723,7 @@ msgid "Task row appearance"
 msgstr ""
 
 #. slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)
-msgctxt "EPr_labs_header"
-msgid "Astrid Labs"
-msgstr ""
-
 #. slide 33f
-msgctxt "EPr_labs_desc"
-msgid "Try and configure experimental features"
-msgstr ""
-
 #. slide 49g: Preferences: use the system contact picker for task assignment
 msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
@@ -2031,18 +1784,10 @@ msgctxt "EPr_show_featured_lists"
 msgid "Show featured lists"
 msgstr ""
 
-msgctxt "EPr_swipe_lists_restart_alert"
-msgid "You will need to restart Astrid for this change to take effect"
-msgstr ""
-
 #. Swipe between lists
 #. Preference: swipe between lists performance
 msgctxt "EPr_swipe_lists_performance_title"
 msgid "Swipe between lists"
-msgstr ""
-
-msgctxt "EPr_swipe_lists_performance_subtitle"
-msgid "Controls the memory performance of swipe between lists"
 msgstr ""
 
 msgctxt "EPr_swipe_lists_performance_mode:0"
@@ -2087,13 +1832,6 @@ msgstr ""
 
 msgctxt "swipe_lists_helper_subtitle"
 msgid "Change settings in Settings -&gt; Appearance"
-msgstr ""
-
-#. Format string for displaying the currently selected preference. $1 is name
-#. of selected mode, $2 is description
-#, c-format
-msgctxt "EPr_swipe_lists_display"
-msgid "%1$s - %2$s"
 msgstr ""
 
 msgctxt "EPr_themes:0"
@@ -2258,15 +1996,7 @@ msgid "Free"
 msgstr ""
 
 #. Add-on Activity - menu item to visit add-on website
-msgctxt "AOA_visit_website"
-msgid "Visit Website"
-msgstr ""
-
 #. Add-on Activity - menu item to visit android market
-msgctxt "AOA_visit_market"
-msgid "Android Market"
-msgstr ""
-
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
 msgid "Empty List!"
@@ -2349,10 +2079,6 @@ msgid "I Won't Kill Astrid!"
 msgstr ""
 
 #. Astrid's Android Marketplace title. It never appears in the app itself.
-msgctxt "marketplace_title"
-msgid "Astrid Task/Todo List"
-msgstr ""
-
 #. Astrid's Android Marketplace description. It never appears in the app
 #. itself.
 msgctxt "marketplace_description"
@@ -2539,10 +2265,6 @@ msgid "Active Tasks"
 msgstr ""
 
 #. Search Filter
-msgctxt "BFE_Search"
-msgid "Search..."
-msgstr ""
-
 #. slide 10b: Recently Modified
 msgctxt "BFE_Recent"
 msgid "Recently Modified"
@@ -2554,15 +2276,7 @@ msgid "I've Assigned"
 msgstr ""
 
 #. Build Your Own Filter
-msgctxt "BFE_Custom"
-msgid "Custom Filter..."
-msgstr ""
-
 #. Saved Filters Header
-msgctxt "BFE_Saved"
-msgid "Filters"
-msgstr ""
-
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
 msgid "Delete Filter"
@@ -2581,11 +2295,6 @@ msgid "Name this filter to save it..."
 msgstr ""
 
 #. Filter Name default for copied filters (%s => old filter name)
-#, c-format
-msgctxt "CFA_filterName_copy"
-msgid "Copy of %s"
-msgstr ""
-
 #. slide 30a: Filter Starting Universe: all tasks
 msgctxt "CFA_universe_all"
 msgid "Active Tasks"
@@ -2728,10 +2437,6 @@ msgid "Error adding task to calendar!"
 msgstr ""
 
 #. Label for adding task to calendar
-msgctxt "gcal_TEA_calendar_label"
-msgid "Calendar Integration:"
-msgstr ""
-
 #. slide 21c: Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
@@ -2743,10 +2448,6 @@ msgid "Open Calendar Event"
 msgstr ""
 
 #. Toast when unable to open calendar event
-msgctxt "gcal_TEA_calendar_error"
-msgid "Error opening event!"
-msgstr ""
-
 #. Toast when calendar event updated because task changed
 msgctxt "gcal_TEA_calendar_updated"
 msgid "Calendar event also updated!"
@@ -2786,10 +2487,6 @@ msgid "Google Tasks"
 msgstr ""
 
 #. filter category for GTasks lists
-msgctxt "gtasks_FEx_list"
-msgid "By List"
-msgstr ""
-
 #. filter title for GTasks lists (%s => list name)
 #, c-format
 msgctxt "gtasks_FEx_title"
@@ -2812,10 +2509,6 @@ msgid "Error creating new list"
 msgstr ""
 
 #. short help title for Gtasks
-msgctxt "gtasks_help_title"
-msgid "Welcome to Google Tasks!"
-msgstr ""
-
 msgctxt "CFC_gtasks_list_text"
 msgid "In List: ?"
 msgstr ""
@@ -2836,10 +2529,6 @@ msgstr ""
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
-msgctxt "gtasks_GLA_title"
-msgid "Log In to Google Tasks"
-msgstr ""
-
 #. Instructions: Gtasks login
 msgctxt "gtasks_GLA_body"
 msgid ""
@@ -2860,35 +2549,15 @@ msgid ""
 msgstr ""
 
 #. Sign In Button
-msgctxt "gtasks_GLA_signIn"
-msgid "Sign In"
-msgstr ""
-
 #. E-mail Address Label
-msgctxt "gtasks_GLA_email"
-msgid "E-mail"
-msgstr ""
-
 #. Password Label
-msgctxt "gtasks_GLA_password"
-msgid "Password"
-msgstr ""
-
 #. Authenticating toast
 msgctxt "gtasks_GLA_authenticating"
 msgid "Authenticating..."
 msgstr ""
 
 #. Google Apps for Domain checkbox
-msgctxt "gtasks_GLA_domain"
-msgid "Google Apps for Domain account"
-msgstr ""
-
 #. Error Message when fields aren't filled out
-msgctxt "gtasks_GLA_errorEmpty"
-msgid "Error: fill out all fields!"
-msgstr ""
-
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "gtasks_GLA_errorAuth"
 msgid ""
@@ -2918,10 +2587,6 @@ msgstr ""
 
 #. ================================================ Synchronization ==
 #. title for notification tray when synchronizing
-msgctxt "gtasks_notification_title"
-msgid "Astrid: Google Tasks"
-msgstr ""
-
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
 msgid ""
@@ -3001,19 +2666,7 @@ msgctxt "help_popover_switch_lists"
 msgid "Tap to add a list or switch between lists"
 msgstr ""
 
-msgctxt "help_popover_when_shortcut"
-msgid "Tap this shortcut to quick select date and time"
-msgstr ""
-
-msgctxt "help_popover_when_row"
-msgid "Tap anywhere on this row to access options like repeat"
-msgstr ""
-
 #. Login activity
-msgctxt "welcome_login_title"
-msgid "Welcome to Astrid!"
-msgstr ""
-
 #. slide 7b
 msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
@@ -3077,10 +2730,6 @@ msgid ""
 msgstr ""
 
 #. Locale Window Filter Picker UI
-msgctxt "locale_pick_filter"
-msgid "Filter:"
-msgstr ""
-
 #. Locale Window Interval Label
 msgctxt "locale_interval_label"
 msgid "Limit notifications to:"
@@ -3815,10 +3464,6 @@ msgid "Timezone"
 msgstr ""
 
 #. Confirm Password Label
-msgctxt "producteev_PLA_confirmPassword"
-msgid "Confirm Password"
-msgstr ""
-
 #. First Name Label
 msgctxt "producteev_PLA_firstName"
 msgid "First Name"
@@ -3835,10 +3480,6 @@ msgid "Error: fill out all fields!"
 msgstr ""
 
 #. Error Message when passwords don't match
-msgctxt "producteev_PLA_errorMatch"
-msgid "Error: passwords don't match!"
-msgstr ""
-
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "producteev_PLA_errorAuth"
 msgid "Error: e-mail or password incorrect!"
@@ -3851,26 +3492,9 @@ msgid "Producteev"
 msgstr ""
 
 #. text for notification tray when synchronizing
-#, c-format
-msgctxt "producteev_notification_text"
-msgid "%s tasks updated / click for more details"
-msgstr ""
-
 #. Error msg when io exception
-msgctxt "producteev_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
 #. Prod Login email not specified
-msgctxt "producteev_MLA_email_empty"
-msgid "E-Mail was not specified!"
-msgstr ""
-
 #. Prod Login password not specified
-msgctxt "producteev_MLA_password_empty"
-msgid "Password was not specified!"
-msgstr ""
-
 #. ================================================ labels for layout-elements
 #. ==
 #. Label for Producteev control set row
@@ -3884,20 +3508,12 @@ msgid "Assign this task to this person:"
 msgstr ""
 
 #. Spinner-item for unassigned tasks on taskeditactivity
-msgctxt "producteev_TEA_task_unassigned"
-msgid "&lt;Unassigned&gt;"
-msgstr ""
-
 #. label for dashboard-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_dashboard_assign_label"
 msgid "Assign this task to this workspace:"
 msgstr ""
 
 #. Spinner-item for default dashboard on taskeditactivity
-msgctxt "producteev_TEA_dashboard_default"
-msgid "&lt;Default&gt;"
-msgstr ""
-
 msgctxt "CFC_producteev_in_workspace_text"
 msgid "In workspace: ?"
 msgstr ""
@@ -4040,10 +3656,6 @@ msgstr ""
 
 msgctxt "rmd_reengage_name_default"
 msgid "you"
-msgstr ""
-
-msgctxt "rmd_reengage_snooze"
-msgid "Snooze all"
 msgstr ""
 
 msgctxt "rmd_reengage_add_tasks"
@@ -4225,15 +3837,7 @@ msgid "Notifications can be cleared with \"Clear All\" button"
 msgstr ""
 
 #. Reminder Preference: Notification Icon Title
-msgctxt "rmd_EPr_notificon_title"
-msgid "Notification icon set"
-msgstr ""
-
 #. Reminder Preference: Notification Icon Description
-msgctxt "rmd_Epr_notificon_desc"
-msgid "Choose Astrid's notification bar icon"
-msgstr ""
-
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Title
 msgctxt "rmd_EPr_multiple_maxvolume_title"
 msgid "Max volume for multiple-ring reminders"
@@ -4313,34 +3917,36 @@ msgid "New tasks will remind randomly: %s"
 msgstr ""
 
 #. slide 39a: Defaults Title
-msgctxt "rmd_EPr_defaults_header"
-msgid "New task defaults"
-msgstr ""
-
 msgctxt "EPr_reminder_random:0"
 msgid "disabled"
 msgstr ""
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:1"
 msgid "hourly"
 msgstr ""
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:2"
 msgid "daily"
 msgstr ""
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:3"
 msgid "weekly"
 msgstr ""
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:4"
 msgid "bi-weekly"
 msgstr ""
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:5"
 msgid "monthly"
 msgstr ""
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:6"
 msgid "bi-monthly"
 msgstr ""
@@ -5286,32 +4892,16 @@ msgid "New list"
 msgstr ""
 
 #. Tags dropdown
-msgctxt "TEA_tag_dropdown"
-msgid "Select a list"
-msgstr ""
-
 #. =============================================== Task List Controls ==
 #. menu item for tags
-msgctxt "tag_TLA_menu"
-msgid "Lists"
-msgstr ""
-
 #. ========================================================== Extras ==
 #. Context Item: show tag
-msgctxt "TAd_contextFilterByTag"
-msgid "Show List"
-msgstr ""
-
 #. slide 25a: Dialog: new list
 msgctxt "tag_new_list"
 msgid "New List"
 msgstr ""
 
 #. Dialog: list saved
-msgctxt "tag_list_saved"
-msgid "List Saved"
-msgstr ""
-
 #. Dialog: task created without title
 msgctxt "tag_no_title_error"
 msgid "Please enter a name for this list first!"
@@ -5329,20 +4919,8 @@ msgid "Lists"
 msgstr ""
 
 #. filter header for tags user created
-msgctxt "tag_FEx_category_mine"
-msgid "My Lists"
-msgstr ""
-
 #. filter header for tags, shared with user
-msgctxt "tag_FEx_category_shared"
-msgid "Shared With Me"
-msgstr ""
-
 #. filter header for tags which have no active tasks
-msgctxt "tag_FEx_category_inactive"
-msgid "Inactive"
-msgstr ""
-
 #. slide 10d: filter for untagged tasks
 msgctxt "tag_FEx_untagged"
 msgid "Not in any List"
@@ -5354,11 +4932,6 @@ msgid "Not in an Astrid List"
 msgstr ""
 
 #. slide 27a: %s => tag name
-#, c-format
-msgctxt "tag_FEx_name"
-msgid "List: %s"
-msgstr ""
-
 #. context menu option to rename a tag
 msgctxt "tag_cm_rename"
 msgid "Rename List"
@@ -5456,15 +5029,7 @@ msgstr ""
 #. full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task List: Start Timer button
-msgctxt "TAE_startTimer"
-msgid "Timer"
-msgstr ""
-
 #. Task List: Stop Timer button
-msgctxt "TAE_stopTimer"
-msgid "Stop"
-msgstr ""
-
 #. Android Notification Title (%s => # tasks)
 #, c-format
 msgctxt "TPl_notification"
@@ -5472,10 +5037,6 @@ msgid "Timers Active for %s!"
 msgstr ""
 
 #. Filter Header for Timer plugin
-msgctxt "TFE_category"
-msgid "Timer Filters"
-msgstr ""
-
 #. Filter for Timed Tasks
 msgctxt "TFE_workingOn"
 msgid "Tasks Being Timed"
@@ -5681,10 +5242,6 @@ msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-msgctxt "welcome_show_eula"
-msgid "Accept EULA to get started!"
-msgstr ""
-
 #. slide 30a
 msgctxt "welcome_setting"
 msgid "Show tutorial"
@@ -5780,10 +5337,6 @@ msgstr ""
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr ""
-
-msgctxt "welcome_back"
-msgid "Back"
 msgstr ""
 
 #. slide 1c
