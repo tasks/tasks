@@ -135,6 +135,9 @@ public class GCalControlSet extends PopupControlSet {
     @SuppressWarnings("nls")
     @Override
     protected String writeToModelAfterInitialized(Task task) {
+        if (!task.hasDueDate())
+            return null;
+
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
                                         !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
         if ((gcalCreateEventEnabled || calendarSelector.getSelectedItemPosition() != 0) &&

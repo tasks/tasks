@@ -45,10 +45,12 @@ public class GCalHelper {
     }
 
     public static void createTaskEventIfEnabled(Task t) {
+        if (!t.hasDueDate())
+            return;
         createTaskEventIfEnabled(t, true);
     }
 
-    public static void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
+    private static void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
             && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
         if (gcalCreateEventEnabled) {

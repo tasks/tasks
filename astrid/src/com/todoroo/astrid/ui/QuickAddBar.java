@@ -358,7 +358,7 @@ public class QuickAddBar extends LinearLayout {
 
     private static void addToCalendar(Task task, String title) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
+                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
             Uri calendarUri = GCalHelper.createTaskEvent(task,
