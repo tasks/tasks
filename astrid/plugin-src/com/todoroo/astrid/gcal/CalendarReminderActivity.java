@@ -174,11 +174,12 @@ public class CalendarReminderActivity extends Activity {
         createListButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TagData existing = tagDataService.getTag(eventName, TagData.PROPERTIES);
+                String listName = getString(R.string.CRA_default_list_name, eventName);
+                TagData existing = tagDataService.getTag(listName, TagData.PROPERTIES);
                 if (existing != null) {
                     listExists(existing);
                 } else {
-                    createNewList(eventName);
+                    createNewList(listName);
                 }
             }
         });
