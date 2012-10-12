@@ -58,6 +58,19 @@
         android:textSize="24sp"
         android:gravity="center"
         android:text="@string/CRA_create_list"/>
+
+    <TextView
+        android:id="@+id/postpone"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="#707070"
+        android:text="@string/CRA_postpone"/>
     
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -81,6 +94,7 @@
 	        android:layout_alignParentRight="true"
 	        android:layout_width="35dip"
 	        android:layout_height="35dip"
+	        android:padding="4dip"
 	        android:background="@android:color/transparent"
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/single_gear"/>

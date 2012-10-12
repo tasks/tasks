@@ -37,13 +37,13 @@ public class CalendarAlarmScheduler {
         try {
             if (events.getCount() > 0) {
                 int idIndex = events.getColumnIndex(Calendars.ID_COLUMN_NAME);
-                int timeIndex = events.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
-
-                Intent eventAlarm = new Intent(context, CalendarAlarmReceiver.class);
-                eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
+                int dtstartIndex = events.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
 
                 for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
-                    long start = events.getLong(timeIndex);
+                    Intent eventAlarm = new Intent(context, CalendarAlarmReceiver.class);
+                    eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
+
+                    long start = events.getLong(dtstartIndex);
                     long id = events.getLong(idIndex);
 
                     eventAlarm.putExtra(CalendarAlarmReceiver.TOKEN_EVENT_ID, id);

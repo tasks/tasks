@@ -525,8 +525,8 @@
   <!-- Calendar remindeer ignore button -->
   <string name="CRA_ignore">Ignore</string>
   
-  <!-- Calendar event (%s -> event name)-->
-  <string name="CRA_title">Calendar event: %s</string>
+  <!-- Calendar event -->
+  <string name="CRA_title">Need a meeting list?</string>
   
   <!-- Calendar reminder: dialog to ignore all missed calls title -->
   <string name="CRA_ignore_title">Ignore all calendar events?</string>
@@ -540,11 +540,17 @@
   <!-- Calendar reminder: dialog to ignore all missed calls ignore just this button -->
   <string name="CRA_ignore_this">Ignore this event only</string>
   
-  <!-- Calendar reminder: astrid speech bubble -->
-  <string name="CRA_speech_bubble">Looks like you\'ve got a meeting coming up! Want to create a list for taking note of action items?</string>
+  <!-- Calendar reminder: astrid speech bubble when event starting (%s -> event name) -->
+  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
+
+  <!-- Calendar reminder: astrid speech bubble when event ending (%s -> event name) -->
+  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
   
   <!-- Calendar reminder: create list button -->
   <string name="CRA_create_list">Create list</string>
+
+  <!-- Calendar reminder: postpone button -->
+  <string name="CRA_postpone">Maybe afterwards</string>
   
   <!-- Calendar reminder: list exists dialog title -->
   <string name="CRA_list_exists_title">List already exists</string>

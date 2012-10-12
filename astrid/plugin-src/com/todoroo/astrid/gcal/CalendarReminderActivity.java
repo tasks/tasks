@@ -3,6 +3,9 @@ package com.todoroo.astrid.gcal;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,8 +35,12 @@ public class CalendarReminderActivity extends Activity {
 
     public static final String TOKEN_NAMES = "names";
     public static final String TOKEN_EMAILS = "emails";
+    public static final String TOKEN_EVENT_ID = "eventId";
     public static final String TOKEN_EVENT_NAME = "eventName";
-    public static final String TOKEN_EVENT_TIME = "eventTime";
+    public static final String TOKEN_EVENT_START_TIME = "eventStartTime";
+    public static final String TOKEN_EVENT_END_TIME = "eventEndTime";
+
+    public static final String TOKEN_FROM_POSTPONE = "fromPostpone";
 
     private static final String PREF_IGNORE_PRESSES = "calEventsIgnored";
 
@@ -44,10 +51,15 @@ public class CalendarReminderActivity extends Activity {
     private TagDataService tagDataService;
 
     private String eventName;
-    private long eventTime;
+    private long startTime;
+    private long endTime;
+    private long eventId;
+
+    private boolean fromPostpone;
 
     private TextView ignoreButton;
     private TextView createListButton;
+    private TextView postponeButton;
     private View dismissButton;
     private View ignoreSettingsButton;
 
@@ -102,10 +114,14 @@ public class CalendarReminderActivity extends Activity {
 
 
         Intent intent = getIntent();
+        fromPostpone = intent.getBooleanExtra(TOKEN_FROM_POSTPONE, false);
+        eventId = intent.getLongExtra(TOKEN_EVENT_ID, -1);
         eventName = intent.getStringExtra(TOKEN_EVENT_NAME);
-        eventTime = intent.getLongExtra(TOKEN_EVENT_TIME, DateUtilities.now());
+        startTime = intent.getLongExtra(TOKEN_EVENT_START_TIME, DateUtilities.now());
+        endTime = intent.getLongExtra(TOKEN_EVENT_END_TIME, DateUtilities.now() + DateUtilities.ONE_HOUR);
 
         createListButton = (TextView) findViewById(R.id.create_list);
+        postponeButton = (TextView) findViewById(R.id.postpone);
         ignoreButton = (TextView) findViewById(R.id.ignore);
         ignoreSettingsButton = findViewById(R.id.ignore_settings);
         dismissButton = findViewById(R.id.dismiss);
@@ -117,12 +133,21 @@ public class CalendarReminderActivity extends Activity {
 
     private void setupUi() {
         ((TextView) findViewById(R.id.reminder_title))
-            .setText(getString(R.string.CRA_title, eventName));
+            .setText(getString(R.string.CRA_title));
 
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
-        dialogView.setText(getString(R.string.CRA_speech_bubble));
+        String speechText;
+        if (fromPostpone)
+            speechText = getString(R.string.CRA_speech_bubble_end, eventName);
+        else
+            speechText = getString(R.string.CRA_speech_bubble_start, eventName);
+
+        dialogView.setText(speechText);
 
         createListButton.setBackgroundColor(getResources().getColor(ThemeService.getThemeColor()));
+
+        if (fromPostpone)
+            postponeButton.setVisibility(View.GONE);
     }
 
     private void addListeners() {
@@ -137,6 +162,14 @@ public class CalendarReminderActivity extends Activity {
                 finish();
             }
         });
+
+        if (!fromPostpone)
+            postponeButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    postpone();
+                }
+            });
 
         createListButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -162,7 +195,7 @@ public class CalendarReminderActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createNewList(tag.getValue(TagData.NAME) + " "
-                                + DateUtilities.getDateStringHideYear(CalendarReminderActivity.this, new Date(eventTime)));
+                                + DateUtilities.getDateStringHideYear(CalendarReminderActivity.this, new Date(startTime)));
                     }
                 },
                 new DialogInterface.OnClickListener() {
@@ -188,6 +221,25 @@ public class CalendarReminderActivity extends Activity {
 
         startActivity(newListIntent);
         dismissButton.performClick(); // finish with animation
+    }
+
+    private void postpone() {
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent eventAlarm = new Intent(this, CalendarAlarmReceiver.class);
+        eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
+
+        eventAlarm.putExtra(CalendarAlarmReceiver.TOKEN_EVENT_ID, eventId);
+        eventAlarm.putExtra(TOKEN_FROM_POSTPONE, true);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
+                CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
+
+        am.cancel(pendingIntent);
+
+        long alarmTime = endTime + DateUtilities.ONE_MINUTE * 5;
+        am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        finish();
     }
 
 }

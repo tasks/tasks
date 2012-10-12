@@ -25,6 +25,7 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     private static final String[] EVENTS_PROJECTION = {
         Calendars.EVENTS_DTSTART_COL,
+        Calendars.EVENTS_DTEND_COL,
         Calendars.EVENTS_NAME_COL,
     };
 
@@ -40,6 +41,7 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
         try {
             ContentResolver cr = context.getContentResolver();
             long eventId = intent.getLongExtra(TOKEN_EVENT_ID, -1);
+            boolean fromPostpone = intent.getBooleanExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, false);
             if (eventId > 0) {
                 Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
@@ -51,11 +53,14 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         null);
                 try {
                     if (event.moveToFirst()) {
-                        int timeIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
+                        int dtstartIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
+                        int dtendIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTEND_COL);
                         int titleIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_NAME_COL);
 
                         String title = event.getString(titleIndex);
-                        long startTime = event.getLong(timeIndex);
+                        long startTime = event.getLong(dtstartIndex);
+                        long endTime = event.getLong(dtendIndex);
+
                         long timeUntil = startTime - DateUtilities.now();
 
                         if (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20) {
@@ -89,7 +94,9 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                                     reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
                                     reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
                                     reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, title);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_TIME, startTime);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, startTime);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, endTime);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, true);
                                     reminderActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                     context.startActivity(reminderActivity);
                                 }
