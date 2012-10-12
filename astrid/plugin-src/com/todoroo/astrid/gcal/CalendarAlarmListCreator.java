@@ -73,7 +73,10 @@ public class CalendarAlarmListCreator extends Activity {
         inviteAll = (TextView) findViewById(R.id.invite_all);
         moreOptions = (TextView) findViewById(R.id.list_settings);
         ignoreButton = (TextView) findViewById(R.id.ignore);
+        dismissButton = findViewById(R.id.dismiss);
         ignoreSettingsButton = findViewById(R.id.ignore_settings);
+        emails = intent.getStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS);
+        names = intent.getStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES);
 
         initializeUserMap();
 
@@ -110,7 +113,8 @@ public class CalendarAlarmListCreator extends Activity {
 
         String title;
         if (!TextUtils.isEmpty(attendeesString)) {
-            builder.append(attendeesString)
+            builder.append(" ") //$NON-NLS-1$
+            .append(attendeesString)
             .append(" ") //$NON-NLS-1$
             .append(getString(R.string.CRA_invitation_prompt));
             inviteAll.setBackgroundColor(getResources().getColor(color));
@@ -154,6 +158,7 @@ public class CalendarAlarmListCreator extends Activity {
                     tagData.setValue(TagData.MEMBERS, membersArray.toString());
                     tagData.setValue(TagData.MEMBER_COUNT, membersArray.length());
                     tagDataService.save(tagData);
+                    finish();
                 }
             }
         });

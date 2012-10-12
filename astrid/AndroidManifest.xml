@@ -518,7 +518,7 @@
     </activity>
 
     <activity android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
-              android:theme="@android:style/Theme.Dialog">
+              android:theme="@android:style/Theme.Translucent.NoTitleBar">
     </activity>
     
     <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
