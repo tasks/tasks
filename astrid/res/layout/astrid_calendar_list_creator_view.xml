@@ -57,7 +57,7 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center"
-        android:text="@string/CRA_create_list"/>
+        android:text="@string/CRA_invite_attendees"/>
 
     <TextView
         android:id="@+id/list_settings"
@@ -70,7 +70,7 @@
         android:textSize="24sp"
         android:gravity="center"
         android:background="#707070"
-        android:text="@string/CRA_postpone"/>
+        android:text="@string/CRA_more_options"/>
     
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -86,7 +86,7 @@
 	        android:textColor="@android:color/white"
 	        android:textSize="24sp"
 	        android:gravity="center"
-	        android:text="@string/CRA_ignore"
+	        android:text="@string/CRA_dont_invite"
 	        android:background="#707070"/>
 	    
 	    <ImageView 
