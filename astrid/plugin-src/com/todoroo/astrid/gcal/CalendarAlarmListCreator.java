@@ -35,7 +35,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
 
-public class CreateEventListActivity extends Activity {
+public class CalendarAlarmListCreator extends Activity {
 
     public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 

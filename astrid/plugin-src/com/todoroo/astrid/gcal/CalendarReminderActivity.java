@@ -214,10 +214,10 @@ public class CalendarReminderActivity extends Activity {
     }
 
     private void createNewList(String defaultName) {
-        Intent newListIntent = new Intent(this, CreateEventListActivity.class);
+        Intent newListIntent = new Intent(this, CalendarAlarmListCreator.class);
         newListIntent.putStringArrayListExtra(TOKEN_NAMES, getIntent().getStringArrayListExtra(TOKEN_NAMES));
         newListIntent.putStringArrayListExtra(TOKEN_EMAILS, getIntent().getStringArrayListExtra(TOKEN_EMAILS));
-        newListIntent.putExtra(CreateEventListActivity.TOKEN_LIST_NAME, defaultName);
+        newListIntent.putExtra(CalendarAlarmListCreator.TOKEN_LIST_NAME, defaultName);
 
         startActivity(newListIntent);
         dismissButton.performClick(); // finish with animation
