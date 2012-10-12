@@ -3,41 +3,29 @@ package com.todoroo.astrid.gcal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.utility.Constants;
 
 public class CalendarAlarmListCreator extends Activity {
 
-    public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
+    public static final String TOKEN_LIST_ID = "listId"; //$NON-NLS-1$
 
     @Autowired
     private UserDao userDao;
@@ -52,34 +40,38 @@ public class CalendarAlarmListCreator extends Activity {
     private ArrayList<String> emails;
     private HashMap<String, User> emailsToUsers;
 
-    private boolean loggedIn;
+    private TagData tagData;
+    private TextView inviteAll;
+    private TextView moreOptions;
+    private TextView ignoreButton;
+    private View dismissButton;
+    private View ignoreSettingsButton;
 
-    private Button saveButton;
-    private Button cancelButton;
-    private ListView membersList;
-    private EditText tagName;
+    private final OnClickListener dismissListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+            AndroidUtilities.callOverridePendingTransition(CalendarAlarmListCreator.this, 0, android.R.anim.fade_out);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DependencyInjectionService.getInstance().inject(this);
-        setContentView(R.layout.create_event_list_activity);
-
-        saveButton = (Button) findViewById(R.id.save);
-        cancelButton = (Button) findViewById(R.id.cancel);
-        tagName = (EditText) findViewById(R.id.list_name);
-        membersList = (ListView) findViewById(R.id.members_list);
+        setContentView(R.layout.calendar_alarm_list_creator);
 
         Intent intent = getIntent();
-        names = intent.getStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES);
-        emails = intent.getStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS);
-        tagName.setText(intent.getStringExtra(TOKEN_LIST_NAME));
 
-        loggedIn = actFmPreferenceService.isLoggedIn();
+        tagData = tagDataService.fetchById(intent.getLongExtra(TOKEN_LIST_ID, -1), TagData.PROPERTIES);
+        inviteAll = (TextView) findViewById(R.id.invite_all);
+        moreOptions = (TextView) findViewById(R.id.list_settings);
+        ignoreButton = (TextView) findViewById(R.id.ignore);
+        ignoreSettingsButton = findViewById(R.id.ignore_settings);
 
         initializeUserMap();
 
-        initializeListView();
+        setupUi();
 
         addListeners();
     }
@@ -97,88 +89,22 @@ public class CalendarAlarmListCreator extends Activity {
         }
     }
 
+    private void setupUi() {
+        TextView dialogView = (TextView) findViewById(R.id.reminder_message);
+        dialogView.setText("Stuff here");
+    }
+
     private void addListeners() {
-        cancelButton.setOnClickListener(new OnClickListener() {
+        ignoreButton.setOnClickListener(dismissListener);
+        dismissButton.setOnClickListener(dismissListener);
+
+        ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent editPreferences = new Intent(CalendarAlarmListCreator.this, EditPreferences.class);
+                startActivity(editPreferences);
                 finish();
             }
         });
-
-        saveButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
     }
-
-    private void save() {
-        String name = tagName.getText().toString();
-        TagData checkName = tagDataService.getTag(name, TagData.PROPERTIES);
-        if (checkName != null) {
-            DialogUtilities.okDialog(this, getString(R.string.CRA_list_exists_title), null);
-            return;
-        }
-
-        TagData newTag = new TagData();
-        newTag.setValue(TagData.NAME, name);
-
-        if (loggedIn) { // include members
-            JSONArray membersArray = getMembersArray();
-            if (Constants.DEBUG)
-                Log.w(CalendarAlarmScheduler.TAG, "Creating tag with members: " + membersArray.toString()); //$NON-NLS-1$
-
-            newTag.setValue(TagData.MEMBERS, membersArray.toString());
-            newTag.setValue(TagData.MEMBER_COUNT, membersArray.length());
-        }
-
-        tagDataService.save(newTag);
-
-        FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(this, newTag);
-
-        Intent listIntent = new Intent(this, TaskListActivity.class);
-        listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-        listIntent.putExtras(filter.customExtras);
-
-        startActivity(listIntent);
-        finish();
-    }
-
-    private void initializeListView() {
-        if (loggedIn) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1);
-            membersList.setAdapter(adapter);
-            membersList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-            emails.remove(ActFmPreferenceService.thisUser().optString("email", null)); //$NON-NLS-1$
-            for (int i = 0; i < emails.size(); i++) {
-                String email = emails.get(i);
-                adapter.add(email);
-                membersList.setItemChecked(i, true);
-            }
-
-            if (adapter.getCount() == 0)
-                membersList.setVisibility(View.GONE);
-        } else {
-            membersList.setVisibility(View.GONE);
-        }
-    }
-
-    private JSONArray getMembersArray() {
-        JSONArray array = new JSONArray();
-        for (int i = 0; i < membersList.getCount(); i++) {
-            if (membersList.isItemChecked(i)) {
-                try {
-                    JSONObject member = new JSONObject();
-                    member.put("email", (String) membersList.getItemAtPosition(i)); //$NON-NLS-1$
-                    array.put(member);
-                } catch (JSONException e) {
-                    // ignored
-                }
-            }
-        }
-        return array;
-    }
-
 }
