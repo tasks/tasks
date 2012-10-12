@@ -83,6 +83,10 @@ public class TagViewFragment extends TaskListFragment {
 
     public static final String TOKEN_START_ACTIVITY = "startActivity"; //$NON-NLS-1$
 
+    public static final String TOKEN_START_SETTINGS = "startSettings"; //$NON-NLS-1$
+
+    public static final String TOKEN_MEMBERS = "members";  //$NON-NLS-1$
+
     protected TagData tagData;
 
     @Autowired TagDataService tagDataService;
@@ -136,6 +140,11 @@ public class TagViewFragment extends TaskListFragment {
             Class<?> settingsClass = AstridPreferences.useTabletLayout(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
             Intent intent = new Intent(getActivity(), settingsClass);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
+            if (extras.containsKey(TOKEN_MEMBERS)) {
+                intent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_MEMBERS, extras.getStringArrayList(TOKEN_MEMBERS));
+                extras.remove(TOKEN_MEMBERS);
+            }
+
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
             if (!AstridPreferences.useTabletLayout(activity)) {
                 AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
@@ -223,6 +232,9 @@ public class TagViewFragment extends TaskListFragment {
         if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
             extras.remove(TOKEN_START_ACTIVITY);
             activity.showComments();
+        } else if (extras.getBoolean(TOKEN_START_SETTINGS, false)) {
+            extras.remove(TOKEN_START_SETTINGS);
+            settingsListener.onClick(null);
         }
     }
 

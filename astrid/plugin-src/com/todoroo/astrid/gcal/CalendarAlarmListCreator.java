@@ -21,13 +21,17 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.EditPreferences;
+import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.tags.TagFilterExposer;
 
 public class CalendarAlarmListCreator extends Activity {
 
@@ -166,7 +170,12 @@ public class CalendarAlarmListCreator extends Activity {
         moreOptions.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                Intent intent = new Intent(CalendarAlarmListCreator.this, TaskListActivity.class);
+                intent.putExtra(TaskListFragment.TOKEN_FILTER, TagFilterExposer.filterFromTagData(CalendarAlarmListCreator.this, tagData));
+                intent.putExtra(TagViewFragment.TOKEN_MEMBERS, buildMembersArray().toString());
+                intent.putExtra(TagViewFragment.TOKEN_START_SETTINGS, true);
+                startActivity(intent);
+                finish();
             }
         });
     }
