@@ -74,19 +74,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle,
                 ABChooser.readChoiceForTest(ABTests.AB_SIMPLE_TASK_ROW) != 0);
 
-        boolean swipeEnabled = false;
-        String swipePerformanceKey = context.getString(R.string.p_swipe_lists_performance_key);
-        if (Preferences.isSet(swipePerformanceKey)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3);
-            if (setting > 0) {
-                swipeEnabled = true;
-            }
-            Preferences.clear(swipePerformanceKey);
-        } else if (ABChooser.readChoiceForTest(ABTests.AB_SWIPE_BETWEEN) == 1) {
-            swipeEnabled = true;
-        }
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_enabled, swipeEnabled);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_enabled, false);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

@@ -119,8 +119,6 @@ public class ABTests {
         bundles.put(testKey, bundle);
     }
 
-    public static final String AB_SWIPE_BETWEEN = "android_swipe_v3"; //$NON-NLS-1$
-
     public static final String AB_SIMPLE_TASK_ROW = "android_simple_task_row";  //$NON-NLS-1$
 
     private void initialize() {
@@ -128,6 +126,5 @@ public class ABTests {
         addTest(AB_SIMPLE_TASK_ROW, new int[] { 1, 1 },
                 new int[] { 1, 0 }, new String[] { "original-row-style", "simple-row-style" });//$NON-NLS-1$ //$NON-NLS-2$
 
-        // AB_SWIPE_BETWEEN has to be added in the startup service since it needs a non-null context for initialization
     }
 }

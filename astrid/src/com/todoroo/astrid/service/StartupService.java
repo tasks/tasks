@@ -195,16 +195,6 @@ public class StartupService {
 
         final int finalLatestVersion = latestSetVersion;
 
-        // For any uninitialized ab test, make sure an option is chosen
-        if (!AstridPreferences.useTabletLayout(context)
-                && Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 0) == 0) { // Have to add this here because a non-null context is needed
-            abTests.addTest(ABTests.AB_SWIPE_BETWEEN, new int[] { 3, 1 },
-                    new int[] { 3, 1 }, new String[] { "swipe-disabled", "swipe-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-            // Haven't yet initialized this test--need to clear the pref once so setIfUnset will trigger correctly in setPreferenceDefaults
-            if (ABChooser.readChoiceForTest(ABTests.AB_SWIPE_BETWEEN) == ABChooser.NO_OPTION)
-                Preferences.clear(context.getString(R.string.p_swipe_lists_performance_key));
-        }
         abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
 
         abTestInvoker.reportAcquisition();
