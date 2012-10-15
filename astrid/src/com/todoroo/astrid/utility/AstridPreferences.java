@@ -17,7 +17,6 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
@@ -85,12 +84,6 @@ public class AstridPreferences {
             Preferences.clear(swipePerformanceKey);
         } else if (ABChooser.readChoiceForTest(ABTests.AB_SWIPE_BETWEEN) == 1) {
             swipeEnabled = true;
-        }
-
-        boolean advancedEdit = ABChooser.readChoiceForTest(ABTests.AB_ADVANCED_EDIT) != 0;
-        if (advancedEdit && !Preferences.isSet(BeastModePreferences.BEAST_MODE_ORDER_PREF)) {
-            Preferences.setString(BeastModePreferences.BEAST_MODE_ORDER_PREF,
-                    BeastModePreferences.getAdvancedEditOrderForABTest(context));
         }
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_enabled, swipeEnabled);
