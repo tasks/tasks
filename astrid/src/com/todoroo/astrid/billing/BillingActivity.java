@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,9 +32,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.service.ThemeService;
 
-public class BillingActivity extends FragmentActivity {
+public class BillingActivity extends FragmentActivity implements AstridPurchaseObserver.RestoreTransactionsListener {
 
     private static final int DIALOG_CANNOT_CONNECT_ID = 1;
     private static final int DIALOG_BILLING_NOT_SUPPORTED_ID = 2;
@@ -44,6 +46,9 @@ public class BillingActivity extends FragmentActivity {
     private AstridPurchaseObserver purchaseObserver;
     private Button buyMonth;
     private Button buyYear;
+    private TextView restorePurchases;
+
+    private ProgressDialog restoreTransactionsDialog;
 
     @Autowired private ActFmPreferenceService actFmPreferenceService;
 
@@ -67,9 +72,10 @@ public class BillingActivity extends FragmentActivity {
         purchaseObserver = new AstridPurchaseObserver(this, handler) {
             @Override
             protected void billingSupportedCallback() {
-                restoreTransactions();
+                restoreTransactions(false);
                 buyMonth.setEnabled(true);
                 buyYear.setEnabled(true);
+                restorePurchases.setEnabled(true);
             }
 
             @Override
@@ -82,7 +88,7 @@ public class BillingActivity extends FragmentActivity {
                 showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
             }
         };
-
+        purchaseObserver.setRestoreTransactionsListener(this);
     }
 
     private void setupActionBar() {
@@ -140,9 +146,11 @@ public class BillingActivity extends FragmentActivity {
     private void setupButtons() {
         buyMonth = (Button) findViewById(R.id.premium_buy_month);
         buyYear = (Button) findViewById(R.id.premium_buy_year);
+        restorePurchases = (TextView) findViewById(R.id.check_for_purchases);
 
         buyMonth.setEnabled(false);
         buyYear.setEnabled(false);
+        restorePurchases.setEnabled(false);
 
         buyMonth.setOnClickListener(new OnClickListener() {
             @Override
@@ -163,11 +171,18 @@ public class BillingActivity extends FragmentActivity {
                 }
             }
         });
+
+        restorePurchases.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restoreTransactions(true);
+            }
+        });
     }
 
     @SuppressWarnings("nls")
     private void setupText() {
-        int[] bullets = new int[] { R.string.premium_description_1, R.string.premium_description_2, R.string.premium_description_3,
+        int[] bullets = new int[] { R.string.premium_description_1, /* R.string.premium_description_2,*/ R.string.premium_description_3,
                 R.string.premium_description_4, R.string.premium_description_5, R.string.premium_description_6
         };
 
@@ -276,10 +291,13 @@ public class BillingActivity extends FragmentActivity {
         return builder.create();
     }
 
-    private void restoreTransactions() {
+    private void restoreTransactions(boolean force) {
         boolean initialized = Preferences.getBoolean(BillingConstants.PREF_TRANSACTIONS_INITIALIZED, false);
-        if (!initialized) {
+        if (!initialized || force) {
             billingService.restoreTransactions();
+        }
+        if (force) {
+            restoreTransactionsDialog = DialogUtilities.progressDialog(this, getString(R.string.premium_checking_for_purchases));
         }
     }
 
@@ -290,5 +308,11 @@ public class BillingActivity extends FragmentActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void restoreTransactionsResponse(ResponseCode responseCode) {
+        DialogUtilities.dismissDialog(this, restoreTransactionsDialog);
+        restoreTransactionsDialog = null;
     }
 }

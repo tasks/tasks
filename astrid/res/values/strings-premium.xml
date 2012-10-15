@@ -95,5 +95,7 @@
     <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
     <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
     <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
+    <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
+    <string name="premium_checking_for_purchases">Checking for purchases...</string>
     
 </resources>

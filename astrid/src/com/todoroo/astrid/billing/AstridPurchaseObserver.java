@@ -26,6 +26,12 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
 
+    public interface RestoreTransactionsListener {
+        public void restoreTransactionsResponse(ResponseCode responseCode);
+    }
+
+    private RestoreTransactionsListener restoreTransactionsListener;
+
     /**
      * A {@link PurchaseObserver} is used to get callbacks when Android Market sends
      * messages to this application so that we can update the UI.
@@ -33,6 +39,10 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
     public AstridPurchaseObserver(Activity activity, Handler handler) {
         super(activity, handler);
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    public void setRestoreTransactionsListener(RestoreTransactionsListener listener) {
+        this.restoreTransactionsListener = listener;
     }
 
     @Override
@@ -172,6 +182,8 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                 Log.d(TAG, "RestoreTransactions error: " + responseCode);
             }
         }
+        if (restoreTransactionsListener != null)
+            restoreTransactionsListener.restoreTransactionsResponse(responseCode);
     }
 
 }
