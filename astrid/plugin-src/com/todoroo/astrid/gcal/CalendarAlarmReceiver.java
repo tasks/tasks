@@ -38,7 +38,6 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
         if (!Preferences.getBoolean(R.string.p_calendar_reminders, true))
             return;
         try {
-            ContentResolver cr = context.getContentResolver();
             Uri data = intent.getData();
             if (data == null)
                 return;
@@ -51,83 +50,89 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
             long eventId = Long.parseLong(uriString.substring(pathIndex));
             boolean fromPostpone = CalendarAlarmScheduler.URI_PREFIX_POSTPONE.equals(data.getScheme());
             if (eventId > 0) {
-                Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
-
-                String[] eventArg = new String[] { Long.toString(eventId) };
-                Cursor event = cr.query(eventUri,
-                        EVENTS_PROJECTION,
-                        Calendars.ID_COLUMN_NAME + " = ?",
-                        eventArg,
-                        null);
-                try {
-                    if (event.moveToFirst()) {
-                        int dtstartIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
-                        int dtendIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTEND_COL);
-                        int titleIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_NAME_COL);
-
-                        String title = event.getString(titleIndex);
-                        long startTime = event.getLong(dtstartIndex);
-                        long endTime = event.getLong(dtendIndex);
-
-                        boolean shouldShowReminder;
-                        if (fromPostpone) {
-                            long timeAfter = DateUtilities.now() - endTime;
-                            shouldShowReminder = (timeAfter > DateUtilities.ONE_MINUTE * 2);
-                        } else {
-                            long timeUntil = startTime - DateUtilities.now();
-                            shouldShowReminder = (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20);
-                        }
-
-
-                        if (shouldShowReminder) {
-                            // Get attendees
-                            Cursor attendees = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_ATTENDEES),
-                                    ATTENDEES_PROJECTION,
-                                    Calendars.ATTENDEES_EVENT_ID_COL + " = ? ",
-                                    eventArg,
-                                    null);
-                            try {
-                                // Do something with attendees
-                                int emailIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_EMAIL_COL);
-                                int nameIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_NAME_COL);
-
-                                ArrayList<String> names = new ArrayList<String>();
-                                ArrayList<String> emails = new ArrayList<String>();
-
-                                for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
-                                    String name = attendees.getString(nameIndex);
-                                    String email = attendees.getString(emailIndex);
-                                    if (!TextUtils.isEmpty(email)) {
-                                        if (Constants.DEBUG)
-                                            Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
-                                        names.add(name);
-                                        emails.add(email);
-                                    }
-                                }
-
-                                if (emails.size() > 0) {
-                                    Intent reminderActivity = new Intent(context, CalendarReminderActivity.class);
-                                    reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
-                                    reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, title);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, startTime);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, endTime);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
-                                    reminderActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                    context.startActivity(reminderActivity);
-                                }
-                            } finally {
-                                attendees.close();
-                            }
-                        }
-                    }
-                } finally {
-                    event.close();
-                }
+                showCalReminder(context, eventId, fromPostpone);
             }
         } catch (IllegalArgumentException e) { // Some cursor read failed, or badly formed uri
             e.printStackTrace();
+        }
+    }
+
+    private void showCalReminder(Context context,
+            long eventId, boolean fromPostpone) {
+        ContentResolver cr = context.getContentResolver();
+        Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
+
+        String[] eventArg = new String[] { Long.toString(eventId) };
+        Cursor event = cr.query(eventUri,
+                EVENTS_PROJECTION,
+                Calendars.ID_COLUMN_NAME + " = ?",
+                eventArg,
+                null);
+        try {
+            if (event.moveToFirst()) {
+                int dtstartIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
+                int dtendIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTEND_COL);
+                int titleIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_NAME_COL);
+
+                String title = event.getString(titleIndex);
+                long startTime = event.getLong(dtstartIndex);
+                long endTime = event.getLong(dtendIndex);
+
+                boolean shouldShowReminder;
+                if (fromPostpone) {
+                    long timeAfter = DateUtilities.now() - endTime;
+                    shouldShowReminder = (timeAfter > DateUtilities.ONE_MINUTE * 2);
+                } else {
+                    long timeUntil = startTime - DateUtilities.now();
+                    shouldShowReminder = (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20);
+                }
+
+
+                if (shouldShowReminder) {
+                    // Get attendees
+                    Cursor attendees = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_ATTENDEES),
+                            ATTENDEES_PROJECTION,
+                            Calendars.ATTENDEES_EVENT_ID_COL + " = ? ",
+                            eventArg,
+                            null);
+                    try {
+                        // Do something with attendees
+                        int emailIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_EMAIL_COL);
+                        int nameIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_NAME_COL);
+
+                        ArrayList<String> names = new ArrayList<String>();
+                        ArrayList<String> emails = new ArrayList<String>();
+
+                        for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
+                            String name = attendees.getString(nameIndex);
+                            String email = attendees.getString(emailIndex);
+                            if (!TextUtils.isEmpty(email)) {
+                                if (Constants.DEBUG)
+                                    Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
+                                names.add(name);
+                                emails.add(email);
+                            }
+                        }
+
+                        if (emails.size() > 0) {
+                            Intent reminderActivity = new Intent(context, CalendarReminderActivity.class);
+                            reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
+                            reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
+                            reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
+                            reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, title);
+                            reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, startTime);
+                            reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, endTime);
+                            reminderActivity.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
+                            reminderActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                            context.startActivity(reminderActivity);
+                        }
+                    } finally {
+                        attendees.close();
+                    }
+                }
+            }
+        } finally {
+            event.close();
         }
     }
 
