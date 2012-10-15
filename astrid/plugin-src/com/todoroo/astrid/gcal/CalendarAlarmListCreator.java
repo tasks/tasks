@@ -35,7 +35,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 
 public class CalendarAlarmListCreator extends Activity {
 
-    public static final String TOKEN_LIST_ID = "listId"; //$NON-NLS-1$
+    public static final String TOKEN_LIST_NAME = "listName"; //$NON-NLS-1$
 
     @Autowired
     private UserDao userDao;
@@ -50,7 +50,8 @@ public class CalendarAlarmListCreator extends Activity {
     private ArrayList<String> emails;
     private HashMap<String, User> emailsToUsers;
 
-    private TagData tagData;
+//    private TagData tagData;
+    private String tagName;
     private TextView inviteAll;
     private TextView moreOptions;
     private TextView ignoreButton;
@@ -73,7 +74,8 @@ public class CalendarAlarmListCreator extends Activity {
 
         Intent intent = getIntent();
 
-        tagData = tagDataService.fetchById(intent.getLongExtra(TOKEN_LIST_ID, -1), TagData.PROPERTIES);
+//        tagData = tagDataService.fetchById(intent.getLongExtra(TOKEN_LIST_ID, -1), TagData.PROPERTIES);
+        tagName = intent.getStringExtra(TOKEN_LIST_NAME);
         inviteAll = (TextView) findViewById(R.id.invite_all);
         moreOptions = (TextView) findViewById(R.id.list_settings);
         ignoreButton = (TextView) findViewById(R.id.ignore);
@@ -111,7 +113,7 @@ public class CalendarAlarmListCreator extends Activity {
 
     private void setupUi() {
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
-        StringBuilder builder = new StringBuilder(getString(R.string.CRA_created_list_dialog, tagData.getValue(TagData.NAME)));
+        StringBuilder builder = new StringBuilder(getString(R.string.CRA_created_list_dialog, tagName));
         String attendeesString = buildAttendeesString();
         int color = ThemeService.getThemeColor();
 
@@ -159,6 +161,8 @@ public class CalendarAlarmListCreator extends Activity {
                     return;
                 } else {
                     JSONArray membersArray = buildMembersArray();
+                    TagData tagData = new TagData();
+                    tagData.setValue(TagData.NAME, tagName);
                     tagData.setValue(TagData.MEMBERS, membersArray.toString());
                     tagData.setValue(TagData.MEMBER_COUNT, membersArray.length());
                     tagDataService.save(tagData);
@@ -171,7 +175,8 @@ public class CalendarAlarmListCreator extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarAlarmListCreator.this, TaskListActivity.class);
-                intent.putExtra(TaskListFragment.TOKEN_FILTER, TagFilterExposer.filterFromTagData(CalendarAlarmListCreator.this, tagData));
+                intent.putExtra(TaskListFragment.TOKEN_FILTER, TagFilterExposer.filterFromTagData(CalendarAlarmListCreator.this, new TagData()));
+                intent.putExtra(TagViewFragment.EXTRA_TAG_NAME, tagName);
                 intent.putExtra(TagViewFragment.TOKEN_MEMBERS, buildMembersArray().toString());
                 intent.putExtra(TagViewFragment.TOKEN_START_SETTINGS, true);
                 startActivity(intent);

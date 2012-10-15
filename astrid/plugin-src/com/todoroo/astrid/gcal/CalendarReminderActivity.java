@@ -215,14 +215,10 @@ public class CalendarReminderActivity extends Activity {
     }
 
     private void createNewList(String name) {
-        TagData newTagData = new TagData();
-        newTagData.setValue(TagData.NAME, name);
-        tagDataService.save(newTagData);
-
         Intent newListIntent = new Intent(this, CalendarAlarmListCreator.class);
         newListIntent.putStringArrayListExtra(TOKEN_NAMES, getIntent().getStringArrayListExtra(TOKEN_NAMES));
         newListIntent.putStringArrayListExtra(TOKEN_EMAILS, getIntent().getStringArrayListExtra(TOKEN_EMAILS));
-        newListIntent.putExtra(CalendarAlarmListCreator.TOKEN_LIST_ID, newTagData.getId());
+        newListIntent.putExtra(CalendarAlarmListCreator.TOKEN_LIST_NAME, name);
 
         startActivity(newListIntent);
         dismissButton.performClick(); // finish with animation
