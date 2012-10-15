@@ -162,7 +162,7 @@ public class CalendarReminderActivity extends Activity {
             public void onClick(View v) {
                 Intent editPreferences = new Intent(CalendarReminderActivity.this, EditPreferences.class);
                 startActivity(editPreferences);
-                finish();
+                dismissListener.onClick(v);
             }
         });
 
@@ -243,7 +243,7 @@ public class CalendarReminderActivity extends Activity {
         if (Constants.DEBUG)
             Log.w(CalendarAlarmScheduler.TAG, "Scheduling calendar alarm for " + new Date(alarmTime));
         am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-        finish();
+        dismissButton.performClick();
     }
 
 }

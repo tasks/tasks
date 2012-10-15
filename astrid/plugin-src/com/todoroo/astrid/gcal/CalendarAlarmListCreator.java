@@ -21,7 +21,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -31,7 +30,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.tags.TagFilterExposer;
 
 public class CalendarAlarmListCreator extends Activity {
 
@@ -74,7 +72,6 @@ public class CalendarAlarmListCreator extends Activity {
 
         Intent intent = getIntent();
 
-//        tagData = tagDataService.fetchById(intent.getLongExtra(TOKEN_LIST_ID, -1), TagData.PROPERTIES);
         tagName = intent.getStringExtra(TOKEN_LIST_NAME);
         inviteAll = (TextView) findViewById(R.id.invite_all);
         moreOptions = (TextView) findViewById(R.id.list_settings);
@@ -148,7 +145,7 @@ public class CalendarAlarmListCreator extends Activity {
             public void onClick(View v) {
                 Intent editPreferences = new Intent(CalendarAlarmListCreator.this, EditPreferences.class);
                 startActivity(editPreferences);
-                finish();
+                dismissListener.onClick(v);
             }
         });
 
@@ -166,7 +163,7 @@ public class CalendarAlarmListCreator extends Activity {
                     tagData.setValue(TagData.MEMBERS, membersArray.toString());
                     tagData.setValue(TagData.MEMBER_COUNT, membersArray.length());
                     tagDataService.save(tagData);
-                    finish();
+                    dismissListener.onClick(v);
                 }
             }
         });
@@ -175,12 +172,11 @@ public class CalendarAlarmListCreator extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarAlarmListCreator.this, TaskListActivity.class);
-                intent.putExtra(TaskListFragment.TOKEN_FILTER, TagFilterExposer.filterFromTagData(CalendarAlarmListCreator.this, new TagData()));
-                intent.putExtra(TagViewFragment.EXTRA_TAG_NAME, tagName);
-                intent.putExtra(TagViewFragment.TOKEN_MEMBERS, buildMembersArray().toString());
-                intent.putExtra(TagViewFragment.TOKEN_START_SETTINGS, true);
+                intent.putExtra(TaskListFragment.TOKEN_NEW_LIST_NAME, tagName);
+                intent.putExtra(TaskListFragment.TOKEN_NEW_LIST_MEMBERS, buildMembersArray().toString());
+                intent.putExtra(TaskListFragment.TOKEN_NEW_LIST, true);
                 startActivity(intent);
-                finish();
+                dismissListener.onClick(v);
             }
         });
     }

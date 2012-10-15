@@ -66,6 +66,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -101,6 +102,7 @@ import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -158,6 +160,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
     private static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
+
+    /** For indicating the new list screen should be launched at fragment setup time */
+    public static final String TOKEN_NEW_LIST = "newList"; //$NON-NLS-1$
+    public static final String TOKEN_NEW_LIST_MEMBERS = "newListMembers"; //$NON-NLS-1$
+    public static final String TOKEN_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -384,6 +391,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
+
+        if (extras != null && extras.getBoolean(TOKEN_NEW_LIST, false)) {
+            extras.remove(TOKEN_NEW_LIST);
+            newListFromLaunch();
+        }
     }
 
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
@@ -412,6 +424,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             item.setIcon(image);
             item.setIntent(customIntent);
         }
+    }
+
+    private void newListFromLaunch() {
+        Intent intent = TagsPlugin.newTagDialog(getActivity());
+        intent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_MEMBERS, extras.getString(TOKEN_NEW_LIST_MEMBERS));
+        intent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, extras.getString(TOKEN_NEW_LIST_NAME));
+        extras.remove(TOKEN_NEW_LIST_MEMBERS);
+        extras.remove(TOKEN_NEW_LIST_NAME);
+        getActivity().startActivityForResult(intent, FilterListFragment.REQUEST_NEW_LIST);
     }
 
     /**

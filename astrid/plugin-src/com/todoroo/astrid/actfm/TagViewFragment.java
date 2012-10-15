@@ -83,10 +83,6 @@ public class TagViewFragment extends TaskListFragment {
 
     public static final String TOKEN_START_ACTIVITY = "startActivity"; //$NON-NLS-1$
 
-    public static final String TOKEN_START_SETTINGS = "startSettings"; //$NON-NLS-1$
-
-    public static final String TOKEN_MEMBERS = "members";  //$NON-NLS-1$
-
     protected TagData tagData;
 
     @Autowired TagDataService tagDataService;
@@ -139,15 +135,8 @@ public class TagViewFragment extends TaskListFragment {
             Activity activity = getActivity();
             Class<?> settingsClass = AstridPreferences.useTabletLayout(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
             Intent intent = new Intent(getActivity(), settingsClass);
-            if (extras.containsKey(TOKEN_MEMBERS)) { // This indicates that the fragment was launched from the calendar list creator--use special logic
-                intent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_MEMBERS, extras.getString(TOKEN_MEMBERS));
-                intent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, extras.getString(EXTRA_TAG_NAME));
-                extras.remove(TOKEN_MEMBERS);
-                getActivity().startActivityForResult(intent, FilterListFragment.REQUEST_NEW_LIST);
-            } else {
-                intent.putExtra(EXTRA_TAG_DATA, tagData);
-                startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-            }
+            intent.putExtra(EXTRA_TAG_DATA, tagData);
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
 
             if (!AstridPreferences.useTabletLayout(activity)) {
                 AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
@@ -210,12 +199,6 @@ public class TagViewFragment extends TaskListFragment {
 
         if(tag == null && remoteId == 0)
             return;
-
-        if (extras.getBoolean(TOKEN_START_SETTINGS, false)) {
-            extras.remove(TOKEN_START_SETTINGS);
-            settingsListener.onClick(null);
-            return;
-        }
 
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
                 Criterion.and(TagData.REMOTE_ID.gt(0), TagData.REMOTE_ID.eq(remoteId)))));
