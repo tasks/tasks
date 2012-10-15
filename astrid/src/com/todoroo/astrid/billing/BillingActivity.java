@@ -152,6 +152,9 @@ public class BillingActivity extends FragmentActivity implements AstridPurchaseO
         buyYear.setEnabled(false);
         restorePurchases.setEnabled(false);
 
+        if (!Preferences.getBoolean(BillingConstants.PREF_TRANSACTIONS_INITIALIZED, false))
+            restorePurchases.setVisibility(View.GONE);
+
         buyMonth.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
