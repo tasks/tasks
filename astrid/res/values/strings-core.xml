@@ -581,6 +581,12 @@
   
   <!-- Calendar reminder: preference title -->
   <string name="CRA_calendar_reminders_pref_title">Monitor calendar events</string>
+
+  <!-- Calendar reminder: pref description disabled -->
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
+
+  <!-- Calendar reminder: pref description enabled -->
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
   
   <!-- Calendar reminder: share list title -->
   <string name="CRA_share_list_title">Share the list?</string>
