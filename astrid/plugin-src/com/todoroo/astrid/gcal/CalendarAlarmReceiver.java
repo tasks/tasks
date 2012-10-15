@@ -21,7 +21,6 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;
     public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
-    public static final String TOKEN_EVENT_ID = "eventId";
 
     private static final String[] EVENTS_PROJECTION = {
         Calendars.EVENTS_DTSTART_COL,
@@ -40,8 +39,17 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
             return;
         try {
             ContentResolver cr = context.getContentResolver();
-            long eventId = intent.getLongExtra(TOKEN_EVENT_ID, -1);
-            boolean fromPostpone = intent.getBooleanExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, false);
+            Uri data = intent.getData();
+            if (data == null)
+                return;
+
+            String uriString = data.toString();
+            int pathIndex = uriString.indexOf("://");
+            if (pathIndex > 0)
+                pathIndex += 3;
+            else return;
+            long eventId = Long.parseLong(uriString.substring(pathIndex));
+            boolean fromPostpone = CalendarAlarmScheduler.URI_PREFIX_POSTPONE.equals(data.getScheme());
             if (eventId > 0) {
                 Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
@@ -61,9 +69,17 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         long startTime = event.getLong(dtstartIndex);
                         long endTime = event.getLong(dtendIndex);
 
-                        long timeUntil = startTime - DateUtilities.now();
+                        boolean shouldShowReminder;
+                        if (fromPostpone) {
+                            long timeAfter = DateUtilities.now() - endTime;
+                            shouldShowReminder = (timeAfter > DateUtilities.ONE_MINUTE * 2);
+                        } else {
+                            long timeUntil = startTime - DateUtilities.now();
+                            shouldShowReminder = (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20);
+                        }
 
-                        if (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20) {
+
+                        if (shouldShowReminder) {
                             // Get attendees
                             Cursor attendees = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_ATTENDEES),
                                     ATTENDEES_PROJECTION,
@@ -93,10 +109,11 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                                     Intent reminderActivity = new Intent(context, CalendarReminderActivity.class);
                                     reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
                                     reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
                                     reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, title);
                                     reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, startTime);
                                     reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, endTime);
-                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, true);
+                                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
                                     reminderActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                                     context.startActivity(reminderActivity);
                                 }
@@ -109,7 +126,7 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                     event.close();
                 }
             }
-        } catch (IllegalArgumentException e) { // Some cursor read failed
+        } catch (IllegalArgumentException e) { // Some cursor read failed, or badly formed uri
             e.printStackTrace();
         }
     }

@@ -8,7 +8,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
 public class CalendarReminderActivity extends Activity {
@@ -229,9 +232,7 @@ public class CalendarReminderActivity extends Activity {
 
         Intent eventAlarm = new Intent(this, CalendarAlarmReceiver.class);
         eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
-
-        eventAlarm.putExtra(CalendarAlarmReceiver.TOKEN_EVENT_ID, eventId);
-        eventAlarm.putExtra(TOKEN_FROM_POSTPONE, true);
+        eventAlarm.setData(Uri.parse(CalendarAlarmScheduler.URI_PREFIX_POSTPONE + "://" + eventId));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
                 CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
@@ -239,6 +240,8 @@ public class CalendarReminderActivity extends Activity {
         am.cancel(pendingIntent);
 
         long alarmTime = endTime + DateUtilities.ONE_MINUTE * 5;
+        if (Constants.DEBUG)
+            Log.w(CalendarAlarmScheduler.TAG, "Scheduling calendar alarm for " + new Date(alarmTime));
         am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         finish();
     }

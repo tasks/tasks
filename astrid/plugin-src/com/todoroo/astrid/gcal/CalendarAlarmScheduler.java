@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -19,6 +20,9 @@ import com.todoroo.astrid.utility.Constants;
 public class CalendarAlarmScheduler {
 
     public static final String TAG = "calendar-alarm";
+
+    public static final String URI_PREFIX = "cal-reminder";
+    public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 
     public static void scheduleAllCalendarAlarms(Context context) {
         if (!Preferences.getBoolean(R.string.p_calendar_reminders, true))
@@ -46,7 +50,7 @@ public class CalendarAlarmScheduler {
                     long start = events.getLong(dtstartIndex);
                     long id = events.getLong(idIndex);
 
-                    eventAlarm.putExtra(CalendarAlarmReceiver.TOKEN_EVENT_ID, id);
+                    eventAlarm.setData(Uri.parse(URI_PREFIX + "://" + id));
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                             CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
