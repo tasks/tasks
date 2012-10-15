@@ -646,8 +646,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        findPreference(getString(R.string.p_allowCompressedTaskRows)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_THEME_CHANGED));
-
         findPreference(getString(R.string.p_statistics)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
