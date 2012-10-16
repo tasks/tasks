@@ -1,4 +1,4 @@
-# Chinese (China) translations for PROJECT.
+# Chinese (Taiwan) translations for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2012-10-11 12:23-0700\n"
 "PO-Revision-Date: 2012-10-12 21:20+0000\n"
 "Last-Translator: Henry Tsai <henry@astrid.com>\n"
-"Language-Team: zh_CN <LL@li.org>\n"
+"Language-Team: zh_TW <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -309,7 +309,7 @@ msgid ""
 msgstr "Astrid.com讓你在線上存取你的工作表，與朋友分享或委派工作。"
 
 #. share login: Sharing Login FB Prompt
-msgctxt "actfm_ALA_fb​​_login"
+msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
 msgstr "連接到Facebook賬戶"
 
@@ -775,7 +775,7 @@ msgid "Warning"
 msgstr "系統提醒"
 
 #. ================================================ =============== UI ==
-#. Label f​​or DateButtons with no value
+#. Label for DateButtons with no value
 msgctxt "WID_dateButtonUnset"
 msgid "Click To Set"
 msgstr "點選"
@@ -852,7 +852,7 @@ msgstr "朋友"
 #. Menu: Featured Lists
 msgctxt "TLA_menu_featured_lists"
 msgid "Featured Lists"
-msgstr "特定列表​​"
+msgstr "特定列表"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
@@ -1037,7 +1037,7 @@ msgid "Sort, Subtasks, and Hidden"
 msgstr "排序和隱藏工作"
 
 #. slide 23h: Hidden: title
-msgctxt "SSD_hidden_​​title"
+msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
 msgstr "隱藏任務工作"
 
@@ -1378,7 +1378,7 @@ msgctxt "TEA_control_share"
 msgid "Share With Friends"
 msgstr "和朋友們分享"
 
-msgctxt "TEA_control_hidden_​​section"
+msgctxt "TEA_control_hidden_section"
 msgid "----Hide Always----"
 msgstr "----始終隱藏----"
 
@@ -1669,16 +1669,16 @@ msgstr "壓縮任務工作行，使它適應標題"
 #. slide 34e: Preferences: Use legacy importance and checkbox style
 #. slide 34k
 #. slide 34b: Preferences: Wrap task titles to two lines
-msgctxt "EPr_fullTask​​_title"
+msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
 msgstr "顯示完整的任務工作標題"
 
-msgctxt "EPr_fullTask​​_desc_enabled"
+msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
 msgstr "將顯示完整的任務工作標題"
 
 #. slide 34h
-msgctxt "EPr_fullTask​​_desc_disabled"
+msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
 msgstr "將顯示任務工作標題的頭兩行"
 
@@ -2131,7 +2131,7 @@ msgstr ""
 "啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&gt；管理舊任務工作-"
 "&gt;清楚所有數據）並在Astrid備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）"
 
-msgctxt "market_​​unavailable"
+msgctxt "market_unavailable"
 msgid "Unfortunately the market is not available for your system."
 msgstr "非常抱歉，我們的軟件無法在您的系統中成功運行。"
 
@@ -2430,7 +2430,7 @@ msgstr "重要性..."
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr "列表：？"
+msgstr "列表：?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
@@ -2445,7 +2445,7 @@ msgstr "列表名包含..."
 #. Criteria: tag_contains - text (? -> user input)
 msgctxt "CFC_tag_contains_text"
 msgid "List name contains: ?"
-msgstr "列表名包含：？"
+msgstr "列表名包含：?"
 
 #. Criteria: title_contains - name of criteria
 msgctxt "CFC_title_contains_name"
@@ -2466,8 +2466,8 @@ msgctxt "gcal_TEA_error"
 msgid "Error adding task to calendar!"
 msgstr "工作加入行事曆錯誤"
 
-#. Label f​​or adding task to calendar
-#. slide 21c: Label f​​or adding task to calendar
+#. Label for adding task to calendar
+#. slide 21c: Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
 msgstr "建立行事曆事項"
@@ -2552,7 +2552,7 @@ msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
 msgstr "正在清除已完成任務工作……"
 
-#. Label f​​or clear completed menu item
+#. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
 msgstr "清除已完成項"
@@ -2701,7 +2701,7 @@ msgstr "輕點添加一個列表或者在列表間切換"
 
 #. Login activity
 #. slide 7b
-msgctxt "welcome_login_tos_bas​​e"
+msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
 msgstr "您使用Astrid 就表明您同意所有"
 
@@ -2914,7 +2914,7 @@ msgstr "同步段"
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
 msgid "For example: <i>Standard</i>"
-msgstr "例如： <i> 標準 <i></i></i>"
+msgstr "例如： <i> 標準 </i>"
 
 #. default value for OpenCRX segment
 msgctxt "opencrx_segment_default"
@@ -2981,7 +2981,7 @@ msgstr "錯誤：用戶名或密碼錯誤！"
 #. title for notification tray after synchronizing
 msgctxt "opencrx_notification_title"
 msgid "OpenCRX"
-msgstr "打開CRX"
+msgstr "OpenCRX"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -3118,7 +3118,7 @@ msgstr "現在請講！"
 
 msgctxt "audio_encoding"
 msgid "Encoding..."
-msgstr "正在編碼……"
+msgstr "正在編碼…"
 
 msgctxt "audio_err_encoding"
 msgid "Error encoding audio"
@@ -3128,33 +3128,33 @@ msgctxt "audio_err_playback"
 msgid "Sorry, the system does not support this type of audio file"
 msgstr "對不起，系統不支持這種類型的音頻文件"
 
-msgctxt "search_market_​​audio"
+msgctxt "search_market_audio"
 msgid ""
 "No player found to handle that audio type. Would you like to download an "
 "audio player from the Android Market?"
 msgstr "找不到播放器來處理這種音頻類型。您想從安卓市場上下載一個音頻播放器嗎？"
 
-msgctxt "search_market_​​audio_title"
+msgctxt "search_market_audio_title"
 msgid "No audio player found"
 msgstr "找不到音頻播放器"
 
-msgctxt "search_market_​​pdf"
+msgctxt "search_market_pdf"
 msgid ""
 "No PDF reader was found. Would you like to download a PDF reader from the "
 "Android Market?"
 msgstr "找不到PDF 閱讀器。您想從安卓市場上下載一個PDF 閱讀器嗎？"
 
-msgctxt "search_market_​​pdf_title"
+msgctxt "search_market_pdf_title"
 msgid "No PDF reader found"
 msgstr "找不到 PDF 閱讀器"
 
-msgctxt "search_market_​​ms"
+msgctxt "search_market_ms"
 msgid ""
 "No MS Office reader was found. Would you like to download an MS Office "
 "reader from the Android Market?"
 msgstr "找不到微軟Office 閱讀器。您想從安卓市場上下載一個微軟Office 閱讀器嗎？"
 
-msgctxt "search_market_​​ms_title"
+msgctxt "search_market_ms_title"
 msgid "No MS Office reader found"
 msgstr "找不到微軟 Office"
 
@@ -3265,7 +3265,7 @@ msgctxt "billing_not_supported_message"
 msgid ""
 "The Market billing service is not available at this time. You can continue "
 "to use this app but you won't be able to make purchases."
-msgstr "付款服務暫時無法使用。您能繼續使用這個​​應用軟件，但是您無法成功購買。"
+msgstr "付款服務暫時無法使用。您能繼續使用這個應用軟件，但是您無法成功購買。"
 
 msgctxt "subscriptions_not_supported_title"
 msgid "Can't purchase subscriptions"
@@ -3531,21 +3531,21 @@ msgstr "Producteev"
 #. text for notification tray when synchronizing
 #. Error msg when io exception
 #. Prod Login email not specified
-#. Prod Login password n​​ot specified
+#. Prod Login password not specified
 #. ================================================ labels for layout-elements
 #. ==
-#. Label f​​or Producteev control set row
+#. Label for Producteev control set row
 msgctxt "producteev_TEA_control_set_display"
 msgid "Producteev Assignment"
 msgstr "Producteev 任務工作分配系統"
 
-#. label f​​or task-assignment spinner on taskeditactivity
+#. label for task-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_task_assign_label"
 msgid "Assign this task to this person:"
 msgstr "指派工作給此人:"
 
 #. Spinner-item for unassigned tasks on taskeditactivity
-#. label f​​or dashboard-assignment spinner on taskeditactivity
+#. label for dashboard-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_dashboard_assign_label"
 msgid "Assign this task to this workspace:"
 msgstr "指派工作給此工作區:"
@@ -3707,7 +3707,7 @@ msgstr "是時候縮短您的任務工作清單了！"
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:1"
 msgid "Dear sir or madam, some tasks await your inspection!"
-msgstr "尊敬的先生或女士，有一些任務工作等待​​您的檢查！"
+msgstr "尊敬的先生或女士，有一些任務工作等待您的檢查！"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:2"
@@ -3808,7 +3808,7 @@ msgid ""
 "Note: vibrations are controlled by the Vibrate on alert setting"
 msgstr ""
 "%s 後提示將靜止。\n"
-"注意：震動在下面的​​選項中控制！"
+"注意：震動在下面的選項中控制！"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 msgctxt "rmd_EPr_quiet_hours_desc_none"
@@ -4909,8 +4909,8 @@ msgid "Drag vertically to rearrange"
 msgstr "垂直拖動以重新整理"
 
 msgctxt "subtasks_help_3"
-msgid "Drag horizo​​ntally to indent"
-msgstr "水平拖動以縮進​​"
+msgid "Drag horizontally to indent"
+msgstr "水平拖動以縮進"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -5002,9 +5002,9 @@ msgstr "刪除列表%s 嗎？(不會刪除任務工作。)"
 #. Dialog to confirm leaving a shared tag (%s -> the name of the shared list
 #. to leave)
 #, c-format
-msgctxt "DLG_leave_this_shared_tag​​_question"
+msgctxt "DLG_leave_this_shared_tag_question"
 msgid "Leave this shared list: %s? (No tasks will be deleted.)"
-msgstr "要離開這份共享​​列表嗎：%s？（不會刪除任何任務工作。）"
+msgstr "要離開這份共享列表嗎：%s？（不會刪除任何任務工作。）"
 
 #. Dialog to rename tag
 #, c-format

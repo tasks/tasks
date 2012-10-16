@@ -2418,7 +2418,7 @@ msgstr "下个月"
 #. Criteria: importance - display text (? -> user input)
 msgctxt "CFC_importance_text"
 msgid "Importance at least ?"
-msgstr "重要性至少为？"
+msgstr "重要性至少为?"
 
 #. Criteria: importance - name of criteria
 msgctxt "CFC_importance_name"
@@ -2428,7 +2428,7 @@ msgstr "重要性..."
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr "列表：？"
+msgstr "列表：?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
@@ -2443,7 +2443,7 @@ msgstr "列表名包含..."
 #. Criteria: tag_contains - text (? -> user input)
 msgctxt "CFC_tag_contains_text"
 msgid "List name contains: ?"
-msgstr "列表名包含：？"
+msgstr "列表名包含：?"
 
 #. Criteria: title_contains - name of criteria
 msgctxt "CFC_title_contains_name"
@@ -3038,7 +3038,7 @@ msgstr "在任务区..."
 
 msgctxt "CFC_opencrx_assigned_to_text"
 msgid "Assigned to: ?"
-msgstr "指派给：？"
+msgstr "指派给：?"
 
 msgctxt "CFC_opencrx_assigned_to_name"
 msgid "Assigned to..."
@@ -3559,7 +3559,7 @@ msgstr "在任务区..."
 
 msgctxt "CFC_producteev_assigned_to_text"
 msgid "Assigned to: ?"
-msgstr "指派给：？"
+msgstr "指派给：?"
 
 msgctxt "CFC_producteev_assigned_to_name"
 msgid "Assigned to..."
