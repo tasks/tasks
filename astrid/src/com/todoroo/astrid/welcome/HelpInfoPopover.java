@@ -49,6 +49,7 @@ public class HelpInfoPopover extends QuickActionWidget {
     }
 
     private final boolean tablet;
+    private int measuredWidth;
 
     private HelpInfoPopover(Context context, int textId) {
         super(context);
@@ -57,6 +58,7 @@ public class HelpInfoPopover extends QuickActionWidget {
         message.setText(textId);
         setFocusable(false);
         setTouchable(true);
+        measuredWidth = -1; // uninitialized
         tablet = AstridPreferences.useTabletLayout(context);
     }
 
@@ -67,6 +69,9 @@ public class HelpInfoPopover extends QuickActionWidget {
 
     @Override
     protected int getArrowLeftMargin(View arrow) {
+        if (measuredWidth > 0)
+            return (measuredWidth - arrow.getMeasuredWidth()) / 2;
+
         if (tablet)
             return mRect.width() / 4;
         return mRect.width() / 2;
@@ -74,6 +79,8 @@ public class HelpInfoPopover extends QuickActionWidget {
 
     @Override
     protected int getShowAtX() {
+        if (measuredWidth > 0)
+            return mRect.left + (mRect.width() - measuredWidth) / 2;
         return mRect.left;
     }
 
@@ -83,6 +90,7 @@ public class HelpInfoPopover extends QuickActionWidget {
         contentView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         int rootHeight = contentView.getMeasuredHeight();
+        measuredWidth = contentView.getMeasuredWidth();
 
         int offsetY = getArrowOffsetY();
         int dyTop = anchorRect.top;
