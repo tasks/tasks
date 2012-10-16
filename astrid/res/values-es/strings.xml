@@ -672,7 +672,7 @@
   <string name="premium_description_5">Prueba funciones nuevas</string>
   <string name="premium_description_6">¡Apoya al equipo de Astrid!</string>
   <string name="premium_speech_bubble_1">¡Premium mejorará tu productividad!</string>
-  <string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%!</string>
+  <string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
   <string name="premium_already_subscribed">¡Ya estás suscrito a Astrid Premium!</string>
   <string name="premium_login_prompt">Necesitas tener una cuenta de Astrid.com para suscribirte a Premium. Por favor inicia sesión o crea una cuenta.</string>
   <string name="premium_success">¡Gracias por suscribirte a Astrid Premium!</string>
@@ -711,7 +711,7 @@
   <string name="producteev_TEA_dashboard_assign_label">Asignar esa tarea a este espacio de trabajo:</string>
   <string name="CFC_producteev_in_workspace_text">¿En qué espacio de trabajo?</string>
   <string name="CFC_producteev_in_workspace_name">En el espacio de trabajo...</string>
-  <string name="CFC_producteev_assigned_to_text">Asignado a:</string>
+  <string name="CFC_producteev_assigned_to_text">Asignado a: ?</string>
   <string name="CFC_producteev_assigned_to_name">Asginado a...</string>
   <string name="TEA_reminders_group_label">Recordatorios</string>
   <string name="TEA_reminder_label">Recordarme:</string>

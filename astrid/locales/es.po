@@ -3454,7 +3454,7 @@ msgstr "¡Premium mejorará tu productividad!"
 
 msgctxt "premium_speech_bubble_2"
 msgid "Order one year and save 25%%!"
-msgstr "¡Ordena un año y ahorra un 25%!"
+msgstr "¡Ordena un año y ahorra un 25%%!"
 
 msgctxt "premium_already_subscribed"
 msgid "You are already subscribed to Astrid Premium!"
@@ -3677,7 +3677,7 @@ msgstr "En el espacio de trabajo..."
 
 msgctxt "CFC_producteev_assigned_to_text"
 msgid "Assigned to: ?"
-msgstr "Asignado a:"
+msgstr "Asignado a: ?"
 
 msgctxt "CFC_producteev_assigned_to_name"
 msgid "Assigned to..."

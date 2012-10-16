@@ -3345,7 +3345,7 @@ msgstr "高級版本能夠讓您的效率升級！"
 
 msgctxt "premium_speech_bubble_2"
 msgid "Order one year and save 25%%!"
-msgstr "購買一年的服務並且得到25％的折扣"
+msgstr "購買一年的服務並且得到25%%的折扣"
 
 msgctxt "premium_already_subscribed"
 msgid "You are already subscribed to Astrid Premium!"
