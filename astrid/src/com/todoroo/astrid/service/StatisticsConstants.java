@@ -74,6 +74,10 @@ public class StatisticsConstants {
     public static final String SHARE_PAGE_VIEWED = "share-page-viewed";
     public static final String SHARE_BUTTON_CLICKED = "share-button-clicked";
 
+    public static final String SUBTASKS_ORDER_USED = "subtasks-order-used";
+    public static final String SUBTASKS_INDENT_USED = "subtasks-indent-used";
+    public static final String GTASKS_INDENT_USED = "gtasks-indent-used";
+
     public static final String PREF_THIRD_PARTY_ADDONS = "pref-third-party-addons";
     public static final String PREF_SHOW_NOTES_IN_ROW = "pref-show-notes";
     public static final String PREF_SHOW_FEATURED_LISTS = "pref-show-featured-lists";

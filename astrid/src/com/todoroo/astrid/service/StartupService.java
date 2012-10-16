@@ -33,6 +33,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -45,7 +46,10 @@ import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
@@ -55,6 +59,7 @@ import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.service.abtesting.ABTests;
+import com.todoroo.astrid.subtasks.SubtasksMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -230,6 +235,8 @@ public class StartupService {
                 // get and display update messages
                 if (finalLatestVersion != 0)
                     new UpdateMessageService(context).processUpdates();
+
+                checkForSubtasksUse();
             }
         }).start();
 
@@ -294,6 +301,31 @@ public class StartupService {
         } catch (Exception e) {
             Log.w("astrid-database-restore", e); //$NON-NLS-1$
         }
+    }
+
+    private static final String PREF_SUBTASKS_CHECK = "subtasks_check_stat"; //$NON-NLS-1$
+
+    private void checkForSubtasksUse() {
+        if (!Preferences.getBoolean(PREF_SUBTASKS_CHECK, false)) {
+            checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
+                    SubtasksMetadata.ORDER.gt(0)), StatisticsConstants.SUBTASKS_ORDER_USED);
+            checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
+                    SubtasksMetadata.INDENT.gt(0)), StatisticsConstants.SUBTASKS_INDENT_USED);
+            checkMetadataStat(Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
+                    GtasksMetadata.INDENT.gt(0)), StatisticsConstants.GTASKS_INDENT_USED);
+            Preferences.setBoolean(PREF_SUBTASKS_CHECK, true);
+        }
+    }
+
+    private void checkMetadataStat(Criterion criterion, String statistic) {
+        TodorooCursor<Metadata> sort = metadataService.query(Query.select(Metadata.ID).where(criterion).limit(1));
+        try {
+            if (sort.getCount() > 0)
+                StatisticsService.reportEvent(statistic);
+        } finally {
+            sort.close();
+        }
+
     }
 
     private static final String P_TASK_KILLER_HELP = "taskkiller"; //$NON-NLS-1$
