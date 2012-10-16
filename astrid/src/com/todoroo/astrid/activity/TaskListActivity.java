@@ -33,7 +33,6 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -185,9 +184,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
             String title = getString(R.string.FLA_search_filter, query);
             savedFilter = new Filter(title, title,
-                    new QueryTemplate().where(Functions.upper(Task.TITLE).like(
+                    new QueryTemplate().where(Task.TITLE.like(
                             "%" + //$NON-NLS-1$
-                                    query.toUpperCase() + "%")), //$NON-NLS-1$
+                                    query + "%")), //$NON-NLS-1$
                     null);
         }
 
