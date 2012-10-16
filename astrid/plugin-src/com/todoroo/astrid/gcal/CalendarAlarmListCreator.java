@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -48,7 +49,6 @@ public class CalendarAlarmListCreator extends Activity {
     private ArrayList<String> emails;
     private HashMap<String, User> emailsToUsers;
 
-//    private TagData tagData;
     private String tagName;
     private TextView inviteAll;
     private TextView moreOptions;
@@ -208,7 +208,7 @@ public class CalendarAlarmListCreator extends Activity {
                 member.put("email", email); //$NON-NLS-1$
                 array.put(member);
             } catch (JSONException e) {
-                //
+                Log.e(CalendarAlarmScheduler.TAG, "Error creating json member " + email, e); //$NON-NLS-1$
             }
         }
         return array;
