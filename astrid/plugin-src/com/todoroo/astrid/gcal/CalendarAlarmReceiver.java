@@ -1,7 +1,11 @@
 package com.todoroo.astrid.gcal;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -14,6 +18,7 @@ import android.util.Log;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
@@ -87,7 +92,6 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                     shouldShowReminder = (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20);
                 }
 
-
                 if (shouldShowReminder) {
                     // Get attendees
                     Cursor attendees = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_ATTENDEES),
@@ -103,10 +107,21 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         ArrayList<String> names = new ArrayList<String>();
                         ArrayList<String> emails = new ArrayList<String>();
 
+                        Account[] accountArray = AccountManager.get(context).getAccounts();
+                        Set<String> phoneAccounts = new HashSet<String>();
+                        for (Account a : accountArray) {
+                            phoneAccounts.add(a.name);
+                        }
+                        String astridUser = ActFmPreferenceService.thisUser().optString("email");
+                        if (!TextUtils.isEmpty(astridUser))
+                            phoneAccounts.add(astridUser);
+
                         for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
                             String name = attendees.getString(nameIndex);
                             String email = attendees.getString(emailIndex);
                             if (!TextUtils.isEmpty(email)) {
+                                if (phoneAccounts.contains(email))
+                                    continue;
                                 if (Constants.DEBUG)
                                     Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
                                 names.add(name);

@@ -96,13 +96,6 @@ public class CalendarAlarmListCreator extends Activity {
     }
 
     private void initializeUserMap() {
-        String thisUser = ActFmPreferenceService.thisUser().optString("email"); //$NON-NLS-1$
-        if (emails.contains(thisUser)) {
-            int index = emails.indexOf(thisUser);
-            emails.remove(index);
-            names.remove(index);
-        }
-
         emailsToUsers = new HashMap<String, User>();
         TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).where(User.EMAIL.in(emails.toArray(new String[emails.size()]))));
         try {
