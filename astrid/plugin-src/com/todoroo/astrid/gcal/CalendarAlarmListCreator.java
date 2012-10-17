@@ -59,10 +59,17 @@ public class CalendarAlarmListCreator extends Activity {
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            finish();
-            AndroidUtilities.callOverridePendingTransition(CalendarAlarmListCreator.this, 0, android.R.anim.fade_out);
+            TagData tagData = new TagData();
+            tagData.setValue(TagData.NAME, tagName);
+            tagDataService.save(tagData);
+            dismissWithAnimation();
         }
     };
+
+    private void dismissWithAnimation() {
+        finish();
+        AndroidUtilities.callOverridePendingTransition(CalendarAlarmListCreator.this, 0, android.R.anim.fade_out);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +170,7 @@ public class CalendarAlarmListCreator extends Activity {
                     tagData.setValue(TagData.MEMBERS, membersArray.toString());
                     tagData.setValue(TagData.MEMBER_COUNT, membersArray.length());
                     tagDataService.save(tagData);
-                    dismissListener.onClick(v);
+                    dismissWithAnimation();
                 }
             }
         });
@@ -176,7 +183,7 @@ public class CalendarAlarmListCreator extends Activity {
                 intent.putExtra(TaskListFragment.TOKEN_NEW_LIST_MEMBERS, buildMembersArray().toString());
                 intent.putExtra(TaskListFragment.TOKEN_NEW_LIST, true);
                 startActivity(intent);
-                dismissListener.onClick(v);
+                dismissWithAnimation();
             }
         });
     }

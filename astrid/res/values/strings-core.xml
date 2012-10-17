@@ -573,8 +573,8 @@
   <!-- Calendar reminder: two attendees (%s -> attendee name or email) -->
   <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
 
-  <!-- Calendar reminder: many attendees (%s -> attendee name or email, %3$i -> how many other people) -->
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$i others are attending.</string>
+  <!-- Calendar reminder: many attendees (%s -> attendee name or email, %3$d -> how many other people) -->
+  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
   
   <!-- Calendar reminder: invitation prompt -->
   <string name="CRA_invitation_prompt">Want to invite them?</string>
