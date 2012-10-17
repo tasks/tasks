@@ -247,7 +247,19 @@ public class TaskService {
      * Clean up tasks. Typically called on startup
      */
     public void cleanup() {
-        taskDao.deleteWhere(TaskCriteria.hasNoTitle());
+        TodorooCursor<Task> cursor = taskDao.query(
+                Query.select(Task.ID).where(TaskCriteria.hasNoTitle()));
+        try {
+            if(cursor.getCount() == 0)
+                return;
+
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                long id = cursor.getLong(0);
+                taskDao.delete(id);
+            }
+        } finally {
+            cursor.close();
+        }
     }
 
     /**

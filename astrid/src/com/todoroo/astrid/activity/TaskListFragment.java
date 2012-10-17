@@ -735,8 +735,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected void refresh() {
         if (taskAdapter != null)
             taskAdapter.flushCaches();
-        loadTaskListContent(true);
         taskService.cleanup();
+        loadTaskListContent(true);
     }
 
     /**

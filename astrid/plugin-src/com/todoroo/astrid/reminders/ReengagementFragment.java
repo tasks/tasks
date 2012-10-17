@@ -24,10 +24,29 @@ public class ReengagementFragment extends DisposableTaskListFragment {
         // hide quick add
         getView().findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
-        Resources r = getActivity().getResources();
-
         super.initializeData();
 
+        setupSpeechBubble();
+    }
+
+    @Override
+    protected View getListBody(ViewGroup root) {
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_reengagement, root, false);
+
+        View taskListView = super.getListBody(parent);
+        parent.addView(taskListView, 0);
+
+        return parent;
+    }
+
+    @Override
+    protected void refresh() {
+        super.refresh();
+        setupSpeechBubble();
+    }
+
+    private void setupSpeechBubble() {
+        Resources r = getActivity().getResources();
         TextView snooze = (TextView) getView().findViewById(R.id.reminder_snooze);
         snooze.setBackgroundColor(r.getColor(ThemeService.getThemeColor()));
         TextView reminder = (TextView) getView().findViewById(R.id.reminder_message);
@@ -49,16 +68,6 @@ public class ReengagementFragment extends DisposableTaskListFragment {
         }
 
         reminder.setText(extras.getString(EXTRA_TEXT));
-    }
-
-    @Override
-    protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_reengagement, root, false);
-
-        View taskListView = super.getListBody(parent);
-        parent.addView(taskListView, 0);
-
-        return parent;
     }
 
 }

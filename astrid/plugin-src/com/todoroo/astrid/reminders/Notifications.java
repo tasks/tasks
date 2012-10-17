@@ -42,6 +42,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputService;
 
 public class Notifications extends BroadcastReceiver {
@@ -378,6 +379,7 @@ public class Notifications extends BroadcastReceiver {
             notificationManager.notify(notificationId, notification);
             AndroidUtilities.sleepDeep(500);
         }
+        Flags.set(Flags.REFRESH); // Forces a reload when app launches
 
         if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
             AndroidUtilities.sleepDeep(2000);
