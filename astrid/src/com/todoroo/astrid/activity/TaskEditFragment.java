@@ -1315,10 +1315,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
                 MeasureSpec.AT_MOST);
         view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-        height = Math.max(view.getMeasuredHeight(), height);
+        height = Math.max(view.getMeasuredHeight(), height);;
         LayoutParams pagerParams = mPager.getLayoutParams();
-        if (position == 0 && height < pagerParams.height)
-            return;
         if (height > 0 && height != pagerParams.height) {
             pagerParams.height = height;
             mPager.setLayoutParams(pagerParams);
