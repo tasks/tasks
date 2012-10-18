@@ -115,7 +115,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     /** Create a filter from tag data object */
-    public static Filter filterFromTagData(Context context, TagData tagData) {
+    public static FilterWithCustomIntent filterFromTagData(Context context, TagData tagData) {
         Tag tag = new Tag(tagData);
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }

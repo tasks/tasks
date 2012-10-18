@@ -22,15 +22,6 @@
         android:layout_marginBottom="15dip"
         android:layout_marginLeft="10dip">
         
-        <ImageView
-            android:id="@+id/contact_picture"
-            android:layout_marginTop="5dip"
-            android:layout_marginRight="10dip"
-            android:visibility="gone"
-            android:layout_width="51dip"
-            android:layout_height="51dip"
-            android:scaleType="fitCenter" />
-        
         <TextView 
             android:id="@+id/reminder_title"
             android:layout_width="fill_parent"
@@ -39,7 +30,7 @@
             android:textSize="24sp"
             android:textColor="@android:color/white"
             android:layout_weight="1"
-            android:text="@string/MCA_title"/>
+            android:text="@string/CRA_title"/>
         <ImageView
             android:id="@+id/dismiss"
             android:layout_width="25dip"
@@ -48,10 +39,16 @@
             android:src="@drawable/ic_menu_close"/>
     
     </LinearLayout>
-    
+
+    <FrameLayout
+        android:id="@+id/calendar_reminder_speech_bubble"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/astrid_speech_bubble" />
+    </FrameLayout>
     
     <TextView
-        android:id="@+id/call_now"
+        android:id="@+id/create_list"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
         android:layout_marginLeft="10dip"
@@ -60,9 +57,10 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center"
-        android:text="@string/MCA_return_call"/>
+        android:text="@string/CRA_create_list"/>
+
     <TextView
-        android:id="@+id/call_later"
+        android:id="@+id/postpone"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
         android:layout_marginLeft="10dip"
@@ -71,7 +69,8 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center"
-        android:text="@string/MCA_add_task"/>
+        android:background="#707070"
+        android:text="@string/CRA_postpone"/>
     
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -81,13 +80,13 @@
         android:layout_marginBottom="10dip">
 	    
 	    <TextView
-	        android:id="@+id/call_ignore"
+	        android:id="@+id/ignore"
 	        android:layout_width="fill_parent"
 	        android:layout_height="35dip"
 	        android:textColor="@android:color/white"
 	        android:textSize="24sp"
 	        android:gravity="center"
-	        android:text="@string/MCA_ignore"
+	        android:text="@string/CRA_ignore"
 	        android:background="#707070"/>
 	    
 	    <ImageView 
@@ -101,11 +100,5 @@
 	        android:src="@drawable/single_gear"/>
     </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/missed_calls_speech_bubble"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/astrid_speech_bubble" />
-    </FrameLayout>
 
 </LinearLayout>

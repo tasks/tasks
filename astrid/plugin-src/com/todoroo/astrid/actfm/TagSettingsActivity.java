@@ -69,6 +69,10 @@ public class TagSettingsActivity extends FragmentActivity {
 
     public static final int REQUEST_ACTFM_LOGIN = 3;
 
+    public static final String TOKEN_AUTOPOPULATE_MEMBERS = "autopopulateMembers"; //$NON-NLS-1$
+    
+    public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
+
     private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
 
     private TagData tagData;
@@ -222,6 +226,18 @@ public class TagSettingsActivity extends FragmentActivity {
         }
 
         refreshSettingsPage();
+
+        String autopopulateMembers = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_MEMBERS);
+        if (!TextUtils.isEmpty(autopopulateMembers)) {
+            updateMembers(autopopulateMembers);
+            getIntent().removeExtra(TOKEN_AUTOPOPULATE_MEMBERS);
+        }
+        
+        String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
+        if (!TextUtils.isEmpty(autopopulateName)) {
+            tagName.setText(autopopulateName);
+            getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
+        }
     }
 
     @SuppressWarnings("nls")

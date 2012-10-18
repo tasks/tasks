@@ -502,6 +502,27 @@
       </intent-filter>
     </receiver>
     
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarStartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+      <intent-filter>
+          <action android:name="com.todoroo.astrid.SCHEDULE_CAL_REMINDERS"/>
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
+    <activity android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    </activity>
+
+    <activity android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    </activity>
+    
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
+    
     <!-- old tasks -->
     <activity android:name="com.todoroo.astrid.core.OldTaskPreferences"
               android:theme="@android:style/Theme" 

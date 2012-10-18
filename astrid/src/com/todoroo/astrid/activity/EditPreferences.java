@@ -547,6 +547,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
                     R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled));
+        else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
+                    R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
                     R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_third_party_addons,

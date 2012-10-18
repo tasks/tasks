@@ -137,6 +137,7 @@ public class TagViewFragment extends TaskListFragment {
             Intent intent = new Intent(getActivity(), settingsClass);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+
             if (!AstridPreferences.useTabletLayout(activity)) {
                 AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
             }
@@ -307,6 +308,8 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     protected void setUpMembersGallery() {
+        if (tagData == null)
+            return;
         LinearLayout membersView = (LinearLayout)getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
         try {

@@ -49,6 +49,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
@@ -123,7 +124,6 @@ public class StartupService {
     public synchronized void onStartupApplication(final Activity context) {
         if(hasStartedUp || context == null)
             return;
-
 
         // sets up context manager
         ContextManager.setContext(context);
@@ -227,6 +227,7 @@ public class StartupService {
 
                 // perform initialization
                 ReminderStartupReceiver.startReminderSchedulingService(context);
+                CalendarStartupReceiver.scheduleCalendarAlarms(context);
                 BackupService.scheduleService(context);
                 actFmSyncService.initialize();
 
