@@ -238,13 +238,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     @SuppressWarnings("nls")
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
         Class<?> component = customComponent;
-        if (filter instanceof FilterWithCustomIntent) {
+        if (filter instanceof FilterWithCustomIntent && component == null) {
             try {
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
             } catch (Exception e) {
                 // Invalid
             }
         }
+        if (component == null)
+            component = TaskListFragment.class;
+
         TaskListFragment newFragment;
         try {
             newFragment = (TaskListFragment) component.newInstance();
@@ -269,7 +272,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @return
      */
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
-        return instantiateWithFilterAndExtras(filter, extras, TaskListFragment.class);
+        return instantiateWithFilterAndExtras(filter, extras, null);
     }
 
     /**

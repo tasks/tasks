@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter.FilterDataSourceChangedListener;
 import com.todoroo.astrid.api.Filter;
@@ -108,8 +109,8 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
     private Fragment getFragmentForFilter(Filter filter) {
         Bundle extras = getExtrasForFilter(filter);
         Class<?> customList = customTaskLists.get(filter);
-        if (customList == null)
-            customList = TaskListFragment.class;
+        if (AstridActivity.shouldUseSubtasksFragmentForFilter(filter))
+            customList = AstridActivity.subtasksClassForFilter(filter);
         return TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customList);
     }
 

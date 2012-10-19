@@ -27,6 +27,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -42,6 +43,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -206,10 +208,10 @@ public class AstridActivity extends FragmentActivity
     }
 
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
-        Class<?> customTaskList = TaskListFragment.class;
+        Class<?> customTaskList = null;
 
         if (shouldUseSubtasksFragmentForFilter(filter))
-            customTaskList = SubtasksListFragment.class;
+            customTaskList = subtasksClassForFilter(filter);
 
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
@@ -235,12 +237,26 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
-    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || CoreFilterExposer.isInbox(filter)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+    public static boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
+        if(filter == null || CoreFilterExposer.isInbox(filter) || isTagFilter(filter)) {
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
             if(SortHelper.isManualSort(sortFlags))
                 return true;
+        }
+        return false;
+    }
+
+    public static Class<?> subtasksClassForFilter(Filter filter) {
+        if (isTagFilter(filter))
+            return SubtasksTagListFragment.class;
+        return SubtasksListFragment.class;
+    }
+
+    private static boolean isTagFilter(Filter filter) {
+        if (filter instanceof FilterWithCustomIntent) {
+            return ((FilterWithCustomIntent) filter).customTaskList.getClassName().equals(
+                    TagViewFragment.class.getName());
         }
         return false;
     }
