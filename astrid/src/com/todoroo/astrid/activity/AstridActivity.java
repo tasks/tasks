@@ -255,8 +255,10 @@ public class AstridActivity extends FragmentActivity
 
     private static boolean isTagFilter(Filter filter) {
         if (filter instanceof FilterWithCustomIntent) {
-            return ((FilterWithCustomIntent) filter).customTaskList.getClassName().equals(
-                    TagViewFragment.class.getName());
+            String className = ((FilterWithCustomIntent) filter).customTaskList.getClassName();
+            if (TagViewFragment.class.getName().equals(className)
+                    || SubtasksTagListFragment.class.getName().equals(className)) // Need to check this subclass because some shortcuts/widgets may have been saved with it
+                return true;
         }
         return false;
     }

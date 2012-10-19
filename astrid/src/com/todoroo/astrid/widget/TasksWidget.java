@@ -32,6 +32,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -182,10 +183,7 @@ public class TasksWidget extends AppWidgetProvider {
                 String query = SortHelper.adjustQueryForFlagsAndSort(
                         filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
-                boolean isTagList = (filter instanceof FilterWithCustomIntent) &&
-                        ((((FilterWithCustomIntent)filter).customTaskList.getShortClassName().equals("com.todoroo.astrid.subtasks.SubtasksTagListFragment")) ||
-                                (((FilterWithCustomIntent)filter).customTaskList.getShortClassName().equals("com.todoroo.astrid.actfm.TagViewFragment")));
-                if (SortHelper.isManualSort(flags) && isTagList) {
+                if (AstridActivity.shouldUseSubtasksFragmentForFilter(filter)) {
                     // care for manual ordering
                     String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
                     if(tagName == null)
