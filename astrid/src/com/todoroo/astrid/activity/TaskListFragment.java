@@ -388,6 +388,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
+        filter.setFilterQueryOverride(null);
         isInbox = CoreFilterExposer.isInbox(filter);
 
         setUpTaskList();

@@ -22,7 +22,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter implements FilterDataSourceChangedListener {
 
     private final HashMap<Integer, Fragment> positionToFragment;
-    private final HashMap<Filter, Class<?>> customTaskLists;
 
     private final FilterAdapter filterAdapter; // Shares an adapter instance with the filter list fragment
 
@@ -31,7 +30,6 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         this.filterAdapter = filterAdapter;
         filterAdapter.setDataSourceChangedListener(this);
         positionToFragment = new HashMap<Integer, Fragment>();
-        customTaskLists = new HashMap<Filter, Class<?>>();
     }
 
     @Override
@@ -97,18 +95,9 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         return filterAdapter.getCount();
     }
 
-    public void setCustomTaskListForFilter(Filter f, Class<?> customTaskList) {
-        customTaskLists.put(f, customTaskList);
-        notifyDataSetChanged();
-    }
-
-    public void clearCustomTaskListForFilter(Filter f) {
-        customTaskLists.remove(f);
-    }
-
     private Fragment getFragmentForFilter(Filter filter) {
         Bundle extras = getExtrasForFilter(filter);
-        Class<?> customList = customTaskLists.get(filter);
+        Class<?> customList = null;
         if (AstridActivity.shouldUseSubtasksFragmentForFilter(filter))
             customList = AstridActivity.subtasksClassForFilter(filter);
         return TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customList);

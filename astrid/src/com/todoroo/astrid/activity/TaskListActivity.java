@@ -260,7 +260,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
         if (swipeIsEnabled()) {
-            tlfPager.showFilterWithCustomTaskList(filter, customTaskList);
+            tlfPager.showFilter(filter);
             tlfPager.forceReload(); // Hack to force reload of current page
         } else {
             super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
