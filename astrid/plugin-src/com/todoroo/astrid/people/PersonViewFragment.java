@@ -44,7 +44,6 @@ public class PersonViewFragment extends TaskListFragment {
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     private AsyncImageView userImage;
-    private TextView userName;
     private TextView userSubtitle;
     private TextView userStatusButton;
 
@@ -60,7 +59,6 @@ public class PersonViewFragment extends TaskListFragment {
 
         if (user != null) {
             userImage.setUrl(user.getValue(User.PICTURE));
-            userName.setText(user.getDisplayName());
             userSubtitle.setText(user.getValue(User.STATUS));
             userStatusButton.setText(user.getValue(User.STATUS));
         } else {
@@ -87,7 +85,6 @@ public class PersonViewFragment extends TaskListFragment {
     protected void setUpUiComponents() {
         super.setUpUiComponents();
         userImage = (AsyncImageView) getView().findViewById(R.id.user_image);
-        userName = (TextView) getView().findViewById(R.id.user_name);
         userSubtitle = (TextView) getView().findViewById(R.id.user_subtitle);
         userStatusButton = (TextView) getActivity().findViewById(R.id.person_image);
     }
