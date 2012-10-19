@@ -1426,6 +1426,7 @@ public final class ActFmSyncService {
             model.setValue(User.NAME, json.optString("name"));
             model.setValue(User.EMAIL, json.optString("email"));
             model.setValue(User.PICTURE, json.optString("picture"));
+            model.setValue(User.STATUS, json.optString("status"));
         }
 
         public static void jsonFromUser(JSONObject json, User model) throws JSONException {

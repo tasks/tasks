@@ -58,6 +58,10 @@ public final class User extends RemoteModel {
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, REMOTE_ID_PROPERTY_NAME);
 
+    /** Friendship status */
+    public static final StringProperty STATUS = new StringProperty(
+            TABLE, "status");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(User.class);
 
@@ -70,12 +74,19 @@ public final class User extends RemoteModel {
         defaultValues.put(NAME.name, "");
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
+        defaultValues.put(STATUS.name, "");
     }
 
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
     }
+
+    public static final String STATUS_PENDING = "pending";
+    public static final String STATUS_OTHER_PENDING = "other_pending";
+    public static final String STATUS_FRIENDS = "friends";
+    public static final String STATUS_IGNORED = "ignored";
+    public static final String STATUS_BLOCKED = "blocked";
 
     // --- data access boilerplate
 

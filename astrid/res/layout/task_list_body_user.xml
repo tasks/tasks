@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="100">
+  
+	<RelativeLayout
+	    android:id="@+id/user_header"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="5dip"
+		android:background="#ff0000">
+		
+	    <com.todoroo.astrid.helper.AsyncImageView
+	        android:id="@+id/user_image"
+	        android:layout_height="45dip"
+	        android:layout_width="45dip"
+	        android:scaleType="fitCenter"
+	        android:layout_centerVertical="true"/>
+	    
+	    <TextView
+	        android:id="@+id/user_name"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/user_image"
+	        android:layout_alignTop="@id/user_image"
+	        android:text="USER NAME"/>
+	    
+	    <TextView
+	        android:id="@+id/user_subtitle"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/user_name" 
+	        android:layout_toRightOf="@id/user_image"
+	        android:text="Some text goes here. Blah blah blah bleeeeeeeep."/>
+	    
+	</RelativeLayout>
+  
+    <!-- List body goes here -->
+    
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.support.v4.view.Menu;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -21,6 +22,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
@@ -41,6 +43,10 @@ public class PersonViewFragment extends TaskListFragment {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
+    private AsyncImageView userImage;
+    private TextView userName;
+    private TextView userSubtitle;
+
     private User user;
 
     @Override
@@ -50,6 +56,13 @@ public class PersonViewFragment extends TaskListFragment {
             user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
         }
         ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+
+        if (user != null) {
+            userImage.setUrl(user.getValue(User.PICTURE));
+            userName.setText(user.getDisplayName());
+        } else {
+            getView().findViewById(R.id.user_header).setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -65,6 +78,24 @@ public class PersonViewFragment extends TaskListFragment {
         // set listener for astrid icon
         ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(null);
 
+    }
+
+    @Override
+    protected void setUpUiComponents() {
+        super.setUpUiComponents();
+        userImage = (AsyncImageView) getView().findViewById(R.id.user_image);
+        userName = (TextView) getView().findViewById(R.id.user_name);
+        userSubtitle = (TextView) getView().findViewById(R.id.user_subtitle);
+    }
+
+    @Override
+    protected View getListBody(ViewGroup root) {
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_user, root, false);
+
+        View taskListView = super.getListBody(parent);
+        parent.addView(taskListView);
+
+        return parent;
     }
 
     @Override
