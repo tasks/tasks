@@ -58,9 +58,14 @@ public final class User extends RemoteModel {
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, REMOTE_ID_PROPERTY_NAME);
 
-    /** Friendship status */
+    /** Friendship status. One of the STATUS constants below */
     public static final StringProperty STATUS = new StringProperty(
             TABLE, "status");
+
+    /** Friendship tatus that needs to be reported to the server.
+     * One of the PENDING constants below */
+    public static final StringProperty PENDING_STATUS = new StringProperty(
+            TABLE, "pendingStatus");
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(User.class);
@@ -87,6 +92,11 @@ public final class User extends RemoteModel {
     public static final String STATUS_FRIENDS = "friends";
     public static final String STATUS_IGNORED = "ignored";
     public static final String STATUS_BLOCKED = "blocked";
+
+    public static final String PENDING_REQUEST = "request";
+    public static final String PENDING_APPROVE = "approve";
+    public static final String PENDING_IGNORE = "ignore";
+    public static final String PENDING_UNFRIEND = "unfriend";
 
     // --- data access boilerplate
 

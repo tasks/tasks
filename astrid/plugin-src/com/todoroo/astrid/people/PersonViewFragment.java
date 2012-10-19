@@ -126,8 +126,17 @@ public class PersonViewFragment extends TaskListFragment {
     }
 
     public void handleStatusButtonClicked() {
-        // TODO: Handle this for real
-        System.err.println("Status for " + user.getDisplayName() + " is " + user.getValue(User.STATUS)); //$NON-NLS-1$ //$NON-NLS-2$
+        String status = user.getValue(User.STATUS);
+        if (TextUtils.isEmpty(status)) { // Add friend case
+            user.setValue(User.PENDING_STATUS, User.PENDING_REQUEST);
+        } else if (User.STATUS_OTHER_PENDING.equals(status)) { // Accept friend case
+            user.setValue(User.PENDING_STATUS, User.PENDING_APPROVE);
+        }
+
+        if (user.getSetValues().containsKey(User.PENDING_STATUS.name)) {
+            userDao.saveExisting(user);
+            // Push
+        }
     }
 
     @Override

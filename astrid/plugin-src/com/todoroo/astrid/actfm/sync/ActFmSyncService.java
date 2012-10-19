@@ -890,6 +890,27 @@ public final class ActFmSyncService {
         return result.optInt("time", 0);
     }
 
+    public void pushUser(User model) {
+        if (TextUtils.isEmpty(model.getValue(User.PENDING_STATUS)))
+            return;
+        if (model.getValue(User.REMOTE_ID) == 0)
+            return;
+        if (!checkForToken())
+            return;
+
+        try {
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add("token"); params.add(token);
+            params.add("id"); params.add(model.getValue(User.REMOTE_ID));
+            params.add("status"); params.add(model.getValue(User.PENDING_STATUS));
+
+            JSONObject result = actFmInvoker.invoke("user_set_status", params);
+            System.err.println("RESULT: " + result);
+        } catch (IOException e) {
+            handleException("user-status", e);
+        }
+    }
+
 
     /**
      * Fetch active tasks asynchronously
