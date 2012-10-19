@@ -203,9 +203,10 @@ public class TasksWidget extends AppWidgetProvider {
                     if(!query.contains(subtaskJoin)) {
                         query = subtaskJoin + query;
                         query = query.replaceAll("ORDER BY .*", "");
-                        query = query + String.format(" ORDER BY %s, %s, IFNULL(CAST(%s AS LONG), %s)",
+                        query = query + String.format(" ORDER BY %s, %s, IFNULL(CAST(%s AS LONG), %s) LIMIT %d",
                                 Task.DELETION_DATE, Task.COMPLETION_DATE,
-                                SubtasksMetadata.ORDER, Task.CREATION_DATE);
+                                SubtasksMetadata.ORDER, Task.CREATION_DATE,
+                                numberOfTasks);
                         query = query.replace(TaskCriteria.isVisible().toString(),
                                 Criterion.all.toString());
 
