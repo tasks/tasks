@@ -60,6 +60,7 @@ import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
+import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -788,7 +789,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             return;
         InputMethodManager imm = (InputMethodManager)getSystemService(
                 Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(tlf.quickAddBar.getQuickAddBox().getWindowToken(), 0);
+        QuickAddBar qab = tlf.quickAddBar;
+        if (qab != null)
+            imm.hideSoftInputFromWindow(qab.getQuickAddBox().getWindowToken(), 0);
     }
 
     @Override
