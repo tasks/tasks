@@ -253,7 +253,7 @@ public class AstridActivity extends FragmentActivity
         return SubtasksListFragment.class;
     }
 
-    private static boolean isTagFilter(Filter filter) {
+    public static boolean isTagFilter(Filter filter) {
         if (filter instanceof FilterWithCustomIntent) {
             String className = ((FilterWithCustomIntent) filter).customTaskList.getClassName();
             if (TagViewFragment.class.getName().equals(className)

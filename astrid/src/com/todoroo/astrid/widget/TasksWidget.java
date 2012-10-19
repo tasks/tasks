@@ -32,6 +32,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -174,6 +175,8 @@ public class TasksWidget extends AppWidgetProvider {
             Filter filter = null;
             try {
                 filter = getFilter(widgetId);
+                if (AstridActivity.isTagFilter(filter))
+                    ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
                 views.setTextViewText(R.id.widget_title, filter.title);
                 views.removeAllViews(R.id.taskbody);
 
