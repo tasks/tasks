@@ -59,8 +59,8 @@ public class PersonViewFragment extends TaskListFragment {
 
         if (user != null) {
             userImage.setUrl(user.getValue(User.PICTURE));
-            userSubtitle.setText(user.getValue(User.STATUS));
-            userStatusButton.setText(user.getValue(User.STATUS));
+            userSubtitle.setText(getUserSubtitleText());
+            setupUserStatusButton();
         } else {
             getView().findViewById(R.id.user_header).setVisibility(View.GONE);
         }
@@ -79,6 +79,32 @@ public class PersonViewFragment extends TaskListFragment {
         // set listener for astrid icon
         ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(null);
 
+    }
+
+    private String getUserSubtitleText() {
+        String status = user.getValue(User.STATUS);
+        String userName = user.getDisplayName();
+        if (User.STATUS_PENDING.equals(status))
+            return getString(R.string.actfm_friendship_pending, userName);
+        else if (User.STATUS_BLOCKED.equals(status))
+            return getString(R.string.actfm_friendship_blocked, userName);
+        else if (User.STATUS_FRIENDS.equals(status))
+            return getString(R.string.actfm_friendship_friends, userName);
+        else if (User.STATUS_OTHER_PENDING.equals(status))
+            return getString(R.string.actfm_friendship_other_pending, userName);
+        else return getString(R.string.actfm_friendship_no_status, userName);
+
+    }
+
+    private void setupUserStatusButton() {
+        String status = user.getValue(User.STATUS);
+        userStatusButton.setVisibility(View.VISIBLE);
+        if (TextUtils.isEmpty(status))
+            userStatusButton.setText(getString(R.string.actfm_friendship_connect));
+        else if (User.STATUS_OTHER_PENDING.equals(status))
+            userStatusButton.setText(getString(R.string.actfm_friendship_accept));
+        else
+            userStatusButton.setVisibility(View.GONE);
     }
 
     @Override
