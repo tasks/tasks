@@ -8,13 +8,11 @@ import com.todoroo.astrid.activity.FilterModeSpec;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.ui.MainMenuPopover;
 
 public class PeopleFilterMode implements FilterModeSpec {
 
-    private AsyncImageView imageView;
+//    private AsyncImageView imageView;
 
     @Override
     public Filter getDefaultFilter(Context context) {
@@ -29,17 +27,17 @@ public class PeopleFilterMode implements FilterModeSpec {
 
     @Override
     public void onFilterItemClickedCallback(FilterListItem item) {
-        if (imageView == null)
-            return;
-        if (item instanceof FilterWithUpdate)
-            imageView.setUrl(((FilterWithUpdate) item).imageUrl);
-        else
-            imageView.setUrl(null);
+//        if (imageView == null)
+//            return;
+//        if (item instanceof FilterWithUpdate)
+//            imageView.setUrl(((FilterWithUpdate) item).imageUrl);
+//        else
+//            imageView.setUrl(null);
     }
-
-    public void setImageView(AsyncImageView imageView) {
-        this.imageView = imageView;
-    }
+//
+//    public void setImageView(AsyncImageView imageView) {
+//        this.imageView = imageView;
+//    }
 
     @Override
     public int[] getForbiddenMenuItems() {

@@ -46,6 +46,7 @@ public class PersonViewFragment extends TaskListFragment {
     private AsyncImageView userImage;
     private TextView userName;
     private TextView userSubtitle;
+    private TextView userStatusButton;
 
     private User user;
 
@@ -60,6 +61,8 @@ public class PersonViewFragment extends TaskListFragment {
         if (user != null) {
             userImage.setUrl(user.getValue(User.PICTURE));
             userName.setText(user.getDisplayName());
+            userSubtitle.setText(user.getValue(User.STATUS));
+            userStatusButton.setText(user.getValue(User.STATUS));
         } else {
             getView().findViewById(R.id.user_header).setVisibility(View.GONE);
         }
@@ -86,6 +89,7 @@ public class PersonViewFragment extends TaskListFragment {
         userImage = (AsyncImageView) getView().findViewById(R.id.user_image);
         userName = (TextView) getView().findViewById(R.id.user_name);
         userSubtitle = (TextView) getView().findViewById(R.id.user_subtitle);
+        userStatusButton = (TextView) getActivity().findViewById(R.id.person_image);
     }
 
     @Override

@@ -20,9 +20,10 @@
 		
 	    <com.todoroo.astrid.helper.AsyncImageView
 	        android:id="@+id/user_image"
-	        android:layout_height="45dip"
-	        android:layout_width="45dip"
+	        android:layout_height="50dip"
+	        android:layout_width="50dip"
 	        android:scaleType="fitCenter"
+	        android:layout_marginRight="5dip"
 	        android:layout_centerVertical="true"/>
 	    
 	    <TextView
