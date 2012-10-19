@@ -49,6 +49,7 @@ import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
+import com.todoroo.astrid.people.PersonViewFragment;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
@@ -140,6 +141,16 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     };
 
+    private final OnClickListener friendStatusClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TaskListFragment tlf = getTaskListFragment();
+            if (tlf == null || !(tlf instanceof PersonViewFragment))
+                return;
+            ((PersonViewFragment) tlf).handleStatusButtonClicked();
+        }
+    };
+
     /**
      * @see android.app.Activity#onCreate(Bundle)
      */
@@ -170,6 +181,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         createMainMenuPopover();
         mainMenu.setOnClickListener(mainMenuClickListener);
         commentsButton.setOnClickListener(commentsButtonClickListener);
+        personStatus.setOnClickListener(friendStatusClickListener);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null)

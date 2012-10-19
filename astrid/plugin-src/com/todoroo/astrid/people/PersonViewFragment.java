@@ -99,6 +99,11 @@ public class PersonViewFragment extends TaskListFragment {
         return parent;
     }
 
+    public void handleStatusButtonClicked() {
+        // TODO: Handle this for real
+        System.err.println("Status for " + user.getDisplayName() + " is " + user.getValue(User.STATUS)); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
     @Override
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(actFmPreferenceService.isLoggedIn()) {
