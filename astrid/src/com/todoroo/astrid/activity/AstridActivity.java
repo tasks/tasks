@@ -9,7 +9,6 @@ import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
@@ -27,26 +26,21 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
-import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
-import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 /**
@@ -210,8 +204,8 @@ public class AstridActivity extends FragmentActivity
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = null;
 
-        if (shouldUseSubtasksFragmentForFilter(filter))
-            customTaskList = subtasksClassForFilter(filter);
+        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter))
+            customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
 
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
@@ -235,32 +229,6 @@ public class AstridActivity extends FragmentActivity
             // Don't worry about it
             e.printStackTrace();
         }
-    }
-
-    public static boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || CoreFilterExposer.isInbox(filter) || isTagFilter(filter)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
-            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            if(SortHelper.isManualSort(sortFlags))
-                return true;
-        }
-        return false;
-    }
-
-    public static Class<?> subtasksClassForFilter(Filter filter) {
-        if (isTagFilter(filter))
-            return SubtasksTagListFragment.class;
-        return SubtasksListFragment.class;
-    }
-
-    public static boolean isTagFilter(Filter filter) {
-        if (filter instanceof FilterWithCustomIntent) {
-            String className = ((FilterWithCustomIntent) filter).customTaskList.getClassName();
-            if (TagViewFragment.class.getName().equals(className)
-                    || SubtasksTagListFragment.class.getName().equals(className)) // Need to check this subclass because some shortcuts/widgets may have been saved with it
-                return true;
-        }
-        return false;
     }
 
     @Override

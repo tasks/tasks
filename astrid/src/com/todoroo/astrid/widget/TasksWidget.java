@@ -28,12 +28,10 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -44,15 +42,12 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.subtasks.SubtasksMetadata;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
@@ -175,7 +170,7 @@ public class TasksWidget extends AppWidgetProvider {
             Filter filter = null;
             try {
                 filter = getFilter(widgetId);
-                if (AstridActivity.isTagFilter(filter))
+                if (SubtasksHelper.isTagFilter(filter))
                     ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
                 views.setTextViewText(R.id.widget_title, filter.title);
                 views.removeAllViews(R.id.taskbody);
@@ -186,36 +181,8 @@ public class TasksWidget extends AppWidgetProvider {
                 String query = SortHelper.adjustQueryForFlagsAndSort(
                         filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
-                if (AstridActivity.shouldUseSubtasksFragmentForFilter(filter)) {
-                    // care for manual ordering
-                    String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-                    if(tagName == null)
-                        tagName = SubtasksMetadata.LIST_ACTIVE_TASKS;
-                    else {
-                        TagData tag = tagDataService.getTag(tagName, TagData.PROPERTIES);
-                        if (tag != null)
-                            tagName = "td:"+tag.getId();
-                        else
-                            tagName = SubtasksMetadata.LIST_ACTIVE_TASKS;
-                    }
-                    String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s' AND %s = '%s') ",
-                            Metadata.TABLE, Task.ID, Metadata.TASK,
-                            Metadata.KEY, SubtasksMetadata.METADATA_KEY,
-                            SubtasksMetadata.TAG, tagName);
-
-                    if(!query.contains(subtaskJoin)) {
-                        query = subtaskJoin + query;
-                        query = query.replaceAll("ORDER BY .*", "");
-                        query = query + String.format(" ORDER BY %s, %s, IFNULL(CAST(%s AS LONG), %s) LIMIT %d",
-                                Task.DELETION_DATE, Task.COMPLETION_DATE,
-                                SubtasksMetadata.ORDER, Task.CREATION_DATE,
-                                numberOfTasks);
-                        query = query.replace(TaskCriteria.isVisible().toString(),
-                                Criterion.all.toString());
-
-                        filter.setFilterQueryOverride(query);
-                    }
-                }
+                String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
+                query = SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, numberOfTasks);
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
