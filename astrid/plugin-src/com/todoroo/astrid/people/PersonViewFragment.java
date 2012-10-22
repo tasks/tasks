@@ -188,21 +188,26 @@ public class PersonViewFragment extends TaskListFragment {
     private void refreshData(final boolean manual) {
         if (user != null) {
             ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
-            if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
-                actFmSyncService.pushUser(user);
-                user = userDao.fetch(user.getId(), User.PROPERTIES);
-            }
-            syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-                    R.id.progressBar, new Runnable() {
+            new Thread() {
                 @Override
                 public void run() {
-                    if (manual)
-                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                    else
-                        refresh();
-                    ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+                    if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
+                        actFmSyncService.pushUser(user);
+                        user = userDao.fetch(user.getId(), User.PROPERTIES);
+                    }
+                    syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
+                            R.id.progressBar, new Runnable() {
+                        @Override
+                        public void run() {
+                            if (manual)
+                                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                            else
+                                refresh();
+                            ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+                        }
+                    }));
                 }
-            }));
+            }.start();
         }
     }
 
