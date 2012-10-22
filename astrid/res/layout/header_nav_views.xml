@@ -54,11 +54,15 @@
 		</RelativeLayout>
     </LinearLayout>
 	
-    <com.todoroo.astrid.helper.AsyncImageView 
+    <TextView 
         android:id="@+id/person_image"
-        android:layout_width="51dip"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:paddingRight="5dip"
+        style="@style/TextAppearance.ActionBar_ListsHeader"
+        android:textSize="16sp"
         android:visibility="gone"/>
     
 	<Button 

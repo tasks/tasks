@@ -55,6 +55,7 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
@@ -99,6 +100,7 @@ public final class ActFmSyncService {
     @Autowired TaskDao taskDao;
     @Autowired TagDataDao tagDataDao;
     @Autowired UpdateDao updateDao;
+    @Autowired UserDao userDao;
     @Autowired MetadataDao metadataDao;
     @Autowired ABTestEventReportingService abTestEventReportingService;
 
@@ -867,27 +869,64 @@ public final class ActFmSyncService {
         return result.optInt("time", 0);
     }
 
+    private void saveUsers(JSONArray users, HashSet<Long> ids) throws JSONException {
+        for (int i = 0; i < users.length(); i++) {
+            JSONObject userObject = users.getJSONObject(i);
+            ids.add(userObject.optLong("id"));
+            actFmDataService.saveUserData(userObject);        }
+
+    }
+
     public int fetchUsers() throws JSONException, IOException {
         if (!checkForToken())
             return 0;
 
         JSONObject result = actFmInvoker.invoke("user_list",
                 "token", token);
+        JSONObject suggestedResult = actFmInvoker.invoke("suggested_user_list",
+                "token", token);
         JSONArray users = result.getJSONArray("list");
+        JSONArray suggestedUsers = suggestedResult.getJSONArray("list");
+
         HashSet<Long> ids = new HashSet<Long>();
-        if (users.length() > 0)
+        if (users.length() > 0 || suggestedUsers.length() > 0)
             Preferences.setBoolean(R.string.p_show_friends_view, true);
 
-        for (int i = 0; i < users.length(); i++) {
-            JSONObject userObject = users.getJSONObject(i);
-            ids.add(userObject.optLong("id"));
-            actFmDataService.saveUserData(userObject);
-        }
+        saveUsers(users, ids);
+        saveUsers(suggestedUsers, ids);
 
         Long[] idsArray = ids.toArray(new Long[ids.size()]);
         actFmDataService.userDao.deleteWhere(Criterion.not(User.REMOTE_ID.in(idsArray)));
 
         return result.optInt("time", 0);
+    }
+
+    public void pushUser(User model) {
+        if (TextUtils.isEmpty(model.getValue(User.PENDING_STATUS)))
+            return;
+        if (model.getValue(User.REMOTE_ID) == 0)
+            return;
+        if (!checkForToken())
+            return;
+
+        try {
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add("token"); params.add(token);
+            params.add("id"); params.add(model.getValue(User.REMOTE_ID));
+            params.add("status"); params.add(model.getValue(User.PENDING_STATUS));
+
+            JSONObject result = actFmInvoker.invoke("user_set_status", params.toArray(new Object[params.size()]));
+            if (result.optString("status").equals("success")) {
+                String newStatus = result.optString("friendship_status");
+                if (!TextUtils.isEmpty(newStatus)) {
+                    model.setValue(User.STATUS, newStatus);
+                    model.setValue(User.PENDING_STATUS, "");
+                    userDao.saveExisting(model);
+                }
+            }
+        } catch (IOException e) {
+            handleException("user-status", e);
+        }
     }
 
 
@@ -1426,6 +1465,7 @@ public final class ActFmSyncService {
             model.setValue(User.NAME, json.optString("name"));
             model.setValue(User.EMAIL, json.optString("email"));
             model.setValue(User.PICTURE, json.optString("picture"));
+            model.setValue(User.STATUS, json.optString("status"));
         }
 
         public static void jsonFromUser(JSONObject json, User model) throws JSONException {
