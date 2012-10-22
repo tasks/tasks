@@ -54,9 +54,6 @@
   
   <!-- show friends view preference -->
   <string name="p_show_friends_view">show_friends_view</string>
-  
-  <!-- show featured lists preference -->
-  <string name="p_show_featured_lists">show_featured_lists</string>
 
   <!-- enable third party addons preference -->
   <string name="p_third_party_addons">third_party_addons</string>
@@ -68,7 +65,7 @@
   <string name="p_force_phone_layout">force_phone_layout</string>
   
   <!-- show featured lists -->
-  <string name="p_show_featured_lists_labs">show_featured_lists_labs</string>
+  <string name="p_show_featured_lists">show_featured_lists_labs</string>
   
   <!-- account status section key -->
   <string name="p_account">account</string>

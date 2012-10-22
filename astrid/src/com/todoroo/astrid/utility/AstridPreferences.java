@@ -25,6 +25,7 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTests;
+import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 public class AstridPreferences {
 
@@ -71,6 +72,9 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
 
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists,
+                ABChooser.readChoiceForTest(ABTests.AB_FEATURED_LISTS) != 0);
+
         Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle,
                 ABChooser.readChoiceForTest(ABTests.AB_SIMPLE_TASK_ROW) != 0);
 
@@ -114,7 +118,7 @@ public class AstridPreferences {
         } finally {
             featLists.close();
         }
-        Preferences.setBoolean(R.string.p_show_featured_lists, showFeaturedLists);
+        Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, showFeaturedLists);
     }
 
     /* ======================================================================

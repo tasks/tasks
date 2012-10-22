@@ -77,6 +77,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 import com.todoroo.astrid.utility.Flags;
 
 /**
@@ -859,7 +860,7 @@ public final class ActFmSyncService {
                 "token", token, "modified_after", serverTime);
         JSONArray featuredLists = result.getJSONArray("list");
         if (featuredLists.length() > 0)
-            Preferences.setBoolean(R.string.p_show_featured_lists, true);
+            Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, true);
 
         for (int i = 0; i < featuredLists.length(); i++) {
             JSONObject featObject = featuredLists.getJSONObject(i);

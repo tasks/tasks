@@ -13,7 +13,7 @@ public class DefaultFilterMode implements FilterModeSpec {
 
     @Override
     public int[] getForbiddenMenuItems() {
-        if (Preferences.getBoolean(R.string.p_show_featured_lists_labs, false))
+        if (Preferences.getBoolean(R.string.p_show_featured_lists, false))
             return new int[0];
         else
             return new int[] { MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS };

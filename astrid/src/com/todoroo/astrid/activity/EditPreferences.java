@@ -574,7 +574,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
              });
-        } else if (r.getString(R.string.p_show_featured_lists_labs).equals(preference.getKey())) {
+        } else if (r.getString(R.string.p_show_featured_lists).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {

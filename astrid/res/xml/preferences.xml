@@ -90,7 +90,7 @@
         
         <CheckBoxPreference
 	        android:title="@string/EPr_show_featured_lists"
-	        android:key="@string/p_show_featured_lists_labs"
+	        android:key="@string/p_show_featured_lists"
 	        android:defaultValue="false"/>
         
         <CheckBoxPreference
