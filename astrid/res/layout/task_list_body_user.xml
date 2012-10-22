@@ -16,7 +16,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:padding="8dip"
-		android:background="#ff0000">
+		android:background="?attr/asMembersHeaderBackground">
 		
 	    <com.todoroo.astrid.helper.AsyncImageView
 	        android:id="@+id/user_image"

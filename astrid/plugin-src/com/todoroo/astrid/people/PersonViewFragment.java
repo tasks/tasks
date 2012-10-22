@@ -60,7 +60,12 @@ public class PersonViewFragment extends TaskListFragment {
         }
         ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
 
+        setupUserHeader();
+    }
+
+    private void setupUserHeader() {
         if (user != null) {
+            userImage.setDefaultImageResource(R.drawable.icn_default_person_image);
             userImage.setUrl(user.getValue(User.PICTURE));
             userSubtitle.setText(getUserSubtitleText());
             setupUserStatusButton();
@@ -138,7 +143,8 @@ public class PersonViewFragment extends TaskListFragment {
 
         if (user.getSetValues().containsKey(User.PENDING_STATUS.name)) {
             userDao.saveExisting(user);
-            // Push
+            userStatusButton.setVisibility(View.GONE);
+            refreshData(false);
         }
     }
 
@@ -173,10 +179,19 @@ public class PersonViewFragment extends TaskListFragment {
         }
     }
 
+    @Override
+    protected void refresh() {
+        super.refresh();
+        setupUserHeader();
+    }
+
     private void refreshData(final boolean manual) {
         if (user != null) {
             ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
-
+            if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
+                actFmSyncService.pushUser(user);
+                user = userDao.fetch(user.getId(), User.PROPERTIES);
+            }
             syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), this,
                     R.id.progressBar, new Runnable() {
                 @Override

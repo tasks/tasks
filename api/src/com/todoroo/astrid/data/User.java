@@ -80,6 +80,7 @@ public final class User extends RemoteModel {
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(STATUS.name, "");
+        defaultValues.put(PENDING_STATUS.name, "");
     }
 
     @Override
