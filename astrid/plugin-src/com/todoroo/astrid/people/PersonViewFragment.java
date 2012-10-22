@@ -18,6 +18,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.UserDao;
@@ -42,6 +43,8 @@ public class PersonViewFragment extends TaskListFragment {
     @Autowired SyncV2Service syncService;
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired ActFmSyncService actFmSyncService;
 
     private AsyncImageView userImage;
     private TextView userSubtitle;

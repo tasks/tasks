@@ -55,6 +55,7 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
@@ -99,6 +100,7 @@ public final class ActFmSyncService {
     @Autowired TaskDao taskDao;
     @Autowired TagDataDao tagDataDao;
     @Autowired UpdateDao updateDao;
+    @Autowired UserDao userDao;
     @Autowired MetadataDao metadataDao;
     @Autowired ABTestEventReportingService abTestEventReportingService;
 
@@ -913,8 +915,15 @@ public final class ActFmSyncService {
             params.add("id"); params.add(model.getValue(User.REMOTE_ID));
             params.add("status"); params.add(model.getValue(User.PENDING_STATUS));
 
-            JSONObject result = actFmInvoker.invoke("user_set_status", params);
-            System.err.println("RESULT: " + result);
+            JSONObject result = actFmInvoker.invoke("user_set_status", params.toArray(new Object[params.size()]));
+            if (result.optString("status").equals("success")) {
+                String newStatus = result.optString("friendship_status");
+                if (!TextUtils.isEmpty(newStatus)) {
+                    model.setValue(User.STATUS, newStatus);
+                    model.setValue(User.PENDING_STATUS, "");
+                    userDao.saveExisting(model);
+                }
+            }
         } catch (IOException e) {
             handleException("user-status", e);
         }
