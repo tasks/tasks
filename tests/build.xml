@@ -54,7 +54,29 @@
       </copy>
     </target>
 
-    <!-- override coverage target with custom reporting and rules -->    
+    <target name="test"
+                description="Runs the tests generates junit report">
+
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+      <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
+
+      <!-- Application package of the tested project extracted from its manifest file -->
+      <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+             expression="/manifest/@package" output="tested.manifest.package" />
+      <xpath input="AndroidManifest.xml"
+             expression="/manifest/@package" output="manifest.package" />
+
+      <run-tests-helper>
+      </run-tests-helper>
+
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+      <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+             expression="/manifest/@package" output="tested.manifest.package" />
+
+      <antcall target="pull-junit" />
+    </target>
+
+    <!-- override coverage target with custom reporting and rules -->
     <target name="coverage"
                 description="Runs the tests against the instrumented code and generates emma code coverage report">
 
