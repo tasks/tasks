@@ -469,7 +469,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onTaskListItemClicked(long taskId, boolean editable) {
-        if (fragmentLayout != LAYOUT_SINGLE)
+        if (fragmentLayout != LAYOUT_SINGLE && editable)
             getIntent().putExtra(OPEN_TASK, taskId);
         CommentsFragment tuf = getTagUpdatesFragment();
         if (tuf != null)

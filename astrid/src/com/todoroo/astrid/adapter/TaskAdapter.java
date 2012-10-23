@@ -454,9 +454,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
-        //        // details and decorations, expanded
-
-
         if (Preferences.getBoolean(R.string.p_default_showdecorations_key, false)) {
             decorationManager.request(viewHolder);
         }
@@ -730,7 +727,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
 
-            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
+            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.FLAGS, Task.USER_ID,
                     fileIdProperty)
                     .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
                             Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
@@ -744,7 +741,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
-                    if(task.isCompleted())
+                    if(task.isCompleted() || !task.isEditable())
                         continue;
 
                     boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
