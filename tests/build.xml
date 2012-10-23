@@ -128,7 +128,7 @@
       <exec executable="${adb}" failonerror="true">
         <arg line="${adb.device.arg}"/>
         <arg value="pull" />
-        <arg value="/data/data/${tested.manifest.package}/files/junit-report.xml" />
+        <arg value="/sdcard/Android/data/${tested.manifest.package}/files/junit-report.xml" />
         <arg value="${reports.dir}/junit-report.xml" />
       </exec>
     </target>
