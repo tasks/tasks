@@ -16,6 +16,7 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -37,12 +38,16 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.ImageDiskCache;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
+import com.todoroo.astrid.service.StatisticsService;
 
 public abstract class CommentsFragment extends ListFragment {
 
@@ -64,6 +69,8 @@ public abstract class CommentsFragment extends ListFragment {
 
     protected final ImageDiskCache imageCache;
 
+
+    @Autowired ActFmSyncService actFmSyncService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired UpdateDao updateDao;
 
@@ -77,10 +84,12 @@ public abstract class CommentsFragment extends ListFragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.tag_updates_fragment, container, false);
+        View v = inflater.inflate(getLayout(), container, false);
 
         return v;
     }
+
+    protected abstract int getLayout();
 
     protected abstract void loadModelFromIntent(Intent intent);
 
@@ -94,11 +103,13 @@ public abstract class CommentsFragment extends ListFragment {
 
     protected abstract void addHeaderToListView(ListView listView);
 
-    protected abstract void refreshActivity(boolean manual);
-
     protected abstract void populateListHeader(ViewGroup header);
 
-    protected abstract void addComment();
+    protected abstract Update createUpdate();
+
+    protected abstract String commentAddStatistic();
+
+    protected abstract void performFetch(boolean manual, Runnable done);
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -245,6 +256,34 @@ public abstract class CommentsFragment extends ListFragment {
         //
     }
 
+    protected void refreshActivity(boolean manual) {
+        if (actFmPreferenceService.isLoggedIn()) {
+            final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
+                    getActivity(), this, R.id.comments_progressBar, new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshUpdatesList();
+                        }
+                    });
+
+            callback.started();
+            callback.incrementMax(100);
+            Runnable doneRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    callback.incrementProgress(50);
+                    callback.finished();
+                }
+            };
+            if (hasModel()) {
+                performFetch(manual, doneRunnable);
+            } else {
+                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
+            }
+            callback.incrementProgress(50);
+        }
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if(menu.size() > 0)
@@ -280,6 +319,41 @@ public abstract class CommentsFragment extends ListFragment {
         default: return false;
         }
     }
+
+    protected void addComment() {
+        Update update = createUpdate();
+
+        if (picture != null) {
+            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
+            try {
+                String updateString = getPictureHashForUpdate(update);
+                imageCache.put(updateString, picture);
+                update.setValue(Update.PICTURE, updateString);
+            }
+            catch (Exception e) {
+                Log.e("CommentFragment", "Failed to put image to disk...", e);  //$NON-NLS-1$//$NON-NLS-2$
+            }
+        }
+        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        updateDao.createNew(update);
+
+        final long updateId = update.getId();
+        final Bitmap tempPicture = picture;
+        new Thread() {
+            @Override
+            public void run() {
+                actFmSyncService.pushUpdate(updateId, tempPicture);
+            }
+        }.start();
+        addCommentField.setText(""); //$NON-NLS-1$
+        picture = null;
+
+        resetPictureButton();
+        refreshUpdatesList();
+
+        StatisticsService.reportEvent(commentAddStatistic());
+    }
+
 
     protected String getPictureHashForUpdate(Update u) {
         String s = u.getValue(Update.TASK).toString() + u.getValue(Update.CREATION_DATE);

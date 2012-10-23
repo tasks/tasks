@@ -8,9 +8,7 @@ package com.todoroo.astrid.actfm;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -20,16 +18,12 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -41,12 +35,18 @@ public class TagUpdatesFragment extends CommentsFragment {
     @Autowired
     private TagDataService tagDataService;
 
-    @Autowired
-    private ActFmSyncService actFmSyncService;
+    public TagUpdatesFragment() {
+        super();
+    }
 
     public TagUpdatesFragment(TagData tagData) {
         super();
         this.tagData = tagData;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.tag_updates_fragment;
     }
 
     @Override
@@ -107,37 +107,13 @@ public class TagUpdatesFragment extends CommentsFragment {
     }
 
     @Override
-    protected void refreshActivity(boolean manual) {
-        if (actFmPreferenceService.isLoggedIn()) {
-            final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
-                    getActivity(), this, R.id.comments_progressBar, new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshUpdatesList();
-                        }
-                    });
-
-            callback.started();
-            callback.incrementMax(100);
-            Runnable doneRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    callback.incrementProgress(50);
-                    callback.finished();
-                }
-            };
-            if (tagData != null) {
-                actFmSyncService.fetchUpdatesForTag(tagData, manual, doneRunnable);
-            } else {
-                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
-            }
-            callback.incrementProgress(50);
-        }
+    protected void performFetch(boolean manual, Runnable done) {
+        actFmSyncService.fetchUpdatesForTag(tagData, manual, done);
     }
 
-    @SuppressWarnings("nls")
     @Override
-    protected void addComment() {
+    @SuppressWarnings("nls")
+    protected Update createUpdate() {
         Update update = new Update();
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, "tag_comment");
@@ -146,35 +122,11 @@ public class TagUpdatesFragment extends CommentsFragment {
         update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         update.setValue(Update.TARGET_NAME, tagData.getValue(TagData.NAME));
-        if (picture != null) {
-            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
-            try {
-                String updateString = getPictureHashForUpdate(update);
-                imageCache.put(updateString, picture);
-                update.setValue(Update.PICTURE, updateString);
-            }
-            catch (Exception e) {
-                Log.e("TagUpdatesFragment", "Failed to put image to disk...");
-            }
-        }
-        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        updateDao.createNew(update);
+        return update;
+    }
 
-        final long updateId = update.getId();
-        final Bitmap tempPicture = picture;
-        new Thread() {
-            @Override
-            public void run() {
-                actFmSyncService.pushUpdate(updateId, tempPicture);
-            }
-        }.start();
-        addCommentField.setText(""); //$NON-NLS-1$
-        picture = null;
-
-        resetPictureButton();
-        refreshUpdatesList();
-
-        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TAG_COMMENT);
+    protected String commentAddStatistic() {
+        return StatisticsConstants.ACTFM_TAG_COMMENT;
     }
 
     @Override
@@ -186,5 +138,6 @@ public class TagUpdatesFragment extends CommentsFragment {
                 ((TaskListActivity) activity).setCommentsCount(0);
         }
     }
+
 
 }
