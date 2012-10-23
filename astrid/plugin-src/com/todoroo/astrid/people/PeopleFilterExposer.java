@@ -92,6 +92,8 @@ public class PeopleFilterExposer extends BroadcastReceiver {
             criterion = Criterion.or(Task.USER.like("%" + email + "%"),
                     Task.USER_ID.eq(user.getValue(User.REMOTE_ID)));
 
+        criterion = Criterion.and(TaskCriteria.activeAndVisible(), criterion);
+
         QueryTemplate userTemplate = new QueryTemplate().where(criterion);
 
         FilterWithUpdate filter = new FilterWithUpdate(title, title, userTemplate, null);
