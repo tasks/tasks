@@ -308,12 +308,15 @@ public class StartupService {
 
     private void checkForSubtasksUse() {
         if (!Preferences.getBoolean(PREF_SUBTASKS_CHECK, false)) {
-            checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
-                    SubtasksMetadata.ORDER.gt(0)), StatisticsConstants.SUBTASKS_ORDER_USED);
-            checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
-                    SubtasksMetadata.INDENT.gt(0)), StatisticsConstants.SUBTASKS_INDENT_USED);
-            checkMetadataStat(Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                    GtasksMetadata.INDENT.gt(0)), StatisticsConstants.GTASKS_INDENT_USED);
+            if (taskService.countTasks() > 3) {
+                StatisticsService.reportEvent(StatisticsConstants.SUBTASKS_HAS_TASKS);
+                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
+                        SubtasksMetadata.ORDER.gt(0)), StatisticsConstants.SUBTASKS_ORDER_USED);
+                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
+                        SubtasksMetadata.INDENT.gt(0)), StatisticsConstants.SUBTASKS_INDENT_USED);
+                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
+                        GtasksMetadata.INDENT.gt(0)), StatisticsConstants.GTASKS_INDENT_USED);
+            }
             Preferences.setBoolean(PREF_SUBTASKS_CHECK, true);
         }
     }

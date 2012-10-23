@@ -74,6 +74,7 @@ public class StatisticsConstants {
     public static final String SHARE_PAGE_VIEWED = "share-page-viewed";
     public static final String SHARE_BUTTON_CLICKED = "share-button-clicked";
 
+    public static final String SUBTASKS_HAS_TASKS = "subtasks-has-tasks";
     public static final String SUBTASKS_ORDER_USED = "subtasks-order-used";
     public static final String SUBTASKS_INDENT_USED = "subtasks-indent-used";
     public static final String GTASKS_INDENT_USED = "gtasks-indent-used";
