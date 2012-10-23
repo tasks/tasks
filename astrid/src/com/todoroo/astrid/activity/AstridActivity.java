@@ -25,6 +25,7 @@ import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -90,9 +91,9 @@ public class AstridActivity extends FragmentActivity
         return frag;
     }
 
-    public TagUpdatesFragment getTagUpdatesFragment() {
-        TagUpdatesFragment frag = (TagUpdatesFragment) getSupportFragmentManager()
-                .findFragmentByTag(TagUpdatesFragment.TAG_UPDATES_FRAGMENT);
+    public CommentsFragment getTagUpdatesFragment() {
+        CommentsFragment frag = (CommentsFragment) getSupportFragmentManager()
+                .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
 
         return frag;
     }
@@ -197,7 +198,7 @@ public class AstridActivity extends FragmentActivity
         FragmentTransaction transaction = manager.beginTransaction();
 
         TagUpdatesFragment updates = new TagUpdatesFragment(tagData);
-        transaction.replace(R.id.taskedit_fragment_container, updates, TagUpdatesFragment.TAG_UPDATES_FRAGMENT);
+        transaction.replace(R.id.taskedit_fragment_container, updates, CommentsFragment.TAG_UPDATES_FRAGMENT);
         transaction.commit();
     }
 

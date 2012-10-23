@@ -260,7 +260,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private void updateCommentCount() {
         if (tagData != null) {
-            long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);
+            long lastViewedComments = Preferences.getLong(CommentsFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);
             int unreadCount = 0;
             TodorooCursor<Update> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, Update.CREATION_DATE.gt(lastViewedComments));
             try {
