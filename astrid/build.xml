@@ -159,8 +159,15 @@
     	             replace="PUB_KEY_OBFUSCATED = &quot;${apikey.googleplay.pubkey}&quot;;" />
     </target>
 
+    <target name="updatekeys-pre" if="pre.astrid" description="use pre.astrid.com">
+      <property file="${apikey.keyfile}" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/sync/ActFmInvoker.java"
+                     match="URL = .*"
+                     replace="URL = &quot;//pre.astrid.com/api/&quot;;" />
+    </target>
+
     <!-- update api keys that require release signing -->
-    <target name="updatekeys-release" if="build.is.mode.release" 
+    <target name="updatekeys-release" if="build.is.mode.release" depends="updatekeys-pre"
             description="update release-only api key values">
       <property file="${apikey.keyfile}" />
       <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/ActFmLoginActivity.java"
