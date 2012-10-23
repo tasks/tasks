@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.adapter.UpdateAdapter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -17,6 +19,9 @@ import com.todoroo.astrid.service.StatisticsConstants;
 public class TaskCommentsFragment extends CommentsFragment {
 
     public static final String EXTRA_TASK = "extra_task"; //$NON-NLS-1$
+
+    @Autowired
+    private TaskDao taskDao;
 
     private Task task;
 
@@ -26,8 +31,10 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected void loadModelFromIntent(Intent intent) {
-        if (task == null)
-            task = intent.getParcelableExtra(EXTRA_TASK);
+        if (task == null) {
+            long taskId = intent.getLongExtra(EXTRA_TASK, 0L);
+            task = taskDao.fetch(taskId, Task.PROPERTIES);
+        }
     }
 
     @Override

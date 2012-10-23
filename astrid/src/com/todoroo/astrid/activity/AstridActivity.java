@@ -27,8 +27,10 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagCommentsFragment;
+import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -248,6 +250,14 @@ public class AstridActivity extends FragmentActivity
 
     @Override
     public void onTaskListItemClicked(long taskId, boolean editable) {
+        if (editable) {
+            editTask(taskId);
+        } else {
+            showComments(taskId);
+        }
+    }
+
+    private void editTask(long taskId) {
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, taskId);
         getIntent().putExtra(TaskEditFragment.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity
@@ -284,6 +294,13 @@ public class AstridActivity extends FragmentActivity
             startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
+    }
+
+    private void showComments(long taskId) {
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtra(TaskCommentsFragment.EXTRA_TASK, taskId);
+        startActivity(intent);
+        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     @Override
