@@ -19,7 +19,7 @@
     the package of the parent app.  To run the tests use the command:
     "adb shell am instrument -w com.xxx.xxx.tests/android.test.InstrumentationTestRunner"
     -->
-    <instrumentation android:name="android.test.InstrumentationTestRunner"
+    <instrumentation android:name="com.zutubi.android.junitreport.JUnitReportTestRunner"
                      android:targetPackage="com.timsu.astrid"
                      android:label="Tests for Astrid"/>
 </manifest>
