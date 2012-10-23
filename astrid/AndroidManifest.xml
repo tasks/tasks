@@ -402,7 +402,7 @@
     <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme.Dialog"/>
-    <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
+    <activity android:name="com.todoroo.astrid.actfm.CommentsActivity"
               android:windowSoftInputMode="stateHidden"/>
     <receiver android:name="com.timsu.astrid.C2DMReceiver" permission="com.google.android.c2dm.permission.SEND">
       <!-- Receive the actual message -->

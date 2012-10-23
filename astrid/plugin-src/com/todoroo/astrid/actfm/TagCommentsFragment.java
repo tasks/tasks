@@ -40,7 +40,7 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     public TagCommentsFragment(TagData tagData) {
-        super();
+        this();
         this.tagData = tagData;
     }
 
@@ -125,6 +125,7 @@ public class TagCommentsFragment extends CommentsFragment {
         return update;
     }
 
+    @Override
     protected String commentAddStatistic() {
         return StatisticsConstants.ACTFM_TAG_COMMENT;
     }

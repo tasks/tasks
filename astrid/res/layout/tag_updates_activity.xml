@@ -8,11 +8,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/tag_updates_fragment_container">
-    <fragment
-        android:name="com.todoroo.astrid.actfm.TagUpdatesFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:tag="tagupdates_fragment">
-    </fragment>
+    android:id="@+id/comments_fragment_container">
 </FrameLayout>

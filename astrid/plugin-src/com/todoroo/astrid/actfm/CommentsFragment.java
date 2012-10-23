@@ -138,7 +138,7 @@ public abstract class CommentsFragment extends ListFragment {
     }
 
     protected void setUpUpdateList() {
-        if (getActivity() instanceof TagUpdatesActivity) {
+        if (getActivity() instanceof CommentsActivity) {
             ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
             String title = hasModel() ? getString(R.string.tag_updates_title, getModelName())
                     : getString(R.string.TLA_all_activity);
@@ -248,7 +248,7 @@ public abstract class CommentsFragment extends ListFragment {
             listView.setVisibility(View.VISIBLE);
         }
 
-        if (getActivity() instanceof TagUpdatesActivity)
+        if (getActivity() instanceof CommentsActivity)
             setLastViewed();
     }
 

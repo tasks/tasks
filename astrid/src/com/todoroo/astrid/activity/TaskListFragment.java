@@ -67,7 +67,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.actfm.TagUpdatesActivity;
+import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -1093,7 +1093,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * Comments button in action bar was clicked
      */
     protected void handleCommentsButtonClicked() {
-        Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
+        Intent intent = new Intent(getActivity(), CommentsActivity.class);
         intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
         startActivity(intent);
         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
