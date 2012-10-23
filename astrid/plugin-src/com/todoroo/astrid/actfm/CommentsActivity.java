@@ -8,7 +8,6 @@ package com.todoroo.astrid.actfm;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItem;
 import android.widget.TextView;
@@ -43,8 +42,7 @@ public class CommentsActivity extends AstridActivity {
             tag = "tagupdates_fragment"; //$NON-NLS-1$
         }
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.comments_fragment_container, fragment, tag);
         transaction.commit();
     }
