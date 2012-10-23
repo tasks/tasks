@@ -20,6 +20,10 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     private Task task;
 
+    public TaskCommentsFragment() {
+        super();
+    }
+
     @Override
     protected void loadModelFromIntent(Intent intent) {
         if (task == null)

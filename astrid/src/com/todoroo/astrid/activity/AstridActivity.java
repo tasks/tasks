@@ -26,7 +26,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.CommentsFragment;
-import com.todoroo.astrid.actfm.TagUpdatesFragment;
+import com.todoroo.astrid.actfm.TagCommentsFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -197,7 +197,7 @@ public class AstridActivity extends FragmentActivity
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        TagUpdatesFragment updates = new TagUpdatesFragment(tagData);
+        TagCommentsFragment updates = new TagCommentsFragment(tagData);
         transaction.replace(R.id.taskedit_fragment_container, updates, CommentsFragment.TAG_UPDATES_FRAGMENT);
         transaction.commit();
     }

@@ -28,18 +28,18 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
-public class TagUpdatesFragment extends CommentsFragment {
+public class TagCommentsFragment extends CommentsFragment {
 
     private TagData tagData;
 
     @Autowired
     private TagDataService tagDataService;
 
-    public TagUpdatesFragment() {
+    public TagCommentsFragment() {
         super();
     }
 
-    public TagUpdatesFragment(TagData tagData) {
+    public TagCommentsFragment(TagData tagData) {
         super();
         this.tagData = tagData;
     }
