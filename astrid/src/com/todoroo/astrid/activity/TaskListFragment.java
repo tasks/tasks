@@ -66,8 +66,8 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.CommentsActivity;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -281,6 +281,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      */
     public interface OnTaskListItemClickedListener {
         public void onTaskListItemClicked(long taskId);
+        public void onTaskListItemClicked(long taskId, boolean editable);
     }
 
     @Override
@@ -367,9 +368,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 if(task.isDeleted())
                     return;
 
-                if (task.isEditable()) {
-                    onTaskListItemClicked(id);
-                }
+                onTaskListItemClicked(id, task.isEditable());
             }
         });
     }
@@ -1331,8 +1330,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         startActivityForResult(intent, ACTIVITY_SETTINGS);
     }
 
-    public void onTaskListItemClicked(long taskId) {
-        mListener.onTaskListItemClicked(taskId);
+    public void onTaskListItemClicked(long taskId, boolean editable) {
+        mListener.onTaskListItemClicked(taskId, editable);
     }
 
     protected void toggleDragDrop(boolean newState) {

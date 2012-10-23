@@ -53,7 +53,7 @@ public final class ShareLinkActivity extends TaskListActivity {
                 task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
                 taskService.save(task);
                 handled = true;
-                onTaskListItemClicked(task.getId());
+                onTaskListItemClicked(task.getId(), true);
             }
         }
     }

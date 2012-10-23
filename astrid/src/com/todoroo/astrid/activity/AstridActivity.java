@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.CommentsFragment;
@@ -34,6 +36,7 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
@@ -70,6 +73,9 @@ public class AstridActivity extends FragmentActivity
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
 
+    @Autowired
+    private TaskDao taskDao;
+
     public FilterListFragment getFilterListFragment() {
         FilterListFragment frag = (FilterListFragment) getSupportFragmentManager()
                 .findFragmentByTag(FilterListFragment.TAG_FILTERLIST_FRAGMENT);
@@ -101,6 +107,7 @@ public class AstridActivity extends FragmentActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
         StatisticsService.sessionStart(this);
@@ -234,6 +241,13 @@ public class AstridActivity extends FragmentActivity
 
     @Override
     public void onTaskListItemClicked(long taskId) {
+        Task task = taskDao.fetch(taskId, Task.FLAGS, Task.USER_ID);
+        if (task != null)
+            onTaskListItemClicked(taskId, task.isEditable());
+    }
+
+    @Override
+    public void onTaskListItemClicked(long taskId, boolean editable) {
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, taskId);
         getIntent().putExtra(TaskEditFragment.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity

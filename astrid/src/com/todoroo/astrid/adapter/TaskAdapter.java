@@ -1015,14 +1015,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
 
             long taskId = viewHolder.task.getId();
-            if (viewHolder.task.isEditable()) {
-                editTask(taskId);
-            }
+            fragment.onTaskListItemClicked(taskId, viewHolder.task.isEditable());
         }
-    }
-
-    private void editTask(long taskId) {
-        fragment.onTaskListItemClicked(taskId);
     }
 
     /**
@@ -1116,7 +1110,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
             checkBoxView.setChecked(task.isCompleted());
             // disable checkbox if task is readonly
-            checkBoxView.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
+            checkBoxView.setEnabled(viewHolder.task.isEditable());
 
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length)

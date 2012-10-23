@@ -52,7 +52,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     }
 
     @Override
-    public void onTaskListItemClicked(long taskId) {
+    public void onTaskListItemClicked(long taskId, boolean editable) {
         // Do nothing
     }
 

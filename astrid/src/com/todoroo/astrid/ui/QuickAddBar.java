@@ -153,7 +153,7 @@ public class QuickAddBar extends LinearLayout {
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), true);
                 if (task != null && task.getValue(Task.TITLE).length() == 0) {
-                    mListener.onTaskListItemClicked(task.getId());
+                    mListener.onTaskListItemClicked(task.getId(), true);
                 }
             }
         });
@@ -178,7 +178,7 @@ public class QuickAddBar extends LinearLayout {
                 if (task == null)
                     return true;
 
-                mListener.onTaskListItemClicked(task.getId());
+                mListener.onTaskListItemClicked(task.getId(), true);
                 return true;
             }
         });

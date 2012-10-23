@@ -37,8 +37,8 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.CommentsFragment;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
@@ -453,13 +453,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(OPEN_TASK)) {
             long id = getIntent().getLongExtra(OPEN_TASK, 0);
             if (id > 0) {
-                onTaskListItemClicked(id);
+                onTaskListItemClicked(id, true);
             } else {
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
                     Task result = tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
                     if (result != null)
-                        onTaskListItemClicked(result.getId());
+                        onTaskListItemClicked(result.getId(), true);
                 }
             }
             if (fragmentLayout == LAYOUT_SINGLE)
@@ -468,14 +468,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     @Override
-    public void onTaskListItemClicked(long taskId) {
+    public void onTaskListItemClicked(long taskId, boolean editable) {
         if (fragmentLayout != LAYOUT_SINGLE)
             getIntent().putExtra(OPEN_TASK, taskId);
         CommentsFragment tuf = getTagUpdatesFragment();
         if (tuf != null)
             tuf.getView().setVisibility(View.INVISIBLE);
 
-        super.onTaskListItemClicked(taskId);
+        super.onTaskListItemClicked(taskId, editable);
     }
 
     public void setListsTitle(String title) {
