@@ -37,6 +37,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -192,6 +193,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
+    private final int readonlyBackground;
 
     private final AtomicReference<String> query;
 
@@ -250,6 +252,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
+
+        TypedValue readonlyBg = new TypedValue();
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asReadonlyTaskBackground, readonlyBg, false);
+        readonlyBackground = readonlyBg.data;
 
     }
 
@@ -400,6 +406,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.rowBody.setMinimumHeight(minRowHeight);
             viewHolder.completeBox.setMinimumHeight(minRowHeight);
         }
+
+        if (task.isEditable())
+            viewHolder.view.setBackgroundColor(resources.getColor(android.R.color.transparent));
+        else
+            viewHolder.view.setBackgroundColor(readonlyBackground);
 
         // name
         final TextView nameView = viewHolder.nameView; {

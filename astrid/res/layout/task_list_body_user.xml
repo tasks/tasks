@@ -31,7 +31,8 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
             android:layout_alignTop="@id/user_image" 
-	        android:layout_toRightOf="@id/user_image"/>
+	        android:layout_toRightOf="@id/user_image"
+	        android:textColor="@android:color/black"/>
 	    
 	</RelativeLayout>
   
