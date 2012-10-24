@@ -71,6 +71,7 @@ public class PersonViewFragment extends TaskListFragment {
             setupUserStatusButton();
         } else {
             getView().findViewById(R.id.user_header).setVisibility(View.GONE);
+            userStatusButton.setVisibility(View.GONE);
         }
     }
 
@@ -110,7 +111,7 @@ public class PersonViewFragment extends TaskListFragment {
         userStatusButton.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(pendingStatus))
             userStatusButton.setVisibility(View.GONE);
-        else if (TextUtils.isEmpty(status))
+        else if (TextUtils.isEmpty(status) || "null".equals(status)) //$NON-NLS-1$
             userStatusButton.setText(getString(R.string.actfm_friendship_connect));
         else if (User.STATUS_OTHER_PENDING.equals(status))
             userStatusButton.setText(getString(R.string.actfm_friendship_accept));
