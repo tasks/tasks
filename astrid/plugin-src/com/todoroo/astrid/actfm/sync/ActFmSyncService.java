@@ -874,8 +874,8 @@ public final class ActFmSyncService {
         for (int i = 0; i < users.length(); i++) {
             JSONObject userObject = users.getJSONObject(i);
             ids.add(userObject.optLong("id"));
-            actFmDataService.saveUserData(userObject);        }
-
+            actFmDataService.saveUserData(userObject);
+        }
     }
 
     public int fetchUsers() throws JSONException, IOException {

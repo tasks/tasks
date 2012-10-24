@@ -116,7 +116,7 @@ public final class User extends RemoteModel {
 
     public String getDisplayName() {
         String name = getValue(NAME);
-        if (!TextUtils.isEmpty(name))
+        if (!(TextUtils.isEmpty(name) || "null".equals(name)))
             return name;
         return getValue(EMAIL);
     }

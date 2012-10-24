@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -158,9 +159,10 @@ public final class ActFmDataService {
      */
     @SuppressWarnings("nls")
     public void saveUserData(JSONObject userObject) throws JSONException {
-        TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(
-                Criterion.or(User.REMOTE_ID.eq(userObject.get("id")),
-                        Criterion.and(User.EMAIL.isNotNull(), User.EMAIL.eq(userObject.optString("email"))))));
+        Criterion criterion = User.REMOTE_ID.eq(userObject.getLong("id"));
+        if (!TextUtils.isEmpty(userObject.optString("email")))
+            criterion = Criterion.or(criterion, Criterion.and(User.EMAIL.isNotNull(), User.EMAIL.eq(userObject.optString("email"))));
+        TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(criterion));
         try {
             cursor.moveToFirst();
             User user = new User();

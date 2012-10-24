@@ -106,8 +106,11 @@ public class PersonViewFragment extends TaskListFragment {
 
     private void setupUserStatusButton() {
         String status = user.getValue(User.STATUS);
+        String pendingStatus = user.getValue(User.PENDING_STATUS);
         userStatusButton.setVisibility(View.VISIBLE);
-        if (TextUtils.isEmpty(status))
+        if (!TextUtils.isEmpty(pendingStatus))
+            userStatusButton.setVisibility(View.GONE);
+        else if (TextUtils.isEmpty(status))
             userStatusButton.setText(getString(R.string.actfm_friendship_connect));
         else if (User.STATUS_OTHER_PENDING.equals(status))
             userStatusButton.setText(getString(R.string.actfm_friendship_accept));
@@ -192,6 +195,7 @@ public class PersonViewFragment extends TaskListFragment {
                 @Override
                 public void run() {
                     if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
+                        System.err.println("PUSHING USER");
                         actFmSyncService.pushUser(user);
                         user = userDao.fetch(user.getId(), User.PROPERTIES);
                     }
