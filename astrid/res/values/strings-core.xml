@@ -580,7 +580,7 @@
   <string name="CRA_invitation_prompt">Want to invite them?</string>
   
   <!-- Calendar reminder: preference title -->
-  <string name="CRA_calendar_reminders_pref_title">Monitor calendar events</string>
+  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
 
   <!-- Calendar reminder: pref description disabled -->
   <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>

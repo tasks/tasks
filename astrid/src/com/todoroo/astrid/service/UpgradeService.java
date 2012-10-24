@@ -224,6 +224,17 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from < V4_4) {
+            newVersionString(changeLog, "4.4 (10/25/12)", new String[] {
+                "Astrid calendar assistant will help you prepare for meetings! Enable or " +
+                    "disable in Settings -> Premium and misc. settings -> Calendar assistant",
+                "Full Chinese translation",
+                "Widgets will now reflect manual ordering",
+                "Accept pending friend requests from the people view",
+                "Several minor bug and crash fixes"
+            });
+        }
+
         if (from >= V4_3_0 && from < V4_3_4) {
             newVersionString(changeLog, "4.3.4 (10/2/12)", new String[] {
                 "Magic words in task title now correctly removed when placed in parentheses",

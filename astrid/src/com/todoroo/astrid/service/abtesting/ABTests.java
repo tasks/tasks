@@ -133,7 +133,7 @@ public class ABTests {
         addTest(AB_SIMPLE_TASK_ROW, new int[] { 1, 1 },
                 new int[] { 1, 0 }, new String[] { "original-row-style", "simple-row-style" }); //$NON-NLS-1$ //$NON-NLS-2$
 
-        addTest(AB_CALENDAR_REMINDERS, new int[] { 0, 1 },
-                new int[] { 0, 1 }, new String[] { "no-cal-reminders", "show-cal-reminders" }); //$NON-NLS-1$ //$NON-NLS-2$
+        addTest(AB_CALENDAR_REMINDERS, new int[] { 3, 1 },
+                new int[] { 3, 1 }, new String[] { "no-cal-reminders", "show-cal-reminders" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }
