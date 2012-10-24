@@ -90,7 +90,6 @@
       <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
              expression="/manifest/@package" output="tested.manifest.package" />
 
-
       <echo>Downloading coverage file into project directory...</echo>
       <exec executable="${adb}" failonerror="true">
         <arg line="${adb.device.arg}" />
@@ -107,6 +106,9 @@
       <echo>Extracting coverage report...</echo>
       <copy todir="${tested.project.absolute.dir}/src-combined">
         <fileset dir="../api/src" includes="**/*.java" />
+      </copy>
+      <copy todir=".">
+        <fileset dir="${tested.project.absolute.dir}/bin" includes="coverage.em" />
       </copy>
       <mkdir dir="${reports.dir}" />
       <emma>
