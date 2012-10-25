@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.people;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v4.view.Menu;
 import android.text.TextUtils;
@@ -139,13 +140,14 @@ public class PersonViewFragment extends TaskListFragment {
 
     public void handleStatusButtonClicked() {
         String status = user.getValue(User.STATUS);
-        if (TextUtils.isEmpty(status)) { // Add friend case
+        if (TextUtils.isEmpty(status) || "null".equals(status)) { // Add friend case //$NON-NLS-1$
             user.setValue(User.PENDING_STATUS, User.PENDING_REQUEST);
         } else if (User.STATUS_OTHER_PENDING.equals(status)) { // Accept friend case
             user.setValue(User.PENDING_STATUS, User.PENDING_APPROVE);
         }
 
-        if (user.getSetValues().containsKey(User.PENDING_STATUS.name)) {
+        ContentValues setValues = user.getSetValues();
+        if (setValues != null && setValues.containsKey(User.PENDING_STATUS.name)) {
             userDao.saveExisting(user);
             userStatusButton.setVisibility(View.GONE);
             refreshData(false);
@@ -196,7 +198,6 @@ public class PersonViewFragment extends TaskListFragment {
                 @Override
                 public void run() {
                     if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
-                        System.err.println("PUSHING USER");
                         actFmSyncService.pushUser(user);
                         user = userDao.fetch(user.getId(), User.PROPERTIES);
                     }
