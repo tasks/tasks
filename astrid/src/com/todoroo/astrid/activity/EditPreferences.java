@@ -52,6 +52,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
@@ -646,6 +647,15 @@ public class EditPreferences extends TodorooPreferenceActivity {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 TasksWidget.updateWidgets(EditPreferences.this);
                 updatePreferences(preference, newValue);
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue != null && ((Boolean) newValue))
+                    CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
                 return true;
             }
         });

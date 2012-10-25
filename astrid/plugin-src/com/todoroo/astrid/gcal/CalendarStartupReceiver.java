@@ -16,11 +16,11 @@ public class CalendarStartupReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
-        scheduleCalendarAlarms(context);
+        scheduleCalendarAlarms(context, false);
     }
 
-    public static void scheduleCalendarAlarms(final Context context) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true))
+    public static void scheduleCalendarAlarms(final Context context, boolean force) {
+        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true) && !force)
             return;
         new Thread(new Runnable() {
             @Override

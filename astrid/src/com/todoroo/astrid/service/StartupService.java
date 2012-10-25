@@ -227,7 +227,6 @@ public class StartupService {
 
                 // perform initialization
                 ReminderStartupReceiver.startReminderSchedulingService(context);
-                CalendarStartupReceiver.scheduleCalendarAlarms(context);
                 BackupService.scheduleService(context);
                 actFmSyncService.initialize();
 
@@ -242,6 +241,7 @@ public class StartupService {
         }).start();
 
         AstridPreferences.setPreferenceDefaults();
+        CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
         // check for task killers
         if(!Constants.OEM)
