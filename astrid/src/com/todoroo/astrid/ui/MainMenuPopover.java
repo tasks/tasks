@@ -121,7 +121,8 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
                     ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
                     MAIN_MENU_ITEM_FRIENDS, null, topFixed);
 
-        if (Preferences.getBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, false))
+        if (Preferences.getBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, false)
+                && Preferences.getBoolean(R.string.p_show_featured_lists, false))
             addMenuItem(R.string.TLA_menu_featured_lists,
                     ThemeService.getDrawable(R.drawable.icn_featured_lists, themeFlags),
                     MAIN_MENU_ITEM_FEATURED_LISTS, null, topFixed);

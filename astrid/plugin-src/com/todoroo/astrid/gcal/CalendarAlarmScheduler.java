@@ -36,7 +36,7 @@ public class CalendarAlarmScheduler {
         Cursor events = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS),
                 new String[] { Calendars.ID_COLUMN_NAME, Calendars.EVENTS_DTSTART_COL },
                 Calendars.EVENTS_DTSTART_COL + " > ? AND " + Calendars.EVENTS_DTSTART_COL + " < ?",
-                new String[] { Long.toString(now + DateUtilities.ONE_MINUTE * 20), Long.toString(now + DateUtilities.ONE_DAY) },
+                new String[] { Long.toString(now + DateUtilities.ONE_MINUTE * 15), Long.toString(now + DateUtilities.ONE_DAY) },
                 null);
         try {
             if (events.getCount() > 0) {
