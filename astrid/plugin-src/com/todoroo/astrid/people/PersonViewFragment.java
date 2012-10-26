@@ -139,18 +139,20 @@ public class PersonViewFragment extends TaskListFragment {
     }
 
     public void handleStatusButtonClicked() {
-        String status = user.getValue(User.STATUS);
-        if (TextUtils.isEmpty(status) || "null".equals(status)) { // Add friend case //$NON-NLS-1$
-            user.setValue(User.PENDING_STATUS, User.PENDING_REQUEST);
-        } else if (User.STATUS_OTHER_PENDING.equals(status)) { // Accept friend case
-            user.setValue(User.PENDING_STATUS, User.PENDING_APPROVE);
-        }
+        if (user != null) { // Just in case
+            String status = user.getValue(User.STATUS);
+            if (TextUtils.isEmpty(status) || "null".equals(status)) { // Add friend case //$NON-NLS-1$
+                user.setValue(User.PENDING_STATUS, User.PENDING_REQUEST);
+            } else if (User.STATUS_OTHER_PENDING.equals(status)) { // Accept friend case
+                user.setValue(User.PENDING_STATUS, User.PENDING_APPROVE);
+            }
 
-        ContentValues setValues = user.getSetValues();
-        if (setValues != null && setValues.containsKey(User.PENDING_STATUS.name)) {
-            userDao.saveExisting(user);
-            userStatusButton.setVisibility(View.GONE);
-            refreshData(false);
+            ContentValues setValues = user.getSetValues();
+            if (setValues != null && setValues.containsKey(User.PENDING_STATUS.name)) {
+                userDao.saveExisting(user);
+                userStatusButton.setVisibility(View.GONE);
+                refreshData(false);
+            }
         }
     }
 
