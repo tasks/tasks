@@ -112,16 +112,20 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         for (Account a : accountArray) {
                             phoneAccounts.add(a.name);
                         }
+
                         String astridUser = ActFmPreferenceService.thisUser().optString("email");
                         if (!TextUtils.isEmpty(astridUser))
                             phoneAccounts.add(astridUser);
 
+                        boolean includesMe = false;
                         for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
                             String name = attendees.getString(nameIndex);
                             String email = attendees.getString(emailIndex);
                             if (!TextUtils.isEmpty(email)) {
-                                if (phoneAccounts.contains(email))
+                                if (phoneAccounts.contains(email)) {
+                                    includesMe = true;
                                     continue;
+                                }
                                 if (Constants.DEBUG)
                                     Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
                                 names.add(name);
@@ -129,7 +133,7 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        if (emails.size() > 0) {
+                        if (emails.size() > 0 && includesMe) {
                             Intent reminderActivity = new Intent(context, CalendarReminderActivity.class);
                             reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
                             reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
