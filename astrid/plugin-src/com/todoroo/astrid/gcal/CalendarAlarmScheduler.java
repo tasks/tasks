@@ -39,7 +39,7 @@ public class CalendarAlarmScheduler {
                 new String[] { Long.toString(now + DateUtilities.ONE_MINUTE * 15), Long.toString(now + DateUtilities.ONE_DAY) },
                 null);
         try {
-            if (events.getCount() > 0) {
+            if (events != null && events.getCount() > 0) {
                 int idIndex = events.getColumnIndex(Calendars.ID_COLUMN_NAME);
                 int dtstartIndex = events.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
 
@@ -73,7 +73,8 @@ public class CalendarAlarmScheduler {
             am.cancel(pendingReschedule);
             am.set(AlarmManager.RTC, DateUtilities.now() + DateUtilities.ONE_HOUR * 12, pendingReschedule);
         } finally {
-            events.close();
+            if (events != null)
+                events.close();
         }
 
     }
