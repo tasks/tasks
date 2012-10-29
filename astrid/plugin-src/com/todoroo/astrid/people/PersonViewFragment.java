@@ -28,6 +28,8 @@ import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 public class PersonViewFragment extends TaskListFragment {
 
@@ -203,17 +205,29 @@ public class PersonViewFragment extends TaskListFragment {
                         actFmSyncService.pushUser(user);
                         user = userDao.fetch(user.getId(), User.PROPERTIES);
                     }
-                    syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
-                            R.id.progressBar, new Runnable() {
-                        @Override
-                        public void run() {
-                            if (manual)
+                    SyncResultCallback callback;
+                    try {
+                        callback = new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
+                                R.id.progressBar, new Runnable() {
+                            @Override
+                            public void run() {
+                                if (manual)
+                                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                                else
+                                    refresh();
+                                ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+                            }
+                        });
+                    } catch (Exception e) { // Fragment no longer attached, but sync and refresh anyways
+                        callback = new SyncResultCallbackAdapter() {
+                            @Override
+                            public void finished() {
                                 ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                            else
-                                refresh();
-                            ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
-                        }
-                    }));
+                            };
+                        };
+                    }
+
+                    syncService.synchronizeList(user, manual, callback);
                 }
             }.start();
         }
