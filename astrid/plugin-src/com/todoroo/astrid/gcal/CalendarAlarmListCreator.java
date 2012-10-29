@@ -25,7 +25,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
@@ -172,9 +171,9 @@ public class CalendarAlarmListCreator extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CalendarAlarmListCreator.this, TaskListActivity.class);
-                intent.putExtra(TaskListFragment.TOKEN_NEW_LIST_NAME, tagName);
-                intent.putExtra(TaskListFragment.TOKEN_NEW_LIST_MEMBERS, buildMembersArray().toString());
-                intent.putExtra(TaskListFragment.TOKEN_NEW_LIST, true);
+                intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_NAME, tagName);
+                intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_MEMBERS, buildMembersArray().toString());
+                intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST, true);
                 startActivity(intent);
                 dismissWithAnimation();
             }

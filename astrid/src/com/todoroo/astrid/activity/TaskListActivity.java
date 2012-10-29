@@ -55,6 +55,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
@@ -73,7 +74,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
-    public static final String NEW_LIST = "newList"; //$NON-NLS-1$
+    public static final String TOKEN_NEW_LIST_CREATED = "newListCreated"; //$NON-NLS-1$
+
+    /** For indicating the new list screen should be launched at fragment setup time */
+    public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
+    public static final String TOKEN_CREATE_NEW_LIST_MEMBERS = "newListMembers"; //$NON-NLS-1$
+    public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
 
@@ -444,9 +450,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 onBackPressed();
         }
 
-        if (getIntent().hasExtra(NEW_LIST)) {
-            Filter newList = getIntent().getParcelableExtra(NEW_LIST);
-            getIntent().removeExtra(NEW_LIST);
+        if (getIntent().hasExtra(TOKEN_NEW_LIST_CREATED)) {
+            Filter newList = getIntent().getParcelableExtra(TOKEN_NEW_LIST_CREATED);
+            getIntent().removeExtra(TOKEN_NEW_LIST_CREATED);
             onFilterItemClicked(newList);
         }
 
@@ -465,6 +471,20 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if (fragmentLayout == LAYOUT_SINGLE)
                 getIntent().removeExtra(OPEN_TASK);
         }
+
+        if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
+            newListFromLaunch();
+        }
+    }
+
+    private void newListFromLaunch() {
+        Intent thisIntent = getIntent();
+        Intent newTagIntent = TagsPlugin.newTagDialog(this);
+        newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_MEMBERS, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_MEMBERS));
+        newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME));
+        thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_MEMBERS);
+        thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
+        startActivityForResult(newTagIntent, FilterListFragment.REQUEST_NEW_LIST);
     }
 
     @Override
@@ -584,7 +604,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
-                getIntent().putExtra(NEW_LIST, newList); // Handle in onPostResume()
+                getIntent().putExtra(TOKEN_NEW_LIST_CREATED, newList); // Handle in onPostResume()
                 FilterListFragment fla = getFilterListFragment();
                 if (fla != null && getFragmentLayout() != LAYOUT_SINGLE)
                     fla.clear();
