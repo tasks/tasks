@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_4_1 = 286;
     public static final int V4_4 = 285;
     public static final int V4_3_4_2 = 284;
     public static final int V4_3_4_1 = 283;
@@ -223,6 +224,13 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_4 && from < V4_4_1) {
+            newVersionString(changeLog, "4.4.1 (10/31/12)", new String[] {
+                "Fixed an issue where the calendar assistant could remind you about the wrong events",
+                "Fixed a crash that could occur when swipe between lists is enabled"
+            });
+        }
 
         if (from < V4_4) {
             newVersionString(changeLog, "4.4 (10/25/12)", new String[] {
