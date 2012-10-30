@@ -52,6 +52,7 @@ public class PersonViewFragment extends TaskListFragment {
     private AsyncImageView userImage;
     private TextView userSubtitle;
     private TextView userStatusButton;
+    private TextView emptyView;
 
     private User user;
 
@@ -61,7 +62,8 @@ public class PersonViewFragment extends TaskListFragment {
         if (extras.containsKey(EXTRA_USER_ID_LOCAL)) {
             user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
         }
-        ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+        emptyView = ((TextView) getView().findViewById(android.R.id.empty));
+        emptyView.setText(getEmptyDisplayString());
 
         setupUserHeader();
     }
@@ -89,7 +91,7 @@ public class PersonViewFragment extends TaskListFragment {
             quickAddBar.setVisibility(View.GONE);
 
         // set listener for astrid icon
-        ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(null);
+        emptyView.setOnClickListener(null);
 
     }
 
@@ -197,7 +199,7 @@ public class PersonViewFragment extends TaskListFragment {
 
     private void refreshData(final boolean manual) {
         if (user != null) {
-            ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+            emptyView.setText(R.string.DLG_loading);
             new Thread() {
                 @Override
                 public void run() {
@@ -207,15 +209,19 @@ public class PersonViewFragment extends TaskListFragment {
                     }
                     SyncResultCallback callback;
                     try {
+                        if (getActivity() == null)
+                            throw new NullPointerException("Person view activity is null"); //$NON-NLS-1$
                         callback = new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
                                 R.id.progressBar, new Runnable() {
                             @Override
                             public void run() {
-                                if (manual)
-                                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                                else
-                                    refresh();
-                                ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+                                if (getActivity() != null) {
+                                    if (manual)
+                                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                                    else
+                                        refresh();
+                                    emptyView.setText(getEmptyDisplayString());
+                                }
                             }
                         });
                     } catch (Exception e) { // Fragment no longer attached, but sync and refresh anyways
