@@ -61,6 +61,7 @@ import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.subtasks.SubtasksMetadata;
+import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -237,6 +238,7 @@ public class StartupService {
                     new UpdateMessageService(context).processUpdates();
 
                 checkForSubtasksUse();
+                checkForSwipeListsUse();
             }
         }).start();
 
@@ -318,6 +320,18 @@ public class StartupService {
                         GtasksMetadata.INDENT.gt(0)), StatisticsConstants.GTASKS_INDENT_USED);
             }
             Preferences.setBoolean(PREF_SUBTASKS_CHECK, true);
+        }
+    }
+
+    private static final String PREF_SWIPE_CHECK = "swipe_check_stat"; //$NON-NLS-1$
+
+    private void checkForSwipeListsUse() {
+        if (!Preferences.getBoolean(PREF_SWIPE_CHECK, false)) {
+            if (Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)
+                    && Preferences.getBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, false)) {
+                StatisticsService.reportEvent(StatisticsConstants.SWIPE_USED);
+            }
+            Preferences.setBoolean(PREF_SWIPE_CHECK, true);
         }
     }
 

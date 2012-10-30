@@ -79,6 +79,8 @@ public class StatisticsConstants {
     public static final String SUBTASKS_INDENT_USED = "subtasks-indent-used";
     public static final String GTASKS_INDENT_USED = "gtasks-indent-used";
 
+    public static final String SWIPE_USED = "swipe_used";
+
     public static final String PREF_THIRD_PARTY_ADDONS = "pref-third-party-addons";
     public static final String PREF_SHOW_NOTES_IN_ROW = "pref-show-notes";
     public static final String PREF_SHOW_FEATURED_LISTS = "pref-show-featured-lists";
