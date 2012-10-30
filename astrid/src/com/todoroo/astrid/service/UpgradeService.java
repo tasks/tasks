@@ -226,7 +226,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if (from >= V4_4 && from < V4_4_1) {
-            newVersionString(changeLog, "4.4.1 (10/31/12)", new String[] {
+            newVersionString(changeLog, "4.4.1 (10/30/12)", new String[] {
                 "Fixed an issue where the calendar assistant could remind you about the wrong events",
                 "Fixed a crash that could occur when swipe between lists is enabled"
             });
