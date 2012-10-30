@@ -64,7 +64,8 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
+        if (!isCurrentTaskListFragment())
+            return;
         MenuItem item = menu.add(Menu.NONE, MENU_CLONE_LIST, 0, R.string.actfm_feat_list_clone);
         item.setIcon(R.drawable.ic_menu_list_copy);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
