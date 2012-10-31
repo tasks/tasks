@@ -136,7 +136,9 @@ public class NewOrderedListFragmentHelper<LIST> {
                 Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
             updater.writeSerialization(list, updater.serializeTree());
-            fragment.setUpTaskList();
+            updater.applyToFilter(getFilter());
+            fragment.reconstructCursor();
+            fragment.loadTaskListContent(true);
         }
     };
 
@@ -160,7 +162,9 @@ public class NewOrderedListFragmentHelper<LIST> {
                 Log.e("drag", "Indent Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
             updater.writeSerialization(list, updater.serializeTree());
-            fragment.setUpTaskList();
+            updater.applyToFilter(getFilter());
+            fragment.reconstructCursor();
+            fragment.loadTaskListContent(true);
         }
     };
 

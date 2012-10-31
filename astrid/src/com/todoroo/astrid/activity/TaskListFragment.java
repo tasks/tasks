@@ -895,11 +895,34 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @param withCustomId
      *            force task with given custom id to be part of list
      */
-    @SuppressWarnings("nls")
     public void setUpTaskList() {
         if (filter == null)
             return;
 
+        TodorooCursor<Task> currentCursor = constructCursor();
+        if (currentCursor == null)
+            return;
+
+        // set up list adapters
+        taskAdapter = createTaskAdapter(currentCursor);
+
+        setListAdapter(taskAdapter);
+        getListView().setOnScrollListener(this);
+        registerForContextMenu(getListView());
+
+        loadTaskListContent(true);
+    }
+
+    public Property<?>[] taskProperties() {
+        return TaskAdapter.PROPERTIES;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    @SuppressWarnings("nls")
+    private TodorooCursor<Task> constructCursor() {
         String tagName = null;
         if (getActiveTagData() != null)
             tagName = getActiveTagData().getValue(TagData.NAME);
@@ -936,35 +959,24 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;
         sqlQueryTemplate.set(groupedQuery);
 
-        // perform query
-        TodorooCursor<Task> currentCursor;
+        // Peform query
         try {
-            currentCursor = taskService.fetchFiltered(
+            return taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, taskProperties());
         } catch (SQLiteException e) {
             // We don't show this error anymore--seems like this can get triggered
             // by a strange bug, but there seems to not be any negative side effect.
             // For now, we'll suppress the error
             // See http://astrid.com/home#tags-7tsoi/task-1119pk
-            return;
+            return null;
         }
-
-        // set up list adapters
-        taskAdapter = createTaskAdapter(currentCursor);
-
-        setListAdapter(taskAdapter);
-        getListView().setOnScrollListener(this);
-        registerForContextMenu(getListView());
-
-        loadTaskListContent(true);
     }
 
-    public Property<?>[] taskProperties() {
-        return TaskAdapter.PROPERTIES;
-    }
-
-    public Filter getFilter() {
-        return filter;
+    public void reconstructCursor() {
+        TodorooCursor<Task> cursor = constructCursor();
+        if (cursor == null)
+            return;
+        taskAdapter.changeCursor(cursor);
     }
 
     /**

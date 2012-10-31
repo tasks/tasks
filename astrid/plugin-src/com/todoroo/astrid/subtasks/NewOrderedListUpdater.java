@@ -151,6 +151,7 @@ public abstract class NewOrderedListUpdater<LIST> {
             node.parent = newParent;
             newParent.children.add(node);
             node.indent = newParent.indent + 1;
+            adjustDescendantsIndent(node, node.indent);
         } else if (delta < 0) {
             if (parent == treeRoot) // Can't deindent a top level item
                 return;
@@ -166,7 +167,15 @@ public abstract class NewOrderedListUpdater<LIST> {
             siblings.remove(index);
             node.parent = newParent;
             node.indent = newParent.indent + 1;
+            adjustDescendantsIndent(node, node.indent);
             newSiblings.add(insertAfter + 1, node);
+        }
+    }
+
+    private void adjustDescendantsIndent(Node node, int baseIndent) {
+        for (Node child : node.children) {
+            child.indent = baseIndent + 1;
+            adjustDescendantsIndent(child, child.indent);
         }
     }
 
@@ -194,13 +203,22 @@ public abstract class NewOrderedListUpdater<LIST> {
         Node newParent = beforeThis.parent;
         ArrayList<Node> newSiblings = newParent.children;
 
-        int index = newSiblings.indexOf(beforeThis);
-        if (index < 0)
+        int beforeIndex = newSiblings.indexOf(beforeThis);
+        if (beforeIndex < 0)
+            return;
+
+        int nodeIndex = oldSiblings.indexOf(moveThis);
+        if (nodeIndex < 0)
             return;
 
         moveThis.parent = newParent;
+        moveThis.indent = moveThis.parent.indent + 1;
         oldSiblings.remove(moveThis);
-        newSiblings.add(index, moveThis);
+
+        if (newSiblings == oldSiblings && beforeIndex > nodeIndex) {
+            beforeIndex--;
+        }
+        newSiblings.add(beforeIndex, moveThis);
     }
 
     private void moveToEndOfList(Node moveThis) {
