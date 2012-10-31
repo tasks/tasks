@@ -2,6 +2,7 @@ package com.todoroo.astrid.subtasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,21 @@ public abstract class NewOrderedListUpdater<LIST> {
 
     protected void initialize(LIST list, Filter filter) {
         treeRoot = buildTreeModel(getSerializedTree());
+    }
+
+    public Long[] getOrderedIds() {
+        ArrayList<Long> ids = new ArrayList<Long>();
+        orderedIdHelper(treeRoot, ids);
+        return ids.toArray(new Long[ids.size()]);
+    }
+
+    private void orderedIdHelper(Node node, List<Long> ids) {
+        if (node != treeRoot)
+            ids.add(node.taskId);
+
+        for (Node child : node.children) {
+            orderedIdHelper(child, ids);
+        }
     }
 
     public void indent(long targetTaskId, int delta) {
