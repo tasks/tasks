@@ -85,6 +85,27 @@ public abstract class NewOrderedListUpdater<LIST> {
         }
     }
 
+    public void moveTo(long targetTaskId, long beforeTaskId) {
+        Node target = idToNode.get(targetTaskId);
+        Node before = idToNode.get(beforeTaskId);
+
+        if (target == null || before == null)
+            return;
+        moveHelper(target, before);
+    }
+
+    private void moveHelper(Node moveThis, Node beforeThis) {
+        Node parent = beforeThis.parent;
+        ArrayList<Node> siblings = parent.children;
+
+        int index = siblings.indexOf(beforeThis);
+        if (index < 0)
+            return;
+
+        moveThis.parent = parent;
+        siblings.add(index, moveThis);
+    }
+
     private Node buildTreeModel(String serializedTree) {
         Node root = new Node(-1, null);
         try {
