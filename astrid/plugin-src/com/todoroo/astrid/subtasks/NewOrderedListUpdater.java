@@ -235,9 +235,15 @@ public abstract class NewOrderedListUpdater<LIST> {
 
         Node parent = task.parent;
         ArrayList<Node> siblings = parent.children;
-        siblings.remove(task);
+        int index = siblings.indexOf(task);
+
+        siblings.remove(index);
         for (Node child : task.children) {
-            indentHelper(child, -1);
+            child.parent = parent;
+            child.indent = parent.indent + 1;
+            siblings.add(index, child);
+            adjustDescendantsIndent(child, child.indent);
+            index++;
         }
         idToNode.remove(taskId);
     }
