@@ -121,14 +121,13 @@ public class NewOrderedListFragmentHelper<LIST> {
 
             try {
                 if(to >= getListView().getCount())
-                    updater.moveTo(targetTaskId, -1);
+                    updater.moveTo(list, getFilter(), targetTaskId, -1);
                 else
-                    updater.moveTo(targetTaskId, destinationTaskId);
+                    updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
             } catch (Exception e) {
                 Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            updater.writeSerialization(list, updater.serializeTree());
-            updater.applyToFilter(getFilter());
+
             fragment.reconstructCursor();
             fragment.loadTaskListContent(true);
         }
@@ -149,12 +148,11 @@ public class NewOrderedListFragmentHelper<LIST> {
             long targetTaskId = taskAdapter.getItemId(which);
             if (targetTaskId <= 0) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             try {
-                updater.indent(targetTaskId, delta);
+                updater.indent(list, getFilter(), targetTaskId, delta);
             } catch (Exception e) {
                 Log.e("drag", "Indent Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            updater.writeSerialization(list, updater.serializeTree());
-            updater.applyToFilter(getFilter());
+
             fragment.reconstructCursor();
             fragment.loadTaskListContent(true);
         }
@@ -308,8 +306,12 @@ public class NewOrderedListFragmentHelper<LIST> {
         this.list = list;
     }
 
+    public void onAddTask(long taskId) {
+        updater.onAddTask(list, getFilter(), taskId);
+    }
+
     public void onDeleteTask(Task task) {
-        updater.onDeleteTask(task.getId());
+        updater.onDeleteTask(list, getFilter(), task.getId());
         taskAdapter.notifyDataSetInvalidated();
     }
 

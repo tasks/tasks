@@ -31,7 +31,7 @@ public abstract class NewOrderedListUpdater<LIST> {
         public void visitNode(Node node);
     }
 
-    protected static class Node {
+    public static class Node {
         public final long taskId;
         public Node parent;
         public int indent;
@@ -127,12 +127,12 @@ public abstract class NewOrderedListUpdater<LIST> {
         applyToDescendantsHelper(treeRoot, visitor);
     }
 
-    public void indent(long targetTaskId, int delta) {
+    public void indent(LIST list, Filter filter, long targetTaskId, int delta) {
         Node node = idToNode.get(targetTaskId);
-        indentHelper(node, delta);
+        indentHelper(list, filter, node, delta);
     }
 
-    private void indentHelper(Node node, int delta) {
+    private void indentHelper(LIST list, Filter filter, Node node, int delta) {
         if (node == null)
             return;
         if (delta == 0)
@@ -168,6 +168,9 @@ public abstract class NewOrderedListUpdater<LIST> {
             setNodeIndent(node, newParent.indent + 1);
             newSiblings.add(insertAfter + 1, node);
         }
+
+        writeSerialization(list, serializeTree());
+        applyToFilter(filter);
     }
 
     private void setNodeIndent(Node node, int indent) {
@@ -182,13 +185,14 @@ public abstract class NewOrderedListUpdater<LIST> {
         }
     }
 
-    public void moveTo(long targetTaskId, long beforeTaskId) {
+    public void moveTo(LIST list, Filter filter, long targetTaskId, long beforeTaskId) {
         Node target = idToNode.get(targetTaskId);
         if (target == null)
             return;
 
         if (beforeTaskId == -1) {
-            moveToEndOfList(target);
+            moveToEndOfList(list, filter, target);
+            return;
         }
 
         Node before = idToNode.get(beforeTaskId);
@@ -196,10 +200,10 @@ public abstract class NewOrderedListUpdater<LIST> {
         if (before == null)
             return;
 
-        moveHelper(target, before);
+        moveHelper(list, filter, target, before);
     }
 
-    private void moveHelper(Node moveThis, Node beforeThis) {
+    private void moveHelper(LIST list, Filter filter, Node moveThis, Node beforeThis) {
         Node oldParent = moveThis.parent;
         ArrayList<Node> oldSiblings = oldParent.children;
 
@@ -222,16 +226,27 @@ public abstract class NewOrderedListUpdater<LIST> {
             beforeIndex--;
         }
         newSiblings.add(beforeIndex, moveThis);
+        writeSerialization(list, serializeTree());
+        applyToFilter(filter);
     }
 
-    private void moveToEndOfList(Node moveThis) {
+    private void moveToEndOfList(LIST list, Filter filter, Node moveThis) {
         Node parent = moveThis.parent;
         parent.children.remove(moveThis);
         treeRoot.children.add(moveThis);
         moveThis.parent = treeRoot;
+        writeSerialization(list, serializeTree());
+        applyToFilter(filter);
     }
 
-    public void onDeleteTask(long taskId) {
+    public void onAddTask(LIST list, Filter filter, long taskId) {
+        Node newNode = new Node(taskId, treeRoot, 0);
+        treeRoot.children.add(newNode);
+        writeSerialization(list, serializeTree());
+        applyToFilter(filter);
+    }
+
+    public void onDeleteTask(LIST list, Filter filter, long taskId) {
         Node task = idToNode.get(taskId);
         if (task == null)
             return;
@@ -248,6 +263,9 @@ public abstract class NewOrderedListUpdater<LIST> {
             index++;
         }
         idToNode.remove(taskId);
+
+        writeSerialization(list, serializeTree());
+        applyToFilter(filter);
     }
 
     private Node buildTreeModel(String serializedTree) {
