@@ -707,6 +707,57 @@ public class EditPeopleControlSet extends PopupControlSet {
             if(!TextUtils.isEmpty(assignedCustom.getText())) {
                 userJson = PeopleContainer.createUserJson(assignedCustom);
                 assignedView = assignedCustom;
+                if (actFmPreferenceService.isLoggedIn()) {
+                    // check if the custom-user is already a member of this list
+                    TodorooCursor<Metadata> tags = TagService.getInstance().getTags(task.getId(), true);
+                        Metadata metadata = new Metadata();
+                        for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
+                            metadata.readFromCursor(tags);
+                            final String tag = metadata.getValue(TagService.TAG);
+                            final TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
+                            if(tagData != null) {
+                                String customUserEmail = userJson.optString("email", "");
+                                final JSONArray membersFromTag = new JSONArray(tagData.getValue(TagData.MEMBERS));
+                                boolean customUserIsMember = false;
+                                for(int i = 0; i < membersFromTag.length(); i++) {
+                                    JSONObject member = membersFromTag.getJSONObject(i);
+                                    String email = member.optString("mail", "");
+                                    if (!TextUtils.isEmpty(email) && email.equals(customUserEmail)) {
+                                        customUserIsMember = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!customUserIsMember) {
+                                    // show dialog to ask if user should be added to the tag-members
+                                    final JSONObject newMember = userJson;
+                                    DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface d, int which) {
+                                            membersFromTag.put(newMember);
+                                            tagData.setValue(TagData.MEMBERS, membersFromTag.toString());
+                                            tagData.setValue(TagData.MEMBER_COUNT, membersFromTag.length());
+                                            tagDataService.save(tagData);
+                                        }
+                                    };
+
+                                    DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface d, int which) {
+                                            // nothing to do here
+                                        }
+                                    };
+                                    DialogUtilities.okCancelCustomDialog(activity,
+                                            activity.getString(R.string.actfm_EPA_add_person_to_list_title),
+                                            activity.getString(R.string.actfm_EPA_add_person_to_list, customUserEmail, customUserEmail),
+                                            R.string.actfm_EPA_add_person_to_list_ok,
+                                            R.string.actfm_EPA_add_person_to_list_cancel,
+                                            android.R.drawable.ic_dialog_alert,
+                                            okListener, cancelListener);
+                                }
+                            }
+                        }
+                }
             } else {
                 if (!loadedUI || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION)
                     return true;

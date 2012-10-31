@@ -51,6 +51,10 @@
   <string name="actfm_EPA_login_to_share">Sie müssen auf Astrid.com angemeldet sein, um Aufgaben zu teilen.</string>
   <string name="actfm_EPA_login_button">Anmelden</string>
   <string name="actfm_EPA_dont_share_button">Nicht teilen.</string>
+  <string name="actfm_EPA_add_person_to_list_title">Aufgabe zugewiesen</string>
+  <string name="actfm_EPA_add_person_to_list">%1$s ist kein Mitglied dieser Liste. Möchten Sie %2$s zu dieser Liste hinzufügen?</string>
+  <string name="actfm_EPA_add_person_to_list_ok">Hinzufügen</string>
+  <string name="actfm_EPA_add_person_to_list_cancel">Nicht hinzufügen</string>
   <string name="actfm_ALA_title">Willkommen bei Astrid.com!</string>
   <string name="actfm_ALA_body">Astrid.com lässt Sie ihre Aufgaben online abrufen, teilen, und auf andere übertragen.</string>
   <string name="actfm_ALA_fb_login">Mit Facebook verbinden</string>

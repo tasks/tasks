@@ -211,7 +211,14 @@
   
   <string name="actfm_EPA_dont_share_button">Don\'t share</string>
   
+  <string name="actfm_EPA_add_person_to_list_title">Task assigned</string>
+  
+  <string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Would you like to add %2$s to this list?</string>
 
+  <string name="actfm_EPA_add_person_to_list_ok">Add to list</string>
+  
+  <string name="actfm_EPA_add_person_to_list_cancel">Don\'t add</string>
+  
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
