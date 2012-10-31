@@ -27,11 +27,13 @@ public abstract class NewOrderedListUpdater<LIST> {
     protected static class Node {
         public final long taskId;
         public Node parent;
+        public int indent;
         public final ArrayList<Node> children = new ArrayList<Node>();
 
-        public Node(long taskId, Node parent) {
+        public Node(long taskId, Node parent, int indent) {
             this.taskId = taskId;
             this.parent = parent;
+            this.indent = indent;
         }
     }
 
@@ -40,6 +42,13 @@ public abstract class NewOrderedListUpdater<LIST> {
     private final HashMap<Long, Node> idToNode;
 
     protected abstract String getSerializedTree();
+
+    public int getIndentForTask(long targetTaskId) {
+        Node n = idToNode.get(targetTaskId);
+        if (n == null)
+            return 0;
+        return n.indent;
+    }
 
     protected void initialize(LIST list, Filter filter) {
         treeRoot = buildTreeModel(getSerializedTree());
@@ -83,6 +92,7 @@ public abstract class NewOrderedListUpdater<LIST> {
             siblings.remove(index);
             node.parent = newParent;
             newParent.children.add(node);
+            node.indent = newParent.indent + 1;
         } else if (delta < 0) {
             if (parent == treeRoot) // Can't deindent a top level item
                 return;
@@ -97,16 +107,25 @@ public abstract class NewOrderedListUpdater<LIST> {
             int insertAfter = newSiblings.indexOf(parent);
             siblings.remove(index);
             node.parent = newParent;
+            node.indent = newParent.indent + 1;
             newSiblings.add(insertAfter + 1, node);
         }
     }
 
     public void moveTo(long targetTaskId, long beforeTaskId) {
         Node target = idToNode.get(targetTaskId);
+        if (target == null)
+            return;
+
+        if (beforeTaskId == -1) {
+            moveToEndOfList(target);
+        }
+
         Node before = idToNode.get(beforeTaskId);
 
-        if (target == null || before == null)
+        if (before == null)
             return;
+
         moveHelper(target, before);
     }
 
@@ -122,8 +141,15 @@ public abstract class NewOrderedListUpdater<LIST> {
         siblings.add(index, moveThis);
     }
 
+    private void moveToEndOfList(Node moveThis) {
+        Node parent = moveThis.parent;
+        parent.children.remove(moveThis);
+        treeRoot.children.add(moveThis);
+        moveThis.parent = treeRoot;
+    }
+
     private Node buildTreeModel(String serializedTree) {
-        Node root = new Node(-1, null);
+        Node root = new Node(-1, null, -1);
         try {
             JSONArray tree = new JSONArray(serializedTree);
             recursivelyBuildChildren(root, tree);
@@ -145,7 +171,7 @@ public abstract class NewOrderedListUpdater<LIST> {
                 continue;
 
             JSONArray childsChildren = childObj.getJSONArray(Long.toString(id));
-            Node child = new Node(id, node);
+            Node child = new Node(id, node, node.indent + 1);
             recursivelyBuildChildren(child, childsChildren);
             node.children.add(child);
             idToNode.put(id, child);
