@@ -158,6 +158,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(IS_UNREAD.name, 0);
         defaultValues.put(TASK_COUNT.name, 0);
         defaultValues.put(TAG_DESCRIPTION.name, "");
+        defaultValues.put(TAG_ORDERING.name, "[]");
     }
 
     @Override

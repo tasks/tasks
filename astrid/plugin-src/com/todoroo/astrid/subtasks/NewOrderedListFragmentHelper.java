@@ -112,14 +112,6 @@ public class NewOrderedListFragmentHelper<LIST> {
         updater.initialize(list, filter);
     }
 
-//    public Property<?>[] taskProperties() {
-//        ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
-//        properties.add(updater.indentProperty());
-//        properties.add(updater.orderProperty());
-//        return properties.toArray(new Property<?>[properties.size()]);
-//    }
-
-
     private final DropListener dropListener = new DropListener() {
         @Override
         public void drop(int from, int to) {
@@ -285,7 +277,6 @@ public class NewOrderedListFragmentHelper<LIST> {
         }
 
         final ArrayList<Long> chained = new ArrayList<Long>();
-//        final int parentIndent = item.getValue(updater.indentProperty());
         updater.applyToDescendants(itemId, new NewOrderedListUpdater.OrderedListNodeVisitor() {
             @Override
             public void visitNode(NewOrderedListUpdater.Node node) {
