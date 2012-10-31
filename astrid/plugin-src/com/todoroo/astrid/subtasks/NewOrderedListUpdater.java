@@ -150,8 +150,7 @@ public abstract class NewOrderedListUpdater<LIST> {
             siblings.remove(index);
             node.parent = newParent;
             newParent.children.add(node);
-            node.indent = newParent.indent + 1;
-            adjustDescendantsIndent(node, node.indent);
+            setNodeIndent(node, newParent.indent + 1);
         } else if (delta < 0) {
             if (parent == treeRoot) // Can't deindent a top level item
                 return;
@@ -166,10 +165,14 @@ public abstract class NewOrderedListUpdater<LIST> {
             int insertAfter = newSiblings.indexOf(parent);
             siblings.remove(index);
             node.parent = newParent;
-            node.indent = newParent.indent + 1;
-            adjustDescendantsIndent(node, node.indent);
+            setNodeIndent(node, newParent.indent + 1);
             newSiblings.add(insertAfter + 1, node);
         }
+    }
+
+    private void setNodeIndent(Node node, int indent) {
+        node.indent = indent;
+        adjustDescendantsIndent(node, indent);
     }
 
     private void adjustDescendantsIndent(Node node, int baseIndent) {
@@ -212,7 +215,7 @@ public abstract class NewOrderedListUpdater<LIST> {
             return;
 
         moveThis.parent = newParent;
-        moveThis.indent = moveThis.parent.indent + 1;
+        setNodeIndent(moveThis, newParent.indent + 1);
         oldSiblings.remove(moveThis);
 
         if (newSiblings == oldSiblings && beforeIndex > nodeIndex) {
@@ -240,9 +243,8 @@ public abstract class NewOrderedListUpdater<LIST> {
         siblings.remove(index);
         for (Node child : task.children) {
             child.parent = parent;
-            child.indent = parent.indent + 1;
             siblings.add(index, child);
-            adjustDescendantsIndent(child, child.indent);
+            setNodeIndent(child, parent.indent + 1);
             index++;
         }
         idToNode.remove(taskId);
