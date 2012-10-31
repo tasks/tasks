@@ -52,7 +52,7 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    protected void setUpTaskList() {
+    public void setUpTaskList() {
         helper.beforeSetUpTaskList(filter);
 
         super.setUpTaskList();

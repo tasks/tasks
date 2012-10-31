@@ -114,6 +114,10 @@ public final class TagData extends RemoteModel {
     public static final StringProperty TAG_DESCRIPTION = new StringProperty(
             TABLE, "tagDescription");
 
+    /** Tag ordering */
+    public static final StringProperty TAG_ORDERING = new StringProperty(
+            TABLE, "tagOrdering");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 

@@ -10,11 +10,17 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 
 public abstract class NewOrderedListUpdater<LIST> {
+
+    @Autowired
+    private TaskService taskService;
 
     public NewOrderedListUpdater() {
         DependencyInjectionService.getInstance().inject(this);
@@ -42,8 +48,9 @@ public abstract class NewOrderedListUpdater<LIST> {
 
     private final HashMap<Long, Node> idToNode;
 
-    protected abstract String getSerializedTree(LIST list);
+    protected abstract String getSerializedTree(LIST list, Filter filter);
     protected abstract void writeSerialization(LIST list, String serialized);
+    protected abstract void applyToFilter(Filter filter);
 
     public int getIndentForTask(long targetTaskId) {
         Node n = idToNode.get(targetTaskId);
@@ -53,7 +60,26 @@ public abstract class NewOrderedListUpdater<LIST> {
     }
 
     protected void initialize(LIST list, Filter filter) {
-        treeRoot = buildTreeModel(getSerializedTree(list));
+        treeRoot = buildTreeModel(getSerializedTree(list, filter));
+    }
+
+    protected String serializedTreeFromFilter(Filter filter) {
+        JSONArray array = new JSONArray();
+        TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID);
+        try {
+            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
+                try {
+                    JSONObject curr = new JSONObject();
+                    curr.put(Long.toString(tasks.getLong(0)), new JSONArray());
+                    array.put(curr);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        } finally {
+            tasks.close();
+        }
+        return array.toString();
     }
 
     public Long[] getOrderedIds() {
@@ -162,15 +188,19 @@ public abstract class NewOrderedListUpdater<LIST> {
     }
 
     private void moveHelper(Node moveThis, Node beforeThis) {
-        Node parent = beforeThis.parent;
-        ArrayList<Node> siblings = parent.children;
+        Node oldParent = moveThis.parent;
+        ArrayList<Node> oldSiblings = oldParent.children;
 
-        int index = siblings.indexOf(beforeThis);
+        Node newParent = beforeThis.parent;
+        ArrayList<Node> newSiblings = newParent.children;
+
+        int index = newSiblings.indexOf(beforeThis);
         if (index < 0)
             return;
 
-        moveThis.parent = parent;
-        siblings.add(index, moveThis);
+        moveThis.parent = newParent;
+        oldSiblings.remove(moveThis);
+        newSiblings.add(index, moveThis);
     }
 
     private void moveToEndOfList(Node moveThis) {

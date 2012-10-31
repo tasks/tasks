@@ -896,7 +896,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      *            force task with given custom id to be part of list
      */
     @SuppressWarnings("nls")
-    protected void setUpTaskList() {
+    public void setUpTaskList() {
         if (filter == null)
             return;
 

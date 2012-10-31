@@ -25,32 +25,40 @@ public class SubtasksUpdater extends NewOrderedListUpdater<TagData> {
     @Override
     protected void initialize(TagData list, Filter filter) {
         super.initialize(list, filter);
-        applySubtasksToFilter(filter);
+        applyToFilter(filter);
     }
 
+    @Override
     @SuppressWarnings("nls")
-    public void applySubtasksToFilter(Filter filter) {
+    public void applyToFilter(Filter filter) {
         String query = filter.getSqlQuery();
 
         query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s, %s, %s, %s)",
+        query = query + String.format(" ORDER BY %s, %s, %s, %s",
                 Task.DELETION_DATE, Task.COMPLETION_DATE,
                 getOrderString(), Task.CREATION_DATE);
         query = query.replace(TaskCriteria.isVisible().toString(),
                 Criterion.all.toString());
+        System.err.println("QUERY: " + query);
 
         filter.setFilterQueryOverride(query);
     }
 
     @Override
-    protected String getSerializedTree(TagData list) {
+    protected String getSerializedTree(TagData list, Filter filter) {
+        String order;
         if (list == null) {
-            String order = Preferences.getStringValue(ACTIVE_TASKS_ORDER);
+            order = Preferences.getStringValue(ACTIVE_TASKS_ORDER);
             if (order == null)
-                order = "{}"; //$NON-NLS-1$
-            return order;
+                order = "[]"; //$NON-NLS-1$
+        } else {
+            order = list.getValue(TagData.TAG_ORDERING);
         }
-        return list.getValue(TagData.NAME);
+        if (order == null || "[]".equals(order)) { //$NON-NLS-1$
+            order = serializedTreeFromFilter(filter);
+            writeSerialization(list, order);
+        }
+        return order;
     }
 
     @Override
@@ -58,7 +66,7 @@ public class SubtasksUpdater extends NewOrderedListUpdater<TagData> {
         if (list == null)
             Preferences.setString(ACTIVE_TASKS_ORDER, serialized);
         else {
-            list.setValue(TagData.NAME, serialized);
+            list.setValue(TagData.TAG_ORDERING, serialized);
             tagDataService.save(list);
         }
     }

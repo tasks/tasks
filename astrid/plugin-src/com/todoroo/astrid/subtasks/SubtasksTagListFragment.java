@@ -49,7 +49,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
-    protected void setUpTaskList() {
+    public void setUpTaskList() {
         helper.beforeSetUpTaskList(filter);
 
         super.setUpTaskList();
