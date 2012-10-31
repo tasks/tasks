@@ -39,7 +39,6 @@ public class SubtasksUpdater extends NewOrderedListUpdater<TagData> {
                 getOrderString(), Task.CREATION_DATE);
         query = query.replace(TaskCriteria.isVisible().toString(),
                 Criterion.all.toString());
-        System.err.println("QUERY: " + query);
 
         filter.setFilterQueryOverride(query);
     }
