@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
 /**
@@ -24,7 +24,7 @@ import com.todoroo.astrid.data.Task;
  */
 public class SubtasksListFragment extends TaskListFragment {
 
-    protected OrderedListFragmentHelper<?> helper;
+    protected NewOrderedListFragmentHelper<?> helper;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -32,10 +32,10 @@ public class SubtasksListFragment extends TaskListFragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    protected OrderedListFragmentHelper<?> createFragmentHelper() {
-        OrderedListFragmentHelper<String> olfh =
-            new OrderedListFragmentHelper<String>(this, new SubtasksUpdater());
-        olfh.setList(SubtasksMetadata.LIST_ACTIVE_TASKS);
+    protected NewOrderedListFragmentHelper<?> createFragmentHelper() {
+        NewOrderedListFragmentHelper<TagData> olfh =
+            new NewOrderedListFragmentHelper<TagData>(this, new SubtasksUpdater());
+        olfh.setList(getActiveTagData());
         return olfh;
     }
 
@@ -59,12 +59,6 @@ public class SubtasksListFragment extends TaskListFragment {
 
         unregisterForContextMenu(getListView());
     }
-
-    @Override
-    public Property<?>[] taskProperties() {
-        return helper.taskProperties();
-    }
-
 
     @Override
     protected boolean isDraggable() {

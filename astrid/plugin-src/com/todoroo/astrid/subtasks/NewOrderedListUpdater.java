@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.Task;
 
 public abstract class NewOrderedListUpdater<LIST> {
 
@@ -20,8 +21,8 @@ public abstract class NewOrderedListUpdater<LIST> {
         idToNode = new HashMap<Long, Node>();
     }
 
-    public interface OrderedListIterator {
-        public void processTask(Node node);
+    public interface OrderedListNodeVisitor {
+        public void visitNode(Node node);
     }
 
     protected static class Node {
@@ -41,7 +42,8 @@ public abstract class NewOrderedListUpdater<LIST> {
 
     private final HashMap<Long, Node> idToNode;
 
-    protected abstract String getSerializedTree();
+    protected abstract String getSerializedTree(LIST list);
+    protected abstract void writeSerialization(LIST list, String serialized);
 
     public int getIndentForTask(long targetTaskId) {
         Node n = idToNode.get(targetTaskId);
@@ -51,13 +53,24 @@ public abstract class NewOrderedListUpdater<LIST> {
     }
 
     protected void initialize(LIST list, Filter filter) {
-        treeRoot = buildTreeModel(getSerializedTree());
+        treeRoot = buildTreeModel(getSerializedTree(list));
     }
 
     public Long[] getOrderedIds() {
         ArrayList<Long> ids = new ArrayList<Long>();
         orderedIdHelper(treeRoot, ids);
         return ids.toArray(new Long[ids.size()]);
+    }
+
+    public String getOrderString() {
+        Long[] ids = getOrderedIds();
+        StringBuilder builder = new StringBuilder();
+        for (int i = ids.length - 1; i >= 0; i--) {
+            builder.append(Task.ID.eq(ids[i]).toString());
+            if (i > 0)
+                builder.append(", "); //$NON-NLS-1$
+        }
+        return builder.toString();
     }
 
     private void orderedIdHelper(Node node, List<Long> ids) {
@@ -67,6 +80,25 @@ public abstract class NewOrderedListUpdater<LIST> {
         for (Node child : node.children) {
             orderedIdHelper(child, ids);
         }
+    }
+
+    public void applyToDescendants(long taskId, OrderedListNodeVisitor visitor) {
+        Node n = idToNode.get(taskId);
+        if (n == null)
+            return;
+        applyToDescendantsHelper(n, visitor);
+    }
+
+    private void applyToDescendantsHelper(Node n, OrderedListNodeVisitor visitor) {
+        ArrayList<Node> children = n.children;
+        for (Node child : children) {
+            visitor.visitNode(child);
+            applyToDescendantsHelper(child, visitor);
+        }
+    }
+
+    public void iterateOverList(OrderedListNodeVisitor visitor) {
+        applyToDescendantsHelper(treeRoot, visitor);
     }
 
     public void indent(long targetTaskId, int delta) {
@@ -146,6 +178,20 @@ public abstract class NewOrderedListUpdater<LIST> {
         parent.children.remove(moveThis);
         treeRoot.children.add(moveThis);
         moveThis.parent = treeRoot;
+    }
+
+    public void onDeleteTask(long taskId) {
+        Node task = idToNode.get(taskId);
+        if (task == null)
+            return;
+
+        Node parent = task.parent;
+        ArrayList<Node> siblings = parent.children;
+        siblings.remove(task);
+        for (Node child : task.children) {
+            indentHelper(child, -1);
+        }
+        idToNode.remove(taskId);
     }
 
     private Node buildTreeModel(String serializedTree) {

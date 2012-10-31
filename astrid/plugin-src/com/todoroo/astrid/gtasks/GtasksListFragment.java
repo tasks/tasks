@@ -27,7 +27,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.subtasks.OrderedListFragmentHelper;
+import com.todoroo.astrid.subtasks.NewOrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
 public class GtasksListFragment extends SubtasksListFragment {
@@ -60,8 +60,8 @@ public class GtasksListFragment extends SubtasksListFragment {
     };
 
     @Override
-    protected OrderedListFragmentHelper<?> createFragmentHelper() {
-        return new OrderedListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater);
+    protected NewOrderedListFragmentHelper<?> createFragmentHelper() {
+        return new NewOrderedListFragmentHelper<StoreObject>(this, null /*gtasksTaskListUpdater*/);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
         long storeObjectId = extras.getLong(TOKEN_STORE_ID, 0);
         list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
-        ((OrderedListFragmentHelper<StoreObject>)helper).setList(list);
+        ((NewOrderedListFragmentHelper<StoreObject>)helper).setList(list);
     }
 
     @Override

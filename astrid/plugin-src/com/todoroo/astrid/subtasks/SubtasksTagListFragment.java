@@ -9,25 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
 public class SubtasksTagListFragment extends TagViewFragment {
 
-    private final OrderedListFragmentHelper<String> helper;
+    private final NewOrderedListFragmentHelper<TagData> helper;
 
     public SubtasksTagListFragment() {
         super();
-        helper = new OrderedListFragmentHelper<String>(this, new SubtasksUpdater());
+        helper = new NewOrderedListFragmentHelper<TagData>(this, new SubtasksUpdater());
     }
 
     @Override
     protected void postLoadTagData() {
-        String list = "td:" + tagData.getId(); //$NON-NLS-1$
-        helper.setList(list);
+        helper.setList(tagData);
     }
 
     @Override
@@ -57,12 +56,6 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
         unregisterForContextMenu(getListView());
     }
-
-    @Override
-    public Property<?>[] taskProperties() {
-        return helper.taskProperties();
-    }
-
 
     @Override
     protected boolean isDraggable() {
