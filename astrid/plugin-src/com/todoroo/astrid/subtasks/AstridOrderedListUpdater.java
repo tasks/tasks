@@ -240,6 +240,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         parent.children.remove(moveThis);
         treeRoot.children.add(moveThis);
         moveThis.parent = treeRoot;
+        moveThis.indent = 0;
         writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
