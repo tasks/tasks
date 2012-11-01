@@ -98,7 +98,7 @@ public class SubtasksMetadataMigration {
 
         try {
             JSONArray array = new JSONArray();
-            AstridOrderedListUpdater.recursivelySerializeChildren(root, new JSONArray());
+            AstridOrderedListUpdater.recursivelySerializeChildren(root, array);
             return array.toString();
         } catch (JSONException e) {
             return "[]"; //$NON-NLS-1$
