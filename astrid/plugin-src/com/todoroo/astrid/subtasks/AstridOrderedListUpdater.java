@@ -322,7 +322,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return tree.toString();
     }
 
-    private void recursivelySerializeChildren(Node node, JSONArray serializeTo) throws JSONException {
+    public static void recursivelySerializeChildren(Node node, JSONArray serializeTo) throws JSONException {
         ArrayList<Node> children = node.children;
         for (Node child : children) {
             JSONObject childObj = new JSONObject();
