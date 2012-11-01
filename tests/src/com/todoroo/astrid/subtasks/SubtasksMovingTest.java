@@ -1,160 +1,122 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
 package com.todoroo.astrid.subtasks;
 
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-@SuppressWarnings("nls")
 public class SubtasksMovingTest extends DatabaseTestCase {
 
     private SubtasksUpdater updater;
-
     private Filter filter;
     private Task A, B, C, D, E, F;
-    private final String list = SubtasksMetadata.LIST_ACTIVE_TASKS;
-
-    /* Starting State:
-     *
-     * A
-     *  B
-     *  C
-     *   D
-     * E
-     * F
-     */
-
-    public void testMoveBeforeIntoSelf() {
-        givenTasksABCDEF();
-
-        whenTriggerMoveBefore(A, B);
-
-        /*
-         * A
-         *  B
-         *  C
-         *   D
-         * E
-         */
-        thenExpectMetadataOrderAndIndent(A, 0, 0);
-        thenExpectMetadataOrderAndIndent(B, 1, 1);
-        thenExpectMetadataOrderAndIndent(C, 2, 1);
-        thenExpectMetadataOrderAndIndent(D, 3, 2);
-        thenExpectMetadataOrderAndIndent(E, 4, 0);
-    }
-
-    public void testMoveIntoChild() {
-        givenTasksABCDEF();
-
-        whenTriggerMoveBefore(A, C);
-
-        /*
-         * A
-         *  B
-         *  C
-         *   D
-         * E
-         */
-        thenExpectMetadataOrderAndIndent(A, 0, 0);
-        thenExpectMetadataOrderAndIndent(B, 1, 1);
-        thenExpectMetadataOrderAndIndent(C, 2, 1);
-        thenExpectMetadataOrderAndIndent(D, 3, 2);
-        thenExpectMetadataOrderAndIndent(E, 4, 0);
-    }
-
-    public void testMoveEndOfChildren() {
-        givenTasksABCDEF();
-
-        whenTriggerMoveBefore(A, E);
-
-        /*
-         * A
-         *  B
-         *  C
-         *   D
-         * E
-         */
-        thenExpectMetadataOrderAndIndent(A, 0, 0);
-        thenExpectMetadataOrderAndIndent(B, 1, 1);
-        thenExpectMetadataOrderAndIndent(C, 2, 1);
-        thenExpectMetadataOrderAndIndent(D, 3, 2);
-        thenExpectMetadataOrderAndIndent(E, 4, 0);
-    }
-
-    public void testMoveAfterChildren() {
-        givenTasksABCDEF();
-
-        whenTriggerMoveBefore(A, F);
-
-        /*
-         * E
-         * A
-         *  B
-         *  C
-         *   D
-         */
-        thenExpectMetadataOrderAndIndent(E, 0, 0);
-        thenExpectMetadataOrderAndIndent(A, 1, 0);
-        thenExpectMetadataOrderAndIndent(B, 2, 1);
-        thenExpectMetadataOrderAndIndent(C, 3, 1);
-        thenExpectMetadataOrderAndIndent(D, 4, 2);
-    }
-
-    // --- helpers
-
-    /** moveTo = null => move to end */
-    private void whenTriggerMoveBefore(Task target, Task moveTo) {
-        System.err.println("CAN I GET A WITNESS?");
-        updater.debugPrint(filter, list);
-        updater.moveTo(filter, list, target.getId(), moveTo == null ? -1 : moveTo.getId());
-        updater.debugPrint(filter, list);
-    }
-
-    private void thenExpectMetadataOrderAndIndent(Task task, long order, int indent) {
-        Metadata metadata = updater.getTaskMetadata(list, task.getId());
-        assertNotNull("metadata was found", metadata);
-        assertEquals("order", order, metadata.getValue(SubtasksMetadata.ORDER).longValue());
-        assertEquals("indentation", indent, (int)metadata.getValue(SubtasksMetadata.INDENT));
-    }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
 
-        updater = new SubtasksUpdater();
         filter = CoreFilterExposer.buildInboxFilter(getContext().getResources());
-        updater.applySubtasksToFilter(filter, list);
+        updater = new SubtasksUpdater();
+        createTasks();
+        updater.initializeFromSerializedTree(null, filter, getSerializedTree());
     }
 
-    private Task[] givenTasksABCDEF() {
-        Task[] tasks = new Task[] {
-            A = createTask("A", 0, 0),
-            B = createTask("B", 1, 1),
-            C = createTask("C", 2, 1),
-            D = createTask("D", 3, 2),
-            E = createTask("E", 4, 0),
-            F = createTask("F", 5, 0),
-        };
-
-        return tasks;
+    private void createTasks() {
+        A = createTask("A");
+        B = createTask("B");
+        C = createTask("C");
+        D = createTask("D");
+        E = createTask("E");
+        F = createTask("F");
     }
 
-    private Task createTask(String title, long order, int indent) {
+    private Task createTask(String title) {
         Task task = new Task();
         task.setValue(Task.TITLE, title);
         PluginServices.getTaskService().save(task);
-        Metadata metadata = updater.createEmptyMetadata(list, task.getId());
-        metadata.setValue(SubtasksMetadata.ORDER, order);
-        metadata.setValue(SubtasksMetadata.INDENT, indent);
-        PluginServices.getMetadataService().save(metadata);
         return task;
     }
 
+    private void whenTriggerMoveBefore(Task target, Task before) {
+        long beforeId = (before == null ? -1 : before.getId());
+        updater.moveTo(null, filter, target.getId(), beforeId);
+    }
+
+    private void thenExpectParentAndPosition(Task task, Task parent, int positionInParent) {
+        long parentId = (parent == null ? -1 : parent.getId());
+        Node n = updater.findNodeForTask(task.getId());
+        assertNotNull("No node found for task " + task.getValue(Task.TITLE), n);
+        assertEquals("Parent mismatch", parentId, n.parent.taskId);
+        assertEquals("Position mismatch", positionInParent, n.parent.children.indexOf(n));
+    }
+
+    /* Starting State:
+    *
+    * A
+    *  B
+    *  C
+    *   D
+    * E
+    * F
+    */
+    private String getSerializedTree() {
+        return "[{\"1\":[{\"2\":[]}, {\"3\":[{\"4\":[]}]}]}, {\"5\":[]}, {\"6\":[]}]";
+    }
+
+    public void testMoveBeforeIntoSelf() { // Should have no effect
+        whenTriggerMoveBefore(A, B);
+
+        thenExpectParentAndPosition(A, null, 0);
+        thenExpectParentAndPosition(B, A, 0);
+        thenExpectParentAndPosition(C, A, 1);
+        thenExpectParentAndPosition(D, C, 0);
+        thenExpectParentAndPosition(E, null, 1);
+        thenExpectParentAndPosition(F, null, 2);
+    }
+
+    public void testMoveIntoDescendant() { // Should have no effect
+        whenTriggerMoveBefore(A, C);
+
+        thenExpectParentAndPosition(A, null, 0);
+        thenExpectParentAndPosition(B, A, 0);
+        thenExpectParentAndPosition(C, A, 1);
+        thenExpectParentAndPosition(D, C, 0);
+        thenExpectParentAndPosition(E, null, 1);
+        thenExpectParentAndPosition(F, null, 2);
+    }
+
+    public void testMoveToEndOfChildren() { // Should have no effect
+        whenTriggerMoveBefore(A, E);
+
+        thenExpectParentAndPosition(A, null, 0);
+        thenExpectParentAndPosition(B, A, 0);
+        thenExpectParentAndPosition(C, A, 1);
+        thenExpectParentAndPosition(D, C, 0);
+        thenExpectParentAndPosition(E, null, 1);
+        thenExpectParentAndPosition(F, null, 2);
+    }
+
+    public void testStandardMove() {
+        whenTriggerMoveBefore(A, F);
+
+        thenExpectParentAndPosition(A, null, 1);
+        thenExpectParentAndPosition(B, A, 0);
+        thenExpectParentAndPosition(C, A, 1);
+        thenExpectParentAndPosition(D, C, 0);
+        thenExpectParentAndPosition(E, null, 0);
+        thenExpectParentAndPosition(F, null, 2);
+    }
+
+    public void testMoveToEndOfList() {
+        whenTriggerMoveBefore(A, null);
+
+        thenExpectParentAndPosition(A, null, 2);
+        thenExpectParentAndPosition(B, A, 0);
+        thenExpectParentAndPosition(C, A, 1);
+        thenExpectParentAndPosition(D, C, 0);
+        thenExpectParentAndPosition(E, null, 0);
+        thenExpectParentAndPosition(F, null, 1);
+    }
 }

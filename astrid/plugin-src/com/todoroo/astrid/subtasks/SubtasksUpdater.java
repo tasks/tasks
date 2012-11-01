@@ -23,7 +23,7 @@ public class SubtasksUpdater extends AstridOrderedListUpdater<TagData> {
     public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
 
     @Override
-    protected void initialize(TagData list, Filter filter) {
+    public void initialize(TagData list, Filter filter) {
         super.initialize(list, filter);
         applyToFilter(filter);
     }
