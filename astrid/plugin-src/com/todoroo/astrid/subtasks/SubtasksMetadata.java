@@ -16,6 +16,7 @@ import com.todoroo.astrid.data.Metadata;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Deprecated
 public class SubtasksMetadata {
 
     public static final String LIST_ACTIVE_TASKS = "[AT]"; //$NON-NLS-1$

@@ -18,11 +18,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
+import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
 
-abstract public class OrderedListUpdater<LIST> {
+abstract public class OrderedMetadataListUpdater<LIST> {
 
-    public OrderedListUpdater() {
+    public OrderedMetadataListUpdater() {
         DependencyInjectionService.getInstance().inject(this);
     }
 

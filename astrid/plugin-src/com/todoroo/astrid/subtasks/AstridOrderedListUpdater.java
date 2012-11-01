@@ -17,12 +17,12 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
-public abstract class NewOrderedListUpdater<LIST> {
+public abstract class AstridOrderedListUpdater<LIST> {
 
     @Autowired
     private TaskService taskService;
 
-    public NewOrderedListUpdater() {
+    public AstridOrderedListUpdater() {
         DependencyInjectionService.getInstance().inject(this);
         idToNode = new HashMap<Long, Node>();
     }

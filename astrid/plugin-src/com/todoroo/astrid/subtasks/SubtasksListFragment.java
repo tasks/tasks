@@ -24,7 +24,7 @@ import com.todoroo.astrid.data.Task;
  */
 public class SubtasksListFragment extends TaskListFragment {
 
-    protected NewOrderedListFragmentHelper<?> helper;
+    protected OrderedListFragmentHelperInterface<?> helper;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -32,9 +32,9 @@ public class SubtasksListFragment extends TaskListFragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    protected NewOrderedListFragmentHelper<?> createFragmentHelper() {
-        NewOrderedListFragmentHelper<TagData> olfh =
-            new NewOrderedListFragmentHelper<TagData>(this, new SubtasksUpdater());
+    protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
+        AstridOrderedListFragmentHelper<TagData> olfh =
+            new AstridOrderedListFragmentHelper<TagData>(this, new SubtasksUpdater());
         olfh.setList(getActiveTagData());
         return olfh;
     }

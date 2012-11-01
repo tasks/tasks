@@ -15,7 +15,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
-public class SubtasksUpdater extends NewOrderedListUpdater<TagData> {
+public class SubtasksUpdater extends AstridOrderedListUpdater<TagData> {
 
     @Autowired TagDataService tagDataService;
     @Autowired TaskService taskService;
