@@ -59,8 +59,12 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return n.indent;
     }
 
-    protected void initialize(LIST list, Filter filter) {
-        treeRoot = buildTreeModel(getSerializedTree(list, filter));
+    public void initialize(LIST list, Filter filter) {
+        initializeFromSerializedTree(list, filter, getSerializedTree(list, filter));
+    }
+
+    public void initializeFromSerializedTree(LIST list, Filter filter, String serializedTree) {
+        treeRoot = buildTreeModel(serializedTree);
         verifyTreeModel(list, filter);
     }
 
@@ -83,6 +87,10 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
         if (addedThings)
             writeSerialization(list, serializeTree());
+    }
+
+    public Node findNodeForTask(long taskId) {
+        return idToNode.get(taskId);
     }
 
     public Long[] getOrderedIds() {
@@ -205,6 +213,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
         if (before == null)
             return;
 
+        if (isDescendantOf(before, target))
+            return;
+
         moveHelper(list, filter, target, before);
     }
 
@@ -233,6 +244,17 @@ public abstract class AstridOrderedListUpdater<LIST> {
         newSiblings.add(beforeIndex, moveThis);
         writeSerialization(list, serializeTree());
         applyToFilter(filter);
+    }
+
+    // Returns true if desc is a descendant of parent
+    private boolean isDescendantOf(Node desc, Node parent) {
+        Node curr = desc;
+        while (curr != treeRoot) {
+            if (curr == parent)
+                return true;
+            curr = curr.parent;
+        }
+        return false;
     }
 
     private void moveToEndOfList(LIST list, Filter filter, Node moveThis) {
