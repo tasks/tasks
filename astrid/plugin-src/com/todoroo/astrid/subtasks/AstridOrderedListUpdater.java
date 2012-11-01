@@ -101,6 +101,10 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public String getOrderString() {
         Long[] ids = getOrderedIds();
+        return buildOrderString(ids);
+    }
+
+    public static String buildOrderString(Long[] ids) {
         StringBuilder builder = new StringBuilder();
         if (ids.length == 0)
             return "(1)"; //$NON-NLS-1$
