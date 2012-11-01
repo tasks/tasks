@@ -1,5 +1,6 @@
 package com.todoroo.astrid.subtasks;
 
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
@@ -18,6 +19,7 @@ public class SubtasksMovingTest extends DatabaseTestCase {
         super.setUp();
 
         filter = CoreFilterExposer.buildInboxFilter(getContext().getResources());
+        Preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);
         updater = new SubtasksUpdater();
         createTasks();
         updater.initializeFromSerializedTree(null, filter, getSerializedTree());
