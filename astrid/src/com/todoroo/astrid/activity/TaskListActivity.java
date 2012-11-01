@@ -95,6 +95,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public static final int FILTER_MODE_PEOPLE = 1;
     public static final int FILTER_MODE_FEATURED = 2;
 
+    public static final int REQUEST_CODE_RESTART = 10;
+
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
     private View listsNav;

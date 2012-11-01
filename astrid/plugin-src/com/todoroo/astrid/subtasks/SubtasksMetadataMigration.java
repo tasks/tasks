@@ -77,7 +77,6 @@ public class SubtasksMetadataMigration {
                 td.setValue(TagData.TAG_ORDERING, newTree);
                 tagDataService.save(td);
             } else {
-                Log.e("MIGRATION", "WRITE SERIALIZATION: " + newTree, new Throwable());
                 Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, newTree);
             }
         }
@@ -102,7 +101,6 @@ public class SubtasksMetadataMigration {
             Node parent = findNextParentForIndent(root, indent);
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);
-            System.err.println("INDENT FOR " + title + ": " + indent);
         }
 
         try {

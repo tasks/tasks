@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.subtasks;
 
-import android.util.Log;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.Preferences;
@@ -62,7 +60,6 @@ public class SubtasksUpdater extends AstridOrderedListUpdater<TagData> {
     @Override
     protected void writeSerialization(TagData list, String serialized) {
         if (list == null) {
-            Log.e("SUBTASKS", "WRITE SERIALIZATION: " + serialized, new Throwable());
             Preferences.setString(ACTIVE_TASKS_ORDER, serialized);
         } else {
             list.setValue(TagData.TAG_ORDERING, serialized);

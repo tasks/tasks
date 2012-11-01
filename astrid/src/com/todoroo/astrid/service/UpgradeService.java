@@ -30,6 +30,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
@@ -179,7 +180,7 @@ public final class UpgradeService {
         if(from < maxWithUpgrade) {
             Intent upgrade = new Intent(context, UpgradeActivity.class);
             upgrade.putExtra(UpgradeActivity.TOKEN_FROM_VERSION, from);
-            context.startActivity(upgrade);
+            context.startActivityForResult(upgrade, 0);
         }
     }
 
@@ -224,6 +225,7 @@ public final class UpgradeService {
                         } finally {
                             DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
                             sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                            setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
                             finish();
                         }
                     };
