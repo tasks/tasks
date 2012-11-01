@@ -13,9 +13,11 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
@@ -75,6 +77,7 @@ public class SubtasksMetadataMigration {
                 td.setValue(TagData.TAG_ORDERING, newTree);
                 tagDataService.save(td);
             } else {
+                Log.e("MIGRATION", "WRITE SERIALIZATION: " + newTree, new Throwable());
                 Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, newTree);
             }
         }
@@ -90,10 +93,15 @@ public class SubtasksMetadataMigration {
             if (!item.getValue(SubtasksMetadata.TAG).equals(tag))
                 break;
 
-            int indent = item.getValue(SubtasksMetadata.INDENT);
+            Task t = PluginServices.getTaskService().fetchById(item.getValue(Metadata.TASK), Task.TITLE);
+            String title = t.getValue(Task.TITLE);
+            int indent = 0;
+            if (item.containsNonNullValue(SubtasksMetadata.INDENT))
+                indent = item.getValue(SubtasksMetadata.INDENT);
             Node parent = findNextParentForIndent(root, indent);
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);
+            System.err.println("INDENT FOR " + title + ": " + indent);
         }
 
         try {
