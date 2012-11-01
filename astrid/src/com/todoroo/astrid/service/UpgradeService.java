@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -40,12 +41,14 @@ import com.todoroo.astrid.helper.DueDateTimeMigrator;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 
 public final class UpgradeService {
 
+    public static final int V4_4_2 = 287;
     public static final int V4_4_1 = 286;
     public static final int V4_4 = 285;
     public static final int V4_3_4_2 = 284;
@@ -149,7 +152,7 @@ public final class UpgradeService {
      * @param from
      * @param to
      */
-    public void performUpgrade(final Context context, final int from) {
+    public void performUpgrade(final Activity context, final int from) {
         if(from == 135)
             AddOnService.recordOem();
 
@@ -160,51 +163,75 @@ public final class UpgradeService {
                 Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
         }
 
-        if( from<= V3_9_1_1) {
+        if(from <= V3_9_1_1) {
             actFmPreferenceService.clearLastSyncDate();
         }
 
         // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
-        if(from < V4_0_6 && context instanceof Activity)
-            dialog = DialogUtilities.progressDialog(context,
-                    context.getString(R.string.DLG_upgrading));
-        else
-            dialog = null;
+
+        int maxWithUpgrade = V4_4_2; // The last version that required a migration
 
         final String lastSetVersionName = AstridPreferences.getCurrentVersionName();
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // NOTE: This line should be uncommented whenever any new version requires a data migration
-                    // TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null, lastSetVersionName);
+        if(from < maxWithUpgrade) {
+            Intent upgrade = new Intent(context, UpgradeActivity.class);
+            upgrade.putExtra(UpgradeActivity.TOKEN_FROM_VERSION, from);
+            context.startActivity(upgrade);
+        }
+    }
 
-                    if(from < V3_0_0)
-                        new Astrid2To3UpgradeHelper().upgrade2To3(context, from);
+    private static class UpgradeActivity extends Activity {
+        @Autowired
+        private TaskService taskService;
+        private ProgressDialog dialog;
 
-                    if(from < V3_1_0)
-                        new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
+        public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
+        private int from;
 
-                    if(from < V3_8_3_1)
-                        new TagCaseMigrator().performTagCaseMigration(context);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            DependencyInjectionService.getInstance().inject(this);
+            from = getIntent().getIntExtra(TOKEN_FROM_VERSION, -1);
+            if (from > 0) {
+                dialog = DialogUtilities.progressDialog(this,
+                        getString(R.string.DLG_upgrading));
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            if(from < V3_0_0)
+                                new Astrid2To3UpgradeHelper().upgrade2To3(UpgradeActivity.this, from);
 
-                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
-                        taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+                            if(from < V3_1_0)
+                                new Astrid2To3UpgradeHelper().upgrade3To3_1(UpgradeActivity.this, from);
 
-                    if (from < V4_0_6)
-                        new DueDateTimeMigrator().migrateDueTimes();
+                            if(from < V3_8_3_1)
+                                new TagCaseMigrator().performTagCaseMigration(UpgradeActivity.this);
 
-                } finally {
-                    DialogUtilities.dismissDialog((Activity)context, dialog);
-                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                }
+                            if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
+                                taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+
+                            if (from < V4_0_6)
+                                new DueDateTimeMigrator().migrateDueTimes();
+
+                            if (from < V4_4_2)
+                                new SubtasksMetadataMigration().performMigration();
+
+                        } finally {
+                            DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
+                            sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                            finish();
+                        }
+                    };
+                }.start();
+            } else {
+                finish();
             }
-
-        }).start();
+        }
     }
 
     /**
