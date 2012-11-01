@@ -1157,6 +1157,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
+    public void onTaskCreated(Task task) {
+        incrementFilterCount();
+    }
+
     protected void onTaskDelete(Task task) {
         decrementFilterCount();
 

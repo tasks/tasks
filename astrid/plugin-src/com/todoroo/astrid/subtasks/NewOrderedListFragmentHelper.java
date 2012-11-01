@@ -306,8 +306,8 @@ public class NewOrderedListFragmentHelper<LIST> {
         this.list = list;
     }
 
-    public void onAddTask(long taskId) {
-        updater.onAddTask(list, getFilter(), taskId);
+    public void onCreateTask(Task task) {
+        updater.onCreateTask(list, getFilter(), task.getId());
     }
 
     public void onDeleteTask(Task task) {

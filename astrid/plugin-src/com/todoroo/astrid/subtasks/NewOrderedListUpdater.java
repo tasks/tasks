@@ -94,6 +94,8 @@ public abstract class NewOrderedListUpdater<LIST> {
     public String getOrderString() {
         Long[] ids = getOrderedIds();
         StringBuilder builder = new StringBuilder();
+        if (ids.length == 0)
+            return "(1)"; //$NON-NLS-1$
         for (int i = ids.length - 1; i >= 0; i--) {
             builder.append(Task.ID.eq(ids[i]).toString());
             if (i > 0)
@@ -242,8 +244,8 @@ public abstract class NewOrderedListUpdater<LIST> {
         applyToFilter(filter);
     }
 
-    public void onAddTask(LIST list, Filter filter, long taskId) {
-        if (idToNode.containsKey(taskId))
+    public void onCreateTask(LIST list, Filter filter, long taskId) {
+        if (idToNode.containsKey(taskId) || taskId < 0)
             return;
 
         Node newNode = new Node(taskId, treeRoot, 0);
