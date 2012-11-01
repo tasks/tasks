@@ -89,6 +89,7 @@ public class SubtasksMetadataMigration {
         Metadata item = new Metadata();
         Node root = new Node(-1, null, -1);
         for (; !cursor.isAfterLast(); cursor.moveToNext()) {
+            item.clear();
             item.readFromCursor(cursor);
             if (!item.getValue(SubtasksMetadata.TAG).equals(tag))
                 break;
