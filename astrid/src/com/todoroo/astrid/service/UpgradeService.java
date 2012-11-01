@@ -183,7 +183,7 @@ public final class UpgradeService {
         }
     }
 
-    private static class UpgradeActivity extends Activity {
+    public static class UpgradeActivity extends Activity {
         @Autowired
         private TaskService taskService;
         private ProgressDialog dialog;
