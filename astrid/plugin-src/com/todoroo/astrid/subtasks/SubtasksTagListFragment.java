@@ -63,7 +63,14 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
+    public void onTaskCreated(Task task) {
+        super.onTaskCreated(task);
+        helper.onCreateTask(task);
+    }
+
+    @Override
     protected void onTaskDelete(Task task) {
+        super.onTaskDelete(task);
         helper.onDeleteTask(task);
     }
 
