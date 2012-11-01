@@ -48,16 +48,12 @@ public class SubtasksUpdater extends NewOrderedListUpdater<TagData> {
         String order;
         if (list == null) {
             order = Preferences.getStringValue(ACTIVE_TASKS_ORDER);
-            if (order == null)
-                order = "[]"; //$NON-NLS-1$
         } else {
             order = list.getValue(TagData.TAG_ORDERING);
         }
+        if (order == null || "null".equals(order)) //$NON-NLS-1$
+            order = "[]"; //$NON-NLS-1$
 
-        if (order == null || "[]".equals(order)) { //$NON-NLS-1$
-            order = serializedTreeFromFilter(filter);
-            writeSerialization(list, order);
-        }
         return order;
     }
 

@@ -64,25 +64,6 @@ public abstract class NewOrderedListUpdater<LIST> {
         verifyTreeModel(list, filter);
     }
 
-    protected String serializedTreeFromFilter(Filter filter) {
-        JSONArray array = new JSONArray();
-        TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID);
-        try {
-            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                try {
-                    JSONObject curr = new JSONObject();
-                    curr.put(Long.toString(tasks.getLong(0)), new JSONArray());
-                    array.put(curr);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        } finally {
-            tasks.close();
-        }
-        return array.toString();
-    }
-
     private void verifyTreeModel(LIST list, Filter filter) {
         boolean addedThings = false;
         TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID);
