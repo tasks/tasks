@@ -61,6 +61,7 @@ public abstract class NewOrderedListUpdater<LIST> {
 
     protected void initialize(LIST list, Filter filter) {
         treeRoot = buildTreeModel(getSerializedTree(list, filter));
+        verifyTreeModel(list, filter);
     }
 
     protected String serializedTreeFromFilter(Filter filter) {
@@ -80,6 +81,27 @@ public abstract class NewOrderedListUpdater<LIST> {
             tasks.close();
         }
         return array.toString();
+    }
+
+    private void verifyTreeModel(LIST list, Filter filter) {
+        boolean addedThings = false;
+        TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID);
+        try {
+            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
+                Long id = tasks.getLong(0);
+                if (idToNode.containsKey(id))
+                    continue;
+
+                addedThings = true;
+                Node newNode = new Node(id, treeRoot, 0);
+                treeRoot.children.add(newNode);
+                idToNode.put(id, newNode);
+            }
+        } finally {
+            tasks.close();
+        }
+        if (addedThings)
+            writeSerialization(list, serializeTree());
     }
 
     public Long[] getOrderedIds() {
@@ -240,8 +262,12 @@ public abstract class NewOrderedListUpdater<LIST> {
     }
 
     public void onAddTask(LIST list, Filter filter, long taskId) {
+        if (idToNode.containsKey(taskId))
+            return;
+
         Node newNode = new Node(taskId, treeRoot, 0);
         treeRoot.children.add(newNode);
+        idToNode.put(taskId, newNode);
         writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }

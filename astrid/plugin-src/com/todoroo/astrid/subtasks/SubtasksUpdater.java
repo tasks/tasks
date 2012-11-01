@@ -53,6 +53,7 @@ public class SubtasksUpdater extends NewOrderedListUpdater<TagData> {
         } else {
             order = list.getValue(TagData.TAG_ORDERING);
         }
+
         if (order == null || "[]".equals(order)) { //$NON-NLS-1$
             order = serializedTreeFromFilter(filter);
             writeSerialization(list, order);
