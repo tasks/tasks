@@ -14,11 +14,9 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
@@ -94,12 +92,9 @@ public class SubtasksMetadataMigration {
             if (!item.getValue(SubtasksMetadata.TAG).equals(tag))
                 break;
 
-            Task t = PluginServices.getTaskService().fetchById(item.getValue(Metadata.TASK), Task.TITLE);
-            String title = t.getValue(Task.TITLE);
             int indent = 0;
             if (item.containsNonNullValue(SubtasksMetadata.INDENT))
                 indent = item.getValue(SubtasksMetadata.INDENT);
-            System.err.println("TASK " + title + " ORDER " + item.getValue(SubtasksMetadata.ORDER) + " INDENT " + indent);
             Node parent = findNextParentForIndent(root, indent);
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);
