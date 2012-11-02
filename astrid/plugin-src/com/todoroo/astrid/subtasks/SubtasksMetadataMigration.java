@@ -10,6 +10,7 @@ import android.util.Log;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
@@ -38,7 +39,7 @@ public class SubtasksMetadataMigration {
     public void performMigration() {
         TodorooCursor<Metadata> subtasksMetadata = metadataService.query(Query.select(Metadata.PROPERTIES)
                 .where(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY))
-                .orderBy(Order.asc(SubtasksMetadata.TAG), Order.asc(SubtasksMetadata.ORDER)));
+                .orderBy(Order.asc(SubtasksMetadata.TAG), Order.asc(Functions.cast(SubtasksMetadata.ORDER, "LONG")))); //$NON-NLS-1$
         try {
             Metadata m = new Metadata();
             for (subtasksMetadata.moveToFirst(); !subtasksMetadata.isAfterLast(); subtasksMetadata.moveToNext()) {
@@ -98,6 +99,7 @@ public class SubtasksMetadataMigration {
             int indent = 0;
             if (item.containsNonNullValue(SubtasksMetadata.INDENT))
                 indent = item.getValue(SubtasksMetadata.INDENT);
+            System.err.println("TASK " + title + " ORDER " + item.getValue(SubtasksMetadata.ORDER) + " INDENT " + indent);
             Node parent = findNextParentForIndent(root, indent);
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);
