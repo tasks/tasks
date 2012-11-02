@@ -31,7 +31,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public static class Node {
-        public final long taskId;
+        public long taskId;
         public Node parent;
         public int indent;
         public final ArrayList<Node> children = new ArrayList<Node>();
@@ -63,7 +63,12 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public void initializeFromSerializedTree(LIST list, Filter filter, String serializedTree) {
-        treeRoot = buildTreeModel(serializedTree);
+        treeRoot = buildTreeModel(serializedTree, new JSONTreeModelBuilder() {
+            @Override
+            public void afterAddNode(Node node) {
+                idToNode.put(node.taskId, node);
+            }
+        });
         verifyTreeModel(list, filter);
     }
 
@@ -303,44 +308,54 @@ public abstract class AstridOrderedListUpdater<LIST> {
         applyToFilter(filter);
     }
 
-    private Node buildTreeModel(String serializedTree) {
+    private interface JSONTreeModelBuilder {
+        void afterAddNode(Node node);
+    }
+
+    public static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback) {
         Node root = new Node(-1, null, -1);
         try {
             JSONArray tree = new JSONArray(serializedTree);
-            recursivelyBuildChildren(root, tree);
+            recursivelyBuildChildren(root, tree, callback);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error building tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
         }
         return root;
     }
 
-    private void recursivelyBuildChildren(Node node, JSONArray children) throws JSONException {
+    private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback) throws JSONException {
         for (int i = 1; i < children.length(); i++) {
             JSONArray subarray = children.optJSONArray(i);
             if (subarray == null) {
                 Long id = children.getLong(i);
                 Node child = new Node(id, node, node.indent + 1);
                 node.children.add(child);
-                idToNode.put(id, child);
+                if (callback != null)
+                    callback.afterAddNode(child);
             } else {
                 Long id = subarray.getLong(0);
                 Node child = new Node(id, node, node.indent + 1);
-                recursivelyBuildChildren(child, subarray);
+                recursivelyBuildChildren(child, subarray, callback);
                 node.children.add(child);
-                idToNode.put(id, child);
+                if (callback != null)
+                    callback.afterAddNode(child);
             }
         }
     }
 
     protected String serializeTree() {
+        return serializeTree(treeRoot);
+    }
+
+    public static String serializeTree(Node root) {
         JSONArray tree = new JSONArray();
-        if (treeRoot == null) {
+        if (root == null) {
             return tree.toString();
         }
 
         try {
             tree.put(-1L);
-            recursivelySerialize(treeRoot, tree);
+            recursivelySerialize(root, tree);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error serializing tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
         }
