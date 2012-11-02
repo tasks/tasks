@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -182,7 +185,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TOKEN_TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
 
-    public static final String TOKEN_ASSIGNED_TO = "task_assigned_to"; //$NON-NLS-1$
+    public static final String TOKEN_ASSIGNED_TO_DISPLAY = "task_assigned_to_display"; //$NON-NLS-1$
+    public static final String TOKEN_ASSIGNED_TO_EMAIL = "task_assigned_to_email"; //$NON-NLS-1$
+    public static final String TOKEN_ASSIGNED_TO_ID = "task_assigned_to_id"; //$NON-NLS-1$
     public static final String TOKEN_TAGS_CHANGED = "tags_changed";  //$NON-NLS-1$
     public static final String TOKEN_NEW_REPEATING_TASK = "new_repeating"; //$NON-NLS-1$
 
@@ -859,12 +864,25 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
                     && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
             String assignedTo = peopleControlSet.getAssignedToString();
+            String assignedEmail = ""; //$NON-NLS-1$
+            long assignedId = Task.USER_ID_IGNORE;
+            try {
+                JSONObject assignedUser = new JSONObject(model.getValue(Task.USER));
+                assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE);
+            } catch (JSONException e) {
+                //
+            }
+
             if (taskEditActivity) {
                 Intent data = new Intent();
                 if (!isAssignedToMe) {
                     data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
-                    data.putExtra(TOKEN_ASSIGNED_TO,
-                            assignedTo);
+                    data.putExtra(TOKEN_ASSIGNED_TO_DISPLAY, assignedTo);
+                    if (!TextUtils.isEmpty(assignedEmail))
+                        data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
+                    if (assignedId > 0)
+                        data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
                 }
                 if (showRepeatAlert) {
                     data.putExtra(TOKEN_NEW_REPEATING_TASK, model);
@@ -877,7 +895,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 // since the activity isn't actually finishing
                 TaskListActivity tla = (TaskListActivity) getActivity();
                 if (!isAssignedToMe)
-                    tla.switchToAssignedFilter(assignedTo);
+                    tla.taskAssignedTo(assignedTo, assignedEmail, assignedId);
                 else if (showRepeatAlert)
                     DateChangedAlerts.showRepeatChangedDialog(tla, model);
 

@@ -8,6 +8,9 @@ package com.todoroo.astrid.ui;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -309,6 +312,15 @@ public class QuickAddBar extends LinearLayout {
             TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
 
             String assignedTo = peopleControl.getAssignedToString();
+            String assignedEmail = "";
+            long assignedId = Task.USER_ID_IGNORE;
+            try {
+                JSONObject assignedUser = new JSONObject(task.getValue(Task.USER));
+                assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE);
+            } catch (JSONException e) {
+                //
+            }
 
             resetControlSets();
 
@@ -318,7 +330,7 @@ public class QuickAddBar extends LinearLayout {
                 fragment.showTaskEditHelpPopover();
 
             if (activity instanceof TaskListActivity && !assignedToMe)
-                ((TaskListActivity) activity).switchToAssignedFilter(assignedTo);
+                ((TaskListActivity) activity).taskAssignedTo(assignedTo, assignedEmail, assignedId);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
