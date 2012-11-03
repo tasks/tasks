@@ -121,6 +121,7 @@ public class SubtasksHelper {
             Long remoteId = idMap.get(child.taskId);
             if (remoteId == null || remoteId <= 0) {
                 children.remove(i);
+                children.addAll(i, child.children);
                 i--;
             } else {
                 child.taskId = remoteId;
