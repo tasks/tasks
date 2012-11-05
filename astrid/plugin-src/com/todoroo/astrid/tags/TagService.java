@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -257,6 +258,11 @@ public final class TagService {
                     MetadataCriteria.byTask(taskId), Criterion.not(TAG.in(getEmergentTags())));
         Query query = Query.select(TAG, REMOTE_ID).where(criterion).orderBy(Order.asc(Functions.upper(TAG)));
         return metadataDao.query(query);
+    }
+
+    public TodorooCursor<TagData> getTagDataForTask(long taskId, Criterion additionalCriterion, Property<?>... properties) {
+        Criterion criterion = TagData.NAME.in(Query.select(TAG).from(Metadata.TABLE).where(MetadataCriteria.byTaskAndwithKey(taskId, KEY)));
+        return tagDataService.query(Query.select(properties).where(Criterion.and(criterion, additionalCriterion)));
     }
 
     /**
