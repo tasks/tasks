@@ -140,9 +140,15 @@ public class TasksWidget extends AppWidgetProvider {
             if(intent != null)
                 extrasId = intent.getIntExtra(EXTRA_WIDGET_ID, extrasId);
             if(extrasId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                for(int id : manager.getAppWidgetIds(thisWidget)) {
-                    RemoteViews updateViews = buildUpdate(this, id);
-                    manager.updateAppWidget(id, updateViews);
+                int[] ids;
+                try {
+                    ids = manager.getAppWidgetIds(thisWidget);
+                    for(int id : ids) {
+                        RemoteViews updateViews = buildUpdate(this, id);
+                        manager.updateAppWidget(id, updateViews);
+                    }
+                } catch (RuntimeException e) {
+                    // "System server dead" was sometimes thrown here by the OS. Abort if that happens
                 }
             } else {
                 int id = extrasId;
