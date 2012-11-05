@@ -186,6 +186,7 @@ public class Notifications extends BroadcastReceiver {
 
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
+        task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_UNSEEN);
         taskDao.saveExisting(task);
 
         Context context = ContextManager.getContext();

@@ -88,8 +88,6 @@ import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
@@ -139,6 +137,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.NOTES,
         Task.USER_ID,
         Task.USER,
+        Task.REMINDER_LAST,
+        Task.SOCIAL_REMINDER,
         TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
         TAGS // Concatenated list of tags
     };
@@ -1212,9 +1212,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             completedItems.put(task.getId(), newState);
             taskService.setComplete(task, newState);
-
-            if(newState)
-                StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_V2);
         }
     }
 

@@ -12,6 +12,8 @@ public class StatisticsConstants {
     public static final String ACTFM_TASK_COMMENT = "actfm-task-comment";
     public static final String ACTFM_NEW_USER = "actfm-new-user";
     public static final String TASK_COMPLETED_V2 = "task-completed-v2";
+    public static final String TASK_COMPLETED_ONE_DAY = "task-completed-one-day";
+    public static final String TASK_COMPLETED_ONE_WEEK = "task-completed-one-week";
     public static final String USER_FIRST_TASK = "user-first-task";
     public static final String USER_FIRST_LIST = "user-first-list";
     public static final String LOST_TASKS_RESTORED = "lost-tasks-restored";

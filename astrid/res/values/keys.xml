@@ -67,6 +67,9 @@
   <!-- show featured lists -->
   <string name="p_show_featured_lists">show_featured_lists_labs</string>
   
+  <!-- social reminders (show faces) -->
+  <string name="p_social_reminders">social_reminders</string>
+  
   <!-- account status section key -->
   <string name="p_account">account</string>
   

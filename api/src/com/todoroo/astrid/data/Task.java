@@ -121,6 +121,11 @@ public final class Task extends RemoteModel {
     public static final LongProperty REMINDER_LAST = new LongProperty(
             TABLE, "lastNotified");
 
+    /** What kind of reminder the last reminder was: private task,
+     *  social with no faces, social with faces */
+    public static final StringProperty SOCIAL_REMINDER = new StringProperty(
+            TABLE, "socialReminder");
+
     /** Unixtime snooze is set (0 -> no snooze) */
     public static final LongProperty REMINDER_SNOOZE = new LongProperty(
             TABLE, "snoozeTime");
@@ -208,6 +213,13 @@ public final class Task extends RemoteModel {
     public static final int IMPORTANCE_SHOULD_DO = 2;
     public static final int IMPORTANCE_NONE = 3;
 
+    // --- social reminder types
+
+    public static final String REMINDER_SOCIAL_UNSEEN = "unseen";
+    public static final String REMINDER_SOCIAL_PRIVATE = "private";
+    public static final String REMINDER_SOCIAL_NO_FACES = "no_faces";
+    public static final String REMINDER_SOCIAL_FACES = "faces";
+
     /**
      * @return colors that correspond to importance values
      */
@@ -244,6 +256,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(REMINDER_PERIOD.name, 0);
         defaultValues.put(REMINDER_FLAGS.name, 0);
         defaultValues.put(REMINDER_LAST.name, 0);
+        defaultValues.put(SOCIAL_REMINDER.name, REMINDER_SOCIAL_UNSEEN);
         defaultValues.put(REMINDER_SNOOZE.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
         defaultValues.put(ELAPSED_SECONDS.name, 0);

@@ -7,6 +7,7 @@ package com.todoroo.astrid.reminders;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -114,9 +115,8 @@ public class ReminderDialog extends Dialog {
         findViewById(R.id.reminder_complete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Task task = new Task();
-                task.setId(taskId);
-                PluginServices.getTaskService().setComplete(task, true);
+                Task task = taskService.fetchById(taskId, Task.ID, Task.REMINDER_LAST, Task.SOCIAL_REMINDER);
+                taskService.setComplete(task, true);
                 activity.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 Toast.makeText(activity,
                         R.string.rmd_NoA_completed_toast,
@@ -147,19 +147,22 @@ public class ReminderDialog extends Dialog {
     private void setupSpeechBubble(Activity activity, long taskId) {
         ((TextView) findViewById(R.id.reminder_message)).setText(
                 Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
-        if (true)
-            addFacesToReminder(activity, taskId);
+
+        Task task = taskService.fetchById(taskId, Task.ID, Task.SHARED_WITH);
+        addFacesToReminder(activity, task);
     }
 
-    private void addFacesToReminder(Activity activity, long taskId) {
+    private void addFacesToReminder(Activity activity, Task task) {
         LinkedHashSet<String> pictureUrls = new LinkedHashSet<String>();
-        addSharedWithFaces(taskId, pictureUrls);
+        AtomicBoolean isSharedTask = new AtomicBoolean(false);
+
+        addSharedWithFaces(task, pictureUrls, isSharedTask);
 
         if (pictureUrls.size() < MAX_FACES) {
-            addTagFaces(taskId, pictureUrls);
+            addTagFaces(task.getId(), pictureUrls, isSharedTask);
         }
 
-        if (pictureUrls.size() > 0) {
+        if (pictureUrls.size() > 0 && Preferences.getBoolean(R.string.p_social_reminders, false)) {
             DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
             LinearLayout layout = new LinearLayout(activity);
             LinearLayout.LayoutParams containerParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -188,15 +191,23 @@ public class ReminderDialog extends Dialog {
 
             ((TextView) findViewById(R.id.reminder_message)).setText(
                     Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminders_social)));
+
+            task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_FACES);
+        } else {
+            if (isSharedTask.get())
+                task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_NO_FACES);
+            else
+                task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_PRIVATE);
         }
     }
 
-    private void addPicturesFromJSONArray(JSONArray array, LinkedHashSet<String> pictureUrls) throws JSONException {
+    private void addPicturesFromJSONArray(JSONArray array, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) throws JSONException {
         for (int i = 0; i < array.length(); i++) {
             JSONObject person = array.getJSONObject(i);
             if (person.has("picture")) { //$NON-NLS-1$
                 if (person.optLong("id") == ActFmPreferenceService.userId()) //$NON-NLS-1$
                     continue;
+                isSharedTask.set(true);
                 String pictureUrl = person.getString("picture"); //$NON-NLS-1$
                 if (!TextUtils.isEmpty(pictureUrl)) {
                     pictureUrls.add(pictureUrl);
@@ -205,20 +216,19 @@ public class ReminderDialog extends Dialog {
         }
     }
 
-    private void addSharedWithFaces(long taskId, LinkedHashSet<String> pictureUrls) {
-        Task t = taskService.fetchById(taskId, Task.SHARED_WITH);
+    private void addSharedWithFaces(Task t, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) {
         try {
             JSONObject sharedWith = new JSONObject(t.getValue(Task.SHARED_WITH));
             if (sharedWith.has("p")) { //$NON-NLS-1$
                 JSONArray people = sharedWith.getJSONArray("p"); //$NON-NLS-1$
-                addPicturesFromJSONArray(people, pictureUrls);
+                addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
             }
         } catch (JSONException e) {
             //
         }
     }
 
-    private void addTagFaces(long taskId, LinkedHashSet<String> pictureUrls) {
+    private void addTagFaces(long taskId, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) {
         TodorooCursor<TagData> tags = tagService.getTagDataForTask(taskId, TagData.MEMBER_COUNT.gt(0), TagData.MEMBERS);
         try {
             TagData td = new TagData();
@@ -226,7 +236,7 @@ public class ReminderDialog extends Dialog {
                 td.readFromCursor(tags);
                 try {
                     JSONArray people = new JSONArray(td.getValue(TagData.MEMBERS));
-                    addPicturesFromJSONArray(people, pictureUrls);
+                    addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
                 } catch (JSONException e) {
                     //
                 }

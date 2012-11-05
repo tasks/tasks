@@ -121,10 +121,27 @@ public class TaskService {
      * @param item
      */
     public void setComplete(Task item, boolean completed) {
-        if(completed)
+        if(completed) {
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        else
+
+            long reminderLast = item.getValue(Task.REMINDER_LAST);
+            String socialReminder = item.getValue(Task.SOCIAL_REMINDER);
+            if (reminderLast > 0) {
+                long diff = DateUtilities.now() - reminderLast;
+                if (diff > 0 && diff < DateUtilities.ONE_DAY) {
+                    // within one day of last reminder
+                    StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_ONE_DAY, "social", socialReminder); //$NON-NLS-1$
+                }
+                if (diff > 0 && diff < DateUtilities.ONE_WEEK) {
+                    // within one week of last reminder
+                    StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_ONE_WEEK, "social", socialReminder); //$NON-NLS-1$
+                }
+            }
+            StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_V2);
+        } else {
             item.setValue(Task.COMPLETION_DATE, 0L);
+        }
+
         taskDao.save(item);
     }
 
