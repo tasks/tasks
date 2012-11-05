@@ -357,7 +357,7 @@ public class QuickAddBar extends LinearLayout {
                 metadataService.save(fileMetadata);
             }
 
-            fragment.incrementFilterCount();
+            fragment.onTaskCreated(task);
 
             StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
             return task;

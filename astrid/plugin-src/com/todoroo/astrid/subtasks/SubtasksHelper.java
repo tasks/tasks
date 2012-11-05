@@ -1,9 +1,14 @@
 package com.todoroo.astrid.subtasks;
 
+import java.util.ArrayList;
+
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -11,7 +16,6 @@ import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -48,35 +52,46 @@ public class SubtasksHelper {
     public static String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
-            if(tagName == null)
-                tagName = SubtasksMetadata.LIST_ACTIVE_TASKS;
-            else {
-                TagData tag = PluginServices.getTagDataService().getTag(tagName, TagData.PROPERTIES);
-                if (tag != null)
-                    tagName = "td:"+tag.getId();
-                else
-                    tagName = SubtasksMetadata.LIST_ACTIVE_TASKS;
-            }
-            String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s' AND %s = '%s') ",
-                    Metadata.TABLE, Task.ID, Metadata.TASK,
-                    Metadata.KEY, SubtasksMetadata.METADATA_KEY,
-                    SubtasksMetadata.TAG, tagName);
+            TagData tagData = PluginServices.getTagDataService().getTag(tagName, TagData.TAG_ORDERING);
 
-            if(!query.contains(subtaskJoin)) {
-                query = subtaskJoin + query;
-                query = query.replaceAll("ORDER BY .*", "");
-                query = query + String.format(" ORDER BY %s, %s, IFNULL(CAST(%s AS LONG), %s)",
-                        Task.DELETION_DATE, Task.COMPLETION_DATE,
-                        SubtasksMetadata.ORDER, Task.CREATION_DATE);
-                if (limit > 0)
-                    query = query + " LIMIT " + limit;
-                query = query.replace(TaskCriteria.isVisible().toString(),
-                        Criterion.all.toString());
+            query = query.replaceAll("ORDER BY .*", "");
+            query = query + String.format(" ORDER BY %s, %s, %s, %s",
+                    Task.DELETION_DATE, Task.COMPLETION_DATE,
+                    getOrderString(tagData), Task.CREATION_DATE);
+            if (limit > 0)
+                query = query + " LIMIT " + limit;
+            query = query.replace(TaskCriteria.isVisible().toString(),
+                    Criterion.all.toString());
 
-                filter.setFilterQueryOverride(query);
-            }
+            filter.setFilterQueryOverride(query);
         }
         return query;
+    }
+
+    private static String getOrderString(TagData tagData) {
+        String serialized;
+        if (tagData != null)
+            serialized = tagData.getValue(TagData.TAG_ORDERING);
+        else
+            serialized = Preferences.getStringValue(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+
+        ArrayList<Long> ids = getIdArray(serialized);
+        return AstridOrderedListUpdater.buildOrderString(ids.toArray(new Long[ids.size()]));
+    }
+
+    @SuppressWarnings("nls")
+    private static ArrayList<Long> getIdArray(String serializedTree) {
+        ArrayList<Long> ids = new ArrayList<Long>();
+        String[] digitsOnly = serializedTree.split("\\D+");
+        for (String idString : digitsOnly) {
+            try {
+                if (!TextUtils.isEmpty(idString))
+                    ids.add(Long.parseLong(idString));
+            } catch (NumberFormatException e) {
+                Log.e("widget-subtasks", "error parsing id " + idString, e);
+            }
+        }
+        return ids;
     }
 
 }
