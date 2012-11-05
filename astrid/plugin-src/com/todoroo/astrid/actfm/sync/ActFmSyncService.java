@@ -76,6 +76,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
@@ -942,7 +943,8 @@ public final class ActFmSyncService {
         invokeFetchList("task", manual, handler, new TaskListItemProcessor(manual) {
             @Override
             protected void saveOrdering(JSONArray ordering) {
-                Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, ordering.toString());
+                String localOrdering = SubtasksHelper.convertTreeToLocalIds(ordering.toString());
+                Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, localOrdering);
             }
         }, done, "active_tasks");
     }
@@ -966,7 +968,8 @@ public final class ActFmSyncService {
 
             @Override
             protected void saveOrdering(JSONArray ordering) {
-                tagData.setValue(TagData.TAG_ORDERING, ordering.toString());
+                String localOrdering = SubtasksHelper.convertTreeToLocalIds(ordering.toString());
+                tagData.setValue(TagData.TAG_ORDERING, localOrdering);
                 PluginServices.getTagDataService().save(tagData);
             }
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
