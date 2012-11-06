@@ -7,6 +7,7 @@ package com.todoroo.astrid.test;
 
 import java.io.File;
 
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.legacy.AlarmDatabase;
@@ -38,6 +39,7 @@ public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 	    super.setUp();
 
 		// empty out test databases
+	    assertNotNull(ContextManager.getContext());
 	    database.clear();
 		database.openForWriting();
 

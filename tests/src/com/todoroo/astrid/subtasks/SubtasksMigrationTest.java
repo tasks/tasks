@@ -95,8 +95,8 @@ public class SubtasksMigrationTest extends SubtasksTestCase {
      *  A
      */
 
-    private static final String ACTIVE_TASKS_TREE = "[{\"1\":[{\"2\":[]}]}, {\"3\":[{\"4\":[{\"5\":[]}]}, {\"6\":[]}]}]".replaceAll("\\s", "");
-    private static final String TAG_DATA_TREE = "[{\"6\":[]}, {\"5\":[{\"2\":[]}, {\"4\":[{\"3\":[]}]}]}, {\"1\":[]}]".replaceAll("\\s", "");
+    private static final String ACTIVE_TASKS_TREE = "[-1, [1, 2], [3, [4, 5], 6]]".replaceAll("\\s", "");
+    private static final String TAG_DATA_TREE = "[-1, 6, [5, 2, [4,3]], 1]".replaceAll("\\s", "");
 
     private void createAdvancedMetadata(TagData tagData) {
         createSubtasksMetadata(tagData, 6, 1, 0);
