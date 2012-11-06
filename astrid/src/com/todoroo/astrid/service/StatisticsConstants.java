@@ -75,6 +75,7 @@ public class StatisticsConstants {
     public static final String TASK_RABBIT_LOGIN = "task-rabbit-login";
     public static final String SHARE_PAGE_VIEWED = "share-page-viewed";
     public static final String SHARE_BUTTON_CLICKED = "share-button-clicked";
+    public static final String PREMIUM_PAGE_VIEWED = "premium-page-viewed";
 
     public static final String SUBTASKS_HAS_TASKS = "subtasks-has-tasks";
     public static final String SUBTASKS_ORDER_USED = "subtasks-order-used";
