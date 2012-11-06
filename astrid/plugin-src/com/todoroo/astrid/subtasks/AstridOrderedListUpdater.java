@@ -354,7 +354,6 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
 
         try {
-            tree.put(-1L);
             recursivelySerialize(root, tree);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error serializing tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
@@ -362,7 +361,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return tree.toString();
     }
 
-    public static void recursivelySerialize(Node node, JSONArray serializeTo) throws JSONException {
+    private static void recursivelySerialize(Node node, JSONArray serializeTo) throws JSONException {
         ArrayList<Node> children = node.children;
         serializeTo.put(node.taskId);
         for (Node child : children) {
