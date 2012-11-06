@@ -651,14 +651,18 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && ((Boolean) newValue))
-                    CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
-                return true;
-            }
-        });
+        if (AndroidUtilities.getSdkVersion() <= 7) {
+            searchForAndRemovePreference(getPreferenceScreen(), getString(R.string.p_calendar_reminders));
+        } else {
+            findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue != null && ((Boolean) newValue))
+                        CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
+                    return true;
+                }
+            });
+        }
 
         findPreference(getString(R.string.p_statistics)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override

@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -66,6 +67,9 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
             long eventId, boolean fromPostpone) {
         ContentResolver cr = context.getContentResolver();
         Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
+
+        if (AndroidUtilities.getSdkVersion() <= 7)
+            return;
 
         String[] eventArg = new String[] { Long.toString(eventId) };
         Cursor event = cr.query(eventUri,
