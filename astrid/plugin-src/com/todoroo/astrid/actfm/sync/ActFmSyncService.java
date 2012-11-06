@@ -1268,11 +1268,18 @@ public final class ActFmSyncService {
 
         @Override
         public void processExtras(JSONObject fullResult) {
-            if (!fullResult.has("ordering"))
+            if (!fullResult.has("order"))
                 return;
 
             try {
-                JSONArray ordering = fullResult.getJSONArray("ordering");
+                JSONArray ordering = fullResult.getJSONArray("order");
+                if (ordering.optLong(0) != -1L) {
+                    JSONArray newOrdering = new JSONArray();
+                    newOrdering.put(-1L);
+                    for (int i = 0; i < ordering.length(); i++)
+                        newOrdering.put(ordering.get(i));
+                    ordering = newOrdering;
+                }
                 saveOrdering(ordering);
             } catch (JSONException e) {
                 Log.e("sync-ordering", "Error getting ordering from result " + fullResult , e);
