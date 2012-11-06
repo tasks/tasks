@@ -85,7 +85,7 @@ public class SubtasksHelper {
     @SuppressWarnings("nls")
     public static Long[] getIdArray(String serializedTree) {
         ArrayList<Long> ids = new ArrayList<Long>();
-        String[] digitsOnly = serializedTree.split("\\D+");
+        String[] digitsOnly = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : digitsOnly) {
             try {
                 if (!TextUtils.isEmpty(idString))
@@ -108,6 +108,7 @@ public class SubtasksHelper {
     private static String convertIdTree(String treeString, boolean localToRemote) {
         Long[] ids = getIdArray(treeString);
         HashMap<Long, Long> idMap = buildIdMap(ids, localToRemote);
+        idMap.put(-1L, -1L);
 
         Node tree = AstridOrderedListUpdater.buildTreeModel(treeString, null);
         remapTree(tree, idMap);
