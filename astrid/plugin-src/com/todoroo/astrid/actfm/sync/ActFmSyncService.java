@@ -133,11 +133,17 @@ public final class ActFmSyncService {
     private final List<FailedPush> failedPushes = Collections.synchronizedList(new LinkedList<FailedPush>());
     private Thread pushRetryThread = null;
     private Runnable pushRetryRunnable;
+
+    private Thread pushTagOrder = null;
+    private Runnable pushTagOrderRunnable;
+    private final List<Long> tagOrderQueue = Collections.synchronizedList(new LinkedList<Long>());
+
     private final AtomicInteger taskPushThreads = new AtomicInteger(0);
     private final ConditionVariable waitUntilEmpty = new ConditionVariable(true);
 
     public void initialize() {
         initializeRetryRunnable();
+        initializeTagOrderRunnable();
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             @Override
@@ -247,6 +253,35 @@ public final class ActFmSyncService {
                                 pushUpdate(pushOp.itemId);
                                 break;
                             }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private static final long WAIT_BEFORE_PUSH_ORDER = 15 * 1000;
+    private void initializeTagOrderRunnable() {
+        pushTagOrderRunnable = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    if(tagOrderQueue.isEmpty()) {
+                        synchronized(ActFmSyncService.this) {
+                            pushTagOrder = null;
+                            return;
+                        }
+                    }
+                    if (tagOrderQueue.size() > 0) {
+                        try {
+                            AndroidUtilities.sleepDeep(WAIT_BEFORE_PUSH_ORDER);
+                            Long tagDataId = tagOrderQueue.take();
+                            TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
+                            if (td != null) {
+                                pushTagOrdering(td);
+                            }
+                        } catch (InterruptedException e) {
+                            continue;
                         }
                     }
                 }
@@ -552,6 +587,40 @@ public final class ActFmSyncService {
         pushUpdateOnSave(update, update.getMergedValues(), imageData);
     }
 
+    public void pushTagOrderingOnSave(long tagDataId) {
+        if (!tagOrderQueue.contains(tagDataId)) {
+            tagOrderQueue.offer(tagDataId);
+            synchronized(this) {
+                if(pushTagOrder == null) {
+                    pushTagOrder = new Thread(pushTagOrderRunnable);
+                    pushTagOrder.start();
+                }
+            }
+        }
+    }
+
+    private void pushTagOrdering(TagData tagData) {
+        if (!checkForToken())
+            return;
+
+        Long remoteId = tagData.getValue(TagData.REMOTE_ID);
+        if (remoteId == null || remoteId <= 0)
+            return;
+
+        ArrayList<Object> params = new ArrayList<Object>();
+
+        params.add("id"); params.add(remoteId);
+        params.add("order");
+        params.add(SubtasksHelper.convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING)));
+        params.add("token"); params.add(token);
+
+        try {
+            actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
+        } catch (IOException e) {
+            handleException("push-tag-order", e);
+        }
+    }
+
     /**
      * Send tagData changes to server
      * @param setValues
@@ -617,11 +686,6 @@ public final class ActFmSyncService {
             params.add("is_silent");
             boolean silenced = tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT);
             params.add(silenced ? "1" : "0");
-        }
-
-        if (values.containsKey(TagData.TAG_ORDERING.name)) {
-                params.add("order");
-                params.add(SubtasksHelper.convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING)));
         }
 
         if(params.size() == 0 || !checkForToken())
