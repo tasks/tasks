@@ -619,6 +619,11 @@ public final class ActFmSyncService {
             params.add(silenced ? "1" : "0");
         }
 
+        if (values.containsKey(TagData.TAG_ORDERING.name)) {
+                params.add("order");
+                params.add(SubtasksHelper.convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING)));
+        }
+
         if(params.size() == 0 || !checkForToken())
             return;
 
