@@ -273,15 +273,11 @@ public final class ActFmSyncService {
                         }
                     }
                     if (tagOrderQueue.size() > 0) {
-                        try {
-                            AndroidUtilities.sleepDeep(WAIT_BEFORE_PUSH_ORDER);
-                            Long tagDataId = tagOrderQueue.take();
-                            TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
-                            if (td != null) {
-                                pushTagOrdering(td);
-                            }
-                        } catch (InterruptedException e) {
-                            continue;
+                        AndroidUtilities.sleepDeep(WAIT_BEFORE_PUSH_ORDER);
+                        Long tagDataId = tagOrderQueue.remove(0);
+                        TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
+                        if (td != null) {
+                            pushTagOrdering(td);
                         }
                     }
                 }
@@ -589,7 +585,7 @@ public final class ActFmSyncService {
 
     public void pushTagOrderingOnSave(long tagDataId) {
         if (!tagOrderQueue.contains(tagDataId)) {
-            tagOrderQueue.offer(tagDataId);
+            tagOrderQueue.add(tagDataId);
             synchronized(this) {
                 if(pushTagOrder == null) {
                     pushTagOrder = new Thread(pushTagOrderRunnable);
