@@ -270,7 +270,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         parent.children.remove(moveThis);
         treeRoot.children.add(moveThis);
         moveThis.parent = treeRoot;
-        moveThis.indent = 0;
+        setNodeIndent(moveThis, 0);
         writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
@@ -326,20 +326,18 @@ public abstract class AstridOrderedListUpdater<LIST> {
     private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback) throws JSONException {
         for (int i = 1; i < children.length(); i++) {
             JSONArray subarray = children.optJSONArray(i);
-            if (subarray == null) {
-                Long id = children.getLong(i);
-                Node child = new Node(id, node, node.indent + 1);
-                node.children.add(child);
-                if (callback != null)
-                    callback.afterAddNode(child);
-            } else {
-                Long id = subarray.getLong(0);
-                Node child = new Node(id, node, node.indent + 1);
+            Long id;
+            if (subarray == null)
+                id = children.getLong(i);
+            else
+                id = subarray.getLong(0);
+
+            Node child = new Node(id, node, node.indent + 1);
+            if (subarray != null)
                 recursivelyBuildChildren(child, subarray, callback);
-                node.children.add(child);
-                if (callback != null)
-                    callback.afterAddNode(child);
-            }
+            node.children.add(child);
+            if (callback != null)
+                callback.afterAddNode(child);
         }
     }
 
