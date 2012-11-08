@@ -276,6 +276,18 @@
   <!-- Login error: wrong password -->
   <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   
+  <!-- Forgot password link -->
+  <string name="actfm_ALA_forgot_password">Forgot password?</string>
+  
+  <!-- Forgot password email prompt -->
+  <string name="actfm_ALA_enter_email">Please enter your email</string>
+  
+  <!-- Password reset sent (%s -> email) -->
+  <string name="actfm_ALA_reset_sent">Password reset sent to %s</string>
+  
+  <!-- User not found -->
+  <string name="actfm_ALA_error_user_not_found">User not found by that email. Try signing up instead!</string>
+  
   <!-- ================================================ Featured Lists -->
 
   <string name="actfm_feat_list_clone">Copy list</string>
