@@ -291,20 +291,22 @@ public class TagViewFragment extends TaskListFragment {
 
     /** refresh the list with latest data from the web */
     private void refreshData(final boolean manual) {
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+        if (actFmPreferenceService.isLoggedIn()) {
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-                R.id.progressBar, new Runnable() {
-            @Override
-            public void run() {
-                if (manual)
-                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                else
-                    refresh();
-                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-            }
-        }));
-        Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
+            syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
+                    R.id.progressBar, new Runnable() {
+                @Override
+                public void run() {
+                    if (manual)
+                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                    else
+                        refresh();
+                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                }
+            }));
+            Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
+        }
     }
 
     protected void setUpMembersGallery() {
