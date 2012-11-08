@@ -12,6 +12,14 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         super.setUp();
         createTasks();
         updater.initializeFromSerializedTree(null, filter, DEFAULT_SERIALIZED_TREE);
+
+        // Assert initial state is correct
+        expectParentAndPosition(A, null, 0);
+        expectParentAndPosition(B, A, 0);
+        expectParentAndPosition(C, A, 1);
+        expectParentAndPosition(D, C, 0);
+        expectParentAndPosition(E, null, 1);
+        expectParentAndPosition(F, null, 2);
     }
 
     private void createTasks() {

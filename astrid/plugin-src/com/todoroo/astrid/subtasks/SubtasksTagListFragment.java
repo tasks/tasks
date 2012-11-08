@@ -79,4 +79,9 @@ public class SubtasksTagListFragment extends TagViewFragment {
         return helper.createTaskAdapter(cursor, sqlQueryTemplate);
     }
 
+    @Override
+    protected void refresh() {
+        setUpTaskList();
+    }
+
 }

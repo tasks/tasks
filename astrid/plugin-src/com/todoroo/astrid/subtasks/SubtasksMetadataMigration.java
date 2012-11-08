@@ -2,9 +2,6 @@ package com.todoroo.astrid.subtasks;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -99,14 +96,7 @@ public class SubtasksMetadataMigration {
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);
         }
-
-        try {
-            JSONArray array = new JSONArray();
-            AstridOrderedListUpdater.recursivelySerialize(root, array);
-            return array.toString();
-        } catch (JSONException e) {
-            return "[]"; //$NON-NLS-1$
-        }
+        return AstridOrderedListUpdater.serializeTree(root);
     }
 
     private Node findNextParentForIndent(Node root, int indent) {
