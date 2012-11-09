@@ -143,7 +143,7 @@ public class ABTests {
         addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }); //$NON-NLS-1$ //$NON-NLS-2$
 
-        addTest(AB_DRAG_DROP, new int[] { 0, 1 },
+        addTest(AB_DRAG_DROP, new int[] { 3, 1 },
                 new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }
