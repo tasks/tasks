@@ -1083,10 +1083,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * Comments button in action bar was clicked
      */
     protected void handleCommentsButtonClicked() {
-        Intent intent = new Intent(getActivity(), CommentsActivity.class);
-        intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
-        startActivity(intent);
-        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+        Activity activity = getActivity();
+        if (activity != null) {
+            Intent intent = new Intent(activity, CommentsActivity.class);
+            intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
+            startActivity(intent);
+            AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
+        }
     }
 
     @Override
