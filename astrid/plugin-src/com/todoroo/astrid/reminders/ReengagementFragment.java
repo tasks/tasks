@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.activity.DisposableTaskListFragment;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.service.ThemeService;
 
-public class ReengagementFragment extends DisposableTaskListFragment {
+public class ReengagementFragment extends TaskListFragment {
 
     public static final String EXTRA_TEXT = "dialogText"; //$NON-NLS-1$
 

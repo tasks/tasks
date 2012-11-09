@@ -402,10 +402,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         setCommentsCount(0);
 
         if (swipeIsEnabled()) {
-            TaskListFragment currentFragment = getTaskListFragment();
-            if (currentFragment instanceof DisposableTaskListFragment) {
-                tlfPagerAdapter.remove(currentFragment.filter);
-            }
             TaskListFragmentPager.showSwipeBetweenHelper(this);
             tlfPager.showFilter((Filter) item);
             return true;

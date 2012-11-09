@@ -26,7 +26,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.activity.DisposableTaskListFragment;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -40,7 +40,7 @@ import com.todoroo.astrid.ui.NumberPicker;
  * @author timsu
  *
  */
-public class NotificationFragment extends DisposableTaskListFragment {
+public class NotificationFragment extends TaskListFragment {
 
     // --- constants
 
