@@ -127,6 +127,8 @@ public class ABTests {
 
     public static final String AB_SOCIAL_REMINDERS = "android_social_reminders";  //$NON-NLS-1$
 
+    public static final String AB_DRAG_DROP = "android_drag_drop"; //$NON-NLS-1$
+
     private void initialize() {
 
         addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
@@ -140,5 +142,8 @@ public class ABTests {
 
         addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }); //$NON-NLS-1$ //$NON-NLS-2$
+
+        addTest(AB_DRAG_DROP, new int[] { 0, 1 },
+                new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

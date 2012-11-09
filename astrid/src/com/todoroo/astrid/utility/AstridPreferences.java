@@ -19,6 +19,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
@@ -83,6 +84,23 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_social_reminders,
                 ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
+
+        String dragDropTestInitialized = ABTests.AB_DRAG_DROP + "_initialized"; //$NON-NLS-1$
+        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
+            if (ABChooser.readChoiceForTest(ABTests.AB_DRAG_DROP) != 0) {
+                SharedPreferences publicPrefs = getPublicPrefs(context);
+                if (publicPrefs != null) {
+                    Editor edit = publicPrefs.edit();
+                    if (edit != null) {
+                        edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
+                        edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                        edit.commit();
+                        Preferences.setInt(P_SUBTASKS_HELP, 1);
+                    }
+                }
+            }
+            Preferences.setBoolean(dragDropTestInitialized, true);
+        }
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
