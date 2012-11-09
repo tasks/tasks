@@ -182,6 +182,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         taskAdapter = new DraggableTaskAdapter(fragment, resource,
                 cursor, sqlQueryTemplate, false, null);
 
+        getTouchListView().setItemHightNormal(taskAdapter.computeFullRowHeight());
+
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
             @Override
             public void onCompletedTask(Task item, boolean newState) {
@@ -201,6 +203,11 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                     onCompletedTaskListener);
 
             applyListeners = APPLY_LISTENERS_NONE;
+        }
+
+        @Override
+        protected int computeMinRowHeight() {
+            return (int) (metrics.density * 40);
         }
 
         @Override

@@ -107,6 +107,10 @@ public class DraggableListView extends ListView {
         setSelector(R.drawable.none);
     }
 
+    public void setItemHightNormal(int itemHeightNormal) {
+        this.mItemHeightNormal = itemHeightNormal;
+    }
+
     protected boolean isDraggableRow(@SuppressWarnings("unused") View view) {
         return true;
     }

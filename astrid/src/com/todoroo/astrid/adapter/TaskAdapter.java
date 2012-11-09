@@ -259,13 +259,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     }
 
-    private int computeMinRowHeight() {
+    protected int computeMinRowHeight() {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         if (simpleLayout) {
             return (int) (metrics.density * 40);
         } else {
             return (int) (metrics.density * 45);
         }
+    }
+
+    public int computeFullRowHeight() {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return minRowHeight + (int) (10 * metrics.density);
     }
 
     private void startDetailThread() {

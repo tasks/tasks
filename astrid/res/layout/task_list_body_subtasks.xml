@@ -30,8 +30,6 @@
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false"
         style="@style/ListView"
-        
-        tlv:normal_height="45dip"
     />
                 
 </FrameLayout>
