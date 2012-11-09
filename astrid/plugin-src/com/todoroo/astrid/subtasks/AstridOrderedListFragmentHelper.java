@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -21,6 +22,9 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -263,14 +267,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         updater.applyToDescendants(itemId, new AstridOrderedListUpdater.OrderedListNodeVisitor() {
             @Override
             public void visitNode(AstridOrderedListUpdater.Node node) {
-//                Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
-//
-//                if(!TextUtils.isEmpty(childTask.getValue(Task.RECURRENCE))) {
-//                    Metadata metadata = updater.getTaskMetadata(list, node.taskId);
-//                    metadata.setValue(updater.indentProperty(), parentIndent);
-//                    metadataService.save(metadata);
-//                }
-
                 model.setId(node.taskId);
                 model.setValue(Task.COMPLETION_DATE, completionDate);
                 taskService.save(model);
@@ -282,6 +278,30 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         });
 
         if(chained.size() > 0) {
+            // move recurring items to item parent
+            TodorooCursor<Task> recurring = taskService.query(Query.select(Task.ID, Task.RECURRENCE).where(
+                    Criterion.and(Task.ID.in(chained.toArray(new Long[chained.size()])),
+                                   Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
+            try {
+                Task t = new Task();
+                boolean madeChanges = false;
+                for (recurring.moveToFirst(); !recurring.isAfterLast(); recurring.moveToNext()) {
+                    t.clear();
+                    t.readFromCursor(recurring);
+                    if (!TextUtils.isEmpty(t.getValue(Task.RECURRENCE))) {
+                        updater.moveToParentOf(t.getId(), itemId);
+                        madeChanges = true;
+                    }
+                }
+
+                if (madeChanges) {
+                    updater.writeSerialization(list, updater.serializeTree());
+                }
+            } finally {
+                recurring.close();
+            }
+
+
             chainedCompletions.put(itemId, chained);
             taskAdapter.notifyDataSetInvalidated();
         }

@@ -227,6 +227,24 @@ public abstract class AstridOrderedListUpdater<LIST> {
         moveHelper(list, filter, target, before);
     }
 
+    public void moveToParentOf(long moveThis, long toParentOfThis) {
+        Node target = idToNode.get(toParentOfThis);
+        if (target == null)
+            return;
+
+        Node toMove = idToNode.get(moveThis);
+        if (toMove == null)
+            return;
+
+        Node newParent = target.parent;
+        Node oldParent = toMove.parent;
+
+        oldParent.children.remove(toMove);
+        toMove.parent = newParent;
+        newParent.children.add(toMove);
+        setNodeIndent(toMove, toMove.parent.indent + 1);
+    }
+
     private void moveHelper(LIST list, Filter filter, Node moveThis, Node beforeThis) {
         Node oldParent = moveThis.parent;
         ArrayList<Node> oldSiblings = oldParent.children;
