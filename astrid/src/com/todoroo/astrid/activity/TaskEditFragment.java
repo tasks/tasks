@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
@@ -423,6 +424,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         } else {
             setCurrentTab(TAB_VIEW_UPDATES);
             setPagerHeightForPosition(TAB_VIEW_UPDATES);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mPager.getCurrentItem() == TAB_VIEW_UPDATES)
+                        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+                }
+            }, 500L);
         }
     }
 
