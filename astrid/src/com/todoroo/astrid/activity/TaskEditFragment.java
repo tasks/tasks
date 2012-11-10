@@ -431,8 +431,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mPager.getCurrentItem() == TAB_VIEW_UPDATES)
-                        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+                    updatesChanged();
                 }
             }, 500L);
         }
@@ -1409,7 +1408,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged()  {
-        //
+        if (mPager.getCurrentItem() == TAB_VIEW_UPDATES)
+            setPagerHeightForPosition(TAB_VIEW_UPDATES);
     }
 
     // EditNoteActivity Lisener when there are new updates/comments
