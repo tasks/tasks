@@ -25,7 +25,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
@@ -233,14 +232,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
 
-    private final Runnable refreshActivity = new Runnable() {
-        @Override
-        public void run() {
-            // Change state here
-            setPagerHeightForPosition(TAB_VIEW_UPDATES);
-        }
-    };
-
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
     // --- other instance variables
@@ -393,8 +384,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         editNotes.addListener(this);
 
-        Handler refreshHandler = new Handler();
-        refreshHandler.postDelayed(refreshActivity, 1000);
 
         if(hasTitle) {
             if(webServices == null) {
@@ -427,6 +416,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         commentsBar.setVisibility(View.VISIBLE);
         moreTab.setVisibility(View.VISIBLE);
+
+        if ((tabStyle & TaskEditViewPager.TAB_SHOW_MORE) > 0) {
+            setCurrentTab(TAB_VIEW_MORE);
+            setPagerHeightForPosition(TAB_VIEW_MORE);
+        } else {
+            setCurrentTab(TAB_VIEW_UPDATES);
+            setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        }
     }
 
     private void setCurrentTab(int position) {
@@ -1301,8 +1298,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public View getPageView(int position) {
         switch(getTabForPosition(position)) {
         case TAB_VIEW_MORE:
-            moreControls.setLayoutParams(mPager.getLayoutParams());
-            setViewHeightBasedOnChildren(moreControls);
             return moreControls;
         case TAB_VIEW_UPDATES:
             return editNotes;
@@ -1402,14 +1397,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged()  {
-        setCurrentTab(TAB_VIEW_UPDATES);
-        this.setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        //
     }
 
     // EditNoteActivity Lisener when there are new updates/comments
     @Override
     public void commentAdded() {
-        this.scrollToView(editNotes);
+        setCurrentTab(TAB_VIEW_UPDATES);
+        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        scrollToView(editNotes);
     }
 
     // Scroll to view in edit task
