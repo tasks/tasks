@@ -88,6 +88,8 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
@@ -418,7 +420,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         commentsBar.setVisibility(View.VISIBLE);
         moreTab.setVisibility(View.VISIBLE);
 
-        if ((tabStyle & TaskEditViewPager.TAB_SHOW_MORE) > 0) {
+        if ((tabStyle & TaskEditViewPager.TAB_SHOW_MORE) > 0
+                && ABChooser.readChoiceForTest(ABTests.AB_DEFAULT_EDIT_TAB) != 0) {
             setCurrentTab(TAB_VIEW_MORE);
             setPagerHeightForPosition(TAB_VIEW_MORE);
         } else {

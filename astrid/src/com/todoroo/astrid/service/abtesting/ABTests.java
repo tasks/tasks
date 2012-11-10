@@ -129,6 +129,8 @@ public class ABTests {
 
     public static final String AB_DRAG_DROP = "android_drag_drop"; //$NON-NLS-1$
 
+    public static final String AB_DEFAULT_EDIT_TAB = "android_default_edit_tab"; //$NON-NLS-1$
+
     private void initialize() {
 
         addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
@@ -145,5 +147,8 @@ public class ABTests {
 
         addTest(AB_DRAG_DROP, new int[] { 3, 1 },
                 new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }); //$NON-NLS-1$ //$NON-NLS-2$
+
+        addTest(AB_DEFAULT_EDIT_TAB, new int[] { 1, 1 },
+                new int[] { 1, 1 }, new String[] { "activity-tab", "details-tab" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }
