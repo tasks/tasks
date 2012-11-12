@@ -50,7 +50,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -77,7 +76,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
@@ -603,6 +601,9 @@ public final class ActFmSyncService {
         if (remoteId == null || remoteId <= 0)
             return;
 
+        // Make sure that all tasks are pushed before attempting to sync tag ordering
+        waitUntilEmpty();
+
         ArrayList<Object> params = new ArrayList<Object>();
 
         params.add("id"); params.add(remoteId);
@@ -614,6 +615,34 @@ public final class ActFmSyncService {
             actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
         } catch (IOException e) {
             handleException("push-tag-order", e);
+        }
+    }
+
+    public void fetchTagOrder(TagData tagData) {
+        if (!checkForToken())
+            return;
+
+        if (!(tagData.containsNonNullValue(TagData.REMOTE_ID) && tagData.getValue(TagData.REMOTE_ID) > 0))
+            return;
+
+        try {
+            JSONObject result = actFmInvoker.invoke("tag_order", "tag_id", tagData.getValue(TagData.REMOTE_ID));
+            JSONArray ordering = result.getJSONArray("order");
+            if (ordering.optLong(0) != -1L) {
+                JSONArray newOrdering = new JSONArray();
+                newOrdering.put(-1L);
+                for (int i = 0; i < ordering.length(); i++)
+                    newOrdering.put(ordering.get(i));
+                ordering = newOrdering;
+            }
+            String orderString = ordering.toString();
+            String localOrder = SubtasksHelper.convertTreeToLocalIds(orderString);
+            tagData.setValue(TagData.TAG_ORDERING, localOrder);
+            tagDataService.save(tagData);
+        } catch (JSONException e) {
+            handleException("fetch-tag-order-json", e);
+        } catch (IOException e) {
+            handleException("fetch-tag-order-io", e);
         }
     }
 
@@ -1005,13 +1034,7 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchActiveTasks(final boolean manual, SyncExceptionHandler handler, Runnable done) {
-        invokeFetchList("task", manual, handler, new TaskListItemProcessor(manual) {
-            @Override
-            protected void saveOrdering(JSONArray ordering) {
-                String localOrdering = SubtasksHelper.convertTreeToLocalIds(ordering.toString());
-                Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, localOrdering);
-            }
-        }, done, "active_tasks");
+        invokeFetchList("task", manual, handler, new TaskListItemProcessor(manual), done, "active_tasks");
     }
 
     /**
@@ -1029,13 +1052,6 @@ public final class ActFmSyncService {
                         TaskCriteria.activeAndVisible(),
                         Task.REMOTE_ID.isNotNull(),
                         Criterion.not(Task.ID.in(localIds))));
-            }
-
-            @Override
-            protected void saveOrdering(JSONArray ordering) {
-                String localOrdering = SubtasksHelper.convertTreeToLocalIds(ordering.toString());
-                tagData.setValue(TagData.TAG_ORDERING, localOrdering);
-                PluginServices.getTagDataService().save(tagData);
             }
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
@@ -1325,30 +1341,6 @@ public final class ActFmSyncService {
         public TaskListItemProcessor(boolean deleteExtras) {
             this.deleteExtras = deleteExtras;
             this.modificationDates = new HashMap<Long, Long>();
-        }
-
-        protected void saveOrdering(JSONArray ordering) {
-            // Subclasses should override
-        }
-
-        @Override
-        public void processExtras(JSONObject fullResult) {
-            if (!fullResult.has("order"))
-                return;
-
-            try {
-                JSONArray ordering = fullResult.getJSONArray("order");
-                if (ordering.optLong(0) != -1L) {
-                    JSONArray newOrdering = new JSONArray();
-                    newOrdering.put(-1L);
-                    for (int i = 0; i < ordering.length(); i++)
-                        newOrdering.put(ordering.get(i));
-                    ordering = newOrdering;
-                }
-                saveOrdering(ordering);
-            } catch (JSONException e) {
-                Log.e("sync-ordering", "Error getting ordering from result " + fullResult , e);
-            }
         }
 
         @Override

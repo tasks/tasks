@@ -534,6 +534,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             public void run() {
                 pushQueuedTasksByTag(tagData, callback, finisher);
 
+                actFmSyncService.fetchTagOrder(tagData);
+
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0)
                     callback.finished();
