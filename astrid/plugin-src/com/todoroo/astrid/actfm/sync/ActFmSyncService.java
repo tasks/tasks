@@ -626,8 +626,10 @@ public final class ActFmSyncService {
             return;
 
         try {
-            JSONObject result = actFmInvoker.invoke("tag_order", "tag_id", tagData.getValue(TagData.REMOTE_ID));
-            JSONArray ordering = result.getJSONArray("order");
+            JSONObject result = actFmInvoker.invoke("list_order", "tag_id", tagData.getValue(TagData.REMOTE_ID));
+            JSONArray ordering = result.optJSONArray("order");
+            if (ordering == null)
+                return;
             if (ordering.optLong(0) != -1L) {
                 JSONArray newOrdering = new JSONArray();
                 newOrdering.put(-1L);
