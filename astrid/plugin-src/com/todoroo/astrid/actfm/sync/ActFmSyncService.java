@@ -626,7 +626,7 @@ public final class ActFmSyncService {
             return;
 
         try {
-            JSONObject result = actFmInvoker.invoke("list_order", "tag_id", tagData.getValue(TagData.REMOTE_ID));
+            JSONObject result = actFmInvoker.invoke("list_order", "tag_id", tagData.getValue(TagData.REMOTE_ID), "token", token);
             JSONArray ordering = result.optJSONArray("order");
             if (ordering == null)
                 return;
