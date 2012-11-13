@@ -6,7 +6,6 @@
 -->
 <resources>
   
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
   <!-- slide 30a-->
   <string name="welcome_setting">Show tutorial</string>
   
@@ -53,7 +52,6 @@
   
   <string name="welcome_body_7_return">Tap Astrid to return.</string>
   
-  <string name="welcome_back">Back</string>
   <!-- slide 1c -->
   <string name="welcome_next">Next</string>
   

@@ -27,6 +27,8 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AsyncImageView;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -52,7 +54,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     }
 
     @Override
-    public void onTaskListItemClicked(long taskId) {
+    public void onTaskListItemClicked(long taskId, boolean editable) {
         // Do nothing
     }
 
@@ -64,7 +66,8 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
+        if (!isCurrentTaskListFragment())
+            return;
         MenuItem item = menu.add(Menu.NONE, MENU_CLONE_LIST, 0, R.string.actfm_feat_list_clone);
         item.setIcon(R.drawable.ic_menu_list_copy);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -113,11 +116,13 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     }
 
     private void cloneList() {
-     // Clone list
+        // Clone list
         if (taskAdapter == null || taskAdapter.getCount() == 0) {
             Toast.makeText(getActivity(), R.string.actfm_feat_list_clone_empty, Toast.LENGTH_LONG).show();
             return;
         }
+
+        StatisticsService.reportEvent(StatisticsConstants.FEATURED_LIST_CLONED);
         final String localName = tagData.getValue(TagData.NAME) + " " + getString(R.string.actfm_feat_list_suffix); //$NON-NLS-1$
         TagData clone = new TagData();
         TodorooCursor<TagData> existing = tagDataService.query(Query.select(TagData.PROPERTIES)

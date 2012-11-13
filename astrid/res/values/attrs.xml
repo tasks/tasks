@@ -28,12 +28,12 @@
   
   <attr name="asThemeTextColor" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
+  <attr name="asReadonlyTaskBackground" format="color" />
   <attr name="asListsDisclosure" format="reference"/>
   <attr name="asAddButtonImg" format="reference" />
   <attr name="asMicButtonImg" format="reference" />
   <attr name="asCommentButtonImg" format="reference" />
   <attr name="asFilledCommentButtonImg" format="reference" />
-  <attr name="asTaskEditArrow" format="reference" />
   <attr name="asRepeatIcon" format="reference" />
   <attr name="asMainMenu" format="reference" />
   <attr name="asPeopleMenu" format="reference" />

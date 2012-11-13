@@ -1,4 +1,4 @@
-# Catalan translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
-"PO-Revision-Date: 2012-04-10 11:27+0000\n"
-"Last-Translator: Xiscu <Unknown>\n"
-"Language-Team: ca <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-10-05 22:37+0000\n"
+"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
+"X-Generator: Launchpad (build 16130)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -242,12 +243,12 @@ msgstr "S'està sincronitzant..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
+msgid "Sync & backup"
 msgstr ""
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
+msgid "Astrid.com, Google Tasks, saved data, local backup"
 msgstr ""
 
 #. Error msg when io exception
@@ -269,19 +270,19 @@ msgstr ""
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
+msgid "Not logged in"
 msgstr ""
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
+msgid "Sync ongoing..."
 msgstr "Sincronització en curs..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
 msgctxt "sync_status_success"
 msgid ""
-"Last Sync:\n"
+"Last sync:\n"
 "%s"
 msgstr ""
 "Última sincronització:\n"
@@ -290,24 +291,24 @@ msgstr ""
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
-msgid "Failed On: %s"
+msgid "Failed on: %s"
 msgstr "Fallida el: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
+msgid "Sync w/ errors: %s"
 msgstr ""
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
+msgid "Last successful sync: %s"
 msgstr "Última sincronització correcte: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
-msgid "Never Synchronized!"
+msgid "Never synchronized!"
 msgstr "Mai sincronitzat!"
 
 #. Options Group Label
@@ -317,7 +318,7 @@ msgstr "Opcions"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
+msgid "Background sync"
 msgstr "Sincronitzar en segon pla"
 
 #. Preference: Synchronization Interval Description (when disabled)
@@ -333,8 +334,8 @@ msgstr "Actualment configurat en: %s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Configuració Wifi"
+msgid "Wifi only setting"
+msgstr ""
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
@@ -353,13 +354,13 @@ msgstr "Accions"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
+msgid "Synchronize now"
 msgstr ""
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "Ingressar & Sincronitzar!"
+msgid "Log in & synchronize!"
+msgstr ""
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
@@ -368,7 +369,7 @@ msgstr ""
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
-msgid "Status Report"
+msgid "Status report"
 msgstr ""
 
 #. Sync: last error click for more
@@ -378,12 +379,12 @@ msgstr ""
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
-msgid "Send Report"
+msgid "Send report"
 msgstr ""
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
-msgid "Log Out"
+msgid "Log out"
 msgstr "Surt"
 
 #. Sync: Clear Data Description
@@ -393,15 +394,15 @@ msgstr "Esborra tota la informació de sincronització"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
+msgid "Log out/clear synchronization data?"
 msgstr "Tancar sessió / esborra la informació de sincronització?"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
 
 msgctxt "sync_SPr_interval_entries:0"
@@ -443,8 +444,3 @@ msgstr "cada tres dies"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "setmanalment"
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "Sincronització"
-

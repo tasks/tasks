@@ -27,14 +27,10 @@
   <!-- Shown after a user adds a task on phones -->
   <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
   
-  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
   
-  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
   
   <!-- Login activity -->
-  <string name="welcome_login_title">Welcome to Astrid!</string>
   
-  <string name="welcome_login_intro"></string>
   
   <!-- slide 7b -->
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>

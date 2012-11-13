@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -86,6 +89,8 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
@@ -183,7 +188,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TOKEN_TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
 
-    public static final String TOKEN_ASSIGNED_TO = "task_assigned_to"; //$NON-NLS-1$
+    public static final String TOKEN_ASSIGNED_TO_DISPLAY = "task_assigned_to_display"; //$NON-NLS-1$
+    public static final String TOKEN_ASSIGNED_TO_EMAIL = "task_assigned_to_email"; //$NON-NLS-1$
+    public static final String TOKEN_ASSIGNED_TO_ID = "task_assigned_to_id"; //$NON-NLS-1$
     public static final String TOKEN_TAGS_CHANGED = "tags_changed";  //$NON-NLS-1$
     public static final String TOKEN_NEW_REPEATING_TASK = "new_repeating"; //$NON-NLS-1$
 
@@ -228,14 +235,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private NestableViewPager mPager;
     private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
-
-    private final Runnable refreshActivity = new Runnable() {
-        @Override
-        public void run() {
-            // Change state here
-            setPagerHeightForPosition(TAB_VIEW_UPDATES);
-        }
-    };
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -389,8 +388,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         editNotes.addListener(this);
 
-        Handler refreshHandler = new Handler();
-        refreshHandler.postDelayed(refreshActivity, 1000);
 
         if(hasTitle) {
             if(webServices == null) {
@@ -423,6 +420,22 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         commentsBar.setVisibility(View.VISIBLE);
         moreTab.setVisibility(View.VISIBLE);
+
+        if ((tabStyle & TaskEditViewPager.TAB_SHOW_MORE) > 0
+                && ABChooser.readChoiceForTest(ABTests.AB_DEFAULT_EDIT_TAB) != 0) {
+            setCurrentTab(TAB_VIEW_MORE);
+            setPagerHeightForPosition(TAB_VIEW_MORE);
+        } else {
+            setCurrentTab(TAB_VIEW_UPDATES);
+            setPagerHeightForPosition(TAB_VIEW_UPDATES);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    updatesChanged();
+                }
+            }, 500L);
+        }
     }
 
     private void setCurrentTab(int position) {
@@ -859,12 +872,25 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
                     && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
             String assignedTo = peopleControlSet.getAssignedToString();
+            String assignedEmail = ""; //$NON-NLS-1$
+            long assignedId = Task.USER_ID_IGNORE;
+            try {
+                JSONObject assignedUser = new JSONObject(model.getValue(Task.USER));
+                assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE);
+            } catch (JSONException e) {
+                //
+            }
+
             if (taskEditActivity) {
                 Intent data = new Intent();
                 if (!isAssignedToMe) {
                     data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
-                    data.putExtra(TOKEN_ASSIGNED_TO,
-                            assignedTo);
+                    data.putExtra(TOKEN_ASSIGNED_TO_DISPLAY, assignedTo);
+                    if (!TextUtils.isEmpty(assignedEmail))
+                        data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
+                    if (assignedId > 0)
+                        data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
                 }
                 if (showRepeatAlert) {
                     data.putExtra(TOKEN_NEW_REPEATING_TASK, model);
@@ -877,7 +903,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 // since the activity isn't actually finishing
                 TaskListActivity tla = (TaskListActivity) getActivity();
                 if (!isAssignedToMe)
-                    tla.switchToAssignedFilter(assignedTo);
+                    tla.taskAssignedTo(assignedTo, assignedEmail, assignedId);
                 else if (showRepeatAlert)
                     DateChangedAlerts.showRepeatChangedDialog(tla, model);
 
@@ -1283,8 +1309,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public View getPageView(int position) {
         switch(getTabForPosition(position)) {
         case TAB_VIEW_MORE:
-            moreControls.setLayoutParams(mPager.getLayoutParams());
-            setViewHeightBasedOnChildren(moreControls);
             return moreControls;
         case TAB_VIEW_UPDATES:
             return editNotes;
@@ -1315,10 +1339,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
                 MeasureSpec.AT_MOST);
         view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-        height = Math.max(view.getMeasuredHeight(), height);
+        height = Math.max(view.getMeasuredHeight(), height);;
         LayoutParams pagerParams = mPager.getLayoutParams();
-        if (position == 0 && height < pagerParams.height)
-            return;
         if (height > 0 && height != pagerParams.height) {
             pagerParams.height = height;
             mPager.setLayoutParams(pagerParams);
@@ -1386,14 +1408,16 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged()  {
-        setCurrentTab(TAB_VIEW_UPDATES);
-        this.setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        if (mPager.getCurrentItem() == TAB_VIEW_UPDATES)
+            setPagerHeightForPosition(TAB_VIEW_UPDATES);
     }
 
     // EditNoteActivity Lisener when there are new updates/comments
     @Override
     public void commentAdded() {
-        this.scrollToView(editNotes);
+        setCurrentTab(TAB_VIEW_UPDATES);
+        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        scrollToView(editNotes);
     }
 
     // Scroll to view in edit task

@@ -29,6 +29,7 @@ import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -61,6 +62,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     @Autowired MetadataService metadataService;
 
+    @Autowired UserDao userDao;
+
     @Autowired Database database;
 
     private final PushQueuedArgs<Task> taskPusher = new PushQueuedArgs<Task>() {
@@ -90,6 +93,19 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         public TagData getRemoteModelInstance(
                 TodorooCursor<TagData> cursor) {
             return new TagData(cursor);
+        }
+    };
+
+    private final PushQueuedArgs<User> userPusher = new PushQueuedArgs<User>() {
+
+        @Override
+        public User getRemoteModelInstance(TodorooCursor<User> cursor) {
+            return new User(cursor);
+        }
+
+        @Override
+        public void pushRemoteModel(User model) {
+            actFmSyncService.pushUser(model);
         }
     };
 
@@ -161,7 +177,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 actFmPreferenceService.recordSyncStart();
                 updateUserStatus();
 
-                startUsersFetcher(callback, finisher);
+                startUsersSync(callback, finisher);
 
                 startTagFetcher(callback, finisher);
 
@@ -208,13 +224,14 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     /** fetch changes to users/friends */
-    private void startUsersFetcher(final SyncResultCallback callback,
+    private void startUsersSync(final SyncResultCallback callback,
             final AtomicInteger finisher) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int time = Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
                 try {
+                    pushQueuedUsers(callback, finisher);
                     time = actFmSyncService.fetchUsers();
                     Preferences.setInt(LAST_USERS_FETCH_TIME, time);
                 } catch (JSONException e) {
@@ -279,7 +296,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             public void run() {
                 int time = Preferences.getInt(LAST_FEATURED_TAG_FETCH_TIME, 0);
                 try {
-                    if (Preferences.getBoolean(R.string.p_show_featured_lists_labs, false)) {
+                    if (Preferences.getBoolean(R.string.p_show_featured_lists, false)) {
                         time = actFmSyncService.fetchFeaturedLists(time);
                         Preferences.setInt(LAST_FEATURED_TAG_FETCH_TIME, time);
                     }
@@ -398,6 +415,17 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     }
 
+    private void pushQueuedUsers(final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).where(
+                Criterion.and(User.PENDING_STATUS.isNotNull(), Functions.length(User.PENDING_STATUS).gt(0))));
+        try {
+            pushQueued(callback, finisher, users, true, userPusher);
+        } finally {
+            users.close();
+        }
+    }
+
     // --- synchronize list
 
     @Override
@@ -506,6 +534,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             @Override
             public void run() {
                 pushQueuedTasksByTag(tagData, callback, finisher);
+
+                actFmSyncService.fetchTagOrder(tagData);
 
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0)

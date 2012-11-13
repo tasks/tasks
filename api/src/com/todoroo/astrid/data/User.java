@@ -62,6 +62,15 @@ public final class User extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
+    /** Friendship status. One of the STATUS constants below */
+    public static final StringProperty STATUS = new StringProperty(
+            TABLE, "status");
+
+    /** Friendship tatus that needs to be reported to the server.
+     * One of the PENDING constants below */
+    public static final StringProperty PENDING_STATUS = new StringProperty(
+            TABLE, "pendingStatus");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(User.class);
 
@@ -75,12 +84,25 @@ public final class User extends RemoteModel {
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
+        defaultValues.put(STATUS.name, "");
+        defaultValues.put(PENDING_STATUS.name, "");
     }
 
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
     }
+
+    public static final String STATUS_PENDING = "pending";
+    public static final String STATUS_OTHER_PENDING = "other_pending";
+    public static final String STATUS_FRIENDS = "friends";
+    public static final String STATUS_IGNORED = "ignored";
+    public static final String STATUS_BLOCKED = "blocked";
+
+    public static final String PENDING_REQUEST = "request";
+    public static final String PENDING_APPROVE = "approve";
+    public static final String PENDING_IGNORE = "ignore";
+    public static final String PENDING_UNFRIEND = "unfriend";
 
     // --- data access boilerplate
 
@@ -99,7 +121,7 @@ public final class User extends RemoteModel {
 
     public String getDisplayName() {
         String name = getValue(NAME);
-        if (!TextUtils.isEmpty(name))
+        if (!(TextUtils.isEmpty(name) || "null".equals(name)))
             return name;
         return getValue(EMAIL);
     }

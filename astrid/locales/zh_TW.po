@@ -7,22 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
-"PO-Revision-Date: 2012-06-04 03:03+0000\n"
-"Last-Translator: Sep Cheng <sepchengkc@gmail.com>\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-10-12 21:20+0000\n"
+"Last-Translator: Henry Tsai <henry@astrid.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-16 17:16+0000\n"
+"X-Generator: Launchpad (build 16152)\n"
 "Generated-By: Babel 1.0dev\n"
 
-#. ================================================== general terms ==
+#. ================================================ == general terms ==
 #. People Editing Activity
-msgctxt "EPE_action"
-msgid "Share"
-msgstr "分享"
-
 #. slide 18b/ 25e/ 27c: task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
@@ -34,21 +31,13 @@ msgid "Contact or Shared List"
 msgstr "聯絡人或已分享清單"
 
 #. toast on transmit success
-msgctxt "actfm_toast_success"
-msgid "Saved on Server"
-msgstr "已存到伺服器"
-
 #. can't rename or delete shared tag message
-msgctxt "actfm_tag_operation_disabled"
-msgid "Sorry, this operation is not yet supported for shared tags."
-msgstr "抱歉，共享標籤並不支持此項操作。"
-
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
-"You are the owner of this shared list! If you delete it, it will be "
-"deleted for all list members. Are you sure you want to continue?"
-msgstr ""
+"You are the owner of this shared list! If you delete it, it will be deleted "
+"for all list members. Are you sure you want to continue?"
+msgstr "你是這個被分享列表的擁有者，如果刪除它，其它被分享者將無法訪問，確定刪除嗎？"
 
 #. slide 29a: menu item to take a picture
 msgctxt "actfm_picture_camera"
@@ -66,10 +55,6 @@ msgid "Clear Picture"
 msgstr "清除圖片"
 
 #. filter list activity: refresh tags
-msgctxt "actfm_FLA_menu_refresh"
-msgid "Refresh Lists"
-msgstr "重新整理清單"
-
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
@@ -79,9 +64,9 @@ msgstr "檢視工作？"
 #, c-format
 msgctxt "actfm_view_task_text"
 msgid ""
-"Task was sent to %s! You're currently viewing your own tasks. Do you want"
-" to view this and other tasks you've assigned?"
-msgstr "工作已被送到 %s！您目前正在查看自己的任務，你要查看你其餘被指派的工作嗎？"
+"Task was sent to %s! You're currently viewing your own tasks. Do you want to "
+"view this and other tasks you've assigned?"
+msgstr "工作已被送到 %s！您目前正在查看自己的任務工作，你要查看你其餘被指派的工作嗎？"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
@@ -96,35 +81,32 @@ msgstr "留下來吧"
 #. slide 13a: Title for the "My Shared Tasks" filter
 msgctxt "actfm_my_shared_tasks_title"
 msgid "My Shared Tasks"
-msgstr ""
+msgstr "已分享任務工作"
 
 #. Empty list for the "My Shared Tasks" filter
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "未有共享工作"
 
-#. ================================================== TagViewActivity ==
+#. ================================================ == TagViewActivity ==
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
 msgid "Add a comment..."
 msgstr "添加評論"
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
-#, c-format
-msgctxt "UAd_title_comment"
-msgid "%1$s re: %2$s"
-msgstr "%1$s 關於: %2$s"
-
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
 msgid "Tasks"
 msgstr "工作"
 
+#. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
 msgstr "活動"
 
+#. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
@@ -139,7 +121,7 @@ msgstr "%s的工作，點擊以檢視所有"
 #. Tag View: filter by unassigned tasks
 msgctxt "actfm_TVA_filter_by_unassigned"
 msgid "Unassigned tasks. Tap for all."
-msgstr ""
+msgstr "未指定的任務工作，點擊查看全部"
 
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
@@ -154,27 +136,19 @@ msgstr "重新整理"
 #. Tag Settings: tag name label
 msgctxt "actfm_TVA_tag_label"
 msgid "List"
-msgstr ""
+msgstr "列表名稱："
 
 #. Tag Settings: tag owner label
-msgctxt "actfm_TVA_tag_owner_label"
-msgid "List Creator:"
-msgstr "新增清單"
-
 #. Tag Settings: tag owner value when there is no owner
-msgctxt "actfm_TVA_tag_owner_none"
-msgid "none"
-msgstr "無"
-
 #. slide 26a and 27b: Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr ""
+msgstr "合作者："
 
 #. Tag Settings: list collaborators hint
 msgctxt "actfm_TVA_members_hint"
 msgid "Share with anyone who has an email address"
-msgstr ""
+msgstr "通過電子郵件分享"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
@@ -187,14 +161,10 @@ msgid "Silence Notifications"
 msgstr "靜音提醒"
 
 #. Tag Settings: list icon label
-msgctxt "actfm_TVA_list_icon_label"
-msgid "List Icon:"
-msgstr "清單圖示"
-
 #. slide 25b/27d: Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #. slide 28a: Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
@@ -204,21 +174,21 @@ msgstr "設定"
 #. slide 25b: Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "在這裡添加描述"
 
 #. slide 25d: Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "添加列表名稱"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
 msgid ""
-"You need to be logged in to Astrid.com to share lists! Please log in or "
-"make this a private list."
+"You need to be logged in to Astrid.com to share lists! Please log in or make "
+"this a private list."
 msgstr "您需要登錄 Astrid.com 以共享清單！請登錄或把清單列為私密。"
 
-#. ============================================ edit people dialog ==
+#. ============================================ edit people dialog = =
 #. task sharing dialog: intro
 msgctxt "actfm_EPA_intro"
 msgid ""
@@ -227,50 +197,34 @@ msgid ""
 msgstr "使用Astrid分享購物清單，派對計劃，或團隊項目。當其他人把事情做完就能立刻看到！"
 
 #. task sharing dialog: window title
-msgctxt "actfm_EPA_title"
-msgid "Share / Assign"
-msgstr "分享/指派"
-
 #. task sharing dialog: save button
-msgctxt "actfm_EPA_save"
-msgid "Save & Share"
-msgstr ""
-
 #. task sharing dialog: assigned label
-msgctxt "actfm_EPA_assign_label"
-msgid "Who"
-msgstr "參與人"
-
 #. slide 18a: task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "需要誰處理？"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
 msgid "Me"
-msgstr ""
+msgstr "我"
 
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr ""
+msgstr "未分配"
 
 #. slide 18c: task sharing dialog: choose a contact
 msgctxt "actfm_EPA_choose_contact"
 msgid "Choose a contact"
-msgstr ""
+msgstr "選擇聯繫人"
 
 #. slide 17a: task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "將任務工作外包"
 
 #. task sharing dialog: custom email assignment
-msgctxt "actfm_EPA_assign_custom"
-msgid "Custom..."
-msgstr "自訂…"
-
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
@@ -288,10 +242,6 @@ msgid "List: %s"
 msgstr "清單：%s"
 
 #. task sharing dialog: assigned hint
-msgctxt "actfm_EPA_assigned_hint"
-msgid "Contact Name"
-msgstr "聯絡人名稱"
-
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
@@ -305,44 +255,26 @@ msgstr "請幫我完成這分工作！"
 #. task sharing dialog: list members section header
 msgctxt "actfm_EPA_assign_header_members"
 msgid "List Members"
-msgstr ""
+msgstr "列表成員"
 
 #. task sharing dialog: astrid friends section header
 msgctxt "actfm_EPA_assign_header_friends"
 msgid "Astrid Friends"
-msgstr ""
+msgstr "Astrid 好友"
 
 #. task sharing dialog: message hint
-msgctxt "actfm_EPA_tag_label"
-msgid "Create a shared tag?"
-msgstr "新建一個共享的標籤嗎？"
-
-#. task sharing dialog: message hint
-msgctxt "actfm_EPA_tag_hint"
-msgid "(i.e. Silly Hats Club)"
-msgstr "例如：俱樂部"
-
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
-#, c-format
-msgctxt "actfm_EPA_emailed_toast"
-msgid "Task shared with %s"
-msgstr "工作已與 %s 共享"
-
 #. task sharing dialog: edit people settings saved
-msgctxt "actfm_EPA_saved_toast"
-msgid "People Settings Saved"
-msgstr "已更新參與人設定"
-
 #. task sharing dialog: invalid email (%s => email)
 #, c-format
 msgctxt "actfm_EPA_invalid_email"
@@ -350,15 +282,10 @@ msgid "Invalid E-mail: %s"
 msgstr "無效的電郵地址：%s"
 
 #. task sharing dialog: tag not found (%s => tag)
-#, c-format
-msgctxt "actfm_EPA_invalid_tag"
-msgid "List Not Found: %s"
-msgstr "無效的清單: %s"
-
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
 msgid "You need to be logged in to Astrid.com to share tasks!"
-msgstr ""
+msgstr "你需要登陸Astrid.com來分享任務工作，請登陸網站或者保持私有。"
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
@@ -366,7 +293,7 @@ msgstr "登入"
 
 msgctxt "actfm_EPA_dont_share_button"
 msgid "Don't share"
-msgstr ""
+msgstr "不要分享"
 
 #. ========================================= sharing login activity ==
 #. share login: Title
@@ -392,30 +319,9 @@ msgid "Connect with Google"
 msgstr "連接到Google賬戶"
 
 #. share login: Sharing Footer Password Label
-msgctxt "actfm_ALA_pw_login"
-msgid "Don't use Google or Facebook?"
-msgstr "沒有 Google 或 Facebook 賬戶?"
-
 #. share login: Sharing Password Link
-msgctxt "actfm_ALA_pw_link"
-msgid "Sign In Here"
-msgstr "在此登入"
-
 #. share login: Password Are you a New User?
-msgctxt "actfm_ALA_pw_new"
-msgid "Create a new account?"
-msgstr "建立新帳號"
-
 #. share login: Password Are you a Returning User?
-msgctxt "actfm_ALA_pw_returning"
-msgid "Already have an account?"
-msgstr "已有帳戶？"
-
-#. share login: Name
-msgctxt "actfm_ALA_name_label"
-msgid "Name"
-msgstr "姓名"
-
 #. share login: Name
 msgctxt "actfm_ALA_firstname_label"
 msgid "First Name"
@@ -432,10 +338,6 @@ msgid "Email"
 msgstr "電郵地址"
 
 #. share login: Username / Email
-msgctxt "actfm_ALA_username_email_label"
-msgid "Username / Email"
-msgstr "用戶名稱/電郵地址"
-
 #. share login: Password
 msgctxt "actfm_ALA_password_label"
 msgid "Password"
@@ -444,13 +346,12 @@ msgstr "密碼"
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Sign Up"
-msgstr ""
+msgstr "註冊"
 
 #. share login: Login Title
-#, fuzzy
 msgctxt "actfm_ALA_login_title"
 msgid "Sign In"
-msgstr "登入"
+msgstr "登錄"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
@@ -460,47 +361,54 @@ msgstr "選擇您要使用的Google帳戶："
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr ""
+msgstr "連接至 Google："
+
+#. Login error: user exists
+msgctxt "actfm_ALA_error_user_exists"
+msgid "User already exists. Please sign in instead."
+msgstr "用戶已經存在，請直接登錄。"
+
+#. Login error: wrong password
+msgctxt "actfm_ALA_error_wrong_password"
+msgid "Sorry, that password was incorrect. Please try again."
+msgstr "對不起，密碼輸入不對，請再試一次。"
 
 #. ================================================ Featured Lists
-#, fuzzy
 msgctxt "actfm_feat_list_clone"
 msgid "Copy list"
-msgstr "依清單"
+msgstr "複製列表"
 
 msgctxt "actfm_feat_list_suffix"
 msgid "(Copy)"
-msgstr ""
+msgstr "（複製）"
 
-#, fuzzy
 msgctxt "actfm_feat_list_cloning"
 msgid "Copying..."
-msgstr "載入中..."
+msgstr "正在復制..."
 
 msgctxt "actfm_feat_list_clone_success"
 msgid "Success!"
-msgstr ""
+msgstr "完成!"
 
 msgctxt "actfm_feat_list_task_clone_success"
 msgid "Task copied"
-msgstr ""
+msgstr "任務工作已復制"
 
-#, fuzzy
 msgctxt "actfm_feat_list_clone_empty"
 msgid "No tasks to copy"
-msgstr "允許工作重複"
+msgstr "無任務工作複製"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
 #, c-format
 msgctxt "actfm_status_title_logged_in"
 msgid "Status - Logged in as %s"
-msgstr ""
+msgstr "狀態——已使用 %s 帳戶登錄"
 
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr ""
+msgstr "Astrid.com （測試版！）"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
@@ -515,86 +423,72 @@ msgid "HTTPS disabled (faster)"
 msgstr "不使用 HTTPS (較快)"
 
 #. title for notification tray after synchronizing
-msgctxt "actfm_notification_title"
-msgid "Astrid.com Sync"
-msgstr "Astrid.com 同步"
-
 #. text for notification when comments are received
-msgctxt "actfm_notification_comments"
-msgid "New comments received / click for more details"
-msgstr "收到新的備註 / 點擊觀看"
-
 msgctxt "actfm_dual_sync_warning"
 msgid ""
 "You are currently synchronizing with Google Tasks. Be advised that "
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Astrid.com?"
 msgstr ""
+"您當前正在和Google 工作表同步。請注意，在一些情況下，和兩個服務一起同步可能會導致出現意外的結果。您真的想和Astrid.com 同步嗎？"
 
 #. account types
 msgctxt "actfm_account_type"
-msgid "Account Type"
-msgstr ""
+msgid "Account type"
+msgstr "帳號類型"
 
 msgctxt "actfm_account_info"
-msgid "Account Info"
-msgstr ""
+msgid "Account info"
+msgstr "帳號信息"
 
 msgctxt "actfm_account_info_summary"
 msgid "Status and options"
-msgstr ""
+msgstr "狀態和選項"
 
-#, fuzzy
 msgctxt "account_type_title_not_logged_in"
 msgid "Sign up for a free account"
-msgstr "Google Apps for Domain帳號"
+msgstr "註冊一個免費帳號"
 
-#, fuzzy
 msgctxt "account_type_summary_not_logged_in"
 msgid "Access tasks online, share lists and delegate"
-msgstr "Astrid.com讓你在線上存取你的工作表，與朋友分享或委派工作。"
+msgstr "進入在線任務工作，分享列表和指派任務工作"
 
 msgctxt "actfm_account_premium"
 msgid "Premium"
-msgstr ""
+msgstr "高級"
 
 msgctxt "actfm_account_basic"
 msgid "Basic"
-msgstr ""
-
-#, fuzzy
-msgctxt "actfm_account_none"
-msgid "None"
-msgstr "無"
+msgstr "一般"
 
 msgctxt "actfm_inapp_billing"
 msgid "Upgrade to Premium"
-msgstr ""
+msgstr "升級成高級用戶"
 
 msgctxt "actfm_inapp_billing_summary"
 msgid "Attach files, voice backups, premium support & more"
-msgstr ""
+msgstr "附件，語音備份，高級支持和更多"
 
 #. Sharing
 msgctxt "share_with_facebook"
 msgid "Like on Facebook"
-msgstr ""
+msgstr "在Facebook贊一個"
 
 msgctxt "share_with_twitter"
 msgid "Follow on Twitter"
-msgstr ""
+msgstr "在Twitter關注我們"
 
 msgctxt "share_with_google"
 msgid "Share on Google+"
-msgstr ""
+msgstr "在Google+分享"
 
 msgctxt "share_title"
 msgid "Share the love!"
-msgstr ""
+msgstr "分享您對我們的愛!"
 
 msgctxt "share_speech_bubble"
 msgid "By sharing, you'll help others be more productive!"
-msgstr ""
+msgstr "通過分享，您將會幫助其他人生活得更加有效率！"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -616,7 +510,7 @@ msgstr "警示!"
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. Resources for built-in backup plug-in
-#. ================================================= BackupPreferences ==
+#. ================================================ = BackupPreferences ==
 #. slide 33c/48d: Backup Preferences Title
 msgctxt "backup_BPr_header"
 msgid "Backups"
@@ -639,7 +533,7 @@ msgstr ""
 
 #. Backup Status: last error failed. Keep it short!
 msgctxt "backup_status_failed"
-msgid "Last Backup Failed"
+msgid "Last backup failed"
 msgstr "上次備份失敗"
 
 #. Backup Status: error subtitle
@@ -649,7 +543,7 @@ msgstr "(點選查看錯誤)"
 
 #. slide 48a: Backup Status: never backed up
 msgctxt "backup_status_never"
-msgid "Never Backed Up!"
+msgid "Never backed up!"
 msgstr "從未備份"
 
 #. slide 48f/ 50e: Backup Options Group Label
@@ -659,12 +553,12 @@ msgstr "選項"
 
 #. slide 48b: Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
-msgid "Automatic Backups"
+msgid "Automatic backups"
 msgstr "自動備份"
 
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
-msgid "Automatic Backups Disabled"
+msgid "Automatic backups disabled"
 msgstr "停用自動備份"
 
 #. slide 48g: Preference: Automatic Backup Description (when enabled)
@@ -673,60 +567,50 @@ msgid "Backup will occur daily"
 msgstr "備份將每天執行"
 
 #. Preference screen restoring Tasks Help
-msgctxt "backup_BPr_how_to_restore"
-msgid "How do I restore backups?"
-msgstr "如何還原備份?"
-
 #. Preference screen Restoring Tasks Help Dialog Text
-msgctxt "backup_BPr_how_to_restore_dialog"
-msgid ""
-"You need to add the Astrid Power Pack to manage and restore your backups."
-" As a favor, Astrid also automatically backs up your tasks, just in case."
-msgstr "你需要使用Astrid強化套件去管理和還原您的備份.Astrid會自動備份您的工作以防萬一."
-
 msgctxt "backup_BPr_cloud_already_logged_in"
 msgid "You already have cloud backup on Astrid.com!"
-msgstr ""
+msgstr "您已經在Astrid.com上享有云備份"
 
-#. ================================================= BackupActivity ==
+#. ================================================ = BackupActivity ==
 #. slide 48c: backup activity label
 msgctxt "backup_BAc_label"
-msgid "Manage Backups"
-msgstr ""
+msgid "Manage backups"
+msgstr "管理備份"
 
 #. backup activity title
 msgctxt "backup_BAc_title"
-msgid "Manage Your Backups"
+msgid "Manage your backups"
 msgstr "管理備份"
 
 #. backup activity import button
 msgctxt "backup_BAc_import"
-msgid "Import Tasks"
+msgid "Import tasks"
 msgstr "匯入工作"
 
 #. backup activity export button
 msgctxt "backup_BAc_export"
-msgid "Export Tasks"
+msgid "Export tasks"
 msgstr "匯出工作"
 
 #. backup activity cloud (Astrid.com) option
 msgctxt "backup_BAc_cloud"
 msgid "Click for free cloud backup on Astrid.com"
-msgstr ""
+msgstr "在Astrid.com點擊免費云備份"
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
 msgctxt "backup_TXI_error"
-msgid "Import Error"
+msgid "Import error"
 msgstr "匯入錯誤"
 
 #, c-format
 msgctxt "export_toast"
-msgid "Backed Up %1$s to %2$s."
+msgid "Backed up %1$s to %2$s."
 msgstr "備份 %1$s 至 %2$s."
 
 msgctxt "export_toast_no_tasks"
-msgid "No Tasks to Export."
+msgid "No tasks to export."
 msgstr "沒有工作需匯出"
 
 #. Progress Dialog Title for exporting
@@ -736,7 +620,7 @@ msgstr "匯出中..."
 
 #. Backup: Title of Import Summary Dialog
 msgctxt "import_summary_title"
-msgid "Restore Summary"
+msgid "Restore summary"
 msgstr "還原摘要"
 
 #. Backup: Summary message for import. (%s => file name, %s => total # tasks,
@@ -768,10 +652,6 @@ msgid "Reading task %d..."
 msgstr "讀取工作 %d..."
 
 #. Backup: Dialog when unable to open a file
-msgctxt "DLG_error_opening"
-msgid "Could not find this item:"
-msgstr "無法找到此項目"
-
 #. Backup: Dialog when unable to open SD card folder (%s => folder)
 #, c-format
 msgctxt "DLG_error_sdcard"
@@ -785,12 +665,12 @@ msgstr "無法存取您的SD卡!"
 
 #. Backup: File Selector dialog for import
 msgctxt "import_file_prompt"
-msgid "Select a File to Restore"
+msgid "Select a file to restore"
 msgstr "選取欲還原的檔案"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-#. ================================================== AndroidManifest ==
+#. ================================================ == AndroidManifest ==
 #. slide 32k: Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
 msgid "Astrid Tasks"
@@ -799,7 +679,7 @@ msgstr "Astrid工作"
 #. permission title for READ_TASKS
 msgctxt "read_permission_label"
 msgid "Astrid Permission"
-msgstr "Astrid權限"
+msgstr "Astrid 權限"
 
 #. permission description for READ_TASKS
 msgctxt "read_permission_desc"
@@ -809,14 +689,14 @@ msgstr "讀取工作, 顯示工作篩選"
 #. permission title for READ_TASKS
 msgctxt "write_permission_label"
 msgid "Astrid Permission"
-msgstr "Astrid權限"
+msgstr "Astrid 權限"
 
 #. permission description for READ_TASKS
 msgctxt "write_permission_desc"
 msgid "create new tasks, edit existing tasks"
 msgstr "建立新工作, 修改現行工作"
 
-#. ================================================== Generic Dialogs ==
+#. ================================================ == Generic Dialogs ==
 #. question for deleting tasks
 msgctxt "DLG_delete_this_task_question"
 msgid "Delete this task?"
@@ -843,13 +723,9 @@ msgctxt "DLG_please_update"
 msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
-msgstr "Astrid應該要從Android市集下載最新版本! 請執行以繼續, 或稍待片刻."
+msgstr "Astrid 應該要從Android 市場下載最新版本! 請繼續前執行, 或稍等片刻。"
 
 #. Button for going to Market
-msgctxt "DLG_to_market"
-msgid "Go To Market"
-msgstr "前往市集"
-
 #. Button for accepting EULA
 msgctxt "DLG_accept"
 msgid "I Accept"
@@ -868,7 +744,7 @@ msgstr "Astrid 使用條款"
 #. Progress Dialog generic text
 msgctxt "DLG_please_wait"
 msgid "Please Wait"
-msgstr ""
+msgstr "請稍候"
 
 #. Dialog - loading
 msgctxt "DLG_loading"
@@ -876,75 +752,55 @@ msgid "Loading..."
 msgstr "載入中..."
 
 #. Dialog - dismiss
-msgctxt "DLG_dismiss"
-msgid "Dismiss"
-msgstr ""
-
 #. slide 20d
 msgctxt "DLG_ok"
 msgid "OK"
-msgstr ""
+msgstr "確定(O)"
 
 #. slide 36g
 msgctxt "DLG_cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 msgctxt "DLG_more"
 msgid "More"
-msgstr ""
+msgstr "更多"
 
 msgctxt "DLG_undo"
 msgid "Undo"
-msgstr ""
+msgstr "撤消"
 
 msgctxt "DLG_warning"
 msgid "Warning"
-msgstr ""
+msgstr "系統提醒"
 
-#. =============================================================== UI ==
+#. ================================================ =============== UI ==
 #. Label for DateButtons with no value
 msgctxt "WID_dateButtonUnset"
 msgid "Click To Set"
 msgstr "點選"
 
 #. String formatter for DateButtons ($D => date, $T => time)
-msgctxt "WID_dateButtonLabel"
-msgid "$D $T"
-msgstr ""
-
 #. String formatter for Disable button
-msgctxt "WID_disableButton"
-msgid "Disable"
-msgstr "停用"
-
-#. ============================================================= notes
+#. ================================================ ============= notes
 #. Note Exposer
-msgctxt "ENE_label"
-msgid "Notes"
-msgstr "備註"
-
 #. Note Exposer / Comments
-msgctxt "ENE_label_comments"
-msgid "Comments"
-msgstr ""
-
 #. EditNoteActivity - no comments
 msgctxt "ENA_no_comments"
 msgid "No activity yet"
-msgstr ""
+msgstr "沒有要顯示的"
 
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
 msgid "Someone"
-msgstr ""
+msgstr "某人"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
 msgid "Refresh Comments"
-msgstr ""
+msgstr "刷新留言"
 
-#. ================================================= TaskListActivity ==
+#. ================================================ = TaskListActivity ==
 #. slide 8b: Task List: Displayed instead of list when no items present
 msgctxt "TLA_no_items"
 msgid ""
@@ -960,6 +816,8 @@ msgid ""
 "%s has no\n"
 "tasks shared with you"
 msgstr ""
+"%s 沒有 \n"
+"與您分享的任務工作"
 
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
@@ -969,58 +827,50 @@ msgstr "附加程式"
 #. Menu: Adjust Sort and Hidden Task Settings
 msgctxt "TLA_menu_sort"
 msgid "Sort & Subtasks"
-msgstr "排序"
+msgstr "排序 & 隱藏"
 
 #. Menu: Sync Now
 msgctxt "TLA_menu_sync"
 msgid "Sync Now"
-msgstr ""
+msgstr "立即同步"
 
 #. Menu: Search
 msgctxt "TLA_menu_search"
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
 msgid "Lists"
-msgstr ""
+msgstr "列表"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "People"
-msgstr ""
+msgstr "朋友"
 
 #. Menu: Featured Lists
 msgctxt "TLA_menu_featured_lists"
 msgid "Featured Lists"
-msgstr ""
+msgstr "特定列表"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
-msgstr ""
+msgstr "建議"
 
 #. Menu: Tutorial
-msgctxt "TLA_menu_tutorial"
-msgid "Tutorial"
-msgstr ""
-
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
 msgid "Account & Settings"
-msgstr ""
+msgstr "帳號和設置"
 
 #. slide 30b: Menu: Support
 msgctxt "TLA_menu_support"
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 #. Search Label
-msgctxt "TLA_search_label"
-msgid "Search This List"
-msgstr "尋找此列表"
-
 #. Window title for displaying Custom Filter
 msgctxt "TLA_custom"
 msgid "Custom"
@@ -1029,27 +879,27 @@ msgstr "自訂"
 #. slide 8d: Quick Add Edit Box Hint
 msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
-msgstr ""
+msgstr "添加任務工作"
 
 #. Quick Add Edit Box Hint for assigning (%s -> name)
 #, c-format
 msgctxt "TLA_quick_add_hint_assign"
 msgid "Add something for %s"
-msgstr ""
+msgstr "為 %s 增加任務工作"
 
 #. Notification Volumne notification
 msgctxt "TLA_notification_volume_low"
 msgid "Notifications are muted. You won't be able to hear Astrid!"
-msgstr ""
+msgstr "已靜音。你不會再聽到了！"
 
 #. Notifications disabled warning
 msgctxt "TLA_notification_disabled"
 msgid "Astrid reminders are disabled! You will not receive any reminders"
-msgstr ""
+msgstr "Astrid提醒功能被關閉，你不會收到任何提醒。"
 
 msgctxt "TLA_filters:0"
 msgid "Active"
-msgstr ""
+msgstr "激活"
 
 msgctxt "TLA_filters:1"
 msgid "Today"
@@ -1057,11 +907,11 @@ msgstr "今天"
 
 msgctxt "TLA_filters:2"
 msgid "Soon"
-msgstr ""
+msgstr "馬上"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
-msgstr ""
+msgstr "延遲"
 
 msgctxt "TLA_filters:4"
 msgid "Done"
@@ -1097,13 +947,13 @@ msgstr "不再詢問確認"
 #, c-format
 msgctxt "TLA_repeat_scheduled_title"
 msgid "New repeating task %s"
-msgstr ""
+msgstr "新的重複任務工作 %s"
 
 #. Speech bubble for when a new repeating task scheduled. %s->repeat interval
 #, c-format
 msgctxt "TLA_repeat_scheduled_speech_bubble"
 msgid "I'll remind you about this %s."
-msgstr ""
+msgstr "我會在%s 後提醒您這個任務工作的。"
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
@@ -1126,7 +976,7 @@ msgctxt "TLA_all_activity"
 msgid "All Activity"
 msgstr "所有活動"
 
-#. ====================================================== TaskAdapter ==
+#. ================================================ ====== TaskAdapter ==
 #. Format string to indicate task is hidden (%s => task name)
 #, c-format
 msgctxt "TAd_hiddenFormat"
@@ -1139,6 +989,7 @@ msgctxt "TAd_deletedFormat"
 msgid "%s [deleted]"
 msgstr "%s [刪除]"
 
+#. Displayed when adapter is flung (scrolled quickly)
 #. slide 22b: indicates task was completed. %s => date or time ago
 #, c-format
 msgctxt "TAd_completed"
@@ -1162,16 +1013,12 @@ msgstr "編輯工作"
 #. Context Item: copy task
 msgctxt "TAd_contextCopyTask"
 msgid "Copy Task"
-msgstr ""
+msgstr "複製任務工作"
 
 #. Context Item: delete task
-msgctxt "TAd_contextHelpTask"
-msgid "Get help"
-msgstr ""
-
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
-msgstr "刪除工作"
+msgstr "刪除任務工作"
 
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
@@ -1183,16 +1030,16 @@ msgctxt "TAd_contextPurgeTask"
 msgid "Purge Task"
 msgstr "清除工作"
 
-#. ============================================== SortSelectionDialog ==
+#. ============================================== SortSelectionDialog = =
 #. slide 23a: Sort Selection: dialog title
 msgctxt "SSD_title"
 msgid "Sort, Subtasks, and Hidden"
 msgstr "排序和隱藏工作"
 
-#. slide 23h:  Hidden: title
+#. slide 23h: Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "隱藏任務工作"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1212,7 +1059,7 @@ msgstr "顯示已刪除工作"
 #. Sort Selection: drag with subtasks
 msgctxt "SSD_sort_drag"
 msgid "Drag & Drop with Subtasks"
-msgstr ""
+msgstr "拖放到子任務工作中"
 
 #. slide 23b: Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
@@ -1258,33 +1105,17 @@ msgstr "總是"
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr ""
+msgstr "Astrid 列表或過濾器"
 
 #. Filter List Activity Title
-msgctxt "FLA_title"
-msgid "Lists"
-msgstr "清單"
-
 #. Displayed when loading filters
-msgctxt "FLA_loading"
-msgid "Loading Filters..."
-msgstr "啟動篩選..."
-
 #. Context Menu: Create Shortcut
 msgctxt "FLA_context_shortcut"
 msgid "Create Shortcut On Desktop"
 msgstr "在桌面建立捷徑"
 
 #. Menu: Search
-msgctxt "FLA_menu_search"
-msgid "Search Tasks..."
-msgstr "搜尋工作..."
-
 #. Menu: Help
-msgctxt "FLA_menu_help"
-msgid "Help"
-msgstr "幫助"
-
 #. slide 28c: Create Shortcut Dialog Title
 msgctxt "FLA_shortcut_dialog_title"
 msgid "Create Desktop Shortcut"
@@ -1315,39 +1146,26 @@ msgstr "建立捷徑: %s"
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "新建過濾器"
 
 #. slide 10e: Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
-msgstr ""
+msgstr "新建列表"
 
 #. Alert when creating a shortcut without selecting a filter
 msgctxt "FLA_no_filter_selected"
 msgid "No filter selected! Please select a filter or list."
-msgstr ""
+msgstr "還沒有選定過濾器呢！請選擇一個過濾器或列表唄。"
 
-#. ================================================= TaskEditActivity ==
+#. ================================================ = TaskEditActivity ==
 #. Title when editing a task (%s => task title)
-#, c-format
-msgctxt "TEA_view_title"
-msgid "Astrid: Editing '%s'"
-msgstr "Astrid: 編輯 '%s'"
-
 #. Title when creating a new task
-msgctxt "TEA_view_titleNew"
-msgid "New Task"
-msgstr ""
-
 #. Task title label
-msgctxt "TEA_title_label"
-msgid "Title"
-msgstr "主旨"
-
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
-msgstr ""
+msgstr "時間"
 
 #. Task title hint (displayed when edit box is empty)
 msgctxt "TEA_title_hint"
@@ -1360,10 +1178,6 @@ msgid "Importance"
 msgstr "重要性"
 
 #. Task urgency label
-msgctxt "TEA_urgency_label"
-msgid "Deadline"
-msgstr "截止日期"
-
 #. Task urgency specific time checkbox
 msgctxt "TEA_urgency_specific_time"
 msgid "At specific time?"
@@ -1372,18 +1186,18 @@ msgstr "指定時間?"
 #. Task urgency specific time title when specific time false
 msgctxt "TEA_urgency_none"
 msgid "None"
-msgstr ""
+msgstr "無"
 
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "顯示任務工作"
 
 #. Task hide until toast
 #, c-format
 msgctxt "TEA_hideUntil_message"
 msgid "Task will be hidden until %s"
-msgstr ""
+msgstr "任務工作將會被隱藏，直到 %s"
 
 #. Task editing data being loaded label
 msgctxt "TEA_loading:0"
@@ -1396,19 +1210,16 @@ msgid "Notes"
 msgstr "備註"
 
 #. Task note hint
-#, fuzzy
 msgctxt "TEA_notes_hint"
 msgid "Enter task notes..."
 msgstr "輸入工作備註"
 
 #. Estimated time label
-#, fuzzy
 msgctxt "TEA_estimatedDuration_label"
 msgid "How long will it take?"
 msgstr "要花多久時間?"
 
 #. Elapsed time label
-#, fuzzy
 msgctxt "TEA_elapsedDuration_label"
 msgid "Time already spent on task"
 msgstr "已經用掉的時間"
@@ -1431,7 +1242,7 @@ msgstr "刪除工作"
 #. Menu: Task comments
 msgctxt "TEA_menu_comments"
 msgid "Comments"
-msgstr ""
+msgstr "註釋"
 
 #. Toast: task saved with deadline (%s => preposition + time units)
 #, c-format
@@ -1445,21 +1256,13 @@ msgid "Task Saved"
 msgstr "工作已儲存"
 
 #. Toast: task was not saved
-msgctxt "TEA_onTaskCancel"
-msgid "Task Editing Was Canceled"
-msgstr "編輯工作已取消"
-
 #. Toast: task was deleted
-msgctxt "TEA_onTaskDelete"
-msgid "Task deleted!"
-msgstr ""
-
 #. slide 15b: Task edit tab: activity
 msgctxt "TEA_tab_activity"
 msgid "Activity"
-msgstr ""
+msgstr "活動"
 
-#. slide 15e:  Task edit tab: more editing settings
+#. slide 15e: Task edit tab: more editing settings
 msgctxt "TEA_tab_more"
 msgid "Details"
 msgstr "更多"
@@ -1467,13 +1270,12 @@ msgstr "更多"
 #. slide 15d: Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "建議"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
 msgstr "無截止日"
 
-#, fuzzy
 msgctxt "TEA_urgency:1"
 msgid "Specific day"
 msgstr "指定哪天"
@@ -1490,23 +1292,21 @@ msgctxt "TEA_urgency:4"
 msgid "(day after)"
 msgstr "(天之後)"
 
-#, fuzzy
 msgctxt "TEA_urgency:5"
 msgid "Next week"
 msgstr "下週"
 
 msgctxt "TEA_urgency:6"
 msgid "In two weeks"
-msgstr ""
+msgstr "兩週之內"
 
-#, fuzzy
 msgctxt "TEA_urgency:7"
 msgid "Next month"
 msgstr "下個月"
 
 msgctxt "TEA_no_time"
 msgid "No time"
-msgstr ""
+msgstr "沒有時間"
 
 msgctxt "TEA_hideUntil:0"
 msgid "Always"
@@ -1514,7 +1314,7 @@ msgstr "總是"
 
 msgctxt "TEA_hideUntil:1"
 msgid "At due date"
-msgstr ""
+msgstr "在到期日時"
 
 msgctxt "TEA_hideUntil:2"
 msgid "Day before due"
@@ -1529,24 +1329,20 @@ msgid "Specific Day/Time"
 msgstr "指定日期/時間"
 
 #. Task edit control set descriptors
-msgctxt "TEA_control_title"
-msgid "Task Title"
-msgstr ""
-
 #. slide 9b/35i
 msgctxt "TEA_control_who"
 msgid "Who"
-msgstr ""
+msgstr "人物"
 
 #. slide 9c/ 35a
 msgctxt "TEA_control_when"
 msgid "When"
-msgstr ""
+msgstr "時間"
 
 #. slide 35b
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
-msgstr "----More Section----"
+msgstr "----詳情----"
 
 #. slide 16a/35c
 msgctxt "TEA_control_importance"
@@ -1565,102 +1361,71 @@ msgstr "備註"
 
 msgctxt "TEA_control_files"
 msgid "Files"
-msgstr ""
+msgstr "文件"
 
 #. slide 16e / slide 35g
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr ""
+msgstr "提醒"
 
 #. slide 16f
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
-msgstr ""
+msgstr "定時器控件"
 
 #. slide 16g
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr ""
+msgstr "和朋友們分享"
 
-#, fuzzy
 msgctxt "TEA_control_hidden_section"
 msgid "----Hide Always----"
-msgstr "----More Section----"
+msgstr "----始終隱藏----"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
-msgstr ""
+msgstr "在我的列表中顯示"
 
 #. Add Ons tab when no add-ons found
-msgctxt "TEA_addons_text"
-msgid "Looking for more features?"
-msgstr "尋找更多功能嗎?"
-
 #. Add Ons button
-msgctxt "TEA_addons_button"
-msgid "Get the Power Pack!"
-msgstr "取得強化套件"
-
 #. More row
-msgctxt "TEA_more"
-msgid "More"
-msgstr "更多"
-
 #. slide 15c: Text when no activity to show
-#, fuzzy
 msgctxt "TEA_no_activity"
 msgid "No activity"
-msgstr "活動"
+msgstr "無活動"
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
 msgid "Load more..."
-msgstr ""
+msgstr "加載更多……"
 
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
-
-msgctxt "TEA_date_and_time"
-msgid "Date/Time"
-msgstr ""
+msgstr "這項活動定在什麼時候呀？"
 
 msgctxt "TEA_new_task"
 msgid "New Task"
-msgstr ""
+msgstr "新建任務工作"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
-msgstr ""
+msgstr "拍拍我，讓我搜索一下完成這項任務工作的各種方法！"
 
 msgctxt "WSV_not_online"
 msgid ""
-"I can do more when connected to the Internet. Please check your "
-"connection."
-msgstr ""
+"I can do more when connected to the Internet. Please check your connection."
+msgstr "連上互聯網後我可以做更多事情。請檢查一下您的網絡連接唄。"
 
 msgctxt "TEA_contact_error"
 msgid "Sorry! We couldn't find an email address for the selected contact."
-msgstr ""
+msgstr "不好意思！我們找不到所選聯繫人的電子郵件地址喔。"
 
 #. ============================================= IntroductionActivity ==
 #. slide 1a: Introduction Window title
-msgctxt "InA_title"
-msgid "Welcome to Astrid!"
-msgstr "歡迎使用Astrid!"
-
 #. Button to agree to EULA
-msgctxt "InA_agree"
-msgid "I Agree!!"
-msgstr "我同意!!"
-
 #. Button to disagree with EULA
-msgctxt "InA_disagree"
-msgid "I Disagree"
-msgstr "我不同意!!"
-
-#. ===================================================== MissedCallActivity ==
+#. ================================================ ===== MissedCallActivity ==
 #. Missed call: return call (%1$s -> caller, %2$s -> time of call)
 #, c-format
 msgctxt "MCA_title"
@@ -1668,115 +1433,113 @@ msgid ""
 "%1$s\n"
 "called at %2$s"
 msgstr ""
+"%1$s\n"
+"在 %2$s 給您打過電話"
 
 #. Missed call: return call
 msgctxt "MCA_return_call"
 msgid "Call now"
-msgstr ""
+msgstr "現在回電"
 
 #. Missed call: return call
 msgctxt "MCA_add_task"
 msgid "Call later"
-msgstr ""
+msgstr "稍後回電"
 
 #. Missed call: return call
 msgctxt "MCA_ignore"
 msgid "Ignore"
-msgstr ""
+msgstr "忽略"
 
 #. Missed call: dialog to ignore all missed calls title
 msgctxt "MCA_ignore_title"
 msgid "Ignore all missed calls?"
-msgstr ""
+msgstr "忽略所有未接電話嗎？"
 
 #. Missed call: dialog to ignore all missed calls body
 msgctxt "MCA_ignore_body"
 msgid ""
 "You've ignored several missed calls. Should Astrid stop asking you about "
 "them?"
-msgstr ""
+msgstr "您已經忽略了幾個未接電話。對於這些電話，Astrid 是否應該不再詢問您呢？"
 
 #. Missed call: dialog to ignore all missed calls ignore all button
 msgctxt "MCA_ignore_all"
 msgid "Ignore all calls"
-msgstr ""
+msgstr "忽略所有來電"
 
 #. Missed call: dialog to ignore all missed calls ignore just this button
 msgctxt "MCA_ignore_this"
 msgid "Ignore this call only"
-msgstr ""
+msgstr "只忽略這個來電"
 
 #. Missed call: preference title
 msgctxt "MCA_missed_calls_pref_title"
 msgid "Field missed calls"
-msgstr ""
+msgstr "及時回复未接電話"
 
 #. slide 49c: Missed call: preference description
 msgctxt "MCA_missed_calls_pref_desc_enabled"
 msgid ""
-"Astrid will notify you about missed calls and offer to remind you to call"
-" back"
-msgstr ""
+"Astrid will notify you about missed calls and offer to remind you to call "
+"back"
+msgstr "Astrid 會向您報告未接電話，還會提供回電的提醒"
 
 msgctxt "MCA_missed_calls_pref_desc_disabled"
 msgid "Astrid will not notify you about missed calls"
-msgstr ""
+msgstr "Astrid 將不會向您報告未接電話"
 
 #. Missed call: task title with name (%1$s -> name, %2$s -> number)
 #, c-format
 msgctxt "MCA_task_title_name"
 msgid "Call %1$s back at %2$s"
-msgstr ""
+msgstr "請回電給 %1$s，電話是 %2$s"
 
 #. Missed call: task title no name (%s -> number)
 #, c-format
 msgctxt "MCA_task_title_no_name"
 msgid "Call %s back"
-msgstr ""
+msgstr "請回電給 %s"
 
 #. Missed call: schedule dialog title (%s -> name or number)
 #, c-format
 msgctxt "MCA_schedule_dialog_title"
 msgid "Call %s back in..."
-msgstr ""
+msgstr "請給 %s 回個電話過去……"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:0"
 msgid "It must be nice to be so popular!"
-msgstr ""
+msgstr "您這麼人見人愛、花見花開，感覺肯定棒極了！"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:1"
 msgid "Yay! People like you!"
-msgstr ""
+msgstr "哇！個個都喜歡您咽！"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:2"
 msgid "Make their day, give 'em a call!"
-msgstr ""
+msgstr "回個電話吧，好讓他們高興一整天！"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:3"
 msgid "Wouldn't you be happy if people called you back?"
-msgstr ""
+msgstr "人家給您回電話，您肯定高興，不是嗎？"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:4"
 msgid "You can do it!"
-msgstr ""
+msgstr "您是可以回電的！"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
-msgstr ""
+msgstr "無論怎樣，您也可以發條短信呀……"
 
-#. ===================================================== HelpActivity ==
+#. ================================================ ===== HelpActivity ==
 #. Help: Button to get support from our website
-msgctxt "HlA_get_support"
-msgid "Get Support"
-msgstr "取得協助"
-
-#. ==================================================== UpdateService ==
+#. ================================================ ==== UpdateService ==
 #. Changelog Window Title
 msgctxt "UpS_changelog_title"
 msgid "What's New In Astrid?"
@@ -1794,30 +1557,32 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
+"登錄查看記錄 \n"
+"看看您的活動的進展情況 \n"
+"以及在各分享列表上的活動。"
 
-#. ================================================== EditPreferences ==
+#. ================================================ == EditPreferences ==
 #. slide 31g: Preference Window Title
 msgctxt "EPr_title"
 msgid "Astrid: Settings"
 msgstr "Astrid: 偏好"
 
-#, fuzzy
 msgctxt "EPr_title_short"
 msgid "Settings"
-msgstr "設定"
+msgstr "設置"
 
 msgctxt "EPr_share_astrid"
 msgid "Tell others about Astrid"
-msgstr ""
+msgstr "介紹Astrid給您的朋友"
 
 msgctxt "EPr_share_astrid_summary"
 msgid "Share about Astrid on your favorite social network"
-msgstr ""
+msgstr "在您喜歡的社交網站上分享Astrid"
 
 #. slide 46a
 msgctxt "EPr_deactivated"
 msgid "deactivated"
-msgstr ""
+msgstr "禁用"
 
 #. slide 30i: Preference Category: Appearance Title
 msgctxt "EPr_appearance_header"
@@ -1826,34 +1591,34 @@ msgstr "外觀"
 
 #. Preference Category: Appearance Summary
 msgctxt "EPr_appearance_summary"
-msgid "Themes, Widgets, Task Rows, Edit Screen"
-msgstr ""
+msgid "Themes, widgets, task rows, edit screen"
+msgstr "主題，小工具，任務工作欄，編輯屏幕列表"
 
 #. FAQ Preference title
 msgctxt "EPr_faq_title"
 msgid "FAQ"
-msgstr ""
+msgstr "常見問題"
 
 #. Account status preference (%s -> account type)
 #, c-format
 msgctxt "EPr_account_title"
 msgid "Account: %s"
-msgstr ""
+msgstr "帳號：%s"
 
 #. Support preferences summary
 msgctxt "EPr_support_summary"
-msgid "Tutorial, FAQ, About Astrid"
-msgstr ""
+msgid "Tutorial, FAQ, about"
+msgstr "指引，常見問題，關於我們"
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
-msgid "Task List Size"
+msgid "Task list size"
 msgstr "工作清單大小"
 
 #. slide 32a: Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
 msgid "Show confirmation for smart reminders"
-msgstr ""
+msgstr "在智能提示上顯示確認消息"
 
 #. slide 34g: Preference: Task List Font Size Description
 msgctxt "EPr_fontSize_desc"
@@ -1861,35 +1626,30 @@ msgid "Font size on the main listing page"
 msgstr "清單主頁面字型大小"
 
 #. Preferemce: Show task edit confirmation toasts
-#, fuzzy
-msgctxt "EPr_showEditToasts_title"
-msgid "Show task edit confirmations"
-msgstr "不再詢問確認"
-
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
-msgid "Show Notes In Task"
+msgid "Show notes in task"
 msgstr "在工作顯示備註"
 
 #. slide 30e: Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
-msgid "Customize Task Edit Screen"
-msgstr ""
+msgid "Customize task edit screen"
+msgstr "自定義菜單屏幕"
 
 #. slide 35h
 msgctxt "EPr_beastMode_desc"
-msgid "Customize the layout of the Task Edit Screen"
-msgstr ""
+msgid "Customize the layout of the task edit screen"
+msgstr "自定義設定菜單屏幕"
 
 #. slide 35j
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
-msgstr ""
+msgstr "恢復默認值"
 
 #. slide 34i: Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
-msgid "Notes will be accessible from the Task Edit Page"
-msgstr ""
+msgid "Notes will be accessible from the task edit screen"
+msgstr "筆記將會在快速行動條中顯示"
 
 #. Preference: Task List Show Notes Description (enabled)
 msgctxt "EPr_showNotes_desc_enabled"
@@ -1898,56 +1658,66 @@ msgstr "總是顯示備註"
 
 #. slide 34d: Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
-msgid "Compact Task Row"
-msgstr ""
+msgid "Compact task row"
+msgstr "壓縮任務工作排列"
 
 #. slide 34j
 msgctxt "EPr_compressTaskRows_desc"
 msgid "Compress task rows to fit title"
-msgstr ""
+msgstr "壓縮任務工作行，使它適應標題"
 
 #. slide 34e: Preferences: Use legacy importance and checkbox style
-msgctxt "EPr_userLegacyImportance_title"
-msgid "Use legacy importance style"
-msgstr ""
-
 #. slide 34k
-msgctxt "EPr_userLegacyImportance_desc"
-msgid "Use legacy importance style"
-msgstr ""
-
 #. slide 34b: Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
-msgstr ""
+msgstr "顯示完整的任務工作標題"
 
 msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
-msgstr ""
+msgstr "將顯示完整的任務工作標題"
 
 #. slide 34h
 msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
-msgstr ""
+msgstr "將顯示任務工作標題的頭兩行"
 
 #. slide 32b: Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
-msgid "Auto-load Ideas Tab"
-msgstr ""
+msgid "Auto-load ideas tab"
+msgstr "自動加載意見選項標籤"
 
 #. slide 32c
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
-msgstr ""
+msgid "Web searches for ideas tab will be performed when tab is clicked"
+msgstr "點擊標籤後，網頁將會搜索意見選項。"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed only when manually requested"
-msgstr ""
+msgid ""
+"Web searches for ideas tab will be performed only when manually requested"
+msgstr "只有手動請求後，網頁將會搜索意見選項。"
+
+#. Preferences: task row style
+msgctxt "EPr_task_row_style_title_simple"
+msgid "Row style: Simple"
+msgstr "列表佈局：簡單"
+
+msgctxt "EPr_task_row_style_title_legacy"
+msgid "Row style: Original"
+msgstr "列表佈局：原始"
+
+msgctxt "EPr_task_row_style_summary_simple"
+msgid "Truncate title to one line with date and lists below"
+msgstr "截取標題為一行，並在下方顯示日期和列表"
+
+msgctxt "EPr_task_row_style_summary_legacy"
+msgid "Truncate title to two lines with date on right"
+msgstr "截取標題至兩行，並在右邊顯示日期"
 
 #. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
-msgid "Color Theme"
-msgstr ""
+msgid "Color theme"
+msgstr "主題"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
@@ -1958,230 +1728,207 @@ msgstr "目前設定: %s"
 #. Preference: Theme Description (android 1.6)
 msgctxt "EPr_theme_desc_unsupported"
 msgid "Setting requires Android 2.0+"
-msgstr ""
+msgstr "該設置需要 Android 2.0+"
 
 #. slide 32h/ 37b
 msgctxt "EPr_theme_widget_title"
-msgid "Widget Theme"
-msgstr ""
+msgid "Widget theme"
+msgstr "小工具主題"
 
 #. slide 30d/ 34f: Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
-msgid "Task Row Appearance"
-msgstr ""
+msgid "Task row appearance"
+msgstr "任務工作欄"
 
 #. slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)
-msgctxt "EPr_labs_header"
-msgid "Astrid Labs"
-msgstr ""
-
 #. slide 33f
-msgctxt "EPr_labs_desc"
-msgid "Try and configure experimental features"
-msgstr ""
-
 #. slide 49g: Preferences: use the system contact picker for task assignment
 msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
-msgstr ""
+msgstr "使用聯繫人選擇程序"
 
 #. slide 49b
 msgctxt "EPr_use_contact_picker_desc_enabled"
 msgid ""
-"The system contact picker option will be displayed in the task assignment"
-" window"
-msgstr ""
+"The system contact picker option will be displayed in the task assignment "
+"window"
+msgstr "系統的聯繫人選擇程序選項將在任務工作佈置窗口中顯示"
 
 msgctxt "EPr_use_contact_picker_desc_disabled"
 msgid "The system contact picker option will not be displayed"
-msgstr ""
+msgstr "將不會顯示系統的聯繫人選擇程序選項"
 
 #. slide 49i: Preferences: Third party addons
 msgctxt "EPr_third_party_addons"
-msgid "Enable Third Party Add-ons"
-msgstr ""
+msgid "Enable third party add-ons"
+msgstr "允許第三方加註信息"
 
 msgctxt "EPr_third_party_addons_desc_enabled"
 msgid "Third party add-ons will be enabled"
-msgstr ""
+msgstr "即將啟用第三方附加軟件"
 
 #. slide 49d
 msgctxt "EPr_third_party_addons_desc_disabled"
 msgid "Third party add-ons will be disabled"
-msgstr ""
+msgstr "即將禁用第三方附加軟件"
 
 #. Preferences: ideas tab
 msgctxt "EPr_ideas_tab_enabled"
-msgid "Task Ideas"
-msgstr ""
+msgid "Task ideas"
+msgstr "任務工作意見"
 
 msgctxt "EPr_ideas_tab_description"
 msgid "Get ideas to help you complete tasks"
-msgstr ""
+msgstr "獲取多個建議，幫助您完成多項任務工作"
 
 #. Preferences: calendar event start time
 msgctxt "EPr_cal_end_or_start_at_due_time"
 msgid "Calendar event time"
-msgstr ""
+msgstr "日曆事件的時間"
 
 msgctxt "EPr_cal_end_at_due_time"
 msgid "End calendar events at due time"
-msgstr ""
+msgstr "在預定時間結束日曆事件"
 
 msgctxt "EPr_cal_start_at_due_time"
 msgid "Start calendar events at due time"
-msgstr ""
+msgstr "在預定時間啟用日曆事件"
 
 msgctxt "EPr_force_phone_layout"
 msgid "Use phone layout"
-msgstr ""
+msgstr "使用手機佈局"
 
 msgctxt "EPr_show_featured_lists"
 msgid "Show featured lists"
-msgstr ""
-
-msgctxt "EPr_swipe_lists_restart_alert"
-msgid "You will need to restart Astrid for this change to take effect"
-msgstr ""
+msgstr "顯示特定列表"
 
 #. Swipe between lists
 #. Preference: swipe between lists performance
 msgctxt "EPr_swipe_lists_performance_title"
 msgid "Swipe between lists"
-msgstr ""
-
-msgctxt "EPr_swipe_lists_performance_subtitle"
-msgid "Controls the memory performance of swipe between lists"
-msgstr ""
+msgstr "在列表間滑動"
 
 msgctxt "EPr_swipe_lists_performance_mode:0"
 msgid "No swipe"
-msgstr ""
+msgstr "不使用滑動屏幕"
 
 msgctxt "EPr_swipe_lists_performance_mode:1"
 msgid "Conserve Memory"
-msgstr ""
+msgstr "節約內存"
 
 msgctxt "EPr_swipe_lists_performance_mode:2"
 msgid "Normal Performance"
-msgstr ""
+msgstr "標準性能"
 
 msgctxt "EPr_swipe_lists_performance_mode:3"
 msgid "High Performance"
-msgstr ""
+msgstr "高效性能"
 
 msgctxt "EPr_swipe_lists_performance_desc:0"
 msgid "Swipe between lists is disabled"
-msgstr ""
+msgstr "滑動屏幕切換列表已被禁用"
 
 msgctxt "EPr_swipe_lists_performance_desc:1"
 msgid "Slower performance"
-msgstr ""
+msgstr "較低速性能"
 
 msgctxt "EPr_swipe_lists_performance_desc:2"
 msgid "Default setting"
-msgstr ""
+msgstr "默認設置"
 
 msgctxt "EPr_swipe_lists_performance_desc:3"
 msgid "Uses more system resources"
-msgstr ""
+msgstr "使用更多系統資源"
 
 msgctxt "swipe_lists_helper_title"
 msgid "Swipe between lists"
-msgstr ""
+msgstr "在列表間滑動"
 
 msgctxt "swipe_lists_helper_header"
 msgid "Swipe left or right to quickly move between lists"
-msgstr ""
+msgstr "在列表間向左或向右快速滑動"
 
 msgctxt "swipe_lists_helper_subtitle"
 msgid "Change settings in Settings -&gt; Appearance"
-msgstr ""
-
-#. Format string for displaying the currently selected preference. $1 is name
-#. of selected mode, $2 is description
-#, c-format
-msgctxt "EPr_swipe_lists_display"
-msgid "%1$s - %2$s"
-msgstr ""
+msgstr "在設置-&gt外觀中修改選項"
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr ""
+msgstr "藍"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr ""
+msgstr "紅"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
-msgstr ""
+msgstr "夜間模式"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "透明(白色文字)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "透明(黑色文字)"
 
 msgctxt "EPr_themes_widget:0"
 msgid "Same as app"
-msgstr ""
+msgstr "與應用相同"
 
 msgctxt "EPr_themes_widget:1"
 msgid "Day - Blue"
-msgstr ""
+msgstr "日間——藍色"
 
 msgctxt "EPr_themes_widget:2"
 msgid "Day - Red"
-msgstr ""
+msgstr "日間——紅色"
 
 msgctxt "EPr_themes_widget:3"
 msgid "Night"
-msgstr ""
+msgstr "夜間"
 
 msgctxt "EPr_themes_widget:4"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "透明（白色文字）"
 
 msgctxt "EPr_themes_widget:5"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "透明（黑色文字）"
 
 msgctxt "EPr_themes_widget:6"
 msgid "Old Style"
-msgstr ""
+msgstr "老式風格"
 
 #. ========================================== Task Management Settings ==
 #. slide 33a/47c: Preference Screen Header: Old Task Management
 msgctxt "EPr_manage_header"
-msgid "Manage Old Tasks"
-msgstr ""
+msgid "Manage old tasks"
+msgstr "管理舊任務工作"
 
 #. slide 47d
 msgctxt "EPr_manage_delete_completed"
-msgid "Delete Completed Tasks"
-msgstr ""
+msgid "Delete completed tasks"
+msgstr "刪除已完成任務工作"
 
 msgctxt "EPr_manage_delete_completed_message"
 msgid "Do you really want to delete all your completed tasks?"
-msgstr ""
+msgstr "您真的要刪除所有已完成任務工作嗎？"
 
 #. slide 47a
 msgctxt "EPr_manage_delete_completed_summary"
 msgid "Deleted tasks can be undeleted one-by-one"
-msgstr ""
+msgstr "已刪除任務工作可以被依次恢復"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_status"
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "刪除了 %d 個任務工作！"
 
 #. slide 47e
 msgctxt "EPr_manage_purge_deleted"
-msgid "Purge Deleted Tasks"
-msgstr ""
+msgid "Purge deleted tasks"
+msgstr "清除已刪除任務工作"
 
 msgctxt "EPr_manage_purge_deleted_message"
 msgid ""
@@ -2189,21 +1936,24 @@ msgid ""
 "\n"
 "These tasks will be gone forever!"
 msgstr ""
+"您真的要清楚所有已刪除任務工作嗎？ \n"
+"\n"
+" 這些任務工作將會被徹底永久刪除！"
 
 #, c-format
 msgctxt "EPr_manage_purge_deleted_status"
 msgid "Purged %d tasks!"
-msgstr ""
+msgstr "清除了 %d 個任務工作！"
 
 #. slide 47b
 msgctxt "EPr_manage_purge_deleted_summary"
 msgid "Caution! Purged tasks can't be recovered without backup file!"
-msgstr ""
+msgstr "請注意！若事先沒有備份，已清除的任務工作將無法恢復！"
 
 #. slide 47h
 msgctxt "EPr_manage_clear_all"
-msgid "Clear All Data"
-msgstr "清除"
+msgid "Clear all data"
+msgstr "清除所有數據"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -2217,12 +1967,12 @@ msgstr ""
 
 #. slide 47f
 msgctxt "EPr_manage_delete_completed_gcal"
-msgid "Delete Calendar Events for Completed Tasks"
-msgstr ""
+msgid "Delete calendar events for completed tasks"
+msgstr "刪除日程表中已完成任務工作"
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
 msgid "Do you really want to delete all your events for completed tasks?"
-msgstr ""
+msgstr "您真的想刪除您所有的事件中已經完成的任務工作嗎？"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_gcal_status"
@@ -2231,29 +1981,28 @@ msgstr "清除%d個日曆事件!"
 
 #. slide 47g
 msgctxt "EPr_manage_delete_all_gcal"
-msgid "Delete All Calendar Events for Tasks"
-msgstr ""
+msgid "Delete all calendar events for tasks"
+msgstr "刪除所有日程表"
 
 msgctxt "EPr_manage_delete_all_gcal_message"
 msgid "Do you really want to delete all your events for tasks?"
-msgstr ""
+msgstr "您真的想刪除您所有事件中的各項任務工作嗎？"
 
 #, c-format
 msgctxt "EPr_manage_delete_all_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "已經刪除了 %d 個日曆事件了！"
 
-#. ==================================================== AddOnActivity ==
+#. ================================================ ==== AddOnActivity ==
 #. Add Ons Activity Title
-#, fuzzy
 msgctxt "AOA_title"
 msgid "Add-ons"
-msgstr "附加程式"
+msgstr "擴展"
 
 #. Add-on Activity: author for internal authors
 msgctxt "AOA_internal_author"
 msgid "Astrid Team"
-msgstr "Astrid團隊"
+msgstr "Astrid 團隊"
 
 #. Add-on Activity: installed add-ons tab
 msgctxt "AOA_tab_installed"
@@ -2271,21 +2020,33 @@ msgid "Free"
 msgstr "免費"
 
 #. Add-on Activity - menu item to visit add-on website
-msgctxt "AOA_visit_website"
-msgid "Visit Website"
-msgstr "訪問網站"
-
 #. Add-on Activity - menu item to visit android market
-msgctxt "AOA_visit_market"
-msgid "Android Market"
-msgstr "Android市集"
-
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
 msgid "Empty List!"
 msgstr "空的清單!"
 
-#. ====================================================== TasksWidget ==
+msgctxt "AOA_ppack_title"
+msgid "Astrid Power Pack"
+msgstr "Astrid優化工具"
+
+msgctxt "AOA_ppack_description"
+msgid ""
+"Support Astrid and get more productive with the Astrid Power Pack. 4x2 and "
+"4x4 widgets and voice integration. Power up today!"
+msgstr "支持Astrid並在Astrid優化工具的幫助下變得更加有效率。提供4＊2 和4＊4尺寸的小工具和語音支持。讓我們更加有效率地生活！"
+
+msgctxt "AOA_locale_title"
+msgid "Astrid Locale Plugin"
+msgstr "Astrid場所插件"
+
+msgctxt "AOA_locale_description"
+msgid ""
+"Allows Astrid to make use of the Locale application to send you "
+"notifications based on filter conditions. Requires Locale."
+msgstr "在過濾的條件下，允許Astrid利用場所應用推送通知。現在就買場所插件。"
+
+#. ================================================ ====== TasksWidget ==
 #. Widget text when loading tasks
 msgctxt "TWi_loading"
 msgid "Loading..."
@@ -2296,11 +2057,11 @@ msgctxt "WCA_title"
 msgid "Select tasks to view..."
 msgstr "選擇工作顯示..."
 
-#. ============================================================= About ==
+#. ================================================ ============= About ==
 #. slide 30h: Title of "About" option in settings
 msgctxt "p_about"
 msgid "About Astrid"
-msgstr ""
+msgstr "關於 Astrid"
 
 #. About text (%s => current version)
 #, c-format
@@ -2310,84 +2071,84 @@ msgid ""
 "\n"
 " Astrid is open-source and proudly maintained by Todoroo, Inc."
 msgstr ""
+"當前版本： %s\n"
+"\n"
+" Astrid 是由Todoroo, Inc. 維護的開源軟件。"
 
 #. Title of "Help" option in settings
 msgctxt "p_help"
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 #. slide 30c: Title of "Forums" option in settings
 msgctxt "p_forums"
 msgid "Forums"
-msgstr ""
+msgstr "討論區"
 
 #. Title of "Premium" option in settings
 msgctxt "p_premium"
 msgid "Premium"
-msgstr ""
+msgstr "高級"
 
-#. ============================================================= Misc ==
+#. ================================================ ============= Misc ==
 #. Displayed when task killer found. %s => name of the application
 #, c-format
 msgctxt "task_killer_help"
 msgid ""
-"It looks like you are using an app that can kill processes (%s)! If you "
-"can, add Astrid to the exclusion list so it doesn't get killed. "
-"Otherwise, Astrid might not let you know when your tasks are due.\n"
-msgstr "似乎您有使用會刪除程序的應用程式 (%s)! 假如可以,將Astrid加入到例外清單避免被關閉.\n"
+"It looks like you are using an app that can kill processes (%s)! If you can, "
+"add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
+"might not let you know when your tasks are due.\n"
+msgstr ""
+"似乎您正在使用會刪除進程的應用程序(%s)！可以的話，請將Astrid 加入到例外列表避免被殺死。否則Astrid可能無法通知您任​​務已到期。\n"
 
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
 msgid "I Won't Kill Astrid!"
-msgstr "我不會中止Astrid!"
+msgstr "我不會中止 Astrid!"
 
 #. Astrid's Android Marketplace title. It never appears in the app itself.
-msgctxt "marketplace_title"
-msgid "Astrid Task/Todo List"
-msgstr "Astricd工作/待辦清單"
-
 #. Astrid's Android Marketplace description. It never appears in the app
 #. itself.
 msgctxt "marketplace_description"
 msgid ""
-"Astrid is the much loved open-source todo list / task manager designed to"
-" help you get stuff done. It features reminders, tags, sync, Locale plug-"
-"in, a widget and more."
-msgstr "Astrid工作管理是受到高度喜愛的開放源碼應用程式且可以非常簡單的完成工作。內含工作標籤、提醒、同步 、本地端插件、widget和其他功能。"
+"Astrid is the much loved open-source todo list / task manager designed to "
+"help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
+"a widget and more."
+msgstr ""
+"Astrid是一款開源並深受人們喜愛的TODO任務工作/列表管理器，旨在提高您處理事務的效率。Astrid包含提醒、標籤、同步、區域插件、小工具等眾多功能。"
 
 msgctxt "DB_corrupted_title"
 msgid "Corrupted Database"
-msgstr ""
+msgstr "數據庫已經受損"
 
 msgctxt "DB_corrupted_body"
 msgid ""
 "Uh oh! It looks like you may have a corrupted database. If you see this "
-"error regularly, we suggest you clear all data (Settings-&gt;Manage All "
-"Tasks-&gt;Clear all data) and restore your tasks from a backup "
-"(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
+"error regularly, we suggest you clear all data (Settings-&gt;Sync and backup-"
+"&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a "
+"backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid."
 msgstr ""
+"啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&gt；管理舊任務工作-"
+"&gt;清楚所有數據）並在Astrid備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）"
 
-#, fuzzy
 msgctxt "market_unavailable"
 msgid "Unfortunately the market is not available for your system."
-msgstr ""
-"很抱歉您的系統無法使用市集。\n"
-"如果可能，請嘗試從其他來源下載語音搜尋功能。"
+msgstr "非常抱歉，我們的軟件無法在您的系統中成功運行。"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
-msgid "New Task Defaults"
+msgid "New task defaults"
 msgstr "工作預設值"
 
 msgctxt "EPr_defaults_summary"
-msgid "Importance, Due Date, Add to Calendar"
-msgstr ""
+msgid "Importance, due date, add to calendar"
+msgstr "重大事件，截止日期，添加到日曆"
 
-#. slide 41f:  Preference: Default Urgency Title
+#. slide 41f: Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
-msgid "Default Urgency"
+msgid "Default deadline"
 msgstr "預設嚴重性"
 
 #. Preference: Default Urgency Description (%s => setting)
@@ -2398,7 +2159,7 @@ msgstr "目前設定: %s"
 
 #. slide 40a: Preference: Default Importance Title
 msgctxt "EPr_default_importance_title"
-msgid "Default Importance"
+msgid "Default importance"
 msgstr "預設重要性"
 
 #. Preference: Default Importance Description (%s => setting)
@@ -2409,7 +2170,7 @@ msgstr "目前設定: %s"
 
 #. slide 42e: Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
-msgid "Default Hide Until"
+msgid "Default hide until"
 msgstr "預設隱藏直到..."
 
 #. Preference: Default Hide Until Description (%s => setting)
@@ -2420,7 +2181,7 @@ msgstr "目前設定: %s"
 
 #. slide 43e: Preference: Default Reminders Title
 msgctxt "EPr_default_reminders_title"
-msgid "Default Reminders"
+msgid "Default reminders"
 msgstr "預設提醒"
 
 #. Preference: Default Reminders Description (%s => setting)
@@ -2431,24 +2192,24 @@ msgstr "目前設定: %s"
 
 #. slide 19a/46c: Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
-msgid "Default Add To Calendar"
-msgstr ""
+msgid "Default add to calendar"
+msgstr "默認添加到日曆"
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
 msgctxt "EPr_default_addtocalendar_desc_disabled"
 msgid "New tasks will not create an event in the Google Calendar"
-msgstr ""
+msgstr "新建任務工作將不會在Google 日曆中創建事件"
 
 #. Preference: Default Add To Calendar Setting Description (%s => setting)
 #, c-format
 msgctxt "EPr_default_addtocalendar_desc"
 msgid "New tasks will be in the calendar: \"%s\""
-msgstr ""
+msgstr "新建任務工作將會在這個日曆中：“%s”"
 
 #. slide 45d: Reminder Mode Preference: Default Reminders Duration
 msgctxt "EPr_default_reminders_mode_title"
-msgid "Default Ring/Vibrate type"
-msgstr ""
+msgid "Default ring/vibrate type"
+msgstr "默認鈴聲／振動類型"
 
 #. Preference: Default Reminders Description (%s => setting)
 #, c-format
@@ -2458,22 +2219,22 @@ msgstr "目前設定: %s"
 
 msgctxt "EPr_default_importance:0"
 msgid "!!! (Highest)"
-msgstr ""
+msgstr "!!!（最高級別）"
 
 msgctxt "EPr_default_importance:1"
 msgid "!!"
-msgstr ""
+msgstr "!!"
 
 msgctxt "EPr_default_importance:2"
 msgid "!"
-msgstr ""
+msgstr "!"
 
 msgctxt "EPr_default_importance:3"
 msgid "o (Lowest)"
-msgstr ""
+msgstr "o（最低級別）"
 
 msgctxt "EPr_default_urgency:0"
-msgid "No Deadline"
+msgid "No deadline"
 msgstr "無截止日"
 
 msgctxt "EPr_default_urgency:1"
@@ -2485,11 +2246,11 @@ msgid "Tomorrow"
 msgstr "明天"
 
 msgctxt "EPr_default_urgency:3"
-msgid "Day After Tomorrow"
+msgid "Day after tomorrow"
 msgstr "後天"
 
 msgctxt "EPr_default_urgency:4"
-msgid "Next Week"
+msgid "Next week"
 msgstr "下週"
 
 msgctxt "EPr_default_hideUntil:0"
@@ -2527,17 +2288,13 @@ msgstr "在截止期限或過期時"
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. Resources for built-in filter plug-in
-#. ================================================= Filter Exposer ==
+#. ================================================ = Filter Exposer ==
 #. Active Tasks Filter
 msgctxt "BFE_Active"
 msgid "Active Tasks"
 msgstr "進行中的工作"
 
 #. Search Filter
-msgctxt "BFE_Search"
-msgid "Search..."
-msgstr "搜尋..."
-
 #. slide 10b: Recently Modified
 msgctxt "BFE_Recent"
 msgid "Recently Modified"
@@ -2546,18 +2303,10 @@ msgstr "最近修改過"
 #. slide 10c: I've assigned
 msgctxt "BFE_Assigned"
 msgid "I've Assigned"
-msgstr ""
+msgstr "我已經安排"
 
 #. Build Your Own Filter
-msgctxt "BFE_Custom"
-msgid "Custom Filter..."
-msgstr "自訂篩選..."
-
 #. Saved Filters Header
-msgctxt "BFE_Saved"
-msgid "Filters"
-msgstr ""
-
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
 msgid "Delete Filter"
@@ -2576,11 +2325,6 @@ msgid "Name this filter to save it..."
 msgstr "命名篩選並儲存..."
 
 #. Filter Name default for copied filters (%s => old filter name)
-#, c-format
-msgctxt "CFA_filterName_copy"
-msgid "Copy of %s"
-msgstr "複製 %s"
-
 #. slide 30a: Filter Starting Universe: all tasks
 msgctxt "CFA_universe_all"
 msgid "Active Tasks"
@@ -2686,22 +2430,22 @@ msgstr "重要性..."
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr ""
+msgstr "列表：?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
 msgid "List..."
-msgstr ""
+msgstr "列表..."
 
 #. Criteria: tag_contains - name of criteria
 msgctxt "CFC_tag_contains_name"
 msgid "List name contains..."
-msgstr ""
+msgstr "列表名包含..."
 
 #. Criteria: tag_contains - text (? -> user input)
 msgctxt "CFC_tag_contains_text"
 msgid "List name contains: ?"
-msgstr ""
+msgstr "列表名包含：?"
 
 #. Criteria: title_contains - name of criteria
 msgctxt "CFC_title_contains_name"
@@ -2723,10 +2467,6 @@ msgid "Error adding task to calendar!"
 msgstr "工作加入行事曆錯誤"
 
 #. Label for adding task to calendar
-msgctxt "gcal_TEA_calendar_label"
-msgid "Calendar Integration:"
-msgstr "整合行事曆"
-
 #. slide 21c: Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
@@ -2738,10 +2478,6 @@ msgid "Open Calendar Event"
 msgstr "打開行事曆事項"
 
 #. Toast when unable to open calendar event
-msgctxt "gcal_TEA_calendar_error"
-msgid "Error opening event!"
-msgstr "事件開啟錯誤!"
-
 #. Toast when calendar event updated because task changed
 msgctxt "gcal_TEA_calendar_updated"
 msgid "Calendar event also updated!"
@@ -2760,7 +2496,7 @@ msgctxt "gcal_TEA_has_event"
 msgid "Cal event"
 msgstr "日曆活動"
 
-#. ======================================================== Calendars ==
+#. ================================================ ======== Calendars ==
 #. Calendar event name when task is completed (%s => task title)
 #, c-format
 msgctxt "gcal_completed_title"
@@ -2774,138 +2510,106 @@ msgstr "預設行事曆"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-#. ============================================================= UI ==
+#. ================================================ ============= UI ==
 #. filters header: GTasks
 msgctxt "gtasks_FEx_header"
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google 工作表"
 
 #. filter category for GTasks lists
-msgctxt "gtasks_FEx_list"
-msgid "By List"
-msgstr "依清單"
-
 #. filter title for GTasks lists (%s => list name)
 #, c-format
 msgctxt "gtasks_FEx_title"
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Google 工作表：%s"
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_creating_list"
 msgid "Creating list..."
-msgstr ""
+msgstr "正在創建列表……"
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_create_list_dialog"
 msgid "New List Name:"
-msgstr ""
+msgstr "新列表名："
 
 #. error to show when list creation fails
 msgctxt "gtasks_FEx_create_list_error"
 msgid "Error creating new list"
-msgstr ""
+msgstr "創建新列表失敗"
 
 #. short help title for Gtasks
-msgctxt "gtasks_help_title"
-msgid "Welcome to Google Tasks!"
-msgstr "歡迎使用Google Tasks!"
-
 msgctxt "CFC_gtasks_list_text"
 msgid "In List: ?"
-msgstr ""
+msgstr "列表內容: ?"
 
 msgctxt "CFC_gtasks_list_name"
 msgid "In GTasks List..."
-msgstr ""
+msgstr "在Google任務工作列表中..."
 
 #. Message while clearing completed tasks
 msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
-msgstr ""
+msgstr "正在清除已完成任務工作……"
 
 #. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
-msgstr ""
+msgstr "清除已完成項"
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
-msgctxt "gtasks_GLA_title"
-msgid "Log In to Google Tasks"
-msgstr "登入Google Tasks"
-
 #. Instructions: Gtasks login
 msgctxt "gtasks_GLA_body"
 msgid ""
 "Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps "
 "accounts are currently unsupported."
-msgstr ""
+msgstr "請登錄到谷歌任務工作同步（Beta!）。目前不支持非遷移的“Google應用服務”帳戶。"
 
 msgctxt "gtasks_GLA_noaccounts"
 msgid "No available Google accounts to sync with."
-msgstr ""
+msgstr "沒有可用的Google帳戶同步。"
 
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
 msgid ""
-"To view your tasks with indentation and order preserved, go to the "
-"Filters page and select a Google Tasks list. By default, Astrid uses its "
-"own sort settings for tasks."
+"To view your tasks with indentation and order preserved, go to the Filters "
+"page and select a Google Tasks list. By default, Astrid uses its own sort "
+"settings for tasks."
 msgstr "檢視工作時若想保留縮排與排序，請到篩選頁面選擇Google Tasks的工作清單。Astrid預設採用自有的工作排序。"
 
 #. Sign In Button
-msgctxt "gtasks_GLA_signIn"
-msgid "Sign In"
-msgstr "登入"
-
 #. E-mail Address Label
-msgctxt "gtasks_GLA_email"
-msgid "E-mail"
-msgstr "電子郵件"
-
 #. Password Label
-msgctxt "gtasks_GLA_password"
-msgid "Password"
-msgstr "密碼"
-
 #. Authenticating toast
 msgctxt "gtasks_GLA_authenticating"
 msgid "Authenticating..."
-msgstr ""
+msgstr "正在認證..."
 
 #. Google Apps for Domain checkbox
-msgctxt "gtasks_GLA_domain"
-msgid "Google Apps for Domain account"
-msgstr "Google Apps for Domain帳號"
-
 #. Error Message when fields aren't filled out
-msgctxt "gtasks_GLA_errorEmpty"
-msgid "Error: fill out all fields!"
-msgstr "錯誤: 所有欄位需要填寫!"
-
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "gtasks_GLA_errorAuth"
 msgid ""
 "Error authenticating! Please check your username and password in your "
 "phone's account manager"
-msgstr ""
+msgstr "驗證出錯！請在您手機的帳戶管理器中檢查您的用戶名和密碼"
 
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
 msgid ""
-"Sorry, we had trouble communicating with Google servers. Please try again"
-" later."
-msgstr ""
+"Sorry, we had trouble communicating with Google servers. Please try again "
+"later."
+msgstr "對不起，我們在與Google 服務器通訊時遇到了問題。請稍後再嘗試。"
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
 msgid ""
-"You may have encountered a captcha. Try logging in from the browser, then"
-" come back to try again:"
+"You may have encountered a captcha. Try logging in from the browser, then "
+"come back to try again:"
 msgstr "您可能需要輸入captcha(驗證碼)。嘗試從瀏覽器登入後再回來重試:"
 
-#. ============================================== GtasksPreferences ==
+#. ============================================== GtasksPreferences = =
 #. GTasks Preferences Title
 msgctxt "gtasks_GPr_header"
 msgid "Google Tasks"
@@ -2913,45 +2617,41 @@ msgstr "Google Tasks (測試中!)"
 
 #. ================================================ Synchronization ==
 #. title for notification tray when synchronizing
-msgctxt "gtasks_notification_title"
-msgid "Astrid: Google Tasks"
-msgstr ""
-
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
 msgid ""
-"Google's Task API is in beta and has encountered an error. The service "
-"may be down, please try again later."
-msgstr ""
+"Google's Task API is in beta and has encountered an error. The service may "
+"be down, please try again later."
+msgstr "Google 的工作表應用程序界面正處於測試版階段，而且遇到了出錯。這個服務可能已經停止，請稍後再嘗試。"
 
 #. Error for account not found
 #, c-format
 msgctxt "gtasks_error_accountNotFound"
 msgid ""
-"Account %s not found--please log out and log back in from the Google "
-"Tasks settings."
-msgstr ""
+"Account %s not found--please log out and log back in from the Google Tasks "
+"settings."
+msgstr "找不到帳戶%s——請退出，然後從Google 工作表設置中重新登錄。"
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
 msgid ""
-"Unable to authenticate with Google Tasks. Please check your account "
-"password or try again later."
-msgstr ""
+"Unable to authenticate with Google Tasks. Please check your account password "
+"or try again later."
+msgstr "無法用Google 工作表驗證。請檢查您的帳戶密碼或者稍後再嘗試。"
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
 msgid ""
-"Error in your phone's account manager. Please log out and log back in "
-"from the Google Tasks settings."
-msgstr ""
+"Error in your phone's account manager. Please log out and log back in from "
+"the Google Tasks settings."
+msgstr "您手機的帳戶管理器出錯了。請退出，然後從Google 工作表設置中重新登陸。"
 
 #. Error when authorization error happens in background sync
 msgctxt "gtasks_error_background_sync_auth"
 msgid ""
 "Error authenticating in background. Please try initiating a sync while "
 "Astrid is running."
-msgstr ""
+msgstr "後台驗證出錯了。請在Astrid 運行時嘗試啟動同步。"
 
 msgctxt "gtasks_dual_sync_warning"
 msgid ""
@@ -2959,6 +2659,7 @@ msgid ""
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Google Tasks?"
 msgstr ""
+"您當前正在和Astrid.com 同步。請注意，在一些情況下，和兩個服務一起同步可能會導致出現意外的結果。您真的想和Google 工作表同步嗎？"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -2967,17 +2668,17 @@ msgstr ""
 #. slide 8c: Shown the first time a user sees the task list activity
 msgctxt "help_popover_add_task"
 msgid "Start by adding a task or two"
-msgstr ""
+msgstr "添加一兩項任務工作來開始使用"
 
 #. Shown the first time a user adds a task to a list
 msgctxt "help_popover_tap_task"
 msgid "Tap task to edit and share"
-msgstr ""
+msgstr "輕點任務工作進行編輯和分享"
 
 #. slide 14a: Shown the first time a user sees the list activity
 msgctxt "help_popover_list_settings"
 msgid "Tap to edit or share this list"
-msgstr ""
+msgstr "輕點這裡進行編輯或者分享這個列表"
 
 #. slide 26c: Shown the first time a user sees the list settings tab
 msgctxt "help_popover_collaborators"
@@ -2985,77 +2686,68 @@ msgid ""
 "People you share with can help\n"
 "you build your list or finish tasks"
 msgstr ""
+"和您分享的人\n"
+"能幫助您建立您的列表或者一起完成任務工作"
 
 #. Shown after user adds a task on tablet
 msgctxt "help_popover_add_lists"
 msgid "Tap to add a list"
-msgstr ""
+msgstr "點擊標籤添加列表"
 
 #. Shown after a user adds a task on phones
 msgctxt "help_popover_switch_lists"
 msgid "Tap to add a list or switch between lists"
-msgstr ""
-
-msgctxt "help_popover_when_shortcut"
-msgid "Tap this shortcut to quick select date and time"
-msgstr ""
-
-msgctxt "help_popover_when_row"
-msgid "Tap anywhere on this row to access options like repeat"
-msgstr ""
+msgstr "輕點添加一個列表或者在列表間切換"
 
 #. Login activity
-msgctxt "welcome_login_title"
-msgid "Welcome to Astrid!"
-msgstr "歡迎使用Astrid!"
-
 #. slide 7b
 msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
-msgstr ""
+msgstr "您使用Astrid 就表明您同意所有"
 
 msgctxt "welcome_login_tos_link"
 msgid "Terms of Service"
-msgstr ""
+msgstr "服務條款"
 
 #. slide 7e
 msgctxt "welcome_login_pw"
 msgid "Sign up with email"
-msgstr ""
+msgstr "用電子郵箱註冊"
 
-#, fuzzy
 msgctxt "welcome_sign_in"
 msgid "Sign in"
-msgstr "登入"
+msgstr "登錄"
 
 #. slide 7f
 msgctxt "welcome_login_later"
 msgid "Connect Later"
-msgstr ""
+msgstr "稍後連接"
 
 msgctxt "welcome_login_confirm_later_title"
 msgid "Why not sign in?"
-msgstr ""
+msgstr "為什麼不登錄呢？"
 
 msgctxt "welcome_login_confirm_later_ok"
 msgid "I'll do it!"
-msgstr ""
+msgstr "我會的！"
 
 msgctxt "welcome_login_confirm_later_cancel"
 msgid "No thanks"
-msgstr ""
+msgstr "不了，謝謝"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
-"Sign in to get the most out of Astrid! For free, you get online backup, "
-"full synchronization with Astrid.com, the ability to add tasks via email,"
-" and you can even share task lists with friends!"
+"Sign in to get the most out of Astrid! For free, you get online backup, full "
+"synchronization with Astrid.com, the ability to add tasks via email, and you "
+"can even share task lists with friends!"
 msgstr ""
+"登錄吧，充分利用Astrid！無需任何費用，您就可以獲得在線備份、和Astrid.com "
+"全面同步、可以通過電子郵件添加任務工作、而且您甚至可以和朋友們一起分享任務工作列表呢！"
 
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
-msgstr ""
+msgstr "更改任務工作類型"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3063,7 +2755,7 @@ msgstr ""
 #. Locale Alert Editing Window Title
 msgctxt "locale_edit_alerts_title"
 msgid "Astrid Filter Alert"
-msgstr "Astrid篩選警示"
+msgstr "Astrid 篩選警示"
 
 #. Locale Window Help
 msgctxt "locale_edit_intro"
@@ -3073,10 +2765,6 @@ msgid ""
 msgstr "當您有工作在篩選內時，Astrid將送出提醒"
 
 #. Locale Window Filter Picker UI
-msgctxt "locale_pick_filter"
-msgid "Filter:"
-msgstr "篩選："
-
 #. Locale Window Interval Label
 msgctxt "locale_interval_label"
 msgid "Limit notifications to:"
@@ -3124,11 +2812,11 @@ msgstr "請安裝Astrid地區插件"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-#. ====================== Plugin Boilerplate =========================
+#. ====================== Plugin Boilerplate ======================== =
 #. filters header: OpenCRX
 msgctxt "opencrx_FEx_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "打開CRX"
 
 #. filter category for OpenCRX ActivityCreators
 msgctxt "opencrx_FEx_dashboard"
@@ -3159,17 +2847,17 @@ msgstr "新增註解"
 
 msgctxt "opencrx_creator_input_hint"
 msgid "Creator"
-msgstr ""
+msgstr "創建者"
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
-msgstr ""
+msgstr "指派給"
 
-#. ==================================================== Preferences ==
+#. ================================================ ==== Preferences ==
 #. Preferences Title: OpenCRX
 msgctxt "opencrx_PPr_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "打開CRX"
 
 #. creator title for tasks that are not synchronized
 msgctxt "opencrx_no_creator"
@@ -3179,90 +2867,90 @@ msgstr "不要同步"
 #. preference title for default creator
 msgctxt "opencrx_PPr_defaultcreator_title"
 msgid "Default ActivityCreator"
-msgstr ""
+msgstr "默認活動創建者"
 
 #. preference description for default creator (%s -> setting)
 #, c-format
 msgctxt "opencrx_PPr_defaultcreator_summary"
 msgid "New activities will be created by: %s"
-msgstr ""
+msgstr "新活動將由 %s 創建"
 
 #. preference description for default dashboard (when set to 'not
 #. synchronized')
 msgctxt "opencrx_PPr_defaultcreator_summary_none"
 msgid "New activities will not be synchronized by default"
-msgstr ""
+msgstr "新活動默認不會被同步"
 
 #. OpenCRX host and segment group name
 msgctxt "opencrx_group"
 msgid "OpenCRX server"
-msgstr ""
+msgstr "OpenCRX 服務器"
 
 #. preference description for OpenCRX host
 msgctxt "opencrx_host_title"
 msgid "Host"
-msgstr ""
+msgstr "主機"
 
 #. dialog title for OpenCRX host
 msgctxt "opencrx_host_dialog_title"
 msgid "OpenCRX host"
-msgstr ""
+msgstr "OpenCRX 主機"
 
 #. example for OpenCRX host
 msgctxt "opencrx_host_summary"
 msgid "For example: <i>mydomain.com</i>"
-msgstr ""
+msgstr "例如 <i>mydomain.com</i>"
 
 #. preference description for OpenCRX segment
 msgctxt "opencrx_segment_title"
 msgid "Segment"
-msgstr ""
+msgstr "段"
 
 #. dialog title for OpenCRX segment
 msgctxt "opencrx_segment_dialog_title"
 msgid "Synchronized segment"
-msgstr ""
+msgstr "同步段"
 
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
 msgid "For example: <i>Standard</i>"
-msgstr ""
+msgstr "例如： <i> 標準 </i>"
 
 #. default value for OpenCRX segment
 msgctxt "opencrx_segment_default"
 msgid "Standard"
-msgstr ""
+msgstr "標準值"
 
 #. preference description for OpenCRX provider
 msgctxt "opencrx_provider_title"
 msgid "Provider"
-msgstr ""
+msgstr "提供者"
 
 #. dialog title for OpenCRX provider
 msgctxt "opencrx_provider_dialog_title"
 msgid "OpenCRX data provider"
-msgstr ""
+msgstr "OpenCRX 數據提供者"
 
 #. example for OpenCRX provider
 msgctxt "opencrx_provider_summary"
 msgid "For example: <i>CRX</i>"
-msgstr ""
+msgstr "例如 <i>CRX</i>"
 
 #. default value for OpenCRX provider
 msgctxt "opencrx_provider_default"
 msgid "CRX"
-msgstr ""
+msgstr "CRX"
 
-#. ================================================= Login Activity ==
+#. ================================================ = Login Activity ==
 #. Activity Title: Opencrx Login
 msgctxt "opencrx_PLA_title"
 msgid "Log In to OpenCRX"
-msgstr ""
+msgstr "登錄到 OpenCRX"
 
 #. Instructions: Opencrx login
 msgctxt "opencrx_PLA_body"
 msgid "Sign in with your OpenCRX account"
-msgstr ""
+msgstr "用您的 OpenCRX 帳號登陸"
 
 #. Sign In Button
 msgctxt "opencrx_PLA_signIn"
@@ -3272,7 +2960,7 @@ msgstr "登入"
 #. Login Label
 msgctxt "opencrx_PLA_login"
 msgid "Login"
-msgstr ""
+msgstr "登錄"
 
 #. Password Label
 msgctxt "opencrx_PLA_password"
@@ -3282,18 +2970,18 @@ msgstr "密碼"
 #. Error Message when fields aren't filled out
 msgctxt "opencrx_PLA_errorEmpty"
 msgid "Error: fillout all fields"
-msgstr ""
+msgstr "錯誤：請填充所有字段"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "opencrx_PLA_errorAuth"
 msgid "Error: login or password incorrect!"
-msgstr ""
+msgstr "錯誤：用戶名或密碼錯誤！"
 
 #. ================================================ Synchronization ==
 #. title for notification tray after synchronizing
 msgctxt "opencrx_notification_title"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -3309,16 +2997,16 @@ msgstr "連結錯誤! 檢查您的網際網路連線."
 #. opencrx Login not specified
 msgctxt "opencrx_MLA_email_empty"
 msgid "Login was not specified!"
-msgstr ""
+msgstr "用戶名未指定！"
 
-#. opencrx password not specified
+#. opencrx password n​​ot specified
 msgctxt "opencrx_MLA_password_empty"
 msgid "Password was not specified!"
 msgstr "密碼未指定!"
 
 #. ================================================ labels for layout-elements
 #. ==
-#. label for task-assignment spinner on taskeditactivity
+#. label f​​or task-assignment spinner on taskeditactivity
 msgctxt "opencrx_TEA_task_assign_label"
 msgid "Assign this task to this person:"
 msgstr "指派工作給此人:"
@@ -3328,31 +3016,31 @@ msgctxt "opencrx_TEA_task_unassigned"
 msgid "&lt;Unassigned&gt;"
 msgstr "反指派"
 
-#. label for dashboard-assignment spinner on taskeditactivity
+#. label f​​or dashboard-assignment spinner on taskeditactivity
 msgctxt "opencrx_TEA_creator_assign_label"
 msgid "Assign this task to this creator:"
-msgstr ""
+msgstr "指派該任務工作給此創建者："
 
 #. Spinner-item for default dashboard on taskeditactivity
 msgctxt "opencrx_TEA_dashboard_default"
 msgid "&lt;Default&gt;"
-msgstr "預設"
+msgstr "&lt;默認&gt;"
 
 msgctxt "opencrx_TEA_opencrx_title"
 msgid "OpenCRX Controls"
-msgstr ""
+msgstr "打開CRX控制面板"
 
 msgctxt "CFC_opencrx_in_workspace_text"
 msgid "In workspace: ?"
-msgstr "在工作區: ?"
+msgstr "在任務工作區: ?"
 
 msgctxt "CFC_opencrx_in_workspace_name"
 msgid "In workspace..."
-msgstr "在工作區..."
+msgstr "在任務工作區..."
 
 msgctxt "CFC_opencrx_assigned_to_text"
 msgid "Assigned to: ?"
-msgstr "指派改: ?"
+msgstr "指派給：？"
 
 msgctxt "CFC_opencrx_assigned_to_name"
 msgid "Assigned to..."
@@ -3360,26 +3048,25 @@ msgstr "指派給..."
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-#. ================================================== EditPreferences ==
+#. ================================================ == EditPreferences ==
 #. slide 32j: Preference Category: Power Pack
-#, fuzzy
 msgctxt "EPr_powerpack_header"
-msgid "Premium and Misc. Settings"
-msgstr "提醒設定"
+msgid "Premium and misc. settings"
+msgstr "高級和其它設置"
 
 msgctxt "EPr_powerpack_summary"
 msgid "Missed call reminders, voice input and miscellaneous settings"
-msgstr ""
+msgstr "未接電話提醒，語音輸入和其它設置"
 
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
-msgid "Anonymous Usage Stats"
+msgid "Anonymous usage stats"
 msgstr "匿名使用統計"
 
 #. Preference: User Statistics (disabled)
 msgctxt "EPr_statistics_desc_disabled"
 msgid "No usage data will be reported"
-msgstr "沒有使用資料會被回傳"
+msgstr "不報告使用資料"
 
 #. slide 32f: Preference: User Statistics (enabled)
 msgctxt "EPr_statistics_desc_enabled"
@@ -3389,306 +3076,296 @@ msgstr "傳送匿名使用資料以協助我們改進Astrid"
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 msgctxt "speech_err_network"
-msgid "Network error! Speech recognition requires a network connection to work."
-msgstr ""
+msgid ""
+"Network error! Speech recognition requires a network connection to work."
+msgstr "網絡出錯！語音識別需要網絡連接才能運作。"
 
 msgctxt "speech_err_no_match"
 msgid "Sorry, I couldn't understand that! Please try again."
-msgstr ""
+msgstr "對不起，我聽不明白喔！請再說一次吧。"
 
 msgctxt "speech_err_default"
 msgid "Sorry, speech recognition encountered an error. Please try again."
-msgstr ""
+msgstr "對不起，語音識別遇到出錯。請重新再試。"
 
 msgctxt "premium_attach_file"
 msgid "Attach a file"
-msgstr ""
+msgstr "附上一份文件"
 
 msgctxt "premium_record_audio"
 msgid "Record a note"
-msgstr ""
+msgstr "錄製一條便箋"
 
 msgctxt "premium_no_files"
 msgid "No files attached"
-msgstr ""
+msgstr "沒有附加文件"
 
 msgctxt "premium_remove_file_confirm"
 msgid "Are you sure? Cannot be undone"
-msgstr ""
+msgstr "您確定嗎？無法恢復的喔"
 
 msgctxt "audio_recording_title"
 msgid "Recording Audio"
-msgstr ""
+msgstr "正在錄製音頻"
 
 msgctxt "audio_stop_recording"
 msgid "Stop Recording"
-msgstr ""
+msgstr "停止錄製"
 
 msgctxt "audio_speak_now"
 msgid "Speak Now!"
-msgstr ""
+msgstr "現在請講！"
 
 msgctxt "audio_encoding"
 msgid "Encoding..."
-msgstr ""
+msgstr "正在編碼…"
 
 msgctxt "audio_err_encoding"
 msgid "Error encoding audio"
-msgstr ""
+msgstr "音頻編碼出錯"
 
 msgctxt "audio_err_playback"
 msgid "Sorry, the system does not support this type of audio file"
-msgstr ""
+msgstr "對不起，系統不支持這種類型的音頻文件"
 
 msgctxt "search_market_audio"
 msgid ""
 "No player found to handle that audio type. Would you like to download an "
 "audio player from the Android Market?"
-msgstr ""
+msgstr "找不到播放器來處理這種音頻類型。您想從安卓市場上下載一個音頻播放器嗎？"
 
 msgctxt "search_market_audio_title"
 msgid "No audio player found"
-msgstr ""
+msgstr "找不到音頻播放器"
 
 msgctxt "search_market_pdf"
 msgid ""
-"No PDF reader was found. Would you like to download a PDF reader from the"
-" Android Market?"
-msgstr ""
+"No PDF reader was found. Would you like to download a PDF reader from the "
+"Android Market?"
+msgstr "找不到PDF 閱讀器。您想從安卓市場上下載一個PDF 閱讀器嗎？"
 
 msgctxt "search_market_pdf_title"
 msgid "No PDF reader found"
-msgstr ""
+msgstr "找不到 PDF 閱讀器"
 
 msgctxt "search_market_ms"
 msgid ""
 "No MS Office reader was found. Would you like to download an MS Office "
 "reader from the Android Market?"
-msgstr ""
+msgstr "找不到微軟Office 閱讀器。您想從安卓市場上下載一個微軟Office 閱讀器嗎？"
 
 msgctxt "search_market_ms_title"
 msgid "No MS Office reader found"
-msgstr ""
+msgstr "找不到微軟 Office"
 
 msgctxt "file_type_unhandled"
 msgid "Sorry! No application was found to handle this file type."
-msgstr ""
+msgstr "對不起！找不到應用程序處理這種文件類型。"
 
 msgctxt "file_type_unhandled_title"
 msgid "No application found"
-msgstr ""
+msgstr "找不到應用程序"
 
 msgctxt "file_prefix_image"
 msgid "Image"
-msgstr ""
+msgstr "圖片"
 
 msgctxt "file_prefix_voice"
 msgid "Voice"
-msgstr ""
+msgstr "語音"
 
 msgctxt "file_browser_up"
 msgid "Up"
-msgstr ""
+msgstr "向上"
 
 msgctxt "file_browser_title"
 msgid "Choose a file"
-msgstr ""
+msgstr "選擇一個文件"
 
 msgctxt "dir_browser_title"
 msgid "Choose a directory"
-msgstr ""
+msgstr "選擇一個目錄"
 
 msgctxt "file_browser_err_permissions"
 msgid ""
 "Permissions error! Please make sure you have not blocked Astrid from "
 "accessing the SD card."
-msgstr ""
+msgstr "權限出錯！請確保您沒有阻止Astrid訪問SD 卡。"
 
 msgctxt "file_add_picture"
 msgid "Attach a picture"
-msgstr ""
+msgstr "附上一幅圖片"
 
 msgctxt "file_add_sdcard"
 msgid "Attach a file from your SD card"
-msgstr ""
+msgstr "附上一份來自您 SD 卡的文件"
 
 msgctxt "file_download_title"
 msgid "Download file?"
-msgstr ""
+msgstr "要下載文件嗎？"
 
 msgctxt "file_download_body"
 msgid "This file has not been downloaded to your SD card. Download now?"
-msgstr ""
+msgstr "這份文件還沒有下載到您的SD 卡上。要現在下載嗎？"
 
 msgctxt "file_download_progress"
 msgid "Downloading..."
-msgstr ""
+msgstr "正在下載……"
 
 msgctxt "file_err_memory"
 msgid "Image is too large to fit in memory"
-msgstr ""
+msgstr "圖片太大，無法存入內存"
 
 msgctxt "file_err_copy"
 msgid "Error copying file for attachment"
-msgstr ""
+msgstr "複製文件添加附件時出錯"
 
 msgctxt "file_err_download"
 msgid "Error downloading file"
-msgstr ""
+msgstr "下載文件時出錯"
 
 msgctxt "file_err_no_directory"
 msgid ""
 "Whoops! Looks like the files directory doesn't exist. Please choose a "
 "directory to save files to in the Astrid Preferences."
-msgstr ""
+msgstr "糟糕！這個文件目錄似乎並不存在。請在Astrid 設置中選擇目錄以存放文件。"
 
 msgctxt "file_err_show"
 msgid "Sorry, the system does not yet support this type of file"
-msgstr ""
+msgstr "對不起，系統尚未支持這種類型的文件"
 
 msgctxt "file_dir_dialog_ok"
 msgid "Use this directory"
-msgstr ""
+msgstr "使用此目錄"
 
 msgctxt "file_dir_dialog_default"
 msgid "Reset to default"
-msgstr ""
+msgstr "重設為默認值"
 
 msgctxt "p_files_dir"
-msgid "Premium Downloads Directory"
-msgstr ""
+msgid "Premium downloads directory"
+msgstr "高級下載設置"
 
 #. Description for file download directory preference. %s -> chosen directory
 #, c-format
 msgctxt "p_files_dir_desc"
 msgid "Task attachments saved to: %s"
-msgstr ""
+msgstr "將任務工作附件保存至：%s"
 
-#, fuzzy
 msgctxt "p_files_dir_desc_default"
 msgid "Default directory"
-msgstr "預設嚴重性"
+msgstr "默認目錄"
 
 #. in app billing
 msgctxt "billing_not_supported_title"
 msgid "Can't make purchases"
-msgstr ""
+msgstr "無法完成交易"
 
 msgctxt "billing_not_supported_message"
 msgid ""
-"The Market billing service is not available at this time. You can "
-"continue to use this app but you won't be able to make purchases."
-msgstr ""
+"The Market billing service is not available at this time. You can continue "
+"to use this app but you won't be able to make purchases."
+msgstr "付款服務暫時無法使用。您能繼續使用這個應用軟件，但是您無法成功購買。"
 
 msgctxt "subscriptions_not_supported_title"
 msgid "Can't purchase subscriptions"
-msgstr ""
+msgstr "無法訂閱服務。"
 
 msgctxt "subscriptions_not_supported_message"
 msgid ""
-"The Market billing service on this device does not support subscriptions "
-"at this time. You can subscribe to Astrid Premium at "
-"http://astrid.com/premium."
+"The Market billing service on this device does not support subscriptions at "
+"this time. You can subscribe to Astrid Premium at http://astrid.com/premium."
 msgstr ""
+"此設備上的Market賬單服務暫時無法支持購買。 您能在http://astrid.com/premium上購買Astrid Premium。"
 
 msgctxt "cannot_connect_title"
 msgid "Can't connect to Market"
-msgstr ""
+msgstr "無法連接網上Market"
 
 msgctxt "cannot_connect_message"
 msgid ""
 "This app cannot connect to Market. Your version of Market may be out of "
 "date. You can continue to use this app but you won't be able to make "
 "purchases."
-msgstr ""
+msgstr "此應用程序無法連接Market。您的Market版本也許過低。您能繼續使用此程序，但是您無法成功交易。"
 
 msgctxt "restoring_transactions"
 msgid "Restoring transactions"
-msgstr ""
+msgstr "恢復交易"
 
-#, fuzzy
 msgctxt "subscriptions_learn_more"
 msgid "Learn more"
-msgstr "清除圖片"
+msgstr "了解更多"
 
-#, c-format
-msgctxt "subscriptions_help_url"
-msgid "http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%region%"
-msgstr ""
-
-#, fuzzy
 msgctxt "premium_billing_title"
 msgid "Astrid Premium"
-msgstr "Astrid團隊"
+msgstr "Astrid高級版本"
 
-#, fuzzy
 msgctxt "premium_buy_month"
 msgid "1 Month"
-msgstr "每月"
+msgstr "1 個月"
 
 msgctxt "premium_buy_year"
 msgid "1 Year"
-msgstr ""
+msgstr "1 年"
 
 msgctxt "premium_description_header"
 msgid "Do more with premium!"
-msgstr ""
+msgstr "使用高級版本完成更多事情"
 
 msgctxt "premium_description_1"
 msgid ""
 "Attach files to to-dos \n"
 "(pdfs, doc, ppt…)"
-msgstr ""
+msgstr "附加文件到要完成的事情列表裡"
 
 msgctxt "premium_description_2"
 msgid "Syncs files with astrid.com"
-msgstr ""
+msgstr "使用 astrid.com同步文件"
 
 msgctxt "premium_description_3"
 msgid "Add attachments via email"
-msgstr ""
+msgstr "通過郵件添加附件"
 
 msgctxt "premium_description_4"
 msgid "Save voice notes as audio files"
-msgstr ""
+msgstr "將語音消息另存為音頻文件"
 
 msgctxt "premium_description_5"
 msgid "Preview upcoming features"
-msgstr ""
+msgstr "提前體驗亮點"
 
 msgctxt "premium_description_6"
 msgid "Support the Astrid Team!"
-msgstr ""
+msgstr "支持Astrid團隊！"
 
 msgctxt "premium_speech_bubble_1"
 msgid "Premium will power up your productivity!"
-msgstr ""
+msgstr "高級版本能夠讓您的效率升級！"
 
-#, c-format
 msgctxt "premium_speech_bubble_2"
-msgid "Order one year and save 25%!"
-msgstr ""
+msgid "Order one year and save 25%%!"
+msgstr "購買一年的服務並且得到25%%的折扣"
 
 msgctxt "premium_already_subscribed"
 msgid "You are already subscribed to Astrid Premium!"
-msgstr ""
+msgstr "您已經購買了Astrid Premium！"
 
 msgctxt "premium_login_prompt"
 msgid ""
 "You need to have an Astrid.com account in order to subscribe to premium. "
 "Please log in or sign up."
-msgstr ""
+msgstr "為了成功購買高級版本，您需要一個Astrid.com的賬戶。 請在我們的網站上登錄或者註冊。"
 
 msgctxt "premium_success"
 msgid "Thanks for subscribing to Astrid Premium!"
-msgstr ""
+msgstr "謝謝購買Astrid Premium！"
 
 msgctxt "premium_success_with_server_error"
 msgid ""
-"Thanks for subscribing to Astrid Premium! The new features will be "
-"unlocked for you on astrid.com soon, and should be available on your "
-"phone right away."
-msgstr ""
+"Thanks for subscribing to Astrid Premium! The new features will be unlocked "
+"for you on astrid.com soon, and should be available on your phone right away."
+msgstr "謝謝購買Astrid Premium！新的特點將會很快在astrid.com發布，並且在您的手機裡立刻得到更新。"
 
 msgctxt "premium_verification_error"
 msgid ""
@@ -3696,14 +3373,15 @@ msgid ""
 "different user. To link additional emails to your account, visit "
 "astrid.com/users/profile"
 msgstr ""
+"此Google Play 帳戶的高級版本正與另一個用戶連接。訪問astrid.com/users/profile並連接您帳戶的另一個電子郵箱。"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-#. ====================== Plugin Boilerplate =========================
+#. ====================== Plugin Boilerplate ======================== =
 #. filters header: Producteev
 msgctxt "producteev_FEx_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. filter category for Producteev dashboards
 msgctxt "producteev_FEx_dashboard"
@@ -3718,7 +3396,7 @@ msgstr "指派給"
 #. filter category for Producteev responsible person
 msgctxt "producteev_FEx_responsible_byothers"
 msgid "Assigned by others to"
-msgstr ""
+msgstr "由他人分配給"
 
 #. Producteev responsible filter title (%s => responsiblename)
 #, c-format
@@ -3737,11 +3415,11 @@ msgctxt "producteev_TEA_notes"
 msgid "Add a Comment"
 msgstr "新增註解"
 
-#. ==================================================== Preferences ==
+#. ================================================ ==== Preferences ==
 #. Preferences Title: Producteev
 msgctxt "producteev_PPr_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. dashboard title for producteev default dashboard
 msgctxt "producteev_default_dashboard"
@@ -3780,7 +3458,7 @@ msgctxt "producteev_PPr_defaultdash_summary_none"
 msgid "New tasks will not be synchronized by default"
 msgstr "新工作預設將不會執行同步"
 
-#. ================================================= Login Activity ==
+#. ================================================ = Login Activity ==
 #. Activity Title: Producteev Login
 msgctxt "producteev_PLA_title"
 msgid "Log In to Producteev"
@@ -3788,7 +3466,8 @@ msgstr "登入Producteev"
 
 #. Instructions: Producteev login
 msgctxt "producteev_PLA_body"
-msgid "Sign in with your existing Producteev account, or create a new account!"
+msgid ""
+"Sign in with your existing Producteev account, or create a new account!"
 msgstr "使用Producteev帳號登入或建立新帳號!"
 
 #. Producteev Terms Link
@@ -3822,10 +3501,6 @@ msgid "Timezone"
 msgstr "時區"
 
 #. Confirm Password Label
-msgctxt "producteev_PLA_confirmPassword"
-msgid "Confirm Password"
-msgstr "確認密碼"
-
 #. First Name Label
 msgctxt "producteev_PLA_firstName"
 msgid "First Name"
@@ -3842,10 +3517,6 @@ msgid "Error: fill out all fields!"
 msgstr "錯誤: 所有欄位需要填寫!"
 
 #. Error Message when passwords don't match
-msgctxt "producteev_PLA_errorMatch"
-msgid "Error: passwords don't match!"
-msgstr "錯誤: 密碼不一致!"
-
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "producteev_PLA_errorAuth"
 msgid "Error: e-mail or password incorrect!"
@@ -3855,35 +3526,18 @@ msgstr "錯誤: 電子郵件或密碼不正確!"
 #. title for notification tray after synchronizing
 msgctxt "producteev_notification_title"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. text for notification tray when synchronizing
-#, c-format
-msgctxt "producteev_notification_text"
-msgid "%s tasks updated / click for more details"
-msgstr "%s 工作已更新/點選檢視細節"
-
 #. Error msg when io exception
-msgctxt "producteev_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr "連結錯誤! 檢查您的網際網路連線."
-
 #. Prod Login email not specified
-msgctxt "producteev_MLA_email_empty"
-msgid "E-Mail was not specified!"
-msgstr "電子郵件未指定!"
-
 #. Prod Login password not specified
-msgctxt "producteev_MLA_password_empty"
-msgid "Password was not specified!"
-msgstr "密碼未指定!"
-
 #. ================================================ labels for layout-elements
 #. ==
 #. Label for Producteev control set row
 msgctxt "producteev_TEA_control_set_display"
 msgid "Producteev Assignment"
-msgstr ""
+msgstr "Producteev 任務工作分配系統"
 
 #. label for task-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_task_assign_label"
@@ -3891,20 +3545,12 @@ msgid "Assign this task to this person:"
 msgstr "指派工作給此人:"
 
 #. Spinner-item for unassigned tasks on taskeditactivity
-msgctxt "producteev_TEA_task_unassigned"
-msgid "&lt;Unassigned&gt;"
-msgstr "反指派"
-
 #. label for dashboard-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_dashboard_assign_label"
 msgid "Assign this task to this workspace:"
 msgstr "指派工作給此工作區:"
 
 #. Spinner-item for default dashboard on taskeditactivity
-msgctxt "producteev_TEA_dashboard_default"
-msgid "&lt;Default&gt;"
-msgstr "預設"
-
 msgctxt "CFC_producteev_in_workspace_text"
 msgid "In workspace: ?"
 msgstr "在工作區: ?"
@@ -3928,73 +3574,73 @@ msgstr "指派給..."
 #. Task Edit: Reminder group label
 msgctxt "TEA_reminders_group_label"
 msgid "Reminders"
-msgstr ""
+msgstr "提醒"
 
 #. Task Edit: Reminder header label
 msgctxt "TEA_reminder_label"
-msgid "Remind Me:"
-msgstr ""
+msgid "Remind me:"
+msgstr "提醒我："
 
 #. Task Edit: Reminder @ deadline
 msgctxt "TEA_reminder_due"
 msgid "When task is due"
-msgstr ""
+msgstr "當任務工作到期時"
 
 #. Task Edit: Reminder after deadline
 msgctxt "TEA_reminder_overdue"
 msgid "When task is overdue"
-msgstr ""
+msgstr "當任務工作過期時"
 
 #. Task Edit: Reminder at random times (%s => time plural)
 msgctxt "TEA_reminder_randomly"
 msgid "Randomly once"
-msgstr ""
+msgstr "隨機一次"
 
 #. Task Edit: Reminder alarm clock label
 msgctxt "TEA_reminder_alarm_label"
-msgid "Ring/Vibrate Type:"
-msgstr "鈴響/震動類型:"
+msgid "Ring/vibrate type:"
+msgstr "鈴響/震動類型："
 
 #. slide 45a: Task Edit: Reminder mode: ring once
 msgctxt "TEA_reminder_mode_once"
-msgid "Ring Once"
+msgid "Ring once"
 msgstr "響鈴一次"
 
 #. slide 45b: Task Edit: Reminder mode: ring five times
 msgctxt "TEA_reminder_mode_five"
-msgid "Ring Five Times"
-msgstr ""
+msgid "Ring five times"
+msgstr "響五次"
 
 #. slide 45c: Task Edit: Reminder mode: ring nonstop
 msgctxt "TEA_reminder_mode_nonstop"
-msgid "Ring Until I Dismiss Alarm"
+msgid "Ring until I dismiss alarm"
 msgstr "響鈴直到關閉鬧鈴"
 
 msgctxt "TEA_reminder_random:0"
 msgid "an hour"
-msgstr ""
+msgstr "一個小時"
 
 msgctxt "TEA_reminder_random:1"
 msgid "a day"
-msgstr ""
+msgstr "一天"
 
 msgctxt "TEA_reminder_random:2"
 msgid "a week"
-msgstr ""
+msgstr "一個星期"
 
 msgctxt "TEA_reminder_random:3"
 msgid "in two weeks"
-msgstr ""
+msgstr "兩星期內"
 
 msgctxt "TEA_reminder_random:4"
 msgid "a month"
-msgstr ""
+msgstr "一個月"
 
 msgctxt "TEA_reminder_random:5"
 msgid "in two months"
-msgstr ""
+msgstr "兩個月內"
 
-#. ==================================================== notifications ==
+#. ================================================ ==== notifications ==
 #. Name of filter when viewing a reminder
 msgctxt "rmd_NoA_filter"
 msgid "Reminder!"
@@ -4013,158 +3659,156 @@ msgstr "晚點提醒..."
 #. Reminder: Completed Toast
 msgctxt "rmd_NoA_completed_toast"
 msgid "Congratulations on finishing!"
-msgstr ""
+msgstr "恭喜，已經完成了！"
 
 #. Prefix for reminder dialog title
 msgctxt "rmd_NoA_dlg_title"
 msgid "Reminder:"
-msgstr ""
+msgstr "提醒："
 
-#. ==================================================== user reengagement ==
+#. ================================================ ==== user reengagement ==
 #. Titles for user reengagement notifications
 msgctxt "rmd_reengage_notif_titles:0"
 msgid "A note from Astrid"
-msgstr ""
+msgstr "Astrid 的提示"
 
-#. ==================================================== user reengagement ==
+#. ================================================ ==== user reengagement ==
 #. Titles for user reengagement notifications
 #, c-format
 msgctxt "rmd_reengage_notif_titles:1"
 msgid "Memo for %s."
-msgstr ""
+msgstr "%s 的備忘錄。"
 
-#. ==================================================== user reengagement ==
+#. ================================================ ==== user reengagement ==
 #. Titles for user reengagement notifications
 msgctxt "rmd_reengage_notif_titles:2"
 msgid "Your Astrid digest"
-msgstr ""
+msgstr "您的 Astrid 摘要"
 
-#. ==================================================== user reengagement ==
+#. ================================================ ==== user reengagement ==
 #. Titles for user reengagement notifications
 msgctxt "rmd_reengage_notif_titles:3"
 msgid "Reminders from Astrid"
-msgstr ""
+msgstr "Astrid 的提醒"
 
 msgctxt "rmd_reengage_name_default"
 msgid "you"
-msgstr ""
-
-msgctxt "rmd_reengage_snooze"
-msgid "Snooze all"
-msgstr ""
+msgstr "您"
 
 msgctxt "rmd_reengage_add_tasks"
 msgid "Add a task"
-msgstr ""
+msgstr "添加一項任務工作"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:0"
 msgid "Time to shorten your to-do list!"
-msgstr ""
+msgstr "是時候縮短您的任務工作清單了！"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:1"
 msgid "Dear sir or madam, some tasks await your inspection!"
-msgstr ""
+msgstr "尊敬的先生或女士，有一些任務工作等待您的檢查！"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:2"
 msgid "Hi there, could you take a look at these?"
-msgstr ""
+msgstr "嘿，您好，您可不可以看一看這些任務工作？"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:3"
 msgid "I've got some tasks with your name on them!"
-msgstr ""
+msgstr "我有些任務工作，上面有您的名字喔！"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:4"
 msgid "A fresh batch of tasks for you today!"
-msgstr ""
+msgstr "您今天的一批新任務工作！"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:5"
 msgid "You look fabulous! Ready to get started?"
-msgstr ""
+msgstr "您看起來棒極了！準備好開始了嗎？"
 
 #. Speech bubble options for astrid in reengagement notifs
 msgctxt "rmd_reengage_dialog_options:6"
 msgid "A lovely day for getting some work done, I think!"
-msgstr ""
+msgstr "今天不錯，是時候搞定一些事兒了，我認為是這樣的！"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:0"
 msgid "Don't you want to get organized?"
-msgstr ""
+msgstr "您不想生活變得更加有條理嗎？"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:1"
 msgid "I'm Astrid! I'm here to help you do more!"
-msgstr ""
+msgstr "我是Astrid！我隨時幫助您做更多事情！"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:2"
 msgid "You look busy! Let me take some of those tasks off of your plate."
-msgstr ""
+msgstr "您好像好忙喔！讓我來分擔一下您的重擔裡的一些活兒唄。"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:3"
 msgid "I can help you keep track of all of the details in your life."
-msgstr ""
+msgstr "我可以幫您記錄您生活中的所有細節。"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:4"
 msgid "You're serious about getting more done? So am I!"
-msgstr ""
+msgstr "您真的要搞定更多事情嗎？我也是啊！"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:5"
 msgid "Pleasure to make your acquaintance!"
-msgstr ""
+msgstr "好高興認識您咽！"
 
-#. ============================================= reminder preferences ==
+#. ============================================= reminder preferences = =
 #. slide 33d: Reminder Preference Screen Title
 msgctxt "rmd_EPr_alerts_header"
-msgid "Reminder Settings"
-msgstr "提醒設定"
+msgid "Reminder settings"
+msgstr "提醒設置"
 
 msgctxt "rmd_EPr_alerts_summary"
 msgid "Quiet hours, snooze options, persistence level"
-msgstr ""
+msgstr "勿擾模式，稍候提醒，持續提醒"
 
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
-msgid "Reminders Enabled?"
-msgstr ""
+msgid "Reminders enabled?"
+msgstr "允許提醒？"
 
 #. Reminder Preference Reminders Enabled Description (true)
 msgctxt "rmd_EPr_enabled_desc_true"
 msgid "Astrid reminders are enabled (this is normal)"
-msgstr ""
+msgstr "Astrid 提示功能已經啟用（這是正常的）"
 
 #. Reminder Preference Reminders Enabled Description (false)
 msgctxt "rmd_EPr_enabled_desc_false"
 msgid "Astrid reminders will never appear on your phone"
-msgstr ""
+msgstr "Astrid 提示功能將不再出現在您的手機裡"
 
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
-msgid "Quiet Hours Start"
+msgid "Quiet hours start"
 msgstr "無聲開始時間"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
-#, fuzzy, c-format
+#, c-format
 msgctxt "rmd_EPr_quiet_hours_start_desc"
 msgid ""
 "Notifications will be silent after %s.\n"
-"Note: vibrations are controlled by the Vibrate on Alert setting"
-msgstr "%s 後將不會進行提醒動作"
+"Note: vibrations are controlled by the Vibrate on alert setting"
+msgstr ""
+"%s 後提示將靜止。\n"
+"注意：震動在下面的選項中控制！"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 msgctxt "rmd_EPr_quiet_hours_desc_none"
@@ -4173,29 +3817,29 @@ msgstr "未設定無聲功能"
 
 #. Reminder Preference: Quiet Hours End Title
 msgctxt "rmd_EPr_quiet_hours_end_title"
-msgid "Quiet Hours End"
+msgid "Quiet hours end"
 msgstr "無聲結束時間"
 
 #. Reminder Preference: Quiet Hours End Description (%s => time set)
 #, c-format
 msgctxt "rmd_EPr_quiet_hours_end_desc"
 msgid "Notifications will stop being silent starting at %s"
-msgstr ""
+msgstr "通知將在 %s"
 
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
-msgid "Default Reminder"
-msgstr ""
+msgid "Default reminder"
+msgstr "默認提示"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
 msgid "Notifications for tasks without due times will appear at %s"
-msgstr ""
+msgstr "未設定截止日期任務工作的通知會於%s 出現"
 
 #. Reminder Preference: Notification Ringtone Title
 msgctxt "rmd_EPr_ringtone_title"
-msgid "Notification Ringtone"
+msgid "Notification ringtone"
 msgstr "提醒鈴聲"
 
 #. Reminder Preference: Notification Ringtone Description (when custom tone is
@@ -4218,7 +3862,7 @@ msgstr "使用預設鈴聲"
 
 #. Reminder Preference: Notification Persistence Title
 msgctxt "rmd_EPr_persistent_title"
-msgid "Notification Persistence"
+msgid "Notification persistence"
 msgstr "持續通知"
 
 #. Reminder Preference: Notification Persistence Description (true)
@@ -4229,38 +3873,30 @@ msgstr "通知必須個別地清除"
 #. Reminder Preference: Notification Persistence Description (false)
 msgctxt "rmd_EPr_persistent_desc_false"
 msgid "Notifications can be cleared with \"Clear All\" button"
-msgstr "通知可經由點選 \"清除全部\" 清除"
+msgstr "通知可經由點選“清除全部”清除"
 
 #. Reminder Preference: Notification Icon Title
-msgctxt "rmd_EPr_notificon_title"
-msgid "Notification Icon Set"
-msgstr "通知圖示集"
-
 #. Reminder Preference: Notification Icon Description
-msgctxt "rmd_Epr_notificon_desc"
-msgid "Choose Astrid's notification bar icon"
-msgstr "選擇Astrid通知列圖示"
-
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Title
 msgctxt "rmd_EPr_multiple_maxvolume_title"
 msgid "Max volume for multiple-ring reminders"
-msgstr ""
+msgstr "多重提醒最大音量"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (true)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_true"
 msgid "Astrid will max out the volume for multiple-ring reminders"
-msgstr ""
+msgstr "Astrid將會以最大音量進行多重提醒"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
 msgid "Astrid will use the system setting for the volume"
-msgstr ""
+msgstr "Astrid使用系統音量設置"
 
 #. Reminder Preference: Vibrate Title
 msgctxt "rmd_EPr_vibrate_title"
-msgid "Vibrate on Alert"
+msgid "Vibrate on alert"
 msgstr "震動提醒"
 
 #. Reminder Preference: Vibrate Description (true)
@@ -4275,8 +3911,8 @@ msgstr "傳送通知震動關閉"
 
 #. Reminder Preference: Nagging Title
 msgctxt "rmd_EPr_nagging_title"
-msgid "Astrid Encouragements"
-msgstr "Astrid提醒"
+msgid "Astrid encouragements"
+msgstr "Astrid 提醒"
 
 #. Reminder Preference: Nagging Description (true)
 msgctxt "rmd_EPr_nagging_desc_true"
@@ -4290,13 +3926,13 @@ msgstr "Astrid停止傳送任何鼓勵訊息"
 
 #. Reminder Preference: Snooze Dialog Title
 msgctxt "rmd_EPr_snooze_dialog_title"
-msgid "Snooze Dialog HH:MM"
+msgid "Snooze dialog HH:MM"
 msgstr "晚點提醒對話框 小時:分鐘"
 
 #. Reminder Preference: Snooze Dialog Description (true)
 msgctxt "rmd_EPr_snooze_dialog_desc_true"
 msgid "Snooze by selecting new snooze time (HH:MM)"
-msgstr "選擇晚點提醒的時間 (小時:分鐘)"
+msgstr "選擇晚點提醒的時間(小時:分鐘)"
 
 #. Reminder Preference: Nagging Description (false)
 msgctxt "rmd_EPr_snooze_dialog_desc_false"
@@ -4305,7 +3941,7 @@ msgstr "選擇幾天/小時後再提醒"
 
 #. slide 44g: Reminder Preference: Default Reminders Title
 msgctxt "rmd_EPr_defaultRemind_title"
-msgid "Random Reminders"
+msgid "Random reminders"
 msgstr "隨機提醒"
 
 #. Reminder Preference: Default Reminders Setting (disabled)
@@ -4320,34 +3956,36 @@ msgid "New tasks will remind randomly: %s"
 msgstr "工作將隨機提醒: %s"
 
 #. slide 39a: Defaults Title
-msgctxt "rmd_EPr_defaults_header"
-msgid "New Task Defaults"
-msgstr "工作預設值"
-
 msgctxt "EPr_reminder_random:0"
 msgid "disabled"
 msgstr "停用"
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:1"
 msgid "hourly"
 msgstr "每小時"
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:2"
 msgid "daily"
 msgstr "每天"
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:3"
 msgid "weekly"
 msgstr "每週"
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:4"
 msgid "bi-weekly"
 msgstr "每2週"
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:5"
 msgid "monthly"
 msgstr "每月"
 
+#. slide 39a: Defaults Title
 msgctxt "EPr_reminder_random:6"
 msgid "bi-monthly"
 msgstr "每2個月"
@@ -4374,7 +4012,7 @@ msgstr "23:00"
 
 msgctxt "EPr_quiet_hours_start:5"
 msgid "12 AM"
-msgstr "24:00"
+msgstr "00:00"
 
 msgctxt "EPr_quiet_hours_start:6"
 msgid "1 AM"
@@ -4830,43 +4468,44 @@ msgstr "是時候清理工作清單了!"
 
 msgctxt "reminder_responses:17"
 msgid "Are you on Team Order or Team Chaos? Team Order! Let's go!"
-msgstr ""
+msgstr "您所在的隊伍是整裝待發的還是雜亂無章的？整裝待發的！我們出發！"
 
 msgctxt "reminder_responses:18"
 msgid "Have I mentioned you are awesome recently? Keep it up!"
-msgstr ""
+msgstr "我最近不是說過您做得不錯嗎？堅持啊！"
 
 msgctxt "reminder_responses:19"
 msgid "A task a day keeps the clutter away... Goodbye clutter!"
-msgstr ""
+msgstr "一天一件事，天下大亂也不關我的事……再見啦，亂子！"
 
 msgctxt "reminder_responses:20"
 msgid "How do you do it? Wow, I'm impressed!"
-msgstr ""
+msgstr "您怎麼做到的呀？哇，我真佩服了！"
 
 msgctxt "reminder_responses:21"
 msgid "You can't just get by on your good looks. Let's get to it!"
-msgstr ""
+msgstr "不管您有多帥多美，您也不能拿來維持生活的。讓我們準備做點實事吧！"
 
 msgctxt "reminder_responses:22"
 msgid "Lovely weather for a job like this, isn't it?"
-msgstr ""
+msgstr "天氣不錯呀，是時候搞定這種工作了，不是嗎？"
 
 msgctxt "reminder_responses:23"
 msgid "A spot of tea while you work on this?"
-msgstr ""
+msgstr "您做這件事情時是不是想來杯茶呢？"
 
 msgctxt "reminder_responses:24"
-msgid "If only you had already done this, then you could go outside and play."
-msgstr ""
+msgid ""
+"If only you had already done this, then you could go outside and play."
+msgstr "要是您已經做完這件事，您就可以到外面玩了。"
 
 msgctxt "reminder_responses:25"
 msgid "It's time. You can't put off the inevitable."
-msgstr ""
+msgstr "是時候了。要做的事情總是要做的。"
 
 msgctxt "reminder_responses:26"
 msgid "I die a little every time you ignore me."
-msgstr ""
+msgstr "您每次不理我，我都被折磨得死去活來的。"
 
 msgctxt "postpone_nags:0"
 msgid "Please tell me it isn't true that you're a procrastinator!"
@@ -4954,47 +4593,46 @@ msgid "Repeat Interval"
 msgstr "重複間隔"
 
 #. slide 19b
-#, fuzzy
 msgctxt "repeat_never"
 msgid "Make repeating?"
-msgstr "No Repeat"
+msgstr "要設置重複嗎？"
 
 #. slide 20f
 msgctxt "repeat_dont"
 msgid "Don't repeat"
-msgstr ""
+msgstr "不重複"
 
 msgctxt "repeat_interval_short:0"
 msgid "d"
-msgstr ""
+msgstr "日"
 
 msgctxt "repeat_interval_short:1"
 msgid "wk"
-msgstr ""
+msgstr "週"
 
 msgctxt "repeat_interval_short:2"
 msgid "mo"
-msgstr ""
+msgstr "月"
 
 msgctxt "repeat_interval_short:3"
 msgid "hr"
-msgstr ""
+msgstr "時"
 
 msgctxt "repeat_interval_short:4"
 msgid "min"
-msgstr ""
+msgstr "分"
 
 msgctxt "repeat_interval_short:5"
 msgid "yr"
-msgstr ""
+msgstr "年"
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
-msgstr "天"
+msgstr "日"
 
 msgctxt "repeat_interval:1"
 msgid "Week(s)"
-msgstr "週"
+msgstr "星期"
 
 msgctxt "repeat_interval:2"
 msgid "Month(s)"
@@ -5006,61 +4644,61 @@ msgstr "小時"
 
 msgctxt "repeat_interval:4"
 msgid "Minute(s)"
-msgstr ""
+msgstr "分鐘"
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr ""
+msgstr "年"
 
 msgctxt "repeat_until_shortcuts:0"
 msgid "Forever"
-msgstr ""
+msgstr "永遠重複"
 
 msgctxt "repeat_until_shortcuts:1"
 msgid "Specific Day"
-msgstr ""
+msgstr "具體的一天"
 
 msgctxt "repeat_until_shortcuts:2"
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 msgctxt "repeat_until_shortcuts:3"
 msgid "Tomorrow"
-msgstr ""
+msgstr "明天"
 
 msgctxt "repeat_until_shortcuts:4"
 msgid "(day after)"
-msgstr ""
+msgstr "（後天）"
 
 msgctxt "repeat_until_shortcuts:5"
 msgid "Next Week"
-msgstr ""
+msgstr "下星期"
 
 msgctxt "repeat_until_shortcuts:6"
 msgid "In Two Weeks"
-msgstr ""
+msgstr "兩星期內"
 
 msgctxt "repeat_until_shortcuts:7"
 msgid "Next Month"
-msgstr ""
+msgstr "下個月"
 
 msgctxt "repeat_until_title"
 msgid "Repeat until..."
-msgstr ""
+msgstr "重複到……"
 
 msgctxt "repeat_keep_going"
 msgid "Keep going"
-msgstr ""
+msgstr "繼續下去"
 
 msgctxt "repeat_type:0"
 msgid "from due date"
-msgstr "由到期日"
+msgstr "自到期日"
 
 msgctxt "repeat_type:1"
 msgid "from completion date"
-msgstr "由完成日"
+msgstr "自完成日"
 
-#. task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e.
+#. task detail weekly by day ($I -> interval, ie 1 week, $D -> days, ie
 #. Monday, Tuesday)
 msgctxt "repeat_detail_byday"
 msgid "$I on $D"
@@ -5080,91 +4718,93 @@ msgid ""
 "Every %1$s\n"
 "until %2$s"
 msgstr ""
+"每隔 %1$s\n"
+"直到 %2$s"
 
 #. task detail for repeat from completion date (%s -> interval)
 #, c-format
 msgctxt "repeat_detail_completion"
 msgid "%s after completion"
-msgstr "%s 完成後"
+msgstr "完成後 %s"
 
 #. text for button when repeating task indefinitely
 msgctxt "repeat_forever"
 msgid "Repeat forever"
-msgstr ""
+msgstr "永遠重複"
 
 #. text for button when repeating task until specified date (%s -> date
 #. string)
 #, c-format
 msgctxt "repeat_until"
 msgid "Repeat until %s"
-msgstr ""
+msgstr "重複到 %s"
 
 #. text for confirmation dialog after repeating a task (%s -> task title)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_title"
 msgid "Rescheduling task \"%s\""
-msgstr ""
+msgstr "重新安排“%s”這項任務工作"
 
 #. text for confirmation dialog after repeating a task for the last time (%s
 #. -> task title)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_title_last_time"
 msgid "Completed repeating task \"%s\""
-msgstr ""
+msgstr "已經完成“%s”這項重複任務工作"
 
 #. text for when a repeating task was rescheduled (%1$s -> encouragment
 #. string, %2$s -> old due date, %3$s -> new due date)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble"
 msgid "%1$s I've rescheduled this repeating task from %2$s to %3$s"
-msgstr ""
+msgstr "%1$s 我已經重新安排了這項重複任務工作，截止日期由%2$s 變成%3$s"
 
 #. text for when a repeating task was rescheduled but didn't have a due date
 #. yet, (%1$s -> encouragement string, %2$s -> new due date)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble_no_date"
 msgid "%1$s I've rescheduled this repeating task to %2$s"
-msgstr ""
+msgstr "%1$s 我已經重新安排了這項重複任務工作，截止日期為%2$s"
 
 #. text for when a repeating task was rescheduled for the last time (%1$s ->
 #. repeat end date, %2$s -> encouragement string)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble_last_time"
 msgid "You had this repeating until %1$s, and now you're all done. %2$s"
-msgstr ""
+msgstr "您設置了這項任務工作重複到%1$s，現在您已經圓滿完成。%2$s"
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
-msgstr ""
+msgstr "做得好！"
 
 msgctxt "repeat_encouragement:1"
 msgid "Wow… I'm so proud of you!"
-msgstr ""
+msgstr "哇噢... 我真為你驕傲！"
 
 msgctxt "repeat_encouragement:2"
 msgid "I love when you're productive!"
-msgstr ""
+msgstr "每次您能做那麼多事情的時候，我都愛死您了！"
 
 msgctxt "repeat_encouragement:3"
 msgid "Doesn't it feel good to check something off?"
-msgstr ""
+msgstr "勾掉一些任務工作的時候是不是很爽呀？"
 
 msgctxt "repeat_encouragement_last_time:0"
 msgid "Good job!"
-msgstr ""
+msgstr "做得好！"
 
 msgctxt "repeat_encouragement_last_time:1"
 msgid "I'm so proud of you!"
-msgstr ""
+msgstr "我真為您驕傲啊！"
 
 msgctxt "repeat_encouragement_last_time:2"
 msgid "I love when you're productive!"
-msgstr ""
+msgstr "每次您能做那麼多事情的時候，我都愛死您了！"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-#. ====================== Plugin Boilerplate =========================
-#. label for RMilk button in Task Edit Activity
+#. ====================== Plugin Boilerplate ======================== =
+#. label f​​or RMilk button in Task Edit Activity
 msgctxt "rmilk_EOE_button"
 msgid "Remember the Milk Settings"
 msgstr "Remember the Milk 設定"
@@ -5172,61 +4812,61 @@ msgstr "Remember the Milk 設定"
 #. task detail showing RTM repeat information
 msgctxt "rmilk_TLA_repeat"
 msgid "RTM Repeating Task"
-msgstr "RTM重複工作"
+msgstr "RTM重複任務工作"
 
 #. task detail showing item needs to be synchronized
 msgctxt "rmilk_TLA_sync"
 msgid "Needs synchronization with RTM"
-msgstr "需要與RTM同步"
+msgstr "需要與 RTM 同步"
 
 #. filters header: RTM
 msgctxt "rmilk_FEx_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "記得登錄the Milk。"
 
 #. filter category for RTM lists
 msgctxt "rmilk_FEx_list"
 msgid "Lists"
-msgstr "清單"
+msgstr "列表"
 
 #. RTM list filter title (%s => list)
 #, c-format
 msgctxt "rmilk_FEx_list_title"
 msgid "RTM List '%s'"
-msgstr "RTM清單 '%s'"
+msgstr "RTM 列表 '%s'"
 
-#. ======================= MilkEditActivity ==========================
+#. ======================= MilkEditActivity ======================== ==
 #. RTM edit activity Title
 msgctxt "rmilk_MEA_title"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "記得登錄the Milk。"
 
 #. RTM edit List Edit Label
 msgctxt "rmilk_MEA_list_label"
 msgid "RTM List:"
-msgstr "RTM清單:"
+msgstr "RTM 列表："
 
 #. RTM edit Repeat Label
 msgctxt "rmilk_MEA_repeat_label"
 msgid "RTM Repeat Status:"
-msgstr "RTM重複狀態:"
+msgstr "RTM 重複狀態："
 
 #. RTM edit Repeat Hint
 msgctxt "rmilk_MEA_repeat_hint"
 msgid "i.e. every week, after 14 days"
-msgstr "例如, 每星期, 14天後"
+msgstr "例如：每星期，14天后"
 
-#. ======================== MilkPreferences ==========================
+#. ======================== MilkPreferences ======================= ===
 #. Milk Preferences Title
 msgctxt "rmilk_MPr_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "記得登錄the Milk。"
 
-#. ======================= MilkLoginActivity =========================
+#. ======================= MilkLoginActivity ======================== =
 #. RTM Login Instructions
 msgctxt "rmilk_MLA_label"
 msgid "Please Log In and Authorize Astrid:"
-msgstr "請登入並授權Astrid:"
+msgstr "請登陸並授權 Astrid："
 
 #. Login Error Dialog (%s => message)
 #, c-format
@@ -5236,41 +4876,41 @@ msgid ""
 "\n"
 " Error Message: %s"
 msgstr ""
-"抱歉, 登入錯誤. 請再試一次. \n"
+"抱歉，登陸錯誤。請再試一次。\n"
 "\n"
-" 錯誤訊息: %s"
+" 錯誤信息：%s"
 
-#. ======================== Synchronization ==========================
+#. ======================== Synchronization ======================= ===
 #. title for notification tray when synchronizing
 msgctxt "rmilk_notification_title"
 msgid "Astrid: Remember the Milk"
-msgstr ""
+msgstr "同步到網站 \"別忘記牛奶\""
 
 #. Error msg when io exception with rmilk
 msgctxt "rmilk_ioerror"
 msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
-msgstr "連線錯誤! 檢查網路連線或RTM伺服器(status.rememberthemilk.com)."
+msgstr "連接錯誤！請檢查網絡鏈接或RTM 服務器(status.rememberthemilk.com)。"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. Subtasks Help Introduction
 msgctxt "subtasks_help_title"
 msgid "Sort and Indent in Astrid"
-msgstr ""
+msgstr "在 Astrid 中排序並縮進"
 
 msgctxt "subtasks_help_1"
 msgid "Tap and hold to move a task"
-msgstr ""
+msgstr "輕點並按住一項任務工作來移動它"
 
 msgctxt "subtasks_help_2"
 msgid "Drag vertically to rearrange"
-msgstr ""
+msgstr "垂直拖動以重新整理"
 
 msgctxt "subtasks_help_3"
 msgid "Drag horizontally to indent"
-msgstr ""
+msgstr "水平拖動以縮進"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -5279,131 +4919,98 @@ msgstr ""
 #. Tags label
 msgctxt "TEA_tags_label"
 msgid "Lists"
-msgstr "清單"
+msgstr "列表"
 
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr ""
+msgstr "把任務工作放入一個或多個列表上"
 
 #. slide 16h: Tags none
 msgctxt "TEA_tags_none"
 msgid "None"
-msgstr ""
+msgstr "無"
 
 #. Tags hint
 msgctxt "TEA_tag_hint"
 msgid "New list"
-msgstr ""
+msgstr "新建列表"
 
 #. Tags dropdown
-msgctxt "TEA_tag_dropdown"
-msgid "Select a list"
-msgstr ""
-
 #. =============================================== Task List Controls ==
 #. menu item for tags
-msgctxt "tag_TLA_menu"
-msgid "Lists"
-msgstr "清單"
-
-#. ========================================================== Extras ==
+#. ================================================ ========== Extras ==
 #. Context Item: show tag
-msgctxt "TAd_contextFilterByTag"
-msgid "Show List"
-msgstr ""
-
 #. slide 25a: Dialog: new list
 msgctxt "tag_new_list"
 msgid "New List"
-msgstr ""
+msgstr "新列表"
 
 #. Dialog: list saved
-msgctxt "tag_list_saved"
-msgid "List Saved"
-msgstr ""
-
 #. Dialog: task created without title
 msgctxt "tag_no_title_error"
 msgid "Please enter a name for this list first!"
-msgstr ""
+msgstr "請先為此列表鍵入一個名稱！"
 
-#. ========================================================== Filters ==
+#. ================================================ ========== Filters ==
 #. filter button to add tag
 msgctxt "tag_FEx_add_new"
 msgid "New"
-msgstr ""
+msgstr "添加"
 
 #. filter header for tags
 msgctxt "tag_FEx_header"
 msgid "Lists"
-msgstr "清單"
+msgstr "列表"
 
 #. filter header for tags user created
-msgctxt "tag_FEx_category_mine"
-msgid "My Lists"
-msgstr ""
-
 #. filter header for tags, shared with user
-msgctxt "tag_FEx_category_shared"
-msgid "Shared With Me"
-msgstr ""
-
 #. filter header for tags which have no active tasks
-msgctxt "tag_FEx_category_inactive"
-msgid "Inactive"
-msgstr ""
-
 #. slide 10d: filter for untagged tasks
 msgctxt "tag_FEx_untagged"
 msgid "Not in any List"
-msgstr ""
+msgstr "不在任何列表"
 
 #. clarifying title for people who have Google and Astrid lists
 msgctxt "tag_FEx_untagged_w_astrid"
 msgid "Not in an Astrid List"
-msgstr ""
+msgstr "不在 Astrid 列表中"
 
 #. slide 27a: %s => tag name
-#, c-format
-msgctxt "tag_FEx_name"
-msgid "List: %s"
-msgstr ""
-
 #. context menu option to rename a tag
 msgctxt "tag_cm_rename"
 msgid "Rename List"
-msgstr ""
+msgstr "重命名列表"
 
 #. context menu option to delete a tag
 msgctxt "tag_cm_delete"
 msgid "Delete List"
-msgstr ""
+msgstr "刪除列表"
 
 #. context menu option to leave a shared list
 msgctxt "tag_cm_leave"
 msgid "Leave List"
-msgstr ""
+msgstr "離開列表"
 
 #. Dialog to confirm deletion of a tag (%s -> the name of the list to be
 #. deleted)
 #, c-format
 msgctxt "DLG_delete_this_tag_question"
 msgid "Delete this list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "刪除列表%s 嗎？(不會刪除任務工作。)"
 
 #. Dialog to confirm leaving a shared tag (%s -> the name of the shared list
 #. to leave)
 #, c-format
 msgctxt "DLG_leave_this_shared_tag_question"
 msgid "Leave this shared list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "要離開這份共享列表嗎：%s？（不會刪除任何任務工作。）"
 
 #. Dialog to rename tag
 #, c-format
 msgctxt "DLG_rename_this_tag_header"
 msgid "Rename the list %s to:"
-msgstr ""
+msgstr "重命名列表 %s 為："
 
 #. Toast notification that no changes have been made
 msgctxt "TEA_no_tags_modified"
@@ -5415,21 +5022,21 @@ msgstr "沒有變更"
 #, c-format
 msgctxt "TEA_tags_deleted"
 msgid "List %1$s was deleted, affecting %2$d tasks"
-msgstr ""
+msgstr "列表%1$s 已刪除，影響了%2$d 項任務工作"
 
 #. Toast notification that a shared tag has been left (%1$s - list name, %2$d
 #. - # tasks)
 #, c-format
 msgctxt "TEA_tags_left"
 msgid "You left shared list %1$s, affecting %2$d tasks"
-msgstr ""
+msgstr "您離開了共享列表%1$s，影響到%2$d 個任務工作"
 
 #. Toast notification that a tag has been renamed (%1$s - old name, %2$s - new
 #. name, %3$d - # tasks)
 #, c-format
 msgctxt "TEA_tags_renamed"
 msgid "Renamed %1$s with %2$s for %3$d tasks"
-msgstr ""
+msgstr "%3$d 項任務工作由%1$s 重命名為%2$s。"
 
 #. Tag case migration
 msgctxt "tag_case_migration_notice"
@@ -5437,173 +5044,161 @@ msgid ""
 "We've noticed that you have some lists that have the same name with "
 "different capitalizations. We think you may have intended them to be the "
 "same list, so we've combined the duplicates. Don't worry though: the "
-"original lists are simply renamed with numbers (e.g. Shopping_1, "
-"Shopping_2). If you don't want this, you can simply delete the new "
-"combined list!"
+"original lists are simply renamed with numbers (eg Shopping_1, "
+"Shopping_2). If you don't want this, you can simply delete the new combined "
+"list!"
 msgstr ""
+"我們留意到您有些列表的名稱是相同的，只是大寫的地方不同而已。我們認為您可能是打算將他們放在同一個列表，所以我們已經合併了這些重名列表。但不用擔心：原來的列"
+"表僅僅用了數字來重命名（例如Shopping_1、Shopping_2）。如果您不想這樣，您可以直接刪除新合併的列表！"
 
 #. Header for tag settings
 msgctxt "tag_settings_title"
 msgid "List Settings"
-msgstr "Settings:"
+msgstr "設置："
 
 #. Header for tag activity
 #, c-format
 msgctxt "tag_updates_title"
 msgid "Activity: %s"
-msgstr ""
+msgstr "活躍程度：%s"
 
 #. Delete button for tag settings
-#, fuzzy
 msgctxt "tag_delete_button"
 msgid "Delete list"
-msgstr "還原工作刪除"
+msgstr "刪除列表"
 
 #. slide 28d: Leave button for tag settings
-#, fuzzy
 msgctxt "tag_leave_button"
 msgid "Leave this list"
-msgstr "尋找此列表"
+msgstr "離開這份列表"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task List: Start Timer button
-msgctxt "TAE_startTimer"
-msgid "Timer"
-msgstr ""
-
 #. Task List: Stop Timer button
-msgctxt "TAE_stopTimer"
-msgid "Stop"
-msgstr ""
-
 #. Android Notification Title (%s => # tasks)
 #, c-format
 msgctxt "TPl_notification"
 msgid "Timers Active for %s!"
-msgstr "%s 啟動計時!"
+msgstr "秒錶啟動了 %s！"
 
 #. Filter Header for Timer plugin
-msgctxt "TFE_category"
-msgid "Timer Filters"
-msgstr "時間篩選"
-
 #. Filter for Timed Tasks
 msgctxt "TFE_workingOn"
 msgid "Tasks Being Timed"
-msgstr "工作已開始計時"
+msgstr "任務工作已開始計時"
 
 #. Title for TEA
 msgctxt "TEA_timer_controls"
 msgid "Timer Controls"
-msgstr ""
+msgstr "定時器控件"
 
 #. Edit Notes: create comment for when timer is started
 msgctxt "TEA_timer_comment_started"
 msgid "started this task:"
-msgstr ""
+msgstr "已經開始了這項任務工作："
 
 #. Edit Notes: create comment for when timer is stopped
 msgctxt "TEA_timer_comment_stopped"
 msgid "stopped doing this task:"
-msgstr ""
+msgstr "已經停止了這項任務工作："
 
 #. Edit Notes: comment to notify how long was spent on task
 msgctxt "TEA_timer_comment_spent"
 msgid "Time spent:"
-msgstr ""
+msgstr "已經花費時間："
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. Update string from activity codes %1$s - user, %2$s - target name, %3$s -
 #. message, %4$s - other_user
 #. NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use
-#. for string formatting.     Please do not translate this part of the string.
+#. for string formatting. Please do not translate this part of the string.
 #, c-format
 msgctxt "update_string_friends"
 msgid "%1$s is now friends with %2$s"
-msgstr ""
+msgstr "%1$s 現在和 %2$s 成了朋友"
 
 #, c-format
 msgctxt "update_string_request_friendship"
 msgid "%1$s wants to be friends with you"
-msgstr ""
+msgstr "%1$s 想和您成為朋友"
 
 #. slide 22e
 #, c-format
 msgctxt "update_string_confirmed_friendship"
 msgid "%1$s has confirmed your friendship request"
-msgstr ""
+msgstr "%1$s 已經確認了您的交友請求"
 
 #, c-format
 msgctxt "update_string_task_created"
 msgid "%1$s created this task"
-msgstr ""
+msgstr "%1$s 創建了這項任務工作"
 
 #, c-format
 msgctxt "update_string_task_created_global"
 msgid "%1$s created $link_task"
-msgstr ""
+msgstr "%1$s 創建了 $link_task"
 
 #. slide 24 b and c
 #, c-format
 msgctxt "update_string_task_created_on_list"
 msgid "%1$s added $link_task to this list"
-msgstr ""
+msgstr "%1$s 添加了$link_task 到這個列表"
 
 #. slide 22c
 #, c-format
 msgctxt "update_string_task_completed"
 msgid "%1$s completed $link_task. Huzzah!"
-msgstr ""
+msgstr "%1$s 完成了 $link_task。好哇！"
 
 #, c-format
 msgctxt "update_string_task_uncompleted"
 msgid "%1$s un-completed $link_task."
-msgstr ""
+msgstr "%1$s 未完成 $link_task。"
 
 #, c-format
 msgctxt "update_string_task_tagged"
 msgid "%1$s added $link_task to %4$s"
-msgstr ""
+msgstr "%1$s 添加了 $link_task 給 %4$s"
 
 #, c-format
 msgctxt "update_string_task_tagged_list"
 msgid "%1$s added $link_task to this list"
-msgstr ""
+msgstr "%1$s 添加了$link_task 到這個列表"
 
 #. slide 22d
 #, c-format
 msgctxt "update_string_task_assigned"
 msgid "%1$s assigned $link_task to %4$s"
-msgstr ""
+msgstr "%1$s 把 $link_task 分配到 %4$s"
 
 #. slide 24d
 #, c-format
 msgctxt "update_string_default_comment"
 msgid "%1$s commented: %3$s"
-msgstr ""
+msgstr "%1$s 發表道：%3$s"
 
 #, c-format
 msgctxt "update_string_task_comment"
 msgid "%1$s Re: $link_task: %3$s"
-msgstr ""
+msgstr "%1$s 答复：$link_task：%3$s"
 
 #, c-format
 msgctxt "update_string_tag_comment"
 msgid "%1$s Re: %2$s: %3$s"
-msgstr ""
+msgstr "%1$s 答复：%2$s：%3$s"
 
 #, c-format
 msgctxt "update_string_tag_created"
 msgid "%1$s created this list"
-msgstr ""
+msgstr "%1$s 創建了這個列表"
 
 #, c-format
 msgctxt "update_string_tag_created_global"
 msgid "%1$s created the list %2$s"
-msgstr ""
+msgstr "%1$s 創建了此列表：%2$s"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -5645,10 +5240,10 @@ msgstr ""
 "很抱歉您的系統無法使用市集。\n"
 "如果可能，請嘗試從其他來源下載語音搜尋功能。"
 
-#. slide 38d:  Preference: Task List Show Voice-button if recognition-service
+#. slide 38d: Preference: Task List Show Voice-button if recognition-service
 #. is available
 msgctxt "EPr_voiceInputEnabled_title"
-msgid "Voice Input"
+msgid "Voice input"
 msgstr "語音輸入"
 
 #. slide 38a: Preference: voice button description (true)
@@ -5663,7 +5258,7 @@ msgstr "語音輸入按鍵會在工作清單畫面上隱藏。"
 
 #. slide 38e: Preference: Task List Voice-button directly creates tasks
 msgctxt "EPr_voiceInputCreatesTask_title"
-msgid "Directly Create Tasks"
+msgid "Directly create tasks"
 msgstr "直接建立工作"
 
 #. Preference: Task List Voice-creation description (true)
@@ -5678,7 +5273,7 @@ msgstr "語音輸入結束後您可以編輯工作主旨。"
 
 #. slide 38f: Preference: Voice reminders if TTS-service is available
 msgctxt "EPr_voiceRemindersEnabled_title"
-msgid "Voice Reminders"
+msgid "Voice reminders"
 msgstr "語音提醒"
 
 #. Preference: Voice reminders description (true)
@@ -5693,19 +5288,15 @@ msgstr "Astrid在工作提醒時將會播放鈴聲"
 
 #. slide 32d: Preference Category: Voice Title
 msgctxt "EPr_voice_header"
-msgid "Voice Input Settings"
+msgid "Voice input settings"
 msgstr "語音輸入設定"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
-msgctxt "welcome_show_eula"
-msgid "Accept EULA to get started!"
-msgstr ""
-
 #. slide 30a
 msgctxt "welcome_setting"
-msgid "Show Tutorial"
-msgstr ""
+msgid "Show tutorial"
+msgstr "顯示教程"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
@@ -5714,27 +5305,27 @@ msgstr "歡迎使用Astrid!"
 #. slide 2a
 msgctxt "welcome_title_2"
 msgid "Make lists"
-msgstr ""
+msgstr "創建列表"
 
 #. slide 3a
 msgctxt "welcome_title_3"
 msgid "Switch between lists"
-msgstr ""
+msgstr "在列表間切換"
 
 #. slide 4a
 msgctxt "welcome_title_4"
 msgid "Share lists"
-msgstr ""
+msgstr "分享列表"
 
 #. slide 5a
 msgctxt "welcome_title_5"
 msgid "Divvy up tasks"
-msgstr ""
+msgstr "分攤任務工作"
 
 #. slide 6a
 msgctxt "welcome_title_6"
 msgid "Provide details"
-msgstr ""
+msgstr "提供詳情"
 
 #. slide 7a
 msgctxt "welcome_title_7"
@@ -5742,10 +5333,12 @@ msgid ""
 "Connect now\n"
 "to get started!"
 msgstr ""
+"現在就聯網 \n"
+"開始使用吧！"
 
 msgctxt "welcome_title_7_return"
 msgid "That's it!"
-msgstr ""
+msgstr "搞定！"
 
 #. slide 1b
 msgctxt "welcome_body_1"
@@ -5753,6 +5346,8 @@ msgid ""
 "The perfect personal to-do list \n"
 "that works great with friends"
 msgstr ""
+"完美的個人任務工作列表 \n"
+"和朋友們互動超級好用"
 
 #. slide 2b
 msgctxt "welcome_body_2"
@@ -5760,6 +5355,8 @@ msgid ""
 "Great for any list:\n"
 "read, watch, buy, visit!"
 msgstr ""
+"任何列表都超牛：\n"
+"閱讀、觀看、購買、訪問都是超強的！"
 
 #. slide 3b
 msgctxt "welcome_body_3"
@@ -5767,6 +5364,8 @@ msgid ""
 "Tap the list title \n"
 "to see all your lists"
 msgstr ""
+"輕點列表標題 \n"
+"查看您所有的列表"
 
 #. slide 4b
 msgctxt "welcome_body_4"
@@ -5775,13 +5374,18 @@ msgid ""
 "friends, housemates,\n"
 "or your sweetheart!"
 msgstr ""
+"和朋友、室友、\n"
+"或者您的愛人 \n"
+"分享精彩繽紛的列表吧！"
 
 #. slide 5b
 msgctxt "welcome_body_5"
 msgid ""
 "Never wonder who's\n"
 "bringing dessert!"
-msgstr "and much more!"
+msgstr ""
+"不用猜想誰會 \n"
+"帶甜點來喔！"
 
 #. slide 6b
 msgctxt "welcome_body_6"
@@ -5790,301 +5394,236 @@ msgid ""
 "set reminders,\n"
 "and much more!"
 msgstr ""
+"輕點即可添加便箋 \n"
+"設置提示還有更多功能呢！"
 
 msgctxt "welcome_body_7"
 msgid "Login"
-msgstr ""
+msgstr "登陸"
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr ""
-
-msgctxt "welcome_back"
-msgid "Back"
-msgstr ""
+msgstr "拍拍 Astrid 返回。"
 
 #. slide 1c
 msgctxt "welcome_next"
 msgid "Next"
-msgstr ""
+msgstr "下一步"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
-msgstr ""
+msgstr "Astrid 尊貴版 4x2"
 
 msgctxt "PPW_widget_43_label"
 msgid "Astrid Premium 4x3"
-msgstr ""
+msgstr "Astrid 尊貴版 4x3"
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
-msgstr ""
+msgstr "Astrid 尊貴版 4x4"
 
 msgctxt "PPW_widget_v11_label"
 msgid "Astrid Scrollable Premium"
-msgstr ""
+msgstr "Astrid 可卷式高級版本"
 
 msgctxt "PPW_widget_custom_label"
 msgid "Astrid Custom Launcher Premium"
-msgstr ""
+msgstr "Astrid 自定義高級版本"
 
 msgctxt "PPW_widget_custom_launcherpro_label"
 msgid "Astrid Launcher Pro Premium"
-msgstr ""
+msgstr "Astrid 專業高級版本"
 
 msgctxt "PPW_configure_title"
 msgid "Configure Widget"
-msgstr ""
+msgstr "配置小工具"
 
 msgctxt "PPW_color"
 msgid "Widget color"
-msgstr ""
+msgstr "小工具顏色"
 
 msgctxt "PPW_enable_calendar"
 msgid "Show calendar events"
-msgstr ""
+msgstr "顯示日曆事件"
 
 msgctxt "PPW_disable_encouragements"
 msgid "Hide encouragements"
-msgstr ""
+msgstr "隱藏打氣助威語"
 
-#, fuzzy
 msgctxt "PPW_show_dates"
 msgid "Show due dates"
-msgstr "由到期日"
+msgstr "顯示截止日期"
 
 msgctxt "PPW_filter"
 msgid "Select Filter"
-msgstr ""
+msgstr "選擇過濾器"
 
 msgctxt "PPW_due"
 msgid "Due:"
-msgstr ""
+msgstr "到期日："
 
 msgctxt "PPW_past_due"
 msgid "Past Due:"
-msgstr ""
+msgstr "逾期未完成："
 
 msgctxt "PPW_old_astrid_notice"
 msgid ""
-"You need at least version 3.6 of Astrid in order to use this widget. "
-"Sorry!"
-msgstr ""
+"You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
+msgstr "最低限度您也需要Astrid 的3.6 版本才能使用這個小工具。不好意思！"
 
 msgctxt "PPW_encouragements:0"
 msgid "Hi there!"
-msgstr ""
+msgstr "嘿，您好！"
 
 msgctxt "PPW_encouragements:1"
 msgid "Have time to finish something?"
-msgstr ""
+msgstr "有時間搞定一些事兒嗎？"
 
 msgctxt "PPW_encouragements:2"
 msgid "Gosh, you are looking suave today!"
-msgstr ""
+msgstr "天啊，您今天挺溫雅的嘛！"
 
 msgctxt "PPW_encouragements:3"
 msgid "Do something great today!"
-msgstr ""
+msgstr "今天做點大事兒吧！"
 
 msgctxt "PPW_encouragements:4"
 msgid "Make me proud today!"
-msgstr ""
+msgstr "今天來讓我為您驕傲一下吧！"
 
 msgctxt "PPW_encouragements:5"
 msgid "How are you doing today?"
-msgstr ""
+msgstr "您今天好嗎？"
 
 msgctxt "PPW_encouragements_tod:0"
 msgid "Good morning!"
-msgstr ""
+msgstr "早上好！"
 
 msgctxt "PPW_encouragements_tod:1"
 msgid "Good afternoon!"
-msgstr ""
+msgstr "下午好！"
 
 msgctxt "PPW_encouragements_tod:2"
 msgid "Good evening!"
-msgstr ""
+msgstr "晚上好！"
 
 msgctxt "PPW_encouragements_tod:3"
 msgid "Late night?"
-msgstr ""
+msgstr "昨晚？"
 
 msgctxt "PPW_encouragements_tod:4"
 msgid "It's early, get something done!"
-msgstr ""
+msgstr "現在很早，來搞定一些事兒吧！"
 
 msgctxt "PPW_encouragements_tod:5"
 msgid "Afternoon tea, perhaps?"
-msgstr ""
+msgstr "去下午茶，好嗎？"
 
 msgctxt "PPW_encouragements_tod:6"
 msgid "Enjoy the evening!"
-msgstr ""
+msgstr "好好享受這個夜晚！"
 
 msgctxt "PPW_encouragements_tod:7"
 msgid "Sleep is good for you, you know!"
-msgstr ""
+msgstr "睡眠對您是有好處的，知道不！"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:0"
 msgid "You've already completed %d tasks!"
-msgstr ""
+msgstr "您已經完成了 %d 項任務工作啦！"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:1"
 msgid "Score in life: %d tasks completed"
-msgstr ""
+msgstr "生活評分：已經完成了%d 項任務工作"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:2"
 msgid "Smile! You've already finished %d tasks!"
-msgstr ""
+msgstr "笑一笑唄！您已經完成了%d 項任務工作啦！"
 
 msgctxt "PPW_encouragements_none_completed"
 msgid "You haven't completed any tasks yet! Shall we?"
-msgstr ""
+msgstr "您還沒有完成任何一項任務工作喔！我們一起開始好嗎？"
 
 msgctxt "PPW_colors:0"
 msgid "Black"
-msgstr ""
+msgstr "黑色"
 
 msgctxt "PPW_colors:1"
 msgid "White"
-msgstr ""
+msgstr "白色"
 
 msgctxt "PPW_colors:2"
 msgid "Blue"
-msgstr ""
+msgstr "藍色"
 
 msgctxt "PPW_colors:3"
 msgid "Translucent"
-msgstr ""
+msgstr "半透明"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
-msgstr ""
+msgstr "這種小工具只提供給PowerPack 所有者呀！"
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "預覽"
 
 #, c-format
 msgctxt "PPW_demo_title1"
 msgid "Items on %s will go here"
-msgstr ""
+msgstr "%s 上的小工具將會放到這裡"
 
 msgctxt "PPW_demo_title2"
 msgid "Power Pack includes Premium Widgets..."
-msgstr ""
+msgstr "Power Pack 包含尊貴版小工具（Premium Widgets）……"
 
 msgctxt "PPW_demo_title3"
 msgid "...voice add and good feelings!"
-msgstr ""
+msgstr "…語音添加、感覺很棒！"
 
 msgctxt "PPW_demo_title4"
 msgid "Tap to learn more!"
-msgstr ""
+msgstr "輕點一下，了解更多！"
 
 msgctxt "PPW_info_title"
 msgid "Free Power Pack!"
-msgstr ""
+msgstr "免費的 Power Pack！"
 
 msgctxt "PPW_info_signin"
 msgid "Sign in!"
-msgstr ""
+msgstr "登錄！"
 
 msgctxt "PPW_info_later"
 msgid "Later"
-msgstr ""
+msgstr "稍後"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
-"Share lists with friends! Unlock the free Power Pack when 3 friends sign "
-"up with Astrid."
-msgstr ""
+"Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
+"with Astrid."
+msgstr "和朋友們分享列表吧！當有三位朋友來Astrid 註冊，您就可以開啟免費的Power Pack 了。"
 
 msgctxt "PPW_check_button"
 msgid "Get the Power Pack for free!"
-msgstr ""
+msgstr "來免費獲取 Power Pack 吧！"
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
+msgstr "來分享列表吧！"
 
 msgctxt "PPW_api_level"
 msgid "Sorry! This widget is only supported on Android 3.0 or higher."
-msgstr ""
+msgstr "對不起！此工具只支持安桌3.0及以上版本。"
 
 msgctxt "EPr_widget_enabled_title"
 msgid "Enable/Disable Widgets"
-msgstr ""
+msgstr "允許／不允許小工具運行"
 
 msgctxt "PPW_restart_for_enabled_state"
 msgid "You may need to restart your phone for this change to take effect."
-msgstr ""
-
-#~ msgctxt "actfm_ALA_signup_title"
-#~ msgid "Create New Account"
-#~ msgstr "建立新帳號"
-
-#~ msgctxt "actfm_ALA_login_title"
-#~ msgid "Login to Astrid.com"
-#~ msgstr "登入Asrid.com"
-
-#~ msgctxt "TEA_urgency:5"
-#~ msgid "Next Week"
-#~ msgstr "下週"
-
-#~ msgctxt "TEA_urgency:6"
-#~ msgid "In Two Weeks"
-#~ msgstr ""
-
-#~ msgctxt "TEA_urgency:7"
-#~ msgid "Next Month"
-#~ msgstr "下個月"
-
-#~ msgctxt "AOA_title"
-#~ msgid "Astrid: Add Ons"
-#~ msgstr "Astrid: 附加程式"
-
-#~ msgctxt "help_popover_collaborators"
-#~ msgid "People you share with can help you build your list or finish tasks"
-#~ msgstr ""
-
-#~ msgctxt "help_popover_add_lists"
-#~ msgid "Tap add a list"
-#~ msgstr ""
-
-#~ msgctxt "welcome_login_tos_link"
-#~ msgid "\"Terms of Service\""
-#~ msgstr ""
-
-#~ msgctxt "welcome_login_pw"
-#~ msgid "Login with Username/Password"
-#~ msgstr ""
-
-#~ msgctxt "EPr_powerpack_header"
-#~ msgid "Astrid Power Pack"
-#~ msgstr "Astrid強化套件"
-
-#~ msgctxt "rmd_EPr_rmd_time_desc"
-#~ msgid "Notifications for tasks without duetimes will appear at %s"
-#~ msgstr ""
-
-#~ msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
-#~ msgid "Astrid will use the system-setting for the volume"
-#~ msgstr ""
-
-#~ msgctxt "tag_delete_button"
-#~ msgid "Delete List"
-#~ msgstr ""
-
-#~ msgctxt "tag_leave_button"
-#~ msgid "Leave This List"
-#~ msgstr ""
-
+msgstr "您也許需要重啟您的手機來支持新設定的運行。"

@@ -28,10 +28,10 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
-import com.todoroo.astrid.subtasks.OrderedListUpdater;
-import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
+import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
+import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
 
-public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
+public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
 
     /** map of task -> parent task */
     final HashMap<Long, Long> parents = new HashMap<Long, Long>();

@@ -52,6 +52,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
@@ -547,6 +548,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
                     R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled));
+        else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
+                    R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
                     R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_third_party_addons,
@@ -572,7 +575,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
              });
-        } else if (r.getString(R.string.p_show_featured_lists_labs).equals(preference.getKey())) {
+        } else if (r.getString(R.string.p_show_featured_lists).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
@@ -635,7 +638,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     public void addPreferenceListeners() {
-        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_THEME_CHANGED));
+        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+
+        findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
@@ -645,6 +650,19 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 return true;
             }
         });
+
+        if (AndroidUtilities.getSdkVersion() <= 7) {
+            searchForAndRemovePreference(getPreferenceScreen(), getString(R.string.p_calendar_reminders));
+        } else {
+            findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue != null && ((Boolean) newValue))
+                        CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
+                    return true;
+                }
+            });
+        }
 
         findPreference(getString(R.string.p_statistics)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override

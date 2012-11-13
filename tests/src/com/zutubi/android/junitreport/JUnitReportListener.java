@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Zutubi Pty Ltd
+ * Copyright (C) 2010-2012 Zutubi Pty Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 
 package com.zutubi.android.junitreport;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Locale;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -34,24 +36,38 @@ import android.util.Log;
 import android.util.Xml;
 
 /**
- * Custom test listener that outputs test results to a single XML file. The file
- * uses a similar format the to Ant JUnit task XML formatter, with a couple of
+ * Custom test listener that outputs test results to XML files. The files
+ * use a similar format to the Ant JUnit task XML formatter, with a few of
  * caveats:
  * <ul>
- * <li>Multiple suites are all placed in a single file under a root
- * &lt;testsuites&gt; element.</li>
- * <li>Redundant information about the number of nested cases within a suite is
- * omitted.</li>
- * <li>Neither standard output nor system properties are included.</li>
+ *   <li>
+ *     By default, multiple suites are all placed in a single file under a root
+ *     &lt;testsuites&gt; element.  In multiFile mode a separate file is
+ *     created for each suite, which may be more compatible with existing
+ *     tools.
+ *   </li>
+ *   <li>
+ *     Redundant information about the number of nested cases within a suite is
+ *     omitted.
+ *   </li>
+ *   <li>
+ *     Durations are omitted from suites.
+ *   </li>
+ *   <li>
+ *     Neither standard output nor system properties are included.
+ *   </li>
  * </ul>
  * The differences mainly revolve around making this reporting as lightweight as
  * possible. The report is streamed as the tests run, making it impossible to,
  * e.g. include the case count in a &lt;testsuite&gt; element.
  */
 public class JUnitReportListener implements TestListener {
-    private static final String LOG_TAG = "JUnitReportListener";
+    private static final String LOG_TAG = JUnitReportListener.class.getSimpleName();
 
     private static final String ENCODING_UTF_8 = "utf-8";
+
+    public static final String TOKEN_SUITE = "__suite__";
+    public static final String TOKEN_EXTERNAL = "__external__";
 
     private static final String TAG_SUITES = "testsuites";
     private static final String TAG_SUITE = "testsuite";
@@ -79,44 +95,58 @@ public class JUnitReportListener implements TestListener {
             "java.lang.reflect.Method.invokeNative",
     };
 
-    private Context mContext;
-    private String mReportFilePath;
+    private Context mTargetContext;
+    private String mReportFile;
+    private String mReportDir;
     private boolean mFilterTraces;
+    private boolean mMultiFile;
     private FileOutputStream mOutputStream;
     private XmlSerializer mSerializer;
     private String mCurrentSuite;
 
     // simple time tracking
-    private boolean timeAlreadyWritten = false;
-    private long testStart;
+    private boolean mTimeAlreadyWritten = false;
+    private long mTestStartTime;
 
     /**
      * Creates a new listener.
      *
-     * @param context context of the target application under test
-     * @param reportFilePath path of the report file to create (under the
-     *            context using {@link Context#openFileOutput(String, int)}).
+     * @param context context of the test application
+     * @param targetContext context of the application under test
+     * @param reportFile name of the report file(s) to create
+     * @param reportDir  path of the directory under which to write files
+     *                  (may be null in which case files are written under
+     *                  the context using {@link Context#openFileOutput(String, int)}).
      * @param filterTraces if true, stack traces will have common noise (e.g.
      *            framework methods) omitted for clarity
+     * @param multiFile if true, use a separate file for each test suite
      */
-    public JUnitReportListener(Context context, String reportFilePath, boolean filterTraces) {
-        this.mContext = context;
-        this.mReportFilePath = reportFilePath;
+    public JUnitReportListener(Context context, Context targetContext, String reportFile, String reportDir, boolean filterTraces, boolean multiFile) {
+        Log.i(LOG_TAG, "Listener created with arguments:\n" +
+                "  report file  : '" + reportFile + "'\n" +
+                "  report dir   : '" + reportDir + "'\n" +
+                "  filter traces: " + filterTraces + "\n" +
+                "  multi file   : " + multiFile);
+
+        this.mTargetContext = targetContext;
+        this.mReportFile = reportFile;
+        this.mReportDir = reportDir;
         this.mFilterTraces = filterTraces;
+        this.mMultiFile = multiFile;
     }
 
+    @Override
     public void startTest(Test test) {
         try {
-            openIfRequired(test);
-
             if (test instanceof TestCase) {
                 TestCase testCase = (TestCase) test;
                 checkForNewSuite(testCase);
-                testStart = System.currentTimeMillis();
-                timeAlreadyWritten = false;
                 mSerializer.startTag("", TAG_CASE);
                 mSerializer.attribute("", ATTRIBUTE_CLASS, mCurrentSuite);
                 mSerializer.attribute("", ATTRIBUTE_NAME, testCase.getName());
+
+                mTimeAlreadyWritten = false;
+                mTestStartTime = System.currentTimeMillis();
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, safeMessage(e));
@@ -127,8 +157,15 @@ public class JUnitReportListener implements TestListener {
         String suiteName = testCase.getClass().getName();
         if (mCurrentSuite == null || !mCurrentSuite.equals(suiteName)) {
             if (mCurrentSuite != null) {
-                mSerializer.endTag("", TAG_SUITE);
+                if (mMultiFile) {
+                    close();
+                } else {
+                    mSerializer.endTag("", TAG_SUITE);
+                    mSerializer.flush();
+                }
             }
+
+            openIfRequired(suiteName);
 
             mSerializer.startTag("", TAG_SUITE);
             mSerializer.attribute("", ATTRIBUTE_NAME, suiteName);
@@ -136,20 +173,74 @@ public class JUnitReportListener implements TestListener {
         }
     }
 
-    private void openIfRequired(Test test) throws IOException {
-        if (mOutputStream == null) {
-            mOutputStream = mContext.openFileOutput(mReportFilePath, 0);
-            mSerializer = Xml.newSerializer();
-            mSerializer.setOutput(mOutputStream, ENCODING_UTF_8);
-            mSerializer.startDocument(ENCODING_UTF_8, true);
-            mSerializer.startTag("", TAG_SUITES);
+    private void openIfRequired(String suiteName) {
+        try {
+            if (mSerializer == null) {
+                mOutputStream = openOutputStream(resolveFileName(suiteName));
+                mSerializer = Xml.newSerializer();
+                mSerializer.setOutput(mOutputStream, ENCODING_UTF_8);
+                mSerializer.startDocument(ENCODING_UTF_8, true);
+                if (!mMultiFile) {
+                    mSerializer.startTag("", TAG_SUITES);
+                }
+            }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, safeMessage(e));
+            throw new RuntimeException("Unable to open serializer: " + e.getMessage(), e);
         }
     }
 
+    private String resolveFileName(String suiteName) {
+        String fileName = mReportFile;
+        if (mMultiFile) {
+            fileName = fileName.replace(TOKEN_SUITE, suiteName);
+        }
+        return fileName;
+    }
+
+    private FileOutputStream openOutputStream(String fileName) throws IOException {
+        if (mReportDir == null) {
+            Log.d(LOG_TAG, "No reportDir specified. Opening report file '" + fileName + "' in internal storage of app under test");
+            return mTargetContext.openFileOutput(fileName, Context.MODE_WORLD_READABLE);
+        } else {
+            if (mReportDir.contains(TOKEN_EXTERNAL)) {
+                File externalDir = Compatibility.getExternalFilesDir(mTargetContext, null);
+                if (externalDir == null) {
+                    Log.e(LOG_TAG, "reportDir references external storage, but external storage is not available (check mounting and permissions)");
+                    throw new IOException("Cannot access external storage");
+                }
+
+                String externalPath = externalDir.getAbsolutePath();
+                if (externalPath.endsWith("/")) {
+                    externalPath = externalPath.substring(0, externalPath.length() - 1);
+                }
+
+                mReportDir = mReportDir.replace(TOKEN_EXTERNAL, externalPath);
+            }
+
+            ensureDirectoryExists(mReportDir);
+
+            File outputFile = new File(mReportDir, fileName);
+            Log.d(LOG_TAG, "Opening report file '" + outputFile.getAbsolutePath() + "'");
+            return new FileOutputStream(outputFile);
+        }
+    }
+
+    private void ensureDirectoryExists(String path) throws IOException {
+        File dir = new File(path);
+        if (!dir.isDirectory() && !dir.mkdirs()) {
+            final String message = "Cannot create directory '" + path + "'";
+            Log.e(LOG_TAG, message);
+            throw new IOException(message);
+        }
+    }
+
+    @Override
     public void addError(Test test, Throwable error) {
         addProblem(TAG_ERROR, error);
     }
 
+    @Override
     public void addFailure(Test test, AssertionFailedError error) {
         addProblem(TAG_FAILURE, error);
     }
@@ -165,24 +256,27 @@ public class JUnitReportListener implements TestListener {
             error.printStackTrace(mFilterTraces ? new FilteringWriter(w) : new PrintWriter(w));
             mSerializer.text(w.toString());
             mSerializer.endTag("", tag);
+            mSerializer.flush();
         } catch (IOException e) {
             Log.e(LOG_TAG, safeMessage(e));
         }
     }
 
     private void recordTestTime() throws IOException {
-        if(!timeAlreadyWritten) {
-            timeAlreadyWritten = true;
-            mSerializer.attribute("", ATTRIBUTE_TIME,
-                    String.format("%.3f", (System.currentTimeMillis() - testStart) / 1000.));
+        if (!mTimeAlreadyWritten) {
+            mTimeAlreadyWritten = true;
+            mSerializer.attribute("", ATTRIBUTE_TIME, String.format(Locale.ENGLISH, "%.3f",
+                    (System.currentTimeMillis() - mTestStartTime) / 1000.));
         }
     }
 
+    @Override
     public void endTest(Test test) {
         try {
             if (test instanceof TestCase) {
                 recordTestTime();
                 mSerializer.endTag("", TAG_CASE);
+                mSerializer.flush();
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, safeMessage(e));
@@ -196,12 +290,20 @@ public class JUnitReportListener implements TestListener {
     public void close() {
         if (mSerializer != null) {
             try {
+                // Do this just in case endTest() was not called due to a crash in native code.
+                if (TAG_CASE.equals(mSerializer.getName())) {
+                    mSerializer.endTag("", TAG_CASE);
+                }
+
                 if (mCurrentSuite != null) {
                     mSerializer.endTag("", TAG_SUITE);
                 }
 
-                mSerializer.endTag("", TAG_SUITES);
+                if (!mMultiFile) {
+                    mSerializer.endTag("", TAG_SUITES);
+                }
                 mSerializer.endDocument();
+                mSerializer.flush();
                 mSerializer = null;
             } catch (IOException e) {
                 Log.e(LOG_TAG, safeMessage(e));

@@ -142,6 +142,7 @@ public class TagViewFragment extends TaskListFragment {
             Intent intent = new Intent(getActivity(), settingsClass);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+
             if (!AstridPreferences.useTabletLayout(activity)) {
                 AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
             }
@@ -270,7 +271,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private void updateCommentCount() {
         if (tagData != null) {
-            long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), 0);
+            long lastViewedComments = Preferences.getLong(CommentsFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), 0);
             int unreadCount = 0;
             TodorooCursor<Update> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, Update.CREATION_DATE.gt(lastViewedComments));
             try {
@@ -301,23 +302,27 @@ public class TagViewFragment extends TaskListFragment {
 
     /** refresh the list with latest data from the web */
     private void refreshData(final boolean manual) {
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+        if (actFmPreferenceService.isLoggedIn()) {
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-                R.id.progressBar, new Runnable() {
-            @Override
-            public void run() {
-                if (manual)
-                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                else
-                    refresh();
-                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-            }
-        }));
-        Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
+            syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
+                    R.id.progressBar, new Runnable() {
+                @Override
+                public void run() {
+                    if (manual)
+                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                    else
+                        refresh();
+                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                }
+            }));
+            Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
+        }
     }
 
     protected void setUpMembersGallery() {
+        if (tagData == null)
+            return;
         LinearLayout membersView = (LinearLayout)getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
         try {

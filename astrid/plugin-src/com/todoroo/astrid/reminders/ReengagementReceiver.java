@@ -35,6 +35,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
 
 public class ReengagementReceiver extends BroadcastReceiver {
 
@@ -119,6 +120,7 @@ public class ReengagementReceiver extends BroadcastReceiver {
         }
 
         manager.notify(0, notification);
+        Flags.set(Flags.REFRESH); // Forces a reload when app launches
 
         ReengagementService.scheduleReengagementAlarm(context);
     }

@@ -95,6 +95,7 @@
 	        android:layout_alignParentRight="true"
 	        android:layout_width="35dip"
 	        android:layout_height="35dip"
+	        android:padding="4dip"
 	        android:background="@android:color/transparent"
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/single_gear"/>

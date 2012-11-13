@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.test.DatabaseTestCase;
 
-public class QuickAddMarkupTest extends TodorooTestCase {
+public class QuickAddMarkupTest extends DatabaseTestCase {
 
     @Override
     protected void setUp() throws Exception {

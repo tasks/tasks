@@ -12,7 +12,6 @@
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
@@ -27,7 +26,6 @@
     <string name="gtasks_FEx_create_list_error">Error creating new list</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
     
     <string name="CFC_gtasks_list_text">In List: ?</string>
 
@@ -42,7 +40,6 @@
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
     <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
@@ -56,22 +53,17 @@
     By default, Astrid uses its own sort settings for tasks.</string>
 
     <!-- Sign In Button -->    
-    <string name="gtasks_GLA_signIn">Sign In</string>
 
     <!-- E-mail Address Label -->    
-    <string name="gtasks_GLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="gtasks_GLA_password">Password</string>
     
     <!--  Authenticating toast -->
     <string name="gtasks_GLA_authenticating">Authenticating...</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="gtasks_GLA_errorEmpty">Error: fill out all fields!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
@@ -91,7 +83,6 @@
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->
-    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
 
     <!-- Error Message when we receive a HTTP 503 error -->
     <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>

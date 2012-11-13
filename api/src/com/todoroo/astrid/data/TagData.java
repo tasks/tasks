@@ -129,6 +129,10 @@ public final class TagData extends RemoteModel {
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
+    /** Tag ordering */
+    public static final StringProperty TAG_ORDERING = new StringProperty(
+            TABLE, "tagOrdering");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 
@@ -171,6 +175,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(TASK_COUNT.name, 0);
         defaultValues.put(TAG_DESCRIPTION.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
+        defaultValues.put(TAG_ORDERING.name, "[]");
     }
 
     @Override

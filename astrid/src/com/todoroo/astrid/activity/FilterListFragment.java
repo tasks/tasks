@@ -97,10 +97,6 @@ public class FilterListFragment extends ListFragment {
 
     private View newListButton;
 
-    private boolean mDualFragments;
-
-    private int mSelectedIndex;
-
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -174,18 +170,7 @@ public class FilterListFragment extends ListFragment {
                         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             });
-
-        AstridActivity activity = (AstridActivity) getActivity();
-        if (activity.getFragmentLayout() > AstridActivity.LAYOUT_SINGLE) {
-            mDualFragments = true;
-            mSelectedIndex = activity.getIntent().getIntExtra(TOKEN_LAST_SELECTED, 0);
-        }
-
         setUpList();
-
-        if (mDualFragments) {
-            getListView().setItemsCanFocus(false);
-        }
     }
 
     /* ======================================================================
@@ -247,8 +232,6 @@ public class FilterListFragment extends ListFragment {
         adapter.setListView(getListView());
         setListAdapter(adapter);
 
-        adapter.setLastSelected(mSelectedIndex);
-
         // Can't do context menus when list is in popup menu for some reason--workaround
         if (((AstridActivity) getActivity()).fragmentLayout == AstridActivity.LAYOUT_SINGLE) {
             getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -297,24 +280,15 @@ public class FilterListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView parent, View v, int position, long id) {
-        if (mDualFragments)
-            getListView().setItemChecked(position, true);
         Filter item = adapter.getItem(position);
-        setFilterItemSelected(item, position);
-    }
-
-    private void setFilterItemSelected(Filter item, int position) {
-        mSelectedIndex = position;
-        adapter.setLastSelected(mSelectedIndex);
-        getActivity().getIntent().putExtra(TOKEN_LAST_SELECTED, mSelectedIndex);
         mListener.onFilterItemClicked(item);
     }
 
     public void switchToActiveTasks() {
         if (adapter.getCount() > 0)
-            setFilterItemSelected(adapter.getItem(0), 0);
+            mListener.onFilterItemClicked(adapter.getItem(0));
         else
-            setFilterItemSelected(CoreFilterExposer.buildInboxFilter(getResources()), 0);
+            mListener.onFilterItemClicked(CoreFilterExposer.buildInboxFilter(getResources()));
     }
 
     @Override

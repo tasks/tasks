@@ -305,6 +305,11 @@ public final class TagService {
         return tagDataService.query(Query.select(properties).where(criterion));
     }
 
+    public TodorooCursor<TagData> getTagDataForTask(long taskId, Criterion additionalCriterion, Property<?>... properties) {
+        Criterion criterion = TagData.NAME.in(Query.select(TagMetadata.TAG_NAME).from(Metadata.TABLE).where(MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY)));
+        return tagDataService.query(Query.select(properties).where(Criterion.and(criterion, additionalCriterion)));
+    }
+
     /**
      * Return tags as a comma-separated list of strings
      *

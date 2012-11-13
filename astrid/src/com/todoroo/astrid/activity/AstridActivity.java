@@ -9,7 +9,6 @@ import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
@@ -23,28 +22,31 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.TagUpdatesFragment;
+import com.todoroo.astrid.actfm.CommentsActivity;
+import com.todoroo.astrid.actfm.CommentsFragment;
+import com.todoroo.astrid.actfm.TagCommentsFragment;
+import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
-import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
-import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
 /**
@@ -67,11 +69,14 @@ public class AstridActivity extends FragmentActivity
     public static final int LAYOUT_DOUBLE = 1;
     public static final int LAYOUT_TRIPLE = 2;
 
-    public static final int REQUEST_REBOOT = 100;
+    public static final int RESULT_RESTART_ACTIVITY = 50;
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
+
+    @Autowired
+    private TaskDao taskDao;
 
     public FilterListFragment getFilterListFragment() {
         FilterListFragment frag = (FilterListFragment) getSupportFragmentManager()
@@ -94,9 +99,9 @@ public class AstridActivity extends FragmentActivity
         return frag;
     }
 
-    public TagUpdatesFragment getTagUpdatesFragment() {
-        TagUpdatesFragment frag = (TagUpdatesFragment) getSupportFragmentManager()
-                .findFragmentByTag(TagUpdatesFragment.TAG_UPDATES_FRAGMENT);
+    public CommentsFragment getTagUpdatesFragment() {
+        CommentsFragment frag = (CommentsFragment) getSupportFragmentManager()
+                .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
 
         return frag;
     }
@@ -104,6 +109,7 @@ public class AstridActivity extends FragmentActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
         StatisticsService.sessionStart(this);
@@ -200,16 +206,16 @@ public class AstridActivity extends FragmentActivity
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        TagUpdatesFragment updates = new TagUpdatesFragment(tagData);
-        transaction.replace(R.id.taskedit_fragment_container, updates, TagUpdatesFragment.TAG_UPDATES_FRAGMENT);
+        TagCommentsFragment updates = new TagCommentsFragment(tagData);
+        transaction.replace(R.id.taskedit_fragment_container, updates, CommentsFragment.TAG_UPDATES_FRAGMENT);
         transaction.commit();
     }
 
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
-        Class<?> customTaskList = TaskListFragment.class;
+        Class<?> customTaskList = null;
 
-        if (shouldUseSubtasksFragmentForFilter(filter))
-            customTaskList = SubtasksListFragment.class;
+        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter))
+            customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
 
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
@@ -235,18 +241,23 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
-    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || CoreFilterExposer.isInbox(filter)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
-            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            if(SortHelper.isManualSort(sortFlags))
-                return true;
-        }
-        return false;
+    @Override
+    public void onTaskListItemClicked(long taskId) {
+        Task task = taskDao.fetch(taskId, Task.FLAGS, Task.USER_ID);
+        if (task != null)
+            onTaskListItemClicked(taskId, task.isEditable());
     }
 
     @Override
-    public void onTaskListItemClicked(long taskId) {
+    public void onTaskListItemClicked(long taskId, boolean editable) {
+        if (editable) {
+            editTask(taskId);
+        } else {
+            showComments(taskId);
+        }
+    }
+
+    private void editTask(long taskId) {
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, taskId);
         getIntent().putExtra(TaskEditFragment.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity
@@ -283,6 +294,13 @@ public class AstridActivity extends FragmentActivity
             startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
+    }
+
+    private void showComments(long taskId) {
+        Intent intent = new Intent(this, CommentsActivity.class);
+        intent.putExtra(TaskCommentsFragment.EXTRA_TASK, taskId);
+        startActivity(intent);
+        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     @Override
@@ -381,7 +399,7 @@ public class AstridActivity extends FragmentActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_REBOOT && resultCode == RESULT_OK) {
+        if (resultCode == RESULT_RESTART_ACTIVITY) {
             finish();
             startActivity(getIntent());
             return;

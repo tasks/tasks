@@ -2,113 +2,115 @@
 <resources>
   <plurals name="DUt_years">
     <item quantity="one">1년</item>
-    <item quantity="other">%d 년</item>
+    <item quantity="other">%d년</item>
   </plurals>
   <plurals name="DUt_months">
     <item quantity="one">1개월</item>
-    <item quantity="other">%d 개월</item>
+    <item quantity="other">%d개월</item>
   </plurals>
   <plurals name="DUt_weeks">
     <item quantity="one">1주</item>
-    <item quantity="other">%d 주</item>
+    <item quantity="other">%d주</item>
   </plurals>
   <plurals name="DUt_days">
     <item quantity="one">1일</item>
-    <item quantity="other">%d 일</item>
+    <item quantity="other">%d일</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="one">주중 1일</item>
+    <item quantity="other">주중 %d일</item>
   </plurals>
   <plurals name="DUt_hours">
     <item quantity="one">1시간</item>
-    <item quantity="other">%d 시간</item>
+    <item quantity="other">%d시간</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <item quantity="one">1 분</item>
-    <item quantity="other">%d 분</item>
+    <item quantity="one">1분</item>
+    <item quantity="other">%d분</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <item quantity="one">1 초</item>
-    <item quantity="other">%d 초</item>
+    <item quantity="one">1초</item>
+    <item quantity="other">%d초</item>
   </plurals>
   <plurals name="DUt_hoursShort">
-    <item quantity="one">1 시간</item>
-    <item quantity="other">%d 시간</item>
+    <item quantity="one">1시간</item>
+    <item quantity="other">%d시간</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <item quantity="one">1 분</item>
-    <item quantity="other">%d 분</item>
+    <item quantity="one">1분</item>
+    <item quantity="other">%d분</item>
   </plurals>
   <plurals name="DUt_secondsShort">
-    <item quantity="one">1 초</item>
-    <item quantity="other">%d 초</item>
+    <item quantity="one">1초</item>
+    <item quantity="other">%d초</item>
   </plurals>
   <plurals name="Ntasks">
-    <item quantity="one">1 작업</item>
-    <item quantity="other">%d 작업</item>
+    <item quantity="one">1 일정</item>
+    <item quantity="other">%d 일정</item>
   </plurals>
   <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
+    <item quantity="one">1 사람</item>
+    <item quantity="other">%d 사람</item>
   </plurals>
   <string name="today">오늘</string>
   <string name="tomorrow">내일</string>
   <string name="yesterday">어제</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">내일</string>
+  <string name="yest">어제</string>
   <string name="DLG_confirm_title">확인?</string>
   <string name="DLG_question_title">질문:</string>
   <string name="DLG_information_title">정보</string>
-  <string name="DLG_error_title">오류!</string>
+  <string name="DLG_error_title">에러!</string>
   <string name="DLG_save">저장</string>
-  <string name="DLG_yes">네</string>
+  <string name="DLG_yes">예</string>
   <string name="DLG_no">아니오</string>
   <string name="DLG_close">닫기</string>
   <string name="DLG_done">마침</string>
-  <string name="DLG_error">오류가 발생한 것 같습니다! 원인은 다음과 같습니다:\n\n%s</string>
-  <string name="DLG_error_generic">오류가 발생한 것 같습니다!</string>
-  <string name="DLG_wait">잠시만 기다려주세요...</string>
-  <string name="SyP_progress">작업 동기화 중입니다...</string>
+  <string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
+  <string name="DLG_error_generic">에러가 발생한 것 같습니다!</string>
+  <string name="DLG_wait">잠시 기다리세요...</string>
+  <string name="SyP_progress">일정 동기화 중입니다...</string>
   <string name="SyP_progress_toast">동기화하는 중...</string>
-  <string name="SyP_label">동기화</string>
-  <string name="SyP_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>
+  <string name="SyP_label">Sync &amp; backup</string>
+  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
+  <string name="SyP_ioerror">연결 에러! 인터넷 연결을 확인하세요.</string>
   <string name="sync_SPr_group_status">상태</string>
-  <string name="sync_status_loggedout">로그인 되지 않았습니다</string>
-  <string name="sync_status_ongoing">동기화 진행중...</string>
+  <string name="sync_SPr_status_subtitle">상태: %s</string>
+  <string name="sync_status_loggedout">Not logged in</string>
+  <string name="sync_status_ongoing">Sync ongoing...</string>
   <string name="sync_status_success">마지막 동기화: \n%s</string>
   <string name="sync_status_failed">실패: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Sync w/ errors: %s</string>
   <string name="sync_status_failed_subtitle">마지막 동기화 성공시간: %s</string>
   <string name="sync_status_never">한번도 동기화 되지 않았습니다!</string>
   <string name="sync_SPr_group_options">옵션</string>
   <string name="sync_SPr_interval_title">백그라운드 동기화</string>
-  <string name="sync_SPr_interval_desc_disabled">백그라운드 동기화가 설정되지 않았습니다.</string>
+  <string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
   <string name="sync_SPr_interval_desc">현재 설정: %s</string>
   <string name="sync_SPr_bgwifi_title">WiFi 일때만 설정</string>
   <string name="sync_SPr_bgwifi_desc_enabled">백그라운드 동기화는 WiFi 지역에서만 작동합니다.</string>
   <string name="sync_SPr_bgwifi_desc_disabled">백그라운드 동기화는 항상 작동합니다.</string>
-  <string name="sync_SPr_group_actions">작업</string>
-  <string name="sync_SPr_sync">동기화 시작</string>
+  <string name="sync_SPr_group_actions">동작</string>
+  <string name="sync_SPr_sync">Synchronize now</string>
   <string name="sync_SPr_sync_log_in">로그인 &amp; 동기화!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_last_error">Status Report</string>
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
-  <string name="sync_SPr_send_report">Send Report</string>
+  <string name="sync_SPr_logged_in_prefix">로그인하기:</string>
+  <string name="sync_SPr_last_error">Status report</string>
+  <string name="sync_SPr_last_error_subtitle">Astrid 팀에게 보고서를 보내려면 클릭</string>
+  <string name="sync_SPr_send_report">Send report</string>
   <string name="sync_SPr_forget">로그아웃</string>
-  <string name="sync_SPr_forget_description">모든 동기화 데이터 삭제</string>
+  <string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
   <string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
-  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
+  <string name="sync_error_offline">%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다. 나중에 다시 시도해 주세요.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>사용안함</item>
-    <item>15분 마다</item>
+    <item>15분마다</item>
     <item>30분마다</item>
-    <item>매 시간</item>
+    <item>매시간</item>
     <item>3시간마다</item>
     <item>6시간마다</item>
     <item>12시간마다</item>
     <item>매일</item>
     <item>3일마다</item>
-    <item>일주일 마다</item>
+    <item>일주일마다</item>
   </string-array>
 </resources>

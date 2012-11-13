@@ -1,4 +1,4 @@
-# Ukrainian translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
-"PO-Revision-Date: 2012-03-01 06:43+0000\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-10-05 22:34+0000\n"
 "Last-Translator: Tim Su <tim@todoroo.com>\n"
-"Language-Team: uk <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
+"X-Generator: Launchpad (build 16130)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -243,12 +243,12 @@ msgstr "Синхронізація..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
-msgstr ""
+msgid "Sync & backup"
+msgstr "Синхронізація"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
+msgid "Astrid.com, Google Tasks, saved data, local backup"
 msgstr ""
 
 #. Error msg when io exception
@@ -270,43 +270,43 @@ msgstr ""
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
+msgid "Not logged in"
 msgstr ""
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
+msgid "Sync ongoing..."
 msgstr "Йде синхронізація..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
 msgctxt "sync_status_success"
 msgid ""
-"Last Sync:\n"
+"Last sync:\n"
 "%s"
 msgstr ""
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
-msgid "Failed On: %s"
+msgid "Failed on: %s"
 msgstr "Помилка на: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
+msgid "Sync w/ errors: %s"
 msgstr ""
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
+msgid "Last successful sync: %s"
 msgstr "Остання вдала синхронізація: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
-msgid "Never Synchronized!"
+msgid "Never synchronized!"
 msgstr "Ніколи не синхронізувалось!"
 
 #. Options Group Label
@@ -316,7 +316,7 @@ msgstr "Параметри"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
+msgid "Background sync"
 msgstr "Синхронізація у фоні"
 
 #. Preference: Synchronization Interval Description (when disabled)
@@ -332,7 +332,7 @@ msgstr "Встановлено в: %s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
+msgid "Wifi only setting"
 msgstr "Налаштування Wifi"
 
 #. Preference: Background Wifi Description (enabled)
@@ -352,12 +352,12 @@ msgstr "Дії"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
+msgid "Synchronize now"
 msgstr ""
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
+msgid "Log in & synchronize!"
 msgstr "Увійдіть & синхронізуйтесь!"
 
 #. Sync: Prefix string before logged in identifier
@@ -367,7 +367,7 @@ msgstr ""
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
-msgid "Status Report"
+msgid "Status report"
 msgstr ""
 
 #. Sync: last error click for more
@@ -377,12 +377,12 @@ msgstr ""
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
-msgid "Send Report"
+msgid "Send report"
 msgstr ""
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
-msgid "Log Out"
+msgid "Log out"
 msgstr "Вийти"
 
 #. Sync: Clear Data Description
@@ -392,15 +392,15 @@ msgstr "Очистити всі дані синхронізації"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
+msgid "Log out/clear synchronization data?"
 msgstr "Вийти / видалити дані синхронізації?"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
 
 msgctxt "sync_SPr_interval_entries:0"
@@ -442,8 +442,3 @@ msgstr "кожні три дні"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "кожен тиждень"
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "Синхронізація"
-

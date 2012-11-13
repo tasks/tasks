@@ -12,6 +12,8 @@ public class StatisticsConstants {
     public static final String ACTFM_TASK_COMMENT = "actfm-task-comment";
     public static final String ACTFM_NEW_USER = "actfm-new-user";
     public static final String TASK_COMPLETED_V2 = "task-completed-v2";
+    public static final String TASK_COMPLETED_ONE_DAY = "task-completed-one-day";
+    public static final String TASK_COMPLETED_ONE_WEEK = "task-completed-one-week";
     public static final String USER_FIRST_TASK = "user-first-task";
     public static final String USER_FIRST_LIST = "user-first-list";
     public static final String LOST_TASKS_RESTORED = "lost-tasks-restored";
@@ -73,6 +75,15 @@ public class StatisticsConstants {
     public static final String TASK_RABBIT_LOGIN = "task-rabbit-login";
     public static final String SHARE_PAGE_VIEWED = "share-page-viewed";
     public static final String SHARE_BUTTON_CLICKED = "share-button-clicked";
+    public static final String PREMIUM_PAGE_VIEWED = "premium-page-viewed";
+    public static final String FEATURED_LIST_CLONED = "featured-list-cloned";
+
+    public static final String SUBTASKS_HAS_TASKS = "subtasks-has-tasks";
+    public static final String SUBTASKS_ORDER_USED = "subtasks-order-used";
+    public static final String SUBTASKS_INDENT_USED = "subtasks-indent-used";
+    public static final String GTASKS_INDENT_USED = "gtasks-indent-used";
+
+    public static final String SWIPE_USED = "swipe_used";
 
     public static final String PREF_THIRD_PARTY_ADDONS = "pref-third-party-addons";
     public static final String PREF_SHOW_NOTES_IN_ROW = "pref-show-notes";

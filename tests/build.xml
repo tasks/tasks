@@ -54,7 +54,7 @@
       </copy>
     </target>
 
-    <!-- override coverage target with custom reporting and rules -->    
+    <!-- override coverage target with custom reporting and rules -->
     <target name="coverage"
                 description="Runs the tests against the instrumented code and generates emma code coverage report">
 
@@ -68,10 +68,15 @@
              expression="/manifest/@package" output="manifest.package" />
 
       <property name="emma.dump.file"
-                value="/data/data/${tested.manifest.package}/coverage.ec" />
+                value="/sdcard/coverage.ec" />
+      <property name="junit.dump.dir"
+                value="/sdcard" />
 
       <run-tests-helper emma.enabled="true">
         <extra-instrument-args>
+          <arg value="-e" />
+          <arg value="reportDir" />
+          <arg value="${junit.dump.dir}" />
           <arg value="-e" />
           <arg value="coverageFile" />
           <arg value="${emma.dump.file}" />
@@ -85,10 +90,7 @@
       <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
              expression="/manifest/@package" output="tested.manifest.package" />
 
-
       <echo>Downloading coverage file into project directory...</echo>
-      <property name="emma.dump.file"
-                value="/data/data/${tested.manifest.package}/coverage.ec" />
       <exec executable="${adb}" failonerror="true">
         <arg line="${adb.device.arg}" />
         <arg value="pull" />
@@ -96,15 +98,18 @@
         <arg value="coverage.ec" />
       </exec>
 
-      <antcall target="emma-parse" />      
-      <antcall target="pull-junit" />      
+      <antcall target="emma-parse" />
+      <antcall target="pull-junit" />
     </target>
 
     <target name="emma-parse" depends="-test-project-check">
       <echo>Extracting coverage report...</echo>
       <copy todir="${tested.project.absolute.dir}/src-combined">
         <fileset dir="../api/src" includes="**/*.java" />
-      </copy>      
+      </copy>
+      <copy todir=".">
+        <fileset dir="${tested.project.absolute.dir}/bin" includes="coverage.em" />
+      </copy>
       <mkdir dir="${reports.dir}" />
       <emma>
         <report sourcepath="${tested.project.absolute.dir}/src-combined"
@@ -118,8 +123,6 @@
         </report>
       </emma>
       <echo>Cleaning up temporary files...</echo>
-      <delete file="coverage.ec" />
-      <delete file="coverage.em" />
       <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
     </target>
 
@@ -128,7 +131,7 @@
       <exec executable="${adb}" failonerror="true">
         <arg line="${adb.device.arg}"/>
         <arg value="pull" />
-        <arg value="/data/data/${tested.manifest.package}/files/junit-report.xml" />
+        <arg value="${junit.dump.dir}/junit-report.xml" />
         <arg value="${reports.dir}/junit-report.xml" />
       </exec>
     </target>

@@ -37,12 +37,12 @@
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
         <item name="asAbBackgroundColor">#000000</item>
         <item name="asQuickaddBackgroundColor">?attr/asAbBackgroundColor</item>
-        <item name="asTaskEditArrow">@drawable/taskedit_arrow_up_white</item>
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg_white</item>
         <item name="asListArrowUp">@drawable/list_arrow_up_white</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_dark</item>
+        <item name="asReadonlyTaskBackground">#322c19</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_blue</item>
@@ -88,13 +88,13 @@
         <item name="asPeopleMenu">@drawable/people_menu_button_red</item>
         <item name="asThemeTextColor">@color/red_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
-        <item name="asTaskEditArrow">@drawable/taskedit_arrow_up_white</item>
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_red</item>
         <item name="asAbBackgroundColor">#ffffff</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg</item>
         <item name="asListArrowUp">@drawable/list_arrow_up</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
+        <item name="asReadonlyTaskBackground">#fff6d7</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_red</item>
@@ -321,7 +321,7 @@
    	<style name="TEA_Dialog" parent="@android:style/Theme.Dialog">
 	    <item name="android:windowFrame">@null</item>
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
-	    <item name="android:windowBackground">@drawable/task_edit_dialog_background</item>
+	    <item name="android:windowBackground">@drawable/dialog_full_holo_dark</item>
 	    <item name="android:windowIsFloating">true</item>
 	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
@@ -330,8 +330,28 @@
 	</style>
 	
    	<style name="TEA_Dialog.White">
-   	    <item name="android:windowBackground">@drawable/task_edit_dialog_background_white</item>
+   	    <item name="android:windowBackground">@drawable/dialog_full_holo_light</item>
    	    <item name="asTextColor">#000000</item>
+   	</style>
+   	
+   	<style name="TEA_Dialog_ICS" parent="@android:style/Theme.Holo.Dialog">
+	    <item name="android:windowFrame">@null</item>
+	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
+	    <item name="android:windowIsFloating">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+	    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	    <item name="asTextColor">#ffffff</item>   	    
+   	</style>
+
+    <style name="TEA_Dialog_White_ICS" parent="@android:style/Theme.Holo.Light.Dialog">
+	    <item name="android:windowFrame">@null</item>
+	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
+	    <item name="android:windowIsFloating">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+	    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	    <item name="asTextColor">#000000</item>   	    
    	</style>
 	
     <style name="TEA_DialogWindowTitle">

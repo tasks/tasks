@@ -34,7 +34,7 @@
 	        android:id="@+id/picture"
 	        android:layout_width="39dip"
 	        android:layout_height="39dip"
-	        android:padding="3dip"
+	        android:padding="2dip"
 	        android:layout_marginLeft="8dip"
 	        android:layout_centerVertical="true"
 	        astrid:defaultSrc="@drawable/icn_default_person_image"

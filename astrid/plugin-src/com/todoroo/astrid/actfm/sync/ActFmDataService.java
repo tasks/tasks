@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -20,7 +21,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UserDao;
@@ -28,7 +28,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
@@ -39,9 +38,6 @@ public final class ActFmDataService {
 
     /** Utility for joining tasks with metadata */
     public static final Join METADATA_JOIN = Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK));
-
-    /** NoteMetadata provider string */
-    public static final String NOTE_PROVIDER = "actfm-comment"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -97,15 +93,6 @@ public final class ActFmDataService {
                     where(Criterion.and(Task.REMOTE_ID.isNotNull(),
                             Task.MODIFICATION_DATE.gt(lastSyncDate),
                             Task.MODIFICATION_DATE.gt(Task.LAST_SYNC))).groupBy(Task.ID));
-    }
-
-    /**
-     * Reads task notes out of a task
-     */
-    public TodorooCursor<Metadata> getTaskNotesCursor(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).
-                where(MetadataCriteria.byTaskAndwithKey(taskId, NoteMetadata.METADATA_KEY)));
-        return cursor;
     }
 
     /**
@@ -172,9 +159,10 @@ public final class ActFmDataService {
      */
     @SuppressWarnings("nls")
     public void saveUserData(JSONObject userObject) throws JSONException {
-        TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(
-                Criterion.or(User.REMOTE_ID.eq(userObject.get("id")),
-                        Criterion.and(User.EMAIL.isNotNull(), User.EMAIL.eq(userObject.optString("email"))))));
+        Criterion criterion = User.REMOTE_ID.eq(userObject.getLong("id"));
+        if (!TextUtils.isEmpty(userObject.optString("email")))
+            criterion = Criterion.or(criterion, Criterion.and(User.EMAIL.isNotNull(), User.EMAIL.eq(userObject.optString("email"))));
+        TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(criterion));
         try {
             cursor.moveToFirst();
             User user = new User();

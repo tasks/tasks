@@ -17,15 +17,16 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTests;
+import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 public class AstridPreferences {
 
@@ -72,28 +73,34 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
 
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists,
+                ABChooser.readChoiceForTest(ABTests.AB_FEATURED_LISTS) != 0);
+
         Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle,
                 ABChooser.readChoiceForTest(ABTests.AB_SIMPLE_TASK_ROW) != 0);
 
-        boolean swipeEnabled = false;
-        String swipePerformanceKey = context.getString(R.string.p_swipe_lists_performance_key);
-        if (Preferences.isSet(swipePerformanceKey)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3);
-            if (setting > 0) {
-                swipeEnabled = true;
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders,
+                ABChooser.readChoiceForTest(ABTests.AB_CALENDAR_REMINDERS) != 0);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_social_reminders,
+                ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
+
+        String dragDropTestInitialized = ABTests.AB_DRAG_DROP + "_initialized"; //$NON-NLS-1$
+        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
+            if (ABChooser.readChoiceForTest(ABTests.AB_DRAG_DROP) != 0) {
+                SharedPreferences publicPrefs = getPublicPrefs(context);
+                if (publicPrefs != null) {
+                    Editor edit = publicPrefs.edit();
+                    if (edit != null) {
+                        edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
+                        edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                        edit.commit();
+                        Preferences.setInt(P_SUBTASKS_HELP, 1);
+                    }
+                }
             }
-            Preferences.clear(swipePerformanceKey);
-        } else if (ABChooser.readChoiceForTest(ABTests.AB_SWIPE_BETWEEN) == 1) {
-            swipeEnabled = true;
+            Preferences.setBoolean(dragDropTestInitialized, true);
         }
-
-        boolean advancedEdit = ABChooser.readChoiceForTest(ABTests.AB_ADVANCED_EDIT) != 0;
-        if (advancedEdit && !Preferences.isSet(BeastModePreferences.BEAST_MODE_ORDER_PREF)) {
-            Preferences.setString(BeastModePreferences.BEAST_MODE_ORDER_PREF,
-                    BeastModePreferences.getAdvancedEditOrderForABTest(context));
-        }
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_enabled, swipeEnabled);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
@@ -132,7 +139,7 @@ public class AstridPreferences {
         } finally {
             featLists.close();
         }
-        Preferences.setBoolean(R.string.p_show_featured_lists, showFeaturedLists);
+        Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, showFeaturedLists);
     }
 
     /* ======================================================================

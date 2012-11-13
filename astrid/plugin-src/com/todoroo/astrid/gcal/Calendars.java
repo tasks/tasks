@@ -27,23 +27,31 @@ public class Calendars {
 
     public static final String CALENDAR_CONTENT_CALENDARS = "calendars";
     public static final String CALENDAR_CONTENT_EVENTS = "events";
+    public static final String CALENDAR_CONTENT_ATTENDEES = "attendees";
 
-	private static final String ID_COLUMN_NAME = "_id";
 	private static final boolean USE_ICS_NAMES = AndroidUtilities.getSdkVersion() >= 14;
-	private static final String DISPLAY_COLUMN_NAME = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_DISPLAY_NAME : "displayName");
-	private static final String ACCES_LEVEL_COLUMN_NAME = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL : "access_level");
+
+	public static final String ID_COLUMN_NAME = "_id";
+	public static final String CALENDARS_DISPLAY_COL = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_DISPLAY_NAME : "displayName");
+	public static final String CALENDARS_ACCESS_LEVEL_COL = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL : "access_level");
+	public static final String EVENTS_DTSTART_COL = (USE_ICS_NAMES ? CalendarContract.Events.DTSTART : "dtstart");
+	public static final String EVENTS_DTEND_COL = (USE_ICS_NAMES ? CalendarContract.Events.DTEND : "dtend");
+	public static final String EVENTS_NAME_COL = (USE_ICS_NAMES ? CalendarContract.Events.TITLE : "title");
+	public static final String ATTENDEES_EVENT_ID_COL = (USE_ICS_NAMES ? CalendarContract.Attendees.EVENT_ID : "event_id");
+    public static final String ATTENDEES_NAME_COL = (USE_ICS_NAMES ? CalendarContract.Attendees.ATTENDEE_NAME : "attendeeName");
+    public static final String ATTENDEES_EMAIL_COL = (USE_ICS_NAMES ? CalendarContract.Attendees.ATTENDEE_EMAIL: "attendeeEmail");
 
 
 	private static final String[] CALENDARS_PROJECTION = new String[] {
 			ID_COLUMN_NAME,
-			DISPLAY_COLUMN_NAME,
+			CALENDARS_DISPLAY_COL,
 	};
 
 	// Only show calendars that the user can modify. Access level 500
 	// corresponds to Calendars.CONTRIBUTOR_ACCESS
-	private static final String CALENDARS_WHERE = ACCES_LEVEL_COLUMN_NAME + ">= 500";
+	private static final String CALENDARS_WHERE = CALENDARS_ACCESS_LEVEL_COL + ">= 500";
 
-	private static final String CALENDARS_SORT = DISPLAY_COLUMN_NAME + " ASC";
+	private static final String CALENDARS_SORT = CALENDARS_DISPLAY_COL + " ASC";
 
 	// --- api access
 
@@ -66,6 +74,8 @@ public class Calendars {
 	        return CalendarContract.Calendars.CONTENT_URI;
 	    else if (CALENDAR_CONTENT_EVENTS.equals(table))
 	        return CalendarContract.Events.CONTENT_URI;
+	    else if (CALENDAR_CONTENT_ATTENDEES.equals(table))
+	        return CalendarContract.Attendees.CONTENT_URI;
 	    return null;
 	}
 
@@ -133,7 +143,7 @@ public class Calendars {
     		// Iterate calendars one by one, and fill up the list preference
 			int row = 0;
 			int idColumn = c.getColumnIndex(ID_COLUMN_NAME);
-			int nameColumn = c.getColumnIndex(DISPLAY_COLUMN_NAME);
+			int nameColumn = c.getColumnIndex(CALENDARS_DISPLAY_COL);
 			while (c.moveToNext()) {
 				String id = c.getString(idColumn);
 				String name = c.getString(nameColumn);

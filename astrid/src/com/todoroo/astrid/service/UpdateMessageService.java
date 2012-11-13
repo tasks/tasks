@@ -42,7 +42,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
@@ -149,7 +148,7 @@ public class UpdateMessageService {
         } else {
             String color = ThemeService.getDialogTextColorString();
             final String html = "<html><body style='color: " + color + "'>" +
-                    message + "</body></html>";
+                    message.getLeft() + "</body></html>";
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
@@ -233,7 +232,7 @@ public class UpdateMessageService {
                     public void onClick(View widget) {
                         Intent prefScreen = new Intent(activity, UpdateMessagePreference.class);
                         prefScreen.putExtra(UpdateMessagePreference.TOKEN_PREFS_ARRAY, prefArray);
-                        activity.startActivityForResult(prefScreen, AstridActivity.REQUEST_REBOOT);
+                        activity.startActivityForResult(prefScreen, 0);
                     }
                 };
             } catch (JSONException e) {

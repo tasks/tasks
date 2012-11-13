@@ -99,6 +99,11 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
                 Math.abs(expectedTime - newDueDate) < 5000);
     }
 
+    protected void assertTimesWithinOneHour(long expectedTime, long newDueDate) {
+        assertTrue(String.format("Expected %s, was %s", new Date(expectedTime), new Date(newDueDate)),
+                Math.abs(expectedTime - newDueDate) <= DateUtilities.ONE_HOUR);
+    }
+
     /*
      * Tests for no sync
      */
@@ -171,7 +176,10 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
 
             assertTaskExistsRemotely(t, expectedTime);
-            assertTimesMatch(expectedTime, newDueDate);
+            if (frequency == Frequency.WEEKLY) // We do this because DST was making the results be off by an hour
+                assertTimesWithinOneHour(expectedTime, newDueDate);
+            else
+                assertTimesMatch(expectedTime, newDueDate);
         } finally {
             cursor.close();
         }

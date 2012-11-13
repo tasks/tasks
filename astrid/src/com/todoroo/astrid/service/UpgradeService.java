@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.Looper;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -34,8 +33,6 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.backup.TasksXmlExporter;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
@@ -45,6 +42,7 @@ import com.todoroo.astrid.helper.DueDateTimeMigrator;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.Astrid44SyncMigrator;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -52,7 +50,11 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
-    public static final int V4_4_0 = 285;
+    public static final int V4_5_0 = 300;
+    public static final int V4_4_2 = 287;
+    public static final int V4_4_1 = 286;
+    public static final int V4_4 = 285;
+    public static final int V4_3_4_2 = 284;
     public static final int V4_3_4_1 = 283;
     public static final int V4_3_4 = 282;
     public static final int V4_3_3 = 281;
@@ -172,91 +174,69 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
-        if (from > 0) {
-            boolean separateActivity = from < V4_4_0 // If from < 4_4_0, launch a new activity to block the UI
-                    && context instanceof AstridActivity;
+        int maxWithUpgrade = V4_5_0; // The last version that required a migration
 
-            if (separateActivity) {
-                Intent upgrade = new Intent(context, UpgradeActivity.class);
-                upgrade.putExtra(UpgradeActivity.TOKEN_FROM, from);
-                upgrade.putExtra(UpgradeActivity.TOKEN_VERSION_NAME, lastSetVersionName);
-                context.startActivityForResult(upgrade, AstridActivity.REQUEST_REBOOT);
-            } else {
-                startUpgradeThread(context, from, lastSetVersionName, null);
-            }
+        Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
+
+        if(from < maxWithUpgrade) {
+            Intent upgrade = new Intent(context, UpgradeActivity.class);
+            upgrade.putExtra(UpgradeActivity.TOKEN_FROM_VERSION, from);
+            context.startActivityForResult(upgrade, 0);
         }
-    }
-
-    private static void startUpgradeThread(final Activity context, final int from, final String lastSetVersionName, final Runnable done) {
-     // long running tasks: pop up a progress dialog
-        final ProgressDialog dialog;
-        if(from < V4_4_0)
-            dialog = DialogUtilities.progressDialog(context,
-                    context.getString(R.string.DLG_upgrading));
-        else
-            dialog = null;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // NOTE: These lines should be uncommented whenever any new version requires a data migration
-                    Looper.prepare();
-                    TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null, lastSetVersionName);
-
-                    if(from < V3_0_0)
-                        new Astrid2To3UpgradeHelper().upgrade2To3(context, from);
-
-                    if(from < V3_1_0)
-                        new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
-
-                    if(from < V3_8_3_1)
-                        new TagCaseMigrator().performTagCaseMigration(context);
-
-                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
-                        PluginServices.getTaskService().clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
-
-                    if (from < V4_0_6)
-                        new DueDateTimeMigrator().migrateDueTimes();
-
-                    if (from < V4_4_0)
-                        new Astrid44SyncMigrator().performMigration();
-
-                } finally {
-                    DialogUtilities.dismissDialog((Activity)context, dialog);
-                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                    if (done != null)
-                        context.runOnUiThread(done);
-                }
-            }
-
-        }).start();
     }
 
     public static class UpgradeActivity extends Activity {
-        public static final String TOKEN_FROM = "token_from"; //$NON-NLS-1$
-        public static final String TOKEN_VERSION_NAME = "token_version"; //$NON-NLS-1$
+        @Autowired
+        private TaskService taskService;
+        private ProgressDialog dialog;
 
-        public UpgradeActivity() {
-            super();
-        }
+        public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
+        private int from;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-        }
+            DependencyInjectionService.getInstance().inject(this);
+            from = getIntent().getIntExtra(TOKEN_FROM_VERSION, -1);
+            if (from > 0) {
+                dialog = DialogUtilities.progressDialog(this,
+                        getString(R.string.DLG_upgrading));
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            if(from < V3_0_0)
+                                new Astrid2To3UpgradeHelper().upgrade2To3(UpgradeActivity.this, from);
 
-        @Override
-        protected void onResume() {
-            super.onResume();
-            int from = getIntent().getIntExtra(TOKEN_FROM, 0);
-            String lastSetVersionName = getIntent().getStringExtra(TOKEN_VERSION_NAME);
-            startUpgradeThread(this, from, lastSetVersionName, new Runnable() {
-                @Override
-                public void run() {
-                    setResult(RESULT_OK);
-                    finish();
-                }
-            });
+                            if(from < V3_1_0)
+                                new Astrid2To3UpgradeHelper().upgrade3To3_1(UpgradeActivity.this, from);
+
+                            if(from < V3_8_3_1)
+                                new TagCaseMigrator().performTagCaseMigration(UpgradeActivity.this);
+
+                            if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
+                                taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+
+                            if (from < V4_0_6)
+                                new DueDateTimeMigrator().migrateDueTimes();
+
+                            if (from < V4_4_2)
+                                new SubtasksMetadataMigration().performMigration();
+
+                            if (from < V4_5_0)
+                                new Astrid44SyncMigrator().performMigration();
+
+                        } finally {
+                            DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
+                            sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                            setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
+                            finish();
+                        }
+                    };
+                }.start();
+            } else {
+                finish();
+            }
         }
     }
 
@@ -277,6 +257,24 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_4 && from < V4_4_1) {
+            newVersionString(changeLog, "4.4.1 (10/30/12)", new String[] {
+                "Fixed an issue where the calendar assistant could remind you about the wrong events",
+                "Fixed a crash that could occur when swipe between lists is enabled"
+            });
+        }
+
+        if (from < V4_4) {
+            newVersionString(changeLog, "4.4 (10/25/12)", new String[] {
+                "Astrid calendar assistant will help you prepare for meetings! Enable or " +
+                    "disable in Settings -> Premium and misc. settings -> Calendar assistant",
+                "Full Chinese translation",
+                "Widgets will now reflect manual ordering",
+                "Accept pending friend requests from the people view",
+                "Several minor bug and crash fixes"
+            });
+        }
 
         if (from >= V4_3_0 && from < V4_3_4) {
             newVersionString(changeLog, "4.3.4 (10/2/12)", new String[] {

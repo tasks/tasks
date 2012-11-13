@@ -77,7 +77,6 @@
     
   <string name="rmd_reengage_name_default">you</string>
 
-  <string name="rmd_reengage_snooze">Snooze all</string>
   
   <string name="rmd_reengage_add_tasks">Add a task</string>
   
@@ -148,9 +147,7 @@
   <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification icon set</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
 
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
@@ -188,7 +185,6 @@
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
   
   <!-- slide 39a: Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New task defaults</string>
   
   <string-array name="EPr_reminder_random">
     <!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->
@@ -292,6 +288,10 @@
   </string-array>
   
   <!-- =============================================== random reminders == -->
+
+  <string-array name="reminders_social">
+      <item>These people are counting on you!</item>
+  </string-array>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->

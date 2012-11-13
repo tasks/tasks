@@ -66,7 +66,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.actfm.TagUpdatesActivity;
+import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -232,13 +232,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     @SuppressWarnings("nls")
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
         Class<?> component = customComponent;
-        if (filter instanceof FilterWithCustomIntent) {
+        if (filter instanceof FilterWithCustomIntent && component == null) {
             try {
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
             } catch (Exception e) {
                 // Invalid
             }
         }
+        if (component == null)
+            component = TaskListFragment.class;
+
         TaskListFragment newFragment;
         try {
             newFragment = (TaskListFragment) component.newInstance();
@@ -263,7 +266,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @return
      */
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
-        return instantiateWithFilterAndExtras(filter, extras, TaskListFragment.class);
+        return instantiateWithFilterAndExtras(filter, extras, null);
     }
 
     /**
@@ -272,6 +275,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      */
     public interface OnTaskListItemClickedListener {
         public void onTaskListItemClicked(long taskId);
+        public void onTaskListItemClicked(long taskId, boolean editable);
     }
 
     @Override
@@ -358,9 +362,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 if(task.isDeleted())
                     return;
 
-                if (task.isEditable()) {
-                    onTaskListItemClicked(id);
-                }
+                onTaskListItemClicked(id, task.isEditable());
             }
         });
     }
@@ -379,6 +381,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
+        filter.setFilterQueryOverride(null);
         isInbox = CoreFilterExposer.isInbox(filter);
 
         setUpTaskList();
@@ -736,8 +739,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected void refresh() {
         if (taskAdapter != null)
             taskAdapter.flushCaches();
-        loadTaskListContent(true);
         taskService.cleanup();
+        loadTaskListContent(true);
     }
 
     /**
@@ -893,11 +896,34 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @param withCustomId
      *            force task with given custom id to be part of list
      */
-    @SuppressWarnings("nls")
-    protected void setUpTaskList() {
+    public void setUpTaskList() {
         if (filter == null)
             return;
 
+        TodorooCursor<Task> currentCursor = constructCursor();
+        if (currentCursor == null)
+            return;
+
+        // set up list adapters
+        taskAdapter = createTaskAdapter(currentCursor);
+
+        setListAdapter(taskAdapter);
+        getListView().setOnScrollListener(this);
+        registerForContextMenu(getListView());
+
+        loadTaskListContent(true);
+    }
+
+    public Property<?>[] taskProperties() {
+        return TaskAdapter.PROPERTIES;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    @SuppressWarnings("nls")
+    private TodorooCursor<Task> constructCursor() {
         String tagName = null;
         if (getActiveTagData() != null)
             tagName = getActiveTagData().getValue(TagData.NAME);
@@ -935,35 +961,24 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;
         sqlQueryTemplate.set(groupedQuery);
 
-        // perform query
-        TodorooCursor<Task> currentCursor;
+        // Peform query
         try {
-            currentCursor = taskService.fetchFiltered(
+            return taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, taskProperties());
         } catch (SQLiteException e) {
             // We don't show this error anymore--seems like this can get triggered
             // by a strange bug, but there seems to not be any negative side effect.
             // For now, we'll suppress the error
             // See http://astrid.com/home#tags-7tsoi/task-1119pk
-            return;
+            return null;
         }
-
-        // set up list adapters
-        taskAdapter = createTaskAdapter(currentCursor);
-
-        setListAdapter(taskAdapter);
-        getListView().setOnScrollListener(this);
-        registerForContextMenu(getListView());
-
-        loadTaskListContent(true);
     }
 
-    public Property<?>[] taskProperties() {
-        return TaskAdapter.PROPERTIES;
-    }
-
-    public Filter getFilter() {
-        return filter;
+    public void reconstructCursor() {
+        TodorooCursor<Task> cursor = constructCursor();
+        if (cursor == null)
+            return;
+        taskAdapter.changeCursor(cursor);
     }
 
     /**
@@ -1070,10 +1085,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * Comments button in action bar was clicked
      */
     protected void handleCommentsButtonClicked() {
-        Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
-        intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
-        startActivity(intent);
-        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+        Activity activity = getActivity();
+        if (activity != null) {
+            Intent intent = new Intent(activity, CommentsActivity.class);
+            intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
+            startActivity(intent);
+            AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
+        }
     }
 
     @Override
@@ -1144,6 +1162,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
+    public void onTaskCreated(Task task) {
+        incrementFilterCount();
+    }
+
     protected void onTaskDelete(Task task) {
         decrementFilterCount();
 
@@ -1198,9 +1220,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return true;
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-            AlertDialog dialog = SortSelectionActivity.createDialog(
-                    getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
-            dialog.show();
+            Activity activity = getActivity();
+            if (activity != null) {
+                AlertDialog dialog = SortSelectionActivity.createDialog(
+                        getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
+                dialog.show();
+            }
             return true;
         case MENU_SYNC_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
@@ -1308,8 +1333,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         startActivityForResult(intent, ACTIVITY_SETTINGS);
     }
 
-    public void onTaskListItemClicked(long taskId) {
-        mListener.onTaskListItemClicked(taskId);
+    public void onTaskListItemClicked(long taskId, boolean editable) {
+        mListener.onTaskListItemClicked(taskId, editable);
     }
 
     protected void toggleDragDrop(boolean newState) {

@@ -1,4 +1,4 @@
-# Chinese (China) translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
-"PO-Revision-Date: 2012-05-19 13:01+0000\n"
-"Last-Translator: Wang Dianjin <Unknown>\n"
-"Language-Team: zh_CN <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-10-12 18:02+0000\n"
+"Last-Translator: Henry Tsai <henry@astrid.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-16 17:16+0000\n"
+"X-Generator: Launchpad (build 16152)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -242,13 +243,13 @@ msgstr "正在同步中..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
-msgstr ""
+msgid "Sync & backup"
+msgstr "同步和备份"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
-msgstr ""
+msgid "Astrid.com, Google Tasks, saved data, local backup"
+msgstr "Astrid.com，谷歌任务，已存数据，本地备份"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -269,19 +270,19 @@ msgstr "状态：%s"
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
+msgid "Not logged in"
 msgstr "未登陆"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
+msgid "Sync ongoing..."
 msgstr "同步中..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
 msgctxt "sync_status_success"
 msgid ""
-"Last Sync:\n"
+"Last sync:\n"
 "%s"
 msgstr ""
 "上次同步：\n"
@@ -290,24 +291,24 @@ msgstr ""
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
-msgid "Failed On: %s"
+msgid "Failed on: %s"
 msgstr "失败：%s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
+msgid "Sync w/ errors: %s"
 msgstr "同步 w/ 错误： %s 上次同步日期"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
+msgid "Last successful sync: %s"
 msgstr "上次成功同步：%s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
-msgid "Never Synchronized!"
+msgid "Never synchronized!"
 msgstr "未同步过！"
 
 #. Options Group Label
@@ -317,7 +318,7 @@ msgstr "选项"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
+msgid "Background sync"
 msgstr "后台同步"
 
 #. Preference: Synchronization Interval Description (when disabled)
@@ -333,7 +334,7 @@ msgstr "目前同步间隔：%s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
+msgid "Wifi only setting"
 msgstr "Wifi 才可使用的设置"
 
 #. Preference: Background Wifi Description (enabled)
@@ -353,12 +354,12 @@ msgstr "动作"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
+msgid "Synchronize now"
 msgstr "现在同步"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
+msgid "Log in & synchronize!"
 msgstr "登陆并同步！"
 
 #. Sync: Prefix string before logged in identifier
@@ -368,7 +369,7 @@ msgstr "已经登录为："
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
-msgid "Status Report"
+msgid "Status report"
 msgstr "状态报告"
 
 #. Sync: last error click for more
@@ -378,12 +379,12 @@ msgstr "点击给 Astrid 团队发送报告"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
-msgid "Send Report"
+msgid "Send report"
 msgstr "发送报告"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
-msgid "Log Out"
+msgid "Log out"
 msgstr "登出"
 
 #. Sync: Clear Data Description
@@ -393,15 +394,15 @@ msgstr "清除所有同步资料"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
+msgid "Log out/clear synchronization data?"
 msgstr "登出/清除同步资料?"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr "在最近与 %s 同步时网络连接发生问题。请重试。"
 
 msgctxt "sync_SPr_interval_entries:0"
@@ -443,8 +444,3 @@ msgstr "每3天"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "每周"
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "同步"
-

@@ -49,11 +49,11 @@
   <!-- field missed calls preference -->
   <string name="p_field_missed_calls">field_missed_calls</string>
   
+  <!-- calendar reminders preference -->
+  <string name="p_calendar_reminders">p_calendar_reminder</string>
+  
   <!-- show friends view preference -->
   <string name="p_show_friends_view">show_friends_view</string>
-  
-  <!-- show featured lists preference -->
-  <string name="p_show_featured_lists">show_featured_lists</string>
 
   <!-- enable third party addons preference -->
   <string name="p_third_party_addons">third_party_addons</string>
@@ -65,7 +65,10 @@
   <string name="p_force_phone_layout">force_phone_layout</string>
   
   <!-- show featured lists -->
-  <string name="p_show_featured_lists_labs">show_featured_lists_labs</string>
+  <string name="p_show_featured_lists">show_featured_lists_labs</string>
+  
+  <!-- social reminders (show faces) -->
+  <string name="p_social_reminders">social_reminders</string>
   
   <!-- account status section key -->
   <string name="p_account">account</string>
@@ -183,16 +186,8 @@
     <item>08</item>
   </string-array>
   
-  <string-array name="EPr_swipe_lists_performance_mode_values">
-      <item>0</item>
-      <item>1</item>
-      <item>3</item>
-      <item>8</item>
-  </string-array>
-  
   <!-- ======================================================= APPEARANCE == -->
 
-  <string name="p_colorize">colorize</string>
   <string name="p_fontSize">font_size</string>
   <string name="p_taskRowStyle">p_taskRowStyle</string>
   <string name="p_showNotes">notesVisible</string>
@@ -416,15 +411,15 @@
   <string-array name="TEA_control_sets_beast">
       <item >@string/TEA_control_who</item>
       <item >@string/TEA_control_when</item>
-      <item >@string/TEA_control_more_section</item>
       <item >@string/TEA_control_importance</item>
       <item >@string/TEA_control_lists</item>
       <item >@string/TEA_control_notes</item>
       <item >@string/TEA_control_files</item>
+      <item >@string/TEA_control_more_section</item>
       <item >@string/TEA_control_reminders</item>
-      <item >@string/TEA_control_hidden_section</item>
       <item >@string/TEA_control_timer</item>
       <item >@string/TEA_control_share</item>
+      <item >@string/TEA_control_hidden_section</item>
   </string-array>
   
   <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
@@ -444,15 +439,15 @@
   <string-array name="TEA_control_sets_prefs">
       <item>@string/TEA_ctrl_who_pref</item>
       <item>@string/TEA_ctrl_when_pref</item>
-      <item>@string/TEA_ctrl_more_pref</item>
       <item>@string/TEA_ctrl_importance_pref</item>
       <item>@string/TEA_ctrl_lists_pref</item>
       <item>@string/TEA_ctrl_notes_pref</item>
       <item>@string/TEA_ctrl_files_pref</item>
+      <item>@string/TEA_ctrl_more_pref</item>
       <item>@string/TEA_ctrl_reminders_pref</item>
-      <item>@string/TEA_ctrl_hide_section_pref</item>
       <item>@string/TEA_ctrl_timer_pref</item>
       <item>@string/TEA_ctrl_share_pref</item>
+      <item>@string/TEA_ctrl_hide_section_pref</item>
   </string-array>
   
   

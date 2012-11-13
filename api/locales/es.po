@@ -1,4 +1,4 @@
-# Spanish translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
-"PO-Revision-Date: 2012-06-12 00:36+0000\n"
-"Last-Translator: Juan David Angarita <Unknown>\n"
-"Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-10-03 15:31+0000\n"
+"Last-Translator: Leandro Acosta Pereyra <leandro@acostapereyra.com.ar>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
+"X-Generator: Launchpad (build 16130)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -242,13 +243,14 @@ msgstr "Sincronizando..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
-msgstr ""
+msgid "Sync & backup"
+msgstr "Sincronización y copia de seguridad"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
+msgid "Astrid.com, Google Tasks, saved data, local backup"
 msgstr ""
+"Astrid.com, Google Tasks, información guardada, copia de seguridad local"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -269,46 +271,46 @@ msgstr "Estado: %s"
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
-msgstr "No ha iniciado sesión"
+msgid "Not logged in"
+msgstr "Sesión no iniciada"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "Sincronización en curso..."
+msgid "Sync ongoing..."
+msgstr "Sincronización en marcha"
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
 msgctxt "sync_status_success"
 msgid ""
-"Last Sync:\n"
+"Last sync:\n"
 "%s"
 msgstr ""
-"Última sincronización:\n"
+"Ultima sincronización:\n"
 "%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
-msgid "Failed On: %s"
+msgid "Failed on: %s"
 msgstr "Falló el: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr "Sinc. con errores: %s"
+msgid "Sync w/ errors: %s"
+msgstr "Sincronización con errores: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "Última sincronización exitosa: %s"
+msgid "Last successful sync: %s"
+msgstr "Última sincronización correcta: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "¡Jamás se sincronizó!"
+msgid "Never synchronized!"
+msgstr "Nunca se sincronizó!"
 
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
@@ -317,8 +319,8 @@ msgstr "Opciones"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "Sincronizar en segundo plano"
+msgid "Background sync"
+msgstr "Sincronización en segundo plano"
 
 #. Preference: Synchronization Interval Description (when disabled)
 msgctxt "sync_SPr_interval_desc_disabled"
@@ -333,13 +335,14 @@ msgstr "Actualmente configurado a: %s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Opción de solo WiFi"
+msgid "Wifi only setting"
+msgstr "Config. solo Wifi"
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr "La sincronización en segundo plano sólo funciona con el Wifi activado"
+msgstr ""
+"La sincronización en segundo plano sólo funciona con el Wifi activado"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
@@ -353,13 +356,13 @@ msgstr "Acciones"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
+msgid "Synchronize now"
 msgstr "Sincronizar ahora"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "¡Iniciar sesión y sincronizar!"
+msgid "Log in & synchronize!"
+msgstr "Iniciar sesión y sincronizar!"
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
@@ -368,8 +371,8 @@ msgstr "Sesión iniciada como:"
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
-msgid "Status Report"
-msgstr "Reporte de Estado"
+msgid "Status report"
+msgstr "Reporte de estado"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
@@ -378,12 +381,12 @@ msgstr "Click para enviar un reporte al equipo de Astrid"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
-msgid "Send Report"
-msgstr "Enviar Reporte"
+msgid "Send report"
+msgstr "Enviar reporte"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
-msgid "Log Out"
+msgid "Log out"
 msgstr "Cerrar sesión"
 
 #. Sync: Clear Data Description
@@ -393,18 +396,18 @@ msgstr "Limpia todos los datos de sincronización"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "Cerrar sesión / ¿limpiar datos de sincronización?"
+msgid "Log out/clear synchronization data?"
+msgstr "Cerrar sesión/Limpiar datos de sincronización?"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
-"Ha ocurrido un problema conectando a la red durante la última "
-"sincronización con %s. Por favor inténtelo nuevamente después."
+"Ha ocurrido un problema conectando a la red durante la última sincronización "
+"con %s. Por favor inténtelo nuevamente después."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
@@ -445,8 +448,3 @@ msgstr "cada tres días"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "cada semana"
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "Sincronización"
-

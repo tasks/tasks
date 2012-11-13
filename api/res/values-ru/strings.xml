@@ -72,6 +72,7 @@
   <string name="SyP_progress">Синхронизация задач…</string>
   <string name="SyP_progress_toast">Синхронизация…</string>
   <string name="SyP_label">Синхронизация</string>
+  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
   <string name="sync_SPr_group_status">Состояние</string>
   <string name="sync_SPr_status_subtitle">Состояние: %s</string>

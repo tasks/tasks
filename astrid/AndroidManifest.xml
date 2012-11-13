@@ -6,8 +6,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="4.4.0-beta"
-          android:versionCode="285">
+          android:versionName="4.5.0-sync-beta"
+          android:versionCode="300">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -178,6 +178,10 @@
     <activity android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
         android:screenOrientation="portrait"/>
 
+    
+    <activity android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme" />
     
     <!-- Start of Crittercism.com Code -->
 	<activity android:name="com.crittercism.NewFeedbackSpringboardActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
@@ -407,7 +411,7 @@
     <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme.Dialog"/>
-    <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
+    <activity android:name="com.todoroo.astrid.actfm.CommentsActivity"
               android:windowSoftInputMode="stateHidden"/>
     <receiver android:name="com.timsu.astrid.C2DMReceiver" permission="com.google.android.c2dm.permission.SEND">
       <!-- Receive the actual message -->
@@ -506,6 +510,27 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarStartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+      <intent-filter>
+          <action android:name="com.todoroo.astrid.SCHEDULE_CAL_REMINDERS"/>
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
+    <activity android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    </activity>
+
+    <activity android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    </activity>
+    
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
     
     <!-- old tasks -->
     <activity android:name="com.todoroo.astrid.core.OldTaskPreferences"

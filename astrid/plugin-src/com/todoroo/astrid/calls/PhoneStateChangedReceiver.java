@@ -56,13 +56,29 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     AndroidUtilities.sleepDeep(WAIT_BEFORE_READ_LOG);
-                    Cursor calls = context.getContentResolver().query(
+                    Cursor calls;
+                    try {
+                        calls = context.getContentResolver().query(
                             Calls.CONTENT_URI,
                             new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
                             Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
                             new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
                             Calls.DATE + " DESC"
                             );
+                    } catch (Exception e) { // Sometimes database is locked, retry once
+                        AndroidUtilities.sleepDeep(300L);
+                        try {
+                            calls = context.getContentResolver().query(
+                                    Calls.CONTENT_URI,
+                                    new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
+                                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+                                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
+                                    Calls.DATE + " DESC"
+                                    );
+                        } catch (Exception e2) {
+                            calls = null;
+                        }
+                    }
                     try {
                         if (calls == null)
                             return;

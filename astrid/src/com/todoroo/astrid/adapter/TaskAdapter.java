@@ -37,6 +37,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -87,8 +88,6 @@ import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagMetadata;
@@ -138,6 +137,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.NOTES,
         Task.USER_ID,
         Task.USER,
+        Task.REMINDER_LAST,
+        Task.SOCIAL_REMINDER,
         TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
         TAGS // Concatenated list of tags
     };
@@ -192,6 +193,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
+    private final int readonlyBackground;
 
     private final AtomicReference<String> query;
 
@@ -200,6 +202,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final DisplayMetrics displayMetrics;
 
     private final boolean simpleLayout;
+    protected final int minRowHeight;
 
     // --- task detail and decoration soft caches
 
@@ -239,6 +242,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         this.simpleLayout = (resource == R.layout.task_adapter_row_simple);
+        this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
         startTaskActionsThread();
@@ -249,6 +253,24 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
 
+        TypedValue readonlyBg = new TypedValue();
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asReadonlyTaskBackground, readonlyBg, false);
+        readonlyBackground = readonlyBg.data;
+
+    }
+
+    protected int computeMinRowHeight() {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        if (simpleLayout) {
+            return (int) (metrics.density * 40);
+        } else {
+            return (int) (metrics.density * 45);
+        }
+    }
+
+    public int computeFullRowHeight() {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return minRowHeight + (int) (10 * metrics.density);
     }
 
     private void startDetailThread() {
@@ -382,6 +404,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
+        if (fontSize < 16) {
+            viewHolder.rowBody.setMinimumHeight(0);
+            viewHolder.completeBox.setMinimumHeight(0);
+        } else {
+            viewHolder.rowBody.setMinimumHeight(minRowHeight);
+            viewHolder.completeBox.setMinimumHeight(minRowHeight);
+        }
+
+        if (task.isEditable())
+            viewHolder.view.setBackgroundColor(resources.getColor(android.R.color.transparent));
+        else
+            viewHolder.view.setBackgroundColor(readonlyBackground);
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -435,9 +469,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
-
-        //        // details and decorations, expanded
-
 
         if (Preferences.getBoolean(R.string.p_default_showdecorations_key, false)) {
             decorationManager.request(viewHolder);
@@ -712,7 +743,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
 
-            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
+            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.FLAGS, Task.USER_ID,
                     fileIdProperty)
                     .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
                             Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
@@ -726,7 +757,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
-                    if(task.isCompleted())
+                    if(task.isCompleted() || !task.isEditable())
                         continue;
 
                     boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
@@ -793,16 +824,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             new HashMap<Integer, Drawable>(3);
         @SuppressWarnings("nls")
         public Drawable getDrawable(String source) {
+            int drawable = 0;
             if(source.equals("silk_clock"))
-                source = "details_alarm";
+                drawable = R.drawable.details_alarm;
             else if(source.equals("silk_tag_pink"))
-                source = "details_tag";
+                drawable = R.drawable.details_tag;
             else if(source.equals("silk_date"))
-                source = "details_repeat";
+                drawable = R.drawable.details_repeat;
             else if(source.equals("silk_note"))
-                source = "details_note";
+                drawable = R.drawable.details_note;
 
-            int drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
+            if (drawable == 0)
+                drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
             if(drawable == 0)
                 return null;
             Drawable d;
@@ -995,14 +1028,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
 
             long taskId = viewHolder.task.getId();
-            if (viewHolder.task.isEditable()) {
-                editTask(taskId);
-            }
+            fragment.onTaskListItemClicked(taskId, viewHolder.task.isEditable());
         }
-    }
-
-    private void editTask(long taskId) {
-        fragment.onTaskListItemClicked(taskId);
     }
 
     /**
@@ -1096,7 +1123,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
             checkBoxView.setChecked(task.isCompleted());
             // disable checkbox if task is readonly
-            checkBoxView.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
+            checkBoxView.setEnabled(viewHolder.task.isEditable());
 
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length)
@@ -1190,9 +1217,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             completedItems.put(task.getId(), newState);
             taskService.setComplete(task, newState);
-
-            if(newState)
-                StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_V2);
         }
     }
 

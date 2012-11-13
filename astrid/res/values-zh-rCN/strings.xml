@@ -1,22 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">分享</string>
-  <string name="actfm_person_hint">联系人姓名</string>
+  <string name="actfm_person_hint">E-mail / 联系人姓名</string>
   <string name="actfm_person_or_tag_hint">联系方式或共享列表</string>
-  <string name="actfm_toast_success">已储存至服务器</string>
-  <string name="actfm_tag_operation_disabled">对不起，此操作尚未支持已共享标签</string>
   <string name="actfm_tag_operation_owner_delete">你是这个被分享列表的拥有者，如果删除它，其它被分享者将无法访问，确定删除吗？</string>
   <string name="actfm_picture_camera">照张照片</string>
   <string name="actfm_picture_gallery">从相册中选取</string>
   <string name="actfm_picture_clear">清屏</string>
-  <string name="actfm_FLA_menu_refresh">刷新列表</string>
   <string name="actfm_view_task_title">查看任务？</string>
   <string name="actfm_view_task_text">任务已发送给%s！正在查看你所拥有的任务，是否查看其它被指定的任务？</string>
   <string name="actfm_view_task_ok">查看被指派的任务</string>
   <string name="actfm_view_task_cancel">保留在此处</string>
-  <string name="actfm_my_shared_tasks_title">我的共享任务</string>
+  <string name="actfm_my_shared_tasks_title">已分享任务</string>
+  <string name="actfm_my_shared_tasks_empty">没有已分享任务</string>
   <string name="TVA_add_comment">添加注释...</string>
-  <string name="UAd_title_comment">%1$s 回复: %2$s</string>
   <string-array name="TVA_tabs">
     <item>任务</item>
     <item>活动</item>
@@ -27,44 +23,31 @@
   <string name="actfm_TVA_no_members_alert">私有状态：点击以编辑或分享</string>
   <string name="actfm_TVA_menu_refresh">刷新</string>
   <string name="actfm_TVA_tag_label">列表名称：</string>
-  <string name="actfm_TVA_tag_owner_label">列表所有者：</string>
-  <string name="actfm_TVA_tag_owner_none">无</string>
   <string name="actfm_TVA_members_label">合作者：</string>
-  <string name="actfm_TVA_members_hint">和任意一位有电子邮箱地址的人分享</string>
+  <string name="actfm_TVA_members_hint">通过电子邮件分享</string>
   <string name="actfm_TVA_tag_picture">列表图片</string>
   <string name="actfm_TVA_silence_label">静默通知</string>
-  <string name="actfm_TVA_list_icon_label">列表图标</string>
   <string name="actfm_TVA_tag_description_label">描述</string>
   <string name="actfm_TVA_tag_settings_label">设置</string>
   <string name="actfm_TVA_tag_description_hint">在这里添加描述</string>
   <string name="actfm_TVA_tag_name_hint">添加列表名称</string>
   <string name="actfm_TVA_login_to_share">你需要登陆Astrid.com来分享列表，请登陆网站或者保持私有</string>
   <string name="actfm_EPA_intro">使用Astrid分享您的购物单，聚会和团队项目，就会发现人们可以迅速完成工作！</string>
-  <string name="actfm_EPA_title">分享/指派</string>
-  <string name="actfm_EPA_save">保存 &amp; 分享</string>
-  <string name="actfm_EPA_assign_label">谁</string>
   <string name="actfm_EPA_assign_label_long">需要谁处理？</string>
   <string name="actfm_EPA_assign_me">我</string>
   <string name="actfm_EPA_unassigned">未分配</string>
-  <string name="actfm_EPA_choose_contact">选联系人...</string>
+  <string name="actfm_EPA_choose_contact">选择联系人</string>
   <string name="actfm_EPA_task_rabbit">将任务外包</string>
-  <string name="actfm_EPA_assign_custom">自定义...</string>
   <string name="actfm_EPA_share_with">共享给：</string>
   <string name="actfm_EPA_collaborators_header">与朋友分享</string>
   <string name="actfm_EPA_list">列表：%s</string>
-  <string name="actfm_EPA_assigned_hint">联系人姓名</string>
   <string name="actfm_EPA_message_text">邀请信息：</string>
   <string name="actfm_EPA_message_body">帮我办好这事！</string>
-  <string name="actfm_EPA_assign_header_members">列表合作者</string>
-  <string name="actfm_EPA_assign_header_friends">Astrid朋友</string>
-  <string name="actfm_EPA_tag_label">请问是否创建共享标签？</string>
-  <string name="actfm_EPA_tag_hint">（例如：宅男联谊会）</string>
+  <string name="actfm_EPA_assign_header_members">列表成员</string>
+  <string name="actfm_EPA_assign_header_friends">Astrid 好友</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">已将任务分享给了 %s</string>
-  <string name="actfm_EPA_saved_toast">联系人设置已保存</string>
   <string name="actfm_EPA_invalid_email">电子邮箱无效： %s</string>
-  <string name="actfm_EPA_invalid_tag">未找到列表： %s</string>
   <string name="actfm_EPA_login_to_share">你需要登陆Astrid.com来分享任务，请登陆网站或者保持私有。</string>
   <string name="actfm_EPA_login_button">登录</string>
   <string name="actfm_EPA_dont_share_button">不要分享</string>
@@ -72,26 +55,42 @@
   <string name="actfm_ALA_body">Astrid.com能让您轻松在线访问、共享和委托您的任务。</string>
   <string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
   <string name="actfm_ALA_gg_login">使用Google帐号登录</string>
-  <string name="actfm_ALA_pw_login">尚未拥有Google或Facebook帐号？</string>
-  <string name="actfm_ALA_pw_link">点此登录</string>
-  <string name="actfm_ALA_pw_new">创建新帐户？</string>
-  <string name="actfm_ALA_pw_returning">已有帐户？</string>
-  <string name="actfm_ALA_name_label">名字</string>
   <string name="actfm_ALA_firstname_label">名字</string>
   <string name="actfm_ALA_lastname_label">姓氏</string>
   <string name="actfm_ALA_email_label">电子邮箱</string>
-  <string name="actfm_ALA_username_email_label">用户名/电子邮箱</string>
   <string name="actfm_ALA_password_label">密码</string>
-  <string name="actfm_ALA_signup_title">创建新账户</string>
-  <string name="actfm_ALA_login_title">登陆至 Astrid.com</string>
+  <string name="actfm_ALA_signup_title">注册</string>
+  <string name="actfm_ALA_login_title">登录</string>
   <string name="actfm_GAA_title">选择你要使用的Google账户</string>
   <string name="actfm_OLA_prompt">连接至 Google：</string>
+  <string name="actfm_ALA_error_user_exists">用户已经存在，请直接登录。</string>
+  <string name="actfm_ALA_error_wrong_password">对不起，密码输入不对，请再试一次。</string>
+  <string name="actfm_feat_list_clone">复制列表</string>
+  <string name="actfm_feat_list_suffix">（复制）</string>
+  <string name="actfm_feat_list_cloning">正在复制...</string>
+  <string name="actfm_feat_list_clone_success">完成!</string>
+  <string name="actfm_feat_list_task_clone_success">任务已复制</string>
+  <string name="actfm_feat_list_clone_empty">无任务复制</string>
+  <string name="actfm_status_title_logged_in">状态——已使用 %s 帐户登录</string>
   <string name="actfm_APr_header">Astrid.com （测试版！）</string>
   <string name="actfm_https_title">使用 HTTPS</string>
   <string name="actfm_https_enabled">开启 HTTPS</string>
   <string name="actfm_https_disabled">关闭 HTTPS</string>
-  <string name="actfm_notification_title">Astrid.com 同步</string>
-  <string name="actfm_notification_comments">收到新留言/点击察看细节</string>
+  <string name="actfm_dual_sync_warning">您当前正在和 Google 工作表同步。请注意，在一些情况下，和两个服务一起同步可能会导致出现意外的结果。您真的想和 Astrid.com 同步吗？</string>
+  <string name="actfm_account_type">帐号类型</string>
+  <string name="actfm_account_info">帐号信息</string>
+  <string name="actfm_account_info_summary">状态和选项</string>
+  <string name="account_type_title_not_logged_in">注册一个免费帐号</string>
+  <string name="account_type_summary_not_logged_in">进入在线任务，分享列表和指派任务</string>
+  <string name="actfm_account_premium">高级</string>
+  <string name="actfm_account_basic">一般</string>
+  <string name="actfm_inapp_billing">升级成高级用户</string>
+  <string name="actfm_inapp_billing_summary">附件，语音备份，高级支持和更多</string>
+  <string name="share_with_facebook">在Facebook赞一个</string>
+  <string name="share_with_twitter">在Twitter关注我们</string>
+  <string name="share_with_google">在Google+分享</string>
+  <string name="share_title">分享您对我们的爱!</string>
+  <string name="share_speech_bubble">通过分享，您将会帮助其他人生活得更加有效率！</string>
   <string name="alarm_ACS_label">闹钟</string>
   <string name="alarm_ACS_button">添加闹钟</string>
   <string-array name="reminders_alarm">
@@ -107,12 +106,12 @@
   <string name="backup_BPr_auto_title">自动备份</string>
   <string name="backup_BPr_auto_disabled">自动备份已停用</string>
   <string name="backup_BPr_auto_enabled">备份每天执行</string>
-  <string name="backup_BPr_how_to_restore">如何还原备份？</string>
-  <string name="backup_BPr_how_to_restore_dialog">你需要使用 Astrid 强化套件去管理和还原您的备份。Astrid 会自动备份您的任务以防万一。</string>
+  <string name="backup_BPr_cloud_already_logged_in">您已经在Astrid.com上享有云备份</string>
   <string name="backup_BAc_label">管理备份</string>
   <string name="backup_BAc_title">管理您的备份</string>
   <string name="backup_BAc_import">导入任务</string>
   <string name="backup_BAc_export">导出任务</string>
+  <string name="backup_BAc_cloud">在Astrid.com点击免费云备份</string>
   <string name="backup_TXI_error">导入错误</string>
   <string name="export_toast">已将 %1$s 备份至 %2$s。</string>
   <string name="export_toast_no_tasks">没有要导出的任务。</string>
@@ -121,7 +120,6 @@
   <string name="import_summary_message">文件 %1$s 包含 %2$s 个任务。\n\n %3$s 个已导入,\n %4$s 个已存在\n %5$s 个存在错误\n</string>
   <string name="import_progress_title">导入中...</string>
   <string name="import_progress_read">读取任务 %d...</string>
-  <string name="DLG_error_opening">无法找到此项目：</string>
   <string name="DLG_error_sdcard">无法开启文件夹：%s</string>
   <string name="DLG_error_sdcard_general">无法访问您的 SD 卡！</string>
   <string name="import_file_prompt">选取要还原的文件</string>
@@ -135,40 +133,35 @@
   <string name="DLG_upgrading">升级您的任务...</string>
   <string name="DLG_hour_minutes">时间（小时:分钟）</string>
   <string name="DLG_please_update">Astrid 应该要从 Android 市场下载最新版本! 请继续前执行, 或稍等片刻。</string>
-  <string name="DLG_to_market">前往市场</string>
   <string name="DLG_accept">接受</string>
   <string name="DLG_decline">不接受</string>
   <string name="DLG_eula_title">Astrid 使用条款</string>
   <string name="DLG_please_wait">请稍候</string>
   <string name="DLG_loading">载入中...</string>
-  <string name="DLG_dismiss">忽略</string>
   <string name="DLG_ok">确定(O)</string>
   <string name="DLG_cancel">取消</string>
   <string name="DLG_more">更多</string>
   <string name="DLG_undo">撤消</string>
+  <string name="DLG_warning">系统提醒</string>
   <string name="WID_dateButtonUnset">点选</string>
-  <string name="WID_dateButtonLabel">$D $T</string>
-  <string name="WID_disableButton">停用</string>
-  <string name="ENE_label">备注</string>
-  <string name="ENE_label_comments">注释</string>
   <string name="ENA_no_comments">没有要显示的</string>
+  <string name="ENA_no_user">某人</string>
   <string name="ENA_refresh_comments">刷新留言</string>
-  <string name="ENA_no_user">有人</string>
   <string name="TLA_no_items">你没有任务</string>
+  <string name="TLA_no_items_person">%s 没有 \n与您分享的任务</string>
   <string name="TLA_menu_addons">扩展程序</string>
   <string name="TLA_menu_sort">排序 &amp; 隐藏</string>
-  <string name="TLA_menu_sync">立刻同步！</string>
+  <string name="TLA_menu_sync">立即同步</string>
+  <string name="TLA_menu_search">搜索</string>
   <string name="TLA_menu_lists">列表</string>
   <string name="TLA_menu_friends">朋友</string>
+  <string name="TLA_menu_featured_lists">特定列表</string>
   <string name="TLA_menu_suggestions">建议</string>
-  <string name="TLA_menu_tutorial">教程</string>
-  <string name="TLA_menu_search">搜索...</string>
-  <string name="TLA_menu_settings">设置</string>
+  <string name="TLA_menu_settings">帐号和设置</string>
   <string name="TLA_menu_support">支持</string>
-  <string name="TLA_search_label">搜索当前列表</string>
   <string name="TLA_custom">自定义</string>
   <string name="TLA_quick_add_hint">添加任务</string>
-  <string name="TLA_quick_add_hint_assign">点击以指派给%s一个任务</string>
+  <string name="TLA_quick_add_hint_assign">为 %s 增加任务</string>
   <string name="TLA_notification_volume_low">已静音。你不会再听到了！</string>
   <string name="TLA_notification_disabled">Astrid提醒功能被关闭，你不会收到任何提醒。</string>
   <string-array name="TLA_filters">
@@ -180,6 +173,18 @@
     <item>隐藏</item>
   </string-array>
   <string name="TLA_quickadd_confirm_title">你说到：“%s”</string>
+  <string name="TLA_quickadd_confirm_speech_bubble">我创建了一项叫做“%1$s”的任务，截止日期为 %2$s，优先级为 %3$s</string>
+  <string name="TLA_quickadd_confirm_speech_bubble_date">执行人为 %s</string>
+  <string name="TLA_quickadd_confirm_hide_helpers">以后不显示确认</string>
+  <string name="TLA_repeat_scheduled_title">新的重复任务 %s</string>
+  <string name="TLA_repeat_scheduled_speech_bubble">我会在 %s 后提醒您这个任务的。</string>
+  <string-array name="TLA_priority_strings">
+    <item>最高优先级</item>
+    <item>高优先级</item>
+    <item>中等优先级</item>
+    <item>低优先级</item>
+  </string-array>
+  <string name="TLA_all_activity">所有活动</string>
   <string name="TAd_hiddenFormat">%s [已隐藏]</string>
   <string name="TAd_deletedFormat">%s [已删除]</string>
   <string name="TAd_completed">完成\n%s 项</string>
@@ -194,21 +199,17 @@
   <string name="SSD_completed">显示已完成任务</string>
   <string name="SSD_hidden">显示隐藏的任务</string>
   <string name="SSD_deleted">显示已删除任务</string>
+  <string name="SSD_sort_drag">拖放到子任务中</string>
   <string name="SSD_sort_auto">Astrid 智能排序</string>
   <string name="SSD_sort_alpha">按标题</string>
   <string name="SSD_sort_due">按到期日</string>
-  <string name="SSD_sort_drag">拖放和子任务</string>
   <string name="SSD_sort_importance">按重要性</string>
   <string name="SSD_sort_modified">按最后修改</string>
   <string name="SSD_sort_reverse">反向排序</string>
   <string name="SSD_save_temp">仅一次</string>
   <string name="SSD_save_always">总是</string>
   <string name="FSA_label">Astrid 列表或过滤器</string>
-  <string name="FLA_title">列表</string>
-  <string name="FLA_loading">启动过滤器...</string>
   <string name="FLA_context_shortcut">在桌面建立快捷方式</string>
-  <string name="FLA_menu_search">搜索任务中</string>
-  <string name="FLA_menu_help">帮助</string>
   <string name="FLA_shortcut_dialog_title">建立快捷方式</string>
   <string name="FLA_shortcut_dialog">快捷方式名称：</string>
   <string name="FLA_search_hint">搜索任务</string>
@@ -217,17 +218,13 @@
   <string name="FLA_new_filter">新建过滤器</string>
   <string name="FLA_new_list">新建列表</string>
   <string name="FLA_no_filter_selected">还没有选定过滤器呢！请选择一个过滤器或列表呗。</string>
-  <string name="TEA_view_title">Astrid: 编辑 \'%s\'</string>
-  <string name="TEA_view_titleNew">新建任务</string>
-  <string name="TEA_new_task">新建任务</string>
-  <string name="TEA_title_label">标题</string>
   <string name="TEA_when_header_label">时间</string>
   <string name="TEA_title_hint">任务摘要</string>
   <string name="TEA_importance_label">重要性</string>
-  <string name="TEA_urgency_label">截止日期</string>
   <string name="TEA_urgency_specific_time">于指定时间？</string>
   <string name="TEA_urgency_none">无</string>
   <string name="TEA_hideUntil_label">显示任务</string>
+  <string name="TEA_hideUntil_message">任务将会被隐藏，直到 %s</string>
   <string-array name="TEA_loading">
     <item>载入中...</item>
   </string-array>
@@ -241,9 +238,9 @@
   <string name="TEA_menu_comments">注释</string>
   <string name="TEA_onTaskSave_due">已设截止日期的任务：按 %s</string>
   <string name="TEA_onTaskSave_notDue">任务已储存</string>
-  <string name="TEA_onTaskCancel">任务编辑操作已被取消</string>
   <string name="TEA_tab_activity">活动</string>
   <string name="TEA_tab_more">更多</string>
+  <string name="TEA_tab_web">建议</string>
   <string-array name="TEA_urgency">
     <item>无截止日</item>
     <item>指定哪天</item>
@@ -254,6 +251,7 @@
     <item>两周之内</item>
     <item>下个月</item>
   </string-array>
+  <string name="TEA_no_time">没有时间</string>
   <string-array name="TEA_hideUntil">
     <item>总是</item>
     <item>在到期日时</item>
@@ -261,37 +259,130 @@
     <item>到期周数</item>
     <item>指定日期/时间</item>
   </string-array>
+  <string name="TEA_control_who">人物</string>
+  <string name="TEA_control_when">时间</string>
+  <string name="TEA_control_more_section">----详情----</string>
   <string name="TEA_control_importance">重要性</string>
   <string name="TEA_control_lists">列表</string>
   <string name="TEA_control_notes">备注</string>
+  <string name="TEA_control_files">文件</string>
   <string name="TEA_control_reminders">提醒</string>
+  <string name="TEA_control_timer">定时器控件</string>
+  <string name="TEA_control_share">和朋友们分享</string>
+  <string name="TEA_control_hidden_section">----始终隐藏----</string>
   <string name="hide_until_prompt">在我的列表中显示</string>
-  <string name="TEA_addons_text">查找更多功能吗？</string>
-  <string name="TEA_addons_button">取得强化套件！</string>
-  <string name="TEA_more">更多</string>
-  <string name="InA_title">欢迎使用 Astrid！</string>
-  <string name="InA_agree">我同意！！</string>
-  <string name="InA_disagree">我不同意</string>
-  <string name="HlA_get_support">取得协助</string>
+  <string name="TEA_no_activity">无活动</string>
+  <string name="TEA_load_more">加载更多……</string>
+  <string name="TEA_when_dialog_title">这项活动定在什么时候呀？</string>
+  <string name="TEA_new_task">新建任务</string>
+  <string name="WSV_click_to_load">拍拍我，让我搜索一下完成这项任务的各种方法！</string>
+  <string name="WSV_not_online">连上互联网后我可以做更多事情。请检查一下您的网络连接呗。</string>
+  <string name="TEA_contact_error">不好意思！我们找不到所选联系人的电子邮件地址喔。</string>
+  <string name="MCA_title">%1$s\n在 %2$s 给您打过电话</string>
+  <string name="MCA_return_call">现在回电</string>
+  <string name="MCA_add_task">稍后回电</string>
+  <string name="MCA_ignore">忽略</string>
+  <string name="MCA_ignore_title">忽略所有未接电话吗？</string>
+  <string name="MCA_ignore_body">您已经忽略了几个未接电话。对于这些电话，Astrid 是否应该不再询问您呢？</string>
+  <string name="MCA_ignore_all">忽略所有来电</string>
+  <string name="MCA_ignore_this">只忽略这个来电</string>
+  <string name="MCA_missed_calls_pref_title">及时回复未接电话</string>
+  <string name="MCA_missed_calls_pref_desc_enabled">Astrid 会向您报告未接电话，还会提供回电的提醒</string>
+  <string name="MCA_missed_calls_pref_desc_disabled">Astrid 将不会向您报告未接电话</string>
+  <string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
+  <string name="MCA_task_title_no_name">请回电给 %s</string>
+  <string name="MCA_schedule_dialog_title">请给 %s 回个电话过去……</string>
+  <string-array name="MCA_dialog_speech_options">
+    <item>您这么人见人爱、花见花开，感觉肯定棒极了！</item>
+    <item>哇！个个都喜欢您咽！</item>
+    <item>回个电话吧，好让他们高兴一整天！</item>
+    <item>人家给您回电话，您肯定高兴，不是吗？</item>
+    <item>您是可以回电的！</item>
+    <item>无论怎样，您也可以发条短信呀……</item>
+  </string-array>
   <string name="UpS_changelog_title">Astrid 有哪些最新功能？</string>
   <string name="UpS_updates_title">Astrid 最新消息</string>
+  <string name="UpS_no_activity_log_in">登录查看记录 \n看看您的活动的进展情况 \n以及在各分享列表上的活动。</string>
   <string name="EPr_title">Astrid：设置</string>
+  <string name="EPr_title_short">设置</string>
+  <string name="EPr_share_astrid">介绍Astrid给您的朋友</string>
+  <string name="EPr_share_astrid_summary">在您喜欢的社交网站上分享Astrid</string>
+  <string name="EPr_deactivated">禁用</string>
   <string name="EPr_appearance_header">外观</string>
+  <string name="EPr_appearance_summary">主题，小工具，任务栏，编辑屏幕列表</string>
+  <string name="EPr_faq_title">常见问题</string>
+  <string name="EPr_account_title">帐号：%s</string>
+  <string name="EPr_support_summary">指引，常见问题，关于我们</string>
   <string name="EPr_fontSize_title">任务列表字体大小</string>
+  <string name="EPr_showSmartConfirmation_title">在智能提示上显示确认消息</string>
   <string name="EPr_fontSize_desc">主列表页面字体大小</string>
   <string name="EPr_showNotes_title">在任务显示备注</string>
+  <string name="EPr_beastMode_title">自定义菜单屏幕</string>
+  <string name="EPr_beastMode_desc">自定义设定菜单屏幕</string>
   <string name="EPr_beastMode_reset">恢复默认值</string>
   <string name="EPr_showNotes_desc_disabled">笔记将会在快速行动条中显示</string>
   <string name="EPr_showNotes_desc_enabled">总是显示备注</string>
+  <string name="EPr_compressTaskRows_title">压缩任务排列</string>
+  <string name="EPr_compressTaskRows_desc">压缩任务行，使它适应标题</string>
+  <string name="EPr_fullTask_title">显示完整的任务标题</string>
+  <string name="EPr_fullTask_desc_enabled">将显示完整的任务标题</string>
+  <string name="EPr_fullTask_desc_disabled">将显示任务标题的头两行</string>
+  <string name="EPr_ideaAuto_title">自动加载意见选项标签</string>
+  <string name="EPr_ideaAuto_desc_enabled">点击标签后，网页将会搜索意见选项。</string>
+  <string name="EPr_ideaAuto_desc_disabled">只有手动请求后，网页将会搜索意见选项。</string>
+  <string name="EPr_task_row_style_title_simple">列表布局：简单</string>
+  <string name="EPr_task_row_style_title_legacy">列表布局：原始</string>
+  <string name="EPr_task_row_style_summary_simple">截取标题为一行，并在下方显示日期和列表</string>
+  <string name="EPr_task_row_style_summary_legacy">截取标题至两行，并在右边显示日期</string>
   <string name="EPr_theme_title">主题</string>
   <string name="EPr_theme_desc">当前：%s</string>
   <string name="EPr_theme_desc_unsupported">该设置需要 Android 2.0+</string>
+  <string name="EPr_theme_widget_title">小工具主题</string>
+  <string name="EPr_taskRowPrefs_title">任务栏</string>
+  <string name="EPr_use_contact_picker">使用联系人选择程序</string>
+  <string name="EPr_use_contact_picker_desc_enabled">系统的联系人选择程序选项将在任务布置窗口中显示</string>
+  <string name="EPr_use_contact_picker_desc_disabled">将不会显示系统的联系人选择程序选项</string>
+  <string name="EPr_third_party_addons">允许第三方加注信息</string>
+  <string name="EPr_third_party_addons_desc_enabled">即将启用第三方附加软件</string>
+  <string name="EPr_third_party_addons_desc_disabled">即将禁用第三方附加软件</string>
+  <string name="EPr_ideas_tab_enabled">任务意见</string>
+  <string name="EPr_ideas_tab_description">获取多个建议，帮助您完成多项任务</string>
+  <string name="EPr_cal_end_or_start_at_due_time">日历事件的时间</string>
+  <string name="EPr_cal_end_at_due_time">在预定时间结束日历事件</string>
+  <string name="EPr_cal_start_at_due_time">在预定时间启用日历事件</string>
+  <string name="EPr_force_phone_layout">使用手机布局</string>
+  <string name="EPr_show_featured_lists">显示特定列表</string>
+  <string name="EPr_swipe_lists_performance_title">在列表间滑动</string>
+  <string-array name="EPr_swipe_lists_performance_mode">
+    <item>不使用滑动屏幕</item>
+    <item>节约内存</item>
+    <item>标准性能</item>
+    <item>高效性能</item>
+  </string-array>
+  <string-array name="EPr_swipe_lists_performance_desc">
+    <item>滑动屏幕切换列表已被禁用</item>
+    <item>较低速性能</item>
+    <item>默认设置</item>
+    <item>使用更多系统资源</item>
+  </string-array>
+  <string name="swipe_lists_helper_title">在列表间滑动</string>
+  <string name="swipe_lists_helper_header">在列表间向左或向右快速滑动</string>
+  <string name="swipe_lists_helper_subtitle">在设置-&amp;gt外观中修改选项</string>
   <string-array name="EPr_themes">
     <item>蓝</item>
     <item>红</item>
     <item>夜间模式</item>
     <item>透明(白色文字)</item>
     <item>透明(黑色文字)</item>
+  </string-array>
+  <string-array name="EPr_themes_widget">
+    <item>与应用相同</item>
+    <item>日间——蓝色</item>
+    <item>日间——红色</item>
+    <item>夜间</item>
+    <item>透明（白色文字）</item>
+    <item>透明（黑色文字）</item>
+    <item>老式风格</item>
   </string-array>
   <string name="EPr_manage_header">管理旧任务</string>
   <string name="EPr_manage_delete_completed">删除已完成任务</string>
@@ -303,25 +394,38 @@
   <string name="EPr_manage_purge_deleted_status">清除了 %d 个任务！</string>
   <string name="EPr_manage_purge_deleted_summary">请注意！若事先没有备份，已清除的任务将无法恢复！</string>
   <string name="EPr_manage_clear_all">清除所有数据</string>
-  <string name="AOA_title">Astrid: 扩展</string>
+  <string name="EPr_manage_clear_all_message">要删除 Astrid 中所有任务和设置吗？\n\n系统提醒：无法还原的喔！</string>
+  <string name="EPr_manage_delete_completed_gcal">删除日程表中已完成任务</string>
+  <string name="EPr_manage_delete_completed_gcal_message">您真的想删除您所有的事件中已经完成的任务吗？</string>
+  <string name="EPr_manage_delete_completed_gcal_status">已经删除 %d 个日历事件了！</string>
+  <string name="EPr_manage_delete_all_gcal">删除所有日程表</string>
+  <string name="EPr_manage_delete_all_gcal_message">您真的想删除您所有事件中的各项任务吗？</string>
+  <string name="EPr_manage_delete_all_gcal_status">已经删除了 %d 个日历事件了！</string>
+  <string name="AOA_title">扩展</string>
   <string name="AOA_internal_author">Astrid 团队</string>
   <string name="AOA_tab_installed">已安装</string>
   <string name="AOA_tab_available">可用</string>
   <string name="AOA_free">免费</string>
-  <string name="AOA_visit_website">访问网站</string>
-  <string name="AOA_visit_market">Android 市场</string>
   <string name="AOA_no_addons">空列表！</string>
+  <string name="AOA_ppack_title">Astrid优化工具</string>
+  <string name="AOA_ppack_description">支持Astrid并在Astrid优化工具的帮助下变得更加有效率。提供 4＊2 和4＊4尺寸的小工具和语音支持。让我们更加有效率地生活！</string>
+  <string name="AOA_locale_title">Astrid场所插件</string>
+  <string name="AOA_locale_description">在过滤的条件下，允许Astrid利用场所应用推送通知。现在就买场所插件。</string>
   <string name="TWi_loading">载入中...</string>
   <string name="WCA_title">选择任务以显示...</string>
   <string name="p_about">关于 Astrid</string>
   <string name="p_about_text">当前版本： %s\n\n Astrid 是由 Todoroo, Inc. 维护的开源软件。</string>
-  <string name="p_help">支持</string>  
-  <string name="p_forums">论坛</string>  
+  <string name="p_help">支持</string>
+  <string name="p_forums">讨论区</string>
+  <string name="p_premium">高级</string>
   <string name="task_killer_help">似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 Astrid 加入到例外列表避免被杀死。否则 Astrid可能无法通知您任务已到期。\n</string>
   <string name="task_killer_help_ok">我不会中止 Astrid!</string>
-  <string name="marketplace_title">Astricd任务/待办列表</string>
   <string name="marketplace_description">Astrid是一款开源并深受人们喜爱的TODO任务/列表管理器，旨在提高您处理事务的效率。Astrid包含提醒、标签、同步、区域插件、小工具等众多功能。</string>
+  <string name="DB_corrupted_title">数据库已经受损</string>
+  <string name="DB_corrupted_body">啊喔！您有一个毁损的资料库。如果您经常看见这个错误出现，我们建议您清除所有数据（在设置-&gt;同步和备份-&amp;gt；管理旧任务-&gt;清楚所有数据）并在Astrid备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）</string>
+  <string name="market_unavailable">非常抱歉，我们的软件无法在您的系统中成功运行。</string>
   <string name="EPr_defaults_header">新任务默认值</string>
+  <string name="EPr_defaults_summary">重大事件，截止日期，添加到日历</string>
   <string name="EPr_default_urgency_title">默认严重性</string>
   <string name="EPr_default_urgency_desc">当前：%s</string>
   <string name="EPr_default_importance_title">默认优先级</string>
@@ -330,7 +434,17 @@
   <string name="EPr_default_hideUntil_desc">当前：%s</string>
   <string name="EPr_default_reminders_title">默认提醒</string>
   <string name="EPr_default_reminders_desc">当前：%s</string>
+  <string name="EPr_default_addtocalendar_title">默认添加到日历</string>
+  <string name="EPr_default_addtocalendar_desc_disabled">新建任务将不会在 Google 日历中创建事件</string>
+  <string name="EPr_default_addtocalendar_desc">新建任务将会在这个日历中：“%s”</string>
+  <string name="EPr_default_reminders_mode_title">默认铃声／振动类型</string>
   <string name="EPr_default_reminders_mode_desc">当前：%s</string>
+  <string-array name="EPr_default_importance">
+    <item>!!!（最高级别）</item>
+    <item>!!</item>
+    <item>!</item>
+    <item>o（最低级别）</item>
+  </string-array>
   <string-array name="EPr_default_urgency">
     <item>无截止日</item>
     <item>今天</item>
@@ -351,13 +465,11 @@
     <item>截止期限或过期时</item>
   </string-array>
   <string name="BFE_Active">进行中的任务</string>
-  <string name="BFE_Search">搜索...</string>
   <string name="BFE_Recent">最近修改过的</string>
-  <string name="BFE_Custom">自定义筛选...</string>
+  <string name="BFE_Assigned">我已经安排</string>
   <string name="BFE_Saved_delete">删除筛选</string>
   <string name="CFA_title">自定义筛选</string>
   <string name="CFA_filterName_hint">命名筛选并保存...</string>
-  <string name="CFA_filterName_copy">%s 的复件</string>
   <string name="CFA_universe_all">进行中的任务</string>
   <string name="CFA_type_add">或</string>
   <string name="CFA_type_subtract">非</string>
@@ -379,43 +491,64 @@
     <item>下周</item>
     <item>下个月</item>
   </string-array>
-  <string name="CFC_importance_text">重要性至少为？</string>
+  <string name="CFC_importance_text">重要性至少为?</string>
   <string name="CFC_importance_name">重要性...</string>
-  <string name="CFC_tag_text">列表：？</string>
+  <string name="CFC_tag_text">列表：?</string>
   <string name="CFC_tag_name">列表...</string>
   <string name="CFC_tag_contains_name">列表名包含...</string>
-  <string name="CFC_tag_contains_text">列表名包含：？</string>
+  <string name="CFC_tag_contains_text">列表名包含：?</string>
   <string name="CFC_title_contains_name">标题含...</string>
   <string name="CFC_title_contains_text">标题含: ?</string>
   <string name="gcal_TEA_error">添加任务到日历时失败！</string>
-  <string name="gcal_TEA_calendar_label">日程表整合：</string>
   <string name="gcal_TEA_addToCalendar_label">建立日程表事件</string>
   <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
-  <string name="gcal_TEA_calendar_error">事件开启错误!</string>
   <string name="gcal_TEA_calendar_updated">日程表事件也更新了!</string>
+  <string name="gcal_TEA_nocal">不要添加</string>
+  <string name="gcal_TEA_none_selected">添加到日历……</string>
+  <string name="gcal_TEA_has_event">日历事件</string>
   <string name="gcal_completed_title">%s (已完成)</string>
   <string name="gcal_GCP_default">默认日程表</string>
-  <string name="gtasks_FEx_list">依列表</string>
+  <string name="gtasks_FEx_header">Google 工作表</string>
+  <string name="gtasks_FEx_title">Google 工作表：%s</string>
+  <string name="gtasks_FEx_creating_list">正在创建列表……</string>
   <string name="gtasks_FEx_create_list_dialog">新列表名：</string>
   <string name="gtasks_FEx_create_list_error">创建新列表失败</string>
-  <string name="gtasks_help_title">欢迎使用Google Tasks!</string>
   <string name="CFC_gtasks_list_text">列表内容: ?</string>
   <string name="CFC_gtasks_list_name">在Google任务列表中...</string>
-  <string name="gtasks_GLA_title">登陆 Google Tasks</string>
+  <string name="gtasks_GTA_clearing">正在清除已完成任务……</string>
+  <string name="gtasks_GTA_clear_completed">清除已完成项</string>
   <string name="gtasks_GLA_body">请登录到谷歌任务同步（Beta!）。目前不支持非迁移的“Google应用服务”帐户。</string>
   <string name="gtasks_GLA_noaccounts">没有可用的Google帐户同步。</string>
   <string name="gtasks_GLA_further_help">预览任务时若想保留缩进和排序，请到“筛选”页面选择 Google 任务列表。Astrid 默认采用自有的任务排序设置。</string>
-  <string name="gtasks_GLA_signIn">登陆</string>
-  <string name="gtasks_GLA_email">电子邮件</string>
-  <string name="gtasks_GLA_password">密码</string>
   <string name="gtasks_GLA_authenticating">正在认证...</string>
-  <string name="gtasks_GLA_domain">Google Apps for Domain 帐号</string>
-  <string name="gtasks_GLA_errorEmpty">错误: 所有字段需要填写!</string>
+  <string name="gtasks_GLA_errorAuth">验证出错！请在您手机的帐户管理器中检查您的用户名和密码</string>
+  <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
   <string name="gtasks_GLA_errorAuth_captcha">您可能需要输入验证码。尝试从浏览器登陆后再回来重试：</string>
   <string name="gtasks_GPr_header">Google Tasks (测试版！)</string>
+  <string name="gtasks_error_backend">Google 的工作表应用程序界面正处于测试版阶段，而且遇到了出错。这个服务可能已经停止，请稍后再尝试。</string>
+  <string name="gtasks_error_accountNotFound">找不到帐户 %s——请退出，然后从 Google 工作表设置中重新登录。</string>
+  <string name="gtasks_error_authRefresh">无法用 Google 工作表验证。请检查您的帐户密码或者稍后再尝试。</string>
+  <string name="gtasks_error_accountManager">您手机的帐户管理器出错了。请退出，然后从 Google 工作表设置中重新登陆。</string>
+  <string name="gtasks_error_background_sync_auth">后台验证出错了。请在 Astrid 运行时尝试启动同步。</string>
+  <string name="gtasks_dual_sync_warning">您当前正在和 Astrid.com 同步。请注意，在一些情况下，和两个服务一起同步可能会导致出现意外的结果。您真的想和 Google 工作表同步吗？</string>
+  <string name="help_popover_add_task">添加一两项任务来开始使用</string>
+  <string name="help_popover_tap_task">轻点任务进行编辑和分享</string>
+  <string name="help_popover_list_settings">轻点这里进行编辑或者分享这个列表</string>
+  <string name="help_popover_collaborators">和您分享的人\n能帮助您建立您的列表或者一起完成任务</string>
+  <string name="help_popover_add_lists">点击标签添加列表</string>
+  <string name="help_popover_switch_lists">轻点添加一个列表或者在列表间切换</string>
+  <string name="welcome_login_tos_base">您使用 Astrid 就表明您同意所有</string>
+  <string name="welcome_login_tos_link">服务条款</string>
+  <string name="welcome_login_pw">用电子邮箱注册</string>
+  <string name="welcome_sign_in">登录</string>
+  <string name="welcome_login_later">稍后连接</string>
+  <string name="welcome_login_confirm_later_title">为什么不登录呢？</string>
+  <string name="welcome_login_confirm_later_ok">我会的！</string>
+  <string name="welcome_login_confirm_later_cancel">不了，谢谢</string>
+  <string name="welcome_login_confirm_later_dialog">登录吧，充分利用 Astrid！无需任何费用，您就可以获得在线备份、和 Astrid.com 全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！</string>
+  <string name="help_popover_taskrabbit_type">更改任务类型</string>
   <string name="locale_edit_alerts_title">Astrid 筛选警示</string>
   <string name="locale_edit_intro">当您有任务在筛选内时，Astrid将送出提醒</string>
-  <string name="locale_pick_filter">筛选：</string>
   <string name="locale_interval_label">限制提醒：</string>
   <string-array name="locale_interval">
     <item>每小时一次</item>
@@ -427,7 +560,7 @@
   </string-array>
   <string name="locale_notification">您有 $NUM 符合: $FILTER</string>
   <string name="locale_plugin_required">请安装 Astrid 本地插件！</string>
-  <string name="opencrx_FEx_header">OpenCRX</string>
+  <string name="opencrx_FEx_header">打开CRX</string>
   <string name="opencrx_FEx_dashboard">任务区</string>
   <string name="opencrx_FEx_responsible">指派给</string>
   <string name="opencrx_FEx_responsible_title">指派给 \'%s\'</string>
@@ -435,6 +568,7 @@
   <string name="opencrx_TEA_notes">新增注释</string>
   <string name="opencrx_creator_input_hint">创建者</string>
   <string name="opencrx_contact_input_hint">指派给</string>
+  <string name="opencrx_PPr_header">打开CRX</string>
   <string name="opencrx_no_creator">(不要同步)</string>
   <string name="opencrx_PPr_defaultcreator_title">默认活动创建者</string>
   <string name="opencrx_PPr_defaultcreator_summary">新活动将由 %s 创建</string>
@@ -450,6 +584,7 @@
   <string name="opencrx_provider_title">提供者</string>
   <string name="opencrx_provider_dialog_title">OpenCRX 数据提供者</string>
   <string name="opencrx_provider_summary">"例如 "<i>CRX</i></string>
+  <string name="opencrx_provider_default">CRX</string>
   <string name="opencrx_PLA_title">登录到 OpenCRX</string>
   <string name="opencrx_PLA_body">用您的 OpenCRX 帐号登陆</string>
   <string name="opencrx_PLA_signIn">登录</string>
@@ -457,6 +592,7 @@
   <string name="opencrx_PLA_password">密码</string>
   <string name="opencrx_PLA_errorEmpty">错误：请填充所有字段</string>
   <string name="opencrx_PLA_errorAuth">错误：用户名或密码错误！</string>
+  <string name="opencrx_notification_title">打开CRX</string>
   <string name="opencrx_notification_text">%s 任务已更新/点选检视细节</string>
   <string name="opencrx_ioerror">连接错误！请检查您的因特网连接。</string>
   <string name="opencrx_MLA_email_empty">用户名未指定！</string>
@@ -465,20 +601,91 @@
   <string name="opencrx_TEA_task_unassigned">&lt;反指派&gt;</string>
   <string name="opencrx_TEA_creator_assign_label">指派该任务给此创建者：</string>
   <string name="opencrx_TEA_dashboard_default">&lt;默认&gt;</string>
+  <string name="opencrx_TEA_opencrx_title">打开CRX控制面板</string>
   <string name="CFC_opencrx_in_workspace_text">在任务区: ?</string>
   <string name="CFC_opencrx_in_workspace_name">在任务区...</string>
-  <string name="CFC_opencrx_assigned_to_text">指派给：？</string>
+  <string name="CFC_opencrx_assigned_to_text">指派给：?</string>
   <string name="CFC_opencrx_assigned_to_name">指派给...</string>
-  <string name="EPr_powerpack_header">Astrid强 化套件</string>
+  <string name="EPr_powerpack_header">高级和其它设置</string>
+  <string name="EPr_powerpack_summary">未接电话提醒，语音输入和其它设置</string>
   <string name="EPr_statistics_title">匿名使用统计</string>
   <string name="EPr_statistics_desc_disabled">不报告使用资料</string>
   <string name="EPr_statistics_desc_enabled">传送匿名使用资料以协助我们改进 Astrid</string>
+  <string name="speech_err_network">网络出错！语音识别需要网络连接才能运作。</string>
+  <string name="speech_err_no_match">对不起，我听不明白喔！请再说一次吧。</string>
+  <string name="speech_err_default">对不起，语音识别遇到出错。请重新再试。</string>
+  <string name="premium_attach_file">附上一份文件</string>
+  <string name="premium_record_audio">录制一条便笺</string>
+  <string name="premium_no_files">没有附加文件</string>
+  <string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
+  <string name="audio_recording_title">正在录制音频</string>
+  <string name="audio_stop_recording">停止录制</string>
+  <string name="audio_speak_now">现在请讲！</string>
+  <string name="audio_encoding">正在编码……</string>
+  <string name="audio_err_encoding">音频编码出错</string>
+  <string name="audio_err_playback">对不起，系统不支持这种类型的音频文件</string>
+  <string name="search_market_audio">找不到播放器来处理这种音频类型。您想从安卓市场上下载一个音频播放器吗？</string>
+  <string name="search_market_audio_title">找不到音频播放器</string>
+  <string name="search_market_pdf">找不到 PDF 阅读器。您想从安卓市场上下载一个PDF 阅读器吗？</string>
+  <string name="search_market_pdf_title">找不到 PDF 阅读器</string>
+  <string name="search_market_ms">找不到微软 Office 阅读器。您想从安卓市场上下载一个微软 Office 阅读器吗？</string>
+  <string name="search_market_ms_title">找不到微软 Office</string>
+  <string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
+  <string name="file_type_unhandled_title">找不到应用程序</string>
+  <string name="file_prefix_image">图片</string>
+  <string name="file_prefix_voice">语音</string>
+  <string name="file_browser_up">向上</string>
+  <string name="file_browser_title">选择一个文件</string>
+  <string name="dir_browser_title">选择一个目录</string>
+  <string name="file_browser_err_permissions">权限出错！请确保您没有阻止 Astrid访问 SD 卡。</string>
+  <string name="file_add_picture">附上一幅图片</string>
+  <string name="file_add_sdcard">附上一份来自您 SD 卡的文件</string>
+  <string name="file_download_title">要下载文件吗？</string>
+  <string name="file_download_body">这份文件还没有下载到您的 SD 卡上。要现在下载吗？</string>
+  <string name="file_download_progress">正在下载……</string>
+  <string name="file_err_memory">图片太大，无法存入内存</string>
+  <string name="file_err_copy">复制文件添加附件时出错</string>
+  <string name="file_err_download">下载文件时出错</string>
+  <string name="file_err_no_directory">糟糕！这个文件目录似乎并不存在。请在 Astrid 设置中选择目录以存放文件。</string>
+  <string name="file_err_show">对不起，系统尚未支持这种类型的文件</string>
+  <string name="file_dir_dialog_ok">使用此目录</string>
+  <string name="file_dir_dialog_default">重设为默认值</string>
+  <string name="p_files_dir">高级下载设置</string>
+  <string name="p_files_dir_desc">将任务附件保存至：%s</string>
+  <string name="p_files_dir_desc_default">默认目录</string>
+  <string name="billing_not_supported_title">无法完成交易</string>
+  <string name="billing_not_supported_message">付款服务暂时无法使用。您能继续使用这个应用软件，但是您无法成功购买。</string>
+  <string name="subscriptions_not_supported_title">无法订阅服务。</string>
+  <string name="subscriptions_not_supported_message">此设备上的Market账单服务暂时无法支持购买。 您能在http://astrid.com/premium上购买Astrid Premium。</string>
+  <string name="cannot_connect_title">无法连接网上Market</string>
+  <string name="cannot_connect_message">此应用程序无法连接Market。您的Market版本也许过低。您能继续使用此程序，但是您无法成功交易。</string>
+  <string name="restoring_transactions">恢复交易</string>
+  <string name="subscriptions_learn_more">了解更多</string>
+  <string name="premium_billing_title">Astrid高级版本</string>
+  <string name="premium_buy_month">1 个月</string>
+  <string name="premium_buy_year">1 年</string>
+  <string name="premium_description_header">使用高级版本完成更多事情</string>
+  <string name="premium_description_1">附加文件到要完成的事情列表里</string>
+  <string name="premium_description_2">使用 astrid.com同步文件</string>
+  <string name="premium_description_3">通过邮件添加附件</string>
+  <string name="premium_description_4">将语音消息另存为音频文件</string>
+  <string name="premium_description_5">提前体验亮点</string>
+  <string name="premium_description_6">支持Astrid团队！</string>
+  <string name="premium_speech_bubble_1">高级版本能够让您的效率升级！</string>
+  <string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
+  <string name="premium_already_subscribed">您已经购买了Astrid Premium！</string>
+  <string name="premium_login_prompt">为了成功购买高级版本，您需要一个Astrid.com的账户。 请在我们的网站上登录或者注册。</string>
+  <string name="premium_success">谢谢购买Astrid Premium！</string>
+  <string name="premium_success_with_server_error">谢谢购买Astrid Premium！新的特点将会很快在 astrid.com发布，并且在您的手机里立刻得到更新。</string>
+  <string name="premium_verification_error">此Google Play 帐户的高级版本正与另一个用户连接。访问astrid.com/users/profile并连接您帐户的另一个电子邮箱。</string>
+  <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">任务区</string>
   <string name="producteev_FEx_responsible_byme">指派给</string>
   <string name="producteev_FEx_responsible_byothers">由他人分配给</string>
   <string name="producteev_FEx_responsible_title">指派给 \'%s\'</string>
   <string name="producteev_PDE_task_from">来自 %s</string>
   <string name="producteev_TEA_notes">新增注释</string>
+  <string name="producteev_PPr_header">Producteev</string>
   <string name="producteev_default_dashboard">预设任务区</string>
   <string name="producteev_no_dashboard">(不要同步)</string>
   <string name="producteev_create_dashboard">新增任务区</string>
@@ -494,35 +701,70 @@
   <string name="producteev_PLA_email">电子邮件</string>
   <string name="producteev_PLA_password">密码</string>
   <string name="producteev_PLA_timezone">时区</string>
-  <string name="producteev_PLA_confirmPassword">确认密码</string>
   <string name="producteev_PLA_firstName">名字</string>
   <string name="producteev_PLA_lastName">姓氏</string>
   <string name="producteev_PLA_errorEmpty">错误: 所有字段需要填写!</string>
-  <string name="producteev_PLA_errorMatch">错误：密码不一致！</string>
   <string name="producteev_PLA_errorAuth">错误: 电子邮件或密码不正确!</string>
-  <string name="producteev_notification_text">%s 任务已更新/点选检视细节</string>
-  <string name="producteev_ioerror">连接错误！请检查您的因特网连接。</string>
-  <string name="producteev_MLA_email_empty">电子邮件未指定！</string>
-  <string name="producteev_MLA_password_empty">密码未指定！</string>
+  <string name="producteev_notification_title">Producteev</string>
+  <string name="producteev_TEA_control_set_display">Producteev 任务分配系统</string>
   <string name="producteev_TEA_task_assign_label">指派任务给此人:</string>
-  <string name="producteev_TEA_task_unassigned">&lt;反指派&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">指派任务给此任务区:</string>
-  <string name="producteev_TEA_dashboard_default">&lt;默认&gt;</string>
   <string name="CFC_producteev_in_workspace_text">在任务区: ?</string>
   <string name="CFC_producteev_in_workspace_name">在任务区...</string>
-  <string name="CFC_producteev_assigned_to_text">指派给：？</string>
+  <string name="CFC_producteev_assigned_to_text">指派给：?</string>
   <string name="CFC_producteev_assigned_to_name">指派给...</string>
+  <string name="TEA_reminders_group_label">提醒</string>
   <string name="TEA_reminder_label">提醒我：</string>
   <string name="TEA_reminder_due">当任务到期时</string>
   <string name="TEA_reminder_overdue">当任务过期时</string>
+  <string name="TEA_reminder_randomly">随机一次</string>
   <string name="TEA_reminder_alarm_label">铃响/震动类型：</string>
   <string name="TEA_reminder_mode_once">响铃一次</string>
   <string name="TEA_reminder_mode_five">响五次</string>
   <string name="TEA_reminder_mode_nonstop">响铃直到关闭闹铃</string>
+  <string-array name="TEA_reminder_random">
+    <item>一个小时</item>
+    <item>一天</item>
+    <item>一个星期</item>
+    <item>两星期内</item>
+    <item>一个月</item>
+    <item>两个月内</item>
+  </string-array>
   <string name="rmd_NoA_filter">提醒！</string>
   <string name="rmd_NoA_done">已完成!</string>
   <string name="rmd_NoA_snooze">晚点提醒...</string>
-  <string name="rmd_EPr_alerts_header">提醒设定</string>
+  <string name="rmd_NoA_completed_toast">恭喜，已经完成了！</string>
+  <string name="rmd_NoA_dlg_title">提醒：</string>
+  <string-array name="rmd_reengage_notif_titles">
+    <item>Astrid 的提示</item>
+    <item>%s 的备忘录。</item>
+    <item>您的 Astrid 摘要</item>
+    <item>Astrid 的提醒</item>
+  </string-array>
+  <string name="rmd_reengage_name_default">您</string>
+  <string name="rmd_reengage_add_tasks">添加一项任务</string>
+  <string-array name="rmd_reengage_dialog_options">
+    <item>是时候缩短您的任务清单了！</item>
+    <item>尊敬的先生或女士，有一些任务等待您的检查！</item>
+    <item>嘿，您好，您可不可以看一看这些任务？</item>
+    <item>我有些任务，上面有您的名字喔！</item>
+    <item>您今天的一批新任务！</item>
+    <item>您看起来棒极了！准备好开始了吗？</item>
+    <item>今天不错，是时候搞定一些事儿了，我认为是这样的！</item>
+  </string-array>
+  <string-array name="rmd_reengage_dialog_empty_options">
+    <item>您不想生活变得更加有条理吗？</item>
+    <item>我是 Astrid！我随时帮助您做更多事情！</item>
+    <item>您好像好忙喔！让我来分担一下您的重担里的一些活儿呗。</item>
+    <item>我可以帮您记录您生活中的所有细节。</item>
+    <item>您真的要搞定更多事情吗？我也是啊！</item>
+    <item>好高兴认识您咽！</item>
+  </string-array>
+  <string name="rmd_EPr_alerts_header">提醒设置</string>
+  <string name="rmd_EPr_alerts_summary">勿扰模式，稍候提醒，持续提醒</string>
+  <string name="rmd_EPr_enabled_title">允许提醒？</string>
+  <string name="rmd_EPr_enabled_desc_true">Astrid 提示功能已经启用（这是正常的）</string>
+  <string name="rmd_EPr_enabled_desc_false">Astrid 提示功能将不再出现在您的手机里</string>
   <string name="rmd_EPr_quiet_hours_start_title">无声开始时间</string>
   <string name="rmd_EPr_quiet_hours_start_desc">%s 后提示将静止。\n注意：震动在下面的选项中控制！</string>
   <string name="rmd_EPr_quiet_hours_desc_none">未设定无声时间</string>
@@ -537,8 +779,6 @@
   <string name="rmd_EPr_persistent_title">持续通知</string>
   <string name="rmd_EPr_persistent_desc_true">通知必须个别地清除</string>
   <string name="rmd_EPr_persistent_desc_false">通知可经由点选“清除全部”清除</string>
-  <string name="rmd_EPr_notificon_title">通知图标集</string>
-  <string name="rmd_Epr_notificon_desc">选择 Astrid 通知列图标</string>
   <string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid将会以最大音量进行多重提醒</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid使用系统音量设置</string>
@@ -554,7 +794,6 @@
   <string name="rmd_EPr_defaultRemind_title">随机提醒</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">新任务不使用随机提醒</string>
   <string name="rmd_EPr_defaultRemind_desc">任务将随机提醒: %s</string>
-  <string name="rmd_EPr_defaults_header">新任务默认值</string>
   <string-array name="EPr_reminder_random">
     <item>停用</item>
     <item>每小时</item>
@@ -725,7 +964,7 @@
   <string name="repeat_enabled">重复</string>
   <string name="repeat_every">每 %d</string>
   <string name="repeat_interval_prompt">重复间隔</string>
-  <string name="repeat_never">要设置重复吗？\"\n\"没有重复</string>
+  <string name="repeat_never">要设置重复吗？</string>
   <string name="repeat_dont">不重复</string>
   <string-array name="repeat_interval_short">
     <item>日</item>
@@ -755,16 +994,16 @@
   </string-array>
   <string name="repeat_until_title">重复到……</string>
   <string name="repeat_keep_going">继续下去</string>
-  <string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
-  <string name="repeat_forever">永远重复</string>
-  <string name="repeat_until">重复到 %s</string>
   <string-array name="repeat_type">
     <item>自到期日</item>
     <item>自完成日</item>
   </string-array>
   <string name="repeat_detail_byday">$I 的 $D</string>
   <string name="repeat_detail_duedate">每隔 %s</string>
+  <string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
   <string name="repeat_detail_completion">完成后 %s</string>
+  <string name="repeat_forever">永远重复</string>
+  <string name="repeat_until">重复到 %s</string>
   <string name="repeat_rescheduling_dialog_title">重新安排“%s”这项任务</string>
   <string name="repeat_rescheduling_dialog_title_last_time">已经完成“%s”这项重复任务</string>
   <string name="repeat_rescheduling_dialog_bubble">%1$s 我已经重新安排了这项重复任务，截止日期由 %2$s 变成 %3$s</string>
@@ -772,7 +1011,7 @@
   <string name="repeat_rescheduling_dialog_bubble_last_time">您设置了这项任务重复到 %1$s，现在您已经圆满完成。%2$s</string>
   <string-array name="repeat_encouragement">
     <item>做得好！</item>
-    <item>哇！我真为您骄傲啊！</item>
+    <item>哇噢... 我真为你骄傲！</item>
     <item>每次您能做那么多事情的时候，我都爱死您了！</item>
     <item>勾掉一些任务的时候是不是很爽呀？</item>
   </string-array>
@@ -784,11 +1023,14 @@
   <string name="rmilk_EOE_button">Remember the Milk 设定</string>
   <string name="rmilk_TLA_repeat">RTM重复任务</string>
   <string name="rmilk_TLA_sync">需要与 RTM 同步</string>
+  <string name="rmilk_FEx_header">记得登录the Milk。</string>
   <string name="rmilk_FEx_list">列表</string>
   <string name="rmilk_FEx_list_title">RTM 列表 \'%s\'</string>
+  <string name="rmilk_MEA_title">记得登录the Milk。</string>
   <string name="rmilk_MEA_list_label">RTM 列表：</string>
   <string name="rmilk_MEA_repeat_label">RTM 重复状态：</string>
   <string name="rmilk_MEA_repeat_hint">例如：每星期，14天后</string>
+  <string name="rmilk_MPr_header">记得登录the Milk。</string>
   <string name="rmilk_MLA_label">请登陆并授权 Astrid：</string>
   <string name="rmilk_MLA_error">抱歉，登陆错误。请再试一次。\n\n 错误信息：%s</string>
   <string name="rmilk_notification_title">同步到网站 \"别忘记牛奶\"</string>
@@ -801,20 +1043,12 @@
   <string name="TEA_tags_label_long">把任务放入一个或多个列表上</string>
   <string name="TEA_tags_none">无</string>
   <string name="TEA_tag_hint">新建列表</string>
-  <string name="TEA_tag_dropdown">选择一个列表</string>
-  <string name="tag_TLA_menu">列表</string>
-  <string name="TAd_contextFilterByTag">显示列表</string>
   <string name="tag_new_list">新列表</string>
-  <string name="tag_list_saved">列表已保存</string>
   <string name="tag_no_title_error">请先为此列表键入一个名称！</string>
   <string name="tag_FEx_add_new">添加</string>
   <string name="tag_FEx_header">列表</string>
-  <string name="tag_FEx_category_mine">我的列表</string>
-  <string name="tag_FEx_category_shared">与我分享的</string>
-  <string name="tag_FEx_category_inactive">不活动的</string>
   <string name="tag_FEx_untagged">不在任何列表</string>
   <string name="tag_FEx_untagged_w_astrid">不在 Astrid 列表中</string>
-  <string name="tag_FEx_name">列表：%s</string>
   <string name="tag_cm_rename">重命名列表</string>
   <string name="tag_cm_delete">删除列表</string>
   <string name="tag_cm_leave">离开列表</string>
@@ -830,10 +1064,7 @@
   <string name="tag_updates_title">活跃程度：%s</string>
   <string name="tag_delete_button">删除列表</string>
   <string name="tag_leave_button">离开这份列表</string>
-  <string name="TAE_startTimer">秒表</string>
-  <string name="TAE_stopTimer">停止</string>
   <string name="TPl_notification">秒表启动了 %s！</string>
-  <string name="TFE_category">时间筛选</string>
   <string name="TFE_workingOn">任务已开始计时</string>
   <string name="TEA_timer_controls">定时器控件</string>
   <string name="TEA_timer_comment_started">已经开始了这项任务：</string>
@@ -854,6 +1085,7 @@
   <string name="update_string_task_comment">%1$s 答复：$link_task：%3$s</string>
   <string name="update_string_tag_comment">%1$s 答复：%2$s：%3$s</string>
   <string name="update_string_tag_created">%1$s 创建了这个列表</string>
+  <string name="update_string_tag_created_global">%1$s 创建了此列表：%2$s</string>
   <string name="voice_create_prompt">请说话以建立任务</string>
   <string name="voice_edit_title_prompt">请说话以设定任务主旨</string>
   <string name="voice_edit_note_prompt">请说话以设定任务备注</string>
@@ -867,10 +1099,9 @@
   <string name="EPr_voiceInputCreatesTask_desc_enabled">任务将会自动从语音输入建立。</string>
   <string name="EPr_voiceInputCreatesTask_desc_disabled">语音输入结束後您可以编辑任务主旨。</string>
   <string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid在任务提醒时会以语音说出任务名称</string>
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid在任务提醒时将会播放铃声</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid 在任务提醒时会以语音说出任务名称</string>
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid 在任务提醒时将会播放铃声</string>
   <string name="EPr_voice_header">语音输入设定</string>
-  <string name="welcome_show_eula">接受终端用户许可协议（EULA）来开始使用吧！</string>
   <string name="welcome_setting">显示教程</string>
   <string name="welcome_title_1">欢迎使用 Astrid！</string>
   <string name="welcome_title_2">创建列表</string>
@@ -888,15 +1119,18 @@
   <string name="welcome_body_6">轻点即可添加便笺 \n设置提示还有更多功能呢！</string>
   <string name="welcome_body_7">登陆</string>
   <string name="welcome_body_7_return">拍拍 Astrid 返回。</string>
-  <string name="welcome_back">返回</string>
   <string name="welcome_next">下一步</string>
   <string name="PPW_widget_42_label">Astrid 尊贵版 4x2</string>
   <string name="PPW_widget_43_label">Astrid 尊贵版 4x3</string>
   <string name="PPW_widget_44_label">Astrid 尊贵版 4x4</string>
+  <string name="PPW_widget_v11_label">Astrid 可卷式高级版本</string>
+  <string name="PPW_widget_custom_label">Astrid 自定义高级版本</string>
+  <string name="PPW_widget_custom_launcherpro_label">Astrid 专业高级版本</string>
   <string name="PPW_configure_title">配置小工具</string>
   <string name="PPW_color">小工具颜色</string>
   <string name="PPW_enable_calendar">显示日历事件</string>
   <string name="PPW_disable_encouragements">隐藏打气助威语</string>
+  <string name="PPW_show_dates">显示截止日期</string>
   <string name="PPW_filter">选择过滤器</string>
   <string name="PPW_due">到期日：</string>
   <string name="PPW_past_due">逾期未完成：</string>
@@ -935,7 +1169,7 @@
   <string name="PPW_widget_dlg_ok">预览</string>
   <string name="PPW_demo_title1">%s 上的小工具将会放到这里</string>
   <string name="PPW_demo_title2">Power Pack 包含尊贵版小工具（Premium Widgets）……</string>
-  <string name="PPW_demo_title3">……语音添加、感觉很棒！</string>
+  <string name="PPW_demo_title3">…语音添加、感觉很棒！</string>
   <string name="PPW_demo_title4">轻点一下，了解更多！</string>
   <string name="PPW_info_title">免费的 Power Pack！</string>
   <string name="PPW_info_signin">登录！</string>
@@ -943,246 +1177,7 @@
   <string name="PPW_unlock_howto">和朋友们分享列表吧！当有三位朋友来 Astrid 注册，您就可以开启免费的 Power Pack 了。</string>
   <string name="PPW_check_button">来免费获取 Power Pack 吧！</string>
   <string name="PPW_check_share_lists">来分享列表吧！</string>
-  <string name="actfm_status_title_logged_in">状态——已使用 %s 帐户登录</string>
-  <string name="actfm_dual_sync_warning">您当前正在和 Google 工作表同步。请注意，在一些情况下，和两个服务一起同步可能会导致出现意外的结果。您真的想和 Astrid.com 同步吗？</string>
-  <string name="DLG_warning">系统提醒</string>
-  <string name="TLA_quickadd_confirm_speech_bubble">我创建了一项叫做“%1$s”的任务，截止日期为 %2$s，优先级为 %3$s</string>
-  <string name="TLA_quickadd_confirm_speech_bubble_date">执行人为 %s</string>
-  <string name="TLA_repeat_scheduled_speech_bubble">我会在 %s 后提醒您这个任务的。</string>
-  <string-array name="TLA_priority_strings">
-    <item>最高优先级</item>
-    <item>高优先级</item>
-    <item>中等优先级</item>
-    <item>低优先级</item>
-  </string-array>
-  <string name="TLA_all_activity">所有活动</string>
-  <string name="TEA_hideUntil_message">任务将会被隐藏，直到 %s</string>
-  <string name="TEA_onTaskDelete">任务已经被删除啦！</string>
-  <string name="TEA_tab_web">建议</string>
-  <string name="TEA_no_time">没有时间</string>
-  <string name="TEA_control_title">任务标题</string>
-  <string name="TEA_control_who">人物</string>
-  <string name="TEA_control_when">时间</string>
-  <string name="TEA_control_more_section">----详情----</string>
-  <string name="TEA_control_files">文件</string>
-  <string name="TEA_control_timer">定时器控件</string>
-  <string name="TEA_control_share">和朋友们分享</string>
-  <string name="TEA_no_activity">没有可以显示的活动。</string>
-  <string name="TEA_load_more">加载更多……</string>
-  <string name="TEA_when_dialog_title">这项活动定在什么时候呀？</string>
-  <string name="TEA_date_and_time">日期/时间</string>
-  <string name="WSV_click_to_load">拍拍我，让我搜索一下完成这项任务的各种方法！</string>
-  <string name="WSV_not_online">连上互联网后我可以做更多事情。请检查一下您的网络连接呗。</string>
-  <string name="TEA_contact_error">不好意思！我们找不到所选联系人的电子邮件地址喔。</string>
-  <string name="MCA_return_call">现在回电</string>
-  <string name="MCA_add_task">稍后回电</string>
-  <string name="MCA_ignore_title">忽略所有未接电话吗？</string>
-  <string name="MCA_ignore_body">您已经忽略了几个未接电话。对于这些电话，Astrid 是否应该不再询问您呢？</string>
-  <string name="MCA_ignore_all">忽略所有来电</string>
-  <string name="MCA_ignore_this">只忽略这个来电</string>
-  <string name="MCA_missed_calls_pref_title">及时回复未接电话</string>
-  <string name="MCA_missed_calls_pref_desc_enabled">Astrid 会向您报告未接电话，还会提供回电的提醒</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Astrid 将不会向您报告未接电话</string>
-  <string name="MCA_task_title_name">请回电给 %1$s，电话是 %2$s</string>
-  <string name="MCA_task_title_no_name">请回电给 %s</string>
-  <string name="MCA_schedule_dialog_title">请给 %s 回个电话过去……</string>
-  <string-array name="MCA_dialog_speech_options">
-    <item>您这么人见人爱、花见花开，感觉肯定棒极了！</item>
-    <item>哇！个个都喜欢您咽！</item>
-    <item>回个电话吧，好让他们高兴一整天！</item>
-    <item>人家给您回电话，您肯定高兴，不是吗？</item>
-    <item>您是可以回电的！</item>
-    <item>无论怎样，您也可以发条短信呀……</item>
-  </string-array>
-  <string name="UpS_no_activity_log_in">登录查看记录 \n看看您的活动的进展情况 \n以及在各分享列表上的活动。</string>
-  <string name="EPr_deactivated">禁用</string>
-  <string name="EPr_showSmartConfirmation_title">在智能提示上显示确认消息</string>
-  <string name="EPr_beastMode_title">自定义任务编辑屏幕</string>
-  <string name="EPr_beastMode_desc">自定义任务编辑屏幕的布局</string>
-  <string name="EPr_compressTaskRows_title">简约式任务行</string>
-  <string name="EPr_compressTaskRows_desc">压缩任务行，使它适应标题</string>
-  <string name="EPr_userLegacyImportance_title">采用传统要事式风格</string>
-  <string name="EPr_userLegacyImportance_desc">采用传统要事式风格</string>
-  <string name="EPr_fullTask_title">显示完整的任务标题</string>
-  <string name="EPr_fullTask_desc_enabled">将显示完整的任务标题</string>
-  <string name="EPr_fullTask_desc_disabled">将显示任务标题的头两行</string>
-  <string name="EPr_ideaAuto_title">自动加载内容到“建议”标签</string>
-  <string name="EPr_ideaAuto_desc_enabled">将会在点击“建议”标签时执行这个标签的网页搜索</string>
-  <string name="EPr_ideaAuto_desc_disabled">将只有在手动发出要求时才执行“建议”标签的网页搜索</string>
-  <string name="EPr_theme_widget_title">小工具主题</string>
-  <string name="EPr_taskRowPrefs_title">任务行外观</string>
-  <string name="EPr_labs_desc">试验并配置各项实验性的特性</string>
-  <string name="EPr_swipe_lists_performance_title">滑动屏幕转换列表</string>  
-  <string name="EPr_swipe_lists_performance_subtitle">控制有关滑动屏幕转换列表的内存性能</string>
-  <string name="EPr_use_contact_picker">使用联系人选择程序</string>
-  <string name="EPr_use_contact_picker_desc_enabled">系统的联系人选择程序选项将在任务布置窗口中显示</string>
-  <string name="EPr_use_contact_picker_desc_disabled">将不会显示系统的联系人选择程序选项</string>
-  <string name="EPr_third_party_addons">启用第三方附加软件</string>
-  <string name="EPr_third_party_addons_desc_enabled">即将启用第三方附加软件</string>
-  <string name="EPr_third_party_addons_desc_disabled">即将禁用第三方附加软件</string>
-  <string name="EPr_ideas_tab_enabled">任务建议</string>
-  <string name="EPr_ideas_tab_description">获取多个建议，帮助您完成多项任务</string>
-  <string name="EPr_cal_end_or_start_at_due_time">日历事件的时间</string>
-  <string name="EPr_cal_end_at_due_time">在预定时间结束日历事件</string>
-  <string name="EPr_cal_start_at_due_time">在预定时间启用日历事件</string>
-  <string name="EPr_swipe_lists_restart_alert">您需要重新启动 Astrid 使这个更改内容生效</string>
-  <string-array name="EPr_swipe_lists_performance_mode">
-    <item>不使用滑动屏幕</item>
-    <item>节约内存</item>
-    <item>标准性能</item>
-    <item>高效性能</item>
-  </string-array>
-  <string-array name="EPr_swipe_lists_performance_desc">
-    <item>滑动屏幕切换列表已被禁用</item>
-    <item>较低速性能</item>
-    <item>默认设置</item>
-    <item>使用更多系统资源</item>
-  </string-array>
-  <string-array name="EPr_themes_widget">
-    <item>与应用相同</item>
-    <item>日间——蓝色</item>
-    <item>日间——红色</item>
-    <item>夜间</item>
-    <item>透明（白色文字）</item>
-    <item>透明（黑色文字）</item>
-    <item>老式风格</item>
-  </string-array>
-  <string name="EPr_manage_clear_all_message">要删除 Astrid 中所有任务和设置吗？\n\n系统提醒：无法还原的喔！</string>
-  <string name="EPr_manage_delete_completed_gcal">删除日历事件中已经完成的任务</string>
-  <string name="EPr_manage_delete_completed_gcal_message">您真的想删除您所有的事件中已经完成的任务吗？</string>
-  <string name="EPr_manage_delete_completed_gcal_status">已经删除 %d 个日历事件了！</string>
-  <string name="EPr_manage_delete_all_gcal">删除所有日历事件中的各项任务</string>
-  <string name="EPr_manage_delete_all_gcal_message">您真的想删除您所有事件中的各项任务吗？</string>
-  <string name="EPr_manage_delete_all_gcal_status">已经删除了 %d 个日历事件了！</string>
-  <string name="DB_corrupted_title">数据库已经受损</string>
-  <string name="DB_corrupted_body">啊噢！看来您的数据库已经受损了。如果您经常看到这样的错误，我们建议您清除所有数据（设置-&gt;管理所有任务-&gt;清除所有数据）并用 Astrid 中的备份文件（设置-&amp;gt备份文件-&amp;gt导入任务）恢复您的任务。</string>
-  <string name="EPr_default_addtocalendar_title">默认添加到日历</string>
-  <string name="EPr_default_addtocalendar_desc_disabled">新建任务将不会在 Google 日历中创建事件</string>
-  <string name="EPr_default_addtocalendar_desc">新建任务将会在这个日历中：“%s”</string>
-  <string name="EPr_default_reminders_mode_title">默认铃声/振动类型</string>
-  <string-array name="EPr_default_importance">
-    <item>!!!（最高级别）</item>
-    <item>!!</item>
-    <item>!</item>
-    <item>o（最低级别）</item>
-  </string-array>
-  <string name="BFE_Assigned">我已经安排</string>
-  <string name="BFE_Saved">过滤程序</string>
-  <string name="gcal_TEA_nocal">不要添加</string>
-  <string name="gcal_TEA_none_selected">添加到日历……</string>
-  <string name="gcal_TEA_has_event">日历事件</string>
-  <string name="gtasks_FEx_header">Google 工作表</string>
-  <string name="gtasks_FEx_title">Google 工作表：%s</string>
-  <string name="gtasks_FEx_creating_list">正在创建列表……</string>
-  <string name="gtasks_GTA_clearing">正在清除已完成任务……</string>
-  <string name="gtasks_GTA_clear_completed">清除已完成项</string>
-  <string name="gtasks_GLA_errorAuth">验证出错！请在您手机的帐户管理器中检查您的用户名和密码</string>
-  <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
-  <string name="gtasks_notification_title">Astrid：Google 工作表</string>
-  <string name="gtasks_error_backend">Google 的工作表应用程序界面正处于测试版阶段，而且遇到了出错。这个服务可能已经停止，请稍后再尝试。</string>
-  <string name="gtasks_error_accountNotFound">找不到帐户 %s——请退出，然后从 Google 工作表设置中重新登录。</string>
-  <string name="gtasks_error_authRefresh">无法用 Google 工作表验证。请检查您的帐户密码或者稍后再尝试。</string>
-  <string name="gtasks_error_accountManager">您手机的帐户管理器出错了。请退出，然后从 Google 工作表设置中重新登陆。</string>
-  <string name="gtasks_error_background_sync_auth">后台验证出错了。请在 Astrid 运行时尝试启动同步。</string>
-  <string name="gtasks_dual_sync_warning">您当前正在和 Astrid.com 同步。请注意，在一些情况下，和两个服务一起同步可能会导致出现意外的结果。您真的想和 Google 工作表同步吗？</string>
-  <string name="help_popover_add_task">添加一两项任务来开始使用</string>
-  <string name="help_popover_tap_task">轻点任务进行编辑和分享</string>
-  <string name="help_popover_list_settings">轻点这里进行编辑或者分享这个列表</string>
-  <string name="help_popover_collaborators">与您共享的人可以帮助您建立您的列表或者完成各项任务</string>
-  <string name="help_popover_add_lists">轻点添加列表</string>
-  <string name="help_popover_switch_lists">轻点添加一个列表或者在列表间切换</string>
-  <string name="help_popover_when_shortcut">轻点这个快捷方式快速选择日期和时间</string>
-  <string name="help_popover_when_row">轻点这一行的任意地方获取像重复之类的选项</string>
-  <string name="welcome_login_tos_base">您使用 Astrid 就表明您同意所有</string>
-  <string name="welcome_login_tos_link">“服务条款”</string>
-  <string name="welcome_login_pw">使用用户名/密码登录</string>
-  <string name="welcome_login_later">稍后连接</string>
-  <string name="welcome_login_confirm_later_title">为什么不登录呢？</string>
-  <string name="welcome_login_confirm_later_ok">我会的！</string>
-  <string name="welcome_login_confirm_later_cancel">不了，谢谢</string>
-  <string name="welcome_login_confirm_later_dialog">登录吧，充分利用 Astrid！无需任何费用，您就可以获得在线备份、和 Astrid.com 全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！</string>
-  <string name="help_popover_taskrabbit_type">更改任务类型</string>
-  <string name="speech_err_network">网络出错！语音识别需要网络连接才能运作。</string>
-  <string name="speech_err_no_match">对不起，我听不明白喔！请再说一次吧。</string>
-  <string name="speech_err_default">对不起，语音识别遇到出错。请重新再试。</string>
-  <string name="premium_attach_file">附上一份文件</string>
-  <string name="premium_record_audio">录制一条便笺</string>
-  <string name="premium_no_files">没有附加文件</string>
-  <string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
-  <string name="audio_recording_title">正在录制音频</string>
-  <string name="audio_stop_recording">停止录制</string>
-  <string name="audio_speak_now">现在请讲！</string>
-  <string name="audio_encoding">正在编码……</string>
-  <string name="audio_err_encoding">音频编码出错</string>
-  <string name="audio_err_playback">对不起，系统不支持这种类型的音频文件</string>
-  <string name="search_market_audio">找不到播放器来处理这种音频类型。您想从安卓市场上下载一个音频播放器吗？</string>
-  <string name="search_market_audio_title">找不到音频播放器</string>
-  <string name="search_market_pdf">找不到 PDF 阅读器。您想从安卓市场上下载一个PDF 阅读器吗？</string>
-  <string name="search_market_pdf_title">找不到 PDF 阅读器</string>
-  <string name="search_market_ms">找不到微软 Office 阅读器。您想从安卓市场上下载一个微软 Office 阅读器吗？</string>
-  <string name="search_market_ms_title">找不到微软 Office</string>
-  <string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
-  <string name="file_type_unhandled_title">找不到应用程序</string>
-  <string name="file_prefix_image">图片</string>
-  <string name="file_prefix_voice">语音</string>
-  <string name="file_browser_up">向上</string>
-  <string name="file_browser_title">选择一个文件</string>
-  <string name="file_browser_err_permissions">权限出错！请确保您没有阻止 Astrid访问 SD 卡。</string>
-  <string name="file_add_picture">附上一幅图片</string>
-  <string name="file_add_sdcard">附上一份来自您 SD 卡的文件</string>
-  <string name="file_download_title">要下载文件吗？</string>
-  <string name="file_download_body">这份文件还没有下载到您的 SD 卡上。要现在下载吗？</string>
-  <string name="file_download_progress">正在下载……</string>
-  <string name="file_err_memory">图片太大，无法存入内存</string>
-  <string name="file_err_copy">复制文件添加附件时出错</string>
-  <string name="file_err_download">下载文件时出错</string>
-  <string name="file_err_show">对不起，系统尚未支持这种类型的文件</string>
-  <string name="p_files_dir">尊贵版下载目录</string>
-  <string name="p_files_dir_desc">文件保存到: %s</string>
-  <string name="p_files_dir_desc_default">默认目录</string>
-  <string name="dir_browser_title">选择目录</string>
-  <string name="file_dir_dialog_ok">使用此目录</string>
-  <string name="file_dir_dialog_default">重置为默认</string>
-  <string name="producteev_FEx_header">Producteev</string>
-  <string name="producteev_TEA_control_set_display">Producteev 任务分配系统</string>
-  <string name="TEA_reminders_group_label">提醒</string>
-  <string name="TEA_reminder_randomly">随机一次</string>
-  <string-array name="TEA_reminder_random">
-    <item>一个小时</item>
-    <item>一天</item>
-    <item>一个星期</item>
-    <item>两星期内</item>
-    <item>一个月</item>
-    <item>两个月内</item>
-  </string-array>
-  <string name="rmd_NoA_completed_toast">恭喜，已经完成了！</string>
-  <string-array name="rmd_reengage_notif_titles">
-    <item>Astrid 的提示</item>
-    <item>%s 的备忘录。</item>
-    <item>您的 Astrid 摘要</item>
-    <item>Astrid 的提醒</item>
-  </string-array>
-  <string name="rmd_reengage_name_default">您</string>
-  <string name="rmd_reengage_snooze">全部重响</string>
-  <string name="rmd_reengage_add_tasks">添加一项任务</string>
-  <string-array name="rmd_reengage_dialog_options">
-    <item>是时候缩短您的任务清单了！</item>
-    <item>尊敬的先生或女士，有一些任务等待您的检查！</item>
-    <item>嘿，您好，您可不可以看一看这些任务？</item>
-    <item>我有些任务，上面有您的名字喔！</item>
-    <item>您今天的一批新任务！</item>
-    <item>您看起来棒极了！准备好开始了吗？</item>
-    <item>今天不错，是时候搞定一些事儿了，我认为是这样的！</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_empty_options">
-    <item>您不想生活变得更加有条理吗？</item>
-    <item>我是 Astrid！我随时帮助您做更多事情！</item>
-    <item>您好像好忙喔！让我来分担一下您的重担里的一些活儿呗。</item>
-    <item>我可以帮您记录您生活中的所有细节。</item>
-    <item>您真的要搞定更多事情吗？我也是啊！</item>
-    <item>好高兴认识您咽！</item>
-  </string-array>
-  <string name="rmd_EPr_enabled_title">已经启用提醒功能了吗？</string>
-  <string name="rmd_EPr_enabled_desc_true">Astrid 提示功能已经启用（这是正常的）</string>
-  <string name="rmd_EPr_enabled_desc_false">Astrid 提示功能将不再出现在您的手机里</string>
+  <string name="PPW_api_level">对不起！此工具只支持安桌3.0及以上版本。</string>
+  <string name="EPr_widget_enabled_title">允许／不允许小工具运行</string>
+  <string name="PPW_restart_for_enabled_state">您也许需要重启您的手机来支持新设定的运行。</string>
 </resources>

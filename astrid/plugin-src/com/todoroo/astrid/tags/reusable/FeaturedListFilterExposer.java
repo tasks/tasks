@@ -32,6 +32,8 @@ import com.todoroo.astrid.tags.TagService.Tag;
 
 public class FeaturedListFilterExposer extends TagFilterExposer {
 
+    public static final String PREF_SHOULD_SHOW_FEATURED_LISTS = "show_featured_lists"; //$NON-NLS-1$
+
     @Override
     public void onReceive(Context context, Intent intent) {
         addUntaggedFilter = false;

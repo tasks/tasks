@@ -8,6 +8,9 @@ package com.todoroo.astrid.ui;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -153,7 +156,7 @@ public class QuickAddBar extends LinearLayout {
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), true);
                 if (task != null && task.getValue(Task.TITLE).length() == 0) {
-                    mListener.onTaskListItemClicked(task.getId());
+                    mListener.onTaskListItemClicked(task.getId(), true);
                 }
             }
         });
@@ -178,7 +181,7 @@ public class QuickAddBar extends LinearLayout {
                 if (task == null)
                     return true;
 
-                mListener.onTaskListItemClicked(task.getId());
+                mListener.onTaskListItemClicked(task.getId(), true);
                 return true;
             }
         });
@@ -309,6 +312,15 @@ public class QuickAddBar extends LinearLayout {
             TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
 
             String assignedTo = peopleControl.getAssignedToString();
+            String assignedEmail = "";
+            long assignedId = Task.USER_ID_IGNORE;
+            try {
+                JSONObject assignedUser = new JSONObject(task.getValue(Task.USER));
+                assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE);
+            } catch (JSONException e) {
+                //
+            }
 
             resetControlSets();
 
@@ -318,7 +330,7 @@ public class QuickAddBar extends LinearLayout {
                 fragment.showTaskEditHelpPopover();
 
             if (activity instanceof TaskListActivity && !assignedToMe)
-                ((TaskListActivity) activity).switchToAssignedFilter(assignedTo);
+                ((TaskListActivity) activity).taskAssignedTo(assignedTo, assignedEmail, assignedId);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -345,7 +357,7 @@ public class QuickAddBar extends LinearLayout {
                 metadataService.save(fileMetadata);
             }
 
-            fragment.incrementFilterCount();
+            fragment.onTaskCreated(task);
 
             StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
             return task;
@@ -358,7 +370,7 @@ public class QuickAddBar extends LinearLayout {
 
     private static void addToCalendar(Task task, String title) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
+                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1") && task.hasDueDate(); //$NON-NLS-1$
 
         if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
             Uri calendarUri = GCalHelper.createTaskEvent(task,

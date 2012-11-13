@@ -33,9 +33,11 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -44,7 +46,11 @@ import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.CalendarStartupReceiver;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -55,6 +61,8 @@ import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.service.abtesting.ABTests;
+import com.todoroo.astrid.subtasks.SubtasksMetadata;
+import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -118,7 +126,6 @@ public class StartupService {
     public synchronized void onStartupApplication(final Activity context) {
         if(hasStartedUp || context == null)
             return;
-
 
         // sets up context manager
         ContextManager.setContext(context);
@@ -198,16 +205,6 @@ public class StartupService {
 
         final int finalLatestVersion = latestSetVersion;
 
-        // For any uninitialized ab test, make sure an option is chosen
-        if (!AstridPreferences.useTabletLayout(context)
-                && Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 0) == 0) { // Have to add this here because a non-null context is needed
-            abTests.addTest(ABTests.AB_SWIPE_BETWEEN, new int[] { 3, 1 },
-                    new int[] { 3, 1 }, new String[] { "swipe-disabled", "swipe-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-            // Haven't yet initialized this test--need to clear the pref once so setIfUnset will trigger correctly in setPreferenceDefaults
-            if (ABChooser.readChoiceForTest(ABTests.AB_SWIPE_BETWEEN) == ABChooser.NO_OPTION)
-                Preferences.clear(context.getString(R.string.p_swipe_lists_performance_key));
-        }
         abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
 
         abTestInvoker.reportAcquisition();
@@ -243,10 +240,14 @@ public class StartupService {
                 // get and display update messages
                 if (finalLatestVersion != 0)
                     new UpdateMessageService(context).processUpdates();
+
+                checkForSubtasksUse();
+                checkForSwipeListsUse();
             }
         }).start();
 
         AstridPreferences.setPreferenceDefaults();
+        CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
         // check for task killers
         if(!Constants.OEM)
@@ -260,11 +261,11 @@ public class StartupService {
      * @param e error that was raised
      */
     public static void handleSQLiteError(Context context, final SQLiteException e) {
-        new AlertDialog.Builder(context)
-        .setTitle(R.string.DB_corrupted_title)
-        .setMessage(R.string.DB_corrupted_body)
-        .setPositiveButton(R.string.DLG_ok, null)
-        .create().show();
+        if (context instanceof Activity) {
+            Activity activity = (Activity) context;
+            DialogUtilities.okDialog(activity, activity.getString(R.string.DB_corrupted_title),
+                    0, activity.getString(R.string.DB_corrupted_body), null);
+        }
         e.printStackTrace();
     }
 
@@ -307,6 +308,46 @@ public class StartupService {
         } catch (Exception e) {
             Log.w("astrid-database-restore", e); //$NON-NLS-1$
         }
+    }
+
+    private static final String PREF_SUBTASKS_CHECK = "subtasks_check_stat"; //$NON-NLS-1$
+
+    private void checkForSubtasksUse() {
+        if (!Preferences.getBoolean(PREF_SUBTASKS_CHECK, false)) {
+            if (taskService.countTasks() > 3) {
+                StatisticsService.reportEvent(StatisticsConstants.SUBTASKS_HAS_TASKS);
+                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
+                        SubtasksMetadata.ORDER.gt(0)), StatisticsConstants.SUBTASKS_ORDER_USED);
+                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
+                        SubtasksMetadata.INDENT.gt(0)), StatisticsConstants.SUBTASKS_INDENT_USED);
+                checkMetadataStat(Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
+                        GtasksMetadata.INDENT.gt(0)), StatisticsConstants.GTASKS_INDENT_USED);
+            }
+            Preferences.setBoolean(PREF_SUBTASKS_CHECK, true);
+        }
+    }
+
+    private static final String PREF_SWIPE_CHECK = "swipe_check_stat"; //$NON-NLS-1$
+
+    private void checkForSwipeListsUse() {
+        if (!Preferences.getBoolean(PREF_SWIPE_CHECK, false)) {
+            if (Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)
+                    && Preferences.getBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, false)) {
+                StatisticsService.reportEvent(StatisticsConstants.SWIPE_USED);
+            }
+            Preferences.setBoolean(PREF_SWIPE_CHECK, true);
+        }
+    }
+
+    private void checkMetadataStat(Criterion criterion, String statistic) {
+        TodorooCursor<Metadata> sort = metadataService.query(Query.select(Metadata.ID).where(criterion).limit(1));
+        try {
+            if (sort.getCount() > 0)
+                StatisticsService.reportEvent(statistic);
+        } finally {
+            sort.close();
+        }
+
     }
 
     private static final String P_TASK_KILLER_HELP = "taskkiller"; //$NON-NLS-1$

@@ -1,4 +1,4 @@
-# Arabic translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-09-07 13:08-0700\n"
-"PO-Revision-Date: 2012-03-01 06:42+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
-"Language-Team: ar <LL@li.org>\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n>=3 "
-"&& n<=10 ? 3 : n>=11 && n<=99 ? 4 : 5)\n"
+"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"PO-Revision-Date: 2012-08-23 14:53+0000\n"
+"Last-Translator: muhammad mhajna <mmhajnamk4@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
+"X-Generator: Launchpad (build 16130)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -59,11 +59,11 @@ msgstr "يوم واحد"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d من ايام الاسبوع"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "يوم اسبوع واحد"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -104,20 +104,20 @@ msgstr "ساعة"
 #, c-format
 msgctxt "DUt_minutesShort:quantity=other"
 msgid "%d Min"
-msgstr "%d من الثواني"
+msgstr "%d من الدقائق"
 
 msgctxt "DUt_minutesShort:quantity=one"
 msgid "1 Min"
-msgstr "ثانية"
+msgstr "دقيقة واحدة"
 
 #, c-format
 msgctxt "DUt_secondsShort:quantity=other"
 msgid "%d Sec"
-msgstr "%d من الدقائق"
+msgstr "%d من الثواني"
 
 msgctxt "DUt_secondsShort:quantity=one"
 msgid "1 Sec"
-msgstr "دقيقة"
+msgstr "ثانية واحدة"
 
 #, c-format
 msgctxt "Ntasks:quantity=other"
@@ -131,36 +131,36 @@ msgstr "مهمة واحدة"
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr ""
+msgstr "%d من الأشخاص"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "شخص واحد"
 
 #. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
-msgstr ""
+msgstr "اليوم"
 
 #. tomorrow
 msgctxt "tomorrow"
 msgid "Tomorrow"
-msgstr ""
+msgstr "غداً"
 
 #. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
-msgstr ""
+msgstr "بالأمس"
 
 #. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "غداً"
 
 #. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "أمس"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
@@ -181,7 +181,7 @@ msgstr "معلومات"
 #. error dialog title
 msgctxt "DLG_error_title"
 msgid "Error!"
-msgstr ""
+msgstr "خطأ!"
 
 #. general dialog save
 msgctxt "DLG_save"
@@ -225,33 +225,33 @@ msgstr ""
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
 msgid "Please wait..."
-msgstr "رجاء الانتظار..."
+msgstr "انتظر من فضلك..."
 
 #. ====================================================== SyncProvider ==
 #. Sync Notification: message when sync service active
 msgctxt "SyP_progress"
 msgid "Synchronizing your tasks..."
-msgstr ""
+msgstr "يتم الآن مزامنة المهام الخاصة بك..."
 
 #. Sync Notification: toast when sync activated from activity
 msgctxt "SyP_progress_toast"
 msgid "Synchronizing..."
-msgstr ""
+msgstr "عملية المزامنة جارية..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Sync & Backup"
+msgid "Sync & backup"
 msgstr ""
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
+msgid "Astrid.com, Google Tasks, saved data, local backup"
 msgstr ""
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr ""
+msgstr "خطأ في الإتصال! يرجى التأكد من الإتصال بالإنترنت"
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
@@ -263,47 +263,47 @@ msgstr "الحالة"
 #, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr ""
+msgstr "الحالة: %s"
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
+msgid "Not logged in"
 msgstr ""
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
+msgid "Sync ongoing..."
 msgstr ""
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
 msgctxt "sync_status_success"
 msgid ""
-"Last Sync:\n"
+"Last sync:\n"
 "%s"
 msgstr ""
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
-msgid "Failed On: %s"
+msgid "Failed on: %s"
 msgstr ""
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
+msgid "Sync w/ errors: %s"
 msgstr ""
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
+msgid "Last successful sync: %s"
 msgstr ""
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
-msgid "Never Synchronized!"
+msgid "Never synchronized!"
 msgstr ""
 
 #. Options Group Label
@@ -313,7 +313,7 @@ msgstr "الخيارات"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
+msgid "Background sync"
 msgstr ""
 
 #. Preference: Synchronization Interval Description (when disabled)
@@ -329,7 +329,7 @@ msgstr ""
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
+msgid "Wifi only setting"
 msgstr ""
 
 #. Preference: Background Wifi Description (enabled)
@@ -349,37 +349,37 @@ msgstr "الإجراءات"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
+msgid "Synchronize now"
 msgstr ""
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
+msgid "Log in & synchronize!"
 msgstr ""
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "مسجل كـ:"
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
-msgid "Status Report"
+msgid "Status report"
 msgstr ""
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "اضغط لإرسال التقرير إلى فريق العمل"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
-msgid "Send Report"
+msgid "Send report"
 msgstr ""
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
-msgid "Log Out"
+msgid "Log out"
 msgstr ""
 
 #. Sync: Clear Data Description
@@ -389,58 +389,53 @@ msgstr ""
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
+msgid "Log out/clear synchronization data?"
 msgstr ""
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
-msgstr ""
+msgstr "إلغاء تفعيل"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
-msgstr ""
+msgstr "كل 15 دقيقة"
 
 msgctxt "sync_SPr_interval_entries:2"
 msgid "every thirty minutes"
-msgstr ""
+msgstr "كل 30 دقيقة"
 
 msgctxt "sync_SPr_interval_entries:3"
 msgid "every hour"
-msgstr ""
+msgstr "كل ساعة"
 
 msgctxt "sync_SPr_interval_entries:4"
 msgid "every three hours"
-msgstr ""
+msgstr "كل 3 ساعات"
 
 msgctxt "sync_SPr_interval_entries:5"
 msgid "every six hours"
-msgstr ""
+msgstr "كل 6 ساعات"
 
 msgctxt "sync_SPr_interval_entries:6"
 msgid "every twelve hours"
-msgstr ""
+msgstr "كل 12 ساعة"
 
 msgctxt "sync_SPr_interval_entries:7"
 msgid "every day"
-msgstr ""
+msgstr "كل يوم"
 
 msgctxt "sync_SPr_interval_entries:8"
 msgid "every three days"
-msgstr ""
+msgstr "كل 3 أيام"
 
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
-msgstr ""
-
-#~ msgctxt "SyP_label"
-#~ msgid "Synchronization"
-#~ msgstr "المزامنة"
-
+msgstr "كل أسبوع"

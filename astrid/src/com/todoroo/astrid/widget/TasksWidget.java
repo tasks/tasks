@@ -31,6 +31,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -43,8 +44,10 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
@@ -114,6 +117,9 @@ public class TasksWidget extends AppWidgetProvider {
         @Autowired
         TaskService taskService;
 
+        @Autowired
+        TagDataService tagDataService;
+
         @Override
         public void onStart(final Intent intent, int startId) {
             ContextManager.setContext(this);
@@ -134,9 +140,15 @@ public class TasksWidget extends AppWidgetProvider {
             if(intent != null)
                 extrasId = intent.getIntExtra(EXTRA_WIDGET_ID, extrasId);
             if(extrasId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-                for(int id : manager.getAppWidgetIds(thisWidget)) {
-                    RemoteViews updateViews = buildUpdate(this, id);
-                    manager.updateAppWidget(id, updateViews);
+                int[] ids;
+                try {
+                    ids = manager.getAppWidgetIds(thisWidget);
+                    for(int id : ids) {
+                        RemoteViews updateViews = buildUpdate(this, id);
+                        manager.updateAppWidget(id, updateViews);
+                    }
+                } catch (RuntimeException e) {
+                    // "System server dead" was sometimes thrown here by the OS. Abort if that happens
                 }
             } else {
                 int id = extrasId;
@@ -164,6 +176,8 @@ public class TasksWidget extends AppWidgetProvider {
             Filter filter = null;
             try {
                 filter = getFilter(widgetId);
+                if (SubtasksHelper.isTagFilter(filter))
+                    ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
                 views.setTextViewText(R.id.widget_title, filter.title);
                 views.removeAllViews(R.id.taskbody);
 
@@ -172,6 +186,9 @@ public class TasksWidget extends AppWidgetProvider {
                 int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
                 String query = SortHelper.adjustQueryForFlagsAndSort(
                         filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
+
+                String tagName = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
+                query = SubtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, numberOfTasks);
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);

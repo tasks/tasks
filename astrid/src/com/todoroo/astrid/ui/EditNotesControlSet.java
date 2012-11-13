@@ -33,9 +33,9 @@ public class EditNotesControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        CharSequence textToUse;
+        String textToUse;
         if (initialized)
-            textToUse = editText.getText();
+            textToUse = editText.getText().toString();
         else
             textToUse = model.getValue(Task.NOTES);
 

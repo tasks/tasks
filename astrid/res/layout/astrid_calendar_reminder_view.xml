@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reminder_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip"
+    android:orientation="vertical"
+    android:background="@drawable/reminder_dialog_background">
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="10dip">
+        
+        <TextView 
+            android:id="@+id/reminder_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dip"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:text="@string/CRA_title"/>
+        <ImageView
+            android:id="@+id/dismiss"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_close"/>
+    
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/calendar_reminder_speech_bubble"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/astrid_speech_bubble" />
+    </FrameLayout>
+    
+    <TextView
+        android:id="@+id/create_list"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/CRA_create_list"/>
+
+    <TextView
+        android:id="@+id/postpone"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="#707070"
+        android:text="@string/CRA_postpone"/>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip">
+	    
+	    <TextView
+	        android:id="@+id/ignore"
+	        android:layout_width="fill_parent"
+	        android:layout_height="35dip"
+	        android:textColor="@android:color/white"
+	        android:textSize="24sp"
+	        android:gravity="center"
+	        android:text="@string/CRA_ignore"
+	        android:background="#707070"/>
+	    
+	    <ImageView 
+	        android:id="@+id/ignore_settings"
+	        android:layout_alignParentRight="true"
+	        android:layout_width="35dip"
+	        android:layout_height="35dip"
+	        android:padding="4dip"
+	        android:background="@android:color/transparent"
+	        android:scaleType="fitCenter"
+	        android:src="@drawable/single_gear"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

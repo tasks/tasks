@@ -14,7 +14,6 @@
   <string name="gcal_TEA_error">Error adding task to calendar!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
 
   <!-- slide 21c: Label for adding task to calendar -->
   <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
@@ -23,7 +22,6 @@
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
   <!-- Toast when calendar event updated because task changed -->
   <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
