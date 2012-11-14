@@ -80,7 +80,7 @@ public class ActFmSyncThread {
                 while (messages.size() < batchSize && !changesQueue.isEmpty()) {
                     Pair<Long, ModelType> tuple = changesQueue.poll();
                     if (tuple != null) {
-                        ClientToServerMessage<?> changes = getChangesHappened(tuple);
+                        ChangesHappened<?, ?> changes = getChangesHappened(tuple);
                         if (changes != null)
                             messages.add(changes);
                     }
