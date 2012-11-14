@@ -1,5 +1,7 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.json.JSONObject;
+
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 
@@ -10,7 +12,7 @@ public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServer
     }
 
     @Override
-    public void sendMessage() {
-        // Send message
+    public JSONObject serializeToJSON() {
+        return null;
     }
 }

@@ -16,17 +16,17 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.Astrid44SyncMigrator;
+import com.todoroo.astrid.tags.AstridNewSyncMigrator;
 import com.todoroo.astrid.tags.TagMetadata;
 
-public class Astrid44MigrationTest extends NewSyncTestCase {
+public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 
 	@Autowired
 	private MetadataDao metadataDao;
 	
 	public void testAstrid44Migration() {
 		setupOldDatabase();
-		new Astrid44SyncMigrator().performMigration();
+		new AstridNewSyncMigrator().performMigration();
 		assertAllModelsHaveUUID();
 		assertAllTagsHaveTagData();
 		assertAllMetadataHasAllFields();

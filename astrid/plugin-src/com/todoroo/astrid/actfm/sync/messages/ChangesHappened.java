@@ -1,8 +1,11 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 
@@ -11,6 +14,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.OutstandingEntry;
@@ -21,6 +25,8 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     private final Class<OE> outstandingClass;
     private final List<OE> changes;
+
+    public static final String CHANGES_KEY = "changes";
 
     public ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
             OutstandingEntryDao<OE> outstandingDao) {
@@ -34,8 +40,19 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     @Override
-    public void sendMessage() {
-        // Process changes list and send to server
+    public JSONObject serializeToJSON() {
+        // Process changes list and serialize to JSON
+        JSONObject json = new JSONObject();
+        try {
+            json.put(TYPE_KEY, "ChangesHappened");
+            json.put(TABLE_KEY, table.name);
+            json.put(UUID_KEY, uuid);
+            json.put(PUSHED_AT_KEY, pushedAt);
+            json.put(CHANGES_KEY, changesToJSON());
+        } catch (JSONException e) {
+            return null;
+        }
+        return json;
     }
 
     public List<OE> getChanges() {
@@ -44,6 +61,23 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     public int numChanges() {
         return changes.size();
+    }
+
+    private JSONArray changesToJSON() {
+        JSONArray array = new JSONArray();
+        for (OE change : changes) {
+            try {
+                JSONObject changeJson = new JSONObject();
+                changeJson.put("id", change.getId());
+                changeJson.put("column", change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY));
+                changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+
+                array.put(changeJson);
+            } catch (JSONException e) {
+                //
+            }
+        }
+        return array;
     }
 
     private void populateChanges(OutstandingEntryDao<OE> outstandingDao) {
@@ -67,34 +101,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     private Class<OE> getOutstandingClass(Class<? extends RemoteModel> model) {
-        try {
-            return (Class<OE>) getStaticFieldByReflection(model, "OUTSTANDING_MODEL");
-        } catch (ClassCastException e) {
-            throw new RuntimeException("OUTSTANDING_MODEL field for class " + model.getName() + " is not of the correct type");
-        }
+        return DaoReflectionHelpers.getStaticFieldByReflection(model, Class.class, "OUTSTANDING_MODEL");
     }
 
     private Property<?>[] getModelProperties(Class<? extends AbstractModel> model) {
-        try {
-            return (Property<?>[]) getStaticFieldByReflection(model, "PROPERTIES");
-        } catch (ClassCastException e) {
-            throw new RuntimeException("PROPERTIES field for class " + model.getName() + " is not of the correct type");
-        }
+        return DaoReflectionHelpers.getStaticFieldByReflection(model, Property[].class, "PROPERTIES");
     }
-
-    private Object getStaticFieldByReflection(Class<?> cls, String fieldName) {
-        try {
-            Field field = cls.getField(fieldName);
-            Object obj = field.get(null);
-            if (obj == null) {
-                throw new RuntimeException(fieldName + " field for class " + cls.getName() + " is null");
-            }
-            return obj;
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("Class " + cls.getName() + " does not declare field " + fieldName);
-        } catch (IllegalAccessException e2) {
-            throw new RuntimeException(fieldName + " field for class " + cls.getName() + " is not accessible");
-        }
-    }
-
 }
