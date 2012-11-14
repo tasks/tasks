@@ -26,7 +26,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
-public class Astrid44SyncMigrator {
+public class AstridNewSyncMigrator {
 
     @Autowired private MetadataService metadataService;
     @Autowired private TagDataService tagDataService;
@@ -38,7 +38,7 @@ public class Astrid44SyncMigrator {
 
     private static final String LOG_TAG = "tag-link-migrate";
 
-    public Astrid44SyncMigrator() {
+    public AstridNewSyncMigrator() {
         DependencyInjectionService.getInstance().inject(this);
     }
 

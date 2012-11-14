@@ -43,7 +43,7 @@ import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
-import com.todoroo.astrid.tags.Astrid44SyncMigrator;
+import com.todoroo.astrid.tags.AstridNewSyncMigrator;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -224,7 +224,7 @@ public final class UpgradeService {
                                 new SubtasksMetadataMigration().performMigration();
 
                             if (from < V4_5_0)
-                                new Astrid44SyncMigrator().performMigration();
+                                new AstridNewSyncMigrator().performMigration();
 
                         } finally {
                             DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
