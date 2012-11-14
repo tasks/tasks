@@ -34,9 +34,9 @@ public class AstridNewSyncMigrator {
     @Autowired private TaskDao taskDao;
     @Autowired private UpdateDao updateDao;
 
-    private static final String PREF_MIGRATED_TASKS_TO_TAGS = "tasks_to_tags_migration";
+    private static final String PREF_SYNC_MIGRATION = "sync_migration";
 
-    private static final String LOG_TAG = "tag-link-migrate";
+    private static final String LOG_TAG = "sync-migrate";
 
     public AstridNewSyncMigrator() {
         DependencyInjectionService.getInstance().inject(this);
@@ -44,7 +44,7 @@ public class AstridNewSyncMigrator {
 
     @SuppressWarnings("deprecation")
     public void performMigration() {
-        if (Preferences.getBoolean(PREF_MIGRATED_TASKS_TO_TAGS, false))
+        if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false))
             return;
 
         // --------------
@@ -62,7 +62,7 @@ public class AstridNewSyncMigrator {
                 tag.readFromCursor(noTagData);
 
                 if (Constants.DEBUG)
-                    Log.w("tag-link-migrate", "CREATING TAG DATA " + tag.getValue(TagMetadata.TAG_NAME));
+                    Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TagMetadata.TAG_NAME));
 
                 TagData newTagData = new TagData();
                 newTagData.setValue(TagData.NAME, tag.getValue(TagMetadata.TAG_NAME));
@@ -134,7 +134,7 @@ public class AstridNewSyncMigrator {
 
 
 
-        Preferences.setBoolean(PREF_MIGRATED_TASKS_TO_TAGS, true);
+        Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
     }
 
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
