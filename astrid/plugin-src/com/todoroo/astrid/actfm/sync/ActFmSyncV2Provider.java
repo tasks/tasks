@@ -452,6 +452,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
                 if(!noRemoteId) {
                     actFmSyncService.waitUntilEmpty();
+                    actFmSyncService.pushTagOrderingImmediately(tagData);
                     fetchTasksForTag(tagData, manual, callback, finisher);
                     fetchUpdatesForTag(tagData, manual, callback, finisher);
                 }

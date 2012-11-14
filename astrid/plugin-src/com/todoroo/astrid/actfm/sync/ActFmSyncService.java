@@ -272,10 +272,14 @@ public final class ActFmSyncService {
                     }
                     if (tagOrderQueue.size() > 0) {
                         AndroidUtilities.sleepDeep(WAIT_BEFORE_PUSH_ORDER);
-                        Long tagDataId = tagOrderQueue.remove(0);
-                        TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
-                        if (td != null) {
-                            pushTagOrdering(td);
+                        try {
+                            Long tagDataId = tagOrderQueue.remove(0);
+                            TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
+                            if (td != null) {
+                                pushTagOrdering(td);
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            // In case element was removed
                         }
                     }
                 }
@@ -590,6 +594,13 @@ public final class ActFmSyncService {
                     pushTagOrder.start();
                 }
             }
+        }
+    }
+
+    public void pushTagOrderingImmediately(TagData tagData) {
+        if (tagOrderQueue.contains(tagData.getId())) {
+            tagOrderQueue.remove(tagData.getId());
+            pushTagOrdering(tagData);
         }
     }
 
