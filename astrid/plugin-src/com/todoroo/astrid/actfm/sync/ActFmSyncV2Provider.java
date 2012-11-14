@@ -240,8 +240,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 } finally {
                     callback.incrementProgress(20);
                     if(finisher.decrementAndGet() == 0) {
-                        actFmPreferenceService.recordSuccessfulSync();
-                        callback.finished();
+                        finishSync(callback);
                     }
                 }
             }
