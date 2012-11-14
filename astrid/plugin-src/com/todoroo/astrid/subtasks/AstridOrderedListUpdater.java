@@ -116,6 +116,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
             // Remove node from tree, put all children under parent
             Node parent = node.parent;
+            parent.children.remove(node);
             for (Node child : node.children) {
                 child.parent = parent;
                 parent.children.add(child);
