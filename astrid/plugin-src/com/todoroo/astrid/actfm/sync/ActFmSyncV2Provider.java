@@ -452,8 +452,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
                 if(!noRemoteId) {
                     actFmSyncService.waitUntilEmpty();
-                    actFmSyncService.pushTagOrderingImmediately(tagData);
-                    fetchTasksForTag(tagData, manual, callback, finisher);
+                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId());
+                    fetchTasksForTag(tagData, manual, orderPushQueued, callback, finisher);
                     fetchUpdatesForTag(tagData, manual, callback, finisher);
                 }
 
@@ -494,7 +494,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     actFmSyncService.fetchTag(tagData);
 
                     if(noRemoteId) {
-                        fetchTasksForTag(tagData, manual, callback, finisher);
+                        fetchTasksForTag(tagData, manual, true, callback, finisher);
                         fetchUpdatesForTag(tagData, manual, callback, finisher);
                     }
 
@@ -527,14 +527,17 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         });
     }
 
-    private void fetchTasksForTag(final TagData tagData, boolean manual, final SyncResultCallback callback,
+    private void fetchTasksForTag(final TagData tagData, boolean manual, final boolean pushOrder, final SyncResultCallback callback,
             final AtomicInteger finisher) {
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
                 pushQueuedTasksByTag(tagData, callback, finisher);
 
-                actFmSyncService.fetchTagOrder(tagData);
+                if (pushOrder)
+                    actFmSyncService.pushTagOrderingImmediately(tagData);
+                else
+                    actFmSyncService.fetchTagOrder(tagData);
 
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0)

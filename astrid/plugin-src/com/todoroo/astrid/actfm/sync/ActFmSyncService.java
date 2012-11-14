@@ -600,8 +600,16 @@ public final class ActFmSyncService {
     public void pushTagOrderingImmediately(TagData tagData) {
         if (tagOrderQueue.contains(tagData.getId())) {
             tagOrderQueue.remove(tagData.getId());
-            pushTagOrdering(tagData);
         }
+        pushTagOrdering(tagData);
+    }
+
+    public boolean cancelTagOrderingPush(long tagDataId) {
+        if (tagOrderQueue.contains(tagDataId)) {
+            tagOrderQueue.remove(tagDataId);
+            return true;
+        }
+        return false;
     }
 
     private void pushTagOrdering(TagData tagData) {
