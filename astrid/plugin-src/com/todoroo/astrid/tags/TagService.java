@@ -306,7 +306,9 @@ public final class TagService {
     }
 
     public TodorooCursor<TagData> getTagDataForTask(long taskId, Criterion additionalCriterion, Property<?>... properties) {
-        Criterion criterion = TagData.NAME.in(Query.select(TagMetadata.TAG_NAME).from(Metadata.TABLE).where(MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY)));
+        Criterion criterion = TagData.UUID.in(Query.select(TagMetadata.TAG_UUID).from(Metadata.TABLE).where(
+                Criterion.and(Metadata.DELETION_DATE.eq(0),
+                        MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY))));
         return tagDataService.query(Query.select(properties).where(Criterion.and(criterion, additionalCriterion)));
     }
 
