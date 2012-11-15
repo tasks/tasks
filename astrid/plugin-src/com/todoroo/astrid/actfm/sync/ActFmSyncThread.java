@@ -1,8 +1,12 @@
 package com.todoroo.astrid.actfm.sync;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -10,6 +14,7 @@ import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
+import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -38,6 +43,9 @@ public class ActFmSyncThread {
     @Autowired
     private TagOutstandingDao tagOutstandingDao;
 
+    @Autowired
+    private ActFmInvoker actFmInvoker;
+
     public static enum ModelType {
         TYPE_TASK,
         TYPE_TAG
@@ -61,6 +69,7 @@ public class ActFmSyncThread {
         }
     }
 
+    @SuppressWarnings("nls")
     private void sync() {
         try {
             int batchSize = 1;
@@ -92,10 +101,32 @@ public class ActFmSyncThread {
                 }
 
                 if (!messages.isEmpty()) {
-                    // Get List<ServerToClientMessage> responses
-                    // foreach response response.process
-                    // if (responses.didntFinish) batchSize = Math.max(batchSize / 2, 1)
-                    // else batchSize = min(batchSize, messages.size()) * 2
+                    JSONArray payload = new JSONArray();
+                    for (ClientToServerMessage<?> message : messages) {
+                        JSONObject serialized = message.serializeToJSON();
+                        if (serialized != null)
+                            payload.put(serialized);
+                    }
+
+                    try {
+                        JSONObject response = actFmInvoker.invoke("sync", "data", payload, "token", "");
+                        // process responses
+                        JSONArray serverMessagesJson = response.optJSONArray("messages");
+                        if (serverMessagesJson != null) {
+                            for (int i = 0; i < serverMessagesJson.length(); i++) {
+                                JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
+                                if (serverMessageJson != null) {
+                                    ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
+                                    if (serverMessage != null)
+                                        serverMessage.processMessage();
+                                }
+                            }
+                        }
+
+                        batchSize = Math.min(batchSize, messages.size()) * 2;
+                    } catch (IOException e) {
+                        batchSize = Math.max(batchSize / 2, 1);
+                    }
                     messages = new LinkedList<ClientToServerMessage<?>>();
                 }
             }
