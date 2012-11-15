@@ -18,12 +18,16 @@ public class NameMaps {
     private static final Map<Table, String> TABLE_LOCAL_TO_SERVER;
     private static final Map<String, Table> TABLE_SERVER_TO_LOCAL;
 
+    public static final String SERVER_TABLE_TASKS = "tasks";
+    public static final String SERVER_TABLE_TAGS = "tags";
+    public static final String SERVER_TABLE_USERS = "users";
+
     static {
         // Hardcoded local tables mapped to corresponding server names
         TABLE_LOCAL_TO_SERVER = new HashMap<Table, String>();
-        TABLE_LOCAL_TO_SERVER.put(Task.TABLE, "tasks");
-        TABLE_LOCAL_TO_SERVER.put(TagData.TABLE, "tags");
-        TABLE_LOCAL_TO_SERVER.put(User.TABLE, "users");
+        TABLE_LOCAL_TO_SERVER.put(Task.TABLE, SERVER_TABLE_TASKS);
+        TABLE_LOCAL_TO_SERVER.put(TagData.TABLE, SERVER_TABLE_TAGS);
+        TABLE_LOCAL_TO_SERVER.put(User.TABLE, SERVER_TABLE_USERS);
 
         // Reverse the mapping to construct the server to local map
         TABLE_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TABLE_LOCAL_TO_SERVER);

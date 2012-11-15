@@ -12,9 +12,10 @@ public abstract class ServerToClientMessage {
     private static final String TYPE_DOUBLE_CHECK = "DoubleCheck";
     private static final String TYPE_DEBUG = "Debug";
 
-    @SuppressWarnings("unused")
+    protected final JSONObject json;
+
     public ServerToClientMessage(JSONObject json) {
-        //
+        this.json = json;
     }
 
     public static ServerToClientMessage instantiateMessage(JSONObject json) {
