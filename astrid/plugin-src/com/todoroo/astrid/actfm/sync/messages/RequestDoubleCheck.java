@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -13,6 +14,15 @@ public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServer
 
     @Override
     public JSONObject serializeToJSON() {
-        return null;
+        JSONObject json = new JSONObject();
+        try {
+            json.put(TYPE_KEY, "RequestDoubleCheck"); //$NON-NLS-1$
+            json.put(TABLE_KEY, NameMaps.getServerNameForTable(table));
+            json.put(UUID_KEY, uuid);
+            json.put(PUSHED_AT_KEY, pushedAt);
+        } catch (JSONException e) {
+            return null;
+        }
+        return json;
     }
 }

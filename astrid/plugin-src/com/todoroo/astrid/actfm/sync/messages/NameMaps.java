@@ -56,9 +56,8 @@ public class NameMaps {
         TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.NOTES.name, "notes");
         TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.RECURRENCE.name, "repeat");
         TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.USER_ID.name, "user_id");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.USER.name, "user"); // TODO: NOT CORRECT
+        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.USER.name, "user");
         TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.CREATOR_ID.name, "creator_id");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.SHARED_WITH.name, "shared_with"); //TODO: NOT CORRECT
         TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.UUID.name, "uuid");
         TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.PROOF_TEXT.name, "proof_text");
 
