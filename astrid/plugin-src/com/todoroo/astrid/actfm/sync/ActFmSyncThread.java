@@ -8,6 +8,8 @@ import java.util.Queue;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Pair;
@@ -45,6 +47,11 @@ public class ActFmSyncThread {
 
     @Autowired
     private ActFmInvoker actFmInvoker;
+
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+
+    private String token;
 
     public static enum ModelType {
         TYPE_TASK,
@@ -100,7 +107,7 @@ public class ActFmSyncThread {
                     messages.add(getBriefMe(TagData.class));
                 }
 
-                if (!messages.isEmpty()) {
+                if (!messages.isEmpty() && checkForToken()) {
                     JSONArray payload = new JSONArray();
                     for (ClientToServerMessage<?> message : messages) {
                         JSONObject serialized = message.serializeToJSON();
@@ -109,7 +116,7 @@ public class ActFmSyncThread {
                     }
 
                     try {
-                        JSONObject response = actFmInvoker.invoke("sync", "data", payload, "token", "");
+                        JSONObject response = actFmInvoker.invoke("sync", "data", payload, "token", token);
                         // process responses
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
                         if (serverMessagesJson != null) {
@@ -132,6 +139,7 @@ public class ActFmSyncThread {
             }
         } catch (Exception e) {
             // In the worst case, restart thread if something goes wrong
+            Log.e("actfm-sync", "Unexpected sync thread exception", e);
             thread = null;
             startSyncThread();
         }
@@ -157,6 +165,13 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
+        return true;
+    }
+
+    private boolean checkForToken() {
+        if(!actFmPreferenceService.isLoggedIn())
+            return false;
+        token = actFmPreferenceService.getToken();
         return true;
     }
 
