@@ -2,6 +2,10 @@ package com.todoroo.astrid.actfm.sync.messages;
 
 import org.json.JSONObject;
 
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
+
 @SuppressWarnings("nls")
 public abstract class ServerToClientMessage {
 
@@ -21,7 +25,7 @@ public abstract class ServerToClientMessage {
     public static ServerToClientMessage instantiateMessage(JSONObject json) {
         String type = json.optString("type");
         if (TYPE_MAKE_CHANGES.equals(type))
-            return new MakeChanges(json);
+            return instantiateMakeChanges(json);
         else if (TYPE_ACKNOWLEDGE_CHANGE.equals(type))
             return new AcknowledgeChange(json);
         else if (TYPE_DOUBLE_CHECK.equals(json))
@@ -30,6 +34,16 @@ public abstract class ServerToClientMessage {
             return new Debug(json);
 
         return null;
+    }
+
+    private static MakeChanges<?> instantiateMakeChanges(JSONObject json) {
+        String table = json.optString("table");
+        if (NameMaps.SERVER_TABLE_TASKS.equals(table))
+            return new MakeChanges<Task>(json, PluginServices.getTaskDao());
+        else if (NameMaps.SERVER_TABLE_TAGS.equals(table))
+            return new MakeChanges<TagData>(json, PluginServices.getTagDataDao());
+        else
+            return null;
     }
 
 }
