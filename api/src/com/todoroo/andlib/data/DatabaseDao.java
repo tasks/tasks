@@ -64,6 +64,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return table;
     }
 
+    public Class<TYPE> getModelClass() {
+        return modelClass;
+    }
+
     /**
      * Sets database accessed by this DAO. Used for dependency-injected
      * initialization by child classes and unit tests

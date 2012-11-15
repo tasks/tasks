@@ -13,6 +13,10 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagOutstandingDao;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.service.AddOnService;
@@ -33,6 +37,9 @@ public final class PluginServices {
     TaskService taskService;
 
     @Autowired
+    TaskDao taskDao;
+
+    @Autowired
     Database database;
 
     @Autowired
@@ -48,10 +55,19 @@ public final class PluginServices {
     TagDataService tagDataService;
 
     @Autowired
+    TagDataDao tagDataDao;
+
+    @Autowired
     StoreObjectDao storeObjectDao;
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    TaskOutstandingDao taskOutstandingDao;
+
+    @Autowired
+    TagOutstandingDao tagOutstandingDao;
 
     private static PluginServices instance;
 
@@ -79,8 +95,24 @@ public final class PluginServices {
         return getInstance().taskService;
     }
 
+    public static TaskDao getTaskDao() {
+        return getInstance().taskDao;
+    }
+
     public static TagDataService getTagDataService() {
         return getInstance().tagDataService;
+    }
+
+    public static TagDataDao getTagDataDao() {
+        return getInstance().tagDataDao;
+    }
+
+    public static TaskOutstandingDao getTaskOutstandingDao() {
+        return getInstance().taskOutstandingDao;
+    }
+
+    public static TagOutstandingDao getTagOutstandingDao() {
+        return getInstance().tagOutstandingDao;
     }
 
     public static ExceptionService getExceptionService() {

@@ -6,43 +6,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
-import com.todoroo.astrid.dao.TagOutstandingDao;
-import com.todoroo.astrid.dao.TaskOutstandingDao;
 
 public class AcknowledgeChange extends ServerToClientMessage {
 
-    @Autowired
-    private TaskOutstandingDao taskOutstandingDao;
-
-    @Autowired
-    private TagOutstandingDao tagOutstandingDao;
+    private final OutstandingEntryDao<?> dao;
 
     public AcknowledgeChange(JSONObject json) {
         super(json);
-        DependencyInjectionService.getInstance().inject(this);
+        String table = json.optString("table"); //$NON-NLS-1$
+        if (NameMaps.SERVER_TABLE_TASKS.equals(table))
+            dao = PluginServices.getTaskOutstandingDao();
+        else if (NameMaps.SERVER_TABLE_TAGS.equals(table))
+            dao = PluginServices.getTagOutstandingDao();
+        else
+            dao = null;
     }
 
     @Override
-    @SuppressWarnings("nls")
     public void processMessage() {
-        JSONArray idsArray = json.optJSONArray("ids");
-        String table = json.optString("table");
-        if (idsArray != null && !TextUtils.isEmpty(table)) {
-            OutstandingEntryDao<?> dao = null;
-            if (NameMaps.SERVER_TABLE_TASKS.equals(table))
-                dao = taskOutstandingDao;
-            else if (NameMaps.SERVER_TABLE_TAGS.equals(table))
-                dao = tagOutstandingDao;
-
-            if (dao == null)
-                return;
-
+        JSONArray idsArray = json.optJSONArray("ids"); //$NON-NLS-1$
+        if (idsArray != null && dao != null) {
             ArrayList<Long> idsList = new ArrayList<Long>();
             for (int i = 0; i < idsArray.length(); i++) {
                 try {

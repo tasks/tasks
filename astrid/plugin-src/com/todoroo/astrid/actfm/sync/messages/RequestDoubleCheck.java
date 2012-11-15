@@ -19,7 +19,6 @@ public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServer
             json.put(TYPE_KEY, "RequestDoubleCheck"); //$NON-NLS-1$
             json.put(TABLE_KEY, NameMaps.getServerNameForTable(table));
             json.put(UUID_KEY, uuid);
-            json.put(PUSHED_AT_KEY, pushedAt);
         } catch (JSONException e) {
             return null;
         }

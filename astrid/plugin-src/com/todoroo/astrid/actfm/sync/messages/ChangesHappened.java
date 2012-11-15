@@ -44,11 +44,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         // Process changes list and serialize to JSON
         JSONObject json = new JSONObject();
         try {
+            String serverTable = NameMaps.getServerNameForTable(table);
             json.put(TYPE_KEY, "ChangesHappened");
-            json.put(TABLE_KEY, NameMaps.getServerNameForTable(table));
+            json.put(TABLE_KEY, serverTable);
             json.put(UUID_KEY, uuid);
             json.put(PUSHED_AT_KEY, pushedAt);
-            json.put(CHANGES_KEY, changesToJSON());
+            json.put(CHANGES_KEY, changesToJSON(serverTable));
         } catch (JSONException e) {
             return null;
         }
@@ -63,14 +64,14 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return changes.size();
     }
 
-    private JSONArray changesToJSON() {
+    private JSONArray changesToJSON(String tableString) {
         JSONArray array = new JSONArray();
         for (OE change : changes) {
             try {
                 String localColumn = change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
-                String serverColumn = NameMaps.serverColumnNameToLocalColumnName(table, localColumn);
+                String serverColumn = NameMaps.localColumnNameToServerColumnName(tableString, localColumn);
                 if (serverColumn == null)
-                    throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table.name);
+                    throw new RuntimeException("No server column found for local column " + localColumn + " in table " + tableString);
 
                 JSONObject changeJson = new JSONObject();
                 changeJson.put("id", change.getId());

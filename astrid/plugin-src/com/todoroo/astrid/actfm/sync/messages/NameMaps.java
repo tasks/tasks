@@ -3,6 +3,7 @@ package com.todoroo.astrid.actfm.sync.messages;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.TagData;
@@ -45,56 +46,67 @@ public class NameMaps {
     // --------------------------------
     // ---- Column name mappings -------
     // --------------------------------
+    private static final Map<Property<?>, String> TASK_PROPERTIES_LOCAL_TO_SERVER;
     private static final Map<String, String> TASK_COLUMNS_LOCAL_TO_SERVER;
-    private static final Map<String, String> TASK_COLUMNS_SERVER_TO_LOCAL;
+    private static final Map<String, Property<?>> TASK_PROPERTIES_SERVER_TO_LOCAL;
+
+    private static void putPropertyToServerName(Property<?> property, String serverName,
+            Map<Property<?>, String> propertyMap, Map<String, String> nameMap) {
+        propertyMap.put(property, serverName);
+        nameMap.put(property.name, serverName);
+    }
 
     static {
         // Hardcoded local columns mapped to corresponding server names
+        TASK_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
         TASK_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.TITLE.name, "title");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.IMPORTANCE.name, "importance");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.DUE_DATE.name, "due");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.HIDE_UNTIL.name, "hide_until");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.COMPLETION_DATE.name, "completed_at");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.DELETION_DATE.name, "deleted_at");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.NOTES.name, "notes");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.RECURRENCE.name, "repeat");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.USER_ID.name, "user_id");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.USER.name, "user");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.CREATOR_ID.name, "creator_id");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.UUID.name, "uuid");
-        TASK_COLUMNS_LOCAL_TO_SERVER.put(Task.PROOF_TEXT.name, "proof_text");
+        putPropertyToServerName(Task.TITLE,           "title",        TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.IMPORTANCE,      "importance",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.DUE_DATE,        "due",          TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.COMPLETION_DATE, "completed_at", TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.DELETION_DATE,   "deleted_at",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.NOTES,           "notes",        TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.RECURRENCE,      "repeat",       TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.USER_ID,         "user_id",      TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.USER,            "user",         TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.CREATOR_ID,      "creator_id",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.UUID,            "uuid",         TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.PROOF_TEXT,      "proof_text",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
 
-        // Reverse the mapping to construct the server to local map
-        TASK_COLUMNS_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_COLUMNS_LOCAL_TO_SERVER);
+        TASK_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_PROPERTIES_LOCAL_TO_SERVER);
     }
 
+
+    private static final Map<Property<?>, String> TAG_DATA_PROPERTIES_LOCAL_TO_SERVER;
     private static final Map<String, String> TAG_DATA_COLUMNS_LOCAL_TO_SERVER;
-    private static final Map<String, String> TAG_DATA_COLUMNS_SERVER_TO_LOCAL;
+    private static final Map<String, Property<?>> TAG_DATA_PROPERTIES_SERVER_TO_LOCAL;
 
     static {
         // Hardcoded local columns mapped to corresponding server names
+        TAG_DATA_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
         TAG_DATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.USER_ID.name, "user_id");
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.USER.name, "user"); //TODO: NOT CORRECT
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.NAME.name, "name");
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.PICTURE.name, "picture_id"); //TODO: NOT CORRECT
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.MEMBERS.name, "members"); //TODO: NOT CORRECT
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.CREATION_DATE.name, "created_at");
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.DELETION_DATE.name, "deleted_at");
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.UUID.name, "uuid");
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.PROOF_TEXT.name, "proof_text");
-        TAG_DATA_COLUMNS_LOCAL_TO_SERVER.put(TagData.TAG_ORDERING.name, "tag_ordering"); //TODO: NOT CORRECT
+
+        putPropertyToServerName(TagData.USER_ID,       "user_id",      TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(TagData.USER,          "user",         TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER); //TODO: NOT CORRECT
+        putPropertyToServerName(TagData.NAME,          "name",         TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(TagData.PICTURE,       "picture_id",   TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER); //TODO: NOT CORRECT
+        putPropertyToServerName(TagData.MEMBERS,       "members",      TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER); //TODO: NOT CORRECT
+        putPropertyToServerName(TagData.CREATION_DATE, "created_at",   TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(TagData.DELETION_DATE, "deleted_at",   TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(TagData.UUID,          "uuid",         TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(TagData.PROOF_TEXT,    "proof_text",   TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(TagData.TAG_ORDERING,  "tag_ordering", TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER); //TODO: NOT CORRECT
 
         // Reverse the mapping to construct the server to local map
-        TAG_DATA_COLUMNS_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
+        TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);
     }
 
-    public static String localColumnNameToServerColumnName(Table table, String localColumn) {
+    public static String localColumnNameToServerColumnName(String table, String localColumn) {
         Map<String, String> map = null;
-        if (table == Task.TABLE)
+        if (SERVER_TABLE_TASKS.equals(table))
             map = TASK_COLUMNS_LOCAL_TO_SERVER;
-        else if (table == TagData.TABLE)
+        else if (SERVER_TABLE_TAGS.equals(table))
             map = TAG_DATA_COLUMNS_LOCAL_TO_SERVER;
 
         if (map == null)
@@ -103,12 +115,12 @@ public class NameMaps {
         return map.get(localColumn);
     }
 
-    public static String serverColumnNameToLocalColumnName(Table table, String serverColumn) {
-        Map<String, String> map = null;
-        if (table == Task.TABLE)
-            map = TASK_COLUMNS_SERVER_TO_LOCAL;
-        else if (table == TagData.TABLE)
-            map = TAG_DATA_COLUMNS_SERVER_TO_LOCAL;
+    public static Property<?> serverColumnNameToLocalProperty(String table, String serverColumn) {
+        Map<String, Property<?>> map = null;
+        if (SERVER_TABLE_TASKS.equals(table))
+            map = TASK_PROPERTIES_SERVER_TO_LOCAL;
+        else if (SERVER_TABLE_TAGS.equals(table))
+            map = TAG_DATA_PROPERTIES_SERVER_TO_LOCAL;
 
         if (map == null)
             return null;
