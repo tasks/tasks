@@ -625,8 +625,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         if (resultCode == RESULT_CANCELED)
             return;
 
-        if (requestCode == REQUEST_CODE_GOOGLE_ACCOUNTS) {
-            String accounts[] = data.getExtras().getStringArray(
+        if (requestCode == REQUEST_CODE_GOOGLE_ACCOUNTS && data != null && credentialsListener != null) {
+            String accounts[] = data.getStringArrayExtra(
                     GoogleLoginServiceConstants.ACCOUNTS_KEY);
             credentialsListener.getCredentials(accounts);
         } else if (requestCode == LoginButton.REQUEST_CODE_FACEBOOK) {
