@@ -2,16 +2,21 @@ package com.todoroo.astrid.actfm.sync.messages;
 
 import org.json.JSONObject;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 public class Debug extends ServerToClientMessage {
 
     public Debug(JSONObject json) {
         super(json);
-        throw new RuntimeException("No constructor for Debug implemented"); //$NON-NLS-1$
     }
 
     @Override
+    @SuppressWarnings("nls")
     public void processMessage() {
-        // TODO Auto-generated method stub
+        String message = json.optString("message");
+        if (!TextUtils.isEmpty(message))
+            Log.w("actfm-debug-message", message);
     }
 
 }
