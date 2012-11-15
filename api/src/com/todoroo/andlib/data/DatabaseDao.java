@@ -23,6 +23,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.OutstandingEntry;
+import com.todoroo.astrid.data.SyncFlags;
 
 
 
@@ -235,7 +236,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     private boolean insertOrUpdateAndRecordChanges(TYPE item, ContentValues values, DatabaseChangeOp op) {
-        boolean recordOutstanding = (outstandingTable != null);
+        boolean recordOutstanding = (outstandingTable != null) &&
+                !item.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES);
         final AtomicBoolean result = new AtomicBoolean(false);
 
         if (recordOutstanding) { // begin transaction
