@@ -6,11 +6,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 
 public class AcknowledgeChange extends ServerToClientMessage {
+
+    private static final String ERROR_TAG = "actfm-acknowledge-change"; //$NON-NLS-1$
 
     private final OutstandingEntryDao<?> dao;
 
@@ -38,7 +42,7 @@ public class AcknowledgeChange extends ServerToClientMessage {
 
                     idsList.add(id);
                 } catch (JSONException e) {
-                    //
+                    Log.e(ERROR_TAG, "Error getting long from " + idsArray + " at index " + i, e);  //$NON-NLS-1$//$NON-NLS-2$
                 }
             }
             dao.deleteWhere(AbstractModel.ID_PROPERTY.in(idsList.toArray(new Long[idsList.size()])));

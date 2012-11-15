@@ -23,6 +23,8 @@ import com.todoroo.astrid.data.RemoteModel;
 @SuppressWarnings("nls")
 public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
 
+    private static final String ERROR_TAG = "actfm-changes-happened";
+
     private final Class<OE> outstandingClass;
     private final List<OE> changes;
 
@@ -80,7 +82,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
                 array.put(changeJson);
             } catch (JSONException e) {
-                //
+                Log.e(ERROR_TAG, "Error writing change to JSON", e);
             }
         }
         return array;
