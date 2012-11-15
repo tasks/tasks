@@ -22,8 +22,10 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -790,6 +792,23 @@ public class AndroidUtilities {
         for(; i < dest.length; i++)
             dest[i] = additional[i - base];
         return dest;
+    }
+
+    /**
+     * Returns a map where the keys are the values of the map argument
+     * and the values are the corresponding keys. Use at your own
+     * risk if your map is not 1-to-1!
+     * @param map
+     * @return
+     */
+    public static <K, V> Map<V, K> reverseMap(Map<K, V> map) {
+        HashMap<V, K> reversed = new HashMap<V, K>();
+
+        Set<Entry<K, V>> entries = map.entrySet();
+        for (Entry<K, V> entry : entries) {
+            reversed.put(entry.getValue(), entry.getKey());
+        }
+        return reversed;
     }
 
     /**

@@ -45,7 +45,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         JSONObject json = new JSONObject();
         try {
             json.put(TYPE_KEY, "ChangesHappened");
-            json.put(TABLE_KEY, table.name);
+            json.put(TABLE_KEY, NameMaps.getServerNameForTable(table));
             json.put(UUID_KEY, uuid);
             json.put(PUSHED_AT_KEY, pushedAt);
             json.put(CHANGES_KEY, changesToJSON());
@@ -67,9 +67,14 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         JSONArray array = new JSONArray();
         for (OE change : changes) {
             try {
+                String localColumn = change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
+                String serverColumn = NameMaps.serverColumnNameToLocalColumnName(table, localColumn);
+                if (serverColumn == null)
+                    throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table.name);
+
                 JSONObject changeJson = new JSONObject();
                 changeJson.put("id", change.getId());
-                changeJson.put("column", change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY));
+                changeJson.put("column", serverColumn);
                 changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
 
                 array.put(changeJson);
