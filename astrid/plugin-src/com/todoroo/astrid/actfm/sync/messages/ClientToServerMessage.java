@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -12,7 +13,7 @@ import com.todoroo.astrid.data.RemoteModel;
 public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
 
     protected final Class<TYPE> modelClass;
-    protected final Table table;
+    protected final String table;
     protected final long id;
     protected final String uuid;
     protected final long pushedAt;
@@ -24,7 +25,8 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
 
     public ClientToServerMessage(Class<TYPE> modelClass, String uuid, long pushedAt) {
         this.modelClass = modelClass;
-        this.table = DaoReflectionHelpers.getStaticFieldByReflection(modelClass, Table.class, "TABLE");
+        Table tableClass = DaoReflectionHelpers.getStaticFieldByReflection(modelClass, Table.class, "TABLE");
+        this.table = NameMaps.getServerNameForTable(tableClass);
         this.uuid = uuid;
         this.pushedAt = pushedAt;
         this.id = AbstractModel.NO_ID;
@@ -33,7 +35,8 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
     public ClientToServerMessage(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao) {
         this.id = id;
         this.modelClass = modelClass;
-        this.table = DaoReflectionHelpers.getStaticFieldByReflection(modelClass, Table.class, "TABLE");
+        Table tableClass = DaoReflectionHelpers.getStaticFieldByReflection(modelClass, Table.class, "TABLE");
+        this.table = NameMaps.getServerNameForTable(tableClass);
 
         TYPE entity = getEntity(id, modelDao);
         if (entity == null) {
@@ -57,6 +60,21 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         return pushedAt;
     }
 
-    public abstract JSONObject serializeToJSON();
+    public final JSONObject serializeToJSON() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put(TYPE_KEY, getTypeString());
+            json.put(TABLE_KEY, table);
+            json.put(UUID_KEY, uuid);
+            json.put(PUSHED_AT_KEY, pushedAt);
+            serializeToJSONImpl(json);
+        } catch (JSONException e) {
+            return null;
+        }
+        return json;
+    }
+
+    protected abstract void serializeToJSONImpl(JSONObject serializeTo) throws JSONException;
+    protected abstract String getTypeString();
 
 }

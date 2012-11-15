@@ -42,20 +42,14 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     @Override
-    public JSONObject serializeToJSON() {
+    protected void serializeToJSONImpl(JSONObject serializeTo) throws JSONException {
         // Process changes list and serialize to JSON
-        JSONObject json = new JSONObject();
-        try {
-            String serverTable = NameMaps.getServerNameForTable(table);
-            json.put(TYPE_KEY, "ChangesHappened");
-            json.put(TABLE_KEY, serverTable);
-            json.put(UUID_KEY, uuid);
-            json.put(PUSHED_AT_KEY, pushedAt);
-            json.put(CHANGES_KEY, changesToJSON(serverTable));
-        } catch (JSONException e) {
-            return null;
-        }
-        return json;
+        serializeTo.put(CHANGES_KEY, changesToJSON());
+    }
+
+    @Override
+    protected String getTypeString() {
+        return "ChangesHappened";
     }
 
     public List<OE> getChanges() {
@@ -66,14 +60,14 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return changes.size();
     }
 
-    private JSONArray changesToJSON(String tableString) {
+    private JSONArray changesToJSON() {
         JSONArray array = new JSONArray();
         for (OE change : changes) {
             try {
                 String localColumn = change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
-                String serverColumn = NameMaps.localColumnNameToServerColumnName(tableString, localColumn);
+                String serverColumn = NameMaps.localColumnNameToServerColumnName(table, localColumn);
                 if (serverColumn == null)
-                    throw new RuntimeException("No server column found for local column " + localColumn + " in table " + tableString);
+                    throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
 
                 JSONObject changeJson = new JSONObject();
                 changeJson.put("id", change.getId());

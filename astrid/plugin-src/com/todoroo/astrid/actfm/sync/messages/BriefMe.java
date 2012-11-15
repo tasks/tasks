@@ -17,17 +17,13 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
     }
 
     @Override
-    public JSONObject serializeToJSON() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put(TYPE_KEY, "BriefMe"); //$NON-NLS-1$
-            json.put(TABLE_KEY, NameMaps.getServerNameForTable(table));
-            json.put(UUID_KEY, uuid);
-            json.put(PUSHED_AT_KEY, pushedAt);
-        } catch (JSONException e) {
-            return null;
-        }
-        return json;
+    protected void serializeToJSONImpl(JSONObject serializeTo) throws JSONException {
+        // No extras
+    }
+
+    @Override
+    protected String getTypeString() {
+        return "BriefMe"; //$NON-NLS-1$
     }
 
 }
