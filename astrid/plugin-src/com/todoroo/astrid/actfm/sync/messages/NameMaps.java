@@ -73,6 +73,7 @@ public class NameMaps {
         putPropertyToServerName(Task.CREATOR_ID,      "creator_id",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
         putPropertyToServerName(Task.UUID,            "uuid",         TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
         putPropertyToServerName(Task.PROOF_TEXT,      "proof_text",   TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
+        putPropertyToServerName(Task.PUSHED_AT,       "pushed_at",    TASK_PROPERTIES_LOCAL_TO_SERVER, TASK_COLUMNS_LOCAL_TO_SERVER);
 
         TASK_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_PROPERTIES_LOCAL_TO_SERVER);
     }
@@ -97,6 +98,7 @@ public class NameMaps {
         putPropertyToServerName(TagData.UUID,          "uuid",         TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
         putPropertyToServerName(TagData.PROOF_TEXT,    "proof_text",   TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
         putPropertyToServerName(TagData.TAG_ORDERING,  "tag_ordering", TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER); //TODO: NOT CORRECT
+        putPropertyToServerName(TagData.PUSHED_AT,     "pushed_at",    TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
 
         // Reverse the mapping to construct the server to local map
         TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);

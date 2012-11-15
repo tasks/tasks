@@ -31,10 +31,11 @@ public class TagDataDao extends RemoteModelDao<TagData> {
     private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
         TagData.MODIFICATION_DATE.name,
         TagData.UUID.name,
+        TagData.PUSHED_AT.name,
     };
 
     @Override
-    protected boolean recordOutstandingEntry(String columnName) {
+    protected boolean shouldRecordOutstandingEntry(String columnName) {
         return AndroidUtilities.indexOf(IGNORE_OUTSTANDING_COLUMNS, columnName) < 0;
     }
 

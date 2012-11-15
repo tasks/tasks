@@ -328,7 +328,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     };
 
     @Override
-    protected boolean recordOutstandingEntry(String columnName) {
+    protected boolean shouldRecordOutstandingEntry(String columnName) {
         return AndroidUtilities.indexOf(IGNORE_OUTSTANDING_COLUMNS, columnName) < 0;
     }
 
