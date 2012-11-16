@@ -11,10 +11,10 @@ public abstract class ServerToClientMessage {
 
     public abstract void processMessage();
 
-    private static final String TYPE_MAKE_CHANGES = "MakeChanges";
-    private static final String TYPE_ACKNOWLEDGE_CHANGE = "AcknowledgeChange";
-    private static final String TYPE_DOUBLE_CHECK = "DoubleCheck";
-    private static final String TYPE_DEBUG = "Debug";
+    public static final String TYPE_MAKE_CHANGES = "MakeChanges";
+    public static final String TYPE_ACKNOWLEDGE_CHANGE = "AcknowledgeChange";
+    public static final String TYPE_DOUBLE_CHECK = "DoubleCheck";
+    public static final String TYPE_DEBUG = "Debug";
 
     protected final JSONObject json;
 

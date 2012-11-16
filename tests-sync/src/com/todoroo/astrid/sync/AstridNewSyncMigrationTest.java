@@ -35,11 +35,11 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 	private void setupOldDatabase() {
 		// Init 5 unsynced tasks and tags
 		for (int i = 1; i <= 5; i++) {
-			Task task = createTask("Task " + i);
+			Task task = createTask("Task " + i, true);
 			task.setValue(Task.REMOTE_ID, null);
 			taskDao.save(task);
 			
-			TagData tag = createTagData("Tag " + i);
+			TagData tag = createTagData("Tag " + i, true);
 			tag.setValue(TagData.REMOTE_ID, null);
 			tagDataDao.saveExisting(tag);
 		}
