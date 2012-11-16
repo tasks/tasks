@@ -1,9 +1,9 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,13 +17,17 @@ import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
 public class ActFmSyncThread {
 
-    private final Queue<Pair<Long, ModelType>> changesQueue;
+    private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
+
+    private final List<Pair<Long, ModelType>> changesQueue;
     private final Object monitor;
     private Thread thread;
 
@@ -40,7 +44,19 @@ public class ActFmSyncThread {
         TYPE_TAG
     }
 
-    public ActFmSyncThread(Queue<Pair<Long, ModelType>> queue, Object syncMonitor) {
+    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao) {
+        List<Pair<Long, ModelType>> syncQueue = Collections.synchronizedList(new LinkedList<Pair<Long, ModelType>>());
+        ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
+
+        taskDao.addListener(new SyncDatabaseListener<Task>(syncQueue, monitor, ModelType.TYPE_TASK));
+        tagDataDao.addListener(new SyncDatabaseListener<TagData>(syncQueue, monitor, ModelType.TYPE_TAG));
+
+        ActFmSyncThread thread = new ActFmSyncThread(syncQueue, monitor);
+        thread.startSyncThread();
+        return thread;
+    }
+
+    public ActFmSyncThread(List<Pair<Long, ModelType>> queue, Object syncMonitor) {
         DependencyInjectionService.getInstance().inject(this);
         this.changesQueue = queue;
         this.monitor = syncMonitor;
@@ -76,7 +92,7 @@ public class ActFmSyncThread {
 
                 // Stuff in the document
                 while (messages.size() < batchSize && !changesQueue.isEmpty()) {
-                    Pair<Long, ModelType> tuple = changesQueue.poll();
+                    Pair<Long, ModelType> tuple = changesQueue.remove(0);
                     if (tuple != null) {
                         ChangesHappened<?, ?> changes = ClientToServerMessage.instantiateChangesHappened(tuple.getLeft(), tuple.getRight());
                         if (changes != null)
@@ -106,8 +122,11 @@ public class ActFmSyncThread {
                                 JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
                                 if (serverMessageJson != null) {
                                     ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
-                                    if (serverMessage != null)
+                                    if (serverMessage != null) {
                                         serverMessage.processMessage();
+                                    } else {
+                                        Log.e(ERROR_TAG, "Unable to instantiate message " + serverMessageJson.toString());
+                                    }
                                 }
                             }
                         }
@@ -121,7 +140,7 @@ public class ActFmSyncThread {
             }
         } catch (Exception e) {
             // In the worst case, restart thread if something goes wrong
-            Log.e("actfm-sync", "Unexpected sync thread exception", e);
+            Log.e(ERROR_TAG, "Unexpected sync thread exception", e);
             thread = null;
             startSyncThread();
         }
