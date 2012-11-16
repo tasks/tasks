@@ -8,6 +8,12 @@ import com.todoroo.astrid.data.RemoteModel;
 
 public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYPE> {
 
+    public static <TYPE extends RemoteModel> BriefMe<TYPE> instantiateBriefMeForClass(Class<TYPE> cls) {
+        // TODO: compute last pushed at value for model class
+        long pushedAt = 0;
+        return new BriefMe<TYPE>(cls, null, pushedAt);
+    }
+
     public BriefMe(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao) {
         super(id, modelClass, modelDao);
     }

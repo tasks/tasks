@@ -14,11 +14,17 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagOutstanding;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 
 @SuppressWarnings("nls")
 public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
@@ -30,7 +36,20 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     public static final String CHANGES_KEY = "changes";
 
-    public ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
+    public static ChangesHappened<?, ?> instantiateChangesHappened(Long id, ModelType modelType) {
+        switch(modelType) {
+        case TYPE_TASK:
+            return new ChangesHappened<Task, TaskOutstanding>(id, Task.class,
+                    PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao());
+        case TYPE_TAG:
+            return new ChangesHappened<TagData, TagOutstanding>(id, TagData.class,
+                    PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao());
+        default:
+            return null;
+        }
+    }
+
+    private ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
             OutstandingEntryDao<OE> outstandingDao) {
         super(id, modelClass, modelDao);
 

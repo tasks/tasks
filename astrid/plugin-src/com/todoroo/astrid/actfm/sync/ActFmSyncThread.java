@@ -12,14 +12,11 @@ import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
-import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
@@ -27,7 +24,7 @@ public class ActFmSyncThread {
 
     private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
 
-    private final List<Pair<Long, ModelType>> changesQueue;
+    private final List<ClientToServerMessage<?>> pendingMessages;
     private final Object monitor;
     private Thread thread;
 
@@ -45,7 +42,7 @@ public class ActFmSyncThread {
     }
 
     public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao) {
-        List<Pair<Long, ModelType>> syncQueue = Collections.synchronizedList(new LinkedList<Pair<Long, ModelType>>());
+        List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
         ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
 
         taskDao.addListener(new SyncDatabaseListener<Task>(syncQueue, monitor, ModelType.TYPE_TASK));
@@ -56,9 +53,9 @@ public class ActFmSyncThread {
         return thread;
     }
 
-    public ActFmSyncThread(List<Pair<Long, ModelType>> queue, Object syncMonitor) {
+    private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, Object syncMonitor) {
         DependencyInjectionService.getInstance().inject(this);
-        this.changesQueue = queue;
+        this.pendingMessages = messageQueue;
         this.monitor = syncMonitor;
     }
 
@@ -74,14 +71,21 @@ public class ActFmSyncThread {
         }
     }
 
+    public void enqueueMessage(ClientToServerMessage<?> message) {
+        pendingMessages.add(message);
+        synchronized(monitor) {
+            monitor.notifyAll();
+        }
+    }
+
     @SuppressWarnings("nls")
     private void sync() {
         try {
             int batchSize = 1;
-            List<ClientToServerMessage<?>> messages = new LinkedList<ClientToServerMessage<?>>();
+            List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
-                    while (changesQueue.isEmpty() && !timeForBackgroundSync()) {
+                    while (pendingMessages.isEmpty() && !timeForBackgroundSync()) {
                         try {
                             monitor.wait();
                         } catch (InterruptedException e) {
@@ -91,23 +95,20 @@ public class ActFmSyncThread {
                 }
 
                 // Stuff in the document
-                while (messages.size() < batchSize && !changesQueue.isEmpty()) {
-                    Pair<Long, ModelType> tuple = changesQueue.remove(0);
-                    if (tuple != null) {
-                        ChangesHappened<?, ?> changes = ClientToServerMessage.instantiateChangesHappened(tuple.getLeft(), tuple.getRight());
-                        if (changes != null)
-                            messages.add(changes);
-                    }
+                while (messageBatch.size() < batchSize && !pendingMessages.isEmpty()) {
+                    ClientToServerMessage<?> message = pendingMessages.remove(0);
+                    if (message != null)
+                        messageBatch.add(message);
                 }
 
-                if (messages.isEmpty() && timeForBackgroundSync()) {
-                    messages.add(instantiateBriefMe(Task.class));
-                    messages.add(instantiateBriefMe(TagData.class));
+                if (messageBatch.isEmpty() && timeForBackgroundSync()) {
+                    messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class));
+                    messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class));
                 }
 
-                if (!messages.isEmpty() && checkForToken()) {
+                if (!messageBatch.isEmpty() && checkForToken()) {
                     JSONArray payload = new JSONArray();
-                    for (ClientToServerMessage<?> message : messages) {
+                    for (ClientToServerMessage<?> message : messageBatch) {
                         JSONObject serialized = message.serializeToJSON();
                         if (serialized != null)
                             payload.put(serialized);
@@ -131,11 +132,11 @@ public class ActFmSyncThread {
                             }
                         }
 
-                        batchSize = Math.min(batchSize, messages.size()) * 2;
+                        batchSize = Math.min(batchSize, messageBatch.size()) * 2;
                     } catch (IOException e) {
                         batchSize = Math.max(batchSize / 2, 1);
                     }
-                    messages = new LinkedList<ClientToServerMessage<?>>();
+                    messageBatch = new LinkedList<ClientToServerMessage<?>>();
                 }
             }
         } catch (Exception e) {
@@ -145,12 +146,6 @@ public class ActFmSyncThread {
             startSyncThread();
         }
 
-    }
-
-    private <TYPE extends RemoteModel> BriefMe<TYPE> instantiateBriefMe(Class<TYPE> cls) {
-        // TODO: compute last pushed at value for model class
-        long pushedAt = 0;
-        return new BriefMe<TYPE>(cls, null, pushedAt);
     }
 
     private boolean timeForBackgroundSync() {
