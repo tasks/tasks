@@ -5,9 +5,15 @@ import org.json.JSONObject;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagOutstanding;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 
 @SuppressWarnings("nls")
 public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
@@ -76,5 +82,18 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
 
     protected abstract void serializeToJSONImpl(JSONObject serializeTo) throws JSONException;
     protected abstract String getTypeString();
+
+    public static ChangesHappened<?, ?> instantiateChangesHappened(Long id, ModelType modelType) {
+        switch(modelType) {
+        case TYPE_TASK:
+            return new ChangesHappened<Task, TaskOutstanding>(id, Task.class,
+                    PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao());
+        case TYPE_TAG:
+            return new ChangesHappened<TagData, TagOutstanding>(id, TagData.class,
+                    PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao());
+        default:
+            return null;
+        }
+    }
 
 }

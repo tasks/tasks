@@ -3,19 +3,20 @@ package com.todoroo.astrid.sync;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
+import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskOutstanding;
 
 public class SyncMessageTest extends NewSyncTestCase {
 	
 	public void testTaskChangesHappenedConstructor() {
 		Task t = createTask();
 		try {
-			ChangesHappened<Task, TaskOutstanding> changes = new ChangesHappened<Task, TaskOutstanding>(t.getId(), Task.class, taskDao, taskOutstandingDao);
+			ChangesHappened<?, ?> changes = ClientToServerMessage.instantiateChangesHappened(t.getId(), ModelType.TYPE_TASK);
 			assertTrue(changes.numChanges() > 0);
 			assertFalse(RemoteModel.NO_UUID.equals(changes.getUUID()));
 			assertEquals(t.getValue(Task.UUID), changes.getUUID());
