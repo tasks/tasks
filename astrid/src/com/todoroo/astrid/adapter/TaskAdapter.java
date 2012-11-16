@@ -227,14 +227,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         super(ContextManager.getContext(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
-        inflater = (LayoutInflater) fragment.getActivity().getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-
         this.query = query;
         this.resource = resource;
         this.fragment = fragment;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
+        inflater = (LayoutInflater) fragment.getActivity().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
 
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
         paint = new Paint();
