@@ -150,6 +150,7 @@ public class ActFmSyncThread {
                                     }
                                 }
                             }
+                            replayOutstandingChanges();
                         }
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
@@ -165,6 +166,13 @@ public class ActFmSyncThread {
             thread = null;
             startSyncThread();
         }
+
+    }
+
+    // Reapplies changes still in the outstanding tables to the local database
+    // Called after a batch has finished processing
+    private void replayOutstandingChanges() {
+        // TODO: Replay existing outstanding changes
 
     }
 
