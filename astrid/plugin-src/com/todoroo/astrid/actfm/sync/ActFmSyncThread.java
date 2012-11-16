@@ -15,6 +15,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
@@ -41,16 +42,35 @@ public class ActFmSyncThread {
         TYPE_TAG
     }
 
+    private static volatile ActFmSyncThread instance;
+
+    public static synchronized ActFmSyncThread getInstance() {
+        if (instance == null) {
+            synchronized(ActFmSyncThread.class) {
+                if (instance == null) {
+                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao());
+                }
+            }
+        }
+        return instance;
+    }
+
     public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao) {
-        List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
-        ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
+        if (instance == null) {
+            synchronized(ActFmSyncThread.class) {
+                if (instance == null) {
+                    List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
+                    ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
 
-        taskDao.addListener(new SyncDatabaseListener<Task>(syncQueue, monitor, ModelType.TYPE_TASK));
-        tagDataDao.addListener(new SyncDatabaseListener<TagData>(syncQueue, monitor, ModelType.TYPE_TAG));
+                    taskDao.addListener(new SyncDatabaseListener<Task>(syncQueue, monitor, ModelType.TYPE_TASK));
+                    tagDataDao.addListener(new SyncDatabaseListener<TagData>(syncQueue, monitor, ModelType.TYPE_TAG));
 
-        ActFmSyncThread thread = new ActFmSyncThread(syncQueue, monitor);
-        thread.startSyncThread();
-        return thread;
+                    instance = new ActFmSyncThread(syncQueue, monitor);
+                    instance.startSyncThread();
+                }
+            }
+        }
+        return instance;
     }
 
     private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, Object syncMonitor) {
