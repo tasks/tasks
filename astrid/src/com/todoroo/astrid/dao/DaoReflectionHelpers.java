@@ -2,6 +2,10 @@ package com.todoroo.astrid.dao;
 
 import java.lang.reflect.Field;
 
+import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.astrid.data.RemoteModel;
+
 @SuppressWarnings("nls")
 public class DaoReflectionHelpers {
 
@@ -20,6 +24,14 @@ public class DaoReflectionHelpers {
         } catch (ClassCastException e3) {
             throw new RuntimeException(fieldName + " field for class " + cls.getName() + " cannot be cast to type " + cast.getName());
         }
+    }
+
+    public static Property<?>[] getModelProperties(Class<? extends AbstractModel> model) {
+        return getStaticFieldByReflection(model, Property[].class, "PROPERTIES");
+    }
+
+    public static <OE> Class<OE> getOutstandingClass(Class<? extends RemoteModel> model) {
+        return DaoReflectionHelpers.getStaticFieldByReflection(model, Class.class, "OUTSTANDING_MODEL");
     }
 
 }

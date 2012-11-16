@@ -9,8 +9,8 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -53,7 +53,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             OutstandingEntryDao<OE> outstandingDao) {
         super(id, modelClass, modelDao);
 
-        this.outstandingClass = getOutstandingClass(modelClass);
+        this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
         this.changes = new ArrayList<OE>();
 
         if (!RemoteModel.NO_UUID.equals(uuid))
@@ -81,17 +81,23 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     private JSONArray changesToJSON() {
         JSONArray array = new JSONArray();
+        PropertyToJSONVisitor visitor = new PropertyToJSONVisitor();
         for (OE change : changes) {
             try {
                 String localColumn = change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
+                Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
+                if (localProperty == null)
+                    throw new RuntimeException("No local property found for local column " + localColumn + " in table " + table);
+
                 String serverColumn = NameMaps.localColumnNameToServerColumnName(table, localColumn);
                 if (serverColumn == null)
                     throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
 
+
                 JSONObject changeJson = new JSONObject();
                 changeJson.put("id", change.getId());
                 changeJson.put("column", serverColumn);
-                changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                changeJson.put("value", localProperty.accept(visitor, change));
 
                 array.put(changeJson);
             } catch (JSONException e) {
@@ -102,7 +108,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     private void populateChanges(OutstandingEntryDao<OE> outstandingDao) {
-        TodorooCursor<OE> cursor = outstandingDao.query(Query.select(getModelProperties(outstandingClass))
+        TodorooCursor<OE> cursor = outstandingDao.query(Query.select(DaoReflectionHelpers.getModelProperties(outstandingClass))
                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -121,11 +127,47 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         }
     }
 
-    private Class<OE> getOutstandingClass(Class<? extends RemoteModel> model) {
-        return DaoReflectionHelpers.getStaticFieldByReflection(model, Class.class, "OUTSTANDING_MODEL");
+    private class PropertyToJSONVisitor implements PropertyVisitor<Object, OE> {
+
+        private String getAsString(OE data) {
+            return data.getValue(OutstandingEntry.VALUE_STRING_PROPERTY);
+        }
+
+        @Override
+        public Object visitInteger(Property<Integer> property, OE data) {
+            Integer i = data.getMergedValues().getAsInteger(OutstandingEntry.VALUE_STRING_PROPERTY.name);
+            if (i != null) {
+                return i.intValue();
+            } else {
+                return getAsString(data);
+            }
+        }
+
+        @Override
+        public Object visitLong(Property<Long> property, OE data) {
+            Long l = data.getMergedValues().getAsLong(OutstandingEntry.VALUE_STRING_PROPERTY.name);
+            if (l != null) {
+                return l.longValue();
+            } else {
+                return getAsString(data);
+            }
+        }
+
+        @Override
+        public Object visitDouble(Property<Double> property, OE data) {
+            Double d = data.getMergedValues().getAsDouble(OutstandingEntry.VALUE_STRING_PROPERTY.name);
+            if (d != null) {
+                return d.doubleValue();
+            } else {
+                return getAsString(data);
+            }
+        }
+
+        @Override
+        public Object visitString(Property<String> property, OE data) {
+            return getAsString(data);
+        }
+
     }
 
-    private Property<?>[] getModelProperties(Class<? extends AbstractModel> model) {
-        return DaoReflectionHelpers.getStaticFieldByReflection(model, Property[].class, "PROPERTIES");
-    }
 }

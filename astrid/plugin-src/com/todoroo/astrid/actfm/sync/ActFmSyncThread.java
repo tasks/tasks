@@ -14,12 +14,17 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
+import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 
 public class ActFmSyncThread {
 
@@ -34,6 +39,18 @@ public class ActFmSyncThread {
 
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    private TaskDao taskDao;
+
+    @Autowired
+    private TaskOutstandingDao taskOutstandingDao;
+
+    @Autowired
+    private TagDataDao tagDataDao;
+
+    @Autowired
+    private TagOutstandingDao tagOutstandingDao;
 
     private String token;
 
@@ -172,8 +189,8 @@ public class ActFmSyncThread {
     // Reapplies changes still in the outstanding tables to the local database
     // Called after a batch has finished processing
     private void replayOutstandingChanges() {
-        // TODO: Replay existing outstanding changes
-
+        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, taskDao, taskOutstandingDao).execute();
+        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, tagDataDao, tagOutstandingDao).execute();
     }
 
     private boolean timeForBackgroundSync() {
