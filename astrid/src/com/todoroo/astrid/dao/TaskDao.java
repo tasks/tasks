@@ -20,9 +20,9 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
@@ -315,21 +315,9 @@ public class TaskDao extends RemoteModelDao<Task> {
         Task.RECURRENCE
     };
 
-    private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
-        Task.MODIFICATION_DATE.name,
-        Task.DETAILS.name,
-        Task.DETAILS_DATE.name,
-        Task.CALENDAR_URI.name,
-        Task.UUID.name,
-        Task.PUSHED_AT.name,
-        Task.LAST_SYNC.name,
-        Task.ESTIMATED_SECONDS.name,
-        Task.TIMER_START.name,
-    };
-
     @Override
     protected boolean shouldRecordOutstandingEntry(String columnName) {
-        return AndroidUtilities.indexOf(IGNORE_OUTSTANDING_COLUMNS, columnName) < 0;
+        return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASKS, columnName);
     }
 
     public void saveExistingWithSqlConstraintCheck(Task item) {

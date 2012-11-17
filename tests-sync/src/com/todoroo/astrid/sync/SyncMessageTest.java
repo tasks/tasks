@@ -7,9 +7,13 @@ import org.json.JSONObject;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
+import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
+
 
 public class SyncMessageTest extends NewSyncTestCase {
 	
@@ -62,6 +66,21 @@ public class SyncMessageTest extends NewSyncTestCase {
 			e.printStackTrace();
 			fail("JSONException");
 		}
+	}
+	
+	public void testReplayOutstandingEntries() {
+		Task t = createTask();
+		
+		t.setValue(Task.TITLE, "change title");
+		t.setValue(Task.IMPORTANCE, Task.IMPORTANCE_NONE);
+		t.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+		taskDao.save(t);
+		
+		new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao).execute();
+		
+		t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
+		assertEquals(SYNC_TASK_TITLE, t.getValue(Task.TITLE));
+		assertEquals(SYNC_TASK_IMPORTANCE, t.getValue(Task.IMPORTANCE).intValue());
 	}
 	
 }

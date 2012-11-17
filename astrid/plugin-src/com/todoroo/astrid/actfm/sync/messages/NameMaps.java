@@ -124,6 +124,15 @@ public class NameMaps {
         return map.get(col);
     }
 
+    public static boolean shouldRecordOutstandingColumnForTable(String table, String column) {
+        if (TABLE_ID_TASKS.equals(table)) {
+           return TASK_COLUMN_NAMES_TO_PROPERTIES.containsKey(column);
+        } else if (TABLE_ID_TAGS.equals(table)) {
+            return TAG_DATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column);
+        }
+        return false;
+    }
+
     public static String localColumnNameToServerColumnName(String table, String localColumn) {
         return mapColumnName(table, localColumn, TASK_COLUMNS_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER);
     }

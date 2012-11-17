@@ -25,6 +25,7 @@ public class NewSyncTestCase extends DatabaseTestCase {
 	protected Task createTask(String title, boolean suppress) {
 		Task task = new Task();
 		task.setValue(Task.TITLE, title);
+		task.setValue(Task.IMPORTANCE, SYNC_TASK_IMPORTANCE);
 		
 		if (suppress)
 			task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -36,8 +37,11 @@ public class NewSyncTestCase extends DatabaseTestCase {
 		return createTask(false);
 	}
 	
+	public static final String SYNC_TASK_TITLE = "new title";
+	public static final int SYNC_TASK_IMPORTANCE = Task.IMPORTANCE_MUST_DO;
+	
 	protected Task createTask(boolean suppress) {
-		return createTask("new title", suppress);
+		return createTask(SYNC_TASK_TITLE, suppress);
 	}
 	
 	protected TagData createTagData(String name, boolean suppress) {

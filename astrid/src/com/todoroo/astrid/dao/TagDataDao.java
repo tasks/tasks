@@ -8,7 +8,7 @@ package com.todoroo.astrid.dao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.TagData;
 
 /**
@@ -28,15 +28,9 @@ public class TagDataDao extends RemoteModelDao<TagData> {
         setDatabase(database);
     }
 
-    private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
-        TagData.MODIFICATION_DATE.name,
-        TagData.UUID.name,
-        TagData.PUSHED_AT.name,
-    };
-
     @Override
     protected boolean shouldRecordOutstandingEntry(String columnName) {
-        return AndroidUtilities.indexOf(IGNORE_OUTSTANDING_COLUMNS, columnName) < 0;
+        return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TAGS, columnName);
     }
 
     // --- SQL clause generators
