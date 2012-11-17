@@ -1,5 +1,6 @@
 package com.todoroo.astrid.sync;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,9 +30,18 @@ public class SyncMessageTest extends NewSyncTestCase {
 		JSONObject makeChanges = new JSONObject();
 		makeChanges.put("type", ServerToClientMessage.TYPE_MAKE_CHANGES);
 		makeChanges.put("table", NameMaps.TABLE_ID_TASKS);
-		JSONObject changes = new JSONObject();
-		changes.put("title", MAKE_CHANGES_TITLE);
-		changes.put("importance", Task.IMPORTANCE_DO_OR_DIE);
+		JSONArray changes = new JSONArray();
+		
+		JSONArray change1 = new JSONArray();
+		change1.put("title"); 
+		change1.put(MAKE_CHANGES_TITLE);
+		
+		JSONArray change2 = new JSONArray();
+		change2.put("importance");
+		change2.put(Task.IMPORTANCE_DO_OR_DIE);
+		
+		changes.put(change1);
+		changes.put(change2);
 		makeChanges.put("changes", changes);
 		return makeChanges;
 	}
