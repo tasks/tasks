@@ -34,20 +34,21 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
     @Override
     public void processMessage() {
-        JSONObject changes = json.optJSONObject("changes");
+        JSONArray changes = json.optJSONArray("changes");
         String uuid = json.optString("uuid");
         if (dao != null && changes != null && !TextUtils.isEmpty(uuid)) {
             try {
                 TYPE model = dao.getModelClass().newInstance();
-                JSONArray keys = changes.names();
-                if (keys != null) {
-                    JSONToPropertyVisitor visitor = new JSONToPropertyVisitor(changes, model);
-                    for (int i = 0; i < keys.length(); i++) {
-                        String col = keys.optString(i);
-                        if (!TextUtils.isEmpty(col)) {
-                            Property<?> property = NameMaps.serverColumnNameToLocalProperty(table, col);
+                if (changes.length() > 0) {
+                    JSONChangeToPropertyVisitor visitor = new JSONChangeToPropertyVisitor(model);
+                    for (int i = 0; i < changes.length(); i++) {
+                        JSONArray change = changes.optJSONArray(i);
+
+                        if (change != null) {
+                            String column = change.optString(0);
+                            Property<?> property = NameMaps.serverColumnNameToLocalProperty(table, column);
                             if (property != null) { // Unsupported property
-                                property.accept(visitor, col);
+                                property.accept(visitor, change);
                             }
                         }
                     }
@@ -69,56 +70,54 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
     }
 
 
-    private static class JSONToPropertyVisitor implements PropertyVisitor<Void, String> {
+    private static class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, JSONArray> {
 
-        private final JSONObject json;
         private final AbstractModel model;
 
-        public JSONToPropertyVisitor(JSONObject json, AbstractModel model) {
-            this.json = json;
+        public JSONChangeToPropertyVisitor(AbstractModel model) {
             this.model = model;
         }
 
         @Override
-        public Void visitInteger(Property<Integer> property, String data) {
+        public Void visitInteger(Property<Integer> property, JSONArray data) {
             try {
-                int value = json.getInt(data);
+                int value = data.getInt(1);
                 model.setValue((IntegerProperty) property, value);
             } catch (JSONException e) {
-                Log.e(ERROR_TAG, "Error reading int from JSON " + json + " with key " + data, e);
+                Log.e(ERROR_TAG, "Error reading int value from JSON " + data, e);
             }
             return null;
         }
 
         @Override
-        public Void visitLong(Property<Long> property, String data) {
+        public Void visitLong(Property<Long> property, JSONArray data) {
             try {
-                long value = json.getLong(data);
+                long value = data.getLong(1);
                 model.setValue((LongProperty) property, value);
             } catch (JSONException e) {
-                Log.e(ERROR_TAG, "Error reading long from JSON " + json + " with key " + data, e);
+                Log.e(ERROR_TAG, "Error reading long value from JSON " + data, e);
             }
             return null;
         }
 
         @Override
-        public Void visitDouble(Property<Double> property, String data) {
+        public Void visitDouble(Property<Double> property, JSONArray data) {
             try {
-                double value = json.getDouble(data);
+                double value = data.getDouble(1);
                 model.setValue((DoubleProperty) property, value);
             } catch (JSONException e) {
-                Log.e(ERROR_TAG, "Error reading double from JSON " + json + " with key " + data, e);
+                Log.e(ERROR_TAG, "Error reading double value from JSON " + data, e);
             }
             return null;
         }
 
         @Override
-        public Void visitString(Property<String> property, String data) {
+        public Void visitString(Property<String> property, JSONArray data) {
             try {
-                String value = json.getString(data);
+                String value = data.getString(1);
                 model.setValue((StringProperty) property, value);
             } catch (JSONException e) {
-                Log.e(ERROR_TAG, "Error reading string from JSON " + json + " with key " + data, e);
+                Log.e(ERROR_TAG, "Error reading string value from JSON " + data, e);
             }
             return null;
         }
