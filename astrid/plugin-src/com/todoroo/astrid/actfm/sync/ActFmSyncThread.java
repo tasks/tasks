@@ -14,6 +14,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.core.PluginServices;
@@ -189,8 +190,8 @@ public class ActFmSyncThread {
     // Reapplies changes still in the outstanding tables to the local database
     // Called after a batch has finished processing
     private void replayOutstandingChanges() {
-        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, taskDao, taskOutstandingDao).execute();
-        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, tagDataDao, tagOutstandingDao).execute();
+        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao).execute();
+        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao).execute();
     }
 
     private boolean timeForBackgroundSync() {

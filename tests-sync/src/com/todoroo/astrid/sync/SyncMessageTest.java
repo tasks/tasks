@@ -28,7 +28,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 	private JSONObject getMakeChanges() throws JSONException {
 		JSONObject makeChanges = new JSONObject();
 		makeChanges.put("type", ServerToClientMessage.TYPE_MAKE_CHANGES);
-		makeChanges.put("table", NameMaps.SERVER_TABLE_TASKS);
+		makeChanges.put("table", NameMaps.TABLE_ID_TASKS);
 		JSONObject changes = new JSONObject();
 		changes.put("title", MAKE_CHANGES_TITLE);
 		changes.put("importance", Task.IMPORTANCE_DO_OR_DIE);

@@ -38,9 +38,9 @@ public abstract class ServerToClientMessage {
 
     private static MakeChanges<?> instantiateMakeChanges(JSONObject json) {
         String table = json.optString("table");
-        if (NameMaps.SERVER_TABLE_TASKS.equals(table))
+        if (NameMaps.TABLE_ID_TASKS.equals(table))
             return new MakeChanges<Task>(json, PluginServices.getTaskDao());
-        else if (NameMaps.SERVER_TABLE_TAGS.equals(table))
+        else if (NameMaps.TABLE_ID_TAGS.equals(table))
             return new MakeChanges<TagData>(json, PluginServices.getTagDataDao());
         else
             return null;

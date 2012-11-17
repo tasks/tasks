@@ -21,9 +21,9 @@ public class AcknowledgeChange extends ServerToClientMessage {
     public AcknowledgeChange(JSONObject json) {
         super(json);
         String table = json.optString("table"); //$NON-NLS-1$
-        if (NameMaps.SERVER_TABLE_TASKS.equals(table))
+        if (NameMaps.TABLE_ID_TASKS.equals(table))
             dao = PluginServices.getTaskOutstandingDao();
-        else if (NameMaps.SERVER_TABLE_TAGS.equals(table))
+        else if (NameMaps.TABLE_ID_TAGS.equals(table))
             dao = PluginServices.getTagOutstandingDao();
         else
             dao = null;

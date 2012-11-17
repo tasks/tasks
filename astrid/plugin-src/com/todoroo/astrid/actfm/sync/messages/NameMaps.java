@@ -19,16 +19,17 @@ public class NameMaps {
     private static final Map<Table, String> TABLE_LOCAL_TO_SERVER;
     private static final Map<String, Table> TABLE_SERVER_TO_LOCAL;
 
-    public static final String SERVER_TABLE_TASKS = "tasks";
-    public static final String SERVER_TABLE_TAGS = "tags";
-    public static final String SERVER_TABLE_USERS = "users";
+    // Universal table identifiers
+    public static final String TABLE_ID_TASKS = "tasks";
+    public static final String TABLE_ID_TAGS = "tags";
+    public static final String TABLE_ID_USERS = "users";
 
     static {
         // Hardcoded local tables mapped to corresponding server names
         TABLE_LOCAL_TO_SERVER = new HashMap<Table, String>();
-        TABLE_LOCAL_TO_SERVER.put(Task.TABLE, SERVER_TABLE_TASKS);
-        TABLE_LOCAL_TO_SERVER.put(TagData.TABLE, SERVER_TABLE_TAGS);
-        TABLE_LOCAL_TO_SERVER.put(User.TABLE, SERVER_TABLE_USERS);
+        TABLE_LOCAL_TO_SERVER.put(Task.TABLE, TABLE_ID_TASKS);
+        TABLE_LOCAL_TO_SERVER.put(TagData.TABLE, TABLE_ID_TAGS);
+        TABLE_LOCAL_TO_SERVER.put(User.TABLE, TABLE_ID_USERS);
 
         // Reverse the mapping to construct the server to local map
         TABLE_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TABLE_LOCAL_TO_SERVER);
@@ -112,9 +113,9 @@ public class NameMaps {
 
     private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap) {
         Map<A, B> map = null;
-        if (SERVER_TABLE_TASKS.equals(table))
+        if (TABLE_ID_TASKS.equals(table))
             map = taskMap;
-        else if (SERVER_TABLE_TAGS.equals(table))
+        else if (TABLE_ID_TAGS.equals(table))
             map = tagMap;
 
         if (map == null)
