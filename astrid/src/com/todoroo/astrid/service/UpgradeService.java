@@ -191,6 +191,7 @@ public final class UpgradeService {
 
         public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
         private int from;
+        private boolean finished = false;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +224,7 @@ public final class UpgradeService {
                                 new SubtasksMetadataMigration().performMigration();
 
                         } finally {
+                            finished = true;
                             DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
                             sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                             setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
@@ -231,13 +233,16 @@ public final class UpgradeService {
                     };
                 }.start();
             } else {
+                finished = true;
                 finish();
             }
         }
 
         @Override
         public void onBackPressed() {
-            // Don't allow the back button to finish this activity
+            // Don't allow the back button to finish this activity before things are done
+            if (finished)
+                super.onBackPressed();
         }
     }
 
