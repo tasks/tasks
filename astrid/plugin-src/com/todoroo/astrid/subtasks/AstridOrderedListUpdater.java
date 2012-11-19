@@ -345,7 +345,8 @@ public abstract class AstridOrderedListUpdater<LIST> {
         ArrayList<Node> siblings = parent.children;
         int index = siblings.indexOf(task);
 
-        siblings.remove(index);
+        if (index >= 0)
+            siblings.remove(index);
         for (Node child : task.children) {
             child.parent = parent;
             siblings.add(index, child);
