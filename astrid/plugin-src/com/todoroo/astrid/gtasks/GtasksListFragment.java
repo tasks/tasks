@@ -173,6 +173,11 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
+    public Property<?>[] taskProperties() {
+        return helper.taskProperties();
+    }
+
+    @Override
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(gtasksPreferenceService.isLoggedIn()) {
             addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
