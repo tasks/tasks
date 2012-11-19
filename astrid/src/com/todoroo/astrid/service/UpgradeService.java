@@ -234,6 +234,11 @@ public final class UpgradeService {
                 finish();
             }
         }
+
+        @Override
+        public void onBackPressed() {
+            // Don't allow the back button to finish this activity
+        }
     }
 
     /**
