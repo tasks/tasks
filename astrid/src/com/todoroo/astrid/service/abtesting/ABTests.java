@@ -119,10 +119,6 @@ public class ABTests {
         bundles.put(testKey, bundle);
     }
 
-    public static final String AB_SIMPLE_TASK_ROW = "android_simple_task_row";  //$NON-NLS-1$
-
-    public static final String AB_CALENDAR_REMINDERS = "android_cal_reminders";  //$NON-NLS-1$
-
     public static final String AB_FEATURED_LISTS = "android_featured_lists"; //$NON-NLS-1$
 
     public static final String AB_SOCIAL_REMINDERS = "android_social_reminders";  //$NON-NLS-1$
@@ -135,12 +131,6 @@ public class ABTests {
 
         addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "featured-lists-disabled", "featured-lists-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_SIMPLE_TASK_ROW, new int[] { 1, 1 },
-                new int[] { 1, 0 }, new String[] { "original-row-style", "simple-row-style" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_CALENDAR_REMINDERS, new int[] { 3, 1 },
-                new int[] { 3, 1 }, new String[] { "no-cal-reminders", "show-cal-reminders" }); //$NON-NLS-1$ //$NON-NLS-2$
 
         addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }); //$NON-NLS-1$ //$NON-NLS-2$

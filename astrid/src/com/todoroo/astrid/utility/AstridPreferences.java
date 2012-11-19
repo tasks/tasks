@@ -24,6 +24,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
@@ -76,11 +77,9 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists,
                 ABChooser.readChoiceForTest(ABTests.AB_FEATURED_LISTS) != 0);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle,
-                ABChooser.readChoiceForTest(ABTests.AB_SIMPLE_TASK_ROW) != 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle, false);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders,
-                ABChooser.readChoiceForTest(ABTests.AB_CALENDAR_REMINDERS) != 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_social_reminders,
                 ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
@@ -115,6 +114,17 @@ public class AstridPreferences {
         setShowFeaturedLists();
 
         editor.commit();
+    }
+
+    /**
+     * Reset preferences based on archived AB tests
+     * @param fromVersion
+     */
+    public static void resetPreferencesFromAbTests(long fromVersion) {
+        Context context = ContextManager.getContext();
+        if (fromVersion < UpgradeService.V4_4_2) {
+            Preferences.clear(context.getString(R.string.p_calendar_reminders));
+        }
     }
 
     private static void setShowFriendsView() {
