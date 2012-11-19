@@ -254,6 +254,15 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from < V4_4_2) {
+            newVersionString(changeLog, "4.4.2 (11/19/12)", new String[] {
+                "Manual order and subtasks for lists now sync with your Astrid.com account!",
+                "Significant performance improvements to manual ordering and subtasks",
+                "Show assigned user images in the premium widgets",
+                "Minor bug and crash fixes"
+            });
+        }
+
         if (from >= V4_4 && from < V4_4_1) {
             newVersionString(changeLog, "4.4.1 (10/30/12)", new String[] {
                 "Fixed an issue where the calendar assistant could remind you about the wrong events",
