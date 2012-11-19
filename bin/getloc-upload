@@ -1,0 +1,30 @@
+#!/bin/bash
+
+STRS=astrid/res/values/strings.xml
+STRS_API=api/res/values/strings-api.xml
+
+read -p "Enter GetLocalization username: " user
+read -s -p "Enter GetLocalization password: " pw
+
+echo
+
+# concatenate astrid XML files
+catxml="`dirname $0`/catxml"
+rm -f astrid/res/values/strings.xml
+${catxml} astrid/res/values/strings*.xml > $STRS 
+
+# copy api file
+rm -f $STRS_API
+cp api/res/values/strings.xml $STRS_API
+
+# replace \' with '
+sed -i '' "s/\\\\'/'/g" $STRS 
+sed -i '' "s/\\\\'/'/g" $STRS_API
+
+# upload files as master android files
+curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
+curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
+
+
+rm -f $STRS
+rm -f $STRS_API
