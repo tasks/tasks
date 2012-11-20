@@ -38,7 +38,6 @@
 	        android:layout_marginLeft="8dip"
 	        android:layout_centerVertical="true"
 	        astrid:defaultSrc="@drawable/icn_default_person_image"
-	        android:background="@android:color/transparent"
 	        android:scaleType="fitCenter"
 	        android:visibility="gone" />
 	    

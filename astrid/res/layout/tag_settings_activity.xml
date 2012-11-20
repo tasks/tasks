@@ -63,7 +63,6 @@
                     android:layout_height="80dip"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:background="@android:color/transparent"
                     astrid:defaultSrc="@android:drawable/ic_menu_gallery"
                     android:scaleType="centerCrop" />
 
