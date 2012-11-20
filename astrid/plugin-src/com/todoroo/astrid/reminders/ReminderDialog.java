@@ -153,6 +153,8 @@ public class ReminderDialog extends Dialog {
     }
 
     private void addFacesToReminder(Activity activity, Task task) {
+        if (task == null)
+            return;
         LinkedHashSet<String> pictureUrls = new LinkedHashSet<String>();
         AtomicBoolean isSharedTask = new AtomicBoolean(false);
 
