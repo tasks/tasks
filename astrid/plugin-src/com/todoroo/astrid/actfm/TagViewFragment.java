@@ -15,6 +15,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
 import android.text.TextUtils;
@@ -381,6 +382,7 @@ public class TagViewFragment extends TaskListFragment {
         }
         int padding = (int) (3 * displayMetrics.density);
         image.setPadding(padding, padding, padding, padding);
+        image.setBackgroundColor(Color.TRANSPARENT);
         membersView.addView(image);
     }
 
