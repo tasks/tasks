@@ -116,7 +116,8 @@ public class ReminderDialog extends Dialog {
             @Override
             public void onClick(View arg0) {
                 Task task = taskService.fetchById(taskId, Task.ID, Task.REMINDER_LAST, Task.SOCIAL_REMINDER);
-                taskService.setComplete(task, true);
+                if (task != null)
+                    taskService.setComplete(task, true);
                 activity.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 Toast.makeText(activity,
                         R.string.rmd_NoA_completed_toast,
