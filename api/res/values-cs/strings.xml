@@ -72,7 +72,7 @@
   <string name="SyP_progress">Probíhá synchronizace Vašich úkolů...</string>
   <string name="SyP_progress_toast">Sychronizuji...</string>
   <string name="SyP_label">Synchronizace</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
+  <string name="SyP_summary">Astrid.com, Google Tasks, uložená data, lokální záloha</string>
   <string name="SyP_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
   <string name="sync_SPr_group_status">Stav</string>
   <string name="sync_SPr_status_subtitle">Stav: %s</string>
@@ -80,7 +80,7 @@
   <string name="sync_status_ongoing">Probíhá synchronizace...</string>
   <string name="sync_status_success">Poslední synchronizace:\n%s</string>
   <string name="sync_status_failed">Selhalo: %s</string>
-  <string name="sync_status_errors">Sync w/ errors: %s</string>
+  <string name="sync_status_errors">Sync w/ chyby: %s</string>
   <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
   <string name="sync_status_never">Nikdo nesynchronizováno!</string>
   <string name="sync_SPr_group_options">Nastavení</string>
@@ -93,14 +93,14 @@
   <string name="sync_SPr_group_actions">Akce</string>
   <string name="sync_SPr_sync">Synchronizovat nyní</string>
   <string name="sync_SPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_last_error">Status report</string>
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
+  <string name="sync_SPr_logged_in_prefix">Přihlášen jako:</string>
+  <string name="sync_SPr_last_error">Stavové hlášení</string>
+  <string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Astrid</string>
   <string name="sync_SPr_send_report">Odeslat zprávu</string>
   <string name="sync_SPr_forget">Odhlásit se</string>
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
   <string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
-  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
+  <string name="sync_error_offline">Během posledního pokusu o synchronizaci se službou %s nastal problém s připojením k síti. Zkuste to prosím později.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>zakázat</item>
     <item>každých patnáct minut</item>

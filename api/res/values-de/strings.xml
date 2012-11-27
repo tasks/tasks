@@ -13,15 +13,15 @@
     <item quantity="other">%d Wochen</item>
   </plurals>
   <plurals name="DUt_days">
-    <item quantity="one">1 Tag</item>
+    <item quantity="one">Ein Tag</item>
     <item quantity="other">%d Tage</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <item quantity="one">1 Wochentag</item>
+    <item quantity="one">Ein Wochentag</item>
     <item quantity="other">%d Wochentage</item>
   </plurals>
   <plurals name="DUt_hours">
-    <item quantity="one">1 Stunde</item>
+    <item quantity="one">Eine Stunde</item>
     <item quantity="other">%d Stunden</item>
   </plurals>
   <plurals name="DUt_minutes">
@@ -37,7 +37,7 @@
     <item quantity="other">%d Std</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <item quantity="one">1 min</item>
+    <item quantity="one">1 Min</item>
     <item quantity="other">%d min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
@@ -66,41 +66,41 @@
   <string name="DLG_no">Nein</string>
   <string name="DLG_close">Schließen</string>
   <string name="DLG_done">Erledigt</string>
-  <string name="DLG_error">Ups, sieht aus, als ob ein Fehler passiert ist! Hier, was passiert ist:\n\n%s</string>
-  <string name="DLG_error_generic">Ups, sieht aus, als ob ein Fehler passiert ist!</string>
+  <string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
+  <string name="DLG_error_generic">Ups, sieht aus, als ob ein Fehler aufgetreten ist!</string>
   <string name="DLG_wait">Bitte warten...</string>
   <string name="SyP_progress">Synchronisiere deine Aufgaben</string>
   <string name="SyP_progress_toast">Synchronisiere…</string>
   <string name="SyP_label">Synchronisation</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
-  <string name="SyP_ioerror">Verbindungsfehler! Überprüfen Sie Ihre Internetverbindung.</string>
-  <string name="sync_SPr_group_status">Zustand</string>
+  <string name="SyP_summary">Astrid.com, Google Tasks, gespeicherte Daten, lokale Backups</string>
+  <string name="SyP_ioerror">Verbindungsfehler! Überprüfe Deine Internetverbindung.</string>
+  <string name="sync_SPr_group_status">Status</string>
   <string name="sync_SPr_status_subtitle">Status: %s</string>
   <string name="sync_status_loggedout">Nicht angemeldet</string>
   <string name="sync_status_ongoing">Synchronisierung läuft...</string>
   <string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
   <string name="sync_status_failed">Fehlgeschlagen am: %s</string>
-  <string name="sync_status_errors">Synchronisation w/ Fehler: %s</string>
+  <string name="sync_status_errors">Synchronisation m. Fehler: %s</string>
   <string name="sync_status_failed_subtitle">Letzte erfolgreiche Synchronisierung: %s</string>
   <string name="sync_status_never">Noch nie synchronisiert!</string>
   <string name="sync_SPr_group_options">Einstellungen</string>
   <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
   <string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
   <string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
-  <string name="sync_SPr_bgwifi_title">WLAN Einstellungen</string>
+  <string name="sync_SPr_bgwifi_title">WLAN-Einstellungen</string>
   <string name="sync_SPr_bgwifi_desc_enabled">Hintergrund-Synchronisierung nur bei WLAN-Verbindung</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Hintergrund-Synchronisierung findet immer statt</string>
   <string name="sync_SPr_group_actions">Aktionen</string>
   <string name="sync_SPr_sync">Jetzt synchronisieren</string>
-  <string name="sync_SPr_sync_log_in">Einloggen &amp; Synchroniseren!</string>
+  <string name="sync_SPr_sync_log_in">Einloggen &amp; synchronisieren!</string>
   <string name="sync_SPr_logged_in_prefix">Angemeldet als:</string>
   <string name="sync_SPr_last_error">Statusbericht</string>
-  <string name="sync_SPr_last_error_subtitle">Klicke um einen Bericht ans Astrid Team zu senden</string>
-  <string name="sync_SPr_send_report">Bericht Senden</string>
+  <string name="sync_SPr_last_error_subtitle">Klicke um einen Bericht ans Astrid-Team zu senden</string>
+  <string name="sync_SPr_send_report">Bericht senden</string>
   <string name="sync_SPr_forget">Abmelden</string>
   <string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
-  <string name="sync_forget_confirm">Ausloggen / synchronisierte Daten löschen?</string>
-  <string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Syncronisation mit %s. Versuche es bitte später noch einmal.</string>
+  <string name="sync_forget_confirm">Ausloggen/synchronisierte Daten löschen?</string>
+  <string name="sync_error_offline">Es gab ein Problem mit der Netzwerkverbindung während der letzten Synchronisation mit %s. Versuche es bitte später noch einmal.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>deaktivieren</item>
     <item>alle 15 Minuten</item>

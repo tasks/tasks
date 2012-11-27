@@ -12,6 +12,13 @@
   <string name="actfm_view_task_cancel">Burada Kal</string>
   <string name="actfm_my_shared_tasks_title">Paylaşılan Görevlerim</string>
   <string name="actfm_my_shared_tasks_empty">Paylaşılmış görev yok</string>
+  <string name="actfm_friendship_pending">%s kişisine arkadaşlık isteği gönderdiniz!</string>
+  <string name="actfm_friendship_blocked">%s engellendi.</string>
+  <string name="actfm_friendship_friends">%s ile arkadaşsınız! Aşağıya onlar için görev ekleyin.</string>
+  <string name="actfm_friendship_other_pending">%s sizinle arkadaş olmak istiyor!</string>
+  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
+  <string name="actfm_friendship_connect">Arkadaş ekle</string>
+  <string name="actfm_friendship_accept">Kabul Et</string>
   <string name="TVA_add_comment">Yorum Gir</string>
   <string-array name="TVA_tabs">
     <item>Görevler</item>
@@ -64,7 +71,7 @@
   <string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
   <string name="actfm_OLA_prompt">Lütfen oturum açın:</string>
   <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
+  <string name="actfm_ALA_error_wrong_password">Özür dileriz, bu şifre geçersiz. Lütfen tekrar deneyin.</string>
   <string name="actfm_feat_list_clone">Listeyi kopyala</string>
   <string name="actfm_feat_list_suffix">(Kopyala)</string>
   <string name="actfm_feat_list_cloning">Kopyalanıyor...</string>
@@ -191,7 +198,7 @@
   <string name="TAd_actionEditTask">Düzenle</string>
   <string name="TAd_contextEditTask">Görevi Düzenle</string>
   <string name="TAd_contextCopyTask">Görevi Kopyala</string>
-  <string name="TAd_contextDeleteTask">Delete Task</string>
+  <string name="TAd_contextDeleteTask">Görevi Sil</string>
   <string name="TAd_contextUndeleteTask">Görevi Kurtar</string>
   <string name="TAd_contextPurgeTask">Görevi Temizle</string>
   <string name="SSD_title">Sınıflama, Altgörevler ve Gizli</string>
@@ -300,6 +307,34 @@
     <item>Yapabilirsin!</item>
     <item>Her zaman bir ileti gönderebilirsin...</item>
   </string-array>
+  <string name="CRA_ignore">Yoksay</string>
+  <string name="CRA_title">Bir toplantı listesine mi ihtiyacınız var?</string>
+  <string name="CRA_ignore_title">Tüm takvim etkinlikleri yok sayılsın mı?</string>
+  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
+  <string name="CRA_ignore_all">Tüm etkinlikleri yoksay</string>
+  <string name="CRA_ignore_this">Sadece bu etkinliği yok say</string>
+  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
+  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
+  <string name="CRA_create_list">Liste oluştur</string>
+  <string name="CRA_postpone">Maybe afterwards</string>
+  <string name="CRA_list_exists_title">Liste zaten bulunuyor</string>
+  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
+  <string name="CRA_create_new">Yeni oluştur</string>
+  <string name="CRA_use_existing">Var olanı kullan</string>
+  <string name="CRA_created_list_dialog">I created a list %s.</string>
+  <string name="CRA_one_attendee">%s is attending.</string>
+  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
+  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
+  <string name="CRA_invitation_prompt">Want to invite them?</string>
+  <string name="CRA_calendar_reminders_pref_title">Takvim asistanı</string>
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
+  <string name="CRA_share_list_title">Liste paylaşılsın mı?</string>
+  <string name="CRA_invite_attendees">Invite attendees</string>
+  <string name="CRA_more_options">Daha fazla seçenek</string>
+  <string name="CRA_dont_invite">Hayır teşekkürler</string>
+  <string name="CRA_list_created_title">Liste oluşturuldu!</string>
+  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">Astrid\'te Yenilikler Neler?</string>
   <string name="UpS_updates_title">En Son Astrid Haberleri</string>
   <string name="UpS_no_activity_log_in">Paylaşılan listelerdeki etkinlik\nilerlemenizin kaydını görmek\niçin oturum açın.</string>
@@ -330,8 +365,8 @@
   <string name="EPr_ideaAuto_title">Fikirleri Kendiliğinden-Yükle Sekmesi</string>
   <string name="EPr_ideaAuto_desc_enabled">Fikirler için olan aramalar sekmesi, sekme tıklandığında belirecek</string>
   <string name="EPr_ideaAuto_desc_disabled">Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle belirecek</string>
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
+  <string name="EPr_task_row_style_title_simple">Sıralama biçimi: Basit</string>
+  <string name="EPr_task_row_style_title_legacy">Sıralama biçimi: Özgün</string>
   <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
   <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   <string name="EPr_theme_title">Renk Teması</string>
@@ -342,7 +377,7 @@
   <string name="EPr_use_contact_picker">Kişi seçiciyi kullan</string>
   <string name="EPr_use_contact_picker_desc_enabled">Sistemin kişi seçici seçeneği görev atama penceresinde görüntülenecek</string>
   <string name="EPr_use_contact_picker_desc_disabled">Sistem kişi seçici seçeneği görüntülenmeyecek</string>
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
+  <string name="EPr_third_party_addons">Üçüncü parti eklentileri etkinleştir</string>
   <string name="EPr_third_party_addons_desc_enabled">Üçüncü taraf eklentiler etkin olacak</string>
   <string name="EPr_third_party_addons_desc_disabled">Üçüncü taraf eklentiler etkisiz olacak</string>
   <string name="EPr_ideas_tab_enabled">Task ideas</string>
@@ -608,7 +643,7 @@
   <string name="CFC_opencrx_assigned_to_name">Atandı...</string>
   <string name="EPr_powerpack_header">Premium and misc. settings</string>
   <string name="EPr_powerpack_summary">Çağrı hatırlatıcılar, ses girdileri ve çeşitli ayarlar</string>
-  <string name="EPr_statistics_title">Anonymous usage stats</string>
+  <string name="EPr_statistics_title">Anonim kullanım istatistikleri</string>
   <string name="EPr_statistics_desc_disabled">Kullanım verisi raporlanmadı</string>
   <string name="EPr_statistics_desc_enabled">Anonim kullanım istatistiklerini göndererek Astrid\'i geliştirmemize yardımcı olun</string>
   <string name="speech_err_network">Ağ hatası! Konuşmanın tanınması çalışması için bir ağ bağlantısına gerek duyar.</string>
@@ -678,6 +713,8 @@
   <string name="premium_success">Astrid Premium üyesi olduğunuz için teşekkür ederiz!</string>
   <string name="premium_success_with_server_error">Astrid Premium üyesi olduğunuz için teşekkür ederiz! Yeni özelliker sizin için yakında astrid.com\'da açılacak ve hemen telefonunuzda kullanabileceksiniz.</string>
   <string name="premium_verification_error">Premium üyelik, bu Google Play hesabı için başka bir kullanıcıya bağlı görünüyor. Hesabınıza ek e-postalar için ziyaret edin: astrid.com/users/profile</string>
+  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
+  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Çalışma Alanları</string>
   <string name="producteev_FEx_responsible_byme">Tarafımdan şu kişiye atandı:</string>

@@ -12,10 +12,17 @@
   <string name="actfm_view_task_cancel">머무르기</string>
   <string name="actfm_my_shared_tasks_title">나의 공유 일정</string>
   <string name="actfm_my_shared_tasks_empty">미공유 일정</string>
+  <string name="actfm_friendship_pending">%s 님에게 친구 요청을 보냈습니다!</string>
+  <string name="actfm_friendship_blocked">%s 님을 차단했습니다.</string>
+  <string name="actfm_friendship_friends">%s 님과 친구입니다! 관련 일정을 아래에 추가하세요.</string>
+  <string name="actfm_friendship_other_pending">%s 님이 친구가 되고 싶어합니다!</string>
+  <string name="actfm_friendship_no_status">공개일정을 공유하고 활동내역을 보려면 %s 에 연결하세요!</string>
+  <string name="actfm_friendship_connect">친구 추가하기</string>
+  <string name="actfm_friendship_accept">승인</string>
   <string name="TVA_add_comment">댓글 쓰기...</string>
   <string-array name="TVA_tabs">
     <item>일정</item>
-    <item>활동</item>
+    <item>활동 내역</item>
     <item>목록 설정</item>
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s 님의 일정. 모든 일정을 보려면 두드리세요.</string>
@@ -33,7 +40,7 @@
   <string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
   <string name="actfm_TVA_login_to_share">목록을 공유하려면 Astrid.com에 로그인해야 합니다! 로그인하거나 비공개 목록으로 만드세요.</string>
   <string name="actfm_EPA_intro">Astrid를 사용하여 쇼핑 목록, 파티 계획 또는 팀 프로젝트를 공유하고 사람들이 일정을 마치는 걸 확인하십시오!</string>
-  <string name="actfm_EPA_assign_label_long">누구의 일?</string>
+  <string name="actfm_EPA_assign_label_long">누구의 일인가요?</string>
   <string name="actfm_EPA_assign_me">나</string>
   <string name="actfm_EPA_unassigned">미할당</string>
   <string name="actfm_EPA_choose_contact">연락처를 선택하세요</string>
@@ -63,8 +70,8 @@
   <string name="actfm_ALA_login_title">로그인</string>
   <string name="actfm_GAA_title">사용하려는 구글 계정을 선택해 주십시오:</string>
   <string name="actfm_OLA_prompt">로그인하세요:</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
+  <string name="actfm_ALA_error_user_exists">사용자가 이미 있습니다. 다시 로그인하세요.</string>
+  <string name="actfm_ALA_error_wrong_password">비밀번호가 맞지 않습니다. 다시 시도해 주세요.</string>
   <string name="actfm_feat_list_clone">목록 복사하기</string>
   <string name="actfm_feat_list_suffix">(복사)</string>
   <string name="actfm_feat_list_cloning">복사중...</string>
@@ -77,19 +84,19 @@
   <string name="actfm_https_enabled">HTTPS 사용함 (느림)</string>
   <string name="actfm_https_disabled">HTTPS 사용안함 (빠름)</string>
   <string name="actfm_dual_sync_warning">당신은 지금 구글 일정과 동기화하고 있습니다. 두 서비스를 동기화 할 때 경우에 따라 예상치 못한 결과가 발생할 수 있음을 유의해 주십시오. 구글 일정과 Astrid.com을 동기화 하시겠습니까?</string>
-  <string name="actfm_account_type">Account type</string>
-  <string name="actfm_account_info">Account info</string>
+  <string name="actfm_account_type">계정 유형</string>
+  <string name="actfm_account_info">계정 정보</string>
   <string name="actfm_account_info_summary">상태와 옵션</string>
-  <string name="account_type_title_not_logged_in">무료 계정으로 가입하기</string>
-  <string name="account_type_summary_not_logged_in">온라인에서 일정을 열어보고 목록과 대행자 공유하기</string>
+  <string name="account_type_title_not_logged_in">무료 계정에 가입하기</string>
+  <string name="account_type_summary_not_logged_in">온라인에서 일정을 열어보고 목록과 대행자를 공유합니다</string>
   <string name="actfm_account_premium">프리미엄</string>
   <string name="actfm_account_basic">기본</string>
   <string name="actfm_inapp_billing">프리미엄으로 업그레이드하기</string>
   <string name="actfm_inapp_billing_summary">파일 첨부, 음성 백업, 프리미엄 지원 등</string>
-  <string name="share_with_facebook">Like on Facebook</string>
-  <string name="share_with_twitter">Follow on Twitter</string>
+  <string name="share_with_facebook">페이스북에 Like 하기</string>
+  <string name="share_with_twitter">\'트위터에 Follow 하기</string>
   <string name="share_with_google">구글+ 에 공유하기</string>
-  <string name="share_title">좋아하는 것을 공유하기!</string>
+  <string name="share_title">사랑을 나눠요!</string>
   <string name="share_speech_bubble">공유를 통해 다른 사람이 더 생산적인 일을 하도록 도울 수 있습니다!</string>
   <string name="alarm_ACS_label">알람</string>
   <string name="alarm_ACS_button">알람 추가</string>
@@ -99,22 +106,22 @@
   <string name="backup_BPr_header">백업</string>
   <string name="backup_BPr_group_status">상태</string>
   <string name="backup_status_success">최근 백업:\n%s</string>
-  <string name="backup_status_failed">Last backup failed</string>
+  <string name="backup_status_failed">마지막 백업 실패함</string>
   <string name="backup_status_failed_subtitle">(오류 내용을 보려면 두드리세요)</string>
   <string name="backup_status_never">백업한 적이 없습니다!</string>
   <string name="backup_BPr_group_options">옵션</string>
   <string name="backup_BPr_auto_title">자동 백업</string>
-  <string name="backup_BPr_auto_disabled">자동 백업 실행 안함</string>
+  <string name="backup_BPr_auto_disabled">자동 백업하지 않습니다</string>
   <string name="backup_BPr_auto_enabled">매일 백업합니다</string>
   <string name="backup_BPr_cloud_already_logged_in">Astrid.com에 이미 백업을 완료했습니다!</string>
-  <string name="backup_BAc_label">백업 설정</string>
-  <string name="backup_BAc_title">백업 관리</string>
-  <string name="backup_BAc_import">작업 가져오기</string>
-  <string name="backup_BAc_export">작업 내보내기</string>
+  <string name="backup_BAc_label">백업 관리</string>
+  <string name="backup_BAc_title">백업 관리하기</string>
+  <string name="backup_BAc_import">일정 가져오기</string>
+  <string name="backup_BAc_export">일정 내보내기</string>
   <string name="backup_BAc_cloud">Astrid.com에 무료 클라우드 백업하려면 클릭하세요</string>
   <string name="backup_TXI_error">가져오기 오류</string>
-  <string name="export_toast">%1$s 에서 %2$s (을)를 백업하다.</string>
-  <string name="export_toast_no_tasks">내보낼 작업 없음.</string>
+  <string name="export_toast">%1$s 를 %2$s 로 백업함.</string>
+  <string name="export_toast_no_tasks">내보낼 일정 없음.</string>
   <string name="export_progress_title">내보내는 중...</string>
   <string name="import_summary_title">간편 복원</string>
   <string name="import_summary_message">파일 %1$s : %2$s 개의 일정 포함\n\n %3$s 개 가져오기 성공,\n %4$s 개 이미 존재,\n %5$s 개 에러 발생\n</string>
@@ -122,7 +129,7 @@
   <string name="import_progress_read">일정 %d 읽는 중...</string>
   <string name="DLG_error_sdcard">접근 불가 폴더: %s</string>
   <string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
-  <string name="import_file_prompt">복원할 파일을 선택하세요.</string>
+  <string name="import_file_prompt">복원할 파일을 선택하세요</string>
   <string name="app_name">Astrid 일정</string>
   <string name="read_permission_label">Astrid 권한</string>
   <string name="read_permission_desc">일정 읽기, 일정 필터 보기</string>
@@ -132,7 +139,7 @@
   <string name="DLG_delete_this_item_question">이 항목을 삭제할까요: %s ?</string>
   <string name="DLG_upgrading">일정 업그레이드 중...</string>
   <string name="DLG_hour_minutes">시간 (시 : 분)</string>
-  <string name="DLG_please_update">구글 플레이에서 Astrid를 최신버전으로 업데이트해야 합니다! 계속하기 전에 업데이트하거나 잠시 기다려 주세요.</string>
+  <string name="DLG_please_update">안드로이드 마켓에서 Astrid를 최신버전으로 업데이트해야 합니다! 계속하기 전에 업데이트하거나 잠시 기다려 주세요.</string>
   <string name="DLG_accept">동의합니다</string>
   <string name="DLG_decline">거절합니다</string>
   <string name="DLG_eula_title">Astrid 사용 약관</string>
@@ -184,14 +191,14 @@
     <item>보통 순위</item>
     <item>낮은 순위</item>
   </string-array>
-  <string name="TLA_all_activity">모든 활동</string>
+  <string name="TLA_all_activity">모든 활동 내역</string>
   <string name="TAd_hiddenFormat">%s [숨김]</string>
   <string name="TAd_deletedFormat">%s [지움]</string>
   <string name="TAd_completed">일정 완료\n%s</string>
   <string name="TAd_actionEditTask">편집</string>
   <string name="TAd_contextEditTask">일정 편집</string>
   <string name="TAd_contextCopyTask">일정 복사</string>
-  <string name="TAd_contextDeleteTask">Delete Task</string>
+  <string name="TAd_contextDeleteTask">일정 삭제</string>
   <string name="TAd_contextUndeleteTask">일정 삭제 취소</string>
   <string name="TAd_contextPurgeTask">일정 비우기</string>
   <string name="SSD_title">정렬, 하위일정 및 숨김</string>
@@ -230,7 +237,7 @@
   </string-array>
   <string name="TEA_note_label">노트</string>
   <string name="TEA_notes_hint">일정 노트를 입력하세요...</string>
-  <string name="TEA_estimatedDuration_label">얼마나 오래 걸릴까요?</string>
+  <string name="TEA_estimatedDuration_label">일정을 마치려면 얼마나 오래 걸릴까요?</string>
   <string name="TEA_elapsedDuration_label">일정에 이미 소모한 시간</string>
   <string name="TEA_menu_save">변경사항 저장</string>
   <string name="TEA_menu_discard">저장하지 않음</string>
@@ -238,7 +245,7 @@
   <string name="TEA_menu_comments">댓글</string>
   <string name="TEA_onTaskSave_due">저장한 일정: 예정일 %s</string>
   <string name="TEA_onTaskSave_notDue">일정을 저장했습니다</string>
-  <string name="TEA_tab_activity">활동</string>
+  <string name="TEA_tab_activity">활동 내역</string>
   <string name="TEA_tab_more">세부 사항</string>
   <string name="TEA_tab_web">아이디어</string>
   <string-array name="TEA_urgency">
@@ -266,12 +273,12 @@
   <string name="TEA_control_lists">목록</string>
   <string name="TEA_control_notes">노트</string>
   <string name="TEA_control_files">파일</string>
-  <string name="TEA_control_reminders">알림</string>
+  <string name="TEA_control_reminders">일정 알림</string>
   <string name="TEA_control_timer">타이머 조절</string>
   <string name="TEA_control_share">친구와 공유</string>
   <string name="TEA_control_hidden_section">----항상 숨김----</string>
   <string name="hide_until_prompt">내 목록에 표시</string>
-  <string name="TEA_no_activity">활동 없음</string>
+  <string name="TEA_no_activity">활동 내역 없음</string>
   <string name="TEA_load_more">더 불러오기...</string>
   <string name="TEA_when_dialog_title">예정일이 언제입니까?</string>
   <string name="TEA_new_task">새 일정</string>
@@ -300,52 +307,80 @@
     <item>할 수 있어요!</item>
     <item>항상 문자를 보낼 수 있잖아요...</item>
   </string-array>
+  <string name="CRA_ignore">무시하기</string>
+  <string name="CRA_title">모임 목록이 필요하세요?</string>
+  <string name="CRA_ignore_title">모든 달력 이벤트를 무시할까요?</string>
+  <string name="CRA_ignore_body">몇몇의 달력 이벤트를 무시했습니다. Astrid가 그것을 물어보는 걸 중단할까요?</string>
+  <string name="CRA_ignore_all">모든 이벤트 무시하기</string>
+  <string name="CRA_ignore_this">이 이벤트만 무시하기</string>
+  <string name="CRA_speech_bubble_start">%s 가 곧 시작될 것 같습니다. 활동 아이템 목록을 만들까요?</string>
+  <string name="CRA_speech_bubble_end">%s 를 방금 마치신 것 같습니다. 활동 아이템 목록을 만들까요?</string>
+  <string name="CRA_create_list">목록 만들기</string>
+  <string name="CRA_postpone">연기하기</string>
+  <string name="CRA_list_exists_title">목록이 이미 있습니다</string>
+  <string name="CRA_list_exists_body">%s 이름의 목록이 이미 있습니다. 이 이벤트를 위해 새로운 목록을 만들까요?</string>
+  <string name="CRA_create_new">새 목록 만들기</string>
+  <string name="CRA_use_existing">현재 목록 사용</string>
+  <string name="CRA_created_list_dialog">%s 목록을 만들었습니다.</string>
+  <string name="CRA_one_attendee">%s 님이 참석 중입니다.</string>
+  <string name="CRA_two_attendees">%1$s 님과 %2$s 님이 참석 중입니다.</string>
+  <string name="CRA_many_attendees">%1$s, %2$s, %3$d 님과 다른 분들이 참석 중입니다.</string>
+  <string name="CRA_invitation_prompt">초대할까요?</string>
+  <string name="CRA_calendar_reminders_pref_title">달력 보조</string>
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid는 다가오는 달력 이벤트를 알리지 않을 것입니다.</string>
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다</string>
+  <string name="CRA_share_list_title">목록을 공유할까요?</string>
+  <string name="CRA_invite_attendees">참석자 초대하기</string>
+  <string name="CRA_more_options">추가 옵션</string>
+  <string name="CRA_dont_invite">아니요 괜찮습니다</string>
+  <string name="CRA_list_created_title">목록을 만들었습니다!</string>
+  <string name="CRA_default_list_name">활동 아이템: %s</string>
   <string name="UpS_changelog_title">Astrid 의 새로운 기능</string>
   <string name="UpS_updates_title">최신 Astrid 뉴스</string>
-  <string name="UpS_no_activity_log_in">공유한 목록상의 활동과\n자신의 일정 진행 기록을\n보려면 로그인하세요.</string>
+  <string name="UpS_no_activity_log_in">공유한 목록상의 활동 내역과\n자신의 일정 진행 기록을\n보려면 로그인하세요.</string>
   <string name="EPr_title">Astrid: 설정</string>
   <string name="EPr_title_short">설정</string>
-  <string name="EPr_share_astrid">다른 사람에게 Astrid 말하기</string>
-  <string name="EPr_share_astrid_summary">당신이 즐겨찾는 소셜 네트워크에 Astrid 공유하기</string>
+  <string name="EPr_share_astrid">다른 사람에게 Astrid 알리기</string>
+  <string name="EPr_share_astrid_summary">내가 즐겨찾는 소셜 네트워크에 Astrid를 공유합니다</string>
   <string name="EPr_deactivated">비활성화됨</string>
-  <string name="EPr_appearance_header">모양</string>
-  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
+  <string name="EPr_appearance_header">보기 설정</string>
+  <string name="EPr_appearance_summary">테마, 위젯, 일정 표시줄, 화면 편집</string>
   <string name="EPr_faq_title">자주 묻는 질문</string>
   <string name="EPr_account_title">계정: %s</string>
-  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
-  <string name="EPr_fontSize_title">Task list size</string>
+  <string name="EPr_support_summary">사용 안내, 자주 묻는 질문, 정보</string>
+  <string name="EPr_fontSize_title">일정 목록 크기</string>
   <string name="EPr_showSmartConfirmation_title">스마트 알림시 확인하기</string>
   <string name="EPr_fontSize_desc">주 목록 페이지 폰트 크기</string>
-  <string name="EPr_showNotes_title">작업과 함께 노트 보이기</string>
-  <string name="EPr_beastMode_title">Customize task edit screen</string>
-  <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
+  <string name="EPr_showNotes_title">일정에서 노트 보기</string>
+  <string name="EPr_beastMode_title">일정 편집화면 설정하기</string>
+  <string name="EPr_beastMode_desc">일정 편집화면 레이아웃 설정하기</string>
   <string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the task edit screen</string>
+  <string name="EPr_showNotes_desc_disabled">일정 편집화면에서 노트를 사용할 수 있습니다</string>
   <string name="EPr_showNotes_desc_enabled">노트를 항상 보여 줍니다</string>
-  <string name="EPr_compressTaskRows_title">Compact task row</string>
+  <string name="EPr_compressTaskRows_title">작은 일정 표시줄</string>
   <string name="EPr_compressTaskRows_desc">일정의 가로줄을 제목에 맞춰 축소하기</string>
   <string name="EPr_fullTask_title">전체 일정 제목 보기</string>
   <string name="EPr_fullTask_desc_enabled">전체 일정 제목을 표시합니다</string>
   <string name="EPr_fullTask_desc_disabled">일정 제목의 첫 두 줄을 표시합니다</string>
   <string name="EPr_ideaAuto_title">아이디어 탭 자동 불러오기</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for ideas tab will be performed when tab is clicked</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for ideas tab will be performed only when manually requested</string>
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
+  <string name="EPr_ideaAuto_desc_enabled">아이디어 탭의 웹 검색은 탭을 클릭했을 때 실행될 것입니다</string>
+  <string name="EPr_ideaAuto_desc_disabled">아이디어 탭의 웹 검색은 수동으로 요청했을 때만 실행될 것입니다</string>
+  <string name="EPr_task_row_style_title_simple">가로줄 스타일: 간단히</string>
+  <string name="EPr_task_row_style_title_legacy">가로줄 스타일: 원래대로</string>
+  <string name="EPr_task_row_style_summary_simple">제목을 한 줄로 줄이고 날짜와 목록을 그 아래에 출력</string>
+  <string name="EPr_task_row_style_summary_legacy">제목을 두 줄로 줄이고 날짜를 오른쪽에 출력</string>
   <string name="EPr_theme_title">색상 테마</string>
   <string name="EPr_theme_desc">현재: %s</string>
   <string name="EPr_theme_desc_unsupported">설정은 안드로이드 2.0 이상이 필요합니다</string>
   <string name="EPr_theme_widget_title">위젯 테마</string>
-  <string name="EPr_taskRowPrefs_title">할 일 행 외관</string>
+  <string name="EPr_taskRowPrefs_title">일정 표시줄 보기 설정</string>
   <string name="EPr_use_contact_picker">(기기의) 연락처 사용하기</string>
   <string name="EPr_use_contact_picker_desc_enabled">기기의 연락처 가져오기 옵션이 일정 할당시에 나타납니다</string>
   <string name="EPr_use_contact_picker_desc_disabled">기기의 연락처 가져오기 옵션이 나타나지 않습니다</string>
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
+  <string name="EPr_third_party_addons">서드파티 확장기능 사용하기</string>
   <string name="EPr_third_party_addons_desc_enabled">제3공급자 확장기능을 사용합니다</string>
   <string name="EPr_third_party_addons_desc_disabled">제3공급자 확장기능을 사용하지 않습니다</string>
-  <string name="EPr_ideas_tab_enabled">Task ideas</string>
+  <string name="EPr_ideas_tab_enabled">일정 아이디어</string>
   <string name="EPr_ideas_tab_description">일정 완료에 도움이 되는 아이디어를 얻습니다.</string>
   <string name="EPr_cal_end_or_start_at_due_time">달력 이벤트 시간</string>
   <string name="EPr_cal_end_at_due_time">때가 되면 달력 이벤트 종료</string>
@@ -384,21 +419,21 @@
     <item>투명 (검은색 텍스트)</item>
     <item>오래된 스타일</item>
   </string-array>
-  <string name="EPr_manage_header">오래된 할 일 관리</string>
-  <string name="EPr_manage_delete_completed">완료된 할 일 제거</string>
+  <string name="EPr_manage_header">오래된 일정 관리</string>
+  <string name="EPr_manage_delete_completed">완료한 일정 삭제</string>
   <string name="EPr_manage_delete_completed_message">완료한 일정을 모두 삭제하시겠습니까?</string>
   <string name="EPr_manage_delete_completed_summary">삭제한 일정은 하나씩 삭제를 취소할 수 있습니다</string>
   <string name="EPr_manage_delete_completed_status">%d 일정을 삭제했습니다!</string>
-  <string name="EPr_manage_purge_deleted">삭제된 할 일을 제거</string>
-  <string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n이 작업은 되돌릴 수 없습니다!</string>
+  <string name="EPr_manage_purge_deleted">삭제한 일정을 비우기</string>
+  <string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
   <string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>
   <string name="EPr_manage_purge_deleted_summary">주의! 비운 일정은 백업 파일 없이 복구할 수 없습니다!</string>
-  <string name="EPr_manage_clear_all">Clear all data</string>
+  <string name="EPr_manage_clear_all">모든 자료 삭제</string>
   <string name="EPr_manage_clear_all_message">Astrid의 모든 일정과 설정을 삭제할까요?\n\n경고: 되돌릴 수 없음!</string>
-  <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
+  <string name="EPr_manage_delete_completed_gcal">완료한 일정의 달력 이벤트를 삭제하기</string>
   <string name="EPr_manage_delete_completed_gcal_message">완료한 일정의 모든 이벤트를 정말 삭제할까요?</string>
   <string name="EPr_manage_delete_completed_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
-  <string name="EPr_manage_delete_all_gcal">할 일에 대한 모든 달력 이벤트 삭제</string>
+  <string name="EPr_manage_delete_all_gcal">일정의 모든 달력 이벤트 삭제하기</string>
   <string name="EPr_manage_delete_all_gcal_message">일정의 모든 이벤트를 정말 삭제할까요?</string>
   <string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
   <string name="AOA_title">확장기능</string>
@@ -406,14 +441,14 @@
   <string name="AOA_tab_installed">설치된 항목</string>
   <string name="AOA_tab_available">추가 가능</string>
   <string name="AOA_free">무료</string>
-  <string name="AOA_no_addons">빈 목록!</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
-  <string name="AOA_locale_title">Astrid Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
+  <string name="AOA_no_addons">목록이 없습니다!</string>
+  <string name="AOA_ppack_title">Astrid 파워 팩</string>
+  <string name="AOA_ppack_description">Astrid를 지원하고 Astrid 파워 팩(4x2, 4x4 위젯, 음성입력)으로 일을 좀 더 효과적으로 하세요. 오늘 사용해 보세요!</string>
+  <string name="AOA_locale_title">Astrid 위치 플러그인</string>
+  <string name="AOA_locale_description">Astrid에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다.</string>
   <string name="TWi_loading">불러오는 중...</string>
   <string name="WCA_title">볼 일정 선택...</string>
-  <string name="p_about">Astrid에 대하여</string>
+  <string name="p_about">Astrid 정보</string>
   <string name="p_about_text">현재 버전: %s\n\nAstrid는 오픈소스이며 Todoroo, Inc가 관리하고 있습니다.</string>
   <string name="p_help">지원</string>
   <string name="p_forums">포럼</string>
@@ -422,19 +457,19 @@
   <string name="task_killer_help_ok">Astrid를 강제로 종료하지 않습니다!</string>
   <string name="marketplace_description">Astrid는 당신의 일을 마치도록 도와주는, 많은 사랑을 받은 오픈소스 일정/할일 관리 프로그램입니다.Astrid는 일정의 완료 예정일을 알려 주거나, 태그, 동기화, 지역 언어 플러그인, 위젯 등 다양한 기능을 제공합니다.</string>
   <string name="DB_corrupted_title">손상된 데이터베이스</string>
-  <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid.</string>
-  <string name="market_unavailable">이 기기에서 구글 플레이를 사용할 수 없습니다.</string>
-  <string name="EPr_defaults_header">새 작업 기본값</string>
-  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
+  <string name="DB_corrupted_body">데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 자료를 모두 지우고 (설정-&gt;동기화 &amp; 백업-&gt;오래된 일정 관리-&gt;모든 자료 삭제) Astrid의 백업에서 당신의 일정을 복구하시기 바랍니다. (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
+  <string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
+  <string name="EPr_defaults_header">새 일정 기본값</string>
+  <string name="EPr_defaults_summary">중요도, 완료 예정일, 달력에 추가하기</string>
   <string name="EPr_default_urgency_title">기본 중요도</string>
   <string name="EPr_default_urgency_desc">현재: %s</string>
   <string name="EPr_default_importance_title">기본 중요도</string>
   <string name="EPr_default_importance_desc">현재: %s</string>
-  <string name="EPr_default_hideUntil_title">기본 숨기기 기간</string>
+  <string name="EPr_default_hideUntil_title">기본 숨기기 기간:</string>
   <string name="EPr_default_hideUntil_desc">현재: %s</string>
   <string name="EPr_default_reminders_title">기본 알림</string>
   <string name="EPr_default_reminders_desc">현재: %s</string>
-  <string name="EPr_default_addtocalendar_title">Default add to calendar</string>
+  <string name="EPr_default_addtocalendar_title">달력에 추가하기 (기본값)</string>
   <string name="EPr_default_addtocalendar_desc_disabled">새 일정은 구글 달력에 이벤트를 만들지 않을 것입니다</string>
   <string name="EPr_default_addtocalendar_desc">새 일정을 달력에 추가합니다: \"%s\"</string>
   <string name="EPr_default_reminders_mode_title">기본 벨소리/진동 타입</string>
@@ -446,11 +481,11 @@
     <item>o (낮음)</item>
   </string-array>
   <string-array name="EPr_default_urgency">
-    <item>마감일 없음</item>
+    <item>기한 없음</item>
     <item>오늘</item>
     <item>내일</item>
     <item>모레</item>
-    <item>다음주</item>
+    <item>다음 주</item>
   </string-array>
   <string-array name="EPr_default_hideUntil">
     <item>숨기지 않기</item>
@@ -504,7 +539,7 @@
   <string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
   <string name="gcal_TEA_calendar_updated">달력 이벤트도 업데이트했습니다!</string>
   <string name="gcal_TEA_nocal">추가하지 않음</string>
-  <string name="gcal_TEA_none_selected">달력에 추가...</string>
+  <string name="gcal_TEA_none_selected">달력에 추가</string>
   <string name="gcal_TEA_has_event">달력 이벤트</string>
   <string name="gcal_completed_title">%s (완료)</string>
   <string name="gcal_GCP_default">기본 달력</string>
@@ -539,7 +574,7 @@
   <string name="help_popover_switch_lists">목록을 추가하거나 목록 간에 전환하려면 두드리세요</string>
   <string name="welcome_login_tos_base">Astrid 사용시 다음에 동의합니다:</string>
   <string name="welcome_login_tos_link">서비스 약관</string>
-  <string name="welcome_login_pw">이메일로 로그인</string>
+  <string name="welcome_login_pw">이메일로 로그인하기</string>
   <string name="welcome_sign_in">로그인</string>
   <string name="welcome_login_later">나중에 연결하기</string>
   <string name="welcome_login_confirm_later_title">로그인하세요!</string>
@@ -606,9 +641,9 @@
   <string name="CFC_opencrx_in_workspace_name">작업공간에서...</string>
   <string name="CFC_opencrx_assigned_to_text">할당된 사람: ?</string>
   <string name="CFC_opencrx_assigned_to_name">다음 사람에게 할당됨...</string>
-  <string name="EPr_powerpack_header">Premium and misc. settings</string>
+  <string name="EPr_powerpack_header">프리미엄과 기타 설정</string>
   <string name="EPr_powerpack_summary">부재중 전화 알림, 음성 입력과 기타 설정</string>
-  <string name="EPr_statistics_title">사용 통계정보(익명보장)</string>
+  <string name="EPr_statistics_title">사용 통계 정보 (익명)</string>
   <string name="EPr_statistics_desc_disabled">사용 정보는 보고하지 않습니다.</string>
   <string name="EPr_statistics_desc_enabled">익명 사용 자료 전송으로 우리가 Astrid 를 더욱 발전시킬 수 있도록 도와주세요.</string>
   <string name="speech_err_network">네트워크 에러! 음성인식이 동작하려면 네트워크 연결이 필요합니다.</string>
@@ -624,11 +659,11 @@
   <string name="audio_encoding">인코딩...</string>
   <string name="audio_err_encoding">오디오 인코딩 에러</string>
   <string name="audio_err_playback">죄송하지만 기기에서 이 형식의 오디오 파일을 지원하지 않습니다</string>
-  <string name="search_market_audio">이 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 구글 플레이에서 다운로드할까요?</string>
+  <string name="search_market_audio">이 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 안드로이드 마켓에서 다운로드할까요?</string>
   <string name="search_market_audio_title">오디오 재생기 없음</string>
-  <string name="search_market_pdf">PDF 리더가 없습니다. 구글 플레이에서 PDF 리더를 다운로드할까요?</string>
+  <string name="search_market_pdf">PDF 리더가 없습니다. 안드로이드 마켓에서 PDF 리더를 다운로드할까요?</string>
   <string name="search_market_pdf_title">PDF 리더 없음</string>
-  <string name="search_market_ms">MS 오피스 리더가 없습니다. 구글 플레이에서 MS 오피스 리더를 다운로드할까요?</string>
+  <string name="search_market_ms">MS 오피스 리더가 없습니다. 안드로이드 마켓에서 MS 오피스 리더를 다운로드할까요?</string>
   <string name="search_market_ms_title">MS 오피스 리더 없음</string>
   <string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
   <string name="file_type_unhandled_title">프로그램이 없음</string>
@@ -650,15 +685,15 @@
   <string name="file_err_show">죄송하지만 이 기기는 아직 이 파일 형식을 지원하지 않습니다</string>
   <string name="file_dir_dialog_ok">이 디렉토리 사용</string>
   <string name="file_dir_dialog_default">기본값으로 초기화</string>
-  <string name="p_files_dir">Premium downloads directory</string>
+  <string name="p_files_dir">프리미엄 다운로드 디렉토리</string>
   <string name="p_files_dir_desc">일정 첨부 파일 저장됨: %s</string>
   <string name="p_files_dir_desc_default">기본 디렉토리</string>
   <string name="billing_not_supported_title">구매할 수 없습니다.</string>
   <string name="billing_not_supported_message">현재 마켓의 과금 서비스를 이용할 수 없습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수 없습니다.</string>
   <string name="subscriptions_not_supported_title">정기 사용권을 구매할 수 없습니다.</string>
-  <string name="subscriptions_not_supported_message">현재 이 기기에서 구글 플레이의 과금 서비스를 통해 정기 사용권을 구입할 수 없습니다. http://astrid.com/premium 에서 직접 Astrid 프리미엄 이용권을 구매할 수 있습니다.</string>
-  <string name="cannot_connect_title">구글 플레이에 접속할 수 없음</string>
-  <string name="cannot_connect_message">이 앱은 구글 플레이에 접속할 수 없습니다. 구글 플레이 버전이 오래된 것 같습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수는 없을 것입니다.</string>
+  <string name="subscriptions_not_supported_message">현재 이 기기에서 마켓의 과금 서비스를 통해 정기 사용권을 구입할 수 없습니다. http://astrid.com/premium 에서 직접 Astrid 프리미엄 이용권을 구매할 수 있습니다.</string>
+  <string name="cannot_connect_title">마켓에 접속할 수 없음</string>
+  <string name="cannot_connect_message">이 앱은 마켓에 접속할 수 없습니다. 이 앱의 버전이 오래된 것 같습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수는 없을 것입니다.</string>
   <string name="restoring_transactions">Restoring transactions</string>
   <string name="subscriptions_learn_more">더 알아보기</string>
   <string name="premium_billing_title">Astrid 프리미엄</string>
@@ -678,6 +713,8 @@
   <string name="premium_success">Astrid 프리미엄 이용권 구매를 감사드립니다!</string>
   <string name="premium_success_with_server_error">Astrid 프리미엄 이용권 구매를 감사드립니다! Astrid.com에서 새로운 기능을 곧 사용할 수 있고, 이 기기에서는 즉시 사용할 수 있습니다.</string>
   <string name="premium_verification_error">이 구글 플레이 계정으로 구매한 프리미엄 이용권은 다른 사용자에게 연결되어 있습니다. 당신의 계정에 추가적인 이메일을 연결하려면 astrid.com/users/profile 을 방문하세요.</string>
+  <string name="premium_check_for_purchases">프리미엄을 이미 구매하셨나요? 구글 플레이에서 구매 내역을 확인하려면 여기를 클릭하세요</string>
+  <string name="premium_checking_for_purchases">구매 확인 중...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">작업공간</string>
   <string name="producteev_FEx_responsible_byme">내가 할당한 사람:</string>
@@ -714,14 +751,14 @@
   <string name="CFC_producteev_assigned_to_text">할당된 사람: ?</string>
   <string name="CFC_producteev_assigned_to_name">할당된 사람...</string>
   <string name="TEA_reminders_group_label">알림</string>
-  <string name="TEA_reminder_label">Remind me:</string>
+  <string name="TEA_reminder_label">알려주세요:</string>
   <string name="TEA_reminder_due">완료일이 되었을 때</string>
   <string name="TEA_reminder_overdue">완료일을 지났을 때</string>
   <string name="TEA_reminder_randomly">무작위로 한 번</string>
   <string name="TEA_reminder_alarm_label">소리/진동 선택:</string>
-  <string name="TEA_reminder_mode_once">한번 소리내기</string>
-  <string name="TEA_reminder_mode_five">Ring five times</string>
-  <string name="TEA_reminder_mode_nonstop">알람끌 때까지 소리내기</string>
+  <string name="TEA_reminder_mode_once">한 번 소리내기</string>
+  <string name="TEA_reminder_mode_five">다섯 번 소리내기</string>
+  <string name="TEA_reminder_mode_nonstop">알람을 끌 때까지 소리내기</string>
   <string-array name="TEA_reminder_random">
     <item>한 시간</item>
     <item>하루</item>
@@ -762,36 +799,36 @@
   </string-array>
   <string name="rmd_EPr_alerts_header">알림 설정</string>
   <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
-  <string name="rmd_EPr_enabled_title">Reminders enabled?</string>
+  <string name="rmd_EPr_enabled_title">알림을 사용할까요?</string>
   <string name="rmd_EPr_enabled_desc_true">Astrid 알림을 사용합니다 (이것이 보통)</string>
   <string name="rmd_EPr_enabled_desc_false">Astrid 알림을 사용하지 않습니다</string>
-  <string name="rmd_EPr_quiet_hours_start_title">알람 꺼짐 시작시간</string>
-  <string name="rmd_EPr_quiet_hours_start_desc">%s 후에는 알림 기능이 꺼집니다.</string>
+  <string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">%s 후에는 알림을 끕니다. (진동은 알람 설정의 진동 설정을 따릅니다)</string>
   <string name="rmd_EPr_quiet_hours_desc_none">알림 꺼짐을 사용하지 않습니다</string>
-  <string name="rmd_EPr_quiet_hours_end_title">알람 꺼짐 시간 종료</string>
+  <string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
   <string name="rmd_EPr_quiet_hours_end_desc">%s 부터 알림 기능이 켜집니다</string>
-  <string name="rmd_EPr_rmd_time_title">Default reminder</string>
+  <string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
   <string name="rmd_EPr_rmd_time_desc">완료 예정일이 없는 일정 알림은 %s 에 나타날 것입니다.</string>
   <string name="rmd_EPr_ringtone_title">알림 벨소리</string>
   <string name="rmd_EPr_ringtone_desc_custom">사용자 벨소리가 설정되었습니다</string>
   <string name="rmd_EPr_ringtone_desc_silent">벨소리가 나지 않도록 설정되었습니다</string>
   <string name="rmd_EPr_ringtone_desc_default">기본 벨소리가 사용됩니다</string>
-  <string name="rmd_EPr_persistent_title">알람 지속시간</string>
+  <string name="rmd_EPr_persistent_title">알림 지속 시간</string>
   <string name="rmd_EPr_persistent_desc_true">알림은 반드시 개별적으로 봐야 지워집니다.</string>
   <string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알림을 일괄삭제합니다.</string>
   <string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid에서 소리 크기는 시스템 설정을 따릅니다.</string>
-  <string name="rmd_EPr_vibrate_title">알람시 진동</string>
+  <string name="rmd_EPr_vibrate_title">알림시 진동</string>
   <string name="rmd_EPr_vibrate_desc_true">알림시 진동합니다.</string>
   <string name="rmd_EPr_vibrate_desc_false">알림시 진동하지 않습니다.</string>
-  <string name="rmd_EPr_nagging_title">Astrid 알람</string>
+  <string name="rmd_EPr_nagging_title">Astrid 격려 문구</string>
   <string name="rmd_EPr_nagging_desc_true">Astrid 는 알림시에 격려 문구를 보여줍니다</string>
   <string name="rmd_EPr_nagging_desc_false">Astrid 는 어떤 격려 문구도 보여주지 않습니다</string>
-  <string name="rmd_EPr_snooze_dialog_title">알람 지연 HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">알림 지연 HH:MM</string>
   <string name="rmd_EPr_snooze_dialog_desc_true">새 지연 시간을 선택하여 알림 연기 (HH:MM)</string>
   <string name="rmd_EPr_snooze_dialog_desc_false">미룰 날짜/시간을 선택하여 알림 연기</string>
-  <string name="rmd_EPr_defaultRemind_title">랜덤 알람</string>
+  <string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">새 일정은 무작위로 알리지 않습니다</string>
   <string name="rmd_EPr_defaultRemind_desc">새 일정은 무작위로 알려 줍니다: %s</string>
   <string-array name="EPr_reminder_random">
@@ -961,8 +998,8 @@
   </string-array>
   <string name="repeat_plugin">일정 반복하기</string>
   <string name="repeat_plugin_desc">일정 반복 허락</string>
-  <string name="repeat_enabled">반복</string>
-  <string name="repeat_every">매 %d 마다</string>
+  <string name="repeat_enabled">반복 설정</string>
+  <string name="repeat_every">매 %d</string>
   <string name="repeat_interval_prompt">반복 주기</string>
   <string name="repeat_never">반복할까요?</string>
   <string name="repeat_dont">반복하지 않기</string>
@@ -975,12 +1012,12 @@
     <item>년</item>
   </string-array>
   <string-array name="repeat_interval">
-    <item>매일</item>
-    <item>매주</item>
-    <item>매월</item>
-    <item>매시</item>
-    <item>매분</item>
-    <item>매년</item>
+    <item>일마다</item>
+    <item>주마다</item>
+    <item>월마다</item>
+    <item>시마다</item>
+    <item>분마다</item>
+    <item>년마다</item>
   </string-array>
   <string-array name="repeat_until_shortcuts">
     <item>영원히</item>
@@ -999,10 +1036,10 @@
     <item>완료일로부터</item>
   </string-array>
   <string name="repeat_detail_byday">$I on $D</string>
-  <string name="repeat_detail_duedate">매 %s 마다</string>
+  <string name="repeat_detail_duedate">매 %s</string>
   <string name="repeat_detail_duedate_until">매 %1$s 마다\n%2$s 까지</string>
   <string name="repeat_detail_completion">완료 후 %s</string>
-  <string name="repeat_forever">영원히 반복</string>
+  <string name="repeat_forever">영원히 반복하기</string>
   <string name="repeat_until">%s 까지 반복</string>
   <string name="repeat_rescheduling_dialog_title">\"%s\" 일정 변경하기</string>
   <string name="repeat_rescheduling_dialog_title_last_time">반복 일정 \"%s\" 을 완료했습니다</string>
@@ -1040,7 +1077,7 @@
   <string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>
   <string name="subtasks_help_3">들여쓰기하려면 수평으로 드래그합니다</string>
   <string name="TEA_tags_label">목록</string>
-  <string name="TEA_tags_label_long">하나나 그 이상의 목록에 일정 넣기</string>
+  <string name="TEA_tags_label_long">1개 이상의 목록에 일정을 넣으세요</string>
   <string name="TEA_tags_none">없음</string>
   <string name="TEA_tag_hint">새 목록</string>
   <string name="tag_new_list">새 목록</string>
@@ -1066,9 +1103,9 @@
   <string name="tag_leave_button">이 목록 놔두기</string>
   <string name="TPl_notification">%s 동안 타이머 작동함!</string>
   <string name="TFE_workingOn">기한이 정해진 일정</string>
-  <string name="TEA_timer_controls">타이어 조절</string>
-  <string name="TEA_timer_comment_started">이 일정을 시작함:</string>
-  <string name="TEA_timer_comment_stopped">이 일정을 중지함:</string>
+  <string name="TEA_timer_controls">타이머 조절</string>
+  <string name="TEA_timer_comment_started">이 일정 시작:</string>
+  <string name="TEA_timer_comment_stopped">이 일정 중지:</string>
   <string name="TEA_timer_comment_spent">소요 시간:</string>
   <string name="update_string_friends">%1$s 님이 %2$s 님과 친구가 되었습니다</string>
   <string name="update_string_request_friendship">%1$s 님이 친구가 되고 싶어합니다</string>
@@ -1087,22 +1124,22 @@
   <string name="update_string_tag_created">%1$s 님이 이 목록을 만들었습니다</string>
   <string name="update_string_tag_created_global">%1$s 님이 이 목록 %2$s 을 만들었습니다</string>
   <string name="voice_create_prompt">일정을 만들려면 말하세요</string>
-  <string name="voice_edit_title_prompt">일정 제목을 정하려면 말하세요</string>
-  <string name="voice_edit_note_prompt">일정 노트를 정하려면 말하세요</string>
-  <string name="EPr_voiceInputInstall_dlg">음성입력이 설치되어 있지 않습니다. 구글 플레이에 가서 지금 설치할까요?</string>
+  <string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
+  <string name="voice_edit_note_prompt">일정 노트를 말하세요</string>
+  <string name="EPr_voiceInputInstall_dlg">음성입력이 설치되어 있지 않습니다. 마켓에 가서 지금 설치할까요?</string>
   <string name="EPr_voiceInputUnavailable_dlg">당신의 기기에서 음성입력을 사용할 수 없습니다. 안드로이드 2.1 이상으로 업데이트하세요.</string>
-  <string name="EPr_marketUnavailable_dlg">아직 구글 플레이를 사용할 수 없습니다. 다른 곳에서 음성 검색을 다운로드하세요.</string>
-  <string name="EPr_voiceInputEnabled_title">Voice input</string>
-  <string name="EPr_voiceInputEnabled_desc_enabled">음성 입력 버튼이 일정 목록 페이지에 나타납니다</string>
-  <string name="EPr_voiceInputEnabled_desc_disabled">음성 입력 버튼이 일정 목록 페이지에서 사라집니다</string>
-  <string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">음성 입력으로 일정을 자동으로 만들기</string>
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">음성 입력이 끝난 후 일정 제목을 편집할 수 있습니다</string>
-  <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
+  <string name="EPr_marketUnavailable_dlg">이 시스템에서 아직 마켓을 사용할 수 없습니다. 다른 곳에서 음성 검색을 다운로드하세요.</string>
+  <string name="EPr_voiceInputEnabled_title">음성 입력</string>
+  <string name="EPr_voiceInputEnabled_desc_enabled">일정 목록 페이지에 음성 입력 버튼을 출력합니다</string>
+  <string name="EPr_voiceInputEnabled_desc_disabled">일정 목록 페이지에서 음성 입력 버튼을 숨깁니다</string>
+  <string name="EPr_voiceInputCreatesTask_title">일정을 직접 만들기</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">음성 입력으로 일정을 자동으로 만듭니다</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">음성 입력이 끝난 후에 일정 제목을 편집할 수 있습니다</string>
+  <string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
   <string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
-  <string name="EPr_voice_header">Voice input settings</string>
-  <string name="welcome_setting">Show tutorial</string>
+  <string name="EPr_voice_header">음성 입력 설정</string>
+  <string name="welcome_setting">사용 지침 보기</string>
   <string name="welcome_title_1">Astrid 사용을 환영합니다!</string>
   <string name="welcome_title_2">목록 생성</string>
   <string name="welcome_title_3">목록 간 전환</string>
@@ -1177,7 +1214,7 @@
   <string name="PPW_unlock_howto">목록을 친구와 공유하세요! 세 친구가 Astrid 에 가입하면 무료 파워팩을 사용할 수 있습니다.</string>
   <string name="PPW_check_button">무료로 파워팩 얻기!</string>
   <string name="PPW_check_share_lists">공유 목록!</string>
-  <string name="PPW_api_level">죄송하기만 이 위젯은 안드로이드 3.0 이상에서만 사용할 수 있습니다.</string>
+  <string name="PPW_api_level">죄송하지만 이 위젯은 안드로이드 3.0 이상에서만 사용할 수 있습니다.</string>
   <string name="EPr_widget_enabled_title">위젯 켜기/끄기</string>
   <string name="PPW_restart_for_enabled_state">이 변경은 스마트폰을 재시작해야 효과가 있습니다.</string>
 </resources>

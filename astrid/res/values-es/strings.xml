@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="actfm_person_hint">Contacto o correo electrónico</string>
+  <string name="actfm_person_hint">Contacto o email</string>
   <string name="actfm_person_or_tag_hint">Contacto o lista compartida</string>
   <string name="actfm_tag_operation_owner_delete">Usted es el propietario de esta lista compartida. Si la elimina, se eliminará para todos los miembros de la lista. ¿Continuar?</string>
-  <string name="actfm_picture_camera">Tomar una fotografía</string>
+  <string name="actfm_picture_camera">Tomar una foto</string>
   <string name="actfm_picture_gallery">Elegir de la galería</string>
   <string name="actfm_picture_clear">Borrar imagen</string>
   <string name="actfm_view_task_title">¿Ver tarea?</string>
@@ -12,6 +12,13 @@
   <string name="actfm_view_task_cancel">Quedarse aquí</string>
   <string name="actfm_my_shared_tasks_title">Mis tareas compartidas</string>
   <string name="actfm_my_shared_tasks_empty">No hay tareas compartidas</string>
+  <string name="actfm_friendship_pending">¡Ha enviado una solicitud de amistad a %s!</string>
+  <string name="actfm_friendship_blocked">Ha bloqueado a %s.</string>
+  <string name="actfm_friendship_friends">Es amigo/a de %s. Añada tareas para ellos abajo.</string>
+  <string name="actfm_friendship_other_pending">%s quiere ser su amigo/a.</string>
+  <string name="actfm_friendship_no_status">Conectar con %s para compartir y ver la actividad de las tareas públicas.</string>
+  <string name="actfm_friendship_connect">Añadir amigo</string>
+  <string name="actfm_friendship_accept">Aceptar</string>
   <string name="TVA_add_comment">Añadir un comentario...</string>
   <string-array name="TVA_tabs">
     <item>Tareas</item>
@@ -25,24 +32,24 @@
   <string name="actfm_TVA_tag_label">Lista</string>
   <string name="actfm_TVA_members_label">Compartido con</string>
   <string name="actfm_TVA_members_hint">Compartir con cualquiera que tenga una dirección de email</string>
-  <string name="actfm_TVA_tag_picture">Listar imagenes</string>
+  <string name="actfm_TVA_tag_picture">Imagen para. lista</string>
   <string name="actfm_TVA_silence_label">Silenciar notificaciones</string>
   <string name="actfm_TVA_tag_description_label">Descripción</string>
-  <string name="actfm_TVA_tag_settings_label">Configuración</string>
+  <string name="actfm_TVA_tag_settings_label">Ajustes</string>
   <string name="actfm_TVA_tag_description_hint">Escriba una descripción aquí</string>
-  <string name="actfm_TVA_tag_name_hint">Ingrese el nombre de la lista</string>
-  <string name="actfm_TVA_login_to_share">Necesita iniciar sesión en Astrid.com para compartir listas! Por favor inicie sesión o haga esta lista privada.</string>
-  <string name="actfm_EPA_intro">¡Utilice Astrid para compartir listas de compras, planes de fiesta o proyectos en equipo y vea al instante cuándo la gente concluye sus tareas!</string>
+  <string name="actfm_TVA_tag_name_hint">Indique nombre de lista</string>
+  <string name="actfm_TVA_login_to_share">Necesita iniciar sesión en Astrid.com para compartir listas. Inicie sesión o haga que esta lista sea privada.</string>
+  <string name="actfm_EPA_intro">Use Astrid para compartir listas de la compra, planes de fiesta o proyectos en equipo y vea al momento cuándo la gente termina sus tareas.</string>
   <string name="actfm_EPA_assign_label_long">¿Quién debería hacer esto?</string>
   <string name="actfm_EPA_assign_me">Yo</string>
   <string name="actfm_EPA_unassigned">Sin asignar</string>
   <string name="actfm_EPA_choose_contact">Elegir un contacto</string>
-  <string name="actfm_EPA_task_rabbit">Subcontrátelo!</string>
+  <string name="actfm_EPA_task_rabbit">Lo subcontrato</string>
   <string name="actfm_EPA_share_with">Compartir con:</string>
   <string name="actfm_EPA_collaborators_header">Compartir con amigos</string>
   <string name="actfm_EPA_list">Lista: %s</string>
   <string name="actfm_EPA_message_text">Mensaje de invitación:</string>
-  <string name="actfm_EPA_message_body">Ayudenme a completar esto!</string>
+  <string name="actfm_EPA_message_body">Ayuda para terminar esto.</string>
   <string name="actfm_EPA_assign_header_members">Lista de miembros</string>
   <string name="actfm_EPA_assign_header_friends">Amigos Astrid</string>
   <string name="actfm_EPA_facebook">Facebook</string>
@@ -63,8 +70,8 @@
   <string name="actfm_ALA_login_title">Iniciar sesión</string>
   <string name="actfm_GAA_title">Elija la cuenta de Google que quiere usar:</string>
   <string name="actfm_OLA_prompt">Inicie sesión:</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
+  <string name="actfm_ALA_error_user_exists">El usuario ya existe. Por favor ingresa con él, en lugar de crear uno nuevo.</string>
+  <string name="actfm_ALA_error_wrong_password">Lo siento, la contraseña es incorrecta. Por favor intenté de nuevo.</string>
   <string name="actfm_feat_list_clone">Copiar lista</string>
   <string name="actfm_feat_list_suffix">Copiar</string>
   <string name="actfm_feat_list_cloning">Copiando...</string>
@@ -149,15 +156,15 @@
   <string name="ENA_refresh_comments">Actualizar Comentarios</string>
   <string name="TLA_no_items">No tienes tareas! \n Quieres agregar alguna?</string>
   <string name="TLA_no_items_person">%s no hay\ntareas compartidas para ti</string>
-  <string name="TLA_menu_addons">Componentes adicionales</string>
-  <string name="TLA_menu_sort">Ordenar y Ocultar</string>
+  <string name="TLA_menu_addons">Complementos</string>
+  <string name="TLA_menu_sort">Orden y subtareas</string>
   <string name="TLA_menu_sync">Sincronizar ahora</string>
   <string name="TLA_menu_search">Búsqueda</string>
   <string name="TLA_menu_lists">Listas</string>
   <string name="TLA_menu_friends">Gente</string>
   <string name="TLA_menu_featured_lists">Listas destacadas</string>
   <string name="TLA_menu_suggestions">Sugerencias</string>
-  <string name="TLA_menu_settings">Configuración y cuenta</string>
+  <string name="TLA_menu_settings">Cuenta y ajustes</string>
   <string name="TLA_menu_support">Soporte</string>
   <string name="TLA_custom">Personalizar</string>
   <string name="TLA_quick_add_hint">Añadir una tarea</string>
@@ -300,6 +307,34 @@
     <item>No puedes hacer eso!</item>
     <item>Siempre puede enviar un mensaje de texto...</item>
   </string-array>
+  <string name="CRA_ignore">Ignorar</string>
+  <string name="CRA_title">¿Necesita una lista para reuniones?</string>
+  <string name="CRA_ignore_title">¿Ignorar todos los eventos del calendario?</string>
+  <string name="CRA_ignore_body">Ha ignorado varios eventos de calendario. ¿Debe Astrid dejar de preguntarle sobre ellos?</string>
+  <string name="CRA_ignore_all">Ignorar todos los eventos</string>
+  <string name="CRA_ignore_this">Ignorar solo este evento</string>
+  <string name="CRA_speech_bubble_start">Parece que %s va a comenzar pronto. ¿Quiere crear una lista de acciones?</string>
+  <string name="CRA_speech_bubble_end">Parece que acaba de terminar %s. ¿Quiere crear una lista de acciones?</string>
+  <string name="CRA_create_list">Crear lista</string>
+  <string name="CRA_postpone">Quizá después</string>
+  <string name="CRA_list_exists_title">La lista ya existe</string>
+  <string name="CRA_list_exists_body">Ya hay una lista llamada %s. ¿Quiere usar la lista actual o crear una nueva para el evento?</string>
+  <string name="CRA_create_new">Crear nuevo</string>
+  <string name="CRA_use_existing">Usar el existente</string>
+  <string name="CRA_created_list_dialog">Creé una lista %s.</string>
+  <string name="CRA_one_attendee">%s asistirá.</string>
+  <string name="CRA_two_attendees">%1$s y %2$s atenderán.</string>
+  <string name="CRA_many_attendees">%1$s, %2$s y %3$d más asistirán.</string>
+  <string name="CRA_invitation_prompt">¿Quiere invitarlos?</string>
+  <string name="CRA_calendar_reminders_pref_title">Asistente de calendario</string>
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid no le volverá a recordar los próximos eventos de calendario</string>
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid le recordará los próximos eventos de calendario y le pedirá que se prepare para ellos</string>
+  <string name="CRA_share_list_title">¿Compartir la lista?</string>
+  <string name="CRA_invite_attendees">Invitar asistentes</string>
+  <string name="CRA_more_options">Más opciones</string>
+  <string name="CRA_dont_invite">No, gracias</string>
+  <string name="CRA_list_created_title">Lista creada</string>
+  <string name="CRA_default_list_name">Acciones: %s</string>
   <string name="UpS_changelog_title">¿Que hay de nuevo en Astrid?</string>
   <string name="UpS_updates_title">Últimas Noticias de Astrid</string>
   <string name="UpS_no_activity_log_in">Ingresa para ver un registro de\ntu progreso así como la\nactividad en listas compartidas.</string>
@@ -672,12 +707,14 @@
   <string name="premium_description_5">Prueba funciones nuevas</string>
   <string name="premium_description_6">¡Apoya al equipo de Astrid!</string>
   <string name="premium_speech_bubble_1">¡Premium mejorará tu productividad!</string>
-  <string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
+  <string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%!</string>
   <string name="premium_already_subscribed">¡Ya estás suscrito a Astrid Premium!</string>
   <string name="premium_login_prompt">Necesitas tener una cuenta de Astrid.com para suscribirte a Premium. Por favor inicia sesión o crea una cuenta.</string>
   <string name="premium_success">¡Gracias por suscribirte a Astrid Premium!</string>
   <string name="premium_success_with_server_error">¡Gracias por suscribirte a Astrid Premium! Las nuevas funciones se abrirán pronto para ti en astrid.com, y deben estar disponibles en tu teléfono desde éste momento.</string>
   <string name="premium_verification_error">La suscripción Premium para ésta cuenta de Google Play está conectada a un usuario diferente. Para ligar direcciones de correo electrónico adicionales a tu cuenta, visita astrid.com/users/profile</string>
+  <string name="premium_check_for_purchases">¿Ha adquirido premium? Clic aquí para comprobar el historial de compras de Google Play.</string>
+  <string name="premium_checking_for_purchases">Comprando compras...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Espacios de trabajo</string>
   <string name="producteev_FEx_responsible_byme">Asignada por mi a</string>
@@ -711,7 +748,7 @@
   <string name="producteev_TEA_dashboard_assign_label">Asignar esa tarea a este espacio de trabajo:</string>
   <string name="CFC_producteev_in_workspace_text">¿En qué espacio de trabajo?</string>
   <string name="CFC_producteev_in_workspace_name">En el espacio de trabajo...</string>
-  <string name="CFC_producteev_assigned_to_text">Asignado a: ?</string>
+  <string name="CFC_producteev_assigned_to_text">Asignado a:</string>
   <string name="CFC_producteev_assigned_to_name">Asginado a...</string>
   <string name="TEA_reminders_group_label">Recordatorios</string>
   <string name="TEA_reminder_label">Recordarme:</string>
