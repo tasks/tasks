@@ -7,16 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:33+0000\n"
-"Last-Translator: MasterPhW <MasterPhW@gmail.com>\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-10-22 18:43+0000\n"
+"Last-Translator: Heiner Vogel <heinervogel45@web.de>\n"
 "Language-Team: de <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
+
+#. slide 10c: I've assigned
+msgctxt "BFE_Assigned"
+msgid "I've Assigned"
+msgstr "Ich habe zugeordnet"
 
 #. ================================================== general terms ==
 #. People Editing Activity
@@ -93,6 +98,40 @@ msgstr "Meine freigegebenen Aufgaben"
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "Keine freigegeben Aufgaben"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr ""
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr ""
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -378,12 +417,13 @@ msgstr "Log dich bitte ein:"
 #. Login error: user exists
 msgctxt "actfm_ALA_error_user_exists"
 msgid "User already exists. Please sign in instead."
-msgstr ""
+msgstr "Der Benutzer existiert bereits. Bitte melden Sie sich an."
 
 #. Login error: wrong password
 msgctxt "actfm_ALA_error_wrong_password"
 msgid "Sorry, that password was incorrect. Please try again."
 msgstr ""
+"Das eingegebene Passwort ist nicht korrekt. Bitte versuchen Sie es erneut."
 
 #. ================================================ Featured Lists
 msgctxt "actfm_feat_list_clone"
@@ -450,11 +490,11 @@ msgstr ""
 #. account types
 msgctxt "actfm_account_type"
 msgid "Account type"
-msgstr ""
+msgstr "Konto-Typ"
 
 msgctxt "actfm_account_info"
 msgid "Account info"
-msgstr ""
+msgstr "Konto-Informationen"
 
 msgctxt "actfm_account_info_summary"
 msgid "Status and options"
@@ -501,11 +541,12 @@ msgstr "Auf Google+ teilen"
 
 msgctxt "share_title"
 msgid "Share the love!"
-msgstr ""
+msgstr "Erzähle es deinen Freunden!"
 
 msgctxt "share_speech_bubble"
 msgid "By sharing, you'll help others be more productive!"
 msgstr ""
+"In dem du es deinen Freunden erzählst, hilfst du Anderen produktiver zu sein."
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -874,7 +915,7 @@ msgstr "Personen"
 #. Menu: Featured Lists
 msgctxt "TLA_menu_featured_lists"
 msgid "Featured Lists"
-msgstr ""
+msgstr "Vorgeschlagene Listen"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
@@ -912,7 +953,7 @@ msgstr "Etwas hinzufügen für %s"
 #. Notification Volumne notification
 msgctxt "TLA_notification_volume_low"
 msgid "Notifications are muted. You won't be able to hear Astrid!"
-msgstr "Erinnerungen sind stummgeschaltet. Du wirst Astrid nicht höhren!"
+msgstr "Erinnerungen sind stummgeschaltet. Du wirst Astrid nicht hören!"
 
 #. Notifications disabled warning
 msgctxt "TLA_notification_disabled"
@@ -1042,7 +1083,7 @@ msgstr "Aufgabe kopieren"
 #. Context Item: delete task
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
-msgstr ""
+msgstr "Aufgabe löschen"
 
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
@@ -1564,6 +1605,164 @@ msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "Du kannst auch eine SMS senden ..."
 
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr ""
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr ""
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr ""
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr ""
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr ""
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr ""
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr ""
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr ""
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr ""
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr ""
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr ""
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr ""
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr ""
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr ""
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr ""
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr ""
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr ""
+
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
 #. ==================================================== UpdateService ==
@@ -1619,7 +1818,7 @@ msgstr "Erscheinungsbild"
 #. Preference Category: Appearance Summary
 msgctxt "EPr_appearance_summary"
 msgid "Themes, widgets, task rows, edit screen"
-msgstr ""
+msgstr "Themes, Widgets, Aufgabenzeilen, Bearbeitungsansicht"
 
 #. FAQ Preference title
 msgctxt "EPr_faq_title"
@@ -1635,7 +1834,7 @@ msgstr "Konto: %s"
 #. Support preferences summary
 msgctxt "EPr_support_summary"
 msgid "Tutorial, FAQ, about"
-msgstr ""
+msgstr "Einführung, FAQ, über"
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
@@ -1728,19 +1927,19 @@ msgstr ""
 #. Preferences: task row style
 msgctxt "EPr_task_row_style_title_simple"
 msgid "Row style: Simple"
-msgstr ""
+msgstr "Zeilen-Stil: Einfach"
 
 msgctxt "EPr_task_row_style_title_legacy"
 msgid "Row style: Original"
-msgstr ""
+msgstr "Zeilen-Stil: Original"
 
 msgctxt "EPr_task_row_style_summary_simple"
 msgid "Truncate title to one line with date and lists below"
-msgstr ""
+msgstr "Titel auf eine Zeile begrenzen, Datum und Listen darunter"
 
 msgctxt "EPr_task_row_style_summary_legacy"
 msgid "Truncate title to two lines with date on right"
-msgstr ""
+msgstr "Titel auf zwei Zeilen begrenzen mit Datum rechts"
 
 #. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
@@ -1791,7 +1990,7 @@ msgstr "Das Symbol des Systemdialogs für Kontaktauswahl wird nicht angezeigt"
 #. slide 49i: Preferences: Third party addons
 msgctxt "EPr_third_party_addons"
 msgid "Enable third party add-ons"
-msgstr ""
+msgstr "Schalte Drittanbieter-Erweiterungen ein"
 
 msgctxt "EPr_third_party_addons_desc_enabled"
 msgid "Third party add-ons will be enabled"
@@ -1805,7 +2004,7 @@ msgstr "Erweiterungen anderer Anbieter werden deaktiviert"
 #. Preferences: ideas tab
 msgctxt "EPr_ideas_tab_enabled"
 msgid "Task ideas"
-msgstr ""
+msgstr "Aufgabenideen"
 
 msgctxt "EPr_ideas_tab_description"
 msgid "Get ideas to help you complete tasks"
@@ -1826,11 +2025,11 @@ msgstr "Termine zum angebenen Zeitpunkt starten"
 
 msgctxt "EPr_force_phone_layout"
 msgid "Use phone layout"
-msgstr ""
+msgstr "Telefon Layout nutzen"
 
 msgctxt "EPr_show_featured_lists"
 msgid "Show featured lists"
-msgstr ""
+msgstr "Vorgeschlagene Listen anzeigen"
 
 #. Swipe between lists
 #. Preference: swipe between lists performance
@@ -1880,7 +2079,7 @@ msgstr "Zieh nach links oder rechts, um schnell zwischen Listen zu wechseln"
 
 msgctxt "swipe_lists_helper_subtitle"
 msgid "Change settings in Settings -&gt; Appearance"
-msgstr ""
+msgstr "Ändere die Einstellungen unter Einstellungen -&gt; Erscheinungsbild"
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
@@ -2069,16 +2268,21 @@ msgid ""
 "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and "
 "4x4 widgets and voice integration. Power up today!"
 msgstr ""
+"Unterstützen Sie Astrid und werden Sie produktiver mit dem Astrid Power "
+"Pack. 4x2 und 4x4 Widgets sowie Sprachintegration. Starten Sie heute noch "
+"durch!"
 
 msgctxt "AOA_locale_title"
 msgid "Astrid Locale Plugin"
-msgstr ""
+msgstr "Astrid Gebietsschema-Plugin"
 
 msgctxt "AOA_locale_description"
 msgid ""
 "Allows Astrid to make use of the Locale application to send you "
 "notifications based on filter conditions. Requires Locale."
 msgstr ""
+"Erlaubt Astrid, die Gebietschema-App zum Senden von Benachrichtigunen "
+"basierend auf Filterregeln zu benutzen. Benötigt Gebietsschema-Plugin."
 
 #. ====================================================== TasksWidget ==
 #. Widget text when loading tasks
@@ -2167,6 +2371,12 @@ msgid ""
 "&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a "
 "backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid."
 msgstr ""
+"Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen "
+"Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen "
+"(Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle "
+"Daten löschen) und deine Aufgaben aus einem Backup in Astrid "
+"wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-"
+"Backups verwalten&gt;Aufgaben importieren)."
 
 msgctxt "market_unavailable"
 msgid "Unfortunately the market is not available for your system."
@@ -2177,11 +2387,11 @@ msgstr "Leider ist der Market nicht für dein System verfügbar."
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New task defaults"
-msgstr ""
+msgstr "Standardeinstellungen für neue Aufgaben"
 
 msgctxt "EPr_defaults_summary"
 msgid "Importance, due date, add to calendar"
-msgstr ""
+msgstr "Wichtigkeit, Fälligkeitsdatum, zum Kalender hinzufügen"
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
@@ -2336,11 +2546,6 @@ msgstr "Aktuelle Aufgaben"
 msgctxt "BFE_Recent"
 msgid "Recently Modified"
 msgstr "Kürzlich bearbeitet"
-
-#. slide 10c: I've assigned
-msgctxt "BFE_Assigned"
-msgid "I've Assigned"
-msgstr "Ich wurde damit betraut"
 
 #. Build Your Own Filter
 #. Saved Filters Header
@@ -2748,6 +2953,10 @@ msgid ""
 "People you share with can help\n"
 "you build your list or finish tasks"
 msgstr ""
+"Personen, mit denen Du Aufgaben\n"
+"teilst, können Dir dabei helfen,\n"
+"Deine Liste zu erstellen oder\n"
+"Aufgaben abzuschließen"
 
 #. Shown after user adds a task on tablet
 msgctxt "help_popover_add_lists"
@@ -3115,7 +3324,7 @@ msgstr "Zugeordnet zu …"
 #. slide 32j: Preference Category: Power Pack
 msgctxt "EPr_powerpack_header"
 msgid "Premium and misc. settings"
-msgstr ""
+msgstr "Premium und verschiedene Einstellungen"
 
 msgctxt "EPr_powerpack_summary"
 msgid "Missed call reminders, voice input and miscellaneous settings"
@@ -3124,7 +3333,7 @@ msgstr "Verpasste Anruf Erinnerungen, Spracheingabe und Andere Einstellungen"
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
 msgid "Anonymous usage stats"
-msgstr ""
+msgstr "Anonyme Nutzungsstatistiken"
 
 #. Preference: User Statistics (disabled)
 msgctxt "EPr_statistics_desc_disabled"
@@ -3327,7 +3536,7 @@ msgstr "Auf Standardeinstellungen zurücksetzen"
 
 msgctxt "p_files_dir"
 msgid "Premium downloads directory"
-msgstr ""
+msgstr "Premium-Downloadverzeichnis"
 
 #. Description for file download directory preference. %s -> chosen directory
 #, c-format
@@ -3349,16 +3558,21 @@ msgid ""
 "The Market billing service is not available at this time. You can continue "
 "to use this app but you won't be able to make purchases."
 msgstr ""
+"Der Market-Abrechnungsdienst ist zur Zeit nicht verfügbar. Du kannst diese "
+"App weiterhin benutzen, aber Du kannst keine Einkäufe tätigen."
 
 msgctxt "subscriptions_not_supported_title"
 msgid "Can't purchase subscriptions"
-msgstr ""
+msgstr "Abonnement konnte nicht gekauft werden."
 
 msgctxt "subscriptions_not_supported_message"
 msgid ""
 "The Market billing service on this device does not support subscriptions at "
 "this time. You can subscribe to Astrid Premium at http://astrid.com/premium."
 msgstr ""
+"Der Market-Abrechnungsdienst unterstützt zur Zeit keine Abonnements auf "
+"diesem Gerät. Du kannst Astrid Premium unter http://astrid.com/premium "
+"abonnieren."
 
 msgctxt "cannot_connect_title"
 msgid "Can't connect to Market"
@@ -3370,6 +3584,9 @@ msgid ""
 "date. You can continue to use this app but you won't be able to make "
 "purchases."
 msgstr ""
+"Die App kann sich nicht mit dem Market verbinden. Deine Market-Version ist "
+"eventuell veraltet. Du kannst diese App weiterhin benutzen, aber Du kannst "
+"keine Einkäufe tätigen."
 
 msgctxt "restoring_transactions"
 msgid "Restoring transactions"
@@ -3417,7 +3634,7 @@ msgstr "Speichere Sprachnotizen als Audio-Dateien"
 
 msgctxt "premium_description_5"
 msgid "Preview upcoming features"
-msgstr ""
+msgstr "Zukünftige Funktionen ansehen"
 
 msgctxt "premium_description_6"
 msgid "Support the Astrid Team!"
@@ -3465,6 +3682,16 @@ msgstr ""
 "Der Premium Account für dieses Google Play Konto ist mit einem anderen "
 "Benutzer verknüpft. Um weitere E-Mail-Adressen zu deinem Account "
 "hinzuzufügen, besuche astrid.com/users/profile"
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
+msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -4481,7 +4708,7 @@ msgstr "Sei nicht so faul!"
 
 msgctxt "reminders_snooze:1"
 msgid "Snooze time is up!"
-msgstr "Die Schlumerzeit ist vorbei!"
+msgstr "Die Schlummerzeit ist vorbei!"
 
 msgctxt "reminders_snooze:2"
 msgid "No more snoozing!"
@@ -5410,7 +5637,7 @@ msgstr "Sprachfunktionen"
 #. slide 30a
 msgctxt "welcome_setting"
 msgid "Show tutorial"
-msgstr ""
+msgstr "Tutorial anzeigen"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"

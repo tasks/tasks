@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:34+0000\n"
+"POT-Creation-Date: 2012-10-26 14:31-0700\n"
+"PO-Revision-Date: 2012-10-15 03:27+0000\n"
 "Last-Translator: sheppaul <sheppaul@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:05+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -244,12 +244,12 @@ msgstr "동기화하는 중..."
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
 msgid "Sync & backup"
-msgstr ""
+msgstr "동기화 & 백업"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
 msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr ""
+msgstr "Astrid.com, 구글 일정, 저장한 자료, 로컬 백업"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -271,12 +271,12 @@ msgstr "상태: %s"
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
 msgid "Not logged in"
-msgstr ""
+msgstr "로그인 안 됨"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
 msgid "Sync ongoing..."
-msgstr ""
+msgstr "동기화 진행 중..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
@@ -298,7 +298,7 @@ msgstr "실패: %s"
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ errors: %s"
-msgstr ""
+msgstr "동기화 중 에러: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
@@ -309,7 +309,7 @@ msgstr "마지막 동기화 성공시간: %s"
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
 msgid "Never synchronized!"
-msgstr "한번도 동기화 되지 않았습니다!"
+msgstr "동기화 한 적이 없습니다!"
 
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
@@ -335,7 +335,7 @@ msgstr "현재 설정: %s"
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
 msgid "Wifi only setting"
-msgstr "WiFi 일때만 설정"
+msgstr "WiFi 설정"
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
@@ -355,7 +355,7 @@ msgstr "동작"
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
 msgid "Synchronize now"
-msgstr ""
+msgstr "지금 동기화하기"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -370,7 +370,7 @@ msgstr "로그인하기:"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status report"
-msgstr ""
+msgstr "상태 보고"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
@@ -380,7 +380,7 @@ msgstr "Astrid 팀에게 보고서를 보내려면 클릭"
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send report"
-msgstr ""
+msgstr "보고서 보내기"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -403,7 +403,7 @@ msgctxt "sync_error_offline"
 msgid ""
 "There was a problem connecting to the network during the last sync with %s. "
 "Please try again later."
-msgstr "%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다. 나중에 다시 시도해 주세요."
+msgstr "%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다.나중에 다시 시도해 주세요."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"

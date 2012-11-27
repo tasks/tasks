@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-12 21:20+0000\n"
-"Last-Translator: Henry Tsai <henry@astrid.com>\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-10-24 11:46+0000\n"
+"Last-Translator: phy <Unknown>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-16 17:16+0000\n"
-"X-Generator: Launchpad (build 16152)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -42,7 +42,7 @@ msgstr "你是这个被分享列表的拥有者，如果删除它，其它被分
 #. slide 29a: menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
-msgstr "照张照片"
+msgstr "拍照"
 
 #. slide 29b: menu item to select from gallery
 msgctxt "actfm_picture_gallery"
@@ -52,7 +52,7 @@ msgstr "从相册中选取"
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr "清屏"
+msgstr "取消选择"
 
 #. filter list activity: refresh tags
 #. Title for prompt after sharing a task
@@ -87,6 +87,40 @@ msgstr "已分享任务"
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "没有已分享任务"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr ""
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr ""
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -158,7 +192,7 @@ msgstr "列表图片"
 #. slide 25c/28b: Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
-msgstr "静默通知"
+msgstr "勿扰模式"
 
 #. Tag Settings: list icon label
 #. slide 25b/27d: Tag Settings: list description label
@@ -186,7 +220,7 @@ msgctxt "actfm_TVA_login_to_share"
 msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
-msgstr "你需要登陆Astrid.com来分享列表，请登陆网站或者保持私有"
+msgstr "你需要登陆来分享列表，请登陆网站或者保持私有"
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -194,7 +228,7 @@ msgctxt "actfm_EPA_intro"
 msgid ""
 "Use Astrid to share shopping lists, party plans, or team projects and "
 "instantly see when people get stuff done!"
-msgstr "使用Astrid分享您的购物单，聚会和团队项目，就会发现人们可以迅速完成工作！"
+msgstr "使用清单小助理分享您的购物单，聚会和团队项目，就会发现人们可以迅速完成工作！"
 
 #. task sharing dialog: window title
 #. task sharing dialog: save button
@@ -260,7 +294,7 @@ msgstr "列表成员"
 #. task sharing dialog: astrid friends section header
 msgctxt "actfm_EPA_assign_header_friends"
 msgid "Astrid Friends"
-msgstr "Astrid 好友"
+msgstr "清单小助理好友"
 
 #. task sharing dialog: message hint
 #. task sharing dialog: share with Facebook
@@ -285,7 +319,7 @@ msgstr "电子邮箱无效： %s"
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
 msgid "You need to be logged in to Astrid.com to share tasks!"
-msgstr "你需要登陆Astrid.com来分享任务，请登陆网站或者保持私有。"
+msgstr "你需要登陆来分享任务，请登陆网站或者保持私有。"
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
@@ -408,7 +442,7 @@ msgstr "状态——已使用 %s 帐户登录"
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr "Astrid.com （测试版！）"
+msgstr "Astrid.com (清单小助理)"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
@@ -416,11 +450,11 @@ msgstr "使用 HTTPS"
 
 msgctxt "actfm_https_enabled"
 msgid "HTTPS enabled (slower)"
-msgstr "开启 HTTPS"
+msgstr "开启 HTTPS （较慢）"
 
 msgctxt "actfm_https_disabled"
 msgid "HTTPS disabled (faster)"
-msgstr "关闭 HTTPS"
+msgstr "关闭 HTTPS （更快）"
 
 #. title for notification tray after synchronizing
 #. text for notification when comments are received
@@ -447,7 +481,7 @@ msgstr "状态和选项"
 
 msgctxt "account_type_title_not_logged_in"
 msgid "Sign up for a free account"
-msgstr "注册一个免费帐号"
+msgstr "免费注册一个帐号"
 
 msgctxt "account_type_summary_not_logged_in"
 msgid "Access tasks online, share lists and delegate"
@@ -568,7 +602,7 @@ msgstr "备份每天执行"
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_cloud_already_logged_in"
 msgid "You already have cloud backup on Astrid.com!"
-msgstr "您已经在Astrid.com上享有云备份"
+msgstr ""
 
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
@@ -594,7 +628,7 @@ msgstr "导出任务"
 #. backup activity cloud (Astrid.com) option
 msgctxt "backup_BAc_cloud"
 msgid "Click for free cloud backup on Astrid.com"
-msgstr "在Astrid.com点击免费云备份"
+msgstr "访问Astrid.com免费获取云备份"
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
@@ -672,12 +706,12 @@ msgstr "选取要还原的文件"
 #. slide 32k: Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
 msgid "Astrid Tasks"
-msgstr "Astrid 任务"
+msgstr "清单小助理"
 
 #. permission title for READ_TASKS
 msgctxt "read_permission_label"
 msgid "Astrid Permission"
-msgstr "Astrid 权限"
+msgstr "清单小助理权限"
 
 #. permission description for READ_TASKS
 msgctxt "read_permission_desc"
@@ -687,7 +721,7 @@ msgstr "读取任务，显示任务过滤器"
 #. permission title for READ_TASKS
 msgctxt "write_permission_label"
 msgid "Astrid Permission"
-msgstr "Astrid 权限"
+msgstr "清单小助理权限"
 
 #. permission description for READ_TASKS
 msgctxt "write_permission_desc"
@@ -721,7 +755,7 @@ msgctxt "DLG_please_update"
 msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
-msgstr "Astrid 应该要从 Android 市场下载最新版本! 请继续前执行, 或稍等片刻。"
+msgstr "清单小助理应该要从 Android 市场下载最新版本! 请继续前执行, 或稍等片刻。"
 
 #. Button for going to Market
 #. Button for accepting EULA
@@ -737,7 +771,7 @@ msgstr "不接受"
 #. EULA title
 msgctxt "DLG_eula_title"
 msgid "Astrid Terms Of Use"
-msgstr "Astrid 使用条款"
+msgstr "清单小助理使用条款"
 
 #. Progress Dialog generic text
 msgctxt "DLG_please_wait"
@@ -845,7 +879,7 @@ msgstr "列表"
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "People"
-msgstr "朋友"
+msgstr "人物"
 
 #. Menu: Featured Lists
 msgctxt "TLA_menu_featured_lists"
@@ -893,7 +927,7 @@ msgstr "已静音。你不会再听到了！"
 #. Notifications disabled warning
 msgctxt "TLA_notification_disabled"
 msgid "Astrid reminders are disabled! You will not receive any reminders"
-msgstr "Astrid提醒功能被关闭，你不会收到任何提醒。"
+msgstr "清单小助理提醒功能被关闭，你不会收到任何提醒。"
 
 msgctxt "TLA_filters:0"
 msgid "Active"
@@ -1062,7 +1096,7 @@ msgstr "拖放到子任务中"
 #. slide 23b: Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
 msgid "Astrid Smart Sort"
-msgstr "Astrid 智能排序"
+msgstr "清单小助理智能排序"
 
 #. slide 23e: Sort Selection: sort by alpha
 msgctxt "SSD_sort_alpha"
@@ -1103,7 +1137,7 @@ msgstr "总是"
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr "Astrid 列表或过滤器"
+msgstr "清单小助理列表或过滤器"
 
 #. Filter List Activity Title
 #. Displayed when loading filters
@@ -1263,7 +1297,7 @@ msgstr "活动"
 #. slide 15e:  Task edit tab: more editing settings
 msgctxt "TEA_tab_more"
 msgid "Details"
-msgstr "更多"
+msgstr "细节"
 
 #. slide 15d: Task edit tab: web services
 msgctxt "TEA_tab_web"
@@ -1316,11 +1350,11 @@ msgstr "在到期日时"
 
 msgctxt "TEA_hideUntil:2"
 msgid "Day before due"
-msgstr "到期天数"
+msgstr "截止期前一天"
 
 msgctxt "TEA_hideUntil:3"
 msgid "Week before due"
-msgstr "到期周数"
+msgstr "截止期前一周"
 
 msgctxt "TEA_hideUntil:4"
 msgid "Specific Day/Time"
@@ -1459,7 +1493,7 @@ msgctxt "MCA_ignore_body"
 msgid ""
 "You've ignored several missed calls. Should Astrid stop asking you about "
 "them?"
-msgstr "您已经忽略了几个未接电话。对于这些电话，Astrid 是否应该不再询问您呢？"
+msgstr "您已经忽略了几个未接电话。对于这些电话，清单小助理是否应该不再询问您呢？"
 
 #. Missed call: dialog to ignore all missed calls ignore all button
 msgctxt "MCA_ignore_all"
@@ -1481,11 +1515,11 @@ msgctxt "MCA_missed_calls_pref_desc_enabled"
 msgid ""
 "Astrid will notify you about missed calls and offer to remind you to call "
 "back"
-msgstr "Astrid 会向您报告未接电话，还会提供回电的提醒"
+msgstr "清单小助理会向您报告未接电话，还会提供回电的提醒"
 
 msgctxt "MCA_missed_calls_pref_desc_disabled"
 msgid "Astrid will not notify you about missed calls"
-msgstr "Astrid 将不会向您报告未接电话"
+msgstr "清单小助理将不会向您报告未接电话"
 
 #. Missed call: task title with name (%1$s -> name, %2$s -> number)
 #, c-format
@@ -1535,18 +1569,176 @@ msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "无论怎样，您也可以发条短信呀……"
 
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr ""
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr ""
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr ""
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr ""
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr ""
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr ""
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr ""
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr ""
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr ""
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr ""
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr ""
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr ""
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr ""
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr ""
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr ""
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr ""
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr ""
+
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
 #. ==================================================== UpdateService ==
 #. Changelog Window Title
 msgctxt "UpS_changelog_title"
 msgid "What's New In Astrid?"
-msgstr "Astrid 有哪些最新功能？"
+msgstr "清单小助理有哪些最新功能？"
 
 #. Updates Window Title
 msgctxt "UpS_updates_title"
 msgid "Latest Astrid News"
-msgstr "Astrid 最新消息"
+msgstr "清单小助理最新消息"
 
 #. Updats No Activity to show for offline users
 msgctxt "UpS_no_activity_log_in"
@@ -1555,15 +1747,14 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
-"登录查看记录 \n"
-"看看您的活动的进展情况 \n"
+"登录查看您的活动进展情况 \n"
 "以及在各分享列表上的活动。"
 
 #. ================================================== EditPreferences ==
 #. slide 31g: Preference Window Title
 msgctxt "EPr_title"
 msgid "Astrid: Settings"
-msgstr "Astrid：设置"
+msgstr "清单小助理：设置"
 
 msgctxt "EPr_title_short"
 msgid "Settings"
@@ -1571,11 +1762,11 @@ msgstr "设置"
 
 msgctxt "EPr_share_astrid"
 msgid "Tell others about Astrid"
-msgstr "介绍Astrid给您的朋友"
+msgstr "介绍清单小助理给您的朋友"
 
 msgctxt "EPr_share_astrid_summary"
 msgid "Share about Astrid on your favorite social network"
-msgstr "在您喜欢的社交网站上分享Astrid"
+msgstr "在您喜欢的社交网站上分享清单小助理"
 
 #. slide 46a
 msgctxt "EPr_deactivated"
@@ -1616,7 +1807,7 @@ msgstr "任务列表字体大小"
 #. slide 32a: Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
 msgid "Show confirmation for smart reminders"
-msgstr "在智能提示上显示确认消息"
+msgstr "显示智能提示确认消息"
 
 #. slide 34g: Preference: Task List Font Size Description
 msgctxt "EPr_fontSize_desc"
@@ -1627,7 +1818,7 @@ msgstr "主列表页面字体大小"
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show notes in task"
-msgstr "在任务显示备注"
+msgstr "在任务中显示备注"
 
 #. slide 30e: Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
@@ -1647,7 +1838,7 @@ msgstr "恢复默认值"
 #. slide 34i: Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
 msgid "Notes will be accessible from the task edit screen"
-msgstr "笔记将会在快速行动条中显示"
+msgstr "备注将会显示在任务编辑屏幕中"
 
 #. Preference: Task List Show Notes Description (enabled)
 msgctxt "EPr_showNotes_desc_enabled"
@@ -1759,7 +1950,7 @@ msgstr "将不会显示系统的联系人选择程序选项"
 #. slide 49i: Preferences: Third party addons
 msgctxt "EPr_third_party_addons"
 msgid "Enable third party add-ons"
-msgstr "允许第三方加注信息"
+msgstr "允许第三方附加软件"
 
 msgctxt "EPr_third_party_addons_desc_enabled"
 msgid "Third party add-ons will be enabled"
@@ -1777,7 +1968,7 @@ msgstr "任务意见"
 
 msgctxt "EPr_ideas_tab_description"
 msgid "Get ideas to help you complete tasks"
-msgstr "获取多个建议，帮助您完成多项任务"
+msgstr "获取建议来帮助您完成多项任务"
 
 #. Preferences: calendar event start time
 msgctxt "EPr_cal_end_or_start_at_due_time"
@@ -1786,11 +1977,11 @@ msgstr "日历事件的时间"
 
 msgctxt "EPr_cal_end_at_due_time"
 msgid "End calendar events at due time"
-msgstr "在预定时间结束日历事件"
+msgstr "设置截止时间为日历事件结束时间"
 
 msgctxt "EPr_cal_start_at_due_time"
 msgid "Start calendar events at due time"
-msgstr "在预定时间启用日历事件"
+msgstr "设置截止时间为日历事件开始时间"
 
 msgctxt "EPr_force_phone_layout"
 msgid "Use phone layout"
@@ -1844,7 +2035,7 @@ msgstr "在列表间滑动"
 
 msgctxt "swipe_lists_helper_header"
 msgid "Swipe left or right to quickly move between lists"
-msgstr "在列表间向左或向右快速滑动"
+msgstr "向左或向右快速滑动来切换列表"
 
 msgctxt "swipe_lists_helper_subtitle"
 msgid "Change settings in Settings -&gt; Appearance"
@@ -1959,7 +2150,7 @@ msgid ""
 "\n"
 "Warning: can't be undone!"
 msgstr ""
-"要删除 Astrid 中所有任务和设置吗？\n"
+"要删除清单小助理中所有任务和设置吗？\n"
 "\n"
 "系统提醒：无法还原的喔！"
 
@@ -2000,7 +2191,7 @@ msgstr "扩展"
 #. Add-on Activity: author for internal authors
 msgctxt "AOA_internal_author"
 msgid "Astrid Team"
-msgstr "Astrid 团队"
+msgstr "清单小助理团队"
 
 #. Add-on Activity: installed add-ons tab
 msgctxt "AOA_tab_installed"
@@ -2026,23 +2217,23 @@ msgstr "空列表！"
 
 msgctxt "AOA_ppack_title"
 msgid "Astrid Power Pack"
-msgstr "Astrid优化工具"
+msgstr ""
 
 msgctxt "AOA_ppack_description"
 msgid ""
 "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and "
 "4x4 widgets and voice integration. Power up today!"
-msgstr "支持Astrid并在Astrid优化工具的帮助下变得更加有效率。提供 4＊2 和4＊4尺寸的小工具和语音支持。让我们更加有效率地生活！"
+msgstr "支持清单小助理并在优化工具的帮助下变得更加有效率。提供 4＊2 和4＊4尺寸的小工具和语音支持。让我们给生活加把劲！"
 
 msgctxt "AOA_locale_title"
 msgid "Astrid Locale Plugin"
-msgstr "Astrid场所插件"
+msgstr "清单小助理场所插件"
 
 msgctxt "AOA_locale_description"
 msgid ""
 "Allows Astrid to make use of the Locale application to send you "
 "notifications based on filter conditions. Requires Locale."
-msgstr "在过滤的条件下，允许Astrid利用场所应用推送通知。现在就买场所插件。"
+msgstr "在过滤的条件下，允许清单小助理利用场所应用推送通知。现在就获取场所插件。"
 
 #. ====================================================== TasksWidget ==
 #. Widget text when loading tasks
@@ -2059,7 +2250,7 @@ msgstr "选择任务以显示..."
 #. slide 30h: Title of "About" option in settings
 msgctxt "p_about"
 msgid "About Astrid"
-msgstr "关于 Astrid"
+msgstr "关于清单小助理"
 
 #. About text (%s => current version)
 #, c-format
@@ -2071,7 +2262,7 @@ msgid ""
 msgstr ""
 "当前版本： %s\n"
 "\n"
-" Astrid 是由 Todoroo, Inc. 维护的开源软件。"
+"清单小助理是由 Todoroo, Inc. 维护的开源软件。"
 
 #. Title of "Help" option in settings
 msgctxt "p_help"
@@ -2097,12 +2288,12 @@ msgid ""
 "add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
 "might not let you know when your tasks are due.\n"
 msgstr ""
-"似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 Astrid 加入到例外列表避免被杀死。否则 Astrid可能无法通知您任务已到期。\n"
+"似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 清单小助理加入到例外列表避免被杀死。否则 清单小助理可能无法通知您任务已到期。\n"
 
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
 msgid "I Won't Kill Astrid!"
-msgstr "我不会中止 Astrid!"
+msgstr "我不要中止清单小助理!"
 
 #. Astrid's Android Marketplace title. It never appears in the app itself.
 #. Astrid's Android Marketplace description. It never appears in the app
@@ -2113,7 +2304,7 @@ msgid ""
 "help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
 "a widget and more."
 msgstr ""
-"Astrid是一款开源并深受人们喜爱的TODO任务/列表管理器，旨在提高您处理事务的效率。Astrid包含提醒、标签、同步、区域插件、小工具等众多功能。"
+"清单小助理是一款开源并深受人们喜爱的任务/列表管理器，旨在提高您处理事务的效率。清单小助理包含提醒、标签、同步、区域插件、小工具等众多功能。"
 
 msgctxt "DB_corrupted_title"
 msgid "Corrupted Database"
@@ -2127,7 +2318,7 @@ msgid ""
 "backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid."
 msgstr ""
 "啊喔！您有一个毁损的资料库。如果您经常看见这个错误出现，我们建议您清除所有数据（在设置-&gt;同步和备份-&gt；管理旧任务-"
-"&gt;清楚所有数据）并在Astrid备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）"
+"&gt;清楚所有数据）并在清单小助理备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）"
 
 msgctxt "market_unavailable"
 msgid "Unfortunately the market is not available for your system."
@@ -2138,16 +2329,16 @@ msgstr "非常抱歉，我们的软件无法在您的系统中成功运行。"
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New task defaults"
-msgstr "新任务默认值"
+msgstr "新任务默认设置"
 
 msgctxt "EPr_defaults_summary"
 msgid "Importance, due date, add to calendar"
-msgstr "重大事件，截止日期，添加到日历"
+msgstr "重要性，截止日期，添加到日历"
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
 msgid "Default deadline"
-msgstr "默认严重性"
+msgstr "默认截止期"
 
 #. Preference: Default Urgency Description (%s => setting)
 #, c-format
@@ -2261,11 +2452,11 @@ msgstr "任务到期"
 
 msgctxt "EPr_default_hideUntil:2"
 msgid "Day before due"
-msgstr "到期天数"
+msgstr "截止期前一天"
 
 msgctxt "EPr_default_hideUntil:3"
 msgid "Week before due"
-msgstr "到期周数"
+msgstr "截止期前一周"
 
 msgctxt "EPr_default_reminders:0"
 msgid "No deadline reminders"
@@ -2359,12 +2550,12 @@ msgctxt "CFA_help"
 msgid ""
 "This screen lets you create a new filters. Add criteria using the button "
 "below, short or long-press them to adjust, and then click \"View\"!"
-msgstr "本屏用来建立新的筛选。使用下列按钮加入条件，短或长按调整，之后请按 \"查看\"!"
+msgstr "本屏用来建立新的筛选条件。使用下列按钮添加条件，短按或长按进行调整，之后请按 \"查看\"!"
 
 #. slide 30c: Filter Button: add new
 msgctxt "CFA_button_add"
 msgid "Add Criteria"
-msgstr "加入条件"
+msgstr "添加条件"
 
 #. slide 30f: Filter Button: view without saving
 msgctxt "CFA_button_view"
@@ -2418,7 +2609,7 @@ msgstr "下个月"
 #. Criteria: importance - display text (? -> user input)
 msgctxt "CFC_importance_text"
 msgid "Importance at least ?"
-msgstr "重要性至少为?"
+msgstr "重要性至少为？"
 
 #. Criteria: importance - name of criteria
 msgctxt "CFC_importance_name"
@@ -2428,7 +2619,7 @@ msgstr "重要性..."
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr "列表：?"
+msgstr "列表：？"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
@@ -2443,7 +2634,7 @@ msgstr "列表名包含..."
 #. Criteria: tag_contains - text (? -> user input)
 msgctxt "CFC_tag_contains_text"
 msgid "List name contains: ?"
-msgstr "列表名包含：?"
+msgstr "列表名包含：？"
 
 #. Criteria: title_contains - name of criteria
 msgctxt "CFC_title_contains_name"
@@ -2512,14 +2703,14 @@ msgstr "默认日程表"
 #. filters header: GTasks
 msgctxt "gtasks_FEx_header"
 msgid "Google Tasks"
-msgstr "Google 工作表"
+msgstr "Google Tasks"
 
 #. filter category for GTasks lists
 #. filter title for GTasks lists (%s => list name)
 #, c-format
 msgctxt "gtasks_FEx_title"
 msgid "Google Tasks: %s"
-msgstr "Google 工作表：%s"
+msgstr "Google Tasks: %s"
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_creating_list"
@@ -2574,7 +2765,7 @@ msgid ""
 "To view your tasks with indentation and order preserved, go to the Filters "
 "page and select a Google Tasks list. By default, Astrid uses its own sort "
 "settings for tasks."
-msgstr "预览任务时若想保留缩进和排序，请到“筛选”页面选择 Google 任务列表。Astrid 默认采用自有的任务排序设置。"
+msgstr "预览任务时若想保留缩进和排序，请到“筛选”页面选择 Google Tasks。清单小助理默认采用自有的任务排序设置。"
 
 #. Sign In Button
 #. E-mail Address Label
@@ -2611,7 +2802,7 @@ msgstr "您可能需要输入验证码。尝试从浏览器登陆后再回来重
 #. GTasks Preferences Title
 msgctxt "gtasks_GPr_header"
 msgid "Google Tasks"
-msgstr "Google Tasks (测试版！)"
+msgstr "Google Tasks"
 
 #. ================================================ Synchronization ==
 #. title for notification tray when synchronizing
@@ -2628,28 +2819,28 @@ msgctxt "gtasks_error_accountNotFound"
 msgid ""
 "Account %s not found--please log out and log back in from the Google Tasks "
 "settings."
-msgstr "找不到帐户 %s——请退出，然后从 Google 工作表设置中重新登录。"
+msgstr "找不到帐户 %s——请退出，然后从 Google Tasks设置中重新登录。"
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
 msgid ""
 "Unable to authenticate with Google Tasks. Please check your account password "
 "or try again later."
-msgstr "无法用 Google 工作表验证。请检查您的帐户密码或者稍后再尝试。"
+msgstr "无法用 Google Tasks验证。请检查您的帐户密码或者稍后再尝试。"
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
 msgid ""
 "Error in your phone's account manager. Please log out and log back in from "
 "the Google Tasks settings."
-msgstr "您手机的帐户管理器出错了。请退出，然后从 Google 工作表设置中重新登陆。"
+msgstr "您手机的帐户管理器出错了。请退出，然后从 Google Tasks设置中重新登录。"
 
 #. Error when authorization error happens in background sync
 msgctxt "gtasks_error_background_sync_auth"
 msgid ""
 "Error authenticating in background. Please try initiating a sync while "
 "Astrid is running."
-msgstr "后台验证出错了。请在 Astrid 运行时尝试启动同步。"
+msgstr "后台验证出错了。请在清单小助理运行时尝试启动同步。"
 
 msgctxt "gtasks_dual_sync_warning"
 msgid ""
@@ -2657,7 +2848,6 @@ msgid ""
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Google Tasks?"
 msgstr ""
-"您当前正在和 Astrid.com 同步。请注意，在一些情况下，和两个服务一起同步可能会导致出现意外的结果。您真的想和 Google 工作表同步吗？"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -2701,7 +2891,7 @@ msgstr "轻点添加一个列表或者在列表间切换"
 #. slide 7b
 msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
-msgstr "您使用 Astrid 就表明您同意所有"
+msgstr "您使用清单小助理就表明您同意所有"
 
 msgctxt "welcome_login_tos_link"
 msgid "Terms of Service"
@@ -2739,7 +2929,7 @@ msgid ""
 "synchronization with Astrid.com, the ability to add tasks via email, and you "
 "can even share task lists with friends!"
 msgstr ""
-"登录吧，充分利用 Astrid！无需任何费用，您就可以获得在线备份、和 Astrid.com "
+"登录吧，充分利用清单小助理！无需任何费用，您就可以获得在线备份、和 Astrid.com "
 "全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！"
 
 #. Shown after user goes to task rabbit activity
@@ -2753,14 +2943,14 @@ msgstr "更改任务类型"
 #. Locale Alert Editing Window Title
 msgctxt "locale_edit_alerts_title"
 msgid "Astrid Filter Alert"
-msgstr "Astrid 筛选警示"
+msgstr "清单小助理筛选警示"
 
 #. Locale Window Help
 msgctxt "locale_edit_intro"
 msgid ""
 "Astrid will send you a reminder when you have any tasks in the following "
 "filter:"
-msgstr "当您有任务在筛选内时，Astrid将送出提醒"
+msgstr "当您有任务在筛选内时，清单小助理将送出提醒"
 
 #. Locale Window Filter Picker UI
 #. Locale Window Interval Label
@@ -2806,7 +2996,7 @@ msgstr "您有 $NUM 符合: $FILTER"
 #. Locale Plugin was not found, it is required
 msgctxt "locale_plugin_required"
 msgid "Please install the Astrid Locale plugin!"
-msgstr "请安装 Astrid 本地插件！"
+msgstr "请安装清单小助理本地插件！"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3038,7 +3228,7 @@ msgstr "在任务区..."
 
 msgctxt "CFC_opencrx_assigned_to_text"
 msgid "Assigned to: ?"
-msgstr "指派给：?"
+msgstr "指派给：？"
 
 msgctxt "CFC_opencrx_assigned_to_name"
 msgid "Assigned to..."
@@ -3069,7 +3259,7 @@ msgstr "不报告使用资料"
 #. slide 32f: Preference: User Statistics (enabled)
 msgctxt "EPr_statistics_desc_enabled"
 msgid "Help us make Astrid better by sending anonymous usage data"
-msgstr "传送匿名使用资料以协助我们改进 Astrid"
+msgstr "传送匿名使用资料以协助我们改进清单小助理"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3188,7 +3378,7 @@ msgctxt "file_browser_err_permissions"
 msgid ""
 "Permissions error! Please make sure you have not blocked Astrid from "
 "accessing the SD card."
-msgstr "权限出错！请确保您没有阻止 Astrid访问 SD 卡。"
+msgstr "权限出错！请确保您没有阻止清单小助理访问 SD 卡。"
 
 msgctxt "file_add_picture"
 msgid "Attach a picture"
@@ -3226,7 +3416,7 @@ msgctxt "file_err_no_directory"
 msgid ""
 "Whoops! Looks like the files directory doesn't exist. Please choose a "
 "directory to save files to in the Astrid Preferences."
-msgstr "糟糕！这个文件目录似乎并不存在。请在 Astrid 设置中选择目录以存放文件。"
+msgstr "糟糕！这个文件目录似乎并不存在。请在清单小助理设置中选择目录以存放文件。"
 
 msgctxt "file_err_show"
 msgid "Sorry, the system does not yet support this type of file"
@@ -3273,8 +3463,7 @@ msgctxt "subscriptions_not_supported_message"
 msgid ""
 "The Market billing service on this device does not support subscriptions at "
 "this time. You can subscribe to Astrid Premium at http://astrid.com/premium."
-msgstr ""
-"此设备上的Market账单服务暂时无法支持购买。 您能在http://astrid.com/premium上购买Astrid Premium。"
+msgstr "此设备上的Market账单服务暂时无法支持购买。 您能在http://astrid.com/premium上购买清单小助理高级版本。"
 
 msgctxt "cannot_connect_title"
 msgid "Can't connect to Market"
@@ -3297,7 +3486,7 @@ msgstr "了解更多"
 
 msgctxt "premium_billing_title"
 msgid "Astrid Premium"
-msgstr "Astrid高级版本"
+msgstr "清单小助理高级版本"
 
 msgctxt "premium_buy_month"
 msgid "1 Month"
@@ -3315,7 +3504,7 @@ msgctxt "premium_description_1"
 msgid ""
 "Attach files to to-dos \n"
 "(pdfs, doc, ppt…)"
-msgstr "附加文件到要完成的事情列表里"
+msgstr "附加文件到任务列表里"
 
 msgctxt "premium_description_2"
 msgid "Syncs files with astrid.com"
@@ -3335,7 +3524,7 @@ msgstr "提前体验亮点"
 
 msgctxt "premium_description_6"
 msgid "Support the Astrid Team!"
-msgstr "支持Astrid团队！"
+msgstr "支持清单小助理高级版本团队！"
 
 msgctxt "premium_speech_bubble_1"
 msgid "Premium will power up your productivity!"
@@ -3343,11 +3532,11 @@ msgstr "高级版本能够让您的效率升级！"
 
 msgctxt "premium_speech_bubble_2"
 msgid "Order one year and save 25%%!"
-msgstr "购买一年的服务并且得到25%%的折扣"
+msgstr "购买一年的服务并且得到25％的折扣"
 
 msgctxt "premium_already_subscribed"
 msgid "You are already subscribed to Astrid Premium!"
-msgstr "您已经购买了Astrid Premium！"
+msgstr "您已经购买了清单小助理高级版本(Astrid Premium)！"
 
 msgctxt "premium_login_prompt"
 msgid ""
@@ -3357,13 +3546,13 @@ msgstr "为了成功购买高级版本，您需要一个Astrid.com的账户。 �
 
 msgctxt "premium_success"
 msgid "Thanks for subscribing to Astrid Premium!"
-msgstr "谢谢购买Astrid Premium！"
+msgstr "谢谢购买清单小助理高级版本(Astrid Premium)！"
 
 msgctxt "premium_success_with_server_error"
 msgid ""
 "Thanks for subscribing to Astrid Premium! The new features will be unlocked "
 "for you on astrid.com soon, and should be available on your phone right away."
-msgstr "谢谢购买Astrid Premium！新的特点将会很快在 astrid.com发布，并且在您的手机里立刻得到更新。"
+msgstr ""
 
 msgctxt "premium_verification_error"
 msgid ""
@@ -3372,6 +3561,16 @@ msgid ""
 "astrid.com/users/profile"
 msgstr ""
 "此Google Play 帐户的高级版本正与另一个用户连接。访问astrid.com/users/profile并连接您帐户的另一个电子邮箱。"
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
+msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3559,7 +3758,7 @@ msgstr "在任务区..."
 
 msgctxt "CFC_producteev_assigned_to_text"
 msgid "Assigned to: ?"
-msgstr "指派给：?"
+msgstr "指派给：？"
 
 msgctxt "CFC_producteev_assigned_to_name"
 msgid "Assigned to..."
@@ -3668,7 +3867,7 @@ msgstr "提醒："
 #. Titles for user reengagement notifications
 msgctxt "rmd_reengage_notif_titles:0"
 msgid "A note from Astrid"
-msgstr "Astrid 的提示"
+msgstr "清单小助理的提示"
 
 #. ==================================================== user reengagement ==
 #. Titles for user reengagement notifications
@@ -3681,13 +3880,13 @@ msgstr "%s 的备忘录。"
 #. Titles for user reengagement notifications
 msgctxt "rmd_reengage_notif_titles:2"
 msgid "Your Astrid digest"
-msgstr "您的 Astrid 摘要"
+msgstr "您的清单小助理摘要"
 
 #. ==================================================== user reengagement ==
 #. Titles for user reengagement notifications
 msgctxt "rmd_reengage_notif_titles:3"
 msgid "Reminders from Astrid"
-msgstr "Astrid 的提醒"
+msgstr "清单小助理的提醒"
 
 msgctxt "rmd_reengage_name_default"
 msgid "you"
@@ -3742,7 +3941,7 @@ msgstr "您不想生活变得更加有条理吗？"
 #. present
 msgctxt "rmd_reengage_dialog_empty_options:1"
 msgid "I'm Astrid! I'm here to help you do more!"
-msgstr "我是 Astrid！我随时帮助您做更多事情！"
+msgstr "我是清单小助理！我随时帮助您做更多事情！"
 
 #. Speech bubble options for astrid in reengagement notifs when no tasks
 #. present
@@ -3786,17 +3985,17 @@ msgstr "允许提醒？"
 #. Reminder Preference Reminders Enabled Description (true)
 msgctxt "rmd_EPr_enabled_desc_true"
 msgid "Astrid reminders are enabled (this is normal)"
-msgstr "Astrid 提示功能已经启用（这是正常的）"
+msgstr "清单小助理提示功能已经启用（这是正常的）"
 
 #. Reminder Preference Reminders Enabled Description (false)
 msgctxt "rmd_EPr_enabled_desc_false"
 msgid "Astrid reminders will never appear on your phone"
-msgstr "Astrid 提示功能将不再出现在您的手机里"
+msgstr "清单小助理清单小助理提示功能将不再显示在您的手机上"
 
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
 msgid "Quiet hours start"
-msgstr "无声开始时间"
+msgstr "静音开始时间"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
 #, c-format
@@ -3816,13 +4015,13 @@ msgstr "未设定无声时间"
 #. Reminder Preference: Quiet Hours End Title
 msgctxt "rmd_EPr_quiet_hours_end_title"
 msgid "Quiet hours end"
-msgstr "无声时间结束"
+msgstr "静音时间结束"
 
 #. Reminder Preference: Quiet Hours End Description (%s => time set)
 #, c-format
 msgctxt "rmd_EPr_quiet_hours_end_desc"
 msgid "Notifications will stop being silent starting at %s"
-msgstr "通知将在 %s"
+msgstr "静音时间将在%s后结束"
 
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
@@ -3861,12 +4060,12 @@ msgstr "使用默认铃声"
 #. Reminder Preference: Notification Persistence Title
 msgctxt "rmd_EPr_persistent_title"
 msgid "Notification persistence"
-msgstr "持续通知"
+msgstr "持续提醒"
 
 #. Reminder Preference: Notification Persistence Description (true)
 msgctxt "rmd_EPr_persistent_desc_true"
 msgid "Notifications must be viewed individually to be cleared"
-msgstr "通知必须个别地清除"
+msgstr "提醒必须逐个清除"
 
 #. Reminder Preference: Notification Persistence Description (false)
 msgctxt "rmd_EPr_persistent_desc_false"
@@ -3884,13 +4083,13 @@ msgstr "多重提醒最大音量"
 #. (true)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_true"
 msgid "Astrid will max out the volume for multiple-ring reminders"
-msgstr "Astrid将会以最大音量进行多重提醒"
+msgstr "清单小助理将会以最大音量进行多重提醒"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
 msgid "Astrid will use the system setting for the volume"
-msgstr "Astrid使用系统音量设置"
+msgstr "清单小助理使用系统音量设置"
 
 #. Reminder Preference: Vibrate Title
 msgctxt "rmd_EPr_vibrate_title"
@@ -3910,7 +4109,7 @@ msgstr "传送通知震动关闭"
 #. Reminder Preference: Nagging Title
 msgctxt "rmd_EPr_nagging_title"
 msgid "Astrid encouragements"
-msgstr "Astrid 提醒"
+msgstr "清单小助理提醒"
 
 #. Reminder Preference: Nagging Description (true)
 msgctxt "rmd_EPr_nagging_desc_true"
@@ -4414,7 +4613,7 @@ msgstr "如何?准备好了吗？"
 
 msgctxt "reminder_responses:4"
 msgid "Ready to do this?"
-msgstr "准备做这件事了吗？"
+msgstr "准备好做这件事了吗？"
 
 msgctxt "reminder_responses:5"
 msgid "Can you handle this?"
@@ -4426,7 +4625,7 @@ msgstr "当您完成时会很高兴的！"
 
 msgctxt "reminder_responses:7"
 msgid "I promise you'll feel better if you finish this!"
-msgstr "我保证，这事做完您会觉得好些！"
+msgstr "我保证，完成这件事后您会感觉更棒！"
 
 msgctxt "reminder_responses:8"
 msgid "Won't you do this today?"
@@ -4438,19 +4637,19 @@ msgstr "请做完吧，我受不了了！"
 
 msgctxt "reminder_responses:10"
 msgid "Can you finish this? Yes you can!"
-msgstr "您能完成吗？Yes you can！"
+msgstr "您能完成吗？当然可以！"
 
 msgctxt "reminder_responses:11"
 msgid "Are you ever going to do this?"
-msgstr "您是否要做这件事！"
+msgstr "您是否要做这件事？"
 
 msgctxt "reminder_responses:12"
 msgid "Feel good about yourself! Let's go!"
-msgstr "来个自我感觉良好吧！"
+msgstr "自我感觉很好吧！加油！"
 
 msgctxt "reminder_responses:13"
 msgid "I'm so proud of you! Lets get it done!"
-msgstr "我以你为荣！让我们完成吧！"
+msgstr "我以你为荣！让我们完成它吧！"
 
 msgctxt "reminder_responses:14"
 msgid "A little snack after you finish this?"
@@ -4458,7 +4657,7 @@ msgstr "完成后来点小奖励如何？"
 
 msgctxt "reminder_responses:15"
 msgid "Just this one task? Please?"
-msgstr "就这一件？请！"
+msgstr "就这一件？好吗？"
 
 msgctxt "reminder_responses:16"
 msgid "Time to shorten your todo list!"
@@ -4466,7 +4665,7 @@ msgstr "是时候清理任务清单了!"
 
 msgctxt "reminder_responses:17"
 msgid "Are you on Team Order or Team Chaos? Team Order! Let's go!"
-msgstr "您所在的队伍是整装待发的还是杂乱无章的？整装待发的！我们出发！"
+msgstr "您所在的队伍是整装待发的还是杂乱无章的？整装待发的！那我们出发吧！"
 
 msgctxt "reminder_responses:18"
 msgid "Have I mentioned you are awesome recently? Keep it up!"
@@ -4490,7 +4689,7 @@ msgstr "天气不错呀，是时候搞定这种工作了，不是吗？"
 
 msgctxt "reminder_responses:23"
 msgid "A spot of tea while you work on this?"
-msgstr "您做这件事情时是不是想来杯茶呢？"
+msgstr "做这件事时是不是想来杯茶呢？"
 
 msgctxt "reminder_responses:24"
 msgid ""
@@ -4527,7 +4726,7 @@ msgstr "这是您最后一次延期对吧？"
 
 msgctxt "postpone_nags:5"
 msgid "Just finish this today, I won't tell anyone!"
-msgstr "今天完成后我不会告诉任何人！"
+msgstr "今天完成吧，我不会告诉其他人的！"
 
 msgctxt "postpone_nags:6"
 msgid "Why postpone when you can um... not postpone!"
@@ -4904,11 +5103,11 @@ msgstr "轻点并按住一项任务来移动它"
 
 msgctxt "subtasks_help_2"
 msgid "Drag vertically to rearrange"
-msgstr "垂直拖动以重新整理"
+msgstr "上下拖动以重新整理"
 
 msgctxt "subtasks_help_3"
 msgid "Drag horizontally to indent"
-msgstr "水平拖动以缩进"
+msgstr "左右拖动以缩进"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -5269,7 +5468,7 @@ msgstr "任务将会自动从语音输入建立。"
 #. slide 38b: Preference: Task List Voice-creation description (false)
 msgctxt "EPr_voiceInputCreatesTask_desc_disabled"
 msgid "You can edit the task title after voice input finishes"
-msgstr "语音输入结束後您可以编辑任务主旨。"
+msgstr "语音输入结束后您可以编辑任务标题。"
 
 #. slide 38f: Preference: Voice reminders if TTS-service is available
 msgctxt "EPr_voiceRemindersEnabled_title"
@@ -5279,12 +5478,12 @@ msgstr "语音提醒"
 #. Preference: Voice reminders description (true)
 msgctxt "EPr_voiceRemindersEnabled_desc_enabled"
 msgid "Astrid will speak task names during task reminders"
-msgstr "Astrid 在任务提醒时会以语音说出任务名称"
+msgstr "Astrid在任务提醒时会以语音说出任务名称"
 
 #. slide 38c: Preference: Voice reminders description (false)
 msgctxt "EPr_voiceRemindersEnabled_desc_disabled"
 msgid "Astrid will sound a ringtone during task reminders"
-msgstr "Astrid 在任务提醒时将会播放铃声"
+msgstr "Astrid在任务提醒时将会播放铃声"
 
 #. slide 32d: Preference Category: Voice Title
 msgctxt "EPr_voice_header"
@@ -5320,7 +5519,7 @@ msgstr "分享列表"
 #. slide 5a
 msgctxt "welcome_title_5"
 msgid "Divvy up tasks"
-msgstr "分摊任务"
+msgstr "分配任务"
 
 #. slide 6a
 msgctxt "welcome_title_6"
@@ -5346,8 +5545,8 @@ msgid ""
 "The perfect personal to-do list \n"
 "that works great with friends"
 msgstr ""
-"完美的个人任务列表 \n"
-"和朋友们互动超级好用"
+"完美的个人任务列表\n"
+"您可以尽情与朋友互动"
 
 #. slide 2b
 msgctxt "welcome_body_2"
@@ -5375,8 +5574,8 @@ msgid ""
 "or your sweetheart!"
 msgstr ""
 "和朋友、室友、\n"
-"或者您的爱人 \n"
-"分享精彩缤纷的列表吧！"
+"或者亲密的人\n"
+"一起分享精彩缤纷的列表吧！"
 
 #. slide 5b
 msgctxt "welcome_body_5"
@@ -5403,7 +5602,7 @@ msgstr "登陆"
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr "拍拍 Astrid 返回。"
+msgstr "拍拍清单小助理返回。"
 
 #. slide 1c
 msgctxt "welcome_next"
@@ -5415,27 +5614,27 @@ msgstr "下一步"
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
-msgstr "Astrid 尊贵版 4x2"
+msgstr ""
 
 msgctxt "PPW_widget_43_label"
 msgid "Astrid Premium 4x3"
-msgstr "Astrid 尊贵版 4x3"
+msgstr "清单小助理尊贵版 4x3"
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
-msgstr "Astrid 尊贵版 4x4"
+msgstr "清单小助理尊贵版 4x4"
 
 msgctxt "PPW_widget_v11_label"
 msgid "Astrid Scrollable Premium"
-msgstr "Astrid 可卷式高级版本"
+msgstr "清单小助理可卷式尊贵版"
 
 msgctxt "PPW_widget_custom_label"
 msgid "Astrid Custom Launcher Premium"
-msgstr "Astrid 自定义高级版本"
+msgstr "清单小助理自定义尊贵版"
 
 msgctxt "PPW_widget_custom_launcherpro_label"
 msgid "Astrid Launcher Pro Premium"
-msgstr "Astrid 专业高级版本"
+msgstr "清单小助理专业尊贵版"
 
 msgctxt "PPW_configure_title"
 msgid "Configure Widget"
@@ -5472,7 +5671,7 @@ msgstr "逾期未完成："
 msgctxt "PPW_old_astrid_notice"
 msgid ""
 "You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
-msgstr "最低限度您也需要 Astrid 的 3.6 版本才能使用这个小工具。不好意思！"
+msgstr "最低限度您也需要清单小助理的 3.6 版本才能使用这个小工具。不好意思！"
 
 msgctxt "PPW_encouragements:0"
 msgid "Hi there!"
@@ -5580,11 +5779,11 @@ msgstr "%s 上的小工具将会放到这里"
 
 msgctxt "PPW_demo_title2"
 msgid "Power Pack includes Premium Widgets..."
-msgstr "Power Pack 包含尊贵版小工具（Premium Widgets）……"
+msgstr "优化工具（Power Pack） 包含尊贵版小工具（Premium Widgets）……"
 
 msgctxt "PPW_demo_title3"
 msgid "...voice add and good feelings!"
-msgstr "…语音添加、感觉很棒！"
+msgstr "……语音添加、感觉很棒！"
 
 msgctxt "PPW_demo_title4"
 msgid "Tap to learn more!"
@@ -5592,7 +5791,7 @@ msgstr "轻点一下，了解更多！"
 
 msgctxt "PPW_info_title"
 msgid "Free Power Pack!"
-msgstr "免费的 Power Pack！"
+msgstr "免费的优化工具 （Power Pack）！"
 
 msgctxt "PPW_info_signin"
 msgid "Sign in!"
@@ -5606,11 +5805,11 @@ msgctxt "PPW_unlock_howto"
 msgid ""
 "Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
 "with Astrid."
-msgstr "和朋友们分享列表吧！当有三位朋友来 Astrid 注册，您就可以开启免费的 Power Pack 了。"
+msgstr "和朋友们分享列表吧！当有三位朋友来清单小助理注册，您就可以开启免费的优化工具 （Power Pack）了。"
 
 msgctxt "PPW_check_button"
 msgid "Get the Power Pack for free!"
-msgstr "来免费获取 Power Pack 吧！"
+msgstr "来免费获取 优化工具 （Power Pack）吧！"
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"

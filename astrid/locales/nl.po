@@ -7,16 +7,41 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:33+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-10-26 21:56+0000\n"
+"Last-Translator: wimZ <zandberw@gmail.com>\n"
 "Language-Team: nl <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
+
+#. task sharing dialog: astrid friends section header
+msgctxt "actfm_EPA_assign_header_friends"
+msgid "Astrid Friends"
+msgstr "Astrid Vrienden"
+
+#. task sharing dialog: tag not found (%s => tag)
+#. task sharing login prompt
+msgctxt "actfm_EPA_login_to_share"
+msgid "You need to be logged in to Astrid.com to share tasks!"
+msgstr "Je moet ingelogd zijn op Astrid.com om taken te kunnen delen!"
+
+#. share login: Sharing Description
+msgctxt "actfm_ALA_body"
+msgid ""
+"Astrid.com lets you access your tasks online, share, and delegate with "
+"others."
+msgstr ""
+"Astrid.com geeft je online toegang tot je taken, delen en aan andren "
+"toekennen."
+
+#. Task Edit Activity: Add New Alarm
+msgctxt "alarm_ACS_button"
+msgid "Add an Alarm"
+msgstr "Voeg Herinnering toe"
 
 #. ================================================== general terms ==
 #. People Editing Activity
@@ -92,6 +117,40 @@ msgstr "Mijn Gedeelde Taken"
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "Geen gedeelde taken"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr ""
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr ""
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -266,11 +325,6 @@ msgctxt "actfm_EPA_assign_header_members"
 msgid "List Members"
 msgstr "Leden Lijst"
 
-#. task sharing dialog: astrid friends section header
-msgctxt "actfm_EPA_assign_header_friends"
-msgid "Astrid Friends"
-msgstr "Astrid Vrienden"
-
 #. task sharing dialog: message hint
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
@@ -290,12 +344,6 @@ msgctxt "actfm_EPA_invalid_email"
 msgid "Invalid E-mail: %s"
 msgstr "Ongeldig e-mailadres: %s"
 
-#. task sharing dialog: tag not found (%s => tag)
-#. task sharing login prompt
-msgctxt "actfm_EPA_login_to_share"
-msgid "You need to be logged in to Astrid.com to share tasks!"
-msgstr "Je moet ingelogd zijn op Astrid.com om taken te kunnen delen!"
-
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
 msgstr "Aanmelden"
@@ -310,23 +358,15 @@ msgctxt "actfm_ALA_title"
 msgid "Welcome to Astrid.com!"
 msgstr "Welkom bij Astrid.com!"
 
-#. share login: Sharing Description
-msgctxt "actfm_ALA_body"
-msgid ""
-"Astrid.com lets you access your tasks online, share, and delegate with "
-"others."
-msgstr ""
-"Astrid.com geeft je online toegang tot je taken, deel en verdeel met anderen."
-
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
-msgstr "Aanmelden via Facebook"
+msgstr "Verbind met Facebook"
 
 #. share login: Sharing Login GG Prompt
 msgctxt "actfm_ALA_gg_login"
 msgid "Connect with Google"
-msgstr "Aanmelden via Google"
+msgstr "Verbind met Google"
 
 #. share login: Sharing Footer Password Label
 #. share login: Sharing Password Link
@@ -356,12 +396,12 @@ msgstr "Wachtwoord"
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Sign Up"
-msgstr ""
+msgstr "Aanmelden"
 
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Sign In"
-msgstr ""
+msgstr "Inloggen"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
@@ -371,49 +411,49 @@ msgstr "Selecteer de Google account die je wil gebruiken:"
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr "A.u.b. met Google verbinden:"
+msgstr "A.u.b. inloggen"
 
 #. Login error: user exists
 msgctxt "actfm_ALA_error_user_exists"
 msgid "User already exists. Please sign in instead."
-msgstr ""
+msgstr "Deze gebruiker bestaat al. A.u.b. inloggen"
 
 #. Login error: wrong password
 msgctxt "actfm_ALA_error_wrong_password"
 msgid "Sorry, that password was incorrect. Please try again."
-msgstr ""
+msgstr "Sorry, dat wachtwoord was incorrect. Probeer het a.u.b. opnieuw."
 
 #. ================================================ Featured Lists
 msgctxt "actfm_feat_list_clone"
 msgid "Copy list"
-msgstr ""
+msgstr "Kopiëer lijst"
 
 msgctxt "actfm_feat_list_suffix"
 msgid "(Copy)"
-msgstr ""
+msgstr "(Kopiéer)"
 
 msgctxt "actfm_feat_list_cloning"
 msgid "Copying..."
-msgstr ""
+msgstr "Kopiëren ..."
 
 msgctxt "actfm_feat_list_clone_success"
 msgid "Success!"
-msgstr ""
+msgstr "Succes!"
 
 msgctxt "actfm_feat_list_task_clone_success"
 msgid "Task copied"
-msgstr ""
+msgstr "Taak gekopiéerd."
 
 msgctxt "actfm_feat_list_clone_empty"
 msgid "No tasks to copy"
-msgstr ""
+msgstr "Geen taken om te kopiéren"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
 #, c-format
 msgctxt "actfm_status_title_logged_in"
 msgid "Status - Logged in as %s"
-msgstr "Statis - Ingelogd als %s"
+msgstr "Status - Ingelogd als %s"
 
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
@@ -447,19 +487,19 @@ msgstr ""
 #. account types
 msgctxt "actfm_account_type"
 msgid "Account type"
-msgstr ""
+msgstr "Type account"
 
 msgctxt "actfm_account_info"
 msgid "Account info"
-msgstr ""
+msgstr "Account gegevens"
 
 msgctxt "actfm_account_info_summary"
 msgid "Status and options"
-msgstr ""
+msgstr "Status en opties"
 
 msgctxt "account_type_title_not_logged_in"
 msgid "Sign up for a free account"
-msgstr ""
+msgstr "Meld je aan voor een gratis account"
 
 msgctxt "account_type_summary_not_logged_in"
 msgid "Access tasks online, share lists and delegate"
@@ -467,11 +507,11 @@ msgstr ""
 
 msgctxt "actfm_account_premium"
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 msgctxt "actfm_account_basic"
 msgid "Basic"
-msgstr ""
+msgstr "Basis"
 
 msgctxt "actfm_inapp_billing"
 msgid "Upgrade to Premium"
@@ -479,20 +519,20 @@ msgstr ""
 
 msgctxt "actfm_inapp_billing_summary"
 msgid "Attach files, voice backups, premium support & more"
-msgstr ""
+msgstr "Voeg bestanden toe, Stem backup, premium onddrsteuning & meer"
 
 #. Sharing
 msgctxt "share_with_facebook"
 msgid "Like on Facebook"
-msgstr ""
+msgstr "Like op Facebook"
 
 msgctxt "share_with_twitter"
 msgid "Follow on Twitter"
-msgstr ""
+msgstr "Volg op Twitter"
 
 msgctxt "share_with_google"
 msgid "Share on Google+"
-msgstr ""
+msgstr "Deel op Google+"
 
 msgctxt "share_title"
 msgid "Share the love!"
@@ -500,7 +540,7 @@ msgstr ""
 
 msgctxt "share_speech_bubble"
 msgid "By sharing, you'll help others be more productive!"
-msgstr ""
+msgstr "Door te delen, help je anderen meer productief te zijn"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -509,11 +549,6 @@ msgstr ""
 msgctxt "alarm_ACS_label"
 msgid "Alarms"
 msgstr "Herinneringen"
-
-#. Task Edit Activity: Add New Alarm
-msgctxt "alarm_ACS_button"
-msgid "Add an Alarm"
-msgstr "Voeg Alarm toe"
 
 msgctxt "reminders_alarm:0"
 msgid "Alarm!"
@@ -539,7 +574,9 @@ msgctxt "backup_status_success"
 msgid ""
 "Latest backup:\n"
 "%s"
-msgstr "Laatste: %s"
+msgstr ""
+"Laatste: back-up\n"
+"%s"
 
 #. Backup Status: last error failed. Keep it short!
 msgctxt "backup_status_failed"
@@ -549,7 +586,7 @@ msgstr "Laatste back-up mislukt"
 #. Backup Status: error subtitle
 msgctxt "backup_status_failed_subtitle"
 msgid "(tap to show error)"
-msgstr "(tikken voor fout)"
+msgstr "(tikken voor foutmelding)"
 
 #. slide 48a: Backup Status: never backed up
 msgctxt "backup_status_never"
@@ -1031,7 +1068,7 @@ msgstr "Taak kopiëren"
 #. Context Item: delete task
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
-msgstr ""
+msgstr "Taak wissen"
 
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
@@ -1557,6 +1594,164 @@ msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "Je kan altijd een smsje sturen.."
 
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr ""
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr ""
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr ""
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr ""
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr ""
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr ""
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr "%s neemt deel"
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr "%1$s en %2$s nemen deel"
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr "%1$s, %2$s en %3$d anderen nemen deel"
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr ""
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr ""
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr ""
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr ""
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr "Meer opties"
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr "Nee, bedankt"
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr ""
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr "Actie-items: %s"
+
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
 #. ==================================================== UpdateService ==
@@ -1589,7 +1784,7 @@ msgstr "Astrid: Instellingen"
 
 msgctxt "EPr_title_short"
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 msgctxt "EPr_share_astrid"
 msgid "Tell others about Astrid"
@@ -1617,7 +1812,7 @@ msgstr ""
 #. FAQ Preference title
 msgctxt "EPr_faq_title"
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ (Veelgestelde Vragen)"
 
 #. Account status preference (%s -> account type)
 #, c-format
@@ -1809,15 +2004,15 @@ msgstr "Krijg ideeën om je te helpen taken te voltooien"
 #. Preferences: calendar event start time
 msgctxt "EPr_cal_end_or_start_at_due_time"
 msgid "Calendar event time"
-msgstr ""
+msgstr "Tijd van agenda gebeurtenis"
 
 msgctxt "EPr_cal_end_at_due_time"
 msgid "End calendar events at due time"
-msgstr ""
+msgstr "Beëindig agenda geburtenissen op vervaltijd"
 
 msgctxt "EPr_cal_start_at_due_time"
 msgid "Start calendar events at due time"
-msgstr ""
+msgstr "Start agenda geburtenissen op vervaltijd"
 
 msgctxt "EPr_force_phone_layout"
 msgid "Use phone layout"
@@ -2117,7 +2312,7 @@ msgstr "Forums"
 #. Title of "Premium" option in settings
 msgctxt "p_premium"
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #. ============================================================= Misc ==
 #. Displayed when task killer found. %s => name of the application
@@ -3443,6 +3638,16 @@ msgid ""
 "The premium subscription for this Google Play account is connected to a "
 "different user. To link additional emails to your account, visit "
 "astrid.com/users/profile"
+msgstr ""
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the

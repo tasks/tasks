@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:34+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-10-26 14:31-0700\n"
+"PO-Revision-Date: 2012-10-19 21:52+0000\n"
+"Last-Translator: m4z <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -54,7 +54,7 @@ msgstr "%d Tage"
 
 msgctxt "DUt_days:quantity=one"
 msgid "1 Day"
-msgstr "1 Tag"
+msgstr "Ein Tag"
 
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
@@ -63,7 +63,7 @@ msgstr "%d Wochentage"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr "1 Wochentag"
+msgstr "Ein Wochentag"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -72,7 +72,7 @@ msgstr "%d Stunden"
 
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"
-msgstr "1 Stunde"
+msgstr "Eine Stunde"
 
 #, c-format
 msgctxt "DUt_minutes:quantity=other"
@@ -108,7 +108,7 @@ msgstr "%d min"
 
 msgctxt "DUt_minutesShort:quantity=one"
 msgid "1 Min"
-msgstr "1 min"
+msgstr "1 Min"
 
 #, c-format
 msgctxt "DUt_secondsShort:quantity=other"
@@ -216,14 +216,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Ups, sieht aus, als ob ein Fehler passiert ist! Hier, was passiert ist:\n"
+"Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n"
 "\n"
 "%s"
 
 #. error dialog (no message indicated)
 msgctxt "DLG_error_generic"
 msgid "Oops, looks like an error occurred!"
-msgstr "Ups, sieht aus, als ob ein Fehler passiert ist!"
+msgstr "Ups, sieht aus, als ob ein Fehler aufgetreten ist!"
 
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
@@ -249,18 +249,18 @@ msgstr "Synchronisation"
 #. Sync label subtitle
 msgctxt "SyP_summary"
 msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr ""
+msgstr "Astrid.com, Google Tasks, gespeicherte Daten, lokale Backups"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr "Verbindungsfehler! Überprüfen Sie Ihre Internetverbindung."
+msgstr "Verbindungsfehler! Überprüfe Deine Internetverbindung."
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
 msgctxt "sync_SPr_group_status"
 msgid "Status"
-msgstr "Zustand"
+msgstr "Status"
 
 #. Sync status subtitle, %s-> status message
 #, c-format
@@ -298,7 +298,7 @@ msgstr "Fehlgeschlagen am: %s"
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ errors: %s"
-msgstr "Synchronisation w/ Fehler: %s"
+msgstr "Synchronisation m. Fehler: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
@@ -335,7 +335,7 @@ msgstr "Gesetzt auf: %s"
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
 msgid "Wifi only setting"
-msgstr "WLAN Einstellungen"
+msgstr "WLAN-Einstellungen"
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
@@ -360,7 +360,7 @@ msgstr "Jetzt synchronisieren"
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
 msgid "Log in & synchronize!"
-msgstr "Einloggen & Synchroniseren!"
+msgstr "Einloggen & synchronisieren!"
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
@@ -375,12 +375,12 @@ msgstr "Statusbericht"
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr "Klicke um einen Bericht ans Astrid Team zu senden"
+msgstr "Klicke um einen Bericht ans Astrid-Team zu senden"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send report"
-msgstr "Bericht Senden"
+msgstr "Bericht senden"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -395,7 +395,7 @@ msgstr "Alle Synchronisationsdaten löschen"
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
 msgid "Log out/clear synchronization data?"
-msgstr "Ausloggen / synchronisierte Daten löschen?"
+msgstr "Ausloggen/synchronisierte Daten löschen?"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
@@ -405,7 +405,7 @@ msgid ""
 "Please try again later."
 msgstr ""
 "Es gab ein Problem mit der Netzwerkverbindung während der letzten "
-"Syncronisation mit %s. Versuche es bitte später noch einmal."
+"Synchronisation mit %s. Versuche es bitte später noch einmal."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
