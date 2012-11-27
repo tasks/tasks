@@ -1,30 +1,51 @@
 #!/bin/bash
 
-STRS=astrid/res/values/strings.xml
-STRS_API=api/res/values/strings-api.xml
+STRS=translations/strings.xml
+STRS_API=translations/strings-api.xml
+
+if [ $# -ne 1 ]
+then
+  echo "Requires langauge tag or 'master' argument"
+  exit
+fi
+
+rm -f $STRS
+rm -f $STRS_API
 
 read -p "Enter GetLocalization username: " user
 read -s -p "Enter GetLocalization password: " pw
 
 echo
 
-# concatenate astrid XML files
-catxml="`dirname $0`/catxml"
-rm -f astrid/res/values/strings.xml
-${catxml} astrid/res/values/strings*.xml > $STRS 
+LANG=$1
 
-# copy api file
-rm -f $STRS_API
-cp api/res/values/strings.xml $STRS_API
+if [ "$LANG" == "master" ]
+then
+  # concatenate astrid XML files
+  catxml="`dirname $0`/catxml"
+  ${catxml} astrid/res/values/strings*.xml > $STRS
+  
+  # copy api file
+  cp api/res/values/strings.xml $STRS_API
+else
+  cp astrid/res/values-$LANG/strings.xml $STRS
+  cp api/res/values-$LANG/strings.xml $STRS_API
+fi
 
 # replace \' with '
 sed -i '' "s/\\\\'/'/g" $STRS 
 sed -i '' "s/\\\\'/'/g" $STRS_API
 
-# upload files as master android files
-curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
-curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
+# upload files as master android filesi
 
+if [ "$LANG" == "master" ]
+then
+  curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
+  curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
+else
+  curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings.xml/$LANG/ ; echo
+  curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings-api.xml/$LANG/ ; echo
+fi
 
 rm -f $STRS
 rm -f $STRS_API
