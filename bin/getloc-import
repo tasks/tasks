@@ -18,7 +18,8 @@ read -s -p "Enter GetLocalization password: " pw
 LANG=$1
 
 if [ "$LANG" == "all" ]
-  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/zip/ -o translations/all.zip
+then
+  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/zip/ -o translations/all.zip ; echo
   mkdir translations/all
   tar xzf translations/all.zip -C translations/all
 
@@ -31,16 +32,16 @@ if [ "$LANG" == "all" ]
     sed -i '' "s/'/\\\\'/g" $STRS
     sed -i '' "s/'/\\\\'/g" $STRS_API
 
-    mv $STRS astrid/values-$LANG/strings.xml
-    mv $STRS_API api/values-$LANG/strings.xml
+    mv $STRS astrid/res/values-$LANG/strings.xml
+    mv $STRS_API api/res/values-$LANG/strings.xml
   done
   
   rm -rf translations/all
   rm translations/all.zip
 else
-  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings.xml/$LANG/ -o $STRS
-  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations.file/strings-api.xml/$LANG/ -o $STRS_API
+  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings.xml/$LANG/ -o $STRS ; echo
+  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings-api.xml/$LANG/ -o $STRS_API ; echo
 
-  mv $STRS astrid/values-$LANG/strings.xml
-  mv $STRS_API api/values-$LANG/strings.xml  
+  mv $STRS astrid/res/values-$LANG/strings.xml
+  mv $STRS_API api/res/values-$LANG/strings.xml  
 fi
