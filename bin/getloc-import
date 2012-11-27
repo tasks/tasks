@@ -1,0 +1,46 @@
+#!/bin/bash
+
+STRS=translations/strings.xml
+STRS_API=translations/strings-api.xml
+
+if [ $# -ne 1 ]
+then
+  echo "Requires language tag or 'all' argument"
+  exit
+fi
+
+rm -f $STRS
+rm -f $STRS_API
+
+read -p "Enter GetLocalization username: " user
+read -s -p "Enter GetLocalization password: " pw
+
+LANG=$1
+
+if [ "$LANG" == "all" ]
+  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/zip/ -o translations/all.zip
+  mkdir translations/all
+  tar xzf translations/all.zip -C translations/all
+
+  for F in translations/all/*
+  do
+    LANG=`basename $F`
+    STRS=$F/strings.xml
+    STRS_API=$F/strings-api.xml
+
+    sed -i '' "s/'/\\\\'/g" $STRS
+    sed -i '' "s/'/\\\\'/g" $STRS_API
+
+    mv $STRS astrid/values-$LANG/strings.xml
+    mv $STRS_API api/values-$LANG/strings.xml
+  done
+  
+  rm -rf translations/all
+  rm translations/all.zip
+else
+  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings.xml/$LANG/ -o $STRS
+  curl --user $user:$pw https://api.getlocalization.com/astrid/api/translations.file/strings-api.xml/$LANG/ -o $STRS_API
+
+  mv $STRS astrid/values-$LANG/strings.xml
+  mv $STRS_API api/values-$LANG/strings.xml  
+fi
