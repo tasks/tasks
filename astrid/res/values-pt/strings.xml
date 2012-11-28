@@ -12,92 +12,24 @@
   <string name="actfm_view_task_cancel">Ficar Aqui</string>
   <string name="actfm_my_shared_tasks_title">Minhas Tarefas Partilhadas</string>
   <string name="actfm_my_shared_tasks_empty">Sem tarefas partilhadas</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">Adicionar um comentário...</string>
   <string-array name="TVA_tabs">
     <item>Tarefas</item>
     <item>Actividade</item>
     <item>Definições da Lista</item>
   </string-array>
-  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">Actualizar</string>
   <string name="actfm_TVA_tag_label">Lista</string>
   <string name="actfm_TVA_members_label">Partilhado Com</string>
-  <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
-  <string name="actfm_TVA_tag_picture">List Picture</string>
   <string name="actfm_TVA_silence_label">Notificações Silienciosas</string>
   <string name="actfm_TVA_tag_description_label">Descrição</string>
   <string name="actfm_TVA_tag_settings_label">Definições</string>
   <string name="actfm_TVA_tag_description_hint">Digita uma descrição aqui</string>
   <string name="actfm_TVA_tag_name_hint">Introduza o nome da lista</string>
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
-  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
-  <string name="actfm_EPA_assign_me">Me</string>
   <string name="actfm_EPA_unassigned">Não atribuído</string>
-  <string name="actfm_EPA_choose_contact">Choose a contact</string>
-  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_share_with">Partilhar com:</string>
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
-  <string name="actfm_EPA_list">List: %s</string>
-  <string name="actfm_EPA_message_text">Invitation Message:</string>
-  <string name="actfm_EPA_message_body">Help me get this done!</string>
-  <string name="actfm_EPA_assign_header_members">List Members</string>
-  <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
-  <string name="actfm_EPA_login_button">Log in</string>
-  <string name="actfm_EPA_dont_share_button">Don\'t share</string>
-  <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
-  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  <string name="actfm_ALA_lastname_label">Last Name</string>
-  <string name="actfm_ALA_email_label">Email</string>
-  <string name="actfm_ALA_password_label">Password</string>
-  <string name="actfm_ALA_signup_title">Sign Up</string>
-  <string name="actfm_ALA_login_title">Sign In</string>
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-  <string name="actfm_OLA_prompt">Please log in:</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
-  <string name="actfm_feat_list_clone">Copy list</string>
-  <string name="actfm_feat_list_suffix">(Copy)</string>
-  <string name="actfm_feat_list_cloning">Copying...</string>
-  <string name="actfm_feat_list_clone_success">Success!</string>
-  <string name="actfm_feat_list_task_clone_success">Task copied</string>
-  <string name="actfm_feat_list_clone_empty">No tasks to copy</string>
-  <string name="actfm_status_title_logged_in">Status - Logged in as %s</string>
-  <string name="actfm_APr_header">Astrid.com</string>
-  <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
-  <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
-  <string name="actfm_account_type">Account type</string>
-  <string name="actfm_account_info">Account info</string>
-  <string name="actfm_account_info_summary">Status and options</string>
-  <string name="account_type_title_not_logged_in">Sign up for a free account</string>
-  <string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
-  <string name="actfm_account_premium">Premium</string>
-  <string name="actfm_account_basic">Basic</string>
-  <string name="actfm_inapp_billing">Upgrade to Premium</string>
-  <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
-  <string name="share_with_facebook">Like on Facebook</string>
-  <string name="share_with_twitter">Follow on Twitter</string>
-  <string name="share_with_google">Share on Google+</string>
-  <string name="share_title">Share the love!</string>
-  <string name="share_speech_bubble">By sharing, you\'ll help others be more productive!</string>
   <string name="alarm_ACS_label">Alarmes</string>
   <string name="alarm_ACS_button">Adicionar um Alarme</string>
   <string-array name="reminders_alarm">
@@ -113,12 +45,9 @@
   <string name="backup_BPr_auto_title">Cópia de Segurança Automática</string>
   <string name="backup_BPr_auto_disabled">Cópias de Segurança automáticas desligadas</string>
   <string name="backup_BPr_auto_enabled">A cópia de segurança irá ocorrer diáriamente</string>
-  <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
-  <string name="backup_BAc_label">Manage backups</string>
   <string name="backup_BAc_title">Gerir Cópias de Segurança</string>
   <string name="backup_BAc_import">Importar Tarefas</string>
   <string name="backup_BAc_export">Exportar Tarefas</string>
-  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
   <string name="backup_TXI_error">Erro de Importação</string>
   <string name="export_toast">Cópia de Segurança de %1$s para %2$s</string>
   <string name="export_toast_no_tasks">Não existem Tarefas para Exportar.</string>
@@ -142,35 +71,12 @@
   <string name="DLG_please_update">O Astrid deverá ser actualizado com a ultima versão disponível no Android market! Por favor faça-o antes de continuar, ou espere alguns segundos.</string>
   <string name="DLG_accept">Eu Aceito</string>
   <string name="DLG_decline">Eu Recuso</string>
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
-  <string name="DLG_please_wait">Please Wait</string>
   <string name="DLG_loading">Carregando...</string>
-  <string name="DLG_ok">OK</string>
-  <string name="DLG_cancel">Cancel</string>
-  <string name="DLG_more">More</string>
-  <string name="DLG_undo">Undo</string>
-  <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Pressione para confirmar</string>
-  <string name="ENA_no_comments">No activity yet</string>
-  <string name="ENA_no_user">Someone</string>
-  <string name="ENA_refresh_comments">Refresh Comments</string>
   <string name="TLA_no_items">Sem Tarefas!</string>
-  <string name="TLA_no_items_person">%s has no\ntasks shared with you</string>
-  <string name="TLA_menu_addons">Add-ons</string>
   <string name="TLA_menu_sort">Sort &amp; Hidden</string>
-  <string name="TLA_menu_sync">Sync Now</string>
-  <string name="TLA_menu_search">Search</string>
-  <string name="TLA_menu_lists">Lists</string>
-  <string name="TLA_menu_friends">People</string>
-  <string name="TLA_menu_featured_lists">Featured Lists</string>
-  <string name="TLA_menu_suggestions">Suggestions</string>
   <string name="TLA_menu_settings">Definições</string>
-  <string name="TLA_menu_support">Support</string>
   <string name="TLA_custom">Personalizado</string>
-  <string name="TLA_quick_add_hint">Add a task</string>
-  <string name="TLA_quick_add_hint_assign">Add something for %s</string>
-  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
   <string-array name="TLA_filters">
     <item>Active</item>
     <item>Hoje</item>
@@ -179,59 +85,36 @@
     <item>Concluído</item>
     <item>Hidden</item>
   </string-array>
-  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
-  <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
-  <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
-  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
-  <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
-  <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
   <string-array name="TLA_priority_strings">
     <item>highest priority</item>
     <item>high priority</item>
     <item>medium priority</item>
     <item>low priority</item>
   </string-array>
-  <string name="TLA_all_activity">All Activity</string>
   <string name="TAd_hiddenFormat">%s [omissa]</string>
   <string name="TAd_deletedFormat">%s [apagado]</string>
   <string name="TAd_completed">Terminado\n%s</string>
   <string name="TAd_actionEditTask">Editar</string>
   <string name="TAd_contextEditTask">Editar Tarefa</string>
-  <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Recuperar Tarefa</string>
-  <string name="TAd_contextPurgeTask">Purge Task</string>
   <string name="SSD_title">Sorting and Hidden Tasks</string>
-  <string name="SSD_hidden_title">Hidden Tasks</string>
   <string name="SSD_completed">Mostrar Tarefas Completas</string>
-  <string name="SSD_hidden">Show Hidden Tasks</string>
-  <string name="SSD_deleted">Show Deleted Tasks</string>
-  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
   <string name="SSD_sort_auto">Ordenação Inteligente Astrid</string>
   <string name="SSD_sort_alpha">Por Título</string>
-  <string name="SSD_sort_due">By Due Date</string>
   <string name="SSD_sort_importance">Por Importância</string>
   <string name="SSD_sort_modified">Por Última Modificação</string>
   <string name="SSD_sort_reverse">Ordem Inversa</string>
   <string name="SSD_save_temp">Só Uma Vez</string>
   <string name="SSD_save_always">Sempre</string>
-  <string name="FSA_label">Astrid List or Filter</string>
   <string name="FLA_context_shortcut">Criar atalho no Ambiente de Trabalho</string>
   <string name="FLA_shortcut_dialog_title">Criar Atalho</string>
   <string name="FLA_shortcut_dialog">Nome do atalho:</string>
   <string name="FLA_search_hint">Procurar Tarefas</string>
   <string name="FLA_search_filter">Coincidentes \'%s\'</string>
   <string name="FLA_toast_onCreateShortcut">Atalho Criado: %s</string>
-  <string name="FLA_new_filter">New Filter</string>
-  <string name="FLA_new_list">New List</string>
-  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">Resumo da Tarefa</string>
   <string name="TEA_importance_label">Importância</string>
   <string name="TEA_urgency_specific_time">Numa altura específica</string>
-  <string name="TEA_urgency_none">None</string>
-  <string name="TEA_hideUntil_label">Show Task</string>
-  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
   <string-array name="TEA_loading">
     <item>Carregando...</item>
   </string-array>
@@ -242,12 +125,8 @@
   <string name="TEA_menu_save">Guardar Alterações</string>
   <string name="TEA_menu_discard">Não Gravar</string>
   <string name="TEA_menu_delete">Remover Tarefa</string>
-  <string name="TEA_menu_comments">Comments</string>
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
   <string name="TEA_onTaskSave_notDue">Tarefa Guardada</string>
-  <string name="TEA_tab_activity">Activity</string>
   <string name="TEA_tab_more">Mais</string>
-  <string name="TEA_tab_web">Ideas</string>
   <string-array name="TEA_urgency">
     <item>Sem Prazo</item>
     <item>Dia Específico</item>
@@ -258,7 +137,6 @@
     <item>In two weeks</item>
     <item>Next month</item>
   </string-array>
-  <string name="TEA_no_time">No time</string>
   <string-array name="TEA_hideUntil">
     <item>Sempre</item>
     <item>At due date</item>
@@ -266,39 +144,10 @@
     <item>Semanas antes de expirar</item>
     <item>Dia/Hora Específico</item>
   </string-array>
-  <string name="TEA_control_who">Who</string>
-  <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">Importância</string>
   <string name="TEA_control_lists">Listas</string>
   <string name="TEA_control_notes">Notas</string>
-  <string name="TEA_control_files">Files</string>
-  <string name="TEA_control_reminders">Reminders</string>
-  <string name="TEA_control_timer">Timer Controls</string>
-  <string name="TEA_control_share">Share With Friends</string>
-  <string name="TEA_control_hidden_section">----Hide Always----</string>
-  <string name="hide_until_prompt">Show in my list</string>
-  <string name="TEA_no_activity">No activity</string>
-  <string name="TEA_load_more">Load more...</string>
-  <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_new_task">New Task</string>
-  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
-  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
-  <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="MCA_title">%1$s\ncalled at %2$s</string>
-  <string name="MCA_return_call">Call now</string>
-  <string name="MCA_add_task">Call later</string>
-  <string name="MCA_ignore">Ignore</string>
-  <string name="MCA_ignore_title">Ignore all missed calls?</string>
-  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Astrid stop asking you about them?</string>
-  <string name="MCA_ignore_all">Ignore all calls</string>
-  <string name="MCA_ignore_this">Ignore this call only</string>
-  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
-  <string name="MCA_missed_calls_pref_desc_enabled">Astrid will notify you about missed calls and offer to remind you to call back</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Astrid will not notify you about missed calls</string>
-  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
-  <string name="MCA_task_title_no_name">Call %s back</string>
-  <string name="MCA_schedule_dialog_title">Call %s back in...</string>
   <string-array name="MCA_dialog_speech_options">
     <item>It must be nice to be so popular!</item>
     <item>Yay! People like you!</item>
@@ -307,87 +156,10 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_list_exists_title">List already exists</string>
-  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_share_list_title">Share the list?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
-  <string name="CRA_more_options">More options</string>
-  <string name="CRA_dont_invite">No thank you</string>
-  <string name="CRA_list_created_title">List created!</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">O que existe de novo no Astrid?</string>
-  <string name="UpS_updates_title">Latest Astrid News</string>
-  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
-  <string name="EPr_title">Astrid: Settings</string>
-  <string name="EPr_title_short">Settings</string>
-  <string name="EPr_share_astrid">Tell others about Astrid</string>
-  <string name="EPr_share_astrid_summary">Share about Astrid on your favorite social network</string>
-  <string name="EPr_deactivated">deactivated</string>
   <string name="EPr_appearance_header">Aparência</string>
-  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
-  <string name="EPr_faq_title">FAQ</string>
-  <string name="EPr_account_title">Account: %s</string>
-  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
   <string name="EPr_fontSize_title">Tamanho da Lista de Tarefas</string>
-  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   <string name="EPr_fontSize_desc">Tamanho de Letra na página principal de listagem</string>
-  <string name="EPr_showNotes_title">Show notes in task</string>
-  <string name="EPr_beastMode_title">Customize task edit screen</string>
-  <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
-  <string name="EPr_beastMode_reset">Reset to defaults</string>
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the task edit screen</string>
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
-  <string name="EPr_compressTaskRows_title">Compact task row</string>
-  <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_fullTask_title">Show full task title</string>
-  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
-  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-  <string name="EPr_ideaAuto_title">Auto-load ideas tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for ideas tab will be performed when tab is clicked</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for ideas tab will be performed only when manually requested</string>
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
-  <string name="EPr_theme_title">Color theme</string>
-  <string name="EPr_theme_desc">Currently: %s</string>
-  <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
-  <string name="EPr_theme_widget_title">Widget theme</string>
-  <string name="EPr_taskRowPrefs_title">Task row appearance</string>
-  <string name="EPr_use_contact_picker">Use contact picker</string>
-  <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
-  <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
-  <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
-  <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
-  <string name="EPr_ideas_tab_enabled">Task ideas</string>
-  <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
-  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
-  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_force_phone_layout">Use phone layout</string>
-  <string name="EPr_show_featured_lists">Show featured lists</string>
-  <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>No swipe</item>
     <item>Conserve Memory</item>
@@ -400,9 +172,6 @@
     <item>Default setting</item>
     <item>Uses more system resources</item>
   </string-array>
-  <string name="swipe_lists_helper_title">Swipe between lists</string>
-  <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
-  <string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
@@ -419,61 +188,11 @@
     <item>Transparent (Black Text)</item>
     <item>Old Style</item>
   </string-array>
-  <string name="EPr_manage_header">Manage old tasks</string>
-  <string name="EPr_manage_delete_completed">Delete completed tasks</string>
-  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
-  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
-  <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
-  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
-  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
-  <string name="EPr_manage_clear_all">Clear all data</string>
-  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
-  <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
-  <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
-  <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
-  <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
-  <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
-  <string name="AOA_title">Add-ons</string>
-  <string name="AOA_internal_author">Astrid Team</string>
-  <string name="AOA_tab_installed">Installed</string>
-  <string name="AOA_tab_available">Available</string>
-  <string name="AOA_free">Free</string>
   <string name="AOA_no_addons">Lista Vazia!</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
-  <string name="AOA_locale_title">Astrid Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   <string name="TWi_loading">Carregando...</string>
-  <string name="WCA_title">Select tasks to view...</string>
-  <string name="p_about">About Astrid</string>
-  <string name="p_about_text">Current version: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
-  <string name="p_help">Support</string>
-  <string name="p_forums">Forums</string>
-  <string name="p_premium">Premium</string>
-  <string name="task_killer_help">It looks like you are using an app that can kill processes (%s)! If you can, add Astrid to the exclusion list so it doesn\'t get killed. Otherwise, Astrid might not let you know when your tasks are due.\n</string>
   <string name="task_killer_help_ok">Eu Não Irei Matar Astrid!</string>
   <string name="marketplace_description">Astrid é a lista de tarefas de código fonte aberta altamente aclamada que é simples o suficiente para não lhe atrapalhar, poderosa o suficiente para ajudar Você a fazer as coisas! Etiquetas, Avisos, sincronização com o RememberTheMilk (RTM), plugin de regionalização e mais!</string>
-  <string name="DB_corrupted_title">Corrupted Database</string>
-  <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid.</string>
-  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
-  <string name="EPr_defaults_header">New task defaults</string>
-  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
   <string name="EPr_default_urgency_title">Defeito da Urgência</string>
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
-  <string name="EPr_default_importance_title">Default importance</string>
-  <string name="EPr_default_importance_desc">Currently: %s</string>
-  <string name="EPr_default_hideUntil_title">Default hide until</string>
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
-  <string name="EPr_default_reminders_title">Default reminders</string>
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
-  <string name="EPr_default_addtocalendar_title">Default add to calendar</string>
-  <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
-  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-  <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
-  <string name="EPr_default_reminders_mode_desc">Currently: %s</string>
   <string-array name="EPr_default_importance">
     <item>!!! (Highest)</item>
     <item>!!</item>
@@ -500,23 +219,10 @@
     <item>At deadline or overdue</item>
   </string-array>
   <string name="BFE_Active">Tarefas Activas</string>
-  <string name="BFE_Recent">Recently Modified</string>
-  <string name="BFE_Assigned">I\'ve Assigned</string>
-  <string name="BFE_Saved_delete">Delete Filter</string>
-  <string name="CFA_title">Custom Filter</string>
-  <string name="CFA_filterName_hint">Name this filter to save it...</string>
   <string name="CFA_universe_all">Tarefas Activas</string>
   <string name="CFA_type_add">ou</string>
   <string name="CFA_type_subtract">não</string>
   <string name="CFA_type_intersect">também</string>
-  <string name="CFA_context_chain">%s has criteria</string>
-  <string name="CFA_context_delete">Delete Row</string>
-  <string name="CFA_help">This screen lets you create a new filters. Add criteria using the button below, short or long-press them to adjust, and then click \"View\"!</string>
-  <string name="CFA_button_add">Add Criteria</string>
-  <string name="CFA_button_view">View</string>
-  <string name="CFA_button_save">Save &amp; View</string>
-  <string name="CFC_dueBefore_text">Due By: ?</string>
-  <string name="CFC_dueBefore_name">Due By...</string>
   <string-array name="CFC_dueBefore_entries">
     <item>No Due Date</item>
     <item>Ontem</item>
@@ -526,65 +232,9 @@
     <item>Próxima Semana</item>
     <item>Next Month</item>
   </string-array>
-  <string name="CFC_importance_text">Importance at least ?</string>
   <string name="CFC_importance_name">Importância...</string>
-  <string name="CFC_tag_text">List: ?</string>
-  <string name="CFC_tag_name">List...</string>
-  <string name="CFC_tag_contains_name">List name contains...</string>
-  <string name="CFC_tag_contains_text">List name contains: ?</string>
-  <string name="CFC_title_contains_name">Title contains...</string>
-  <string name="CFC_title_contains_text">Title contains: ?</string>
-  <string name="gcal_TEA_error">Error adding task to calendar!</string>
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
   <string name="gcal_TEA_showCalendar_label">Abrir Evento De Calendário</string>
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
-  <string name="gcal_TEA_nocal">Don\'t add</string>
-  <string name="gcal_TEA_none_selected">Add to cal...</string>
-  <string name="gcal_TEA_has_event">Cal event</string>
-  <string name="gcal_completed_title">%s (completed)</string>
   <string name="gcal_GCP_default">Calendário Predefinido</string>
-  <string name="gtasks_FEx_header">Google Tasks</string>
-  <string name="gtasks_FEx_title">Google Tasks: %s</string>
-  <string name="gtasks_FEx_creating_list">Creating list...</string>
-  <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
-  <string name="gtasks_FEx_create_list_error">Error creating new list</string>
-  <string name="CFC_gtasks_list_text">In List: ?</string>
-  <string name="CFC_gtasks_list_name">In GTasks List...</string>
-  <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
-  <string name="gtasks_GTA_clear_completed">Clear Completed</string>
-  <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps accounts are currently unsupported.</string>
-  <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-  <string name="gtasks_GLA_further_help">To view your tasks with indentation and order preserved, go to the Filters page and select a Google Tasks list. By default, Astrid uses its own sort settings for tasks.</string>
-  <string name="gtasks_GLA_authenticating">Authenticating...</string>
-  <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-  <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. Try logging in from the browser, then come back to try again:</string>
-  <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
-  <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
-  <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
-  <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-  <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Astrid is running.</string>
-  <string name="gtasks_dual_sync_warning">You are currently synchronizing with Astrid.com. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Google Tasks?</string>
-  <string name="help_popover_add_task">Start by adding a task or two</string>
-  <string name="help_popover_tap_task">Tap task to edit and share</string>
-  <string name="help_popover_list_settings">Tap to edit or share this list</string>
-  <string name="help_popover_collaborators">People you share with can help\nyou build your list or finish tasks</string>
-  <string name="help_popover_add_lists">Tap to add a list</string>
-  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
-  <string name="welcome_login_tos_link">Terms of Service</string>
-  <string name="welcome_login_pw">Sign up with email</string>
-  <string name="welcome_sign_in">Sign in</string>
-  <string name="welcome_login_later">Connect Later</string>
-  <string name="welcome_login_confirm_later_title">Why not sign in?</string>
-  <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
-  <string name="welcome_login_confirm_later_cancel">No thanks</string>
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! For free, you get online backup, full synchronization with Astrid.com, the ability to add tasks via email, and you can even share task lists with friends!</string>
-  <string name="help_popover_taskrabbit_type">Change the type of task</string>
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
-  <string name="locale_edit_intro">Astrid will send you a reminder when you have any tasks in the following filter:</string>
-  <string name="locale_interval_label">Limit notifications to:</string>
   <string-array name="locale_interval">
     <item>once an hour</item>
     <item>once every six hours</item>
@@ -593,172 +243,6 @@
     <item>once every three days</item>
     <item>once a week</item>
   </string-array>
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>
-  <string name="opencrx_FEx_header">OpenCRX</string>
-  <string name="opencrx_FEx_dashboard">Workspaces</string>
-  <string name="opencrx_FEx_responsible">Assigned To</string>
-  <string name="opencrx_FEx_responsible_title">Assigned To \'%s\'</string>
-  <string name="opencrx_PDE_task_from">from %s</string>
-  <string name="opencrx_TEA_notes">Add a Comment</string>
-  <string name="opencrx_creator_input_hint">Creator</string>
-  <string name="opencrx_contact_input_hint">Assigned to</string>
-  <string name="opencrx_PPr_header">OpenCRX</string>
-  <string name="opencrx_no_creator">(Do Not Synchronize)</string>
-  <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-  <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
-  <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
-  <string name="opencrx_group">OpenCRX server</string>
-  <string name="opencrx_host_title">Host</string>
-  <string name="opencrx_host_dialog_title">OpenCRX host</string>
-  <string name="opencrx_host_summary">"For example: "<i>mydomain.com</i></string>
-  <string name="opencrx_segment_title">Segment</string>
-  <string name="opencrx_segment_dialog_title">Synchronized segment</string>
-  <string name="opencrx_segment_summary">"For example: "<i>Standard</i></string>
-  <string name="opencrx_segment_default">Standard</string>
-  <string name="opencrx_provider_title">Provider</string>
-  <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
-  <string name="opencrx_provider_summary">"For example: "<i>CRX</i></string>
-  <string name="opencrx_provider_default">CRX</string>
-  <string name="opencrx_PLA_title">Log In to OpenCRX</string>
-  <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
-  <string name="opencrx_PLA_signIn">Sign In</string>
-  <string name="opencrx_PLA_login">Login</string>
-  <string name="opencrx_PLA_password">Password</string>
-  <string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
-  <string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
-  <string name="opencrx_notification_title">OpenCRX</string>
-  <string name="opencrx_notification_text">%s tasks updated / click for more details</string>
-  <string name="opencrx_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="opencrx_MLA_email_empty">Login was not specified!</string>
-  <string name="opencrx_MLA_password_empty">Password was not specified!</string>
-  <string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
-  <string name="opencrx_TEA_task_unassigned">&lt;Unassigned&gt;</string>
-  <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
-  <string name="opencrx_TEA_dashboard_default">&lt;Default&gt;</string>
-  <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
-  <string name="CFC_opencrx_in_workspace_text">In workspace: ?</string>
-  <string name="CFC_opencrx_in_workspace_name">In workspace...</string>
-  <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
-  <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
-  <string name="EPr_powerpack_header">Premium and misc. settings</string>
-  <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
-  <string name="EPr_statistics_title">Anonymous usage stats</string>
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
-  <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
-  <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
-  <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
-  <string name="premium_attach_file">Attach a file</string>
-  <string name="premium_record_audio">Record a note</string>
-  <string name="premium_no_files">No files attached</string>
-  <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
-  <string name="audio_recording_title">Recording Audio</string>
-  <string name="audio_stop_recording">Stop Recording</string>
-  <string name="audio_speak_now">Speak Now!</string>
-  <string name="audio_encoding">Encoding...</string>
-  <string name="audio_err_encoding">Error encoding audio</string>
-  <string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
-  <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
-  <string name="search_market_audio_title">No audio player found</string>
-  <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
-  <string name="search_market_pdf_title">No PDF reader found</string>
-  <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
-  <string name="search_market_ms_title">No MS Office reader found</string>
-  <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
-  <string name="file_type_unhandled_title">No application found</string>
-  <string name="file_prefix_image">Image</string>
-  <string name="file_prefix_voice">Voice</string>
-  <string name="file_browser_up">Up</string>
-  <string name="file_browser_title">Choose a file</string>
-  <string name="dir_browser_title">Choose a directory</string>
-  <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
-  <string name="file_add_picture">Attach a picture</string>
-  <string name="file_add_sdcard">Attach a file from your SD card</string>
-  <string name="file_download_title">Download file?</string>
-  <string name="file_download_body">This file has not been downloaded to your SD card. Download now?</string>
-  <string name="file_download_progress">Downloading...</string>
-  <string name="file_err_memory">Image is too large to fit in memory</string>
-  <string name="file_err_copy">Error copying file for attachment</string>
-  <string name="file_err_download">Error downloading file</string>
-  <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
-  <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
-  <string name="file_dir_dialog_ok">Use this directory</string>
-  <string name="file_dir_dialog_default">Reset to default</string>
-  <string name="p_files_dir">Premium downloads directory</string>
-  <string name="p_files_dir_desc">Task attachments saved to: %s</string>
-  <string name="p_files_dir_desc_default">Default directory</string>
-  <string name="billing_not_supported_title">Can\'t make purchases</string>
-  <string name="billing_not_supported_message">The Market billing service is not available at this time. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
-  <string name="subscriptions_not_supported_message">The Market billing service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
-  <string name="cannot_connect_title">Can\'t connect to Market</string>
-  <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="restoring_transactions">Restoring transactions</string>
-  <string name="subscriptions_learn_more">Learn more</string>
-  <string name="premium_billing_title">Astrid Premium</string>
-  <string name="premium_buy_month">1 Month</string>
-  <string name="premium_buy_year">1 Year</string>
-  <string name="premium_description_header">Do more with premium!</string>
-  <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
-  <string name="premium_description_2">Syncs files with astrid.com</string>
-  <string name="premium_description_3">Add attachments via email</string>
-  <string name="premium_description_4">Save voice notes as audio files</string>
-  <string name="premium_description_5">Preview upcoming features</string>
-  <string name="premium_description_6">Support the Astrid Team!</string>
-  <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
-  <string name="premium_speech_bubble_2">Order one year and save 25%%!</string>
-  <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
-  <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
-  <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
-  <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-  <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
-  <string name="producteev_FEx_header">Producteev</string>
-  <string name="producteev_FEx_dashboard">Workspaces</string>
-  <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
-  <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
-  <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
-  <string name="producteev_PDE_task_from">from %s</string>
-  <string name="producteev_TEA_notes">Add a Comment</string>
-  <string name="producteev_PPr_header">Producteev</string>
-  <string name="producteev_default_dashboard">Default Workspace</string>
-  <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
-  <string name="producteev_create_dashboard">Add new Workspace...</string>
-  <string name="producteev_create_dashboard_name">Name for new Workspace</string>
-  <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
-  <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
-  <string name="producteev_PLA_title">Log In to Producteev</string>
-  <string name="producteev_PLA_body">Sign in with your existing Producteev account, or create a new account!</string>
-  <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
-  <string name="producteev_PLA_signIn">Sign In</string>
-  <string name="producteev_PLA_createNew">Create New User</string>
-  <string name="producteev_PLA_email">E-mail</string>
-  <string name="producteev_PLA_password">Password</string>
-  <string name="producteev_PLA_timezone">Timezone</string>
-  <string name="producteev_PLA_firstName">First Name</string>
-  <string name="producteev_PLA_lastName">Last Name</string>
-  <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
-  <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
-  <string name="producteev_notification_title">Producteev</string>
-  <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
-  <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
-  <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
-  <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
-  <string name="CFC_producteev_in_workspace_name">In workspace...</string>
-  <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
-  <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
-  <string name="TEA_reminders_group_label">Reminders</string>
-  <string name="TEA_reminder_label">Remind me:</string>
-  <string name="TEA_reminder_due">When task is due</string>
-  <string name="TEA_reminder_overdue">When task is overdue</string>
-  <string name="TEA_reminder_randomly">Randomly once</string>
-  <string name="TEA_reminder_alarm_label">Ring/vibrate type:</string>
-  <string name="TEA_reminder_mode_once">Ring once</string>
-  <string name="TEA_reminder_mode_five">Ring five times</string>
-  <string name="TEA_reminder_mode_nonstop">Ring until I dismiss alarm</string>
   <string-array name="TEA_reminder_random">
     <item>an hour</item>
     <item>a day</item>
@@ -770,16 +254,12 @@
   <string name="rmd_NoA_filter">Lembrete!</string>
   <string name="rmd_NoA_done">Já Terminada!</string>
   <string name="rmd_NoA_snooze">Parar...</string>
-  <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
-  <string name="rmd_NoA_dlg_title">Reminder:</string>
   <string-array name="rmd_reengage_notif_titles">
     <item>A note from Astrid</item>
     <item>Memo for %s.</item>
     <item>Your Astrid digest</item>
     <item>Reminders from Astrid</item>
   </string-array>
-  <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
     <item>Dear sir or madam, some tasks await your inspection!</item>
@@ -797,40 +277,10 @@
     <item>You\'re serious about getting more done? So am I!</item>
     <item>Pleasure to make your acquaintance!</item>
   </string-array>
-  <string name="rmd_EPr_alerts_header">Reminder settings</string>
-  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
-  <string name="rmd_EPr_enabled_title">Reminders enabled?</string>
-  <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
-  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>
   <string name="rmd_EPr_quiet_hours_start_title">Início do Período de Inactividade</string>
-  <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the Vibrate on alert setting</string>
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
   <string name="rmd_EPr_quiet_hours_end_title">Fim do Período de Inactividade</string>
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
-  <string name="rmd_EPr_rmd_time_title">Default reminder</string>
-  <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
   <string name="rmd_EPr_ringtone_title">Toque de Notificação</string>
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
-  <string name="rmd_EPr_persistent_title">Notification persistence</string>
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
-  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system setting for the volume</string>
   <string name="rmd_EPr_vibrate_title">Vibrar ao Alertar</string>
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
-  <string name="rmd_EPr_nagging_title">Astrid encouragements</string>
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
-  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
-  <string name="rmd_EPr_snooze_dialog_title">Snooze dialog HH:MM</string>
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
-  <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
   <string-array name="EPr_reminder_random">
     <item>desactivado</item>
     <item>de hora em hora</item>
@@ -996,13 +446,7 @@
     <item>Didn\'t you make that excuse last time?</item>
     <item>I can\'t help you organize your life if you do that...</item>
   </string-array>
-  <string name="repeat_plugin">Repeating Tasks</string>
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
   <string name="repeat_enabled">Repete</string>
-  <string name="repeat_every">Every %d</string>
-  <string name="repeat_interval_prompt">Repeat Interval</string>
-  <string name="repeat_never">Make repeating?</string>
-  <string name="repeat_dont">Don\'t repeat</string>
   <string-array name="repeat_interval_short">
     <item>d</item>
     <item>wk</item>
@@ -1029,23 +473,10 @@
     <item>In Two Weeks</item>
     <item>Next Month</item>
   </string-array>
-  <string name="repeat_until_title">Repeat until...</string>
-  <string name="repeat_keep_going">Keep going</string>
   <string-array name="repeat_type">
     <item>from due date</item>
     <item>from completion date</item>
   </string-array>
-  <string name="repeat_detail_byday">$I on $D</string>
-  <string name="repeat_detail_duedate">Every %s</string>
-  <string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
-  <string name="repeat_detail_completion">%s after completion</string>
-  <string name="repeat_forever">Repeat forever</string>
-  <string name="repeat_until">Repeat until %s</string>
-  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-  <string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
-  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
-  <string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
-  <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
   <string-array name="repeat_encouragement">
     <item>Good job!</item>
     <item>Wow… I\'m so proud of you!</item>
@@ -1057,121 +488,12 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk Settings</string>
-  <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
-  <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
   <string name="rmilk_FEx_list">Listas</string>
-  <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">RTM List:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
-  <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
-  <string name="rmilk_MLA_error">Sorry, there was an error verifying your login. Please try again. \n\n Error Message: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">Connection Error! Check your Internet connection, or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
-  <string name="subtasks_help_title">Sort and Indent in Astrid</string>
-  <string name="subtasks_help_1">Tap and hold to move a task</string>
-  <string name="subtasks_help_2">Drag vertically to rearrange</string>
-  <string name="subtasks_help_3">Drag horizontally to indent</string>
   <string name="TEA_tags_label">Listas</string>
-  <string name="TEA_tags_label_long">Put task on one or more lists</string>
-  <string name="TEA_tags_none">None</string>
-  <string name="TEA_tag_hint">New list</string>
-  <string name="tag_new_list">New List</string>
-  <string name="tag_no_title_error">Please enter a name for this list first!</string>
-  <string name="tag_FEx_add_new">New</string>
   <string name="tag_FEx_header">Listas</string>
-  <string name="tag_FEx_untagged">Not in any List</string>
-  <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  <string name="tag_cm_rename">Rename List</string>
-  <string name="tag_cm_delete">Delete List</string>
-  <string name="tag_cm_leave">Leave List</string>
-  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
-  <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
-  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
-  <string name="TEA_no_tags_modified">No changes made</string>
-  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
-  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you can simply delete the new combined list!</string>
   <string name="tag_settings_title">Settings:</string>
-  <string name="tag_updates_title">Activity: %s</string>
-  <string name="tag_delete_button">Delete list</string>
-  <string name="tag_leave_button">Leave this list</string>
-  <string name="TPl_notification">Timers Active for %s!</string>
-  <string name="TFE_workingOn">Tasks Being Timed</string>
-  <string name="TEA_timer_controls">Timer Controls</string>
-  <string name="TEA_timer_comment_started">started this task:</string>
-  <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-  <string name="TEA_timer_comment_spent">Time spent:</string>
-  <string name="update_string_friends">%1$s is now friends with %2$s</string>
-  <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
-  <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
-  <string name="update_string_task_created">%1$s created this task</string>
-  <string name="update_string_task_created_global">%1$s created $link_task</string>
-  <string name="update_string_task_created_on_list">%1$s added $link_task to this list</string>
-  <string name="update_string_task_completed">%1$s completed $link_task. Huzzah!</string>
-  <string name="update_string_task_uncompleted">%1$s un-completed $link_task.</string>
-  <string name="update_string_task_tagged">%1$s added $link_task to %4$s</string>
-  <string name="update_string_task_tagged_list">%1$s added $link_task to this list</string>
-  <string name="update_string_task_assigned">%1$s assigned $link_task to %4$s</string>
-  <string name="update_string_default_comment">%1$s commented: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: $link_task: %3$s</string>
-  <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
-  <string name="update_string_tag_created">%1$s created this list</string>
-  <string name="update_string_tag_created_global">%1$s created the list %2$s</string>
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
-  <string name="EPr_voiceInputEnabled_title">Voice input</string>
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
-  <string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
-  <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>
-  <string name="EPr_voice_header">Voice input settings</string>
-  <string name="welcome_setting">Show tutorial</string>
   <string name="welcome_title_1">Bem-vindo ao Astrid!</string>
-  <string name="welcome_title_2">Make lists</string>
-  <string name="welcome_title_3">Switch between lists</string>
-  <string name="welcome_title_4">Share lists</string>
-  <string name="welcome_title_5">Divvy up tasks</string>
-  <string name="welcome_title_6">Provide details</string>
-  <string name="welcome_title_7">Connect now\nto get started!</string>
-  <string name="welcome_title_7_return">That\'s it!</string>
-  <string name="welcome_body_1">The perfect personal to-do list \nthat works great with friends</string>
-  <string name="welcome_body_2">Great for any list:\nread, watch, buy, visit!</string>
-  <string name="welcome_body_3">Tap the list title \nto see all your lists</string>
-  <string name="welcome_body_4">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
-  <string name="welcome_body_7">Login</string>
-  <string name="welcome_body_7_return">Tap Astrid to return.</string>
-  <string name="welcome_next">Next</string>
-  <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
-  <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
-  <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
-  <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
-  <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-  <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
-  <string name="PPW_configure_title">Configure Widget</string>
-  <string name="PPW_color">Widget color</string>
-  <string name="PPW_enable_calendar">Show calendar events</string>
-  <string name="PPW_disable_encouragements">Hide encouragements</string>
-  <string name="PPW_show_dates">Show due dates</string>
-  <string name="PPW_filter">Select Filter</string>
-  <string name="PPW_due">Due:</string>
-  <string name="PPW_past_due">Past Due:</string>
-  <string name="PPW_old_astrid_notice">You need at least version 3.6 of Astrid in order to use this widget. Sorry!</string>
   <string-array name="PPW_encouragements">
     <item>Hi there!</item>
     <item>Have time to finish something?</item>
@@ -1195,26 +517,14 @@
     <item>Score in life: %d tasks completed</item>
     <item>sorria! Já completou as tarefas do %d</item>
   </string-array>
-  <string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
   <string-array name="PPW_colors">
     <item>Preto</item>
     <item>Branco</item>
     <item>Azul</item>
     <item>Translúcido</item>
   </string-array>
-  <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
   <string name="PPW_widget_dlg_ok">Pré-visualizar</string>
-  <string name="PPW_demo_title1">Items on %s will go here</string>
-  <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
-  <string name="PPW_demo_title3">...voice add and good feelings!</string>
-  <string name="PPW_demo_title4">Tap to learn more!</string>
-  <string name="PPW_info_title">Free Power Pack!</string>
-  <string name="PPW_info_signin">Sign in!</string>
-  <string name="PPW_info_later">Later</string>
-  <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
   <string name="PPW_check_button">Obtenha o Power Pack grátis!</string>
   <string name="PPW_check_share_lists">Partilhar Listas!</string>
-  <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-  <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
   <string name="PPW_restart_for_enabled_state">Pode ser necessário reiniciar o telefone para que esta alteração surta efeito</string>
 </resources>

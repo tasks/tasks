@@ -12,13 +12,6 @@
   <string name="actfm_view_task_cancel">Stanna här</string>
   <string name="actfm_my_shared_tasks_title">Mina delade uppgifter</string>
   <string name="actfm_my_shared_tasks_empty">Inga delade uppgifter</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">Lägg till en kommentar...</string>
   <string-array name="TVA_tabs">
     <item>Uppgifter</item>
@@ -70,11 +63,7 @@
   <string name="actfm_ALA_login_title">Logga in på Astrid.com</string>
   <string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
   <string name="actfm_OLA_prompt">Logga in:</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Kopiera lista</string>
-  <string name="actfm_feat_list_suffix">(Copy)</string>
-  <string name="actfm_feat_list_cloning">Copying...</string>
   <string name="actfm_feat_list_clone_success">Klart!</string>
   <string name="actfm_feat_list_task_clone_success">Uppgift kopierad</string>
   <string name="actfm_feat_list_clone_empty">Ingen uppgift att kopiera</string>
@@ -83,21 +72,14 @@
   <string name="actfm_https_title">Använd HTTPS</string>
   <string name="actfm_https_enabled">HTTPS aktiverat (långsammare)</string>
   <string name="actfm_https_disabled">HTTPS avaktiverat (snabbare)</string>
-  <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
-  <string name="actfm_account_type">Account type</string>
-  <string name="actfm_account_info">Account info</string>
   <string name="actfm_account_info_summary">Status och alternativ</string>
   <string name="account_type_title_not_logged_in">Registrera ett gratis konto</string>
-  <string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
   <string name="actfm_account_premium">Premium</string>
-  <string name="actfm_account_basic">Basic</string>
   <string name="actfm_inapp_billing">Uppgradera till Premium</string>
   <string name="actfm_inapp_billing_summary">Bifoga filer, röstbackup, premiumsupport &amp; mer</string>
   <string name="share_with_facebook">Gilla på Facebook</string>
   <string name="share_with_twitter">Följ på Twitter</string>
   <string name="share_with_google">Dela på Google+</string>
-  <string name="share_title">Share the love!</string>
-  <string name="share_speech_bubble">By sharing, you\'ll help others be more productive!</string>
   <string name="alarm_ACS_label">Alarm</string>
   <string name="alarm_ACS_button">Lägg till ett alarm</string>
   <string-array name="reminders_alarm">
@@ -113,12 +95,10 @@
   <string name="backup_BPr_auto_title">Automatisk säkerhetskopiering</string>
   <string name="backup_BPr_auto_disabled">Automatisk säkerhetskopiering avaktiverad</string>
   <string name="backup_BPr_auto_enabled">Säkerhetskopiering kommer att ske dagligen</string>
-  <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
   <string name="backup_BAc_label">Hantera säkerhetskopior</string>
   <string name="backup_BAc_title">Hantera dina säkerhetskopior</string>
   <string name="backup_BAc_import">Importera uppgifter</string>
   <string name="backup_BAc_export">Exportera uppgifter</string>
-  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
   <string name="backup_TXI_error">Importfel</string>
   <string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
   <string name="export_toast_no_tasks">Inga uppgifter att exportera</string>
@@ -149,7 +129,6 @@
   <string name="DLG_cancel">Avbryt</string>
   <string name="DLG_more">Mer</string>
   <string name="DLG_undo">Ångra</string>
-  <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Klicka för att ställa</string>
   <string name="ENA_no_comments">Ännu ingen aktivitet</string>
   <string name="ENA_no_user">Någon</string>
@@ -162,7 +141,6 @@
   <string name="TLA_menu_search">Sök</string>
   <string name="TLA_menu_lists">Listor</string>
   <string name="TLA_menu_friends">Personer</string>
-  <string name="TLA_menu_featured_lists">Featured Lists</string>
   <string name="TLA_menu_suggestions">Förslag</string>
   <string name="TLA_menu_settings">Inställningar</string>
   <string name="TLA_menu_support">Support</string>
@@ -198,7 +176,6 @@
   <string name="TAd_actionEditTask">Redigera</string>
   <string name="TAd_contextEditTask">Redigera uppgift</string>
   <string name="TAd_contextCopyTask">Kopiera uppgift</string>
-  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
   <string name="TAd_contextPurgeTask">Rensa uppgift</string>
   <string name="SSD_title">Sortering och Dolda Uppgifter</string>
@@ -293,7 +270,6 @@
   <string name="MCA_ignore_body">Du har ignorerat flera missade samtal. Vill du att Astrid slutar fråga dig om dem?</string>
   <string name="MCA_ignore_all">Ignorera alla samtal</string>
   <string name="MCA_ignore_this">Ignorera endast detta samtal</string>
-  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
   <string name="MCA_missed_calls_pref_desc_enabled">Astrid meddelar dig om missade samtal och ger dig möjligheten att få påminnelse om att ringa tillbaka</string>
   <string name="MCA_missed_calls_pref_desc_disabled">Astrid meddelar dig inte om missade samtal</string>
   <string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
@@ -307,48 +283,15 @@
     <item>Du klarar det!</item>
     <item>Du kan alltid sända ett sms...</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_list_exists_title">List already exists</string>
-  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_share_list_title">Share the list?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
-  <string name="CRA_more_options">More options</string>
-  <string name="CRA_dont_invite">No thank you</string>
-  <string name="CRA_list_created_title">List created!</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">Vad är nytt i Astrid?</string>
   <string name="UpS_updates_title">Senaste Astrid nyheter</string>
   <string name="UpS_no_activity_log_in">Logga in för att se hur\ndet går för dig och vad\nsom händer på delade listor.</string>
   <string name="EPr_title">Astrid: Inställningar</string>
-  <string name="EPr_title_short">Settings</string>
   <string name="EPr_share_astrid">Berätta för andra om Astrid</string>
-  <string name="EPr_share_astrid_summary">Share about Astrid on your favorite social network</string>
   <string name="EPr_deactivated">inaktiverad</string>
   <string name="EPr_appearance_header">Utseende</string>
-  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
   <string name="EPr_faq_title">Vanliga frågor och svar</string>
   <string name="EPr_account_title">Konto: %s</string>
-  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
-  <string name="EPr_fontSize_title">Task list size</string>
   <string name="EPr_showSmartConfirmation_title">Visa bekräftelse vid smarta påminnelser</string>
   <string name="EPr_fontSize_desc">Textstorlek för huvudlistan</string>
   <string name="EPr_showNotes_title">Visa anteckningar i uppgiften</string>
@@ -365,29 +308,11 @@
   <string name="EPr_ideaAuto_title">Ladda fliken Idéer automatiskt</string>
   <string name="EPr_ideaAuto_desc_enabled">Webbsökning till fliken Idéer utförs när du klickar på fliken</string>
   <string name="EPr_ideaAuto_desc_disabled">Webbsökning till fliken Idéer utförs manuellt</string>
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   <string name="EPr_theme_title">Färgtema</string>
   <string name="EPr_theme_desc">Aktuellt: %s</string>
   <string name="EPr_theme_desc_unsupported">Inställningen kräver Android 2.0 eller senare version</string>
   <string name="EPr_theme_widget_title">Widgettema</string>
   <string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
-  <string name="EPr_use_contact_picker">Use contact picker</string>
-  <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
-  <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
-  <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
-  <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
-  <string name="EPr_ideas_tab_enabled">Task ideas</string>
-  <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
-  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
-  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_force_phone_layout">Use phone layout</string>
-  <string name="EPr_show_featured_lists">Show featured lists</string>
-  <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>No swipe</item>
     <item>Spara minne</item>
@@ -400,9 +325,6 @@
     <item>Standardinställning</item>
     <item>Använder mer systemresurser</item>
   </string-array>
-  <string name="swipe_lists_helper_title">Swipe between lists</string>
-  <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
-  <string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
   <string-array name="EPr_themes">
     <item>Dag - blå</item>
     <item>Dag - röd</item>
@@ -442,25 +364,16 @@
   <string name="AOA_tab_available">Tillgängliga</string>
   <string name="AOA_free">Ledig</string>
   <string name="AOA_no_addons">Tom lista!</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
-  <string name="AOA_locale_title">Astrid Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   <string name="TWi_loading">Laddar...</string>
   <string name="WCA_title">Välj uppgifter att se på...</string>
   <string name="p_about">Om Astrid</string>
   <string name="p_about_text">Aktuell version: %s\n\n Astrid är öppen programvara och underhålls av Todoroo, Inc.</string>
   <string name="p_help">Stöd</string>
   <string name="p_forums">Forum</string>
-  <string name="p_premium">Premium</string>
   <string name="task_killer_help">Det ser ut att du använder en app som kan avsluta processer (%s)! Om du kan, lägg till Astrid i exklusionslistan så att den inte avslutas. Annars kan det hända att Astrid inte meddelar när dina uppgifter förfaller.\n</string>
   <string name="task_killer_help_ok">Jag önskar inte avsluta Astrid!</string>
   <string name="marketplace_description">Astrid är den mycket älskade Att-göra / Uppgiftshanteraren gjord med öppen källkod, designad för att hjälpa dig få saker gjorda. Den har påminnelser, taggar, synkroniserings, språktillägg, en widget med mera.</string>
-  <string name="DB_corrupted_title">Corrupted Database</string>
-  <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid.</string>
-  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   <string name="EPr_defaults_header">Standardinställningar för nya uppgifter</string>
-  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
   <string name="EPr_default_urgency_title">Standardfrist</string>
   <string name="EPr_default_urgency_desc">Aktuellt: %s</string>
   <string name="EPr_default_importance_title">Standardviktighetsgrad</string>
@@ -564,8 +477,6 @@
   <string name="gtasks_error_accountNotFound">Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
   <string name="gtasks_error_authRefresh">Kunde inte autentisera med Google Uppgifter. Kontrollera ditt lösenord och försök igen.</string>
   <string name="gtasks_error_accountManager">Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
-  <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Astrid is running.</string>
-  <string name="gtasks_dual_sync_warning">You are currently synchronizing with Astrid.com. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Google Tasks?</string>
   <string name="help_popover_add_task">Börja med att lägga in en eller två uppgifter</string>
   <string name="help_popover_tap_task">Tryck på en uppgift för att redigera och dela</string>
   <string name="help_popover_list_settings">Tryck för att redigera eller dela den här listan</string>
@@ -573,9 +484,6 @@
   <string name="help_popover_add_lists">Lägg till en lista</string>
   <string name="help_popover_switch_lists">Tryck för att lägga till eller byta lista</string>
   <string name="welcome_login_tos_base">Genom att använda Astrid godkänner du</string>
-  <string name="welcome_login_tos_link">Terms of Service</string>
-  <string name="welcome_login_pw">Sign up with email</string>
-  <string name="welcome_sign_in">Sign in</string>
   <string name="welcome_login_later">Koppla upp senare</string>
   <string name="welcome_login_confirm_later_title">Om du skulle ta och logga in?</string>
   <string name="welcome_login_confirm_later_ok">Jag ska göra det!</string>
@@ -641,80 +549,9 @@
   <string name="CFC_opencrx_in_workspace_name">I arbetsyta...</string>
   <string name="CFC_opencrx_assigned_to_text">Tilldelad: ?</string>
   <string name="CFC_opencrx_assigned_to_name">Tilldelad...</string>
-  <string name="EPr_powerpack_header">Premium and misc. settings</string>
-  <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
   <string name="EPr_statistics_title">Anonym användningsstatistik</string>
   <string name="EPr_statistics_desc_disabled">Inga användningsdata rapporteras</string>
   <string name="EPr_statistics_desc_enabled">Hjälp oss att förbättra Astrid genom att skicka anonym användningsstatistik</string>
-  <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
-  <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
-  <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
-  <string name="premium_attach_file">Attach a file</string>
-  <string name="premium_record_audio">Record a note</string>
-  <string name="premium_no_files">No files attached</string>
-  <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
-  <string name="audio_recording_title">Recording Audio</string>
-  <string name="audio_stop_recording">Stop Recording</string>
-  <string name="audio_speak_now">Speak Now!</string>
-  <string name="audio_encoding">Encoding...</string>
-  <string name="audio_err_encoding">Error encoding audio</string>
-  <string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
-  <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
-  <string name="search_market_audio_title">No audio player found</string>
-  <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
-  <string name="search_market_pdf_title">No PDF reader found</string>
-  <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
-  <string name="search_market_ms_title">No MS Office reader found</string>
-  <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
-  <string name="file_type_unhandled_title">No application found</string>
-  <string name="file_prefix_image">Image</string>
-  <string name="file_prefix_voice">Voice</string>
-  <string name="file_browser_up">Up</string>
-  <string name="file_browser_title">Choose a file</string>
-  <string name="dir_browser_title">Choose a directory</string>
-  <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
-  <string name="file_add_picture">Attach a picture</string>
-  <string name="file_add_sdcard">Attach a file from your SD card</string>
-  <string name="file_download_title">Download file?</string>
-  <string name="file_download_body">This file has not been downloaded to your SD card. Download now?</string>
-  <string name="file_download_progress">Downloading...</string>
-  <string name="file_err_memory">Image is too large to fit in memory</string>
-  <string name="file_err_copy">Error copying file for attachment</string>
-  <string name="file_err_download">Error downloading file</string>
-  <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
-  <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
-  <string name="file_dir_dialog_ok">Use this directory</string>
-  <string name="file_dir_dialog_default">Reset to default</string>
-  <string name="p_files_dir">Premium downloads directory</string>
-  <string name="p_files_dir_desc">Task attachments saved to: %s</string>
-  <string name="p_files_dir_desc_default">Default directory</string>
-  <string name="billing_not_supported_title">Can\'t make purchases</string>
-  <string name="billing_not_supported_message">The Market billing service is not available at this time. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
-  <string name="subscriptions_not_supported_message">The Market billing service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
-  <string name="cannot_connect_title">Can\'t connect to Market</string>
-  <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="restoring_transactions">Restoring transactions</string>
-  <string name="subscriptions_learn_more">Learn more</string>
-  <string name="premium_billing_title">Astrid Premium</string>
-  <string name="premium_buy_month">1 Month</string>
-  <string name="premium_buy_year">1 Year</string>
-  <string name="premium_description_header">Do more with premium!</string>
-  <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
-  <string name="premium_description_2">Syncs files with astrid.com</string>
-  <string name="premium_description_3">Add attachments via email</string>
-  <string name="premium_description_4">Save voice notes as audio files</string>
-  <string name="premium_description_5">Preview upcoming features</string>
-  <string name="premium_description_6">Support the Astrid Team!</string>
-  <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
-  <string name="premium_speech_bubble_2">Order one year and save 25%%!</string>
-  <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
-  <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
-  <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
-  <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-  <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Arbetsytor</string>
   <string name="producteev_FEx_responsible_byme">Tilldelad</string>
@@ -751,7 +588,6 @@
   <string name="CFC_producteev_assigned_to_text">Tilldelad: ?</string>
   <string name="CFC_producteev_assigned_to_name">Tilldelad...</string>
   <string name="TEA_reminders_group_label">Påminnelser</string>
-  <string name="TEA_reminder_label">Remind me:</string>
   <string name="TEA_reminder_due">...när uppgiften förfaller</string>
   <string name="TEA_reminder_overdue">...när uppgiften har förfallit</string>
   <string name="TEA_reminder_randomly">En gång slumpmässigt</string>
@@ -778,8 +614,6 @@
     <item>Your Astrid digest</item>
     <item>Reminders from Astrid</item>
   </string-array>
-  <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
     <item>Dear sir or madam, some tasks await your inspection!</item>
@@ -798,7 +632,6 @@
     <item>Pleasure to make your acquaintance!</item>
   </string-array>
   <string name="rmd_EPr_alerts_header">Påminnelseinställningar</string>
-  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
   <string name="rmd_EPr_enabled_title">Påminnelser valda?</string>
   <string name="rmd_EPr_enabled_desc_true">Påminnelser från Astrid är valda (normalt)</string>
   <string name="rmd_EPr_enabled_desc_false">Påminnelser från Astrid visas inte i telefonen</string>
@@ -1001,7 +834,6 @@
   <string name="repeat_enabled">Upprepningar</string>
   <string name="repeat_every">Varje %d</string>
   <string name="repeat_interval_prompt">Upprepningsintervall</string>
-  <string name="repeat_never">Make repeating?</string>
   <string name="repeat_dont">Upprepa inte</string>
   <string-array name="repeat_interval_short">
     <item>d</item>
@@ -1029,23 +861,15 @@
     <item>In Two Weeks</item>
     <item>Next Month</item>
   </string-array>
-  <string name="repeat_until_title">Repeat until...</string>
-  <string name="repeat_keep_going">Keep going</string>
   <string-array name="repeat_type">
     <item>från förfallodatumet</item>
     <item>från avslutningsdatumet</item>
   </string-array>
   <string name="repeat_detail_byday">$I på $D</string>
   <string name="repeat_detail_duedate">Varje %s</string>
-  <string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
   <string name="repeat_detail_completion">%s efter avslutning</string>
-  <string name="repeat_forever">Repeat forever</string>
-  <string name="repeat_until">Repeat until %s</string>
   <string name="repeat_rescheduling_dialog_title">Ändrar tid för uppgiften \"%s\"</string>
-  <string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
   <string name="repeat_rescheduling_dialog_bubble">%1$s Återkommande uppgift ändrad från %2$s till %3$s</string>
-  <string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
-  <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
   <string-array name="repeat_encouragement">
     <item>Bra jobbat!</item>
     <item>Häftigt! Jag är så stolt över dig!</item>
@@ -1111,15 +935,7 @@
   <string name="update_string_request_friendship">%1s vill bli vän med dig</string>
   <string name="update_string_confirmed_friendship">%1$s har accepterat din vänförfrågan</string>
   <string name="update_string_task_created">%1$s skapade den här uppgiften</string>
-  <string name="update_string_task_created_global">%1$s created $link_task</string>
-  <string name="update_string_task_created_on_list">%1$s added $link_task to this list</string>
-  <string name="update_string_task_completed">%1$s completed $link_task. Huzzah!</string>
-  <string name="update_string_task_uncompleted">%1$s un-completed $link_task.</string>
-  <string name="update_string_task_tagged">%1$s added $link_task to %4$s</string>
-  <string name="update_string_task_tagged_list">%1$s added $link_task to this list</string>
-  <string name="update_string_task_assigned">%1$s assigned $link_task to %4$s</string>
   <string name="update_string_default_comment">%1$s kommenterade: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: $link_task: %3$s</string>
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="update_string_tag_created">%1$s skapade denna lista</string>
   <string name="update_string_tag_created_global">%1$s skapade listan %2$s</string>
@@ -1160,14 +976,10 @@
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
-  <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
-  <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-  <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
   <string name="PPW_configure_title">Konfigurera widget</string>
   <string name="PPW_color">Widgetens färg</string>
   <string name="PPW_enable_calendar">Visa kalenderhändelser</string>
   <string name="PPW_disable_encouragements">Dölj uppmuntringsmeddelanden</string>
-  <string name="PPW_show_dates">Show due dates</string>
   <string name="PPW_filter">Välj filter</string>
   <string name="PPW_due">Förfaller:</string>
   <string name="PPW_past_due">Har förfallit:</string>
@@ -1214,7 +1026,4 @@
   <string name="PPW_unlock_howto">Dela listor med dina vänner! Gratis Power Pack när tre vänner börjar använda Astrid.</string>
   <string name="PPW_check_button">Du kan få Power Pack gratis!</string>
   <string name="PPW_check_share_lists">Dela listor!</string>
-  <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-  <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
-  <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>

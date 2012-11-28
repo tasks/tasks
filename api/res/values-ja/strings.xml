@@ -66,21 +66,15 @@
   <string name="DLG_no">いいえ</string>
   <string name="DLG_close">閉じる</string>
   <string name="DLG_done">完了</string>
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
   <string name="DLG_wait">お待ちください</string>
   <string name="SyP_progress">タスクの同期中...</string>
   <string name="SyP_progress_toast">同期中...</string>
   <string name="SyP_label">同期</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">接続エラー！インターネットに接続できるか確認してください。</string>
   <string name="sync_SPr_group_status">状況</string>
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <string name="sync_status_loggedout">Not logged in</string>
   <string name="sync_status_ongoing">同期中</string>
   <string name="sync_status_success">前回の同期:\n%s</string>
   <string name="sync_status_failed">失敗: %s</string>
-  <string name="sync_status_errors">Sync w/ errors: %s</string>
   <string name="sync_status_failed_subtitle">最後の同期: %s</string>
   <string name="sync_status_never">同期していません</string>
   <string name="sync_SPr_group_options">オプション</string>
@@ -89,18 +83,12 @@
   <string name="sync_SPr_interval_desc">現在の設定: %s</string>
   <string name="sync_SPr_bgwifi_title">Wi-Fi のみ</string>
   <string name="sync_SPr_bgwifi_desc_enabled">Wi-Fi が有効なときだけバックグラウンドで同期する</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
   <string name="sync_SPr_group_actions">アクション</string>
-  <string name="sync_SPr_sync">Synchronize now</string>
   <string name="sync_SPr_sync_log_in">ログインと同期</string>
   <string name="sync_SPr_logged_in_prefix">ログインアカウント：</string>
-  <string name="sync_SPr_last_error">Status report</string>
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
-  <string name="sync_SPr_send_report">Send report</string>
   <string name="sync_SPr_forget">ログアウト</string>
   <string name="sync_SPr_forget_description">すべての同期データを消去します</string>
   <string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
-  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>無効</item>
     <item>15分毎</item>

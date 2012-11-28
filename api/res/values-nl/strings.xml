@@ -72,7 +72,6 @@
   <string name="SyP_progress">Taken synchroniseren...</string>
   <string name="SyP_progress_toast">Synchroniseren…</string>
   <string name="SyP_label">Synchronisatie</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
   <string name="sync_SPr_group_status">Status</string>
   <string name="sync_SPr_status_subtitle">Status: %s</string>

@@ -13,13 +13,6 @@
   <string name="actfm_view_task_cancel">Hier bleiben</string>
   <string name="actfm_my_shared_tasks_title">Meine freigegebenen Aufgaben</string>
   <string name="actfm_my_shared_tasks_empty">Keine freigegeben Aufgaben</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">Kommentar hinzufügen …</string>
   <string-array name="TVA_tabs">
     <item>Aufgaben</item>
@@ -308,34 +301,6 @@
     <item>Du schaffst es!</item>
     <item>Du kannst auch eine SMS senden ...</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_list_exists_title">List already exists</string>
-  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_share_list_title">Share the list?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
-  <string name="CRA_more_options">More options</string>
-  <string name="CRA_dont_invite">No thank you</string>
-  <string name="CRA_list_created_title">List created!</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">Was ist neu bei Astrid?</string>
   <string name="UpS_updates_title">Astrid Neuigkeiten</string>
   <string name="UpS_no_activity_log_in">Wenn du dich einloggst, kann du den \nFortschritt deiner eigenen also auch \ngemeinsamer Aufgabenlisten einsehen.</string>
@@ -443,7 +408,6 @@
   <string name="AOA_tab_available">Verfügbar</string>
   <string name="AOA_free">Kostenlos</string>
   <string name="AOA_no_addons">Leere Liste!</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
   <string name="AOA_ppack_description">Unterstützen Sie Astrid und werden Sie produktiver mit dem Astrid Power Pack. 4x2 und 4x4 Widgets sowie Sprachintegration. Starten Sie heute noch durch!</string>
   <string name="AOA_locale_title">Astrid Gebietsschema-Plugin</string>
   <string name="AOA_locale_description">Erlaubt Astrid, die Gebietschema-App zum Senden von Benachrichtigunen basierend auf Filterregeln zu benutzen. Benötigt Gebietsschema-Plugin.</string>
@@ -694,7 +658,6 @@
   <string name="subscriptions_not_supported_message">Der Market-Abrechnungsdienst unterstützt zur Zeit keine Abonnements auf diesem Gerät. Du kannst Astrid Premium unter http://astrid.com/premium abonnieren.</string>
   <string name="cannot_connect_title">Verbindung zum Market konnte nicht hergestellt werden.</string>
   <string name="cannot_connect_message">Die App kann sich nicht mit dem Market verbinden. Deine Market-Version ist eventuell veraltet. Du kannst diese App weiterhin benutzen, aber Du kannst keine Einkäufe tätigen.</string>
-  <string name="restoring_transactions">Restoring transactions</string>
   <string name="subscriptions_learn_more">Mehr erfahren</string>
   <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">1 Monat</string>
@@ -713,8 +676,6 @@
   <string name="premium_success">Vielen Dank für die Anmeldung bei Astrid Premium!</string>
   <string name="premium_success_with_server_error">Vielen Dank für die Anmeldung bei Astrid Premium! Die neuen Funktionen werden bald für dich auf astrid.com verfügbar sein und sollten bereits jetzt auf deinem Handy funktionieren.</string>
   <string name="premium_verification_error">Der Premium Account für dieses Google Play Konto ist mit einem anderen Benutzer verknüpft. Um weitere E-Mail-Adressen zu deinem Account hinzuzufügen, besuche astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Arbeitsbereiche</string>
   <string name="producteev_FEx_responsible_byme">Durch mich zugeordnet an</string>

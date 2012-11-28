@@ -12,13 +12,6 @@
   <string name="actfm_view_task_cancel">השאר כאן</string>
   <string name="actfm_my_shared_tasks_title">המשימות ששיתפתי</string>
   <string name="actfm_my_shared_tasks_empty">אין מטלות משותפות</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">הוסף הערה</string>
   <string-array name="TVA_tabs">
     <item>מטלות</item>
@@ -70,8 +63,6 @@
   <string name="actfm_ALA_login_title">התחברות</string>
   <string name="actfm_GAA_title">בחר חשבון גוגל</string>
   <string name="actfm_OLA_prompt">אנא התחבר למערכת</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">העתקת רשימה</string>
   <string name="actfm_feat_list_suffix">(העתק)</string>
   <string name="actfm_feat_list_cloning">מעתיקה...</string>
@@ -84,8 +75,6 @@
   <string name="actfm_https_enabled">HTTPS מופעל (איטי יותר)</string>
   <string name="actfm_https_disabled">HTTPS מבוטל (מהיר יותר)</string>
   <string name="actfm_dual_sync_warning">אתה מסנכרן כעת עם ״משימות גוגל״. שים לב שסינכרון מול שני השירותים יכול במקרים מסויימים להביא לתוצאות בלתי צפויות. האם אתה בטוח שברצונך להסתנכרן גם עם אתר astrid.com?</string>
-  <string name="actfm_account_type">Account type</string>
-  <string name="actfm_account_info">Account info</string>
   <string name="actfm_account_info_summary">מצב ואפשרויות</string>
   <string name="account_type_title_not_logged_in">הרשמה ופתיחת חשבון חינם</string>
   <string name="account_type_summary_not_logged_in">גישה מקוונת למשימות, שיתוף משימות והטלתן</string>
@@ -96,8 +85,6 @@
   <string name="share_with_facebook">לייק בפייסבוק</string>
   <string name="share_with_twitter">עקוב בטוויטר</string>
   <string name="share_with_google">שיתוף בגוגל+</string>
-  <string name="share_title">Share the love!</string>
-  <string name="share_speech_bubble">By sharing, you\'ll help others be more productive!</string>
   <string name="alarm_ACS_label">התראות</string>
   <string name="alarm_ACS_button">הוסף התראה</string>
   <string-array name="reminders_alarm">
@@ -162,7 +149,6 @@
   <string name="TLA_menu_search">חיפוש</string>
   <string name="TLA_menu_lists">רשימות</string>
   <string name="TLA_menu_friends">אנשים</string>
-  <string name="TLA_menu_featured_lists">Featured Lists</string>
   <string name="TLA_menu_suggestions">הצעות</string>
   <string name="TLA_menu_settings">הגדרות</string>
   <string name="TLA_menu_support">תמיכה</string>
@@ -198,7 +184,6 @@
   <string name="TAd_actionEditTask">עריכה</string>
   <string name="TAd_contextEditTask">עריכת משימה</string>
   <string name="TAd_contextCopyTask">העתק משימה</string>
-  <string name="TAd_contextDeleteTask">Delete Task</string>
   <string name="TAd_contextUndeleteTask">החזרת המשימה</string>
   <string name="TAd_contextPurgeTask">אַיֵּן משימה</string>
   <string name="SSD_title">מיון, תתי-משימות, ומשימות מוסתרות</string>
@@ -307,34 +292,6 @@
     <item>אתה יכול!</item>
     <item>תמיד תוכל לשלוח מסרון...</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_list_exists_title">List already exists</string>
-  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_share_list_title">Share the list?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
-  <string name="CRA_more_options">More options</string>
-  <string name="CRA_dont_invite">No thank you</string>
-  <string name="CRA_list_created_title">List created!</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">מה חדש ב־Astrid?</string>
   <string name="UpS_updates_title">חדשות Astrid אחרונות</string>
   <string name="UpS_no_activity_log_in">התחבר כדי לראות דו״ח על\n\nהתקדמותך ועל הפעילות\n\nברשימות המשותפות.</string>
@@ -344,11 +301,8 @@
   <string name="EPr_share_astrid_summary">ספר על אסטריד ברשתות חברתיות</string>
   <string name="EPr_deactivated">מופסק</string>
   <string name="EPr_appearance_header">חזות</string>
-  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
   <string name="EPr_faq_title">שאלות נפוצות</string>
   <string name="EPr_account_title">חשבון: %s</string>
-  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
-  <string name="EPr_fontSize_title">Task list size</string>
   <string name="EPr_showSmartConfirmation_title">הצג אישור על תזכורות חכמות</string>
   <string name="EPr_fontSize_desc">גודל הגופן בדף הרישום הראשי</string>
   <string name="EPr_showNotes_title">הצג פתקים במשימות</string>
@@ -365,10 +319,6 @@
   <string name="EPr_ideaAuto_title">טען אוטומטית את לשונית הרעיונות</string>
   <string name="EPr_ideaAuto_desc_enabled">חיפוש באינטרנט בעבור לשונית הרעיונות יופעל כשהלשונית תוקלק</string>
   <string name="EPr_ideaAuto_desc_disabled">חיפוש באינטרנט עבור לשונית הרעיונות יעשה ידנית בלבד</string>
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   <string name="EPr_theme_title">צבע ערכת נושא</string>
   <string name="EPr_theme_desc">כעת: %s</string>
   <string name="EPr_theme_desc_unsupported">הפעלת הגדרות דורשת גירסא 2.0 ומעלה של אנדרואיד</string>
@@ -377,15 +327,12 @@
   <string name="EPr_use_contact_picker">השתמש בבוחר אנשי הקשר</string>
   <string name="EPr_use_contact_picker_desc_enabled">בוחר אנשי הקשר של המערכת יוצג בחלון הטלת משימה</string>
   <string name="EPr_use_contact_picker_desc_disabled">בוחר אנשי הקשר של המערכת לא יוצג</string>
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
   <string name="EPr_third_party_addons_desc_enabled">תוספים של צד ג\' יאופשרו</string>
   <string name="EPr_third_party_addons_desc_disabled">תוספי צד ג\' לא יופעלו</string>
-  <string name="EPr_ideas_tab_enabled">Task ideas</string>
   <string name="EPr_ideas_tab_description">קבל רעיונות שיסייעו לך לגמור משימות</string>
   <string name="EPr_cal_end_or_start_at_due_time">זמן בלוח שנה</string>
   <string name="EPr_cal_end_at_due_time">סיים אירוע בלוח שנה בשעת היעד</string>
   <string name="EPr_cal_start_at_due_time">התחל אירועי לוח שנה בשעת היעד</string>
-  <string name="EPr_force_phone_layout">Use phone layout</string>
   <string name="EPr_show_featured_lists">הצגתרשימת תכונות</string>
   <string name="EPr_swipe_lists_performance_title">עִלְעוּל בין רשימות</string>
   <string-array name="EPr_swipe_lists_performance_mode">
@@ -402,7 +349,6 @@
   </string-array>
   <string name="swipe_lists_helper_title">עִלְעוּל בין רשימות</string>
   <string name="swipe_lists_helper_header">עִלְעוּל ימינה ושמאלה למעבר מהיר בין רשימות</string>
-  <string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
   <string-array name="EPr_themes">
     <item>יום - כחול</item>
     <item>יום - אדום</item>
@@ -442,10 +388,6 @@
   <string name="AOA_tab_available">זמין</string>
   <string name="AOA_free">חינם</string>
   <string name="AOA_no_addons">רשימה ריקה!</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
-  <string name="AOA_locale_title">Astrid Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   <string name="TWi_loading">טוענת...</string>
   <string name="WCA_title">בחר משימות להצגה...</string>
   <string name="p_about">אודות אסטריד</string>
@@ -457,10 +399,7 @@
   <string name="task_killer_help_ok">אני לא אהרוג את אסטריד!</string>
   <string name="marketplace_description">אסטריד הינה תכנת קוד פתוח פופולרית לניהול משימות ומטלות אשר תוכננה כדי לסייע לך לעשות יותר. התכנה כוללת תזכורות, תגיות, התאמה מקומית, חפיץ מסך, ועוד.</string>
   <string name="DB_corrupted_title">בסיס נתונים פגום</string>
-  <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid.</string>
-  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   <string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
-  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
   <string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
   <string name="EPr_default_urgency_desc">כעת: %s</string>
   <string name="EPr_default_importance_title">דחיפות ברירת המחדל</string>
@@ -569,12 +508,8 @@
   <string name="help_popover_add_task">התחל ע״י הוספת משימה או שתיים</string>
   <string name="help_popover_tap_task">גע במשימה כדי לערוך ולשתף</string>
   <string name="help_popover_list_settings">גע כדי לערוך או לשתף רשימה זו</string>
-  <string name="help_popover_collaborators">People you share with can help\nyou build your list or finish tasks</string>
-  <string name="help_popover_add_lists">Tap to add a list</string>
   <string name="help_popover_switch_lists">גע כדי להוסיף רשימה או לעבור בין רשימות</string>
   <string name="welcome_login_tos_base">בשימוש בתכנת אסטריד אתה מסכים ל</string>
-  <string name="welcome_login_tos_link">Terms of Service</string>
-  <string name="welcome_login_pw">Sign up with email</string>
   <string name="welcome_sign_in">כניסה</string>
   <string name="welcome_login_later">התחבר מאוחר יותר</string>
   <string name="welcome_login_confirm_later_title">מדוע לא תתחבר כעת?</string>
@@ -641,9 +576,6 @@
   <string name="CFC_opencrx_in_workspace_name">במשטח עבודה...</string>
   <string name="CFC_opencrx_assigned_to_text">הוטל על: ?</string>
   <string name="CFC_opencrx_assigned_to_name">הוטל על...</string>
-  <string name="EPr_powerpack_header">Premium and misc. settings</string>
-  <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
-  <string name="EPr_statistics_title">Anonymous usage stats</string>
   <string name="EPr_statistics_desc_disabled">נתוני שימוש לא ידווחו</string>
   <string name="EPr_statistics_desc_enabled">עזור לנו לשפר את אסטריד ע״י שליחת נתוני שימוש אנונימיים</string>
   <string name="speech_err_network">שגיאת חיבור! זיהוי דיבור דורש חיבור לאינטרנט.</string>
@@ -685,36 +617,14 @@
   <string name="file_err_show">מצטערת, אך המערכת אינה תומכת עדיין בקבצים מסוג זה</string>
   <string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
   <string name="file_dir_dialog_default">אפס לברירת מחדל</string>
-  <string name="p_files_dir">Premium downloads directory</string>
   <string name="p_files_dir_desc">קבצים מצורפים נשמרו בתיקיה %s</string>
   <string name="p_files_dir_desc_default">תיקייית ברירת מחדל</string>
-  <string name="billing_not_supported_title">Can\'t make purchases</string>
-  <string name="billing_not_supported_message">The Market billing service is not available at this time. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
-  <string name="subscriptions_not_supported_message">The Market billing service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
-  <string name="cannot_connect_title">Can\'t connect to Market</string>
-  <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="restoring_transactions">Restoring transactions</string>
   <string name="subscriptions_learn_more">מידע נוסף</string>
-  <string name="premium_billing_title">Astrid Premium</string>
   <string name="premium_buy_month">חודש</string>
   <string name="premium_buy_year">שנה</string>
-  <string name="premium_description_header">Do more with premium!</string>
-  <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
   <string name="premium_description_2">סינכרון קבצים עם אתר astrid.com</string>
-  <string name="premium_description_3">Add attachments via email</string>
-  <string name="premium_description_4">Save voice notes as audio files</string>
-  <string name="premium_description_5">Preview upcoming features</string>
-  <string name="premium_description_6">Support the Astrid Team!</string>
-  <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
-  <string name="premium_speech_bubble_2">Order one year and save 25%%!</string>
-  <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
   <string name="premium_login_prompt">יש צורך בחשבון באתר astrid.com כדי להרשם לגירסת הפרימיום. אנא התחבר או הרשם.</string>
-  <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
   <string name="premium_success_with_server_error">תודה על ההרשמה לאסטריד פרימיום! התכונות החדשות תיפתחנה לשימוש באתר astrid.com בקרוב, ותהיינה זמינות בטלפון שלך מיידית.</string>
-  <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">משטחי עבודה</string>
   <string name="producteev_FEx_responsible_byme">הטלתי על</string>
@@ -798,7 +708,6 @@
     <item>נעים להכיר!</item>
   </string-array>
   <string name="rmd_EPr_alerts_header">הגדרות תזכורת</string>
-  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
   <string name="rmd_EPr_enabled_title">תזכורות מופעלות</string>
   <string name="rmd_EPr_enabled_desc_true">התזכורות של אסטריד פעילות (זה המצב הרגיל)</string>
   <string name="rmd_EPr_enabled_desc_false">התזכורות של אסטריד לא תופענה יותר בטלפון שלך</string>
@@ -818,7 +727,6 @@
   <string name="rmd_EPr_persistent_desc_false">כפתור «הסר הכל» יסיר את כל האתראות</string>
   <string name="rmd_EPr_multiple_maxvolume_title">עוצמת קול מירבית לתזכורות מרובות צילצולים</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system setting for the volume</string>
   <string name="rmd_EPr_vibrate_title">רטט בזמן אתראה</string>
   <string name="rmd_EPr_vibrate_desc_true">אסטריד תצרף רטט לאתראות</string>
   <string name="rmd_EPr_vibrate_desc_false">אסטריד לא תצרף רטט לאתראות</string>
@@ -1001,7 +909,6 @@
   <string name="repeat_enabled">חזרה</string>
   <string name="repeat_every">כל %d</string>
   <string name="repeat_interval_prompt">אינטרוול חזרות</string>
-  <string name="repeat_never">Make repeating?</string>
   <string name="repeat_dont">ללא חזרות</string>
   <string-array name="repeat_interval_short">
     <item>יום</item>
@@ -1167,7 +1074,6 @@
   <string name="PPW_color">צבע חֲפִיץ מסך</string>
   <string name="PPW_enable_calendar">הצג אירועי לוח שנה</string>
   <string name="PPW_disable_encouragements">הסתר קריאות עידוד</string>
-  <string name="PPW_show_dates">Show due dates</string>
   <string name="PPW_filter">בחר מַסְנֵן</string>
   <string name="PPW_due">מועד יעד:</string>
   <string name="PPW_past_due">מעבר ליעד:</string>
@@ -1214,7 +1120,4 @@
   <string name="PPW_unlock_howto">שתף רשימות עם חברים! ושחרר את הנעילה של חבילת הַכֹּחַ של אסטריד כאשר שלושה חברים ירשמו לאסטריד</string>
   <string name="PPW_check_button">קבל את חבילת הַכֹּחַ חינם!</string>
   <string name="PPW_check_share_lists">שתף רשימות!</string>
-  <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-  <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
-  <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>

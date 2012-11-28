@@ -445,7 +445,6 @@
   <string name="AOA_ppack_title">Astrid Power Pack</string>
   <string name="AOA_ppack_description">"Поддержите Astrid  и станьте еще продуктивнее с Astrid Power Pack, 4x2 и 4x4 виджетами и голосовым вводом. Повысь производительность уже сегодня!"</string>
   <string name="AOA_locale_title">Языковой плагин Astrid</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   <string name="TWi_loading">Загрузка…</string>
   <string name="WCA_title">Выберите задачи для просмотра…</string>
   <string name="p_about">О Astrid</string>
@@ -689,11 +688,9 @@
   <string name="p_files_dir_desc">Прикрепления к задаче сохранены в: %s</string>
   <string name="p_files_dir_desc_default">Каталог по-умолчанию</string>
   <string name="billing_not_supported_title">Невозможно совершить покупку</string>
-  <string name="billing_not_supported_message">The Market billing service is not available at this time. You can continue to use this app but you won\'t be able to make purchases.</string>
   <string name="subscriptions_not_supported_title">Не удалось приобрести подписку</string>
   <string name="subscriptions_not_supported_message">Сервис платежей на этом устройстве не поддерживает подписок</string>
   <string name="cannot_connect_title">Не удается подключиться к Market</string>
-  <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
   <string name="restoring_transactions">Идет восстановление транзакций</string>
   <string name="subscriptions_learn_more">Узнать больше</string>
   <string name="premium_billing_title">Astrid Премиум</string>
@@ -713,8 +710,6 @@
   <string name="premium_success">Спасибо за то, что подписались на Astrid Premium!</string>
   <string name="premium_success_with_server_error">Спасибо за то, что оформили премиум подписку на Astrid! Новые возможности на astrid.com разблокируются в ближайшее время, на Вашем телефоне они должны быть доступны уже сейчас.</string>
   <string name="premium_verification_error">Премиум подписка для этой учетной записи Google Play оформлена на другого пользователя. Привязать дополнительный email к своей учетной записи можно здесь: astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Рабочие области</string>
   <string name="producteev_FEx_responsible_byme">Назначено мною</string>
@@ -798,7 +793,6 @@
     <item>Очень приятно с Вами познакомиться!</item>
   </string-array>
   <string name="rmd_EPr_alerts_header">Настройки напоминаний</string>
-  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
   <string name="rmd_EPr_enabled_title">Включить напоминания?</string>
   <string name="rmd_EPr_enabled_desc_true">Напоминания Astrid включены (это нормально)</string>
   <string name="rmd_EPr_enabled_desc_false">Напоминания Astrid никогда не появятся на вашем телефоне</string>
@@ -1161,8 +1155,6 @@
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Премиум 4x4</string>
   <string name="PPW_widget_v11_label">Astrid с прокруткой (премиум)</string>
-  <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-  <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
   <string name="PPW_configure_title">Настройка виджета</string>
   <string name="PPW_color">Цвет виджета</string>
   <string name="PPW_enable_calendar">Показать календарное событие</string>

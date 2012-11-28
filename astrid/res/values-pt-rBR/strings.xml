@@ -14,9 +14,7 @@
   <string name="actfm_my_shared_tasks_empty">Sem tarefas compartilhadas</string>
   <string name="actfm_friendship_pending">Você enviou um pedido de amizade para %s!</string>
   <string name="actfm_friendship_blocked">Você bloqueou %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
   <string name="actfm_friendship_other_pending">%s deseja ser seu amigo!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
   <string name="actfm_friendship_connect">Adicionar amigo</string>
   <string name="actfm_friendship_accept">Aceitar</string>
   <string name="TVA_add_comment">Comentar...</string>
@@ -70,8 +68,6 @@
   <string name="actfm_ALA_login_title">Entrar</string>
   <string name="actfm_GAA_title">Selecione a conta do Google que deseja usar:</string>
   <string name="actfm_OLA_prompt">Por favor acesse sua conta:</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
   <string name="actfm_feat_list_clone">Copiar lista</string>
   <string name="actfm_feat_list_suffix">(Cópia)</string>
   <string name="actfm_feat_list_cloning">Copiando...</string>
@@ -308,13 +304,8 @@
     <item>Você pode sempre mandar uma mensagem...</item>
   </string-array>
   <string name="CRA_ignore">Ignorar</string>
-  <string name="CRA_title">Need a meeting list?</string>
   <string name="CRA_ignore_title">Ignorar todos os eventos do calendário?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
   <string name="CRA_ignore_all">Ignorar todos os eventos</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
   <string name="CRA_create_list">Criar lista</string>
   <string name="CRA_postpone">Talvez depois</string>
   <string name="CRA_list_exists_title">Lista já existe</string>
@@ -322,19 +313,11 @@
   <string name="CRA_create_new">Criar nova</string>
   <string name="CRA_use_existing">Usar existente</string>
   <string name="CRA_created_list_dialog">Eu criei uma lista %s</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
   <string name="CRA_invitation_prompt">Gostaria de convidá-los?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
   <string name="CRA_share_list_title">Compartilhar esta lista?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
   <string name="CRA_more_options">Mais opções</string>
   <string name="CRA_dont_invite">Não, obrigado</string>
   <string name="CRA_list_created_title">Lista criada!</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">O que há de novo no Astrid?</string>
   <string name="UpS_updates_title">Ultimas novidades no Astrid</string>
   <string name="UpS_no_activity_log_in">"Conecte-se para ver um registro\ndo seu progresso  e também as\natividades nas listas compartilhadas."</string>
@@ -685,7 +668,6 @@
   <string name="file_err_show">Desculpa, o sistema ainda não suporta este tipo de arquivo</string>
   <string name="file_dir_dialog_ok">Usar este diretório</string>
   <string name="file_dir_dialog_default">Restaurar padrões</string>
-  <string name="p_files_dir">Premium downloads directory</string>
   <string name="p_files_dir_desc">Anexos da tarefa salvos em: %s</string>
   <string name="p_files_dir_desc_default">Diretório padrão</string>
   <string name="billing_not_supported_title">Não pode fazer compras</string>
@@ -713,8 +695,6 @@
   <string name="premium_success">Obrigado por se inscrever no Astrid Premium!</string>
   <string name="premium_success_with_server_error">Obrigado por assinar o Astrid Premium! Os novos recursos serão desbloqueados para você em astrid.com em breve e devem estar disponíveis em seu telefone imediatamente.</string>
   <string name="premium_verification_error">A assinatura premium para esta conta Google Play está conectada com um usuário diferente. Para conectar e-mails adicionais em sua conta, visite http://astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Espaços de trabalho</string>
   <string name="producteev_FEx_responsible_byme">Atribuído por mim com</string>
@@ -1039,7 +1019,6 @@
   <string name="repeat_detail_duedate">a cada %s</string>
   <string name="repeat_detail_duedate_until">Todo %1$s\naté %2$s</string>
   <string name="repeat_detail_completion">%s após a conclusão</string>
-  <string name="repeat_forever">Repeat forever</string>
   <string name="repeat_until">Repetir até %s</string>
   <string name="repeat_rescheduling_dialog_title">Reagendando tarefa \"%s\"</string>
   <string name="repeat_rescheduling_dialog_title_last_time">Tarefa repetida concluída \"%s\"</string>

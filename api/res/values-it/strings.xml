@@ -71,13 +71,9 @@
   <string name="DLG_wait">Attendi...</string>
   <string name="SyP_progress">Sincronizzando le tue attività...</string>
   <string name="SyP_progress_toast">Sincronizzando...</string>
-  <string name="SyP_label">Sync &amp; backup</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Errore di Connessione! Controlla la tua connessione Internet.</string>
   <string name="sync_SPr_group_status">Stato</string>
   <string name="sync_SPr_status_subtitle">Stato: %s</string>
-  <string name="sync_status_loggedout">Not logged in</string>
-  <string name="sync_status_ongoing">Sync ongoing...</string>
   <string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
   <string name="sync_status_failed">Fallita Su: %s</string>
   <string name="sync_status_errors">Sincronizza con gli errori: %s</string>
@@ -91,13 +87,9 @@
   <string name="sync_SPr_bgwifi_desc_enabled">La sincronizzazione in background avviene solo con rete Wifi attiva</string>
   <string name="sync_SPr_bgwifi_desc_disabled">La sincronizzazione in background avviene sempre</string>
   <string name="sync_SPr_group_actions">Azioni</string>
-  <string name="sync_SPr_sync">Synchronize now</string>
   <string name="sync_SPr_sync_log_in">Esegui l\'accesso &amp; Sincronizza!</string>
   <string name="sync_SPr_logged_in_prefix">Accesso come:</string>
-  <string name="sync_SPr_last_error">Status report</string>
   <string name="sync_SPr_last_error_subtitle">"Clicca  per inviare un rapporto al team Astrid"</string>
-  <string name="sync_SPr_send_report">Send report</string>
-  <string name="sync_SPr_forget">Log out</string>
   <string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
   <string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
   <string name="sync_error_offline">Problema di connessione alla rete durante l\'ultima sincronizzazione con %s. Riprova dopo.</string>
