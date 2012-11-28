@@ -43,8 +43,9 @@ then
   curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
   curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/update-master/ ; echo
 else
-  curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings.xml/$LANG/ ; echo
-  curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings-api.xml/$LANG/ ; echo
+  LANG_MOD=`echo $LANG | sed 's/-r/-/'`
+  curl --form file=@$STRS --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings.xml/$LANG_MOD/ ; echo
+  curl --form file=@$STRS_API --user $user:$pw https://api.getlocalization.com/astrid/api/translations/file/strings-api.xml/$LANG_MOD/ ; echo
 fi
 
 rm -f $STRS
