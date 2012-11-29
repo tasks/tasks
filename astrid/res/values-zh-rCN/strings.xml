@@ -526,12 +526,12 @@
     <item>下周</item>
     <item>下个月</item>
   </string-array>
-  <string name="CFC_importance_text">重要性至少为？</string>
+  <string name="CFC_importance_text">重要性至少为?</string>
   <string name="CFC_importance_name">重要性...</string>
-  <string name="CFC_tag_text">列表：？</string>
+  <string name="CFC_tag_text">列表：?</string>
   <string name="CFC_tag_name">列表...</string>
   <string name="CFC_tag_contains_name">列表名包含...</string>
-  <string name="CFC_tag_contains_text">列表名包含：？</string>
+  <string name="CFC_tag_contains_text">列表名包含：?</string>
   <string name="CFC_title_contains_name">标题含...</string>
   <string name="CFC_title_contains_text">标题含: ?</string>
   <string name="gcal_TEA_error">添加任务到日历时失败！</string>
@@ -707,7 +707,7 @@
   <string name="premium_description_5">提前体验亮点</string>
   <string name="premium_description_6">支持清单小助理高级版本团队！</string>
   <string name="premium_speech_bubble_1">高级版本能够让您的效率升级！</string>
-  <string name="premium_speech_bubble_2">购买一年的服务并且得到25％的折扣</string>
+  <string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
   <string name="premium_already_subscribed">您已经购买了清单小助理高级版本(Astrid Premium)！</string>
   <string name="premium_login_prompt">为了成功购买高级版本，您需要一个Astrid.com的账户。 请在我们的网站上登录或者注册。</string>
   <string name="premium_success">谢谢购买清单小助理高级版本(Astrid Premium)！</string>
@@ -748,7 +748,7 @@
   <string name="producteev_TEA_dashboard_assign_label">指派任务给此任务区:</string>
   <string name="CFC_producteev_in_workspace_text">在任务区: ?</string>
   <string name="CFC_producteev_in_workspace_name">在任务区...</string>
-  <string name="CFC_producteev_assigned_to_text">指派给：？</string>
+  <string name="CFC_producteev_assigned_to_text">指派给：?</string>
   <string name="CFC_producteev_assigned_to_name">指派给...</string>
   <string name="TEA_reminders_group_label">提醒</string>
   <string name="TEA_reminder_label">提醒我：</string>
