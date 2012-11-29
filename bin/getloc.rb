@@ -45,7 +45,7 @@ def import(tmp_files, dst_files, lang, android)
     for i in 0..tmp_files.length
       name = File.basename(tmp_files[i])
       %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
-      %x(sed -i '' "s/'/\\\\'/g" #{tmp_files[i]}) if android
+      %x(sed -i '' "s/'/\\\\\\'/g" #{tmp_files[i]}) if android
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
   end
