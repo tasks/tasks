@@ -49,6 +49,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_4_3 = 288;
     public static final int V4_4_2 = 287;
     public static final int V4_4_1 = 286;
     public static final int V4_4 = 285;
@@ -263,6 +264,12 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_4 && from < V4_4_3) {
+            newVersionString(changeLog, "4.4.3 (11/28/12)", new String[] {
+                "Minor bug fixes"
+            });
+        }
 
         if (from < V4_4_2) {
             newVersionString(changeLog, "4.4.2 (11/19/12)", new String[] {
