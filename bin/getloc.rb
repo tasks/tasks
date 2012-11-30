@@ -1,13 +1,26 @@
 #!/usr/bin/env ruby
+# Script for invoking the GetLocalization tools
+# IMPORTANT: Right now, must be invoked from the project's root directory.
+# Usage: ./bin/getloc.rb [cmd] [platform] [lang]
+# cmd: 'export' or 'import'
+# platform: 'android', 'ios', or 'web'
+# lang: Language code or 'master'
 
+# Converts astrid language codes to GetLocalization language codes (which don't use -r)
 def astrid_code_to_getloc_code(lang)
   lang.sub("-r", "-")
 end
 
+# Inverse of the above function
 def getloc_code_to_astrid_code(lang)
   lang.sub("-", "-r")
 end
 
+# Uploads files for the specified language to GetLocalization
+# tmp_files (Array): temporary strings files to use
+# lang (String): language code
+# android (Boolean): whether or not this export is for android
+# src_files_block (Proc): Block for computing the source file list from the language code
 def export(tmp_files, lang, android, src_files_block)
   src_files = src_files_block.call(lang)
   for i in 0...tmp_files.length
@@ -35,8 +48,11 @@ def export(tmp_files, lang, android, src_files_block)
   end
 end
 
-
-
+# Downloads and imports files for the specified language
+# tmp_files (Array): temporary strings files to use
+# lang (String): language code
+# android (Boolean): whether or not this import is for android
+# dst_files_block (Proc): Block for computing the destination files list from the language code
 def import(tmp_files, lang, android, dst_files_block)
   if lang == "master"
     tmp_dir = File.dirname(tmp_files[0])
@@ -77,12 +93,14 @@ def import(tmp_files, lang, android, dst_files_block)
 
 end
 
-
+# Main function for invoking the GetLocalization tools
+# cmd (String): Command to invoke. Must be 'import' or 'export'
+# platform (String): Project platform. Must be 'android', 'ios', or 'web'
+# lang (String): Language code. Can also be 'master' to specify master files for export or all languages for import.
 def getloc(cmd, platform, lang)
   android = false
   @user = "sbosley"
   @password = "ohSed4pe"
-
 
   case platform
   when "android"
