@@ -17,11 +17,13 @@ def export(tmp_files, src_files, lang, android)
 
   if lang == "master"
     tmp_files.each do |f|
+      puts "Updating master file #{f}"
       %x(curl --form file=@#{f} --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/update-master/)
     end
   else
     lang_tmp = lang_mod(lang)
     tmp_files.each do |f|
+      puts "Updating language file #{f}"
       name = File.basename(f)
       %x(curl --form file=@#{f} --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/)
     end
@@ -46,6 +48,7 @@ def import(tmp_files, dst_files, lang, android)
         for i in 0..tmp_files.length
           file = File.join(tmp_all_dir, f, File.basename(t))
           %x(sed -i '' "s/'/\\\\\\'/g" #{file}) if android
+          puts "Moving #{file} to #{dst_files[i]}"
           %x(mv #{file} #{dst_files[i]})
         end
       end
@@ -58,6 +61,7 @@ def import(tmp_files, dst_files, lang, android)
       name = File.basename(tmp_files[i])
       %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
       %x(sed -i '' "s/'/\\\\\\'/g" #{tmp_files[i]}) if android
+      puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
   end
