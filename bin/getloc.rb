@@ -5,7 +5,7 @@ def lang_mod(lang)
 end
 
 def export(tmp_files, src_files, lang, android)
-  for i in 0..tmp_files.length
+  for i in 0...tmp_files.length
     %x(cp #{src_files[i]} #{tmp_files[i]}) if src_files[i] != tmp_files[i]
   end
   
@@ -44,8 +44,8 @@ def import(tmp_files, dst_files, lang, android)
 
     # Get all translations
     Dir.foreach(tmp_all_dir) do |f|
-      if (f != "." && f != "..")i
-        for i in 0..tmp_files.length
+      if (f != "." && f != "..")
+        for i in 0...tmp_files.length
           file = File.join(tmp_all_dir, f, File.basename(t))
           %x(sed -i '' "s/'/\\\\\\'/g" #{file}) if android
           puts "Moving #{file} to #{dst_files[i]}"
@@ -57,7 +57,7 @@ def import(tmp_files, dst_files, lang, android)
     %x(rm #{tmp_all})
   else
     lang_tmp = lang_mod(lang)
-    for i in 0..tmp_files.length
+    for i in 0...tmp_files.length
       name = File.basename(tmp_files[i])
       %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
       %x(sed -i '' "s/'/\\\\\\'/g" #{tmp_files[i]}) if android
