@@ -31,15 +31,27 @@ end
 
 
 def import(tmp_files, dst_files, lang, android)
-  names = tmp_files.map do |f|
-    File.basename(f)
-  end
   if lang == "master"
+    tmp_dir = File.dirname(tmp_files[0])
+    tmp_all = File.join(tmp_dir, "all.zip")
+    tmp_all_dir = File.join(tmp_dir, "all")
+
     %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/zip/ -o #{tmp_all})
-    %x(mkdir #{tmp_all_folder})
-    %x(tar xzf #{tmp_all} -C #{tmp_all_folder})
+    %x(mkdir #{tmp_all_dir})
+    %x(tar xzf #{tmp_all} -C #{tmp_all_dir})
 
     # Get all translations
+    Dir.foreach(tmp_all_dir) do |f|
+      if (f != "." && f != "..")i
+        for i in 0..tmp_files.length
+          file = File.join(tmp_all_dir, f, File.basename(t))
+          %x(sed -i '' "s/'/\\\\\\'/g" #{file}) if android
+          %x(mv #{file} #{dst_files[i]})
+        end
+      end
+    end
+    %x(rm -rf #{tmp_all_dir})
+    %x(rm #{tmp_all})
   else
     lang_tmp = lang_mod(lang)
     for i in 0..tmp_files.length
