@@ -78,6 +78,12 @@
 	        android:title="@string/EPr_ideaAuto_title"
 	        android:defaultValue="true" />
         
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_use_filters"
+            android:title="@string/EPr_use_filters_title"
+            android:summary="@string/EPr_use_filters_subtitle"
+            android:defaultValue="true"/>
+        
         <CheckBoxPreference
 	        android:title="@string/EPr_force_phone_layout"
 	        android:key="@string/p_force_phone_layout"
@@ -87,6 +93,11 @@
             android:key="@string/p_swipe_lists_enabled"
 	        android:title="@string/EPr_swipe_lists_performance_title" 
 	        android:defaultValue="false"/>
+        
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_show_list_members"
+            android:title="@string/EPr_show_list_members_title"
+            android:defaultValue="true"/>
         
         <CheckBoxPreference
 	        android:title="@string/EPr_show_featured_lists"

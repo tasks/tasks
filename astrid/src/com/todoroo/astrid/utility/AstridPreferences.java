@@ -17,6 +17,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
@@ -51,6 +52,13 @@ public class AstridPreferences {
 
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
+        if (Constants.ASTRID_LITE)
+            setLitePreferenceDefaults();
+        else
+            setNormalPreferenceDefaults();
+    }
+
+    private static void setNormalPreferenceDefaults() {
         Context context = ContextManager.getContext();
         SharedPreferences prefs = Preferences.getPrefs(context);
         Editor editor = prefs.edit();
@@ -108,6 +116,70 @@ public class AstridPreferences {
         if (Constants.MARKET_STRATEGY.defaultPhoneLayout()) {
             Preferences.setIfUnset(prefs, editor, r, R.string.p_force_phone_layout, true);
         }
+
+        setShowFriendsView();
+
+        setShowFeaturedLists();
+
+        editor.commit();
+    }
+
+    private static void setLitePreferenceDefaults() {
+        Context context = ContextManager.getContext();
+        SharedPreferences prefs = Preferences.getPrefs(context);
+        Editor editor = prefs.edit();
+        Resources r = context.getResources();
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 4);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_mode_key, 16);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, false);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, false);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, false);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_autoIdea, false);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists, false);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_social_reminders,
+                ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_use_filters, false);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_list_members, false);
+
+        SharedPreferences publicPrefs = getPublicPrefs(context);
+        if (publicPrefs != null) {
+            Editor edit = publicPrefs.edit();
+            if (edit != null) {
+                edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
+                edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                edit.commit();
+                Preferences.setInt(P_SUBTASKS_HELP, 1);
+            }
+        }
+
+        BeastModePreferences.setDefaultLiteModeOrder(context);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE_RED);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_force_phone_layout, true);
 
         setShowFriendsView();
 

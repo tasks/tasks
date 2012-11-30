@@ -143,9 +143,11 @@ public class ABTests {
      * (i.e. the arrays should be the same length if this one exists)
      *
      */
-    public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions) {
-        ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
-        bundles.put(testKey, bundle);
+    public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions, boolean appliesToAstridLite) {
+        if (appliesToAstridLite) {
+            ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
+            bundles.put(testKey, bundle);
+        }
     }
 
     public static final String AB_FEATURED_LISTS = "android_featured_lists"; //$NON-NLS-1$
@@ -163,15 +165,15 @@ public class ABTests {
     private void initialize() {
 
         addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "featured-lists-disabled", "featured-lists-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
+                new int[] { 1, 1 }, new String[] { "featured-lists-disabled", "featured-lists-enabled" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
         addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }); //$NON-NLS-1$ //$NON-NLS-2$
+                new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }, true); //$NON-NLS-1$ //$NON-NLS-2$
 
         addTest(AB_DRAG_DROP, new int[] { 3, 1 },
-                new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }); //$NON-NLS-1$ //$NON-NLS-2$
+                new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }, false); //$NON-NLS-1$ //$NON-NLS-2$
 
         addTest(AB_DEFAULT_EDIT_TAB, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "activity-tab", "details-tab" }); //$NON-NLS-1$ //$NON-NLS-2$
+                new int[] { 1, 1 }, new String[] { "activity-tab", "details-tab" }, true); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

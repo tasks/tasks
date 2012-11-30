@@ -27,6 +27,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -100,11 +101,18 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private Filter[] buildSavedFilters(Context context, Resources r) {
         int themeFlags = ThemeService.getFilterThemeFlags();
 
+        boolean useCustomFilters = Preferences.getBoolean(R.string.p_use_filters, true);
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
-        TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
+        TodorooCursor<StoreObject> cursor = null;
+        if (useCustomFilters)
+            cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
-            Filter[] list = new Filter[cursor.getCount() + 3];
+            Filter[] list;
+            if (useCustomFilters && cursor != null)
+                list = new Filter[cursor.getCount() + 3];
+            else
+                list = new Filter[3];
 
             // stock filters
             list[0] = getTodayFilter(r);
@@ -120,24 +128,27 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
 
             list[2] = getAssignedByMeFilter(r);
 
-            StoreObject savedFilter = new StoreObject();
-            for(int i = 3; i < list.length; i++) {
-                cursor.moveToNext();
-                savedFilter.readFromCursor(cursor);
-                list[i] = SavedFilter.load(savedFilter);
+            if (useCustomFilters && cursor != null) {
+                StoreObject savedFilter = new StoreObject();
+                for(int i = 3; i < list.length; i++) {
+                    cursor.moveToNext();
+                    savedFilter.readFromCursor(cursor);
+                    list[i] = SavedFilter.load(savedFilter);
 
-                Intent deleteIntent = new Intent(context, DeleteActivity.class);
-                deleteIntent.putExtra(TOKEN_FILTER_ID, savedFilter.getId());
-                deleteIntent.putExtra(TOKEN_FILTER_NAME, list[i].title);
-                list[i].contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
-                list[i].contextMenuIntents = new Intent[] { deleteIntent };
-                list[i].listingIcon = ((BitmapDrawable)r.getDrawable(
-                        ThemeService.getDrawable(R.drawable.filter_sliders, themeFlags))).getBitmap();
+                    Intent deleteIntent = new Intent(context, DeleteActivity.class);
+                    deleteIntent.putExtra(TOKEN_FILTER_ID, savedFilter.getId());
+                    deleteIntent.putExtra(TOKEN_FILTER_NAME, list[i].title);
+                    list[i].contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
+                    list[i].contextMenuIntents = new Intent[] { deleteIntent };
+                    list[i].listingIcon = ((BitmapDrawable)r.getDrawable(
+                            ThemeService.getDrawable(R.drawable.filter_sliders, themeFlags))).getBitmap();
+                }
             }
 
             return list;
         } finally {
-            cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
     }
 

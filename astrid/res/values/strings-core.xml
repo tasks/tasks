@@ -698,6 +698,14 @@
   <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
   <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   
+  <!-- Preference: custom filters enabled -->
+  <string name="EPr_use_filters_title">Use filters</string>
+  <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
+
+  <!-- Preference: show list members in shared list -->
+  <string name="EPr_show_list_members_title">Show list members in shared lists</string>
+  
+  
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Color theme</string>
   <!-- Preference: Theme Description (%s => value) -->

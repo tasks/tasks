@@ -170,8 +170,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
+        ThemeService.applyTheme(this);
         DependencyInjectionService.getInstance().inject(this);
 
         int contentView = getContentView();

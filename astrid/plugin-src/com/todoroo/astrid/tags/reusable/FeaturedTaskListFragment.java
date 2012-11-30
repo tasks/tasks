@@ -9,7 +9,6 @@ import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,10 +63,8 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        if (!isCurrentTaskListFragment())
-            return;
+    protected void addMenuItems(Menu menu, Activity activity) {
+        super.addMenuItems(menu, activity);
         MenuItem item = menu.add(Menu.NONE, MENU_CLONE_LIST, 0, R.string.actfm_feat_list_clone);
         item.setIcon(R.drawable.ic_menu_list_copy);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);

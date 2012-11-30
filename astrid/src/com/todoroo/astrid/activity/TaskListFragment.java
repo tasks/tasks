@@ -428,20 +428,23 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @return true if menu should be displayed
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public final void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Activity activity = getActivity();
         if (activity == null)
             return;
         if (!isCurrentTaskListFragment())
             return;
 
+        addMenuItems(menu, activity);
+    }
+
+    protected void addMenuItems(Menu menu, Activity activity) {
         boolean isTablet = AstridPreferences.useTabletLayout(activity);
         TaskListActivity tla = null;
         if (activity instanceof TaskListActivity) {
             tla = (TaskListActivity) activity;
             tla.getMainMenuPopover().clear();
         }
-
         // --- sync
         if (tla == null || tla.getTaskEditFragment() == null)
             addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
@@ -453,8 +456,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
 
         // --- new filter
-        addMenuItem(menu, R.string.FLA_new_filter,
-                ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
+        if (Preferences.getBoolean(R.string.p_use_filters, true))
+            addMenuItem(menu, R.string.FLA_new_filter,
+                    ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
 
         // --- addons
         if(Constants.MARKET_STRATEGY.showAddonMenu())

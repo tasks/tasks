@@ -12,6 +12,7 @@
   android:layout_weight="100">
   
   <LinearLayout
+    android:id="@+id/members_header"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
