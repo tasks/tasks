@@ -227,26 +227,18 @@
 	</target>
 	
 	<target name="setup-lite" if="lite.enabled">
-      <fail message="need to set custom.version.name">
-        <condition>
-          <not>
-            <isset property="custom.version.name" />
-          </not>
-        </condition>
-      </fail>
       <copy file="AndroidManifest.xml" tofile="AndroidManifest_old.xml" />
-      <replaceregexp file="AndroidManifest.xml"
-                     match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
-                     replace="\1${custom.version.name}" />
-    
       <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
                      match="ASTRID_LITE = .*"
                      replace="ASTRID_LITE = true;" />
-    	
       <replaceregexp file="AndroidManifest.xml"
                      match="package=&quot;.*&quot;"
     	             replace="package=&quot;com.astrid.astridlite&quot;" />
-    	
+      <replaceregexp file="AndroidManifest.xml"
+                     match="authorities=&quot;(.*)&quot;"
+                     replace="authorities=&quot;\1.lite&quot;"
+                     flags="g"/>
+		
       <copy todir="res_old">
         <fileset dir="res"/>
       </copy>
