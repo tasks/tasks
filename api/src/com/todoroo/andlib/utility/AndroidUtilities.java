@@ -834,11 +834,14 @@ public class AndroidUtilities {
             float effectiveWidth = Math.min(width, height);
             float effectiveHeight = Math.max(width, height);
 
-            return (effectiveWidth >= 550 && effectiveHeight >= 800);
+            return (effectiveWidth >= MIN_TABLET_WIDTH && effectiveHeight >= MIN_TABLET_HEIGHT);
         } else {
             return false;
         }
     }
+
+    public static final int MIN_TABLET_WIDTH = 550;
+    public static final int MIN_TABLET_HEIGHT = 800;
 
     /**
      * Wraps a call to Activity.unregisterReceiver in a try/catch block to prevent

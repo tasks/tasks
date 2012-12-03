@@ -8,7 +8,6 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,12 +99,15 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         LayoutParams params = dialog.getWindow().getAttributes();
         params.width = LayoutParams.FILL_PARENT;
         params.height = LayoutParams.WRAP_CONTENT;
-        Configuration config = activity.getResources().getConfiguration();
-        int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (AndroidUtilities.getSdkVersion() >= 9 && size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+
+        if (AndroidUtilities.isTabletSized(activity)) {
             DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-            params.width = metrics.widthPixels / 2;
+            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT)
+                params.width = (3 * metrics.widthPixels) / 5;
+            else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH)
+                params.width = (3 * metrics.widthPixels) / 4;
         }
+
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
         dialog.setOnCancelListener(cancelClickListener);
