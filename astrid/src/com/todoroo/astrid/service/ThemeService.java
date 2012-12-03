@@ -49,7 +49,11 @@ public class ThemeService {
 
     public static int getTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme);
-        return getStyleForSetting(preference);
+        boolean simple = Preferences.getBoolean(R.string.p_simple_input_boxes, false);
+        int style = getStyleForSetting(preference);
+        if (simple)
+            style = simplifyStyle(style);
+        return style;
     }
 
     public static int getWidgetTheme() {
@@ -73,6 +77,23 @@ public class ThemeService {
             return R.style.Theme_White;
         else
             return R.style.Theme_White_Blue;
+    }
+
+    private static int simplifyStyle(int original) {
+        switch (original) {
+        case R.style.Theme:
+            return R.style.Theme_Simple;
+        case R.style.Theme_Transparent:
+            return R.style.Theme_Transparent_Simple;
+        case R.style.Theme_TransparentWhite:
+            return R.style.Theme_TransparentWhite_Simple;
+        case R.style.Theme_White:
+            return R.style.Theme_White_Simple;
+        case R.style.Theme_White_Blue:
+            return R.style.Theme_White_Blue_Simple;
+        default:
+            return original;
+        }
     }
 
     public static int getThemeColor() {

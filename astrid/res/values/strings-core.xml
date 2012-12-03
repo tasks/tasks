@@ -704,6 +704,9 @@
 
   <!-- Preference: show list members in shared list -->
   <string name="EPr_show_list_members_title">Show list members in shared lists</string>
+
+  <!-- Preference: simple input box style -->
+  <string name="EPr_simple_input_boxes">Simple input boxes</string>
   
   
   <!-- slide 30f/ 36f: Preference: Theme -->
@@ -717,9 +720,6 @@
   
   <!-- slide 30d/ 34f: Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task row appearance</string>
-  
-  <!-- slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)-->
-  <!-- slide 33f -->
   
   <!-- slide 49g: Preferences: use the system contact picker for task assignment -->
   <string name="EPr_use_contact_picker">Use contact picker</string>

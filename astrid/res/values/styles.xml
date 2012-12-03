@@ -52,6 +52,10 @@
         <item name="vpiTabTextStyle">@style/CustomTabPageIndicator.Text</item>
     </style>
     
+    <style name="Theme.Simple" parent="Theme">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+    
     <style name="Theme.Transparent" parent="Theme">
 		<item name="asContentBackground">#22000000</item>
         <item name="abBackground">#aa000000</item>
@@ -63,6 +67,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
+    </style>
+    
+    <style name="Theme.Transparent.Simple" parent="Theme.Transparent">
+        <item name="asEditTextBackground">@null</item>
     </style>
         
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
@@ -102,6 +110,10 @@
         <item name="abLogo">@drawable/home_button_red</item>
     </style>
     
+    <style name="Theme.White.Simple" parent="Theme.White">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+    
     <style name="Theme.White.Blue">
         <item name="asAddButtonImg">@drawable/plus_button_dark_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_dark_blue</item>
@@ -118,6 +130,10 @@
         <item name="abLogo">@drawable/home_button_dark_blue</item>
     </style>
     
+    <style name="Theme.White.Blue.Simple" parent="Theme.White.Blue">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+    
     <style name="Theme.TransparentWhite" parent="Theme.White.Blue">
         <item name="asContentBackground">#22000000</item>
         <item name="abBackground">#aa000000</item>
@@ -129,6 +145,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
+    </style>
+    
+    <style name="Theme.TransparentWhite.Simple" parent="Theme.TransparentWhite">
+        <item name="asEditTextBackground">@null</item>
     </style>
     
     <style name="Theme.FullTransparent" parent="@style/Theme.Sherlock">

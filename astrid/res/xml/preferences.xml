@@ -69,6 +69,11 @@
             android:title="@string/EPr_theme_widget_title" />
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_simple_input_boxes"
+            android:title="@string/EPr_simple_input_boxes"
+            android:defaultValue="false"/>
+        
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showSmartConfirmation_key"
             android:title="@string/EPr_showSmartConfirmation_title"
             android:defaultValue="true"/>
@@ -107,7 +112,6 @@
         <CheckBoxPreference
 	        android:key="@string/p_use_contact_picker"
 	        android:title="@string/EPr_use_contact_picker"/>
-        
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_voiceInputEnabled"

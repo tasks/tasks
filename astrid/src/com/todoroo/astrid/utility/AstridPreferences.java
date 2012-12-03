@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.utility;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -161,6 +162,8 @@ public class AstridPreferences {
                 ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_filters, false);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_simple_input_boxes, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_show_list_members, false);
 

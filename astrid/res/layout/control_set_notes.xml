@@ -37,6 +37,7 @@
 	      android:layout_weight="100"
 	      android:scrollbars="vertical"
 	      android:gravity="top"
+	      android:background="@null"
 	      android:hint="@string/TEA_notes_hint"
 	      android:autoText="true"
 	      android:capitalize="sentences"
