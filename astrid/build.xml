@@ -64,12 +64,14 @@
               message="Cannot run two different modes at the same time. If you are running more than one debug/release/instrument type targets, call them from different Ant calls." />                                                                                  
     </target>  
 
-    <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, update-market-strategy">
+    <target name="-pre-build" depends="get-version, copy-sources, setup-lite, updatekeys, updatekeys-release, update-market-strategy">
       <mkdir dir="gen" />
       <property name="proguard.jar" location="antlib/proguard.jar" />
       <taskdef name="proguard" classname="proguard.ant.ProGuardTask" classpath="${proguard.jar}" />
     </target>
 
+    <target name="-post-astrid-build" depends="teardown-lite" />
+	
     <target name="copy-sources">
       <delete dir="${source.dir}" />
       <mkdir dir="${source.dir}" />
@@ -218,7 +220,13 @@
     </target>
 
 	<!-- build lite release package with updated version name -->
-    <target name="release-lite" depends="clean">
+    <target name="release-lite" depends="clean, set-release-lite, release" />
+	
+	<target name="set-release-lite">
+	   <property name="lite.enabled" value="true" />
+	</target>
+	
+	<target name="setup-lite" if="lite.enabled">
       <fail message="need to set custom.version.name">
         <condition>
           <not>
@@ -234,11 +242,24 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
                      match="ASTRID_LITE = .*"
                      replace="ASTRID_LITE = true;" />
-    
-      <antcall target="release" />
-
-      <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
+    	
+      <replaceregexp file="AndroidManifest.xml"
+                     match="package=&quot;.*&quot;"
+    	             replace="package=&quot;com.astrid.astridlite&quot;" />
+    	
+      <copy todir="res_old">
+        <fileset dir="res"/>
+      </copy>
+    	
+      <replace dir="res" token="com.timsu.astrid" value="com.astrid.astridlite"/>
+      <replace dir="${source.dir}" token="com.timsu.astrid" value="com.astrid.astridlite"/>
     </target>
+	
+	<target name="teardown-lite" if="lite.enabled">
+      <delete dir="res" />
+      <move file="res_old" tofile="res"/>
+      <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
+	</target>
  
     <!-- build custom unsigned package with updated version name -->
     <target name="unsigned-custom" depends="clean">
@@ -313,14 +334,14 @@
     -->
     <!-- version-tag: custom -->
 
-    <target name="debug" depends="-set-debug-files, -do-debug"
+    <target name="debug" depends="-set-debug-files, -do-debug, -post-astrid-build"
                 description="Builds the application and signs it with a debug key.">
       <record-build-info />
       <delete file="${out.packaged.file}" />
     </target>
 
     <target name="release"
-                depends="-set-release-mode, -release-obfuscation-check, -package, -release-prompt-for-password, -release-nosign"
+                depends="-set-release-mode, -release-obfuscation-check, -package, -release-prompt-for-password, -release-nosign, -post-astrid-build"
                 if="has.keystore"
                 description="Builds the application. The generated apk file must be signed before
                             it is published.">
