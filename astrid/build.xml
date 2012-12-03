@@ -233,7 +233,7 @@
                      replace="ASTRID_LITE = true;" />
       <replaceregexp file="AndroidManifest.xml"
                      match="package=&quot;.*&quot;"
-    	             replace="package=&quot;com.astrid.astridlite&quot;" />
+    	             replace="package=&quot;com.todoroo.astridlite&quot;" />
       <replaceregexp file="AndroidManifest.xml"
                      match="authorities=&quot;(.*)&quot;"
                      replace="authorities=&quot;\1.lite&quot;"
@@ -243,8 +243,8 @@
         <fileset dir="res"/>
       </copy>
     	
-      <replace dir="res" token="com.timsu.astrid" value="com.astrid.astridlite"/>
-      <replace dir="${source.dir}" token="com.timsu.astrid" value="com.astrid.astridlite"/>
+      <replace dir="res" token="com.timsu.astrid" value="com.todoroo.astridlite"/>
+      <replace dir="${source.dir}" token="com.timsu.astrid" value="com.todoroo.astridlite"/>
     </target>
 	
 	<target name="teardown-lite" if="lite.enabled">
