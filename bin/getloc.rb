@@ -9,7 +9,7 @@
 # Converts astrid language codes to GetLocalization language codes (which don't use -r)
 def astrid_code_to_getloc_code(lang, platform)
   result = lang.sub("-r", "-")
-  if platform == "ios"
+  if platform == :ios
     if lang == "zh-Hans"
       result = "zh-TW"
     elsif lang == "zh"
@@ -22,7 +22,7 @@ end
 # Inverse of the above function
 def getloc_code_to_astrid_code(lang, platform)
   result = lang.sub("-", "-r")
-  if platform == "ios"
+  if platform == :ios
     if lang == "zh-CN"
       result = "zh"
     elsif lang == "zh-TW"
@@ -36,14 +36,14 @@ end
 # tmp_files (Array): temporary strings files to use
 # lang (String): language code
 # platform (String): platform; one of 'android', 'ios', 'web'
-# src_files_block (Proc): Block for computing the source file list from the language code
+# src_files_block (lambda): Block for computing the source file list from the language code
 def export(tmp_files, lang, platform, src_files_block)
   src_files = src_files_block.call(lang)
   for i in 0...tmp_files.length
     %x(cp #{src_files[i]} #{tmp_files[i]}) if src_files[i] != tmp_files[i]
   end
   
-  if platform == "android"
+  if platform == :android
     tmp_files.each do |f|
       %x(sed -i '' "s/\\\\\\'/'/g" #{f})
     end
@@ -68,7 +68,7 @@ end
 # tmp_files (Array): temporary strings files to use
 # lang (String): language code
 # platform (String): platform; one of 'android', 'ios', or 'web'
-# dst_files_block (Proc): Block for computing the destination files list from the language code
+# dst_files_block (lambda): Block for computing the destination files list from the language code
 def import(tmp_files, lang, platform, dst_files_block)
   if lang == "master"
     tmp_dir = File.dirname(tmp_files[0])
@@ -87,7 +87,7 @@ def import(tmp_files, lang, platform, dst_files_block)
 
         for i in 0...tmp_files.length
           file = File.join(tmp_all_dir, l, File.basename(tmp_files[i]))
-          %x(sed -i '' "s/'/\\\\\\'/g" #{file}) if platform == "android"
+          %x(sed -i '' "s/'/\\\\\\'/g" #{file}) if platform == :android
           puts "Moving #{file} to #{dst_files[i]}"
           %x(mv #{file} #{dst_files[i]})
         end
@@ -101,7 +101,7 @@ def import(tmp_files, lang, platform, dst_files_block)
     for i in 0...tmp_files.length
       name = File.basename(tmp_files[i])
       %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
-      %x(sed -i '' "s/'/\\\\\\'/g" #{tmp_files[i]}) if platform == "android"
+      %x(sed -i '' "s/'/\\\\\\'/g" #{tmp_files[i]}) if platform == :android
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
@@ -114,27 +114,30 @@ end
 # platform (String): Project platform. Must be 'android', 'ios', or 'web'
 # lang (String): Language code. Can also be 'master' to specify master files for export or all languages for import.
 def getloc(cmd, platform, lang)
+  cmd = cmd.to_sym
+  platform = platform.to_sym
+  
   @user = "sbosley"
   @password = "ohSed4pe"
 
   case platform
-  when "android"
+  when :android
     tmp_files = ["translations/strings.xml", "translations/strings-api.xml"]
-    if lang == "master" && cmd == "export"
+    if lang == "master" && cmd == :export
       %x[./bin/catxml astrid/res/values/strings*.xml > #{tmp_files[0]}]
-      src_files = Proc.new { |l| ["translations/strings.xml", "api/res/values/strings.xml"] }
+      src_files = lambda { |l| ["translations/strings.xml", "api/res/values/strings.xml"] }
     else
-      src_files = Proc.new { |l| ["astrid/res/values-#{l}/strings.xml", "api/res/values-#{l}/strings.xml"] }
+      src_files = lambda { |l| ["astrid/res/values-#{l}/strings.xml", "api/res/values-#{l}/strings.xml"] }
     end
 
-  when "ios"
+  when :ios
     tmp_files = ["Resources/Localizable.strings"]
-    if lang == "master" && cmd == "export"
-      src_files = Proc.new { |l| ["Resources/Localizations/en.lproj/Localizable.strings"] }
+    if lang == "master" && cmd == :export
+      src_files = lambda { |l| ["Resources/Localizations/en.lproj/Localizable.strings"] }
     else
-      src_files = Proc.new { |l| ["Resources/Localizations/#{l}.lproj/Localizable.strings"] }
+      src_files = lambda { |l| ["Resources/Localizations/#{l}.lproj/Localizable.strings"] }
     end
-  when "web"
+  when :web
     puts "Web not yet supported."
     return
   else
@@ -143,10 +146,10 @@ def getloc(cmd, platform, lang)
   end
 
   case cmd
-  when "export"
+  when :export
     puts "Exporting #{lang} files"
     export(tmp_files, lang, platform, src_files)
-  when "import"
+  when :import
     puts "Importing #{lang} files"
     import(tmp_files, lang, platform, src_files)
   else
