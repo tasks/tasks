@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/astrid_com_gradient"
+    android:gravity="center_horizontal">
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:src="@drawable/astrid_com_logo" />
+    
+    <Button
+        android:id="@+id/quick_login_google"
+        android:layout_width="250dip"
+        android:layout_height="60dip" 
+        android:layout_marginTop="30dip"
+        android:layout_marginBottom="15dip"/>
+    
+    <TextView
+        android:id="@+id/quick_login_reject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dip"
+        android:text="Not this person"/>
+
+</LinearLayout>

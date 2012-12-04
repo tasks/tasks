@@ -25,7 +25,7 @@ import com.viewpagerindicator.TitleProvider;
 
 public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
 {
-    private static int[] images = new int[] {
+    private final int[] images = new int[] {
         R.drawable.welcome_walkthrough_1,
         R.drawable.welcome_walkthrough_2,
         R.drawable.welcome_walkthrough_3,
@@ -34,7 +34,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.drawable.welcome_walkthrough_6,
         0
     };
-    private static int[] title = new int[] {
+    private final int[] title = new int[] {
         R.string.welcome_title_1,
         R.string.welcome_title_2,
         R.string.welcome_title_3,
@@ -43,7 +43,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.string.welcome_title_6,
         R.string.welcome_title_7,
     };
-    private static int[] body = new int[] {
+    private final int[] body = new int[] {
         R.string.welcome_body_1,
         R.string.welcome_body_2,
         R.string.welcome_body_3,
@@ -52,14 +52,14 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.string.welcome_body_6,
         R.string.welcome_body_7,
     };
-    private static int[] layouts = new int[] {
+    public final int[] layouts = new int[] {
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_login_page,
+        R.layout.welcome_walkthrough_simple_login,
     };
 
     private final Context context;
@@ -89,6 +89,11 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
     @Override
     public int getCount() {
         return layouts.length;
+    }
+
+    public void changeLoginPage(int newLayout) {
+        layouts[layouts.length - 1] = newLayout;
+        notifyDataSetChanged();
     }
 
     @Override
