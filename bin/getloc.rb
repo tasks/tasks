@@ -6,30 +6,26 @@
 # platform: 'android', 'ios', or 'web'
 # lang: Language code or 'master'
 
+LangException = Struct.new :platform, :platform_code, :getloc_code
+
+LANG_EXCEPTIONS = [
+  LangException.new(:ios, "zh-Hans", "zh-TW")
+  LangException.new(:ios, "zh", "zh-CN"),
+]
+
+
 # Converts astrid language codes to GetLocalization language codes (which don't use -r)
 def astrid_code_to_getloc_code(lang, platform)
   result = lang.sub("-r", "-")
-  if platform == :ios
-    if lang == "zh-Hans"
-      result = "zh-TW"
-    elsif lang == "zh"
-      result = "zh-CN"
-    end
-  end
-  result
+  exception = LANG_EXCEPTIONS.find { |le| le.platform == platform and le.platform_code == lang }
+  exception ? exception.getloc_code : result
 end
 
 # Inverse of the above function
 def getloc_code_to_astrid_code(lang, platform)
   result = lang.sub("-", "-r")
-  if platform == :ios
-    if lang == "zh-CN"
-      result = "zh"
-    elsif lang == "zh-TW"
-      result = "zh-Hans"
-    end
-  end
-  result
+  exception = LANG_EXCEPTIONS.find { |le| le.platform == platform and le.getloc_code == lang }
+  exception ? exception.platform_code : result
 end
 
 # Uploads files for the specified language to GetLocalization
