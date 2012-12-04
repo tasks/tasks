@@ -9,8 +9,8 @@
 LangException = Struct.new :platform, :platform_code, :getloc_code
 
 LANG_EXCEPTIONS = [
-  LangException.new(:ios, "zh-Hans", "zh-TW")
-  LangException.new(:ios, "zh", "zh-CN"),
+  LangException.new(:ios, "zh-Hans", "zh-TW"),
+  LangException.new(:ios, "zh", "zh-CN")
 ]
 
 
@@ -105,6 +105,35 @@ def import(tmp_files, lang, platform, dst_files_block)
 
 end
 
+class Android
+  def self.tmp_files
+    ["translations/strings.xml", "translations/strings-api.xml"]
+  end
+
+  def self.src_files(cmd, type)
+    if cmd == :export && type == "master"
+      %x[./bin/catxml astrid/res/values/strings*.xml > #{self.tmp_files[0]}]
+      lambda { |l| ["translations/strings.xml", "api/res/values/strings.xml"] }
+    else
+      lambda { |l| ["astrid/res/values-#{l}/strings.xml", "api/res/values-#{l}/strings.xml"] }
+    end
+  end
+end
+
+class IOS
+  def self.tmp_files
+    ["Resources/Localizable.strings"]
+  end
+
+  def self.src_files(cmd, type)
+    if cmd == :export && type == "master"
+      lambda { |l| ["Resources/Localizations/en.lproj/Localizable.strings"] }
+    else
+      lambda { |l| ["Resources/Localizations/#{l}.lproj/Localizable.strings"] }
+    end
+  end
+end
+
 # Main function for invoking the GetLocalization tools
 # cmd (String): Command to invoke. Must be 'import' or 'export'
 # platform (String): Project platform. Must be 'android', 'ios', or 'web'
@@ -115,24 +144,12 @@ def getloc(cmd, platform, lang)
   
   @user = "sbosley"
   @password = "ohSed4pe"
-
+  platform_class = nil
   case platform
   when :android
-    tmp_files = ["translations/strings.xml", "translations/strings-api.xml"]
-    if lang == "master" && cmd == :export
-      %x[./bin/catxml astrid/res/values/strings*.xml > #{tmp_files[0]}]
-      src_files = lambda { |l| ["translations/strings.xml", "api/res/values/strings.xml"] }
-    else
-      src_files = lambda { |l| ["astrid/res/values-#{l}/strings.xml", "api/res/values-#{l}/strings.xml"] }
-    end
-
+    platform_class = Android 
   when :ios
-    tmp_files = ["Resources/Localizable.strings"]
-    if lang == "master" && cmd == :export
-      src_files = lambda { |l| ["Resources/Localizations/en.lproj/Localizable.strings"] }
-    else
-      src_files = lambda { |l| ["Resources/Localizations/#{l}.lproj/Localizable.strings"] }
-    end
+    platform_class = IOS
   when :web
     puts "Web not yet supported."
     return
@@ -144,16 +161,16 @@ def getloc(cmd, platform, lang)
   case cmd
   when :export
     puts "Exporting #{lang} files"
-    export(tmp_files, lang, platform, src_files)
+    export(platform_class.tmp_files, lang, platform, platform_class.src_files(cmd, lang))
   when :import
     puts "Importing #{lang} files"
-    import(tmp_files, lang, platform, src_files)
+    import(platform_class.tmp_files, lang, platform, platform_class.src_files(cmd, lang))
   else
     puts "Command #{cmd} not recognized. Should be one of 'export' or 'import'."
     return
   end
 
-  tmp_files.each do |f|
+  platform_class.tmp_files.each do |f|
     %x(rm -f #{f})
   end
  
