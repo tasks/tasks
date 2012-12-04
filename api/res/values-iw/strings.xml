@@ -71,8 +71,6 @@
   <string name="DLG_wait">אנא המתן...</string>
   <string name="SyP_progress">מסנכרן את המשימות שלך...</string>
   <string name="SyP_progress_toast">בסנכרון...</string>
-  <string name="SyP_label">Sync &amp; backup</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">שגיאה בחיבור! בדוק את חיבור האינטרנט שלך</string>
   <string name="sync_SPr_group_status">מצב</string>
   <string name="sync_SPr_status_subtitle">מצב: %s</string>

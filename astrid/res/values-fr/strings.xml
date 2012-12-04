@@ -12,13 +12,7 @@
   <string name="actfm_view_task_cancel">Rester ici</string>
   <string name="actfm_my_shared_tasks_title">Mes tâches partagées</string>
   <string name="actfm_my_shared_tasks_empty">Aucune tâche partagée</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
   <string name="actfm_friendship_blocked">Vous avez bloqué %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">Ajouter un commentaire</string>
   <string-array name="TVA_tabs">
     <item>Tâches</item>
@@ -307,34 +301,15 @@
     <item>Allez, vous pouvez le faire!</item>
     <item>Vous pouvez toujours envoyer un message...</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
   <string name="CRA_ignore_all">Ignorer tous les événements</string>
   <string name="CRA_ignore_this">Ignorer uniquement cet événement</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
   <string name="CRA_postpone">Peut-être plus tard</string>
   <string name="CRA_list_exists_title">Liste déjà existante</string>
   <string name="CRA_list_exists_body">Une liste appelée %s existe déjà. Voulez-vous utiliser la liste existante ou en créer une nouvelle pour cet événement ?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
   <string name="CRA_share_list_title">Partager la liste ?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
   <string name="CRA_more_options">Plus d\'options</string>
   <string name="CRA_dont_invite">Non merci</string>
   <string name="CRA_list_created_title">Liste créée !</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">Quoi de neuf dans Astrid ?</string>
   <string name="UpS_updates_title">Dernières nouvelles d\'Astrid</string>
   <string name="UpS_no_activity_log_in">Connecte toi pour voir \nun enregistrement\nde ton progrès ainsi que\nl\'activité de tes listes \npartagées.</string>
@@ -713,8 +688,6 @@
   <string name="premium_success">Merci pour votre inscription à Astrid Premium !</string>
   <string name="premium_success_with_server_error">Merci pour votre inscription à Astrid Premium ! Vos nouvelles fonctionnalités vont être débloquées sur astrid.com et devrait être disponible sur votre téléphone aussitôt.</string>
   <string name="premium_verification_error">L\'abonnement premium de ce compte Google Play est lié à un utilisateur différent. Pour ajouter une adresse mail à votre compte, allez sur astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Espaces de travail</string>
   <string name="producteev_FEx_responsible_byme">Assigné par moi à</string>

@@ -20,7 +20,6 @@
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s的工作，點擊以檢視所有</string>
   <string name="actfm_TVA_filter_by_unassigned">未指定的任務工作，點擊查看全部</string>
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">重新整理</string>
   <string name="actfm_TVA_tag_label">列表名稱：</string>
   <string name="actfm_TVA_members_label">合作者：</string>

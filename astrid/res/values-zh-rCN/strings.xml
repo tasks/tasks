@@ -12,13 +12,6 @@
   <string name="actfm_view_task_cancel">保留在此处</string>
   <string name="actfm_my_shared_tasks_title">已分享任务</string>
   <string name="actfm_my_shared_tasks_empty">没有已分享任务</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">添加注释...</string>
   <string-array name="TVA_tabs">
     <item>任务</item>
@@ -113,7 +106,6 @@
   <string name="backup_BPr_auto_title">自动备份</string>
   <string name="backup_BPr_auto_disabled">自动备份已停用</string>
   <string name="backup_BPr_auto_enabled">备份每天执行</string>
-  <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
   <string name="backup_BAc_label">管理备份</string>
   <string name="backup_BAc_title">管理您的备份</string>
   <string name="backup_BAc_import">导入任务</string>
@@ -307,34 +299,6 @@
     <item>您是可以回电的！</item>
     <item>无论怎样，您也可以发条短信呀……</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_list_exists_title">List already exists</string>
-  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
-  <string name="CRA_one_attendee">%s is attending.</string>
-  <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-  <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_share_list_title">Share the list?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
-  <string name="CRA_more_options">More options</string>
-  <string name="CRA_dont_invite">No thank you</string>
-  <string name="CRA_list_created_title">List created!</string>
-  <string name="CRA_default_list_name">Action Items: %s</string>
   <string name="UpS_changelog_title">清单小助理有哪些最新功能？</string>
   <string name="UpS_updates_title">清单小助理最新消息</string>
   <string name="UpS_no_activity_log_in">登录查看您的活动进展情况 \n以及在各分享列表上的活动。</string>
@@ -442,7 +406,6 @@
   <string name="AOA_tab_available">可用</string>
   <string name="AOA_free">免费</string>
   <string name="AOA_no_addons">空列表！</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
   <string name="AOA_ppack_description">支持清单小助理并在优化工具的帮助下变得更加有效率。提供 4＊2 和4＊4尺寸的小工具和语音支持。让我们给生活加把劲！</string>
   <string name="AOA_locale_title">清单小助理场所插件</string>
   <string name="AOA_locale_description">在过滤的条件下，允许清单小助理利用场所应用推送通知。现在就获取场所插件。</string>
@@ -565,7 +528,6 @@
   <string name="gtasks_error_authRefresh">无法用 Google Tasks验证。请检查您的帐户密码或者稍后再尝试。</string>
   <string name="gtasks_error_accountManager">您手机的帐户管理器出错了。请退出，然后从 Google Tasks设置中重新登录。</string>
   <string name="gtasks_error_background_sync_auth">后台验证出错了。请在清单小助理运行时尝试启动同步。</string>
-  <string name="gtasks_dual_sync_warning">You are currently synchronizing with Astrid.com. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Google Tasks?</string>
   <string name="help_popover_add_task">添加一两项任务来开始使用</string>
   <string name="help_popover_tap_task">轻点任务进行编辑和分享</string>
   <string name="help_popover_list_settings">轻点这里进行编辑或者分享这个列表</string>
@@ -711,10 +673,7 @@
   <string name="premium_already_subscribed">您已经购买了清单小助理高级版本(Astrid Premium)！</string>
   <string name="premium_login_prompt">为了成功购买高级版本，您需要一个Astrid.com的账户。 请在我们的网站上登录或者注册。</string>
   <string name="premium_success">谢谢购买清单小助理高级版本(Astrid Premium)！</string>
-  <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
   <string name="premium_verification_error">此Google Play 帐户的高级版本正与另一个用户连接。访问astrid.com/users/profile并连接您帐户的另一个电子邮箱。</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">任务区</string>
   <string name="producteev_FEx_responsible_byme">指派给</string>
@@ -1157,7 +1116,6 @@
   <string name="welcome_body_7">登陆</string>
   <string name="welcome_body_7_return">拍拍清单小助理返回。</string>
   <string name="welcome_next">下一步</string>
-  <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">清单小助理尊贵版 4x3</string>
   <string name="PPW_widget_44_label">清单小助理尊贵版 4x4</string>
   <string name="PPW_widget_v11_label">清单小助理可卷式尊贵版</string>

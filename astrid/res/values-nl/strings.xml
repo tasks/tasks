@@ -16,13 +16,6 @@
   <string name="actfm_view_task_cancel">Blijf Hier</string>
   <string name="actfm_my_shared_tasks_title">Mijn Gedeelde Taken</string>
   <string name="actfm_my_shared_tasks_empty">Geen gedeelde taken</string>
-  <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
-  <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
-  <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
-  <string name="actfm_friendship_other_pending">%s wants to be friends with you!</string>
-  <string name="actfm_friendship_no_status">Connect with %s to share and see activity on public tasks!</string>
-  <string name="actfm_friendship_connect">Add friend</string>
-  <string name="actfm_friendship_accept">Accept</string>
   <string name="TVA_add_comment">Voeg een opmerking toe</string>
   <string-array name="TVA_tabs">
     <item>Taken</item>
@@ -89,15 +82,12 @@
   <string name="actfm_account_info">Account gegevens</string>
   <string name="actfm_account_info_summary">Status en opties</string>
   <string name="account_type_title_not_logged_in">Meld je aan voor een gratis account</string>
-  <string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
   <string name="actfm_account_premium">Premium</string>
   <string name="actfm_account_basic">Basis</string>
-  <string name="actfm_inapp_billing">Upgrade to Premium</string>
   <string name="actfm_inapp_billing_summary">Voeg bestanden toe, Stem backup, premium onddrsteuning &amp; meer</string>
   <string name="share_with_facebook">Like op Facebook</string>
   <string name="share_with_twitter">Volg op Twitter</string>
   <string name="share_with_google">Deel op Google+</string>
-  <string name="share_title">Share the love!</string>
   <string name="share_speech_bubble">Door te delen, help je anderen meer productief te zijn</string>
   <string name="alarm_ACS_label">Herinneringen</string>
   <string-array name="reminders_alarm">
@@ -113,12 +103,10 @@
   <string name="backup_BPr_auto_title">Automatische back-ups</string>
   <string name="backup_BPr_auto_disabled">Automatische back-ups uitgeschakeld</string>
   <string name="backup_BPr_auto_enabled">Back-up dagelijks uitvoeren</string>
-  <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
   <string name="backup_BAc_label">Back-ups beheren</string>
   <string name="backup_BAc_title">Back-ups beheren</string>
   <string name="backup_BAc_import">Taken importeren</string>
   <string name="backup_BAc_export">Taken exporteren</string>
-  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
   <string name="backup_TXI_error">Importfout</string>
   <string name="export_toast">Back-up gemaakt van %1$s naar %2$s.</string>
   <string name="export_toast_no_tasks">Geen taken om te exporteren</string>
@@ -162,7 +150,6 @@
   <string name="TLA_menu_search">Zoek</string>
   <string name="TLA_menu_lists">Lijsten</string>
   <string name="TLA_menu_friends">Personen</string>
-  <string name="TLA_menu_featured_lists">Featured Lists</string>
   <string name="TLA_menu_suggestions">Suggesties</string>
   <string name="TLA_menu_settings">Instellingen</string>
   <string name="TLA_menu_support">Ondersteuning</string>
@@ -307,47 +294,20 @@
     <item>Je kan het!</item>
     <item>Je kan altijd een smsje sturen..</item>
   </string-array>
-  <string name="CRA_ignore">Ignore</string>
-  <string name="CRA_title">Need a meeting list?</string>
-  <string name="CRA_ignore_title">Ignore all calendar events?</string>
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
-  <string name="CRA_ignore_all">Ignore all events</string>
-  <string name="CRA_ignore_this">Ignore this event only</string>
-  <string name="CRA_speech_bubble_start">Looks like %s is starting soon. Want to create a list for action items?</string>
-  <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
-  <string name="CRA_create_list">Create list</string>
-  <string name="CRA_postpone">Maybe afterwards</string>
-  <string name="CRA_list_exists_title">List already exists</string>
-  <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-  <string name="CRA_create_new">Create new</string>
-  <string name="CRA_use_existing">Use existing</string>
-  <string name="CRA_created_list_dialog">I created a list %s.</string>
   <string name="CRA_one_attendee">%s neemt deel</string>
   <string name="CRA_two_attendees">%1$s en %2$s nemen deel</string>
   <string name="CRA_many_attendees">%1$s, %2$s en %3$d anderen nemen deel</string>
-  <string name="CRA_invitation_prompt">Want to invite them?</string>
-  <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
-  <string name="CRA_share_list_title">Share the list?</string>
-  <string name="CRA_invite_attendees">Invite attendees</string>
   <string name="CRA_more_options">Meer opties</string>
   <string name="CRA_dont_invite">Nee, bedankt</string>
-  <string name="CRA_list_created_title">List created!</string>
   <string name="CRA_default_list_name">Actie-items: %s</string>
   <string name="UpS_changelog_title">Nieuw in Astrid</string>
   <string name="UpS_updates_title">Laatste Astrid nieuws</string>
   <string name="UpS_no_activity_log_in">Log in om een geschiedenis\nvan je vooruitgang en activiteiten\nop gedeelde lijsten te bekijken.</string>
   <string name="EPr_title">Astrid: Instellingen</string>
   <string name="EPr_title_short">Instellingen</string>
-  <string name="EPr_share_astrid">Tell others about Astrid</string>
-  <string name="EPr_share_astrid_summary">Share about Astrid on your favorite social network</string>
   <string name="EPr_deactivated">uitgeschakeld</string>
   <string name="EPr_appearance_header">Uiterlijk</string>
-  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
   <string name="EPr_faq_title">FAQ (Veelgestelde Vragen)</string>
-  <string name="EPr_account_title">Account: %s</string>
-  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
   <string name="EPr_fontSize_title">Taaklijst lettertypegrootte</string>
   <string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
   <string name="EPr_fontSize_desc">Lettertypegrootte takenlijst</string>
@@ -365,10 +325,6 @@
   <string name="EPr_ideaAuto_title">Ideeëntabblad Automatisch Laden</string>
   <string name="EPr_ideaAuto_desc_enabled">Zoekopdrachten voor ideeën tablad zullen worden weergeven wanneer er op de tab is geklikt</string>
   <string name="EPr_ideaAuto_desc_disabled">Web zoekopdrachten voor Ideeëntabblad worden alleen uitgevoerd als daar handmatig om gevraagd wordt</string>
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   <string name="EPr_theme_title">Kleuren Thema</string>
   <string name="EPr_theme_desc">Nu: %s</string>
   <string name="EPr_theme_desc_unsupported">Instelllingen vereisen Android 2.0+</string>
@@ -377,16 +333,12 @@
   <string name="EPr_use_contact_picker">Gebruik contact kiezer</string>
   <string name="EPr_use_contact_picker_desc_enabled">De systeem contact optie is uitgeschakeld in het taak uitdeel venster</string>
   <string name="EPr_use_contact_picker_desc_disabled">De systeem contact optie is uitgeschakeld</string>
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
   <string name="EPr_third_party_addons_desc_enabled">Add-ons van derden worden ingeschakeld</string>
   <string name="EPr_third_party_addons_desc_disabled">Add-ons van derden worden uitgeschakeld</string>
-  <string name="EPr_ideas_tab_enabled">Task ideas</string>
   <string name="EPr_ideas_tab_description">Krijg ideeën om je te helpen taken te voltooien</string>
   <string name="EPr_cal_end_or_start_at_due_time">Tijd van agenda gebeurtenis</string>
   <string name="EPr_cal_end_at_due_time">Beëindig agenda geburtenissen op vervaltijd</string>
   <string name="EPr_cal_start_at_due_time">Start agenda geburtenissen op vervaltijd</string>
-  <string name="EPr_force_phone_layout">Use phone layout</string>
-  <string name="EPr_show_featured_lists">Show featured lists</string>
   <string name="EPr_swipe_lists_performance_title">Swipe tussen lijsten</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Geen swipe</item>
@@ -400,9 +352,6 @@
     <item>Standaardinstelling</item>
     <item>Gebruikt meer systeemgeheugen</item>
   </string-array>
-  <string name="swipe_lists_helper_title">Swipe between lists</string>
-  <string name="swipe_lists_helper_header">Swipe left or right to quickly move between lists</string>
-  <string name="swipe_lists_helper_subtitle">Change settings in Settings -&gt; Appearance</string>
   <string-array name="EPr_themes">
     <item>Dag - Blauw</item>
     <item>Dag - Rood</item>
@@ -442,10 +391,6 @@
   <string name="AOA_tab_available">Beschikbaar</string>
   <string name="AOA_free">Gratis</string>
   <string name="AOA_no_addons">Lijst is leeg!</string>
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
-  <string name="AOA_locale_title">Astrid Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   <string name="TWi_loading">Laden…</string>
   <string name="WCA_title">Selecteer weer te geven taken...</string>
   <string name="p_about">Over Astrid</string>
@@ -458,9 +403,7 @@
   <string name="marketplace_description">Astrid is de geliefde open-source Takenbeheerder, ontworpen om je taken gedaan te krijgen. Astrid heeft functies als herinneringen, bundelen van taken, synchronisatie, LBS plug-ins, widgets en nog veel meer!</string>
   <string name="DB_corrupted_title">Database Corrupt</string>
   <string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Astrid.</string>
-  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   <string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
-  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
   <string name="EPr_default_urgency_title">Standaard prioriteit</string>
   <string name="EPr_default_urgency_desc">Nu: %s</string>
   <string name="EPr_default_importance_title">Standaard prioriteit</string>
@@ -575,7 +518,6 @@
   <string name="welcome_login_tos_base">Door Astrid te gebruiken ga je akkoord met de</string>
   <string name="welcome_login_tos_link">\"Algemene Voorwaarden\"</string>
   <string name="welcome_login_pw">Log in met Gebruikersnaam/Wachtwoord</string>
-  <string name="welcome_sign_in">Sign in</string>
   <string name="welcome_login_later">Later verbinden</string>
   <string name="welcome_login_confirm_later_title">Waarom log je niet in?</string>
   <string name="welcome_login_confirm_later_ok">Ik doe het!</string>
@@ -641,14 +583,11 @@
   <string name="CFC_opencrx_in_workspace_name">In Workspace...</string>
   <string name="CFC_opencrx_assigned_to_text">Toegewezen aan: ?</string>
   <string name="CFC_opencrx_assigned_to_name">Toegewezen aan...</string>
-  <string name="EPr_powerpack_header">Premium and misc. settings</string>
-  <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
   <string name="EPr_statistics_title">Anonieme statistieken</string>
   <string name="EPr_statistics_desc_disabled">Geen gebruikersgegevens doorgeven</string>
   <string name="EPr_statistics_desc_enabled">Help ons Astrid nóg beter te maken door anoniem statistieken over uw gebruik met ons te delen</string>
   <string name="speech_err_network">Netwerkfout! Spraakherkenning heeft een netwerkverbinding nodig.</string>
   <string name="speech_err_no_match">Sorry, ik begrijp je niet! Probeer het opnieuw.</string>
-  <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
   <string name="premium_attach_file">Een bestand bijvoegen</string>
   <string name="premium_record_audio">Een notitie opnemen</string>
   <string name="premium_no_files">Geen bestand bijgevoegd</string>
@@ -671,7 +610,6 @@
   <string name="file_prefix_voice">Spraak</string>
   <string name="file_browser_up">Omhoog</string>
   <string name="file_browser_title">Bestand kiezen</string>
-  <string name="dir_browser_title">Choose a directory</string>
   <string name="file_browser_err_permissions">Bestandsrechtenfout! Let erop dat Astrid toegang heeft tot de SD-kaart.</string>
   <string name="file_add_picture">Afbeelding toevoegen</string>
   <string name="file_add_sdcard">Bestand toevoegen vanaf SD-kaart</string>
@@ -681,40 +619,7 @@
   <string name="file_err_memory">Afbeelding past niet in het geheugen</string>
   <string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
   <string name="file_err_download">Fout bij downloaden bestand</string>
-  <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
   <string name="file_err_show">Sorry, het systeem ondersteunt dit bestandstype niet</string>
-  <string name="file_dir_dialog_ok">Use this directory</string>
-  <string name="file_dir_dialog_default">Reset to default</string>
-  <string name="p_files_dir">Premium downloads directory</string>
-  <string name="p_files_dir_desc">Task attachments saved to: %s</string>
-  <string name="p_files_dir_desc_default">Default directory</string>
-  <string name="billing_not_supported_title">Can\'t make purchases</string>
-  <string name="billing_not_supported_message">The Market billing service is not available at this time. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
-  <string name="subscriptions_not_supported_message">The Market billing service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
-  <string name="cannot_connect_title">Can\'t connect to Market</string>
-  <string name="cannot_connect_message">This app cannot connect to Market. Your version of Market may be out of date. You can continue to use this app but you won\'t be able to make purchases.</string>
-  <string name="restoring_transactions">Restoring transactions</string>
-  <string name="subscriptions_learn_more">Learn more</string>
-  <string name="premium_billing_title">Astrid Premium</string>
-  <string name="premium_buy_month">1 Month</string>
-  <string name="premium_buy_year">1 Year</string>
-  <string name="premium_description_header">Do more with premium!</string>
-  <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
-  <string name="premium_description_2">Syncs files with astrid.com</string>
-  <string name="premium_description_3">Add attachments via email</string>
-  <string name="premium_description_4">Save voice notes as audio files</string>
-  <string name="premium_description_5">Preview upcoming features</string>
-  <string name="premium_description_6">Support the Astrid Team!</string>
-  <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
-  <string name="premium_speech_bubble_2">Order one year and save 25%%!</string>
-  <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
-  <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
-  <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
-  <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-  <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
-  <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-  <string name="premium_checking_for_purchases">Checking for purchases...</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Werkbladen</string>
   <string name="producteev_FEx_responsible_byme">Ook aan mij toegewezen</string>
@@ -798,7 +703,6 @@
     <item>Aangenaam kennis te maken!</item>
   </string-array>
   <string name="rmd_EPr_alerts_header">Instellingen herinneringen</string>
-  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
   <string name="rmd_EPr_enabled_title">Herinneringen Ingeschakeld?</string>
   <string name="rmd_EPr_enabled_desc_true">Astrid herinneringen zijn ingeschakeld (dit is normaal)</string>
   <string name="rmd_EPr_enabled_desc_false">Astrid herinneringen zullen nooit weergegeven worden op je telefoon</string>
@@ -1001,7 +905,6 @@
   <string name="repeat_enabled">Herhalingen</string>
   <string name="repeat_every">Elke %d</string>
   <string name="repeat_interval_prompt">Herhaal interval</string>
-  <string name="repeat_never">Make repeating?</string>
   <string name="repeat_dont">Niet herhalen</string>
   <string-array name="repeat_interval_short">
     <item>d</item>
@@ -1160,14 +1063,10 @@
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
-  <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
-  <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-  <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
   <string name="PPW_configure_title">Widget instellen</string>
   <string name="PPW_color">Widget kleur</string>
   <string name="PPW_enable_calendar">Agenda items weergeven</string>
   <string name="PPW_disable_encouragements">Motiverend commentaar verbergen</string>
-  <string name="PPW_show_dates">Show due dates</string>
   <string name="PPW_filter">Filter selecteren</string>
   <string name="PPW_due">Gereed:</string>
   <string name="PPW_past_due">Verlopen:</string>
@@ -1214,7 +1113,4 @@
   <string name="PPW_unlock_howto">Deel lijsten met vrienden! Krijg een gratis Power Pack als 3 vrienden zich aanmelden voor Astrid.</string>
   <string name="PPW_check_button">Krijg het Power Pack gratis!</string>
   <string name="PPW_check_share_lists">Deel lijsten!</string>
-  <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-  <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
-  <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>
