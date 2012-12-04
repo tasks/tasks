@@ -76,6 +76,32 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         return savedFilters;
     }
 
+    private static Filter todayFilter = null;
+    public static Filter getTodayFilter(Resources r) {
+        int themeFlags = ThemeService.getFilterThemeFlags();
+        synchronized(CustomFilterExposer.class) {
+            if (todayFilter == null) {
+                String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
+                ContentValues todayValues = new ContentValues();
+                todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
+                todayFilter = new Filter(todayTitle,
+                        todayTitle,
+                        new QueryTemplate().where(
+                                Criterion.and(TaskCriteria.activeVisibleMine(),
+                                        Task.DUE_DATE.gt(0),
+                                        Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
+                        todayValues);
+            }
+        }
+        todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
+                ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
+        return todayFilter;
+    }
+
+    public static boolean isTodayFilter(Filter filter) {
+        return (filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources())));
+    }
+
     private Filter[] buildSavedFilters(Context context, Resources r) {
         int themeFlags = ThemeService.getFilterThemeFlags();
 
@@ -86,18 +112,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
             Filter[] list = new Filter[cursor.getCount() + 3];
 
             // stock filters
-            String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
-            ContentValues todayValues = new ContentValues();
-            todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
-            list[0] = new Filter(todayTitle,
-                    todayTitle,
-                    new QueryTemplate().where(
-                            Criterion.and(TaskCriteria.activeVisibleMine(),
-                                    Task.DUE_DATE.gt(0),
-                                    Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
-                    todayValues);
-            list[0].listingIcon = ((BitmapDrawable)r.getDrawable(
-                    ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
+            list[0] = getTodayFilter(r);
 
             list[1] = new Filter(r.getString(R.string.BFE_Recent),
                     r.getString(R.string.BFE_Recent),
