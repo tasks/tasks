@@ -38,12 +38,12 @@
   <string name="welcome_login_tos_link">Terms of Service</string>
   
   <!-- slide 7e -->
-  <string name="welcome_login_pw">Sign up with email</string>
+  <string name="welcome_login_pw">Sign up</string>
   
-  <string name="welcome_sign_in">Sign in</string>
+  <string name="welcome_sign_in">Log in</string>
 
   <!-- slide 7f -->
-  <string name="welcome_login_later">Connect Later</string>
+  <string name="welcome_login_later">Later</string>
   
   <string name="welcome_login_confirm_later_title">Why not sign in?</string>
   

@@ -15,14 +15,9 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -82,6 +77,10 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         }
     }
 
+    private int getLoginPageLayout() {
+        return R.layout.actfm_login_activity;
+    }
+
     @Override
     protected void initializeUI() {
         String[] accounts = ModernAuthManager.getAccounts(this);
@@ -93,8 +92,8 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         if (simpleLogin != null && !TextUtils.isEmpty(email)) {
             initializeSimpleUI(email);
         } else {
-            if (mAdapter != null && mAdapter.layouts[mAdapter.layouts.length - 1] != R.layout.welcome_walkthrough_login_page)
-                mAdapter.changeLoginPage(R.layout.welcome_walkthrough_login_page);
+            if (mAdapter != null && mAdapter.layouts[mAdapter.layouts.length - 1] != getLoginPageLayout())
+                mAdapter.changeLoginPage(getLoginPageLayout());
             super.initializeUI();
         }
     }
@@ -148,7 +147,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         rejectQuickLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdapter.changeLoginPage(R.layout.welcome_walkthrough_login_page);
+                mAdapter.changeLoginPage(getLoginPageLayout());
                 mPager.setAdapter(mAdapter);
                 mPager.setCurrentItem(mAdapter.layouts.length - 1, false);
                 initializeUI();
@@ -186,6 +185,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 currentView.findViewById(R.id.welcome_walkthrough_image).setOnClickListener(done);
             }
         }
+        ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
     }
 
     protected void setupPWLogin() {
@@ -196,21 +196,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     protected void setupLoginLater() {
         TextView loginLater = (TextView)currentView.findViewById(R.id.login_later);
         loginLater.setOnClickListener(loginLaterListener);
-        String loginLaterBase = getString(R.string.welcome_login_later);
-        SpannableString loginLaterLink = new SpannableString(String.format("%s", loginLaterBase)); //$NON-NLS-1$
-        ClickableSpan laterSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                loginLaterListener.onClick(widget);
-            }
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setUnderlineText(true);
-                ds.setColor(Color.rgb(68, 68, 68));
-            }
-        };
-        loginLaterLink.setSpan(laterSpan, 0, loginLaterBase.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        loginLater.setText(loginLaterLink);
+        loginLater.setVisibility(View.VISIBLE);
     }
 
 
