@@ -16,6 +16,7 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -27,7 +28,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 public class SubtasksHelper {
 
     public static boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || CoreFilterExposer.isInbox(filter) || SubtasksHelper.isTagFilter(filter)) {
+        if(filter == null || CoreFilterExposer.isInbox(filter) || CustomFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
             if(SortHelper.isManualSort(sortFlags))
