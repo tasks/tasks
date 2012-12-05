@@ -44,31 +44,6 @@ public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
         filter.setFilterQueryOverride(query);
     }
 
-//    @Override
-//    protected String getSerializedTree(TagData list, Filter filter) {
-//        String order;
-//        if (list == null) {
-//            order = Preferences.getStringValue(ACTIVE_TASKS_ORDER);
-//        } else {
-//            order = list.getValue(TagData.TAG_ORDERING);
-//        }
-//        if (order == null || "null".equals(order)) //$NON-NLS-1$
-//            order = "[]"; //$NON-NLS-1$
-//
-//        return order;
-//    }
-//
-//    @Override
-//    protected void writeSerialization(TagData list, String serialized) {
-//        if (list == null) {
-//            Preferences.setString(ACTIVE_TASKS_ORDER, serialized);
-//        } else {
-//            list.setValue(TagData.TAG_ORDERING, serialized);
-//            tagDataService.save(list);
-//            actFmSyncService.pushTagOrderingOnSave(list.getId());
-//        }
-//    }
-
 }
 
 
