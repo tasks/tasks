@@ -10,20 +10,25 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:src="@drawable/astrid_com_logo" />
+        android:src="@drawable/astrid_com_logo_new"
+        android:padding="10dip"
+        android:scaleType="center" />
     
     <Button
         android:id="@+id/quick_login_google"
-        android:layout_width="250dip"
-        android:layout_height="60dip" 
-        android:layout_marginTop="30dip"
+        android:layout_width="280dip"
+        android:layout_height="45dip" 
+        android:layout_marginTop="-30dip"
+        android:textSize="16sp"
+        android:background="@drawable/google_login_background"
         android:layout_marginBottom="15dip"/>
     
     <TextView
         android:id="@+id/quick_login_reject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dip"
-        android:text="Not this person"/>
+        android:layout_marginBottom="70dip"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
