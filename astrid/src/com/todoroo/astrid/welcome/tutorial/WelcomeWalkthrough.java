@@ -78,7 +78,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     }
 
     private int getLoginPageLayout() {
-        return R.layout.actfm_login_activity;
+        return mAdapter.fallbackLoginPage;
     }
 
     @Override

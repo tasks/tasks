@@ -64,6 +64,8 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.layout.welcome_walkthrough_login_page,
     };
 
+    public int fallbackLoginPage;
+
     private final Context context;
     public WelcomeWalkthrough parent;
     @Autowired ActFmPreferenceService actFmPreferenceService;
@@ -83,18 +85,21 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
                 int choice = ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_YES_GOOGLE);
                 switch (choice) {
                 case 1:
-                    layouts[layouts.length - 1] = R.layout.actfm_login_activity;
+                    fallbackLoginPage = layouts[layouts.length - 1] = R.layout.actfm_login_activity;
                     break;
                 case 2:
                     layouts[layouts.length - 1] = R.layout.welcome_walkthrough_simple_login;
+                    fallbackLoginPage = R.layout.actfm_login_activity;
                     break;
                 default:
+                    fallbackLoginPage = layouts[layouts.length - 1];
                     break;
                 }
             } else if (ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_NO_GOOGLE) != ABChooser.NO_OPTION) {
                 int choice = ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_NO_GOOGLE);
+                fallbackLoginPage = layouts[layouts.length - 1];
                 if (choice == 1)
-                    layouts[layouts.length - 1] = R.layout.actfm_login_activity;
+                    fallbackLoginPage = layouts[layouts.length - 1] = R.layout.actfm_login_activity;
             }
         }
     }
