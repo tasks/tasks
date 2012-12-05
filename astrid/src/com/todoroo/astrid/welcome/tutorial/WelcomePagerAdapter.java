@@ -75,6 +75,8 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
             title[title.length - 1] = R.string.welcome_title_7_return;
             images[images.length - 1] = R.drawable.welcome_walkthrough_1;
             body[body.length - 1] = R.string.welcome_body_7_return;
+        } else {
+            // Setup login page from AB tests
         }
     }
 

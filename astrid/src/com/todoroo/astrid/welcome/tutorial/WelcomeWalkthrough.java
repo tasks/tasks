@@ -129,6 +129,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                                             Toast.makeText(WelcomeWalkthrough.this,
                                                     error,
                                                     Toast.LENGTH_LONG).show();
+                                            onAuthError();
                                         }
                                     });
                                 } finally {
@@ -147,22 +148,34 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         rejectQuickLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdapter.changeLoginPage(getLoginPageLayout());
-                mPager.setAdapter(mAdapter);
-                mPager.setCurrentItem(mAdapter.layouts.length - 1, false);
-                initializeUI();
+                switchToLoginPage();
             }
         });
     }
 
     private void onAuthTokenSuccess(final String email, final String authToken) {
         runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
                 authenticate(email, email, "", "google", authToken); //$NON-NLS-1$ //$NON-NLS-2$
             }
         });
+    }
+
+    private void onAuthError() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switchToLoginPage();
+            }
+        });
+    }
+
+    private void switchToLoginPage() {
+        mAdapter.changeLoginPage(getLoginPageLayout());
+        mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(mAdapter.layouts.length - 1, false);
+        initializeUI();
     }
 
     public void onPageChanged(View view, int position) {
