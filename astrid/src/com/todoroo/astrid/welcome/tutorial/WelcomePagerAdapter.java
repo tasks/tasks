@@ -21,6 +21,8 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 import com.viewpagerindicator.TitleProvider;
 
 public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
@@ -59,7 +61,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_simple_login,
+        R.layout.welcome_walkthrough_login_page,
     };
 
     private final Context context;
@@ -77,6 +79,23 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
             body[body.length - 1] = R.string.welcome_body_7_return;
         } else {
             // Setup login page from AB tests
+            if (ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_YES_GOOGLE) != ABChooser.NO_OPTION) {
+                int choice = ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_YES_GOOGLE);
+                switch (choice) {
+                case 1:
+                    layouts[layouts.length - 1] = R.layout.actfm_login_activity;
+                    break;
+                case 2:
+                    layouts[layouts.length - 1] = R.layout.welcome_walkthrough_simple_login;
+                    break;
+                default:
+                    break;
+                }
+            } else if (ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_NO_GOOGLE) != ABChooser.NO_OPTION) {
+                int choice = ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_NO_GOOGLE);
+                if (choice == 1)
+                    layouts[layouts.length - 1] = R.layout.actfm_login_activity;
+            }
         }
     }
 
