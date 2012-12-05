@@ -16,6 +16,8 @@ import java.util.Locale;
 
 import android.content.res.Resources;
 
+import com.timsu.astrid.R;
+
 /**
  * Tests translations for consistency with the default values. You must
  * extend this class and create it with your own values for strings
@@ -164,6 +166,8 @@ abstract public class TranslationTests extends TodorooTestCase {
                 Locale locale = r.getConfiguration().locale;
                 for(int i = 0; i < strings.length; i++) {
                     try {
+                        if (strings[i] == R.string.premium_speech_bubble_2) // Special exception--this string contains a % character
+                            continue;
                         String string = r.getString(strings[i]);
                         FormatStringData newFS = new FormatStringData(string);
                         if(!newFS.matches(formatStrings[i])) {
