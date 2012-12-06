@@ -220,10 +220,14 @@
     </target>
 
 	<!-- build lite release package with updated version name -->
-    <target name="release-lite" depends="clean, set-release-lite, release" />
+    <target name="release-lite" depends="clean, set-lite-property, release" />
+    <target name="debug-lite" depends="clean, set-lite-property, debug" />
 	
-	<target name="set-release-lite">
-	   <property name="lite.enabled" value="true" />
+	<target name="set-lite-property">
+	    <property name="lite.enabled" value="true" />
+		<subant target="setup-lite">
+			<fileset file="../api/build.xml"/>
+		</subant>
 	</target>
 	
 	<target name="setup-lite" if="lite.enabled">
@@ -238,6 +242,26 @@
                      match="authorities=&quot;(.*)&quot;"
                      replace="authorities=&quot;\1.lite&quot;"
                      flags="g"/>
+	  <replaceregexp file="AndroidManifest.xml"
+	                 match="action android:name=&quot;com.todoroo.astrid"
+                     replace="action android:name=&quot;com.todoroo.astridlite"
+		             flags="g"
+	                 />
+	  <replaceregexp file="AndroidManifest.xml"
+	                 match="com.timsu.astrid.permission"
+                     replace="com.todoroo.astridlite.permission"
+		             flags="g"
+	                 />
+	  <replaceregexp file="AndroidManifest.xml"
+	                 match="com.todoroo.astrid.READ"
+                     replace="com.todoroo.astridlite.READ"
+		             flags="g"
+	                 />
+	  <replaceregexp file="AndroidManifest.xml"
+	                 match="com.todoroo.astrid.WRITE"
+                     replace="com.todoroo.astridlite.WRITE"
+		             flags="g"
+	                 />
 		
       <copy todir="res_old">
         <fileset dir="res"/>
@@ -251,6 +275,9 @@
       <delete dir="res" />
       <move file="res_old" tofile="res"/>
       <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
+	  <subant target="teardown-lite">
+	      <fileset file="../api/build.xml"/>
+	  </subant>
 	</target>
  
     <!-- build custom unsigned package with updated version name -->
