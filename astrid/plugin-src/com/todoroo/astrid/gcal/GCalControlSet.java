@@ -62,6 +62,7 @@ public class GCalControlSet extends PopupControlSet {
         DependencyInjectionService.getInstance().inject(this);
         this.title = title;
         calendars = Calendars.getCalendars();
+        getView(); // Hack to force initialized
     }
 
     @Override
