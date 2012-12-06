@@ -78,6 +78,11 @@
     
     <string name="subscriptions_learn_more">Learn more</string>
     
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+    <string name="kii_premium_abort">Special offer aborted</string>
+    <string name="kii_premium_declined">Special offer declined</string>
+    <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
+    
     <string name="premium_billing_title">Astrid Premium</string>
     <string name="premium_buy_month">1 Month</string>
     <string name="premium_buy_year">1 Year</string>
