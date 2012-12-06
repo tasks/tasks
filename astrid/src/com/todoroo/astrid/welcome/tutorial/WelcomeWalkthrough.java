@@ -32,6 +32,8 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmGoogleAuthActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -104,6 +106,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         simpleLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SIMPLE);
                 final ProgressDialog pd = DialogUtilities.progressDialog(WelcomeWalkthrough.this, getString(R.string.gtasks_GLA_authenticating));
                 pd.show();
                 GoogleAccountManager accountManager = new GoogleAccountManager(WelcomeWalkthrough.this);
@@ -148,6 +151,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         rejectQuickLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SIMPLE_REJECTED);
                 switchToLoginPage();
             }
         });
