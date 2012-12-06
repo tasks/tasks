@@ -86,4 +86,9 @@ public class SubtasksListFragment extends TaskListFragment {
         return helper.createTaskAdapter(cursor, sqlQueryTemplate);
     }
 
+    @Override
+    protected void refresh() {
+        setUpTaskList();
+    }
+
 }

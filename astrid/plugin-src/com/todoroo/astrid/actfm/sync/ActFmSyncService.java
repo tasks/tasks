@@ -676,8 +676,8 @@ public final class ActFmSyncService {
         if (order == null || "null".equals(order))
             order = "[]";
 
-        params.add("filter_id"); params.add(filterId);
-        params.add("order"); params.add(order);
+        params.add("filter"); params.add(filterId);
+        params.add("order"); params.add(SubtasksHelper.convertTreeToRemoteIds(order));
         params.add("token"); params.add(token);
 
         try {
@@ -704,8 +704,8 @@ public final class ActFmSyncService {
         try {
             JSONObject result = actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
             String order = result.optString("order");
-            if (!TextUtils.isEmpty(order))
-                Preferences.setString(localFilterId, order);
+            if (!TextUtils.isEmpty(order) && !"null".equals(order))
+                Preferences.setString(localFilterId, SubtasksHelper.convertTreeToLocalIds(order));
         } catch (IOException e) {
             handleException("fetch-filter-order", e);
         }

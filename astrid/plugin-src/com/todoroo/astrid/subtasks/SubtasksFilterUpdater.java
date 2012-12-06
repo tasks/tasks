@@ -17,6 +17,7 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<String> {
     @Override
     protected void writeSerialization(String list, String serialized) {
         Preferences.setString(list, serialized);
+        actFmSyncService.pushFilterOrderingOnSave(list);
     }
 
 }
