@@ -41,7 +41,7 @@ import com.todoroo.astrid.service.StatisticsService;
  */
 public class ActFmGoogleAuthActivity extends ListActivity {
 
-    private static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile"; //$NON-NLS-1$
+    public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile"; //$NON-NLS-1$
 
     public static final String RESULT_EMAIL = "email"; //$NON-NLS-1$
     public static final String RESULT_TOKEN = "token"; //$NON-NLS-1$

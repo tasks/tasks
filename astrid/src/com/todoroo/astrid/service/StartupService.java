@@ -201,6 +201,8 @@ public class StartupService {
 
         final int finalLatestVersion = latestSetVersion;
 
+        abTests.externalInit(context);
+
         abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
 
         abTestInvoker.reportAcquisition();

@@ -234,15 +234,11 @@
   <!-- share login: Sharing Login GG Prompt -->
   <string name="actfm_ALA_gg_login">Connect with Google</string>
   
-  <!-- share login: Sharing Footer Password Label -->
+  <!-- share login: Quickly log in as <%s -> email> -->
+  <string name="actfm_quick_login">Sign in: %s</string>
 
-  <!-- share login: Sharing Password Link -->
-
-  <!-- share login: Password Are you a New User? -->
-
-  <!-- share login: Password Are you a Returning User? -->
-
-  <!-- share login: Name -->
+  <!-- share login: Reject quick login -->
+  <string name="actfm_quick_login_reject">Not %s?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">First Name</string>
