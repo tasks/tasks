@@ -11,7 +11,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         createTasks();
-        updater.initializeFromSerializedTree(null, filter, DEFAULT_SERIALIZED_TREE);
+        updater.initializeFromSerializedTree(SubtasksUpdater.ACTIVE_TASKS_ORDER, filter, DEFAULT_SERIALIZED_TREE);
     }
 
     private Task createTask(String title, long remoteId) {
