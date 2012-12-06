@@ -262,6 +262,10 @@
                      replace="com.todoroo.astridlite.WRITE"
 		             flags="g"
 	                 />
+	  <replaceregexp file="${source.dir}/com/todoroo/astrid/backup.BackupConstants.java"
+	                 match="ASTRID_DIR = .*"
+                     replace="ASTRID_DIR = &quot;/astridlite&quot;;"
+	                 />
 		
       <copy todir="res_old">
         <fileset dir="res"/>
