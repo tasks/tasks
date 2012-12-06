@@ -54,6 +54,15 @@ public class SubtasksHelper {
     }
 
     @SuppressWarnings("nls")
+    public static String serverFilterOrderId(String localFilterOrderId) {
+        if (SubtasksUpdater.ACTIVE_TASKS_ORDER.equals(localFilterOrderId))
+            return "all";
+        else if (SubtasksUpdater.TODAY_TASKS_ORDER.equals(localFilterOrderId))
+            return "today";
+        return null;
+    }
+
+    @SuppressWarnings("nls")
     public static String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering

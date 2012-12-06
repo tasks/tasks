@@ -320,6 +320,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             public void run() {
                 pushQueuedTasks(callback, finisher);
 
+                actFmSyncService.fetchFilterOrders();
+
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0) {
                     finishSync(callback);

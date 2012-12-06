@@ -76,6 +76,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
@@ -647,27 +648,31 @@ public final class ActFmSyncService {
 
         ArrayList<Object> params = new ArrayList<Object>();
 
-        params.add("id"); params.add(remoteId);
+        params.add("tag_id"); params.add(remoteId);
         params.add("order");
         params.add(SubtasksHelper.convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING)));
         params.add("token"); params.add(token);
 
         try {
-            actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
+            actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
         } catch (IOException e) {
             handleException("push-tag-order", e);
         }
     }
 
-    private void pushFilterOrdering(String filterId) {
+    private void pushFilterOrdering(String filterLocalId) {
         if (!checkForToken())
+            return;
+
+        String filterId = SubtasksHelper.serverFilterOrderId(filterLocalId);
+        if (filterId == null)
             return;
 
         // Make sure that all tasks are pushed before attempting to sync filter ordering
         waitUntilEmpty();
 
         ArrayList<Object> params = new ArrayList<Object>();
-        String order = Preferences.getStringValue(filterId);
+        String order = Preferences.getStringValue(filterLocalId);
         if (order == null || "null".equals(order))
             order = "[]";
 
@@ -676,9 +681,33 @@ public final class ActFmSyncService {
         params.add("token"); params.add(token);
 
         try {
-            actFmInvoker.invoke("filter_order_save", params.toArray(new Object[params.size()]));
+            actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
         } catch (IOException e) {
             handleException("push-filter-order", e);
+        }
+    }
+
+    public void fetchFilterOrders() {
+        if (!checkForToken())
+            return;
+
+        fetchFilterOrder(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+        fetchFilterOrder(SubtasksUpdater.TODAY_TASKS_ORDER);
+    }
+
+    private void fetchFilterOrder(String localFilterId) {
+        String filterId = SubtasksHelper.serverFilterOrderId(localFilterId);
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add("filter"); params.add(filterId);
+        params.add("token"); params.add(token);
+
+        try {
+            JSONObject result = actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
+            String order = result.optString("order");
+            if (!TextUtils.isEmpty(order))
+                Preferences.setString(localFilterId, order);
+        } catch (IOException e) {
+            handleException("fetch-filter-order", e);
         }
     }
 
