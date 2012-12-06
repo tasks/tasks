@@ -61,24 +61,18 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
      * Build inbox filter
      * @return
      */
-    private static Filter inboxInstance = null;
-
     public static Filter buildInboxFilter(Resources r) {
-        synchronized(CoreFilterExposer.class) {
-            if (inboxInstance == null) {
-                inboxInstance = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
+        Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeVisibleMine(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
                                         Criterion.and(MetadataCriteria.withKey(TagService.KEY),
                                                 TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
-                null);
-            }
-        }
+                                                null);
         int themeFlags = ThemeService.getFilterThemeFlags();
-        inboxInstance.listingIcon = ((BitmapDrawable)r.getDrawable(
+        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
-        return inboxInstance;
+        return inbox;
     }
 
     /**

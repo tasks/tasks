@@ -76,23 +76,18 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         return savedFilters;
     }
 
-    private static Filter todayFilter = null;
     public static Filter getTodayFilter(Resources r) {
         int themeFlags = ThemeService.getFilterThemeFlags();
-        synchronized(CustomFilterExposer.class) {
-            if (todayFilter == null) {
-                String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
-                ContentValues todayValues = new ContentValues();
-                todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
-                todayFilter = new Filter(todayTitle,
-                        todayTitle,
-                        new QueryTemplate().where(
-                                Criterion.and(TaskCriteria.activeVisibleMine(),
-                                        Task.DUE_DATE.gt(0),
-                                        Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
-                        todayValues);
-            }
-        }
+        String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
+        ContentValues todayValues = new ContentValues();
+        todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
+        Filter todayFilter = new Filter(todayTitle,
+                todayTitle,
+                new QueryTemplate().where(
+                        Criterion.and(TaskCriteria.activeVisibleMine(),
+                                Task.DUE_DATE.gt(0),
+                                Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
+                                todayValues);
         todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
         return todayFilter;
