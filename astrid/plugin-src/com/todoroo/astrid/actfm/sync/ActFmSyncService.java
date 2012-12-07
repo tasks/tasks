@@ -76,7 +76,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
@@ -635,6 +634,14 @@ public final class ActFmSyncService {
         return false;
     }
 
+    public boolean cancelFilterOrderingPush(String filterId) {
+        if (pushOrderQueue.contains(filterId)) {
+            pushOrderQueue.remove(filterId);
+            return true;
+        }
+        return false;
+    }
+
     private void pushTagOrdering(TagData tagData) {
         if (!checkForToken())
             return;
@@ -687,15 +694,10 @@ public final class ActFmSyncService {
         }
     }
 
-    public void fetchFilterOrders() {
+    public void fetchFilterOrder(String localFilterId) {
         if (!checkForToken())
             return;
 
-        fetchFilterOrder(SubtasksUpdater.ACTIVE_TASKS_ORDER);
-        fetchFilterOrder(SubtasksUpdater.TODAY_TASKS_ORDER);
-    }
-
-    private void fetchFilterOrder(String localFilterId) {
         String filterId = SubtasksHelper.serverFilterOrderId(localFilterId);
         ArrayList<Object> params = new ArrayList<Object>();
         params.add("filter"); params.add(filterId);

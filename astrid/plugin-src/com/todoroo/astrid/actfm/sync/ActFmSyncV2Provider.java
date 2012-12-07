@@ -39,6 +39,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
@@ -315,12 +316,23 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** @return runnable to fetch changes to tags */
     private void startTaskFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
+        final boolean pushActiveTasksOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+        final boolean pushTodayOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.TODAY_TASKS_ORDER);
+
         actFmSyncService.fetchActiveTasks(manual, handler, new Runnable() {
             @Override
             public void run() {
                 pushQueuedTasks(callback, finisher);
 
-                actFmSyncService.fetchFilterOrders();
+                if (pushActiveTasksOrder)
+                    actFmSyncService.pushFilterOrderingImmediately(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+                else
+                    actFmSyncService.fetchFilterOrder(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+
+                if (pushTodayOrder)
+                    actFmSyncService.pushFilterOrderingImmediately(SubtasksUpdater.TODAY_TASKS_ORDER);
+                else
+                    actFmSyncService.fetchFilterOrder(SubtasksUpdater.TODAY_TASKS_ORDER);
 
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0) {
