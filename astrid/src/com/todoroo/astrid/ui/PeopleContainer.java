@@ -212,7 +212,7 @@ public class PeopleContainer extends LinearLayout {
         JSONObject sharedWith = new JSONObject();
 
         HashSet<String> addedEmails = new HashSet<String>();
-
+        HashSet<Long> addedIds = new HashSet<Long>();
         JSONArray peopleList = new JSONArray();
         for(int i = 0; i < getChildCount(); i++) {
             TextView textView = getTextView(i);
@@ -228,8 +228,14 @@ public class PeopleContainer extends LinearLayout {
                 JSONObject person = PeopleContainer.createUserJson(textView);
                 if (person != null) {
                     String email = person.optString("email");
+                    Long id = person.optLong("id", -1);
                     if (!TextUtils.isEmpty(email) && !addedEmails.contains(email)) {
                         addedEmails.add(email);
+                        if (id > 0)
+                            addedIds.add(id);
+                        peopleList.put(person);
+                    } else if (id > 0 && !addedIds.contains(id)) {
+                        addedIds.add(id);
                         peopleList.put(person);
                     }
                 }
