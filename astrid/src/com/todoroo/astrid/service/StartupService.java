@@ -165,8 +165,6 @@ public class StartupService {
             if (Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, -1) < 0) {
                 Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, DateUtilities.now());
             }
-        } else {
-            Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
         }
 
         BeastModePreferences.assertHideUntilSectionExists(context, latestSetVersion);

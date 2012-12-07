@@ -29,9 +29,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -230,9 +227,9 @@ public class TaskDao extends DatabaseDao<Task> {
         ContentValues values = item.getSetValues();
         boolean result = super.createNew(item);
         if(result) {
-            userRetentionMetrics();
             afterSave(item, values);
         }
+
         return result;
     }
 
@@ -241,30 +238,6 @@ public class TaskDao extends DatabaseDao<Task> {
             int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                     Task.HIDE_UNTIL_NONE);
             item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
-        }
-    }
-
-    private void userRetentionMetrics() {
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true)) {
-            StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_TASK);
-            Preferences.setBoolean(AstridPreferences.P_FIRST_TASK, false);
-        }
-
-        long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
-        long now = DateUtilities.now();
-        long timeSinceFirst = now - firstLaunchTime;
-        if (timeSinceFirst < DateUtilities.ONE_DAY * 3 && !Preferences.getBoolean(StatisticsConstants.TASK_THREE_DAYS, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.TASK_THREE_DAYS);
-            Preferences.setBoolean(StatisticsConstants.TASK_THREE_DAYS, true);
-        } else if (timeSinceFirst < DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_ONE_WEEK, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.TASK_ONE_WEEK);
-            Preferences.setBoolean(StatisticsConstants.TASK_ONE_WEEK, true);
-        } else if (timeSinceFirst < 2 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_TWO_WEEKS, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.TASK_TWO_WEEKS);
-            Preferences.setBoolean(StatisticsConstants.TASK_TWO_WEEKS, true);
-        } else if (timeSinceFirst < 3 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_THREE_WEEKS, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.TASK_THREE_WEEKS);
-            Preferences.setBoolean(StatisticsConstants.TASK_THREE_WEEKS, true);
         }
     }
 
