@@ -47,19 +47,23 @@ public class ThemeService {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
-    public static int getTheme() {
-        String preference = Preferences.getStringValue(R.string.p_theme);
+    private static int getTheme() {
+        int style = getUnsimplifiedTheme();
         boolean simple = Preferences.getBoolean(R.string.p_simple_input_boxes, false);
-        int style = getStyleForSetting(preference);
         if (simple)
             style = simplifyStyle(style);
         return style;
     }
 
+    private static int getUnsimplifiedTheme() {
+        String preference = Preferences.getStringValue(R.string.p_theme);
+        return getStyleForSetting(preference);
+    }
+
     public static int getWidgetTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme_widget);
         if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference))
-            return getTheme();
+            return getUnsimplifiedTheme();
         else if (THEME_WIDGET_LEGACY.equals(preference))
             return TasksWidget.THEME_LEGACY;
         else
@@ -97,7 +101,7 @@ public class ThemeService {
     }
 
     public static int getThemeColor() {
-        int theme = getTheme();
+        int theme = getUnsimplifiedTheme();
         switch(theme) {
         case R.style.Theme:
         case R.style.Theme_Transparent:
@@ -113,7 +117,7 @@ public class ThemeService {
 
     public static int getEditDialogTheme() {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        int themeSetting = ThemeService.getTheme();
+        int themeSetting = getUnsimplifiedTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
             if (ics)
@@ -130,7 +134,7 @@ public class ThemeService {
     }
 
     public static int getDialogTheme() {
-        int themeSetting = ThemeService.getTheme();
+        int themeSetting = getUnsimplifiedTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
             theme = R.style.Theme_Dialog;
@@ -142,7 +146,7 @@ public class ThemeService {
 
     public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
-            int theme = getTheme();
+            int theme = getUnsimplifiedTheme();
             if (theme == R.style.Theme || theme == R.style.Theme_Transparent)
                 return android.R.color.white;
             else
