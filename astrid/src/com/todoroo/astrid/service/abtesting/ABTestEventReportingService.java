@@ -198,6 +198,7 @@ public final class ABTestEventReportingService {
 
         ABTestEvent model = new ABTestEvent();
         for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
+            model.readFromCursor(events);
             JSONObject event = new JSONObject();
             event.put(KEY_TEST, model.getValue(ABTestEvent.TEST_NAME));
             event.put(KEY_VARIANT, model.getValue(ABTestEvent.TEST_VARIANT));
