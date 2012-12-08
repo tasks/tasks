@@ -1202,7 +1202,14 @@ public final class ActFmSyncService {
         try {
             if (!checkForToken())
                 throw new ActFmServiceException("Not logged in", null);
-            actFmInvoker.invoke("premium_update_android", "purchase_token", purchaseToken, "product_id", productId, "token", token);
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add("purchase_token"); params.add(purchaseToken);
+            params.add("product_id"); params.add(productId);
+            addAbTestEventInfo(params);
+            params.add("token"); params.add(token);
+
+            actFmInvoker.invoke("premium_update_android", params.toArray(new Object[params.size()]));
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
             if (onSuccess != null)
                 onSuccess.run();
