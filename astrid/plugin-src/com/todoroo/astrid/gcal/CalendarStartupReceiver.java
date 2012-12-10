@@ -11,7 +11,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 
 public class CalendarStartupReceiver extends BroadcastReceiver {
 
-    public static final String BROADCAST_RESCHEDULE_CAL_ALARMS = AstridApiConstants.PACKAGE + ".SCHEDULE_CAL_REMINDERS"; //$NON-NLS-1$
+    public static final String BROADCAST_RESCHEDULE_CAL_ALARMS = AstridApiConstants.API_PACKAGE + ".SCHEDULE_CAL_REMINDERS"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {

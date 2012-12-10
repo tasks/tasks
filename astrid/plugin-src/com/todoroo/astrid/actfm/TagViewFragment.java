@@ -71,7 +71,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private static final String LAST_FETCH_KEY = "tag-fetch-"; //$NON-NLS-1$
 
-    public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
+    public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.API_PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
 
     public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
     public static final String EXTRA_TAG_REMOTE_ID = "remoteId"; //$NON-NLS-1$

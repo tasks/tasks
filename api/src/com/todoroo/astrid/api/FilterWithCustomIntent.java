@@ -45,7 +45,7 @@ public class FilterWithCustomIntent extends Filter {
     public Intent getCustomIntent() {
         Intent intent = new Intent();
         intent.putExtra("filter", this); //$NON-NLS-1$
-        intent.setComponent(new ComponentName("com.timsu.astrid", "com.todoroo.astrid.activity.TaskListActivity")); //$NON-NLS-1$ //$NON-NLS-2$
+        intent.setComponent(new ComponentName(AstridApiConstants.ASTRID_PACKAGE, "com.todoroo.astrid.activity.TaskListActivity")); //$NON-NLS-1$
         if(customExtras != null)
             intent.putExtras(customExtras);
 

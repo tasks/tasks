@@ -59,7 +59,7 @@ public class SqlContentProvider extends ContentProvider {
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        uriMatcher.addURI(AstridApiConstants.PACKAGE + ".private",
+        uriMatcher.addURI(AstridApiConstants.API_PACKAGE + ".private",
                 "sql", 0);
     }
 
