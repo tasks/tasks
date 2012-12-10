@@ -220,7 +220,7 @@
     </target>
 
 	<!-- build lite release package with updated version name -->
-    <target name="release-lite" depends="clean, set-lite-property, release" />
+    <target name="release-lite" depends="clean, set-lite-property, release-custom" />
     <target name="debug-lite" depends="clean, set-lite-property, debug" />
 	
 	<target name="set-lite-property">
@@ -291,7 +291,6 @@
 	<target name="teardown-lite" if="lite.enabled">
       <delete dir="res" />
       <move file="res_old" tofile="res"/>
-      <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
 	  <subant target="teardown-lite">
 	      <fileset file="../api/build.xml"/>
 	  </subant>
