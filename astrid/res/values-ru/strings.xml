@@ -338,8 +338,7 @@
   <string name="UpS_changelog_title">Что нового в Astrid?</string>
   <string name="UpS_updates_title">Последние новости Astrid</string>
   <string name="UpS_no_activity_log_in">Войдите, чтобы увидеть\nсвой прогресс и активность\nв опубликованных списках.</string>
-  <string name="EPr_title">Astrid: Настройки</string>
-  <string name="EPr_title_short">Настройки</string>
+  <string name="EPr_title">Настройки</string>
   <string name="EPr_share_astrid">Расскажи остальным про Astrid</string>
   <string name="EPr_share_astrid_summary">Расскажи про Astrid в любимой социальной сети</string>
   <string name="EPr_deactivated">выключен</string>

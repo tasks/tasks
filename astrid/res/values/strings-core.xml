@@ -51,7 +51,7 @@
   <string name="DLG_decline">I Decline</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Terms Of Use</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Please Wait</string>
@@ -151,7 +151,7 @@
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
   
   <!-- Notifications disabled warning -->
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  <string name="TLA_notification_disabled">Reminders are disabled! You will not receive any reminders</string>
   
   <string-array name="TLA_filters">
       <item>Active</item>
@@ -229,37 +229,37 @@
   <string name="SSD_hidden_title">Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Show completed tasks</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Show hidden tasks</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">Show deleted tasks</string>
   
   <!-- Sort Selection: drag with subtasks -->
-  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
+  <string name="SSD_sort_drag">Drag &amp; drop with subtasks</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Smart sort</string>
   
   <!-- slide 23e: Sort Selection: sort by alpha -->
-  <string name="SSD_sort_alpha">By Title</string>
+  <string name="SSD_sort_alpha">By title</string>
   
   <!-- slide 23c: Sort Selection: sort by due date -->
-  <string name="SSD_sort_due">By Due Date</string>
+  <string name="SSD_sort_due">By due date</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By Importance</string>
+  <string name="SSD_sort_importance">By importance</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">By last modified</string>
   
   <!-- slide 23g: Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">Reverse sort</string>
   
   <!-- slide 23j: Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">Just once</string>
   
   <!-- slide 23i: Sort Button: sort permanently -->
   <string name="SSD_save_always">Always</string>
@@ -267,7 +267,7 @@
   <!-- =============================================== FilterListActivity == -->
   
   <!-- Astrid Filter Shortcut -->    
-  <string name="FSA_label">Astrid List or Filter</string>
+  <string name="FSA_label">List or Filter</string>
 
   <!-- Filter List Activity Title -->    
   
@@ -610,7 +610,7 @@
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  <string name="UpS_changelog_title">What\'s new?</string>
   
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">Latest Astrid News</string>
@@ -621,9 +621,7 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- slide 31g: Preference Window Title -->
-  <string name="EPr_title">Astrid: Settings</string>
-
-  <string name="EPr_title_short">Settings</string>
+  <string name="EPr_title">Settings</string>
   
   <string name="EPr_share_astrid">Tell others about Astrid</string>
 
@@ -861,8 +859,8 @@
   <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">Empty List!</string>
   
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
+  <string name="AOA_ppack_title">Power Pack</string>
+  <string name="AOA_ppack_description">Support Astrid and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
   <string name="AOA_locale_title">Astrid Locale Plugin</string>
   <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   

@@ -338,8 +338,7 @@
   <string name="UpS_changelog_title">¿Que hay de nuevo en Astrid?</string>
   <string name="UpS_updates_title">Últimas Noticias de Astrid</string>
   <string name="UpS_no_activity_log_in">Ingresa para ver un registro de\ntu progreso así como la\nactividad en listas compartidas.</string>
-  <string name="EPr_title">Astrid: Preferencias</string>
-  <string name="EPr_title_short">Configuración</string>
+  <string name="EPr_title">Configuración</string>
   <string name="EPr_share_astrid">Háblales a otros sobre Astrid</string>
   <string name="EPr_share_astrid_summary">Comparte algo de Astrid en tu red social favorita</string>
   <string name="EPr_deactivated">desactivada</string>

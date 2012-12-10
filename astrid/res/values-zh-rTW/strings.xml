@@ -302,8 +302,7 @@
   <string name="UpS_changelog_title">Astrid 有哪些最新消息?</string>
   <string name="UpS_updates_title">Astrid 最新消息</string>
   <string name="UpS_no_activity_log_in">登錄查看記錄 \n看看您的活動的進展情況 \n以及在各分享列表上的活動。</string>
-  <string name="EPr_title">Astrid: 偏好</string>
-  <string name="EPr_title_short">設置</string>
+  <string name="EPr_title">偏好</string>
   <string name="EPr_share_astrid">介紹Astrid給您的朋友</string>
   <string name="EPr_share_astrid_summary">在您喜歡的社交網站上分享Astrid</string>
   <string name="EPr_deactivated">禁用</string>

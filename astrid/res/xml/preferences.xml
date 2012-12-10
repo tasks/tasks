@@ -22,7 +22,7 @@
         android:key="@string/EPr_share_astrid"
         android:summary="@string/EPr_share_astrid_summary"/>
     
-    <PreferenceCategory android:title="@string/EPr_title_short"/>
+    <PreferenceCategory android:title="@string/EPr_title"/>
     
     <PreferenceScreen
         android:title="@string/EPr_appearance_header"

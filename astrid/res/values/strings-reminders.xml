@@ -109,9 +109,9 @@
   <!-- Reminder Preference: Reminders Enabled Title -->
   <string name="rmd_EPr_enabled_title">Reminders enabled?</string>
   <!-- Reminder Preference Reminders Enabled Description (true) -->
-  <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
+  <string name="rmd_EPr_enabled_desc_true">Reminders are enabled (this is normal)</string>
   <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>  
+  <string name="rmd_EPr_enabled_desc_false">Reminders will never appear on your phone</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>

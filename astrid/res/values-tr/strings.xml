@@ -322,8 +322,7 @@
   <string name="UpS_changelog_title">Astrid\'te Yenilikler Neler?</string>
   <string name="UpS_updates_title">En Son Astrid Haberleri</string>
   <string name="UpS_no_activity_log_in">Paylaşılan listelerdeki etkinlik\nilerlemenizin kaydını görmek\niçin oturum açın.</string>
-  <string name="EPr_title">Astrid: Ayarlar</string>
-  <string name="EPr_title_short">Ayarlar</string>
+  <string name="EPr_title">Ayarlar</string>
   <string name="EPr_share_astrid">Diğerlerine Astrid\'ten bahset</string>
   <string name="EPr_share_astrid_summary">Beğendiğiniz sosyal ağınızda Astrid\'ten bahsedin</string>
   <string name="EPr_deactivated">devre dışı</string>
