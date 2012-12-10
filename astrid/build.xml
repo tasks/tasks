@@ -273,6 +273,15 @@
     	
       <replace dir="res" token="com.timsu.astrid" value="com.todoroo.astridlite"/>
       <replace dir="${source.dir}" token="com.timsu.astrid" value="com.todoroo.astridlite"/>
+      <replaceregexp file="res/values/strings-core.xml"
+                     match="app_name&quot;&gt;.*&lt;"
+                     replace="app_name&quot;&gt;Reminders\\\\nby Astrid&lt;"
+                     />
+      <replaceregexp file="res/values/strings-widget.xml"
+                     match="(PPW_widget.*)Astrid(.*)"
+                     replace="\1Reminders -\2"
+                     flags="g"
+                     />
     </target>
 	
 	<target name="teardown-lite" if="lite.enabled">
