@@ -80,6 +80,7 @@ import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
+import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
@@ -197,7 +198,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     private Timer backgroundTimer;
     protected Bundle extras;
-    private boolean isInbox;
+    protected boolean isInbox;
+    protected boolean isTodayFilter;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
@@ -383,6 +385,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
         filter.setFilterQueryOverride(null);
         isInbox = CoreFilterExposer.isInbox(filter);
+        isTodayFilter = false;
+        if (!isInbox)
+            isTodayFilter = CustomFilterExposer.isTodayFilter(filter);
 
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
@@ -1354,7 +1359,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected boolean hasDraggableOption() {
-        return isInbox;
+        return isInbox || isTodayFilter;
     }
 
     @Override

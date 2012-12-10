@@ -35,8 +35,10 @@ import com.todoroo.astrid.service.StatisticsService;
 public class ABTestInvoker {
 
     /** NOTE: these values are development values and will not work on production */
-    private static final String URL = "http://analytics.astrid.com/api/2/ab_retention";
-    private static final String ACQ_URL = "http://analytics.astrid.com/api/2/acquisition";
+    private static final String URL = "http://analytics.astrid.com/api/2/";
+    public static final String AB_RETENTION_METHOD = "ab_retention";
+    public static final String AB_ACTIVATION_METHOD = "ab_activation";
+    private static final String ACQUISITION_METHOD = "acquisition";
     private static final String API_KEY = "ryyubd";
     private static final String API_SECRET = "q9ef3i";
 
@@ -56,7 +58,7 @@ public class ABTestInvoker {
                 public void run() {
                     try {
                         HttpEntity postData = createPostData(null);
-                        restClient.post(ACQ_URL, postData);
+                        restClient.post(URL + ACQUISITION_METHOD, postData);
                         Preferences.setBoolean(PREF_REPORTED_ACQUISITION, true);
                     } catch (IOException e) {
                         // Ignored
@@ -73,10 +75,10 @@ public class ABTestInvoker {
      * @return
      * @throws IOException
      */
-    public JSONObject post(JSONArray payload) throws IOException {
+    public JSONObject post(String method, JSONArray payload) throws IOException {
         try {
             HttpEntity postData  = createPostData(payload);
-            String response = restClient.post(URL, postData);
+            String response = restClient.post(URL + method, postData);
             JSONObject object = new JSONObject(response);
             if (object.getString("status").equals("error")) {
                 throw new IOException("Error reporting ABTestEvent: " +

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:36+0000\n"
-"Last-Translator: Jean-Baptiste Richardet <jeanbaptiste.richardet@gmail.com>\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-10-27 13:51+0000\n"
+"Last-Translator: Patrick Fiquet <Unknown>\n"
 "Language-Team: fr <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -92,6 +92,40 @@ msgstr "Mes tâches partagées"
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "Aucune tâche partagée"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr "Vous avez bloqué %s."
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr ""
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr ""
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -378,12 +412,12 @@ msgstr "Veuillez vous connecter sur Google :"
 #. Login error: user exists
 msgctxt "actfm_ALA_error_user_exists"
 msgid "User already exists. Please sign in instead."
-msgstr ""
+msgstr "L'utilisateur existe déjà. Veuillez plutôt vous identifier."
 
 #. Login error: wrong password
 msgctxt "actfm_ALA_error_wrong_password"
 msgid "Sorry, that password was incorrect. Please try again."
-msgstr ""
+msgstr "Désolé, ce mot de passe est incorrect. Veuillez réessayer."
 
 #. ================================================ Featured Lists
 msgctxt "actfm_feat_list_clone"
@@ -570,7 +604,7 @@ msgstr "Options"
 #. slide 48b: Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
 msgid "Automatic backups"
-msgstr "Sauvegarde automatique"
+msgstr "Sauvegardes automatiques"
 
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
@@ -618,12 +652,12 @@ msgstr "Cliquez ici pour une sauvegarde à distance gratuite sur Astrid.com"
 #. Message displayed when error occurs
 msgctxt "backup_TXI_error"
 msgid "Import error"
-msgstr "Erreur lors de l'importation"
+msgstr "Erreur d'importation"
 
 #, c-format
 msgctxt "export_toast"
 msgid "Backed up %1$s to %2$s."
-msgstr "Sauvegarde de %1$s à %2$s"
+msgstr "Sauvegardé %1$s dans %2$s."
 
 msgctxt "export_toast_no_tasks"
 msgid "No tasks to export."
@@ -682,7 +716,7 @@ msgstr "Impossible d'accéder à la carte SD !"
 #. Backup: File Selector dialog for import
 msgctxt "import_file_prompt"
 msgid "Select a file to restore"
-msgstr "Choisissez un fichier à restorer"
+msgstr "Choisissez un fichier à restaurer"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -1037,7 +1071,7 @@ msgstr "Copier la tâche"
 #. Context Item: delete task
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
-msgstr ""
+msgstr "Supprimer la tâche"
 
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
@@ -1562,6 +1596,166 @@ msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "Vous pouvez toujours envoyer un message..."
 
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr "Ignorer tous les événements"
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr "Ignorer uniquement cet événement"
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr ""
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr "Peut-être plus tard"
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr "Liste déjà existante"
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+"Une liste appelée %s existe déjà. Voulez-vous utiliser la liste existante ou "
+"en créer une nouvelle pour cet événement ?"
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr ""
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr ""
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr ""
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr ""
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr ""
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr ""
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr ""
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr ""
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr ""
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr "Partager la liste ?"
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr "Plus d'options"
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr "Non merci"
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr "Liste créée !"
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr ""
+
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
 #. ==================================================== UpdateService ==
@@ -1656,12 +1850,12 @@ msgstr "Taille de la police pour la page principale des listes"
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show notes in task"
-msgstr "Afficher les notes de la tâche"
+msgstr "Afficher les notes des tâches"
 
 #. slide 30e: Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize task edit screen"
-msgstr "Personnaliser l'écran d'édition de tâche"
+msgstr "Personnaliser l'écran de modification de tâches"
 
 #. slide 35h
 msgctxt "EPr_beastMode_desc"
@@ -2214,7 +2408,7 @@ msgstr "Actuellement : %s"
 #. slide 40a: Preference: Default Importance Title
 msgctxt "EPr_default_importance_title"
 msgid "Default importance"
-msgstr "Priorié par défaut"
+msgstr "Priorité par défaut"
 
 #. Preference: Default Importance Description (%s => setting)
 #, c-format
@@ -3495,6 +3689,16 @@ msgstr ""
 "différent. Pour ajouter une adresse mail à votre compte, allez sur "
 "astrid.com/users/profile"
 
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
+msgstr ""
+
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
@@ -4612,7 +4816,7 @@ msgstr "Comment fais-tu cela ? Wow, je suis impressionnée !"
 
 msgctxt "reminder_responses:21"
 msgid "You can't just get by on your good looks. Let's get to it!"
-msgstr ""
+msgstr "Vous ne vous en sortirez pas juste sur votre bonne mine. Allons-y!"
 
 msgctxt "reminder_responses:22"
 msgid "Lovely weather for a job like this, isn't it?"

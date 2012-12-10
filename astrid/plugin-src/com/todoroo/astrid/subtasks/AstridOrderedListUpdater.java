@@ -2,7 +2,9 @@ package com.todoroo.astrid.subtasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,24 +75,54 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     private void verifyTreeModel(LIST list, Filter filter) {
-        boolean addedThings = false;
+        boolean changedThings = false;
+        Set<Long> keySet = idToNode.keySet();
+        Set<Long> currentIds = new HashSet<Long>();
+        for (Long id : keySet) {
+            currentIds.add(id);
+        }
+        Set<Long> idsInQuery = new HashSet<Long>();
         TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 Long id = tasks.getLong(0);
+                idsInQuery.add(id);
                 if (idToNode.containsKey(id))
                     continue;
 
-                addedThings = true;
+                changedThings = true;
                 Node newNode = new Node(id, treeRoot, 0);
                 treeRoot.children.add(newNode);
                 idToNode.put(id, newNode);
             }
+
+            currentIds.removeAll(idsInQuery);
+            if (currentIds.size() > 0) {
+                removeNodes(currentIds);
+                changedThings = true;
+            }
         } finally {
             tasks.close();
         }
-        if (addedThings)
+        if (changedThings)
             writeSerialization(list, serializeTree());
+    }
+
+    private void removeNodes(Set<Long> idsToRemove) {
+        for (Long id : idsToRemove) {
+            Node node = idToNode.get(id);
+            if (node == null)
+                continue;
+
+            // Remove node from tree, put all children under parent
+            Node parent = node.parent;
+            parent.children.remove(node);
+            for (Node child : node.children) {
+                child.parent = parent;
+                parent.children.add(child);
+                setNodeIndent(child, parent.indent + 1);
+            }
+        }
     }
 
     public Node findNodeForTask(long taskId) {
@@ -313,7 +345,8 @@ public abstract class AstridOrderedListUpdater<LIST> {
         ArrayList<Node> siblings = parent.children;
         int index = siblings.indexOf(task);
 
-        siblings.remove(index);
+        if (index >= 0)
+            siblings.remove(index);
         for (Node child : task.children) {
             child.parent = parent;
             siblings.add(index, child);

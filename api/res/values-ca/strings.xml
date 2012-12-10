@@ -55,8 +55,6 @@
   <string name="today">Avui</string>
   <string name="tomorrow">Demà</string>
   <string name="yesterday">Ahir</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
   <string name="DLG_confirm_title">Confirmar?</string>
   <string name="DLG_question_title">Pregunta:</string>
   <string name="DLG_information_title">Informació</string>
@@ -71,36 +69,23 @@
   <string name="DLG_wait">Si us plau, espera...</string>
   <string name="SyP_progress">Sincronitzant les seves tasques...</string>
   <string name="SyP_progress_toast">S\'està sincronitzant...</string>
-  <string name="SyP_label">Sync &amp; backup</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Error de conexió! Verifiqui la conexió d\'internet.</string>
   <string name="sync_SPr_group_status">Estat</string>
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <string name="sync_status_loggedout">Not logged in</string>
   <string name="sync_status_ongoing">Sincronització en curs...</string>
   <string name="sync_status_success">Última sincronització:\n%s</string>
   <string name="sync_status_failed">Fallida el: %s</string>
-  <string name="sync_status_errors">Sync w/ errors: %s</string>
   <string name="sync_status_failed_subtitle">Última sincronització correcte: %s</string>
   <string name="sync_status_never">Mai sincronitzat!</string>
   <string name="sync_SPr_group_options">Opcions</string>
   <string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
   <string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
   <string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
-  <string name="sync_SPr_bgwifi_title">Wifi only setting</string>
   <string name="sync_SPr_bgwifi_desc_enabled">La sincronització en segon pla només funciona amb el Wifi activat.</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Sempre es produirà la sincronització en segon pla</string>
   <string name="sync_SPr_group_actions">Accions</string>
-  <string name="sync_SPr_sync">Synchronize now</string>
-  <string name="sync_SPr_sync_log_in">Log in &amp; synchronize!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_last_error">Status report</string>
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
-  <string name="sync_SPr_send_report">Send report</string>
   <string name="sync_SPr_forget">Surt</string>
   <string name="sync_SPr_forget_description">Esborra tota la informació de sincronització</string>
   <string name="sync_forget_confirm">Tancar sessió / esborra la informació de sincronització?</string>
-  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>desactivat</item>
     <item>cada quince minuts</item>

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:37+0000\n"
-"Last-Translator: R.I.P. <rip239@gmail.com>\n"
+"POT-Creation-Date: 2012-10-26 14:31-0700\n"
+"PO-Revision-Date: 2012-11-05 13:49+0000\n"
+"Last-Translator: Alexandr Belugin <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -50,7 +50,7 @@ msgstr "1 неделя"
 #, c-format
 msgctxt "DUt_days:quantity=other"
 msgid "%d Days"
-msgstr "%d для/дней"
+msgstr "%d дня/дней"
 
 msgctxt "DUt_days:quantity=one"
 msgid "1 Day"
@@ -250,6 +250,7 @@ msgstr "Синхронизация"
 msgctxt "SyP_summary"
 msgid "Astrid.com, Google Tasks, saved data, local backup"
 msgstr ""
+"Astrid.com, Задачи Google, сохраненные данные, локальная резервная копия"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -380,7 +381,7 @@ msgstr "Нажмите, чтобы отправить отчет команде 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send report"
-msgstr "Послать отчёт"
+msgstr "Отправить отчет"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"

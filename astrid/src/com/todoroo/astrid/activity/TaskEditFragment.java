@@ -1408,7 +1408,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged()  {
-        if (mPager.getCurrentItem() == TAB_VIEW_UPDATES)
+        if (mPager != null && mPager.getCurrentItem() == TAB_VIEW_UPDATES)
             setPagerHeightForPosition(TAB_VIEW_UPDATES);
     }
 

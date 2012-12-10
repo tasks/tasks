@@ -69,6 +69,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitLocationManager.LocationResult;
+import com.todoroo.astrid.ui.ErrorCatchingListView;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
@@ -897,7 +898,7 @@ public class TaskRabbitActivity extends FragmentActivity {
         String[] keys = getResources().getStringArray(R.array.tr_preset_types);
         if (adapter == null) {
             adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);
-            menuList = new ListView(this);
+            menuList = new ErrorCatchingListView(this);
             menuList.setAdapter(adapter);
             menuList.setCacheColorHint(Color.TRANSPARENT);
 

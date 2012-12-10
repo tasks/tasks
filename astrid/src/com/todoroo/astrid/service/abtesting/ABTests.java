@@ -8,6 +8,11 @@ package com.todoroo.astrid.service.abtesting;
 import java.util.HashMap;
 import java.util.Set;
 
+import android.accounts.Account;
+import android.content.Context;
+
+import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+
 /**
  * Helper class to define options with their probabilities and descriptions
  * @author Sam Bosley <sam@astrid.com>
@@ -18,6 +23,30 @@ public class ABTests {
     public ABTests() {
         bundles = new HashMap<String, ABTestBundle>();
         initialize();
+    }
+
+    /**
+     * Initialization for any tests that require a context or other logic
+     * to be initialized should go here. This method is called from the startup
+     * service before any test choices are made, so it is safe to add
+     * tests here. It's also ok if this method is a no-op sometimes.
+     * @param context
+     */
+    public void externalInit(Context context) {
+        // The outer 'if' statement is to prevent one test from being added one time
+        // and the other from being added later if the accounts changed
+        if (ABChooser.readChoiceForTest(AB_NEW_LOGIN_NO_GOOGLE) == ABChooser.NO_OPTION
+                && ABChooser.readChoiceForTest(AB_NEW_LOGIN_YES_GOOGLE) == ABChooser.NO_OPTION) {
+            GoogleAccountManager am = new GoogleAccountManager(context);
+            Account[] accounts = am.getAccounts();
+            if (accounts == null || accounts.length == 0) {
+                addTest(AB_NEW_LOGIN_NO_GOOGLE, new int[] { 1, 1 },
+                        new int[] { 1, 0 }, new String[] { "old-welcome", "new-welcome" });  //$NON-NLS-1$//$NON-NLS-2$
+            } else {
+                addTest(AB_NEW_LOGIN_YES_GOOGLE, new int[] { 1, 1, 1 },
+                        new int[] { 1, 0, 0 }, new String[] { "old-welcome", "new-welcome", "new-quick-welcome" });  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+            }
+        }
     }
 
     /**
@@ -119,10 +148,6 @@ public class ABTests {
         bundles.put(testKey, bundle);
     }
 
-    public static final String AB_SIMPLE_TASK_ROW = "android_simple_task_row";  //$NON-NLS-1$
-
-    public static final String AB_CALENDAR_REMINDERS = "android_cal_reminders";  //$NON-NLS-1$
-
     public static final String AB_FEATURED_LISTS = "android_featured_lists"; //$NON-NLS-1$
 
     public static final String AB_SOCIAL_REMINDERS = "android_social_reminders";  //$NON-NLS-1$
@@ -131,16 +156,14 @@ public class ABTests {
 
     public static final String AB_DEFAULT_EDIT_TAB = "android_default_edit_tab"; //$NON-NLS-1$
 
+    public static final String AB_NEW_LOGIN_NO_GOOGLE = "android_new_login_n_google"; //$NON-NLS-1$
+
+    public static final String AB_NEW_LOGIN_YES_GOOGLE = "android_new_login_y_google"; //$NON-NLS-1$
+
     private void initialize() {
 
         addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "featured-lists-disabled", "featured-lists-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_SIMPLE_TASK_ROW, new int[] { 1, 1 },
-                new int[] { 1, 0 }, new String[] { "original-row-style", "simple-row-style" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_CALENDAR_REMINDERS, new int[] { 3, 1 },
-                new int[] { 3, 1 }, new String[] { "no-cal-reminders", "show-cal-reminders" }); //$NON-NLS-1$ //$NON-NLS-2$
 
         addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }); //$NON-NLS-1$ //$NON-NLS-2$

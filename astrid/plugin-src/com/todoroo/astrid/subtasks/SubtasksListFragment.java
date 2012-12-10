@@ -13,7 +13,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
 /**
@@ -33,9 +32,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        AstridOrderedListFragmentHelper<TagData> olfh =
-            new AstridOrderedListFragmentHelper<TagData>(this, new SubtasksUpdater());
-        olfh.setList(getActiveTagData());
+        AstridOrderedListFragmentHelper<String> olfh =
+            new AstridOrderedListFragmentHelper<String>(this, new SubtasksFilterUpdater());
         return olfh;
     }
 
@@ -53,6 +51,12 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     public void setUpTaskList() {
+        if (helper instanceof AstridOrderedListFragmentHelper) {
+            if (isTodayFilter)
+                ((AstridOrderedListFragmentHelper<String>) helper).setList(SubtasksUpdater.TODAY_TASKS_ORDER);
+            else if (isInbox)
+                ((AstridOrderedListFragmentHelper<String>) helper).setList(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+        }
         helper.beforeSetUpTaskList(filter);
 
         super.setUpTaskList();
@@ -80,6 +84,11 @@ public class SubtasksListFragment extends TaskListFragment {
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
         return helper.createTaskAdapter(cursor, sqlQueryTemplate);
+    }
+
+    @Override
+    protected void refresh() {
+        setUpTaskList();
     }
 
 }

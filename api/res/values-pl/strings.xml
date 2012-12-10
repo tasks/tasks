@@ -72,7 +72,6 @@
   <string name="SyP_progress">Synchronizowanie Twoich zadań...</string>
   <string name="SyP_progress_toast">Synchronizacja...</string>
   <string name="SyP_label">Synchronizacja</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem!</string>
   <string name="sync_SPr_group_status">Stan</string>
   <string name="sync_SPr_status_subtitle">Status: %s</string>
@@ -94,7 +93,6 @@
   <string name="sync_SPr_sync">Synchronizuj teraz</string>
   <string name="sync_SPr_sync_log_in">Zaloguj &amp; Synchronizuj!</string>
   <string name="sync_SPr_logged_in_prefix">Zalogowany jako:</string>
-  <string name="sync_SPr_last_error">Status report</string>
   <string name="sync_SPr_last_error_subtitle">Kliknij by wysłać raport do zespłu Astrid</string>
   <string name="sync_SPr_send_report">Wyślij raport</string>
   <string name="sync_SPr_forget">Wyloguj</string>

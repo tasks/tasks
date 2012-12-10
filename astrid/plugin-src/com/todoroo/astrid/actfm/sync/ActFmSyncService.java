@@ -133,9 +133,9 @@ public final class ActFmSyncService {
     private Thread pushRetryThread = null;
     private Runnable pushRetryRunnable;
 
-    private Thread pushTagOrder = null;
+    private Thread pushOrderThread = null;
     private Runnable pushTagOrderRunnable;
-    private final List<Long> tagOrderQueue = Collections.synchronizedList(new LinkedList<Long>());
+    private final List<Object> pushOrderQueue = Collections.synchronizedList(new LinkedList<Object>());
 
     private final AtomicInteger taskPushThreads = new AtomicInteger(0);
     private final ConditionVariable waitUntilEmpty = new ConditionVariable(true);
@@ -265,18 +265,28 @@ public final class ActFmSyncService {
             @Override
             public void run() {
                 while (true) {
-                    if(tagOrderQueue.isEmpty()) {
+                    if(pushOrderQueue.isEmpty()) {
                         synchronized(ActFmSyncService.this) {
-                            pushTagOrder = null;
+                            pushOrderThread = null;
                             return;
                         }
                     }
-                    if (tagOrderQueue.size() > 0) {
+                    if (pushOrderQueue.size() > 0) {
                         AndroidUtilities.sleepDeep(WAIT_BEFORE_PUSH_ORDER);
-                        Long tagDataId = tagOrderQueue.remove(0);
-                        TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
-                        if (td != null) {
-                            pushTagOrdering(td);
+                        try {
+                            Object id = pushOrderQueue.remove(0);
+                            if (id instanceof Long) {
+                                Long tagDataId = (Long) id;
+                                TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
+                                if (td != null) {
+                                    pushTagOrdering(td);
+                                }
+                            } else if (id instanceof String) {
+                                String filterId = (String) id;
+                                pushFilterOrdering(filterId);
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            // In case element was removed
                         }
                     }
                 }
@@ -582,16 +592,55 @@ public final class ActFmSyncService {
         pushUpdateOnSave(update, update.getMergedValues(), imageData);
     }
 
+    //----------------- Push ordering
     public void pushTagOrderingOnSave(long tagDataId) {
-        if (!tagOrderQueue.contains(tagDataId)) {
-            tagOrderQueue.add(tagDataId);
+        pushOrderingOnSave(tagDataId);
+    }
+
+    public void pushFilterOrderingOnSave(String filterId) {
+        pushOrderingOnSave(filterId);
+    }
+
+    private void pushOrderingOnSave(Object id) {
+        if (!pushOrderQueue.contains(id)) {
+            pushOrderQueue.add(id);
             synchronized(this) {
-                if(pushTagOrder == null) {
-                    pushTagOrder = new Thread(pushTagOrderRunnable);
-                    pushTagOrder.start();
+                if(pushOrderThread == null) {
+                    pushOrderThread = new Thread(pushTagOrderRunnable);
+                    pushOrderThread.start();
                 }
             }
         }
+    }
+
+    public void pushTagOrderingImmediately(TagData tagData) {
+        if (pushOrderQueue.contains(tagData.getId())) {
+            pushOrderQueue.remove(tagData.getId());
+        }
+        pushTagOrdering(tagData);
+    }
+
+    public void pushFilterOrderingImmediately(String filterId) {
+        if (pushOrderQueue.contains(filterId)) {
+            pushOrderQueue.remove(filterId);
+        }
+        pushFilterOrdering(filterId);
+    }
+
+    public boolean cancelTagOrderingPush(long tagDataId) {
+        if (pushOrderQueue.contains(tagDataId)) {
+            pushOrderQueue.remove(tagDataId);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cancelFilterOrderingPush(String filterId) {
+        if (pushOrderQueue.contains(filterId)) {
+            pushOrderQueue.remove(filterId);
+            return true;
+        }
+        return false;
     }
 
     private void pushTagOrdering(TagData tagData) {
@@ -607,15 +656,61 @@ public final class ActFmSyncService {
 
         ArrayList<Object> params = new ArrayList<Object>();
 
-        params.add("id"); params.add(remoteId);
+        params.add("tag_id"); params.add(remoteId);
         params.add("order");
         params.add(SubtasksHelper.convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING)));
         params.add("token"); params.add(token);
 
         try {
-            actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
+            actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
         } catch (IOException e) {
             handleException("push-tag-order", e);
+        }
+    }
+
+    private void pushFilterOrdering(String filterLocalId) {
+        if (!checkForToken())
+            return;
+
+        String filterId = SubtasksHelper.serverFilterOrderId(filterLocalId);
+        if (filterId == null)
+            return;
+
+        // Make sure that all tasks are pushed before attempting to sync filter ordering
+        waitUntilEmpty();
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        String order = Preferences.getStringValue(filterLocalId);
+        if (order == null || "null".equals(order))
+            order = "[]";
+
+        params.add("filter"); params.add(filterId);
+        params.add("order"); params.add(SubtasksHelper.convertTreeToRemoteIds(order));
+        params.add("token"); params.add(token);
+
+        try {
+            actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
+        } catch (IOException e) {
+            handleException("push-filter-order", e);
+        }
+    }
+
+    public void fetchFilterOrder(String localFilterId) {
+        if (!checkForToken())
+            return;
+
+        String filterId = SubtasksHelper.serverFilterOrderId(localFilterId);
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add("filter"); params.add(filterId);
+        params.add("token"); params.add(token);
+
+        try {
+            JSONObject result = actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
+            String order = result.optString("order");
+            if (!TextUtils.isEmpty(order) && !"null".equals(order))
+                Preferences.setString(localFilterId, SubtasksHelper.convertTreeToLocalIds(order));
+        } catch (IOException e) {
+            handleException("fetch-filter-order", e);
         }
     }
 
@@ -1108,7 +1203,14 @@ public final class ActFmSyncService {
         try {
             if (!checkForToken())
                 throw new ActFmServiceException("Not logged in", null);
-            actFmInvoker.invoke("premium_update_android", "purchase_token", purchaseToken, "product_id", productId, "token", token);
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add("purchase_token"); params.add(purchaseToken);
+            params.add("product_id"); params.add(productId);
+            addAbTestEventInfo(params);
+            params.add("token"); params.add(token);
+
+            actFmInvoker.invoke("premium_update_android", params.toArray(new Object[params.size()]));
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
             if (onSuccess != null)
                 onSuccess.run();

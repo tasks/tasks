@@ -112,6 +112,7 @@
 	      android:paddingRight="20dip"
 	      android:paddingBottom="5dip"
 	      android:textSize="16sp"
+	      android:text="@string/welcome_login_later"
 	      android:textColor="#444444" />
 	      
   </RelativeLayout>

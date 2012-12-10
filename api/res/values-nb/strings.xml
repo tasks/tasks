@@ -55,8 +55,6 @@
   <string name="today">I dag</string>
   <string name="tomorrow">I morgen</string>
   <string name="yesterday">I går</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
   <string name="DLG_confirm_title">Bekreft?</string>
   <string name="DLG_question_title">Spørsmål:</string>
   <string name="DLG_information_title">Informasjon</string>
@@ -71,16 +69,10 @@
   <string name="DLG_wait">Vennligst vent...</string>
   <string name="SyP_progress">Synkroniserer oppgavene dine...</string>
   <string name="SyP_progress_toast">Synkroniserer...</string>
-  <string name="SyP_label">Sync &amp; backup</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Tilkoblingsfeil! Kontroller tilkoblingen til Internett</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <string name="sync_status_loggedout">Not logged in</string>
   <string name="sync_status_ongoing">Synkronisering pågår...</string>
   <string name="sync_status_success">Siste synkronisering:\n%s</string>
   <string name="sync_status_failed">Mislykket: %s</string>
-  <string name="sync_status_errors">Sync w/ errors: %s</string>
   <string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
   <string name="sync_status_never">Aldri synkronisert!</string>
   <string name="sync_SPr_group_options">Alternativer</string>
@@ -91,16 +83,10 @@
   <string name="sync_SPr_bgwifi_desc_enabled">Bakgrunnssynkronisering skjer kun med Wifi-tilkobling</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Bakgrunnssynkronisering skjer alltid</string>
   <string name="sync_SPr_group_actions">Handlinger</string>
-  <string name="sync_SPr_sync">Synchronize now</string>
   <string name="sync_SPr_sync_log_in">Logg inn &amp; Synkroniser!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_last_error">Status report</string>
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
-  <string name="sync_SPr_send_report">Send report</string>
   <string name="sync_SPr_forget">Logg ut</string>
   <string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
   <string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
-  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>deaktiver</item>
     <item>hvert kvarter</item>

@@ -78,6 +78,9 @@ public class StatisticsConstants {
     public static final String PREMIUM_PAGE_VIEWED = "premium-page-viewed";
     public static final String FEATURED_LIST_CLONED = "featured-list-cloned";
 
+    public static final String ACTFM_LOGIN_SIMPLE = "actfm-login-simple";
+    public static final String ACTFM_LOGIN_SIMPLE_REJECTED = "actfm-login-simple-rejected";
+
     public static final String SUBTASKS_HAS_TASKS = "subtasks-has-tasks";
     public static final String SUBTASKS_ORDER_USED = "subtasks-order-used";
     public static final String SUBTASKS_INDENT_USED = "subtasks-indent-used";
@@ -90,9 +93,4 @@ public class StatisticsConstants {
     public static final String PREF_SHOW_FEATURED_LISTS = "pref-show-featured-lists";
 
     public static final String PREF_CHANGED_PREFIX = "pref-changed-";
-
-    public static final String TASK_THREE_DAYS = "task-created-three-days";
-    public static final String TASK_ONE_WEEK = "task-created-one-week";
-    public static final String TASK_TWO_WEEKS = "task-created-two-weeks";
-    public static final String TASK_THREE_WEEKS = "task-created-three-weeks";
 }

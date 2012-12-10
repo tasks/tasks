@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
 "PO-Revision-Date: 2012-10-05 22:28+0000\n"
 "Last-Translator: Tim Su <tim@todoroo.com>\n"
 "Language-Team: pl <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -92,6 +92,40 @@ msgstr "Moje współdzielone zadania"
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "Brak zadań współdzielonych"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr ""
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr ""
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -1557,6 +1591,164 @@ msgstr "Dasz radę!"
 msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "Zawsze możesz odpisać..."
+
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr ""
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr ""
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr ""
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr ""
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr ""
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr ""
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr ""
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr ""
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr ""
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr ""
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr ""
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr ""
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr ""
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr ""
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr ""
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr ""
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr ""
 
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
@@ -3439,6 +3631,16 @@ msgid ""
 "The premium subscription for this Google Play account is connected to a "
 "different user. To link additional emails to your account, visit "
 "astrid.com/users/profile"
+msgstr ""
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the

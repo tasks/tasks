@@ -20,7 +20,6 @@
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s的工作，點擊以檢視所有</string>
   <string name="actfm_TVA_filter_by_unassigned">未指定的任務工作，點擊查看全部</string>
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">重新整理</string>
   <string name="actfm_TVA_tag_label">列表名稱：</string>
   <string name="actfm_TVA_members_label">合作者：</string>
@@ -672,7 +671,7 @@
   <string name="premium_description_5">提前體驗亮點</string>
   <string name="premium_description_6">支持Astrid團隊！</string>
   <string name="premium_speech_bubble_1">高級版本能夠讓您的效率升級！</string>
-  <string name="premium_speech_bubble_2">購買一年的服務並且得到25%%的折扣</string>
+  <string name="premium_speech_bubble_2">購買一年的服務並且得到25%的折扣</string>
   <string name="premium_already_subscribed">您已經購買了Astrid Premium！</string>
   <string name="premium_login_prompt">為了成功購買高級版本，您需要一個Astrid.com的賬戶。 請在我們的網站上登錄或者註冊。</string>
   <string name="premium_success">謝謝購買Astrid Premium！</string>

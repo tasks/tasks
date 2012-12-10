@@ -14,7 +14,7 @@
   </plurals>
   <plurals name="DUt_days">
     <item quantity="one">1 день</item>
-    <item quantity="other">%d для/дней</item>
+    <item quantity="other">%d дня/дней</item>
   </plurals>
   <plurals name="DUt_weekdays">
     <item quantity="one">1 рабочий день</item>
@@ -72,7 +72,7 @@
   <string name="SyP_progress">Синхронизация задач…</string>
   <string name="SyP_progress_toast">Синхронизация…</string>
   <string name="SyP_label">Синхронизация</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
+  <string name="SyP_summary">Astrid.com, Задачи Google, сохраненные данные, локальная резервная копия</string>
   <string name="SyP_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
   <string name="sync_SPr_group_status">Состояние</string>
   <string name="sync_SPr_status_subtitle">Состояние: %s</string>
@@ -96,7 +96,7 @@
   <string name="sync_SPr_logged_in_prefix">Вы вошли в систему как:</string>
   <string name="sync_SPr_last_error">Отчёт о состоянии</string>
   <string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Astrid</string>
-  <string name="sync_SPr_send_report">Послать отчёт</string>
+  <string name="sync_SPr_send_report">Отправить отчет</string>
   <string name="sync_SPr_forget">Выход</string>
   <string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
   <string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>

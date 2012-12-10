@@ -32,13 +32,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.ui.ErrorCatchingListView;
 
 @SuppressWarnings("nls")
-public class TouchListView extends ListView {
+public class TouchListView extends ErrorCatchingListView {
 	private ImageView mDragView;
 	private View mOriginalView;
 	private WindowManager mWindowManager;

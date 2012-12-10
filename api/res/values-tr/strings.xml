@@ -71,8 +71,6 @@
   <string name="DLG_wait">Lütfen bekleyin...</string>
   <string name="SyP_progress">Görevleriniz eşleniyor...</string>
   <string name="SyP_progress_toast">Eşleniyor...</string>
-  <string name="SyP_label">Sync &amp; backup</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
   <string name="SyP_ioerror">Bağlantı Hatası! Internet bağlantınızı kontrol edin.</string>
   <string name="sync_SPr_group_status">Durum</string>
   <string name="sync_SPr_status_subtitle">Durum: %s</string>

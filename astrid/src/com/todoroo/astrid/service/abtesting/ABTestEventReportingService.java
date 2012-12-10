@@ -21,10 +21,12 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.TaskService;
 
 /**
  * Service to manage the reporting of launch events for AB testing.
@@ -44,6 +46,11 @@ public final class ABTestEventReportingService {
     private static final String KEY_DAYS = "days";
     private static final String KEY_DATE = "date";
 
+    private static final String KEY_INITIAL = "initial";
+    private static final String KEY_ACTIVATION = "activation";
+
+    private static final String PREF_REPORTED_ACTIVATION = "p_reported_activation";
+
     @Autowired
     private ABTestEventDao abTestEventDao;
 
@@ -52,6 +59,9 @@ public final class ABTestEventReportingService {
 
     @Autowired
     private ABTests abTests;
+
+    @Autowired
+    private TaskService taskService;
 
     public ABTestEventReportingService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -69,6 +79,7 @@ public final class ABTestEventReportingService {
                 try {
                     abTestEventDao.createRelativeDateEvents();
                     pushAllUnreportedABTestEvents();
+                    reportUserActivation();
                 } catch (SQLiteException e) {
                     StartupService.handleSQLiteError(context, e);
                 }
@@ -86,7 +97,7 @@ public final class ABTestEventReportingService {
             if (unreported.getCount() > 0) {
                 try {
                     JSONArray payload = jsonArrayFromABTestEvents(unreported);
-                    abTestInvoker.post(payload);
+                    abTestInvoker.post(ABTestInvoker.AB_RETENTION_METHOD, payload);
                     ABTestEvent model = new ABTestEvent();
                     for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
                         model.readFromCursor(unreported);
@@ -100,6 +111,29 @@ public final class ABTestEventReportingService {
                 } finally {
                     unreported.close();
                 }
+            }
+        }
+    }
+
+    private void reportUserActivation() {
+        synchronized (ABTestEventReportingService.class) {
+            if (StatisticsService.dontCollectStatistics())
+                return;
+            if (Preferences.getBoolean(PREF_REPORTED_ACTIVATION, false) || !taskService.getUserActivationStatus())
+                return;
+
+            final TodorooCursor<ABTestEvent> variants = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
+                    .groupBy(ABTestEvent.TEST_NAME));
+            try {
+                JSONArray payload = jsonArrayForActivationAnalytics(variants);
+                abTestInvoker.post(ABTestInvoker.AB_ACTIVATION_METHOD, payload);
+                Preferences.setBoolean(PREF_REPORTED_ACTIVATION, true);
+            } catch (JSONException e) {
+                handleException(e);
+            } catch (IOException e) {
+                handleException(e);
+            } finally {
+                variants.close();
             }
         }
     }
@@ -156,6 +190,24 @@ public final class ABTestEventReportingService {
         }
         if (testAcc != null)
             result.put(testAcc);
+        return result;
+    }
+
+    private static JSONArray jsonArrayForActivationAnalytics(TodorooCursor<ABTestEvent> events) throws JSONException {
+        JSONArray result = new JSONArray();
+
+        ABTestEvent model = new ABTestEvent();
+        for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
+            model.readFromCursor(events);
+            JSONObject event = new JSONObject();
+            event.put(KEY_TEST, model.getValue(ABTestEvent.TEST_NAME));
+            event.put(KEY_VARIANT, model.getValue(ABTestEvent.TEST_VARIANT));
+            if (model.getValue(ABTestEvent.ACTIVATED_USER) > 0)
+                event.put(KEY_INITIAL, true);
+            else
+                event.put(KEY_ACTIVATION, true);
+            result.put(event);
+        }
         return result;
     }
 

@@ -72,7 +72,7 @@
   <string name="SyP_progress">Synchronisation de vos tâches...</string>
   <string name="SyP_progress_toast">Synchronisation...</string>
   <string name="SyP_label">Synchronisation</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
+  <string name="SyP_summary">Astrid.com, Tâches Google, données enregistrées, sauvegarde locale</string>
   <string name="SyP_ioerror">Erreur de connexion ! Veuillez vérifier votre connexion Internet.</string>
   <string name="sync_SPr_group_status">Statut</string>
   <string name="sync_SPr_status_subtitle">État : %s</string>

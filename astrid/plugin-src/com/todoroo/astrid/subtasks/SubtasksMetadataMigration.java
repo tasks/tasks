@@ -11,6 +11,8 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -26,6 +28,12 @@ public class SubtasksMetadataMigration {
 
     @Autowired
     private MetadataService metadataService;
+
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    private ActFmSyncService actFmSyncService;
 
     public SubtasksMetadataMigration() {
         DependencyInjectionService.getInstance().inject(this);
@@ -72,6 +80,9 @@ public class SubtasksMetadataMigration {
             if (td != null) {
                 td.setValue(TagData.TAG_ORDERING, newTree);
                 tagDataService.save(td);
+                if (actFmPreferenceService.isLoggedIn()) {
+                    actFmSyncService.pushTagOrderingOnSave(td.getId());
+                }
             } else {
                 Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, newTree);
             }
@@ -90,8 +101,11 @@ public class SubtasksMetadataMigration {
                 break;
 
             int indent = 0;
-            if (item.containsNonNullValue(SubtasksMetadata.INDENT))
-                indent = item.getValue(SubtasksMetadata.INDENT);
+            if (item.containsNonNullValue(SubtasksMetadata.INDENT)) {
+                Integer i = item.getValue(SubtasksMetadata.INDENT);
+                if (i != null)
+                    indent = i.intValue();
+            }
             Node parent = findNextParentForIndent(root, indent);
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);

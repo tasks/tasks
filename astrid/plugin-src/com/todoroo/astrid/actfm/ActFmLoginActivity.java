@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -215,13 +214,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         return link;
     }
 
-    private void setupSignIn(TextView signIn) {
-        signIn.setOnClickListener(signInListener);
-        SpannableString content = new SpannableString(getString(R.string.welcome_sign_in));
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        signIn.setText(content);
-    }
-
     @SuppressWarnings("nls")
     protected void initializeUI() {
         facebook = new Facebook(APP_ID);
@@ -239,11 +231,11 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         if(AmazonMarketStrategy.isKindleFire())
             googleLogin.setVisibility(View.GONE);
         googleLogin.setOnClickListener(googleListener);
-        Button signUp = (Button) findViewById(R.id.pw_signup);
+        TextView signUp = (TextView) findViewById(R.id.pw_signup);
         signUp.setOnClickListener(signUpListener);
 
         TextView signIn = (TextView) findViewById(R.id.pw_login);
-        setupSignIn(signIn);
+        signIn.setOnClickListener(signInListener);
 
         setupTermsOfService((TextView) findViewById(R.id.tos));
     }
@@ -625,8 +617,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         if (resultCode == RESULT_CANCELED)
             return;
 
-        if (requestCode == REQUEST_CODE_GOOGLE_ACCOUNTS) {
-            String accounts[] = data.getExtras().getStringArray(
+        if (requestCode == REQUEST_CODE_GOOGLE_ACCOUNTS && data != null && credentialsListener != null) {
+            String accounts[] = data.getStringArrayExtra(
                     GoogleLoginServiceConstants.ACCOUNTS_KEY);
             credentialsListener.getCredentials(accounts);
         } else if (requestCode == LoginButton.REQUEST_CODE_FACEBOOK) {

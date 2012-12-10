@@ -39,6 +39,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagMetadata;
@@ -241,8 +242,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 } finally {
                     callback.incrementProgress(20);
                     if(finisher.decrementAndGet() == 0) {
-                        actFmPreferenceService.recordSuccessfulSync();
-                        callback.finished();
+                        finishSync(callback);
                     }
                 }
             }
@@ -317,10 +317,23 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** @return runnable to fetch changes to tags */
     private void startTaskFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
+        final boolean pushActiveTasksOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+        final boolean pushTodayOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.TODAY_TASKS_ORDER);
+
         actFmSyncService.fetchActiveTasks(manual, handler, new Runnable() {
             @Override
             public void run() {
                 pushQueuedTasks(callback, finisher);
+
+                if (pushActiveTasksOrder)
+                    actFmSyncService.pushFilterOrderingImmediately(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+                else
+                    actFmSyncService.fetchFilterOrder(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+
+                if (pushTodayOrder)
+                    actFmSyncService.pushFilterOrderingImmediately(SubtasksUpdater.TODAY_TASKS_ORDER);
+                else
+                    actFmSyncService.fetchFilterOrder(SubtasksUpdater.TODAY_TASKS_ORDER);
 
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0) {
@@ -454,7 +467,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
                 if(!noRemoteId) {
                     actFmSyncService.waitUntilEmpty();
-                    fetchTasksForTag(tagData, manual, callback, finisher);
+                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId());
+                    fetchTasksForTag(tagData, manual, orderPushQueued, callback, finisher);
                     fetchUpdatesForTag(tagData, manual, callback, finisher);
                 }
 
@@ -495,7 +509,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     actFmSyncService.fetchTag(tagData);
 
                     if(noRemoteId) {
-                        fetchTasksForTag(tagData, manual, callback, finisher);
+                        fetchTasksForTag(tagData, manual, true, callback, finisher);
                         fetchUpdatesForTag(tagData, manual, callback, finisher);
                     }
 
@@ -528,14 +542,17 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         });
     }
 
-    private void fetchTasksForTag(final TagData tagData, boolean manual, final SyncResultCallback callback,
+    private void fetchTasksForTag(final TagData tagData, boolean manual, final boolean pushOrder, final SyncResultCallback callback,
             final AtomicInteger finisher) {
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
                 pushQueuedTasksByTag(tagData, callback, finisher);
 
-                actFmSyncService.fetchTagOrder(tagData);
+                if (pushOrder)
+                    actFmSyncService.pushTagOrderingImmediately(tagData);
+                else
+                    actFmSyncService.fetchTagOrder(tagData);
 
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0)

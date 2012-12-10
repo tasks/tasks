@@ -227,14 +227,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         super(ContextManager.getContext(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
-        inflater = (LayoutInflater) fragment.getActivity().getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-
         this.query = query;
         this.resource = resource;
         this.fragment = fragment;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
+        inflater = (LayoutInflater) fragment.getActivity().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
 
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
         paint = new Paint();
@@ -270,7 +269,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public int computeFullRowHeight() {
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        return minRowHeight + (int) (10 * metrics.density);
+        if (fontSize < 16) {
+            return (int) (39 * metrics.density);
+        } else {
+            return minRowHeight + (int) (10 * metrics.density);
+        }
     }
 
     private void startDetailThread() {
@@ -459,8 +462,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (taskActionLoader.containsKey(task.getId())) {
                 taskAction.setVisibility(View.VISIBLE);
                 TaskAction action = taskActionLoader.get(task.getId());
-                taskAction.setImageBitmap(action.icon);
-                taskAction.setTag(action);
+                if (action != null) {
+                    taskAction.setImageBitmap(action.icon);
+                    taskAction.setTag(action);
+                }
             } else {
                 taskAction.setVisibility(View.GONE);
                 taskAction.setTag(null);

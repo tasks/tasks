@@ -18,7 +18,7 @@
         android:text="@string/AOA_no_addons"
         style="@style/TextAppearance.TLA_NoItems" />
   
-    <ListView android:id="@+id/list"
+    <com.todoroo.astrid.ui.ErrorCatchingListView android:id="@+id/list"
         android:paddingRight="8dip"
         android:orientation="vertical"
         android:layout_width="fill_parent"

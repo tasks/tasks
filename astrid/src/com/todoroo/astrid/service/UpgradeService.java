@@ -51,6 +51,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 public final class UpgradeService {
 
     public static final int V4_5_0 = 300;
+    public static final int V4_4_3 = 288;
     public static final int V4_4_2 = 287;
     public static final int V4_4_1 = 286;
     public static final int V4_4 = 285;
@@ -192,6 +193,7 @@ public final class UpgradeService {
 
         public static final String TOKEN_FROM_VERSION = "from_version"; //$NON-NLS-1$
         private int from;
+        private boolean finished = false;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +229,7 @@ public final class UpgradeService {
                                 new AstridNewSyncMigrator().performMigration();
 
                         } finally {
+                            finished = true;
                             DialogUtilities.dismissDialog(UpgradeActivity.this, dialog);
                             sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                             setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
@@ -235,8 +238,16 @@ public final class UpgradeService {
                     };
                 }.start();
             } else {
+                finished = true;
                 finish();
             }
+        }
+
+        @Override
+        public void onBackPressed() {
+            // Don't allow the back button to finish this activity before things are done
+            if (finished)
+                super.onBackPressed();
         }
     }
 
@@ -257,6 +268,21 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_4 && from < V4_4_3) {
+            newVersionString(changeLog, "4.4.3 (11/28/12)", new String[] {
+                "Minor bug fixes"
+            });
+        }
+
+        if (from < V4_4_2) {
+            newVersionString(changeLog, "4.4.2 (11/19/12)", new String[] {
+                "Manual order and subtasks for lists now sync with your Astrid.com account!",
+                "Significant performance improvements to manual ordering and subtasks",
+                "Show assigned user images in the premium widgets",
+                "Minor bug and crash fixes"
+            });
+        }
 
         if (from >= V4_4 && from < V4_4_1) {
             newVersionString(changeLog, "4.4.1 (10/30/12)", new String[] {

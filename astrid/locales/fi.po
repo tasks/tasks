@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:27+0000\n"
-"Last-Translator: Tiina Kuusama <kuutika@gmail.com>\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-11-22 15:16+0000\n"
+"Last-Translator: Kim Rounioja <kr@iki.fi>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:20+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -89,6 +89,40 @@ msgstr "Jaetut tehtäväni"
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "Ei jaettuja tehtäviä"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr ""
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr "%s on nyt kaverisi! Lisää hänelle tehtäviä alla."
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr "%s haluaa olla kaverisi!"
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr "Lisää kaveri"
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr "Hyväksy"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -228,7 +262,7 @@ msgstr "Valitse yhteystieto"
 #. slide 17a: task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "Ulkoista se!"
 
 #. task sharing dialog: custom email assignment
 #. task sharing dialog: shared with label
@@ -266,7 +300,7 @@ msgstr "Listan jäsenet"
 #. task sharing dialog: astrid friends section header
 msgctxt "actfm_EPA_assign_header_friends"
 msgid "Astrid Friends"
-msgstr ""
+msgstr "Astrid-kaverit"
 
 #. task sharing dialog: message hint
 #. task sharing dialog: share with Facebook
@@ -312,7 +346,7 @@ msgctxt "actfm_ALA_body"
 msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
-msgstr ""
+msgstr "Astrid.com:ssa voit hallita, jakaa ja delegoida tehtäviäsi."
 
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
@@ -352,12 +386,12 @@ msgstr "Salasana"
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Sign Up"
-msgstr ""
+msgstr "Liity"
 
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Sign In"
-msgstr ""
+msgstr "Kirjaudu"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
@@ -372,37 +406,37 @@ msgstr "Ole hyvä ja kirjaudu sisään:"
 #. Login error: user exists
 msgctxt "actfm_ALA_error_user_exists"
 msgid "User already exists. Please sign in instead."
-msgstr ""
+msgstr "Käyttäjänimi on jo olemassa. Kirjaudu sisään."
 
 #. Login error: wrong password
 msgctxt "actfm_ALA_error_wrong_password"
 msgid "Sorry, that password was incorrect. Please try again."
-msgstr ""
+msgstr "Salasana on virheellinen. Yritä uudelleen."
 
 #. ================================================ Featured Lists
 msgctxt "actfm_feat_list_clone"
 msgid "Copy list"
-msgstr ""
+msgstr "Kopioi lista"
 
 msgctxt "actfm_feat_list_suffix"
 msgid "(Copy)"
-msgstr ""
+msgstr "(Kopio)"
 
 msgctxt "actfm_feat_list_cloning"
 msgid "Copying..."
-msgstr ""
+msgstr "Kopioidaan..."
 
 msgctxt "actfm_feat_list_clone_success"
 msgid "Success!"
-msgstr ""
+msgstr "Onnistui!"
 
 msgctxt "actfm_feat_list_task_clone_success"
 msgid "Task copied"
-msgstr ""
+msgstr "Tehtävä kopioitu"
 
 msgctxt "actfm_feat_list_clone_empty"
 msgid "No tasks to copy"
-msgstr ""
+msgstr "Ei kopioitavia tehtäviä"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
@@ -452,11 +486,11 @@ msgstr ""
 
 msgctxt "account_type_title_not_logged_in"
 msgid "Sign up for a free account"
-msgstr ""
+msgstr "Registeröidy ja avaa ilmainen tili"
 
 msgctxt "account_type_summary_not_logged_in"
 msgid "Access tasks online, share lists and delegate"
-msgstr ""
+msgstr "Hallinnoi tehtäviä, jaa listoja ja delegoi"
 
 msgctxt "actfm_account_premium"
 msgid "Premium"
@@ -464,7 +498,7 @@ msgstr ""
 
 msgctxt "actfm_account_basic"
 msgid "Basic"
-msgstr ""
+msgstr "Perus"
 
 msgctxt "actfm_inapp_billing"
 msgid "Upgrade to Premium"
@@ -477,15 +511,15 @@ msgstr ""
 #. Sharing
 msgctxt "share_with_facebook"
 msgid "Like on Facebook"
-msgstr ""
+msgstr "Tykkää Facebookissa"
 
 msgctxt "share_with_twitter"
 msgid "Follow on Twitter"
-msgstr ""
+msgstr "Seuraa Twitterissä"
 
 msgctxt "share_with_google"
 msgid "Share on Google+"
-msgstr ""
+msgstr "Jaa Google+:ssa"
 
 msgctxt "share_title"
 msgid "Share the love!"
@@ -493,7 +527,7 @@ msgstr ""
 
 msgctxt "share_speech_bubble"
 msgid "By sharing, you'll help others be more productive!"
-msgstr ""
+msgstr "Jakamalla autat muita tulemaan tehokkaamiksi!"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -539,7 +573,7 @@ msgstr ""
 #. Backup Status: last error failed. Keep it short!
 msgctxt "backup_status_failed"
 msgid "Last backup failed"
-msgstr ""
+msgstr "Viimeisin varmuuskopiointi ei onnistunut"
 
 #. Backup Status: error subtitle
 msgctxt "backup_status_failed_subtitle"
@@ -549,7 +583,7 @@ msgstr "Paina nähdäksesi virheen"
 #. slide 48a: Backup Status: never backed up
 msgctxt "backup_status_never"
 msgid "Never backed up!"
-msgstr ""
+msgstr "Ei kertaakaan varmuuskopioitu"
 
 #. slide 48f/ 50e: Backup Options Group Label
 msgctxt "backup_BPr_group_options"
@@ -559,12 +593,12 @@ msgstr "Valinnat"
 #. slide 48b: Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
 msgid "Automatic backups"
-msgstr ""
+msgstr "Automaattinen varmuuskopiointi"
 
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
 msgid "Automatic backups disabled"
-msgstr ""
+msgstr "Automaattinen varmuuskopiointi ei ole päällä"
 
 #. slide 48g: Preference: Automatic Backup Description (when enabled)
 msgctxt "backup_BPr_auto_enabled"
@@ -575,7 +609,7 @@ msgstr "Varmuuskopiointi päivittäin"
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_cloud_already_logged_in"
 msgid "You already have cloud backup on Astrid.com!"
-msgstr ""
+msgstr "Sinulla on jo varmuuskopio Astrid.com:ssa!"
 
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
@@ -601,7 +635,7 @@ msgstr "Vie tehtävät"
 #. backup activity cloud (Astrid.com) option
 msgctxt "backup_BAc_cloud"
 msgid "Click for free cloud backup on Astrid.com"
-msgstr ""
+msgstr "Klikkaa niin saat ilmaisen pilvivarmuuskopion Astrid.com:ssa"
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
@@ -639,6 +673,11 @@ msgid ""
 " %4$s already exist\n"
 " %5$s had errors\n"
 msgstr ""
+"Tiedosto %1$s sisälsi %2$s tehtävää.\n"
+"\n"
+" %3$s tuotiin,\n"
+" %4$s oli jo olemassa,\n"
+" %5$s oli virheellisiä\n"
 
 #. Progress Dialog Title for importing
 msgctxt "import_progress_title"
@@ -751,7 +790,7 @@ msgstr "Odota hetki"
 #. Dialog - loading
 msgctxt "DLG_loading"
 msgid "Loading..."
-msgstr ""
+msgstr "Ladataan..."
 
 #. Dialog - dismiss
 #. slide 20d
@@ -847,12 +886,12 @@ msgstr "Listat"
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "People"
-msgstr ""
+msgstr "Henkilöt"
 
 #. Menu: Featured Lists
 msgctxt "TLA_menu_featured_lists"
 msgid "Featured Lists"
-msgstr ""
+msgstr "Parhaat listat"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
@@ -941,7 +980,7 @@ msgstr ""
 
 msgctxt "TLA_quickadd_confirm_hide_helpers"
 msgid "Don't display future confirmations"
-msgstr ""
+msgstr "Älä näytä varmistuksia jatkossa"
 
 #. Title for alert on new repeating task. %s-> task title
 #, c-format
@@ -1018,7 +1057,7 @@ msgstr "Kopioi tehtävä"
 #. Context Item: delete task
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
-msgstr ""
+msgstr "Poista tehtävä"
 
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
@@ -1197,7 +1236,7 @@ msgstr "Näytä tehtävä"
 #, c-format
 msgctxt "TEA_hideUntil_message"
 msgid "Task will be hidden until %s"
-msgstr ""
+msgstr "Tehtävä piilotetaan %s asti"
 
 #. Task editing data being loaded label
 msgctxt "TEA_loading:0"
@@ -1380,7 +1419,7 @@ msgstr "Jaa kavereille"
 
 msgctxt "TEA_control_hidden_section"
 msgid "----Hide Always----"
-msgstr ""
+msgstr "----Piilota aina----"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
@@ -1402,7 +1441,7 @@ msgstr "Lataa lisää..."
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
+msgstr "Milloin tämän tulee olla valmis?"
 
 msgctxt "TEA_new_task"
 msgid "New Task"
@@ -1436,6 +1475,8 @@ msgid ""
 "%1$s\n"
 "called at %2$s"
 msgstr ""
+"%1$s\n"
+"soitti %2$s"
 
 #. Missed call: return call
 msgctxt "MCA_return_call"
@@ -1542,6 +1583,170 @@ msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "Voithan aina lähettää tekstiviestin..."
 
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr "Ohita"
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+"Olet sivuuttanut useita kalenteritapahtumia. Pitäisikö Astridin lopettaa "
+"niistä kyseleminen?"
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr "Sivuuta kaikki tapahtumat"
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr "Sivuuta tapahtuma"
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr "%s alkaa pian. Haluatko luoda toimilistan tapahtumalle?"
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr "%s loppui. Haluatko luoda toimilistan tapahtumalle?"
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr "Luo lista"
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr "Ehkä myöhemmin"
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr "Lista on jo olemassa"
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+"Lista %s on jo olemassa. Haluatko käyttää sitä vai luodaanko tälle "
+"tapahtumalle uusi?"
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr "Luo uusi"
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr "Käy olemassaolevaa"
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr "Loin listan %s."
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr "%s osallistuu."
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr "%1$s ja %2$s osallistuvat."
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr "%1$s, %2$s ja %3$d muuta osallistuvat."
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr "Haluatko kutsua heidät?"
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr "Kalenteriapulainen"
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr "Astrid ei muistuta tulevista kalenteritapahtumista"
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+"Astrid muistuttaa tulevista kalenteritapahtumista ja niihin "
+"valmistautumisesta"
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr ""
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr ""
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr ""
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr ""
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr ""
+
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
 #. ==================================================== UpdateService ==
@@ -1600,13 +1805,13 @@ msgstr ""
 #. FAQ Preference title
 msgctxt "EPr_faq_title"
 msgid "FAQ"
-msgstr ""
+msgstr "UKK"
 
 #. Account status preference (%s -> account type)
 #, c-format
 msgctxt "EPr_account_title"
 msgid "Account: %s"
-msgstr ""
+msgstr "Tili: %s"
 
 #. Support preferences summary
 msgctxt "EPr_support_summary"
@@ -3370,6 +3575,16 @@ msgid ""
 "The premium subscription for this Google Play account is connected to a "
 "different user. To link additional emails to your account, visit "
 "astrid.com/users/profile"
+msgstr ""
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the

@@ -6,23 +6,34 @@
 
 package com.todoroo.astrid.welcome.tutorial;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.style.ClickableSpan;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.ActFmGoogleAuthActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -68,6 +79,109 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         }
     }
 
+    private int getLoginPageLayout() {
+        return mAdapter.fallbackLoginPage;
+    }
+
+    @Override
+    protected void initializeUI() {
+        String[] accounts = ModernAuthManager.getAccounts(this);
+        String email = null;
+        if (accounts != null && accounts.length > 0) {
+            email = accounts[0];
+        }
+        Button simpleLogin = (Button) findViewById(R.id.quick_login_google);
+        if (simpleLogin != null && !TextUtils.isEmpty(email)) {
+            initializeSimpleUI(email);
+        } else {
+            if (mAdapter != null && mAdapter.layouts[mAdapter.layouts.length - 1] != getLoginPageLayout())
+                mAdapter.changeLoginPage(getLoginPageLayout());
+            super.initializeUI();
+        }
+    }
+
+    private void initializeSimpleUI(final String email) {
+        Button simpleLogin = (Button) findViewById(R.id.quick_login_google);
+        simpleLogin.setText(getString(R.string.actfm_quick_login, email));
+        simpleLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SIMPLE);
+                final ProgressDialog pd = DialogUtilities.progressDialog(WelcomeWalkthrough.this, getString(R.string.gtasks_GLA_authenticating));
+                pd.show();
+                GoogleAccountManager accountManager = new GoogleAccountManager(WelcomeWalkthrough.this);
+                Account a = accountManager.getAccountByName(email);
+                AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
+                    public void run(final AccountManagerFuture<Bundle> future) {
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Bundle bundle = future.getResult(30, TimeUnit.SECONDS);
+                                    if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
+                                        String authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+                                        onAuthTokenSuccess(email, authToken);
+                                    }
+                                } catch (final Exception e) {
+                                    Log.e("actfm-google-auth", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            int error = e instanceof IOException ? R.string.gtasks_GLA_errorIOAuth :
+                                                R.string.gtasks_GLA_errorAuth;
+                                            Toast.makeText(WelcomeWalkthrough.this,
+                                                    error,
+                                                    Toast.LENGTH_LONG).show();
+                                            onAuthError();
+                                        }
+                                    });
+                                } finally {
+                                    DialogUtilities.dismissDialog(WelcomeWalkthrough.this, pd);
+                                }
+                            }
+                        }.start();
+                    }
+                };
+                accountManager.manager.getAuthToken(a, ActFmGoogleAuthActivity.AUTH_TOKEN_TYPE, null, WelcomeWalkthrough.this, callback, null);
+            }
+        });
+
+        TextView rejectQuickLogin = (TextView) findViewById(R.id.quick_login_reject);
+        rejectQuickLogin.setText(getString(R.string.actfm_quick_login_reject, email));
+        rejectQuickLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SIMPLE_REJECTED);
+                switchToLoginPage();
+            }
+        });
+    }
+
+    private void onAuthTokenSuccess(final String email, final String authToken) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                authenticate(email, email, "", "google", authToken); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        });
+    }
+
+    private void onAuthError() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                switchToLoginPage();
+            }
+        });
+    }
+
+    private void switchToLoginPage() {
+        mAdapter.changeLoginPage(getLoginPageLayout());
+        mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(mAdapter.layouts.length - 1, false);
+        initializeUI();
+    }
+
     public void onPageChanged(View view, int position) {
         currentPage = position;
         currentView = view;
@@ -88,6 +202,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 currentView.findViewById(R.id.welcome_walkthrough_image).setOnClickListener(done);
             }
         }
+        ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
     }
 
     protected void setupPWLogin() {
@@ -98,21 +213,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     protected void setupLoginLater() {
         TextView loginLater = (TextView)currentView.findViewById(R.id.login_later);
         loginLater.setOnClickListener(loginLaterListener);
-        String loginLaterBase = getString(R.string.welcome_login_later);
-        SpannableString loginLaterLink = new SpannableString(String.format("%s", loginLaterBase)); //$NON-NLS-1$
-        ClickableSpan laterSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                loginLaterListener.onClick(widget);
-            }
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setUnderlineText(true);
-                ds.setColor(Color.rgb(68, 68, 68));
-            }
-        };
-        loginLaterLink.setSpan(laterSpan, 0, loginLaterBase.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        loginLater.setText(loginLaterLink);
+        loginLater.setVisibility(View.VISIBLE);
     }
 
 

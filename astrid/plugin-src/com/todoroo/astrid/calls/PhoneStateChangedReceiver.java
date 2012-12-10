@@ -16,6 +16,7 @@ import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -117,6 +118,8 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                             context.startActivity(missedCallIntent);
                         }
+                    } catch (Exception e) {
+                        Log.e("phone-state", "Unexpected exception in PhoneStateChangedReceiver", e);
                     } finally {
                         if (calls != null)
                             calls.close();

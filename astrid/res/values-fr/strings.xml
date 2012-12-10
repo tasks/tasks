@@ -12,6 +12,7 @@
   <string name="actfm_view_task_cancel">Rester ici</string>
   <string name="actfm_my_shared_tasks_title">Mes tâches partagées</string>
   <string name="actfm_my_shared_tasks_empty">Aucune tâche partagée</string>
+  <string name="actfm_friendship_blocked">Vous avez bloqué %s.</string>
   <string name="TVA_add_comment">Ajouter un commentaire</string>
   <string-array name="TVA_tabs">
     <item>Tâches</item>
@@ -63,8 +64,8 @@
   <string name="actfm_ALA_login_title">Connexion</string>
   <string name="actfm_GAA_title">Sélectionnez le compte Google que vous voulez utiliser :</string>
   <string name="actfm_OLA_prompt">Veuillez vous connecter sur Google :</string>
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
+  <string name="actfm_ALA_error_user_exists">L\'utilisateur existe déjà. Veuillez plutôt vous identifier.</string>
+  <string name="actfm_ALA_error_wrong_password">Désolé, ce mot de passe est incorrect. Veuillez réessayer.</string>
   <string name="actfm_feat_list_clone">Copier la liste</string>
   <string name="actfm_feat_list_suffix">(Copier)</string>
   <string name="actfm_feat_list_cloning">Copie en cours...</string>
@@ -103,7 +104,7 @@
   <string name="backup_status_failed_subtitle">(appuyer pour afficher l\'erreur)</string>
   <string name="backup_status_never">Jamais sauvegardé !</string>
   <string name="backup_BPr_group_options">Options</string>
-  <string name="backup_BPr_auto_title">Sauvegarde automatique</string>
+  <string name="backup_BPr_auto_title">Sauvegardes automatiques</string>
   <string name="backup_BPr_auto_disabled">Sauvegardes automatiques désactivées</string>
   <string name="backup_BPr_auto_enabled">Une sauvegarde sera effectuée quotidiennement.</string>
   <string name="backup_BPr_cloud_already_logged_in">Vous possédez déjà une sauvegarde à distance sur Astrid.com !</string>
@@ -112,8 +113,8 @@
   <string name="backup_BAc_import">Importer des tâches</string>
   <string name="backup_BAc_export">Exporter des tâches</string>
   <string name="backup_BAc_cloud">Cliquez ici pour une sauvegarde à distance gratuite sur Astrid.com</string>
-  <string name="backup_TXI_error">Erreur lors de l\'importation</string>
-  <string name="export_toast">Sauvegarde de %1$s à %2$s</string>
+  <string name="backup_TXI_error">Erreur d\'importation</string>
+  <string name="export_toast">Sauvegardé %1$s dans %2$s.</string>
   <string name="export_toast_no_tasks">Pas de tâche à exporter</string>
   <string name="export_progress_title">Exportation en cours…</string>
   <string name="import_summary_title">Résumé de la restoration</string>
@@ -122,7 +123,7 @@
   <string name="import_progress_read">Lecture de la tâche %d…</string>
   <string name="DLG_error_sdcard">Impossible d\'accéder au dossier : %s</string>
   <string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
-  <string name="import_file_prompt">Choisissez un fichier à restorer</string>
+  <string name="import_file_prompt">Choisissez un fichier à restaurer</string>
   <string name="app_name">Tâches d\'Astrid</string>
   <string name="read_permission_label">Permission d\'Astrid</string>
   <string name="read_permission_desc">lire les tâches, afficher les filtres de tâches</string>
@@ -191,7 +192,7 @@
   <string name="TAd_actionEditTask">Modifier</string>
   <string name="TAd_contextEditTask">Modifier la tâche</string>
   <string name="TAd_contextCopyTask">Copier la tâche</string>
-  <string name="TAd_contextDeleteTask">Delete Task</string>
+  <string name="TAd_contextDeleteTask">Supprimer la tâche</string>
   <string name="TAd_contextUndeleteTask">Récupérer la tâche</string>
   <string name="TAd_contextPurgeTask">Purger la tâche</string>
   <string name="SSD_title">Tri et tâches cachées</string>
@@ -300,6 +301,15 @@
     <item>Allez, vous pouvez le faire!</item>
     <item>Vous pouvez toujours envoyer un message...</item>
   </string-array>
+  <string name="CRA_ignore_all">Ignorer tous les événements</string>
+  <string name="CRA_ignore_this">Ignorer uniquement cet événement</string>
+  <string name="CRA_postpone">Peut-être plus tard</string>
+  <string name="CRA_list_exists_title">Liste déjà existante</string>
+  <string name="CRA_list_exists_body">Une liste appelée %s existe déjà. Voulez-vous utiliser la liste existante ou en créer une nouvelle pour cet événement ?</string>
+  <string name="CRA_share_list_title">Partager la liste ?</string>
+  <string name="CRA_more_options">Plus d\'options</string>
+  <string name="CRA_dont_invite">Non merci</string>
+  <string name="CRA_list_created_title">Liste créée !</string>
   <string name="UpS_changelog_title">Quoi de neuf dans Astrid ?</string>
   <string name="UpS_updates_title">Dernières nouvelles d\'Astrid</string>
   <string name="UpS_no_activity_log_in">Connecte toi pour voir \nun enregistrement\nde ton progrès ainsi que\nl\'activité de tes listes \npartagées.</string>
@@ -316,8 +326,8 @@
   <string name="EPr_fontSize_title">Taillede la liste de tâche</string>
   <string name="EPr_showSmartConfirmation_title">Montrer une confirmation pour les rappels intelligents</string>
   <string name="EPr_fontSize_desc">Taille de la police pour la page principale des listes</string>
-  <string name="EPr_showNotes_title">Afficher les notes de la tâche</string>
-  <string name="EPr_beastMode_title">Personnaliser l\'écran d\'édition de tâche</string>
+  <string name="EPr_showNotes_title">Afficher les notes des tâches</string>
+  <string name="EPr_beastMode_title">Personnaliser l\'écran de modification de tâches</string>
   <string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
   <string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
   <string name="EPr_showNotes_desc_disabled">Les notes seront accessible depuis l\'écran d\'édition de tâche</string>
@@ -428,7 +438,7 @@
   <string name="EPr_defaults_summary">Priorité, échéance, ajout au calendrier</string>
   <string name="EPr_default_urgency_title">Échéance par défaut</string>
   <string name="EPr_default_urgency_desc">Actuellement : %s</string>
-  <string name="EPr_default_importance_title">Priorié par défaut</string>
+  <string name="EPr_default_importance_title">Priorité par défaut</string>
   <string name="EPr_default_importance_desc">Actuellement : %s</string>
   <string name="EPr_default_hideUntil_title">Masquer par défaut jusqu\'à</string>
   <string name="EPr_default_hideUntil_desc">Actuellement : %s</string>
@@ -672,7 +682,7 @@
   <string name="premium_description_5">Bénéficiez des nouvelles fonctionnalités en avant-première</string>
   <string name="premium_description_6">Soutenez l\'équipe Astrid !</string>
   <string name="premium_speech_bubble_1">Premium va booster votre productivité !</string>
-  <string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
+  <string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%!</string>
   <string name="premium_already_subscribed">Vous êtes déjà Astrid Premium !</string>
   <string name="premium_login_prompt">Vous devez avoir un compte Astrid.com pour passer en premium. Connectez-vous ou inscrivez-vous.</string>
   <string name="premium_success">Merci pour votre inscription à Astrid Premium !</string>
@@ -936,7 +946,7 @@
     <item>Je vous ai déjà dit que vous êtes super ? Continuez comme ça !</item>
     <item>Une action par jour et plus rien ne traîne !</item>
     <item>Comment fais-tu cela ? Wow, je suis impressionnée !</item>
-    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+    <item>Vous ne vous en sortirez pas juste sur votre bonne mine. Allons-y!</item>
     <item>Un temps parfait pour ce travail, non ?</item>
     <item>Un petit café en travaillant là-dessus?</item>
     <item>Si vous aviez déjà fait ça, vous pourriez aller jouer dehors.</item>

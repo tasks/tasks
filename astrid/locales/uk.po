@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:33+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-11-03 07:18+0000\n"
+"Last-Translator: vasalx <vasalexandr@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -23,12 +23,12 @@ msgstr ""
 #. slide 18b/ 25e/ 27c: task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
-msgstr ""
+msgstr "Контакт або Email"
 
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
 msgid "Contact or Shared List"
-msgstr ""
+msgstr "Контакт або Спільний Список"
 
 #. toast on transmit success
 #. can't rename or delete shared tag message
@@ -38,27 +38,29 @@ msgid ""
 "You are the owner of this shared list! If you delete it, it will be deleted "
 "for all list members. Are you sure you want to continue?"
 msgstr ""
+"Ви є власником цього спільного списку! Якщо ви його видалите, він буде "
+"видалений для всіх учасників. Ви певні, що хочете продовжити?"
 
 #. slide 29a: menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
-msgstr ""
+msgstr "Зробити фото"
 
 #. slide 29b: menu item to select from gallery
 msgctxt "actfm_picture_gallery"
 msgid "Pick from Gallery"
-msgstr ""
+msgstr "Вибрати з Галереї"
 
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr ""
+msgstr "Очистити Зображення"
 
 #. filter list activity: refresh tags
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
-msgstr ""
+msgstr "Переглянути Завдання?"
 
 #. Text for prompt after sharing a task
 #, c-format
@@ -67,6 +69,8 @@ msgid ""
 "Task was sent to %s! You're currently viewing your own tasks. Do you want to "
 "view this and other tasks you've assigned?"
 msgstr ""
+"Завдання було надіслано %s! Зараз ви переглядаєте свої власні завдання. "
+"Бажаєте переглянути це та інші завдання призначені вами іншим?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
@@ -76,95 +80,129 @@ msgstr ""
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
-msgstr ""
+msgstr "Залишити як є"
 
 #. slide 13a: Title for the "My Shared Tasks" filter
 msgctxt "actfm_my_shared_tasks_title"
 msgid "My Shared Tasks"
-msgstr ""
+msgstr "Мої Спільні Завдання"
 
 #. Empty list for the "My Shared Tasks" filter
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
+msgstr "Спільні завдання відсутні"
+
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr "Ви надіслали запит дружби %s!"
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr "Ви заблокували %s."
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr "Ви друзі з %s! Додайте для них завдання нижче."
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr "%s бажає з вами дружити!"
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
 msgstr ""
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr "Додати друга"
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr "Прийняти"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
 msgid "Add a comment..."
-msgstr ""
+msgstr "Коментувати..."
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
 msgid "Tasks"
-msgstr ""
+msgstr "Завдання"
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
-msgstr ""
+msgstr "Активність"
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
-msgstr ""
+msgstr "Налаштування Списку"
 
 #. Tag View: filtered by assigned to user (%s => user name)
 #, c-format
 msgctxt "actfm_TVA_filtered_by_assign"
 msgid "%s's tasks. Tap for all."
-msgstr ""
+msgstr "Завдання %s. Натисніть для перегляду всіх."
 
 #. Tag View: filter by unassigned tasks
 msgctxt "actfm_TVA_filter_by_unassigned"
 msgid "Unassigned tasks. Tap for all."
-msgstr ""
+msgstr "Непризначені завдання. Натисніть для перегляду всіх."
 
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
 msgid "Private: tap to edit or share list"
-msgstr ""
+msgstr "Особистий: натисніть, щоб редагувати або поділитися"
 
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
 msgid "Refresh"
-msgstr ""
+msgstr "Оновити"
 
 #. Tag Settings: tag name label
 msgctxt "actfm_TVA_tag_label"
 msgid "List"
-msgstr ""
+msgstr "Список"
 
 #. Tag Settings: tag owner label
 #. Tag Settings: tag owner value when there is no owner
 #. slide 26a and 27b: Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr ""
+msgstr "Спільно З"
 
 #. Tag Settings: list collaborators hint
 msgctxt "actfm_TVA_members_hint"
 msgid "Share with anyone who has an email address"
-msgstr ""
+msgstr "Поділитись з усіма, хто має адресу електронної пошти"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
 msgid "List Picture"
-msgstr ""
+msgstr "Зображення Списку"
 
 #. slide 25c/28b: Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
-msgstr ""
+msgstr "Заглушити повідомлення"
 
 #. Tag Settings: list icon label
 #. slide 25b/27d: Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #. slide 28a: Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
@@ -179,7 +217,7 @@ msgstr ""
 #. slide 25d: Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "Введіть назву списку"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
@@ -187,6 +225,8 @@ msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
 msgstr ""
+"Ви маєте бути авторизовані на Astrid.com, щоб ділитися списками! Будь ласка, "
+"увійдіть або зробіть список особистим."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -195,6 +235,8 @@ msgid ""
 "Use Astrid to share shopping lists, party plans, or team projects and "
 "instantly see when people get stuff done!"
 msgstr ""
+"Використовуйте Astrid, щоб ділитися списками покупок, планами вечірок або "
+"груповими проектами та відразу бачити, коли люди завершують справу!"
 
 #. task sharing dialog: window title
 #. task sharing dialog: save button
@@ -202,22 +244,22 @@ msgstr ""
 #. slide 18a: task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "Хто це має зробити?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
 msgid "Me"
-msgstr ""
+msgstr "Я"
 
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr ""
+msgstr "Не призначено"
 
 #. slide 18c: task sharing dialog: choose a contact
 msgctxt "actfm_EPA_choose_contact"
 msgid "Choose a contact"
-msgstr ""
+msgstr "Вибрати контакт"
 
 #. slide 17a: task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
@@ -233,45 +275,45 @@ msgstr ""
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
-msgstr ""
+msgstr "Поділитись з Друзями"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #, c-format
 msgctxt "actfm_EPA_list"
 msgid "List: %s"
-msgstr ""
+msgstr "Список: %s"
 
 #. task sharing dialog: assigned hint
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr ""
+msgstr "Запрошення:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
-msgstr ""
+msgstr "Допоможіть мені це завершити!"
 
 #. task sharing dialog: list members section header
 msgctxt "actfm_EPA_assign_header_members"
 msgid "List Members"
-msgstr ""
+msgstr "Учасники списку"
 
 #. task sharing dialog: astrid friends section header
 msgctxt "actfm_EPA_assign_header_friends"
 msgid "Astrid Friends"
-msgstr ""
+msgstr "Друзі в Astrid"
 
 #. task sharing dialog: message hint
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #. task sharing dialog: edit people settings saved
@@ -279,27 +321,27 @@ msgstr ""
 #, c-format
 msgctxt "actfm_EPA_invalid_email"
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "Невірний E-mail: %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
 msgid "You need to be logged in to Astrid.com to share tasks!"
-msgstr ""
+msgstr "Ви маєте бути авторизовані на Astrid.com, щоб ділитися завданнями!"
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
-msgstr ""
+msgstr "Увійти"
 
 msgctxt "actfm_EPA_dont_share_button"
 msgid "Don't share"
-msgstr ""
+msgstr "Не ділитись"
 
 #. ========================================= sharing login activity ==
 #. share login: Title
 msgctxt "actfm_ALA_title"
 msgid "Welcome to Astrid.com!"
-msgstr ""
+msgstr "Вітаємо на Astrid.com!"
 
 #. share login: Sharing Description
 msgctxt "actfm_ALA_body"
@@ -307,6 +349,8 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
+"Astrid.com дозволяє вам мати доступ до ваших завдань онлайн, ділитись та "
+"делегувати завдання іншим."
 
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
@@ -335,7 +379,7 @@ msgstr "Прізвище"
 #. share login: Email
 msgctxt "actfm_ALA_email_label"
 msgid "Email"
-msgstr ""
+msgstr "Адреса ел.пошти"
 
 #. share login: Username / Email
 #. share login: Password
@@ -346,77 +390,77 @@ msgstr "Пароль"
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Sign Up"
-msgstr ""
+msgstr "Зареєструватись"
 
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Sign In"
-msgstr ""
+msgstr "Увійти"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
 msgid "Select the Google account you want to use:"
-msgstr ""
+msgstr "Виберіть обліковий запис Google, яким ви хочете скористатись:"
 
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr ""
+msgstr "Будь ласка, увійдіть:"
 
 #. Login error: user exists
 msgctxt "actfm_ALA_error_user_exists"
 msgid "User already exists. Please sign in instead."
-msgstr ""
+msgstr "Користувач вже існує. Будь ласка, просто увійдіть."
 
 #. Login error: wrong password
 msgctxt "actfm_ALA_error_wrong_password"
 msgid "Sorry, that password was incorrect. Please try again."
-msgstr ""
+msgstr "Вибачте, але цей пароль невірний. Будь ласка, спробуйте знову."
 
 #. ================================================ Featured Lists
 msgctxt "actfm_feat_list_clone"
 msgid "Copy list"
-msgstr ""
+msgstr "Копіювати список"
 
 msgctxt "actfm_feat_list_suffix"
 msgid "(Copy)"
-msgstr ""
+msgstr "(Копіювати)"
 
 msgctxt "actfm_feat_list_cloning"
 msgid "Copying..."
-msgstr ""
+msgstr "Копіювання..."
 
 msgctxt "actfm_feat_list_clone_success"
 msgid "Success!"
-msgstr ""
+msgstr "Успішно!"
 
 msgctxt "actfm_feat_list_task_clone_success"
 msgid "Task copied"
-msgstr ""
+msgstr "Завдання скопійовано"
 
 msgctxt "actfm_feat_list_clone_empty"
 msgid "No tasks to copy"
-msgstr ""
+msgstr "Відсутні завдання для копіювання"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
 #, c-format
 msgctxt "actfm_status_title_logged_in"
 msgid "Status - Logged in as %s"
-msgstr ""
+msgstr "Стан - Ви увійшли як %s"
 
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr ""
+msgstr "Astrid.com"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
-msgstr ""
+msgstr "Використовувати HTTPS"
 
 msgctxt "actfm_https_enabled"
 msgid "HTTPS enabled (slower)"
-msgstr ""
+msgstr "З використанням HTTPS  (повільніше)"
 
 msgctxt "actfm_https_disabled"
 msgid "HTTPS disabled (faster)"
@@ -1523,6 +1567,164 @@ msgstr ""
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
+msgstr ""
+
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr ""
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr ""
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr ""
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr ""
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr ""
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr ""
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr ""
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr ""
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr ""
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr ""
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr ""
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr ""
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr ""
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr ""
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr ""
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr ""
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr ""
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr ""
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr ""
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr ""
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr ""
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
 msgstr ""
 
 #. ===================================================== HelpActivity ==
@@ -3348,6 +3550,16 @@ msgid ""
 "The premium subscription for this Google Play account is connected to a "
 "different user. To link additional emails to your account, visit "
 "astrid.com/users/profile"
+msgstr ""
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr ""
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the

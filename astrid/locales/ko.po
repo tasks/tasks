@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:34+0000\n"
+"POT-Creation-Date: 2012-10-26 14:30-0700\n"
+"PO-Revision-Date: 2012-11-01 12:16+0000\n"
 "Last-Translator: sheppaul <sheppaul@gmail.com>\n"
 "Language-Team: ko <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:04+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -88,6 +88,40 @@ msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
 msgstr "미공유 일정"
 
+#. =====================  Friendship connections
+#, c-format
+msgctxt "actfm_friendship_pending"
+msgid "You've sent a friend request to %s!"
+msgstr "%s 님에게 친구 요청을 보냈습니다!"
+
+#, c-format
+msgctxt "actfm_friendship_blocked"
+msgid "You've blocked %s."
+msgstr "%s 님을 차단했습니다."
+
+#, c-format
+msgctxt "actfm_friendship_friends"
+msgid "You're friends with %s! Add tasks for them below."
+msgstr "%s 님과 친구입니다! 관련 일정을 아래에 추가하세요."
+
+#, c-format
+msgctxt "actfm_friendship_other_pending"
+msgid "%s wants to be friends with you!"
+msgstr "%s 님이 친구가 되고 싶어합니다!"
+
+#, c-format
+msgctxt "actfm_friendship_no_status"
+msgid "Connect with %s to share and see activity on public tasks!"
+msgstr "공개일정을 공유하고 활동내역을 보려면 %s 에 연결하세요!"
+
+msgctxt "actfm_friendship_connect"
+msgid "Add friend"
+msgstr "친구 추가하기"
+
+msgctxt "actfm_friendship_accept"
+msgid "Accept"
+msgstr "승인"
+
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
@@ -104,7 +138,7 @@ msgstr "일정"
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
-msgstr "활동"
+msgstr "활동 내역"
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #. Tabs for Tag view
@@ -202,7 +236,7 @@ msgstr "Astrid를 사용하여 쇼핑 목록, 파티 계획 또는 팀 프로젝
 #. slide 18a: task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr "누구의 일?"
+msgstr "누구의 일인가요?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
@@ -366,12 +400,12 @@ msgstr "로그인하세요:"
 #. Login error: user exists
 msgctxt "actfm_ALA_error_user_exists"
 msgid "User already exists. Please sign in instead."
-msgstr ""
+msgstr "사용자가 이미 있습니다. 다시 로그인하세요."
 
 #. Login error: wrong password
 msgctxt "actfm_ALA_error_wrong_password"
 msgid "Sorry, that password was incorrect. Please try again."
-msgstr ""
+msgstr "비밀번호가 맞지 않습니다. 다시 시도해 주세요."
 
 #. ================================================ Featured Lists
 msgctxt "actfm_feat_list_clone"
@@ -436,11 +470,11 @@ msgstr ""
 #. account types
 msgctxt "actfm_account_type"
 msgid "Account type"
-msgstr ""
+msgstr "계정 유형"
 
 msgctxt "actfm_account_info"
 msgid "Account info"
-msgstr ""
+msgstr "계정 정보"
 
 msgctxt "actfm_account_info_summary"
 msgid "Status and options"
@@ -448,11 +482,11 @@ msgstr "상태와 옵션"
 
 msgctxt "account_type_title_not_logged_in"
 msgid "Sign up for a free account"
-msgstr "무료 계정으로 가입하기"
+msgstr "무료 계정에 가입하기"
 
 msgctxt "account_type_summary_not_logged_in"
 msgid "Access tasks online, share lists and delegate"
-msgstr "온라인에서 일정을 열어보고 목록과 대행자 공유하기"
+msgstr "온라인에서 일정을 열어보고 목록과 대행자를 공유합니다"
 
 msgctxt "actfm_account_premium"
 msgid "Premium"
@@ -473,11 +507,11 @@ msgstr "파일 첨부, 음성 백업, 프리미엄 지원 등"
 #. Sharing
 msgctxt "share_with_facebook"
 msgid "Like on Facebook"
-msgstr "Like on Facebook"
+msgstr "페이스북에 Like 하기"
 
 msgctxt "share_with_twitter"
 msgid "Follow on Twitter"
-msgstr "Follow on Twitter"
+msgstr "'트위터에 Follow 하기"
 
 msgctxt "share_with_google"
 msgid "Share on Google+"
@@ -485,7 +519,7 @@ msgstr "구글+ 에 공유하기"
 
 msgctxt "share_title"
 msgid "Share the love!"
-msgstr "좋아하는 것을 공유하기!"
+msgstr "사랑을 나눠요!"
 
 msgctxt "share_speech_bubble"
 msgid "By sharing, you'll help others be more productive!"
@@ -535,7 +569,7 @@ msgstr ""
 #. Backup Status: last error failed. Keep it short!
 msgctxt "backup_status_failed"
 msgid "Last backup failed"
-msgstr ""
+msgstr "마지막 백업 실패함"
 
 #. Backup Status: error subtitle
 msgctxt "backup_status_failed_subtitle"
@@ -560,7 +594,7 @@ msgstr "자동 백업"
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
 msgid "Automatic backups disabled"
-msgstr "자동 백업 실행 안함"
+msgstr "자동 백업하지 않습니다"
 
 #. slide 48g: Preference: Automatic Backup Description (when enabled)
 msgctxt "backup_BPr_auto_enabled"
@@ -577,22 +611,22 @@ msgstr "Astrid.com에 이미 백업을 완료했습니다!"
 #. slide 48c: backup activity label
 msgctxt "backup_BAc_label"
 msgid "Manage backups"
-msgstr "백업 설정"
+msgstr "백업 관리"
 
 #. backup activity title
 msgctxt "backup_BAc_title"
 msgid "Manage your backups"
-msgstr "백업 관리"
+msgstr "백업 관리하기"
 
 #. backup activity import button
 msgctxt "backup_BAc_import"
 msgid "Import tasks"
-msgstr "작업 가져오기"
+msgstr "일정 가져오기"
 
 #. backup activity export button
 msgctxt "backup_BAc_export"
 msgid "Export tasks"
-msgstr "작업 내보내기"
+msgstr "일정 내보내기"
 
 #. backup activity cloud (Astrid.com) option
 msgctxt "backup_BAc_cloud"
@@ -608,11 +642,11 @@ msgstr "가져오기 오류"
 #, c-format
 msgctxt "export_toast"
 msgid "Backed up %1$s to %2$s."
-msgstr "%1$s 에서 %2$s (을)를 백업하다."
+msgstr "%1$s 를 %2$s 로 백업함."
 
 msgctxt "export_toast_no_tasks"
 msgid "No tasks to export."
-msgstr "내보낼 작업 없음."
+msgstr "내보낼 일정 없음."
 
 #. Progress Dialog Title for exporting
 msgctxt "export_progress_title"
@@ -667,7 +701,7 @@ msgstr "SD 카드에 접근할 수 없습니다!"
 #. Backup: File Selector dialog for import
 msgctxt "import_file_prompt"
 msgid "Select a file to restore"
-msgstr "복원할 파일을 선택하세요."
+msgstr "복원할 파일을 선택하세요"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -724,7 +758,7 @@ msgctxt "DLG_please_update"
 msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
-msgstr "구글 플레이에서 Astrid를 최신버전으로 업데이트해야 합니다! 계속하기 전에 업데이트하거나 잠시 기다려 주세요."
+msgstr "안드로이드 마켓에서 Astrid를 최신버전으로 업데이트해야 합니다! 계속하기 전에 업데이트하거나 잠시 기다려 주세요."
 
 #. Button for going to Market
 #. Button for accepting EULA
@@ -975,7 +1009,7 @@ msgstr "낮은 순위"
 #. slide 22a
 msgctxt "TLA_all_activity"
 msgid "All Activity"
-msgstr "모든 활동"
+msgstr "모든 활동 내역"
 
 #. ====================================================== TaskAdapter ==
 #. Format string to indicate task is hidden (%s => task name)
@@ -1019,7 +1053,7 @@ msgstr "일정 복사"
 #. Context Item: delete task
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
-msgstr ""
+msgstr "일정 삭제"
 
 #. Context Item: undelete task
 msgctxt "TAd_contextUndeleteTask"
@@ -1218,7 +1252,7 @@ msgstr "일정 노트를 입력하세요..."
 #. Estimated time label
 msgctxt "TEA_estimatedDuration_label"
 msgid "How long will it take?"
-msgstr "얼마나 오래 걸릴까요?"
+msgstr "일정을 마치려면 얼마나 오래 걸릴까요?"
 
 #. Elapsed time label
 msgctxt "TEA_elapsedDuration_label"
@@ -1261,7 +1295,7 @@ msgstr "일정을 저장했습니다"
 #. slide 15b: Task edit tab: activity
 msgctxt "TEA_tab_activity"
 msgid "Activity"
-msgstr "활동"
+msgstr "활동 내역"
 
 #. slide 15e:  Task edit tab: more editing settings
 msgctxt "TEA_tab_more"
@@ -1367,7 +1401,7 @@ msgstr "파일"
 #. slide 16e / slide 35g
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr "알림"
+msgstr "일정 알림"
 
 #. slide 16f
 msgctxt "TEA_control_timer"
@@ -1393,7 +1427,7 @@ msgstr "내 목록에 표시"
 #. slide 15c: Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No activity"
-msgstr "활동 없음"
+msgstr "활동 내역 없음"
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
@@ -1538,6 +1572,164 @@ msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
 msgstr "항상 문자를 보낼 수 있잖아요..."
 
+#. ======================================= Calendar reminder activity ==
+#. Calendar remindeer ignore button
+msgctxt "CRA_ignore"
+msgid "Ignore"
+msgstr "무시하기"
+
+#. Calendar event
+msgctxt "CRA_title"
+msgid "Need a meeting list?"
+msgstr "모임 목록이 필요하세요?"
+
+#. Calendar reminder: dialog to ignore all missed calls title
+msgctxt "CRA_ignore_title"
+msgid "Ignore all calendar events?"
+msgstr "모든 달력 이벤트를 무시할까요?"
+
+#. Calendar reminder: dialog to ignore all missed calls body
+msgctxt "CRA_ignore_body"
+msgid ""
+"You've ignored several calendar events. Should Astrid stop asking you about "
+"them?"
+msgstr "몇몇의 달력 이벤트를 무시했습니다. Astrid가 그것을 물어보는 걸 중단할까요?"
+
+#. Calendar reminder: dialog to ignore all missed calls ignore all button
+msgctxt "CRA_ignore_all"
+msgid "Ignore all events"
+msgstr "모든 이벤트 무시하기"
+
+#. Calendar reminder: dialog to ignore all missed calls ignore just this
+#. button
+msgctxt "CRA_ignore_this"
+msgid "Ignore this event only"
+msgstr "이 이벤트만 무시하기"
+
+#. Calendar reminder: astrid speech bubble when event starting (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_start"
+msgid ""
+"Looks like %s is starting soon. Want to create a list for action items?"
+msgstr "%s 가 곧 시작될 것 같습니다. 활동 아이템 목록을 만들까요?"
+
+#. Calendar reminder: astrid speech bubble when event ending (%s -> event
+#. name)
+#, c-format
+msgctxt "CRA_speech_bubble_end"
+msgid ""
+"Looks like you just finished with %s. Want to create a list for action items?"
+msgstr "%s 를 방금 마치신 것 같습니다. 활동 아이템 목록을 만들까요?"
+
+#. Calendar reminder: create list button
+msgctxt "CRA_create_list"
+msgid "Create list"
+msgstr "목록 만들기"
+
+#. Calendar reminder: postpone button
+msgctxt "CRA_postpone"
+msgid "Maybe afterwards"
+msgstr "연기하기"
+
+#. Calendar reminder: list exists dialog title
+msgctxt "CRA_list_exists_title"
+msgid "List already exists"
+msgstr "목록이 이미 있습니다"
+
+#. Calendar reminder: list exists dialog body (%s -> list name)
+#, c-format
+msgctxt "CRA_list_exists_body"
+msgid ""
+"A list named %s already exists. Do you want to use the existing list or "
+"create a new one for this event?"
+msgstr "%s 이름의 목록이 이미 있습니다. 이 이벤트를 위해 새로운 목록을 만들까요?"
+
+#. Calendar reminder: list exists dialog create new button
+msgctxt "CRA_create_new"
+msgid "Create new"
+msgstr "새 목록 만들기"
+
+#. Calendar reminder: list exists dialog use existing button
+msgctxt "CRA_use_existing"
+msgid "Use existing"
+msgstr "현재 목록 사용"
+
+#. Calendar remindr: created list (%s -> list name)
+#, c-format
+msgctxt "CRA_created_list_dialog"
+msgid "I created a list %s."
+msgstr "%s 목록을 만들었습니다."
+
+#. Calendar reminder: one attendee (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_one_attendee"
+msgid "%s is attending."
+msgstr "%s 님이 참석 중입니다."
+
+#. Calendar reminder: two attendees (%s -> attendee name or email)
+#, c-format
+msgctxt "CRA_two_attendees"
+msgid "%1$s and %2$s are attending."
+msgstr "%1$s 님과 %2$s 님이 참석 중입니다."
+
+#. Calendar reminder: many attendees (%s -> attendee name or email, %3$d ->
+#. how many other people)
+#, c-format
+msgctxt "CRA_many_attendees"
+msgid "%1$s, %2$s, and %3$d others are attending."
+msgstr "%1$s, %2$s, %3$d 님과 다른 분들이 참석 중입니다."
+
+#. Calendar reminder: invitation prompt
+msgctxt "CRA_invitation_prompt"
+msgid "Want to invite them?"
+msgstr "초대할까요?"
+
+#. Calendar reminder: preference title
+msgctxt "CRA_calendar_reminders_pref_title"
+msgid "Calendar assistant"
+msgstr "달력 보조"
+
+#. Calendar reminder: pref description disabled
+msgctxt "CRA_calendar_reminders_pref_desc_disabled"
+msgid "Astrid will not remind you about upcoming calendar events"
+msgstr "Astrid는 다가오는 달력 이벤트를 알리지 않을 것입니다."
+
+#. Calendar reminder: pref description enabled
+msgctxt "CRA_calendar_reminders_pref_desc_enabled"
+msgid ""
+"Astrid will remind you about upcoming calendar events and prompt you to "
+"prepare for them"
+msgstr "Astrid는 다가오는 달력 이벤트를 알리고 당신이 준비하도록 할 것입니다"
+
+#. Calendar reminder: share list title
+msgctxt "CRA_share_list_title"
+msgid "Share the list?"
+msgstr "목록을 공유할까요?"
+
+msgctxt "CRA_invite_attendees"
+msgid "Invite attendees"
+msgstr "참석자 초대하기"
+
+msgctxt "CRA_more_options"
+msgid "More options"
+msgstr "추가 옵션"
+
+msgctxt "CRA_dont_invite"
+msgid "No thank you"
+msgstr "아니요 괜찮습니다"
+
+#. Calendar reminder: share list title when no other attendees exist
+msgctxt "CRA_list_created_title"
+msgid "List created!"
+msgstr "목록을 만들었습니다!"
+
+#. Calendar reminder: default new list name (%s -> event title)
+#, c-format
+msgctxt "CRA_default_list_name"
+msgid "Action Items: %s"
+msgstr "활동 아이템: %s"
+
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
 #. ==================================================== UpdateService ==
@@ -1558,7 +1750,7 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
-"공유한 목록상의 활동과\n"
+"공유한 목록상의 활동 내역과\n"
 "자신의 일정 진행 기록을\n"
 "보려면 로그인하세요."
 
@@ -1574,11 +1766,11 @@ msgstr "설정"
 
 msgctxt "EPr_share_astrid"
 msgid "Tell others about Astrid"
-msgstr "다른 사람에게 Astrid 말하기"
+msgstr "다른 사람에게 Astrid 알리기"
 
 msgctxt "EPr_share_astrid_summary"
 msgid "Share about Astrid on your favorite social network"
-msgstr "당신이 즐겨찾는 소셜 네트워크에 Astrid 공유하기"
+msgstr "내가 즐겨찾는 소셜 네트워크에 Astrid를 공유합니다"
 
 #. slide 46a
 msgctxt "EPr_deactivated"
@@ -1588,12 +1780,12 @@ msgstr "비활성화됨"
 #. slide 30i: Preference Category: Appearance Title
 msgctxt "EPr_appearance_header"
 msgid "Appearance"
-msgstr "모양"
+msgstr "보기 설정"
 
 #. Preference Category: Appearance Summary
 msgctxt "EPr_appearance_summary"
 msgid "Themes, widgets, task rows, edit screen"
-msgstr ""
+msgstr "테마, 위젯, 일정 표시줄, 화면 편집"
 
 #. FAQ Preference title
 msgctxt "EPr_faq_title"
@@ -1609,12 +1801,12 @@ msgstr "계정: %s"
 #. Support preferences summary
 msgctxt "EPr_support_summary"
 msgid "Tutorial, FAQ, about"
-msgstr ""
+msgstr "사용 안내, 자주 묻는 질문, 정보"
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
 msgid "Task list size"
-msgstr ""
+msgstr "일정 목록 크기"
 
 #. slide 32a: Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
@@ -1630,17 +1822,17 @@ msgstr "주 목록 페이지 폰트 크기"
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show notes in task"
-msgstr "작업과 함께 노트 보이기"
+msgstr "일정에서 노트 보기"
 
 #. slide 30e: Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize task edit screen"
-msgstr ""
+msgstr "일정 편집화면 설정하기"
 
 #. slide 35h
 msgctxt "EPr_beastMode_desc"
 msgid "Customize the layout of the task edit screen"
-msgstr ""
+msgstr "일정 편집화면 레이아웃 설정하기"
 
 #. slide 35j
 msgctxt "EPr_beastMode_reset"
@@ -1650,7 +1842,7 @@ msgstr "기본값으로 초기화하기"
 #. slide 34i: Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
 msgid "Notes will be accessible from the task edit screen"
-msgstr ""
+msgstr "일정 편집화면에서 노트를 사용할 수 있습니다"
 
 #. Preference: Task List Show Notes Description (enabled)
 msgctxt "EPr_showNotes_desc_enabled"
@@ -1660,7 +1852,7 @@ msgstr "노트를 항상 보여 줍니다"
 #. slide 34d: Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
 msgid "Compact task row"
-msgstr ""
+msgstr "작은 일정 표시줄"
 
 #. slide 34j
 msgctxt "EPr_compressTaskRows_desc"
@@ -1691,29 +1883,29 @@ msgstr "아이디어 탭 자동 불러오기"
 #. slide 32c
 msgctxt "EPr_ideaAuto_desc_enabled"
 msgid "Web searches for ideas tab will be performed when tab is clicked"
-msgstr ""
+msgstr "아이디어 탭의 웹 검색은 탭을 클릭했을 때 실행될 것입니다"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
 msgid ""
 "Web searches for ideas tab will be performed only when manually requested"
-msgstr ""
+msgstr "아이디어 탭의 웹 검색은 수동으로 요청했을 때만 실행될 것입니다"
 
 #. Preferences: task row style
 msgctxt "EPr_task_row_style_title_simple"
 msgid "Row style: Simple"
-msgstr ""
+msgstr "가로줄 스타일: 간단히"
 
 msgctxt "EPr_task_row_style_title_legacy"
 msgid "Row style: Original"
-msgstr ""
+msgstr "가로줄 스타일: 원래대로"
 
 msgctxt "EPr_task_row_style_summary_simple"
 msgid "Truncate title to one line with date and lists below"
-msgstr ""
+msgstr "제목을 한 줄로 줄이고 날짜와 목록을 그 아래에 출력"
 
 msgctxt "EPr_task_row_style_summary_legacy"
 msgid "Truncate title to two lines with date on right"
-msgstr ""
+msgstr "제목을 두 줄로 줄이고 날짜를 오른쪽에 출력"
 
 #. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
@@ -1739,7 +1931,7 @@ msgstr "위젯 테마"
 #. slide 30d/ 34f: Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
 msgid "Task row appearance"
-msgstr "할 일 행 외관"
+msgstr "일정 표시줄 보기 설정"
 
 #. slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)
 #. slide 33f
@@ -1762,7 +1954,7 @@ msgstr "기기의 연락처 가져오기 옵션이 나타나지 않습니다"
 #. slide 49i: Preferences: Third party addons
 msgctxt "EPr_third_party_addons"
 msgid "Enable third party add-ons"
-msgstr ""
+msgstr "서드파티 확장기능 사용하기"
 
 msgctxt "EPr_third_party_addons_desc_enabled"
 msgid "Third party add-ons will be enabled"
@@ -1776,7 +1968,7 @@ msgstr "제3공급자 확장기능을 사용하지 않습니다"
 #. Preferences: ideas tab
 msgctxt "EPr_ideas_tab_enabled"
 msgid "Task ideas"
-msgstr ""
+msgstr "일정 아이디어"
 
 msgctxt "EPr_ideas_tab_description"
 msgid "Get ideas to help you complete tasks"
@@ -1905,12 +2097,12 @@ msgstr "오래된 스타일"
 #. slide 33a/47c: Preference Screen Header: Old Task Management
 msgctxt "EPr_manage_header"
 msgid "Manage old tasks"
-msgstr "오래된 할 일 관리"
+msgstr "오래된 일정 관리"
 
 #. slide 47d
 msgctxt "EPr_manage_delete_completed"
 msgid "Delete completed tasks"
-msgstr "완료된 할 일 제거"
+msgstr "완료한 일정 삭제"
 
 msgctxt "EPr_manage_delete_completed_message"
 msgid "Do you really want to delete all your completed tasks?"
@@ -1929,7 +2121,7 @@ msgstr "%d 일정을 삭제했습니다!"
 #. slide 47e
 msgctxt "EPr_manage_purge_deleted"
 msgid "Purge deleted tasks"
-msgstr "삭제된 할 일을 제거"
+msgstr "삭제한 일정을 비우기"
 
 msgctxt "EPr_manage_purge_deleted_message"
 msgid ""
@@ -1939,7 +2131,7 @@ msgid ""
 msgstr ""
 "삭제한 일정을 모두 비울까요?\n"
 "\n"
-"이 작업은 되돌릴 수 없습니다!"
+"비운 일정은 다시 살릴 수 없습니다!"
 
 #, c-format
 msgctxt "EPr_manage_purge_deleted_status"
@@ -1954,7 +2146,7 @@ msgstr "주의! 비운 일정은 백업 파일 없이 복구할 수 없습니다
 #. slide 47h
 msgctxt "EPr_manage_clear_all"
 msgid "Clear all data"
-msgstr ""
+msgstr "모든 자료 삭제"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -1969,7 +2161,7 @@ msgstr ""
 #. slide 47f
 msgctxt "EPr_manage_delete_completed_gcal"
 msgid "Delete calendar events for completed tasks"
-msgstr ""
+msgstr "완료한 일정의 달력 이벤트를 삭제하기"
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
 msgid "Do you really want to delete all your events for completed tasks?"
@@ -1983,7 +2175,7 @@ msgstr "%d 달력 이벤트를 삭제했습니다!"
 #. slide 47g
 msgctxt "EPr_manage_delete_all_gcal"
 msgid "Delete all calendar events for tasks"
-msgstr "할 일에 대한 모든 달력 이벤트 삭제"
+msgstr "일정의 모든 달력 이벤트 삭제하기"
 
 msgctxt "EPr_manage_delete_all_gcal_message"
 msgid "Do you really want to delete all your events for tasks?"
@@ -2025,27 +2217,28 @@ msgstr "무료"
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
 msgid "Empty List!"
-msgstr "빈 목록!"
+msgstr "목록이 없습니다!"
 
 msgctxt "AOA_ppack_title"
 msgid "Astrid Power Pack"
-msgstr ""
+msgstr "Astrid 파워 팩"
 
 msgctxt "AOA_ppack_description"
 msgid ""
 "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and "
 "4x4 widgets and voice integration. Power up today!"
 msgstr ""
+"Astrid를 지원하고 Astrid 파워 팩(4x2, 4x4 위젯, 음성입력)으로 일을 좀 더 효과적으로 하세요. 오늘 사용해 보세요!"
 
 msgctxt "AOA_locale_title"
 msgid "Astrid Locale Plugin"
-msgstr ""
+msgstr "Astrid 위치 플러그인"
 
 msgctxt "AOA_locale_description"
 msgid ""
 "Allows Astrid to make use of the Locale application to send you "
 "notifications based on filter conditions. Requires Locale."
-msgstr ""
+msgstr "Astrid에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다."
 
 #. ====================================================== TasksWidget ==
 #. Widget text when loading tasks
@@ -2062,7 +2255,7 @@ msgstr "볼 일정 선택..."
 #. slide 30h: Title of "About" option in settings
 msgctxt "p_about"
 msgid "About Astrid"
-msgstr "Astrid에 대하여"
+msgstr "Astrid 정보"
 
 #. About text (%s => current version)
 #, c-format
@@ -2131,21 +2324,24 @@ msgid ""
 "&gt;Manage old tasks-&gt;Clear all data) and restore your tasks from a "
 "backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Astrid."
 msgstr ""
+"데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 자료를 모두 지우고 (설정-&gt;동기화 & 백업-"
+"&gt;오래된 일정 관리-&gt;모든 자료 삭제) Astrid의 백업에서 당신의 일정을 복구하시기 바랍니다. (설정-&gt;동기화 & "
+"백업-&gt;백업-&gt;일정 불러오기)"
 
 msgctxt "market_unavailable"
 msgid "Unfortunately the market is not available for your system."
-msgstr "이 기기에서 구글 플레이를 사용할 수 없습니다."
+msgstr "이 기기에서 마켓을 사용할 수 없습니다."
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New task defaults"
-msgstr "새 작업 기본값"
+msgstr "새 일정 기본값"
 
 msgctxt "EPr_defaults_summary"
 msgid "Importance, due date, add to calendar"
-msgstr ""
+msgstr "중요도, 완료 예정일, 달력에 추가하기"
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
@@ -2172,7 +2368,7 @@ msgstr "현재: %s"
 #. slide 42e: Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
 msgid "Default hide until"
-msgstr "기본 숨기기 기간"
+msgstr "기본 숨기기 기간:"
 
 #. Preference: Default Hide Until Description (%s => setting)
 #, c-format
@@ -2194,7 +2390,7 @@ msgstr "현재: %s"
 #. slide 19a/46c: Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
 msgid "Default add to calendar"
-msgstr ""
+msgstr "달력에 추가하기 (기본값)"
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
 msgctxt "EPr_default_addtocalendar_desc_disabled"
@@ -2236,7 +2432,7 @@ msgstr "o (낮음)"
 
 msgctxt "EPr_default_urgency:0"
 msgid "No deadline"
-msgstr "마감일 없음"
+msgstr "기한 없음"
 
 msgctxt "EPr_default_urgency:1"
 msgid "Today"
@@ -2252,7 +2448,7 @@ msgstr "모레"
 
 msgctxt "EPr_default_urgency:4"
 msgid "Next week"
-msgstr "다음주"
+msgstr "다음 주"
 
 msgctxt "EPr_default_hideUntil:0"
 msgid "Don't hide"
@@ -2493,7 +2689,7 @@ msgstr "추가하지 않음"
 
 msgctxt "gcal_TEA_none_selected"
 msgid "Add to cal..."
-msgstr "달력에 추가..."
+msgstr "달력에 추가"
 
 msgctxt "gcal_TEA_has_event"
 msgid "Cal event"
@@ -2719,7 +2915,7 @@ msgstr "서비스 약관"
 #. slide 7e
 msgctxt "welcome_login_pw"
 msgid "Sign up with email"
-msgstr "이메일로 로그인"
+msgstr "이메일로 로그인하기"
 
 msgctxt "welcome_sign_in"
 msgid "Sign in"
@@ -3059,7 +3255,7 @@ msgstr "다음 사람에게 할당됨..."
 #. slide 32j: Preference Category: Power Pack
 msgctxt "EPr_powerpack_header"
 msgid "Premium and misc. settings"
-msgstr ""
+msgstr "프리미엄과 기타 설정"
 
 msgctxt "EPr_powerpack_summary"
 msgid "Missed call reminders, voice input and miscellaneous settings"
@@ -3068,7 +3264,7 @@ msgstr "부재중 전화 알림, 음성 입력과 기타 설정"
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
 msgid "Anonymous usage stats"
-msgstr "사용 통계정보(익명보장)"
+msgstr "사용 통계 정보 (익명)"
 
 #. Preference: User Statistics (disabled)
 msgctxt "EPr_statistics_desc_disabled"
@@ -3139,7 +3335,7 @@ msgctxt "search_market_audio"
 msgid ""
 "No player found to handle that audio type. Would you like to download an "
 "audio player from the Android Market?"
-msgstr "이 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 구글 플레이에서 다운로드할까요?"
+msgstr "이 형식의 오디오를 다룰 수 있는 재생기가 없습니다. 안드로이드 마켓에서 다운로드할까요?"
 
 msgctxt "search_market_audio_title"
 msgid "No audio player found"
@@ -3149,7 +3345,7 @@ msgctxt "search_market_pdf"
 msgid ""
 "No PDF reader was found. Would you like to download a PDF reader from the "
 "Android Market?"
-msgstr "PDF 리더가 없습니다. 구글 플레이에서 PDF 리더를 다운로드할까요?"
+msgstr "PDF 리더가 없습니다. 안드로이드 마켓에서 PDF 리더를 다운로드할까요?"
 
 msgctxt "search_market_pdf_title"
 msgid "No PDF reader found"
@@ -3159,7 +3355,7 @@ msgctxt "search_market_ms"
 msgid ""
 "No MS Office reader was found. Would you like to download an MS Office "
 "reader from the Android Market?"
-msgstr "MS 오피스 리더가 없습니다. 구글 플레이에서 MS 오피스 리더를 다운로드할까요?"
+msgstr "MS 오피스 리더가 없습니다. 안드로이드 마켓에서 MS 오피스 리더를 다운로드할까요?"
 
 msgctxt "search_market_ms_title"
 msgid "No MS Office reader found"
@@ -3251,7 +3447,7 @@ msgstr "기본값으로 초기화"
 
 msgctxt "p_files_dir"
 msgid "Premium downloads directory"
-msgstr ""
+msgstr "프리미엄 다운로드 디렉토리"
 
 #. Description for file download directory preference. %s -> chosen directory
 #, c-format
@@ -3283,12 +3479,12 @@ msgid ""
 "The Market billing service on this device does not support subscriptions at "
 "this time. You can subscribe to Astrid Premium at http://astrid.com/premium."
 msgstr ""
-"현재 이 기기에서 구글 플레이의 과금 서비스를 통해 정기 사용권을 구입할 수 없습니다. http://astrid.com/premium "
-"에서 직접 Astrid 프리미엄 이용권을 구매할 수 있습니다."
+"현재 이 기기에서 마켓의 과금 서비스를 통해 정기 사용권을 구입할 수 없습니다. http://astrid.com/premium 에서 직접 "
+"Astrid 프리미엄 이용권을 구매할 수 있습니다."
 
 msgctxt "cannot_connect_title"
 msgid "Can't connect to Market"
-msgstr "구글 플레이에 접속할 수 없음"
+msgstr "마켓에 접속할 수 없음"
 
 msgctxt "cannot_connect_message"
 msgid ""
@@ -3296,8 +3492,7 @@ msgid ""
 "date. You can continue to use this app but you won't be able to make "
 "purchases."
 msgstr ""
-"이 앱은 구글 플레이에 접속할 수 없습니다. 구글 플레이 버전이 오래된 것 같습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수는 "
-"없을 것입니다."
+"이 앱은 마켓에 접속할 수 없습니다. 이 앱의 버전이 오래된 것 같습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수는 없을 것입니다."
 
 msgctxt "restoring_transactions"
 msgid "Restoring transactions"
@@ -3389,6 +3584,16 @@ msgid ""
 msgstr ""
 "이 구글 플레이 계정으로 구매한 프리미엄 이용권은 다른 사용자에게 연결되어 있습니다. 당신의 계정에 추가적인 이메일을 연결하려면 "
 "astrid.com/users/profile 을 방문하세요."
+
+msgctxt "premium_check_for_purchases"
+msgid ""
+"Already purchased premium? Click here to check Google Play for purchase "
+"history."
+msgstr "프리미엄을 이미 구매하셨나요? 구글 플레이에서 구매 내역을 확인하려면 여기를 클릭하세요"
+
+msgctxt "premium_checking_for_purchases"
+msgid "Checking for purchases..."
+msgstr "구매 확인 중..."
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3594,7 +3799,7 @@ msgstr "알림"
 #. Task Edit: Reminder header label
 msgctxt "TEA_reminder_label"
 msgid "Remind me:"
-msgstr ""
+msgstr "알려주세요:"
 
 #. Task Edit: Reminder @ deadline
 msgctxt "TEA_reminder_due"
@@ -3619,17 +3824,17 @@ msgstr "소리/진동 선택:"
 #. slide 45a: Task Edit: Reminder mode: ring once
 msgctxt "TEA_reminder_mode_once"
 msgid "Ring once"
-msgstr "한번 소리내기"
+msgstr "한 번 소리내기"
 
 #. slide 45b: Task Edit: Reminder mode: ring five times
 msgctxt "TEA_reminder_mode_five"
 msgid "Ring five times"
-msgstr ""
+msgstr "다섯 번 소리내기"
 
 #. slide 45c: Task Edit: Reminder mode: ring nonstop
 msgctxt "TEA_reminder_mode_nonstop"
 msgid "Ring until I dismiss alarm"
-msgstr "알람끌 때까지 소리내기"
+msgstr "알람을 끌 때까지 소리내기"
 
 msgctxt "TEA_reminder_random:0"
 msgid "an hour"
@@ -3798,7 +4003,7 @@ msgstr "Quiet hours, snooze options, persistence level"
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders enabled?"
-msgstr ""
+msgstr "알림을 사용할까요?"
 
 #. Reminder Preference Reminders Enabled Description (true)
 msgctxt "rmd_EPr_enabled_desc_true"
@@ -3813,7 +4018,7 @@ msgstr "Astrid 알림을 사용하지 않습니다"
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
 msgid "Quiet hours start"
-msgstr "알람 꺼짐 시작시간"
+msgstr "알림 꺼짐 시작 시간"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
 #, c-format
@@ -3821,7 +4026,7 @@ msgctxt "rmd_EPr_quiet_hours_start_desc"
 msgid ""
 "Notifications will be silent after %s.\n"
 "Note: vibrations are controlled by the Vibrate on alert setting"
-msgstr "%s 후에는 알림 기능이 꺼집니다."
+msgstr "%s 후에는 알림을 끕니다. (진동은 알람 설정의 진동 설정을 따릅니다)"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 msgctxt "rmd_EPr_quiet_hours_desc_none"
@@ -3831,7 +4036,7 @@ msgstr "알림 꺼짐을 사용하지 않습니다"
 #. Reminder Preference: Quiet Hours End Title
 msgctxt "rmd_EPr_quiet_hours_end_title"
 msgid "Quiet hours end"
-msgstr "알람 꺼짐 시간 종료"
+msgstr "알림 꺼짐 종료 시간"
 
 #. Reminder Preference: Quiet Hours End Description (%s => time set)
 #, c-format
@@ -3842,7 +4047,7 @@ msgstr "%s 부터 알림 기능이 켜집니다"
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
 msgid "Default reminder"
-msgstr ""
+msgstr "기본 알림 설정"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #, c-format
@@ -3876,7 +4081,7 @@ msgstr "기본 벨소리가 사용됩니다"
 #. Reminder Preference: Notification Persistence Title
 msgctxt "rmd_EPr_persistent_title"
 msgid "Notification persistence"
-msgstr "알람 지속시간"
+msgstr "알림 지속 시간"
 
 #. Reminder Preference: Notification Persistence Description (true)
 msgctxt "rmd_EPr_persistent_desc_true"
@@ -3910,7 +4115,7 @@ msgstr "Astrid에서 소리 크기는 시스템 설정을 따릅니다."
 #. Reminder Preference: Vibrate Title
 msgctxt "rmd_EPr_vibrate_title"
 msgid "Vibrate on alert"
-msgstr "알람시 진동"
+msgstr "알림시 진동"
 
 #. Reminder Preference: Vibrate Description (true)
 msgctxt "rmd_EPr_vibrate_desc_true"
@@ -3925,7 +4130,7 @@ msgstr "알림시 진동하지 않습니다."
 #. Reminder Preference: Nagging Title
 msgctxt "rmd_EPr_nagging_title"
 msgid "Astrid encouragements"
-msgstr "Astrid 알람"
+msgstr "Astrid 격려 문구"
 
 #. Reminder Preference: Nagging Description (true)
 msgctxt "rmd_EPr_nagging_desc_true"
@@ -3940,7 +4145,7 @@ msgstr "Astrid 는 어떤 격려 문구도 보여주지 않습니다"
 #. Reminder Preference: Snooze Dialog Title
 msgctxt "rmd_EPr_snooze_dialog_title"
 msgid "Snooze dialog HH:MM"
-msgstr "알람 지연 HH:MM"
+msgstr "알림 지연 HH:MM"
 
 #. Reminder Preference: Snooze Dialog Description (true)
 msgctxt "rmd_EPr_snooze_dialog_desc_true"
@@ -3955,7 +4160,7 @@ msgstr "미룰 날짜/시간을 선택하여 알림 연기"
 #. slide 44g: Reminder Preference: Default Reminders Title
 msgctxt "rmd_EPr_defaultRemind_title"
 msgid "Random reminders"
-msgstr "랜덤 알람"
+msgstr "랜덤 알림"
 
 #. Reminder Preference: Default Reminders Setting (disabled)
 msgctxt "rmd_EPr_defaultRemind_desc_disabled"
@@ -4592,13 +4797,13 @@ msgstr "일정 반복 허락"
 #. slide 20a: checkbox for turning on/off repeats
 msgctxt "repeat_enabled"
 msgid "Repeats"
-msgstr "반복"
+msgstr "반복 설정"
 
 #. slide 20b: button for "every x" part of repeat (%d -> repeat value)
 #, c-format
 msgctxt "repeat_every"
 msgid "Every %d"
-msgstr "매 %d 마다"
+msgstr "매 %d"
 
 #. hint when opening repeat interval
 msgctxt "repeat_interval_prompt"
@@ -4641,27 +4846,27 @@ msgstr "년"
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
-msgstr "매일"
+msgstr "일마다"
 
 msgctxt "repeat_interval:1"
 msgid "Week(s)"
-msgstr "매주"
+msgstr "주마다"
 
 msgctxt "repeat_interval:2"
 msgid "Month(s)"
-msgstr "매월"
+msgstr "월마다"
 
 msgctxt "repeat_interval:3"
 msgid "Hour(s)"
-msgstr "매시"
+msgstr "시마다"
 
 msgctxt "repeat_interval:4"
 msgid "Minute(s)"
-msgstr "매분"
+msgstr "분마다"
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr "매년"
+msgstr "년마다"
 
 msgctxt "repeat_until_shortcuts:0"
 msgid "Forever"
@@ -4721,7 +4926,7 @@ msgstr "$I on $D"
 #, c-format
 msgctxt "repeat_detail_duedate"
 msgid "Every %s"
-msgstr "매 %s 마다"
+msgstr "매 %s"
 
 #. task detail for repeat until a specific date (%1$s -> interval, %2$s ->
 #. finish date)
@@ -4743,7 +4948,7 @@ msgstr "완료 후 %s"
 #. text for button when repeating task indefinitely
 msgctxt "repeat_forever"
 msgid "Repeat forever"
-msgstr "영원히 반복"
+msgstr "영원히 반복하기"
 
 #. text for button when repeating task until specified date (%s -> date
 #. string)
@@ -4937,7 +5142,7 @@ msgstr "목록"
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr "하나나 그 이상의 목록에 일정 넣기"
+msgstr "1개 이상의 목록에 일정을 넣으세요"
 
 #. slide 16h: Tags none
 msgctxt "TEA_tags_none"
@@ -5106,17 +5311,17 @@ msgstr "기한이 정해진 일정"
 #. Title for TEA
 msgctxt "TEA_timer_controls"
 msgid "Timer Controls"
-msgstr "타이어 조절"
+msgstr "타이머 조절"
 
 #. Edit Notes: create comment for when timer is started
 msgctxt "TEA_timer_comment_started"
 msgid "started this task:"
-msgstr "이 일정을 시작함:"
+msgstr "이 일정 시작:"
 
 #. Edit Notes: create comment for when timer is stopped
 msgctxt "TEA_timer_comment_stopped"
 msgid "stopped doing this task:"
-msgstr "이 일정을 중지함:"
+msgstr "이 일정 중지:"
 
 #. Edit Notes: comment to notify how long was spent on task
 msgctxt "TEA_timer_comment_spent"
@@ -5223,18 +5428,18 @@ msgstr "일정을 만들려면 말하세요"
 
 msgctxt "voice_edit_title_prompt"
 msgid "Speak to set task title"
-msgstr "일정 제목을 정하려면 말하세요"
+msgstr "일정 제목을 말하세요"
 
 msgctxt "voice_edit_note_prompt"
 msgid "Speak to set task notes"
-msgstr "일정 노트를 정하려면 말하세요"
+msgstr "일정 노트를 말하세요"
 
 #. Preference: Task List recognition-service is not installed, but available
 msgctxt "EPr_voiceInputInstall_dlg"
 msgid ""
 "Voice-input is not installed.\n"
 "Do you want to go to the market and install it?"
-msgstr "음성입력이 설치되어 있지 않습니다. 구글 플레이에 가서 지금 설치할까요?"
+msgstr "음성입력이 설치되어 있지 않습니다. 마켓에 가서 지금 설치할까요?"
 
 #. Preference: Task List recognition-service is not available for this system
 msgctxt "EPr_voiceInputUnavailable_dlg"
@@ -5248,43 +5453,43 @@ msgctxt "EPr_marketUnavailable_dlg"
 msgid ""
 "Unfortunately the market is not available for your system.\n"
 "If possible, try downloading voice search from another source."
-msgstr "아직 구글 플레이를 사용할 수 없습니다. 다른 곳에서 음성 검색을 다운로드하세요."
+msgstr "이 시스템에서 아직 마켓을 사용할 수 없습니다. 다른 곳에서 음성 검색을 다운로드하세요."
 
 #. slide 38d:  Preference: Task List Show Voice-button if recognition-service
 #. is available
 msgctxt "EPr_voiceInputEnabled_title"
 msgid "Voice input"
-msgstr ""
+msgstr "음성 입력"
 
 #. slide 38a: Preference: voice button description (true)
 msgctxt "EPr_voiceInputEnabled_desc_enabled"
 msgid "Voice input button will be displayed in task list page"
-msgstr "음성 입력 버튼이 일정 목록 페이지에 나타납니다"
+msgstr "일정 목록 페이지에 음성 입력 버튼을 출력합니다"
 
 #. Preference: voice button description (false)
 msgctxt "EPr_voiceInputEnabled_desc_disabled"
 msgid "Voice input button will be hidden on task list page"
-msgstr "음성 입력 버튼이 일정 목록 페이지에서 사라집니다"
+msgstr "일정 목록 페이지에서 음성 입력 버튼을 숨깁니다"
 
 #. slide 38e: Preference: Task List Voice-button directly creates tasks
 msgctxt "EPr_voiceInputCreatesTask_title"
 msgid "Directly create tasks"
-msgstr ""
+msgstr "일정을 직접 만들기"
 
 #. Preference: Task List Voice-creation description (true)
 msgctxt "EPr_voiceInputCreatesTask_desc_enabled"
 msgid "Tasks will automatically be created from voice input"
-msgstr "음성 입력으로 일정을 자동으로 만들기"
+msgstr "음성 입력으로 일정을 자동으로 만듭니다"
 
 #. slide 38b: Preference: Task List Voice-creation description (false)
 msgctxt "EPr_voiceInputCreatesTask_desc_disabled"
 msgid "You can edit the task title after voice input finishes"
-msgstr "음성 입력이 끝난 후 일정 제목을 편집할 수 있습니다"
+msgstr "음성 입력이 끝난 후에 일정 제목을 편집할 수 있습니다"
 
 #. slide 38f: Preference: Voice reminders if TTS-service is available
 msgctxt "EPr_voiceRemindersEnabled_title"
 msgid "Voice reminders"
-msgstr ""
+msgstr "음성 알림"
 
 #. Preference: Voice reminders description (true)
 msgctxt "EPr_voiceRemindersEnabled_desc_enabled"
@@ -5299,14 +5504,14 @@ msgstr "일정 알림기간 동안 벨소리를 울려줍니다"
 #. slide 32d: Preference Category: Voice Title
 msgctxt "EPr_voice_header"
 msgid "Voice input settings"
-msgstr ""
+msgstr "음성 입력 설정"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. slide 30a
 msgctxt "welcome_setting"
 msgid "Show tutorial"
-msgstr ""
+msgstr "사용 지침 보기"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
@@ -5627,7 +5832,7 @@ msgstr "공유 목록!"
 
 msgctxt "PPW_api_level"
 msgid "Sorry! This widget is only supported on Android 3.0 or higher."
-msgstr "죄송하기만 이 위젯은 안드로이드 3.0 이상에서만 사용할 수 있습니다."
+msgstr "죄송하지만 이 위젯은 안드로이드 3.0 이상에서만 사용할 수 있습니다."
 
 msgctxt "EPr_widget_enabled_title"
 msgid "Enable/Disable Widgets"

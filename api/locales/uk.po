@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 12:23-0700\n"
-"PO-Revision-Date: 2012-10-05 22:34+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-10-26 14:31-0700\n"
+"PO-Revision-Date: 2012-11-08 14:09+0000\n"
+"Last-Translator: vasalx <vasalexandr@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-10-11 20:21+0000\n"
-"X-Generator: Launchpad (build 16130)\n"
+"X-Launchpad-Export-Date: 2012-11-27 19:05+0000\n"
+"X-Generator: Launchpad (build 16309)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -59,20 +59,20 @@ msgstr "1 день"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d днів тижня"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "1 день тижня"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
 msgid "%d Hours"
-msgstr "%d год."
+msgstr ""
 
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"
-msgstr "1 год."
+msgstr ""
 
 #, c-format
 msgctxt "DUt_minutes:quantity=other"
@@ -95,7 +95,7 @@ msgstr "1 секунда"
 #, c-format
 msgctxt "DUt_hoursShort:quantity=other"
 msgid "%d Hrs"
-msgstr "%d год."
+msgstr ""
 
 msgctxt "DUt_hoursShort:quantity=one"
 msgid "1 Hr"
@@ -131,16 +131,16 @@ msgstr "1 завдання"
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr ""
+msgstr "%d людей"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "1 людина"
 
 #. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
-msgstr "Сьогодні"
+msgstr ""
 
 #. tomorrow
 msgctxt "tomorrow"
@@ -155,12 +155,12 @@ msgstr "Вчора"
 #. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Звтр"
 
 #. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "вч"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
@@ -186,7 +186,7 @@ msgstr "Помилка!"
 #. general dialog save
 msgctxt "DLG_save"
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 #. general dialog yes
 msgctxt "DLG_yes"
@@ -249,7 +249,7 @@ msgstr "Синхронізація"
 #. Sync label subtitle
 msgctxt "SyP_summary"
 msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr ""
+msgstr "Astrid.com, Google Tasks, збережні дані, локальна резервна копія"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -266,12 +266,12 @@ msgstr "Стан"
 #, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr ""
+msgstr "Стан: %s"
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
 msgid "Not logged in"
-msgstr ""
+msgstr "Ви не ввійшли"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -285,6 +285,8 @@ msgid ""
 "Last sync:\n"
 "%s"
 msgstr ""
+"Остання синхронізація:\n"
+"%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
@@ -296,7 +298,7 @@ msgstr "Помилка на: %s"
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ errors: %s"
-msgstr ""
+msgstr "Синхронізація з помилками: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
@@ -353,7 +355,7 @@ msgstr "Дії"
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
 msgid "Synchronize now"
-msgstr ""
+msgstr "Синхронізувати зараз"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -363,22 +365,22 @@ msgstr "Увійдіть & синхронізуйтесь!"
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "Ви увійшли як:"
 
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status report"
-msgstr ""
+msgstr "Повідомлення про стан"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "Натисніть, щоб надіслати звіт команді Astrid"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send report"
-msgstr ""
+msgstr "Надіслати звіт"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -402,6 +404,8 @@ msgid ""
 "There was a problem connecting to the network during the last sync with %s. "
 "Please try again later."
 msgstr ""
+"Виникла проблема зі з’єднанням під час останньої синхронізації з %s. Будь "
+"ласка, спробуйте пізніше."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"

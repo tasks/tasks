@@ -14,6 +14,7 @@ import android.content.Intent;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 public final class ReengagementService {
@@ -38,10 +39,13 @@ public final class ReengagementService {
     private static long getNextReminderTime() {
         int reengagementReminders = Preferences.getInt(PREF_REENGAGEMENT_COUNT, 1);
         int days;
-        if (reengagementReminders >= 4)
-            days = 10;
-        else
-            days = 2 + reengagementReminders * 2;
+        if (DateUtilities.now() - Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0) > DateUtilities.ONE_DAY * 30) { // Installed longer than 30 days
+            // Sequence: every 6, 8, 10 days
+            days = Math.min(10, 4 + 2 * reengagementReminders);
+        } else {
+            // Sequence: every 2, 3, 4, 5 days
+            days = Math.min(5, 1 + reengagementReminders);
+        }
 
         Date date = new Date(DateUtilities.now() + DateUtilities.ONE_DAY * days / 1000L * 1000L);
         date.setHours(18);

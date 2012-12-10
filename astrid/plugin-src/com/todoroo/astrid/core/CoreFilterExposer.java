@@ -68,7 +68,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
                                         Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
                                                 TagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
-                null);
+                                                null);
         int themeFlags = ThemeService.getFilterThemeFlags();
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
