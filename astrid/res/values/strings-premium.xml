@@ -83,6 +83,11 @@
     <string name="kii_premium_declined">Special offer declined</string>
     <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
     
+    <string name="premium_offers_title">Special Offer</string>
+    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
+    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_start">Get it free!</string>
+    
     <string name="premium_billing_title">Astrid Premium</string>
     <string name="premium_buy_month">1 Month</string>
     <string name="premium_buy_year">1 Year</string>
