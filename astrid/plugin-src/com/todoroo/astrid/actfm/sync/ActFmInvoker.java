@@ -210,7 +210,7 @@ public class ActFmInvoker {
 
         String url = URL;
         boolean customApi = false;
-        if (api == null) {
+        if (api != null) {
             customApi = true;
             url = url.replace("api", api);
         }
