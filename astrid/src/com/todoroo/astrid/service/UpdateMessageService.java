@@ -92,8 +92,7 @@ public class UpdateMessageService {
         displayUpdateDialog(message);
     }
 
-    private static class MessageTuple {
-        public boolean htmlMessage = false;
+    public static class MessageTuple {
         public String message = null;
         public List<String> linkText = new ArrayList<String>();
         public List<OnClickListener> click = new ArrayList<OnClickListener>();
@@ -224,25 +223,27 @@ public class UpdateMessageService {
                 toReturn.click.add(click);
             } else {
                 JSONArray links = update.optJSONArray("links");
-                for (int j = 0; j < links.length(); j++) {
-                    JSONObject link = links.optJSONObject(j);
-                    if (link == null)
-                        continue;
-                    String linkText = link.optString("title");
-                    if (TextUtils.isEmpty(linkText))
-                        continue;
+                if (links != null) {
+                    for (int j = 0; j < links.length(); j++) {
+                        JSONObject link = links.optJSONObject(j);
+                        if (link == null)
+                            continue;
+                        String linkText = link.optString("title");
+                        if (TextUtils.isEmpty(linkText))
+                            continue;
 
-                    final String url = link.optString("url");
-                    OnClickListener click = new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            activity.startActivity(intent);
-                        }
-                    };
+                        final String url = link.optString("url");
+                        OnClickListener click = new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                activity.startActivity(intent);
+                            }
+                        };
 
-                    toReturn.linkText.add(linkText);
-                    toReturn.click.add(click);
+                        toReturn.linkText.add(linkText);
+                        toReturn.click.add(click);
+                    }
                 }
             }
 
