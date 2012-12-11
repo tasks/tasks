@@ -15,19 +15,16 @@ import org.json.JSONObject;
 import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.text.Spannable;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager.BadTokenException;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -40,7 +37,6 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
@@ -83,11 +79,17 @@ public class UpdateMessageService {
         if(updates == null || updates.length() == 0)
             return;
 
-        Pair<String, Spannable> message = buildUpdateMessage(updates);
-        if(message == null || message.getLeft().length() == 0)
+        MessageTuple message = buildUpdateMessage(updates);
+        if(message == null || message.message.length() == 0)
             return;
 
         displayUpdateDialog(message);
+    }
+
+    private static class MessageTuple {
+        public String message = null;
+        public String linkText = null;
+        public OnClickListener click = null;
     }
 
     private static interface DialogShower {
@@ -109,33 +111,33 @@ public class UpdateMessageService {
         }
     }
 
-    protected void displayUpdateDialog(final Pair<String, Spannable> message) {
+    protected void displayUpdateDialog(final MessageTuple message) {
         if(activity == null)
             return;
 
         final DialogShower ds;
-        if (message.getRight() != null) {
+        if (message.linkText != null) {
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
                     try {
-                        View view = activity.getLayoutInflater().inflate(R.layout.update_message_link, null);
-                        TextView messageView = (TextView) view.findViewById(R.id.update_message);
-                        messageView.setText(message.getLeft());
-                        messageView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
-
-                        TextView linkView = (TextView) view.findViewById(R.id.update_link);
-                        linkView.setMovementMethod(LinkMovementMethod.getInstance());
-                        linkView.setText(message.getRight());
-
-                        final Dialog d = new AlertDialog.Builder(a)
-                        .setTitle(R.string.UpS_updates_title)
-                        .setView(view)
-                        .setPositiveButton(R.string.DLG_ok, null)
-                        .create();
-                        linkView.setOnClickListener(new OnClickListener() {
+                        final Dialog d = new Dialog(activity, R.style.ReminderDialog);
+                        d.setContentView(R.layout.update_message_view);
+                        TextView messageView = (TextView) d.findViewById(R.id.reminder_message);
+                        messageView.setText(message.message);
+                        d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                d.dismiss();
+                            }
+                        });
+
+                        Button linkButton = (Button) d.findViewById(R.id.ok);
+                        linkButton.setText(message.linkText);
+                        linkButton.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                message.click.onClick(v);
                                 d.dismiss();
                             }
                         });
@@ -148,7 +150,7 @@ public class UpdateMessageService {
         } else {
             String color = ThemeService.getDialogTextColorString();
             final String html = "<html><body style='color: " + color + "'>" +
-                    message.getLeft() + "</body></html>";
+                    message.message + "</body></html>";
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
@@ -167,7 +169,7 @@ public class UpdateMessageService {
 
     }
 
-    protected Pair<String, Spannable> buildUpdateMessage(JSONArray updates) {
+    protected MessageTuple buildUpdateMessage(JSONArray updates) {
         for(int i = 0; i < updates.length(); i++) {
             JSONObject update;
             try {
@@ -192,23 +194,23 @@ public class UpdateMessageService {
                     continue;
             }
 
-            Pair<String, Spannable> toReturn;
+            MessageTuple toReturn = new MessageTuple();
             String type = update.optString("type", null);
             if ("screen".equals(type) || "pref".equals(type)) {
                 String linkText = update.optString("link");
-                Spannable span = Spannable.Factory.getInstance().newSpannable(linkText);
-                ClickableSpan click = getClickableSpanForUpdate(update, type);
+                OnClickListener click = getClickListenerForUpdate(update, type);
                 if (click == null)
                     continue;
-                span.setSpan(click, 0, span.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                toReturn = Pair.create(message, span);
+                toReturn.message = message;
+                toReturn.linkText = linkText;
+                toReturn.click = click;
             } else {
                 StringBuilder builder = new StringBuilder();
                 if(date != null)
                     builder.append("<b>" + date + "</b><br />");
                 builder.append(message);
                 builder.append("<br /><br />");
-                toReturn = Pair.create(builder.toString(), null);
+                toReturn.message = builder.toString();
             }
 
             if(messageAlreadySeen(date, message))
@@ -218,7 +220,7 @@ public class UpdateMessageService {
         return null;
     }
 
-    private ClickableSpan getClickableSpanForUpdate(JSONObject update, String type) {
+    private OnClickListener getClickListenerForUpdate(JSONObject update, String type) {
         if ("pref".equals(type)) {
             try {
                 if (!update.has("action_list"))
@@ -227,9 +229,9 @@ public class UpdateMessageService {
                 if (prefSpec.length() == 0)
                     return null;
                 final String prefArray = prefSpec.toString();
-                return new ClickableSpan() {
+                return new View.OnClickListener() {
                     @Override
-                    public void onClick(View widget) {
+                    public void onClick(View b) {
                         Intent prefScreen = new Intent(activity, UpdateMessagePreference.class);
                         prefScreen.putExtra(UpdateMessagePreference.TOKEN_PREFS_ARRAY, prefArray);
                         activity.startActivityForResult(prefScreen, 0);
@@ -251,9 +253,9 @@ public class UpdateMessageService {
                     if (!TextUtils.isEmpty(screen))
                         screenList.add(screen);
                 }
-                return new ClickableSpan() {
+                return new View.OnClickListener() {
                     @Override
-                    public void onClick(View widget) {
+                    public void onClick(View v) {
                         Intent screenFlow = new Intent(activity, UpdateScreenFlow.class);
                         screenFlow.putStringArrayListExtra(UpdateScreenFlow.TOKEN_SCREENS, screenList);
                         activity.startActivity(screenFlow);
