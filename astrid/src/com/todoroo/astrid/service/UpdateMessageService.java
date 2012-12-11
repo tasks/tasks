@@ -7,6 +7,7 @@ package com.todoroo.astrid.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -20,12 +21,18 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Color;
+import android.net.Uri;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager.BadTokenException;
+import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -36,7 +43,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
@@ -87,9 +93,10 @@ public class UpdateMessageService {
     }
 
     private static class MessageTuple {
+        public boolean htmlMessage = false;
         public String message = null;
-        public String linkText = null;
-        public OnClickListener click = null;
+        public List<String> linkText = new ArrayList<String>();
+        public List<OnClickListener> click = new ArrayList<OnClickListener>();
     }
 
     private static interface DialogShower {
@@ -115,16 +122,19 @@ public class UpdateMessageService {
         if(activity == null)
             return;
 
-        final DialogShower ds;
-        if (message.linkText != null) {
-            ds = new DialogShower() {
+        if (message.linkText.size() > 0) {
+            final DialogShower ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
                     try {
                         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
                         d.setContentView(R.layout.update_message_view);
-                        TextView messageView = (TextView) d.findViewById(R.id.reminder_message);
-                        messageView.setText(message.message);
+
+                        // TODO: Make HTML message
+                        WebView messageView = (WebView) d.findViewById(R.id.reminder_message);
+                        String html = "<html><body>" + message.message + "</body></html>";
+                        messageView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);
+                        messageView.setBackgroundColor(0);
                         d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -132,40 +142,48 @@ public class UpdateMessageService {
                             }
                         });
 
-                        Button linkButton = (Button) d.findViewById(R.id.ok);
-                        linkButton.setText(message.linkText);
-                        linkButton.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                message.click.onClick(v);
-                                d.dismiss();
-                            }
-                        });
+
+                        LinearLayout root = (LinearLayout) d.findViewById(R.id.reminder_root);
+                        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+                        TypedValue themeColor = new TypedValue();
+                        activity.getTheme().resolveAttribute(R.attr.asThemeTextColor, themeColor, false);
+                        int color = activity.getResources().getColor(themeColor.data);
+                        for (int i = 0; i < message.linkText.size(); i++) {
+                            Button linkButton = new Button(activity);
+                            linkButton.setText(message.linkText.get(i));
+                            final OnClickListener click = message.click.get(i);
+                            linkButton.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    click.onClick(v);
+                                    d.dismiss();
+                                }
+                            });
+                            LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, (int) (metrics.density * 35));
+                            params.leftMargin = params.rightMargin = (int) (metrics.density * 5);
+                            params.bottomMargin = (int) (metrics.density * 10);
+                            linkButton.setTextColor(Color.WHITE);
+                            linkButton.setTextSize(20);
+                            linkButton.setBackgroundColor(color);
+                            linkButton.setLayoutParams(params);
+                            linkButton.setPadding(0, 0, 0, 0);
+
+                            root.addView(linkButton);
+                        }
+
                         d.show();
                     } catch (Exception e) {
                         // This should never ever crash
                     }
                 }
             };
-        } else {
-            String color = ThemeService.getDialogTextColorString();
-            final String html = "<html><body style='color: " + color + "'>" +
-                    message.message + "</body></html>";
-            ds = new DialogShower() {
+            activity.runOnUiThread(new Runnable() {
                 @Override
-                public void showDialog(Activity a) {
-                    DialogUtilities.htmlDialog(a,
-                            html, R.string.UpS_updates_title);
+                public void run() {
+                    tryShowDialog(ds);
                 }
-            };
+            });
         }
-
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                tryShowDialog(ds);
-            }
-        });
 
     }
 
@@ -195,22 +213,37 @@ public class UpdateMessageService {
             }
 
             MessageTuple toReturn = new MessageTuple();
+            toReturn.message = message;
             String type = update.optString("type", null);
             if ("screen".equals(type) || "pref".equals(type)) {
                 String linkText = update.optString("link");
                 OnClickListener click = getClickListenerForUpdate(update, type);
                 if (click == null)
                     continue;
-                toReturn.message = message;
-                toReturn.linkText = linkText;
-                toReturn.click = click;
+                toReturn.linkText.add(linkText);
+                toReturn.click.add(click);
             } else {
-                StringBuilder builder = new StringBuilder();
-                if(date != null)
-                    builder.append("<b>" + date + "</b><br />");
-                builder.append(message);
-                builder.append("<br /><br />");
-                toReturn.message = builder.toString();
+                JSONArray links = update.optJSONArray("links");
+                for (int j = 0; j < links.length(); j++) {
+                    JSONObject link = links.optJSONObject(j);
+                    if (link == null)
+                        continue;
+                    String linkText = link.optString("title");
+                    if (TextUtils.isEmpty(linkText))
+                        continue;
+
+                    final String url = link.optString("url");
+                    OnClickListener click = new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            activity.startActivity(intent);
+                        }
+                    };
+
+                    toReturn.linkText.add(linkText);
+                    toReturn.click.add(click);
+                }
             }
 
             if(messageAlreadySeen(date, message))
