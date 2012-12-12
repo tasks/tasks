@@ -32,6 +32,7 @@ import android.os.ConditionVariable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
@@ -1229,6 +1230,21 @@ public final class ActFmSyncService {
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
             if (onRecoverableError != null)
                 onRecoverableError.run();
+        }
+    }
+
+    public void setGCMRegistration(String regId) {
+        try {
+            String deviceId = GCMIntentService.getDeviceID();
+            if (deviceId != null)
+                invoke("user_set_gcm", "c2dm", regId, "device_id", deviceId);
+            else
+                invoke("user_set_gcm", "c2dm", regId);
+            Preferences.setString(GCMIntentService.PREF_REGISTRATION, regId);
+            Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, null);
+        } catch (IOException e) {
+            Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, regId);
+            Log.e("gcm", "error-gcm-register", e);
         }
     }
 
