@@ -268,7 +268,7 @@ public final class UpgradeService {
 
         if (from >= V4_4 && from < V4_4_4) {
             newVersionString(changeLog, "4.4.4 (12/12/12)", new String[] {
-                "Sync manual ordering and subtasks for 'Active Tasks' and 'Today' filters",
+                "Manual ordering and subtasks for 'Active Tasks' and 'Today' filters now sync with Astrid.com",
                 "Minor polish and bug fixes"
             });
         }
