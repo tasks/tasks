@@ -262,6 +262,24 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         };
     }
 
+    public void testUpdateWithLinks() {
+        clearLatestUpdates();
+
+        new TestUpdateMessageService() {
+            @Override
+            void verifyMessage(MessageTuple message) {
+                assertEquals("Message", message.message);
+                assertEquals("link", message.linkText.get(0));
+                assertNotNull(message.click.get(0));
+            }
+
+            @Override
+            String getUpdates(String url) throws IOException {
+                return "[{message:'Message', links:[{title:'link',url:'http://astrid.com'}]]";
+            }
+        };
+    }
+
     // ---
 
     private void clearLatestUpdates() {
