@@ -27,8 +27,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 public class AstridPreferences {
@@ -83,31 +81,21 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists,
-                ABChooser.readChoiceForTest(ABTests.AB_FEATURED_LISTS) != 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle, false);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_social_reminders,
-                ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
-
-        String dragDropTestInitialized = ABTests.AB_DRAG_DROP + "_initialized"; //$NON-NLS-1$
-        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
-            if (ABChooser.readChoiceForTest(ABTests.AB_DRAG_DROP) != 0) {
-                SharedPreferences publicPrefs = getPublicPrefs(context);
-                if (publicPrefs != null) {
-                    Editor edit = publicPrefs.edit();
-                    if (edit != null) {
-                        edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
-                        edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                        edit.commit();
-                        Preferences.setInt(P_SUBTASKS_HELP, 1);
-                    }
-                }
+        SharedPreferences publicPrefs = getPublicPrefs(context);
+        if (publicPrefs != null) {
+            Editor edit = publicPrefs.edit();
+            if (edit != null) {
+                edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
+                edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                edit.commit();
+                Preferences.setInt(P_SUBTASKS_HELP, 1);
             }
-            Preferences.setBoolean(dragDropTestInitialized, true);
         }
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
@@ -157,9 +145,6 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_social_reminders,
-                ABChooser.readChoiceForTest(ABTests.AB_SOCIAL_REMINDERS) != 0);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_filters, false);
 

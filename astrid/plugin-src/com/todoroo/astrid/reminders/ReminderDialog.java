@@ -165,7 +165,7 @@ public class ReminderDialog extends Dialog {
             addTagFaces(task.getId(), pictureUrls, isSharedTask);
         }
 
-        if (pictureUrls.size() > 0 && Preferences.getBoolean(R.string.p_social_reminders, false)) {
+        if (pictureUrls.size() > 0) {
             DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
             LinearLayout layout = new LinearLayout(activity);
             LinearLayout.LayoutParams containerParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

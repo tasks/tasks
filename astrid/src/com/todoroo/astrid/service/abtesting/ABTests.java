@@ -150,30 +150,11 @@ public class ABTests {
         }
     }
 
-    public static final String AB_FEATURED_LISTS = "android_featured_lists"; //$NON-NLS-1$
-
-    public static final String AB_SOCIAL_REMINDERS = "android_social_reminders";  //$NON-NLS-1$
-
-    public static final String AB_DRAG_DROP = "android_drag_drop"; //$NON-NLS-1$
-
-    public static final String AB_DEFAULT_EDIT_TAB = "android_default_edit_tab"; //$NON-NLS-1$
-
     public static final String AB_NEW_LOGIN_NO_GOOGLE = "android_new_login_n_google"; //$NON-NLS-1$
 
     public static final String AB_NEW_LOGIN_YES_GOOGLE = "android_new_login_y_google"; //$NON-NLS-1$
 
     private void initialize() {
-
-        addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "featured-lists-disabled", "featured-lists-enabled" }, false); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }, true); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_DRAG_DROP, new int[] { 3, 1 },
-                new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }, false); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_DEFAULT_EDIT_TAB, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "activity-tab", "details-tab" }, true); //$NON-NLS-1$ //$NON-NLS-2$
+        //
     }
 }
