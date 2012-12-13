@@ -1236,11 +1236,21 @@ public final class ActFmSyncService {
     public void setGCMRegistration(String regId) {
         try {
             String deviceId = GCMIntentService.getDeviceID();
-            if (deviceId != null)
-                invoke("user_set_gcm", "gcm", regId, "device_id", deviceId);
-            else
-                invoke("user_set_gcm", "gcm", regId);
+            String existingC2DM = Preferences.getStringValue(GCMIntentService.PREF_C2DM_REGISTRATION);
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add("gcm"); params.add(regId);
+            if (!TextUtils.isEmpty(deviceId)) {
+                params.add("device_id"); params.add(deviceId);
+            }
+            if (!TextUtils.isEmpty(existingC2DM)) { // Unregisters C2DM with the server for migration purposes
+                params.add("c2dm"); params.add(existingC2DM);
+            }
+
+            invoke("user_set_gcm", params.toArray(new Object[params.size()]));
+
             Preferences.setString(GCMIntentService.PREF_REGISTRATION, regId);
+            Preferences.setString(GCMIntentService.PREF_C2DM_REGISTRATION, null);
             Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, null);
         } catch (IOException e) {
             Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, regId);
