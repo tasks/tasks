@@ -1237,9 +1237,9 @@ public final class ActFmSyncService {
         try {
             String deviceId = GCMIntentService.getDeviceID();
             if (deviceId != null)
-                invoke("user_set_gcm", "c2dm", regId, "device_id", deviceId);
+                invoke("user_set_gcm", "gcm", regId, "device_id", deviceId);
             else
-                invoke("user_set_gcm", "c2dm", regId);
+                invoke("user_set_gcm", "gcm", regId);
             Preferences.setString(GCMIntentService.PREF_REGISTRATION, regId);
             Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, null);
         } catch (IOException e) {
