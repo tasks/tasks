@@ -18,7 +18,7 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 @SuppressWarnings("nls")
 public class GCMIntentService extends GCMBaseIntentService {
 
-    public static final String SENDER_ID = "gcm@astrid.com"; //$NON-NLS-1$
+    public static final String SENDER_ID = "1003855277730"; //$NON-NLS-1$
     public static final String PREF_REGISTRATION = "gcm_id";
     public static final String PREF_NEEDS_REGISTRATION = "gcm_needs_reg";
 
