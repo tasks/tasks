@@ -296,7 +296,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                 }
 
                 if (madeChanges) {
-                    updater.writeSerialization(list, updater.serializeTree());
+                    updater.writeSerialization(list, updater.serializeTree(), true);
                 }
             } finally {
                 recurring.close();

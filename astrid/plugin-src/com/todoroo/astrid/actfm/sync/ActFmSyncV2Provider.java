@@ -316,8 +316,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** @return runnable to fetch changes to tags */
     private void startTaskFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        final boolean pushActiveTasksOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.ACTIVE_TASKS_ORDER);
-        final boolean pushTodayOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.TODAY_TASKS_ORDER);
+        final boolean pushActiveTasksOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.ACTIVE_TASKS_ORDER) && manual;
+        final boolean pushTodayOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.TODAY_TASKS_ORDER) && manual;
 
         actFmSyncService.fetchActiveTasks(manual, handler, new Runnable() {
             @Override
@@ -465,8 +465,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 fetchTagData(tagData, noRemoteId, manual, callback, finisher);
 
                 if(!noRemoteId) {
+                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId()) && manual;
                     actFmSyncService.waitUntilEmpty();
-                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId());
                     fetchTasksForTag(tagData, manual, orderPushQueued, callback, finisher);
                     fetchUpdatesForTag(tagData, manual, callback, finisher);
                 }

@@ -15,10 +15,11 @@ public class SubtasksTagUpdater extends SubtasksUpdater<TagData> {
     }
 
     @Override
-    protected void writeSerialization(TagData list, String serialized) {
+    protected void writeSerialization(TagData list, String serialized, boolean shouldQueueSync) {
         list.setValue(TagData.TAG_ORDERING, serialized);
         tagDataService.save(list);
-        actFmSyncService.pushTagOrderingOnSave(list.getId());
+        if (shouldQueueSync)
+            actFmSyncService.pushTagOrderingOnSave(list.getId());
     }
 
 }
