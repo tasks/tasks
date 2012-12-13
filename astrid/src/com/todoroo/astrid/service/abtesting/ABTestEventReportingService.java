@@ -79,7 +79,7 @@ public final class ABTestEventReportingService {
                 try {
                     abTestEventDao.createRelativeDateEvents();
                     pushAllUnreportedABTestEvents();
-                    reportUserActivation();
+//                    reportUserActivation();
                 } catch (SQLiteException e) {
                     StartupService.handleSQLiteError(context, e);
                 }
