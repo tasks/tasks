@@ -87,15 +87,19 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
 
-        SharedPreferences publicPrefs = getPublicPrefs(context);
-        if (publicPrefs != null) {
-            Editor edit = publicPrefs.edit();
-            if (edit != null) {
-                edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
-                edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                edit.commit();
-                Preferences.setInt(P_SUBTASKS_HELP, 1);
+        String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
+        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
+            SharedPreferences publicPrefs = getPublicPrefs(context);
+            if (publicPrefs != null) {
+                Editor edit = publicPrefs.edit();
+                if (edit != null) {
+                    edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
+                    edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                    edit.commit();
+                    Preferences.setInt(P_SUBTASKS_HELP, 1);
+                }
             }
+            Preferences.setBoolean(dragDropTestInitialized, true);
         }
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
@@ -152,15 +156,19 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_show_list_members, false);
 
-        SharedPreferences publicPrefs = getPublicPrefs(context);
-        if (publicPrefs != null) {
-            Editor edit = publicPrefs.edit();
-            if (edit != null) {
-                edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
-                edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                edit.commit();
-                Preferences.setInt(P_SUBTASKS_HELP, 1);
+        String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
+        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
+            SharedPreferences publicPrefs = getPublicPrefs(context);
+            if (publicPrefs != null) {
+                Editor edit = publicPrefs.edit();
+                if (edit != null) {
+                    edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
+                    edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
+                    edit.commit();
+                    Preferences.setInt(P_SUBTASKS_HELP, 1);
+                }
             }
+            Preferences.setBoolean(dragDropTestInitialized, true);
         }
 
         BeastModePreferences.setDefaultLiteModeOrder(context);
