@@ -17,9 +17,11 @@
     <Button
         android:id="@+id/quick_login_google"
         android:layout_width="280dip"
-        android:layout_height="45dip" 
+        android:layout_height="wrap_content" 
+        android:minHeight="45dip" 
         android:textSize="16sp"
         android:background="@drawable/google_login_background"
+        android:textColor="@android:color/white"
         android:layout_marginBottom="15dip"/>
     
     <TextView
