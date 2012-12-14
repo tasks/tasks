@@ -8,8 +8,6 @@ package com.todoroo.astrid.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -18,14 +16,10 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
@@ -51,137 +45,28 @@ public class AstridPreferences {
 
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
+        AstridPreferenceSpec spec;
         if (Constants.ASTRID_LITE)
-            setLitePreferenceDefaults();
+            spec = new AstridLitePreferenceSpec();
         else
-            setNormalPreferenceDefaults();
-    }
+            spec = new AstridDefaultPreferenceSpec();
 
-    private static void setNormalPreferenceDefaults() {
-        Context context = ContextManager.getContext();
-        SharedPreferences prefs = Preferences.getPrefs(context);
-        Editor editor = prefs.edit();
-        Resources r = context.getResources();
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 16);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, true);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle, false);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
-
-        String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
-        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
-            SharedPreferences publicPrefs = getPublicPrefs(context);
-            if (publicPrefs != null) {
-                Editor edit = publicPrefs.edit();
-                if (edit != null) {
-                    edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
-                    edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                    edit.commit();
-                    Preferences.setInt(P_SUBTASKS_HELP, 1);
-                }
-            }
-            Preferences.setBoolean(dragDropTestInitialized, true);
-        }
-
-        if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
-            Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
-        }
-
-        if (Constants.MARKET_STRATEGY.defaultPhoneLayout()) {
-            Preferences.setIfUnset(prefs, editor, r, R.string.p_force_phone_layout, true);
-        }
+        spec.setIfUnset();
 
         setShowFriendsView();
 
         setShowFeaturedLists();
 
-        editor.commit();
     }
 
-    private static void setLitePreferenceDefaults() {
-        Context context = ContextManager.getContext();
-        SharedPreferences prefs = Preferences.getPrefs(context);
-        Editor editor = prefs.edit();
-        Resources r = context.getResources();
+    public static void resetToDefaults() {
+        AstridPreferenceSpec spec;
+        if (Constants.ASTRID_LITE)
+            spec = new AstridLitePreferenceSpec();
+        else
+            spec = new AstridDefaultPreferenceSpec();
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 4);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_mode_key, 16);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_autoIdea, false);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_featured_lists, false);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_calendar_reminders, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_use_filters, false);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_simple_input_boxes, true);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_list_members, false);
-
-        String dragDropTestInitialized = "android_drag_drop_initialized"; //$NON-NLS-1$
-        if (!Preferences.getBoolean(dragDropTestInitialized, false)) {
-            SharedPreferences publicPrefs = getPublicPrefs(context);
-            if (publicPrefs != null) {
-                Editor edit = publicPrefs.edit();
-                if (edit != null) {
-                    edit.putInt(SortHelper.PREF_SORT_FLAGS, SortHelper.FLAG_DRAG_DROP);
-                    edit.putInt(SortHelper.PREF_SORT_SORT, SortHelper.SORT_AUTO);
-                    edit.commit();
-                    Preferences.setInt(P_SUBTASKS_HELP, 1);
-                }
-            }
-            Preferences.setBoolean(dragDropTestInitialized, true);
-        }
-
-        BeastModePreferences.setDefaultLiteModeOrder(context);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE_RED);
-
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_force_phone_layout, true);
-
-        setShowFriendsView();
-
-        setShowFeaturedLists();
-
-        editor.commit();
+        spec.resetDefaults();
     }
 
     /**

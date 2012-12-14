@@ -29,6 +29,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Displays the preference screen for users to manage their old tasks and events
@@ -110,6 +111,8 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         editor.commit();
 
                         deleteDatabase(database.getName());
+
+                        AstridPreferences.setPreferenceDefaults();
 
                         System.exit(0);
                     }
