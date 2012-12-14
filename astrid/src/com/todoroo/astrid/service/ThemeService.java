@@ -184,7 +184,8 @@ public class ThemeService {
     }
 
     public static int getDrawable(int lightDrawable, int alter) {
-        boolean darkTheme = currentTheme == R.style.Theme || currentTheme == R.style.Theme_Transparent;
+        int theme = getUnsimplifiedTheme();
+        boolean darkTheme = theme == R.style.Theme || theme == R.style.Theme_Transparent;
         switch(alter) {
         case FLAG_FORCE_DARK:
             darkTheme = true;

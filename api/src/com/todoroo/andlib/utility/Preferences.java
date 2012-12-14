@@ -61,7 +61,7 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
         String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean))
+        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String))
             editor.putString(key, value);
     }
 

@@ -664,7 +664,7 @@
   <!-- slide 34c: Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show notes in task</string>
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Customize task edit screen</string>
+  <string name="EPr_beastMode_title">Task edit screen</string>
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
   <!-- slide 35j -->
@@ -716,6 +716,9 @@
 
   <!-- Preference: menu items -->
   <string name="EPr_menu_items">Menu items</string>
+
+  <!-- Preference: list view -->
+  <string name="EPr_list_view">List view</string>
 
   <!-- Preference: task edit comments -->
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>

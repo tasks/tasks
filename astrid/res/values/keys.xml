@@ -69,6 +69,9 @@
   <!-- account status section key -->
   <string name="p_account">account</string>
 
+  <!-- list view section key -->
+  <string name="p_list_view">p_list_view</string>
+
   <!-- simple input box style -->
   <string name="p_simple_input_boxes">simple_input_boxes</string>
   
