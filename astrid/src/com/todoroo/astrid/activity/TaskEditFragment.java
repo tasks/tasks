@@ -35,6 +35,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -63,7 +64,9 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
+import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
+import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.data.Metadata;
@@ -171,7 +174,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
-    private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_comments;
+    private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_refresh_comments;
+    private static final int MENU_SHOW_COMMENTS_ID = R.string.TEA_menu_comments;
     private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
     private static final int MENU_RECORD_ID = R.string.premium_record_audio;
 
@@ -230,7 +234,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private TaskEditMoreControls moreControls;
     private EditNoteActivity editNotes;
     private NestableViewPager mPager;
-    private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
@@ -257,6 +260,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private long remoteId = 0;
 
+    private boolean showEditComments;
+
+    private int commentIcon = R.drawable.comment_dark_blue;
 
     private WebServicesView webServices = null;
 
@@ -301,8 +307,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (savedInstanceState.containsKey(TASK_REMOTE_ID)) {
                 remoteId = savedInstanceState.getLong(TASK_REMOTE_ID);
             }
-
         }
+
+        TypedValue tv = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.asCommentButtonImg, tv, false);
+        commentIcon = tv.data;
 
         getActivity().setResult(Activity.RESULT_OK);
     }
@@ -335,6 +344,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         setUpUIComponents();
         adjustInfoPopovers();
 
+        showEditComments = Preferences.getBoolean(R.string.p_show_task_edit_comments, true);
+
+
         Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
 
         overrideFinishAnim = false;
@@ -346,13 +358,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void instantiateEditNotes() {
-        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-        editNotes = new EditNoteActivity(this, getView(),
-                idParam);
-        editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+        if (showEditComments) {
+            long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
+            editNotes = new EditNoteActivity(this, getView(),
+                    idParam);
+            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT));
 
-        editNotes.addListener(this);
+            editNotes.addListener(this);
+        }
     }
 
     private void loadMoreContainer() {
@@ -368,22 +382,25 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         else
             tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
 
+        if (!showEditComments)
+            tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
+
         if (moreSectionHasControls)
             tabStyle |= TaskEditViewPager.TAB_SHOW_MORE;
 
         if (editNotes == null) {
             instantiateEditNotes();
-        }
-        else {
+        } else {
             editNotes.loadViewForTaskID(idParam);
         }
 
-        if (timerAction != null) {
+        if (timerAction != null && editNotes != null) {
             timerAction.removeListener(editNotes);
             timerAction.addListener(editNotes);
         }
 
-        editNotes.addListener(this);
+        if (editNotes != null)
+            editNotes.addListener(this);
 
 
         if(hasTitle) {
@@ -399,12 +416,17 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
+        if (tabStyle == 0) {
+            return;
+        }
 
-        mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
-        mAdapter.parent = this;
+        getView().findViewById(R.id.updatesFooter).setVisibility(View.VISIBLE);
+
+        TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
+        adapter.parent = this;
 
         mPager = (NestableViewPager) getView().findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
+        mPager.setAdapter(adapter);
 
         mIndicator = (TabPageIndicator) getView().findViewById(
                 R.id.indicator);
@@ -1136,7 +1158,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             startRecordingAudio();
             return true;
         case MENU_COMMENTS_REFRESH_ID: {
+            if (editNotes != null)
                 editNotes.refreshData(true, null);
+            return true;
+        }
+        case MENU_SHOW_COMMENTS_ID: {
+            Intent intent = new Intent(getActivity(), CommentsActivity.class);
+            intent.putExtra(TaskCommentsFragment.EXTRA_TASK, model.getId());
+            startActivity(intent);
+            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             return true;
         }
         case android.R.id.home:
@@ -1173,20 +1203,22 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         item.setIcon(R.drawable.ic_menu_save);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
+        boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
+        if(wouldShowComments && showEditComments) {
+            item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
+                    R.string.ENA_refresh_comments);
+            item.setIcon(R.drawable.icn_menu_refresh_dark);
+        } else {
+            item = menu.add(Menu.NONE, MENU_SHOW_COMMENTS_ID, Menu.NONE, R.string.TEA_menu_comments);
+            item.setIcon(commentIcon);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
 
     }
 
-    @Override
-    public void onPrepareOptionsMenu (Menu menu) {
-        if(actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
-            MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
-                    R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.icn_menu_refresh_dark);
-        }
-        super.onPrepareOptionsMenu(menu);
-    }
     @Override
     public void onPause() {
         super.onPause();

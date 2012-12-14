@@ -82,6 +82,9 @@
   
   <!-- show quickadd controls -->
   <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
+
+  <!-- show comments in task edit -->
+  <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
   
   <!-- menu items to show -->
   <string name="p_menu_items">p_menu_items</string>

@@ -93,7 +93,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_autoIdea, false, ifUnset);
 
 
-        setPreference(prefs, editor, r, R.string.p_taskRowStyle, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_taskRowStyle, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
 
@@ -118,6 +118,10 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_menu_sync, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sort, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_addons, false, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, false, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, false, ifUnset);
 
         extras.setExtras(context, prefs, editor, r, ifUnset);
 
