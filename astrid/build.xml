@@ -261,7 +261,7 @@
 	                 />
 	  <replaceregexp file="AndroidManifest.xml"
 	                 match="category android:name=&quot;com.timsu.astrid&quot;"
-                     replace="category android:name=&quot;com.timsu.astrid&quot;"
+                     replace="category android:name=&quot;com.todoroo.astridlite&quot;"
 		             flags="g"
 	                 />
 	  <replaceregexp file="AndroidManifest.xml"
@@ -292,6 +292,7 @@
 	                 match="ASTRID_DIR = .*"
                      replace="ASTRID_DIR = &quot;/astridlite&quot;;"
 	                 />
+      <move file="${source.dir}/com/timsu/astrid" tofile="${source.dir}/com/todoroo/astridlite" />
 		
       <copy todir="res_old">
         <fileset dir="res"/>
