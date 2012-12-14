@@ -11,7 +11,7 @@
     <!-- ================================================= Filter Exposer == -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Active Tasks</string>
+    <string name="BFE_Active">My Tasks</string>
         
     <!-- Search Filter -->
     

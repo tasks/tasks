@@ -29,6 +29,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -152,7 +153,10 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
-        int length = addUntaggedFilter ? tags.length + 1 : tags.length;
+        boolean shouldAddUntagged = addUntaggedFilter &&
+                Preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
+
+        int length = shouldAddUntagged ? tags.length + 1 : tags.length;
         Filter[] filters = new Filter[length];
 
         Context context = ContextManager.getContext();
@@ -161,7 +165,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         int themeFlags = ThemeService.getFilterThemeFlags();
 
         // --- untagged
-        if (addUntaggedFilter) {
+        if (shouldAddUntagged) {
             int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
                     R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
             Filter untagged = new Filter(r.getString(untaggedLabel),
@@ -174,7 +178,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
 
         for(int i = 0; i < tags.length; i++) {
-            int index = addUntaggedFilter ? i + 1 : i;
+            int index = shouldAddUntagged ? i + 1 : i;
             filters[index] = constructFilter(context, tags[i]);
         }
         FilterCategory filter = new FilterCategory(context.getString(name), filters);

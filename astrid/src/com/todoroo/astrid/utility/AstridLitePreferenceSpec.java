@@ -108,6 +108,11 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_force_phone_layout, true, ifUnset);
 
+        setPreference(prefs, editor, r, R.string.p_show_today_filter, false, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_recently_modified_filter, false, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_ive_assigned_filter, false, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_not_in_list_filter, false, ifUnset);
+
         extras.setExtras(context, prefs, editor, r, ifUnset);
 
         editor.commit();

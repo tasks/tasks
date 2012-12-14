@@ -648,6 +648,9 @@
   <!-- slide 34a: Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task list size</string>
   
+  <!-- Preference: Filters to show pref screen title -->
+  <string name="EPr_filters_to_show_title">Filters to show</string>
+  
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   
