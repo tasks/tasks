@@ -82,13 +82,13 @@ public class BeastModePreferences extends ListActivity {
             return;
 
         ArrayList<String> list = constructOrderedControlList(context);
-        String moreSeparator = context.getResources().getString(R.string.TEA_ctrl_more_pref);
+        String hideSeparator = context.getResources().getString(R.string.TEA_ctrl_hide_section_pref);
         String importancePref = context.getResources().getString(R.string.TEA_ctrl_importance_pref);
         String listsPref = context.getResources().getString(R.string.TEA_ctrl_lists_pref);
 
         list.remove(importancePref);
         list.remove(listsPref);
-        int moreIndex = list.indexOf(moreSeparator);
+        int moreIndex = list.indexOf(hideSeparator);
         if (moreIndex >= 0) {
             list.add(moreIndex + 1, listsPref);
             list.add(moreIndex + 1, importancePref);
