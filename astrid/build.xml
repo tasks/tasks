@@ -260,6 +260,16 @@
 		             flags="g"
 	                 />
 	  <replaceregexp file="AndroidManifest.xml"
+	                 match="category android:name=&quot;com.timsu.astrid&quot;"
+                     replace="category android:name=&quot;com.timsu.astrid&quot;"
+		             flags="g"
+	                 />
+	  <replaceregexp file="AndroidManifest.xml"
+	                 match="com.timsu.astrid.C2DMReceiver"
+                     replace="com.todoroo.astridlite.C2DMReceiver"
+		             flags="g"
+	                 />
+	  <replaceregexp file="AndroidManifest.xml"
 	                 match="com.timsu.astrid.permission"
                      replace="com.todoroo.astridlite.permission"
 		             flags="g"
