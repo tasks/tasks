@@ -446,11 +446,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             tla.getMainMenuPopover().clear();
         }
         // --- sync
-        if (tla == null || tla.getTaskEditFragment() == null)
+        if (tla == null || tla.getTaskEditFragment() == null && Preferences.getBoolean(R.string.p_show_menu_sync, true))
             addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
 
         // --- sort
-        if (allowResorting()) {
+        if (allowResorting() && Preferences.getBoolean(R.string.p_show_menu_sort, true)) {
             addMenuItem(menu, R.string.TLA_menu_sort,
                     ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_SORT_ID, false);
         }
@@ -461,7 +461,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
 
         // --- addons
-        if(Constants.MARKET_STRATEGY.showAddonMenu())
+        if(Constants.MARKET_STRATEGY.showAddonMenu() && Preferences.getBoolean(R.string.p_show_menu_addons, true))
             addMenuItem(menu, R.string.TLA_menu_addons,
                 ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
 

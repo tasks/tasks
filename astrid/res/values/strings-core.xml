@@ -711,6 +711,9 @@
 
   <!-- Preference: simple input box style -->
   <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
+
+  <!-- Preference: menu items -->
+  <string name="EPr_menu_items">Menu items</string>
   
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Color theme</string>

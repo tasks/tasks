@@ -46,7 +46,7 @@ public final class Constants {
     /**
      * Whether this version is Astrid Lite
      */
-    public static final boolean ASTRID_LITE = false;
+    public static final boolean ASTRID_LITE = true;
 
     /**
      * Astrid Help URL

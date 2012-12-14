@@ -56,6 +56,33 @@
         <PreferenceScreen android:title="@string/EPr_beastMode_title" 
             android:key="@string/p_beastMode"/>
         
+        <PreferenceScreen android:title="@string/EPr_menu_items" android:key="@string/p_menu_items">
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_menu_search"
+                android:title="@string/TLA_menu_search"
+                android:defaultValue="true" />
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_menu_friends"
+                android:title="@string/TLA_menu_friends"
+                android:defaultValue="true"/>
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_featured_lists"
+                android:title="@string/EPr_show_featured_lists"
+                android:defaultValue="true"/>
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_menu_sync"
+                android:title="@string/TLA_menu_sync"
+                android:defaultValue="true"/>
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_menu_sort"
+                android:title="@string/TLA_menu_sort"
+                android:defaultValue="true"/>
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_show_menu_addons"
+                android:title="@string/TLA_menu_addons"
+                android:defaultValue="true"/>    
+        </PreferenceScreen>
+        
         <PreferenceScreen android:title="@string/EPr_filters_to_show_title" android:key="@string/p_filters_to_show">
             <com.todoroo.astrid.ui.MultilineCheckboxPreference
                 android:key="@string/p_show_my_tasks_filter"
@@ -78,7 +105,6 @@
                 android:key="@string/p_show_not_in_list_filter"
                 android:title="@string/tag_FEx_untagged"
                 android:defaultValue="true"/>
-            
         </PreferenceScreen>
 
         <com.todoroo.astrid.ui.MultilineListPreference
@@ -133,11 +159,6 @@
             android:key="@string/p_show_list_members"
             android:title="@string/EPr_show_list_members_title"
             android:defaultValue="true"/>
-        
-        <CheckBoxPreference
-	        android:title="@string/EPr_show_featured_lists"
-	        android:key="@string/p_show_featured_lists"
-	        android:defaultValue="false"/>
         
         <CheckBoxPreference
 	        android:key="@string/p_use_contact_picker"

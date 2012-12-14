@@ -65,7 +65,6 @@
   <string name="p_force_phone_layout">force_phone_layout</string>
   
   <!-- show featured lists -->
-  <string name="p_show_featured_lists">show_featured_lists_labs</string>
   
   <!-- account status section key -->
   <string name="p_account">account</string>
@@ -83,6 +82,15 @@
   
   <!-- show quickadd controls -->
   <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
+  
+  <!-- menu items to show -->
+  <string name="p_menu_items">p_menu_items</string>
+  <string name="p_show_menu_search">p_show_menu_search</string>
+  <string name="p_show_menu_friends">p_show_menu_friends</string>
+  <string name="p_show_featured_lists">p_show_featured_lists_labs</string>
+  <string name="p_show_menu_sync">p_show_menu_sync</string>
+  <string name="p_show_menu_sort">p_show_menu_sort</string>
+  <string name="p_show_menu_addons">p_show_menu_addons</string>
   
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
