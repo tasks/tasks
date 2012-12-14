@@ -707,8 +707,10 @@
   <string name="EPr_show_list_members_title">Show list members in shared lists</string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_simple_input_boxes">Simple input boxes</string>
-  
+  <string name="EPr_simple_input_boxes">Simple text boxes</string>
+
+  <!-- Preference: simple input box style -->
+  <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
   
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Color theme</string>

@@ -92,9 +92,6 @@ public class QuickAddBar extends LinearLayout {
     @Autowired MetadataService metadataService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-//    private VoiceInputAssistant voiceInputAssistant;
-//    private RecognizerApi recognizerApi;
-
     private VoiceRecognizer voiceRecognizer;
 
     private AstridActivity activity;
@@ -144,7 +141,8 @@ public class QuickAddBar extends LinearLayout {
         quickAddBox.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                quickAddControlsContainer.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+                boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
+                quickAddControlsContainer.setVisibility((showControls && hasFocus) ? View.VISIBLE : View.GONE);
             }
         });
 

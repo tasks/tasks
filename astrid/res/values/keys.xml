@@ -81,6 +81,9 @@
   <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
   <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
   
+  <!-- show quickadd controls -->
+  <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
+  
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
     <item>1</item>
