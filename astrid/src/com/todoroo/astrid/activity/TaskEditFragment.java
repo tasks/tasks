@@ -1191,16 +1191,16 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-            item.setIcon(R.drawable.ic_menu_mic);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_mic));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-        item.setIcon(R.drawable.ic_menu_close);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(R.drawable.ic_menu_save);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;

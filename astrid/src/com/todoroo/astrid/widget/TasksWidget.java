@@ -348,6 +348,10 @@ public class TasksWidget extends AppWidgetProvider {
                 layout = R.layout.widget_initialized_red;
                 titleColor = r.getColor(R.color.widget_text_color_light);
                 buttonDrawable = R.drawable.plus_button_red;
+            } else if (theme == R.style.Theme_White_Alt)  {
+                layout = R.layout.widget_initialized;
+                titleColor = r.getColor(R.color.widget_text_color_light);
+                buttonDrawable = R.drawable.plus_button_blue;
             } else {
                 layout = (theme == R.style.Theme_TransparentWhite ? R.layout.widget_initialized_transparent : R.layout.widget_initialized);
                 titleColor = r.getColor(R.color.widget_text_color_light);

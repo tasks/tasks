@@ -22,6 +22,7 @@ public class ThemeService {
 
     public static final String THEME_WHITE = "white";
     public static final String THEME_WHITE_RED = "white-red";
+    public static final String THEME_WHITE_ALT = "white-alt";
     public static final String THEME_BLACK = "black";
     public static final String THEME_TRANSPARENT = "transparent";
     public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
@@ -79,6 +80,8 @@ public class ThemeService {
             return R.style.Theme_TransparentWhite;
         else if (THEME_WHITE_RED.equals(setting))
             return R.style.Theme_White;
+        else if (THEME_WHITE_ALT.equals(setting))
+            return R.style.Theme_White_Alt;
         else
             return R.style.Theme_White_Blue;
     }
@@ -95,6 +98,8 @@ public class ThemeService {
             return R.style.Theme_White_Simple;
         case R.style.Theme_White_Blue:
             return R.style.Theme_White_Blue_Simple;
+        case R.style.Theme_White_Alt:
+            return R.style.Theme_White_Alt_Simple;
         default:
             return original;
         }
@@ -204,8 +209,20 @@ public class ThemeService {
                 AstridPreferences.useTabletLayout(ContextManager.getContext()))
             return R.drawable.icn_menu_refresh_tablet;
 
+        if (theme == R.style.Theme_White_Alt) {
+            switch(lightDrawable) {
+            case R.drawable.ic_menu_save:
+                return R.drawable.ic_menu_save_blue_alt;
+            case R.drawable.ic_menu_close:
+                return R.drawable.ic_menu_close_blue_alt;
+            case R.drawable.ic_menu_mic:
+                return R.drawable.ic_menu_mic_blue_alt;
+            }
+        }
+
         if(!darkTheme)
             return lightDrawable;
+
 
         switch(lightDrawable) {
         case R.drawable.icn_menu_refresh:

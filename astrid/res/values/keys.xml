@@ -230,6 +230,7 @@
     <!-- theme_settings: options for preference menu -->
     <item>white</item>
     <item>white-red</item>
+    <item>white-alt</item>
     <item>black</item>
     <item>transparent</item>
     <item>transparent-white</item>
@@ -240,6 +241,7 @@
     <item>same-as-app</item>
     <item>white</item>
     <item>white-red</item>
+    <item>white-alt</item>
     <item>black</item>
     <item>transparent</item>
     <item>transparent-white</item>

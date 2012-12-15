@@ -103,7 +103,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_show_list_members, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE_RED, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE_ALT, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_force_phone_layout, true, ifUnset);
 

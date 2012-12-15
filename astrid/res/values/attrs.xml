@@ -27,6 +27,8 @@
   <attr name="asListDividerColor" format="color"/>
   
   <attr name="asThemeTextColor" format="color"/>
+  <attr name="asHeaderTextColor" format="color"/>
+  <attr name="asHeaderTextColorInverse" format="color"/>
   <attr name="asEditTextBackground" format="reference"/>
   <attr name="asReadonlyTaskBackground" format="color" />
   <attr name="asListsDisclosure" format="reference"/>
