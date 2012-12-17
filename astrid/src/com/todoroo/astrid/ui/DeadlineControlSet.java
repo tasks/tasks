@@ -7,6 +7,8 @@ package com.todoroo.astrid.ui;
 
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,7 +65,18 @@ public class DeadlineControlSet extends PopupControlSet {
             extras.addView(v, lp);
         }
 
+        LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
+        body.setGravity(Gravity.CENTER_HORIZONTAL);
         Button okButton = (Button) LayoutInflater.from(activity).inflate(R.layout.control_dialog_ok, null);
+        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+        LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) (45 * metrics.density));
+        body.addView(okButton, params);
+    }
+
+    @Override
+    protected void setupOkButton(View view) {
+        super.setupOkButton(view);
+        Button okButton = (Button) view.findViewById(R.id.edit_dlg_ok);
         okButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +84,6 @@ public class DeadlineControlSet extends PopupControlSet {
                 DialogUtilities.dismissDialog(DeadlineControlSet.this.activity, DeadlineControlSet.this.dialog);
             }
         });
-        LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
-        body.addView(okButton);
     }
 
     @Override

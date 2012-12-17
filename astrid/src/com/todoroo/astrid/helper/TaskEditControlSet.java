@@ -6,10 +6,14 @@
 package com.todoroo.astrid.helper;
 
 import android.app.Activity;
+import android.content.res.Resources.Theme;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.ui.EditDialogOkBackground;
 
 // --- interface
 
@@ -36,6 +40,7 @@ public abstract class TaskEditControlSet {
             if (viewLayout != -1) {
                 view = LayoutInflater.from(activity).inflate(viewLayout, null);
                 afterInflate();
+                setupOkButton(view);
             }
             if (model != null)
                 readFromTaskOnInitialize();
@@ -84,4 +89,16 @@ public abstract class TaskEditControlSet {
      * Called when views need to be inflated
      */
     protected abstract void afterInflate();
+
+    /**
+     * Sets up ok button background. Subclasses can override to customize look and feel
+     */
+    protected void setupOkButton(View view) {
+        View ok = view.findViewById(R.id.edit_dlg_ok);
+        Theme theme = activity.getTheme();
+        TypedValue themeColor = new TypedValue();
+        theme.resolveAttribute(R.attr.asThemeTextColor, themeColor, false);
+        if (ok != null)
+            ok.setBackgroundDrawable(EditDialogOkBackground.getBg(activity.getResources().getColor(themeColor.data)));
+    }
 }

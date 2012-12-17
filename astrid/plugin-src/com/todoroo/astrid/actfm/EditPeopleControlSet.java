@@ -173,15 +173,6 @@ public class EditPeopleControlSet extends PopupControlSet {
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         sharedWithDialog.setContentView(v, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
-        Button dismiss = (Button) v.findViewById(R.id.edit_dlg_ok);
-        if (dismiss != null) {
-            dismiss.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DialogUtilities.dismissDialog(EditPeopleControlSet.this.activity, sharedWithDialog);
-                }
-            });
-        }
         sharedWithDialog.setOwnerActivity(this.activity);
 
         assignedCustom = (EditText) getView().findViewById(R.id.assigned_custom);
@@ -197,6 +188,20 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         sharedWithContainer.addPerson();
         setUpListeners();
+    }
+
+    @Override
+    protected void setupOkButton(View v) {
+        super.setupOkButton(getSharedWithView());
+        Button dismiss = (Button) getSharedWithView().findViewById(R.id.edit_dlg_ok);
+        if (dismiss != null) {
+            dismiss.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogUtilities.dismissDialog(EditPeopleControlSet.this.activity, sharedWithDialog);
+                }
+            });
+        }
     }
 
     @Override

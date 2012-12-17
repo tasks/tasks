@@ -8,7 +8,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  android:paddingLeft="5dip"
+  android:paddingRight="5dip">
 	<ScrollView
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
@@ -16,9 +18,7 @@
 		<LinearLayout
 		  android:orientation="vertical"
 		  android:layout_width="fill_parent"
-		  android:layout_height="fill_parent"
-		  android:paddingLeft="9dip"
-		  android:paddingRight="9dip">
+		  android:layout_height="fill_parent">
 		      
 		      <!-- Shared with -->    
 		      <TextView

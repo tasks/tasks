@@ -225,6 +225,12 @@ public class ThemeService {
 
 
         switch(lightDrawable) {
+        case R.drawable.ic_menu_save:
+            return R.drawable.ic_menu_save;
+        case R.drawable.ic_menu_close:
+            return R.drawable.ic_menu_close;
+        case R.drawable.ic_menu_mic:
+            return R.drawable.ic_menu_mic;
         case R.drawable.icn_menu_refresh:
             return R.drawable.icn_menu_refresh_dark;
         case R.drawable.icn_menu_filters:
