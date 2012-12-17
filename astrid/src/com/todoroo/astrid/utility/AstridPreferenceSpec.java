@@ -14,7 +14,7 @@ public abstract class AstridPreferenceSpec {
         if (ifUnset)
             Preferences.setIfUnset(prefs, editor, r, key, value);
         else
-            Preferences.setInt(r.getString(key), value);
+            Preferences.setString(r.getString(key), Integer.toString(value));
     }
 
     protected static void setPreference(SharedPreferences prefs, Editor editor, Resources r, int key, boolean value, boolean ifUnset) {

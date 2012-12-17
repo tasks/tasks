@@ -66,6 +66,9 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.ui.ContactListAdapter;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
+import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
+import com.todoroo.astrid.utility.AstridLitePreferenceSpec;
+import com.todoroo.astrid.utility.AstridPreferenceSpec;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -117,6 +120,29 @@ public class EditPreferences extends TodorooPreferenceActivity {
         public boolean onPreferenceChange(Preference p, Object newValue) {
             setResult(resultCode);
             updatePreferences(p, newValue);
+            return true;
+        }
+    }
+
+    private class SetDefaultsClickListener implements OnPreferenceClickListener {
+        private final AstridPreferenceSpec spec;
+        private final int nameId;
+        public SetDefaultsClickListener(AstridPreferenceSpec spec, int nameId) {
+            this.spec = spec;
+            this.nameId = nameId;
+        }
+
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            DialogUtilities.okCancelDialog(EditPreferences.this, getString(R.string.EPr_config_dialog_title),
+                    getString(R.string.EPr_config_dialog_text, getString(nameId)), new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            spec.resetDefaults();
+                            setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
+                            finish();
+                        }
+                    }, null);
             return true;
         }
     }
@@ -643,6 +669,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_simple_input_boxes)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+
+        findPreference(getString(R.string.p_config_default)).setOnPreferenceClickListener(
+                new SetDefaultsClickListener(new AstridDefaultPreferenceSpec(), R.string.EPr_config_dialog_default_id));
+
+        findPreference(getString(R.string.p_config_lite)).setOnPreferenceClickListener(
+                new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite));
 
         int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends, R.string.p_show_featured_lists,
                 R.string.p_show_menu_sync, R.string.p_show_menu_sort, R.string.p_show_menu_addons

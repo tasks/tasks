@@ -271,6 +271,12 @@
   <string name="p_taskRowPrefs">taskRowPrefs</string>
   
   <string name="p_fullTaskTitle">fullTaskTitle</string>
+  
+  <!-- Configurations -->
+  <string name="p_configurations">p_configurations</string>
+  <string name="p_config_default">p_config_default</string>
+  <string name="p_config_lite">p_config_lite</string>
+  
   <!-- ========================================================= DEFAULTS == -->
   
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  

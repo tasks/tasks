@@ -752,17 +752,29 @@
   <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
   
   <!-- Preferences: calendar event start time -->
-  <string name = "EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name = "EPr_cal_end_at_due_time">End calendar events at due time</string>
-  <string name = "EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
+  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
+  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
   
   <string name="EPr_force_phone_layout">Use phone layout</string>
 
   <string name="EPr_show_featured_lists">Show featured lists</string>
   
+  <!-- Configurations -->
+  <string name="EPr_configurations_title">Set configuration</string>
+  <string name="EPr_config_default">Default</string>
+  <string name="EPr_config_lite">Astrid Lite</string>
+  
+  <!-- Dialog title when setting preference configuration -->
+  <string name="EPr_config_dialog_title">Set configuration?</string>
+  <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
+  <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
+  
+  <!-- default configuration name for the above dialog -->
+  <string name="EPr_config_dialog_default_id">default</string>
+  
   
   <!-- Swipe between lists -->
-  
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   
