@@ -235,6 +235,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private EditNoteActivity editNotes;
     private NestableViewPager mPager;
     private TabPageIndicator mIndicator;
+    private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -472,7 +473,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         constructWhenDialog(whenDialogView);
 
-        HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
+        controlSetMap = new HashMap<String, TaskEditControlSet>();
 
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(),
@@ -610,6 +611,20 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
+        loadEditPageOrder(false);
+
+        // Load task data in background
+        new TaskEditBackgroundLoader().start();
+    }
+
+    private void loadEditPageOrder(boolean removeViews) {
+        LinearLayout basicControls = (LinearLayout) getView().findViewById(
+                R.id.basic_controls);
+        if (removeViews) {
+            basicControls.removeAllViews();
+            moreControls.removeAllViews();
+        }
+
         ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
@@ -659,9 +674,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
-
-        // Load task data in background
-        new TaskEditBackgroundLoader().start();
     }
 
     private void removeTeaSeparator(View view) {
@@ -760,6 +772,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
                 remoteId = model.getValue(Task.REMOTE_ID);
                 model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
+            } else {
+                remoteId = -1;
             }
         }
 
@@ -1203,7 +1217,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
+        boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
         if(wouldShowComments && showEditComments) {
             item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
