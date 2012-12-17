@@ -321,6 +321,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         updater.onCreateTask(list, getFilter(), task.getId());
         fragment.reconstructCursor();
         fragment.loadTaskListContent(true);
+        fragment.selectCustomId(task.getId());
     }
 
     public void onDeleteTask(Task task) {

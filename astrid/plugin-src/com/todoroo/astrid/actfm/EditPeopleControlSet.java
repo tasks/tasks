@@ -410,8 +410,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                     int taskRabbitIndex = addUnassigned ? 3 : 2;
                     if (!addContactPicker)
                         taskRabbitIndex--;
-                    coreUsers.add(taskRabbitIndex, taskRabbitUser);
                     if(l.didPostToTaskRabbit()){
+                        coreUsers.add(taskRabbitIndex, taskRabbitUser);
                         assignedIndex = taskRabbitIndex;
                     }
                 }
