@@ -146,6 +146,9 @@ public class QuickAddBar extends LinearLayout {
             }
         });
 
+        int fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        quickAddBox.setTextSize(Math.min(fontSize, 22));
+
         quickAddButton = ((ImageButton) findViewById(
                 R.id.quickAddButton));
 

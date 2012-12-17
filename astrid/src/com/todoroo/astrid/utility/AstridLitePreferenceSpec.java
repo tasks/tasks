@@ -78,7 +78,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE, ifUnset);
         setPreference(prefs, editor, r, R.string.p_default_reminders_mode_key, 16, ifUnset);
         setPreference(prefs, editor, r, R.string.p_rmd_default_random_hours, 0, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_fontSize, 18, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_fontSize, 22, ifUnset);
         setPreference(prefs, editor, r, R.string.p_showNotes, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_use_contact_picker, false, ifUnset);
