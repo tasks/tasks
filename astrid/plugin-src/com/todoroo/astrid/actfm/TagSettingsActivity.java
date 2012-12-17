@@ -70,7 +70,7 @@ public class TagSettingsActivity extends FragmentActivity {
     public static final int REQUEST_ACTFM_LOGIN = 3;
 
     public static final String TOKEN_AUTOPOPULATE_MEMBERS = "autopopulateMembers"; //$NON-NLS-1$
-    
+
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
 
     private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
@@ -232,7 +232,7 @@ public class TagSettingsActivity extends FragmentActivity {
             updateMembers(autopopulateMembers);
             getIntent().removeExtra(TOKEN_AUTOPOPULATE_MEMBERS);
         }
-        
+
         String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
         if (!TextUtils.isEmpty(autopopulateName)) {
             tagName.setText(autopopulateName);
@@ -493,11 +493,11 @@ public class TagSettingsActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item;
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-        item.setIcon(R.drawable.ic_menu_close);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(R.drawable.ic_menu_save);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return super.onCreateOptionsMenu(menu);
     }

@@ -6,10 +6,12 @@
 package com.todoroo.astrid.helper;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.content.res.Resources.Theme;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
@@ -94,11 +96,21 @@ public abstract class TaskEditControlSet {
      * Sets up ok button background. Subclasses can override to customize look and feel
      */
     protected void setupOkButton(View view) {
-        View ok = view.findViewById(R.id.edit_dlg_ok);
+        Button ok = (Button) view.findViewById(R.id.edit_dlg_ok);
         Theme theme = activity.getTheme();
         TypedValue themeColor = new TypedValue();
         theme.resolveAttribute(R.attr.asThemeTextColor, themeColor, false);
-        if (ok != null)
+        TypedValue inverseColor = new TypedValue();
+        theme.resolveAttribute(R.attr.asTextColorInverse, inverseColor, false);
+
+        if (ok != null) {
             ok.setBackgroundDrawable(EditDialogOkBackground.getBg(activity.getResources().getColor(themeColor.data)));
+            int[][] states = new int[2][];
+            states[0] = new int[] { android.R.attr.state_pressed };
+            states[1] = new int[] { android.R.attr.state_enabled };
+            int[] colors = new int[] { inverseColor.data, activity.getResources().getColor(themeColor.data) };
+            ColorStateList csl = new ColorStateList(states, colors);
+            ok.setTextColor(csl);
+        }
     }
 }

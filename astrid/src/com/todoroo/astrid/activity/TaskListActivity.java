@@ -17,7 +17,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -192,7 +191,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         personStatus = (TextView) actionBar.getCustomView().findViewById(R.id.person_image);
         commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
         if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
-            commentsButton.setTextColor(Color.BLACK);
+            commentsButton.setTextColor(getResources().getColor(R.color.blue_theme_color));
 
         initializeFragments(actionBar);
         createMainMenuPopover();
