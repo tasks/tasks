@@ -1208,7 +1208,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);
-        } else {
+        } else if (wouldShowComments && !showEditComments) {
             item = menu.add(Menu.NONE, MENU_SHOW_COMMENTS_ID, Menu.NONE, R.string.TEA_menu_comments);
             item.setIcon(commentIcon);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);

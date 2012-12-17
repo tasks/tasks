@@ -144,6 +144,7 @@
         <item name="asFilledCommentButtonImg">@drawable/comment_blue_filled_alt</item>
         <item name="asMainMenu">@drawable/menu_button_blue_alt</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue_alt</item>
+        <item name="asEditTabBackground">@drawable/custom_tab_indicator_alt</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
         <item name="abLogo">@drawable/home_button_blue_alt</item>
         <item name="abBackground">@drawable/header_blue_alt</item>
