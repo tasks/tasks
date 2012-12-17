@@ -190,7 +190,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         });
 
         PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
-        Preference beastMode = appearance.getPreference(1);
+        Preference beastMode = appearance.getPreference(3);
         beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
