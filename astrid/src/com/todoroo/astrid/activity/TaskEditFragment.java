@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
@@ -52,6 +54,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -69,6 +72,7 @@ import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.AACRecordingActivity;
@@ -168,6 +172,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final int REQUEST_CODE_CONTACT = 20;
     public static final int REQUEST_CODE_RECORD = 30;
     public static final int REQUEST_CODE_ATTACH_FILE = 40;
+    public static final int REQUEST_CODE_BEAST_MODE = 50;
 
     // --- menu codes
 
@@ -421,8 +426,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        getView().findViewById(R.id.updatesFooter).setVisibility(View.VISIBLE);
-
         TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
         adapter.parent = this;
 
@@ -438,7 +441,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             ((ViewGroup) moreControls.getParent()).removeView(moreControls);
         }
 
-        commentsBar.setVisibility(View.VISIBLE);
+        if (showEditComments)
+            commentsBar.setVisibility(View.VISIBLE);
         moreTab.setVisibility(View.VISIBLE);
         setCurrentTab(TAB_VIEW_UPDATES);
         setPagerHeightForPosition(TAB_VIEW_UPDATES);
@@ -611,10 +615,32 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
+        setupBeastModeButton();
+
         loadEditPageOrder(false);
 
         // Load task data in background
         new TaskEditBackgroundLoader().start();
+    }
+
+    private void setupBeastModeButton() {
+        TextView beastMode = (TextView) getView().findViewById(R.id.edit_beast_mode);
+        TypedValue tv = new TypedValue();
+        Theme theme = getActivity().getTheme();
+        theme.resolveAttribute(R.attr.asTextColor, tv, false);
+
+        int color = tv.data & 0x00ffffff;
+        color = color + 0x7f000000;
+        beastMode.setTextColor(color);
+
+        beastMode.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BeastModePreferences.class);
+                intent.setAction(AstridApiConstants.ACTION_SETTINGS);
+                startActivityForResult(intent, REQUEST_CODE_BEAST_MODE);
+            }
+        });
     }
 
     private void loadEditPageOrder(boolean removeViews) {
@@ -1274,6 +1300,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             createNewFileAttachment(recordedAudioPath, recordedAudioName, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
+        } else if (requestCode == REQUEST_CODE_BEAST_MODE) {
+            loadEditPageOrder(true);
+            new TaskEditBackgroundLoader().start();
+            return;
         }
 
         ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {
