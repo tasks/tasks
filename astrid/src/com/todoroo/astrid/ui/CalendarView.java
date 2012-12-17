@@ -369,9 +369,10 @@ public class CalendarView extends View {
 					dayLeftArr[dayOfMonth-1] = dayLeft;
 					dayTopArr[dayOfMonth-1] = dayTop;
 					rectF.set(dayLeft, dayTop, dayLeft + boxWidth, dayTop + boxHeight);
-		            canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, borderPaint);
+					if (j != 1)
+					    canvas.drawLine(rectF.left, rectF.top, rectF.left, rectF.bottom, borderPaint);
 
-		            rectF.set(dayLeft+1, dayTop+1, dayLeft + boxWidth - 1, dayTop + boxHeight - 1);
+		            rectF.set(dayLeft+1, dayTop, dayLeft + boxWidth - 1, dayTop + boxHeight);
 		            canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, colorPaint);
 
 		            textX = dayLeft + boxWidth - TEXT_PADDING * 3;
