@@ -10,22 +10,19 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.text.util.Linkify;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.TextViewWithMeasureListener.OnTextMeasureListener;
 
 public class EditNotesControlSet extends PopupControlSet {
 
     protected EditText editText;
-    protected TextViewWithMeasureListener notesPreview;
-    private LinearLayout notesBody;
+    protected TextView notesPreview;
 
     public EditNotesControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
@@ -40,7 +37,7 @@ public class EditNotesControlSet extends PopupControlSet {
             textToUse = model.getValue(Task.NOTES);
 
         notesPreview.setText(textToUse);
-        setupGravity();
+        notesPreview.setVisibility(TextUtils.isEmpty(textToUse) ? View.GONE : View.VISIBLE);
         linkifyDisplayView();
     }
 
@@ -54,14 +51,7 @@ public class EditNotesControlSet extends PopupControlSet {
     @Override
     protected void afterInflate() {
         editText = (EditText) getView().findViewById(R.id.notes);
-        notesPreview = (TextViewWithMeasureListener) getDisplayView().findViewById(R.id.display_row_edit);
-        notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
-        notesPreview.setOnTextSizeChangedListener(new OnTextMeasureListener() {
-            @Override
-            public void onTextSizeChanged() {
-                setupGravity();
-            }
-        });
+        notesPreview = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
     }
 
     @Override
@@ -101,19 +91,6 @@ public class EditNotesControlSet extends PopupControlSet {
 
     public boolean hasNotes() {
         return !TextUtils.isEmpty(editText.getText());
-    }
-
-    private void setupGravity() {
-        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-        if (hasNotes() && notesPreview.getLineCount() > 2) {
-            notesBody.setGravity(Gravity.TOP);
-            notesBody.setPadding( notesBody.getPaddingLeft(), (int) (metrics.density * 8),  notesBody.getPaddingRight(), (int) (metrics.density * 8));
-            notesPreview.setGravity(Gravity.LEFT);
-        } else {
-            notesBody.setGravity(Gravity.CENTER_VERTICAL);
-            notesBody.setPadding( notesBody.getPaddingLeft(), 0,  notesBody.getPaddingRight(), 0);
-            notesPreview.setGravity(Gravity.RIGHT);
-        }
     }
 
 }
