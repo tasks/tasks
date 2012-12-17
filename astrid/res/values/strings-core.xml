@@ -250,7 +250,7 @@
   <string name="SSD_sort_due">By due date</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By importance</string>
+  <string name="SSD_sort_importance">By priority</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">By last modified</string>
@@ -319,7 +319,7 @@
   <string name="TEA_title_hint">Task Summary</string>
   
   <!-- Task importance label -->
-  <string name="TEA_importance_label">Importance</string>
+  <string name="TEA_importance_label">Priority</string>
   
   <!-- Task urgency label -->
   
@@ -339,10 +339,10 @@
   <string-array name="TEA_loading"><item>Loading...</item></string-array>
   
   <!-- slide 16c: Task note label -->
-  <string name="TEA_note_label">Notes</string>
+  <string name="TEA_note_label">Description</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task notes...</string>
+  <string name="TEA_notes_hint">Enter task description...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
@@ -416,11 +416,11 @@
   <!-- slide 35b -->
   <string name="TEA_control_more_section">----Details----</string>
   <!-- slide 16a/35c -->
-  <string name="TEA_control_importance">Importance</string>  
+  <string name="TEA_control_importance">Priority</string>  
   <!-- slide 16b/35d -->
   <string name="TEA_control_lists">Lists</string>  
   <!-- slide 16c/35e -->
-  <string name="TEA_control_notes">Notes</string>  
+  <string name="TEA_control_notes">Description</string>  
   
   <string name="TEA_control_files">Files</string>
 
@@ -662,7 +662,7 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show notes in task</string>
+  <string name="EPr_showNotes_title">Show description in task</string>
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Task edit screen</string>
   <!-- slide 35h -->
@@ -671,9 +671,9 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the task edit screen</string>  
+  <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">Compact task row</string>

@@ -8,7 +8,7 @@
 
   <!-- slide 32g: Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New task defaults</string>
-  <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
+  <string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
   
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default deadline</string>
@@ -16,7 +16,7 @@
   <string name="EPr_default_urgency_desc">Currently: %s</string>
   
   <!-- slide 40a: Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default importance</string>
+  <string name="EPr_default_importance_title">Default priority</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Currently: %s</string>
   
