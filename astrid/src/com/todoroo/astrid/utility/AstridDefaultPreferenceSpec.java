@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
@@ -37,6 +38,7 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
                     }
                     Preferences.setBoolean(dragDropTestInitialized, true);
                 }
+                BeastModePreferences.setDefaultOrder(context, false);
 
                 if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
                     Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
@@ -68,6 +70,8 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
                 }
                 Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
                 setPreference(prefs, editor, r, R.string.p_force_phone_layout, Constants.MARKET_STRATEGY.defaultPhoneLayout(), ifUnset);
+
+                BeastModePreferences.setDefaultOrder(context, true);
             }
         };
 

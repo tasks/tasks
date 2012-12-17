@@ -77,10 +77,12 @@ public class BeastModePreferences extends ListActivity {
         Preferences.setBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, true);
     }
 
-    public static void setDefaultLiteModeOrder(Context context) {
-        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null)
+    public static void setDefaultLiteModeOrder(Context context, boolean force) {
+        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force)
             return;
 
+        if (force)
+            Preferences.clear(BEAST_MODE_ORDER_PREF);
         ArrayList<String> list = constructOrderedControlList(context);
         String moreSeparator = context.getResources().getString(R.string.TEA_ctrl_more_pref);
         String hideSeparator = context.getResources().getString(R.string.TEA_ctrl_hide_section_pref);
@@ -102,6 +104,21 @@ public class BeastModePreferences extends ListActivity {
         else
             list.add(hideSeparator);
 
+        StringBuilder newSetting = new StringBuilder(30);
+        for (String item : list) {
+            newSetting.append(item);
+            newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+        }
+        Preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+    }
+
+    public static void setDefaultOrder(Context context, boolean force) {
+        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force)
+            return;
+
+        if (force)
+            Preferences.clear(BEAST_MODE_ORDER_PREF);
+        ArrayList<String> list = constructOrderedControlList(context);
         StringBuilder newSetting = new StringBuilder(30);
         for (String item : list) {
             newSetting.append(item);

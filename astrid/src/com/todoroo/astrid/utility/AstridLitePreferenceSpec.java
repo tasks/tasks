@@ -36,7 +36,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
                     Preferences.setBoolean(dragDropTestInitialized, true);
                 }
 
-                BeastModePreferences.setDefaultLiteModeOrder(context);
+                BeastModePreferences.setDefaultLiteModeOrder(context, false);
             }
         };
 
@@ -58,7 +58,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
                         Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
                     }
                 }
-                BeastModePreferences.setDefaultLiteModeOrder(context);
+                BeastModePreferences.setDefaultLiteModeOrder(context, true);
             }
         };
 
