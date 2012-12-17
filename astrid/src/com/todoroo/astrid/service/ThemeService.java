@@ -48,7 +48,7 @@ public class ThemeService {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
-    private static int getTheme() {
+    public static int getTheme() {
         int style = getUnsimplifiedTheme();
         boolean simple = Preferences.getBoolean(R.string.p_simple_input_boxes, false);
         if (simple)
@@ -56,7 +56,7 @@ public class ThemeService {
         return style;
     }
 
-    private static int getUnsimplifiedTheme() {
+    public static int getUnsimplifiedTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme);
         return getStyleForSetting(preference);
     }

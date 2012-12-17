@@ -70,7 +70,7 @@
 	    android:layout_width="51dip"
 	    android:layout_height="fill_parent"
 	    android:background="?attr/asCommentButtonImg"
-	    android:textColor="@android:color/white"
+	    android:textColor="?attr/asTextColorInverse"
 	    android:paddingBottom="6dip"/>
 
 </LinearLayout>
