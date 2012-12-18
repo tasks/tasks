@@ -89,7 +89,7 @@
           android:gravity="center"
           android:layout_weight="1"
           android:textSize="16sp"
-          android:textColor="@android:color/white" 
+          android:textColor="#bfffffff" 
           android:visibility="gone"/>
         <TextView
           android:id="@+id/pw_login"
