@@ -17,7 +17,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -138,12 +140,19 @@ public class QuickAddBar extends LinearLayout {
             }
         });
 
-        quickAddBox.setOnFocusChangeListener(new OnFocusChangeListener() {
+        quickAddBox.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                boolean visible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
                 boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
-                quickAddControlsContainer.setVisibility((showControls && hasFocus) ? View.VISIBLE : View.GONE);
+                quickAddControlsContainer.setVisibility((showControls && visible) ? View.VISIBLE : View.GONE);
             }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {/**/}
+
+            @Override
+            public void afterTextChanged(Editable s) {/**/}
         });
 
         int fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);

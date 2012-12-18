@@ -119,7 +119,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_menu_sort, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_addons, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, false, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, false, ifUnset);
 
