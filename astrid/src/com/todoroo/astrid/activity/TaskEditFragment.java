@@ -1232,7 +1232,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (ActFmPreferenceService.isPremiumUser()) {
             item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-            item.setIcon(R.drawable.ic_menu_attach);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_attach));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);

@@ -217,6 +217,8 @@ public class ThemeService {
                 return R.drawable.ic_menu_close_blue_alt;
             case R.drawable.ic_menu_mic:
                 return R.drawable.ic_menu_mic_blue_alt;
+            case R.drawable.ic_menu_attach:
+                return R.drawable.ic_menu_attach_blue_alt;
             case R.drawable.list_settings:
                 return R.drawable.list_settings_white;
             }
@@ -233,6 +235,8 @@ public class ThemeService {
             return R.drawable.ic_menu_close;
         case R.drawable.ic_menu_mic:
             return R.drawable.ic_menu_mic;
+        case R.drawable.ic_menu_attach:
+            return R.drawable.ic_menu_attach;
         case R.drawable.list_settings:
             return R.drawable.list_settings;
         case R.drawable.icn_menu_refresh:
