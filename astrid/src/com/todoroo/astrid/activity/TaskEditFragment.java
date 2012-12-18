@@ -1239,9 +1239,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (!(getActivity() instanceof TaskEditActivity)) {
+            item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
 
         boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
         if(wouldShowComments && showEditComments) {

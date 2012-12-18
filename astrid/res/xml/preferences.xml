@@ -65,8 +65,28 @@
         
         </PreferenceScreen>
         
-        <PreferenceScreen android:title="@string/EPr_beastMode_title" 
-            android:key="@string/p_beastMode"/>
+        <PreferenceScreen android:title="@string/EPr_edit_screen_options" 
+                android:key="@string/p_edit_screen">
+	        
+	        <PreferenceScreen android:title="@string/EPr_beastMode_title" 
+	            android:key="@string/p_beastMode"/>
+	            
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_show_task_edit_comments"
+	            android:title="@string/EPr_show_task_edit_comments"
+	            android:defaultValue="true"/>
+	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/p_time_increment"
+                android:title="@string/EPr_time_increment"
+                android:defaultValue="true"/>
+	            
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_autoIdea"
+	            android:title="@string/EPr_ideaAuto_title"
+	            android:defaultValue="true" />
+            
+        </PreferenceScreen>
         
         <PreferenceScreen android:title="@string/EPr_list_view" android:key="@string/p_list_view">
             <PreferenceScreen android:title="@string/EPr_menu_items" android:key="@string/p_menu_items">
@@ -161,21 +181,11 @@
             android:key="@string/p_showSmartConfirmation_key"
             android:title="@string/EPr_showSmartConfirmation_title"
             android:defaultValue="true"/>
-
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	        android:key="@string/p_autoIdea"
-	        android:title="@string/EPr_ideaAuto_title"
-	        android:defaultValue="true" />
         
         <CheckBoxPreference
 	        android:title="@string/EPr_force_phone_layout"
 	        android:key="@string/p_force_phone_layout"
 	        android:defaultValue="false"/>
-
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_show_task_edit_comments"
-            android:title="@string/EPr_show_task_edit_comments"
-            android:defaultValue="true"/>
         
         <CheckBoxPreference
 	        android:key="@string/p_use_contact_picker"

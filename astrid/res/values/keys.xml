@@ -272,6 +272,10 @@
   
   <string name="p_fullTaskTitle">fullTaskTitle</string>
   
+  <string name="p_edit_screen">p_edit_screen</string>
+  
+  <string name="p_time_increment">p_time_increment</string>
+  
   <!-- Configurations -->
   <string name="p_configurations">p_configurations</string>
   <string name="p_config_default">p_config_default</string>

@@ -215,8 +215,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
-        Preference beastMode = appearance.getPreference(3);
+        Preference beastMode = findPreference(getString(R.string.p_beastMode));
         beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
@@ -242,6 +241,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         disablePremiumPrefs();
 
+        PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
         if (!AndroidUtilities.isTabletSized(this)) {
             appearance.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
         } else {

@@ -34,7 +34,7 @@
             android:id="@+id/display_row_edit"
             style="@style/TextAppearance.EditRowDisplay"
             android:layout_width="fill_parent"
-            android:paddingBottom="4dip"
+            android:paddingBottom="10dip"
             android:layout_height="wrap_content"
             android:gravity="left" />
     </LinearLayout>

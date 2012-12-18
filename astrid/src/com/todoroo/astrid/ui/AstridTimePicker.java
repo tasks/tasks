@@ -21,6 +21,7 @@ import android.widget.ToggleButton;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 
 public class AstridTimePicker extends LinearLayout {
 
@@ -50,6 +51,11 @@ public class AstridTimePicker extends LinearLayout {
         pmButton= (ToggleButton) findViewById(R.id.pm_button);
         hours = (NumberPicker) findViewById(R.id.hours);
         minutes = (NumberPicker) findViewById(R.id.minutes);
+
+        if (Preferences.getBoolean(R.string.p_time_increment, false))
+            minutes.setIncrementBy(5);
+        else
+            minutes.setIncrementBy(1);
 
         setupButtonBackgrounds(context);
 

@@ -181,6 +181,13 @@
 	    <item name="android:backgroundDimEnabled">false</item>
 	    <item name="android:windowIsFloating">true</item>
 	</style>
+	
+    <style name="SaveAsBack">
+        <item name="abLogo">@drawable/ic_menu_save</item>
+    </style>
+    <style name="SaveAsBackWhite">
+        <item name="abLogo">@drawable/ic_menu_save_blue_alt</item>
+    </style>
     
     <style name="Theme.Dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@null</item>
