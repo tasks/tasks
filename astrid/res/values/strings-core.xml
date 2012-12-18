@@ -108,7 +108,7 @@
   <string name="TLA_menu_addons">Add-ons</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Subtasks</string>
+  <string name="TLA_menu_sort">Sort</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now</string>

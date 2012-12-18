@@ -44,6 +44,7 @@
 	      android:autoText="true"
 	      android:capitalize="sentences"
 	      android:singleLine="false"
+	      android:textColor="?attr/asTextColor"
 	      android:freezesText="true" />
 	  </LinearLayout>
   </ScrollView>
