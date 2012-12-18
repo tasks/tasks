@@ -63,9 +63,10 @@ public class DateAndTimePicker extends LinearLayout {
     public DateAndTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.date_time_picker, this, true);
 
         useShortcuts = false; //Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
+        inflater.inflate(useShortcuts ? R.layout.date_time_picker : R.layout.date_time_picker_no_shortcuts, this, true);
+
 
         calendarView = (CalendarView) findViewById(R.id.calendar);
         timePicker = (AstridTimePicker) findViewById(R.id.time_picker);
