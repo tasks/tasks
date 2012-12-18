@@ -154,7 +154,10 @@ public class ABTests {
 
     public static final String AB_NEW_LOGIN_YES_GOOGLE = "android_new_login_y_google"; //$NON-NLS-1$
 
+    public static final String AB_USE_DATE_SHORTCUTS = "android_use_date_shortcuts"; //$NON-NLS-1$
+
     private void initialize() {
-        //
+        addTest(AB_USE_DATE_SHORTCUTS, new int[] { 1, 1 },
+                new int[] { 1, 1 }, new String[] { "date-shortcuts-off", "date-shortcuts-on" }, true); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

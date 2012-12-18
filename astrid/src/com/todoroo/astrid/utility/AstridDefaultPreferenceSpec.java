@@ -12,6 +12,8 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 
 public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
@@ -107,6 +109,9 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_taskRowStyle, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_use_date_shortcuts,
+                ABChooser.readChoiceForTest(ABTests.AB_USE_DATE_SHORTCUTS) != 0, ifUnset);
 
         extras.setExtras(context, prefs, editor, r, ifUnset);
 

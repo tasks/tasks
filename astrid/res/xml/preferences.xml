@@ -77,6 +77,11 @@
 	            android:defaultValue="true"/>
 	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_use_date_shortcuts"
+	            android:title="@string/EPr_use_date_shortcuts"
+	            android:defaultValue="true"/>
+	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
                 android:key="@string/p_time_increment"
                 android:title="@string/EPr_time_increment"
                 android:defaultValue="true"/>

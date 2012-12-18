@@ -45,7 +45,7 @@ public class AstridTimePicker extends LinearLayout {
     public AstridTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        useShortcuts = false; //Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
+        useShortcuts = Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
         int layout = useShortcuts ? R.layout.astrid_time_picker : R.layout.astrid_time_picker_horizontal;
         inflater.inflate(layout, this, true);
 

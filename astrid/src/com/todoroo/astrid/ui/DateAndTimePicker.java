@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.AstridTimePicker.TimePickerEnabledChangedListener;
 import com.todoroo.astrid.ui.CalendarView.OnSelectedDateListener;
@@ -64,7 +65,7 @@ public class DateAndTimePicker extends LinearLayout {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        useShortcuts = false; //Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
+        useShortcuts = Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
         inflater.inflate(useShortcuts ? R.layout.date_time_picker : R.layout.date_time_picker_no_shortcuts, this, true);
 
 

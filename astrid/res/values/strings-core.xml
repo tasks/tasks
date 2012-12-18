@@ -674,6 +674,8 @@
   
   <string name="EPr_time_increment">5 minute increments</string>
   
+  <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
+  
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
   <!-- slide 35j -->

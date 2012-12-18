@@ -276,6 +276,8 @@
   
   <string name="p_time_increment">p_time_increment</string>
   
+  <string name="p_use_date_shortcuts">p_use_date_shortcuts</string>
+  
   <!-- Configurations -->
   <string name="p_configurations">p_configurations</string>
   <string name="p_config_default">p_config_default</string>
