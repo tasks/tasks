@@ -35,12 +35,11 @@ import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.viewpagerindicator.CirclePageIndicator;
-import com.viewpagerindicator.PageIndicator;
 
 public class WelcomeWalkthrough extends ActFmLoginActivity {
     private ViewPager mPager;
     private WelcomePagerAdapter mAdapter;
-    private PageIndicator mIndicator;
+    private CirclePageIndicator mIndicator;
     private View currentView;
     private int currentPage;
 
@@ -61,6 +60,9 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
 
         mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
+        if (mAdapter.getCount() <= 1) {
+            mIndicator.setVisibility(View.GONE);
+        }
 
     }
     @Override
@@ -186,9 +188,9 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         currentPage = position;
         currentView = view;
         findViewById(R.id.next).setVisibility(
-                position == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
+                position == mAdapter.getCount() - 1 ? View.GONE : View.VISIBLE);
 
-        if(currentPage == mAdapter.getCount()-1) {
+        if(currentPage == mAdapter.getCount() - 1) {
             if(findViewById(R.id.fb_login) != null) {
                 setupLoginLater();
             } else {
@@ -198,8 +200,12 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                         finish();
                     }
                 };
-                currentView.findViewById(R.id.welcome_walkthrough_title).setOnClickListener(done);
-                currentView.findViewById(R.id.welcome_walkthrough_image).setOnClickListener(done);
+                View title = currentView.findViewById(R.id.welcome_walkthrough_title);
+                if (title != null)
+                    title.setOnClickListener(done);
+                View image = currentView.findViewById(R.id.welcome_walkthrough_image);
+                if (image != null)
+                    image.setOnClickListener(done);
             }
         }
         ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
