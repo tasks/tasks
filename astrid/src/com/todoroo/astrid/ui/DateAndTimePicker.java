@@ -57,15 +57,26 @@ public class DateAndTimePicker extends LinearLayout {
     private final AstridTimePicker timePicker;
     private final LinearLayout dateShortcuts;
     private OnDateChangedListener listener;
+    private final boolean useShortcuts;
+    private UrgencyValue todayUrgency;
 
     public DateAndTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.date_time_picker, this, true);
 
+        useShortcuts = false; //Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
+
         calendarView = (CalendarView) findViewById(R.id.calendar);
         timePicker = (AstridTimePicker) findViewById(R.id.time_picker);
-        dateShortcuts = (LinearLayout) findViewById(R.id.date_shortcuts);
+
+        if (useShortcuts)
+            dateShortcuts = (LinearLayout) findViewById(R.id.date_shortcuts);
+        else {
+            findViewById(R.id.date_shortcuts).setVisibility(View.GONE);
+            dateShortcuts = (LinearLayout) timePicker.findViewById(R.id.date_shortcuts);
+        }
+
 
         setUpListeners();
         constructShortcutList(context, attrs);
@@ -121,7 +132,13 @@ public class DateAndTimePicker extends LinearLayout {
     private void forceDateSelected() {
         ToggleButton none = (ToggleButton) dateShortcuts.getChildAt(dateShortcuts.getChildCount() - 1);
         if (none.isChecked()) {
-            dateShortcuts.getChildAt(0).performClick();
+            Date date = new Date(todayUrgency.dueDate);
+            calendarView.setCalendarDate(date);
+            calendarView.invalidate();
+            if (todayUrgency.setting == Task.URGENCY_NONE)
+                timePicker.forceNoTime();
+            updateShortcutView(date);
+            otherCallbacks();
         }
     }
 
@@ -138,14 +155,17 @@ public class DateAndTimePicker extends LinearLayout {
 
         String[] labels = context.getResources().getStringArray(arrayResource);
         urgencyValues = new ArrayList<UrgencyValue>();
-        urgencyValues.add(new UrgencyValue(labels[2],
-                Task.URGENCY_TODAY));
-        urgencyValues.add(new UrgencyValue(labels[3],
-                Task.URGENCY_TOMORROW));
-        urgencyValues.add(new UrgencyValue(labels[5],
-                Task.URGENCY_NEXT_WEEK));
-        urgencyValues.add(new UrgencyValue(labels[7],
-                Task.URGENCY_NEXT_MONTH));
+        todayUrgency = new UrgencyValue(labels[2],
+                Task.URGENCY_TODAY);
+        if (useShortcuts) {
+            urgencyValues.add(todayUrgency);
+            urgencyValues.add(new UrgencyValue(labels[3],
+                    Task.URGENCY_TOMORROW));
+            urgencyValues.add(new UrgencyValue(labels[5],
+                    Task.URGENCY_NEXT_WEEK));
+            urgencyValues.add(new UrgencyValue(labels[7],
+                    Task.URGENCY_NEXT_MONTH));
+        }
         urgencyValues.add(new UrgencyValue(labels[0],
                 Task.URGENCY_NONE));
 
@@ -161,7 +181,7 @@ public class DateAndTimePicker extends LinearLayout {
         int strokeWidth = (int) (1 * r.getDisplayMetrics().density);
 
         for (int i = 0; i < urgencyValues.size(); i++) {
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) (42 * metrics.density), 0);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) ((useShortcuts ? 42 : 38) * metrics.density), 0);
             UrgencyValue uv = urgencyValues.get(i);
 
             ToggleButton tb = new ToggleButton(context);
@@ -170,7 +190,10 @@ public class DateAndTimePicker extends LinearLayout {
             tb.setTextOn(label);
             tb.setTag(uv);
             if (i == 0) {
-                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+                if (useShortcuts)
+                    tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+                else
+                    tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else if (i == urgencyValues.size() - 2) {
                 lp.topMargin = (int) (-1 * metrics.density);
                 tb.setBackgroundDrawable(CustomBorderDrawable.customButton(0, 0, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
@@ -207,12 +230,17 @@ public class DateAndTimePicker extends LinearLayout {
 
     private void updateShortcutView(Date date) {
         for (int i = 0; i < dateShortcuts.getChildCount(); i++) {
-            ToggleButton tb = (ToggleButton) dateShortcuts.getChildAt(i);
-            UrgencyValue uv = (UrgencyValue) tb.getTag();
-            if (uv.dueDate == date.getTime()) {
-                tb.setChecked(true);
-            } else {
-                tb.setChecked(false);
+            View child = dateShortcuts.getChildAt(i);
+            if (child instanceof ToggleButton) {
+                ToggleButton tb = (ToggleButton) child;
+                UrgencyValue uv = (UrgencyValue) tb.getTag();
+                if (uv != null) {
+                    if (uv.dueDate == date.getTime()) {
+                        tb.setChecked(true);
+                    } else {
+                        tb.setChecked(false);
+                    }
+                }
             }
         }
     }

@@ -34,6 +34,7 @@ public class AstridTimePicker extends LinearLayout {
     private boolean is24Hour;
 
     private boolean lastSelectionWasPm; // false for AM, true for PM
+    private final boolean useShortcuts;
 
     public interface TimePickerEnabledChangedListener {
         public void timePickerEnabledChanged(boolean hasTime);
@@ -44,11 +45,13 @@ public class AstridTimePicker extends LinearLayout {
     public AstridTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.astrid_time_picker, this, true);
+        useShortcuts = false; //Preferences.getBoolean(R.string.p_use_date_shortcuts, true);
+        int layout = useShortcuts ? R.layout.astrid_time_picker : R.layout.astrid_time_picker_horizontal;
+        inflater.inflate(layout, this, true);
 
         noTimeCheck = (ToggleButton) findViewById(R.id.hasTime);
-        amButton= (ToggleButton) findViewById(R.id.am_button);
-        pmButton= (ToggleButton) findViewById(R.id.pm_button);
+        amButton = (ToggleButton) findViewById(R.id.am_button);
+        pmButton = (ToggleButton) findViewById(R.id.pm_button);
         hours = (NumberPicker) findViewById(R.id.hours);
         minutes = (NumberPicker) findViewById(R.id.minutes);
 
@@ -89,6 +92,15 @@ public class AstridTimePicker extends LinearLayout {
                 CustomBorderDrawable.customButton(0, cornerRadius, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
         minutes.findViewById(R.id.decrement).setBackgroundDrawable(
                 CustomBorderDrawable.customButton(0, 0, cornerRadius, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+
+        if (!useShortcuts) {
+            View[] pickers = new View[] { hours, minutes };
+            for (View view : pickers) {
+                View v = view.findViewById(R.id.timepicker_input);
+                LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
+                lp.height = (int) (46 * r.getDisplayMetrics().density);
+            }
+        }
     }
 
     private void initialize(Context context) {
@@ -110,9 +122,6 @@ public class AstridTimePicker extends LinearLayout {
                 return newVal;
             }
         };
-
-//        hours.findViewById(R.id.timepicker_left_border).setVisibility(View.VISIBLE);
-//        minutes.findViewById(R.id.timepicker_right_border).setVisibility(View.VISIBLE);
 
         String amString = DateUtils.getAMPMString(Calendar.AM).toUpperCase();
         amButton.setTextOff(amString);
