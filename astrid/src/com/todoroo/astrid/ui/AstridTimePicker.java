@@ -71,7 +71,7 @@ public class AstridTimePicker extends LinearLayout {
         int offColorValue = r.getColor(android.R.color.transparent);
         int borderColorValue = r.getColor(R.color.task_edit_deadline_gray);
         int cornerRadius = (int) (5 * r.getDisplayMetrics().density);
-        int strokeWidth = (int) (2 * r.getDisplayMetrics().density);
+        int strokeWidth = (int) (1 * r.getDisplayMetrics().density);
 
         amButton.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, 0, 0, cornerRadius,
                 onColorValue, offColorValue, borderColorValue, strokeWidth));
@@ -111,8 +111,8 @@ public class AstridTimePicker extends LinearLayout {
             }
         };
 
-        hours.findViewById(R.id.timepicker_left_border).setVisibility(View.VISIBLE);
-        minutes.findViewById(R.id.timepicker_right_border).setVisibility(View.VISIBLE);
+//        hours.findViewById(R.id.timepicker_left_border).setVisibility(View.VISIBLE);
+//        minutes.findViewById(R.id.timepicker_right_border).setVisibility(View.VISIBLE);
 
         String amString = DateUtils.getAMPMString(Calendar.AM).toUpperCase();
         amButton.setTextOff(amString);

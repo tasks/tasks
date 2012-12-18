@@ -10,7 +10,7 @@
         android:id="@+id/timeComponents"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dip"
+        android:layout_marginBottom="8dip"
         android:orientation="horizontal">
 	    <com.todoroo.astrid.ui.DeadlineNumberPicker
 	        android:id="@+id/hours"
