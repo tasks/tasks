@@ -212,7 +212,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         @Override
         protected int computeMinRowHeight() {
-            return (int) (metrics.density * 40);
+            return (int) (metrics.density * 45);
         }
 
         @Override
