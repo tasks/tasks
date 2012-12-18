@@ -361,6 +361,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 overrideFinishAnim = activity.getIntent().getBooleanExtra(
                         OVERRIDE_FINISH_ANIM, true);
         }
+
+        if (activity instanceof TaskListActivity)
+            ((TaskListActivity) activity).setCommentsButtonVisibility(false);
     }
 
     private void instantiateEditNotes() {
@@ -989,16 +992,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // abandon editing and delete the newly created task if
         // no title was entered
+        Activity activity = getActivity();
         if (overrideFinishAnim) {
-            AndroidUtilities.callOverridePendingTransition(getActivity(),
+            AndroidUtilities.callOverridePendingTransition(activity,
                     R.anim.slide_right_in, R.anim.slide_right_out);
         }
 
-        if (getActivity() instanceof TaskListActivity) {
+        if (activity instanceof TaskListActivity) {
             if (title.getText().length() == 0 && isNewTask
                     && model != null && model.isSaved()) {
                 taskService.delete(model);
             }
+            ((TaskListActivity) activity).setCommentsButtonVisibility(true);
         }
     }
 

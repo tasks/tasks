@@ -434,6 +434,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
+    public void setCommentsButtonVisibility(boolean visible) {
+        commentsButton.setVisibility(visible && filterModeSpec.showComments() && fragmentLayout != LAYOUT_TRIPLE ? View.VISIBLE : View.GONE);
+    }
+
     private void setListsDropdownSelected(boolean selected) {
         int oldTextColor = lists.getTextColors().getDefaultColor();
         int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
