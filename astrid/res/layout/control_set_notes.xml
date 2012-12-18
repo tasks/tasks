@@ -22,15 +22,18 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
 	    <!-- Voice Add Note Button -->
+
 	    <ImageButton
-	      android:id="@+id/voiceAddNoteButton"
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:layout_weight="1"
-	      android:src="@android:drawable/ic_btn_speak_now"
-	      android:scaleType="fitCenter"
-	      android:visibility="gone" />
-	    <EditText
+	        android:id="@+id/voiceAddNoteButton"
+	        android:layout_width="39dip"
+	        android:layout_height="39dip"
+	        android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+	        android:background="@android:color/transparent"
+	        android:scaleType="center"
+	        android:src="?attr/asMicButtonImg"
+	        android:visibility="gone" />
+        <EditText
 	      android:id="@+id/notes"
 	      android:layout_width="wrap_content"
 	      android:layout_height="wrap_content"
