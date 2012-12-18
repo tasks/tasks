@@ -190,7 +190,7 @@ public class TagViewFragment extends TaskListFragment {
         super.addMenuItems(menu, activity);
         if (!Preferences.getBoolean(R.string.p_show_list_members, true)) {
             MenuItem item = menu.add(Menu.NONE, MENU_LIST_SETTINGS_ID, 0, R.string.tag_settings_title);
-            item.setIcon(R.drawable.list_settings);
+            item.setIcon(ThemeService.getDrawable(R.drawable.list_settings));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
     }
