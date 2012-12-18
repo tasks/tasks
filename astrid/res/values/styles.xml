@@ -432,7 +432,6 @@
     <style name="TextAppearance.TAd_ItemTitle_Deleted" parent="TextAppearance.TAd_ItemTitle" />
     
     <style name="TextAppearance.TAd_ItemTitle_Overdue" parent="TextAppearance.TAd_ItemTitle">
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">
@@ -442,7 +441,6 @@
     
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
         <item name="android:textColor">?attr/asDueDateColor</item>
-        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
