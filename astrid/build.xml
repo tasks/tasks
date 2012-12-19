@@ -304,6 +304,22 @@
     	
       <replace dir="res" token="com.timsu.astrid" value="com.todoroo.astridlite"/>
       <replace dir="${source.dir}" token="com.timsu.astrid" value="com.todoroo.astridlite"/>
+		
+      <replaceregexp match="&gt;(.*\s)task(.*)"
+                     replace="&gt;\1to-do\2"
+                     flags="g">
+        <fileset dir="res/values">
+            <include name="strings-*.xml"/>
+        </fileset>
+      </replaceregexp>
+      <replaceregexp match="&gt;(.*)Task(.*)"
+                     replace="&gt;\1To-do\2"
+                     flags="g">
+        <fileset dir="res/values">
+            <include name="strings-*.xml"/>
+        </fileset>
+      </replaceregexp>
+
       <replaceregexp file="res/values/strings-core.xml"
                      match="app_name&quot;&gt;.*&lt;"
                      replace="app_name&quot;&gt;Simple\\\\nTo-do&lt;"
@@ -318,6 +334,7 @@
 	<target name="teardown-lite" if="lite.enabled">
       <delete dir="res" />
       <move file="res_old" tofile="res"/>
+	  <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
 	  <subant target="teardown-lite">
 	      <fileset file="../api/build.xml"/>
 	  </subant>
@@ -424,8 +441,21 @@
       <!-- Zip aligns the APK -->
       <mkdir dir="../release" />
       <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-release.apk" />
-      <property name="out.release.file"
-                location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
+
+      <if>
+        <condition>
+          <isset property="lite.enabled"/>
+        </condition>
+        <then>
+          <property name="out.release.file"
+                    location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release-lite.apk" />
+        </then>
+        <else>
+          <property name="out.release.file"
+                    location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
+        </else>
+      </if>
+      
       <zipalign-helper in.package="${out.unaligned.file}"
                        out.package="${out.final.file}" />
       <copy file="${out.final.file}" tofile="${out.release.file}" />
