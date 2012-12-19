@@ -88,7 +88,6 @@
   <target name="release-lite" depends="get-version">
     <subant target="release-lite">
       <fileset file="astrid/build.xml" />
-      <property name="custom.version.name" value="-lite" />
     </subant>
   </target>
 

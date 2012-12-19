@@ -232,7 +232,7 @@
     </target>
 
 	<!-- build lite release package with updated version name -->
-    <target name="release-lite" depends="clean, set-lite-property, release-custom" />
+    <target name="release-lite" depends="clean, set-lite-property, release" />
     <target name="debug-lite" depends="clean, set-lite-property, debug" />
 	
 	<target name="set-lite-property">
@@ -285,8 +285,8 @@
 		             flags="g"
 	                 />
       <replaceregexp file="AndroidManifest.xml"
-                     match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
-                     replace="\1${custom.version.name}"
+                     match="(android:versionName=&quot;)4"
+                     replace="\10"
                      />
       <replaceregexp file="AndroidManifest.xml"
                      match="application android:icon=&quot;(.*)&quot;"
