@@ -303,6 +303,7 @@
   <string-array name="EPr_themes">
     <item>Dia - Blau</item>
     <item>Dia - Vermell</item>
+    <item>Sky blue</item>
     <item>Nit</item>
     <item>Transparent (text blanc)</item>
     <item>Transparent (text negre)</item>
@@ -311,6 +312,7 @@
     <item>El mateix que l\'aplicació</item>
     <item>Dia - Blau</item>
     <item>Dia - Vermell</item>
+    <item>Sky blue</item>
     <item>Nit</item>
     <item>Transparent (text blanc)</item>
     <item>Transparent (text negre)</item>

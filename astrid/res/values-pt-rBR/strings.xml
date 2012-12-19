@@ -388,6 +388,7 @@
   <string-array name="EPr_themes">
     <item>Dia - Azul</item>
     <item>Dia - Vermelho</item>
+    <item>Sky blue</item>
     <item>Noite</item>
     <item>Transparente (Texto branco)</item>
     <item>Transparente (Texto preto)</item>
@@ -396,6 +397,7 @@
     <item>Mesmo que o aplicativo</item>
     <item>Dia - Azul</item>
     <item>Dia - Vermelho</item>
+    <item>Sky blue</item>
     <item>Noite</item>
     <item>Transparente (Texto branco)</item>
     <item>Transparente (Texto preto)</item>

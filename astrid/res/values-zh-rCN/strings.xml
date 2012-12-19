@@ -369,6 +369,7 @@
   <string-array name="EPr_themes">
     <item>蓝</item>
     <item>红</item>
+    <item>Sky blue</item>
     <item>夜间模式</item>
     <item>透明(白色文字)</item>
     <item>透明(黑色文字)</item>
@@ -377,6 +378,7 @@
     <item>与应用相同</item>
     <item>日间——蓝色</item>
     <item>日间——红色</item>
+    <item>Sky blue</item>
     <item>夜间</item>
     <item>透明（白色文字）</item>
     <item>透明（黑色文字）</item>

@@ -380,6 +380,7 @@
   <string-array name="EPr_themes">
     <item>Jour - Bleu</item>
     <item>Jour - Rouge</item>
+    <item>Sky blue</item>
     <item>Nuit</item>
     <item>Transparent (Texte Blanc)</item>
     <item>Transparent (Texte Noir)</item>
@@ -388,6 +389,7 @@
     <item>Même que l\'application</item>
     <item>Jour - Bleu</item>
     <item>Jour - Rouge</item>
+    <item>Sky blue</item>
     <item>Nuit</item>
     <item>Transparent (Texte Blanc)</item>
     <item>Transparent (Texte Noir)</item>

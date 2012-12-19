@@ -384,6 +384,7 @@
   <string-array name="EPr_themes">
     <item>Gündüz - Mavi</item>
     <item>Gündüz - Kırmızı</item>
+    <item>Sky blue</item>
     <item>Gece</item>
     <item>Şeffaf (Beyaz Metin)</item>
     <item>Şeffaf (Siyah Metin)</item>
@@ -392,6 +393,7 @@
     <item>Uygulama ile aynı</item>
     <item>Gündüz - Mavi</item>
     <item>Gündüz - Kırmızı</item>
+    <item>Sky blue</item>
     <item>Gece</item>
     <item>Saydam (Beyaz Metin)</item>
     <item>Saydam (Siyah Metin)</item>

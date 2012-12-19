@@ -405,6 +405,7 @@
   <string-array name="EPr_themes">
     <item>낮 - 파란색</item>
     <item>낮 - 빨간색</item>
+    <item>Sky blue</item>
     <item>밤</item>
     <item>투명 (흰색 텍스트)</item>
     <item>투명 (검은색 텍스트)</item>
@@ -413,6 +414,7 @@
     <item>어플과 동일하게</item>
     <item>낮 - 파란색</item>
     <item>낮 - 빨간색</item>
+    <item>Sky blue</item>
     <item>밤</item>
     <item>투명 (흰색 텍스트)</item>
     <item>투명 (검은색 텍스트)</item>

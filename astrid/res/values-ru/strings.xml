@@ -405,6 +405,7 @@
   <string-array name="EPr_themes">
     <item>День - Синий</item>
     <item>День - Красный</item>
+    <item>Sky blue</item>
     <item>Ночь</item>
     <item>Прозрачный (белый текст)</item>
     <item>Прозрачный (черный текст)</item>
@@ -413,6 +414,7 @@
     <item>Та же что и в приложении</item>
     <item>День - Синий</item>
     <item>День - Красный</item>
+    <item>Sky blue</item>
     <item>Ночь</item>
     <item>Прозрачный (белый текст)</item>
     <item>Прозрачный (черный текст)</item>
