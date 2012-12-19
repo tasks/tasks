@@ -292,7 +292,7 @@
                      match="application android:icon=&quot;(.*)&quot;"
                      replace="application android:icon=&quot;@drawable/icon_simple&quot;"
                      />
-	  <replaceregexp file="${source.dir}/com/todoroo/astrid/backup.BackupConstants.java"
+	  <replaceregexp file="${source.dir}/com/todoroo/astrid/backup/BackupConstants.java"
 	                 match="ASTRID_DIR = .*"
                      replace="ASTRID_DIR = &quot;/astridlite&quot;;"
 	                 />
