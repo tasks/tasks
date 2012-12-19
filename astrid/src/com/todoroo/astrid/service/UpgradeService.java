@@ -50,6 +50,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_5_0 = 291;
     public static final int V4_4_4_1 = 290;
     public static final int V4_4_4 = 289;
     public static final int V4_4_3 = 288;
@@ -267,6 +268,17 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from < V4_5_0) {
+            newVersionString(changeLog, "4.5.0 (12/19/12)", new String[] {
+                "Several interface and usability enhancements",
+                "Fixed Power Pack display bug affecting certain phones",
+                "Better organized preferences",
+                "New 'Sky Blue' theme",
+                "'Lite mode' preference defaults available in Settings > Appearance > Set configuration",
+                "Minor bug and crash fixes"
+            });
+        }
 
         if (from >= V4_4_4 && from < V4_4_4_1) {
             newVersionString(changeLog, "4.4.4.1 (12/13/12)", new String[] {
