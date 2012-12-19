@@ -288,6 +288,10 @@
                      match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
                      replace="\1${custom.version.name}"
                      />
+      <replaceregexp file="AndroidManifest.xml"
+                     match="application android:icon=&quot;(.*)&quot;"
+                     replace="application android:icon=&quot;@drawable/icon-simple&quot;"
+                     />
 	  <replaceregexp file="${source.dir}/com/todoroo/astrid/backup.BackupConstants.java"
 	                 match="ASTRID_DIR = .*"
                      replace="ASTRID_DIR = &quot;/astridlite&quot;;"
