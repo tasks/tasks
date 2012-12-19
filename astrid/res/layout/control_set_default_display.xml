@@ -33,7 +33,7 @@
 	         android:paddingLeft="10dip"
 		     style="@style/TextAppearance.EditRowDisplay" />
       </LinearLayout>
-               <View
+      <View
 	      android:id="@+id/TEA_Separator"
 	      android:layout_width="fill_parent"
 	      android:layout_height="1px"

@@ -29,7 +29,7 @@
   <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
   
-  <string name="gcal_TEA_none_selected">Add to cal...</string>
+  <string name="gcal_TEA_none_selected">To calendar?</string>
   
   <string name="gcal_TEA_has_event">Cal event</string>
   

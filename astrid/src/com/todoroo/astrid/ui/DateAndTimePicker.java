@@ -178,7 +178,7 @@ public class DateAndTimePicker extends LinearLayout {
 
         int onColorValue = r.getColor(onColor.data);
         int offColorValue = r.getColor(android.R.color.transparent);
-        int borderColorValue = r.getColor(R.color.task_edit_deadline_gray);
+        int borderColorValue = r.getColor(android.R.color.transparent);
         int cornerRadius = (int) (5 * r.getDisplayMetrics().density);
         int strokeWidth = (int) (1 * r.getDisplayMetrics().density);
 
@@ -193,18 +193,18 @@ public class DateAndTimePicker extends LinearLayout {
             tb.setTag(uv);
             if (i == 0) {
                 if (useShortcuts)
-                    tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+                    tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
                 else
                     tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else if (i == urgencyValues.size() - 2) {
                 lp.topMargin = (int) (-1 * metrics.density);
-                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(0, 0, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
+                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else if (i == urgencyValues.size() - 1) {
                 lp.topMargin = (int) (5 * metrics.density);
                 tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else {
                 lp.topMargin = (int) (-1 * metrics.density);
-                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(0, 0, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             }
             int verticalPadding = (int) (SHORTCUT_PADDING * metrics.density);
             tb.setPadding(0, verticalPadding, 0, verticalPadding);

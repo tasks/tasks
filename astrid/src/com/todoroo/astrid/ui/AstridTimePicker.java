@@ -72,7 +72,7 @@ public class AstridTimePicker extends LinearLayout {
 
         int onColorValue = r.getColor(onColor.data);
         int offColorValue = r.getColor(android.R.color.transparent);
-        int borderColorValue = r.getColor(R.color.task_edit_deadline_gray);
+        int borderColorValue = r.getColor(android.R.color.transparent);
         int cornerRadius = (int) (5 * r.getDisplayMetrics().density);
         int strokeWidth = (int) (1 * r.getDisplayMetrics().density);
 
