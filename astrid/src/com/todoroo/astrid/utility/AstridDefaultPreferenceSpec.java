@@ -102,13 +102,38 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_rmd_persistent, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_ideas_tab_enabled, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_ideas_tab_enabled, false, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_autoIdea, false, ifUnset);
 
+        setPreference(prefs, editor, r, R.string.p_show_today_filter, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_recently_modified_filter, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_ive_assigned_filter, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_not_in_list_filter, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_show_menu_search, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_menu_friends, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_featured_lists, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_menu_sync, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_menu_sort, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_show_menu_addons, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_taskRowStyle, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_use_filters, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_simple_input_boxes, false, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_show_list_members, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_force_phone_layout, false, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts,
                 ABChooser.readChoiceForTest(ABTests.AB_USE_DATE_SHORTCUTS) != 0, ifUnset);
