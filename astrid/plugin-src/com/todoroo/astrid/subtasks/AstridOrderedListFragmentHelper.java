@@ -211,11 +211,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
 
         @Override
-        protected int computeMinRowHeight() {
-            return (int) (metrics.density * 45);
-        }
-
-        @Override
         protected ViewHolder getTagFromCheckBox(View v) {
             return (ViewHolder)((View)v.getParent()).getTag();
         }
