@@ -15,6 +15,7 @@ public final class Constants {
     /**
      * LCL API Key
      */
+    public static final String LOCALYTICS_KEY_LITE = "f3a40b93823ac2024b062f2-d96a8860-4a2c-11e2-35ca-004b50a28849";
     public static final String LOCALYTICS_KEY = "ae35a010c66a997ab129ab7-3e2adf46-8bb3-11e0-fe8b-007f58cb3154";
 
     /**

@@ -247,6 +247,9 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
                      match="ASTRID_LITE = .*"
                      replace="ASTRID_LITE = true;" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
+                     match="LOCALYTICS_KEY = .*"
+                     replace="LOCALYTICS_KEY = LOCALYTICS_KEY_LITE;" />
       <replaceregexp file="AndroidManifest.xml"
                      match="package=&quot;.*&quot;"
     	             replace="package=&quot;com.todoroo.astridlite&quot;" />
