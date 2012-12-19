@@ -45,6 +45,7 @@ import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.utility.Constants;
 
 
 public final class UpgradeService {
@@ -656,6 +657,8 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
+        if (Constants.ASTRID_LITE)
+            version = "0" + version.substring(1);
         changeLog.append("<font style='text-align: center; color=#ffaa00'><b>Version ").append(version).append(":</b></font><br><ul>");
         for(String change : changes)
             changeLog.append("<li>").append(change).append("</li>\n");
