@@ -330,7 +330,7 @@
   <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Show Task</string>
+  <string name="TEA_hideUntil_label">Hide until</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
@@ -399,11 +399,11 @@
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Always</item>
-      <item>At due date</item>
+      <item>Never</item>
+      <item>Due date</item>
       <item>Day before due</item>
       <item>Week before due</item>
-      <item>Specific Day/Time</item>
+      <item>Specific day/time</item>
   </string-array>
   
   <!-- Task edit control set descriptors -->
