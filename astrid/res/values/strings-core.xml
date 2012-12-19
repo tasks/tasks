@@ -75,7 +75,7 @@
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click To Set</string>
+  <string name="WID_dateButtonUnset">Click to set</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   

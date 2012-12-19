@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -22,7 +22,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         View.OnClickListener {
 
     private final Activity activity;
-    private final Button timeButton;
+    private final TextView timeButton;
     private final int prefixResource;
     private int timeDuration;
     private int[] initialValues = null;
@@ -40,8 +40,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         this.titleResource = titleResource;
         this.property = property;
 
-        timeButton = (Button)view.findViewById(timeButtonId);
-        timeButton.setOnClickListener(this);
+        timeButton = (TextView)view.findViewById(timeButtonId);
+        ((View) timeButton.getParent()).setOnClickListener(this);
     }
 
     public void setModel(Task model) {
