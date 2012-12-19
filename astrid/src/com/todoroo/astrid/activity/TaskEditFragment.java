@@ -315,6 +315,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
+        showEditComments = Preferences.getBoolean(R.string.p_show_task_edit_comments, true);
+
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.asCommentButtonImg, tv, false);
         commentIcon = tv.data;
@@ -349,9 +351,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         setUpUIComponents();
         adjustInfoPopovers();
-
-        showEditComments = Preferences.getBoolean(R.string.p_show_task_edit_comments, true);
-
 
         Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
 
