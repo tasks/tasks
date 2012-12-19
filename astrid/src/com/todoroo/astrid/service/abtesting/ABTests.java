@@ -158,6 +158,6 @@ public class ABTests {
 
     private void initialize() {
         addTest(AB_USE_DATE_SHORTCUTS, new int[] { 1, 1 },
-                new int[] { 1, 9 }, new String[] { "date-shortcuts-off", "date-shortcuts-on" }, true); //$NON-NLS-1$ //$NON-NLS-2$
+                new int[] { 1, 9 }, new String[] { "date-shortcuts-off", "date-shortcuts-on" }, false); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

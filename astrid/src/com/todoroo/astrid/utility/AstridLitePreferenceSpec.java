@@ -12,8 +12,6 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec.PreferenceExtras;
 
 public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
@@ -76,7 +74,6 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_default_urgency_key, 4, ifUnset);
         setPreference(prefs, editor, r, R.string.p_default_importance_key, 2, ifUnset);
         setPreference(prefs, editor, r, R.string.p_default_hideUntil_key, 0, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE, ifUnset);
         setPreference(prefs, editor, r, R.string.p_default_reminders_mode_key, 16, ifUnset);
         setPreference(prefs, editor, r, R.string.p_rmd_default_random_hours, 0, ifUnset);
@@ -93,7 +90,6 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_ideas_tab_enabled, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_autoIdea, false, ifUnset);
-
 
         setPreference(prefs, editor, r, R.string.p_taskRowStyle, true, ifUnset);
 
@@ -125,8 +121,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_use_date_shortcuts,
-                ABChooser.readChoiceForTest(ABTests.AB_USE_DATE_SHORTCUTS) != 0, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false, ifUnset);
 
         extras.setExtras(context, prefs, editor, r, ifUnset);
 
