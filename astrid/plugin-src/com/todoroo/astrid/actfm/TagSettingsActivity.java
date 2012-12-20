@@ -148,8 +148,13 @@ public class TagSettingsActivity extends FragmentActivity {
         isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog)
             setTheme(ThemeService.getDialogTheme());
-        else
+        else {
             ThemeService.applyTheme(this);
+            if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
+                getTheme().applyStyle(R.style.SaveAsBackWhite, true);
+            else
+                getTheme().applyStyle(R.style.SaveAsBack, true);
+        }
     }
 
     private void showCollaboratorsPopover() {
@@ -496,9 +501,11 @@ public class TagSettingsActivity extends FragmentActivity {
         item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (isDialog) {
+            item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -512,7 +519,9 @@ public class TagSettingsActivity extends FragmentActivity {
             saveSettings();
             break;
         case android.R.id.home:
-            finish();
+            saveSettings();
+            if (!isFinishing())
+                finish();
             break;
         }
         return super.onOptionsItemSelected(item);
