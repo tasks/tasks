@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -71,13 +72,18 @@ public class ActFmPreferences extends SyncProviderPreferences {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        findPreference(getString(R.string.actfm_inapp_billing)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                handleInAppBillingClicked();
-                return true;
-            }
-        });
+        PreferenceScreen screen = getPreferenceScreen();
+        Preference inAppBilling = findPreference(getString(R.string.actfm_inapp_billing));
+        if (Constants.ASTRID_LITE)
+            screen.removePreference(inAppBilling);
+        else
+            inAppBilling.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    handleInAppBillingClicked();
+                    return true;
+                }
+            });
 
         findPreference(getString(R.string.actfm_account_type)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
