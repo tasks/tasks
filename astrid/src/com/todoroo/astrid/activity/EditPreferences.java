@@ -127,9 +127,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private class SetDefaultsClickListener implements OnPreferenceClickListener {
         private final AstridPreferenceSpec spec;
         private final int nameId;
-        public SetDefaultsClickListener(AstridPreferenceSpec spec, int nameId) {
+        private final String statistic;
+        public SetDefaultsClickListener(AstridPreferenceSpec spec, int nameId, String statistic) {
             this.spec = spec;
             this.nameId = nameId;
+            this.statistic = statistic;
         }
 
         @Override
@@ -139,6 +141,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             spec.resetDefaults();
+                            StatisticsService.reportEvent(statistic);
                             setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
                             finish();
                         }
@@ -671,10 +674,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
         findPreference(getString(R.string.p_config_default)).setOnPreferenceClickListener(
-                new SetDefaultsClickListener(new AstridDefaultPreferenceSpec(), R.string.EPr_config_dialog_default_id));
+                new SetDefaultsClickListener(new AstridDefaultPreferenceSpec(), R.string.EPr_config_dialog_default_id, StatisticsConstants.PREFS_RESET_DEFAULT));
 
         findPreference(getString(R.string.p_config_lite)).setOnPreferenceClickListener(
-                new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite));
+                new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite, StatisticsConstants.PREFS_RESET_LITE));
 
         int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends, R.string.p_show_featured_lists,
                 R.string.p_show_menu_sync, R.string.p_show_menu_sort, R.string.p_show_menu_addons
