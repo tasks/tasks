@@ -149,8 +149,10 @@ public class ReminderDialog extends Dialog {
         ((TextView) findViewById(R.id.reminder_message)).setText(
                 Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
 
-        Task task = taskService.fetchById(taskId, Task.ID, Task.SHARED_WITH);
-        addFacesToReminder(activity, task);
+        if (Preferences.getBoolean(R.string.p_rmd_social, true)) {
+            Task task = taskService.fetchById(taskId, Task.ID, Task.SHARED_WITH);
+            addFacesToReminder(activity, task);
+        }
     }
 
     private void addFacesToReminder(Activity activity, Task task) {

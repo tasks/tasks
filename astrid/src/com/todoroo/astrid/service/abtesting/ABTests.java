@@ -8,10 +8,7 @@ package com.todoroo.astrid.service.abtesting;
 import java.util.HashMap;
 import java.util.Set;
 
-import android.accounts.Account;
 import android.content.Context;
-
-import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 
 /**
  * Helper class to define options with their probabilities and descriptions
@@ -33,20 +30,7 @@ public class ABTests {
      * @param context
      */
     public void externalInit(Context context) {
-        // The outer 'if' statement is to prevent one test from being added one time
-        // and the other from being added later if the accounts changed
-        if (ABChooser.readChoiceForTest(AB_NEW_LOGIN_NO_GOOGLE) == ABChooser.NO_OPTION
-                && ABChooser.readChoiceForTest(AB_NEW_LOGIN_YES_GOOGLE) == ABChooser.NO_OPTION) {
-            GoogleAccountManager am = new GoogleAccountManager(context);
-            Account[] accounts = am.getAccounts();
-            if (accounts == null || accounts.length == 0) {
-                addTest(AB_NEW_LOGIN_NO_GOOGLE, new int[] { 1, 1 },
-                        new int[] { 1, 0 }, new String[] { "old-welcome", "new-welcome" }, true);  //$NON-NLS-1$//$NON-NLS-2$
-            } else {
-                addTest(AB_NEW_LOGIN_YES_GOOGLE, new int[] { 1, 1, 1 },
-                        new int[] { 1, 0, 0 }, new String[] { "old-welcome", "new-welcome", "new-quick-welcome" }, true);  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
-            }
-        }
+        //
     }
 
     /**
@@ -149,10 +133,6 @@ public class ABTests {
             bundles.put(testKey, bundle);
         }
     }
-
-    public static final String AB_NEW_LOGIN_NO_GOOGLE = "android_new_login_n_google"; //$NON-NLS-1$
-
-    public static final String AB_NEW_LOGIN_YES_GOOGLE = "android_new_login_y_google"; //$NON-NLS-1$
 
     public static final String AB_USE_DATE_SHORTCUTS = "android_use_date_shortcuts"; //$NON-NLS-1$
 

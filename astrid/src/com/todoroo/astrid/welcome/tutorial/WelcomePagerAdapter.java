@@ -6,6 +6,7 @@
 package com.todoroo.astrid.welcome.tutorial;
 
 
+import android.accounts.Account;
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -17,12 +18,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.utility.Constants;
 import com.viewpagerindicator.TitleProvider;
 
@@ -62,7 +62,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_login_page,
+        R.layout.actfm_login_activity,
     };
 
     public int fallbackLoginPage;
@@ -80,33 +80,22 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
             title[title.length - 1] = R.string.welcome_title_7_return;
             images[images.length - 1] = R.drawable.welcome_walkthrough_1;
             body[body.length - 1] = R.string.welcome_body_7_return;
-            fallbackLoginPage = R.layout.welcome_walkthrough_page;
+            fallbackLoginPage = R.layout.actfm_login_activity;
         } else {
             if (Constants.ASTRID_LITE) {
                 adjustResourcesForLite();
             }
 
+            GoogleAccountManager am = new GoogleAccountManager(context);
+            Account[] accounts = am.getAccounts();
+
             // Setup login page from AB tests
             fallbackLoginPage = layouts[layouts.length - 1];
-            if (ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_YES_GOOGLE) != ABChooser.NO_OPTION) {
-                int choice = ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_YES_GOOGLE);
-                switch (choice) {
-                case 1:
-                    fallbackLoginPage = layouts[layouts.length - 1] = R.layout.actfm_login_activity;
-                    break;
-                case 2:
-                    layouts[layouts.length - 1] = R.layout.welcome_walkthrough_simple_login;
-                    fallbackLoginPage = R.layout.actfm_login_activity;
-                    break;
-                default:
-                    fallbackLoginPage = layouts[layouts.length - 1];
-                    break;
-                }
-            } else if (ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_NO_GOOGLE) != ABChooser.NO_OPTION) {
-                int choice = ABChooser.readChoiceForTest(ABTests.AB_NEW_LOGIN_NO_GOOGLE);
-                fallbackLoginPage = layouts[layouts.length - 1];
-                if (choice == 1)
-                    fallbackLoginPage = layouts[layouts.length - 1] = R.layout.actfm_login_activity;
+            if (accounts != null && accounts.length > 0) { // If has google account
+                layouts[layouts.length - 1] = R.layout.welcome_walkthrough_simple_login;
+                fallbackLoginPage = R.layout.actfm_login_activity;
+            } else { // If no google account
+                fallbackLoginPage = layouts[layouts.length - 1] = R.layout.actfm_login_activity;
             }
         }
     }
@@ -115,7 +104,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         images = new int[] { 0 };
         title = new int[] { R.string.welcome_title_7 };
         body = new int[] { R.string.welcome_body_7 };
-        layouts = new int[] { R.layout.welcome_walkthrough_login_page };
+        layouts = new int[] { R.layout.actfm_login_activity };
     }
 
     @Override
