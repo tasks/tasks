@@ -10,6 +10,10 @@ import java.util.Set;
 
 import android.content.Context;
 
+import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.utility.Constants;
+
 /**
  * Helper class to define options with their probabilities and descriptions
  * @author Sam Bosley <sam@astrid.com>
@@ -30,7 +34,10 @@ public class ABTests {
      * @param context
      */
     public void externalInit(Context context) {
-        //
+        // If test uninitialized, clear preference. This fixes a bug where the old test would not be initialized correctly
+        if (!Constants.ASTRID_LITE && ABChooser.readChoiceForTest(AB_USE_DATE_SHORTCUTS) == ABChooser.NO_OPTION) {
+            Preferences.clear(context.getString(R.string.p_use_date_shortcuts));
+        }
     }
 
     /**
@@ -128,13 +135,13 @@ public class ABTests {
      *
      */
     public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions, boolean appliesToAstridLite) {
-        if (appliesToAstridLite) {
+        if (!Constants.ASTRID_LITE || (Constants.ASTRID_LITE && appliesToAstridLite)) {
             ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
             bundles.put(testKey, bundle);
         }
     }
 
-    public static final String AB_USE_DATE_SHORTCUTS = "android_use_date_shortcuts"; //$NON-NLS-1$
+    public static final String AB_USE_DATE_SHORTCUTS = "android_use_date_shortcuts_v2"; //$NON-NLS-1$
 
     private void initialize() {
         addTest(AB_USE_DATE_SHORTCUTS, new int[] { 1, 1 },
