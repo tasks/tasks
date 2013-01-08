@@ -31,5 +31,15 @@
         android:layout_marginBottom="70dip"
         android:textSize="16sp"
         android:textColor="@android:color/white"/>
+    
+    <TextView
+      android:id="@+id/error"
+      android:layout_width="fill_parent"
+      android:layout_height="45dip"
+      android:gravity="center"
+      android:visibility="gone"
+      android:textColor="#ff0000"
+      android:textSize="16sp"
+      android:textStyle="bold" />
 
 </LinearLayout>

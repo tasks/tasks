@@ -95,7 +95,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     private Facebook facebook;
     private AsyncFacebookRunner facebookRunner;
-    private TextView errors;
+    protected TextView errors;
 
     public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
 

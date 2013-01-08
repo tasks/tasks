@@ -157,6 +157,8 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 switchToLoginPage();
             }
         });
+
+        errors = (TextView) findViewById(R.id.error);
     }
 
     private void onAuthTokenSuccess(final String email, final String authToken) {
