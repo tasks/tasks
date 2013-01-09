@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -50,6 +52,22 @@ public class SyncMessageTest extends NewSyncTestCase {
 		return makeChanges;
 	}
 	
+	private JSONObject getMakeChangesForPushedAt(long date) throws JSONException {
+		JSONObject makeChanges = new JSONObject();
+		makeChanges.put("type", ServerToClientMessage.TYPE_MAKE_CHANGES);
+		makeChanges.put("table", NameMaps.TABLE_ID_PUSHED_AT);
+		makeChanges.put("uuid", NameMaps.TABLE_ID_TASKS);
+		
+		JSONArray changes = new JSONArray();
+		JSONArray change1 = new JSONArray();
+		change1.put("pushed_at");
+		change1.put(date);
+		changes.put(change1);
+		
+		makeChanges.put("changes", changes);
+		return makeChanges;
+	}
+	
 	public void testMakeChangesMakesChanges() {
 		Task t = createTask();
 		try {
@@ -62,6 +80,21 @@ public class SyncMessageTest extends NewSyncTestCase {
 			t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
 			assertEquals(MAKE_CHANGES_TITLE, t.getValue(Task.TITLE));
 			assertEquals(Task.IMPORTANCE_DO_OR_DIE, t.getValue(Task.IMPORTANCE).intValue());
+		} catch (JSONException e) {
+			e.printStackTrace();
+			fail("JSONException");
+		}
+	}
+	
+	public void testMakeChangesToPushedAtValues() {
+		try {
+			long date = DateUtilities.now();
+			JSONObject makeChanges = getMakeChangesForPushedAt(date);
+			
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
+			message.processMessage();
+			
+			assertEquals(date, Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0));
 		} catch (JSONException e) {
 			e.printStackTrace();
 			fail("JSONException");
