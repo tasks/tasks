@@ -43,6 +43,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -57,7 +59,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
@@ -317,18 +318,21 @@ public class TagViewFragment extends TaskListFragment {
         if (actFmPreferenceService.isLoggedIn()) {
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-            syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-                    R.id.progressBar, new Runnable() {
-                @Override
-                public void run() {
-                    if (manual)
-                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                    else
-                        refresh();
-                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                }
-            }));
-            Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getValue(TagData.UUID), tagData.getValue(TagData.PUSHED_AT)));
+            // TODO: Refresh and reload tagData
+
+//            syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
+//                    R.id.progressBar, new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (manual)
+//                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+//                    else
+//                        refresh();
+//                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+//                }
+//            }));
+//            Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
         }
     }
 

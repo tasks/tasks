@@ -15,21 +15,18 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.sync.SyncResultCallback;
-import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 public class PersonViewFragment extends TaskListFragment {
 
@@ -203,37 +200,40 @@ public class PersonViewFragment extends TaskListFragment {
             new Thread() {
                 @Override
                 public void run() {
+                    // TODO: Fix friend status logic for new sync scheme
                     if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
                         actFmSyncService.pushUser(user);
                         user = userDao.fetch(user.getId(), User.PROPERTIES);
                     }
-                    SyncResultCallback callback;
-                    try {
-                        if (getActivity() == null)
-                            throw new NullPointerException("Person view activity is null"); //$NON-NLS-1$
-                        callback = new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
-                                R.id.progressBar, new Runnable() {
-                            @Override
-                            public void run() {
-                                if (getActivity() != null) {
-                                    if (manual)
-                                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                                    else
-                                        refresh();
-                                    emptyView.setText(getEmptyDisplayString());
-                                }
-                            }
-                        });
-                    } catch (Exception e) { // Fragment no longer attached, but sync and refresh anyways
-                        callback = new SyncResultCallbackAdapter() {
-                            @Override
-                            public void finished() {
-                                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                            };
-                        };
-                    }
-
-                    syncService.synchronizeList(user, manual, callback);
+//                    SyncResultCallback callback;
+//                    try {
+//                        if (getActivity() == null)
+//                            throw new NullPointerException("Person view activity is null"); //$NON-NLS-1$
+//                        callback = new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
+//                                R.id.progressBar, new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (getActivity() != null) {
+//                                    if (manual)
+//                                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+//                                    else
+//                                        refresh();
+//                                    emptyView.setText(getEmptyDisplayString());
+//                                }
+//                            }
+//                        });
+//                    } catch (Exception e) { // Fragment no longer attached, but sync and refresh anyways
+//                        callback = new SyncResultCallbackAdapter() {
+//                            @Override
+//                            public void finished() {
+//                                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+//                            };
+//                        };
+//                    }
+//
+//                    syncService.synchronizeList(user, manual, callback);
+                    ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)));
+                    // TODO: Refresh
                 }
             }.start();
         }
