@@ -146,8 +146,10 @@ public class TagDataService {
             return updateDao.query(Query.select(Update.PROPERTIES).where(
                     criterion).
                     orderBy(Order.desc(Update.CREATION_DATE)));
+
         if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
-            return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
+            return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")).orderBy(Order.desc(Update.CREATION_DATE)));
+
         return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
                 Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%"),
                 Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")))).

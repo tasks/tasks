@@ -47,6 +47,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -287,11 +288,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         TodorooCursor<Update> updates;
         if (!task.containsNonNullValue(Task.UUID)) {
-            updates = updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())));
+            updates = updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())).orderBy(Order.desc(Update.CREATION_DATE)));
         }
         else  {
             updates = updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
-                    Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))));
+                    Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))).orderBy(Order.desc(Update.CREATION_DATE)));
         }
         try {
             Update update = new Update();

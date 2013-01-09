@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_selected="false" android:drawable="@drawable/menu_button_blue_alt_off"/>
+    <item android:state_selected="true" android:drawable="@drawable/menu_button_blue_alt_on"/>
+</selector>

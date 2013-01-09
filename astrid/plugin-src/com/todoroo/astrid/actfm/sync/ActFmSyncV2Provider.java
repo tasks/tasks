@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.timsu.astrid.C2DMReceiver;
+import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -148,7 +148,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         actFmPreferenceService.setToken(null);
         actFmPreferenceService.clearLastSyncDate();
         ActFmPreferenceService.premiumLogout();
-        C2DMReceiver.unregister();
+        GCMIntentService.unregister(ContextManager.getContext());
     }
 
     @Override
@@ -197,6 +197,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** fetch user status hash*/
     @SuppressWarnings("nls")
     public void updateUserStatus() {
+        if (Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION) != null) {
+            actFmSyncService.setGCMRegistration(Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION));
+        }
+
         if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
             actFmSyncService.updateUserSubscriptionStatus(null, null, null);
         }
@@ -317,8 +321,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** @return runnable to fetch changes to tags */
     private void startTaskFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        final boolean pushActiveTasksOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.ACTIVE_TASKS_ORDER);
-        final boolean pushTodayOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.TODAY_TASKS_ORDER);
+        final boolean pushActiveTasksOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.ACTIVE_TASKS_ORDER) && manual;
+        final boolean pushTodayOrder = actFmSyncService.cancelFilterOrderingPush(SubtasksUpdater.TODAY_TASKS_ORDER) && manual;
 
         actFmSyncService.fetchActiveTasks(manual, handler, new Runnable() {
             @Override
@@ -466,8 +470,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 fetchTagData(tagData, noRemoteId, manual, callback, finisher);
 
                 if(!noRemoteId) {
+                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId()) && manual;
                     actFmSyncService.waitUntilEmpty();
-                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId());
                     fetchTasksForTag(tagData, manual, orderPushQueued, callback, finisher);
                     fetchUpdatesForTag(tagData, manual, callback, finisher);
                 }

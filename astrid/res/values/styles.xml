@@ -43,6 +43,8 @@
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon</item>
         <item name="asTaskRowSelector">@drawable/task_row_bg_dark</item>
         <item name="asReadonlyTaskBackground">#322c19</item>
+        <item name="asHeaderTextColor">?attr/asThemeTextColor</item>
+        <item name="asHeaderTextColorInverse">?attr/asAbBackgroundColor</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_blue</item>
@@ -50,6 +52,10 @@
         <item name="abLogo">@drawable/home_button_blue</item>
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
         <item name="vpiTabTextStyle">@style/CustomTabPageIndicator.Text</item>
+    </style>
+    
+    <style name="Theme.Simple" parent="Theme">
+        <item name="asEditTextBackground">@null</item>
     </style>
     
     <style name="Theme.Transparent" parent="Theme">
@@ -63,6 +69,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
+    </style>
+    
+    <style name="Theme.Transparent.Simple" parent="Theme.Transparent">
+        <item name="asEditTextBackground">@null</item>
     </style>
         
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
@@ -102,6 +112,10 @@
         <item name="abLogo">@drawable/home_button_red</item>
     </style>
     
+    <style name="Theme.White.Simple" parent="Theme.White">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+    
     <style name="Theme.White.Blue">
         <item name="asAddButtonImg">@drawable/plus_button_dark_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_dark_blue</item>
@@ -118,6 +132,32 @@
         <item name="abLogo">@drawable/home_button_dark_blue</item>
     </style>
     
+    <style name="Theme.White.Blue.Simple" parent="Theme.White.Blue">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+
+    <style name="Theme.White.Alt">
+        <item name="asAddButtonImg">@drawable/plus_button_blue</item>
+        <item name="asMicButtonImg">@drawable/mic_button_blue</item>
+        <item name="asPeopleMenu">@drawable/people_menu_button_blue</item>
+        <item name="asCommentButtonImg">@drawable/comment_blue_alt</item>
+        <item name="asFilledCommentButtonImg">@drawable/comment_blue_filled_alt</item>
+        <item name="asMainMenu">@drawable/menu_button_blue_alt</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_blue_alt</item>
+        <item name="asEditTabBackground">@drawable/custom_tab_indicator_alt</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
+        <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
+        <item name="abLogo">@drawable/home_button_blue_alt</item>
+        <item name="abBackground">@drawable/header_blue_alt</item>
+        <item name="asAbBackgroundColor">#eee</item>
+        <item name="asHeaderTextColor">@android:color/white</item>
+        <item name="asHeaderTextColorInverse">?attr/asThemeTextColor</item>
+    </style>
+    
+    <style name="Theme.White.Alt.Simple" parent="Theme.White.Alt">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+    
     <style name="Theme.TransparentWhite" parent="Theme.White.Blue">
         <item name="asContentBackground">#22000000</item>
         <item name="abBackground">#aa000000</item>
@@ -131,6 +171,10 @@
         <item name="android:windowShowWallpaper">true</item>
     </style>
     
+    <style name="Theme.TransparentWhite.Simple" parent="Theme.TransparentWhite">
+        <item name="asEditTextBackground">@null</item>
+    </style>
+    
     <style name="Theme.FullTransparent" parent="@style/Theme.Sherlock">
         <item name="android:windowIsTranslucent">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
@@ -138,6 +182,13 @@
 	    <item name="android:backgroundDimEnabled">false</item>
 	    <item name="android:windowIsFloating">true</item>
 	</style>
+	
+    <style name="SaveAsBack">
+        <item name="abLogo">@drawable/ic_menu_save</item>
+    </style>
+    <style name="SaveAsBackWhite">
+        <item name="abLogo">@drawable/ic_menu_save_blue_alt</item>
+    </style>
     
     <style name="Theme.Dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@null</item>
@@ -219,13 +270,13 @@
     
    	<style name="TextAppearance.ActionBar_ListsHeader">
    	    <item name="android:background">@android:color/transparent</item>
-   	    <item name="android:textColor">?attr/asThemeTextColor</item>
+   	    <item name="android:textColor">?attr/asHeaderTextColor</item>
    	    <item name="android:textSize">20dip</item>
    	    <item name="android:textStyle">bold</item>
    	</style>
    	
    	<style name="TextAppearance.ActionBar_ListsHeader.Selected">   	    
-   	    <item name="android:textColor">?attr/asAbBackgroundColor</item>
+   	    <item name="android:textColor">?attr/asHeaderTextColorInverse</item>
    	</style>
    	
     <!--================================================== Custom Dialogs == -->
@@ -382,7 +433,6 @@
     <style name="TextAppearance.TAd_ItemTitle_Deleted" parent="TextAppearance.TAd_ItemTitle" />
     
     <style name="TextAppearance.TAd_ItemTitle_Overdue" parent="TextAppearance.TAd_ItemTitle">
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">
@@ -392,7 +442,6 @@
     
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
         <item name="android:textColor">?attr/asDueDateColor</item>
-        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">

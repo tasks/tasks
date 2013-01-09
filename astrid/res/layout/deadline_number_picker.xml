@@ -28,13 +28,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    	<View 
-    	    android:id="@+id/timepicker_left_border"
-    	    android:layout_height="fill_parent"
-    	    android:layout_width="2dip"
-    	    android:background="@color/task_edit_deadline_gray"
-    	    android:visibility="gone"
-    	    />
         
         <EditText android:id="@+id/timepicker_input"
             android:layout_width="wrap_content"
@@ -44,16 +37,9 @@
             android:gravity="center"
             android:inputType="phone"
             android:textSize="30sp"
-            android:textColor="@color/task_edit_deadline_gray"
+            android:textColor="?attr/asThemeTextColor"
             android:background="@android:color/transparent"
             />
-        <View 
-    	    android:id="@+id/timepicker_right_border"
-    	    android:layout_height="fill_parent"
-    	    android:layout_width="2dip"
-    	    android:background="@color/task_edit_deadline_gray"
-    	    android:visibility="gone"
-    	    />
     </LinearLayout>
         
     <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/decrement"

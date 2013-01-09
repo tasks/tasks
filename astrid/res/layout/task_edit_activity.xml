@@ -23,6 +23,7 @@
             android:layout_width="fill_parent"
             android:layout_height="600dip"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
             android:padding="10dip" >
 
             <LinearLayout
@@ -76,6 +77,16 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            
+            <TextView
+                android:id="@+id/edit_beast_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dip"
+                android:paddingBottom="10dip"
+                android:text="@string/EPr_beastMode_shortcut"
+                android:textColor="?attr/asTextColor"/>
+            
         </LinearLayout>
     </com.todoroo.astrid.ui.NestableScrollView>
 
@@ -92,6 +103,7 @@
         android:orientation="horizontal"
         android:background="?attr/asAbBackgroundColor"
         android:padding="3dip" 
+        android:visibility="gone"
         android:paddingBottom="0dip">
 
         <!-- Voice Add Button -->

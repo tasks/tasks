@@ -8,14 +8,14 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  android:paddingLeft="5dip"
+  android:paddingRight="5dip">
 	<ScrollView
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
 	  android:layout_weight="100"
-	  android:minWidth="320dip"
-	  android:paddingLeft="5dip"
-	  android:paddingRight="5dip">
+	  android:minWidth="320dip">
 		<LinearLayout
 		  android:id="@+id/reminders_body"
 		  android:orientation="vertical"
@@ -61,15 +61,40 @@
 		          android:layout_width="fill_parent"
 		          android:layout_height="wrap_content" />
 		      </LinearLayout>
-		      <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/TEA_reminder_alarm_label"
-		        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
-		      <com.todoroo.astrid.ui.ErrorCatchingSpinner
-		        android:id="@+id/reminder_alarm"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content" />
+		      <View
+		          android:id="@+id/TEA_Separator"
+		          android:layout_width="fill_parent"
+		          android:layout_height="1px"
+		          style="@style/TEA_Separator" />
+		      <LinearLayout
+		          android:id="@+id/reminder_alarm_container"
+		          android:layout_width="fill_parent"
+		          android:layout_height="50dip"
+		          android:gravity="center_vertical"
+		          android:orientation="horizontal">
+			      <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/TEA_reminder_alarm_label"
+			        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
+			      <TextView
+		             android:id="@+id/reminder_alarm_display"
+		             android:layout_width="fill_parent"
+		             android:layout_height="wrap_content"
+		             android:layout_weight="1"
+		             android:gravity="right"
+		             android:paddingLeft="10dip"
+		             style="@style/TextAppearance.EditRowDisplay" />
+			      <com.todoroo.astrid.ui.ErrorCatchingSpinner
+			        android:id="@+id/reminder_alarm"
+			        android:layout_width="0dip"
+			        android:layout_height="wrap_content" />
+		      </LinearLayout>
+		      <View
+		          android:id="@+id/TEA_Separator"
+		          android:layout_width="fill_parent"
+		          android:layout_height="1px"
+		          style="@style/TEA_Separator" />
 		    
 		</LinearLayout>
 	</ScrollView>

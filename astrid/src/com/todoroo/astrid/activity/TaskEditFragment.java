@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,11 +36,13 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
@@ -51,6 +54,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -63,9 +67,12 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
+import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
+import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
@@ -89,8 +96,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
@@ -168,13 +173,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final int REQUEST_CODE_CONTACT = 20;
     public static final int REQUEST_CODE_RECORD = 30;
     public static final int REQUEST_CODE_ATTACH_FILE = 40;
+    public static final int REQUEST_CODE_BEAST_MODE = 50;
 
     // --- menu codes
 
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
-    private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_comments;
+    private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_refresh_comments;
+    private static final int MENU_SHOW_COMMENTS_ID = R.string.TEA_menu_comments;
     private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
     private static final int MENU_RECORD_ID = R.string.premium_record_audio;
 
@@ -233,8 +240,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private TaskEditMoreControls moreControls;
     private EditNoteActivity editNotes;
     private NestableViewPager mPager;
-    private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
+    private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -260,6 +267,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private String uuid = RemoteModel.NO_UUID;
 
+    private boolean showEditComments;
+
+    private int commentIcon = R.drawable.comment_dark_blue;
 
     private WebServicesView webServices = null;
 
@@ -304,8 +314,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (savedInstanceState.containsKey(TASK_UUID)) {
                 uuid = savedInstanceState.getString(TASK_UUID);
             }
-
         }
+
+        showEditComments = Preferences.getBoolean(R.string.p_show_task_edit_comments, true);
+
+        TypedValue tv = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.asCommentButtonImg, tv, false);
+        commentIcon = tv.data;
 
         getActivity().setResult(Activity.RESULT_OK);
     }
@@ -346,16 +361,21 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 overrideFinishAnim = activity.getIntent().getBooleanExtra(
                         OVERRIDE_FINISH_ANIM, true);
         }
+
+        if (activity instanceof TaskListActivity)
+            ((TaskListActivity) activity).setCommentsButtonVisibility(false);
     }
 
     private void instantiateEditNotes() {
-        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-        editNotes = new EditNoteActivity(this, getView(),
-                idParam);
-        editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+        if (showEditComments) {
+            long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
+            editNotes = new EditNoteActivity(this, getView(),
+                    idParam);
+            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT));
 
-        editNotes.addListener(this);
+            editNotes.addListener(this);
+        }
     }
 
     private void loadMoreContainer() {
@@ -371,22 +391,25 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         else
             tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
 
+        if (!showEditComments)
+            tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
+
         if (moreSectionHasControls)
             tabStyle |= TaskEditViewPager.TAB_SHOW_MORE;
 
         if (editNotes == null) {
             instantiateEditNotes();
-        }
-        else {
+        } else {
             editNotes.loadViewForTaskID(idParam);
         }
 
-        if (timerAction != null) {
+        if (timerAction != null && editNotes != null) {
             timerAction.removeListener(editNotes);
             timerAction.addListener(editNotes);
         }
 
-        editNotes.addListener(this);
+        if (editNotes != null)
+            editNotes.addListener(this);
 
 
         if(hasTitle) {
@@ -402,12 +425,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
+        if (tabStyle == 0) {
+            return;
+        }
 
-        mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
-        mAdapter.parent = this;
+        TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
+        adapter.parent = this;
 
         mPager = (NestableViewPager) getView().findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
+        mPager.setAdapter(adapter);
 
         mIndicator = (TabPageIndicator) getView().findViewById(
                 R.id.indicator);
@@ -418,24 +444,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             ((ViewGroup) moreControls.getParent()).removeView(moreControls);
         }
 
-        commentsBar.setVisibility(View.VISIBLE);
+        if (showEditComments)
+            commentsBar.setVisibility(View.VISIBLE);
         moreTab.setVisibility(View.VISIBLE);
-
-        if ((tabStyle & TaskEditViewPager.TAB_SHOW_MORE) > 0
-                && ABChooser.readChoiceForTest(ABTests.AB_DEFAULT_EDIT_TAB) != 0) {
-            setCurrentTab(TAB_VIEW_MORE);
-            setPagerHeightForPosition(TAB_VIEW_MORE);
-        } else {
-            setCurrentTab(TAB_VIEW_UPDATES);
-            setPagerHeightForPosition(TAB_VIEW_UPDATES);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    updatesChanged();
-                }
-            }, 500L);
-        }
+        setCurrentTab(TAB_VIEW_UPDATES);
+        setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updatesChanged();
+            }
+        }, 500L);
     }
 
     private void setCurrentTab(int position) {
@@ -460,7 +480,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         constructWhenDialog(whenDialogView);
 
-        HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
+        controlSetMap = new HashMap<String, TaskEditControlSet>();
 
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(),
@@ -598,6 +618,42 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
+        setupBeastModeButton();
+
+        loadEditPageOrder(false);
+
+        // Load task data in background
+        new TaskEditBackgroundLoader().start();
+    }
+
+    private void setupBeastModeButton() {
+        TextView beastMode = (TextView) getView().findViewById(R.id.edit_beast_mode);
+        TypedValue tv = new TypedValue();
+        Theme theme = getActivity().getTheme();
+        theme.resolveAttribute(R.attr.asTextColor, tv, false);
+
+        int color = tv.data & 0x00ffffff;
+        color = color + 0x7f000000;
+        beastMode.setTextColor(color);
+
+        beastMode.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BeastModePreferences.class);
+                intent.setAction(AstridApiConstants.ACTION_SETTINGS);
+                startActivityForResult(intent, REQUEST_CODE_BEAST_MODE);
+            }
+        });
+    }
+
+    private void loadEditPageOrder(boolean removeViews) {
+        LinearLayout basicControls = (LinearLayout) getView().findViewById(
+                R.id.basic_controls);
+        if (removeViews) {
+            basicControls.removeAllViews();
+            moreControls.removeAllViews();
+        }
+
         ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
@@ -647,9 +703,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
-
-        // Load task data in background
-        new TaskEditBackgroundLoader().start();
     }
 
     private void removeTeaSeparator(View view) {
@@ -745,9 +798,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
-            if (model != null && model.containsNonNullValue(Task.UUID)) {
+
+            if (model != null && model.containsNonNullValue(Task.UUID))
                 uuid = model.getValue(Task.UUID);
-            }
         }
 
         // not found by id or was never passed an id
@@ -936,16 +989,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // abandon editing and delete the newly created task if
         // no title was entered
+        Activity activity = getActivity();
         if (overrideFinishAnim) {
-            AndroidUtilities.callOverridePendingTransition(getActivity(),
+            AndroidUtilities.callOverridePendingTransition(activity,
                     R.anim.slide_right_in, R.anim.slide_right_out);
         }
 
-        if (getActivity() instanceof TaskListActivity) {
+        if (activity instanceof TaskListActivity) {
             if (title.getText().length() == 0 && isNewTask
                     && model != null && model.isSaved()) {
                 taskService.delete(model);
             }
+            ((TaskListActivity) activity).setCommentsButtonVisibility(true);
         }
     }
 
@@ -1145,7 +1200,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             startRecordingAudio();
             return true;
         case MENU_COMMENTS_REFRESH_ID: {
+            if (editNotes != null)
                 editNotes.refreshData(true, null);
+            return true;
+        }
+        case MENU_SHOW_COMMENTS_ID: {
+            Intent intent = new Intent(getActivity(), CommentsActivity.class);
+            intent.putExtra(TaskCommentsFragment.EXTRA_TASK, model.getId());
+            startActivity(intent);
+            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             return true;
         }
         case android.R.id.home:
@@ -1166,36 +1229,40 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (ActFmPreferenceService.isPremiumUser()) {
             item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-            item.setIcon(R.drawable.ic_menu_attach);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_attach));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-            item.setIcon(R.drawable.ic_menu_mic);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_mic));
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-        item.setIcon(R.drawable.ic_menu_close);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(R.drawable.ic_menu_save);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (!(getActivity() instanceof TaskEditActivity)) {
+            item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+
+        boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
+        if(wouldShowComments && showEditComments) {
+            item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
+                    R.string.ENA_refresh_comments);
+            item.setIcon(R.drawable.icn_menu_refresh_dark);
+        } else if (wouldShowComments && !showEditComments) {
+            item = menu.add(Menu.NONE, MENU_SHOW_COMMENTS_ID, Menu.NONE, R.string.TEA_menu_comments);
+            item.setIcon(commentIcon);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
 
     }
 
-    @Override
-    public void onPrepareOptionsMenu (Menu menu) {
-        if(actFmPreferenceService.isLoggedIn() && !RemoteModel.NO_UUID.equals(uuid) && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
-            MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
-                    R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.icn_menu_refresh_dark);
-        }
-        super.onPrepareOptionsMenu(menu);
-    }
     @Override
     public void onPause() {
         super.onPause();
@@ -1237,6 +1304,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             createNewFileAttachment(recordedAudioPath, recordedAudioName, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
+        } else if (requestCode == REQUEST_CODE_BEAST_MODE) {
+            loadEditPageOrder(true);
+            new TaskEditBackgroundLoader().start();
+            return;
         }
 
         ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {

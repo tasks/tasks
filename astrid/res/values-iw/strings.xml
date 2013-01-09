@@ -295,8 +295,7 @@
   <string name="UpS_changelog_title">מה חדש ב־Astrid?</string>
   <string name="UpS_updates_title">חדשות Astrid אחרונות</string>
   <string name="UpS_no_activity_log_in">התחבר כדי לראות דו״ח על\n\nהתקדמותך ועל הפעילות\n\nברשימות המשותפות.</string>
-  <string name="EPr_title">הגדרות אסטריד</string>
-  <string name="EPr_title_short">הגדרות</string>
+  <string name="EPr_title">הגדרות</string>
   <string name="EPr_share_astrid">ספר לאחרים על אסטריד</string>
   <string name="EPr_share_astrid_summary">ספר על אסטריד ברשתות חברתיות</string>
   <string name="EPr_deactivated">מופסק</string>
@@ -352,6 +351,7 @@
   <string-array name="EPr_themes">
     <item>יום - כחול</item>
     <item>יום - אדום</item>
+    <item>Sky blue</item>
     <item>לילה</item>
     <item>שקוף (טקסט לבן)</item>
     <item>שקוף (טקסט שחור)</item>
@@ -360,6 +360,7 @@
     <item>שמור כְּיִשּׂוּמוֹן</item>
     <item>יום - כחול</item>
     <item>יום - אדום</item>
+    <item>Sky blue</item>
     <item>לילה</item>
     <item>שקוף (טקסט לבן)</item>
     <item>שקוף (טקסט שחור)</item>

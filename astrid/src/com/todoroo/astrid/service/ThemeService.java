@@ -22,6 +22,7 @@ public class ThemeService {
 
     public static final String THEME_WHITE = "white";
     public static final String THEME_WHITE_RED = "white-red";
+    public static final String THEME_WHITE_ALT = "white-alt";
     public static final String THEME_BLACK = "black";
     public static final String THEME_TRANSPARENT = "transparent";
     public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
@@ -48,6 +49,14 @@ public class ThemeService {
     }
 
     public static int getTheme() {
+        int style = getUnsimplifiedTheme();
+        boolean simple = Preferences.getBoolean(R.string.p_simple_input_boxes, false);
+        if (simple)
+            style = simplifyStyle(style);
+        return style;
+    }
+
+    public static int getUnsimplifiedTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme);
         return getStyleForSetting(preference);
     }
@@ -55,7 +64,7 @@ public class ThemeService {
     public static int getWidgetTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme_widget);
         if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference))
-            return getTheme();
+            return getUnsimplifiedTheme();
         else if (THEME_WIDGET_LEGACY.equals(preference))
             return TasksWidget.THEME_LEGACY;
         else
@@ -71,12 +80,33 @@ public class ThemeService {
             return R.style.Theme_TransparentWhite;
         else if (THEME_WHITE_RED.equals(setting))
             return R.style.Theme_White;
+        else if (THEME_WHITE_ALT.equals(setting))
+            return R.style.Theme_White_Alt;
         else
             return R.style.Theme_White_Blue;
     }
 
+    private static int simplifyStyle(int original) {
+        switch (original) {
+        case R.style.Theme:
+            return R.style.Theme_Simple;
+        case R.style.Theme_Transparent:
+            return R.style.Theme_Transparent_Simple;
+        case R.style.Theme_TransparentWhite:
+            return R.style.Theme_TransparentWhite_Simple;
+        case R.style.Theme_White:
+            return R.style.Theme_White_Simple;
+        case R.style.Theme_White_Blue:
+            return R.style.Theme_White_Blue_Simple;
+        case R.style.Theme_White_Alt:
+            return R.style.Theme_White_Alt_Simple;
+        default:
+            return original;
+        }
+    }
+
     public static int getThemeColor() {
-        int theme = getTheme();
+        int theme = getUnsimplifiedTheme();
         switch(theme) {
         case R.style.Theme:
         case R.style.Theme_Transparent:
@@ -92,7 +122,7 @@ public class ThemeService {
 
     public static int getEditDialogTheme() {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        int themeSetting = ThemeService.getTheme();
+        int themeSetting = getUnsimplifiedTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
             if (ics)
@@ -109,7 +139,7 @@ public class ThemeService {
     }
 
     public static int getDialogTheme() {
-        int themeSetting = ThemeService.getTheme();
+        int themeSetting = getUnsimplifiedTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
             theme = R.style.Theme_Dialog;
@@ -121,7 +151,7 @@ public class ThemeService {
 
     public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
-            int theme = getTheme();
+            int theme = getUnsimplifiedTheme();
             if (theme == R.style.Theme || theme == R.style.Theme_Transparent)
                 return android.R.color.white;
             else
@@ -159,7 +189,8 @@ public class ThemeService {
     }
 
     public static int getDrawable(int lightDrawable, int alter) {
-        boolean darkTheme = currentTheme == R.style.Theme || currentTheme == R.style.Theme_Transparent;
+        int theme = getUnsimplifiedTheme();
+        boolean darkTheme = theme == R.style.Theme || theme == R.style.Theme_Transparent;
         switch(alter) {
         case FLAG_FORCE_DARK:
             darkTheme = true;
@@ -178,10 +209,36 @@ public class ThemeService {
                 AstridPreferences.useTabletLayout(ContextManager.getContext()))
             return R.drawable.icn_menu_refresh_tablet;
 
+        if (theme == R.style.Theme_White_Alt) {
+            switch(lightDrawable) {
+            case R.drawable.ic_menu_save:
+                return R.drawable.ic_menu_save_blue_alt;
+            case R.drawable.ic_menu_close:
+                return R.drawable.ic_menu_close_blue_alt;
+            case R.drawable.ic_menu_mic:
+                return R.drawable.ic_menu_mic_blue_alt;
+            case R.drawable.ic_menu_attach:
+                return R.drawable.ic_menu_attach_blue_alt;
+            case R.drawable.list_settings:
+                return R.drawable.list_settings_white;
+            }
+        }
+
         if(!darkTheme)
             return lightDrawable;
 
+
         switch(lightDrawable) {
+        case R.drawable.ic_menu_save:
+            return R.drawable.ic_menu_save;
+        case R.drawable.ic_menu_close:
+            return R.drawable.ic_menu_close;
+        case R.drawable.ic_menu_mic:
+            return R.drawable.ic_menu_mic;
+        case R.drawable.ic_menu_attach:
+            return R.drawable.ic_menu_attach;
+        case R.drawable.list_settings:
+            return R.drawable.list_settings;
         case R.drawable.icn_menu_refresh:
             return R.drawable.icn_menu_refresh_dark;
         case R.drawable.icn_menu_filters:

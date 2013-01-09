@@ -46,6 +46,9 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
+  <!-- show faces in reminders (aka social reminders) -->
+  <string name="p_rmd_social">p_rmd_social</string>
+
   <!-- field missed calls preference -->
   <string name="p_field_missed_calls">field_missed_calls</string>
   
@@ -65,13 +68,38 @@
   <string name="p_force_phone_layout">force_phone_layout</string>
   
   <!-- show featured lists -->
-  <string name="p_show_featured_lists">show_featured_lists_labs</string>
-  
-  <!-- social reminders (show faces) -->
-  <string name="p_social_reminders">social_reminders</string>
   
   <!-- account status section key -->
   <string name="p_account">account</string>
+
+  <!-- list view section key -->
+  <string name="p_list_view">p_list_view</string>
+
+  <!-- simple input box style -->
+  <string name="p_simple_input_boxes">simple_input_boxes</string>
+  
+  <!-- filters to show -->
+  <string name="p_filters_to_show">p_filters_to_show</string>
+  <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
+  <string name="p_show_today_filter">p_show_today_f</string>
+  <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
+  <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
+  <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
+  
+  <!-- show quickadd controls -->
+  <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
+
+  <!-- show comments in task edit -->
+  <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
+  
+  <!-- menu items to show -->
+  <string name="p_menu_items">p_menu_items</string>
+  <string name="p_show_menu_search">p_show_menu_search</string>
+  <string name="p_show_menu_friends">p_show_menu_friends</string>
+  <string name="p_show_featured_lists">p_show_featured_lists_labs</string>
+  <string name="p_show_menu_sync">p_show_menu_sync</string>
+  <string name="p_show_menu_sort">p_show_menu_sort</string>
+  <string name="p_show_menu_addons">p_show_menu_addons</string>
   
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
@@ -205,6 +233,7 @@
     <!-- theme_settings: options for preference menu -->
     <item>white</item>
     <item>white-red</item>
+    <item>white-alt</item>
     <item>black</item>
     <item>transparent</item>
     <item>transparent-white</item>
@@ -215,6 +244,7 @@
     <item>same-as-app</item>
     <item>white</item>
     <item>white-red</item>
+    <item>white-alt</item>
     <item>black</item>
     <item>transparent</item>
     <item>transparent-white</item>
@@ -244,6 +274,18 @@
   <string name="p_taskRowPrefs">taskRowPrefs</string>
   
   <string name="p_fullTaskTitle">fullTaskTitle</string>
+  
+  <string name="p_edit_screen">p_edit_screen</string>
+  
+  <string name="p_time_increment">p_time_increment</string>
+  
+  <string name="p_use_date_shortcuts">p_use_date_shortcuts</string>
+  
+  <!-- Configurations -->
+  <string name="p_configurations">p_configurations</string>
+  <string name="p_config_default">p_config_default</string>
+  <string name="p_config_lite">p_config_lite</string>
+  
   <!-- ========================================================= DEFAULTS == -->
   
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  
@@ -315,6 +357,12 @@
   
   <!-- on calendar end at dealline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
+  
+  <!-- whether custom filters are enabled -->
+  <string name="p_use_filters">p_use_filters</string>
+
+  <!-- whether list members header should be shown -->
+  <string name="p_show_list_members">p_show_list_members</string>
   
   <string-array name="EPr_default_addtocalendar_values">
     <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->

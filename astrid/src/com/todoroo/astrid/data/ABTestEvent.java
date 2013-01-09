@@ -33,7 +33,7 @@ public class ABTestEvent extends AbstractModel {
     public static final Table TABLE = new Table("abtestevent", ABTestEvent.class);
 
     /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
 

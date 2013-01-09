@@ -9,7 +9,7 @@
   <!-- Voice Add Prompt Text -->
   <string name="voice_create_prompt">Speak to create a task</string>
   <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
+  <string name="voice_edit_note_prompt">Speak to set task description</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
   <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>

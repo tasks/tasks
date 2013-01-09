@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="libs/crittercism_v2_1_2.jar"/>
 	<classpathentry kind="lib" path="libs/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="libs/CWAC-SackOfViewsAdapter.jar"/>
+	<classpathentry kind="lib" path="libs/gcm.jar" sourcepath="libs/gcm-src.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<merge>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/speech_bubble_container"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_marginLeft="2dip"
+	    android:layout_marginRight="5dip"
+	    android:layout_marginBottom="10dip"
+	    android:gravity="bottom">
+	    <ImageView 
+	        android:id="@+id/astridIcon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dip"
+	        android:src="@drawable/icon"
+	        android:scaleType="fitCenter"
+	        android:layout_alignParentLeft="true"/>
+	    
+	    
+	    <LinearLayout
+	        android:id="@+id/speech_bubble_content"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="5dip"
+	        android:layout_marginBottom="5dip"
+	        android:minHeight="60dip"
+	        android:layout_alignParentBottom="true"
+	        android:gravity="center_vertical"
+	        android:background="@drawable/speech_bubble_reminder"
+	        android:layout_toRightOf="@id/astridIcon">
+	        <WebView 
+	            android:id="@+id/reminder_message"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/TextAppearance.TLA_Reminder"
+	            android:background="@android:color/transparent"
+	            android:gravity="center_vertical"/>
+	    </LinearLayout>
+	</LinearLayout>
+</merge>

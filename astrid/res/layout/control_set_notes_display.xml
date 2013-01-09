@@ -14,10 +14,10 @@
     <LinearLayout
         android:id="@+id/notes_body"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:gravity="center_vertical"
         android:minHeight="50dip"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingLeft="10dip"
         android:paddingRight="10dip" >
 
@@ -26,17 +26,17 @@
             style="@style/TextAppearance.GEN_EditLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dip"
+            android:paddingTop="4dip"
+            android:paddingBottom="4dip"
             android:text="@string/TEA_note_label" />
 
-        <com.todoroo.astrid.ui.TextViewWithMeasureListener
+        <TextView
             android:id="@+id/display_row_edit"
             style="@style/TextAppearance.EditRowDisplay"
             android:layout_width="fill_parent"
+            android:paddingBottom="10dip"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:paddingLeft="10dip" />
+            android:gravity="left" />
     </LinearLayout>
 
     <View

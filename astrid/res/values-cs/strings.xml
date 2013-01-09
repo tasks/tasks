@@ -309,6 +309,7 @@
   <string-array name="EPr_themes">
     <item>Den - Modrá</item>
     <item>Den - Červená</item>
+    <item>Sky blue</item>
     <item>Noc</item>
     <item>Průhledné (Bílý text)</item>
     <item>Průhledné (Tmavý text)</item>
@@ -317,6 +318,7 @@
     <item>Same as app</item>
     <item>Den - Modrá</item>
     <item>Den - Červená</item>
+    <item>Sky blue</item>
     <item>Noc</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>

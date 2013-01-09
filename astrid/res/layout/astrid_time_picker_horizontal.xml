@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+	    <LinearLayout
+	        android:id="@+id/timeComponents"
+	        android:layout_width="fill_parent"
+	        android:layout_height="122dip"
+	        android:layout_weight="1"
+	        android:layout_marginBottom="5dip"
+	        android:layout_marginRight="4dip"
+	        android:orientation="horizontal">
+		    <com.todoroo.astrid.ui.DeadlineNumberPicker
+		        android:id="@+id/hours"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		   	<TextView 
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="fill_parent"
+		   	    android:background="@android:color/transparent"
+		   	    android:text=":"
+		   	    android:textColor="?attr/asTextColor"
+		   	    android:gravity="center"
+		   	    />
+		    <com.todoroo.astrid.ui.DeadlineNumberPicker
+		        android:id="@+id/minutes"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/date_shortcuts"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_marginLeft="4dip"
+	        android:orientation="vertical">
+		    <LinearLayout
+		        android:id="@+id/am_pm_container"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="4dip">
+			    <ToggleButton
+			        android:id="@+id/am_button"
+			        android:layout_width="fill_parent"
+			        android:layout_height="38dip"
+			        android:paddingTop="8dip"
+			        android:paddingBottom="8dip"
+			        android:textSize="18sp"
+			        android:gravity="center"
+			        android:textColor="@color/task_edit_toggle_button_text"
+			        android:layout_weight="1"
+			        android:layout_marginRight="-1dip"/>
+		        <ToggleButton
+			        android:id="@+id/pm_button"
+			        android:layout_width="fill_parent"
+			        android:layout_height="38dip"
+			        android:paddingTop="8dip"
+			        android:paddingBottom="8dip"
+			        android:textSize="18sp"
+			        android:gravity="center"
+			        android:textColor="@color/task_edit_toggle_button_text"
+			        android:layout_weight="1"
+			        android:layout_marginLeft="-1dip"/>
+		    </LinearLayout>
+		    
+		    <ToggleButton
+		        android:id="@+id/hasTime"
+		        android:layout_width="fill_parent"
+		        android:layout_marginBottom="4dip"
+		        android:layout_height="38dip"
+		        android:paddingTop="8dip"
+		        android:paddingBottom="8dip"
+		        android:textSize="18sp"
+		        android:gravity="center"
+		        android:textColor="@color/task_edit_toggle_button_text"/>
+	    </LinearLayout>
+    </LinearLayout>
+    
+</merge>

@@ -66,16 +66,16 @@ public class DateUtilities {
     }
 
     /** Represents a single hour */
-    public static long ONE_HOUR = 3600000L;
+    public static final long ONE_HOUR = 3600000L;
 
     /** Represents a single day */
-    public static long ONE_DAY = 24 * ONE_HOUR;
+    public static final long ONE_DAY = 24 * ONE_HOUR;
 
     /** Represents a single week */
-    public static long ONE_WEEK = 7 * ONE_DAY;
+    public static final long ONE_WEEK = 7 * ONE_DAY;
 
     /** Represents a single minute */
-    public static long ONE_MINUTE = 60000L;
+    public static final long ONE_MINUTE = 60000L;
 
     /* ======================================================================
      * =========================================================== formatters

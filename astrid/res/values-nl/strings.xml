@@ -303,8 +303,7 @@
   <string name="UpS_changelog_title">Nieuw in Astrid</string>
   <string name="UpS_updates_title">Laatste Astrid nieuws</string>
   <string name="UpS_no_activity_log_in">Log in om een geschiedenis\nvan je vooruitgang en activiteiten\nop gedeelde lijsten te bekijken.</string>
-  <string name="EPr_title">Astrid: Instellingen</string>
-  <string name="EPr_title_short">Instellingen</string>
+  <string name="EPr_title">Instellingen</string>
   <string name="EPr_deactivated">uitgeschakeld</string>
   <string name="EPr_appearance_header">Uiterlijk</string>
   <string name="EPr_faq_title">FAQ (Veelgestelde Vragen)</string>
@@ -355,6 +354,7 @@
   <string-array name="EPr_themes">
     <item>Dag - Blauw</item>
     <item>Dag - Rood</item>
+    <item>Sky blue</item>
     <item>Nacht</item>
     <item>Transparant (Witte Tekst)</item>
     <item>Transparant (Zwarte Tekst)</item>
@@ -363,6 +363,7 @@
     <item>Zelfde als app</item>
     <item>Dag - Blauw</item>
     <item>Dag - Rood</item>
+    <item>Sky blue</item>
     <item>Nacht</item>
     <item>Transparant (Witte Tekst)</item>
     <item>Transparant (Zwarte Tekst)</item>

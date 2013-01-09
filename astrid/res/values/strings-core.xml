@@ -51,7 +51,7 @@
   <string name="DLG_decline">I Decline</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Terms Of Use</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Please Wait</string>
@@ -75,7 +75,7 @@
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click To Set</string>
+  <string name="WID_dateButtonUnset">Click to set</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   
@@ -108,7 +108,7 @@
   <string name="TLA_menu_addons">Add-ons</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Subtasks</string>
+  <string name="TLA_menu_sort">Sort</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now</string>
@@ -151,7 +151,7 @@
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
   
   <!-- Notifications disabled warning -->
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  <string name="TLA_notification_disabled">Reminders are disabled! You will not receive any reminders</string>
   
   <string-array name="TLA_filters">
       <item>Active</item>
@@ -229,37 +229,37 @@
   <string name="SSD_hidden_title">Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Show completed tasks</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Show hidden tasks</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">Show deleted tasks</string>
   
   <!-- Sort Selection: drag with subtasks -->
-  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
+  <string name="SSD_sort_drag">Drag &amp; drop with subtasks</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Smart sort</string>
   
   <!-- slide 23e: Sort Selection: sort by alpha -->
-  <string name="SSD_sort_alpha">By Title</string>
+  <string name="SSD_sort_alpha">By title</string>
   
   <!-- slide 23c: Sort Selection: sort by due date -->
-  <string name="SSD_sort_due">By Due Date</string>
+  <string name="SSD_sort_due">By due date</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By Importance</string>
+  <string name="SSD_sort_importance">By priority</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">By last modified</string>
   
   <!-- slide 23g: Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">Reverse sort</string>
   
   <!-- slide 23j: Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">Just once</string>
   
   <!-- slide 23i: Sort Button: sort permanently -->
   <string name="SSD_save_always">Always</string>
@@ -267,7 +267,7 @@
   <!-- =============================================== FilterListActivity == -->
   
   <!-- Astrid Filter Shortcut -->    
-  <string name="FSA_label">Astrid List or Filter</string>
+  <string name="FSA_label">List or Filter</string>
 
   <!-- Filter List Activity Title -->    
   
@@ -319,7 +319,7 @@
   <string name="TEA_title_hint">Task Summary</string>
   
   <!-- Task importance label -->
-  <string name="TEA_importance_label">Importance</string>
+  <string name="TEA_importance_label">Priority</string>
   
   <!-- Task urgency label -->
   
@@ -330,7 +330,7 @@
   <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Show Task</string>
+  <string name="TEA_hideUntil_label">Hide until</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
@@ -339,10 +339,10 @@
   <string-array name="TEA_loading"><item>Loading...</item></string-array>
   
   <!-- slide 16c: Task note label -->
-  <string name="TEA_note_label">Notes</string>
+  <string name="TEA_note_label">Description</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task notes...</string>
+  <string name="TEA_notes_hint">Enter task description...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
@@ -360,6 +360,8 @@
   <string name="TEA_menu_delete">Delete Task</string>
   
   <!-- Menu: Task comments -->
+  <string name="TEA_menu_refresh_comments">Refresh comments</string>
+
   <string name="TEA_menu_comments">Comments</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
@@ -383,7 +385,7 @@
   
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>No date</item>
       <item>Specific day</item>
       <item>Today</item>
       <item>Tomorrow</item>
@@ -397,11 +399,11 @@
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Always</item>
-      <item>At due date</item>
+      <item>Never</item>
+      <item>Due date</item>
       <item>Day before due</item>
       <item>Week before due</item>
-      <item>Specific Day/Time</item>
+      <item>Specific day/time</item>
   </string-array>
   
   <!-- Task edit control set descriptors -->
@@ -414,11 +416,11 @@
   <!-- slide 35b -->
   <string name="TEA_control_more_section">----Details----</string>
   <!-- slide 16a/35c -->
-  <string name="TEA_control_importance">Importance</string>  
+  <string name="TEA_control_importance">Priority</string>  
   <!-- slide 16b/35d -->
   <string name="TEA_control_lists">Lists</string>  
   <!-- slide 16c/35e -->
-  <string name="TEA_control_notes">Notes</string>  
+  <string name="TEA_control_notes">Description</string>  
   
   <string name="TEA_control_files">Files</string>
 
@@ -610,7 +612,7 @@
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  <string name="UpS_changelog_title">What\'s new?</string>
   
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">Latest Astrid News</string>
@@ -621,9 +623,7 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- slide 31g: Preference Window Title -->
-  <string name="EPr_title">Astrid: Settings</string>
-
-  <string name="EPr_title_short">Settings</string>
+  <string name="EPr_title">Settings</string>
   
   <string name="EPr_share_astrid">Tell others about Astrid</string>
 
@@ -650,6 +650,9 @@
   <!-- slide 34a: Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task list size</string>
   
+  <!-- Preference: Filters to show pref screen title -->
+  <string name="EPr_filters_to_show_title">Filters to show</string>
+  
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   
@@ -659,18 +662,29 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show notes in task</string>
+  <string name="EPr_showNotes_title">Show description in task</string>
+  
+  <!-- Edit screen preference category -->
+  <string name="EPr_edit_screen_options">Edit screen options</string>
+  
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Customize task edit screen</string>
+  <string name="EPr_beastMode_title">Edit screen order</string>
+  
+  <string name="EPr_beastMode_shortcut">Customize</string>
+  
+  <string name="EPr_time_increment">5 minute increments</string>
+  
+  <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
+  
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the task edit screen</string>  
+  <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">Compact task row</string>
@@ -698,6 +712,28 @@
   <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
   <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   
+  <!-- Preference: custom filters enabled -->
+  <string name="EPr_use_filters_title">Use filters</string>
+  <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
+
+  <!-- Preference: show list members in shared list -->
+  <string name="EPr_show_list_members_title">Show list members in shared lists</string>
+
+  <!-- Preference: simple input box style -->
+  <string name="EPr_simple_input_boxes">Simple text boxes</string>
+
+  <!-- Preference: simple input box style -->
+  <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
+
+  <!-- Preference: menu items -->
+  <string name="EPr_menu_items">Menu items</string>
+
+  <!-- Preference: list view -->
+  <string name="EPr_list_view">List view</string>
+
+  <!-- Preference: task edit comments -->
+  <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
+  
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Color theme</string>
   <!-- Preference: Theme Description (%s => value) -->
@@ -709,9 +745,6 @@
   
   <!-- slide 30d/ 34f: Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task row appearance</string>
-  
-  <!-- slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)-->
-  <!-- slide 33f -->
   
   <!-- slide 49g: Preferences: use the system contact picker for task assignment -->
   <string name="EPr_use_contact_picker">Use contact picker</string>
@@ -730,17 +763,29 @@
   <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
   
   <!-- Preferences: calendar event start time -->
-  <string name = "EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name = "EPr_cal_end_at_due_time">End calendar events at due time</string>
-  <string name = "EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
+  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
+  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
   
   <string name="EPr_force_phone_layout">Use phone layout</string>
 
   <string name="EPr_show_featured_lists">Show featured lists</string>
   
+  <!-- Configurations -->
+  <string name="EPr_configurations_title">Set configuration</string>
+  <string name="EPr_config_default">Default</string>
+  <string name="EPr_config_lite">Astrid Lite</string>
+  
+  <!-- Dialog title when setting preference configuration -->
+  <string name="EPr_config_dialog_title">Set configuration?</string>
+  <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
+  <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
+  
+  <!-- default configuration name for the above dialog -->
+  <string name="EPr_config_dialog_default_id">default</string>
+  
   
   <!-- Swipe between lists -->
-  
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   
@@ -778,12 +823,14 @@
     <item>Day - Blue</item>
     <!-- slide 36b -->
     <item>Day - Red</item>
+    <!-- slide 36b -->
+    <item>Sky blue</item>
     <!-- slide 36c -->
     <item>Night</item>
     <!-- slide 36d -->
-    <item>Transparent (White Text)</item>
+    <item>Transparent (white text)</item>
     <!-- slide 36e -->
-    <item>Transparent (Black Text)</item>
+    <item>Transparent (black text)</item>
   </string-array>
   
   <string-array name="EPr_themes_widget">
@@ -791,9 +838,10 @@
     <item>Same as app</item>
     <item>Day - Blue</item>
     <item>Day - Red</item>
+    <item>Sky blue</item>
     <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
+    <item>Transparent (white text)</item>
+    <item>Transparent (black text)</item>
     <item>Old Style</item>
   </string-array>
   
@@ -853,8 +901,8 @@
   <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">Empty List!</string>
   
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
+  <string name="AOA_ppack_title">Power Pack</string>
+  <string name="AOA_ppack_description">Support Astrid and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
   <string name="AOA_locale_title">Astrid Locale Plugin</string>
   <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   

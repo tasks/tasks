@@ -24,7 +24,7 @@
   <string name="repeat_interval_prompt">Repeat Interval</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Make repeating?</string>
+  <string name="repeat_never">Repeating?</string>
   <!-- slide 20f-->
   <string name="repeat_dont">Don\'t repeat</string>
       

@@ -23,7 +23,12 @@ public class TaskEditActivity extends AstridActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
-		super.onCreate(savedInstanceState);
+        if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
+            getTheme().applyStyle(R.style.SaveAsBackWhite, true);
+        else
+            getTheme().applyStyle(R.style.SaveAsBack, true);
+
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_edit_wrapper_activity);
 
 		ActionBar actionBar = getSupportActionBar();
@@ -33,6 +38,7 @@ public class TaskEditActivity extends AstridActivity {
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setCustomView(R.layout.header_title_view);
 		((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
+
 	}
 
 	public void updateTitle(boolean isNewTask) {

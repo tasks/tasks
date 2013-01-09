@@ -8,10 +8,11 @@ package com.todoroo.astrid.service.abtesting;
 import java.util.HashMap;
 import java.util.Set;
 
-import android.accounts.Account;
 import android.content.Context;
 
-import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Helper class to define options with their probabilities and descriptions
@@ -33,19 +34,9 @@ public class ABTests {
      * @param context
      */
     public void externalInit(Context context) {
-        // The outer 'if' statement is to prevent one test from being added one time
-        // and the other from being added later if the accounts changed
-        if (ABChooser.readChoiceForTest(AB_NEW_LOGIN_NO_GOOGLE) == ABChooser.NO_OPTION
-                && ABChooser.readChoiceForTest(AB_NEW_LOGIN_YES_GOOGLE) == ABChooser.NO_OPTION) {
-            GoogleAccountManager am = new GoogleAccountManager(context);
-            Account[] accounts = am.getAccounts();
-            if (accounts == null || accounts.length == 0) {
-                addTest(AB_NEW_LOGIN_NO_GOOGLE, new int[] { 1, 1 },
-                        new int[] { 1, 0 }, new String[] { "old-welcome", "new-welcome" });  //$NON-NLS-1$//$NON-NLS-2$
-            } else {
-                addTest(AB_NEW_LOGIN_YES_GOOGLE, new int[] { 1, 1, 1 },
-                        new int[] { 1, 0, 0 }, new String[] { "old-welcome", "new-welcome", "new-quick-welcome" });  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
-            }
+        // If test uninitialized, clear preference. This fixes a bug where the old test would not be initialized correctly
+        if (!Constants.ASTRID_LITE && ABChooser.readChoiceForTest(AB_USE_DATE_SHORTCUTS) == ABChooser.NO_OPTION) {
+            Preferences.clear(context.getString(R.string.p_use_date_shortcuts));
         }
     }
 
@@ -143,35 +134,17 @@ public class ABTests {
      * (i.e. the arrays should be the same length if this one exists)
      *
      */
-    public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions) {
-        ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
-        bundles.put(testKey, bundle);
+    public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions, boolean appliesToAstridLite) {
+        if (!Constants.ASTRID_LITE || (Constants.ASTRID_LITE && appliesToAstridLite)) {
+            ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
+            bundles.put(testKey, bundle);
+        }
     }
 
-    public static final String AB_FEATURED_LISTS = "android_featured_lists"; //$NON-NLS-1$
-
-    public static final String AB_SOCIAL_REMINDERS = "android_social_reminders";  //$NON-NLS-1$
-
-    public static final String AB_DRAG_DROP = "android_drag_drop"; //$NON-NLS-1$
-
-    public static final String AB_DEFAULT_EDIT_TAB = "android_default_edit_tab"; //$NON-NLS-1$
-
-    public static final String AB_NEW_LOGIN_NO_GOOGLE = "android_new_login_n_google"; //$NON-NLS-1$
-
-    public static final String AB_NEW_LOGIN_YES_GOOGLE = "android_new_login_y_google"; //$NON-NLS-1$
+    public static final String AB_USE_DATE_SHORTCUTS = "android_use_date_shortcuts_v2"; //$NON-NLS-1$
 
     private void initialize() {
-
-        addTest(AB_FEATURED_LISTS, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "featured-lists-disabled", "featured-lists-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_SOCIAL_REMINDERS, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "no-faces", "show-faces" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_DRAG_DROP, new int[] { 3, 1 },
-                new int[] { 1, 0 }, new String[] { "off-by-default", "on-by-default" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_DEFAULT_EDIT_TAB, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "activity-tab", "details-tab" }); //$NON-NLS-1$ //$NON-NLS-2$
+        addTest(AB_USE_DATE_SHORTCUTS, new int[] { 1, 1 },
+                new int[] { 1, 9 }, new String[] { "date-shortcuts-off", "date-shortcuts-on" }, false); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

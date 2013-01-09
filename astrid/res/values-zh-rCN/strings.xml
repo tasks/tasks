@@ -302,8 +302,7 @@
   <string name="UpS_changelog_title">清单小助理有哪些最新功能？</string>
   <string name="UpS_updates_title">清单小助理最新消息</string>
   <string name="UpS_no_activity_log_in">登录查看您的活动进展情况 \n以及在各分享列表上的活动。</string>
-  <string name="EPr_title">清单小助理：设置</string>
-  <string name="EPr_title_short">设置</string>
+  <string name="EPr_title">设置</string>
   <string name="EPr_share_astrid">介绍清单小助理给您的朋友</string>
   <string name="EPr_share_astrid_summary">在您喜欢的社交网站上分享清单小助理</string>
   <string name="EPr_deactivated">禁用</string>
@@ -370,6 +369,7 @@
   <string-array name="EPr_themes">
     <item>蓝</item>
     <item>红</item>
+    <item>Sky blue</item>
     <item>夜间模式</item>
     <item>透明(白色文字)</item>
     <item>透明(黑色文字)</item>
@@ -378,6 +378,7 @@
     <item>与应用相同</item>
     <item>日间——蓝色</item>
     <item>日间——红色</item>
+    <item>Sky blue</item>
     <item>夜间</item>
     <item>透明（白色文字）</item>
     <item>透明（黑色文字）</item>

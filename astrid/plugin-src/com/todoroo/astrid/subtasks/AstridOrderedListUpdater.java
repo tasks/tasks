@@ -50,7 +50,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     private final HashMap<Long, Node> idToNode;
 
     protected abstract String getSerializedTree(LIST list, Filter filter);
-    protected abstract void writeSerialization(LIST list, String serialized);
+    protected abstract void writeSerialization(LIST list, String serialized, boolean shouldQueueSync);
     protected abstract void applyToFilter(Filter filter);
 
     public int getIndentForTask(long targetTaskId) {
@@ -105,7 +105,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
             tasks.close();
         }
         if (changedThings)
-            writeSerialization(list, serializeTree());
+            writeSerialization(list, serializeTree(), false);
     }
 
     private void removeNodes(Set<Long> idsToRemove) {
@@ -222,7 +222,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
             newSiblings.add(insertAfter + 1, node);
         }
 
-        writeSerialization(list, serializeTree());
+        writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);
     }
 
@@ -300,7 +300,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
             beforeIndex--;
         }
         newSiblings.add(beforeIndex, moveThis);
-        writeSerialization(list, serializeTree());
+        writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);
     }
 
@@ -321,7 +321,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         treeRoot.children.add(moveThis);
         moveThis.parent = treeRoot;
         setNodeIndent(moveThis, 0);
-        writeSerialization(list, serializeTree());
+        writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);
     }
 
@@ -332,7 +332,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         Node newNode = new Node(taskId, treeRoot, 0);
         treeRoot.children.add(newNode);
         idToNode.put(taskId, newNode);
-        writeSerialization(list, serializeTree());
+        writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);
     }
 
@@ -355,7 +355,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
         idToNode.remove(taskId);
 
-        writeSerialization(list, serializeTree());
+        writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);
     }
 

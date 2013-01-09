@@ -15,9 +15,10 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<String> {
     }
 
     @Override
-    protected void writeSerialization(String list, String serialized) {
+    protected void writeSerialization(String list, String serialized, boolean shouldQueueSync) {
         Preferences.setString(list, serialized);
-        actFmSyncService.pushFilterOrderingOnSave(list);
+        if (shouldQueueSync)
+            actFmSyncService.pushFilterOrderingOnSave(list);
     }
 
 }

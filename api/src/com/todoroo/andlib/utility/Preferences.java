@@ -51,6 +51,20 @@ public class Preferences {
             editor.putBoolean(key, value);
     }
 
+    /**
+     * Helper to write to editor if key specified is null
+     * @param prefs
+     * @param editor
+     * @param r
+     * @param keyResource
+     * @param value
+     */
+    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String))
+            editor.putString(key, value);
+    }
+
     /* ======================================================================
      * ======================================================= helper methods
      * ====================================================================== */

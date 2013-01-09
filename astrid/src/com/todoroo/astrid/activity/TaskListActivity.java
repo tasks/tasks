@@ -170,8 +170,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
+        ThemeService.applyTheme(this);
         DependencyInjectionService.getInstance().inject(this);
 
         int contentView = getContentView();
@@ -190,6 +190,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
         personStatus = (TextView) actionBar.getCustomView().findViewById(R.id.person_image);
         commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
+        if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
+            commentsButton.setTextColor(getResources().getColor(R.color.blue_theme_color));
 
         initializeFragments(actionBar);
         createMainMenuPopover();
@@ -430,6 +432,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if (container != null)
                 container.setVisibility(visibility);
         }
+    }
+
+    public void setCommentsButtonVisibility(boolean visible) {
+        commentsButton.setVisibility(visible && filterModeSpec.showComments() && fragmentLayout != LAYOUT_TRIPLE ? View.VISIBLE : View.GONE);
     }
 
     private void setListsDropdownSelected(boolean selected) {

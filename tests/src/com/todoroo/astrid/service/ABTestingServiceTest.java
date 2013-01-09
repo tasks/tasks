@@ -91,7 +91,7 @@ public class ABTestingServiceTest extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        abTests.addTest(TEST_NAME, new int[] { 9, 1 } , new int[] { 1, 9 }, TEST_OPTIONS);
+        abTests.addTest(TEST_NAME, new int[] { 9, 1 } , new int[] { 1, 9 }, TEST_OPTIONS, true);
         Preferences.clear(TEST_NAME);
     }
 

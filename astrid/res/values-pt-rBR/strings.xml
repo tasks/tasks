@@ -321,8 +321,7 @@
   <string name="UpS_changelog_title">O que há de novo no Astrid?</string>
   <string name="UpS_updates_title">Ultimas novidades no Astrid</string>
   <string name="UpS_no_activity_log_in">"Conecte-se para ver um registro\ndo seu progresso  e também as\natividades nas listas compartilhadas."</string>
-  <string name="EPr_title">Astrid: Configurações</string>
-  <string name="EPr_title_short">Preferências</string>
+  <string name="EPr_title">Configurações</string>
   <string name="EPr_share_astrid">Fale a outros sobre Astrid</string>
   <string name="EPr_share_astrid_summary">Compartilhe sobre Astrid em sua rede social favorita</string>
   <string name="EPr_deactivated">desativado</string>
@@ -389,6 +388,7 @@
   <string-array name="EPr_themes">
     <item>Dia - Azul</item>
     <item>Dia - Vermelho</item>
+    <item>Sky blue</item>
     <item>Noite</item>
     <item>Transparente (Texto branco)</item>
     <item>Transparente (Texto preto)</item>
@@ -397,6 +397,7 @@
     <item>Mesmo que o aplicativo</item>
     <item>Dia - Azul</item>
     <item>Dia - Vermelho</item>
+    <item>Sky blue</item>
     <item>Noite</item>
     <item>Transparente (Texto branco)</item>
     <item>Transparente (Texto preto)</item>

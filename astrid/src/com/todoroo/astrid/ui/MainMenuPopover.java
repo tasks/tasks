@@ -108,15 +108,16 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     private void addFixedItems() {
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_DARK : 0;
-        addMenuItem(R.string.TLA_menu_search,
-                ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),
-                MAIN_MENU_ITEM_SEARCH, null, topFixed);
+        if (Preferences.getBoolean(R.string.p_show_menu_search, true))
+            addMenuItem(R.string.TLA_menu_search,
+                    ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),
+                    MAIN_MENU_ITEM_SEARCH, null, topFixed);
 
         addMenuItem(R.string.TLA_menu_lists,
                 ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
                 MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
 
-        if (Preferences.getBoolean(R.string.p_show_friends_view, false))
+        if (Preferences.getBoolean(R.string.p_show_friends_view, false) && Preferences.getBoolean(R.string.p_show_menu_friends, true))
             addMenuItem(R.string.TLA_menu_friends,
                     ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
                     MAIN_MENU_ITEM_FRIENDS, null, topFixed);

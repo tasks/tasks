@@ -8,7 +8,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent"
+  android:paddingLeft="5dip"
+  android:paddingRight="5dip">
   
   <LinearLayout
       android:id="@+id/newTags"
@@ -17,8 +19,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="2dip"
       android:layout_marginBottom="5dip"
-      android:paddingLeft="5dip"
-      android:paddingRight="3dip"/>
+      />
   
   <View
       android:layout_width="fill_parent"

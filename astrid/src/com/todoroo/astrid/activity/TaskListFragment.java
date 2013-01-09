@@ -429,36 +429,40 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @return true if menu should be displayed
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public final void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Activity activity = getActivity();
         if (activity == null)
             return;
         if (!isCurrentTaskListFragment())
             return;
 
+        addMenuItems(menu, activity);
+    }
+
+    protected void addMenuItems(Menu menu, Activity activity) {
         boolean isTablet = AstridPreferences.useTabletLayout(activity);
         TaskListActivity tla = null;
         if (activity instanceof TaskListActivity) {
             tla = (TaskListActivity) activity;
             tla.getMainMenuPopover().clear();
         }
-
         // --- sync
-        if (tla == null || tla.getTaskEditFragment() == null)
+        if (tla == null || tla.getTaskEditFragment() == null && Preferences.getBoolean(R.string.p_show_menu_sync, true))
             addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
 
         // --- sort
-        if (allowResorting()) {
+        if (allowResorting() && Preferences.getBoolean(R.string.p_show_menu_sort, true)) {
             addMenuItem(menu, R.string.TLA_menu_sort,
                     ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_SORT_ID, false);
         }
 
         // --- new filter
-        addMenuItem(menu, R.string.FLA_new_filter,
-                ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
+        if (Preferences.getBoolean(R.string.p_use_filters, true))
+            addMenuItem(menu, R.string.FLA_new_filter,
+                    ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
 
         // --- addons
-        if(Constants.MARKET_STRATEGY.showAddonMenu())
+        if(Constants.MARKET_STRATEGY.showAddonMenu() && Preferences.getBoolean(R.string.p_show_menu_addons, true))
             addMenuItem(menu, R.string.TLA_menu_addons,
                 ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
 

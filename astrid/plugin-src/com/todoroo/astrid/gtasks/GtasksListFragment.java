@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
-import android.view.MenuInflater;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -110,8 +109,8 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+    protected void addMenuItems(Menu menu, Activity activity) {
+        super.addMenuItems(menu, activity);
         addMenuItem(menu, R.string.gtasks_GTA_clear_completed, android.R.drawable.ic_input_delete, MENU_CLEAR_COMPLETED_ID, false);
     }
 

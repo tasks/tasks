@@ -12,12 +12,8 @@ import org.apache.http.HttpEntity;
 import org.json.JSONArray;
 import org.weloveastrid.rmilk.MilkUtilities;
 
-import android.text.Spannable;
-import android.text.style.ClickableSpan;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -33,7 +29,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
+            void verifyMessage(MessageTuple message) {
                 fail("should not have displayed updates");
             }
 
@@ -52,7 +48,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
+            void verifyMessage(MessageTuple message) {
                 fail("should not have displayed updates");
             }
 
@@ -69,8 +65,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertTrue(message.getLeft().toString().contains("yo"));
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.message.toString().contains("yo"));
             }
 
             @Override
@@ -86,9 +82,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertTrue(message.getLeft().toString().contains("yo"));
-                assertFalse(message.getLeft().toString().contains("cat")); // We only process the first update now
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.message.toString().contains("yo"));
+                assertFalse(message.message.toString().contains("cat")); // We only process the first update now
             }
 
             @Override
@@ -104,8 +100,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertTrue(message.getLeft().toString().contains("yo"));
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.message.toString().contains("yo"));
             }
 
             @Override
@@ -117,7 +113,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
+            void verifyMessage(MessageTuple message) {
                 fail("should have not displayed again");
             }
 
@@ -139,9 +135,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertTrue(message.getLeft().toString().contains("yo"));
-                assertTrue(message.getLeft().toString().contains("date"));
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.message.toString().contains("yo"));
             }
 
             @Override
@@ -158,8 +153,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertTrue(message.getLeft().toString().contains("rmilk man"));
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.message.toString().contains("rmilk man"));
             }
 
             @Override
@@ -176,7 +171,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
+            void verifyMessage(MessageTuple message) {
                 fail("displayed update");
             }
 
@@ -198,8 +193,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertTrue(message.getLeft().toString().contains("astrid man"));
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.message.toString().contains("astrid man"));
             }
 
             @Override
@@ -215,7 +210,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
+            void verifyMessage(MessageTuple message) {
                 fail("displayed update");
             }
 
@@ -237,9 +232,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertNotNull(message.getRight());
-                assertTrue(((Spannable)message).getSpans(0, message.getRight().length(), ClickableSpan.class).length > 0);
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.linkText.size() > 0);
+                assertTrue(message.click.size() > 0);
             }
 
             @Override
@@ -255,14 +250,32 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(Pair<String, Spannable> message) {
-                assertNotNull(message.getRight());
-                assertTrue(((Spannable)message).getSpans(0, message.getRight().length(), ClickableSpan.class).length > 0);
+            void verifyMessage(MessageTuple message) {
+                assertTrue(message.linkText.size() > 0);
+                assertTrue(message.click.size() > 0);
             }
 
             @Override
             String getUpdates(String url) throws IOException {
                 return "[{type:'pref',prefs:[{key:'key', type:'bool', title:'my pref'}],message:'Prefs'}]";
+            }
+        };
+    }
+
+    public void testUpdateWithLinks() {
+        clearLatestUpdates();
+
+        new TestUpdateMessageService() {
+            @Override
+            void verifyMessage(MessageTuple message) {
+                assertEquals("Message", message.message);
+                assertEquals("link", message.linkText.get(0));
+                assertNotNull(message.click.get(0));
+            }
+
+            @Override
+            String getUpdates(String url) throws IOException {
+                return "[{message:'Message', links:[{title:'link',url:'http://astrid.com'}]]";
             }
         };
     }
@@ -290,7 +303,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             };
         }
 
-        abstract void verifyMessage(Pair<String, Spannable> message);
+        abstract void verifyMessage(MessageTuple message);
 
         abstract String getUpdates(String url) throws IOException;
 
@@ -299,16 +312,16 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         }
 
         @Override
-        protected Pair<String, Spannable> buildUpdateMessage(JSONArray updates) {
-            Pair<String, Spannable> message = super.buildUpdateMessage(updates);
-            if(message == null || message.getLeft().length() == 0)
+        protected MessageTuple buildUpdateMessage(JSONArray updates) {
+            MessageTuple message = super.buildUpdateMessage(updates);
+            if(message == null || message.message.length() == 0)
                 onEmptyMessage();
             return message;
         }
 
         @Override
-        protected void displayUpdateDialog(Pair<String, Spannable> builder) {
-            verifyMessage(builder);
+        protected void displayUpdateDialog(MessageTuple tuple) {
+            verifyMessage(tuple);
         }
     }
 

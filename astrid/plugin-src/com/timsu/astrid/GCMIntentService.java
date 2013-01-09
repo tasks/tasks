@@ -1,8 +1,3 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
 package com.timsu.astrid;
 
 import java.io.IOException;
@@ -12,7 +7,6 @@ import org.json.JSONObject;
 
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -20,6 +14,8 @@ import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.android.gcm.GCMBaseIntentService;
+import com.google.android.gcm.GCMRegistrar;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -55,36 +51,18 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
-public class C2DMReceiver extends BroadcastReceiver {
+public class GCMIntentService extends GCMBaseIntentService {
 
-    public static final String C2DM_SENDER = "c2dm@astrid.com"; //$NON-NLS-1$
+    public static final String SENDER_ID = "1003855277730"; //$NON-NLS-1$
+    public static final String PREF_REGISTRATION = "gcm_id";
+    public static final String PREF_NEEDS_REGISTRATION = "gcm_needs_reg";
 
-    private static final String PREF_REGISTRATION = "c2dm_key";
-    private static final String PREF_LAST_C2DM = "c2dm_last";
+    private static final String PREF_LAST_GCM = "c2dm_last";
+    public static final String PREF_C2DM_REGISTRATION = "c2dm_key";
 
-    private static final long MIN_MILLIS_BETWEEN_FULL_SYNCS = DateUtilities.ONE_HOUR;
-
-    @Autowired TaskService taskService;
-    @Autowired TagDataService tagDataService;
-    @Autowired UpdateDao updateDao;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired ActFmSyncService actFmSyncService;
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    private final SyncResultCallbackAdapter refreshOnlyCallback = new SyncResultCallbackAdapter() {
-        @Override
-        public void finished() {
-            ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-        }
-    };
-
-    private static String getDeviceID() {
+    public static String getDeviceID() {
         String id = Secure.getString(ContextManager.getContext().getContentResolver(), Secure.ANDROID_ID);;
         if(AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
-
             //the following uses relection to get android.os.Build.SERIAL to avoid having to build with Gingerbread
             try {
                 if(!Build.UNKNOWN.equals(Build.SERIAL))
@@ -101,31 +79,54 @@ public class C2DMReceiver extends BroadcastReceiver {
         return id;
     }
 
-    @Override
-    public void onReceive(Context context, final Intent intent) {
-        ContextManager.setContext(context);
-        DependencyInjectionService.getInstance().inject(this);
-        if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) {
-            handleRegistration(intent);
-        } else if (intent.getAction().equals("com.google.android.c2dm.intent.RECEIVE")) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (actFmPreferenceService.isLoggedIn()) {
-                        if(intent.hasExtra("web_update"))
-                            if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing())
-                                new ActFmSyncV2Provider().synchronizeActiveTasks(false, refreshOnlyCallback);
-                            else
-                                handleWebUpdate(intent);
-                        else
-                            handleMessage(intent);
-                    }
-                }
-            }).start();
-         }
-     }
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
-    // --- web update handling
+    @Autowired
+    private ActFmSyncService actFmSyncService;
+
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private TagDataService tagDataService;
+
+    @Autowired
+    private UpdateDao updateDao;
+
+    public GCMIntentService() {
+        super();
+        DependencyInjectionService.getInstance().inject(this);
+    }
+
+
+    // ===================== Messaging =================== //
+
+    private final SyncResultCallbackAdapter refreshOnlyCallback = new SyncResultCallbackAdapter() {
+        @Override
+        public void finished() {
+            ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        }
+    };
+
+    private static final long MIN_MILLIS_BETWEEN_FULL_SYNCS = DateUtilities.ONE_HOUR;
+
+    @Override
+    protected void onMessage(Context context, Intent intent) {
+        if (actFmPreferenceService.isLoggedIn()) {
+            if(intent.hasExtra("web_update"))
+                if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing())
+                    new ActFmSyncV2Provider().synchronizeActiveTasks(false, refreshOnlyCallback);
+                else
+                    handleWebUpdate(intent);
+            else
+                handleMessage(intent);
+        }
+    }
 
     /** Handle web task or list changed */
     protected void handleWebUpdate(Intent intent) {
@@ -192,10 +193,10 @@ public class C2DMReceiver extends BroadcastReceiver {
         if(TextUtils.isEmpty(message))
             return;
 
-        long lastNotification = Preferences.getLong(PREF_LAST_C2DM, 0);
+        long lastNotification = Preferences.getLong(PREF_LAST_GCM, 0);
         if(DateUtilities.now() - lastNotification < 5000L)
             return;
-        Preferences.setLong(PREF_LAST_C2DM, DateUtilities.now());
+        Preferences.setLong(PREF_LAST_GCM, DateUtilities.now());
         Intent notifyIntent = null;
         int notifId;
 
@@ -419,56 +420,67 @@ public class C2DMReceiver extends BroadcastReceiver {
         return true;
     }
 
-    private void handleRegistration(Intent intent) {
-        final String registration = intent.getStringExtra("registration_id");
-        if (intent.getStringExtra("error") != null) {
-            Log.w("astrid-actfm", "error-c2dm: " + intent.getStringExtra("error"));
-        } else if (intent.getStringExtra("unregistered") != null) {
-            // un-registration done
-        } else if (registration != null) {
-            DependencyInjectionService.getInstance().inject(this);
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        String deviceId = getDeviceID();
-                        if (deviceId != null)
-                            actFmSyncService.invoke("user_set_c2dm", "c2dm", registration, "device_id", deviceId);
-                        else
-                            actFmSyncService.invoke("user_set_c2dm", "c2dm", registration);
-                        Preferences.setString(PREF_REGISTRATION, registration);
-                    } catch (IOException e) {
-                        Log.e("astrid-actfm", "error-c2dm-transfer", e);
-                    }
+    // ==================== Registration ============== //
+
+    public static final void register(Context context) {
+        try {
+            if (AndroidUtilities.getSdkVersion() >= 8) {
+                GCMRegistrar.checkDevice(context);
+                GCMRegistrar.checkManifest(context);
+                final String regId = GCMRegistrar.getRegistrationId(context);
+                if ("".equals(regId)) {
+                    GCMRegistrar.register(context, GCMIntentService.SENDER_ID);
+                } else {
+                    // TODO: Already registered--do something?
                 }
-            }.start();
+            }
+        } catch (Exception e) {
+            // phone may not support gcm
+            Log.e("actfm-sync", "gcm-register", e);
         }
     }
 
-    /** try to request registration from c2dm service */
-    public static void register() {
-        if(Preferences.getStringValue(PREF_REGISTRATION) != null)
-            return;
-
-        new Thread() {
-            @Override
-            public void run() {
-                Context context = ContextManager.getContext();
-                Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
-                registrationIntent.putExtra("app", PendingIntent.getBroadcast(context, 0, new Intent(), 0)); // boilerplate
-                registrationIntent.putExtra("sender", C2DM_SENDER);
-                context.startService(registrationIntent);
+    public static final void unregister(Context context) {
+        try {
+            if (AndroidUtilities.getSdkVersion() >= 8) {
+                GCMRegistrar.unregister(context);
             }
-        }.start();
+        } catch (Exception e) {
+            Log.e("actfm-sync", "gcm-unregister", e);
+        }
     }
 
-    /** unregister with c2dm service */
-    public static void unregister() {
-        Preferences.setString(PREF_REGISTRATION, null);
-        Context context = ContextManager.getContext();
-        Intent unregIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
-        unregIntent.putExtra("app", PendingIntent.getBroadcast(context, 0, new Intent(), 0));
-        context.startService(unregIntent);
+    @Override
+    protected void onRegistered(Context context, String registrationId) {
+        actFmSyncService.setGCMRegistration(registrationId);
+    }
+
+    @Override
+    protected void onUnregistered(Context context, String registrationId) {
+        // Server can unregister automatically next time it tries to send a message
+    }
+
+
+    @Override
+    protected void onError(Context context, String intent) {
+        // Unrecoverable
+    }
+
+    // =========== Migration ============= //
+
+    public static class GCMMigration {
+        @Autowired
+        private ActFmPreferenceService actFmPreferenceService;
+
+        public GCMMigration() {
+            DependencyInjectionService.getInstance().inject(this);
+        }
+
+        public void performMigration(Context context) {
+            if (actFmPreferenceService.isLoggedIn()) {
+                GCMIntentService.register(context);
+            }
+        }
     }
 
 }

@@ -17,9 +17,11 @@
     <Button
         android:id="@+id/quick_login_google"
         android:layout_width="280dip"
-        android:layout_height="45dip" 
+        android:layout_height="wrap_content" 
+        android:minHeight="45dip" 
         android:textSize="16sp"
         android:background="@drawable/google_login_background"
+        android:textColor="@android:color/white"
         android:layout_marginBottom="15dip"/>
     
     <TextView
@@ -29,5 +31,15 @@
         android:layout_marginBottom="70dip"
         android:textSize="16sp"
         android:textColor="@android:color/white"/>
+    
+    <TextView
+      android:id="@+id/error"
+      android:layout_width="fill_parent"
+      android:layout_height="45dip"
+      android:gravity="center"
+      android:visibility="gone"
+      android:textColor="#ff0000"
+      android:textSize="16sp"
+      android:textStyle="bold" />
 
 </LinearLayout>

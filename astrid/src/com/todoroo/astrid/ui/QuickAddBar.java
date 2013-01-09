@@ -17,7 +17,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -92,9 +94,6 @@ public class QuickAddBar extends LinearLayout {
     @Autowired MetadataService metadataService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-//    private VoiceInputAssistant voiceInputAssistant;
-//    private RecognizerApi recognizerApi;
-
     private VoiceRecognizer voiceRecognizer;
 
     private AstridActivity activity;
@@ -141,12 +140,23 @@ public class QuickAddBar extends LinearLayout {
             }
         });
 
-        quickAddBox.setOnFocusChangeListener(new OnFocusChangeListener() {
+        quickAddBox.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                quickAddControlsContainer.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                boolean visible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
+                boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
+                quickAddControlsContainer.setVisibility((showControls && visible) ? View.VISIBLE : View.GONE);
             }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {/**/}
+
+            @Override
+            public void afterTextChanged(Editable s) {/**/}
         });
+
+        int fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        quickAddBox.setTextSize(Math.min(fontSize, 22));
 
         quickAddButton = ((ImageButton) findViewById(
                 R.id.quickAddButton));

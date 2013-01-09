@@ -52,11 +52,6 @@
             android:layout_width="fill_parent"
             android:layout_height="250dip"
             android:layout_weight="1" />
-	      <View
-	         android:id="@+id/TEA_Separator"
-             android:layout_width="fill_parent"
-             android:layout_height="1px"
-             style="@style/TEA_Separator" />
 		</LinearLayout>
 	</ScrollView>
 </merge>

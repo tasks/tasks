@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
+import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -46,11 +47,16 @@ import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.AstridNewSyncMigrator;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.utility.Constants;
 
 
 public final class UpgradeService {
 
-    public static final int V4_5_0 = 300;
+    public static final int V4_6_0 = 300;
+    public static final int V4_5_1 = 292;
+    public static final int V4_5_0 = 291;
+    public static final int V4_4_4_1 = 290;
+    public static final int V4_4_4 = 289;
     public static final int V4_4_3 = 288;
     public static final int V4_4_2 = 287;
     public static final int V4_4_1 = 286;
@@ -175,7 +181,7 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
-        int maxWithUpgrade = V4_5_0; // The last version that required a migration
+        int maxWithUpgrade = V4_6_0; // The last version that required a migration
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
@@ -225,7 +231,10 @@ public final class UpgradeService {
                             if (from < V4_4_2)
                                 new SubtasksMetadataMigration().performMigration();
 
-                            if (from < V4_5_0)
+                            if (from < V4_5_1)
+                                new GCMIntentService.GCMMigration().performMigration(UpgradeActivity.this);
+
+                            if (from < V4_6_0)
                                 new AstridNewSyncMigrator().performMigration();
 
                         } finally {
@@ -268,6 +277,30 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from < V4_5_0) {
+            newVersionString(changeLog, "4.5.0 (12/19/12)", new String[] {
+                "Several interface and usability enhancements",
+                "Fixed Power Pack display bug affecting certain phones",
+                "Better organized preferences",
+                "New 'Sky Blue' theme",
+                "'Lite mode' preference defaults available in Settings > Appearance > Set configuration",
+                "Minor bug and crash fixes"
+            });
+        }
+
+        if (from >= V4_4_4 && from < V4_4_4_1) {
+            newVersionString(changeLog, "4.4.4.1 (12/13/12)", new String[] {
+                "Crash fixes"
+            });
+        }
+
+        if (from >= V4_4 && from < V4_4_4) {
+            newVersionString(changeLog, "4.4.4 (12/12/12)", new String[] {
+                "Manual ordering and subtasks for 'Active Tasks' and 'Today' filters now sync with Astrid.com",
+                "Minor polish and bug fixes"
+            });
+        }
 
         if (from >= V4_4 && from < V4_4_3) {
             newVersionString(changeLog, "4.4.3 (11/28/12)", new String[] {
@@ -645,6 +678,8 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
+        if (Constants.ASTRID_LITE)
+            version = "0" + version.substring(1);
         changeLog.append("<font style='text-align: center; color=#ffaa00'><b>Version ").append(version).append(":</b></font><br><ul>");
         for(String change : changes)
             changeLog.append("<li>").append(change).append("</li>\n");

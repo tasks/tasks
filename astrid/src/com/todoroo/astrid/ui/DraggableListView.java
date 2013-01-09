@@ -178,7 +178,7 @@ public class DraggableListView extends ListView {
 
             if (isDraggableRow(v)) {
                 ViewGroup.LayoutParams params = v.getLayoutParams();
-                params.height = mItemHeightNormal;
+                params.height = LayoutParams.WRAP_CONTENT;
                 v.setLayoutParams(params);
                 v.setVisibility(View.VISIBLE);
                 v.setPadding(0, 0, 0, 0);
@@ -208,7 +208,7 @@ public class DraggableListView extends ListView {
             if (vv == null) {
                 break;
             }
-            int height = mItemHeightNormal;
+            int height = LayoutParams.WRAP_CONTENT;
             int marginTop = 0;
             int visibility = View.VISIBLE;
             if (vv.equals(first)) {

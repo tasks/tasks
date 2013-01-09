@@ -8,7 +8,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent"
+  android:paddingLeft="5dip"
+  android:paddingRight="5dip">
   
   <!-- notes -->
   <ScrollView
@@ -18,17 +20,22 @@
 	  <LinearLayout
 	    android:orientation="horizontal"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
+	    android:layout_height="wrap_content"
+	    android:gravity="center_vertical">
 	    <!-- Voice Add Note Button -->
+
 	    <ImageButton
-	      android:id="@+id/voiceAddNoteButton"
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:layout_weight="1"
-	      android:src="@android:drawable/ic_btn_speak_now"
-	      android:scaleType="fitCenter"
-	      android:visibility="gone" />
-	    <EditText
+	        android:id="@+id/voiceAddNoteButton"
+	        android:layout_width="39dip"
+	        android:layout_height="39dip"
+	        android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+	        android:background="@android:color/transparent"
+	        android:scaleType="center"
+	        android:src="?attr/asMicButtonImg"
+	        android:layout_gravity="top"
+	        android:visibility="gone" />
+        <EditText
 	      android:id="@+id/notes"
 	      android:layout_width="wrap_content"
 	      android:layout_height="wrap_content"
@@ -37,10 +44,12 @@
 	      android:layout_weight="100"
 	      android:scrollbars="vertical"
 	      android:gravity="top"
+	      android:background="@null"
 	      android:hint="@string/TEA_notes_hint"
 	      android:autoText="true"
 	      android:capitalize="sentences"
 	      android:singleLine="false"
+	      android:textColor="?attr/asTextColor"
 	      android:freezesText="true" />
 	  </LinearLayout>
   </ScrollView>

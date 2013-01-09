@@ -304,8 +304,7 @@
   <string name="UpS_changelog_title">Was ist neu bei Astrid?</string>
   <string name="UpS_updates_title">Astrid Neuigkeiten</string>
   <string name="UpS_no_activity_log_in">Wenn du dich einloggst, kann du den \nFortschritt deiner eigenen also auch \ngemeinsamer Aufgabenlisten einsehen.</string>
-  <string name="EPr_title">Astrid: Einstellungen</string>
-  <string name="EPr_title_short">Einstellungen</string>
+  <string name="EPr_title">Einstellungen</string>
   <string name="EPr_share_astrid">Erzähl Anderen von Astrid</string>
   <string name="EPr_share_astrid_summary">Erzähle von Astrid auf deinem bevorzugten sozialen Netzwerk</string>
   <string name="EPr_deactivated">deaktiviert</string>
@@ -372,6 +371,7 @@
   <string-array name="EPr_themes">
     <item>Tag - Blau</item>
     <item>Tag -Rot</item>
+    <item>Sky blue</item>
     <item>Nacht</item>
     <item>Transparent (weißer Text)</item>
     <item>Transparent (schwarzer Text)</item>
@@ -380,6 +380,7 @@
     <item>Wie die App</item>
     <item>Tag - Blau</item>
     <item>Tag - Rot</item>
+    <item>Sky blue</item>
     <item>Nacht</item>
     <item>Transparent (weißer Text)</item>
     <item>Transparent (schwarzer Text)</item>

@@ -211,11 +211,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
 
         @Override
-        protected int computeMinRowHeight() {
-            return (int) (metrics.density * 40);
-        }
-
-        @Override
         protected ViewHolder getTagFromCheckBox(View v) {
             return (ViewHolder)((View)v.getParent()).getTag();
         }
@@ -296,7 +291,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                 }
 
                 if (madeChanges) {
-                    updater.writeSerialization(list, updater.serializeTree());
+                    updater.writeSerialization(list, updater.serializeTree(), true);
                 }
             } finally {
                 recurring.close();
@@ -321,6 +316,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         updater.onCreateTask(list, getFilter(), task.getId());
         fragment.reconstructCursor();
         fragment.loadTaskListContent(true);
+        fragment.selectCustomId(task.getId());
     }
 
     public void onDeleteTask(Task task) {

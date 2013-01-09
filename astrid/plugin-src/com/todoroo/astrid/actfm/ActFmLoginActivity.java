@@ -50,7 +50,7 @@ import com.facebook.android.LoginButton;
 import com.facebook.android.Util;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 import com.google.android.googlelogin.GoogleLoginServiceHelper;
-import com.timsu.astrid.C2DMReceiver;
+import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -95,7 +95,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     private Facebook facebook;
     private AsyncFacebookRunner facebookRunner;
-    private TextView errors;
+    protected TextView errors;
 
     public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
 
@@ -572,12 +572,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         setResult(RESULT_OK);
         finish();
 
-        try {
-            C2DMReceiver.register();
-        } catch (Exception e) {
-            // phone may not support c2dm
-            exceptionService.reportError("error-c2dm-register", e);
-        }
+        GCMIntentService.register(this);
     }
 
     @SuppressWarnings("nls")

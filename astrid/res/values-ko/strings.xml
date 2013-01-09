@@ -338,8 +338,7 @@
   <string name="UpS_changelog_title">Astrid 의 새로운 기능</string>
   <string name="UpS_updates_title">최신 Astrid 뉴스</string>
   <string name="UpS_no_activity_log_in">공유한 목록상의 활동 내역과\n자신의 일정 진행 기록을\n보려면 로그인하세요.</string>
-  <string name="EPr_title">Astrid: 설정</string>
-  <string name="EPr_title_short">설정</string>
+  <string name="EPr_title">설정</string>
   <string name="EPr_share_astrid">다른 사람에게 Astrid 알리기</string>
   <string name="EPr_share_astrid_summary">내가 즐겨찾는 소셜 네트워크에 Astrid를 공유합니다</string>
   <string name="EPr_deactivated">비활성화됨</string>
@@ -406,6 +405,7 @@
   <string-array name="EPr_themes">
     <item>낮 - 파란색</item>
     <item>낮 - 빨간색</item>
+    <item>Sky blue</item>
     <item>밤</item>
     <item>투명 (흰색 텍스트)</item>
     <item>투명 (검은색 텍스트)</item>
@@ -414,6 +414,7 @@
     <item>어플과 동일하게</item>
     <item>낮 - 파란색</item>
     <item>낮 - 빨간색</item>
+    <item>Sky blue</item>
     <item>밤</item>
     <item>투명 (흰색 텍스트)</item>
     <item>투명 (검은색 텍스트)</item>

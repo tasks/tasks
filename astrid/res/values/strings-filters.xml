@@ -11,7 +11,7 @@
     <!-- ================================================= Filter Exposer == -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Active Tasks</string>
+    <string name="BFE_Active">My Tasks</string>
         
     <!-- Search Filter -->
     
@@ -88,9 +88,9 @@
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">Priority at least ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">Priority...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">List: ?</string>

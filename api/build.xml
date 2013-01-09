@@ -100,6 +100,27 @@
           </classpath>
         </javadoc>
     </target>
+	
+	<target name="setup-lite">
+		<replaceregexp file="${source.dir}/com/todoroo/astrid/api/AstridApiConstants.java"
+		               match="API_PACKAGE = .*"
+		               replace="API_PACKAGE = &quot;com.todoroo.astridlite&quot;;"
+		               />
+		<replaceregexp file="${source.dir}/com/todoroo/astrid/api/AstridApiConstants.java"
+		               match="ASTRID_PACKAGE = .*"
+		               replace="ASTRID_PACKAGE = &quot;com.todoroo.astridlite&quot;;"
+		               />
+	</target>
+	<target name="teardown-lite">
+		<replaceregexp file="${source.dir}/com/todoroo/astrid/api/AstridApiConstants.java"
+		               match="API_PACKAGE = .*"
+		               replace="API_PACKAGE = &quot;com.todoroo.astrid&quot;;"
+		               />
+		<replaceregexp file="${source.dir}/com/todoroo/astrid/api/AstridApiConstants.java"
+		               match="ASTRID_PACKAGE = .*"
+		               replace="ASTRID_PACKAGE = &quot;com.timsu.astrid&quot;;"
+		               />
+	</target>
 
     <import file="${sdk.dir}/tools/ant/build.xml" />
 

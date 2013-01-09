@@ -14,7 +14,7 @@
   <string name="TEA_tags_label">Lists</string>
   
   <!-- Tags label long version -->
-  <string name="TEA_tags_label_long">Put task on one or more lists</string>
+  <string name="TEA_tags_label_long">Add to lists</string>
   
   <!-- slide 16h: Tags none -->
   <string name="TEA_tags_none">None</string>

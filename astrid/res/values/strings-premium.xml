@@ -48,7 +48,7 @@
     <string name="file_err_memory">Image is too large to fit in memory</string>
     <string name="file_err_copy">Error copying file for attachment</string>
     <string name="file_err_download">Error downloading file</string>
-    <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
+    <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the preferences.</string>
     <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
     
     <string name="file_dir_dialog_ok">Use this directory</string>
@@ -78,6 +78,16 @@
     
     <string name="subscriptions_learn_more">Learn more</string>
     
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+    <string name="kii_premium_abort">Special offer aborted</string>
+    <string name="kii_premium_declined">Special offer declined</string>
+    <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
+    
+    <string name="premium_offers_title">Special Offer</string>
+    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
+    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_start">Get it free!</string>
+    
     <string name="premium_billing_title">Astrid Premium</string>
     <string name="premium_buy_month">1 Month</string>
     <string name="premium_buy_year">1 Year</string>
@@ -85,7 +95,7 @@
     <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
     <string name="premium_description_2">Syncs files with astrid.com</string>
     <string name="premium_description_3">Add attachments via email</string>
-    <string name="premium_description_4">Save voice notes as audio files</string>
+    <string name="premium_description_4">Save voice recordings as audio files</string>
     <string name="premium_description_5">Preview upcoming features</string>
     <string name="premium_description_6">Support the Astrid Team!</string>
     <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>

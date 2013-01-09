@@ -10,10 +10,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.alarms.AlarmControlSet;
@@ -28,6 +32,7 @@ import com.todoroo.astrid.data.Task;
 public class ReminderControlSet extends PopupControlSet {
     private CheckBox during, after;
     private Spinner mode;
+    private TextView modeDisplay;
     private LinearLayout remindersBody;
     private final List<View> extraViews;
 
@@ -81,7 +86,15 @@ public class ReminderControlSet extends PopupControlSet {
     protected void afterInflate() {
         during = (CheckBox) getView().findViewById(R.id.reminder_due);
         after = (CheckBox) getView().findViewById(R.id.reminder_overdue);
+        modeDisplay = (TextView) getView().findViewById(R.id.reminder_alarm_display);
         mode = (Spinner) getView().findViewById(R.id.reminder_alarm);
+        View modeContainer = getView().findViewById(R.id.reminder_alarm_container);
+        modeContainer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mode.performClick();
+            }
+        });
 
         randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
         alarmControl = new AlarmControlSet(activity, R.layout.control_set_alarms);
@@ -101,6 +114,20 @@ public class ReminderControlSet extends PopupControlSet {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 activity, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mode.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                    int position, long id) {
+                modeDisplay.setText(adapter.getItem(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

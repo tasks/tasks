@@ -32,7 +32,7 @@ public class Metadata extends AbstractModel {
     public static final Table TABLE = new Table("metadata", Metadata.class);
 
     /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties

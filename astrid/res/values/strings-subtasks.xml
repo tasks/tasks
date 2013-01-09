@@ -7,7 +7,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
   <!-- Subtasks Help Introduction -->
-  <string name="subtasks_help_title">Sort and Indent in Astrid</string>
+  <string name="subtasks_help_title">Sort and Indent</string>
   <string name="subtasks_help_1">Tap and hold to move a task</string>
   <string name="subtasks_help_2">Drag vertically to rearrange</string>
   <string name="subtasks_help_3">Drag horizontally to indent</string>

@@ -123,7 +123,7 @@ public class Astrid3ContentProvider extends ContentProvider {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI, Update.CONTENT_URI }) {
-            String authority = AstridApiConstants.PACKAGE;
+            String authority = AstridApiConstants.API_PACKAGE;
 
             String table = uri.toString();
             table = table.substring(table.indexOf('/', 11) + 1);

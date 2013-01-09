@@ -41,7 +41,7 @@ public final class Task extends RemoteModel {
     public static final Class<? extends OutstandingEntry<Task>> OUTSTANDING_MODEL = TaskOutstanding.class;
 
     /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties

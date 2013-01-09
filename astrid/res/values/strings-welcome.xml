@@ -47,7 +47,7 @@
   <string name="welcome_body_5">Never wonder who\'s\nbringing dessert!</string>
 
   <!-- slide 6b-->
-  <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
+  <string name="welcome_body_6">Tap to add description,\nset reminders,\nand much more!</string>
   <string name="welcome_body_7">Login</string>
   
   <string name="welcome_body_7_return">Tap Astrid to return.</string>

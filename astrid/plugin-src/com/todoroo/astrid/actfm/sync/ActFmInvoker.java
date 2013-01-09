@@ -105,8 +105,22 @@ public class ActFmInvoker {
      */
     public JSONObject invoke(String method, Object... getParameters) throws IOException,
             ActFmServiceException {
+        return invokeWithApi(null, method, getParameters);
+    }
+
+    /**
+     * Invokes API method using HTTP GET
+     *
+     * @param method
+     *          API method to invoke
+     * @param getParameters
+     *          Name/Value pairs. Values will be URL encoded.
+     * @return response object
+     */
+    public JSONObject invokeWithApi(String api, String method, Object... getParameters) throws IOException,
+    ActFmServiceException {
         try {
-            String request = createFetchUrl(method, getParameters);
+            String request = createFetchUrl(api, method, getParameters);
             Log.e("act-fm-invoke", request);
             String response = restClient.get(request);
             Log.e("act-fm-invoke-response", response);
@@ -135,7 +149,7 @@ public class ActFmInvoker {
     public JSONObject post(String method, HttpEntity data, Object... getParameters) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl(method, getParameters);
+            String request = createFetchUrl(null, method, getParameters);
             Log.e("act-fm-post", request);
             String response = restClient.post(request, data);
             Log.e("act-fm-post-response", response);
@@ -158,7 +172,7 @@ public class ActFmInvoker {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    public String createFetchUrl(String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private String createFetchUrl(String api, String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         ArrayList<Pair<String, Object>> params = new ArrayList<Pair<String, Object>>();
         for(int i = 0; i < getParameters.length; i += 2) {
             if(getParameters[i+1] instanceof ArrayList) {
@@ -195,14 +209,20 @@ public class ActFmInvoker {
         });
 
         String url = URL;
-        if (method.startsWith("/"))
-            url = url.replaceFirst("/api/", "");
+        boolean customApi = false;
+        if (api != null) {
+            customApi = true;
+            url = url.replace("api", api);
+        }
         if (Preferences.getBoolean(R.string.actfm_https_key, false))
             url = "https:" + url;
         else
             url = "http:" + url;
 
-        StringBuilder requestBuilder = new StringBuilder(url).append(API_VERSION).append("/").append(method).append('?');
+        StringBuilder requestBuilder = new StringBuilder(url);
+        if (!customApi)
+            requestBuilder.append(API_VERSION).append("/");
+        requestBuilder.append(method).append('?');
         StringBuilder sigBuilder = new StringBuilder(method);
         for(Pair<String, Object> entry : params) {
             if(entry.getRight() == null)

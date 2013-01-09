@@ -57,7 +57,7 @@
     	<item>Score in life: %d tasks completed</item>
     	<item>Smile! You\'ve already finished %d tasks!</item>
     </string-array>
-  	<string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
+  	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
         
     <string-array name="PPW_colors">
         <item>Black</item>
