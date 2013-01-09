@@ -3,6 +3,7 @@ package com.todoroo.astrid.actfm.sync.messages;
 import org.json.JSONObject;
 
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
@@ -42,6 +43,8 @@ public abstract class ServerToClientMessage {
             return new MakeChanges<Task>(json, PluginServices.getTaskDao());
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
             return new MakeChanges<TagData>(json, PluginServices.getTagDataDao());
+        else if (NameMaps.TABLE_ID_PUSHED_AT.equals(table))
+            return new MakeChanges<RemoteModel>(json, null);
         else
             return null;
     }

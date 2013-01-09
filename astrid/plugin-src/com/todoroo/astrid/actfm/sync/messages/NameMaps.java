@@ -23,6 +23,10 @@ public class NameMaps {
     public static final String TABLE_ID_TASKS = "tasks";
     public static final String TABLE_ID_TAGS = "tags";
     public static final String TABLE_ID_USERS = "users";
+    public static final String TABLE_ID_PUSHED_AT = "pushed_at";
+
+    public static final String PUSHED_AT_TASKS = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_TASKS;
+    public static final String PUSHED_AT_TAGS = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_TAGS;
 
     static {
         // Hardcoded local tables mapped to corresponding server names

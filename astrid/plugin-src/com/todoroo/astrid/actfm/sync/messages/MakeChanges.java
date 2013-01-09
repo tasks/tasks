@@ -14,6 +14,7 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
@@ -36,35 +37,51 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
     public void processMessage() {
         JSONArray changes = json.optJSONArray("changes");
         String uuid = json.optString("uuid");
-        if (dao != null && changes != null && !TextUtils.isEmpty(uuid)) {
-            try {
-                TYPE model = dao.getModelClass().newInstance();
-                if (changes.length() > 0) {
-                    JSONChangeToPropertyVisitor visitor = new JSONChangeToPropertyVisitor(model);
-                    for (int i = 0; i < changes.length(); i++) {
-                        JSONArray change = changes.optJSONArray(i);
+        if (changes != null && !TextUtils.isEmpty(uuid)) {
+            if (dao != null) { // Model case
+                try {
+                    TYPE model = dao.getModelClass().newInstance();
+                    if (changes.length() > 0) {
+                        JSONChangeToPropertyVisitor visitor = new JSONChangeToPropertyVisitor(model);
+                        for (int i = 0; i < changes.length(); i++) {
+                            JSONArray change = changes.optJSONArray(i);
 
-                        if (change != null) {
-                            String column = change.optString(0);
-                            Property<?> property = NameMaps.serverColumnNameToLocalProperty(table, column);
-                            if (property != null) { // Unsupported property
-                                property.accept(visitor, change);
+                            if (change != null) {
+                                String column = change.optString(0);
+                                Property<?> property = NameMaps.serverColumnNameToLocalProperty(table, column);
+                                if (property != null) { // Unsupported property
+                                    property.accept(visitor, change);
+                                }
                             }
                         }
                     }
-                }
 
-                if (model.getSetValues().size() > 0) {
-                    if (dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), model) <= 0) { // If update doesn't update rows, create a new model
-                        model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                        dao.createNew(model);
+                    if (model.getSetValues().size() > 0) {
+                        if (dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), model) <= 0) { // If update doesn't update rows, create a new model
+                            model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                            dao.createNew(model);
+                        }
                     }
-                }
 
-            } catch (IllegalAccessException e) {
-                Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);
-            } catch (InstantiationException e) {
-                Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);
+                } catch (IllegalAccessException e) {
+                    Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);
+                } catch (InstantiationException e) {
+                    Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);
+                }
+            } else if (NameMaps.TABLE_ID_PUSHED_AT.equals(table)) { // pushed_at case
+                JSONArray change = changes.optJSONArray(0);
+                if (change != null && change.optString(0).equals(NameMaps.TABLE_ID_PUSHED_AT)) {
+                    long pushedAt = change.optLong(1);
+                    String pushedAtKey = null;
+                    if (NameMaps.TABLE_ID_TASKS.equals(uuid))
+                        pushedAtKey = NameMaps.PUSHED_AT_TASKS;
+                    else if (NameMaps.TABLE_ID_TAGS.equals(uuid))
+                        pushedAtKey = NameMaps.PUSHED_AT_TAGS;
+
+                    if (pushedAtKey != null)
+                        Preferences.setLong(pushedAtKey, pushedAt);
+
+                }
             }
         }
     }

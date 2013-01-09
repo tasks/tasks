@@ -140,8 +140,8 @@ public class ActFmSyncThread {
                 }
 
                 if (messageBatch.isEmpty() && timeForBackgroundSync()) {
-                    messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class));
-                    messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class));
+                    messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
+                    messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {

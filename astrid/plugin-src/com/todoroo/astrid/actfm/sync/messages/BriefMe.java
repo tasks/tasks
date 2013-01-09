@@ -3,14 +3,14 @@ package com.todoroo.astrid.actfm.sync.messages;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 
 public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYPE> {
 
-    public static <TYPE extends RemoteModel> BriefMe<TYPE> instantiateBriefMeForClass(Class<TYPE> cls) {
-        // TODO: compute last pushed at value for model class
-        long pushedAt = 0;
+    public static <TYPE extends RemoteModel> BriefMe<TYPE> instantiateBriefMeForClass(Class<TYPE> cls, String pushedAtKey) {
+        long pushedAt = Preferences.getLong(pushedAtKey, 0);
         return new BriefMe<TYPE>(cls, null, pushedAt);
     }
 
