@@ -23,7 +23,7 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
     }
 
     @Override
-    protected void serializeToJSONImpl(JSONObject serializeTo) throws JSONException {
+    protected void serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
         // No extras
     }
 

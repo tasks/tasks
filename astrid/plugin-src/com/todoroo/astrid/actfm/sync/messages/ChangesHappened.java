@@ -61,7 +61,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     @Override
-    protected void serializeToJSONImpl(JSONObject serializeTo) throws JSONException {
+    protected void serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
         // Process changes list and serialize to JSON
         serializeTo.put(CHANGES_KEY, changesToJSON());
     }

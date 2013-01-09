@@ -13,7 +13,7 @@ public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServer
     }
 
     @Override
-    protected void serializeToJSONImpl(JSONObject serializeTo) throws JSONException {
+    protected void serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
         // No extras
     }
 

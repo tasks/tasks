@@ -67,13 +67,13 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
             json.put(TABLE_KEY, table);
             json.put(UUID_KEY, uuid);
             json.put(PUSHED_AT_KEY, pushedAt);
-            serializeToJSONImpl(json);
+            serializeExtrasToJSON(json);
         } catch (JSONException e) {
             return null;
         }
         return json;
     }
 
-    protected abstract void serializeToJSONImpl(JSONObject serializeTo) throws JSONException;
+    protected abstract void serializeExtrasToJSON(JSONObject serializeTo) throws JSONException;
     protected abstract String getTypeString();
 }
