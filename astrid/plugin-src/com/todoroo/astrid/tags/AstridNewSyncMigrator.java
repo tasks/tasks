@@ -15,11 +15,13 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -33,6 +35,7 @@ public class AstridNewSyncMigrator {
     @Autowired private TagDataDao tagDataDao;
     @Autowired private TaskDao taskDao;
     @Autowired private UpdateDao updateDao;
+    @Autowired private UserDao userDao;
 
     private static final String PREF_SYNC_MIGRATION = "sync_migration";
 
@@ -90,6 +93,10 @@ public class AstridNewSyncMigrator {
                     instance.setValue(Update.TASK_UUID, Long.toString(instance.getValue(Update.TASK)));
             }
         });
+
+        userDao.deleteWhere(Criterion.or(User.REMOTE_ID.isNull(), User.REMOTE_ID.eq(0)));
+        Query usersQuery = Query.select(User.ID, User.REMOTE_ID).where(Criterion.all);
+        assertUUIDsExist(usersQuery, new User(), userDao, null);
 
 
         // --------------
