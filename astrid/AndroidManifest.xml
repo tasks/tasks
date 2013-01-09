@@ -45,6 +45,9 @@
   
   <!-- required for in-app billing of premium subscriptions -->
   <uses-permission android:name="com.android.vending.BILLING"/>
+  
+  <!-- Required for GCM - keeps the processor from sleeping when a message is received. -->
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
 
   <!-- ============================================== Exported Permissions = -->
 
@@ -408,19 +411,17 @@
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.CommentsActivity"
-              android:windowSoftInputMode="stateHidden"/>
-    <receiver android:name="com.timsu.astrid.C2DMReceiver" permission="com.google.android.c2dm.permission.SEND">
-      <!-- Receive the actual message -->
-      <intent-filter>
-          <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-          <category android:name="com.timsu.astrid" />
-      </intent-filter>
-      <!-- Receive the registration id -->
-      <intent-filter>
-          <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-          <category android:name="com.timsu.astrid" />
-      </intent-filter>
-    </receiver>                
+              android:windowSoftInputMode="stateHidden"/>            
+
+    <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
+	  <intent-filter>
+	    <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+	    <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+	    <category android:name="com.timsu.astrid" />
+	  </intent-filter>
+	</receiver>
+	
+    <service android:name=".GCMIntentService" />
     
     <!-- gtasks -->
     <activity android:name="com.todoroo.astrid.gtasks.GtasksListFragment"

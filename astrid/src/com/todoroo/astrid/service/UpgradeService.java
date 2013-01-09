@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
+import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -50,6 +51,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_5_1 = 292;
     public static final int V4_5_0 = 291;
     public static final int V4_4_4_1 = 290;
     public static final int V4_4_4 = 289;
@@ -176,7 +178,7 @@ public final class UpgradeService {
         // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
 
-        int maxWithUpgrade = V4_4_2; // The last version that required a migration
+        int maxWithUpgrade = V4_5_1; // The last version that required a migration
 
         final String lastSetVersionName = AstridPreferences.getCurrentVersionName();
 
@@ -227,6 +229,9 @@ public final class UpgradeService {
 
                             if (from < V4_4_2)
                                 new SubtasksMetadataMigration().performMigration();
+
+                            if (from < V4_5_1)
+                                new GCMIntentService.GCMMigration().performMigration(UpgradeActivity.this);
 
                         } finally {
                             finished = true;
