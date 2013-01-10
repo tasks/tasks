@@ -52,6 +52,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.MarketStrategy.NookMarketStrategy;
@@ -538,14 +539,22 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         // title / size
+        int countInt = -1;
         if(filterCounts.containsKey(filter) || filter.listingTitle.matches(".* \\(\\d+\\)$")) { //$NON-NLS-1$
             viewHolder.size.setVisibility(View.VISIBLE);
             String count;
             if (filterCounts.containsKey(filter)) {
-                count = filterCounts.get(filter).toString();
+                Integer c = filterCounts.get(filter);
+                countInt = c;
+                count = c.toString();
             } else {
                 count = filter.listingTitle.substring(filter.listingTitle.lastIndexOf('(') + 1,
                         filter.listingTitle.length() - 1);
+                try {
+                    countInt = Integer.parseInt(count);
+                } catch (NumberFormatException e) {
+                    //
+                }
             }
             viewHolder.size.setText(count);
 
@@ -560,7 +569,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         } else {
             viewHolder.name.setText(filter.listingTitle);
             viewHolder.size.setVisibility(View.GONE);
+            countInt = -1;
         }
+
+        if(countInt == 0 && filter instanceof FilterWithCustomIntent)
+            viewHolder.name.setTextColor(Color.GRAY);
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
         if(!nook && filter instanceof FilterWithUpdate) {
@@ -574,7 +587,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             params.setMargins((int) (8 * metrics.density), 0, 0, 0);
         }
 
-        if(filter.color != 0)
+        if (filter.color != 0)
             viewHolder.name.setTextColor(filter.color);
 
         // selection
