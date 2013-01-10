@@ -12,10 +12,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +37,7 @@ import com.todoroo.andlib.utility.Preferences;
 public class ActFmInvoker {
 
     /** NOTE: these values are development values & will not work on production */
-    private static final String URL = "//10.0.2.2:3000/api/";
+    private static final String URL = "//192.168.0.130:3000/api/";
     private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
     private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
 
@@ -152,6 +157,29 @@ public class ActFmInvoker {
             String request = createFetchUrl(null, method, getParameters);
             Log.e("act-fm-post", request);
             String response = restClient.post(request, data);
+            Log.e("act-fm-post-response", response);
+            JSONObject object = new JSONObject(response);
+            if(object.getString("status").equals("error"))
+                throw new ActFmServiceException(object.getString("message"), object);
+            return object;
+        } catch (JSONException e) {
+            throw new IOException(e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public JSONObject postSync(JSONArray data, String token) throws IOException,
+    ActFmServiceException {
+        try {
+            String request = createFetchUrl("api2/" + API_VERSION, "synchronize");
+            Log.e("act-fm-post", request);
+            List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+            pairs.add(new BasicNameValuePair("token", token));
+            pairs.add(new BasicNameValuePair("data", data.toString()));
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
+
+            String response = restClient.post(request, entity);
             Log.e("act-fm-post-response", response);
             JSONObject object = new JSONObject(response);
             if(object.getString("status").equals("error"))

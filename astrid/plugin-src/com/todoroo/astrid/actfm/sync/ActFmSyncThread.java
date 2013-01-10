@@ -8,15 +8,18 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
@@ -26,6 +29,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
+import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
 
 public class ActFmSyncThread {
 
@@ -148,12 +153,16 @@ public class ActFmSyncThread {
                     JSONArray payload = new JSONArray();
                     for (ClientToServerMessage<?> message : messageBatch) {
                         JSONObject serialized = message.serializeToJSON();
-                        if (serialized != null)
+                        if (serialized != null) {
                             payload.put(serialized);
+                            if (true || Constants.DEBUG)
+                                Log.w("actfm-sync-message", serialized.toString());
+                        }
+
                     }
 
                     try {
-                        JSONObject response = actFmInvoker.invoke("sync", "data", payload, "token", token);
+                        JSONObject response = actFmInvoker.postSync(payload, token);
                         // process responses
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
                         if (serverMessagesJson != null) {
@@ -168,14 +177,17 @@ public class ActFmSyncThread {
                                     }
                                 }
                             }
-                            replayOutstandingChanges();
+//                            replayOutstandingChanges();
                         }
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
                     } catch (IOException e) {
+                        Log.e(ERROR_TAG, "IOException", e);
                         batchSize = Math.max(batchSize / 2, 1);
                     }
                     messageBatch = new LinkedList<ClientToServerMessage<?>>();
+                    Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+                    ContextManager.getContext().sendBroadcast(refresh);
                 }
             }
         } catch (Exception e) {
@@ -195,7 +207,7 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
-        return true;
+        return Flags.checkAndClear(Flags.BG_SYNC);
     }
 
     private boolean checkForToken() {

@@ -44,6 +44,7 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Exposes sync action
@@ -173,21 +174,25 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 callback.started();
                 callback.incrementMax(160);
 
-                final AtomicInteger finisher = new AtomicInteger(5);
+                final AtomicInteger finisher = new AtomicInteger(1);
 
                 actFmPreferenceService.recordSyncStart();
                 updateUserStatus();
+                Flags.set(Flags.BG_SYNC);
+                synchronized(ActFmSyncMonitor.getInstance()) {
+                    ActFmSyncMonitor.getInstance().notifyAll();
+                }
 
-                startUsersSync(callback, finisher);
-
-                startTagFetcher(callback, finisher);
-
-                startUpdatesFetcher(manual, callback, finisher);
-
+//                startUsersSync(callback, finisher);
+//
+//                startTagFetcher(callback, finisher);
+//
+//                startUpdatesFetcher(manual, callback, finisher);
+//
                 startFeaturedListFetcher(callback, finisher);
 
-                actFmSyncService.waitUntilEmpty();
-                startTaskFetcher(manual, callback, finisher);
+//                actFmSyncService.waitUntilEmpty();
+//                startTaskFetcher(manual, callback, finisher);
 
                 callback.incrementProgress(50);
             }
@@ -449,36 +454,36 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     public void synchronizeList(Object list, final boolean manual,
             final SyncResultCallback callback) {
 
-        if (list instanceof User) {
-            synchronizeUser((User) list, manual, callback);
-            return;
-        }
-
-        if(!(list instanceof TagData))
-            return;
-
-        final TagData tagData = (TagData) list;
-        final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
-
-        new Thread(new Runnable() {
-            public void run() {
-                callback.started();
-                callback.incrementMax(100);
-
-                final AtomicInteger finisher = new AtomicInteger(3);
-
-                fetchTagData(tagData, noRemoteId, manual, callback, finisher);
-
-                if(!noRemoteId) {
-                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId()) && manual;
-                    actFmSyncService.waitUntilEmpty();
-                    fetchTasksForTag(tagData, manual, orderPushQueued, callback, finisher);
-                    fetchUpdatesForTag(tagData, manual, callback, finisher);
-                }
-
-                callback.incrementProgress(50);
-            }
-        }).start();
+//        if (list instanceof User) {
+//            synchronizeUser((User) list, manual, callback);
+//            return;
+//        }
+//
+//        if(!(list instanceof TagData))
+//            return;
+//
+//        final TagData tagData = (TagData) list;
+//        final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
+//
+//        new Thread(new Runnable() {
+//            public void run() {
+//                callback.started();
+//                callback.incrementMax(100);
+//
+//                final AtomicInteger finisher = new AtomicInteger(3);
+//
+//                fetchTagData(tagData, noRemoteId, manual, callback, finisher);
+//
+//                if(!noRemoteId) {
+//                    boolean orderPushQueued = actFmSyncService.cancelTagOrderingPush(tagData.getId()) && manual;
+//                    actFmSyncService.waitUntilEmpty();
+//                    fetchTasksForTag(tagData, manual, orderPushQueued, callback, finisher);
+//                    fetchUpdatesForTag(tagData, manual, callback, finisher);
+//                }
+//
+//                callback.incrementProgress(50);
+//            }
+//        }).start();
     }
 
     private void synchronizeUser(final User user, final boolean manual, final SyncResultCallback callback) {
