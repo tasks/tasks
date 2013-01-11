@@ -501,10 +501,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
-        if (Preferences.getBoolean(R.string.p_default_showdecorations_key, false)) {
-            decorationManager.request(viewHolder);
-        }
-
     }
 
     @SuppressWarnings("nls")
