@@ -489,7 +489,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 taskAction.setVisibility(View.VISIBLE);
                 TaskAction action = taskActionLoader.get(task.getId());
                 if (action != null) {
-                    taskAction.setImageBitmap(action.icon);
+                    taskAction.setImageDrawable(action.icon);
                     taskAction.setTag(action);
                 }
             } else {

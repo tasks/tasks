@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -68,13 +67,13 @@ public class LinkActionExposer {
 
         Resources r = context.getResources();
         if (hasAttachments) {
-            Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_attachments)).getBitmap();
+            BitmapDrawable icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_attachments));
             FilesAction filesAction = new FilesAction("", null, icon); //$NON-NLS-1$
             result.add(filesAction);
         }
 
         if (!TextUtils.isEmpty(notes) && !Preferences.getBoolean(R.string.p_showNotes, false)) {
-            Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_notes)).getBitmap();
+            BitmapDrawable icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_notes));
             NotesAction notesAction = new NotesAction("", null, icon); //$NON-NLS-1$
             result.add(notesAction);
         }
@@ -113,13 +112,13 @@ public class LinkActionExposer {
         } else {
             icon = r.getDrawable(R.drawable.action_web);
         }
-        Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
+//        Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
 
         if(text.length() > 15)
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
 
         TaskAction action = new TaskAction(text,
-                PendingIntent.getActivity(context, (int)id, actionIntent, 0), bitmap);
+                PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
         return action;
     }
 
