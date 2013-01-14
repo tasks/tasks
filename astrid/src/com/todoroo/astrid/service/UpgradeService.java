@@ -233,11 +233,10 @@ public final class UpgradeService {
                             if (from < V4_4_2)
                                 new SubtasksMetadataMigration().performMigration();
 
-                            if (from < V4_5_1)
+                            if (from < V4_6_0) {
                                 new GCMIntentService.GCMMigration().performMigration(UpgradeActivity.this);
-
-                            if (from < V4_6_0)
                                 new AstridNewSyncMigrator().performMigration();
+                            }
 
                         } finally {
                             finished = true;
