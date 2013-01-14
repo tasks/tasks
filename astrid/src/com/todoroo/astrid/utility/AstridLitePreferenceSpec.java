@@ -120,7 +120,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2, "0", ifUnset); //$NON-NLS-1$
+        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2, "2", ifUnset); //$NON-NLS-1$
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false, ifUnset);
 
