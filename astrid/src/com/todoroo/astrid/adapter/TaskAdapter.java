@@ -148,6 +148,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.ID,
         Task.TITLE,
         Task.FLAGS,
+        Task.IMPORTANCE,
+        Task.RECURRENCE,
         Task.COMPLETION_DATE,
         Task.HIDE_UNTIL,
         Task.DELETION_DATE
@@ -196,7 +198,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     protected final int resource;
-    protected final boolean titleOnly;
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
     private ActionsLoaderThread actionsLoader;
@@ -213,6 +214,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final DisplayMetrics displayMetrics;
 
     private final boolean simpleLayout;
+    private final boolean titleOnlyLayout;
     protected final int minRowHeight;
 
     // --- task detail and decoration soft caches
@@ -240,7 +242,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         this.query = query;
         this.resource = resource;
-        this.titleOnly = resource == R.layout.task_adapter_row_title_only;
+        this.titleOnlyLayout = resource == R.layout.task_adapter_row_title_only;
         this.fragment = fragment;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
@@ -272,7 +274,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected int computeMinRowHeight() {
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        if (simpleLayout) {
+        if (simpleLayout || titleOnlyLayout) {
             return (int) (metrics.density * 40);
         } else {
             return (int) (metrics.density * 45);
@@ -289,15 +291,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void startDetailThread() {
-        if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout) {
+        if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
             detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
     }
 
     private void startTaskActionsThread() {
-        actionsLoader = new ActionsLoaderThread();
-        actionsLoader.start();
+        if (!titleOnlyLayout) {
+            actionsLoader = new ActionsLoaderThread();
+            actionsLoader.start();
+        }
     }
 
     /* ======================================================================
@@ -348,17 +352,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         boolean showFullTaskTitle = Preferences.getBoolean(R.string.p_fullTaskTitle, false);
         boolean showNotes = Preferences.getBoolean(R.string.p_showNotes, false);
-        if (showFullTaskTitle && !titleOnly) {
+        if (showFullTaskTitle && !titleOnlyLayout) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
             viewHolder.nameView.setSingleLine(false);
             viewHolder.nameView.setEllipsize(null);
-        } else if (titleOnly) {
+        } else if (titleOnlyLayout) {
             viewHolder.nameView.setMaxLines(1);
             viewHolder.nameView.setSingleLine(true);
             viewHolder.nameView.setEllipsize(TruncateAt.END);
         }
 
-        if (showNotes && !simpleLayout) {
+        if (showNotes && !simpleLayout && !titleOnlyLayout) {
             RelativeLayout.LayoutParams taskRowParams = (RelativeLayout.LayoutParams)viewHolder.taskRow.getLayoutParams();
             taskRowParams.addRule(RelativeLayout.CENTER_VERTICAL, 0);
         }
@@ -371,7 +375,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details1.setTag(viewHolder);
 
         // add UI component listeners
-        if (!titleOnly)
+        if (!titleOnlyLayout)
             addListeners(view);
 
         return view;
@@ -383,7 +387,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
-        if (!titleOnly) {
+        if (!titleOnlyLayout) {
             viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
         }
@@ -393,7 +397,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         task.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        if (!titleOnly)
+        if (!titleOnlyLayout)
             setTaskAppearance(viewHolder, task);
     }
 
@@ -427,14 +431,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-        if (fontSize < 16 || titleOnly) {
+        if (fontSize < 16 || titleOnlyLayout) {
             viewHolder.rowBody.setMinimumHeight(0);
-            if (viewHolder.completeBox != null)
-                viewHolder.completeBox.setMinimumHeight(0);
+            viewHolder.completeBox.setMinimumHeight(0);
         } else {
             viewHolder.rowBody.setMinimumHeight(minRowHeight);
-            if (viewHolder.completeBox != null)
-                viewHolder.completeBox.setMinimumHeight(minRowHeight);
+            viewHolder.completeBox.setMinimumHeight(minRowHeight);
         }
 
         if (task.isEditable())
@@ -454,8 +456,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             nameView.setText(nameValue);
         }
 
-        if (titleOnly)
+        if (titleOnlyLayout) {
+            setupCompleteBox(viewHolder);
             return;
+        }
 
         float dueDateTextWidth = setupDueDateAndTags(viewHolder, task);
 
@@ -568,31 +572,35 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.completeBox.setOnTouchListener(otl);
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
-        viewHolder.picture.setOnTouchListener(otl);
-        viewHolder.picture.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.completeBox.performClick();
-            }
-        });
+        if (viewHolder.picture != null) {
+            viewHolder.picture.setOnTouchListener(otl);
+            viewHolder.picture.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.completeBox.performClick();
+                }
+            });
+        }
 
-        viewHolder.taskActionContainer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
-                if (action instanceof NotesAction) {
-                    showEditNotesDialog(viewHolder.task);
-                } else if (action instanceof FilesAction) {
-                    showFilesDialog(viewHolder.task);
-                } else if (action != null) {
-                    try {
-                        action.intent.send();
-                    } catch (CanceledException e) {
-                        // Oh well
+        if (viewHolder.taskActionContainer != null) {
+            viewHolder.taskActionContainer.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
+                    if (action instanceof NotesAction) {
+                        showEditNotesDialog(viewHolder.task);
+                    } else if (action instanceof FilesAction) {
+                        showFilesDialog(viewHolder.task);
+                    } else if (action != null) {
+                        try {
+                            action.intent.send();
+                        } catch (CanceledException e) {
+                            // Oh well
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void showEditNotesDialog(final Task task) {
@@ -1149,7 +1157,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         }
 
-        // complete box
+        setupCompleteBox(viewHolder);
+
+    }
+
+    private void setupCompleteBox(ViewHolder viewHolder) {
+     // complete box
+        final Task task = viewHolder.task;
+        final AsyncImageView pictureView = viewHolder.picture;
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
             checkBoxView.setChecked(task.isCompleted());
             // disable checkbox if task is readonly
@@ -1163,6 +1178,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else {
                 checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
             }
+            if (titleOnlyLayout)
+                return;
 
             if (checkBoxView.isChecked()) {
                 if (pictureView != null)
@@ -1179,7 +1196,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
         }
-
     }
 
     // Returns due date text width

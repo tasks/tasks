@@ -18,12 +18,22 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="10dip"
 	    android:layout_marginBottom="10dip">
+	    
+	    <com.todoroo.astrid.ui.CheckableImageView
+            android:id="@+id/completeBox"
+            android:layout_width="45dip"
+            android:layout_marginLeft="4dip"
+            android:layout_height="wrap_content"
+            android:minHeight="45dip"
+            android:scaleType="center"
+            android:gravity="center"
+            android:layout_centerVertical="true" />
 	
 	    <LinearLayout
 	        android:id="@+id/task_row"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="10dip"
+	        android:layout_marginLeft="52dip"
 	        android:layout_marginRight="10dip"
 	        android:layout_centerVertical="true"
 	        android:orientation="horizontal"
