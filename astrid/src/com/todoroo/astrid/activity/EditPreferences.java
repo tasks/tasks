@@ -519,8 +519,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "row-style", //$NON-NLS-1$
                             "changed-to", valueString); //$NON-NLS-1$
                     Preference notes = findPreference(getString(R.string.p_showNotes));
+                    Preference fullTitle = findPreference(getString(R.string.p_fullTaskTitle));
                     try {
-                        notes.setEnabled(Integer.parseInt((String) newValue) == 0);
+                        int newValueInt = Integer.parseInt((String) newValue);
+                        fullTitle.setEnabled(newValueInt != 2);
+                        notes.setEnabled(newValueInt == 0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -744,6 +747,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_showNotes)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                updatePreferences(preference, newValue);
                 StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_NOTES_IN_ROW, "enabled", newValue.toString()); //$NON-NLS-1$
                 return true;
             }
@@ -752,6 +756,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_fullTaskTitle)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                updatePreferences(preference, newValue);
                 StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "full-title", "full-title", newValue.toString()); //$NON-NLS-1$ //$NON-NLS-2$
                 return true;
             }
