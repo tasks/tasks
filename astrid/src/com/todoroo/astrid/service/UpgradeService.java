@@ -285,7 +285,7 @@ public final class UpgradeService {
 
         if (from >= V4_5_0 && from < V4_5_1) {
             newVersionString(changeLog, "4.5.1 (1/15/13)", new String[] {
-                "New 'Titles only' style option for task lists (Settings -> Appearance -> Task row appearance)",
+                "New 'Titles only' style option for task lists (Settings > Appearance > Task row appearance)",
                 "Bug and crash fixes"
             });
         }
