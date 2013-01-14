@@ -50,6 +50,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_5_1 = 292;
     public static final int V4_5_0 = 291;
     public static final int V4_4_4_1 = 290;
     public static final int V4_4_4 = 289;
@@ -182,6 +183,8 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
+        inlineUpgrades(context, from); // Migrations that are short or don't require launching a separate activity
+
         if(from < maxWithUpgrade) {
             Intent upgrade = new Intent(context, UpgradeActivity.class);
             upgrade.putExtra(UpgradeActivity.TOKEN_FROM_VERSION, from);
@@ -248,6 +251,17 @@ public final class UpgradeService {
             // Don't allow the back button to finish this activity before things are done
             if (finished)
                 super.onBackPressed();
+        }
+    }
+
+    private void inlineUpgrades(Context context, int from) {
+        if (from < V4_5_1) {
+            String key = context.getString(R.string.p_taskRowStyle);
+            if (Preferences.isSet(key)) {
+                boolean value = Preferences.getBoolean(key, true);
+                Preferences.clear(key);
+                Preferences.setString(R.string.p_taskRowStyle_v2, value ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
+            }
         }
     }
 

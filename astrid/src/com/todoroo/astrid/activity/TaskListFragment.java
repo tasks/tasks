@@ -879,11 +879,21 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         syncActionHelper.request();
     }
 
-    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        int resource = Preferences.getBoolean(R.string.p_taskRowStyle, false) ?
-                R.layout.task_adapter_row_simple : R.layout.task_adapter_row;
+    public static int getTaskRowResource() {
+        int rowStyle = Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0);
+        switch(rowStyle) {
+        case 1:
+            return R.layout.task_adapter_row_simple;
+        case 2:
+        case 0:
+        default:
+            return R.layout.task_adapter_row;
+        }
+    }
 
-        return new TaskAdapter(this, resource,
+    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
+
+        return new TaskAdapter(this, getTaskRowResource(),
                 cursor, sqlQueryTemplate, false,
                 new OnCompletedTaskListener() {
                     @Override
