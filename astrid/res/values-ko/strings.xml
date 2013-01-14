@@ -364,10 +364,6 @@
   <string name="EPr_ideaAuto_title">아이디어 탭 자동 불러오기</string>
   <string name="EPr_ideaAuto_desc_enabled">아이디어 탭의 웹 검색은 탭을 클릭했을 때 실행될 것입니다</string>
   <string name="EPr_ideaAuto_desc_disabled">아이디어 탭의 웹 검색은 수동으로 요청했을 때만 실행될 것입니다</string>
-  <string name="EPr_task_row_style_title_simple">가로줄 스타일: 간단히</string>
-  <string name="EPr_task_row_style_title_legacy">가로줄 스타일: 원래대로</string>
-  <string name="EPr_task_row_style_summary_simple">제목을 한 줄로 줄이고 날짜와 목록을 그 아래에 출력</string>
-  <string name="EPr_task_row_style_summary_legacy">제목을 두 줄로 줄이고 날짜를 오른쪽에 출력</string>
   <string name="EPr_theme_title">색상 테마</string>
   <string name="EPr_theme_desc">현재: %s</string>
   <string name="EPr_theme_desc_unsupported">설정은 안드로이드 2.0 이상이 필요합니다</string>

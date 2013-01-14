@@ -328,10 +328,6 @@
   <string name="EPr_ideaAuto_title">自动加载意见选项标签</string>
   <string name="EPr_ideaAuto_desc_enabled">点击标签后，网页将会搜索意见选项。</string>
   <string name="EPr_ideaAuto_desc_disabled">只有手动请求后，网页将会搜索意见选项。</string>
-  <string name="EPr_task_row_style_title_simple">列表布局：简单</string>
-  <string name="EPr_task_row_style_title_legacy">列表布局：原始</string>
-  <string name="EPr_task_row_style_summary_simple">截取标题为一行，并在下方显示日期和列表</string>
-  <string name="EPr_task_row_style_summary_legacy">截取标题至两行，并在右边显示日期</string>
   <string name="EPr_theme_title">主题</string>
   <string name="EPr_theme_desc">当前：%s</string>
   <string name="EPr_theme_desc_unsupported">该设置需要 Android 2.0+</string>

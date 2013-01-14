@@ -364,10 +364,6 @@
   <string name="EPr_ideaAuto_title">Auto cargar la pestaña Ideas</string>
   <string name="EPr_ideaAuto_desc_enabled">La búsqueda para la pestaña Ideas se realizará cuando a la pestaña se le de clic</string>
   <string name="EPr_ideaAuto_desc_disabled">La búsqueda para la pestaña Ideas se realizará solo cuando sea pedida manualmente</string>
-  <string name="EPr_task_row_style_title_simple">Tipo de renglón: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Tipo de renglón: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncar el título a una línea con la fecha y listas debajo</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncar el título a dos líneas con la fecha a la derecha</string>
   <string name="EPr_theme_title">Combinación de colores</string>
   <string name="EPr_theme_desc">Actualmente: %s</string>
   <string name="EPr_theme_desc_unsupported">La configuración requiere Android 2.0+</string>

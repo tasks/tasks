@@ -339,10 +339,6 @@
   <string name="EPr_ideaAuto_title">Charger automatiquement l\'onglet d\'idées</string>
   <string name="EPr_ideaAuto_desc_enabled">Les recherches web pour l\'onglet d\'idées seront effectuées quand vous cliquerez sur l\'onglet</string>
   <string name="EPr_ideaAuto_desc_disabled">Les recherches web pour l\'onglet d\'idées seront effectuées quand vous le demanderez</string>
-  <string name="EPr_task_row_style_title_simple">Style de ligne : simple</string>
-  <string name="EPr_task_row_style_title_legacy">Style de ligne : original</string>
-  <string name="EPr_task_row_style_summary_simple">Tronquer le titre en une ligne avec la date et les listes en dessous</string>
-  <string name="EPr_task_row_style_summary_legacy">Tronquer le titre en deux lignes avec la date sur la droite</string>
   <string name="EPr_theme_title">Thème de couleur</string>
   <string name="EPr_theme_desc">Actuellement : %s</string>
   <string name="EPr_theme_desc_unsupported">Ce paramètre requiert Android 2.0+.</string>

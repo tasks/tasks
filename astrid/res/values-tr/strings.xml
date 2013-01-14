@@ -346,8 +346,6 @@
   <string name="EPr_ideaAuto_title">Fikirleri Kendiliğinden-Yükle Sekmesi</string>
   <string name="EPr_ideaAuto_desc_enabled">Fikirler için olan aramalar sekmesi, sekme tıklandığında belirecek</string>
   <string name="EPr_ideaAuto_desc_disabled">Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle belirecek</string>
-  <string name="EPr_task_row_style_title_simple">Sıralama biçimi: Basit</string>
-  <string name="EPr_task_row_style_title_legacy">Sıralama biçimi: Özgün</string>
   <string name="EPr_theme_title">Renk Teması</string>
   <string name="EPr_theme_desc">Geçerli: %s</string>
   <string name="EPr_theme_desc_unsupported">Ayarlar için Android 2.0+ zorunludur.</string>
