@@ -885,6 +885,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         case 1:
             return R.layout.task_adapter_row_simple;
         case 2:
+            return R.layout.task_adapter_row_title_only;
         case 0:
         default:
             return R.layout.task_adapter_row;

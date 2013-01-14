@@ -35,6 +35,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.TextUtils.TruncateAt;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -186,6 +187,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     protected final int resource;
+    protected final boolean titleOnly;
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
     private ActionsLoaderThread actionsLoader;
@@ -229,6 +231,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         this.query = query;
         this.resource = resource;
+        this.titleOnly = resource == R.layout.task_adapter_row_title_only;
         this.fragment = fragment;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
@@ -336,10 +339,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         boolean showFullTaskTitle = Preferences.getBoolean(R.string.p_fullTaskTitle, false);
         boolean showNotes = Preferences.getBoolean(R.string.p_showNotes, false);
-        if (showFullTaskTitle) {
+        if (showFullTaskTitle && !titleOnly) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
             viewHolder.nameView.setSingleLine(false);
             viewHolder.nameView.setEllipsize(null);
+        } else if (titleOnly) {
+            viewHolder.nameView.setMaxLines(1);
+            viewHolder.nameView.setSingleLine(true);
+            viewHolder.nameView.setEllipsize(TruncateAt.END);
         }
 
         if (showNotes && !simpleLayout) {
@@ -355,7 +362,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details1.setTag(viewHolder);
 
         // add UI component listeners
-        addListeners(view);
+        if (!titleOnly)
+            addListeners(view);
 
         return view;
     }
@@ -374,7 +382,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         task.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        setTaskAppearance(viewHolder, task);
+        if (!titleOnly)
+            setTaskAppearance(viewHolder, task);
     }
 
     /**
@@ -407,12 +416,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-        if (fontSize < 16) {
+        if (fontSize < 16 || titleOnly) {
             viewHolder.rowBody.setMinimumHeight(0);
-            viewHolder.completeBox.setMinimumHeight(0);
+            if (viewHolder.completeBox != null)
+                viewHolder.completeBox.setMinimumHeight(0);
         } else {
             viewHolder.rowBody.setMinimumHeight(minRowHeight);
-            viewHolder.completeBox.setMinimumHeight(minRowHeight);
+            if (viewHolder.completeBox != null)
+                viewHolder.completeBox.setMinimumHeight(minRowHeight);
         }
 
         if (task.isEditable())
@@ -431,6 +442,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 nameValue = resources.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
         }
+
+        if (titleOnly)
+            return;
 
         float dueDateTextWidth = setupDueDateAndTags(viewHolder, task);
 
