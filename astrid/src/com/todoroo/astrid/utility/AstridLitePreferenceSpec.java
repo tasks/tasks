@@ -91,8 +91,6 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_ideas_tab_enabled, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_autoIdea, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_taskRowStyle, true, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_use_filters, false, ifUnset);
@@ -121,6 +119,8 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, false, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2, "2", ifUnset); //$NON-NLS-1$
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false, ifUnset);
 

@@ -16,6 +16,7 @@
 package com.todoroo.astrid.gtasks.auth;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -27,6 +28,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 
 /**
  * AuthManager keeps track of the current auth token for a user. The advantage
@@ -209,10 +212,12 @@ public class ModernAuthManager implements AuthManager {
   }
 
     public static String[] getAccounts(Activity activity) {
-        final Account[] accounts = AccountManager.get(activity).getAccountsByType("com.google"); //$NON-NLS-1$
-        String[] accountNames = new String[accounts.length];
-        for(int i = 0; i < accounts.length; i++)
-            accountNames[i] = accounts[i].name;
-        return accountNames;
+        GoogleAccountManager accountManager = new GoogleAccountManager(activity);
+        Account[] accounts = accountManager.getAccounts();
+        ArrayList<String> accountNames = new ArrayList<String>();
+        for (Account a : accounts) {
+            accountNames.add(a.name);
+        }
+        return accountNames.toArray(new String[accountNames.size()]);
     }
 }

@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -78,8 +77,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 contentValues);
         if(!RemoteModel.NO_UUID.equals(tag.uuid)) {
             filter.listingTitle += " (" + tag.count + ")";
-            if(tag.count == 0)
-                filter.color = Color.GRAY;
         }
 
         int deleteIntentLabel;

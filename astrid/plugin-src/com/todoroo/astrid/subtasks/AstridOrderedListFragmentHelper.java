@@ -181,10 +181,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
-        int resource = Preferences.getBoolean(R.string.p_taskRowStyle, false) ?
-                R.layout.task_adapter_row_simple : R.layout.task_adapter_row;
 
-        taskAdapter = new DraggableTaskAdapter(fragment, resource,
+        taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(),
                 cursor, sqlQueryTemplate, false, null);
 
         getTouchListView().setItemHightNormal(taskAdapter.computeFullRowHeight());

@@ -364,10 +364,6 @@
   <string name="EPr_ideaAuto_title">Автозагрузка закладки Идеи</string>
   <string name="EPr_ideaAuto_desc_enabled">Веб-поиск для закладки Идеи будет выполняться при нажатии на закладку</string>
   <string name="EPr_ideaAuto_desc_disabled">Веб-поиск для закладки Идеи будет выполняться только при вызове вручную</string>
-  <string name="EPr_task_row_style_title_simple">Стиль пункта: Простой</string>
-  <string name="EPr_task_row_style_title_legacy">Стиль пункта: Оригинальный</string>
-  <string name="EPr_task_row_style_summary_simple">Сократить заголовок до одной строки с указанием даты и списков ниже</string>
-  <string name="EPr_task_row_style_summary_legacy">Сократить заголовок до двух строк с указанием даты справа</string>
   <string name="EPr_theme_title">Цветовая тема</string>
   <string name="EPr_theme_desc">Текущая: %s</string>
   <string name="EPr_theme_desc_unsupported">Настройка требует Android 2.0+</string>

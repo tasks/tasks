@@ -253,7 +253,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         }
 
         preference = screen.findPreference(getString(R.string.p_showNotes));
-        preference.setEnabled(!Preferences.getBoolean(R.string.p_taskRowStyle, false));
+        preference.setEnabled(Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 0);
 
         removeForbiddenPreferences(screen, r);
     }
@@ -500,14 +500,18 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
             preference.setTitle(title);
             preference.setSummary(summary);
-        } else if (r.getString(R.string.p_taskRowStyle).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value) {
-                preference.setTitle(R.string.EPr_task_row_style_title_legacy);
-                preference.setSummary(R.string.EPr_task_row_style_summary_legacy);
-            } else {
-                preference.setTitle(R.string.EPr_task_row_style_title_simple);
-                preference.setSummary(R.string.EPr_task_row_style_summary_simple);
+        } else if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {
+            try {
+                Integer valueInt = Integer.parseInt((String) value);
+                String[] titles = getResources().getStringArray(R.array.EPr_task_row_styles);
+                String[] descriptions = getResources().getStringArray(R.array.EPr_task_row_style_descriptions);
+
+                preference.setTitle(getString(R.string.EPr_task_row_style_title, titles[valueInt]));
+                preference.setSummary(descriptions[valueInt]);
+            } catch (Exception e) {
+                //
             }
+
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
@@ -515,7 +519,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "row-style", //$NON-NLS-1$
                             "changed-to", valueString); //$NON-NLS-1$
                     Preference notes = findPreference(getString(R.string.p_showNotes));
-                    notes.setEnabled(!(Boolean) newValue);
+                    Preference fullTitle = findPreference(getString(R.string.p_fullTaskTitle));
+                    try {
+                        int newValueInt = Integer.parseInt((String) newValue);
+                        fullTitle.setEnabled(newValueInt != 2);
+                        notes.setEnabled(newValueInt == 0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return super.onPreferenceChange(p, newValue);
                 };
             });
@@ -736,6 +747,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_showNotes)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                updatePreferences(preference, newValue);
                 StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_NOTES_IN_ROW, "enabled", newValue.toString()); //$NON-NLS-1$
                 return true;
             }
@@ -744,6 +756,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_fullTaskTitle)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                updatePreferences(preference, newValue);
                 StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "full-title", "full-title", newValue.toString()); //$NON-NLS-1$ //$NON-NLS-2$
                 return true;
             }

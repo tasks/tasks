@@ -707,10 +707,20 @@
   <string name="EPr_ideaAuto_desc_disabled">Web searches for ideas tab will be performed only when manually requested</string>
   
   <!-- Preferences: task row style -->
-  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
-  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
-  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
+  <string-array name="EPr_task_row_styles">
+      <item>Original</item>
+      <item>Simple</item>
+      <item>Title only</item>
+  </string-array>
+  
+  <string-array name="EPr_task_row_style_descriptions">
+      <item>Truncate title to two lines with date on right</item>
+      <item>Truncate title to one line with date and lists below</item>
+      <item>Single line title only</item>
+  </string-array>
+  
+  <!-- task row style title (%s -> style) -->
+  <string name="EPr_task_row_style_title">Row style: %s</string>
   
   <!-- Preference: custom filters enabled -->
   <string name="EPr_use_filters_title">Use filters</string>

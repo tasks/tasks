@@ -117,8 +117,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_menu_sort, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_addons, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_taskRowStyle, false, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_use_filters, true, ifUnset);
@@ -135,6 +133,9 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true, ifUnset);
+
+        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2,
+                ABChooser.readChoiceForTest(ABTests.AB_TITLE_ONLY) == 0 ? "0" : "2", ifUnset); //$NON-NLS-1$ //$NON-NLS-2$
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts,
                 ABChooser.readChoiceForTest(ABTests.AB_USE_DATE_SHORTCUTS) != 0, ifUnset);

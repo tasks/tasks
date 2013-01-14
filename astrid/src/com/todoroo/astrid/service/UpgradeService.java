@@ -185,6 +185,8 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
+        inlineUpgrades(context, from); // Migrations that are short or don't require launching a separate activity
+
         if(from < maxWithUpgrade) {
             Intent upgrade = new Intent(context, UpgradeActivity.class);
             upgrade.putExtra(UpgradeActivity.TOKEN_FROM_VERSION, from);
@@ -260,6 +262,17 @@ public final class UpgradeService {
         }
     }
 
+    private void inlineUpgrades(Context context, int from) {
+        if (from < V4_5_1) {
+            String key = context.getString(R.string.p_taskRowStyle);
+            if (Preferences.isSet(key)) {
+                boolean value = Preferences.getBoolean(key, false);
+                Preferences.clear(key);
+                Preferences.setString(R.string.p_taskRowStyle_v2, value ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        }
+    }
+
     /**
      * Return a change log string. Releases occur often enough that we don't
      * expect change sets to be localized.
@@ -277,6 +290,13 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_5_0 && from < V4_5_1) {
+            newVersionString(changeLog, "4.5.1 (1/15/13)", new String[] {
+                "New 'Titles only' style option for task lists (Settings > Appearance > Task row appearance)",
+                "Bug and crash fixes"
+            });
+        }
 
         if (from < V4_5_0) {
             newVersionString(changeLog, "4.5.0 (12/19/12)", new String[] {

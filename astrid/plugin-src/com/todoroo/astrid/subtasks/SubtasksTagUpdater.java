@@ -7,6 +7,8 @@ public class SubtasksTagUpdater extends SubtasksUpdater<TagData> {
 
     @Override
     protected String getSerializedTree(TagData list, Filter filter) {
+        if (list == null)
+            return "[]"; //$NON-NLS-1$
         String order = list.getValue(TagData.TAG_ORDERING);
         if (order == null || "null".equals(order)) //$NON-NLS-1$
             order = "[]"; //$NON-NLS-1$
