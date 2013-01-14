@@ -123,7 +123,11 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     }
 
     public Property<?>[] taskProperties() {
-        ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
+        Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
+        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2)
+            baseProperties = TaskAdapter.BASIC_PROPERTIES;
+
+        ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(baseProperties));
         properties.add(updater.indentProperty());
         properties.add(updater.orderProperty());
         return properties.toArray(new Property<?>[properties.size()]);

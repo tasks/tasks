@@ -144,6 +144,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TAGS // Concatenated list of tags
     };
 
+    public static final Property<?>[] BASIC_PROPERTIES = new Property<?>[] {
+        Task.ID,
+        Task.TITLE,
+        Task.FLAGS,
+        Task.COMPLETION_DATE,
+        Task.HIDE_UNTIL,
+        Task.DELETION_DATE
+    };
+
     public static int[] IMPORTANCE_RESOURCES = new int[] {
         R.drawable.importance_check_1,
         R.drawable.importance_check_2,
@@ -374,8 +383,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
-        viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
-        viewHolder.tagsString = cursor.get(TAGS);
+        if (!titleOnly) {
+            viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
+            viewHolder.tagsString = cursor.get(TAGS);
+        }
 
         Task task = viewHolder.task;
         task.clear();

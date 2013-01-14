@@ -934,6 +934,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     public Property<?>[] taskProperties() {
+        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2)
+            return TaskAdapter.BASIC_PROPERTIES;
         return TaskAdapter.PROPERTIES;
     }
 
