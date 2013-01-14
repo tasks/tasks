@@ -283,6 +283,13 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_5_0 && from < V4_5_1) {
+            newVersionString(changeLog, "4.5.1 (1/15/13)", new String[] {
+                "New 'Titles only' style option for task lists (Settings -> Appearance -> Task row appearance)",
+                "Bug and crash fixes"
+            });
+        }
+
         if (from < V4_5_0) {
             newVersionString(changeLog, "4.5.0 (12/19/12)", new String[] {
                 "Several interface and usability enhancements",
