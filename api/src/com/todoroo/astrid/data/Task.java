@@ -167,10 +167,6 @@ public final class Task extends RemoteModel {
     public static final LongProperty LAST_SYNC = new LongProperty(
             TABLE, "lastSync");
 
-    /** UUID proof text */
-    public static final StringProperty PROOF_TEXT = new StringProperty(
-            TABLE, PROOF_TEXT_PROPERTY_NAME);
-
     /** Pushed at date */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);

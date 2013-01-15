@@ -172,7 +172,6 @@ public class TaskService {
             return new Task();
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
-        newTask.clearValue(Task.PROOF_TEXT);
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
@@ -216,7 +215,6 @@ public class TaskService {
             return new Task();
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
-        newTask.clearValue(Task.PROOF_TEXT);
         newTask.clearValue(Task.USER);
         newTask.clearValue(Task.USER_ID);
 

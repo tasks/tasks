@@ -360,13 +360,10 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
 
-            database.execSQL(addColumnSql(Task.TABLE, Task.PROOF_TEXT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.UUID, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.PROOF_TEXT, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.UUID, visitor, null));
-            database.execSQL(addColumnSql(Update.TABLE, Update.PROOF_TEXT, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.UUID, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.TASK_UUID, visitor, null));

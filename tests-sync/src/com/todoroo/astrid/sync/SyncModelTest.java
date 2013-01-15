@@ -17,39 +17,11 @@ public class SyncModelTest extends NewSyncTestCase {
 	public void testCreateTaskMakesUuid() {
 		Task task = createTask();
 		assertFalse(RemoteModel.NO_UUID.equals(task.getValue(Task.UUID)));
-		assertFalse(TextUtils.isEmpty(task.getValue(Task.PROOF_TEXT)));
 	}
 
 	public void testCreateTagMakesUuid() {
 		TagData tag = createTagData();
-		assertFalse(RemoteModel.NO_UUID.equals(tag.getValue(TagData.UUID)));
-		assertFalse(TextUtils.isEmpty(tag.getValue(TagData.PROOF_TEXT)));		
-	}
-	
-	public void testCreateTaskMakesOutstandingProofText() {
-		Task task = createTask();
-		TodorooCursor<TaskOutstanding> cursor = taskOutstandingDao.query(
-				Query.select(TaskOutstanding.PROPERTIES)
-				.where(Criterion.and(TaskOutstanding.TASK_ID.eq(task.getId()),
-						TaskOutstanding.COLUMN_STRING.eq(RemoteModel.PROOF_TEXT_PROPERTY.name))));
-		try {
-			assertTrue(cursor.getCount() > 0);
-		} finally {
-			cursor.close();
-		}
-	}
-	
-	public void testCreateTagMakesOutstandingProofText() {
-		TagData tag = createTagData();
-		TodorooCursor<TagOutstanding> cursor = tagOutstandingDao.query(
-				Query.select(TagOutstanding.PROPERTIES)
-				.where(Criterion.and(TagOutstanding.TAG_DATA_ID.eq(tag.getId()),
-						TagOutstanding.COLUMN_STRING.eq(RemoteModel.PROOF_TEXT_PROPERTY.name))));
-		try {
-			assertTrue(cursor.getCount() > 0);
-		} finally {
-			cursor.close();
-		}		
+		assertFalse(RemoteModel.NO_UUID.equals(tag.getValue(TagData.UUID)));	
 	}
 	
 	public void testChangeTaskMakesOutstandingEntries() {

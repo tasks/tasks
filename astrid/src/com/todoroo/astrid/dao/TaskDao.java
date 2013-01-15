@@ -341,7 +341,6 @@ public class TaskDao extends RemoteModelDao<Task> {
             if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE)))
                 newConflict.setValue(Task.CREATION_DATE, newConflict.getValue(Task.CREATION_DATE) + 1000L);
             newConflict.clearValue(Task.UUID);
-            newConflict.clearValue(Task.PROOF_TEXT);
             saveExisting(newConflict);
         } else {
             delete(newConflict.getId());

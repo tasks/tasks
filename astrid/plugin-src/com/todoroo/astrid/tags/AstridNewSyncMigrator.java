@@ -9,7 +9,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -150,9 +149,7 @@ public class AstridNewSyncMigrator {
                 instance.readPropertiesFromCursor(cursor);
                 if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY) || instance.getValue(RemoteModel.REMOTE_ID_PROPERTY) == 0) {
                     // No remote id exists, just create a UUID
-                    Pair<String, String> uuidPair = UUIDHelper.newUUID();
-                    instance.setValue(RemoteModel.UUID_PROPERTY, uuidPair.getLeft());
-                    instance.setValue(RemoteModel.PROOF_TEXT_PROPERTY, uuidPair.getRight());
+                    instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
                 } else {
                     // Migrate remote id to uuid field
                     instance.setValue(RemoteModel.UUID_PROPERTY, Long.toString(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
