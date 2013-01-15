@@ -1,9 +1,10 @@
 package com.todoroo.astrid.sync;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
@@ -70,6 +71,32 @@ public class SyncMessageTest extends NewSyncTestCase {
 			t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
 			assertEquals(MAKE_CHANGES_TITLE, t.getValue(Task.TITLE));
 			assertEquals(Task.IMPORTANCE_DO_OR_DIE, t.getValue(Task.IMPORTANCE).intValue());
+		} catch (JSONException e) {
+			e.printStackTrace();
+			fail("JSONException");
+		}
+	}
+	
+	public void testMakeChangesMakesNewTasks() {
+		try {
+			JSONObject makeChanges = getMakeChanges();
+			makeChanges.put("uuid", "1");
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
+			message.processMessage();
+			
+			TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.UUID, Task.TITLE, Task.IMPORTANCE).where(Task.UUID.eq("1")));
+			try {
+				assertEquals(1, cursor.getCount());
+				cursor.moveToFirst();
+				Task t = new Task(cursor);
+				
+				assertEquals(MAKE_CHANGES_TITLE, t.getValue(Task.TITLE));
+				assertEquals(Task.IMPORTANCE_DO_OR_DIE, t.getValue(Task.IMPORTANCE).intValue());
+				assertEquals("1", t.getValue(Task.UUID));
+			} finally {
+				cursor.close();
+			}
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 			fail("JSONException");

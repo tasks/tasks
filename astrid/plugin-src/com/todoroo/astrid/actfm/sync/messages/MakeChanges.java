@@ -52,6 +52,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         }
                     }
 
+                    StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
+                    model.setValue(uuidProperty, uuid);
+
                     if (model.getSetValues().size() > 0) {
                         model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                         if (dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), model) <= 0) { // If update doesn't update rows. create a new model

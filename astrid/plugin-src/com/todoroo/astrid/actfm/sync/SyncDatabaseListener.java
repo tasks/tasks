@@ -22,9 +22,12 @@ public class SyncDatabaseListener<MTYPE extends RemoteModel> implements ModelUpd
 
     @Override
     public void onModelUpdated(MTYPE model) {
-        queue.add(ChangesHappened.instantiateChangesHappened(model.getId(), modelType));
-        synchronized(monitor) {
-            monitor.notifyAll();
+        ChangesHappened<?, ?> ch = ChangesHappened.instantiateChangesHappened(model.getId(), modelType);
+        if (ch.numChanges() > 0) {
+            queue.add(ch);
+            synchronized(monitor) {
+                monitor.notifyAll();
+            }
         }
     }
 
