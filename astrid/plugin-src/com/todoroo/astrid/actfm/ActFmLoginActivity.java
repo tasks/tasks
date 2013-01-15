@@ -63,6 +63,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmServiceException;
+import com.todoroo.astrid.actfm.sync.ActFmSyncMonitor;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -568,6 +569,11 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                 result.optString("picture"));
 
         ActFmPreferenceService.reloadThisUser();
+
+        ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
+        synchronized (monitor) {
+            monitor.notifyAll();
+        }
 
         setResult(RESULT_OK);
         finish();

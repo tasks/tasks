@@ -128,7 +128,7 @@ public class ActFmSyncThread {
             List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
-                    while (pendingMessages.isEmpty() && !timeForBackgroundSync()) {
+                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
                         try {
                             monitor.wait();
                         } catch (InterruptedException e) {
