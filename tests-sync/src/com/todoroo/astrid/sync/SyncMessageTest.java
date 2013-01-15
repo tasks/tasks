@@ -36,18 +36,11 @@ public class SyncMessageTest extends NewSyncTestCase {
 		JSONObject makeChanges = new JSONObject();
 		makeChanges.put("type", ServerToClientMessage.TYPE_MAKE_CHANGES);
 		makeChanges.put("table", NameMaps.TABLE_ID_TASKS);
-		JSONArray changes = new JSONArray();
 		
-		JSONArray change1 = new JSONArray();
-		change1.put("title"); 
-		change1.put(MAKE_CHANGES_TITLE);
+		JSONObject changes = new JSONObject();
+		changes.put("title", MAKE_CHANGES_TITLE); 
+		changes.put("importance", Task.IMPORTANCE_DO_OR_DIE);
 		
-		JSONArray change2 = new JSONArray();
-		change2.put("importance");
-		change2.put(Task.IMPORTANCE_DO_OR_DIE);
-		
-		changes.put(change1);
-		changes.put(change2);
 		makeChanges.put("changes", changes);
 		return makeChanges;
 	}
@@ -58,11 +51,8 @@ public class SyncMessageTest extends NewSyncTestCase {
 		makeChanges.put("table", NameMaps.TABLE_ID_PUSHED_AT);
 		makeChanges.put("uuid", NameMaps.TABLE_ID_TASKS);
 		
-		JSONArray changes = new JSONArray();
-		JSONArray change1 = new JSONArray();
-		change1.put("pushed_at");
-		change1.put(date);
-		changes.put(change1);
+		JSONObject changes = new JSONObject();
+		changes.put("pushed_at", date);
 		
 		makeChanges.put("changes", changes);
 		return makeChanges;

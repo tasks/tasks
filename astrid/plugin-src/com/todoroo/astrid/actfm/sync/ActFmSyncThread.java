@@ -145,6 +145,7 @@ public class ActFmSyncThread {
                 }
 
                 if (messageBatch.isEmpty() && timeForBackgroundSync()) {
+                    Flags.checkAndClear(Flags.BG_SYNC);
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
                 }
@@ -207,7 +208,7 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
-        return Flags.checkAndClear(Flags.BG_SYNC);
+        return Flags.check(Flags.BG_SYNC);
     }
 
     private boolean checkForToken() {
