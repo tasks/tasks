@@ -14,6 +14,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.DaoReflectionHelpers;
@@ -137,7 +138,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitInteger(Property<Integer> property, OE data) {
             Integer i = data.getMergedValues().getAsInteger(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (i != null) {
-                return i.intValue();
+                return i;
             } else {
                 return getAsString(data);
             }
@@ -147,7 +148,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitLong(Property<Long> property, OE data) {
             Long l = data.getMergedValues().getAsLong(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (l != null) {
-                return l.longValue();
+                if (property.name.equals(RemoteModel.USER_ID_PROPERTY) || property.name.equals(Task.CREATOR_ID.name))
+                    return ActFmPreferenceService.userId();
+                return l;
             } else {
                 return getAsString(data);
             }
@@ -157,7 +160,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitDouble(Property<Double> property, OE data) {
             Double d = data.getMergedValues().getAsDouble(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (d != null) {
-                return d.doubleValue();
+                return d;
             } else {
                 return getAsString(data);
             }
