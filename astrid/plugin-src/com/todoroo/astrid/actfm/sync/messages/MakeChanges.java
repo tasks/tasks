@@ -16,6 +16,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
@@ -111,6 +112,10 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         public Void visitLong(Property<Long> property, String key) {
             try {
                 long value = data.getLong(key);
+                if (property.checkFlag(Property.PROP_FLAG_USER_ID) && value == ActFmPreferenceService.userId())
+                    value = 0;
+                else if (property.checkFlag(Property.PROP_FLAG_DATE))
+                    value = value * 1000L;
                 model.setValue((LongProperty) property, value);
             } catch (JSONException e) {
                 Log.e(ERROR_TAG, "Error reading long value with key " + key + " from JSON " + data, e);

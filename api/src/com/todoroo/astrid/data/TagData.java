@@ -47,7 +47,7 @@ public final class TagData extends RemoteModel {
 
     /** User id */
     public static final LongProperty USER_ID = new LongProperty(
-            TABLE, USER_ID_PROPERTY_NAME);
+            TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
     /** User Object (JSON) */
     public static final StringProperty USER = new StringProperty(
@@ -79,19 +79,19 @@ public final class TagData extends RemoteModel {
 
     /** Unixtime Project was created */
     public static final LongProperty CREATION_DATE = new LongProperty(
-            TABLE, "created");
+            TABLE, "created", Property.PROP_FLAG_DATE);
 
     /** Unixtime Project was last touched */
     public static final LongProperty MODIFICATION_DATE = new LongProperty(
-            TABLE, "modified");
+            TABLE, "modified", Property.PROP_FLAG_DATE);
 
     /** Unixtime Project was completed. 0 means active */
     public static final LongProperty COMPLETION_DATE = new LongProperty(
-            TABLE, "completed");
+            TABLE, "completed", Property.PROP_FLAG_DATE);
 
     /** Unixtime Project was deleted. 0 means not deleted */
     public static final LongProperty DELETION_DATE = new LongProperty(
-            TABLE, "deleted");
+            TABLE, "deleted", Property.PROP_FLAG_DATE);
 
     /** Project picture thumbnail */
     public static final StringProperty THUMB = new StringProperty(
@@ -99,7 +99,7 @@ public final class TagData extends RemoteModel {
 
     /** Project last activity date */
     public static final LongProperty LAST_ACTIVITY_DATE = new LongProperty(
-            TABLE, "lastActivityDate");
+            TABLE, "lastActivityDate", Property.PROP_FLAG_DATE);
 
     /** Whether user is part of Tag team */
     public static final IntegerProperty IS_TEAM = new IntegerProperty(
@@ -119,7 +119,7 @@ public final class TagData extends RemoteModel {
 
     /** Pushed at date */
     public static final LongProperty PUSHED_AT = new LongProperty(
-            TABLE, PUSHED_AT_PROPERTY_NAME);
+            TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
     /** UUID */
     public static final StringProperty UUID = new StringProperty(

@@ -159,8 +159,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitLong(Property<Long> property, OE data) {
             Long l = data.getMergedValues().getAsLong(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (l != null) {
-                if (l == 0 && (property.name.contains(RemoteModel.USER_ID_PROPERTY.name) || property.name.equals(Task.CREATOR_ID.name)))
+                if (l == 0 && property.checkFlag(Property.PROP_FLAG_USER_ID))
                     return ActFmPreferenceService.userId();
+                else if (property.checkFlag(Property.PROP_FLAG_DATE))
+                    return l.longValue() / 1000L;
                 return l;
             } else {
                 return getAsString(data);

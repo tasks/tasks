@@ -38,7 +38,13 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     public final String name;
 
     /** Can this field be null? */
-    public boolean nullable = false;
+    public static final int PROP_FLAG_NULLABLE = 1 << 0;
+    /** Is this field a date? */
+    public static final int PROP_FLAG_DATE = 1 << 1;
+    /** Is this field a user id? */
+    public static final int PROP_FLAG_USER_ID = 1 << 2;
+
+    public int flags = 0;
 
     /**
      * Create a property by table and column name. Uses the default property
@@ -52,9 +58,9 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Create a property by table and column name. Uses the default property
      * expression which is derived from default table name
      */
-    protected Property(Table table, String columnName, boolean nullable) {
+    protected Property(Table table, String columnName, int flags) {
         this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
-        this.nullable = nullable;
+        this.flags = flags;
     }
 
     /**
@@ -117,8 +123,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name);
         }
 
-        public IntegerProperty(Table table, String name, boolean nullable) {
-            super(table, name, nullable);
+        public IntegerProperty(Table table, String name, int flags) {
+            super(table, name, flags);
         }
 
         protected IntegerProperty(Table table, String name, String expression) {
@@ -144,8 +150,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name);
         }
 
-        public StringProperty(Table table, String name, boolean nullable) {
-            super(table, name, nullable);
+        public StringProperty(Table table, String name, int flags) {
+            super(table, name, flags);
         }
 
         protected StringProperty(Table table, String name, String expression) {
@@ -191,8 +197,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name);
         }
 
-        public DoubleProperty(Table table, String name, boolean nullable) {
-            super(table, name, nullable);
+        public DoubleProperty(Table table, String name, int flags) {
+            super(table, name, flags);
         }
 
         protected DoubleProperty(Table table, String name, String expression) {
@@ -219,8 +225,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name);
         }
 
-        public LongProperty(Table table, String name, boolean nullable) {
-            super(table, name, nullable);
+        public LongProperty(Table table, String name, int flags) {
+            super(table, name, flags);
         }
 
         protected LongProperty(Table table, String name, String expression) {
@@ -237,6 +243,10 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public LongProperty as(String newAlias) {
             return (LongProperty) super.as(newAlias);
         }
+    }
+
+    public boolean checkFlag(int flag) {
+        return (flags & flag) > 0;
     }
 
     public String getColumnName() {

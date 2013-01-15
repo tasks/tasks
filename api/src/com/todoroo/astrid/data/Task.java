@@ -60,27 +60,27 @@ public final class Task extends RemoteModel {
 
     /** Unixtime Task is due, 0 if not set */
     public static final LongProperty DUE_DATE = new LongProperty(
-            TABLE, "dueDate");
+            TABLE, "dueDate", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task should be hidden until, 0 if not set */
     public static final LongProperty HIDE_UNTIL = new LongProperty(
-            TABLE, "hideUntil");
+            TABLE, "hideUntil", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was created */
     public static final LongProperty CREATION_DATE = new LongProperty(
-            TABLE, "created");
+            TABLE, "created", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was last touched */
     public static final LongProperty MODIFICATION_DATE = new LongProperty(
-            TABLE, "modified");
+            TABLE, "modified", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was completed. 0 means active */
     public static final LongProperty COMPLETION_DATE = new LongProperty(
-            TABLE, "completed");
+            TABLE, "completed", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was deleted. 0 means not deleted */
     public static final LongProperty DELETION_DATE = new LongProperty(
-            TABLE, "deleted");
+            TABLE, "deleted", Property.PROP_FLAG_DATE);
 
     /** Cached Details Column - built from add-on detail exposers. A null
      * value means there is no value in the cache and it needs to be
@@ -90,7 +90,7 @@ public final class Task extends RemoteModel {
 
     /** Date details were last updated */
     public static final LongProperty DETAILS_DATE = new LongProperty(
-            TABLE, "detailsDate");
+            TABLE, "detailsDate", Property.PROP_FLAG_DATE);
 
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
@@ -107,7 +107,7 @@ public final class Task extends RemoteModel {
             TABLE, "elapsedSeconds");
 
     public static final LongProperty TIMER_START = new LongProperty(
-            TABLE, "timerStart");
+            TABLE, "timerStart", Property.PROP_FLAG_DATE);
 
     public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(
             TABLE, "postponeCount");
@@ -118,11 +118,11 @@ public final class Task extends RemoteModel {
 
     /** Reminder period, in milliseconds. 0 means disabled */
     public static final LongProperty REMINDER_PERIOD = new LongProperty(
-            TABLE, "notifications");
+            TABLE, "notifications", Property.PROP_FLAG_DATE);
 
     /** Unixtime the last reminder was triggered */
     public static final LongProperty REMINDER_LAST = new LongProperty(
-            TABLE, "lastNotified");
+            TABLE, "lastNotified", Property.PROP_FLAG_DATE);
 
     /** What kind of reminder the last reminder was: private task,
      *  social with no faces, social with faces */
@@ -131,13 +131,13 @@ public final class Task extends RemoteModel {
 
     /** Unixtime snooze is set (0 -> no snooze) */
     public static final LongProperty REMINDER_SNOOZE = new LongProperty(
-            TABLE, "snoozeTime");
+            TABLE, "snoozeTime", Property.PROP_FLAG_DATE);
 
     public static final StringProperty RECURRENCE = new StringProperty(
             TABLE, "recurrence");
 
     public static final LongProperty REPEAT_UNTIL = new LongProperty(
-            TABLE, "repeatUntil");
+            TABLE, "repeatUntil", Property.PROP_FLAG_DATE);
 
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
@@ -146,11 +146,11 @@ public final class Task extends RemoteModel {
 
     /** Remote id */
     public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME, true);
+            TABLE, REMOTE_ID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
     /** Assigned user id */
     public static final LongProperty USER_ID = new LongProperty(
-            TABLE, USER_ID_PROPERTY_NAME);
+            TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
     /** User Object (JSON) */
     public static final StringProperty USER = new StringProperty(
@@ -158,22 +158,22 @@ public final class Task extends RemoteModel {
 
     /** Creator user id */
     public static final LongProperty CREATOR_ID = new LongProperty(
-            TABLE, "creatorId");
+            TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
 
     public static final StringProperty SHARED_WITH = new StringProperty(
             TABLE, "sharedWith");
 
     /** Last Sync date */
     public static final LongProperty LAST_SYNC = new LongProperty(
-            TABLE, "lastSync");
+            TABLE, "lastSync", Property.PROP_FLAG_DATE);
 
     /** Pushed at date */
     public static final LongProperty PUSHED_AT = new LongProperty(
-            TABLE, PUSHED_AT_PROPERTY_NAME);
+            TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
     /** UUID */
     public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME, true);
+            TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);

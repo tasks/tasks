@@ -158,5 +158,4 @@ public class NameMaps {
         return mapColumnName(table, serverColumn, TASK_PROPERTIES_SERVER_TO_LOCAL, TAG_DATA_PROPERTIES_SERVER_TO_LOCAL);
     }
 
-
 }

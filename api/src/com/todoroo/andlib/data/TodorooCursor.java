@@ -101,7 +101,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         public Object visitDouble(Property<Double> property,
                 TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.nullable && cursor.isNull(column))
+            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getDouble(column);
         }
@@ -109,14 +109,14 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         public Object visitInteger(Property<Integer> property,
                 TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.nullable && cursor.isNull(column))
+            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getInt(column);
         }
 
         public Object visitLong(Property<Long> property, TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.nullable && cursor.isNull(column))
+            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getLong(column);
         }
@@ -124,7 +124,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         public Object visitString(Property<String> property,
                 TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.nullable && cursor.isNull(column))
+            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getString(column);
         }
