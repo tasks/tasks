@@ -105,6 +105,17 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 Log.e(ERROR_TAG, "Error writing change to JSON", e);
             }
         }
+        if (pushedAt == 0) {
+            try {
+                JSONObject proofText = new JSONObject();
+                proofText.put("id", -1);
+                proofText.put("column", "proof_text");
+                proofText.put("value", "proofy");
+                array.put(proofText);
+            } catch (JSONException e) {
+                Log.e(ERROR_TAG, "Error writing change to JSON", e);
+            }
+        }
         return array;
     }
 
@@ -148,7 +159,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitLong(Property<Long> property, OE data) {
             Long l = data.getMergedValues().getAsLong(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (l != null) {
-                if (property.name.equals(RemoteModel.USER_ID_PROPERTY) || property.name.equals(Task.CREATOR_ID.name))
+                if (l == 0 && (property.name.contains(RemoteModel.USER_ID_PROPERTY.name) || property.name.equals(Task.CREATOR_ID.name)))
                     return ActFmPreferenceService.userId();
                 return l;
             } else {
