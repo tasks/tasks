@@ -254,8 +254,8 @@
                      match="package=&quot;.*&quot;"
     	             replace="package=&quot;com.todoroo.astridlite&quot;" />
       <replaceregexp file="AndroidManifest.xml"
-                     match="authorities=&quot;(.*)&quot;"
-                     replace="authorities=&quot;\1.lite&quot;"
+                     match="authorities=&quot;(.*)astrid(.*)&quot;"
+                     replace="authorities=&quot;\1astridlite\2&quot;"
                      flags="g"/>
 	  <replaceregexp file="AndroidManifest.xml"
 	                 match="action android:name=&quot;com.todoroo.astrid"
