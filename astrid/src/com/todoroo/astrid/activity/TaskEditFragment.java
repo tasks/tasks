@@ -932,7 +932,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             try {
                 JSONObject assignedUser = new JSONObject(model.getValue(Task.USER));
                 assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE);
+                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
             } catch (JSONException e) {
                 //
             }

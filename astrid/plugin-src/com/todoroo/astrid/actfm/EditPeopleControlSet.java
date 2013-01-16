@@ -741,6 +741,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             } else if(userJson.optLong("id") == Task.USER_ID_UNASSIGNED) {
                 dirty = task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
+                task.setValue(Task.USER, "{}");
             } else {
                 String user = userJson.toString();
 
@@ -764,7 +765,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                 task.setValue(Task.USER_ID, userJson.optLong("id", Task.USER_ID_EMAIL));
                 task.setValue(Task.USER, user);
 
-                String assignedName = userJson.optString("name", userEmail);
             }
 
             JSONObject sharedWith = sharedWithContainer.parseSharedWithAndTags(activity, false);
