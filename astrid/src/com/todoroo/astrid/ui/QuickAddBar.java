@@ -143,9 +143,14 @@ public class QuickAddBar extends LinearLayout {
         quickAddBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                boolean visible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
-                boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
-                quickAddControlsContainer.setVisibility((showControls && visible) ? View.VISIBLE : View.GONE);
+                final boolean visible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
+                final boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
+                quickAddControlsContainer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        quickAddControlsContainer.setVisibility((showControls && visible) ? View.VISIBLE : View.GONE);
+                    }
+                }, 10);
             }
 
             @Override
