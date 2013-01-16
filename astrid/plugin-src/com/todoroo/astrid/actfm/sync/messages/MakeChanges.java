@@ -20,6 +20,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.data.Task;
 
 @SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -53,8 +54,11 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         }
                     }
 
+                    nonColumnChanges(changes, model);
+
                     StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
-                    model.setValue(uuidProperty, uuid);
+                    if (!model.getSetValues().containsKey(uuidProperty.name))
+                        model.setValue(uuidProperty, uuid);
 
                     if (model.getSetValues().size() > 0) {
                         model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -83,6 +87,62 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
                 }
             }
+        }
+    }
+
+    private void nonColumnChanges(JSONObject changes, TYPE model) {
+        MakeNonColumnChanges nonColumnChanges = null;
+        if (NameMaps.TABLE_ID_TASKS.equals(table))
+            nonColumnChanges = new MakeNonColumnTaskChanges(model, changes);
+        else if (NameMaps.TABLE_ID_TAGS.equals(table))
+            nonColumnChanges = new MakeNonColumnTagChanges(model, changes);
+
+        if (nonColumnChanges != null)
+            nonColumnChanges.performChanges();
+    }
+
+    private abstract class MakeNonColumnChanges {
+        protected final TYPE model;
+        protected final JSONObject changes;
+
+        public MakeNonColumnChanges(TYPE model, JSONObject changes) {
+            this.model = model;
+            this.changes = changes;
+        }
+
+        public abstract void performChanges();
+    }
+
+    private class MakeNonColumnTaskChanges extends MakeNonColumnChanges {
+
+        public MakeNonColumnTaskChanges(TYPE model, JSONObject changes) {
+            super(model, changes);
+        }
+
+        @Override
+        public void performChanges() {
+            try {
+                if (changes.has("has_due_time")) {
+                    int urgency = changes.getBoolean("has_due_time") ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY;
+                    model.setValue(Task.DUE_DATE, Task.createDueDate(urgency, model.getValue(Task.DUE_DATE)));
+                }
+            } catch (JSONException e) {
+                Log.e(ERROR_TAG, "Error processing non-column properties", e);
+            }
+
+
+        }
+    }
+
+    private class MakeNonColumnTagChanges extends MakeNonColumnChanges {
+
+        public MakeNonColumnTagChanges(TYPE model, JSONObject changes) {
+            super(model, changes);
+        }
+
+        @Override
+        public void performChanges() {
+            // Perform any non-field based changes
         }
     }
 
