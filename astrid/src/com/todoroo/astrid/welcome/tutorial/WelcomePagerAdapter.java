@@ -68,12 +68,21 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
     public int fallbackLoginPage;
 
     private final Context context;
+    public Account[] accounts;
     public WelcomeWalkthrough parent;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     public WelcomePagerAdapter(Context context, boolean manual) {
         this.context = context;
         DependencyInjectionService.getInstance().inject(this);
+
+        accounts = null;
+        try {
+            GoogleAccountManager am = new GoogleAccountManager(context);
+            accounts = am.getAccounts();
+        } catch (Exception e) {
+            //
+        }
 
         if (manual) {
             layouts[layouts.length - 1] = R.layout.welcome_walkthrough_page;
@@ -85,9 +94,6 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
             if (Constants.ASTRID_LITE) {
                 adjustResourcesForLite();
             }
-
-            GoogleAccountManager am = new GoogleAccountManager(context);
-            Account[] accounts = am.getAccounts();
 
             // Setup login page from AB tests
             fallbackLoginPage = layouts[layouts.length - 1];

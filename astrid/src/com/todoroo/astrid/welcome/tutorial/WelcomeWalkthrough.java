@@ -31,7 +31,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmGoogleAuthActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -39,6 +38,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 public class WelcomeWalkthrough extends ActFmLoginActivity {
     private ViewPager mPager;
     private WelcomePagerAdapter mAdapter;
+    private Account[] accounts;
     private CirclePageIndicator mIndicator;
     private View currentView;
     private int currentPage;
@@ -54,6 +54,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
 
         mAdapter = new WelcomePagerAdapter(this, getIntent().hasExtra(TOKEN_MANUAL_SHOW));
         mAdapter.parent = this;
+        accounts = mAdapter.accounts;
 
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
@@ -87,10 +88,9 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
 
     @Override
     protected void initializeUI() {
-        String[] accounts = ModernAuthManager.getAccounts(this);
         String email = null;
-        if (accounts != null && accounts.length > 0) {
-            email = accounts[0];
+        if (accounts != null && accounts.length > 0 && !TextUtils.isEmpty(accounts[0].name)) {
+            email = accounts[0].name;
         }
         Button simpleLogin = (Button) findViewById(R.id.quick_login_google);
         if (simpleLogin != null && !TextUtils.isEmpty(email)) {
