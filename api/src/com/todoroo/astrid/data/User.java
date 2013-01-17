@@ -46,6 +46,14 @@ public final class User extends RemoteModel {
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
+    /** User first name */
+    public static final StringProperty FIRST_NAME = new StringProperty(
+            TABLE, "first_name");
+
+    /** User last name */
+    public static final StringProperty LAST_NAME = new StringProperty(
+            TABLE, "last_name");
+
     /** User Email */
     public static final StringProperty EMAIL = new StringProperty(
             TABLE, "email");
