@@ -262,7 +262,7 @@ public class SyncActionHelper {
                 android.R.layout.simple_spinner_dropdown_item, items);
 
         // show a menu of available options
-        new AlertDialog.Builder(activity).setTitle(R.string.SyP_label).setAdapter(
+        new AlertDialog.Builder(activity).setTitle(R.string.Sync_now_label).setAdapter(
                 adapter, listener).show().setOwnerActivity(activity);
     }
 
