@@ -166,7 +166,7 @@
   <string name="actfm_EPA_share_with">Share with:</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+  <string name="actfm_EPA_collaborators_header">Share</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">List: %s</string>

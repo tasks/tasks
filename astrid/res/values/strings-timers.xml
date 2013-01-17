@@ -21,7 +21,7 @@
     <string name="TFE_workingOn">Tasks Being Timed</string>
     
     <!-- Title for TEA -->
-    <string name="TEA_timer_controls">Timer Controls</string>
+    <string name="TEA_timer_controls">Timer</string>
     
     
     <!-- Edit Notes: create comment for when timer is started -->

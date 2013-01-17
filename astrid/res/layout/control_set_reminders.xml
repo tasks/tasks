@@ -26,14 +26,16 @@
 		      <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dip"
 		        android:text="@string/TEA_reminder_label"
+		        android:paddingTop="10dip"
 		        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
 		      <CheckBox
 		        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" 
 		        android:id="@+id/reminder_due"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="5dip"
+		        android:layout_marginLeft="10dip"
 		        android:button="@drawable/btn_check_small"       
 		        android:text="@string/TEA_reminder_due" />
 		      <CheckBox
@@ -41,7 +43,7 @@
 		        android:id="@+id/reminder_overdue"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="5dip"
+		        android:layout_marginLeft="10dip"
 		        android:button="@drawable/btn_check_small"       
 		        android:text="@string/TEA_reminder_overdue" />
 		      <LinearLayout
@@ -53,7 +55,7 @@
 		          android:id="@+id/reminder_random"
 		          android:layout_width="wrap_content"
 		          android:layout_height="wrap_content"
-		          android:layout_marginLeft="5dip"
+		          android:layout_marginLeft="10dip"
 		          android:button="@drawable/btn_check_small"       
 		          android:text="@string/TEA_reminder_randomly" />
 		        <com.todoroo.astrid.ui.ErrorCatchingSpinner
@@ -70,6 +72,8 @@
 		          android:id="@+id/reminder_alarm_container"
 		          android:layout_width="fill_parent"
 		          android:layout_height="50dip"
+		          android:layout_marginLeft="10dip"
+		          android:layout_marginRight="10dip"
 		          android:gravity="center_vertical"
 		          android:orientation="horizontal">
 			      <TextView

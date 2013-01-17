@@ -131,7 +131,7 @@
   <!-- Menu: Tutorial -->
 
   <!-- Menu: Settings -->    
-  <string name="TLA_menu_settings">Account &amp; Settings</string>
+  <string name="TLA_menu_settings">Settings</string>
   
   <!-- slide 30b: Menu: Support -->
   <string name="TLA_menu_support">Support</string>
@@ -348,7 +348,7 @@
   <string name="TEA_estimatedDuration_label">How long will it take?</string>
   
   <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Time already spent on task</string>
+  <string name="TEA_elapsedDuration_label">Time already spent</string>
 
   <!-- Menu: Save -->    
   <string name="TEA_menu_save">Save Changes</string>

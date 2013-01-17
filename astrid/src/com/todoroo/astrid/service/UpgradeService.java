@@ -264,6 +264,10 @@ public final class UpgradeService {
                 Preferences.setString(R.string.p_taskRowStyle_v2, value ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
+
+        if (from < V4_5_1_1) {
+            Preferences.setBoolean(R.string.p_simple_input_boxes, true);
+        }
     }
 
     /**
