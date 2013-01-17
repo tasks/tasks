@@ -20,7 +20,6 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
-import com.todoroo.astrid.data.Task;
 
 @SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -121,16 +120,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
         @Override
         public void performChanges() {
-            try {
-                if (changes.has("has_due_time")) {
-                    int urgency = changes.getBoolean("has_due_time") ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY;
-                    model.setValue(Task.DUE_DATE, Task.createDueDate(urgency, model.getValue(Task.DUE_DATE)));
-                }
-            } catch (JSONException e) {
-                Log.e(ERROR_TAG, "Error processing non-column properties", e);
-            }
-
-
+            // Perform any non-field based changes
         }
     }
 
@@ -171,11 +161,14 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         @Override
         public Void visitLong(Property<Long> property, String key) {
             try {
-                long value = data.getLong(key);
+                long value = data.optLong(key, 0);
                 if (property.checkFlag(Property.PROP_FLAG_USER_ID) && value == ActFmPreferenceService.userId())
                     value = 0;
-                else if (property.checkFlag(Property.PROP_FLAG_DATE))
+                else if (property.checkFlag(Property.PROP_FLAG_DATE)) {
+                    String valueString = data.getString(key);
+                    // Parse string and setup time value
                     value = value * 1000L;
+                }
                 model.setValue((LongProperty) property, value);
             } catch (JSONException e) {
                 Log.e(ERROR_TAG, "Error reading long value with key " + key + " from JSON " + data, e);
