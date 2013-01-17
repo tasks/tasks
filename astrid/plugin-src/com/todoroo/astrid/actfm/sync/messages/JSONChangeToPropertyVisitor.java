@@ -52,8 +52,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
                 try {
                     value = DateUtilities.parseIso8601(valueString).getTime();
                     if (Task.DUE_DATE.equals(property)) {
-                        boolean hasDueTime = valueString.endsWith("Z");
-                        value = Task.createDueDate(hasDueTime ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY, value);
+                        value = Task.createDueDate(DateUtilities.isoStringHasTime(valueString) ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY, value);
                     }
                 } catch (Exception e){
                     value = 0;

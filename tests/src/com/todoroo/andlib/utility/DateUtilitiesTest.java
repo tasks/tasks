@@ -67,7 +67,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
     }
 
     public void testParseISO8601() {
-        String withTime = "2013-01-28T13:17:02Z";
+        String withTime = "2013-01-28T13:17:02+00:00";
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         try {

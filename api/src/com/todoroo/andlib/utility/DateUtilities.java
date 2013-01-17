@@ -268,16 +268,19 @@ public class DateUtilities {
         return date.getTime();
     }
 
+    public static boolean isoStringHasTime(String iso8601String) {
+        return iso8601String.length() > 12;
+    }
+
     public static Date parseIso8601(String iso8601String) throws ParseException {
         String formatString;
-        if (iso8601String.endsWith("Z")) { //$NON-NLS-1$
-            // Time exists
+        if (isoStringHasTime(iso8601String)) { // Time exists
             iso8601String = iso8601String.replace("Z", "+00:00"); //$NON-NLS-1$ //$NON-NLS-2$
             try {
                 iso8601String = iso8601String.substring(0, 22) + iso8601String.substring(23);
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
-                throw new ParseException("Invalid ISO 8601 length", 0); //$NON-NLS-1$
+                throw new ParseException("Invalid ISO 8601 length for string " + iso8601String, 0); //$NON-NLS-1$
             }
             formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
         } else {
