@@ -5,7 +5,10 @@
  */
 package com.todoroo.andlib.utility;
 
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.todoroo.andlib.test.TodorooTestCase;
 
@@ -61,5 +64,44 @@ public class DateUtilitiesTest extends TodorooTestCase {
             }
         });
 
+    }
+
+    public void testParseISO8601() {
+        String withTime = "2013-01-28T13:17:02Z";
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        try {
+            date = DateUtilities.parseIso8601(withTime);
+            cal.setTime(date);
+            cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            fail("Parse exception");
+        }
+        assertEquals(2013, cal.get(Calendar.YEAR));
+        assertEquals(0, cal.get(Calendar.MONTH));
+        assertEquals(28, cal.get(Calendar.DATE));
+        assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(17, cal.get(Calendar.MINUTE));
+        assertEquals(2, cal.get(Calendar.SECOND));
+    }
+
+    public void testParseISO8601NoTime() {
+        String withTime = "2013-01-28";
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        try {
+            date = DateUtilities.parseIso8601(withTime);
+            cal.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            fail("Parse exception");
+        }
+        assertEquals(2013, cal.get(Calendar.YEAR));
+        assertEquals(0, cal.get(Calendar.MONTH));
+        assertEquals(28, cal.get(Calendar.DATE));
+        assertEquals(0, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(0, cal.get(Calendar.MINUTE));
+        assertEquals(0, cal.get(Calendar.SECOND));
     }
 }

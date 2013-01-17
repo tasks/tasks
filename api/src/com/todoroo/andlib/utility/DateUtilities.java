@@ -5,6 +5,7 @@
  */
 package com.todoroo.andlib.utility;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -265,6 +266,26 @@ public class DateUtilities {
         date.setMinutes(0);
         date.setSeconds(0);
         return date.getTime();
+    }
+
+    public static Date parseIso8601(String iso8601String) throws ParseException {
+        String formatString;
+        if (iso8601String.endsWith("Z")) { //$NON-NLS-1$
+            // Time exists
+            iso8601String = iso8601String.replace("Z", "+00:00"); //$NON-NLS-1$ //$NON-NLS-2$
+            try {
+                iso8601String = iso8601String.substring(0, 22) + iso8601String.substring(23);
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                throw new ParseException("Invalid ISO 8601 length", 0); //$NON-NLS-1$
+            }
+            formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
+        } else {
+            formatString = "yyyy-MM-dd"; //$NON-NLS-1$
+        }
+
+        Date result = new SimpleDateFormat(formatString).parse(iso8601String);
+        return result;
     }
 
 }

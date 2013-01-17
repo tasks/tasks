@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import java.text.ParseException;
 import java.util.Iterator;
 
 import org.json.JSONException;
@@ -15,11 +16,13 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.data.Task;
 
 @SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -166,8 +169,15 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     value = 0;
                 else if (property.checkFlag(Property.PROP_FLAG_DATE)) {
                     String valueString = data.getString(key);
-                    // Parse string and setup time value
-                    value = value * 1000L;
+                    try {
+                        value = DateUtilities.parseIso8601(valueString).getTime();
+                        if (Task.DUE_DATE.equals(property)) {
+                            boolean hasDueTime = valueString.endsWith("Z");
+                            value = Task.createDueDate(hasDueTime ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY, value);
+                        }
+                    } catch (ParseException e){
+                        value = 0;
+                    }
                 }
                 model.setValue((LongProperty) property, value);
             } catch (JSONException e) {
