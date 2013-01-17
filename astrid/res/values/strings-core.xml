@@ -625,7 +625,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Settings</string>
   
-  <string name="EPr_share_astrid">Tell others about Astrid</string>
+  <string name="EPr_share_astrid">Share Astrid</string>
 
   <string name="EPr_share_astrid_summary">Share about Astrid on your favorite social network</string>
   
