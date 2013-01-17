@@ -65,7 +65,7 @@ public class NameMaps {
         propertyMap.put(property, serverName);
         localNameMap.put(property.name, property);
         serverNameMap.put(property.name, serverName);
-        if (excludedFromOustanding)
+        if (excludedFromOustanding && excludedFromOutstandingSet != null)
             excludedFromOutstandingSet.add(property.name);
     }
 
