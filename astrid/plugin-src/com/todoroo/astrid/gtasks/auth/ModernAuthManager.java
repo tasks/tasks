@@ -212,12 +212,16 @@ public class ModernAuthManager implements AuthManager {
   }
 
     public static String[] getAccounts(Activity activity) {
-        GoogleAccountManager accountManager = new GoogleAccountManager(activity);
-        Account[] accounts = accountManager.getAccounts();
-        ArrayList<String> accountNames = new ArrayList<String>();
-        for (Account a : accounts) {
-            accountNames.add(a.name);
+        try {
+            GoogleAccountManager accountManager = new GoogleAccountManager(activity);
+            Account[] accounts = accountManager.getAccounts();
+            ArrayList<String> accountNames = new ArrayList<String>();
+            for (Account a : accounts) {
+                accountNames.add(a.name);
+            }
+            return accountNames.toArray(new String[accountNames.size()]);
+        } catch (Exception e) {
+            return new String[] {}; // Empty array on failure
         }
-        return accountNames.toArray(new String[accountNames.size()]);
     }
 }
