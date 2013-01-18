@@ -79,8 +79,21 @@ public class AstridNewSyncMigrator {
         Query tagsWithoutUUIDQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.all);
         assertUUIDsExist(tagsWithoutUUIDQuery, new TagData(), tagDataDao, null);
 
-        Query tasksWithoutUUIDQuery = Query.select(Task.ID, Task.REMOTE_ID).where(Criterion.all);
-        assertUUIDsExist(tasksWithoutUUIDQuery, new Task(), taskDao, null);
+        Query tasksWithoutUUIDQuery = Query.select(Task.ID, Task.REMOTE_ID, Task.FLAGS).where(Criterion.all);
+        assertUUIDsExist(tasksWithoutUUIDQuery, new Task(), taskDao, new UUIDAssertionExtras<Task>() {
+            @Override
+            public void beforeSave(Task instance) {
+                if (instance.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
+                    instance.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, false);
+                    instance.setValue(Task.IS_READONLY, 1);
+                }
+
+                if (instance.getFlag(Task.FLAGS, Task.FLAG_PUBLIC)) {
+                    instance.setFlag(Task.FLAGS, Task.FLAG_PUBLIC, false);
+                    instance.setValue(Task.IS_PUBLIC, 1);
+                }
+            }
+        });
 
         Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.REMOTE_ID, Update.TASK).where(Criterion.all);
         assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao, new UUIDAssertionExtras<Update>() {

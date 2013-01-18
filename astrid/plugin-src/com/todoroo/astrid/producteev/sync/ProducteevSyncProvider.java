@@ -210,9 +210,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
                         if(remote.pdvTask.getValue(ProducteevTask.CREATOR_ID) != userId &&
                                 remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID) != userId)
-                            remote.task.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, true);
+                            remote.task.setValue(Task.IS_READONLY, 1);
                         else
-                            remote.task.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, false);
+                            remote.task.setValue(Task.IS_READONLY, 0);
 
                         // update reminder flags for incoming remote tasks to prevent annoying
                         if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())

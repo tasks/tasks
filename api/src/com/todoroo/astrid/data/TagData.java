@@ -134,9 +134,6 @@ public final class TagData extends RemoteModel {
 
     // --- flags
 
-    /** whether tag is publicly visible */
-    public static final int FLAG_PUBLIC = 1 << 0;
-
     /** whether user should not be notified of tag activity */
     public static final int FLAG_SILENT = 1 << 1;
 

@@ -12,7 +12,6 @@ import android.database.SQLException;
 import com.todoroo.andlib.data.ContentResolverDao;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.PermaSql;
@@ -100,15 +99,13 @@ public class TaskApiDao extends ContentResolverDao<Task> {
             return Criterion.and(Task.COMPLETION_DATE.eq(0),
                     Task.DELETION_DATE.eq(0),
                     Task.HIDE_UNTIL.lt(Functions.now()),
-                    Field.field(Task.FLAGS.name + " & " + //$NON-NLS-1$
-                            Task.FLAG_IS_READONLY).eq(0),
+                    Task.IS_READONLY.eq(0),
                     Task.USER_ID.eq(0));
         }
 
         /** Check if a given task belongs to someone else & is read-only */
         public static Criterion ownedByMe() {
-             return Criterion.and(Field.field(Task.FLAGS.name+ " & " + //$NON-NLS-1$
-                     Task.FLAG_IS_READONLY).eq(0),
+             return Criterion.and(Task.IS_READONLY.eq(0),
                      Task.USER_ID.eq(0));
         }
 

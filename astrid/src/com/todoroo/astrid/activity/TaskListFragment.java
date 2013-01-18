@@ -1121,7 +1121,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
         Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-        if (task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY))
+        if (task.getValue(Task.IS_READONLY) > 0)
             return;
 
         int id = (int) task.getId();

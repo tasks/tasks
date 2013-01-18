@@ -95,6 +95,12 @@ public final class Task extends RemoteModel {
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
 
+    public static final IntegerProperty IS_PUBLIC = new IntegerProperty(
+            TABLE, "is_public");
+
+    public static final IntegerProperty IS_READONLY = new IntegerProperty(
+            TABLE, "is_readonly");
+
     // --- non-core task metadata
 
     public static final StringProperty NOTES = new StringProperty(
@@ -184,10 +190,10 @@ public final class Task extends RemoteModel {
     public static final int FLAG_REPEAT_AFTER_COMPLETION = 1 << 1;
 
     /** whether task is read-only */
-    public static final int FLAG_IS_READONLY = 1 << 2;
+    @Deprecated public static final int FLAG_IS_READONLY = 1 << 2;
 
     /** whether a task is public */
-    public static final int FLAG_PUBLIC = 1 << 3;
+    @Deprecated public static final int FLAG_PUBLIC = 1 << 3;
 
     // --- user id special values
 
@@ -277,6 +283,8 @@ public final class Task extends RemoteModel {
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(DETAILS.name, (String)null);
         defaultValues.put(DETAILS_DATE.name, 0);
+        defaultValues.put(IS_PUBLIC.name, 0);
+        defaultValues.put(IS_READONLY.name, 0);
 
         defaultValues.put(LAST_SYNC.name, 0);
         defaultValues.putNull(REMOTE_ID.name);
@@ -488,8 +496,8 @@ public final class Task extends RemoteModel {
     }
 
     public boolean isEditable() {
-        return !getFlag(Task.FLAGS, Task.FLAG_IS_READONLY) &&
-                !(getFlag(Task.FLAGS, Task.FLAG_PUBLIC) && getValue(Task.USER_ID) != Task.USER_ID_SELF);
+        return (getValue(Task.IS_READONLY) == 0) &&
+                !(getValue(Task.IS_PUBLIC) == 1 && getValue(Task.USER_ID) != Task.USER_ID_SELF);
     }
 
     /**

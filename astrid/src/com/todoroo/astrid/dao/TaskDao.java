@@ -17,7 +17,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -85,9 +84,8 @@ public class TaskDao extends RemoteModelDao<Task> {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
     	            Task.DELETION_DATE.eq(0),
     	            Task.HIDE_UNTIL.lt(Functions.now()),
-    	            Field.field(Task.FLAGS.name + " & " + //$NON-NLS-1$
-    	                    Task.FLAG_IS_READONLY).eq(0),
-    	                    Task.USER_ID.eq(0));
+    	            Task.IS_READONLY.eq(0),
+    	            Task.USER_ID.eq(0));
     	}
 
     	/** @return tasks that have not yet been completed or deleted */
