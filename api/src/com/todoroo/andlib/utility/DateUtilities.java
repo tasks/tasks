@@ -291,9 +291,12 @@ public class DateUtilities {
         return result;
     }
 
-    public static String timeToIso8601(long time) {
+    public static String timeToIso8601(long time, boolean includeTime) {
         Date date = new Date(time);
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(date); //$NON-NLS-1$
+        String formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
+        if (!includeTime)
+            formatString = "yyyy-MM-dd"; //$NON-NLS-1$
+        return new SimpleDateFormat(formatString).format(date);
     }
 
 }

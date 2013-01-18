@@ -162,8 +162,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             if (l != null) {
                 if (l == 0 && property.checkFlag(Property.PROP_FLAG_USER_ID))
                     return ActFmPreferenceService.userId();
-                else if (property.checkFlag(Property.PROP_FLAG_DATE))
-                    return DateUtilities.timeToIso8601(l);
+                else if (property.checkFlag(Property.PROP_FLAG_DATE)) {
+                    boolean includeTime = true;
+                    if (Task.DUE_DATE.equals(property) && !Task.hasDueTime(l))
+                        includeTime = false;
+                    return DateUtilities.timeToIso8601(l, includeTime);
+                }
                 return l;
             } else {
                 return getAsString(data);
