@@ -13,15 +13,12 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ListView;
 
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
@@ -226,25 +223,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         @Override
         protected ViewHolder getTagFromCheckBox(View v) {
             return (ViewHolder)((View)v.getParent()).getTag();
-        }
-
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View view = super.newView(context, cursor, parent);
-            view.getLayoutParams().height = Math.round(45 * metrics.density);
-
-            ViewHolder vh = (ViewHolder) view.getTag();
-
-            MarginLayoutParams rowParams = (MarginLayoutParams) vh.rowBody.getLayoutParams();
-            rowParams.topMargin = rowParams.bottomMargin = 0;
-
-            ViewGroup.LayoutParams pictureParams = vh.picture.getLayoutParams();
-            pictureParams.width = pictureParams.height = Math.round(38 * metrics.density);
-
-            pictureParams = vh.pictureBorder.getLayoutParams();
-            pictureParams.width = pictureParams.height = Math.round(38 * metrics.density);
-
-            return view;
         }
 
         @Override

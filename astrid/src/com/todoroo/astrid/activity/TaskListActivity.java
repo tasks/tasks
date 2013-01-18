@@ -710,6 +710,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                           break;
                       }
                   }
+                  if (!memberFound) {
+                      String ownerString = td.getValue(TagData.USER);
+                      JSONObject owner = new JSONObject(ownerString);
+                      long ownerId = owner.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
+                      if (ownerId > 0 && assignedId == ownerId)
+                          memberFound = true;
+                  }
               } catch (JSONException e) {
                   return;
               }

@@ -16,6 +16,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 	    <TextView
@@ -41,6 +43,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 	    <TextView

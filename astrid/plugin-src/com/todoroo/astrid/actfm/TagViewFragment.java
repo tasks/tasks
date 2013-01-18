@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.actfm;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,7 +107,9 @@ public class TagViewFragment extends TaskListFragment {
 
     private boolean dataLoaded = false;
 
-    private long currentId;
+    private long currentId = Task.USER_ID_IGNORE;
+
+    protected AtomicBoolean isBeingFiltered = new AtomicBoolean(false);
 
     private Filter originalFilter;
 
@@ -443,6 +447,7 @@ public class TagViewFragment extends TaskListFragment {
                         else
                             filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
                     }
+                    isBeingFiltered.set(true);
                     setUpTaskList();
                 }
             }
@@ -458,6 +463,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private void resetAssignedFilter() {
         currentId = Task.USER_ID_IGNORE;
+        isBeingFiltered.set(false);
         filter = originalFilter;
         View filterAssigned = getView().findViewById(R.id.filter_assigned);
         if (filterAssigned != null)

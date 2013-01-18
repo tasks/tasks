@@ -18,7 +18,8 @@
 		<LinearLayout
 		  android:orientation="vertical"
 		  android:layout_width="fill_parent"
-		  android:layout_height="fill_parent">
+		  android:layout_height="fill_parent"
+		  android:layout_marginLeft="10dip">
 		      
 		      <!-- Shared with -->    
 		      <TextView

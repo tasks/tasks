@@ -375,8 +375,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details1.setTag(viewHolder);
 
         // add UI component listeners
-        if (!titleOnlyLayout)
-            addListeners(view);
+        addListeners(view);
 
         return view;
     }
@@ -397,8 +396,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         task.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        if (!titleOnlyLayout)
-            setTaskAppearance(viewHolder, task);
+        setTaskAppearance(viewHolder, task);
     }
 
     /**
@@ -457,7 +455,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         if (titleOnlyLayout) {
-            setupCompleteBox(viewHolder);
             return;
         }
 
@@ -1099,9 +1096,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
         boolean state = task.isCompleted();
 
-
-        setupDueDateAndTags(viewHolder, task);
-
         TextView name = viewHolder.nameView;
         if(state) {
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -1111,46 +1105,51 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
         name.setTextSize(fontSize);
-        float detailTextSize = Math.max(10, fontSize * 14 / 20);
-        if(viewHolder.details1 != null)
-            viewHolder.details1.setTextSize(detailTextSize);
-        if(viewHolder.details2 != null)
-            viewHolder.details2.setTextSize(detailTextSize);
-        if(viewHolder.dueDate != null) {
-            viewHolder.dueDate.setTextSize(detailTextSize);
-            if (simpleLayout)
-                viewHolder.dueDate.setTypeface(null, 0);
-        }
-        if (viewHolder.tagsView != null) {
-            viewHolder.tagsView.setTextSize(detailTextSize);
-            if (simpleLayout)
-                viewHolder.tagsView.setTypeface(null, 0);
-        }
-        paint.setTextSize(detailTextSize);
 
-        // image view
-        final AsyncImageView pictureView = viewHolder.picture; {
-            if (pictureView != null) {
-                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
-                    pictureView.setVisibility(View.GONE);
-                    if (viewHolder.pictureBorder != null)
-                        viewHolder.pictureBorder.setVisibility(View.GONE);
-                } else {
-                    pictureView.setVisibility(View.VISIBLE);
-                    if (viewHolder.pictureBorder != null)
-                        viewHolder.pictureBorder.setVisibility(View.VISIBLE);
-                    pictureView.setUrl(null);
-                    if (viewHolder.isTaskRabbit) {
-                        pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
-                    } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
-                        pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
-                    else {
-                        pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
-                        try {
-                            JSONObject user = new JSONObject(task.getValue(Task.USER));
-                            pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
-                        } catch (JSONException e) {
-                            Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+        if (!titleOnlyLayout) {
+            setupDueDateAndTags(viewHolder, task);
+
+            float detailTextSize = Math.max(10, fontSize * 14 / 20);
+            if(viewHolder.details1 != null)
+                viewHolder.details1.setTextSize(detailTextSize);
+            if(viewHolder.details2 != null)
+                viewHolder.details2.setTextSize(detailTextSize);
+            if(viewHolder.dueDate != null) {
+                viewHolder.dueDate.setTextSize(detailTextSize);
+                if (simpleLayout)
+                    viewHolder.dueDate.setTypeface(null, 0);
+            }
+            if (viewHolder.tagsView != null) {
+                viewHolder.tagsView.setTextSize(detailTextSize);
+                if (simpleLayout)
+                    viewHolder.tagsView.setTypeface(null, 0);
+            }
+            paint.setTextSize(detailTextSize);
+
+            // image view
+            final AsyncImageView pictureView = viewHolder.picture; {
+                if (pictureView != null) {
+                    if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
+                        pictureView.setVisibility(View.GONE);
+                        if (viewHolder.pictureBorder != null)
+                            viewHolder.pictureBorder.setVisibility(View.GONE);
+                    } else {
+                        pictureView.setVisibility(View.VISIBLE);
+                        if (viewHolder.pictureBorder != null)
+                            viewHolder.pictureBorder.setVisibility(View.VISIBLE);
+                        pictureView.setUrl(null);
+                        if (viewHolder.isTaskRabbit) {
+                            pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
+                        } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
+                            pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
+                        else {
+                            pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                            try {
+                                JSONObject user = new JSONObject(task.getValue(Task.USER));
+                                pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
+                            } catch (JSONException e) {
+                                Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                            }
                         }
                     }
                 }

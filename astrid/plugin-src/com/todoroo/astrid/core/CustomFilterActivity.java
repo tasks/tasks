@@ -158,7 +158,7 @@ public class CustomFilterActivity extends FragmentActivity {
             ab.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.custom_filter_activity);
-        setTitle(R.string.CFA_title);
+        setTitle(R.string.FLA_new_filter);
 
         listView = (ListView) findViewById(android.R.id.list);
 

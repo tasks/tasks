@@ -264,8 +264,8 @@
     
     <!-- generic style for labels above edit boxes -->
     <style name="TextAppearance.GEN_EditLabel">
-        <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">bold</item>
+        <!-- <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item> -->
     </style>
     
    	<style name="TextAppearance.ActionBar_ListsHeader">

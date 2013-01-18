@@ -32,7 +32,7 @@ public class ShareActivity extends FragmentActivity {
 
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.header_title_view);
-        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.share_title);
+        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.EPr_share_astrid);
 
         setContentView(R.layout.share_activity);
         TextView fb = (TextView) findViewById(R.id.share_facebook);

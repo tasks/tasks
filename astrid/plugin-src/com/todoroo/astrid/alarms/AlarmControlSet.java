@@ -58,12 +58,13 @@ public final class AlarmControlSet extends TaskEditControlSet {
     @Override
     protected void afterInflate() {
         this.alertsContainer = (LinearLayout) getView().findViewById(R.id.alert_container);
-        getView().findViewById(R.id.alarms_add).setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener addAlarmListener = new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 addAlarm(new Date());
             }
-        });
+        };
+        getView().findViewById(R.id.alarms_add).setOnClickListener(addAlarmListener);
 
         pickerDialog = new DateAndTimeDialog(activity, 0);
     }

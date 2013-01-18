@@ -1168,6 +1168,11 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchUpdatesForTag(final TagData tagData, final boolean manual, Runnable done) {
+        if (tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
+            if (done != null)
+                done.run();
+            return;
+        }
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
 
