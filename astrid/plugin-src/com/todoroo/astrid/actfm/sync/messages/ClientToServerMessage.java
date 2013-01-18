@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -66,7 +67,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
             json.put(TYPE_KEY, getTypeString());
             json.put(TABLE_KEY, table);
             json.put(UUID_KEY, uuid);
-            json.put(PUSHED_AT_KEY, pushedAt);
+            json.put(PUSHED_AT_KEY, DateUtilities.timeToIso8601(pushedAt, true));
             serializeExtrasToJSON(json);
         } catch (JSONException e) {
             return null;
