@@ -106,17 +106,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 Log.e(ERROR_TAG, "Error writing change to JSON", e);
             }
         }
-        if (pushedAt == 0 && array.length() > 0) {
-            try {
-                JSONObject proofText = new JSONObject();
-                proofText.put("id", -1);
-                proofText.put("column", "proof_text");
-                proofText.put("value", "proofy");
-                array.put(proofText);
-            } catch (JSONException e) {
-                Log.e(ERROR_TAG, "Error writing change to JSON", e);
-            }
-        }
         return array;
     }
 

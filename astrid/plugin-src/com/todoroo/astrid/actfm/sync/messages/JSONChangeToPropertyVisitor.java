@@ -50,7 +50,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
             else if (property.checkFlag(Property.PROP_FLAG_DATE)) {
                 String valueString = data.getString(key);
                 try {
-                    value = DateUtilities.parseIso8601(valueString).getTime();
+                    value = DateUtilities.parseIso8601(valueString);
                     if (Task.DUE_DATE.equals(property)) {
                         value = Task.createDueDate(DateUtilities.isoStringHasTime(valueString) ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY, value);
                     }
@@ -80,6 +80,8 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
     public Void visitString(Property<String> property, String key) {
         try {
             String value = data.getString(key);
+            if ("null".equals(value))
+                value = "";
             model.setValue((StringProperty) property, value);
         } catch (JSONException e) {
             try {

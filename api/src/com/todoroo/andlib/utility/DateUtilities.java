@@ -272,7 +272,9 @@ public class DateUtilities {
         return iso8601String.length() > 12;
     }
 
-    public static Date parseIso8601(String iso8601String) throws ParseException {
+    public static long parseIso8601(String iso8601String) throws ParseException {
+        if (iso8601String == null)
+            return 0;
         String formatString;
         if (isoStringHasTime(iso8601String)) { // Time exists
             iso8601String = iso8601String.replace("Z", "+00:00"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -288,10 +290,12 @@ public class DateUtilities {
         }
 
         Date result = new SimpleDateFormat(formatString).parse(iso8601String);
-        return result;
+        return result.getTime();
     }
 
     public static String timeToIso8601(long time, boolean includeTime) {
+        if (time == 0)
+            return null;
         Date date = new Date(time);
         String formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
         if (!includeTime)
