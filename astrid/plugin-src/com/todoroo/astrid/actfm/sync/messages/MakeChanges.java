@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -21,11 +22,13 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
     private final RemoteModelDao<TYPE> dao;
     private final String table;
+    private final long pushedAt;
 
-    public MakeChanges(JSONObject json, RemoteModelDao<TYPE> dao) {
+    public MakeChanges(JSONObject json, RemoteModelDao<TYPE> dao, long pushedAt) {
         super(json);
-        table = json.optString("table");
+        this.table = json.optString("table");
         this.dao = dao;
+        this.pushedAt = pushedAt;
     }
 
     @Override
@@ -47,6 +50,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     }
 
                     nonColumnChanges(changes, model);
+                    LongProperty pushedAtProperty = (LongProperty) NameMaps.serverColumnNameToLocalProperty(table, "pushed_at");
+                    if (pushedAtProperty != null && pushedAt > 0)
+                        model.setValue(pushedAtProperty, pushedAt);
 
                     StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
                     if (!model.getSetValues().containsKey(uuidProperty.name))

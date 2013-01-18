@@ -1,6 +1,7 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -166,11 +168,18 @@ public class ActFmSyncThread {
                         JSONObject response = actFmInvoker.postSync(payload, token);
                         // process responses
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
+                        String modelPushedAtString = response.optString("pushed_at");
+                        long modelPushedAt = 0;
+                        try {
+                            modelPushedAt = DateUtilities.parseIso8601(modelPushedAtString);
+                        } catch (ParseException e) {
+                            // Unparseable date
+                        }
                         if (serverMessagesJson != null) {
                             for (int i = 0; i < serverMessagesJson.length(); i++) {
                                 JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
                                 if (serverMessageJson != null) {
-                                    ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
+                                    ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson, modelPushedAt);
                                     if (serverMessage != null) {
                                         serverMessage.processMessage();
                                     } else {

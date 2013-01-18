@@ -24,10 +24,10 @@ public abstract class ServerToClientMessage {
         this.json = json;
     }
 
-    public static ServerToClientMessage instantiateMessage(JSONObject json) {
+    public static ServerToClientMessage instantiateMessage(JSONObject json, long pushedAt) {
         String type = json.optString("type");
         if (TYPE_MAKE_CHANGES.equals(type))
-            return instantiateMakeChanges(json);
+            return instantiateMakeChanges(json, pushedAt);
         else if (TYPE_ACKNOWLEDGE_CHANGE.equals(type))
             return new AcknowledgeChange(json);
         else if (TYPE_USER_DATA.equals(type))
@@ -40,14 +40,14 @@ public abstract class ServerToClientMessage {
         return null;
     }
 
-    private static MakeChanges<?> instantiateMakeChanges(JSONObject json) {
+    private static MakeChanges<?> instantiateMakeChanges(JSONObject json, long pushedAt) {
         String table = json.optString("table");
         if (NameMaps.TABLE_ID_TASKS.equals(table))
-            return new MakeChanges<Task>(json, PluginServices.getTaskDao());
+            return new MakeChanges<Task>(json, PluginServices.getTaskDao(), pushedAt);
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
-            return new MakeChanges<TagData>(json, PluginServices.getTagDataDao());
+            return new MakeChanges<TagData>(json, PluginServices.getTagDataDao(), pushedAt);
         else if (NameMaps.TABLE_ID_PUSHED_AT.equals(table))
-            return new MakeChanges<RemoteModel>(json, null);
+            return new MakeChanges<RemoteModel>(json, null, 0);
         else
             return null;
     }
