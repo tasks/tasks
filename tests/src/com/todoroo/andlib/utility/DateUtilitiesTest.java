@@ -68,11 +68,11 @@ public class DateUtilitiesTest extends TodorooTestCase {
 
     public void testParseISO8601() {
         String withTime = "2013-01-28T13:17:02+00:00";
-        Date date = new Date();
+        long date;
         Calendar cal = Calendar.getInstance();
         try {
             date = DateUtilities.parseIso8601(withTime);
-            cal.setTime(date);
+            cal.setTimeInMillis(date);
             cal.setTimeZone(TimeZone.getTimeZone("UTC"));
         } catch (ParseException e) {
             e.printStackTrace();
@@ -88,11 +88,11 @@ public class DateUtilitiesTest extends TodorooTestCase {
 
     public void testParseISO8601NoTime() {
         String withTime = "2013-01-28";
-        Date date = new Date();
+        long date;
         Calendar cal = Calendar.getInstance();
         try {
             date = DateUtilities.parseIso8601(withTime);
-            cal.setTime(date);
+            cal.setTimeInMillis(date);
         } catch (ParseException e) {
             e.printStackTrace();
             fail("Parse exception");

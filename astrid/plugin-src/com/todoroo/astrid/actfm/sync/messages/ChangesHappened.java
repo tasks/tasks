@@ -139,6 +139,8 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitInteger(Property<Integer> property, OE data) {
             Integer i = data.getMergedValues().getAsInteger(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (i != null) {
+                if (property.checkFlag(Property.PROP_FLAG_BOOLEAN))
+                    return i > 0;
                 return i;
             } else {
                 return getAsString(data);

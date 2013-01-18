@@ -96,10 +96,10 @@ public final class Task extends RemoteModel {
             TABLE, "flags");
 
     public static final IntegerProperty IS_PUBLIC = new IntegerProperty(
-            TABLE, "is_public");
+            TABLE, "is_public", Property.PROP_FLAG_BOOLEAN);
 
     public static final IntegerProperty IS_READONLY = new IntegerProperty(
-            TABLE, "is_readonly");
+            TABLE, "is_readonly", Property.PROP_FLAG_BOOLEAN);
 
     // --- non-core task metadata
 

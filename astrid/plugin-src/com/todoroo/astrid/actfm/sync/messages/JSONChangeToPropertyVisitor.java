@@ -33,7 +33,16 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
     @Override
     public Void visitInteger(Property<Integer> property, String key) {
         try {
-            int value = data.getInt(key);
+            int value;
+            if (property.checkFlag(Property.PROP_FLAG_BOOLEAN)) {
+                try {
+                    value = data.getBoolean(key) ? 1 : 0;
+                } catch (JSONException e) {
+                    value = data.getInt(key);
+                }
+            } else {
+                value = data.getInt(key);
+            }
             model.setValue((IntegerProperty) property, value);
         } catch (JSONException e) {
             Log.e(ERROR_TAG, "Error reading int value with key " + key + " from JSON " + data, e);
