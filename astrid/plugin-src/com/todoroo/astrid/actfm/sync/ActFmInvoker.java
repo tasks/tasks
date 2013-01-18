@@ -50,6 +50,8 @@ public class ActFmInvoker {
 
     private static final int API_VERSION = 7;
 
+    private static final boolean SYNC_DEBUG = Constants.DEBUG || true;
+
     @Autowired private RestClient restClient;
 
     private String token = null;
@@ -130,13 +132,13 @@ public class ActFmInvoker {
         try {
             String request = createFetchUrl(api, method, getParameters);
 
-            if (Constants.DEBUG)
+            if (SYNC_DEBUG)
                 Log.e("act-fm-invoke", request);
 
             String response = restClient.get(request);
             JSONObject object = new JSONObject(response);
 
-            if (Constants.DEBUG)
+            if (SYNC_DEBUG)
                 AndroidUtilities.logJSONObject("act-fm-invoke-response", object);
             if(object.getString("status").equals("error"))
                 throw new ActFmServiceException(object.getString("message"), object);
@@ -164,13 +166,13 @@ public class ActFmInvoker {
         try {
             String request = createFetchUrl(null, method, getParameters);
 
-            if (Constants.DEBUG)
+            if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
 
             String response = restClient.post(request, data);
             JSONObject object = new JSONObject(response);
 
-            if (Constants.DEBUG)
+            if (SYNC_DEBUG)
                 AndroidUtilities.logJSONObject("act-fm-post-response", object);
 
             if(object.getString("status").equals("error"))
@@ -187,7 +189,7 @@ public class ActFmInvoker {
     ActFmServiceException {
         try {
             String request = createFetchUrl("api2/" + API_VERSION, "synchronize");
-            if (Constants.DEBUG)
+            if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
             List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
             pairs.add(new BasicNameValuePair("token", token));
@@ -198,7 +200,7 @@ public class ActFmInvoker {
             String response = restClient.post(request, entity);
             JSONObject object = new JSONObject(response);
 
-            if (Constants.DEBUG)
+            if (SYNC_DEBUG)
                 AndroidUtilities.logJSONObject("act-fm-post-response", object);
 
             if(object.getString("status").equals("error"))
