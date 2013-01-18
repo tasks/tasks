@@ -30,8 +30,10 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
 public class ActFmInvoker {
@@ -126,10 +128,15 @@ public class ActFmInvoker {
     ActFmServiceException {
         try {
             String request = createFetchUrl(api, method, getParameters);
-            Log.e("act-fm-invoke", request);
+
+            if (Constants.DEBUG)
+                Log.e("act-fm-invoke", request);
+
             String response = restClient.get(request);
-            Log.e("act-fm-invoke-response", response);
             JSONObject object = new JSONObject(response);
+
+            if (Constants.DEBUG)
+                AndroidUtilities.logJSONObject("act-fm-invoke-response", object);
             if(object.getString("status").equals("error"))
                 throw new ActFmServiceException(object.getString("message"), object);
             return object;
@@ -155,10 +162,16 @@ public class ActFmInvoker {
     ActFmServiceException {
         try {
             String request = createFetchUrl(null, method, getParameters);
-            Log.e("act-fm-post", request);
+
+            if (Constants.DEBUG)
+                Log.e("act-fm-post", request);
+
             String response = restClient.post(request, data);
-            Log.e("act-fm-post-response", response);
             JSONObject object = new JSONObject(response);
+
+            if (Constants.DEBUG)
+                AndroidUtilities.logJSONObject("act-fm-post-response", object);
+
             if(object.getString("status").equals("error"))
                 throw new ActFmServiceException(object.getString("message"), object);
             return object;
@@ -173,15 +186,19 @@ public class ActFmInvoker {
     ActFmServiceException {
         try {
             String request = createFetchUrl("api2/" + API_VERSION, "synchronize");
-            Log.e("act-fm-post", request);
+            if (Constants.DEBUG)
+                Log.e("act-fm-post", request);
             List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
             pairs.add(new BasicNameValuePair("token", token));
             pairs.add(new BasicNameValuePair("data", data.toString()));
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
 
             String response = restClient.post(request, entity);
-            Log.e("act-fm-post-response", response);
             JSONObject object = new JSONObject(response);
+
+            if (Constants.DEBUG)
+                AndroidUtilities.logJSONObject("act-fm-post-response", object);
+
             if(object.getString("status").equals("error"))
                 throw new ActFmServiceException(object.getString("message"), object);
             return object;

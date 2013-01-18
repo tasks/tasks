@@ -23,9 +23,14 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -907,6 +912,39 @@ public class AndroidUtilities {
                 extension = "";
         }
         return extension;
+    }
+
+    /**
+     * Logs a JSONObject using in a readable way
+     */
+    @SuppressWarnings("nls")
+    public static void logJSONObject(String tag, JSONObject object) {
+        if (object == null) {
+            Log.e(tag, "JSONOBject: null");
+            return;
+        } else {
+            Log.e(tag, "Logging JSONObject");
+        }
+        Iterator<String> keys = object.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            JSONArray array = object.optJSONArray(key);
+            if (array != null) {
+                Log.e(tag, "    " + key + ": Array");
+                for (int i = 0; i < array.length(); i++) {
+                    try {
+                        Object elem = array.get(i);
+                        Log.e(tag, "      Index " + i + ": " + elem);
+                    } catch (JSONException e) {/**/}
+                }
+            } else {
+                try {
+                    Object value = object.get(key);
+                    Log.e(tag, "    " + key + ": " + value);
+                } catch (JSONException e) {/**/}
+            }
+        }
+
     }
 
 }
