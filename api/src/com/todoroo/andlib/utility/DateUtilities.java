@@ -291,4 +291,9 @@ public class DateUtilities {
         return result;
     }
 
+    public static String timeToIso8601(long time) {
+        Date date = new Date(time);
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(date); //$NON-NLS-1$
+    }
+
 }

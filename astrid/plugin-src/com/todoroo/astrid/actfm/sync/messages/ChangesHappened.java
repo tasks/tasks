@@ -14,6 +14,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.core.PluginServices;
@@ -162,7 +163,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 if (l == 0 && property.checkFlag(Property.PROP_FLAG_USER_ID))
                     return ActFmPreferenceService.userId();
                 else if (property.checkFlag(Property.PROP_FLAG_DATE))
-                    return l.longValue() / 1000L;
+                    return DateUtilities.timeToIso8601(l);
                 return l;
             } else {
                 return getAsString(data);
