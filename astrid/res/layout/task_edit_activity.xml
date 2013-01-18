@@ -82,8 +82,8 @@
                 android:id="@+id/edit_beast_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dip"
-                android:paddingBottom="10dip"
+                android:paddingTop="17dip"
+                android:paddingBottom="17dip"
                 android:text="@string/EPr_beastMode_shortcut"
                 android:textColor="?attr/asTextColor"/>
             
@@ -92,7 +92,8 @@
                 android:layout_width="20dip"
                 android:layout_height="20dip"
                 android:layout_marginBottom="10dip"
-                android:background="#ff0000"/>
+                android:src="@drawable/trashcan"
+                android:scaleType="fitCenter"/>
             
         </LinearLayout>
     </com.todoroo.astrid.ui.NestableScrollView>
