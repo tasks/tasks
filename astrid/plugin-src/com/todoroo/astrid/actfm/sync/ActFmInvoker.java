@@ -31,6 +31,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
@@ -191,6 +192,7 @@ public class ActFmInvoker {
             List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
             pairs.add(new BasicNameValuePair("token", token));
             pairs.add(new BasicNameValuePair("data", data.toString()));
+            pairs.add(new BasicNameValuePair("time", DateUtilities.timeToIso8601(DateUtilities.now(), true)));
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
 
             String response = restClient.post(request, entity);

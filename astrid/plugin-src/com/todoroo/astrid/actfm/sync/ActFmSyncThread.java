@@ -168,7 +168,7 @@ public class ActFmSyncThread {
                         JSONObject response = actFmInvoker.postSync(payload, token);
                         // process responses
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
-                        String modelPushedAtString = response.optString("pushed_at");
+                        String modelPushedAtString = response.optString("time");
                         long modelPushedAt = 0;
                         try {
                             modelPushedAt = DateUtilities.parseIso8601(modelPushedAtString);
