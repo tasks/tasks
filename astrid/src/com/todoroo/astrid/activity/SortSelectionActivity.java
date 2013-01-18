@@ -78,8 +78,7 @@ public class SortSelectionActivity {
         });
 
         AlertDialog dialog = new AlertDialog.Builder(activity).
-            setTitle(R.string.SSD_title).
-            setIcon(android.R.drawable.ic_menu_sort_by_size).
+            setTitle(R.string.TLA_menu_sort).
             setView(body).
             setPositiveButton(R.string.SSD_save_always,
                     new DialogOkListener(body, listener, true)).

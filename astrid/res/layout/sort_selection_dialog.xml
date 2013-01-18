@@ -62,15 +62,19 @@
             
       <!-- hidden task status -->
       
+      <View
+          android:id="@+id/TEA_Separator"
+          style="@style/TEA_Separator"
+          android:layout_width="fill_parent"
+          android:layout_height="1px" />
+
       <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="#ffffff"
-        android:text="@string/SSD_hidden_title"
-        android:background="@drawable/edit_titlebar"/>
+          style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="10dip"
+          android:paddingLeft="10dip"
+          android:text="@string/SSD_hidden_title" />
         
       <CheckBox android:id="@+id/hidden"
         android:layout_width="fill_parent"
