@@ -87,6 +87,13 @@
                 android:text="@string/EPr_beastMode_shortcut"
                 android:textColor="?attr/asTextColor"/>
             
+            <ImageView
+                android:id="@+id/delete_task"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_marginBottom="10dip"
+                android:background="#ff0000"/>
+            
         </LinearLayout>
     </com.todoroo.astrid.ui.NestableScrollView>
 

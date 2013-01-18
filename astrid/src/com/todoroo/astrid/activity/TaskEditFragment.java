@@ -178,7 +178,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
-    private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
     private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_refresh_comments;
     private static final int MENU_SHOW_COMMENTS_ID = R.string.TEA_menu_comments;
     private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
@@ -618,6 +617,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         setupBeastModeButton();
+
+        getView().findViewById(R.id.delete_task).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteButtonClick();
+            }
+        });
 
         loadEditPageOrder(false);
 
@@ -1192,9 +1198,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case MENU_DISCARD_ID:
             discardButtonClick();
             return true;
-        case MENU_DELETE_ID:
-            deleteButtonClick();
-            return true;
         case MENU_ATTACH_ID:
             startAttachFile();
             return true;
@@ -1259,9 +1262,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             item.setIcon(commentIcon);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
-
-        item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
-        item.setIcon(android.R.drawable.ic_menu_delete);
 
     }
 
