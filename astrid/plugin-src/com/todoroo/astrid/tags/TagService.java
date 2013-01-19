@@ -288,6 +288,12 @@ public final class TagService {
         }
     }
 
+    public void deleteLink(String taskUuid, String tagUuid) {
+        Metadata deleteTemplate = new Metadata();
+        deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        metadataDao.update(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), deleteTemplate);
+    }
+
     /**
      * Return tags on the given task
      *
