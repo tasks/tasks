@@ -50,7 +50,7 @@ public class ActFmInvoker {
 
     private static final int API_VERSION = 7;
 
-    private static final boolean SYNC_DEBUG = Constants.DEBUG || true;
+    public static final boolean SYNC_DEBUG = Constants.DEBUG || true;
 
     @Autowired private RestClient restClient;
 

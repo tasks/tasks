@@ -31,7 +31,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
 public class ActFmSyncThread {
@@ -158,10 +157,9 @@ public class ActFmSyncThread {
                         JSONObject serialized = message.serializeToJSON();
                         if (serialized != null) {
                             payload.put(serialized);
-                            if (true || Constants.DEBUG)
-                                Log.w("actfm-sync-message", serialized.toString());
+                            if (ActFmInvoker.SYNC_DEBUG)
+                                Log.e("actfm-send-message", serialized.toString());
                         }
-
                     }
 
                     try {

@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -66,6 +67,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
         String title = tag.tag;
+        if (TextUtils.isEmpty(title))
+            return null;
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagMetadata.KEY);
@@ -155,8 +158,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         boolean shouldAddUntagged = addUntaggedFilter &&
                 Preferences.getBoolean(R.string.p_show_not_in_list_filter, true);
 
-        int length = shouldAddUntagged ? tags.length + 1 : tags.length;
-        Filter[] filters = new Filter[length];
+        ArrayList<Filter> filters = new ArrayList<Filter>(tags.length);
 
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
@@ -173,14 +175,15 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                     null);
             untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
                     ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();
-            filters[0] = untagged;
+            filters.add(untagged);
         }
 
         for(int i = 0; i < tags.length; i++) {
-            int index = shouldAddUntagged ? i + 1 : i;
-            filters[index] = constructFilter(context, tags[i]);
+            Filter f = constructFilter(context, tags[i]);
+            if (f != null)
+                filters.add(f);
         }
-        FilterCategory filter = new FilterCategory(context.getString(name), filters);
+        FilterCategory filter = new FilterCategory(context.getString(name), filters.toArray(new Filter[filters.size()]));
         return filter;
     }
 

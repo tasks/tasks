@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import java.text.ParseException;
 import java.util.Iterator;
 
 import org.json.JSONObject;
@@ -10,6 +11,7 @@ import android.util.Log;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -72,8 +74,13 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);
                 }
             } else if (NameMaps.TABLE_ID_PUSHED_AT.equals(table)) {
-                long pushedAt = changes.optLong(NameMaps.TABLE_ID_PUSHED_AT);
-                if (pushedAt > 0) {
+                long tablePushedAt = 0;
+                try {
+                    tablePushedAt = DateUtilities.parseIso8601(changes.optString(NameMaps.TABLE_ID_PUSHED_AT));
+                } catch (ParseException e) {
+                    //
+                }
+                if (tablePushedAt > 0) {
                     String pushedAtKey = null;
                     if (NameMaps.TABLE_ID_TASKS.equals(uuid))
                         pushedAtKey = NameMaps.PUSHED_AT_TASKS;
@@ -81,7 +88,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         pushedAtKey = NameMaps.PUSHED_AT_TAGS;
 
                     if (pushedAtKey != null)
-                        Preferences.setLong(pushedAtKey, pushedAt);
+                        Preferences.setLong(pushedAtKey, tablePushedAt);
 
                 }
             }
