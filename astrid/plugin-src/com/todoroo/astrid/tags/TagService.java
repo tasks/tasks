@@ -258,18 +258,33 @@ public final class TagService {
     }
 
     public void createLink(Task task, String tagName, String tagUuid) {
-        TodorooCursor<Metadata> existing = metadataDao.query(Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
-                        TagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)),
-                        TagMetadata.TAG_UUID.eq(tagUuid),
-                        Metadata.DELETION_DATE.eq(0))));
+        Metadata link = TagMetadata.newTagMetadata(task, tagName, tagUuid);
+        if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(task.getId(), TagMetadata.KEY),
+                    TagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+            metadataDao.createNew(link);
+        }
+    }
+
+    public void createLink(long taskId, String taskUuid, String tagUuid) {
+        TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID).where(TagData.UUID.eq(tagUuid)));
         try {
-            if (existing.getCount() == 0) {
-                Metadata link = TagMetadata.newTagMetadata(task, tagName, tagUuid);
+            TagData tagData;
+            if (existingTag.getCount() == 0) {
+                tagData = new TagData();
+                tagData.setValue(TagData.UUID, tagUuid);
+                tagDataService.save(tagData);
+            } else {
+                tagData = new TagData(existingTag);
+            }
+
+            Metadata link = TagMetadata.newTagMetadata(taskId, taskUuid, tagData.getValue(TagData.NAME), tagUuid);
+            if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY),
+                    TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
                 metadataDao.createNew(link);
             }
+
         } finally {
-            existing.close();
+            existingTag.close();
         }
     }
 

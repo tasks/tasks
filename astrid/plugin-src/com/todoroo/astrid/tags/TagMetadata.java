@@ -48,6 +48,7 @@ public class TagMetadata {
         link.setValue(TAG_NAME, tagName);
         link.setValue(TASK_UUID, taskUuid);
         link.setValue(TAG_UUID, tagUuid);
+        link.setValue(Metadata.DELETION_DATE, 0L);
         return link;
     }
 }
