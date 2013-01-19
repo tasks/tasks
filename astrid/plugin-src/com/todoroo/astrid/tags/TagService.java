@@ -288,10 +288,26 @@ public final class TagService {
         }
     }
 
+    /**
+     * Delete a single task to tag link
+     * @param taskUuid
+     * @param tagUuid
+     */
     public void deleteLink(String taskUuid, String tagUuid) {
         Metadata deleteTemplate = new Metadata();
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         metadataDao.update(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), deleteTemplate);
+    }
+
+    /**
+     * Delete all links between the specified task and the list of tags
+     * @param taskUuid
+     * @param tagUuids
+     */
+    public void deleteLinks(String taskUuid, String[] tagUuids) {
+        Metadata deleteTemplate = new Metadata();
+        deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        metadataDao.update(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.in(tagUuids)), deleteTemplate);
     }
 
     /**
