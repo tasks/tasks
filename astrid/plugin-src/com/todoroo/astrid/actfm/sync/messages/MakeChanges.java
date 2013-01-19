@@ -1,8 +1,11 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
@@ -16,6 +19,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.tags.TagService;
 
 @SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -51,7 +55,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         }
                     }
 
-                    nonColumnChanges(changes, model);
+                    nonColumnChanges(changes, model, uuid);
                     LongProperty pushedAtProperty = (LongProperty) NameMaps.serverColumnNameToLocalProperty(table, "pushed_at");
                     if (pushedAtProperty != null && pushedAt > 0)
                         model.setValue(pushedAtProperty, pushedAt);
@@ -95,12 +99,12 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
     }
 
-    private void nonColumnChanges(JSONObject changes, TYPE model) {
+    private void nonColumnChanges(JSONObject changes, TYPE model, String uuid) {
         MakeNonColumnChanges nonColumnChanges = null;
         if (NameMaps.TABLE_ID_TASKS.equals(table))
-            nonColumnChanges = new MakeNonColumnTaskChanges(model, changes);
+            nonColumnChanges = new MakeNonColumnTaskChanges(model, changes, uuid);
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
-            nonColumnChanges = new MakeNonColumnTagChanges(model, changes);
+            nonColumnChanges = new MakeNonColumnTagChanges(model, changes, uuid);
 
         if (nonColumnChanges != null)
             nonColumnChanges.performChanges();
@@ -109,10 +113,12 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
     private abstract class MakeNonColumnChanges {
         protected final TYPE model;
         protected final JSONObject changes;
+        protected final String uuid;
 
-        public MakeNonColumnChanges(TYPE model, JSONObject changes) {
+        public MakeNonColumnChanges(TYPE model, JSONObject changes, String uuid) {
             this.model = model;
             this.changes = changes;
+            this.uuid = uuid;
         }
 
         public abstract void performChanges();
@@ -120,20 +126,32 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
     private class MakeNonColumnTaskChanges extends MakeNonColumnChanges {
 
-        public MakeNonColumnTaskChanges(TYPE model, JSONObject changes) {
-            super(model, changes);
+        public MakeNonColumnTaskChanges(TYPE model, JSONObject changes, String uuid) {
+            super(model, changes, uuid);
         }
 
         @Override
         public void performChanges() {
-            // Perform any non-field based changes
+            JSONArray removeTags = changes.optJSONArray("tag_removed");
+            if (removeTags != null) {
+                ArrayList<String> toRemove = new ArrayList<String>(removeTags.length());
+                for (int i = 0; i < removeTags.length(); i++) {
+                    try {
+                        String tagUuid = removeTags.getString(i);
+                        toRemove.add(tagUuid);
+                    } catch (JSONException e) {
+                        //
+                    }
+                }
+                TagService.getInstance().deleteLinks(uuid, toRemove.toArray(new String[toRemove.size()]));
+            }
         }
     }
 
     private class MakeNonColumnTagChanges extends MakeNonColumnChanges {
 
-        public MakeNonColumnTagChanges(TYPE model, JSONObject changes) {
-            super(model, changes);
+        public MakeNonColumnTagChanges(TYPE model, JSONObject changes, String uuid) {
+            super(model, changes, uuid);
         }
 
         @Override
