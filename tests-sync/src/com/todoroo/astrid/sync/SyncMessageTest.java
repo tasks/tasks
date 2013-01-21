@@ -65,7 +65,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 			JSONObject makeChanges = getMakeChanges();
 			makeChanges.put("uuid", t.getValue(Task.UUID));
 			
-			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
 			message.processMessage();
 			
 			t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
@@ -81,7 +81,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 		try {
 			JSONObject makeChanges = getMakeChanges();
 			makeChanges.put("uuid", "1");
-			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
 			message.processMessage();
 			
 			TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.UUID, Task.TITLE, Task.IMPORTANCE).where(Task.UUID.eq("1")));
@@ -108,7 +108,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 			long date = DateUtilities.now();
 			JSONObject makeChanges = getMakeChangesForPushedAt(date);
 			
-			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
 			message.processMessage();
 			
 			assertEquals(date, Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0));
