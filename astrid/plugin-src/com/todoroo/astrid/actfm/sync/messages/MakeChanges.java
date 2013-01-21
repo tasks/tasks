@@ -55,21 +55,27 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         }
                     }
 
-                    nonColumnChanges(changes, model, uuid);
+                    StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
+                    if (model.getSetValues().containsKey(uuidProperty.name))
+                        uuid = model.getValue(uuidProperty);
+
+                    beforeSaveChanges(changes, model, uuid);
                     LongProperty pushedAtProperty = (LongProperty) NameMaps.serverColumnNameToLocalProperty(table, "pushed_at");
                     if (pushedAtProperty != null && pushedAt > 0)
                         model.setValue(pushedAtProperty, pushedAt);
 
-                    StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
                     if (!model.getSetValues().containsKey(uuidProperty.name))
                         model.setValue(uuidProperty, uuid);
 
                     if (model.getSetValues().size() > 0) {
                         model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                        boolean success = true;
                         if (dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), model) <= 0) { // If update doesn't update rows. create a new model
                             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                            dao.createNew(model);
+                            success = dao.createNew(model);
                         }
+                        if (success)
+                            afterSaveChanges(changes, model, uuid);
                     }
 
                 } catch (IllegalAccessException e) {
@@ -99,23 +105,30 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
     }
 
-    private void nonColumnChanges(JSONObject changes, TYPE model, String uuid) {
-        MakeNonColumnChanges nonColumnChanges = null;
+    private void beforeSaveChanges(JSONObject changes, TYPE model, String uuid) {
+        ChangeHooks beforeSaveChanges = null;
         if (NameMaps.TABLE_ID_TASKS.equals(table))
-            nonColumnChanges = new MakeNonColumnTaskChanges(model, changes, uuid);
-        else if (NameMaps.TABLE_ID_TAGS.equals(table))
-            nonColumnChanges = new MakeNonColumnTagChanges(model, changes, uuid);
+            beforeSaveChanges = new BeforeSaveTaskChanges(model, changes, uuid);
 
-        if (nonColumnChanges != null)
-            nonColumnChanges.performChanges();
+        if (beforeSaveChanges != null)
+            beforeSaveChanges.performChanges();
     }
 
-    private abstract class MakeNonColumnChanges {
+    private void afterSaveChanges(JSONObject changes, TYPE model, String uuid) {
+        ChangeHooks afterSaveChanges = null;
+        if (NameMaps.TABLE_ID_TASKS.equals(table))
+            afterSaveChanges = new AfterSaveTaskChanges(model, changes, uuid);
+
+        if (afterSaveChanges != null)
+            afterSaveChanges.performChanges();
+    }
+
+    private abstract class ChangeHooks {
         protected final TYPE model;
         protected final JSONObject changes;
         protected final String uuid;
 
-        public MakeNonColumnChanges(TYPE model, JSONObject changes, String uuid) {
+        public ChangeHooks(TYPE model, JSONObject changes, String uuid) {
             this.model = model;
             this.changes = changes;
             this.uuid = uuid;
@@ -124,14 +137,39 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         public abstract void performChanges();
     }
 
-    private class MakeNonColumnTaskChanges extends MakeNonColumnChanges {
+    private class BeforeSaveTaskChanges extends ChangeHooks {
 
-        public MakeNonColumnTaskChanges(TYPE model, JSONObject changes, String uuid) {
+        public BeforeSaveTaskChanges(TYPE model, JSONObject changes, String uuid) {
             super(model, changes, uuid);
         }
 
         @Override
         public void performChanges() {
+            //
+        }
+    }
+
+    private class AfterSaveTaskChanges extends ChangeHooks {
+
+        public AfterSaveTaskChanges(TYPE model, JSONObject changes, String uuid) {
+            super(model, changes, uuid);
+        }
+
+        @Override
+        public void performChanges() {
+            JSONArray addTags = changes.optJSONArray("tag_added");
+            if (addTags != null) {
+                TagService tagService = TagService.getInstance();
+                for (int i = 0; i < addTags.length(); i++) {
+                    try {
+                        String tagUuid = addTags.getString(i);
+                        tagService.createLink(model.getId(), uuid, tagUuid);
+                    } catch (JSONException e) {
+                        //
+                    }
+                }
+            }
+
             JSONArray removeTags = changes.optJSONArray("tag_removed");
             if (removeTags != null) {
                 ArrayList<String> toRemove = new ArrayList<String>(removeTags.length());
@@ -146,18 +184,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 TagService.getInstance().deleteLinks(uuid, toRemove.toArray(new String[toRemove.size()]));
             }
         }
-    }
 
-    private class MakeNonColumnTagChanges extends MakeNonColumnChanges {
-
-        public MakeNonColumnTagChanges(TYPE model, JSONObject changes, String uuid) {
-            super(model, changes, uuid);
-        }
-
-        @Override
-        public void performChanges() {
-            // Perform any non-field based changes
-        }
     }
 
 
