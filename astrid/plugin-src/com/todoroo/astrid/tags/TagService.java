@@ -161,12 +161,8 @@ public final class TagService {
 
     }
 
-    public static Criterion memberOfTagData(long tagDataUUID) {
-        return Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
-                Criterion.and(Metadata.KEY.eq(TagMetadata.KEY), TagMetadata.TAG_UUID.eq(tagDataUUID))));
-    }
-
-    public static Criterion tagEq(String tag, Criterion additionalCriterion) {
+    @Deprecated
+    private static Criterion tagEq(String tag, Criterion additionalCriterion) {
         return Criterion.and(
                 MetadataCriteria.withKey(TagMetadata.KEY), TagMetadata.TAG_NAME.eq(tag),
                 additionalCriterion);
@@ -179,7 +175,7 @@ public final class TagService {
     }
 
     public QueryTemplate untaggedTemplate() {
-        Long[] emergentTags = getEmergentTagIds();
+        String[] emergentTags = getEmergentTagIds();
 
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.UUID.in(Query.select(TagMetadata.TASK_UUID).from(Metadata.TABLE)
@@ -222,18 +218,20 @@ public final class TagService {
         }
     }
 
-    public Long[] getEmergentTagIds() {
-        TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.ID)
+    public String[] getEmergentTagIds() {
+        TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.UUID)
                 .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
         try {
-            Long[] tags = new Long[emergent.getCount()];
+            ArrayList<String> tags = new ArrayList<String>();
             TagData data = new TagData();
             for (int i = 0; i < emergent.getCount(); i++) {
                 emergent.moveToPosition(i);
                 data.readFromCursor(emergent);
-                tags[i] = data.getId();
+                String uuid = data.getValue(TagData.UUID);
+                if (!TextUtils.isEmpty(uuid) && !"0".equals(uuid))
+                    tags.add(uuid);
             }
-            return tags;
+            return tags.toArray(new String[tags.size()]);
         } finally {
             emergent.close();
         }
@@ -337,7 +335,7 @@ public final class TagService {
                         Metadata.DELETION_DATE.eq(0),
                         Metadata.TASK.eq(taskId))));
         if (!includeEmergent)
-            criterion = Criterion.and(Criterion.not(TagData.ID.in(getEmergentTagIds())), criterion);
+            criterion = Criterion.and(Criterion.not(TagData.UUID.in(getEmergentTagIds())), criterion);
 
         return tagDataService.query(Query.select(properties).where(criterion));
     }

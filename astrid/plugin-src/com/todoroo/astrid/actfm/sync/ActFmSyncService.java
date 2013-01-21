@@ -1146,11 +1146,7 @@ public final class ActFmSyncService {
         invokeFetchList("task", manual, null, new TaskListItemProcessor(manual) {
             @Override
             protected void deleteExtras(Long[] localIds) {
-                taskService.deleteWhere(Criterion.and(
-                        TagService.memberOfTagData(tagData.getValue(TagData.REMOTE_ID)),
-                        TaskCriteria.activeAndVisible(),
-                        Task.REMOTE_ID.isNotNull(),
-                        Criterion.not(Task.ID.in(localIds))));
+                //
             }
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }

@@ -16,6 +16,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -107,9 +108,16 @@ public class TagCaseMigrator {
         addTasksToTargetTag(renameMap.get(tag), targetNameForTag(tag));
     }
 
+    @Deprecated
+    private static Criterion tagEq(String tag, Criterion additionalCriterion) {
+        return Criterion.and(
+                MetadataCriteria.withKey(TagMetadata.KEY), TagMetadata.TAG_NAME.eq(tag),
+                additionalCriterion);
+    }
+
     private void addTasksToTargetTag(String tag, String target) {
         TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID).join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(TagService.tagEq(tag, Criterion.all)));
+                    Task.ID.eq(Metadata.TASK))).where(tagEq(tag, Criterion.all)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 Task curr = new Task(tasks);
