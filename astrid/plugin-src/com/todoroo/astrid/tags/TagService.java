@@ -267,15 +267,14 @@ public final class TagService {
         TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID).where(TagData.UUID.eq(tagUuid)));
         try {
             TagData tagData;
-            if (existingTag.getCount() == 0) {
-                tagData = new TagData();
-                tagData.setValue(TagData.UUID, tagUuid);
-                tagDataService.save(tagData);
-            } else {
+            String name = "";
+            if (existingTag.getCount() > 0) {
+                existingTag.moveToFirst();
                 tagData = new TagData(existingTag);
+                name = tagData.getValue(TagData.NAME);
             }
 
-            Metadata link = TagMetadata.newTagMetadata(taskId, taskUuid, tagData.getValue(TagData.NAME), tagUuid);
+            Metadata link = TagMetadata.newTagMetadata(taskId, taskUuid, name, tagUuid);
             if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY),
                     TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
                 metadataDao.createNew(link);

@@ -14,11 +14,16 @@ import android.util.Log;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.RemoteModelDao;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 
 @SuppressWarnings("nls")
@@ -118,6 +123,8 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         ChangeHooks afterSaveChanges = null;
         if (NameMaps.TABLE_ID_TASKS.equals(table))
             afterSaveChanges = new AfterSaveTaskChanges(model, changes, uuid);
+        else if (NameMaps.TABLE_ID_TAGS.equals(table))
+            afterSaveChanges = new AfterSaveTagChanges(model, changes, uuid);
 
         if (afterSaveChanges != null)
             afterSaveChanges.performChanges();
@@ -185,6 +192,24 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             }
         }
 
+    }
+
+    private class AfterSaveTagChanges extends ChangeHooks {
+
+        public AfterSaveTagChanges(TYPE model, JSONObject changes, String uuid) {
+            super(model, changes, uuid);
+        }
+
+        @Override
+        public void performChanges() {
+            if (changes.has("name")) {
+                Metadata template = new Metadata();
+                template.setValue(TagMetadata.TAG_NAME, changes.optString("name"));
+                PluginServices.getMetadataService().update(
+                        Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+                                TagMetadata.TAG_UUID.eq(uuid)), template);
+            }
+        }
     }
 
 
