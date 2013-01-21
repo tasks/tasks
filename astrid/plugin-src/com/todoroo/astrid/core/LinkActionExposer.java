@@ -6,6 +6,7 @@
 package com.todoroo.astrid.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.PendingIntent;
@@ -67,13 +68,13 @@ public class LinkActionExposer {
 
         Resources r = context.getResources();
         if (hasAttachments) {
-            BitmapDrawable icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_attachments));
+            BitmapDrawable icon = getBitmapDrawable(R.drawable.action_attachments, r);
             FilesAction filesAction = new FilesAction("", null, icon); //$NON-NLS-1$
             result.add(filesAction);
         }
 
         if (!TextUtils.isEmpty(notes) && !Preferences.getBoolean(R.string.p_showNotes, false)) {
-            BitmapDrawable icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_notes));
+            BitmapDrawable icon = getBitmapDrawable(R.drawable.action_notes, r);
             NotesAction notesAction = new NotesAction("", null, icon); //$NON-NLS-1$
             result.add(notesAction);
         }
@@ -106,13 +107,12 @@ public class LinkActionExposer {
         Resources r = context.getResources();
         Drawable icon;
         if (url.startsWith("mailto")) {
-            icon = r.getDrawable(R.drawable.action_mail);
+            icon = getBitmapDrawable(R.drawable.action_mail, r);
         } else if (url.startsWith("tel")) {
-            icon = r.getDrawable(R.drawable.action_tel);
+            icon = getBitmapDrawable(R.drawable.action_tel, r);
         } else {
-            icon = r.getDrawable(R.drawable.action_web);
+            icon = getBitmapDrawable(R.drawable.action_web, r);
         }
-//        Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
 
         if(text.length() > 15)
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
@@ -120,6 +120,18 @@ public class LinkActionExposer {
         TaskAction action = new TaskAction(text,
                 PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
         return action;
+    }
+
+    private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<Integer, BitmapDrawable>();
+
+    private static BitmapDrawable getBitmapDrawable(int resId, Resources resources) {
+        if (IMAGE_CACHE.containsKey(resId))
+            return IMAGE_CACHE.get(resId);
+        else {
+            BitmapDrawable b = (BitmapDrawable) resources.getDrawable(resId);
+            IMAGE_CACHE.put(resId, b);
+            return b;
+        }
     }
 
 }

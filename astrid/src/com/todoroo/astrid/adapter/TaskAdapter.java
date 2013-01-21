@@ -155,33 +155,30 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.DELETION_DATE
     };
 
-    public static int[] IMPORTANCE_RESOURCES = new int[] {
+    public static final int[] IMPORTANCE_RESOURCES = new int[] {
         R.drawable.importance_check_1,
         R.drawable.importance_check_2,
         R.drawable.importance_check_3,
         R.drawable.importance_check_4,
     };
 
-    public static int[] LEGACY_IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.importance_1,
-        R.drawable.importance_2,
-        R.drawable.importance_3,
-        R.drawable.importance_4,
-    };
-
-    public static int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
+    public static final int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
         R.drawable.check_box_large_1,
         R.drawable.check_box_large_2,
         R.drawable.check_box_large_3,
         R.drawable.check_box_large_4,
     };
 
-    public static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
+    public static final int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
         R.drawable.importance_check_repeat_1,
         R.drawable.importance_check_repeat_2,
         R.drawable.importance_check_repeat_3,
         R.drawable.importance_check_repeat_4,
     };
+
+    private static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
+    private static final Drawable[] IMPORTANCE_DRAWABLES_LARGE = new Drawable[IMPORTANCE_RESOURCES_LARGE.length];
+    private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
 
     // --- instance variables
 
@@ -270,6 +267,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asReadonlyTaskBackground, readonlyBg, false);
         readonlyBackground = readonlyBg.data;
 
+        preloadDrawables(IMPORTANCE_RESOURCES, IMPORTANCE_DRAWABLES);
+        preloadDrawables(IMPORTANCE_RESOURCES_LARGE, IMPORTANCE_DRAWABLES_LARGE);
+        preloadDrawables(IMPORTANCE_REPEAT_RESOURCES, IMPORTANCE_REPEAT_DRAWABLES);
+
+    }
+
+    private void preloadDrawables(int[] resourceIds, Drawable[] drawables) {
+        for (int i = 0; i < resourceIds.length; i++) {
+            drawables[i] = resources.getDrawable(resourceIds[i]);
+        }
     }
 
     protected int computeMinRowHeight() {
@@ -1169,9 +1176,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (value >= IMPORTANCE_RESOURCES.length)
                 value = IMPORTANCE_RESOURCES.length - 1;
             if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                checkBoxView.setImageResource(IMPORTANCE_REPEAT_RESOURCES[value]);
+                checkBoxView.setImageDrawable(IMPORTANCE_REPEAT_DRAWABLES[value]); //(IMPORTANCE_REPEAT_RESOURCES[value]);
             } else {
-                checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
+                checkBoxView.setImageDrawable(IMPORTANCE_DRAWABLES[value]);
             }
             if (titleOnlyLayout)
                 return;
@@ -1186,7 +1193,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
                 if (viewHolder.pictureBorder != null)
-                    viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
+                    viewHolder.pictureBorder.setBackgroundDrawable(IMPORTANCE_DRAWABLES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
