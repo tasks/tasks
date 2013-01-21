@@ -27,6 +27,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class TagCommentsFragment extends CommentsFragment {
 
@@ -102,7 +103,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
 
         AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
-        imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
+        imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagName)));
         imageView.setUrl(tagData.getValue(TagData.PICTURE));
     }
 

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -74,6 +75,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
@@ -100,6 +102,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private ImageButton pictureButton;
     private Bitmap pendingCommentPicture = null;
     private final Fragment fragment;
+    private final Resources resources;
     private final ImageDiskCache imageCache;
     private final int cameraButton;
     private final String linkColor;
@@ -118,6 +121,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         imageCache = ImageDiskCache.getInstance();
         this.fragment = fragment;
+        this.resources = fragment.getResources();
 
         linkColor = UpdateAdapter.getLinkColor(fragment);
 
@@ -366,7 +370,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public synchronized void bindView(View view, NoteOrUpdate item) {
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-            pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             pictureView.setUrl(item.picture);
 
         }

@@ -67,6 +67,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagViewFragment extends TaskListFragment {
@@ -380,9 +381,9 @@ public class TagViewFragment extends TaskListFragment {
         image.setLayoutParams(new LinearLayout.LayoutParams((int)(43 * displayMetrics.density),
                 (int)(43 * displayMetrics.density)));
 
-        image.setDefaultImageResource(R.drawable.icn_default_person_image);
+        image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
         if (member.optLong("id", Task.USER_ID_SELF) == Task.USER_ID_UNASSIGNED)
-            image.setDefaultImageResource(R.drawable.icn_anyone);
+            image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone));
 
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
         try {

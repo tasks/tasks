@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -78,6 +79,7 @@ import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.ui.PopupControlSet;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class EditPeopleControlSet extends PopupControlSet {
 
@@ -139,6 +141,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private boolean dontClearAssignedCustom = false;
 
+    private final Resources resources;
+
     private final List<AssignedChangedListener> listeners = new LinkedList<AssignedChangedListener>();
 
     public interface AssignedChangedListener {
@@ -158,6 +162,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     public EditPeopleControlSet(Activity activity, Fragment fragment, int viewLayout, int displayViewLayout, int title, int loginRequestCode) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
+        this.resources = activity.getResources();
         this.loginRequestCode = loginRequestCode;
         this.fragment = fragment;
         displayText.setText(activity.getString(R.string.TEA_control_who));
@@ -583,7 +588,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 ctv.setChecked(false);
             }
             AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
-            image.setDefaultImageResource(R.drawable.icn_default_person_image);
+            image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             image.setUrl(getItem(position).user.optString("picture"));
             if (getItem(position).user.optInt("default_picture", 0) > 0) {
                 image.setDefaultImageResource(getItem(position).user.optInt("default_picture"));

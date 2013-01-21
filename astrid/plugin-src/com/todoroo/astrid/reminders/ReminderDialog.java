@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -43,6 +44,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 /**
  * A dialog that shows your task reminder
@@ -158,6 +160,7 @@ public class ReminderDialog extends Dialog {
     private void addFacesToReminder(Activity activity, Task task) {
         if (task == null)
             return;
+        Resources resources = activity.getResources();
         LinkedHashSet<String> pictureUrls = new LinkedHashSet<String>();
         AtomicBoolean isSharedTask = new AtomicBoolean(false);
 
@@ -179,7 +182,7 @@ public class ReminderDialog extends Dialog {
             int count = 0;
             for (String url : pictureUrls) {
                 AsyncImageView image = new AsyncImageView(activity);
-                image.setDefaultImageResource(R.drawable.icn_default_person_image);
+                image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
                 image.setUrl(url);
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int) (35 * metrics.density), (int) (35 * metrics.density));

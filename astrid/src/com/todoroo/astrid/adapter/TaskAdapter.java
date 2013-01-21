@@ -95,6 +95,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -1144,9 +1145,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         if (viewHolder.isTaskRabbit) {
                             pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
                         } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
-                            pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
+                            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone_transparent));
                         else {
-                            pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
                             try {
                                 JSONObject user = new JSONObject(task.getValue(Task.USER));
                                 pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$

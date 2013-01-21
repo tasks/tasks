@@ -58,6 +58,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagSettingsActivity extends FragmentActivity {
@@ -207,7 +208,7 @@ public class TagSettingsActivity extends FragmentActivity {
             findViewById(R.id.tag_silenced_container).setVisibility(View.VISIBLE);
         }
 
-        picture.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagData.getValue(TagData.NAME)));
+        picture.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getValue(TagData.NAME))));
         picture.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {

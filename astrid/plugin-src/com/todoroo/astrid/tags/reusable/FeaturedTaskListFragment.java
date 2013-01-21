@@ -32,6 +32,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class FeaturedTaskListFragment extends TagViewFragment {
 
@@ -92,7 +93,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
         String imageUrl = tagData.getValue(TagData.PICTURE);
         if (!TextUtils.isEmpty(imageUrl)) {
             imageView.setVisibility(View.VISIBLE);
-            imageView.setDefaultImageResource(R.drawable.default_list_0);
+            imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.default_list_0));
             imageView.setUrl(imageUrl);
         } else {
             imageView.setVisibility(View.GONE);

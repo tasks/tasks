@@ -30,6 +30,7 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class PersonViewFragment extends TaskListFragment {
 
@@ -70,7 +71,7 @@ public class PersonViewFragment extends TaskListFragment {
 
     private void setupUserHeader() {
         if (user != null) {
-            userImage.setDefaultImageResource(R.drawable.icn_default_person_image);
+            userImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             userImage.setUrl(user.getValue(User.PICTURE));
             userSubtitle.setText(getUserSubtitleText());
             setupUserStatusButton();

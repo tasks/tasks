@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
@@ -185,6 +186,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             new ReminderDebugContextActions.WhenReminder(),
     };
 
+    protected Resources resources;
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -333,6 +335,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
+        resources = getResources();
         setHasOptionsMenu(true);
         syncActionHelper = new SyncActionHelper(getActivity(), this);
         setUpUiComponents();
@@ -380,7 +383,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             filter = extras.getParcelable(TOKEN_FILTER);
             extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
-            filter = CoreFilterExposer.buildInboxFilter(getResources());
+            filter = CoreFilterExposer.buildInboxFilter(resources);
         }
         filter.setFilterQueryOverride(null);
         isInbox = CoreFilterExposer.isInbox(filter);

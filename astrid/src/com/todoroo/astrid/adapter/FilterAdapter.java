@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -59,6 +60,7 @@ import com.todoroo.astrid.service.MarketStrategy.NookMarketStrategy;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
@@ -78,6 +80,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /** parent activity */
     protected final Activity activity;
+
+    protected final Resources resources;
 
     /** owner listview */
     protected ListView listView;
@@ -133,6 +137,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
+        this.resources = activity.getResources();
         this.listView = listView;
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
@@ -578,7 +583,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
         if(!nook && filter instanceof FilterWithUpdate) {
             viewHolder.urlImage.setVisibility(View.VISIBLE);
-            viewHolder.urlImage.setDefaultImageResource(TagService.getDefaultImageIDForTag(viewHolder.name.getText().toString()));
+            viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(viewHolder.name.getText().toString())));
             viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
         }
 
