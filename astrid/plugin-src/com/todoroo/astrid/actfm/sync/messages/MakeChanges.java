@@ -61,7 +61,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     }
 
                     StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
-                    if (model.getSetValues().containsKey(uuidProperty.name))
+                    if (model.getSetValues() != null && model.getSetValues().containsKey(uuidProperty.name))
                         uuid = model.getValue(uuidProperty);
 
                     beforeSaveChanges(changes, model, uuid);
@@ -69,19 +69,17 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     if (pushedAtProperty != null && pushedAt > 0)
                         model.setValue(pushedAtProperty, pushedAt);
 
-                    if (!model.getSetValues().containsKey(uuidProperty.name))
+                    if (model.getSetValues() != null && !model.getSetValues().containsKey(uuidProperty.name))
                         model.setValue(uuidProperty, uuid);
 
-                    if (model.getSetValues().size() > 0) {
+                    if (model.getSetValues() != null && model.getSetValues().size() > 0) {
                         model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                        boolean success = true;
                         if (dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), model) <= 0) { // If update doesn't update rows. create a new model
                             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                            success = dao.createNew(model);
+                            dao.createNew(model);
                         }
-                        if (success)
-                            afterSaveChanges(changes, model, uuid);
                     }
+                    afterSaveChanges(changes, model, uuid);
 
                 } catch (IllegalAccessException e) {
                     Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);

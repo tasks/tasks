@@ -263,6 +263,12 @@ public final class TagService {
         }
     }
 
+    /**
+     * Creates a link for a nameless tag. We expect the server to fill in the tag name with a MakeChanges message later
+     * @param taskId
+     * @param taskUuid
+     * @param tagUuid
+     */
     public void createLink(long taskId, String taskUuid, String tagUuid) {
         TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID).where(TagData.UUID.eq(tagUuid)));
         try {
