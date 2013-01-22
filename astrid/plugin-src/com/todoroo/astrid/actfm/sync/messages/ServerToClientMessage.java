@@ -6,6 +6,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 
 @SuppressWarnings("nls")
 public abstract class ServerToClientMessage {
@@ -30,8 +31,6 @@ public abstract class ServerToClientMessage {
             return instantiateMakeChanges(json, pushedAt);
         else if (TYPE_ACKNOWLEDGE_CHANGE.equals(type))
             return new AcknowledgeChange(json);
-        else if (TYPE_USER_DATA.equals(type))
-            return new UserData(json);
         else if (TYPE_DOUBLE_CHECK.equals(json))
             return new DoubleCheck(json);
         else if (TYPE_DEBUG.equals(json))
@@ -46,6 +45,8 @@ public abstract class ServerToClientMessage {
             return new MakeChanges<Task>(json, PluginServices.getTaskDao(), pushedAt);
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
             return new MakeChanges<TagData>(json, PluginServices.getTagDataDao(), pushedAt);
+        else if (NameMaps.TABLE_ID_USERS.equals(table))
+            return new MakeChanges<User>(json, PluginServices.getUserDao(), pushedAt);
         else if (NameMaps.TABLE_ID_PUSHED_AT.equals(table))
             return new MakeChanges<RemoteModel>(json, null, 0);
         else
