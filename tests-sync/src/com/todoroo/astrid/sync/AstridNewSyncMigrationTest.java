@@ -9,6 +9,7 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -24,8 +25,9 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 	@Autowired
 	private MetadataDao metadataDao;
 	
-	public void testAstrid44Migration() {
+	public void testAstridSyncMigration() {
 		setupOldDatabase();
+		Preferences.clear(AstridNewSyncMigrator.PREF_SYNC_MIGRATION);
 		new AstridNewSyncMigrator().performMigration();
 		assertAllModelsHaveUUID();
 		assertAllTagsHaveTagData();

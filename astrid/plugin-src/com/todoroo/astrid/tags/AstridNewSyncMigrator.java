@@ -35,7 +35,7 @@ public class AstridNewSyncMigrator {
     @Autowired private UpdateDao updateDao;
     @Autowired private UserDao userDao;
 
-    private static final String PREF_SYNC_MIGRATION = "sync_migration";
+    public static final String PREF_SYNC_MIGRATION = "sync_migration";
 
     private static final String LOG_TAG = "sync-migrate";
 
