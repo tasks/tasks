@@ -157,10 +157,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     public static final int[] IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.importance_check_1,
-        R.drawable.importance_check_2,
-        R.drawable.importance_check_3,
-        R.drawable.importance_check_4,
+        R.drawable.check_box_1,
+        R.drawable.check_box_2,
+        R.drawable.check_box_3,
+        R.drawable.check_box_4,
+    };
+
+    public static final int[] IMPORTANCE_RESOURCES_CHECKED = new int[] {
+        R.drawable.check_box_checked_1,
+        R.drawable.check_box_checked_2,
+        R.drawable.check_box_checked_3,
+        R.drawable.check_box_checked_4,
     };
 
     public static final int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
@@ -171,15 +178,24 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     public static final int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
-        R.drawable.importance_check_repeat_1,
-        R.drawable.importance_check_repeat_2,
-        R.drawable.importance_check_repeat_3,
-        R.drawable.importance_check_repeat_4,
+        R.drawable.check_box_repeat_1,
+        R.drawable.check_box_repeat_2,
+        R.drawable.check_box_repeat_3,
+        R.drawable.check_box_repeat_4,
+    };
+
+    public static final int[] IMPORTANCE_REPEAT_RESOURCES_CHECKED = new int[] {
+        R.drawable.check_box_repeat_checked_1,
+        R.drawable.check_box_repeat_checked_2,
+        R.drawable.check_box_repeat_checked_3,
+        R.drawable.check_box_repeat_checked_4,
     };
 
     private static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
+    private static final Drawable[] IMPORTANCE_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_RESOURCES_CHECKED.length];
     private static final Drawable[] IMPORTANCE_DRAWABLES_LARGE = new Drawable[IMPORTANCE_RESOURCES_LARGE.length];
     private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
+    private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_REPEAT_RESOURCES_CHECKED.length];
 
     // --- instance variables
 
@@ -269,8 +285,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         readonlyBackground = readonlyBg.data;
 
         preloadDrawables(IMPORTANCE_RESOURCES, IMPORTANCE_DRAWABLES);
+        preloadDrawables(IMPORTANCE_RESOURCES_CHECKED, IMPORTANCE_DRAWABLES_CHECKED);
         preloadDrawables(IMPORTANCE_RESOURCES_LARGE, IMPORTANCE_DRAWABLES_LARGE);
         preloadDrawables(IMPORTANCE_REPEAT_RESOURCES, IMPORTANCE_REPEAT_DRAWABLES);
+        preloadDrawables(IMPORTANCE_REPEAT_RESOURCES_CHECKED, IMPORTANCE_REPEAT_DRAWABLES_CHECKED);
 
     }
 
@@ -1169,18 +1187,21 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final Task task = viewHolder.task;
         final AsyncImageView pictureView = viewHolder.picture;
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
-            checkBoxView.setChecked(task.isCompleted());
+            boolean completed = task.isCompleted();
+            checkBoxView.setChecked(completed);
             // disable checkbox if task is readonly
             checkBoxView.setEnabled(viewHolder.task.isEditable());
 
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length)
                 value = IMPORTANCE_RESOURCES.length - 1;
+            Drawable[] boxes = IMPORTANCE_DRAWABLES;
             if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                checkBoxView.setImageDrawable(IMPORTANCE_REPEAT_DRAWABLES[value]); //(IMPORTANCE_REPEAT_RESOURCES[value]);
+                boxes = completed ? IMPORTANCE_REPEAT_DRAWABLES_CHECKED : IMPORTANCE_REPEAT_DRAWABLES;
             } else {
-                checkBoxView.setImageDrawable(IMPORTANCE_DRAWABLES[value]);
+                boxes = completed ? IMPORTANCE_DRAWABLES_CHECKED : IMPORTANCE_DRAWABLES;
             }
+            checkBoxView.setImageDrawable(boxes[value]);
             if (titleOnlyLayout)
                 return;
 
