@@ -103,6 +103,9 @@ public class NameMaps {
         TASK_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_PROPERTIES_LOCAL_TO_SERVER);
     }
 
+    public static final String TAG_ADDED_COLUMN = "tag_added";
+    public static final String TAG_REMOVED_COLUMN = "tag_removed";
+
 
     private static final Map<Property<?>, String> TAG_DATA_PROPERTIES_LOCAL_TO_SERVER;
     private static final Map<String, Property<?>> TAG_DATA_COLUMN_NAMES_TO_PROPERTIES;

@@ -5,8 +5,10 @@
  */
 package com.todoroo.astrid.dao;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -17,8 +19,12 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.OutstandingEntry;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -65,6 +71,38 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     	    return Criterion.and(withKey(key), byTask(taskId));
     	}
 
+    }
+
+    @Override
+    protected boolean shouldRecordOutstanding(Metadata item) {
+        ContentValues cv = item.getSetValues();
+        return super.shouldRecordOutstanding(item) && cv != null &&
+                ((cv.containsKey(Metadata.KEY.name) &&
+                        TagMetadata.KEY.equals(item.getValue(Metadata.KEY))) ||
+                (cv.containsKey(Metadata.DELETION_DATE.name) &&
+                        item.getValue(Metadata.DELETION_DATE) > 0));
+    }
+
+    @Override
+    protected boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
+        Long taskId = modelSetValues.getAsLong(Metadata.TASK.name);
+        String tagUuid = modelSetValues.getAsString(TagMetadata.TAG_UUID.name);
+        Long deletionDate = modelSetValues.getAsLong(Metadata.DELETION_DATE.name);
+        if (taskId == null || taskId == AbstractModel.NO_ID || deletionDate == null || RemoteModel.isUuidEmpty(tagUuid))
+            return false;
+
+        TaskOutstanding m = new TaskOutstanding();
+        m.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, taskId);
+        m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
+
+        String addedOrRemoved = NameMaps.TAG_ADDED_COLUMN;
+        if (deletionDate > 0)
+            addedOrRemoved = NameMaps.TAG_REMOVED_COLUMN;
+
+        m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
+        m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
+        database.insert(outstandingTable.name, null, m.getSetValues());
+        return true;
     }
 
     @Override

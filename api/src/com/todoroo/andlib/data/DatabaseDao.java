@@ -41,7 +41,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     private Table table;
 
-    private Table outstandingTable;
+    protected Table outstandingTable;
 
     private AbstractDatabase database;
 
@@ -239,9 +239,13 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         public boolean makeChange();
     }
 
-    private boolean insertOrUpdateAndRecordChanges(TYPE item, ContentValues values, DatabaseChangeOp op) {
-        boolean recordOutstanding = (outstandingTable != null) &&
+    protected boolean shouldRecordOutstanding(TYPE item) {
+        return (outstandingTable != null) &&
                 !item.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES);
+    }
+
+    private boolean insertOrUpdateAndRecordChanges(TYPE item, ContentValues values, DatabaseChangeOp op) {
+        boolean recordOutstanding = shouldRecordOutstanding(item);
         final AtomicBoolean result = new AtomicBoolean(false);
 
         if (recordOutstanding) { // begin transaction
@@ -322,7 +326,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return insertOrUpdateAndRecordChanges(item, values, update);
     }
 
-    private boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
+    protected boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
         Set<Entry<String, Object>> entries = modelSetValues.valueSet();
         long now = DateUtilities.now();
         for (Entry<String, Object> entry : entries) {
