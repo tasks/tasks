@@ -61,15 +61,6 @@ public final class ActFmDataService {
     // --- task and metadata methods
 
     /**
-     * Clears metadata information. Used when user logs out of service
-     */
-    public void clearMetadata() {
-        ContentValues values = new ContentValues();
-        values.putNull(Task.REMOTE_ID.name);
-        taskDao.updateMultiple(values, Criterion.all);
-    }
-
-    /**
      * Currently, this method does nothing, there is an alternate method to create tasks
      * @param properties
      * @return

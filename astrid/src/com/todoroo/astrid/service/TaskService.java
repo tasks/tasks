@@ -357,9 +357,9 @@ public class TaskService {
      * @return # of affected rows
      */
     public int clearDetails(Criterion criterion) {
-        ContentValues values = new ContentValues();
-        values.put(Task.DETAILS_DATE.name, 0);
-        return taskDao.updateMultiple(values, criterion);
+        Task template = new Task();
+        template.setValue(Task.DETAILS_DATE, 0L);
+        return taskDao.update(criterion, template);
     }
 
     /**
