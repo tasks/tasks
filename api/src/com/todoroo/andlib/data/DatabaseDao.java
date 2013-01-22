@@ -150,6 +150,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TYPE fetch(long id, Property<?>... properties) {
         TodorooCursor<TYPE> cursor = fetchItem(id, properties);
+        return returnFetchResult(cursor);
+    }
+
+    protected TYPE returnFetchResult(TodorooCursor<TYPE> cursor) {
         try {
             if (cursor.getCount() == 0)
                 return null;
