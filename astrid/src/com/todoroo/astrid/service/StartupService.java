@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -45,11 +47,13 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
@@ -63,6 +67,7 @@ import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.subtasks.SubtasksMetadata;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -209,6 +214,7 @@ public class StartupService {
 
         abTestInvoker.reportAcquisition();
 
+        initializeDatabaseListeners();
         ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao);
 
         // perform startup activities in a background thread
@@ -256,6 +262,25 @@ public class StartupService {
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
+    }
+
+    private void initializeDatabaseListeners() {
+        // This listener makes sure that when a tag's name is created or changed,
+        // the corresponding metadata will also update
+        tagDataDao.addListener(new ModelUpdateListener<TagData>() {
+            @Override
+            public void onModelUpdated(TagData model) {
+                ContentValues values = model.getSetValues();
+                Metadata m = new Metadata();
+                if (values != null) {
+                    if (values.containsKey(TagData.NAME.name)) {
+                        m.setValue(TagMetadata.TAG_NAME, model.getValue(TagData.NAME));
+                        PluginServices.getMetadataService().update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+                                TagMetadata.TAG_UUID.eq(model.getValue(TagData.UUID))), m);
+                    }
+                }
+            }
+        });
     }
 
     /**
