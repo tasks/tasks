@@ -321,6 +321,11 @@ public final class Task extends RemoteModel {
         return getIdHelper(ID);
     }
 
+    @Override
+    public String getUuid() {
+        return getUuidHelper(UUID);
+    }
+
     // --- parcelable helpers
 
     public static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);

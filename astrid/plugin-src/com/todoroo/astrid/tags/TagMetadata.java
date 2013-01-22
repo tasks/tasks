@@ -3,7 +3,6 @@ package com.todoroo.astrid.tags;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
 
 public class TagMetadata {
 
@@ -32,15 +31,12 @@ public class TagMetadata {
      * New metadata object for linking a task to the specified tag. The task
      * object should be saved and have the uuid property. All parameters
      * are manditory
-     * @param task
+     * @param taskId
      * @param tagName
+     * @param taskUuid
      * @param tagUuid
      * @return
      */
-    public static Metadata newTagMetadata(Task task, String tagName, String tagUuid) {
-        return newTagMetadata(task.getId(), task.getValue(Task.UUID), tagName, tagUuid);
-    }
-
     public static Metadata newTagMetadata(long taskId, String taskUuid, String tagName, String tagUuid) {
         Metadata link = new Metadata();
         link.setValue(Metadata.KEY, KEY);

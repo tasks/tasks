@@ -144,6 +144,11 @@ public final class User extends RemoteModel {
         return getIdHelper(ID);
     }
 
+    @Override
+    public String getUuid() {
+        return getUuidHelper(UUID);
+    }
+
     // --- parcelable helpers
 
     public static final Creator<User> CREATOR = new ModelCreator<User>(User.class);

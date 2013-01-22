@@ -256,7 +256,7 @@ public final class TagService {
     }
 
     public void createLink(Task task, String tagName, String tagUuid) {
-        Metadata link = TagMetadata.newTagMetadata(task, tagName, tagUuid);
+        Metadata link = TagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
         if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(task.getId(), TagMetadata.KEY),
                     TagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
             metadataDao.createNew(link);

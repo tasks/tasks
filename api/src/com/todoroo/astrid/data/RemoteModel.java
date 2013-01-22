@@ -49,4 +49,20 @@ abstract public class RemoteModel extends AbstractModel {
 
     /** constant value for no uuid */
     public static final String NO_UUID = "0"; //$NON-NLS-1$
+
+    /**
+     * Utility method to get the identifier of the model, if it exists.
+     *
+     * @return {@value #NO_UUID} if this model was not added to the database
+     */
+    abstract public String getUuid();
+
+    protected String getUuidHelper(StringProperty uuid) {
+        if(setValues != null && setValues.containsKey(uuid.name))
+            return setValues.getAsString(uuid.name);
+        else if(values != null && values.containsKey(uuid.name))
+            return values.getAsString(uuid.name);
+        else
+            return NO_UUID;
+    }
 }

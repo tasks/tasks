@@ -196,6 +196,11 @@ public final class TagData extends RemoteModel {
         return getIdHelper(ID);
     }
 
+    @Override
+    public String getUuid() {
+        return getUuidHelper(UUID);
+    }
+
     // --- parcelable helpers
 
     public static final Creator<TagData> CREATOR = new ModelCreator<TagData>(TagData.class);
