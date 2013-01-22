@@ -163,14 +163,21 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         @Override
         public void performChanges() {
             JSONArray addTags = changes.optJSONArray("tag_added");
-            if (addTags != null) {
-                TagService tagService = TagService.getInstance();
-                for (int i = 0; i < addTags.length(); i++) {
-                    try {
-                        String tagUuid = addTags.getString(i);
-                        tagService.createLink(model.getId(), uuid, tagUuid);
-                    } catch (JSONException e) {
-                        //
+            if (addTags != null && addTags.length() > 0) {
+                if (!model.isSaved()) { // We don't have the local task id
+                    long localId = dao.localIdFromUuid(uuid);
+                    model.setId(localId);
+                }
+
+                if (model.isSaved()) {
+                    TagService tagService = TagService.getInstance();
+                    for (int i = 0; i < addTags.length(); i++) {
+                        try {
+                            String tagUuid = addTags.getString(i);
+                            tagService.createLink(model.getId(), uuid, tagUuid);
+                        } catch (JSONException e) {
+                            //
+                        }
                     }
                 }
             }
