@@ -300,8 +300,9 @@ public final class TagService {
      * @param taskUuid
      * @param tagUuid
      */
-    public void deleteLink(String taskUuid, String tagUuid) {
+    public void deleteLink(long taskId, String taskUuid, String tagUuid) {
         Metadata deleteTemplate = new Metadata();
+        deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
                 TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), deleteTemplate);
@@ -312,8 +313,9 @@ public final class TagService {
      * @param taskUuid
      * @param tagUuids
      */
-    public void deleteLinks(String taskUuid, String[] tagUuids) {
+    public void deleteLinks(long taskId, String taskUuid, String[] tagUuids) {
         Metadata deleteTemplate = new Metadata();
+        deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         if (tagUuids != null) {
             // TODO: We have this as a loop until I can figure out how to make update with multiple rows record outstanding
@@ -513,7 +515,7 @@ public final class TagService {
         // Mark as deleted links that don't exist anymore
         Metadata deletedLinkTemplate = new Metadata();
         deletedLinkTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
-        deleteLinks(taskUuid, existingLinks.toArray(new String[existingLinks.size()]));
+        deleteLinks(taskId, taskUuid, existingLinks.toArray(new String[existingLinks.size()]));
 
         return true;
     }

@@ -15,6 +15,7 @@ import android.util.Log;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
@@ -132,6 +133,7 @@ public class ActFmSyncThread {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
                         try {
                             monitor.wait();
+                            AndroidUtilities.sleepDeep(500L); // Wait briefly for large database operations to finish (e.g. adding a task with several tags may trigger a message before all saves are done--fix this?)
                         } catch (InterruptedException e) {
                             // Ignored
                         }
@@ -188,7 +190,9 @@ public class ActFmSyncThread {
                                     }
                                 }
                             }
-//                            replayOutstandingChanges();
+                            JSONArray errors = response.optJSONArray("errors");
+                            boolean errorsExist = (errors != null && errors.length() > 0);
+                            replayOutstandingChanges(errorsExist);
                         }
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
@@ -212,9 +216,9 @@ public class ActFmSyncThread {
 
     // Reapplies changes still in the outstanding tables to the local database
     // Called after a batch has finished processing
-    private void replayOutstandingChanges() {
-        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao).execute();
-        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao).execute();
+    private void replayOutstandingChanges(boolean afterErrors) {
+        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, afterErrors).execute();
+        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, afterErrors).execute();
     }
 
     private boolean timeForBackgroundSync() {

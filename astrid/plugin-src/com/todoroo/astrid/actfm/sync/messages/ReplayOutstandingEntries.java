@@ -24,13 +24,15 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
     private final String table;
     private final RemoteModelDao<T> dao;
     private final OutstandingEntryDao<OE> outstandingDao;
+    private final boolean afterErrors;
 
-    public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao) {
+    public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao, boolean afterErrors) {
         this.modelClass = modelClass;
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
         this.table = table;
         this.dao = dao;
         this.outstandingDao = outstandingDao;
+        this.afterErrors = afterErrors;
     }
 
     public void execute() {
@@ -65,14 +67,13 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
 
                 String column = instance.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
                 Property<?> property = NameMaps.localColumnNameToProperty(table, column);
-                if (property == null)
-                    throw new RuntimeException("No local property found for local column " + column + " in table " + table);
-
                 // set values to model
-                property.accept(visitor, instance);
+                if (property != null)
+                    property.accept(visitor, instance);
             }
 
-            model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            if (afterErrors)
+                model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             dao.saveExisting(model);
 
             outstanding.moveToPrevious(); // Move back one to undo the last iteration of the for loop

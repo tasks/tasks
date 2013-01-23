@@ -160,15 +160,25 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             super(model, changes, uuid);
         }
 
+        @SuppressWarnings("null")
         @Override
         public void performChanges() {
             JSONArray addTags = changes.optJSONArray("tag_added");
-            if (addTags != null && addTags.length() > 0) {
-                if (!model.isSaved()) { // We don't have the local task id
-                    long localId = dao.localIdFromUuid(uuid);
-                    model.setId(localId);
-                }
+            JSONArray removeTags = changes.optJSONArray("tag_removed");
+            boolean tagsAdded = (addTags != null && addTags.length() > 0);
+            boolean tagsRemoved = (removeTags != null && removeTags.length() > 0);
+            if (!tagsAdded && !tagsRemoved)
+                return;
 
+            long localId;
+            if (!model.isSaved()) { // We don't have the local task id
+                localId = dao.localIdFromUuid(uuid);
+                model.setId(localId);
+            } else {
+                localId = model.getId();
+            }
+
+            if (tagsAdded) {
                 if (model.isSaved()) {
                     TagService tagService = TagService.getInstance();
                     for (int i = 0; i < addTags.length(); i++) {
@@ -182,8 +192,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 }
             }
 
-            JSONArray removeTags = changes.optJSONArray("tag_removed");
-            if (removeTags != null) {
+            if (tagsRemoved) {
                 ArrayList<String> toRemove = new ArrayList<String>(removeTags.length());
                 for (int i = 0; i < removeTags.length(); i++) {
                     try {
@@ -193,7 +202,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         //
                     }
                 }
-                TagService.getInstance().deleteLinks(uuid, toRemove.toArray(new String[toRemove.size()]));
+                TagService.getInstance().deleteLinks(localId, uuid, toRemove.toArray(new String[toRemove.size()]));
             }
         }
 
