@@ -12,22 +12,29 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.util.Log;
 
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.OutstandingEntryDao;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
+import com.todoroo.astrid.data.OutstandingEntry;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
@@ -106,6 +113,7 @@ public class ActFmSyncThread {
 
     public synchronized void startSyncThread() {
         if (thread == null || !thread.isAlive()) {
+            repopulateQueueFromOutstandingTables();
             thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -223,6 +231,26 @@ public class ActFmSyncThread {
 
     private boolean timeForBackgroundSync() {
         return Flags.check(Flags.BG_SYNC);
+    }
+
+    private void repopulateQueueFromOutstandingTables() {
+        constructChangesHappenedFromOutstandingTable(Task.class, taskDao, taskOutstandingDao);
+        constructChangesHappenedFromOutstandingTable(TagData.class, tagDataDao, tagOutstandingDao);
+    }
+
+    private <T extends RemoteModel, OE extends OutstandingEntry<T>> void constructChangesHappenedFromOutstandingTable(Class<T> modelClass, RemoteModelDao<T> modelDao, OutstandingEntryDao<OE> oustandingDao) {
+        TodorooCursor<OE> outstanding = oustandingDao.query(Query.select(OutstandingEntry.ENTITY_ID_PROPERTY).groupBy(OutstandingEntry.ENTITY_ID_PROPERTY));
+        try {
+            for (outstanding.moveToFirst(); !outstanding.isAfterLast(); outstanding.moveToNext()) {
+                Long id = outstanding.get(OutstandingEntry.ENTITY_ID_PROPERTY);
+                ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, modelDao, oustandingDao);
+                if (!pendingMessages.contains(ch)) {
+                    pendingMessages.add(ch);
+                }
+            }
+        } finally {
+            outstanding.close();
+        }
     }
 
     private boolean checkForToken() {
