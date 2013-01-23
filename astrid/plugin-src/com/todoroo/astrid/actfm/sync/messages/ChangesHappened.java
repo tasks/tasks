@@ -35,6 +35,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     private final Class<OE> outstandingClass;
     private final List<OE> changes;
+    private final OutstandingEntryDao<OE> outstandingDao;
 
     public static final String CHANGES_KEY = "changes";
 
@@ -56,16 +57,19 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         super(id, modelClass, modelDao);
 
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
+        this.outstandingDao = outstandingDao;
         this.changes = new ArrayList<OE>();
 
-        if (!RemoteModel.NO_UUID.equals(uuid))
-            populateChanges(outstandingDao);
     }
 
     @Override
-    protected void serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
+    protected boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
         // Process changes list and serialize to JSON
-        serializeTo.put(CHANGES_KEY, changesToJSON());
+        JSONArray changesJson = changesToJSON();
+        if (changesJson == null)
+            return false;
+        serializeTo.put(CHANGES_KEY, changesJson);
+        return true;
     }
 
     @Override
@@ -77,11 +81,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return changes;
     }
 
-    public int numChanges() {
-        return changes.size();
-    }
-
     private JSONArray changesToJSON() {
+        if (!RemoteModel.NO_UUID.equals(uuid))
+            populateChanges();
+
         JSONArray array = new JSONArray();
         PropertyToJSONVisitor visitor = new PropertyToJSONVisitor();
         for (OE change : changes) {
@@ -118,7 +121,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return array;
     }
 
-    private void populateChanges(OutstandingEntryDao<OE> outstandingDao) {
+    private void populateChanges() {
         TodorooCursor<OE> cursor = outstandingDao.query(Query.select(DaoReflectionHelpers.getModelProperties(outstandingClass))
                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {

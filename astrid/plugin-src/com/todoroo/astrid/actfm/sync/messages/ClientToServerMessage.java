@@ -69,13 +69,15 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
             json.put(UUID_KEY, uuid);
             String dateValue = DateUtilities.timeToIso8601(pushedAt, true);
             json.put(PUSHED_AT_KEY, dateValue != null ? dateValue : 0);
-            serializeExtrasToJSON(json);
+            if (serializeExtrasToJSON(json))
+                return json;
+            else
+                return null;
         } catch (JSONException e) {
             return null;
         }
-        return json;
     }
 
-    protected abstract void serializeExtrasToJSON(JSONObject serializeTo) throws JSONException;
+    protected abstract boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException;
     protected abstract String getTypeString();
 }
