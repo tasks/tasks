@@ -315,8 +315,17 @@ public final class TagService {
     public void deleteLinks(String taskUuid, String[] tagUuids) {
         Metadata deleteTemplate = new Metadata();
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
-        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.in(tagUuids)), deleteTemplate);
+        if (tagUuids != null) {
+            // TODO: We have this as a loop until I can figure out how to make update with multiple rows record outstanding
+            // entries for each model. Until then, do one row at a time
+            for (String uuid : tagUuids) {
+                metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                        TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
+            }
+        }
+//        Eventually we want this one query version to work
+//        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+//                TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.in(tagUuids)), deleteTemplate);
     }
 
     /**
