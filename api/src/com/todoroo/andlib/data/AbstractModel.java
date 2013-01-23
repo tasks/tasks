@@ -46,7 +46,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     protected static final String ID_PROPERTY_NAME = "_id"; //$NON-NLS-1$
 
     /** id field common to all models */
-    public static final IntegerProperty ID_PROPERTY = new IntegerProperty(null, ID_PROPERTY_NAME);
+    public static final LongProperty ID_PROPERTY = new LongProperty(null, ID_PROPERTY_NAME);
 
     /** sentinel for objects without an id */
     public static final long NO_ID = 0;

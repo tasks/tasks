@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -212,8 +213,50 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return # of updated items
      */
     public int update(Criterion where, TYPE template) {
-        return database.update(table.name, template.getSetValues(),
-                where.toString(), null);
+        boolean recordOutstanding = shouldRecordOutstanding(template);
+        final AtomicInteger result = new AtomicInteger(0);
+
+        if (recordOutstanding) {
+            TodorooCursor<TYPE> toUpdate = query(Query.select(AbstractModel.ID_PROPERTY).where(where));
+            Long[] ids = null;
+            try {
+                ids = new Long[toUpdate.getCount()];
+                for (int i = 0; i < toUpdate.getCount(); i++) {
+                    toUpdate.moveToNext();
+                    ids[i] = toUpdate.get(AbstractModel.ID_PROPERTY);
+                }
+            } finally {
+                toUpdate.close();
+            }
+
+            database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
+                @Override
+                public void onRollback() {
+                    result.set(0);
+                }
+                @Override
+                public void onCommit() {/**/}
+                @Override
+                public void onBegin() {/**/}
+            });
+
+            try {
+                result.set(database.update(table.name, template.getSetValues(),
+                    where.toString(), null));
+                if (result.get() > 0) {
+                    for (Long id : ids) {
+                        createOutstandingEntries(id, template.getSetValues());
+                    }
+                }
+                database.getDatabase().setTransactionSuccessful();
+            } finally {
+                database.getDatabase().endTransaction();
+            }
+            return result.get();
+        } else {
+            return database.update(table.name, template.getSetValues(),
+                    where.toString(), null);
+        }
     }
 
     /**
