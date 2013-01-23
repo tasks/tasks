@@ -39,6 +39,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
@@ -269,7 +270,7 @@ public final class TagService {
      * @param taskUuid
      * @param tagUuid
      */
-    public void createLink(long taskId, String taskUuid, String tagUuid) {
+    public void createLink(long taskId, String taskUuid, String tagUuid, boolean suppressOutstanding) {
         TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID).where(TagData.UUID.eq(tagUuid)));
         try {
             TagData tagData;
@@ -283,6 +284,8 @@ public final class TagService {
             Metadata link = TagMetadata.newTagMetadata(taskId, taskUuid, name, tagUuid);
             if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY),
                     TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+                if (suppressOutstanding)
+                    link.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 metadataDao.createNew(link);
             }
 
