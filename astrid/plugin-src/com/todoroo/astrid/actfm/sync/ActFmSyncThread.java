@@ -176,7 +176,7 @@ public class ActFmSyncThread {
                         try {
                             modelPushedAt = DateUtilities.parseIso8601(modelPushedAtString);
                         } catch (ParseException e) {
-                            // Unparseable date
+                            Log.e(ERROR_TAG, "Unparseable date " + modelPushedAtString, e);
                         }
                         if (serverMessagesJson != null) {
                             for (int i = 0; i < serverMessagesJson.length(); i++) {
