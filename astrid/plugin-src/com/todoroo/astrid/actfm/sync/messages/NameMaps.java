@@ -126,12 +126,10 @@ public class NameMaps {
 
         putTagPropertyToServerName(TagData.USER_ID,         "user_id",      false);
         putTagPropertyToServerName(TagData.NAME,            "name",         false);
-        putTagPropertyToServerName(TagData.PICTURE,         "picture_id",   false); //TODO: NOT CORRECT
-        putTagPropertyToServerName(TagData.MEMBERS,         "members",      false); //TODO: NOT CORRECT
         putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   false);
         putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   false);
         putTagPropertyToServerName(TagData.UUID,            "uuid",         true);
-        putTagPropertyToServerName(TagData.TAG_ORDERING,    "tag_ordering", false); //TODO: NOT CORRECT
+        putTagPropertyToServerName(TagData.TAG_ORDERING,    "tag_ordering", true);
         putTagPropertyToServerName(TagData.PUSHED_AT,       "pushed_at",    true);
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   true);
         putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  false);
