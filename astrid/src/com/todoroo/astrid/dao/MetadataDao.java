@@ -88,7 +88,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         Long taskId = modelSetValues.getAsLong(Metadata.TASK.name);
         String tagUuid = modelSetValues.getAsString(TagMetadata.TAG_UUID.name);
         Long deletionDate = modelSetValues.getAsLong(Metadata.DELETION_DATE.name);
-        if (taskId == null || taskId == AbstractModel.NO_ID || deletionDate == null || RemoteModel.isUuidEmpty(tagUuid))
+        if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid))
             return false;
 
         TaskOutstanding m = new TaskOutstanding();
@@ -96,7 +96,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
 
         String addedOrRemoved = NameMaps.TAG_ADDED_COLUMN;
-        if (deletionDate > 0)
+        if (deletionDate != null && deletionDate > 0)
             addedOrRemoved = NameMaps.TAG_REMOVED_COLUMN;
 
         m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);

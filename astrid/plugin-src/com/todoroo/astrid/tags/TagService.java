@@ -307,6 +307,7 @@ public final class TagService {
         if (suppressOutstanding)
             deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
+        deleteTemplate.setValue(TagMetadata.TAG_UUID, tagUuid); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
                 TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), deleteTemplate);
@@ -319,13 +320,18 @@ public final class TagService {
      */
     public void deleteLinks(long taskId, String taskUuid, String[] tagUuids, boolean suppressOutstanding) {
         Metadata deleteTemplate = new Metadata();
-        if (suppressOutstanding)
-            deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         if (tagUuids != null) {
-            metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                    TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.in(tagUuids)), deleteTemplate);
+            for (String uuid : tagUuids) {
+                // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
+                // the outstanding entry correctly. If possible, this should be improved to a single query
+                deleteTemplate.setValue(TagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
+                if (suppressOutstanding)
+                    deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                        TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
+            }
         }
     }
 
@@ -512,8 +518,6 @@ public final class TagService {
         }
 
         // Mark as deleted links that don't exist anymore
-        Metadata deletedLinkTemplate = new Metadata();
-        deletedLinkTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         deleteLinks(taskId, taskUuid, existingLinks.toArray(new String[existingLinks.size()]), false);
 
         return true;
