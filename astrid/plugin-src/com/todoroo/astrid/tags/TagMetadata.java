@@ -1,6 +1,5 @@
 package com.todoroo.astrid.tags;
 
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
 
@@ -19,10 +18,6 @@ public class TagMetadata {
     /** Task uuid */
     public static final StringProperty TASK_UUID = new StringProperty(
             Metadata.TABLE, Metadata.VALUE3.name);
-
-    /** Pushed at time */
-    public static final LongProperty PUSHED_AT = new LongProperty(
-            Metadata.TABLE, Metadata.VALUE4.name);
 
 
     // Creation date and deletion date are already included as part of the normal metadata entity
