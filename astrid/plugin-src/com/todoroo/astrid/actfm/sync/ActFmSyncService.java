@@ -147,7 +147,7 @@ public final class ActFmSyncService {
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             @Override
-            public void onModelUpdated(final Task model) {
+            public void onModelUpdated(final Task model, boolean outstandingEntries) {
                 if(model.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC))
                     return;
                 if (actFmPreferenceService.isOngoing() && model.getTransitory(TaskService.TRANS_EDIT_SAVE) == null)
@@ -184,7 +184,7 @@ public final class ActFmSyncService {
 
         updateDao.addListener(new ModelUpdateListener<Update>() {
             @Override
-            public void onModelUpdated(final Update model) {
+            public void onModelUpdated(final Update model, boolean outstandingEntries) {
                 if(model.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC))
                     return;
                 if (actFmPreferenceService.isOngoing())
@@ -204,7 +204,7 @@ public final class ActFmSyncService {
 
         tagDataDao.addListener(new ModelUpdateListener<TagData>() {
             @Override
-            public void onModelUpdated(final TagData model) {
+            public void onModelUpdated(final TagData model, boolean outstandingEntries) {
                 if(model.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC))
                     return;
                 if (actFmPreferenceService.isOngoing())

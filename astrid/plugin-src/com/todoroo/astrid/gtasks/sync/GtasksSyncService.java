@@ -101,7 +101,7 @@ public final class GtasksSyncService {
         new OperationPushThread(operationQueue).start();
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
-            public void onModelUpdated(final Task model) {
+            public void onModelUpdated(final Task model, boolean outstandingEntries) {
                 if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
                     return;
                 if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync

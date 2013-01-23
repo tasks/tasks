@@ -269,7 +269,7 @@ public class StartupService {
         // the corresponding metadata will also update
         tagDataDao.addListener(new ModelUpdateListener<TagData>() {
             @Override
-            public void onModelUpdated(TagData model) {
+            public void onModelUpdated(TagData model, boolean outstandingEntries) {
                 ContentValues values = model.getSetValues();
                 Metadata m = new Metadata();
                 if (values != null) {

@@ -86,7 +86,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     // --- listeners
 
     public interface ModelUpdateListener<MTYPE> {
-        public void onModelUpdated(MTYPE model);
+        public void onModelUpdated(MTYPE model, boolean outstandingEntries);
     }
 
     private final ArrayList<ModelUpdateListener<TYPE>> listeners =
@@ -96,10 +96,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         listeners.add(listener);
     }
 
-    protected void onModelUpdated(TYPE model) {
+    protected void onModelUpdated(TYPE model, boolean outstandingEntries) {
         TYPE modelCopy = (TYPE) model.clone();
         for(ModelUpdateListener<TYPE> listener : listeners) {
-            listener.onModelUpdated(modelCopy);
+            listener.onModelUpdated(modelCopy, outstandingEntries);
         }
     }
 
@@ -271,7 +271,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 database.getDatabase().endTransaction();
         }
         if (result.get()) {
-            onModelUpdated(item);
+            onModelUpdated(item, recordOutstanding);
             item.markSaved();
         }
         return result.get();

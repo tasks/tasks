@@ -21,12 +21,14 @@ public class SyncDatabaseListener<MTYPE extends AbstractModel> implements ModelU
     }
 
     @Override
-    public void onModelUpdated(MTYPE model) {
-        ChangesHappened<?, ?> ch = ChangesHappened.instantiateChangesHappened(model.getId(), modelType);
-        if (!queue.contains(ch)) {
-            queue.add(ch);
-            synchronized(monitor) {
-                monitor.notifyAll();
+    public void onModelUpdated(MTYPE model, boolean outstandingEntries) {
+        if (outstandingEntries) {
+            ChangesHappened<?, ?> ch = ChangesHappened.instantiateChangesHappened(model.getId(), modelType);
+            if (!queue.contains(ch)) {
+                queue.add(ch);
+                synchronized(monitor) {
+                    monitor.notifyAll();
+                }
             }
         }
     }
