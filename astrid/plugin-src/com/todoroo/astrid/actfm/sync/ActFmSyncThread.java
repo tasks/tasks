@@ -162,6 +162,9 @@ public class ActFmSyncThread {
                         }
                     }
 
+                    if (payload.length() == 0)
+                        continue;
+
                     try {
                         JSONObject response = actFmInvoker.postSync(payload, token);
                         // process responses
