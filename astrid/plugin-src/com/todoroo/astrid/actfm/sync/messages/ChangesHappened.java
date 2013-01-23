@@ -66,7 +66,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     protected boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
         // Process changes list and serialize to JSON
         JSONArray changesJson = changesToJSON();
-        if (changesJson == null)
+        if (changesJson == null || changesJson.length() == 0)
             return false;
         serializeTo.put(CHANGES_KEY, changesJson);
         return true;

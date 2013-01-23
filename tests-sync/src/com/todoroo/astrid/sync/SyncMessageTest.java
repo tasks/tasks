@@ -25,6 +25,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 		try {
 			ChangesHappened<?, ?> changes = ChangesHappened.instantiateChangesHappened(t.getId(), ModelType.TYPE_TASK);
 			assertNotNull(changes.serializeToJSON());
+			assertTrue(changes.getChanges().size() > 0);
 			assertFalse(RemoteModel.NO_UUID.equals(changes.getUUID()));
 			assertEquals(t.getValue(Task.UUID), changes.getUUID());
 		} catch (Exception e) {

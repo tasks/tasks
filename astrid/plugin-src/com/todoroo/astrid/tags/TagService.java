@@ -248,6 +248,7 @@ public final class TagService {
                 tagData.setValue(TagData.NAME, tagName);
                 tagDataService.save(tagData);
             } else {
+                existingTag.moveToFirst();
                 tagData = new TagData(existingTag);
             }
             createLink(task, tagData.getValue(TagData.NAME), tagData.getValue(TagData.UUID));

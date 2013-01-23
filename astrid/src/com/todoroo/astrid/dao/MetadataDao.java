@@ -102,6 +102,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
         m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
         database.insert(outstandingTable.name, null, m.getSetValues());
+        database.getDatabase().setTransactionSuccessful();
         return true;
     }
 
