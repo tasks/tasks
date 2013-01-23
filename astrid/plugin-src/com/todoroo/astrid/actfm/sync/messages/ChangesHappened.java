@@ -52,7 +52,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         }
     }
 
-    private ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
+    public ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
             OutstandingEntryDao<OE> outstandingDao) {
         super(id, modelClass, modelDao);
 

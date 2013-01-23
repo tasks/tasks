@@ -1,5 +1,7 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import java.util.List;
+
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
@@ -24,14 +26,19 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
     private final String table;
     private final RemoteModelDao<T> dao;
     private final OutstandingEntryDao<OE> outstandingDao;
+    private final List<ClientToServerMessage<?>> queue;
+    private final Object monitor;
     private final boolean afterErrors;
 
-    public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao, boolean afterErrors) {
+    public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao,
+            List<ClientToServerMessage<?>> queue, Object monitor, boolean afterErrors) {
         this.modelClass = modelClass;
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
         this.table = table;
         this.dao = dao;
         this.outstandingDao = outstandingDao;
+        this.queue = queue;
+        this.monitor = monitor;
         this.afterErrors = afterErrors;
     }
 
@@ -59,12 +66,13 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
             T model = modelClass.newInstance();
             model.setId(id);
             OutstandingToModelVisitor<T> visitor = new OutstandingToModelVisitor<T>(model);
+            int count = 0;
             for (; !outstanding.isAfterLast(); outstanding.moveToNext()) {
                 instance.clear();
                 instance.readPropertiesFromCursor(outstanding);
                 if (instance.getValue(OutstandingEntry.ENTITY_ID_PROPERTY) != id)
                     break;
-
+                count ++;
                 String column = instance.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
                 Property<?> property = NameMaps.localColumnNameToProperty(table, column);
                 // set values to model
@@ -72,9 +80,18 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
                     property.accept(visitor, instance);
             }
 
-            if (afterErrors)
-                model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             dao.saveExisting(model);
+
+            if (count > 0 && !afterErrors) {
+                ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, dao, outstandingDao);
+                if (!queue.contains(ch)) {
+                    queue.add(ch);
+                    synchronized(monitor) {
+                        monitor.notifyAll();
+                    }
+                }
+            }
 
             outstanding.moveToPrevious(); // Move back one to undo the last iteration of the for loop
         } catch (InstantiationException e) {
