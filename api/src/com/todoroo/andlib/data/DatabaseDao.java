@@ -263,14 +263,16 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         try {
             result.set(op.makeChange());
             if(result.get()) {
-                if (recordOutstanding)
-                    createOutstandingEntries(item.getId(), values); // Create entries for setValues in outstanding table
-                onModelUpdated(item);
-                item.markSaved();
+                if (recordOutstanding && createOutstandingEntries(item.getId(), values)) // Create entries for setValues in outstanding table
+                    database.getDatabase().setTransactionSuccessful();
             }
         } finally {
             if (recordOutstanding) // commit transaction
                 database.getDatabase().endTransaction();
+        }
+        if (result.get()) {
+            onModelUpdated(item);
+            item.markSaved();
         }
         return result.get();
     }
@@ -346,7 +348,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 database.insert(outstandingTable.name, null, m.getSetValues());
             }
         }
-        database.getDatabase().setTransactionSuccessful();
         return true;
     }
 
