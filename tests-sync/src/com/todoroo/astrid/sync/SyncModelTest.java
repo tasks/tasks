@@ -1,7 +1,5 @@
 package com.todoroo.astrid.sync;
 
-import android.text.TextUtils;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
@@ -36,6 +34,31 @@ public class SyncModelTest extends NewSyncTestCase {
 						TaskOutstanding.VALUE_STRING.eq(newTitle))));
 		try {
 			assertTrue(cursor.getCount() > 0);
+		} finally {
+			cursor.close();
+		}
+	}
+	
+	public void testUpdateMakesAllOutstandingEntries() {
+		String title = "Task Important";
+		createTask(title, true);
+		createTask("Task Not Important", true);
+		createTask(title, true);
+		
+		Task template = new Task();
+		template.setValue(Task.IMPORTANCE, Task.IMPORTANCE_DO_OR_DIE);
+		
+		taskDao.update(Task.TITLE.eq(title), template);
+		
+		TodorooCursor<TaskOutstanding> cursor = taskOutstandingDao.query(Query.select(TaskOutstanding.PROPERTIES));
+		try {
+			assertEquals(2, cursor.getCount());
+			TaskOutstanding to = new TaskOutstanding();
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+				to.readPropertiesFromCursor(cursor);
+				assertEquals(Task.IMPORTANCE.name, to.getValue(TaskOutstanding.COLUMN_STRING));
+				assertEquals(Task.IMPORTANCE_DO_OR_DIE, Integer.parseInt(to.getValue(TaskOutstanding.VALUE_STRING)));
+			}
 		} finally {
 			cursor.close();
 		}
