@@ -202,7 +202,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         //
                     }
                 }
-                TagService.getInstance().deleteLinks(localId, uuid, toRemove.toArray(new String[toRemove.size()]));
+                TagService.getInstance().deleteLinks(localId, uuid, toRemove.toArray(new String[toRemove.size()]), true);
             }
         }
 
