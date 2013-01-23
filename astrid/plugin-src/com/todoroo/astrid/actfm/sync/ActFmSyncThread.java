@@ -94,10 +94,11 @@ public class ActFmSyncThread {
                     List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
                     ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
 
-                    taskDao.addListener(new SyncDatabaseListener<Task>(syncQueue, monitor, ModelType.TYPE_TASK));
-                    tagDataDao.addListener(new SyncDatabaseListener<TagData>(syncQueue, monitor, ModelType.TYPE_TAG));
-
                     instance = new ActFmSyncThread(syncQueue, monitor);
+
+                    taskDao.addListener(new SyncDatabaseListener<Task>(instance, ModelType.TYPE_TASK));
+                    tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
+
                     instance.startSyncThread();
                 }
             }
@@ -125,9 +126,11 @@ public class ActFmSyncThread {
     }
 
     public void enqueueMessage(ClientToServerMessage<?> message) {
-        pendingMessages.add(message);
-        synchronized(monitor) {
-            monitor.notifyAll();
+        if (!pendingMessages.contains(message)) {
+            pendingMessages.add(message);
+            synchronized(monitor) {
+                monitor.notifyAll();
+            }
         }
     }
 
