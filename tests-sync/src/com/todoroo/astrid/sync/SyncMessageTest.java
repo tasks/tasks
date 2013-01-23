@@ -127,7 +127,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 		t.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		taskDao.save(t);
 		
-		new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao).execute();
+		new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, false).execute();
 		
 		t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
 		assertEquals(SYNC_TASK_TITLE, t.getValue(Task.TITLE));
