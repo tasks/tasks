@@ -53,7 +53,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 		makeChanges.put("uuid", NameMaps.TABLE_ID_TASKS);
 		
 		JSONObject changes = new JSONObject();
-		changes.put("pushed_at", date);
+		changes.put("pushed_at", DateUtilities.timeToIso8601(date, true));
 		
 		makeChanges.put("changes", changes);
 		return makeChanges;
@@ -105,7 +105,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 	
 	public void testMakeChangesToPushedAtValues() {
 		try {
-			long date = DateUtilities.now();
+			long date = DateUtilities.now() / 1000 * 1000;
 			JSONObject makeChanges = getMakeChangesForPushedAt(date);
 			
 			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
