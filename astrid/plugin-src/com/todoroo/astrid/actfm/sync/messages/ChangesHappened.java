@@ -87,19 +87,28 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         for (OE change : changes) {
             try {
                 String localColumn = change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
-                Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
-                if (localProperty == null)
-                    throw new RuntimeException("No local property found for local column " + localColumn + " in table " + table);
-
-                String serverColumn = NameMaps.localColumnNameToServerColumnName(table, localColumn);
-                if (serverColumn == null)
-                    throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
-
-
                 JSONObject changeJson = new JSONObject();
                 changeJson.put("id", change.getId());
+                String serverColumn;
+                if (NameMaps.TAG_ADDED_COLUMN.equals(localColumn)) {
+                    serverColumn = NameMaps.TAG_ADDED_COLUMN;
+                    changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                } else if (NameMaps.TAG_REMOVED_COLUMN.equals(localColumn)) {
+                    serverColumn = NameMaps.TAG_REMOVED_COLUMN;
+                    changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                } else {
+                    Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
+                    if (localProperty == null)
+                        throw new RuntimeException("No local property found for local column " + localColumn + " in table " + table);
+
+                    serverColumn = NameMaps.localColumnNameToServerColumnName(table, localColumn);
+                    if (serverColumn == null)
+                        throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
+
+                    changeJson.put("value", localProperty.accept(visitor, change));
+                }
+
                 changeJson.put("column", serverColumn);
-                changeJson.put("value", localProperty.accept(visitor, change));
 
                 array.put(changeJson);
             } catch (JSONException e) {
