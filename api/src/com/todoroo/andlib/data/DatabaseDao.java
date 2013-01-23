@@ -229,6 +229,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 toUpdate.close();
             }
 
+            if (toUpdate.getCount() == 0)
+                return 0;
+
             database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
                 @Override
                 public void onRollback() {
