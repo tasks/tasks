@@ -87,6 +87,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
@@ -912,6 +913,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
 
+    public  static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
+
     /**
      * Fill in the Task List with current items
      *
@@ -966,10 +969,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
         String joinedQuery =
                 Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
-                        Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY), //$NON-NLS-1$
-                                Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString() //$NON-NLS-1$
+                        Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY),
+                                Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString()
                 + Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
-                        tagsJoinCriterion).toString() //$NON-NLS-1$
+                        tagsJoinCriterion).toString()
+                +Join.left(Metadata.TABLE.as(FILE_METADATA_JOIN),
+                            Criterion.and(Field.field(FILE_METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
+                                    Task.ID.eq(Field.field(FILE_METADATA_JOIN + "." + Metadata.TASK.name))))
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(

@@ -130,6 +130,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
                 PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
             return visitor.visitInteger(this, data);
         }
+
+        @Override
+        public IntegerProperty as(String newAlias) {
+            return (IntegerProperty) super.as(newAlias);
+        }
     }
 
     /**

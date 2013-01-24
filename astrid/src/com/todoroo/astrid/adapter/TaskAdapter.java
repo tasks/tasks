@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -59,30 +58,25 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -118,6 +112,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagService.TAG.name + ", '  |  ')").as("tags");
+    @SuppressWarnings("nls")
+    private static final LongProperty FILE_ID_PROPERTY = new LongProperty(Metadata.TABLE.as(TaskListFragment.FILE_METADATA_JOIN), Metadata.ID.name).as("fileId");
+    private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
     // --- other constants
 
@@ -136,13 +133,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
         Task.RECURRENCE,
-        Task.NOTES,
         Task.USER_ID,
         Task.USER,
         Task.REMINDER_LAST,
         Task.SOCIAL_REMINDER,
+        HAS_NOTES_PROPERTY, // Whether or not the task has notes
         TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
-        TAGS // Concatenated list of tags
+        TAGS, // Concatenated list of tags
+        FILE_ID_PROPERTY // File id
     };
 
     public static final Property<?>[] BASIC_PROPERTIES = new Property<?>[] {
@@ -206,6 +204,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static int APPLY_LISTENERS_ROW_BODY= 1;
     public static int APPLY_LISTENERS_NONE = 2;
 
+    protected final Context context;
     protected final TaskListFragment fragment;
     protected final Resources resources;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
@@ -214,7 +213,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final int resource;
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
-    private ActionsLoaderThread actionsLoader;
+//    private ActionsLoaderThread actionsLoader;
     private int fontSize;
     protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
@@ -254,6 +253,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         super(ContextManager.getContext(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
+        this.context = ContextManager.getContext();
         this.query = query;
         this.resource = resource;
         this.titleOnlyLayout = resource == R.layout.task_adapter_row_title_only;
@@ -272,7 +272,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
-        startTaskActionsThread();
+//        startTaskActionsThread();
 
         decorationManager = new DecorationManager();
 
@@ -323,12 +323,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-    private void startTaskActionsThread() {
-        if (!titleOnlyLayout) {
-            actionsLoader = new ActionsLoaderThread();
-            actionsLoader.start();
-        }
-    }
+//    private void startTaskActionsThread() {
+//        if (!titleOnlyLayout) {
+//            actionsLoader = new ActionsLoaderThread();
+//            actionsLoader.start();
+//        }
+//    }
 
     /* ======================================================================
      * =========================================================== filterable
@@ -415,6 +415,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (!titleOnlyLayout) {
             viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
+            viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
+            viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
         }
 
         Task task = viewHolder.task;
@@ -447,6 +449,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ImageView taskActionIcon;
         public boolean isTaskRabbit; // From join query, not part of the task model
         public String tagsString; // From join query, not part of the task model
+        public boolean hasFiles; // From join query, not part of the task model
+        public boolean hasNotes;
 
         public View[] decorations;
     }
@@ -511,13 +515,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // Task action
         ImageView taskAction = viewHolder.taskActionIcon;
         if (taskAction != null) {
-            if (taskActionLoader.containsKey(task.getId())) {
+            TaskAction action = getTaskAction(task, viewHolder.hasFiles, viewHolder.hasNotes);
+            if (action != null) {
                 taskAction.setVisibility(View.VISIBLE);
-                TaskAction action = taskActionLoader.get(task.getId());
-                if (action != null) {
-                    taskAction.setImageDrawable(action.icon);
-                    taskAction.setTag(action);
-                }
+                taskAction.setImageDrawable(action.icon);
+                taskAction.setTag(action);
             } else {
                 taskAction.setVisibility(View.GONE);
                 taskAction.setTag(null);
@@ -527,6 +529,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
+    }
+
+    private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {
+        if (titleOnlyLayout || task.isCompleted() || !task.isEditable())
+            return null;
+        if (taskActionLoader.containsKey(task.getId())) {
+            return taskActionLoader.get(task.getId());
+        } else {
+            TaskAction action = LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
+            taskActionLoader.put(task.getId(), action);
+            return action;
+        }
     }
 
     @SuppressWarnings("nls")
@@ -623,6 +637,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showEditNotesDialog(final Task task) {
+        String notes = null;
+        Task t = taskService.fetchById(task.getId(), Task.NOTES);
+        if (t != null)
+            notes = t.getValue(Task.NOTES);
+        if (TextUtils.isEmpty(notes))
+            return;
+
         int theme = ThemeService.getEditDialogTheme();
         final Dialog dialog = new Dialog(fragment.getActivity(), theme);
         dialog.setTitle(R.string.TEA_note_label);
@@ -637,7 +658,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         });
 
         final TextView notesField = (TextView) notesView.findViewById(R.id.notes);
-        notesField.setText(task.getValue(Task.NOTES));
+        notesField.setText(notes);
 
         LayoutParams params = dialog.getWindow().getAttributes();
         params.width = LayoutParams.FILL_PARENT;
@@ -785,62 +806,62 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
 
-    @SuppressWarnings("nls")
-    public class ActionsLoaderThread extends Thread {
-        public static final String FILE_COLUMN = "fileId";
-        private static final String METADATA_JOIN = "for_actions";
-
-        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN),
-                Metadata.ID.name).as(FILE_COLUMN);
-
-        @Override
-        public void run() {
-            AndroidUtilities.sleepDeep(500L);
-            String groupedQuery = query.get();
-
-            groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
-
-            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.FLAGS, Task.USER_ID,
-                    fileIdProperty)
-                    .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
-                            Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
-                                    Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
-            final TodorooCursor<Task> fetchCursor = taskService.query(q);
-
-            try {
-                Task task = new Task();
-                LinkActionExposer linkActionExposer = new LinkActionExposer();
-
-                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                    task.clear();
-                    task.readFromCursor(fetchCursor);
-                    if(task.isCompleted() || !task.isEditable())
-                        continue;
-
-                    boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
-                    List<TaskAction> actions = linkActionExposer.
-                            getActionsForTask(ContextManager.getContext(), task, hasAttachments);
-                    if (actions.size() > 0)
-                        taskActionLoader.put(task.getId(), actions.get(0));
-                    else
-                        taskActionLoader.remove(task.getId());
-                }
-            } finally {
-                fetchCursor.close();
-            }
-            final Activity activity = fragment.getActivity();
-            if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(taskActionLoader.size() > 0) {
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-        }
-    }
+//    @SuppressWarnings("nls")
+//    public class ActionsLoaderThread extends Thread {
+//        public static final String FILE_COLUMN = "fileId";
+//        private static final String METADATA_JOIN = "for_actions";
+//
+//        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN),
+//                Metadata.ID.name).as(FILE_COLUMN);
+//
+//        @Override
+//        public void run() {
+//            AndroidUtilities.sleepDeep(500L);
+//            String groupedQuery = query.get();
+//
+//            groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
+//
+//            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.FLAGS, Task.USER_ID,
+//                    fileIdProperty)
+//                    .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
+//                            Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
+//                                    Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
+//            final TodorooCursor<Task> fetchCursor = taskService.query(q);
+//
+//            try {
+//                Task task = new Task();
+//                LinkActionExposer linkActionExposer = new LinkActionExposer();
+//
+//                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+//                    task.clear();
+//                    task.readFromCursor(fetchCursor);
+//                    if(task.isCompleted() || !task.isEditable())
+//                        continue;
+//
+//                    boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
+//                    List<TaskAction> actions = linkActionExposer.
+//                            getActionsForTask(ContextManager.getContext(), task, hasAttachments);
+//                    if (actions.size() > 0)
+//                        taskActionLoader.put(task.getId(), actions.get(0));
+//                    else
+//                        taskActionLoader.remove(task.getId());
+//                }
+//            } finally {
+//                fetchCursor.close();
+//            }
+//            final Activity activity = fragment.getActivity();
+//            if (activity != null) {
+//                activity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if(taskActionLoader.size() > 0) {
+//                            notifyDataSetChanged();
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//    }
 
     /**
      * Add detail to a task
@@ -918,7 +939,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         decorationManager.clearCache();
         taskDetailLoader.clear();
         startDetailThread();
-        startTaskActionsThread();
+//        startTaskActionsThread();
     }
 
     /**
