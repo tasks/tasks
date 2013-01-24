@@ -228,8 +228,8 @@ public class ActFmSyncThread {
     // Reapplies changes still in the outstanding tables to the local database
     // Called after a batch has finished processing
     private void replayOutstandingChanges(boolean afterErrors) {
-        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, pendingMessages, monitor, afterErrors).execute();
-        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, pendingMessages, monitor, afterErrors).execute();
+        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, this, afterErrors).execute();
+        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, this, afterErrors).execute();
     }
 
     private boolean timeForBackgroundSync() {

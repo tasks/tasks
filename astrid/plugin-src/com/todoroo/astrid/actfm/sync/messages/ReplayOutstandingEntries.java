@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.util.List;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
@@ -9,6 +7,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -26,19 +25,17 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
     private final String table;
     private final RemoteModelDao<T> dao;
     private final OutstandingEntryDao<OE> outstandingDao;
-    private final List<ClientToServerMessage<?>> queue;
-    private final Object monitor;
+    private final ActFmSyncThread actFmSyncThread;
     private final boolean afterErrors;
 
     public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao,
-            List<ClientToServerMessage<?>> queue, Object monitor, boolean afterErrors) {
+            ActFmSyncThread actFmSyncThread, boolean afterErrors) {
         this.modelClass = modelClass;
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
         this.table = table;
         this.dao = dao;
         this.outstandingDao = outstandingDao;
-        this.queue = queue;
-        this.monitor = monitor;
+        this.actFmSyncThread = actFmSyncThread;
         this.afterErrors = afterErrors;
     }
 
@@ -83,14 +80,9 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             dao.saveExisting(model);
 
-            if (count > 0 && !afterErrors) {
+            if (count > 0 && !afterErrors && actFmSyncThread != null) {
                 ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, dao, outstandingDao);
-                if (!queue.contains(ch)) {
-                    queue.add(ch);
-                    synchronized(monitor) {
-                        monitor.notifyAll();
-                    }
-                }
+                actFmSyncThread.enqueueMessage(ch);
             }
 
             outstanding.moveToPrevious(); // Move back one to undo the last iteration of the for loop
