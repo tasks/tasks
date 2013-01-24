@@ -54,7 +54,6 @@ public final class ReminderService  {
         Task.REMINDER_PERIOD,
         Task.REMINDER_LAST,
         Task.REMINDER_SNOOZE,
-        Task.FLAGS,
         Task.IMPORTANCE
     };
 

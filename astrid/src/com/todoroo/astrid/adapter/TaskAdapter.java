@@ -124,7 +124,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final Property<?>[] PROPERTIES = new Property<?>[] {
         Task.ID,
         Task.TITLE,
-        Task.FLAGS,
         Task.IS_READONLY,
         Task.IS_PUBLIC,
         Task.IMPORTANCE,
@@ -149,7 +148,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final Property<?>[] BASIC_PROPERTIES = new Property<?>[] {
         Task.ID,
         Task.TITLE,
-        Task.FLAGS,
         Task.IS_READONLY,
         Task.IS_PUBLIC,
         Task.IMPORTANCE,
@@ -782,7 +780,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
 
-            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.FLAGS, Task.USER_ID,
+            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.USER_ID,
                     fileIdProperty)
                     .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
                             Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
