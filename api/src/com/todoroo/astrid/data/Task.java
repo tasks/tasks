@@ -148,6 +148,9 @@ public final class Task extends RemoteModel {
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
 
+    public static final StringProperty CLASSIFICATION = new StringProperty(
+            TABLE, "classification");
+
     // --- for astrid.com
 
     /** Remote id */
@@ -285,6 +288,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(DETAILS_DATE.name, 0);
         defaultValues.put(IS_PUBLIC.name, 0);
         defaultValues.put(IS_READONLY.name, 0);
+        defaultValues.put(CLASSIFICATION.name, "");
 
         defaultValues.put(LAST_SYNC.name, 0);
         defaultValues.putNull(REMOTE_ID.name);

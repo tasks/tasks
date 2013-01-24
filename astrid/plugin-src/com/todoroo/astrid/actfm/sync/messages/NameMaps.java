@@ -82,23 +82,24 @@ public class NameMaps {
         TASK_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         TASK_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTaskPropertyToServerName(Task.TITLE,           "title",        false);
-        putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",   false);
-        putTaskPropertyToServerName(Task.DUE_DATE,        "due",          false);
-        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",   true);
-        putTaskPropertyToServerName(Task.CREATION_DATE,   "created_at",   false);
-        putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at", false);
-        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",       false);
-        putTaskPropertyToServerName(Task.DELETION_DATE,   "deleted_at",   false);
-        putTaskPropertyToServerName(Task.NOTES,           "notes",        false);
-        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",       false);
-        putTaskPropertyToServerName(Task.USER_ID,         "user_id",      false);
-        putTaskPropertyToServerName(Task.USER,            "user",         true);
-        putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",   true);
-        putTaskPropertyToServerName(Task.UUID,            "uuid",         true);
-        putTaskPropertyToServerName(Task.PUSHED_AT,       "pushed_at",    true);
-        putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",       false);
-        putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",    true);
+        putTaskPropertyToServerName(Task.TITLE,           "title",          false);
+        putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",     false);
+        putTaskPropertyToServerName(Task.DUE_DATE,        "due",            false);
+        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",     true);
+        putTaskPropertyToServerName(Task.CREATION_DATE,   "created_at",     false);
+        putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at",   false);
+        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         false);
+        putTaskPropertyToServerName(Task.DELETION_DATE,   "deleted_at",     false);
+        putTaskPropertyToServerName(Task.NOTES,           "notes",          false);
+        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         false);
+        putTaskPropertyToServerName(Task.USER_ID,         "user_id",        false);
+        putTaskPropertyToServerName(Task.USER,            "user",           true);
+        putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     true);
+        putTaskPropertyToServerName(Task.UUID,            "uuid",           true);
+        putTaskPropertyToServerName(Task.PUSHED_AT,       "pushed_at",      true);
+        putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",         false);
+        putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",      true);
+        putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", true);
 
         TASK_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_PROPERTIES_LOCAL_TO_SERVER);
     }
