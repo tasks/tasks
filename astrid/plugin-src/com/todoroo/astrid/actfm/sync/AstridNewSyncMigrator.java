@@ -1,4 +1,4 @@
-package com.todoroo.astrid.tags;
+package com.todoroo.astrid.actfm.sync;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +25,7 @@ import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
