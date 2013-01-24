@@ -510,7 +510,7 @@ public final class Task extends RemoteModel {
     }
 
     public String sanitizedRecurrence() {
-        return getValue(Task.RECURRENCE).replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
+        return getValue(Task.RECURRENCE).replaceAll("BYDAY=;","").replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
     }
 
     /**

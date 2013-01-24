@@ -371,7 +371,7 @@ public class RepeatControlSet extends PopupControlSet {
             result = result + ";FROM=COMPLETION"; //$NON-NLS-1$
         }
 
-        if (!result.equals(task.getValue(Task.RECURRENCE)))
+        if (!result.equals(task.getValue(Task.RECURRENCE).replaceAll("BYDAY=;", "")))  //$NON-NLS-1$//$NON-NLS-2$
             task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
         task.setValue(Task.RECURRENCE, result);
         task.setValue(Task.REPEAT_UNTIL, repeatUntilValue);
