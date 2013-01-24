@@ -104,8 +104,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final Fragment fragment;
 
-    private final PeopleContainer sharedWithContainer;
-
     private final CheckBox cbFacebook;
 
     private final CheckBox cbTwitter;
@@ -224,67 +222,42 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     public void setUpData(final Task task, final TagData includeTag) {
-        try {
-            JSONObject sharedWith;
-            if(task.getValue(Task.SHARED_WITH).length() > 0)
-                sharedWith = new JSONObject(task.getValue(Task.SHARED_WITH));
-            else
-                sharedWith = new JSONObject();
-
-            cbFacebook.setChecked(sharedWith.optBoolean("fb", false));
-            cbTwitter.setChecked(sharedWith.optBoolean("tw", false));
-
-            final ArrayList<JSONObject> sharedPeople = new ArrayList<JSONObject>();
-            JSONArray people = sharedWith.optJSONArray("p");
-            if(people != null) {
-                for(int i = 0; i < people.length(); i++) {
-                    String person = people.getString(i);
-                    TextView textView = sharedWithContainer.addPerson(person, "");
-                    textView.setEnabled(false);
-                    sharedPeople.add(PeopleContainer.createUserJson(textView));
-                }
-            }
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    ArrayList<JSONObject> collaborators = new ArrayList<JSONObject>();
-                    TodorooCursor<TagData> tags = TagService.getInstance().getTagDataForTask(task.getId(), true, TagData.NAME, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
-                    try {
-                        TagData tagData = new TagData();
-                        for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
-                            tagData.readFromCursor(tags);
-                            final String tag = tagData.getValue(TagData.NAME);
-                            if(tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-                                try {
-                                    addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
-                                } catch (JSONException e) {
-                                    exceptionService.reportError("json-reading-data", e);
-                                }
-                            }
-                        }
-
-                        if (includeTag != null && tags.getCount() == 0) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<JSONObject> collaborators = new ArrayList<JSONObject>();
+                TodorooCursor<TagData> tags = TagService.getInstance().getTagDataForTask(task.getId(), true, TagData.NAME, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
+                try {
+                    TagData tagData = new TagData();
+                    for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
+                        tagData.readFromCursor(tags);
+                        final String tag = tagData.getValue(TagData.NAME);
+                        if(tagData.getValue(TagData.MEMBER_COUNT) > 0) {
                             try {
-                                addMembersFromTagData(includeTag, null, sharedPeople, collaborators);
+                                addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
                             } catch (JSONException e) {
                                 exceptionService.reportError("json-reading-data", e);
                             }
                         }
-
-                        if(collaborators.size() > 0)
-                            buildCollaborators(collaborators);
-                        buildAssignedToSpinner(task, sharedPeople);
-                    } finally {
-                        tags.close();
-                        loadedUI = true;
                     }
-                }
-            }).start();
 
-        } catch (JSONException e) {
-            exceptionService.reportError("json-reading-data", e);
-        }
+                    if (includeTag != null && tags.getCount() == 0) {
+                        try {
+                            addMembersFromTagData(includeTag, null, sharedPeople, collaborators);
+                        } catch (JSONException e) {
+                            exceptionService.reportError("json-reading-data", e);
+                        }
+                    }
+
+                    if(collaborators.size() > 0)
+                        buildCollaborators(collaborators);
+                    buildAssignedToSpinner(task, sharedPeople);
+                } finally {
+                    tags.close();
+                    loadedUI = true;
+                }
+            }
+        }).start();
     }
 
     @SuppressWarnings("nls")
@@ -356,7 +329,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void buildAssignedToSpinner(Task t, ArrayList<JSONObject> sharedPeople) {
+    private void buildAssignedToSpinner(Task t) {
         HashSet<Long> userIds = new HashSet<Long>();
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
@@ -392,7 +365,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             // de-duplicate by user id and/or email
             coreUsers = convertJsonUsersToAssignedUsers(coreUsersJson, userIds, emails, names);
-            listUsers = convertJsonUsersToAssignedUsers(sharedPeople, userIds, emails, names);
             astridUsers = convertJsonUsersToAssignedUsers(astridFriends, userIds, emails, names);
 
             contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
@@ -761,17 +733,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             }
 
-            JSONObject sharedWith = sharedWithContainer.parseSharedWithAndTags(activity, false);
             EditText message = (EditText) getSharedWithView().findViewById(R.id.message);
-            if (!TextUtils.isEmpty(message.getText()) && sharedWith.has("p"))
-                sharedWith.put("message", message.getText().toString());
 
-            if(cbFacebook.isChecked())
-                sharedWith.put("fb", true);
-            if(cbTwitter.isChecked())
-                sharedWith.put("tw", true);
-
-            dirty = dirty || sharedWith.has("p");
             if(dirty && !actFmPreferenceService.isLoggedIn()) {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -797,9 +760,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
                 return false;
             }
-
-            if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
-                task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
             task.putTransitory(TaskService.TRANS_ASSIGNED, true);
 

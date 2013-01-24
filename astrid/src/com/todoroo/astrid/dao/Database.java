@@ -219,8 +219,7 @@ public class Database extends AbstractDatabase {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 10: try {
-            database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
-                    Task.SHARED_WITH.accept(visitor, null));
+            //
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }

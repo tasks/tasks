@@ -169,9 +169,6 @@ public final class Task extends RemoteModel {
     public static final LongProperty CREATOR_ID = new LongProperty(
             TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
 
-    public static final StringProperty SHARED_WITH = new StringProperty(
-            TABLE, "sharedWith");
-
     /** Last Sync date */
     public static final LongProperty LAST_SYNC = new LongProperty(
             TABLE, "lastSync", Property.PROP_FLAG_DATE);
@@ -296,7 +293,6 @@ public final class Task extends RemoteModel {
         defaultValues.put(USER_ID.name, "0");
         defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(USER.name, "{}");
-        defaultValues.put(SHARED_WITH.name, "{}");
         defaultValues.put(PUSHED_AT.name, 0L);
     }
 

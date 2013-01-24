@@ -461,25 +461,25 @@ public final class ActFmSyncService {
             }
         }
 
-        if (values.containsKey(Task.SHARED_WITH.name)) {
-            try {
-                JSONObject sharedWith = new JSONObject(task.getValue(Task.SHARED_WITH));
-                if (sharedWith.has("p")) {
-                    JSONArray people = sharedWith.getJSONArray("p");
-                    for (int i = 0; i < people.length(); i++) {
-                        params.add("share_with[]"); params.add(people.getString(i));
-                    }
-                    if (sharedWith.has("message")) {
-                        String message = sharedWith.getString("message");
-                        if (!TextUtils.isEmpty(message))
-                            params.add("message"); params.add(message);
-                    }
-                }
-            } catch (JSONException e) {
-                Log.e("Error parsing shared_with", task.getValue(Task.SHARED_WITH), e);
-            }
-            sharing = true;
-        }
+//        if (values.containsKey(Task.SHARED_WITH.name)) {
+//            try {
+//                JSONObject sharedWith = new JSONObject(task.getValue(Task.SHARED_WITH));
+//                if (sharedWith.has("p")) {
+//                    JSONArray people = sharedWith.getJSONArray("p");
+//                    for (int i = 0; i < people.length(); i++) {
+//                        params.add("share_with[]"); params.add(people.getString(i));
+//                    }
+//                    if (sharedWith.has("message")) {
+//                        String message = sharedWith.getString("message");
+//                        if (!TextUtils.isEmpty(message))
+//                            params.add("message"); params.add(message);
+//                    }
+//                }
+//            } catch (JSONException e) {
+//                Log.e("Error parsing shared_with", task.getValue(Task.SHARED_WITH), e);
+//            }
+//            sharing = true;
+//        }
 
         if (sharing) {
             addAbTestEventInfo(params);

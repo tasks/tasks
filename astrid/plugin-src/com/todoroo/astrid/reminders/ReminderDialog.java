@@ -150,7 +150,8 @@ public class ReminderDialog extends Dialog {
                 Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
 
         if (Preferences.getBoolean(R.string.p_rmd_social, true)) {
-            Task task = taskService.fetchById(taskId, Task.ID, Task.SHARED_WITH);
+            Task task = new Task();
+            task.setId(taskId);
             addFacesToReminder(activity, task);
         }
     }
@@ -160,8 +161,6 @@ public class ReminderDialog extends Dialog {
             return;
         LinkedHashSet<String> pictureUrls = new LinkedHashSet<String>();
         AtomicBoolean isSharedTask = new AtomicBoolean(false);
-
-        addSharedWithFaces(task, pictureUrls, isSharedTask);
 
         if (pictureUrls.size() < MAX_FACES) {
             addTagFaces(task.getId(), pictureUrls, isSharedTask);
@@ -218,18 +217,6 @@ public class ReminderDialog extends Dialog {
                     pictureUrls.add(pictureUrl);
                 }
             }
-        }
-    }
-
-    private void addSharedWithFaces(Task t, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) {
-        try {
-            JSONObject sharedWith = new JSONObject(t.getValue(Task.SHARED_WITH));
-            if (sharedWith.has("p")) { //$NON-NLS-1$
-                JSONArray people = sharedWith.getJSONArray("p"); //$NON-NLS-1$
-                addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
-            }
-        } catch (JSONException e) {
-            //
         }
     }
 
