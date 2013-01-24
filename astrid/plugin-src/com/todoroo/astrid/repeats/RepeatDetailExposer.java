@@ -50,13 +50,13 @@ public class RepeatDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(Context context, long id) {
-        Task task = PluginServices.getTaskService().fetchById(id, Task.FLAGS, Task.RECURRENCE);
+        Task task = PluginServices.getTaskService().fetchById(id, Task.RECURRENCE);
         if(task == null)
             return null;
 
         Resources r = context.getResources();
 
-        String recurrence = task.getValue(Task.RECURRENCE);
+        String recurrence = task.sanitizedRecurrence();
         if(recurrence != null && recurrence.length() > 0) {
             RRule rrule;
             try {
@@ -86,7 +86,7 @@ public class RepeatDetailExposer extends BroadcastReceiver {
             }
 
             String detail;
-            if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+            if(task.repeatAfterCompletion())
                 detail = context.getString(R.string.repeat_detail_completion, interval);
             else
                 detail = context.getString(R.string.repeat_detail_duedate, interval);

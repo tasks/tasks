@@ -1,5 +1,6 @@
 package com.todoroo.astrid.tags;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao;
@@ -17,6 +18,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
@@ -76,11 +78,11 @@ public class AstridNewSyncMigrator {
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
-        Query tagsWithoutUUIDQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.all);
-        assertUUIDsExist(tagsWithoutUUIDQuery, new TagData(), tagDataDao, null);
+        Query tagsQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.all);
+        assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, null);
 
-        Query tasksWithoutUUIDQuery = Query.select(Task.ID, Task.REMOTE_ID, Task.FLAGS).where(Criterion.all);
-        assertUUIDsExist(tasksWithoutUUIDQuery, new Task(), taskDao, new UUIDAssertionExtras<Task>() {
+        Query tasksQuery = Query.select(Task.ID, Task.REMOTE_ID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
+        assertUUIDsExist(tasksQuery, new Task(), taskDao, new UUIDAssertionExtras<Task>() {
             @Override
             public void beforeSave(Task instance) {
                 if (instance.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
@@ -91,6 +93,17 @@ public class AstridNewSyncMigrator {
                 if (instance.getFlag(Task.FLAGS, Task.FLAG_PUBLIC)) {
                     instance.setFlag(Task.FLAGS, Task.FLAG_PUBLIC, false);
                     instance.setValue(Task.IS_PUBLIC, 1);
+                }
+
+                String recurrence = instance.getValue(Task.RECURRENCE);
+                if (!TextUtils.isEmpty(recurrence)) {
+                    boolean repeatAfterCompletion = instance.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION);
+                    instance.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
+
+                    recurrence = recurrence.replaceAll("BYDAY=;", "");
+                    if (repeatAfterCompletion)
+                        recurrence = recurrence + ";FROM=COMPLETION";
+                    instance.setValue(Task.RECURRENCE, recurrence);
                 }
             }
         });
@@ -147,7 +160,6 @@ public class AstridNewSyncMigrator {
         }
 
 
-
         Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
     }
 
@@ -170,6 +182,7 @@ public class AstridNewSyncMigrator {
                 if (extras != null)
                     extras.beforeSave(instance);
 
+                instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 dao.saveExisting(instance);
             }
         } finally {

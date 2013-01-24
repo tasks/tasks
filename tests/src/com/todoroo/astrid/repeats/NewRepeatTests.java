@@ -133,8 +133,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         adjustDate.setSeconds(1);
         dueDate = adjustDate.getTime();
         dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
-        if (fromCompletion)
-            t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
         t.setValue(Task.DUE_DATE, dueDate);
 
@@ -144,6 +142,10 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             int interval = 2;
             rrule.setInterval(interval);
         }
+
+        String result = rrule.toIcal();
+        if (fromCompletion)
+            result = result + ";FROM=COMPLETION";
         t.setValue(Task.RECURRENCE, rrule.toIcal());
         taskDao.save(t);
 

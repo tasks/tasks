@@ -140,8 +140,6 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + ((completeBefore ? -1 : 1) * DateUtilities.ONE_DAY * 3);
         dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
-        if (fromCompletion)
-            t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
         t.setValue(Task.DUE_DATE, dueDate);
 
@@ -151,6 +149,11 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
             int interval = 5;
             rrule.setInterval(interval);
         }
+        
+        String result = rrule.toIcal();
+        if (fromCompletion)
+            result = result + ";FROM=COMPLETION";
+        
         t.setValue(Task.RECURRENCE, rrule.toIcal());
         taskDao.save(t);
 

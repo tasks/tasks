@@ -56,11 +56,13 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         if(task == null || !task.isCompleted())
             return;
 
-        String recurrence = task.getValue(Task.RECURRENCE);
+        String recurrence = task.sanitizedRecurrence();
+        boolean repeatAfterCompletion = task.repeatAfterCompletion();
+
         if(recurrence != null && recurrence.length() > 0) {
             long newDueDate;
             try {
-                newDueDate = computeNextDueDate(task, recurrence);
+                newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion);
                 if(newDueDate == -1)
                     return;
             } catch (ParseException e) {
@@ -114,8 +116,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     /** Compute next due date */
-    public static long computeNextDueDate(Task task, String recurrence) throws ParseException {
-        boolean repeatAfterCompletion = task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION);
+    public static long computeNextDueDate(Task task, String recurrence, boolean repeatAfterCompletion) throws ParseException {
         RRule rrule = initRRule(recurrence);
 
         // initialize startDateAsDV

@@ -164,7 +164,7 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
-        recurrence = model.getValue(Task.RECURRENCE);
+        recurrence = model.sanitizedRecurrence();
         if(recurrence == null)
             recurrence = "";
 
@@ -251,7 +251,7 @@ public class RepeatControlSet extends PopupControlSet {
         doRepeat = recurrence.length() > 0;
 
         // read flag
-        if(model.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+        if(model.repeatAfterCompletion())
             type.setSelection(TYPE_COMPLETION_DATE);
         else
             type.setSelection(TYPE_DUE_DATE);
@@ -367,21 +367,18 @@ public class RepeatControlSet extends PopupControlSet {
             result = rrule.toIcal();
         }
 
+        if (type.getSelectedItemPosition() == TYPE_COMPLETION_DATE) {
+            result = result + ";FROM=COMPLETION"; //$NON-NLS-1$
+        }
+
         if (!result.equals(task.getValue(Task.RECURRENCE)))
             task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
         task.setValue(Task.RECURRENCE, result);
         task.setValue(Task.REPEAT_UNTIL, repeatUntilValue);
 
-        switch(type.getSelectedItemPosition()) {
-        case TYPE_DUE_DATE:
-            task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
-            break;
-        case TYPE_COMPLETION_DATE:
-            task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
-        }
-
-        if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+        if(task.repeatAfterCompletion())
             type.setSelection(1);
+
         return null;
     }
 

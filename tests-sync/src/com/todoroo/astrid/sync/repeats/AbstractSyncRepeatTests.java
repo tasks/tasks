@@ -123,8 +123,6 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + ((completeBefore ? -1 : 1) * DateUtilities.ONE_DAY * 3);
         dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
-        if (fromCompletion)
-            t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
         t.setValue(Task.DUE_DATE, dueDate);
 
@@ -134,6 +132,11 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
             int interval = frequency.equals(Frequency.MINUTELY) ? 100: 2;
             rrule.setInterval(interval);
         }
+        
+        String result = rrule.toIcal();
+        if (fromCompletion)
+            result = result + ";FROM=COMPLETION";
+        
         t.setValue(Task.RECURRENCE, rrule.toIcal());
         taskDao.save(t);
 

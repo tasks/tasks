@@ -508,7 +508,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                         remote.pdvTask.getValue(ProducteevTask.REPEATING_SETTING).length()>0));
 
         boolean isAstridRepeating = local.task.containsNonNullValue(Task.RECURRENCE) &&
-            local.task.getValue(Task.RECURRENCE).length() > 0;
+            !TextUtils.isEmpty(local.task.getValue(Task.RECURRENCE));
 
         if (isAstridRepeating && isPDVRepeating) {
             // Astrid-repeat overrides PDV-repeat
@@ -609,8 +609,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     @Override
     protected void write(ProducteevTaskContainer task) throws IOException {
         if(task.task.isSaved()) {
-            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE, Task.FLAGS);
-            task.task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, local.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION));
+            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent(StatisticsConstants.PDV_TASK_COMPLETED);
         } else { // Set default reminders for remotely created tasks

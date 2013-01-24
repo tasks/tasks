@@ -309,7 +309,7 @@ public class DateChangedAlerts {
     @SuppressWarnings("nls")
     private static String getRecurrenceString(Context context, Task task) {
         try {
-            RRule rrule = new RRule(task.getValue(Task.RECURRENCE));
+            RRule rrule = new RRule(task.sanitizedRecurrence());
 
             String[] dateAbbrev = context.getResources().getStringArray(
                     R.array.repeat_interval);

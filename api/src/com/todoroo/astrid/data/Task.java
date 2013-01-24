@@ -187,7 +187,7 @@ public final class Task extends RemoteModel {
     // --- flags
 
     /** whether repeat occurs relative to completion date instead of due date */
-    public static final int FLAG_REPEAT_AFTER_COMPLETION = 1 << 1;
+    @Deprecated public static final int FLAG_REPEAT_AFTER_COMPLETION = 1 << 1;
 
     /** whether task is read-only */
     @Deprecated public static final int FLAG_IS_READONLY = 1 << 2;
@@ -503,6 +503,14 @@ public final class Task extends RemoteModel {
     public boolean isEditable() {
         return (getValue(Task.IS_READONLY) == 0) &&
                 !(getValue(Task.IS_PUBLIC) == 1 && getValue(Task.USER_ID) != Task.USER_ID_SELF);
+    }
+
+    public boolean repeatAfterCompletion() {
+        return getValue(Task.RECURRENCE).contains("FROM=COMPLETION");
+    }
+
+    public String sanitizedRecurrence() {
+        return getValue(Task.RECURRENCE).replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
     }
 
     /**

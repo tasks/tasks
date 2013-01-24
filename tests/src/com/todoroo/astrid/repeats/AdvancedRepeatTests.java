@@ -42,7 +42,6 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     // --- date with time tests
 
     public void testDueDateSpecificTime() throws ParseException {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
@@ -50,12 +49,11 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         task.setValue(Task.DUE_DATE, dayWithTime);
 
         long nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY;
-        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), false);
         assertDateTimeEquals(nextDayWithTime, nextDueDate);
     }
 
     public void testCompletionDateSpecificTime() throws ParseException {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
@@ -70,7 +68,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         nextDayWithTimeLong += DateUtilities.ONE_DAY;
         nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000;
 
-        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), true);
         assertDateTimeEquals(nextDayWithTimeLong, nextDueDate);
     }
 
@@ -78,89 +76,85 @@ public class AdvancedRepeatTests extends TodorooTestCase {
 
     /** test multiple days per week - DUE DATE */
     public void testDueDateInPastSingleWeekMultiDay() throws Exception {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
 
         buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
         setTaskDueDate(THIS, Calendar.SUNDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
 
         setTaskDueDate(THIS, Calendar.MONDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.WEDNESDAY);
 
         setTaskDueDate(THIS, Calendar.FRIDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
     }
 
     /** test single day repeats - DUE DATE */
     public void testDueDateSingleDay() throws Exception {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
 
         buildRRule(1, Frequency.WEEKLY, Weekday.MO);
 
         setTaskDueDate(PREV_PREV, Calendar.MONDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
 
         setTaskDueDate(PREV_PREV, Calendar.FRIDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
 
         setTaskDueDate(PREV, Calendar.MONDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
 
         setTaskDueDate(PREV, Calendar.FRIDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
 
         setTaskDueDate(THIS, Calendar.SUNDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
 
         setTaskDueDate(THIS, Calendar.MONDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
     }
 
     /** test multiple days per week - DUE DATE */
     public void testDueDateSingleWeekMultiDay() throws Exception {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
 
         buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
         setTaskDueDate(THIS, Calendar.SUNDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
 
         setTaskDueDate(THIS, Calendar.MONDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.WEDNESDAY);
 
         setTaskDueDate(THIS, Calendar.FRIDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
     }
 
     /** test multiple days per week, multiple intervals - DUE DATE */
     public void testDueDateMultiWeekMultiDay() throws Exception {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
 
         buildRRule(2, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
         setTaskDueDate(THIS, Calendar.SUNDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
 
         setTaskDueDate(THIS, Calendar.MONDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, THIS, Calendar.WEDNESDAY);
 
         setTaskDueDate(THIS, Calendar.FRIDAY);
-        computeNextDueDate();
+        computeNextDueDate(false);
         assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
     }
 
@@ -168,11 +162,10 @@ public class AdvancedRepeatTests extends TodorooTestCase {
 
     /** test multiple days per week - COMPLETE DATE */
     public void testCompleteDateSingleWeek() throws Exception {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
         for(Weekday wday : Weekday.values()) {
             buildRRule(1, Frequency.WEEKLY, wday);
-            computeNextDueDate();
+            computeNextDueDate(true);
             long expected = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday.javaDayNum);
             nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
             assertDateEquals(nextDueDate, expected);
@@ -186,7 +179,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
                 buildRRule(1, Frequency.WEEKLY, wday1, wday2);
                 long nextOne = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday1.javaDayNum);
                 long nextTwo = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday2.javaDayNum);
-                computeNextDueDate();
+                computeNextDueDate(true);
                 nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
                 assertDateEquals(nextDueDate, Math.min(nextOne, nextTwo));
             }
@@ -195,11 +188,10 @@ public class AdvancedRepeatTests extends TodorooTestCase {
 
     /** test multiple days per week, multiple intervals - COMPLETE DATE */
     public void testCompleteDateMultiWeek() throws Exception {
-        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
         for(Weekday wday : Weekday.values()) {
             buildRRule(2, Frequency.WEEKLY, wday);
-            computeNextDueDate();
+            computeNextDueDate(true);
             long expected = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday.javaDayNum);
             nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
             assertDateEquals(nextDueDate, expected);
@@ -213,7 +205,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
                 buildRRule(2, Frequency.WEEKLY, wday1, wday2);
                 long nextOne = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday1.javaDayNum);
                 long nextTwo = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday2.javaDayNum);
-                computeNextDueDate();
+                computeNextDueDate(true);
                 nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
                 assertDateEquals(nextDueDate, Math.min(nextOne, nextTwo));
             }
@@ -222,8 +214,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
 
     // --- helpers
 
-    private void computeNextDueDate() throws ParseException{
-        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+    private void computeNextDueDate(boolean fromComplete) throws ParseException{
+        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), fromComplete);
     }
 
     private void buildRRule(int interval, Frequency freq, Weekday... weekdays) {
