@@ -76,10 +76,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         @Override
         public void pushRemoteModel(Task model) {
-            long userId = model.getValue(Task.USER_ID);
-            if (userId != Task.USER_ID_SELF && userId != ActFmPreferenceService.userId())
-                model.putTransitory(TaskService.TRANS_ASSIGNED, true);
-            actFmSyncService.pushTaskOnSave(model, model.getMergedValues());
+//            long userId = model.getValue(Task.USER_ID);
+//            if (userId != Task.USER_ID_SELF && userId != ActFmPreferenceService.userId())
+//                model.putTransitory(TaskService.TRANS_ASSIGNED, true);
+//            actFmSyncService.pushTaskOnSave(model, model.getMergedValues());
         }
 
     };

@@ -192,7 +192,7 @@ public final class ReminderService  {
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
         clearAllAlarms(task);
-        if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0) {
+        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
             return;
         }
 

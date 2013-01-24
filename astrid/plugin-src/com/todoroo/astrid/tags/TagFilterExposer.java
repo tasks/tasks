@@ -42,6 +42,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
@@ -83,7 +84,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
 
         int deleteIntentLabel;
-        if (tag.memberCount > 0 && tag.userId != 0)
+        if (tag.memberCount > 0 && !Task.USER_ID_SELF.equals(tag.userId))
             deleteIntentLabel = R.string.tag_cm_leave;
         else
             deleteIntentLabel = R.string.tag_cm_delete;
@@ -219,7 +220,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
 
             TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.USER_ID);
-            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) == 0) {
+            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
                 DialogUtilities.okCancelDialog(this, getString(R.string.actfm_tag_operation_owner_delete), getOkListener(), getCancelListener());
                 return;
             }

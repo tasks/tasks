@@ -108,7 +108,7 @@ public final class TagService {
         public long id;
         public String uuid;
         public String image;
-        public long userId;
+        public String userId;
         public long memberCount;
 
         @Deprecated public long remoteId;
@@ -416,7 +416,7 @@ public final class TagService {
         if(tagData != null) {
             tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
             PluginServices.getTagDataService().save(tagData);
-            shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0; // Was I a list member and NOT owner?
+            shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && !Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)); // Was I a list member and NOT owner?
         }
         Toast.makeText(context, context.getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
                 Toast.LENGTH_SHORT).show();

@@ -14,9 +14,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -932,13 +929,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
             String assignedTo = peopleControlSet.getAssignedToString();
             String assignedEmail = ""; //$NON-NLS-1$
-            long assignedId = Task.USER_ID_IGNORE;
-            try {
-                JSONObject assignedUser = new JSONObject(model.getValue(Task.USER));
-                assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
-            } catch (JSONException e) {
-                //
+            String assignedId = Task.USER_ID_IGNORE;
+            if (Task.USER_ID_EMAIL.equals(model.getValue(Task.USER_ID))) {
+                assignedEmail = model.getValue(Task.USER_EMAIL);
             }
 
             if (taskEditActivity) {
@@ -948,7 +941,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     data.putExtra(TOKEN_ASSIGNED_TO_DISPLAY, assignedTo);
                     if (!TextUtils.isEmpty(assignedEmail))
                         data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
-                    if (assignedId > 0)
+                    if (Task.isRealUserId(assignedId));
                         data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
                 }
                 if (showRepeatAlert) {

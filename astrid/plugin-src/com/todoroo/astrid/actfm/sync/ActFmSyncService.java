@@ -71,8 +71,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
@@ -437,29 +435,29 @@ public final class ActFmSyncService {
 
 
         boolean sharing = false;
-        if(values.containsKey(Task.USER_ID.name) && task.getTransitory(TaskService.TRANS_ASSIGNED) != null) {
-            if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
-                try {
-                    JSONObject user = new JSONObject(task.getValue(Task.USER));
-                    String userEmail = user.optString("email");
-                    if (!TextUtils.isEmpty(userEmail)) {
-                        params.add("user_email");
-                        params.add(userEmail);
-
-                        actFmDataService.addUserByEmail(userEmail);
-                        sharing = true;
-                    }
-                } catch (JSONException e) {
-                    Log.e("Error parsing user", task.getValue(Task.USER), e);
-                }
-            } else {
-                params.add("user_id");
-                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF)
-                    params.add(ActFmPreferenceService.userId());
-                else
-                    params.add(task.getValue(Task.USER_ID));
-            }
-        }
+//        if(values.containsKey(Task.USER_ID.name) && task.getTransitory(TaskService.TRANS_ASSIGNED) != null) {
+//            if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
+//                try {
+//                    JSONObject user = new JSONObject(task.getValue(Task.USER));
+//                    String userEmail = user.optString("email");
+//                    if (!TextUtils.isEmpty(userEmail)) {
+//                        params.add("user_email");
+//                        params.add(userEmail);
+//
+//                        actFmDataService.addUserByEmail(userEmail);
+//                        sharing = true;
+//                    }
+//                } catch (JSONException e) {
+//                    Log.e("Error parsing user", task.getValue(Task.USER), e);
+//                }
+//            } else {
+//                params.add("user_id");
+//                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF)
+//                    params.add(ActFmPreferenceService.userId());
+//                else
+//                    params.add(task.getValue(Task.USER_ID));
+//            }
+//        }
 
 //        if (values.containsKey(Task.SHARED_WITH.name)) {
 //            try {
@@ -1067,11 +1065,11 @@ public final class ActFmSyncService {
     }
 
     private void saveUsers(JSONArray users, HashSet<Long> ids) throws JSONException {
-        for (int i = 0; i < users.length(); i++) {
-            JSONObject userObject = users.getJSONObject(i);
-            ids.add(userObject.optLong("id"));
-            actFmDataService.saveUserData(userObject);
-        }
+//        for (int i = 0; i < users.length(); i++) {
+//            JSONObject userObject = users.getJSONObject(i);
+//            ids.add(userObject.optLong("id"));
+//            actFmDataService.saveUserData(userObject);
+//        }
     }
 
     public int fetchUsers() throws JSONException, IOException {
@@ -1498,12 +1496,12 @@ public final class ActFmSyncService {
                 JsonHelper.taskFromJson(item, remote, metadata);
 
 
-                if(remote.getValue(Task.USER_ID) == 0) {
-                    if(!remote.isSaved())
-                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
-                    else if(remote.isCompleted())
-                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
-                }
+//                if(remote.getValue(Task.USER_ID) == 0) {
+//                    if(!remote.isSaved())
+//                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
+//                    else if(remote.isCompleted())
+//                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
+//                }
 
                 if(!remote.isSaved() && remote.hasDueDate() &&
                         remote.getValue(Task.DUE_DATE) < DateUtilities.now())
@@ -1713,10 +1711,10 @@ public final class ActFmSyncService {
 
         public static void updateFromJson(JSONObject json, Update model) throws JSONException {
             model.setValue(Update.REMOTE_ID, json.getLong("id"));
-            readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
-            if (!json.isNull("other_user")) {
-                readUser(json.getJSONObject("other_user"), model, Update.OTHER_USER_ID, Update.OTHER_USER);
-            }
+//            readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
+//            if (!json.isNull("other_user")) {
+//                readUser(json.getJSONObject("other_user"), model, Update.OTHER_USER_ID, Update.OTHER_USER);
+//            }
             model.setValue(Update.ACTION, json.getString("action"));
             model.setValue(Update.ACTION_CODE, json.getString("action_code"));
             model.setValue(Update.TARGET_NAME, json.getString("target_name"));
@@ -1733,23 +1731,23 @@ public final class ActFmSyncService {
 
         public static void readUser(JSONObject user, AbstractModel model, LongProperty idProperty,
                 StringProperty userProperty) throws JSONException {
-            long id = user.optLong("id", -2);
-            if(id == -2) {
-                model.setValue(idProperty, -1L);
-                if(userProperty != null) {
-                    JSONObject unassigned = new JSONObject();
-                    unassigned.put("id", -1L);
-                    model.setValue(userProperty, unassigned.toString());
-                }
-            } else if (id == ActFmPreferenceService.userId()) {
-                model.setValue(idProperty, 0L);
-                if (userProperty != null)
-                    model.setValue(userProperty, ActFmPreferenceService.thisUser().toString());
-            } else {
-                model.setValue(idProperty, id);
-                if(userProperty != null)
-                    model.setValue(userProperty, user.toString());
-            }
+//            long id = user.optLong("id", -2);
+//            if(id == -2) {
+//                model.setValue(idProperty, -1L);
+//                if(userProperty != null) {
+//                    JSONObject unassigned = new JSONObject();
+//                    unassigned.put("id", -1L);
+//                    model.setValue(userProperty, unassigned.toString());
+//                }
+//            } else if (id == ActFmPreferenceService.userId()) {
+//                model.setValue(idProperty, 0L);
+//                if (userProperty != null)
+//                    model.setValue(userProperty, ActFmPreferenceService.thisUser().toString());
+//            } else {
+//                model.setValue(idProperty, id);
+//                if(userProperty != null)
+//                    model.setValue(userProperty, user.toString());
+//            }
         }
 
         /**
@@ -1771,8 +1769,8 @@ public final class ActFmSyncService {
             model.setValue(TagData.REMOTE_ID, json.getLong("id"));
             model.setValue(TagData.NAME, json.getString("name"));
 
-            if (!featuredList)
-                readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
+//            if (!featuredList)
+//                readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
 
             if (featuredList)
                 model.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
@@ -1819,8 +1817,8 @@ public final class ActFmSyncService {
                 model.setValue(Task.UUID, null);
             else
                 model.setValue(Task.UUID, remoteId);
-            readUser(json.getJSONObject("user"), model, Task.USER_ID, Task.USER);
-            readUser(json.getJSONObject("creator"), model, Task.CREATOR_ID, null);
+//            readUser(json.getJSONObject("user"), model, Task.USER_ID, Task.USER);
+//            readUser(json.getJSONObject("creator"), model, Task.CREATOR_ID, null);
             model.setValue(Task.TITLE, json.getString("title"));
             model.setValue(Task.IMPORTANCE, json.getInt("importance"));
             int urgency = json.getBoolean("has_due_time") ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY;

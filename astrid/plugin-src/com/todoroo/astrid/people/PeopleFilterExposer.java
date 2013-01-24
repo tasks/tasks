@@ -68,7 +68,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
             User user = new User();
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                 user.readFromCursor(users);
-                if (user.getValue(User.REMOTE_ID) == ActFmPreferenceService.userId())
+                if (ActFmPreferenceService.userId().equals(user.getValue(User.UUID)))
                     continue;
                 Filter currFilter = filterFromUserData(user);
                 if (currFilter != null)

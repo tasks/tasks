@@ -165,6 +165,10 @@ public final class Task extends RemoteModel {
     @Deprecated public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
+    /** User email (for assigning by email) */
+    public static final StringProperty USER_EMAIL = new StringProperty(
+            TABLE, "userEmail");
+
     /** Creator user id */
     public static final StringProperty CREATOR_ID = new StringProperty(
             TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
@@ -208,6 +212,15 @@ public final class Task extends RemoteModel {
 
     /** user id = myself */
     public static final String USER_ID_SELF = "0";
+
+    public static boolean isRealUserId(String userId) {
+        if (userId == null)
+            return false;
+        return !(Task.USER_ID_SELF.equals(userId) ||
+                Task.USER_ID_UNASSIGNED.equals(userId) ||
+                Task.USER_ID_EMAIL.equals(userId) ||
+                Task.USER_ID_IGNORE.equals(userId));
+    }
 
     // --- notification flags
 

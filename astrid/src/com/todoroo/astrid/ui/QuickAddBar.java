@@ -8,9 +8,6 @@ package com.todoroo.astrid.ui;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -328,13 +325,9 @@ public class QuickAddBar extends LinearLayout {
 
             String assignedTo = peopleControl.getAssignedToString();
             String assignedEmail = "";
-            long assignedId = Task.USER_ID_IGNORE;
-            try {
-                JSONObject assignedUser = new JSONObject(task.getValue(Task.USER));
-                assignedEmail = assignedUser.optString("email", ""); //$NON-NLS-1$ //$NON-NLS-2$
-                assignedId = assignedUser.optLong("id", Task.USER_ID_IGNORE);
-            } catch (JSONException e) {
-                //
+            String assignedId = task.getValue(Task.USER_ID);
+            if (Task.USER_ID_EMAIL.equals(task.getValue(Task.USER_ID))) {
+                assignedEmail = task.getValue(Task.USER_EMAIL);
             }
 
             resetControlSets();

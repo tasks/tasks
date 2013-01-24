@@ -8,9 +8,7 @@ package com.todoroo.astrid.actfm.sync;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -27,7 +25,6 @@ import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
@@ -138,45 +135,6 @@ public final class ActFmDataService {
             ActFmSyncService.JsonHelper.featuredListFromJson(featObject, tagData);
             tagDataService.save(tagData);
 
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
-     * Save / Merge JSON user
-     * @param userObject
-     * @throws JSONException
-     */
-    @SuppressWarnings("nls")
-    public void saveUserData(JSONObject userObject) throws JSONException {
-        Criterion criterion = User.REMOTE_ID.eq(userObject.getLong("id"));
-        if (!TextUtils.isEmpty(userObject.optString("email")))
-            criterion = Criterion.or(criterion, Criterion.and(User.EMAIL.isNotNull(), User.EMAIL.eq(userObject.optString("email"))));
-        TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(criterion));
-        try {
-            cursor.moveToFirst();
-            User user = new User();
-            if (!cursor.isAfterLast()) {
-                user.readFromCursor(cursor);
-            }
-            ActFmSyncService.JsonHelper.userFromJson(userObject, user);
-            userDao.persist(user);
-
-        } finally {
-            cursor.close();
-        }
-    }
-
-    public void addUserByEmail(String email) {
-        TodorooCursor<User> cursor = userDao.query(Query.select(User.ID).where(User.EMAIL.eq(email)));
-        try {
-            if (cursor.getCount() == 0) {
-                User user = new User();
-                user.setValue(User.REMOTE_ID, Task.USER_ID_IGNORE);
-                user.setValue(User.EMAIL, email);
-                userDao.persist(user);
-            }
         } finally {
             cursor.close();
         }

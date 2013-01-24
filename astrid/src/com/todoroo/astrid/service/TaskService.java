@@ -467,8 +467,8 @@ public class TaskService {
         Task original = new Task();
         original.setId(itemId);
         Task clone = clone(original);
-        long userId = clone.getValue(Task.USER_ID);
-        if (userId != Task.USER_ID_SELF && userId != ActFmPreferenceService.userId())
+        String userId = clone.getValue(Task.USER_ID);
+        if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId))
             clone.putTransitory(TRANS_ASSIGNED, true);
         clone.setValue(Task.CREATION_DATE, DateUtilities.now());
         clone.setValue(Task.COMPLETION_DATE, 0L);

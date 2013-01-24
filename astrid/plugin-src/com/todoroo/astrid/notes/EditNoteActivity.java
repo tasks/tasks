@@ -440,7 +440,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         Update update = new Update();
         update.setValue(Update.MESSAGE, message);
         update.setValue(Update.ACTION_CODE, actionCode);
-        update.setValue(Update.USER_ID, 0L);
+        update.setValue(Update.USER_ID, Task.USER_ID_SELF);
         if(task.containsNonNullValue(Task.UUID) && !RemoteModel.NO_UUID.equals(task.getValue(Task.UUID)))
             update.setValue(Update.TASK_UUID, task.getValue(Task.UUID));
         update.setValue(Update.TASK_LOCAL, task.getId());

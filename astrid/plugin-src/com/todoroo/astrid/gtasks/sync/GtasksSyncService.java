@@ -199,7 +199,7 @@ public final class GtasksSyncService {
         com.google.api.services.tasks.model.Task remoteModel = null;
         boolean newlyCreated = false;
 
-        if (values.containsKey(Task.USER_ID.name) && values.getAsLong(Task.USER_ID.name) != Task.USER_ID_SELF) {
+        if (values.containsKey(Task.USER_ID.name) && !Task.USER_ID_SELF.equals(values.getAsString(Task.USER_ID.name))) {
             if (gtasksMetadata != null && !TextUtils.isEmpty(gtasksMetadata.getValue(GtasksMetadata.ID))) {
                 try {
                     invoker.deleteGtask(gtasksMetadata.getValue(GtasksMetadata.LIST_ID), gtasksMetadata.getValue(GtasksMetadata.ID));

@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -51,7 +47,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterExposer;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
@@ -628,7 +623,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     if (data.getBooleanExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)) {
                         String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_DISPLAY);
                         String assignedEmail = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_EMAIL);
-                        long assignedId = data.getLongExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_ID, Task.USER_ID_IGNORE);
+                        String assignedId = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO_ID);
                         taskAssignedTo(assignedTo, assignedEmail, assignedId);
                     } else if (data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK) != null) {
                         Task repeating = data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK);
@@ -664,7 +659,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             tlf.refresh();
     }
 
-    public void taskAssignedTo(final String assignedDisplay, String assignedEmail, final long assignedId) {
+    public void taskAssignedTo(final String assignedDisplay, String assignedEmail, final String assignedId) {
         final TaskListFragment tlf = getTaskListFragment();
         if (tlf != null && tlf.isInbox()) {
             DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
@@ -679,72 +674,73 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     getString(R.string.actfm_view_task_text, assignedDisplay),
                     R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel,
                     0, okListener, null);
-        } else if (tlf != null && (!TextUtils.isEmpty(assignedEmail) || assignedId > 0)) {
+        } else if (tlf != null && (!TextUtils.isEmpty(assignedEmail) || Task.isRealUserId(assignedId))) {
             checkAddTagMember(tlf, assignedDisplay, assignedEmail, assignedId);
         }
     }
 
-    private void checkAddTagMember(final TaskListFragment tlf, final String assignedDisplay, String assignedEmail, long assignedId) {
-        final TagData td = tlf.getActiveTagData();
-        if (td != null) {
-            String members = td.getValue(TagData.MEMBERS);
-            if (members == null)
-                members = ""; //$NON-NLS-1$
-            if (TextUtils.isEmpty(members) || TextUtils.isEmpty(assignedEmail) || !members.contains(assignedEmail)) {
-              // show dialog to ask if user should be added to the tag-members
-              JSONObject user = new JSONObject();
-              JSONArray membersArray = null;
-              boolean memberFound = false;
-              try {
-                  if (!TextUtils.isEmpty(assignedEmail))
-                      user.put("email", assignedEmail); //$NON-NLS-1$
-                  if (assignedId > 0)
-                      user.put("id", assignedId); //$NON-NLS-1$
-                  membersArray = new JSONArray(members);
-
-                  for (int i = 0; i < membersArray.length(); i++) {
-                      JSONObject member = membersArray.getJSONObject(i);
-                      long memberId = member.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
-                      if (memberId > 0 && memberId == assignedId) {
-                          memberFound = true;
-                          break;
-                      }
-                  }
-                  if (!memberFound) {
-                      String ownerString = td.getValue(TagData.USER);
-                      JSONObject owner = new JSONObject(ownerString);
-                      long ownerId = owner.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
-                      if (ownerId > 0 && assignedId == ownerId)
-                          memberFound = true;
-                  }
-              } catch (JSONException e) {
-                  return;
-              }
-
-              if (memberFound)
-                  return;
-
-              membersArray.put(user);
-
-              final JSONArray finalArray = membersArray;
-              DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface d, int which) {
-                      td.setValue(TagData.MEMBERS, finalArray.toString());
-                      td.setValue(TagData.MEMBER_COUNT, finalArray.length());
-                      PluginServices.getTagDataService().save(td);
-                      tlf.refresh();
-                  }
-              };
-              DialogUtilities.okCancelCustomDialog(this,
-                      getString(R.string.actfm_EPA_add_person_to_list_title),
-                      getString(R.string.actfm_EPA_add_person_to_list, assignedDisplay, assignedDisplay),
-                      R.string.actfm_EPA_add_person_to_list_ok,
-                      R.string.actfm_EPA_add_person_to_list_cancel,
-                      android.R.drawable.ic_dialog_alert,
-                      okListener, null);
-            }
-        }
+    private void checkAddTagMember(final TaskListFragment tlf, final String assignedDisplay, String assignedEmail, String assignedId) {
+        throw new RuntimeException("Hey Sam! You should reimplement this");
+//        final TagData td = tlf.getActiveTagData();
+//        if (td != null) {
+//            String members = td.getValue(TagData.MEMBERS);
+//            if (members == null)
+//                members = ""; //$NON-NLS-1$
+//            if (TextUtils.isEmpty(members) || TextUtils.isEmpty(assignedEmail) || !members.contains(assignedEmail)) {
+//              // show dialog to ask if user should be added to the tag-members
+//              JSONObject user = new JSONObject();
+//              JSONArray membersArray = null;
+//              boolean memberFound = false;
+//              try {
+//                  if (!TextUtils.isEmpty(assignedEmail))
+//                      user.put("email", assignedEmail); //$NON-NLS-1$
+//                  if (assignedId > 0)
+//                      user.put("id", assignedId); //$NON-NLS-1$
+//                  membersArray = new JSONArray(members);
+//
+//                  for (int i = 0; i < membersArray.length(); i++) {
+//                      JSONObject member = membersArray.getJSONObject(i);
+//                      long memberId = member.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
+//                      if (memberId > 0 && memberId == assignedId) {
+//                          memberFound = true;
+//                          break;
+//                      }
+//                  }
+//                  if (!memberFound) {
+//                      String ownerString = td.getValue(TagData.USER);
+//                      JSONObject owner = new JSONObject(ownerString);
+//                      long ownerId = owner.optLong("id", Task.USER_ID_IGNORE); //$NON-NLS-1$
+//                      if (ownerId > 0 && assignedId == ownerId)
+//                          memberFound = true;
+//                  }
+//              } catch (JSONException e) {
+//                  return;
+//              }
+//
+//              if (memberFound)
+//                  return;
+//
+//              membersArray.put(user);
+//
+//              final JSONArray finalArray = membersArray;
+//              DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+//                  @Override
+//                  public void onClick(DialogInterface d, int which) {
+//                      td.setValue(TagData.MEMBERS, finalArray.toString());
+//                      td.setValue(TagData.MEMBER_COUNT, finalArray.length());
+//                      PluginServices.getTagDataService().save(td);
+//                      tlf.refresh();
+//                  }
+//              };
+//              DialogUtilities.okCancelCustomDialog(this,
+//                      getString(R.string.actfm_EPA_add_person_to_list_title),
+//                      getString(R.string.actfm_EPA_add_person_to_list, assignedDisplay, assignedDisplay),
+//                      R.string.actfm_EPA_add_person_to_list_ok,
+//                      R.string.actfm_EPA_add_person_to_list_cancel,
+//                      android.R.drawable.ic_dialog_alert,
+//                      okListener, null);
+//            }
+//        }
     }
 
     public void incrementFilterCount(Filter filter) {

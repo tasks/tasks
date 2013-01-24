@@ -200,21 +200,10 @@ public class GCMIntentService extends GCMBaseIntentService {
         Intent notifyIntent = null;
         int notifId;
 
-        long user_idTemp = -2;
-        final String user_idString = intent.getStringExtra("oid");
-        if (user_idString != null) {
-            try {
-                user_idTemp = Long.parseLong(user_idString);
-            } catch(NumberFormatException e) {
-                // We tried
-                Log.e("c2dm-receive", "oid-parse", e);
-            }
-        }
-        final long user_id = user_idTemp;
+        final String user_id = intent.getStringExtra("oid");
         final String token_id = intent.getStringExtra("tid");
         // unregister
-        if (!actFmPreferenceService.isLoggedIn() || user_id != ActFmPreferenceService.userId()) {
-
+        if (!actFmPreferenceService.isLoggedIn() || !ActFmPreferenceService.userId().equals(user_id)) {
             new Thread() {
                 @Override
                 public void run() {
@@ -372,11 +361,10 @@ public class GCMIntentService extends GCMBaseIntentService {
                 try {
                     Update update = new Update();
                     update.setValue(Update.UUID, intent.getStringExtra("activity_id"));
-                    update.setValue(Update.USER_ID, Long.parseLong(intent.getStringExtra("user_id")));
+                    update.setValue(Update.USER_ID, intent.getStringExtra("user_id"));
                     JSONObject user = new JSONObject();
                     user.put("id", update.getValue(Update.USER_ID));
                     user.put("name", intent.getStringExtra("user_name"));
-                    update.setValue(Update.USER, user.toString());
                     update.setValue(Update.ACTION, "commented");
                     update.setValue(Update.ACTION_CODE, "tag_comment");
                     update.setValue(Update.TARGET_NAME, intent.getStringExtra("title"));
