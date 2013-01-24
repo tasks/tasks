@@ -71,7 +71,7 @@ public class Update extends RemoteModel {
             TABLE, USER_ID_PROPERTY_NAME);
 
     /** From User Object (JSON) */
-    public static final StringProperty USER = new StringProperty(
+    @Deprecated public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
     /** Other user id */

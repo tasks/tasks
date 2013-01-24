@@ -8,13 +8,11 @@ package com.todoroo.astrid.actfm.sync;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -59,8 +57,12 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     /**
      * @return get user id
      */
-    public static long userId() {
-        return Preferences.getLong(PREF_USER_ID, -2L);
+    public static String userId() {
+        try {
+            return Preferences.getStringValue(PREF_USER_ID);
+        } catch (Exception e) {
+            return Long.toString(Preferences.getLong(PREF_USER_ID, -2L));
+        }
     }
 
     /** Act.fm current user id */
@@ -103,9 +105,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
      * @return
      */
     public static JSONObject userFromModel(RemoteModel model) {
-        if(model.getValue(RemoteModel.USER_ID_PROPERTY) == 0) {
+        if (Task.USER_ID_SELF.equals(model.getValue(RemoteModel.USER_ID_PROPERTY))) {
             return thisUser();
-        }else {
+        } else {
             try {
                 return new JSONObject(model.getValue(RemoteModel.USER_JSON_PROPERTY));
             } catch (JSONException e) {
@@ -113,20 +115,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
             }
         }
     }
-
-    @SuppressWarnings("nls")
-    public static String updateToString(Update update) {
-        JSONObject updateUser = ActFmPreferenceService.userFromModel(update);
-        String description = update.getValue(Update.ACTION);
-        String message = update.getValue(Update.MESSAGE);
-        if(update.getValue(Update.ACTION_CODE).equals("task_comment") ||
-                update.getValue(Update.ACTION_CODE).equals("tag_comment"))
-            description = message;
-        else if(!TextUtils.isEmpty(message))
-            description += " " + message;
-        return String.format("%s: %s", updateUser.optString("name"), description);
-    }
-
 
     public synchronized static JSONObject thisUser() {
         if(user == null) {
@@ -151,7 +139,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
             user.put("premium", isPremiumUser());
             user.put("email", Preferences.getStringValue(PREF_EMAIL));
             user.put("picture", Preferences.getStringValue(PREF_PICTURE));
-            user.put("id", Preferences.getLong(PREF_USER_ID, 0));
+            user.put("id", ActFmPreferenceService.userId());
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

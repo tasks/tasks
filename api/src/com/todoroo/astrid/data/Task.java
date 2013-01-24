@@ -162,11 +162,11 @@ public final class Task extends RemoteModel {
             TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
     /** User Object (JSON) */
-    public static final StringProperty USER = new StringProperty(
+    @Deprecated public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
     /** Creator user id */
-    public static final LongProperty CREATOR_ID = new LongProperty(
+    public static final StringProperty CREATOR_ID = new StringProperty(
             TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
 
     /** Last Sync date */

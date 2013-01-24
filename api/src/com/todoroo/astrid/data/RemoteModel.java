@@ -35,7 +35,7 @@ abstract public class RemoteModel extends AbstractModel {
     protected static final String USER_JSON_PROPERTY_NAME = "user"; //$NON-NLS-1$
 
     /** user json property */
-    public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
+    @Deprecated public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
 
     /** pushed at date property name */
     public static final String PUSHED_AT_PROPERTY_NAME = "pushedAt"; //$NON-NLS-1$

@@ -50,7 +50,7 @@ public final class TagData extends RemoteModel {
             TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
     /** User Object (JSON) */
-    public static final StringProperty USER = new StringProperty(
+    @Deprecated public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
     /** Remote goal id */

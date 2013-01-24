@@ -23,6 +23,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 
@@ -222,6 +223,11 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 PluginServices.getMetadataService().update(
                         Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
                                 TagMetadata.TAG_UUID.eq(uuid)), template);
+            }
+
+            if (changes.has("member_added")) {
+                model.setValue(TagData.MEMBERS, "{}"); // Clear this value for migration purposes
+                //TODO: Do more things here also
             }
         }
     }
