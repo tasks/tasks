@@ -158,7 +158,7 @@ public final class Task extends RemoteModel {
             TABLE, REMOTE_ID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
     /** Assigned user id */
-    public static final LongProperty USER_ID = new LongProperty(
+    public static final StringProperty USER_ID = new StringProperty(
             TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
     /** User Object (JSON) */
@@ -201,16 +201,16 @@ public final class Task extends RemoteModel {
     // --- user id special values
 
     /** user id = doesn't exist/ignore it. For filtering in tags */
-    public static final long USER_ID_IGNORE = -3L;
+    public static final String USER_ID_IGNORE = "-3";
 
     /** user id = read user email value */
-    public static final long USER_ID_EMAIL = -2L;
+    public static final String USER_ID_EMAIL = "-2";
 
     /** user id = unassigned */
-    public static final long USER_ID_UNASSIGNED = -1L;
+    public static final String USER_ID_UNASSIGNED = "-1";
 
     /** user id = myself */
-    public static final long USER_ID_SELF = 0L;
+    public static final String USER_ID_SELF = "0";
 
     // --- notification flags
 
@@ -293,7 +293,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(LAST_SYNC.name, 0);
         defaultValues.putNull(REMOTE_ID.name);
         defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(USER_ID.name, 0);
+        defaultValues.put(USER_ID.name, "0");
         defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(USER.name, "{}");
         defaultValues.put(SHARED_WITH.name, "{}");
@@ -506,7 +506,7 @@ public final class Task extends RemoteModel {
 
     public boolean isEditable() {
         return (getValue(Task.IS_READONLY) == 0) &&
-                !(getValue(Task.IS_PUBLIC) == 1 && getValue(Task.USER_ID) != Task.USER_ID_SELF);
+                !(getValue(Task.IS_PUBLIC) == 1 && !Task.USER_ID_SELF.equals(getValue(Task.USER_ID)));
     }
 
     public boolean repeatAfterCompletion() {

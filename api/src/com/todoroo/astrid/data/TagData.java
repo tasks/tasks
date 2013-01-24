@@ -46,7 +46,7 @@ public final class TagData extends RemoteModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** User id */
-    public static final LongProperty USER_ID = new LongProperty(
+    public static final StringProperty USER_ID = new StringProperty(
             TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
     /** User Object (JSON) */
@@ -149,7 +149,7 @@ public final class TagData extends RemoteModel {
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
-        defaultValues.put(USER_ID.name, 0);
+        defaultValues.put(USER_ID.name, "0");
         defaultValues.put(USER.name, "{}");
         defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(UUID.name, NO_UUID);

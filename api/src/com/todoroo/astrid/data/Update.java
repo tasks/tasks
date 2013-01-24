@@ -67,7 +67,7 @@ public class Update extends RemoteModel {
             TABLE, "tagsLocal");
 
     /** From user id */
-    public static final LongProperty USER_ID = new LongProperty(
+    public static final StringProperty USER_ID = new StringProperty(
             TABLE, USER_ID_PROPERTY_NAME);
 
     /** From User Object (JSON) */
@@ -75,7 +75,7 @@ public class Update extends RemoteModel {
             TABLE, USER_JSON_PROPERTY_NAME);
 
     /** Other user id */
-    public static final LongProperty OTHER_USER_ID = new LongProperty(
+    public static final StringProperty OTHER_USER_ID = new StringProperty(
             TABLE, "other_user_id");
 
     /** Other User Object (JSON) */
@@ -139,9 +139,9 @@ public class Update extends RemoteModel {
         defaultValues.put(TASK_LOCAL.name, 0);
         defaultValues.put(TAGS.name, "");
         defaultValues.put(TAGS_LOCAL.name, 0);
-        defaultValues.put(USER_ID.name, 0);
+        defaultValues.put(USER_ID.name, "0");
         defaultValues.put(USER.name, "");
-        defaultValues.put(OTHER_USER_ID.name, 0);
+        defaultValues.put(OTHER_USER_ID.name, "0");
         defaultValues.put(OTHER_USER.name, "");
         defaultValues.put(ACTION.name, "");
         defaultValues.put(ACTION_CODE.name, "");

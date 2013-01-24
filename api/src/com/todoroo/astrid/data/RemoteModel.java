@@ -29,7 +29,7 @@ abstract public class RemoteModel extends AbstractModel {
     protected static final String USER_ID_PROPERTY_NAME = "userId"; //$NON-NLS-1$
 
     /** user id property */
-    public static final LongProperty USER_ID_PROPERTY = new LongProperty(null, USER_ID_PROPERTY_NAME);
+    public static final StringProperty USER_ID_PROPERTY = new StringProperty(null, USER_ID_PROPERTY_NAME);
 
     /** user json property common to all remote models */
     protected static final String USER_JSON_PROPERTY_NAME = "user"; //$NON-NLS-1$
