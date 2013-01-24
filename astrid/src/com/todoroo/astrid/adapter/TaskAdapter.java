@@ -107,13 +107,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
-    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN),
-            Metadata.ID.name).as("taskRabId"); //$NON-NLS-1$
-
+    @SuppressWarnings("nls")
+    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN), Metadata.ID.name).as("taskRabId");
     @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagService.TAG.name + ", '  |  ')").as("tags");
     @SuppressWarnings("nls")
     private static final LongProperty FILE_ID_PROPERTY = new LongProperty(Metadata.TABLE.as(TaskListFragment.FILE_METADATA_JOIN), Metadata.ID.name).as("fileId");
+    @SuppressWarnings("nls")
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
     // --- other constants
@@ -234,6 +234,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public final DecorationManager decorationManager;
 
+    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
+
     /**
      * Constructor
      *
@@ -272,7 +274,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
-//        startTaskActionsThread();
 
         decorationManager = new DecorationManager();
 
@@ -322,13 +323,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             detailLoader.start();
         }
     }
-
-//    private void startTaskActionsThread() {
-//        if (!titleOnlyLayout) {
-//            actionsLoader = new ActionsLoaderThread();
-//            actionsLoader.start();
-//        }
-//    }
 
     /* ======================================================================
      * =========================================================== filterable
@@ -802,67 +796,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-
-    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
-
-
-//    @SuppressWarnings("nls")
-//    public class ActionsLoaderThread extends Thread {
-//        public static final String FILE_COLUMN = "fileId";
-//        private static final String METADATA_JOIN = "for_actions";
-//
-//        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN),
-//                Metadata.ID.name).as(FILE_COLUMN);
-//
-//        @Override
-//        public void run() {
-//            AndroidUtilities.sleepDeep(500L);
-//            String groupedQuery = query.get();
-//
-//            groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
-//
-//            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.FLAGS, Task.USER_ID,
-//                    fileIdProperty)
-//                    .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
-//                            Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
-//                                    Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
-//            final TodorooCursor<Task> fetchCursor = taskService.query(q);
-//
-//            try {
-//                Task task = new Task();
-//                LinkActionExposer linkActionExposer = new LinkActionExposer();
-//
-//                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-//                    task.clear();
-//                    task.readFromCursor(fetchCursor);
-//                    if(task.isCompleted() || !task.isEditable())
-//                        continue;
-//
-//                    boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
-//                    List<TaskAction> actions = linkActionExposer.
-//                            getActionsForTask(ContextManager.getContext(), task, hasAttachments);
-//                    if (actions.size() > 0)
-//                        taskActionLoader.put(task.getId(), actions.get(0));
-//                    else
-//                        taskActionLoader.remove(task.getId());
-//                }
-//            } finally {
-//                fetchCursor.close();
-//            }
-//            final Activity activity = fragment.getActivity();
-//            if (activity != null) {
-//                activity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if(taskActionLoader.size() > 0) {
-//                            notifyDataSetChanged();
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//    }
-
     /**
      * Add detail to a task
      *
@@ -939,7 +872,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         decorationManager.clearCache();
         taskDetailLoader.clear();
         startDetailThread();
-//        startTaskActionsThread();
     }
 
     /**
