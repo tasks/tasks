@@ -236,7 +236,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
             if (membersAdded) {
                 model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
-                model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
                 for (int i = 0; i < addMembers.length(); i++) {
                     try {
                         String memberId = addMembers.getString(i);
@@ -257,7 +256,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         //
                     }
                 }
-                tagMetadataDao.removeMemberLinks(uuid, toRemove.toArray(new String[toRemove.size()]));
+                tagMetadataDao.removeMemberLinks(uuid, toRemove.toArray(new String[toRemove.size()]), true);
             }
         }
     }
