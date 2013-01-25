@@ -3,7 +3,7 @@ package com.todoroo.astrid.tags;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
 
-public class TagMetadata {
+public class TaskToTagMetadata {
 
     /** Metadata key for tag data */
     public static final String KEY = "tags-tag"; //$NON-NLS-1$

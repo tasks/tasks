@@ -24,7 +24,7 @@ import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
 
 @SuppressWarnings("nls")
@@ -219,10 +219,10 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         public void performChanges() {
             if (changes.has("name")) {
                 Metadata template = new Metadata();
-                template.setValue(TagMetadata.TAG_NAME, changes.optString("name"));
+                template.setValue(TaskToTagMetadata.TAG_NAME, changes.optString("name"));
                 PluginServices.getMetadataService().update(
-                        Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
-                                TagMetadata.TAG_UUID.eq(uuid)), template);
+                        Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                                TaskToTagMetadata.TAG_UUID.eq(uuid)), template);
             }
 
             if (changes.has("member_added")) {

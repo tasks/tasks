@@ -232,7 +232,7 @@ public final class TagsControlSet extends PopupControlSet {
             LinkedHashSet<String> tags = new LinkedHashSet<String>(cursor.getCount());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    String tag = cursor.get(TagMetadata.TAG_NAME);
+                    String tag = cursor.get(TaskToTagMetadata.TAG_NAME);
                     tags.add(tag);
                 }
             } finally {

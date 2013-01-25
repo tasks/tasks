@@ -47,7 +47,7 @@ import com.todoroo.astrid.legacy.LegacyAlertModel;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 public class Astrid2To3UpgradeHelper {
 
@@ -400,7 +400,7 @@ public class Astrid2To3UpgradeHelper {
                 return;
 
             Metadata metadata = new Metadata();
-            metadata.setValue(Metadata.KEY, TagMetadata.KEY);
+            metadata.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
             long tagId = -1;
             String tag = null;
             for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
@@ -417,8 +417,8 @@ public class Astrid2To3UpgradeHelper {
                         tag = tagCursor.getString(1);
                     long task = mapCursor.getLong(1);
                     metadata.setValue(Metadata.TASK, task);
-                    metadata.setValue(Metadata.KEY, TagMetadata.KEY);
-                    metadata.setValue(TagMetadata.TAG_NAME, tag);
+                    metadata.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
+                    metadata.setValue(TaskToTagMetadata.TAG_NAME, tag);
                     metadataDao.createNew(metadata);
                     metadata.clearValue(Metadata.ID);
                 }

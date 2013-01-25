@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
@@ -61,6 +62,7 @@ public class Database extends AbstractDatabase {
         Update.TABLE,
         User.TABLE,
         ABTestEvent.TABLE,
+        TagMetadata.TABLE,
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
@@ -358,6 +360,7 @@ public class Database extends AbstractDatabase {
         case 28: try {
             database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
+            database.execSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.UUID, visitor, null));

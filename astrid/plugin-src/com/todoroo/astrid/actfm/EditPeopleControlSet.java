@@ -53,8 +53,11 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.UserDao;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -65,6 +68,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
@@ -176,7 +180,6 @@ public class EditPeopleControlSet extends PopupControlSet {
         this.task = task;
     }
 
-    @SuppressWarnings("nls")
     public void setUpData(final Task task, final TagData includeTag) {
         new Thread(new Runnable() {
             @Override
@@ -187,26 +190,13 @@ public class EditPeopleControlSet extends PopupControlSet {
                     TagData tagData = new TagData();
                     for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
                         tagData.readFromCursor(tags);
-                        final String tag = tagData.getValue(TagData.NAME);
-                        if(tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-                            try {
-                                addMembersFromTagData(tagData, tag, sharedPeople);
-                            } catch (JSONException e) {
-                                exceptionService.reportError("json-reading-data", e);
-                            }
-                        }
+                        addMembersFromTagData(tagData, sharedPeople);
                     }
 
                     if (includeTag != null && tags.getCount() == 0) {
-                        try {
-                            addMembersFromTagData(includeTag, null, sharedPeople);
-                        } catch (JSONException e) {
-                            exceptionService.reportError("json-reading-data", e);
-                        }
+                        addMembersFromTagData(includeTag, sharedPeople);
                     }
 
-//                    if(collaborators.size() > 0)
-//                        buildCollaborators(collaborators);
                     buildAssignedToSpinner(task, sharedPeople);
                 } finally {
                     tags.close();
@@ -216,55 +206,34 @@ public class EditPeopleControlSet extends PopupControlSet {
         }).start();
     }
 
-    @SuppressWarnings("nls")
-    private static void addMembersFromTagData(TagData tagData, String tag, ArrayList<JSONObject> sharedPeople) throws JSONException {
-        JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
-        if (tag == null)
-            tag = tagData.getValue(TagData.NAME);
-        for(int i = 0; i < members.length(); i++) {
-            JSONObject user = members.getJSONObject(i);
-            user.put("tag", tag);
-            sharedPeople.add(user);
-        }
-        if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
-            JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
-            user.put("tag", tag);
-            sharedPeople.add(user);
+    private static void addMembersFromTagData(TagData tagData, ArrayList<JSONObject> sharedPeople) {
+        try {
+            JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
+            for (int i = 0; i < members.length(); i++) {
+                JSONObject user = members.getJSONObject(i);
+                sharedPeople.add(user);
+            }
+            if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
+                JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
+                sharedPeople.add(user);
+            }
+        } catch (JSONException e) {
+            TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES).where(User.UUID.in(
+                    Query.select(TagMemberMetadata.USER_UUID).from(Metadata.TABLE).where(TagMetadata.TAG_UUID.eq(tagData.getUuid())))));
+            User user = new User();
+            for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
+                user.clear();
+                user.readFromCursor(users);
+                JSONObject userJson = new JSONObject();
+                try {
+                    ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
+                    sharedPeople.add(userJson);
+                } catch (JSONException e2) {
+                    //
+                }
+            }
         }
     }
-
-//    @SuppressWarnings("nls")
-//    private void buildCollaborators(final ArrayList<JSONObject> sharedPeople) {
-//
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                HashSet<Long> userIds = new HashSet<Long>();
-//                LinearLayout collaborators = (LinearLayout) getSharedWithView().findViewById(R.id.collaborators);
-//
-//                for(JSONObject person : sharedPeople) {
-//                    if(person == null)
-//                        continue;
-//                    long id = person.optLong("id", -1);
-//                    if(id == 0 || id == ActFmPreferenceService.userId() || (id > -1 && userIds.contains(id)))
-//                        continue;
-//                    userIds.add(id);
-//
-//                    View contact = activity.getLayoutInflater().inflate(R.layout.contact_adapter_row, collaborators, false);
-//                    AsyncImageView icon = (AsyncImageView) contact.findViewById(R.id.icon);
-//                    TextView name = (TextView) contact.findViewById(android.R.id.text1);
-//                    TextView tag = (TextView) contact.findViewById(android.R.id.text2);
-//
-//                    icon.setUrl(person.optString("picture"));
-//                    name.setText(person.optString("name"));
-//                    name.setTextAppearance(activity, R.style.TextAppearance_Medium);
-//                    tag.setText(activity.getString(R.string.actfm_EPA_list, person.optString("tag")));
-//
-//                    collaborators.addView(contact);
-//                }
-//            }
-//        });
-//    }
 
     public static class AssignedToUser {
         public String label;

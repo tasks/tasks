@@ -18,7 +18,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 
@@ -47,44 +47,44 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 		}
 		
 		Metadata m = new Metadata();
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 1L);
-		m.setValue(TagMetadata.TAG_NAME, "Tag 1");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 1");
 		metadataDao.createNew(m);
 		m.clear();
 		
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 2L);
-		m.setValue(TagMetadata.TAG_NAME, "New tag");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "New tag");
 		metadataDao.createNew(m);
 		m.clear();
 		
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 3L);
-		m.setValue(TagMetadata.TAG_NAME, "Tag 3");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 3");
 		metadataDao.createNew(m);
 		m.clear();
 
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 3L);
-		m.setValue(TagMetadata.TAG_NAME, "Tag 4");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 4");
 		metadataDao.createNew(m);
 		m.clear();
 
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 5L);
-		m.setValue(TagMetadata.TAG_NAME, "Tag 1");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 1");
 		metadataDao.createNew(m);
 		m.clear();
 
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 5L);
-		m.setValue(TagMetadata.TAG_NAME, "Tag 5");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 5");
 		metadataDao.createNew(m);
 
-		m.setValue(Metadata.KEY, TagMetadata.KEY);
+		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 5L);
-		m.setValue(TagMetadata.TAG_NAME, "New tag 2");
+		m.setValue(TaskToTagMetadata.TAG_NAME, "New tag 2");
 		metadataDao.createNew(m);
 		
 		// State (task: tags)
@@ -138,15 +138,15 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 	
 	private void assertAllMetadataHasAllFields() {
 		TodorooCursor<Metadata> tagMetadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
-				.where(MetadataCriteria.withKey(TagMetadata.KEY)));
+				.where(MetadataCriteria.withKey(TaskToTagMetadata.KEY)));
 		try {
 			assertEquals(tagMetadata.getCount(), 7);
 			Metadata m = new Metadata();
 			for (tagMetadata.moveToFirst(); !tagMetadata.isAfterLast(); tagMetadata.moveToNext()) {
 				m.readFromCursor(tagMetadata);
-				assertTrue(!TextUtils.isEmpty(m.getValue(TagMetadata.TAG_NAME)));
-				assertTrue(!RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TASK_UUID)));
-				assertTrue(!RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TAG_UUID)));
+				assertTrue(!TextUtils.isEmpty(m.getValue(TaskToTagMetadata.TAG_NAME)));
+				assertTrue(!RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TASK_UUID)));
+				assertTrue(!RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TAG_UUID)));
 			}
 		} finally {
 			tagMetadata.close();

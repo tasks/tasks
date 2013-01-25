@@ -57,7 +57,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
@@ -394,8 +394,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 continue;
 
             Metadata tagData = new Metadata();
-            tagData.setValue(Metadata.KEY, TagMetadata.KEY);
-            tagData.setValue(TagMetadata.TAG_NAME, ApiUtilities.decode(label.getString("title")));
+            tagData.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
+            tagData.setValue(TaskToTagMetadata.TAG_NAME, ApiUtilities.decode(label.getString("title")));
             metadata.add(tagData);
         }
 
@@ -572,12 +572,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         HashSet<String> localTags = new HashSet<String>();
         HashSet<String> remoteTags = new HashSet<String>();
         for(Metadata item : local.metadata)
-            if(TagMetadata.KEY.equals(item.getValue(Metadata.KEY)))
-                localTags.add(item.getValue(TagMetadata.TAG_NAME));
+            if(TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY)))
+                localTags.add(item.getValue(TaskToTagMetadata.TAG_NAME));
         if(remote != null && remote.metadata != null) {
             for(Metadata item : remote.metadata)
-                if(TagMetadata.KEY.equals(item.getValue(Metadata.KEY)))
-                    remoteTags.add(item.getValue(TagMetadata.TAG_NAME));
+                if(TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY)))
+                    remoteTags.add(item.getValue(TaskToTagMetadata.TAG_NAME));
         }
 
         if(!localTags.equals(remoteTags)) {

@@ -93,7 +93,7 @@ public final class TagService {
      * Property for retrieving count of aggregated rows
      */
     private static final CountProperty COUNT = new CountProperty();
-    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(Functions.upper(TagMetadata.TAG_NAME));
+    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME));
     public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
 
     /**
@@ -152,11 +152,11 @@ public final class TagService {
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
             Criterion fullCriterion = Criterion.and(
-                    Field.field("mtags." + Metadata.KEY.name).eq(TagMetadata.KEY),
-                    Field.field("mtags." + TagMetadata.TAG_UUID.name).eq(uuid),
+                    Field.field("mtags." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY),
+                    Field.field("mtags." + TaskToTagMetadata.TAG_UUID.name).eq(uuid),
                     Field.field("mtags." + Metadata.DELETION_DATE.name).eq(0),
                     criterion);
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags." + TagMetadata.TASK_UUID.name))))
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags." + TaskToTagMetadata.TASK_UUID.name))))
                     .where(fullCriterion);
         }
 
@@ -165,13 +165,13 @@ public final class TagService {
     @Deprecated
     private static Criterion tagEq(String tag, Criterion additionalCriterion) {
         return Criterion.and(
-                MetadataCriteria.withKey(TagMetadata.KEY), TagMetadata.TAG_NAME.eq(tag),
+                MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_NAME.eq(tag),
                 additionalCriterion);
     }
 
     public static Criterion tagEqIgnoreCase(String tag, Criterion additionalCriterion) {
         return Criterion.and(
-                MetadataCriteria.withKey(TagMetadata.KEY), TagMetadata.TAG_NAME.eqCaseInsensitive(tag),
+                MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_NAME.eqCaseInsensitive(tag),
                 additionalCriterion);
     }
 
@@ -179,8 +179,8 @@ public final class TagService {
         String[] emergentTags = getEmergentTagIds();
 
         return new QueryTemplate().where(Criterion.and(
-                Criterion.not(Task.UUID.in(Query.select(TagMetadata.TASK_UUID).from(Metadata.TABLE)
-                        .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0), Criterion.not(TagMetadata.TAG_UUID.in(emergentTags)))))),
+                Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
+                        .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0), Criterion.not(TaskToTagMetadata.TAG_UUID.in(emergentTags)))))),
                 TaskCriteria.isActive(),
                 TaskApiDao.TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
@@ -197,19 +197,19 @@ public final class TagService {
     public Tag[] getGroupedTags(Order order, Criterion activeStatus, boolean includeEmergent) {
         Criterion criterion;
         if (includeEmergent)
-            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY));
+            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         else
-            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_UUID.in(getEmergentTagIds())));
-        Query query = Query.select(TagMetadata.TAG_NAME, TagMetadata.TAG_UUID, COUNT).
+            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY), Criterion.not(TaskToTagMetadata.TAG_UUID.in(getEmergentTagIds())));
+        Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(criterion).
-            orderBy(order).groupBy(TagMetadata.TAG_NAME);
+            orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
             ArrayList<Tag> array = new ArrayList<Tag>();
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
-                Tag tag = Tag.tagFromUUID(cursor.get(TagMetadata.TAG_UUID));
+                Tag tag = Tag.tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
                 if (tag != null)
                     array.add(tag);
             }
@@ -258,9 +258,9 @@ public final class TagService {
     }
 
     public void createLink(Task task, String tagName, String tagUuid) {
-        Metadata link = TagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
-        if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(task.getId(), TagMetadata.KEY),
-                    TagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+        Metadata link = TaskToTagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
+        if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(task.getId(), TaskToTagMetadata.KEY),
+                    TaskToTagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
             metadataDao.createNew(link);
         }
     }
@@ -282,11 +282,11 @@ public final class TagService {
                 name = tagData.getValue(TagData.NAME);
             }
 
-            Metadata link = TagMetadata.newTagMetadata(taskId, taskUuid, name, tagUuid);
+            Metadata link = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, name, tagUuid);
             if (suppressOutstanding)
                 link.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-            if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY),
-                    TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+            if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, TaskToTagMetadata.KEY),
+                    TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
                 if (suppressOutstanding)
                     link.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 metadataDao.createNew(link);
@@ -307,10 +307,10 @@ public final class TagService {
         if (suppressOutstanding)
             deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
-        deleteTemplate.setValue(TagMetadata.TAG_UUID, tagUuid); // Need this for recording changes in outstanding table
+        deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, tagUuid); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
-        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(tagUuid)), deleteTemplate);
+        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), deleteTemplate);
     }
 
     /**
@@ -326,11 +326,11 @@ public final class TagService {
             for (String uuid : tagUuids) {
                 // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
                 // the outstanding entry correctly. If possible, this should be improved to a single query
-                deleteTemplate.setValue(TagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
+                deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
                 if (suppressOutstanding)
                     deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                        TagMetadata.TASK_UUID.eq(taskUuid), TagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
+                metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                        TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
             }
         }
     }
@@ -344,21 +344,21 @@ public final class TagService {
     public TodorooCursor<Metadata> getTags(long taskId, boolean includeEmergent) {
         Criterion criterion;
         if (includeEmergent)
-            criterion = Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+            criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     Metadata.DELETION_DATE.eq(0),
                     MetadataCriteria.byTask(taskId));
         else
-            criterion = Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+            criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     Metadata.DELETION_DATE.eq(0),
-                    MetadataCriteria.byTask(taskId), Criterion.not(TagMetadata.TAG_UUID.in(getEmergentTagIds())));
-        Query query = Query.select(TagMetadata.TAG_NAME, TagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TagMetadata.TAG_NAME)));
+                    MetadataCriteria.byTask(taskId), Criterion.not(TaskToTagMetadata.TAG_UUID.in(getEmergentTagIds())));
+        Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
         return metadataDao.query(query);
     }
 
     public TodorooCursor<TagData> getTagDataForTask(long taskId, boolean includeEmergent, Property<?>... properties) {
-        Criterion criterion = TagData.UUID.in(Query.select(TagMetadata.TAG_UUID)
+        Criterion criterion = TagData.UUID.in(Query.select(TaskToTagMetadata.TAG_UUID)
                 .from(Metadata.TABLE)
-                .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+                .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                         Metadata.DELETION_DATE.eq(0),
                         Metadata.TASK.eq(taskId))));
         if (!includeEmergent)
@@ -368,9 +368,9 @@ public final class TagService {
     }
 
     public TodorooCursor<TagData> getTagDataForTask(long taskId, Criterion additionalCriterion, Property<?>... properties) {
-        Criterion criterion = TagData.UUID.in(Query.select(TagMetadata.TAG_UUID).from(Metadata.TABLE).where(
+        Criterion criterion = TagData.UUID.in(Query.select(TaskToTagMetadata.TAG_UUID).from(Metadata.TABLE).where(
                 Criterion.and(Metadata.DELETION_DATE.eq(0),
-                        MetadataCriteria.byTaskAndwithKey(taskId, TagMetadata.KEY))));
+                        MetadataCriteria.byTaskAndwithKey(taskId, TaskToTagMetadata.KEY))));
         return tagDataService.query(Query.select(properties).where(Criterion.and(criterion, additionalCriterion)));
     }
 
@@ -399,7 +399,7 @@ public final class TagService {
             for (int i = 0; i < length; i++) {
                 tags.moveToNext();
                 metadata.readFromCursor(tags);
-                tagBuilder.append(metadata.getValue(TagMetadata.TAG_NAME));
+                tagBuilder.append(metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 if (i < length - 1)
                     tagBuilder.append(separator);
             }
@@ -492,11 +492,11 @@ public final class TagService {
     public boolean synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
         HashSet<String> existingLinks = new HashSet<String>();
         TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
+                .where(Criterion.and(TaskToTagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
         try {
             for (links.moveToFirst(); !links.isAfterLast(); links.moveToNext()) {
                 Metadata link = new Metadata(links);
-                existingLinks.add(link.getValue(TagMetadata.TAG_UUID));
+                existingLinks.add(link.getValue(TaskToTagMetadata.TAG_UUID));
             }
         } finally {
             links.close();
@@ -512,7 +512,7 @@ public final class TagService {
             if (existingLinks.contains(tagData.getValue(TagData.UUID))) {
                 existingLinks.remove(tagData.getValue(TagData.UUID));
             } else {
-                Metadata newLink = TagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getValue(TagData.UUID));
+                Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getValue(TagData.UUID));
                 metadataDao.createNew(newLink);
             }
         }
@@ -532,12 +532,12 @@ public final class TagService {
     public String getTagWithCase(String tag) {
         MetadataService service = PluginServices.getMetadataService();
         String tagWithCase = tag;
-        TodorooCursor<Metadata> tagMetadata = service.query(Query.select(TagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
+        TodorooCursor<Metadata> tagMetadata = service.query(Query.select(TaskToTagMetadata.TAG_NAME).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
         try {
             if (tagMetadata.getCount() > 0) {
                 tagMetadata.moveToFirst();
                 Metadata tagMatch = new Metadata(tagMetadata);
-                tagWithCase = tagMatch.getValue(TagMetadata.TAG_NAME);
+                tagWithCase = tagMatch.getValue(TaskToTagMetadata.TAG_NAME);
             } else {
                 TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.NAME).where(TagData.NAME.eqCaseInsensitive(tag)));
                 try {
@@ -595,7 +595,7 @@ public final class TagService {
 
         // Then rename all instances of oldTag to newTag.
         Metadata metadata = new Metadata();
-        metadata.setValue(TagMetadata.TAG_NAME, newTag);
+        metadata.setValue(TaskToTagMetadata.TAG_NAME, newTag);
         int ret;
         if (caseSensitive)
             ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);

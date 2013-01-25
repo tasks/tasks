@@ -76,7 +76,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 import com.todoroo.astrid.utility.Flags;
@@ -493,13 +493,13 @@ public final class ActFmSyncService {
                     Metadata metadata = new Metadata();
                     for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                         metadata.readFromCursor(cursor);
-                        if(metadata.containsNonNullValue(TagMetadata.TAG_UUID) &&
-                                !RemoteModel.NO_UUID.equals(metadata.getValue(TagMetadata.TAG_UUID))) {
+                        if(metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) &&
+                                !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
                             params.add("tag_ids[]");
-                            params.add(metadata.getValue(TagMetadata.TAG_UUID));
+                            params.add(metadata.getValue(TaskToTagMetadata.TAG_UUID));
                         } else {
                             params.add("tags[]");
-                            params.add(metadata.getValue(TagMetadata.TAG_NAME));
+                            params.add(metadata.getValue(TaskToTagMetadata.TAG_NAME));
                         }
                     }
                 }
@@ -1014,7 +1014,7 @@ public final class ActFmSyncService {
         JsonHelper.taskFromJson(result, task, metadata);
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         taskService.save(task);
-        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagMetadata.KEY), false);
+        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TaskToTagMetadata.KEY), false);
         synchronizeAttachments(result, task);
     }
 
@@ -1524,7 +1524,7 @@ public final class ActFmSyncService {
                 }
 
                 ids.add(remote.getId());
-                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagMetadata.KEY), false);
+                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TaskToTagMetadata.KEY), false);
                 synchronizeAttachments(item, remote);
                 remote.clear();
             }
@@ -1847,7 +1847,7 @@ public final class ActFmSyncService {
                 String name = tag.getString("name");
                 if(TextUtils.isEmpty(name))
                     continue;
-                Metadata tagMetadata = TagMetadata.newTagMetadata(model.getId(), remoteId, name, tag.getString("id"));
+                Metadata tagMetadata = TaskToTagMetadata.newTagMetadata(model.getId(), remoteId, name, tag.getString("id"));
                 metadata.add(tagMetadata);
             }
         }

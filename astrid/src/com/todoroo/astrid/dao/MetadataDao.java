@@ -28,7 +28,7 @@ import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
@@ -78,7 +78,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         ContentValues cv = item.getSetValues();
         return super.shouldRecordOutstanding(item) && cv != null &&
                 ((cv.containsKey(Metadata.KEY.name) &&
-                        TagMetadata.KEY.equals(item.getValue(Metadata.KEY))) ||
+                        TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY))) ||
                 (cv.containsKey(Metadata.DELETION_DATE.name) &&
                         item.getValue(Metadata.DELETION_DATE) > 0));
     }
@@ -86,7 +86,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     @Override
     protected boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
         Long taskId = modelSetValues.getAsLong(Metadata.TASK.name);
-        String tagUuid = modelSetValues.getAsString(TagMetadata.TAG_UUID.name);
+        String tagUuid = modelSetValues.getAsString(TaskToTagMetadata.TAG_UUID.name);
         Long deletionDate = modelSetValues.getAsLong(Metadata.DELETION_DATE.name);
         if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid))
             return false;
@@ -113,7 +113,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         boolean state = super.persist(item);
         if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
             if (state && item.containsNonNullValue(Metadata.KEY) &&
-                    item.getValue(Metadata.KEY).equals(TagMetadata.KEY)) {
+                    item.getValue(Metadata.KEY).equals(TaskToTagMetadata.KEY)) {
                 StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_LIST);
                 Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);
             }

@@ -39,7 +39,7 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 
@@ -550,13 +550,13 @@ public class TaskService {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
-            if (TagMetadata.KEY.equals(metadata.getValue(Metadata.KEY))) {
-                if (metadata.containsNonNullValue(TagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TagMetadata.TAG_UUID))) {
+            if (TaskToTagMetadata.KEY.equals(metadata.getValue(Metadata.KEY))) {
+                if (metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
                     // This is more efficient
-                    TagService.getInstance().createLink(task, metadata.getValue(TagMetadata.TAG_NAME), metadata.getValue(TagMetadata.TAG_UUID));
+                    TagService.getInstance().createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));
                 } else {
                     // This is necessary for backwards compatibility
-                    TagService.getInstance().createLink(task, metadata.getValue(TagMetadata.TAG_NAME));
+                    TagService.getInstance().createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
                 }
             } else {
                 PluginServices.getMetadataService().save(metadata);

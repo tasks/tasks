@@ -26,7 +26,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
@@ -48,9 +48,9 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
         String title = tag.tag;
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Metadata.KEY.name, TagMetadata.KEY);
-        contentValues.put(TagMetadata.TAG_NAME.name, tag.tag);
-        contentValues.put(TagMetadata.TAG_UUID.name, tag.uuid.toString());
+        contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
+        contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.tag);
+        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid.toString());
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,

@@ -111,7 +111,7 @@ public class TagCaseMigrator {
     @Deprecated
     private static Criterion tagEq(String tag, Criterion additionalCriterion) {
         return Criterion.and(
-                MetadataCriteria.withKey(TagMetadata.KEY), TagMetadata.TAG_NAME.eq(tag),
+                MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_NAME.eq(tag),
                 additionalCriterion);
     }
 
@@ -121,14 +121,14 @@ public class TagCaseMigrator {
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 Task curr = new Task(tasks);
-                TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TagMetadata.TAG_NAME)
-                                                                 .where(Criterion.and(TagMetadata.TAG_NAME.eq(target), Metadata.KEY.eq(TagMetadata.KEY), Metadata.TASK.eq(curr.getId()))));
+                TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TaskToTagMetadata.TAG_NAME)
+                                                                 .where(Criterion.and(TaskToTagMetadata.TAG_NAME.eq(target), Metadata.KEY.eq(TaskToTagMetadata.KEY), Metadata.TASK.eq(curr.getId()))));
                 try {
                     if (tagMetadata.getCount() == 0) {
                         Metadata newTag = new Metadata();
-                        newTag.setValue(Metadata.KEY, TagMetadata.KEY);
+                        newTag.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
                         newTag.setValue(Metadata.TASK, curr.getId());
-                        newTag.setValue(TagMetadata.TAG_NAME, target);
+                        newTag.setValue(TaskToTagMetadata.TAG_NAME, target);
                         metadataService.save(newTag);
                     } // else already exists for some weird reason
                 } finally {

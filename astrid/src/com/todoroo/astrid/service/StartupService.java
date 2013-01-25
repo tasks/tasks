@@ -67,7 +67,7 @@ import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.subtasks.SubtasksMetadata;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -274,9 +274,9 @@ public class StartupService {
                 Metadata m = new Metadata();
                 if (values != null) {
                     if (values.containsKey(TagData.NAME.name)) {
-                        m.setValue(TagMetadata.TAG_NAME, model.getValue(TagData.NAME));
-                        PluginServices.getMetadataService().update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
-                                TagMetadata.TAG_UUID.eq(model.getValue(TagData.UUID))), m);
+                        m.setValue(TaskToTagMetadata.TAG_NAME, model.getValue(TagData.NAME));
+                        PluginServices.getMetadataService().update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                                TaskToTagMetadata.TAG_UUID.eq(model.getValue(TagData.UUID))), m);
                     }
                 }
             }

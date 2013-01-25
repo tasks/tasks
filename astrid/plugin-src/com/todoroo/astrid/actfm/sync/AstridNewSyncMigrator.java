@@ -25,7 +25,7 @@ import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.tags.TagMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
@@ -55,9 +55,9 @@ public class AstridNewSyncMigrator {
         // First ensure that a TagData object exists for each tag metadata
         // --------------
         Query noTagDataQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataCriteria.withKey(TagMetadata.KEY),
-                Criterion.or(TagMetadata.TAG_UUID.isNull(), TagMetadata.TAG_UUID.eq(0)),
-                Criterion.not(TagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TagMetadata.TAG_NAME);
+                MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                Criterion.or(TaskToTagMetadata.TAG_UUID.isNull(), TaskToTagMetadata.TAG_UUID.eq(0)),
+                Criterion.not(TaskToTagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TaskToTagMetadata.TAG_NAME);
 
         TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
         try {
@@ -66,10 +66,10 @@ public class AstridNewSyncMigrator {
                 tag.readFromCursor(noTagData);
 
                 if (Constants.DEBUG)
-                    Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TagMetadata.TAG_NAME));
+                    Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TaskToTagMetadata.TAG_NAME));
 
                 TagData newTagData = new TagData();
-                newTagData.setValue(TagData.NAME, tag.getValue(TagMetadata.TAG_NAME));
+                newTagData.setValue(TagData.NAME, tag.getValue(TaskToTagMetadata.TAG_NAME));
                 tagDataService.save(newTagData);
             }
         } finally {
@@ -124,9 +124,9 @@ public class AstridNewSyncMigrator {
         // Finally, ensure that all tag metadata entities have all important fields filled in
         // --------------
         Query incompleteQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataCriteria.withKey(TagMetadata.KEY),
-                Criterion.or(TagMetadata.TASK_UUID.eq(0), TagMetadata.TASK_UUID.isNull(),
-                        TagMetadata.TAG_UUID.eq(0), TagMetadata.TAG_UUID.isNull())));
+                MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
+                        TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
         TodorooCursor<Metadata> incompleteMetadata = metadataService.query(incompleteQuery);
         try {
             Metadata m = new Metadata();
@@ -136,16 +136,16 @@ public class AstridNewSyncMigrator {
                 boolean changes = false;
 
                 if (Constants.DEBUG)
-                    Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TagMetadata.TAG_NAME));
+                    Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
 
-                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TASK_UUID))) {
+                if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TASK_UUID))) {
                     if (Constants.DEBUG)
                         Log.w(LOG_TAG, "No task uuid");
                     updateTaskUuid(m);
                     changes = true;
                 }
 
-                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TAG_UUID))) {
+                if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TAG_UUID))) {
                     if (Constants.DEBUG)
                         Log.w(LOG_TAG, "No tag uuid");
                     updateTagUuid(m);
@@ -197,7 +197,7 @@ public class AstridNewSyncMigrator {
         if (task != null) {
             if (Constants.DEBUG)
                 Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.UUID));
-            m.setValue(TagMetadata.TASK_UUID, task.getValue(Task.UUID));
+            m.setValue(TaskToTagMetadata.TASK_UUID, task.getValue(Task.UUID));
         } else {
             if (Constants.DEBUG)
                 Log.w(LOG_TAG, "Task not found, deleting link");
@@ -206,12 +206,12 @@ public class AstridNewSyncMigrator {
     }
 
     private void updateTagUuid(Metadata m) {
-        String tag = m.getValue(TagMetadata.TAG_NAME);
+        String tag = m.getValue(TaskToTagMetadata.TAG_NAME);
         TagData tagData = tagDataService.getTag(tag, TagData.UUID);
         if (tagData != null) {
             if (Constants.DEBUG)
                 Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));
-            m.setValue(TagMetadata.TAG_UUID, tagData.getValue(TagData.UUID));
+            m.setValue(TaskToTagMetadata.TAG_UUID, tagData.getValue(TagData.UUID));
         } else {
             if (Constants.DEBUG)
                 Log.w(LOG_TAG, "Tag not found, deleting link");
