@@ -280,8 +280,21 @@ public class EditPeopleControlSet extends PopupControlSet {
             }
 
             if(Task.isRealUserId(t.getValue(Task.USER_ID))) {
-                JSONObject user = new JSONObject(t.getValue(Task.USER));
-                coreUsersJson.add(0, user);
+                try {
+                    JSONObject user = new JSONObject(t.getValue(Task.USER));
+                    coreUsersJson.add(0, user);
+                } catch (JSONException e) {
+                    User user = userDao.fetch(t.getValue(Task.USER_ID), User.PROPERTIES);
+                    if (user != null) {
+                        try {
+                            JSONObject assignedUser = new JSONObject();
+                            ActFmSyncService.JsonHelper.jsonFromUser(assignedUser, user);
+                            coreUsersJson.add(0, assignedUser);
+                        } catch (JSONException e2) {
+                            //
+                        }
+                    }
+                }
             }
 
             ArrayList<JSONObject> astridFriends = getAstridFriends();
@@ -400,27 +413,41 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) throws JSONException {
+    private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) {
         String assignedStr = t.getValue(Task.USER);
-        if (!TextUtils.isEmpty(assignedStr)) {
+        long assignedId = -2;
+        String assignedEmail = t.getValue(Task.USER_EMAIL);
+        try {
             JSONObject assigned = new JSONObject(assignedStr);
-            long assignedId = assigned.optLong("id", -2);
-            String assignedEmail = assigned.optString("email");
-
-            int index = 0;
-            for (ArrayList<AssignedToUser> userList : userLists) {
-                for (int i = 0; i < userList.size(); i++) {
-                    JSONObject user = userList.get(i).user;
-                    if (user != null) {
-                        if (user.optLong("id") == assignedId ||
-                                (user.optString("email").equals(assignedEmail) &&
-                                        !(TextUtils.isEmpty(assignedEmail))))
-                            return index;
-                    }
-                    index++;
+            assignedId = assigned.optLong("id", -2);
+            assignedEmail = assigned.optString("email");
+        } catch (JSONException e) {
+            User assignedUser = userDao.fetch(t.getValue(Task.USER_ID), User.PROPERTIES);
+            JSONObject assigned = new JSONObject();
+            try {
+                if (assignedUser != null) {
+                    ActFmSyncService.JsonHelper.jsonFromUser(assigned, assignedUser);
+                    assignedId = assigned.optLong("id", -2);
+                    assignedEmail = assigned.optString("email");
                 }
-                index++; // Add one for headers separating user lists
+            } catch (JSONException e2) {
+                //
             }
+        }
+
+        int index = 0;
+        for (ArrayList<AssignedToUser> userList : userLists) {
+            for (int i = 0; i < userList.size(); i++) {
+                JSONObject user = userList.get(i).user;
+                if (user != null) {
+                    if (user.optLong("id") == assignedId ||
+                            (user.optString("email").equals(assignedEmail) &&
+                                    !(TextUtils.isEmpty(assignedEmail))))
+                        return index;
+                }
+                index++;
+            }
+            index++; // Add one for headers separating user lists
         }
         return 0;
     }

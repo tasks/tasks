@@ -37,7 +37,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextUtils.TruncateAt;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -1131,7 +1130,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             // image view
             final AsyncImageView pictureView = viewHolder.picture; {
                 if (pictureView != null) {
-                    if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
+                    if(Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)) && !viewHolder.isTaskRabbit) {
                         pictureView.setVisibility(View.GONE);
                         if (viewHolder.pictureBorder != null)
                             viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -1142,16 +1141,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         pictureView.setUrl(null);
                         if (viewHolder.isTaskRabbit) {
                             pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
-                        } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
+                        } else if(Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)))
                             pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
                         else {
                             pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
-                            // TODO: Implement a join here
                             try {
                                 JSONObject user = new JSONObject(task.getValue(Task.USER));
                                 pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
                             } catch (JSONException e) {
-                                Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                                if (Task.isRealUserId(task.getValue(Task.USER_ID))) {
+                                    // TODO: Implement a join here
+                                }
                             }
                         }
                     }
