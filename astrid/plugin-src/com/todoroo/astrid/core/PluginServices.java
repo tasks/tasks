@@ -14,6 +14,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
@@ -47,6 +48,9 @@ public final class PluginServices {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    TagMetadataDao tagMetadataDao;
 
     @Autowired
     AddOnService addOnService;
@@ -105,6 +109,10 @@ public final class PluginServices {
 
     public static TagDataDao getTagDataDao() {
         return getInstance().tagDataDao;
+    }
+
+    public static TagMetadataDao getTagMetadataDao() {
+        return getInstance().tagMetadataDao;
     }
 
     public static TaskOutstandingDao getTaskOutstandingDao() {

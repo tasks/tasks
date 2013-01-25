@@ -19,13 +19,14 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.RemoteModelDao;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 @SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -215,6 +216,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             super(model, changes, uuid);
         }
 
+        @SuppressWarnings("null")
         @Override
         public void performChanges() {
             if (changes.has("name")) {
@@ -225,9 +227,37 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                                 TaskToTagMetadata.TAG_UUID.eq(uuid)), template);
             }
 
-            if (changes.has("member_added")) {
-                model.setValue(TagData.MEMBERS, "{}"); // Clear this value for migration purposes
-                //TODO: Do more things here also
+            TagMetadataDao tagMetadataDao = PluginServices.getTagMetadataDao();
+
+            JSONArray addMembers = changes.optJSONArray("member_added");
+            JSONArray removeMembers = changes.optJSONArray("member_removed");
+            boolean membersAdded = (addMembers != null && addMembers.length() > 0);
+            boolean membersRemoved = (removeMembers != null && removeMembers.length() > 0);
+
+            if (membersAdded) {
+                model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
+                model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
+                for (int i = 0; i < addMembers.length(); i++) {
+                    try {
+                        String memberId = addMembers.getString(i);
+                        tagMetadataDao.createMemberLink(uuid, memberId);
+                    } catch (JSONException e) {
+                        //
+                    }
+                }
+            }
+
+            if (membersRemoved) {
+                ArrayList<String> toRemove = new ArrayList<String>(removeMembers.length());
+                for (int i = 0; i < removeMembers.length(); i++) {
+                    try {
+                        String tagUuid = removeMembers.getString(i);
+                        toRemove.add(tagUuid);
+                    } catch (JSONException e) {
+                        //
+                    }
+                }
+                tagMetadataDao.removeMemberLinks(uuid, toRemove.toArray(new String[toRemove.size()]));
             }
         }
     }
