@@ -684,11 +684,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 View controlSet = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
 
-                if (item.equals(shareViewDescriptor))
-                    controlSet = peopleControlSet.getSharedWithRow();
-                else if (curr != null)
+                if (curr != null)
                     controlSet = (LinearLayout) curr.getDisplayView();
-
 
                 if (controlSet != null) {
                     if ((i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger))) {
