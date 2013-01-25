@@ -422,6 +422,7 @@ public class TagViewFragment extends TaskListFragment {
     private OnClickListener listenerForImage(final JSONObject member, final String id, final String displayName) {
         return new OnClickListener() {
             final String email = member.optString("email"); //$NON-NLS-1$
+            @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 if (currentId.equals(id)) {
@@ -434,7 +435,7 @@ public class TagViewFragment extends TaskListFragment {
                     if (ActFmPreferenceService.userId().equals(currentId))
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
                     else if (Task.USER_ID_EMAIL.equals(currentId) && !TextUtils.isEmpty(email))
-                        assignedCriterion = Criterion.or(Task.USER_EMAIL.eq(email), Task.USER.like("%" + email + "%")); //$NON-NLS-1$ //$NON-NLS-2$
+                        assignedCriterion = Criterion.or(Task.USER_EMAIL.eq(email), Task.USER.like("%" + email + "%")); //$NON-NLS-1$ //$NON-NLS-2$ // Deprecated field OK for backwards compatibility
                     else
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);

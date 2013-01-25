@@ -305,7 +305,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(USER_ID.name, "0");
         defaultValues.put(CREATOR_ID.name, 0);
-        defaultValues.put(USER.name, "{}");
+        defaultValues.put(USER.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
     }
 

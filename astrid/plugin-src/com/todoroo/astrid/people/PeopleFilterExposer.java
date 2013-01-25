@@ -8,9 +8,6 @@ package com.todoroo.astrid.people;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -30,7 +27,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -80,7 +76,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         }
     }
 
-    @SuppressWarnings("nls")
+    @SuppressWarnings({ "nls", "deprecation" })
     private static FilterWithCustomIntent filterFromUserData(User user) {
         String title = user.getDisplayName();
         if (TextUtils.isEmpty(title) || "null".equals(title))
@@ -91,8 +87,8 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         if (TextUtils.isEmpty(email) || "null".equals(email))
             criterion = Task.USER_ID.eq(user.getValue(User.REMOTE_ID));
         else
-            criterion = Criterion.or(Task.USER.like("%" + email + "%"),
-                    Task.USER_ID.eq(user.getValue(User.REMOTE_ID)));
+            criterion = Criterion.or(Task.USER_ID.eq(user.getValue(User.UUID)),
+                    Task.USER.like("%" + email + "%")); // Deprecated field OK for backwards compatibility
 
         criterion = Criterion.and(TaskCriteria.activeAndVisible(), criterion);
 
@@ -103,14 +99,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         filter.customTaskList = new ComponentName(ContextManager.getContext(), PersonViewFragment.class);
 
         ContentValues values = new ContentValues();
-        values.put(Task.USER_ID.name, user.getValue(User.REMOTE_ID));
-        try {
-            JSONObject userJson = new JSONObject();
-            ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
-            values.put(Task.USER.name, userJson.toString());
-        } catch (JSONException e) {
-            // Ignored
-        }
+        values.put(Task.USER_ID.name, user.getValue(User.UUID));
         filter.valuesForNewTasks = values;
 
         String imageUrl = user.getValue(User.PICTURE);

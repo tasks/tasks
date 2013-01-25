@@ -92,7 +92,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
             else if (property.checkFlag(Property.PROP_FLAG_USER_ID) && ActFmPreferenceService.userId().equals(value))
                 value = Task.USER_ID_SELF;
             if (property.equals(Task.USER_ID))
-                model.setValue(Task.USER, "{}"); // Clear this value for migration purposes
+                model.setValue(Task.USER, ""); // Clear this value for migration purposes
 
             model.setValue((StringProperty) property, value);
         } catch (JSONException e) {

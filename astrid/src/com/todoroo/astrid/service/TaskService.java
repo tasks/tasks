@@ -216,6 +216,7 @@ public class TaskService {
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
         newTask.clearValue(Task.USER);
+        newTask.clearValue(Task.USER_EMAIL);
         newTask.clearValue(Task.USER_ID);
 
         taskDao.save(newTask);

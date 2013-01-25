@@ -655,17 +655,18 @@ public class EditPeopleControlSet extends PopupControlSet {
             if(userJson == null || Task.USER_ID_SELF.equals(Long.toString(userJson.optLong("id", -2)))) {
                 dirty = task.getValue(Task.USER_ID) == Task.USER_ID_SELF ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_SELF);
-                task.setValue(Task.USER, "{}");
+                task.setValue(Task.USER, "");
                 assignedToMe = true;
             } else if(Task.USER_ID_UNASSIGNED.equals(Long.toString(userJson.optLong("id")))) {
                 dirty = task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
-                task.setValue(Task.USER, "{}");
+                task.setValue(Task.USER, "");
             } else {
                 String user = userJson.toString();
                 String taskUserId = Task.USER_ID_EMAIL;
                 String taskUserEmail = "";
                 try {
+                    @SuppressWarnings("deprecation") // For backwards compatibility
                     JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
                     taskUserId = Long.toString(taskUser.optLong("id", -2));
                     taskUserEmail = taskUser.optString("email");
@@ -687,7 +688,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     task.setValue(Task.USER_EMAIL, userEmail);
                 else
                     task.setValue(Task.USER_EMAIL, "");
-                task.setValue(Task.USER, "{}");
+                task.setValue(Task.USER, "");
             }
 
             if(dirty && !actFmPreferenceService.isLoggedIn()) {

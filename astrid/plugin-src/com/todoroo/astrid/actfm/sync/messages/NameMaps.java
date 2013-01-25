@@ -93,7 +93,6 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.NOTES,           "notes",          false);
         putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         false);
         putTaskPropertyToServerName(Task.USER_ID,         "user_id",        false);
-        putTaskPropertyToServerName(Task.USER,            "user",           true);
         putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     true);
         putTaskPropertyToServerName(Task.UUID,            "uuid",           true);
         putTaskPropertyToServerName(Task.PUSHED_AT,       "pushed_at",      true);

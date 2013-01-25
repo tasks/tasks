@@ -1146,6 +1146,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
                         else {
                             pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                            // TODO: Implement a join here
                             try {
                                 JSONObject user = new JSONObject(task.getValue(Task.USER));
                                 pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
