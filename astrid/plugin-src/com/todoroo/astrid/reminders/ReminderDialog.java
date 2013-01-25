@@ -209,7 +209,7 @@ public class ReminderDialog extends Dialog {
         for (int i = 0; i < array.length(); i++) {
             JSONObject person = array.getJSONObject(i);
             if (person.has("picture")) { //$NON-NLS-1$
-                if (person.optLong("id") == ActFmPreferenceService.userId()) //$NON-NLS-1$
+                if (ActFmPreferenceService.userId().equals(Long.toString(person.optLong("id")))) //$NON-NLS-1$
                     continue;
                 isSharedTask.set(true);
                 String pictureUrl = person.getString("picture"); //$NON-NLS-1$

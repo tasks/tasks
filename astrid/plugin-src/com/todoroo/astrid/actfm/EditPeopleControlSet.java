@@ -104,10 +104,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final Fragment fragment;
 
-    private final CheckBox cbFacebook;
-
-    private final CheckBox cbTwitter;
-
     private final View sharedWithRow;
 
     private final View sharedWithView;

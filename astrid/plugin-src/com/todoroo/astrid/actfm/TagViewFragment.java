@@ -107,7 +107,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private boolean dataLoaded = false;
 
-    private long currentId = Task.USER_ID_IGNORE;
+    private String currentId = Task.USER_ID_IGNORE;
 
     protected AtomicBoolean isBeingFiltered = new AtomicBoolean(false);
 
@@ -361,7 +361,7 @@ public class TagViewFragment extends TaskListFragment {
                 }
                 // Handle creator
                 JSONObject owner;
-                if(tagData.getValue(TagData.USER_ID) != 0) {
+                if(!Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
                      owner = new JSONObject(tagData.getValue(TagData.USER));
                 } else {
                     owner = ActFmPreferenceService.thisUser();
@@ -396,13 +396,13 @@ public class TagViewFragment extends TaskListFragment {
                 (int)(43 * displayMetrics.density)));
 
         image.setDefaultImageResource(R.drawable.icn_default_person_image);
-        if (member.optLong("id", Task.USER_ID_SELF) == Task.USER_ID_UNASSIGNED)
+        if (Task.USER_ID_UNASSIGNED.equals(Long.toString(member.optLong("id", 0))))
             image.setDefaultImageResource(R.drawable.icn_anyone);
 
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
         try {
-            final long id = member.optLong("id", Task.USER_ID_EMAIL);
-            if (id == ActFmPreferenceService.userId())
+            final String id = Long.toString(member.optLong("id", -2));
+            if (ActFmPreferenceService.userId().equals(id))
                 member = ActFmPreferenceService.thisUser();
             final JSONObject memberToUse = member;
 
@@ -419,22 +419,22 @@ public class TagViewFragment extends TaskListFragment {
         membersView.addView(image);
     }
 
-    private OnClickListener listenerForImage(final JSONObject member, final long id, final String displayName) {
+    private OnClickListener listenerForImage(final JSONObject member, final String id, final String displayName) {
         return new OnClickListener() {
             final String email = member.optString("email"); //$NON-NLS-1$
             @Override
             public void onClick(View v) {
-                if (currentId == id) {
+                if (currentId.equals(id)) {
                     // Back to all
                     resetAssignedFilter();
                 } else {
                     // New filter
                     currentId = id;
                     Criterion assignedCriterion;
-                    if (currentId == ActFmPreferenceService.userId())
+                    if (ActFmPreferenceService.userId().equals(currentId))
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
-                    else if (currentId == Task.USER_ID_EMAIL && !TextUtils.isEmpty(email))
-                        assignedCriterion = Task.USER.like("%" + email + "%"); //$NON-NLS-1$ //$NON-NLS-2$
+                    else if (Task.USER_ID_EMAIL.equals(currentId) && !TextUtils.isEmpty(email))
+                        assignedCriterion = Criterion.or(Task.USER_EMAIL.eq(email), Task.USER.like("%" + email + "%")); //$NON-NLS-1$ //$NON-NLS-2$
                     else
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);

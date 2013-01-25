@@ -21,6 +21,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -117,7 +118,7 @@ public class TagCommentsFragment extends CommentsFragment {
         Update update = new Update();
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, "tag_comment");
-        update.setValue(Update.USER_ID, 0L);
+        update.setValue(Update.USER_ID, Task.USER_ID_SELF);
         update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
         update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());

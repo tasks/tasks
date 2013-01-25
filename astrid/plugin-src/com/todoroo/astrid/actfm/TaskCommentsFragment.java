@@ -87,9 +87,9 @@ public class TaskCommentsFragment extends CommentsFragment {
         Update update = new Update();
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, UpdateAdapter.UPDATE_TASK_COMMENT);
-        update.setValue(Update.USER_ID, 0L);
+        update.setValue(Update.USER_ID, Task.USER_ID_SELF);
         if (task.containsNonNullValue(Task.REMOTE_ID))
-            update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
+            update.setValue(Update.TASK_UUID, task.getValue(Task.UUID));
         update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));
