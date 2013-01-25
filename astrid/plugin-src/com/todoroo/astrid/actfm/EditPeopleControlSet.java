@@ -65,6 +65,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -180,35 +181,35 @@ public class EditPeopleControlSet extends PopupControlSet {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                ArrayList<JSONObject> collaborators = new ArrayList<JSONObject>();
-//                TodorooCursor<TagData> tags = TagService.getInstance().getTagDataForTask(task.getId(), true, TagData.NAME, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
+                ArrayList<JSONObject> sharedPeople = new ArrayList<JSONObject>();
+                TodorooCursor<TagData> tags = TagService.getInstance().getTagDataForTask(task.getId(), true, TagData.NAME, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                 try {
-//                    TagData tagData = new TagData();
-//                    for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
-//                        tagData.readFromCursor(tags);
-//                        final String tag = tagData.getValue(TagData.NAME);
-//                        if(tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-//                            try {
-//                                addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
-//                            } catch (JSONException e) {
-//                                exceptionService.reportError("json-reading-data", e);
-//                            }
-//                        }
-//                    }
-//
-//                    if (includeTag != null && tags.getCount() == 0) {
-//                        try {
-//                            addMembersFromTagData(includeTag, null, sharedPeople, collaborators);
-//                        } catch (JSONException e) {
-//                            exceptionService.reportError("json-reading-data", e);
-//                        }
-//                    }
+                    TagData tagData = new TagData();
+                    for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
+                        tagData.readFromCursor(tags);
+                        final String tag = tagData.getValue(TagData.NAME);
+                        if(tagData.getValue(TagData.MEMBER_COUNT) > 0) {
+                            try {
+                                addMembersFromTagData(tagData, tag, sharedPeople);
+                            } catch (JSONException e) {
+                                exceptionService.reportError("json-reading-data", e);
+                            }
+                        }
+                    }
+
+                    if (includeTag != null && tags.getCount() == 0) {
+                        try {
+                            addMembersFromTagData(includeTag, null, sharedPeople);
+                        } catch (JSONException e) {
+                            exceptionService.reportError("json-reading-data", e);
+                        }
+                    }
 
 //                    if(collaborators.size() > 0)
 //                        buildCollaborators(collaborators);
-                    buildAssignedToSpinner(task);
+                    buildAssignedToSpinner(task, sharedPeople);
                 } finally {
-//                    tags.close();
+                    tags.close();
                     loadedUI = true;
                 }
             }
@@ -216,7 +217,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private static void addMembersFromTagData(TagData tagData, String tag, ArrayList<JSONObject> sharedPeople, ArrayList<JSONObject> collaborators) throws JSONException {
+    private static void addMembersFromTagData(TagData tagData, String tag, ArrayList<JSONObject> sharedPeople) throws JSONException {
         JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
         if (tag == null)
             tag = tagData.getValue(TagData.NAME);
@@ -224,17 +225,15 @@ public class EditPeopleControlSet extends PopupControlSet {
             JSONObject user = members.getJSONObject(i);
             user.put("tag", tag);
             sharedPeople.add(user);
-            collaborators.add(user);
         }
         if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
             JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
             user.put("tag", tag);
             sharedPeople.add(user);
-            collaborators.add(user);
         }
     }
 
-    @SuppressWarnings("nls")
+//    @SuppressWarnings("nls")
 //    private void buildCollaborators(final ArrayList<JSONObject> sharedPeople) {
 //
 //        activity.runOnUiThread(new Runnable() {
@@ -284,7 +283,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void buildAssignedToSpinner(Task t) {
+    private void buildAssignedToSpinner(Task t, ArrayList<JSONObject> sharedWith) {
         HashSet<String> userIds = new HashSet<String>();
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
@@ -320,6 +319,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             // de-duplicate by user id and/or email
             coreUsers = convertJsonUsersToAssignedUsers(coreUsersJson, userIds, emails, names);
+            listUsers = convertJsonUsersToAssignedUsers(sharedWith, userIds, emails, names);
             astridUsers = convertJsonUsersToAssignedUsers(astridFriends, userIds, emails, names);
 
             contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
