@@ -30,18 +30,25 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 
 /**
@@ -59,6 +66,9 @@ public class ReminderDialog extends Dialog {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private UserDao userDao;
 
     public ReminderDialog(final AstridActivity activity, final long taskId,
             String title) {
@@ -221,7 +231,7 @@ public class ReminderDialog extends Dialog {
     }
 
     private void addTagFaces(long taskId, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) {
-        TodorooCursor<TagData> tags = tagService.getTagDataForTask(taskId, TagData.MEMBER_COUNT.gt(0), TagData.MEMBERS);
+        TodorooCursor<TagData> tags = tagService.getTagDataForTask(taskId, Criterion.all, TagData.UUID, TagData.MEMBERS);
         try {
             TagData td = new TagData();
             for (tags.moveToFirst(); !tags.isAfterLast() && pictureUrls.size() < MAX_FACES; tags.moveToNext()) {
@@ -230,7 +240,33 @@ public class ReminderDialog extends Dialog {
                     JSONArray people = new JSONArray(td.getValue(TagData.MEMBERS));
                     addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
                 } catch (JSONException e) {
-                    //
+                    JSONArray people = new JSONArray();
+                    TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
+                            .where(User.UUID.in(
+                                    Query.select(TagMemberMetadata.USER_UUID)
+                                    .from(TagMetadata.TABLE)
+                                    .where(TagMetadata.TAG_UUID.eq(td.getUuid())))));
+                    try {
+                        User user = new User();
+                        for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
+                            user.clear();
+                            user.readFromCursor(users);
+                            try {
+                                JSONObject userJson = new JSONObject();
+                                ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
+                                people.put(userJson);
+                            } catch (JSONException e2) {
+                                //
+                            }
+                        }
+                        try {
+                            addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
+                        } catch (JSONException e2) {
+                            //
+                        }
+                    } finally {
+                        users.close();
+                    }
                 }
             }
         } finally {

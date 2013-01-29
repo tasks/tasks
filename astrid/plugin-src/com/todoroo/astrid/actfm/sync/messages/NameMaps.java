@@ -183,6 +183,10 @@ public class NameMaps {
     }
 
 
+    // ----------
+    // Mapping helpers
+    // ----------
+
     private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap) {
         Map<A, B> map = null;
         if (TABLE_ID_TASKS.equals(table))

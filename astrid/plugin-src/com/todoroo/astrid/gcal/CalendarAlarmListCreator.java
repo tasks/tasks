@@ -25,6 +25,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
@@ -43,6 +44,9 @@ public class CalendarAlarmListCreator extends Activity {
 
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    private TagMetadataDao tagMetadataDao;
 
     private ArrayList<String> names;
     private ArrayList<String> emails;
@@ -156,12 +160,13 @@ public class CalendarAlarmListCreator extends Activity {
                     moreOptions.performClick();
                     return;
                 } else {
-                    JSONArray membersArray = buildMembersArray();
                     TagData tagData = new TagData();
                     tagData.setValue(TagData.NAME, tagName);
-                    tagData.setValue(TagData.MEMBERS, membersArray.toString());
-                    tagData.setValue(TagData.MEMBER_COUNT, membersArray.length());
+                    tagData.setValue(TagData.MEMBER_COUNT, emails.size());
                     tagDataService.save(tagData);
+                    for (String email : emails) {
+                        tagMetadataDao.createMemberLink(tagData.getId(), tagData.getUuid(), email, false);
+                    }
                     dismissWithAnimation();
                 }
             }
