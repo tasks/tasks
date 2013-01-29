@@ -416,13 +416,15 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
 
-        actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
-            @Override
-            public void run() {
-                callback.incrementProgress(50);
-                callback.finished();
-            }
-        });
+//        actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
+//            @Override
+//            public void run() {
+//                callback.incrementProgress(50);
+//                callback.finished();
+//            }
+//        });
+        callback.incrementProgress(50);
+        callback.finished();
         callback.incrementProgress(50);
     }
 

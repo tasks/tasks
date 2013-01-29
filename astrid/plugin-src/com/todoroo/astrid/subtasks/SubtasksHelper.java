@@ -147,23 +147,23 @@ public class SubtasksHelper {
         if (localToRemote)
             criterion = Task.ID.in(localIds);
         else
-            criterion = Task.REMOTE_ID.in(localIds);
+            criterion = Task.UUID.in(localIds);
 
-        TodorooCursor<Task> tasks = PluginServices.getTaskService().query(Query.select(Task.ID, Task.REMOTE_ID).where(criterion));
+        TodorooCursor<Task> tasks = PluginServices.getTaskService().query(Query.select(Task.ID, Task.UUID).where(criterion));
         try {
             Task t = new Task();
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 t.clear();
                 t.readFromCursor(tasks);
 
-                if (t.containsNonNullValue(Task.REMOTE_ID)) {
+                if (t.containsNonNullValue(Task.UUID)) {
                     Long key;
                     Long value;
                     if (localToRemote) {
                         key = t.getId();
-                        value = t.getValue(Task.REMOTE_ID);
+                        value = Long.parseLong(t.getValue(Task.UUID));
                     } else {
-                        key = t.getValue(Task.REMOTE_ID);
+                        key = Long.parseLong(t.getValue(Task.UUID));
                         value = t.getId();
                     }
 

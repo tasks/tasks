@@ -278,7 +278,8 @@ public abstract class CommentsFragment extends ListFragment {
             if (hasModel()) {
                 performFetch(manual, doneRunnable);
             } else {
-                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
+//                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
+                doneRunnable.run();
             }
             callback.incrementProgress(50);
         }

@@ -111,8 +111,6 @@ public final class TagService {
         public String userId;
         public long memberCount;
 
-        @Deprecated public long remoteId;
-
         public static Tag tagFromUUID(String uuid) {
             TodorooCursor<TagData> tagData = PluginServices.getTagDataService().query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
             try {
@@ -132,7 +130,6 @@ public final class TagService {
             id = tagData.getId();
             tag = tagData.getValue(TagData.NAME);
             count = tagData.getValue(TagData.TASK_COUNT);
-            remoteId = tagData.getValue(TagData.REMOTE_ID);
             uuid = tagData.getValue(TagData.UUID);
             image = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_THUMB);
             userId = tagData.getValue(TagData.USER_ID);

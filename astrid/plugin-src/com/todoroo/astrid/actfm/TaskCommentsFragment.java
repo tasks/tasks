@@ -55,11 +55,11 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        if (!task.containsNonNullValue(Task.REMOTE_ID))
+        if (!task.containsNonNullValue(Task.UUID))
             return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())).orderBy(Order.desc(Update.CREATION_DATE)));
         else
             return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
-                    Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId()))).orderBy(Order.desc(Update.CREATION_DATE)));
+                    Update.TASK.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))).orderBy(Order.desc(Update.CREATION_DATE)));
     }
 
     @Override
@@ -79,7 +79,8 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected void performFetch(boolean manual, Runnable done) {
-        actFmSyncService.fetchUpdatesForTask(task, manual, done);
+        done.run();
+//        actFmSyncService.fetchUpdatesForTask(task, manual, done);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class TaskCommentsFragment extends CommentsFragment {
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, UpdateAdapter.UPDATE_TASK_COMMENT);
         update.setValue(Update.USER_ID, Task.USER_ID_SELF);
-        if (task.containsNonNullValue(Task.REMOTE_ID))
+        if (task.containsNonNullValue(Task.UUID))
             update.setValue(Update.TASK_UUID, task.getValue(Task.UUID));
         update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());

@@ -50,6 +50,15 @@ abstract public class RemoteModel extends AbstractModel {
     /** constant value for no uuid */
     public static final String NO_UUID = "0"; //$NON-NLS-1$
 
+    public static final boolean isValidUuid(String uuid) {
+        try {
+            long value = Long.parseLong(uuid);
+            return value > 0;
+        } catch (NumberFormatException e) {
+            return isUuidEmpty(uuid);
+        }
+    }
+
     /**
      * Utility method to get the identifier of the model, if it exists.
      *

@@ -22,13 +22,11 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -42,8 +40,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.Flags;
 
 /**
@@ -107,7 +105,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         @Override
         public void pushRemoteModel(User model) {
-            actFmSyncService.pushUser(model);
+//            actFmSyncService.pushUser(model);
         }
     };
 
@@ -115,14 +113,14 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         @Override
         public void pushRemoteModel(Metadata model) {
-            long taskId = model.getValue(Metadata.TASK);
-            Task localTask = taskService.fetchById(taskId, Task.REMOTE_ID);
-            long remoteTaskId = localTask.getValue(Task.REMOTE_ID);
-
-            if (model.getValue(FileMetadata.DELETION_DATE) > 0)
-                actFmSyncService.deleteAttachment(model);
-            else if (remoteTaskId > 0)
-                actFmSyncService.pushAttachment(remoteTaskId, model);
+//            long taskId = model.getValue(Metadata.TASK);
+//            Task localTask = taskService.fetchById(taskId, Task.REMOTE_ID);
+//            long remoteTaskId = localTask.getValue(Task.REMOTE_ID);
+//
+//            if (model.getValue(FileMetadata.DELETION_DATE) > 0)
+//                actFmSyncService.deleteAttachment(model);
+//            else if (remoteTaskId > 0)
+//                actFmSyncService.pushAttachment(remoteTaskId, model);
         };
 
         public Metadata getRemoteModelInstance(TodorooCursor<Metadata> cursor) {
@@ -239,21 +237,21 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int time = Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
-                try {
-                    pushQueuedUsers(callback, finisher);
-                    time = actFmSyncService.fetchUsers();
-                    Preferences.setInt(LAST_USERS_FETCH_TIME, time);
-                } catch (JSONException e) {
-                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
-                } catch (IOException e) {
-                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
-                } finally {
-                    callback.incrementProgress(20);
-                    if(finisher.decrementAndGet() == 0) {
-                        finishSync(callback);
-                    }
-                }
+//                int time = Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
+//                try {
+//                    pushQueuedUsers(callback, finisher);
+//                    time = actFmSyncService.fetchUsers();
+//                    Preferences.setInt(LAST_USERS_FETCH_TIME, time);
+//                } catch (JSONException e) {
+//                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+//                } catch (IOException e) {
+//                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+//                } finally {
+//                    callback.incrementProgress(20);
+//                    if(finisher.decrementAndGet() == 0) {
+//                        finishSync(callback);
+//                    }
+//                }
             }
         }).start();
     }
@@ -286,15 +284,15 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** fetch changes to personal updates and push unpushed updates */
     private void startUpdatesFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        actFmSyncService.fetchPersonalUpdates(manual, new Runnable() { // Also pushes queued updates
-            @Override
-            public void run() {
-                callback.incrementProgress(20);
-                if (finisher.decrementAndGet() == 0) {
-                    finishSync(callback);
-                }
-            }
-        });
+//        actFmSyncService.fetchPersonalUpdates(manual, new Runnable() { // Also pushes queued updates
+//            @Override
+//            public void run() {
+//                callback.incrementProgress(20);
+//                if (finisher.decrementAndGet() == 0) {
+//                    finishSync(callback);
+//                }
+//            }
+//        });
     }
 
     /** fetch changes to tags */
@@ -392,48 +390,48 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private void pushQueuedTasks(final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        TodorooCursor<Task> taskCursor;
-        Query query = Query.select(Task.PROPERTIES).
-                where(Criterion.or(
-                        Criterion.and(TaskCriteria.isActive(),
-                                Task.REMOTE_ID.isNull()),
-                                Criterion.and(Task.REMOTE_ID.isNotNull(),
-                                        Task.MODIFICATION_DATE.gt(Task.LAST_SYNC))));
-        taskCursor = taskService.query(query);
-
-        try {
-            pushQueued(callback, finisher, taskCursor, true, taskPusher);
-        } finally {
-            taskCursor.close();
-        }
-
-        if (ActFmPreferenceService.isPremiumUser()) {
-            TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
-                    .where(Criterion.and(
-                            MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
-                            Criterion.or(FileMetadata.REMOTE_ID.eq(0), FileMetadata.DELETION_DATE.gt(0)))));
-            try {
-                pushQueued(callback, finisher, filesCursor, false, filesPusher);
-            } finally {
-                filesCursor.close();
-            }
-        }
+//        TodorooCursor<Task> taskCursor;
+//        Query query = Query.select(Task.PROPERTIES).
+//                where(Criterion.or(
+//                        Criterion.and(TaskCriteria.isActive(),
+//                                Task.REMOTE_ID.isNull()),
+//                                Criterion.and(Task.REMOTE_ID.isNotNull(),
+//                                        Task.MODIFICATION_DATE.gt(Task.LAST_SYNC))));
+//        taskCursor = taskService.query(query);
+//
+//        try {
+//            pushQueued(callback, finisher, taskCursor, true, taskPusher);
+//        } finally {
+//            taskCursor.close();
+//        }
+//
+//        if (ActFmPreferenceService.isPremiumUser()) {
+//            TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+//                    .where(Criterion.and(
+//                            MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
+//                            Criterion.or(FileMetadata.REMOTE_ID.eq(0), FileMetadata.DELETION_DATE.gt(0)))));
+//            try {
+//                pushQueued(callback, finisher, filesCursor, false, filesPusher);
+//            } finally {
+//                filesCursor.close();
+//            }
+//        }
     }
 
     private void pushQueuedTags(final SyncResultCallback callback,
             final AtomicInteger finisher, int lastTagSyncTime) {
-        TodorooCursor<TagData> tagDataCursor = tagDataService.query(Query.select(TagData.PROPERTIES)
-                .where(Criterion.and(
-                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).eq(0),
-                        Criterion.or(
-                        TagData.REMOTE_ID.eq(0),
-                        Criterion.and(TagData.REMOTE_ID.gt(0),
-                                TagData.MODIFICATION_DATE.gt(lastTagSyncTime))))));
-        try {
-            pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
-        } finally {
-            tagDataCursor.close();
-        }
+//        TodorooCursor<TagData> tagDataCursor = tagDataService.query(Query.select(TagData.PROPERTIES)
+//                .where(Criterion.and(
+//                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).eq(0),
+//                        Criterion.or(
+//                        TagData.REMOTE_ID.eq(0),
+//                        Criterion.and(TagData.REMOTE_ID.gt(0),
+//                                TagData.MODIFICATION_DATE.gt(lastTagSyncTime))))));
+//        try {
+//            pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
+//        } finally {
+//            tagDataCursor.close();
+//        }
 
     }
 
@@ -487,24 +485,24 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     private void synchronizeUser(final User user, final boolean manual, final SyncResultCallback callback) {
-        if (user.getValue(User.REMOTE_ID) == 0)
-            return;
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                callback.started();
-                callback.incrementMax(100);
-
-                actFmSyncService.waitUntilEmpty();
-                actFmSyncService.fetchTasksForUser(user, manual, new Runnable() {
-                    public void run() {
-                        callback.finished();
-                    }
-                });
-                callback.incrementProgress(50);
-            }
-        }).start();
+//        if (user.getValue(User.REMOTE_ID) == 0)
+//            return;
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                callback.started();
+//                callback.incrementMax(100);
+//
+//                actFmSyncService.waitUntilEmpty();
+//                actFmSyncService.fetchTasksForUser(user, manual, new Runnable() {
+//                    public void run() {
+//                        callback.finished();
+//                    }
+//                });
+//                callback.incrementProgress(50);
+//            }
+//        }).start();
     }
 
     private void fetchTagData(final TagData tagData, final boolean noRemoteId,
@@ -541,14 +539,14 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private void fetchUpdatesForTag(final TagData tagData, boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
-            @Override
-            public void run() {
-                callback.incrementProgress(20);
-                if(finisher.decrementAndGet() == 0)
-                    callback.finished();
-            }
-        });
+//        actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
+//            @Override
+//            public void run() {
+//                callback.incrementProgress(20);
+//                if(finisher.decrementAndGet() == 0)
+//                    callback.finished();
+//            }
+//        });
     }
 
     private void fetchTasksForTag(final TagData tagData, boolean manual, final boolean pushOrder, final SyncResultCallback callback,
@@ -587,19 +585,19 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             allTagged.close();
         }
 
-        TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES)
-                .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TaskToTagMetadata.KEY), Metadata.TASK.eq(Task.ID),
-                        TaskToTagMetadata.TAG_NAME.eqCaseInsensitive(tagData.getValue(TagData.NAME)))))
-                .where(Criterion.or(
-                        Criterion.and(TaskCriteria.isActive(),
-                                Task.REMOTE_ID.isNull()),
-                        Criterion.and(Task.REMOTE_ID.isNotNull(),
-                                Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
-        try {
-            pushQueued(callback, finisher, taskCursor, true, taskPusher);
-        } finally {
-            taskCursor.close();
-        }
+//        TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES)
+//                .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TaskToTagMetadata.KEY), Metadata.TASK.eq(Task.ID),
+//                        TaskToTagMetadata.TAG_NAME.eqCaseInsensitive(tagData.getValue(TagData.NAME)))))
+//                .where(Criterion.or(
+//                        Criterion.and(TaskCriteria.isActive(),
+//                                Task.REMOTE_ID.isNull()),
+//                        Criterion.and(Task.REMOTE_ID.isNotNull(),
+//                                Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
+//        try {
+//            pushQueued(callback, finisher, taskCursor, true, taskPusher);
+//        } finally {
+//            taskCursor.close();
+//        }
 
         TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(

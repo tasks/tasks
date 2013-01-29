@@ -33,7 +33,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.timsu.astrid.GCMIntentService;
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -45,7 +44,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -63,7 +61,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FileMetadata;
@@ -76,10 +73,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
-import com.todoroo.astrid.utility.Flags;
 
 /**
  * Service for synchronizing data on Astrid.com server with local.
@@ -152,7 +147,7 @@ public final class ActFmSyncService {
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() ||
-                        setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
+                        setValues.containsKey(RemoteModel.UUID_PROPERTY_NAME))
                     return;
                 if(completedRepeatingTask(model))
                     return;
@@ -188,7 +183,7 @@ public final class ActFmSyncService {
                 if (actFmPreferenceService.isOngoing())
                     return;
                 final ContentValues setValues = model.getSetValues();
-                if(setValues == null || !checkForToken() || model.getValue(Update.REMOTE_ID) > 0)
+                if(setValues == null || !checkForToken() || RemoteModel.isValidUuid(model.getValue(Update.UUID)))
                     return;
 
                 new Thread(new Runnable() {
@@ -208,7 +203,7 @@ public final class ActFmSyncService {
                 if (actFmPreferenceService.isOngoing())
                     return;
                 final ContentValues setValues = model.getSetValues();
-                if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
+                if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.UUID_PROPERTY_NAME))
                     return;
 
                 new Thread(new Runnable() {
@@ -276,7 +271,7 @@ public final class ActFmSyncService {
                             Object id = pushOrderQueue.remove(0);
                             if (id instanceof Long) {
                                 Long tagDataId = (Long) id;
-                                TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.REMOTE_ID, TagData.TAG_ORDERING);
+                                TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.UUID, TagData.TAG_ORDERING);
                                 if (td != null) {
                                     pushTagOrdering(td);
                                 }
@@ -342,7 +337,7 @@ public final class ActFmSyncService {
                 result = actFmInvoker.invoke("comment_add", params.toArray(new Object[params.size()]));
             else
                 result = actFmInvoker.post("comment_add", picture, params.toArray(new Object[params.size()]));
-            update.setValue(Update.REMOTE_ID, result.optLong("id"));
+            update.setValue(Update.UUID, Long.toString(result.optLong("id")));
             ImageDiskCache imageCache = ImageDiskCache.getInstance();
             //TODO figure out a way to replace local image files with the url
             String commentPicture = result.optString("picture");
@@ -370,71 +365,71 @@ public final class ActFmSyncService {
      * Synchronize with server when data changes
      */
     public void pushTaskOnSave(Task task, ContentValues values) {
-        Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID, Task.CREATION_DATE);
-
-        long remoteId = 0;
-        if(task.containsNonNullValue(Task.REMOTE_ID)) {
-            remoteId = task.getValue(Task.REMOTE_ID);
-        } else {
-            if(taskForRemote == null)
-                return;
-            if(taskForRemote.containsNonNullValue(Task.REMOTE_ID))
-                remoteId = taskForRemote.getValue(Task.REMOTE_ID);
-        }
-
-        long creationDate;
-        if (task.containsValue(Task.CREATION_DATE)) {
-            creationDate = task.getValue(Task.CREATION_DATE) / 1000L; // In seconds
-        } else {
-            if (taskForRemote == null)
-                return;
-            creationDate = taskForRemote.getValue(Task.CREATION_DATE) / 1000L; // In seconds
-        }
-
-        boolean newlyCreated = remoteId == 0;
-
-        ArrayList<Object> params = new ArrayList<Object>();
-
-        // prevent creation of certain types of tasks
-        if(newlyCreated) {
-            if(task.getValue(Task.TITLE).length() == 0)
-                return;
-            if(TaskApiDao.insignificantChange(values))
-                return;
-            values = task.getMergedValues();
-        }
-
-        if(values.containsKey(Task.TITLE.name)) {
-            params.add("title"); params.add(task.getValue(Task.TITLE));
-        }
-        if(values.containsKey(Task.DUE_DATE.name)) {
-            params.add("due"); params.add(task.getValue(Task.DUE_DATE) / 1000L);
-            params.add("has_due_time"); params.add(task.hasDueTime() ? 1 : 0);
-        }
-        if(values.containsKey(Task.NOTES.name)) {
-            params.add("notes"); params.add(task.getValue(Task.NOTES));
-        }
-        if(values.containsKey(Task.DELETION_DATE.name)) {
-            params.add("deleted_at"); params.add(task.getValue(Task.DELETION_DATE) / 1000L);
-        }
-        if(task.getTransitory(TaskService.TRANS_REPEAT_COMPLETE) != null) {
-            params.add("completed"); params.add(DateUtilities.now() / 1000L);
-        } else if(values.containsKey(Task.COMPLETION_DATE.name)) {
-            params.add("completed"); params.add(task.getValue(Task.COMPLETION_DATE) / 1000L);
-        }
-        if(values.containsKey(Task.IMPORTANCE.name)) {
-            params.add("importance"); params.add(task.getValue(Task.IMPORTANCE));
-        }
-        if(values.containsKey(Task.RECURRENCE.name) ||
-                (values.containsKey(Task.FLAGS.name) && task.containsNonNullValue(Task.RECURRENCE))) {
-            String recurrence = task.getValue(Task.RECURRENCE);
-            if(!TextUtils.isEmpty(recurrence) && task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
-                recurrence = recurrence + ";FROM=COMPLETION";
-            params.add("repeat"); params.add(recurrence);
-        }
-
-
-        boolean sharing = false;
+//        Task taskForRemote = taskService.fetchById(task.getId(), Task.UUID, Task.CREATION_DATE);
+//
+//        long remoteId = 0;
+//        if(task.containsNonNullValue(Task.UUID)) {
+//            remoteId = task.getValue(Task.UUID);
+//        } else {
+//            if(taskForRemote == null)
+//                return;
+//            if(taskForRemote.containsNonNullValue(Task.UUID))
+//                remoteId = taskForRemote.getValue(Task.UUID);
+//        }
+//
+//        long creationDate;
+//        if (task.containsValue(Task.CREATION_DATE)) {
+//            creationDate = task.getValue(Task.CREATION_DATE) / 1000L; // In seconds
+//        } else {
+//            if (taskForRemote == null)
+//                return;
+//            creationDate = taskForRemote.getValue(Task.CREATION_DATE) / 1000L; // In seconds
+//        }
+//
+//        boolean newlyCreated = remoteId == 0;
+//
+//        ArrayList<Object> params = new ArrayList<Object>();
+//
+//        // prevent creation of certain types of tasks
+//        if(newlyCreated) {
+//            if(task.getValue(Task.TITLE).length() == 0)
+//                return;
+//            if(TaskApiDao.insignificantChange(values))
+//                return;
+//            values = task.getMergedValues();
+//        }
+//
+//        if(values.containsKey(Task.TITLE.name)) {
+//            params.add("title"); params.add(task.getValue(Task.TITLE));
+//        }
+//        if(values.containsKey(Task.DUE_DATE.name)) {
+//            params.add("due"); params.add(task.getValue(Task.DUE_DATE) / 1000L);
+//            params.add("has_due_time"); params.add(task.hasDueTime() ? 1 : 0);
+//        }
+//        if(values.containsKey(Task.NOTES.name)) {
+//            params.add("notes"); params.add(task.getValue(Task.NOTES));
+//        }
+//        if(values.containsKey(Task.DELETION_DATE.name)) {
+//            params.add("deleted_at"); params.add(task.getValue(Task.DELETION_DATE) / 1000L);
+//        }
+//        if(task.getTransitory(TaskService.TRANS_REPEAT_COMPLETE) != null) {
+//            params.add("completed"); params.add(DateUtilities.now() / 1000L);
+//        } else if(values.containsKey(Task.COMPLETION_DATE.name)) {
+//            params.add("completed"); params.add(task.getValue(Task.COMPLETION_DATE) / 1000L);
+//        }
+//        if(values.containsKey(Task.IMPORTANCE.name)) {
+//            params.add("importance"); params.add(task.getValue(Task.IMPORTANCE));
+//        }
+//        if(values.containsKey(Task.RECURRENCE.name) ||
+//                (values.containsKey(Task.FLAGS.name) && task.containsNonNullValue(Task.RECURRENCE))) {
+//            String recurrence = task.getValue(Task.RECURRENCE);
+//            if(!TextUtils.isEmpty(recurrence) && task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+//                recurrence = recurrence + ";FROM=COMPLETION";
+//            params.add("repeat"); params.add(recurrence);
+//        }
+//
+//
+//        boolean sharing = false;
 //        if(values.containsKey(Task.USER_ID.name) && task.getTransitory(TaskService.TRANS_ASSIGNED) != null) {
 //            if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
 //                try {
@@ -478,67 +473,67 @@ public final class ActFmSyncService {
 //            }
 //            sharing = true;
 //        }
-
-        if (sharing) {
-            addAbTestEventInfo(params);
-        }
-
-        if(Flags.checkAndClear(Flags.TAGS_CHANGED) || newlyCreated) {
-            TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(task.getId(), false);
-            try {
-                if(cursor.getCount() == 0) {
-                    params.add("tags");
-                    params.add("");
-                } else {
-                    Metadata metadata = new Metadata();
-                    for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                        metadata.readFromCursor(cursor);
-                        if(metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) &&
-                                !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
-                            params.add("tag_ids[]");
-                            params.add(metadata.getValue(TaskToTagMetadata.TAG_UUID));
-                        } else {
-                            params.add("tags[]");
-                            params.add(metadata.getValue(TaskToTagMetadata.TAG_NAME));
-                        }
-                    }
-                }
-            } finally {
-                cursor.close();
-            }
-        }
-
-        if(params.size() == 0 || !checkForToken())
-            return;
-
-
-        if(!newlyCreated) {
-            params.add("id"); params.add(remoteId);
-        } else if(!values.containsKey(Task.TITLE.name)) {
-            pushTask(task.getId());
-            return;
-        } else {
-            params.add("created_at"); params.add(creationDate);
-        }
-
-        try {
-            params.add("token"); params.add(token);
-            JSONObject result = actFmInvoker.invoke("task_save", params.toArray(new Object[params.size()]));
-            ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-            JsonHelper.taskFromJson(result, task, metadata);
-        } catch (JSONException e) {
-            handleException("task-save-json", e);
-        } catch (IOException e) {
-            if (notPermanentError(e)) {
-                addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
-            } else {
-                handleException("task-save-io", e);
-                task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
-            }
-        }
-
-        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        taskDao.saveExistingWithSqlConstraintCheck(task);
+//
+//        if (sharing) {
+//            addAbTestEventInfo(params);
+//        }
+//
+//        if(Flags.checkAndClear(Flags.TAGS_CHANGED) || newlyCreated) {
+//            TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(task.getId(), false);
+//            try {
+//                if(cursor.getCount() == 0) {
+//                    params.add("tags");
+//                    params.add("");
+//                } else {
+//                    Metadata metadata = new Metadata();
+//                    for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+//                        metadata.readFromCursor(cursor);
+//                        if(metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) &&
+//                                !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
+//                            params.add("tag_ids[]");
+//                            params.add(metadata.getValue(TaskToTagMetadata.TAG_UUID));
+//                        } else {
+//                            params.add("tags[]");
+//                            params.add(metadata.getValue(TaskToTagMetadata.TAG_NAME));
+//                        }
+//                    }
+//                }
+//            } finally {
+//                cursor.close();
+//            }
+//        }
+//
+//        if(params.size() == 0 || !checkForToken())
+//            return;
+//
+//
+//        if(!newlyCreated) {
+//            params.add("id"); params.add(remoteId);
+//        } else if(!values.containsKey(Task.TITLE.name)) {
+//            pushTask(task.getId());
+//            return;
+//        } else {
+//            params.add("created_at"); params.add(creationDate);
+//        }
+//
+//        try {
+//            params.add("token"); params.add(token);
+//            JSONObject result = actFmInvoker.invoke("task_save", params.toArray(new Object[params.size()]));
+//            ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+//            JsonHelper.taskFromJson(result, task, metadata);
+//        } catch (JSONException e) {
+//            handleException("task-save-json", e);
+//        } catch (IOException e) {
+//            if (notPermanentError(e)) {
+//                addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
+//            } else {
+//                handleException("task-save-io", e);
+//                task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
+//            }
+//        }
+//
+//        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//        taskDao.saveExistingWithSqlConstraintCheck(task);
     }
 
     private void addAbTestEventInfo(List<Object> params) {
@@ -646,8 +641,8 @@ public final class ActFmSyncService {
         if (!checkForToken())
             return;
 
-        Long remoteId = tagData.getValue(TagData.REMOTE_ID);
-        if (remoteId == null || remoteId <= 0)
+        String remoteId = tagData.getValue(TagData.UUID);
+        if (!RemoteModel.isValidUuid(remoteId))
             return;
 
         // Make sure that all tasks are pushed before attempting to sync tag ordering
@@ -717,11 +712,11 @@ public final class ActFmSyncService {
         if (!checkForToken())
             return;
 
-        if (!(tagData.containsNonNullValue(TagData.REMOTE_ID) && tagData.getValue(TagData.REMOTE_ID) > 0))
+        if (!RemoteModel.isValidUuid(tagData.getUuid()))
             return;
 
         try {
-            JSONObject result = actFmInvoker.invoke("list_order", "tag_id", tagData.getValue(TagData.REMOTE_ID), "token", token);
+            JSONObject result = actFmInvoker.invoke("list_order", "tag_id", tagData.getValue(TagData.UUID), "token", token);
             JSONArray ordering = result.optJSONArray("order");
             if (ordering == null)
                 return;
@@ -748,97 +743,97 @@ public final class ActFmSyncService {
      * @param setValues
      */
     public void pushTagDataOnSave(TagData tagData, ContentValues values) {
-        long remoteId;
-        if(tagData.containsNonNullValue(TagData.REMOTE_ID))
-            remoteId = tagData.getValue(TagData.REMOTE_ID);
-        else {
-            TagData forRemote = tagDataService.fetchById(tagData.getId(), TagData.REMOTE_ID);
-            if(forRemote == null)
-                return;
-            remoteId = forRemote.getValue(TagData.REMOTE_ID);
-        }
-        boolean newlyCreated = remoteId == 0;
-
-        ArrayList<Object> params = new ArrayList<Object>();
-
-        if(values.containsKey(TagData.NAME.name)) {
-            params.add("name"); params.add(tagData.getValue(TagData.NAME));
-        }
-
-        if(values.containsKey(TagData.DELETION_DATE.name)) {
-            params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE) / 1000L);
-        }
-
-        if(values.containsKey(TagData.TAG_DESCRIPTION.name)) {
-            params.add("description"); params.add(tagData.getValue(TagData.TAG_DESCRIPTION));
-        }
-
-        if(values.containsKey(TagData.MEMBERS.name)) {
-            params.add("members");
-            try {
-                JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
-                if(members.length() == 0)
-                    params.add("");
-                else {
-                    ArrayList<Object> array = new ArrayList<Object>(members.length());
-                    for(int i = 0; i < members.length(); i++) {
-                        JSONObject person = members.getJSONObject(i);
-                        if(person.has("id"))
-                            array.add(person.getLong("id"));
-                        else {
-                            if(person.has("name"))
-                                array.add(person.getString("name") + " <" +
-                                        person.getString("email") + ">");
-                            else
-                                array.add(person.getString("email"));
-                        }
-                    }
-                    params.add(array);
-                    if (members.length() > 0)
-                        addAbTestEventInfo(params);
-                }
-
-
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        if(values.containsKey(TagData.FLAGS.name)) {
-            params.add("is_silent");
-            boolean silenced = tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT);
-            params.add(silenced ? "1" : "0");
-        }
-
-        if(params.size() == 0 || !checkForToken())
-            return;
-
-        if(!newlyCreated) {
-            params.add("id"); params.add(remoteId);
-        }
-
-        try {
-            params.add("token"); params.add(token);
-            JSONObject result = actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
-            if(newlyCreated) {
-                tagData.setValue(TagData.REMOTE_ID, result.optLong("id"));
-                tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                tagDataDao.saveExisting(tagData);
-            }
-        } catch (ActFmServiceException e) {
-            handleException("tag-save", e);
-
-            try {
-                fetchTag(tagData);
-            } catch (IOException e1) {
-                handleException("refetch-error-tag", e);
-            } catch (JSONException e1) {
-                handleException("refetch-error-tag", e);
-            }
-        } catch (IOException e) {
-            addFailedPush(new FailedPush(PUSH_TYPE_TAG, tagData.getId()));
-            handleException("tag-save", e);
-        }
+//        long remoteId;
+//        if(tagData.containsNonNullValue(TagData.UUID))
+//            remoteId = tagData.getValue(TagData.UUID);
+//        else {
+//            TagData forRemote = tagDataService.fetchById(tagData.getId(), TagData.UUID);
+//            if(forRemote == null)
+//                return;
+//            remoteId = forRemote.getValue(TagData.UUID);
+//        }
+//        boolean newlyCreated = remoteId == 0;
+//
+//        ArrayList<Object> params = new ArrayList<Object>();
+//
+//        if(values.containsKey(TagData.NAME.name)) {
+//            params.add("name"); params.add(tagData.getValue(TagData.NAME));
+//        }
+//
+//        if(values.containsKey(TagData.DELETION_DATE.name)) {
+//            params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE) / 1000L);
+//        }
+//
+//        if(values.containsKey(TagData.TAG_DESCRIPTION.name)) {
+//            params.add("description"); params.add(tagData.getValue(TagData.TAG_DESCRIPTION));
+//        }
+//
+//        if(values.containsKey(TagData.MEMBERS.name)) {
+//            params.add("members");
+//            try {
+//                JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
+//                if(members.length() == 0)
+//                    params.add("");
+//                else {
+//                    ArrayList<Object> array = new ArrayList<Object>(members.length());
+//                    for(int i = 0; i < members.length(); i++) {
+//                        JSONObject person = members.getJSONObject(i);
+//                        if(person.has("id"))
+//                            array.add(person.getLong("id"));
+//                        else {
+//                            if(person.has("name"))
+//                                array.add(person.getString("name") + " <" +
+//                                        person.getString("email") + ">");
+//                            else
+//                                array.add(person.getString("email"));
+//                        }
+//                    }
+//                    params.add(array);
+//                    if (members.length() > 0)
+//                        addAbTestEventInfo(params);
+//                }
+//
+//
+//            } catch (JSONException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
+//        if(values.containsKey(TagData.FLAGS.name)) {
+//            params.add("is_silent");
+//            boolean silenced = tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT);
+//            params.add(silenced ? "1" : "0");
+//        }
+//
+//        if(params.size() == 0 || !checkForToken())
+//            return;
+//
+//        if(!newlyCreated) {
+//            params.add("id"); params.add(remoteId);
+//        }
+//
+//        try {
+//            params.add("token"); params.add(token);
+//            JSONObject result = actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
+//            if(newlyCreated) {
+//                tagData.setValue(TagData.UUID, result.optLong("id"));
+//                tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//                tagDataDao.saveExisting(tagData);
+//            }
+//        } catch (ActFmServiceException e) {
+//            handleException("tag-save", e);
+//
+//            try {
+//                fetchTag(tagData);
+//            } catch (IOException e1) {
+//                handleException("refetch-error-tag", e);
+//            } catch (JSONException e1) {
+//                handleException("refetch-error-tag", e);
+//            }
+//        } catch (IOException e) {
+//            addFailedPush(new FailedPush(PUSH_TYPE_TAG, tagData.getId()));
+//            handleException("tag-save", e);
+//        }
     }
 
     public void pushAttachmentInBackground(final Metadata fileMetadata) {
@@ -850,13 +845,13 @@ public final class ActFmSyncService {
                 waitUntilEmpty.close();
                 taskPushThreads.incrementAndGet();
                 try {
-                    Task t = taskDao.fetch(fileMetadata.getValue(Metadata.TASK), Task.REMOTE_ID);
-                    if (t == null || t.getValue(Task.REMOTE_ID) == null || t.getValue(Task.REMOTE_ID) <= 0)
+                    Task t = taskDao.fetch(fileMetadata.getValue(Metadata.TASK), Task.UUID);
+                    if (t == null || !RemoteModel.isValidUuid(t.getUuid()))
                         return;
                     if (fileMetadata.getValue(FileMetadata.DELETION_DATE) > 0)
                         deleteAttachment(fileMetadata);
                     else
-                        pushAttachment(t.getValue(Task.REMOTE_ID), fileMetadata);
+                        pushAttachment(t.getValue(Task.UUID), fileMetadata);
                 } finally {
                     if (taskPushThreads.decrementAndGet() == 0) {
                         waitUntilEmpty.open();
@@ -871,11 +866,11 @@ public final class ActFmSyncService {
      * @param remoteTaskId
      * @param fileMetadata
      */
-    public void pushAttachment(long remoteTaskId, Metadata fileMetadata) {
+    public void pushAttachment(String remoteTaskId, Metadata fileMetadata) {
         if (!ActFmPreferenceService.isPremiumUser())
             return;
 
-        if (!fileMetadata.containsNonNullValue(FileMetadata.FILE_PATH) || remoteTaskId <= 0)
+        if (!fileMetadata.containsNonNullValue(FileMetadata.FILE_PATH) || !RemoteModel.isValidUuid(remoteTaskId))
             return;
 
         File f = new File(fileMetadata.getValue(FileMetadata.FILE_PATH));
@@ -940,33 +935,33 @@ public final class ActFmSyncService {
      * Fetch tagData listing asynchronously
      */
     public void fetchTagDataDashboard(boolean manual, final Runnable done) {
-        invokeFetchList("goal", manual, null, new ListItemProcessor<TagData>() {
-            @Override
-            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
-                TagData remote = new TagData();
-                for(int i = 0; i < list.length(); i++) {
-                    JSONObject item = list.getJSONObject(i);
-                    readIds(locals, item, remote);
-                    JsonHelper.tagFromJson(item, remote);
-                    remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                    tagDataService.save(remote);
-                }
-            }
-
-            @Override
-            protected HashMap<Long, Long> getLocalModels() {
-                TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.ID,
-                        TagData.REMOTE_ID).where(TagData.REMOTE_ID.in(remoteIds)).orderBy(
-                                Order.asc(TagData.REMOTE_ID)));
-                return cursorToMap(cursor, taskDao, TagData.REMOTE_ID, TagData.ID);
-            }
-
-            @Override
-            protected Class<TagData> typeClass() {
-                return TagData.class;
-            }
-
-        }, done, "goals");
+//        invokeFetchList("goal", manual, null, new ListItemProcessor<TagData>() {
+//            @Override
+//            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
+//                TagData remote = new TagData();
+//                for(int i = 0; i < list.length(); i++) {
+//                    JSONObject item = list.getJSONObject(i);
+//                    readIds(locals, item, remote);
+//                    JsonHelper.tagFromJson(item, remote);
+//                    remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//                    tagDataService.save(remote);
+//                }
+//            }
+//
+//            @Override
+//            protected HashMap<Long, Long> getLocalModels() {
+//                TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.ID,
+//                        TagData.UUID).where(TagData.UUID.in(remoteIds)).orderBy(
+//                                Order.asc(TagData.UUID)));
+//                return cursorToMap(cursor, taskDao, TagData.UUID, TagData.ID);
+//            }
+//
+//            @Override
+//            protected Class<TagData> typeClass() {
+//                return TagData.class;
+//            }
+//
+//        }, done, "goals");
     }
 
     /**
@@ -976,22 +971,22 @@ public final class ActFmSyncService {
      * @throws JSONException
      */
     public void fetchTag(final TagData tagData) throws IOException, JSONException {
-        JSONObject result;
-        if(!checkForToken())
-            return;
-
-        if(tagData.getValue(TagData.REMOTE_ID) == 0) {
-            if(TextUtils.isEmpty(tagData.getValue(TagData.NAME)))
-                return;
-            result = actFmInvoker.invoke("tag_show", "name", tagData.getValue(TagData.NAME),
-                    "token", token);
-        } else
-            result = actFmInvoker.invoke("tag_show", "id", tagData.getValue(TagData.REMOTE_ID),
-                    "token", token);
-
-        JsonHelper.tagFromJson(result, tagData);
-        tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        tagDataService.save(tagData);
+//        JSONObject result;
+//        if(!checkForToken())
+//            return;
+//
+//        if(tagData.getValue(TagData.UUID) == 0) {
+//            if(TextUtils.isEmpty(tagData.getValue(TagData.NAME)))
+//                return;
+//            result = actFmInvoker.invoke("tag_show", "name", tagData.getValue(TagData.NAME),
+//                    "token", token);
+//        } else
+//            result = actFmInvoker.invoke("tag_show", "id", tagData.getValue(TagData.UUID),
+//                    "token", token);
+//
+//        JsonHelper.tagFromJson(result, tagData);
+//        tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//        tagDataService.save(tagData);
     }
 
     /**
@@ -1001,21 +996,21 @@ public final class ActFmSyncService {
      * @throws JSONException
      */
     public void fetchTask(Task task) throws IOException, JSONException {
-        JSONObject result;
-        if(!checkForToken())
-            return;
-
-        if(task.getValue(TagData.REMOTE_ID) == 0)
-            return;
-        result = actFmInvoker.invoke("task_show", "id", task.getValue(Task.REMOTE_ID),
-                "token", token);
-
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        JsonHelper.taskFromJson(result, task, metadata);
-        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        taskService.save(task);
-        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TaskToTagMetadata.KEY), false);
-        synchronizeAttachments(result, task);
+//        JSONObject result;
+//        if(!checkForToken())
+//            return;
+//
+//        if(task.getValue(TagData.UUID) == 0)
+//            return;
+//        result = actFmInvoker.invoke("task_show", "id", task.getValue(Task.UUID),
+//                "token", token);
+//
+//        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+//        JsonHelper.taskFromJson(result, task, metadata);
+//        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//        taskService.save(task);
+//        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TaskToTagMetadata.KEY), false);
+//        synchronizeAttachments(result, task);
     }
 
     /**
@@ -1041,7 +1036,7 @@ public final class ActFmSyncService {
             Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
             tagDataService.deleteWhere(Criterion.and(
                     Criterion.not(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)),
-                    Criterion.not(TagData.REMOTE_ID.in(remoteIdArray))));
+                    Criterion.not(TagData.UUID.in(remoteIdArray))));
         }
 
         return result.optInt("time", 0);
@@ -1072,57 +1067,57 @@ public final class ActFmSyncService {
 //        }
     }
 
-    public int fetchUsers() throws JSONException, IOException {
-        if (!checkForToken())
-            return 0;
+//    public int fetchUsers() throws JSONException, IOException {
+//        if (!checkForToken())
+//            return 0;
+//
+//        JSONObject result = actFmInvoker.invoke("user_list",
+//                "token", token);
+//        JSONObject suggestedResult = actFmInvoker.invoke("suggested_user_list",
+//                "token", token);
+//        JSONArray users = result.getJSONArray("list");
+//        JSONArray suggestedUsers = suggestedResult.getJSONArray("list");
+//
+//        HashSet<Long> ids = new HashSet<Long>();
+//        if (users.length() > 0 || suggestedUsers.length() > 0)
+//            Preferences.setBoolean(R.string.p_show_friends_view, true);
+//
+//        saveUsers(users, ids);
+//        saveUsers(suggestedUsers, ids);
+//
+//        Long[] idsArray = ids.toArray(new Long[ids.size()]);
+//        actFmDataService.userDao.deleteWhere(Criterion.not(User.UUID.in(idsArray)));
+//
+//        return result.optInt("time", 0);
+//    }
 
-        JSONObject result = actFmInvoker.invoke("user_list",
-                "token", token);
-        JSONObject suggestedResult = actFmInvoker.invoke("suggested_user_list",
-                "token", token);
-        JSONArray users = result.getJSONArray("list");
-        JSONArray suggestedUsers = suggestedResult.getJSONArray("list");
-
-        HashSet<Long> ids = new HashSet<Long>();
-        if (users.length() > 0 || suggestedUsers.length() > 0)
-            Preferences.setBoolean(R.string.p_show_friends_view, true);
-
-        saveUsers(users, ids);
-        saveUsers(suggestedUsers, ids);
-
-        Long[] idsArray = ids.toArray(new Long[ids.size()]);
-        actFmDataService.userDao.deleteWhere(Criterion.not(User.REMOTE_ID.in(idsArray)));
-
-        return result.optInt("time", 0);
-    }
-
-    public void pushUser(User model) {
-        if (TextUtils.isEmpty(model.getValue(User.PENDING_STATUS)))
-            return;
-        if (model.getValue(User.REMOTE_ID) == 0)
-            return;
-        if (!checkForToken())
-            return;
-
-        try {
-            ArrayList<Object> params = new ArrayList<Object>();
-            params.add("token"); params.add(token);
-            params.add("id"); params.add(model.getValue(User.REMOTE_ID));
-            params.add("status"); params.add(model.getValue(User.PENDING_STATUS));
-
-            JSONObject result = actFmInvoker.invoke("user_set_status", params.toArray(new Object[params.size()]));
-            if (result.optString("status").equals("success")) {
-                String newStatus = result.optString("friendship_status");
-                if (!TextUtils.isEmpty(newStatus)) {
-                    model.setValue(User.STATUS, newStatus);
-                    model.setValue(User.PENDING_STATUS, "");
-                    userDao.saveExisting(model);
-                }
-            }
-        } catch (IOException e) {
-            handleException("user-status", e);
-        }
-    }
+//    public void pushUser(User model) {
+//        if (TextUtils.isEmpty(model.getValue(User.PENDING_STATUS)))
+//            return;
+//        if (model.getValue(User.UUID) == 0)
+//            return;
+//        if (!checkForToken())
+//            return;
+//
+//        try {
+//            ArrayList<Object> params = new ArrayList<Object>();
+//            params.add("token"); params.add(token);
+//            params.add("id"); params.add(model.getValue(User.UUID));
+//            params.add("status"); params.add(model.getValue(User.PENDING_STATUS));
+//
+//            JSONObject result = actFmInvoker.invoke("user_set_status", params.toArray(new Object[params.size()]));
+//            if (result.optString("status").equals("success")) {
+//                String newStatus = result.optString("friendship_status");
+//                if (!TextUtils.isEmpty(newStatus)) {
+//                    model.setValue(User.STATUS, newStatus);
+//                    model.setValue(User.PENDING_STATUS, "");
+//                    userDao.saveExisting(model);
+//                }
+//            }
+//        } catch (IOException e) {
+//            handleException("user-status", e);
+//        }
+//    }
 
 
     /**
@@ -1146,56 +1141,56 @@ public final class ActFmSyncService {
             protected void deleteExtras(Long[] localIds) {
                 //
             }
-        }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
+        }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.UUID));
     }
 
     public void fetchTasksForUser(final User user, final boolean manual, Runnable done) {
         invokeFetchList("task", manual, null, new TaskListItemProcessor(false),
-                done, "user_" + user.getId(), "user_id", user.getValue(User.REMOTE_ID));
+                done, "user_" + user.getId(), "user_id", user.getValue(User.UUID));
     }
 
 
-    /**
-     * Fetch updates for the given tagData asynchronously
-     * @param tagData
-     * @param manual
-     * @param done
-     */
-    public void fetchUpdatesForTag(final TagData tagData, final boolean manual, Runnable done) {
-        if (tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
-            if (done != null)
-                done.run();
-            return;
-        }
-        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
-                "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
-
-        pushQueuedUpdatesForTag(tagData);
-    }
-
-    /**
-     * Fetch updates for the given task asynchronously
-     * @param task
-     * @param manual
-     * @param runnable
-     */
-    public void fetchUpdatesForTask(final Task task, boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
-                "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
-
-        pushQueuedUpdatesForTask(task);
-    }
-
-    /**
-     * Fetch updates for the current user asynchronously
-     * @param manual
-     * @param done
-     */
-    public void fetchPersonalUpdates(boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
-
-        pushAllQueuedUpdates();
-    }
+//    /**
+//     * Fetch updates for the given tagData asynchronously
+//     * @param tagData
+//     * @param manual
+//     * @param done
+//     */
+//    public void fetchUpdatesForTag(final TagData tagData, final boolean manual, Runnable done) {
+//        if (tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
+//            if (done != null)
+//                done.run();
+//            return;
+//        }
+//        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
+//                "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.UUID));
+//
+//        pushQueuedUpdatesForTag(tagData);
+//    }
+//
+//    /**
+//     * Fetch updates for the given task asynchronously
+//     * @param task
+//     * @param manual
+//     * @param runnable
+//     */
+//    public void fetchUpdatesForTask(final Task task, boolean manual, Runnable done) {
+//        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
+//                "comments:" + task.getId(), "task_id", task.getValue(Task.UUID));
+//
+//        pushQueuedUpdatesForTask(task);
+//    }
+//
+//    /**
+//     * Fetch updates for the current user asynchronously
+//     * @param manual
+//     * @param done
+//     */
+//    public void fetchPersonalUpdates(boolean manual, Runnable done) {
+//        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
+//
+//        pushAllQueuedUpdates();
+//    }
 
     public void updateUserSubscriptionStatus(Runnable onSuccess, Runnable onRecoverableError, Runnable onInvalidToken) {
         String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
@@ -1258,31 +1253,31 @@ public final class ActFmSyncService {
         }
     }
 
-    private void pushQueuedUpdatesForTag(TagData tagData) {
-        Criterion criterion = null;
-        if (tagData.getValue(TagData.REMOTE_ID) < 1) {
-            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
-                    Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%"));
-        }
-        else {
-            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
-                    Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.REMOTE_ID) + ",%"),
-                            Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
-        }
-
-
-        Update template = new Update();
-        template.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
-        updateDao.update(criterion, template);
-
-        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
-        pushQueuedUpdates(cursor);
-    }
+//    private void pushQueuedUpdatesForTag(TagData tagData) {
+//        Criterion criterion = null;
+//        if (tagData.getValue(TagData.UUID) < 1) {
+//            criterion = Criterion.and(Update.UUID.eq(0),
+//                    Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%"));
+//        }
+//        else {
+//            criterion = Criterion.and(Update.UUID.eq(0),
+//                    Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%"),
+//                            Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
+//        }
+//
+//
+//        Update template = new Update();
+//        template.setValue(Update.TAGS, "," + tagData.getValue(TagData.UUID) + ",");
+//        updateDao.update(criterion, template);
+//
+//        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
+//        pushQueuedUpdates(cursor);
+//    }
 
     private void pushQueuedUpdatesForTask(Task task) {
         Criterion criterion = null;
-        if (task.containsNonNullValue(Task.REMOTE_ID)) {
-            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
+        if (task.containsNonNullValue(Task.UUID)) {
+            criterion = Criterion.and(Update.UUID.eq(0),
                     Criterion.or(Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId())));
         } else
             return;
@@ -1296,7 +1291,7 @@ public final class ActFmSyncService {
     }
 
     private void pushAllQueuedUpdates() {
-        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(Update.REMOTE_ID.eq(0)));
+        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(Update.UUID.eq(0)));
         pushQueuedUpdates(cursor);
     }
 
@@ -1326,37 +1321,37 @@ public final class ActFmSyncService {
         }
     }
 
-    private class UpdateListItemProcessor extends ListItemProcessor<Update> {
-        @Override
-        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
-            Update remote = new Update();
-            for(int i = 0; i < list.length(); i++) {
-                JSONObject item = list.getJSONObject(i);
-                readIds(locals, item, remote);
-                JsonHelper.updateFromJson(item, remote);
-
-                remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                if(remote.getId() == AbstractModel.NO_ID)
-                    updateDao.createNew(remote);
-                else
-                    updateDao.saveExisting(remote);
-                remote.clear();
-            }
-        }
-
-        @Override
-        protected HashMap<Long, Long> getLocalModels() {
-            TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID,
-                    Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
-                            Order.asc(Update.REMOTE_ID)));
-            return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
-        }
-
-        @Override
-        protected Class<Update> typeClass() {
-            return Update.class;
-        }
-    }
+//    private class UpdateListItemProcessor extends ListItemProcessor<Update> {
+//        @Override
+//        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
+//            Update remote = new Update();
+//            for(int i = 0; i < list.length(); i++) {
+//                JSONObject item = list.getJSONObject(i);
+//                readIds(locals, item, remote);
+//                JsonHelper.updateFromJson(item, remote);
+//
+//                remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//                if(remote.getId() == AbstractModel.NO_ID)
+//                    updateDao.createNew(remote);
+//                else
+//                    updateDao.saveExisting(remote);
+//                remote.clear();
+//            }
+//        }
+//
+//        @Override
+//        protected HashMap<Long, Long> getLocalModels() {
+//            TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID,
+//                    Update.UUID).where(Update.UUID.in(remoteIds)).orderBy(
+//                            Order.asc(Update.UUID)));
+//            return cursorToMap(cursor, updateDao, Update.UUID, Update.ID);
+//        }
+//
+//        @Override
+//        protected Class<Update> typeClass() {
+//            return Update.class;
+//        }
+//    }
 
     /**
      * Update tag picture
@@ -1433,13 +1428,13 @@ public final class ActFmSyncService {
         }
 
         protected void readIds(HashMap<Long, Long> locals, JSONObject json, RemoteModel model) throws JSONException {
-            long remoteId = json.getLong("id");
-            model.setValue(RemoteModel.REMOTE_ID_PROPERTY, remoteId);
-            if(locals.containsKey(remoteId)) {
-                model.setId(locals.remove(remoteId));
-            } else {
-                model.clearValue(AbstractModel.ID_PROPERTY);
-            }
+//            long remoteId = json.getLong("id");
+//            model.setValue(RemoteModel.UUID_PROPERTY, remoteId);
+//            if(locals.containsKey(remoteId)) {
+//                model.setId(locals.remove(remoteId));
+//            } else {
+//                model.clearValue(AbstractModel.ID_PROPERTY);
+//            }
         }
 
         protected HashMap<Long, Long> cursorToMap(TodorooCursor<TYPE> cursor, DatabaseDao<?> dao,
@@ -1539,7 +1534,7 @@ public final class ActFmSyncService {
             String title = remote.getValue(Task.TITLE);
             TodorooCursor<Task> match = taskService.query(Query.select(Task.ID)
                     .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
-                    .where(Criterion.and(Task.TITLE.eq(title), Task.REMOTE_ID.isNull())));
+                    .where(Criterion.and(Task.TITLE.eq(title), Task.UUID.isNull())));
             try {
                 if (match.getCount() > 0) {
                     match.moveToFirst();
@@ -1552,22 +1547,23 @@ public final class ActFmSyncService {
 
         protected void deleteExtras(Long[] localIds) {
             taskService.deleteWhere(Criterion.and(TaskCriteria.activeVisibleMine(),
-                    Task.REMOTE_ID.isNotNull(),
+                    Task.UUID.isNotNull(),
                     Criterion.not(Task.ID.in(localIds))));
         }
 
         @Override
         protected HashMap<Long, Long> getLocalModels() {
-            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.MODIFICATION_DATE,
-                    Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
-                            Order.asc(Task.REMOTE_ID)));
-            Task task = new Task();
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                task.readFromCursor(cursor);
-                modificationDates.put(task.getId(), task.getValue(Task.MODIFICATION_DATE));
-            }
-
-            return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
+//            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.MODIFICATION_DATE,
+//                    Task.UUID).where(Task.UUID.in(remoteIds)).orderBy(
+//                            Order.asc(Task.UUID)));
+//            Task task = new Task();
+//            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+//                task.readFromCursor(cursor);
+//                modificationDates.put(task.getId(), task.getValue(Task.MODIFICATION_DATE));
+//            }
+//
+//            return cursorToMap(cursor, taskDao, Task.UUID, Task.ID);
+            return null;
         }
 
         @Override
@@ -1701,25 +1697,25 @@ public final class ActFmSyncService {
             json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB));
         }
 
-        public static void updateFromJson(JSONObject json, Update model) throws JSONException {
-            model.setValue(Update.REMOTE_ID, json.getLong("id"));
+//        public static void updateFromJson(JSONObject json, Update model) throws JSONException {
+//            model.setValue(Update.UUID, json.getLong("id"));
 //            readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
 //            if (!json.isNull("other_user")) {
 //                readUser(json.getJSONObject("other_user"), model, Update.OTHER_USER_ID, Update.OTHER_USER);
 //            }
-            model.setValue(Update.ACTION, json.getString("action"));
-            model.setValue(Update.ACTION_CODE, json.getString("action_code"));
-            model.setValue(Update.TARGET_NAME, json.getString("target_name"));
-            if(json.isNull("message"))
-                model.setValue(Update.MESSAGE, "");
-            else
-                model.setValue(Update.MESSAGE, json.getString("message"));
-            model.setValue(Update.PICTURE, json.optString("picture", ""));
-            model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
-            String tagIds = "," + json.optString("tag_ids", "") + ",";
-            model.setValue(Update.TAGS, tagIds);
-            model.setValue(Update.TASK_UUID, Long.toString(json.optLong("task_id", 0)));
-        }
+//            model.setValue(Update.ACTION, json.getString("action"));
+//            model.setValue(Update.ACTION_CODE, json.getString("action_code"));
+//            model.setValue(Update.TARGET_NAME, json.getString("target_name"));
+//            if(json.isNull("message"))
+//                model.setValue(Update.MESSAGE, "");
+//            else
+//                model.setValue(Update.MESSAGE, json.getString("message"));
+//            model.setValue(Update.PICTURE, json.optString("picture", ""));
+//            model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
+//            String tagIds = "," + json.optString("tag_ids", "") + ",";
+//            model.setValue(Update.TAGS, tagIds);
+//            model.setValue(Update.TASK_UUID, Long.toString(json.optLong("task_id", 0)));
+//        }
 
         public static void readUser(JSONObject user, AbstractModel model, LongProperty idProperty,
                 StringProperty userProperty) throws JSONException {
@@ -1757,8 +1753,8 @@ public final class ActFmSyncService {
         }
 
         private static void parseTagDataFromJson(JSONObject json, TagData model, boolean featuredList) throws JSONException {
-            model.clearValue(TagData.REMOTE_ID);
-            model.setValue(TagData.REMOTE_ID, json.getLong("id"));
+            model.clearValue(TagData.UUID);
+            model.setValue(TagData.UUID, Long.toString(json.getLong("id")));
             model.setValue(TagData.NAME, json.getString("name"));
 
 //            if (!featuredList)

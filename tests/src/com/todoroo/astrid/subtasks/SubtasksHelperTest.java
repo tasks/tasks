@@ -14,21 +14,21 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         updater.initializeFromSerializedTree(SubtasksUpdater.ACTIVE_TASKS_ORDER, filter, DEFAULT_SERIALIZED_TREE);
     }
 
-    private Task createTask(String title, long remoteId) {
+    private Task createTask(String title, String uuid) {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
-        t.setValue(Task.REMOTE_ID, remoteId);
+        t.setValue(Task.UUID, uuid);
         PluginServices.getTaskService().save(t);
         return t;
     }
 
     private void createTasks() {
-        A = createTask("A", 6); // Local id 1
-        B = createTask("B", 4); // Local id 2
-        C = createTask("C", 3); // Local id 3
-        D = createTask("D", 1); // Local id 4
-        E = createTask("E", 2); // Local id 5
-        F = createTask("F", 5); // Local id 6
+        A = createTask("A", "6"); // Local id 1
+        B = createTask("B", "4"); // Local id 2
+        C = createTask("C", "3"); // Local id 3
+        D = createTask("D", "1"); // Local id 4
+        E = createTask("E", "2"); // Local id 5
+        F = createTask("F", "5"); // Local id 6
     }
 
     private static final Long[] EXPECTED_ORDER = {-1L, 1L, 2L, 3L, 4L, 5L, 6L };

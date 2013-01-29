@@ -79,10 +79,10 @@ public class AstridNewSyncMigrator {
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
-        Query tagsQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.all);
+        Query tagsQuery = Query.select(TagData.ID, TagData.UUID).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
         assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, null);
 
-        Query tasksQuery = Query.select(Task.ID, Task.REMOTE_ID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
+        Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
         assertUUIDsExist(tasksQuery, new Task(), taskDao, new UUIDAssertionExtras<Task>() {
             @Override
             public void beforeSave(Task instance) {
@@ -109,7 +109,7 @@ public class AstridNewSyncMigrator {
             }
         });
 
-        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.REMOTE_ID, Update.TASK).where(Criterion.all);
+        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.UUID, Update.TASK).where(Criterion.all);
         assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao, new UUIDAssertionExtras<Update>() {
             @Override
             public void beforeSave(Update instance) {
@@ -173,12 +173,9 @@ public class AstridNewSyncMigrator {
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 instance.readPropertiesFromCursor(cursor);
-                if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY) || instance.getValue(RemoteModel.REMOTE_ID_PROPERTY) == 0) {
+                if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
                     // No remote id exists, just create a UUID
                     instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
-                } else {
-                    // Migrate remote id to uuid field
-                    instance.setValue(RemoteModel.UUID_PROPERTY, Long.toString(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
                 }
                 if (extras != null)
                     extras.beforeSave(instance);

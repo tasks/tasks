@@ -207,7 +207,7 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, Update.TABLE.name, Update.PROPERTIES));
             onCreateTables();
 
-            Property<?>[] properties = new Property<?>[] { Task.REMOTE_ID,
+            Property<?>[] properties = new Property<?>[] { Task.UUID,
                     Task.USER_ID };
 
             for(Property<?> property : properties) {
@@ -291,7 +291,7 @@ public class Database extends AbstractDatabase {
         case 20: try {
             String tasks = Task.TABLE.name;
             String id = Task.ID.name;
-            String remoteId = Task.REMOTE_ID.name;
+            String remoteId = Task.UUID.name;
 
             // Delete any items that have duplicate remote ids
             String deleteDuplicates = String.format("DELETE FROM %s WHERE %s IN (SELECT %s.%s FROM %s, %s AS t2 WHERE %s.%s < t2.%s AND %s.%s = t2.%s AND %s.%s > 0 GROUP BY %s.%s)",
@@ -363,18 +363,14 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Task.TABLE, Task.UUID, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.UUID, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Update.TABLE, Update.UUID, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.TASK_UUID, visitor, null));
             database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
             database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(User.TABLE, User.UUID, visitor, null));
             database.execSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));
             database.execSQL(addColumnSql(User.TABLE, User.LAST_NAME, visitor, null));
         } catch (SQLiteException e) {

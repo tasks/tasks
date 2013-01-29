@@ -110,7 +110,8 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected void performFetch(boolean manual, Runnable done) {
-        actFmSyncService.fetchUpdatesForTag(tagData, manual, done);
+        done.run();
+//        actFmSyncService.fetchUpdatesForTag(tagData, manual, done);
     }
 
     @Override
@@ -120,7 +121,7 @@ public class TagCommentsFragment extends CommentsFragment {
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, "tag_comment");
         update.setValue(Update.USER_ID, Task.USER_ID_SELF);
-        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
+        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.UUID) + ",");
         update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         update.setValue(Update.TARGET_NAME, tagData.getValue(TagData.NAME));
@@ -134,8 +135,8 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected void setLastViewed() {
-        if(tagData != null && tagData.getValue(TagData.REMOTE_ID) > 0) {
-            Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), DateUtilities.now());
+        if(tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
+            Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
             Activity activity = getActivity();
             if (activity instanceof TaskListActivity)
                 ((TaskListActivity) activity).setCommentsCount(0);

@@ -53,8 +53,8 @@ public class TagCaseMigrator {
 
                 if (first.tag.equalsIgnoreCase(second.tag)) {
                     shouldShowDialog = true;
-                    markForRenaming(first.tag, first.remoteId);
-                    markForRenaming(second.tag, second.remoteId);
+                    markForRenaming(first.tag, Long.parseLong(first.uuid));
+                    markForRenaming(second.tag, Long.parseLong(second.uuid));
                 }
             }
 
@@ -92,9 +92,9 @@ public class TagCaseMigrator {
 
     private void updateTagData(String tag) {
         long remoteId = nameToRemoteId.get(tag);
-        TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.NAME, TagData.REMOTE_ID)
+        TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.NAME, TagData.UUID)
                                                                    .where(Criterion.and(
-                                                                           TagData.NAME.eq(tag), TagData.REMOTE_ID.eq(remoteId))));
+                                                                           TagData.NAME.eq(tag), TagData.UUID.eq(remoteId))));
         try {
             for (tagData.moveToFirst(); !tagData.isAfterLast(); tagData.moveToNext()) {
                 TagData curr = new TagData(tagData);

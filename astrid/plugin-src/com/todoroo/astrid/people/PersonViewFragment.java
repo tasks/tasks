@@ -203,7 +203,7 @@ public class PersonViewFragment extends TaskListFragment {
                 public void run() {
                     // TODO: Fix friend status logic for new sync scheme
                     if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
-                        actFmSyncService.pushUser(user);
+//                        actFmSyncService.pushUser(user);
                         user = userDao.fetch(user.getId(), User.PROPERTIES);
                     }
 //                    SyncResultCallback callback;

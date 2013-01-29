@@ -86,7 +86,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         String email = user.getValue(User.EMAIL);
         Criterion criterion;
         if (TextUtils.isEmpty(email) || "null".equals(email))
-            criterion = Task.USER_ID.eq(user.getValue(User.REMOTE_ID));
+            criterion = Task.USER_ID.eq(user.getValue(User.UUID));
         else
             criterion = Criterion.or(Task.USER_ID.eq(user.getValue(User.UUID)),
                     Task.USER.like("%" + email + "%")); // Deprecated field OK for backwards compatibility
