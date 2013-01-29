@@ -1694,19 +1694,11 @@ public final class ActFmSyncService {
             return item.optLong(key, 0) * 1000L;
         }
 
-        public static void userFromJson(JSONObject json, User model) throws JSONException {
-            model.setValue(User.REMOTE_ID, json.getLong("id"));
-            model.setValue(User.NAME, json.optString("name"));
-            model.setValue(User.EMAIL, json.optString("email"));
-            model.setValue(User.PICTURE, json.optString("picture"));
-            model.setValue(User.STATUS, json.optString("status"));
-        }
-
         public static void jsonFromUser(JSONObject json, User model) throws JSONException {
             json.put("id", model.getValue(User.UUID));
             json.put("name", model.getDisplayName());
             json.put("email", model.getValue(User.EMAIL));
-            json.put("picture", model.getValue(User.PICTURE));
+            json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_MEDIUM));
         }
 
         public static void updateFromJson(JSONObject json, Update model) throws JSONException {

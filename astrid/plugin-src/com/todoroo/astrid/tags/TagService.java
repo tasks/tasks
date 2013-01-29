@@ -134,7 +134,7 @@ public final class TagService {
             count = tagData.getValue(TagData.TASK_COUNT);
             remoteId = tagData.getValue(TagData.REMOTE_ID);
             uuid = tagData.getValue(TagData.UUID);
-            image = tagData.getValue(TagData.PICTURE);
+            image = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_THUMB);
             userId = tagData.getValue(TagData.USER_ID);
             memberCount = tagData.getValue(TagData.MEMBER_COUNT);
         }

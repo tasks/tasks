@@ -23,6 +23,7 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.UserDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.SyncV2Service;
@@ -68,7 +69,7 @@ public class PersonViewFragment extends TaskListFragment {
     private void setupUserHeader() {
         if (user != null) {
             userImage.setDefaultImageResource(R.drawable.icn_default_person_image);
-            userImage.setUrl(user.getValue(User.PICTURE));
+            userImage.setUrl(user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_MEDIUM));
             userSubtitle.setText(getUserSubtitleText());
             setupUserStatusButton();
         } else {

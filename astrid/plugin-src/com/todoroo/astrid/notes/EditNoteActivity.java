@@ -522,7 +522,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         public static NoteOrUpdate fromUpdate(Update u, String linkColor) {
             JSONObject user = ActFmPreferenceService.userFromModel(u);
 
-            String commentPicture = u.getValue(Update.PICTURE);
+            String commentPicture = u.getPictureUrl(Update.PICTURE, RemoteModel.PICTURE_MEDIUM);
 
             Spanned title = UpdateAdapter.getUpdateComment(null, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
             return new NoteOrUpdate(user.optString("picture"),

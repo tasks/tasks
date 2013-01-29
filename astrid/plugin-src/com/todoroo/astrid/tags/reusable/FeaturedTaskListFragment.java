@@ -23,6 +23,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -89,7 +90,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     protected void setUpMembersGallery() {
         // Repurposed this method to set up the description view
         AsyncImageView imageView = (AsyncImageView) getView().findViewById(R.id.url_image);
-        String imageUrl = tagData.getValue(TagData.PICTURE);
+        String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
         if (!TextUtils.isEmpty(imageUrl)) {
             imageView.setVisibility(View.VISIBLE);
             imageView.setDefaultImageResource(R.drawable.default_list_0);

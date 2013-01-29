@@ -20,6 +20,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
@@ -104,7 +105,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
         AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
         imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
-        imageView.setUrl(tagData.getValue(TagData.PICTURE));
+        imageView.setUrl(tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM));
     }
 
     @Override

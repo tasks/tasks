@@ -35,6 +35,7 @@ import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
@@ -102,7 +103,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         values.put(Task.USER_ID.name, user.getValue(User.UUID));
         filter.valuesForNewTasks = values;
 
-        String imageUrl = user.getValue(User.PICTURE);
+        String imageUrl = user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB); //user.getValue(User.PICTURE);
         filter.imageUrl = imageUrl;
 
         Bundle extras = new Bundle();

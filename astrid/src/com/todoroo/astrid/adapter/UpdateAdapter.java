@@ -43,6 +43,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -160,7 +161,7 @@ public class UpdateAdapter extends CursorAdapter {
         }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            final String updatePicture = update.getValue(Update.PICTURE);
+            final String updatePicture = update.getPictureUrl(Update.PICTURE, RemoteModel.PICTURE_THUMB);
             setupImagePopupForCommentView(view, commentPictureView, updatePicture,
                     update.getValue(Update.MESSAGE), fragment, imageCache);
         }

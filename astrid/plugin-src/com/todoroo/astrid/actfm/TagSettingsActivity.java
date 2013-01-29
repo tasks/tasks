@@ -417,7 +417,7 @@ public class TagSettingsActivity extends FragmentActivity {
                 setTitle(getString(R.string.tag_settings_title));
             }
         }
-        picture.setUrl(tagData.getValue(TagData.PICTURE));
+        picture.setUrl(tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM));
         if (!isNewTag) {
             ImageView shortcut = (ImageView) findViewById(R.id.create_shortcut);
             shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getValue(TagData.NAME)));
@@ -452,7 +452,7 @@ public class TagSettingsActivity extends FragmentActivity {
                 try {
                     String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.UUID), bitmap);
                     if (TextUtils.isEmpty(url)) return;
-                    if (imageCache.contains(tagData.getValue(TagData.PICTURE))) {
+                    if (imageCache.contains(tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM))) {
                         imageCache.move(tagData.getValue(TagData.PICTURE), url);
                     }
                     tagData.setValue(TagData.PICTURE, url);

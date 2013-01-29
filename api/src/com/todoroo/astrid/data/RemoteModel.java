@@ -5,6 +5,9 @@
  */
 package com.todoroo.astrid.data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -70,5 +73,19 @@ abstract public class RemoteModel extends AbstractModel {
 
     public static boolean isUuidEmpty(String uuid) {
         return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
+    }
+
+    public static final String PICTURE_THUMB = "thumb"; //$NON-NLS-1$
+    public static final String PICTURE_MEDIUM = "medium"; //$NON-NLS-1$
+    public static final String PICTURE_LARGE = "large"; //$NON-NLS-1$
+
+    public String getPictureUrl(StringProperty pictureProperty, String size) {
+        String value = getValue(pictureProperty);
+        try {
+            JSONObject pictureJson = new JSONObject(value);
+            return pictureJson.optString(size);
+        } catch (JSONException e) {
+            return value;
+        }
     }
 }
