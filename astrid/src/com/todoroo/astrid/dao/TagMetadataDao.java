@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
+import org.json.JSONArray;
+
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -116,6 +118,10 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                         TagMetadata.TAG_UUID.eq(tagUuid), TagMemberMetadata.USER_UUID.eq(uuid)), deleteTemplate);
             }
         }
+    }
+
+    public void synchronizeMembers(long tagId, String tagUuid, JSONArray members) {
+        throw new RuntimeException("IMPLEMENT ME!");
     }
 }
 

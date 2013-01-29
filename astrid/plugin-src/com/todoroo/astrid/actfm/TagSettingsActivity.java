@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,9 +34,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -45,9 +48,13 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagMetadata;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -55,6 +62,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
@@ -88,6 +96,10 @@ public class TagSettingsActivity extends FragmentActivity {
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired ExceptionService exceptionService;
+
+    @Autowired UserDao userDao;
+
+    @Autowired TagMetadataDao tagMetadataDao;
 
     private PeopleContainer tagMembers;
     private AsyncImageView picture;
@@ -135,7 +147,7 @@ public class TagSettingsActivity extends FragmentActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            updateMembers(members);
+                            updateMembers(members, RemoteModel.NO_UUID);
                         }
                     });
                 }
@@ -235,7 +247,7 @@ public class TagSettingsActivity extends FragmentActivity {
 
         String autopopulateMembers = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_MEMBERS);
         if (!TextUtils.isEmpty(autopopulateMembers)) {
-            updateMembers(autopopulateMembers);
+            updateMembers(autopopulateMembers, RemoteModel.NO_UUID);
             getIntent().removeExtra(TOKEN_AUTOPOPULATE_MEMBERS);
         }
 
@@ -330,46 +342,15 @@ public class TagSettingsActivity extends FragmentActivity {
         if (members.length() > oldMemberCount) {
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_LIST_SHARED);
         }
-        tagData.setValue(TagData.MEMBERS, members.toString());
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
         tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
-        if (isNewTag) {
-            tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-            tagDataService.save(tagData);
-
-            final Runnable loadTag = new Runnable() {
-                @Override
-                public void run() {
-                    setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
-                            TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
-                    finish();
-                }
-            };
-
-            if(actFmPreferenceService.isLoggedIn()) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        actFmSyncService.pushTagDataOnSave(tagData, tagData.getMergedValues());
-                        if(setBitmap != null && !RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
-                            uploadTagPicture(setBitmap);
-
-                        runOnUiThread(loadTag);
-                    }
-                }).start();
-            } else {
-                loadTag.run();
-            }
-
-            return;
-        } else {
-            setResult(RESULT_OK);
-            tagDataService.save(tagData);
-        }
+        setResult(RESULT_OK);
+        tagDataService.save(tagData);
+        tagMetadataDao.synchronizeMembers(tagData.getId(), tagData.getUuid(), members);
 
         refreshSettingsPage();
         finish();
@@ -424,21 +405,49 @@ public class TagSettingsActivity extends FragmentActivity {
         }
 
         String peopleJson = tagData.getValue(TagData.MEMBERS);
-        updateMembers(peopleJson);
+        updateMembers(peopleJson, tagData.getUuid());
 
         tagDescription.setText(tagData.getValue(TagData.TAG_DESCRIPTION));
 
     }
 
     @SuppressWarnings("nls")
-    private void updateMembers(String peopleJson) {
+    private void updateMembers(String peopleJson, String tagUuid) {
         tagMembers.removeAllViews();
-        if(!TextUtils.isEmpty(peopleJson)) {
+        JSONArray people = null;
+        try {
+            people = new JSONArray(peopleJson);
+        } catch (JSONException e) {
+            if (!RemoteModel.isUuidEmpty(tagUuid)) {
+                people = new JSONArray();
+                TodorooCursor<User> members = userDao.query(Query.select(User.PROPERTIES)
+                        .where(User.UUID.in(Query.select(TagMemberMetadata.USER_UUID)
+                                .from(TagMetadata.TABLE).where(TagMetadata.TAG_UUID.eq(tagUuid)))));
+                try {
+                    User user = new User();
+                    for (members.moveToFirst(); !members.isAfterLast(); members.moveToNext()) {
+                        user.clear();
+                        user.readFromCursor(members);
+                        try {
+                            JSONObject userJson = new JSONObject();
+                            ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
+                            people.put(userJson);
+                        } catch (JSONException e2) {
+                            //
+                        }
+                    }
+                } finally {
+                    members.close();
+                }
+            }
+
+        }
+
+        if (people != null) {
             try {
-                JSONArray people = new JSONArray(peopleJson);
                 tagMembers.fromJSONArray(people);
             } catch (JSONException e) {
-                Log.e("tag-view-activity", "json error refresh members - " + peopleJson, e);
+                Log.e("tag-settings", "Error parsing tag members: " + people, e);
             }
         }
 

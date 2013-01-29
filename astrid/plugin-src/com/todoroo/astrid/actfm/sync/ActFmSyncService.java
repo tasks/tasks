@@ -1698,7 +1698,7 @@ public final class ActFmSyncService {
             json.put("id", model.getValue(User.UUID));
             json.put("name", model.getDisplayName());
             json.put("email", model.getValue(User.EMAIL));
-            json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_MEDIUM));
+            json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB));
         }
 
         public static void updateFromJson(JSONObject json, Update model) throws JSONException {
