@@ -145,8 +145,8 @@ public class TaskApiDao extends ContentResolverDao<Task> {
         try {
             return super.save(model);
         } catch (SQLException e) {
-            if (model.containsNonNullValue(Task.REMOTE_ID)) {
-                TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(Task.REMOTE_ID.eq(model.getValue(Task.REMOTE_ID))));
+            if (model.containsNonNullValue(Task.UUID)) {
+                TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(Task.UUID.eq(model.getValue(Task.UUID))));
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     model.setId(cursor.get(Task.ID));

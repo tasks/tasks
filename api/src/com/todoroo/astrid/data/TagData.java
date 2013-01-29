@@ -54,8 +54,8 @@ public final class TagData extends RemoteModel {
             TABLE, USER_JSON_PROPERTY_NAME);
 
     /** Remote goal id */
-    public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME);
+    public static final StringProperty UUID = new StringProperty(
+            TABLE, UUID_PROPERTY_NAME);
 
     /** Name of Tag */
     public static final StringProperty NAME = new StringProperty(
@@ -121,10 +121,6 @@ public final class TagData extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
-    /** UUID */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
     /** Tag ordering */
     public static final StringProperty TAG_ORDERING = new StringProperty(
             TABLE, "tagOrdering");
@@ -151,7 +147,6 @@ public final class TagData extends RemoteModel {
     static {
         defaultValues.put(USER_ID.name, "0");
         defaultValues.put(USER.name, "");
-        defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(PICTURE.name, "");

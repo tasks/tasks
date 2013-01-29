@@ -63,10 +63,6 @@ public final class User extends RemoteModel {
             TABLE, "picture");
 
     /** Remote id */
-    public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME);
-
-    /** UUID */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 

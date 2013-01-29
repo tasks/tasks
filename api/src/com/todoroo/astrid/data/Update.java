@@ -42,8 +42,8 @@ public class Update extends RemoteModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote ID */
-    public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME);
+    public static final StringProperty UUID = new StringProperty(
+            TABLE, UUID_PROPERTY_NAME);
 
     /** Associated Task remote-id (if any) */
     @Deprecated // We changed uuids to strings
@@ -110,10 +110,6 @@ public class Update extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
-    /** UUID */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
 
@@ -132,7 +128,6 @@ public class Update extends RemoteModel {
     }
 
     static {
-        defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(TASK.name, 0);
         defaultValues.put(TASK_UUID.name, NO_UUID);

@@ -154,8 +154,8 @@ public final class Task extends RemoteModel {
     // --- for astrid.com
 
     /** Remote id */
-    public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
+    public static final StringProperty UUID = new StringProperty(
+            TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
     /** Assigned user id */
     public static final StringProperty USER_ID = new StringProperty(
@@ -180,10 +180,6 @@ public final class Task extends RemoteModel {
     /** Pushed at date */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
-
-    /** UUID */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
@@ -301,7 +297,6 @@ public final class Task extends RemoteModel {
         defaultValues.put(CLASSIFICATION.name, "");
 
         defaultValues.put(LAST_SYNC.name, 0);
-        defaultValues.putNull(REMOTE_ID.name);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(USER_ID.name, "0");
         defaultValues.put(CREATOR_ID.name, 0);
