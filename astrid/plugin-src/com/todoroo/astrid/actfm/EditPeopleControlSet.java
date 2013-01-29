@@ -55,7 +55,6 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.UserDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
@@ -218,8 +217,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                 sharedPeople.add(user);
             }
         } catch (JSONException e) {
-            TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES).where(User.UUID.in(
-                    Query.select(TagMemberMetadata.USER_UUID).from(Metadata.TABLE).where(TagMetadata.TAG_UUID.eq(tagData.getUuid())))));
+            TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES).where(Criterion.or(User.UUID.in(
+                    Query.select(TagMemberMetadata.USER_UUID).from(TagMetadata.TABLE).where(TagMetadata.TAG_UUID.eq(tagData.getUuid()))), User.UUID.eq(tagData.getValue(TagData.USER_ID)))));
             User user = new User();
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                 user.clear();

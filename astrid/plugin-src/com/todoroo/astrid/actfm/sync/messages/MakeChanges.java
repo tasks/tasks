@@ -114,6 +114,8 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         ChangeHooks beforeSaveChanges = null;
         if (NameMaps.TABLE_ID_TASKS.equals(table))
             beforeSaveChanges = new BeforeSaveTaskChanges(model, changes, uuid);
+        else if (NameMaps.TABLE_ID_TAGS.equals(table))
+            beforeSaveChanges = new BeforeSaveTagChanges(model, changes, uuid);
 
         if (beforeSaveChanges != null)
             beforeSaveChanges.performChanges();
@@ -153,6 +155,21 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         @Override
         public void performChanges() {
             //
+        }
+    }
+
+    private class BeforeSaveTagChanges extends ChangeHooks {
+
+        public BeforeSaveTagChanges(TYPE model, JSONObject changes, String uuid) {
+            super(model, changes, uuid);
+        }
+
+        @Override
+        public void performChanges() {
+            JSONArray addMembers = changes.optJSONArray("member_added");
+            boolean membersAdded = (addMembers != null && addMembers.length() > 0);
+            if (membersAdded)
+                model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
         }
     }
 
@@ -235,7 +252,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             boolean membersRemoved = (removeMembers != null && removeMembers.length() > 0);
 
             if (membersAdded) {
-                model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
                 for (int i = 0; i < addMembers.length(); i++) {
                     try {
                         String memberId = addMembers.getString(i);

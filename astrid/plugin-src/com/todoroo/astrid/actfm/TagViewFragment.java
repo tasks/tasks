@@ -56,16 +56,20 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
@@ -102,6 +106,8 @@ public class TagViewFragment extends TaskListFragment {
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired SyncV2Service syncService;
+
+    @Autowired UserDao userDao;
 
     protected View taskListView;
 
@@ -349,32 +355,77 @@ public class TagViewFragment extends TaskListFragment {
             return;
         LinearLayout membersView = (LinearLayout)getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
+        boolean addedMembers = false;
         try {
-            String membersString = tagData.getValue(TagData.MEMBERS);
-            JSONArray members = new JSONArray(membersString);
-            if (members.length() > 0) {
-                membersView.setOnClickListener(null);
-                membersView.removeAllViews();
-                for (int i = 0; i < members.length(); i++) {
-                    JSONObject member = members.getJSONObject(i);
-                    addImageForMember(membersView, member);
+            String membersString = tagData.getValue(TagData.MEMBERS); // OK for legacy compatibility
+            if (!TextUtils.isEmpty(membersString)) {
+                JSONArray members = new JSONArray(membersString);
+                if (members.length() > 0) {
+                    addedMembers = true;
+                    membersView.setOnClickListener(null);
+                    membersView.removeAllViews();
+                    for (int i = 0; i < members.length(); i++) {
+                        JSONObject member = members.getJSONObject(i);
+                        addImageForMember(membersView, member);
+                    }
                 }
-                // Handle creator
+            } else {
+                TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
+                        .where(User.UUID.in(Query.select(TagMemberMetadata.USER_UUID)
+                                .from(TagMetadata.TABLE)
+                                .where(Criterion.and(TagMetadata.TAG_UUID.eq(tagData.getUuid()), TagMetadata.DELETION_DATE.eq(0))))));
+                try {
+                    addedMembers = users.getCount() > 0;
+                    if (addedMembers) {
+                        membersView.setOnClickListener(null);
+                        membersView.removeAllViews();
+                    }
+                    User user = new User();
+                    for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
+                        user.clear();
+                        user.readFromCursor(users);
+                        JSONObject member = new JSONObject();
+                        ActFmSyncService.JsonHelper.jsonFromUser(member, user);
+                        addImageForMember(membersView, member);
+                    }
+                } finally {
+                    users.close();
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (addedMembers) {
+            try {
+            // Handle creator
                 JSONObject owner;
                 if(!Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
-                     owner = new JSONObject(tagData.getValue(TagData.USER));
+                    String userString = tagData.getValue(TagData.USER);
+                    if (!TextUtils.isEmpty(userString)) {
+                        owner = new JSONObject(tagData.getValue(TagData.USER));
+                    } else {
+                        User user = userDao.fetch(tagData.getValue(TagData.USER_ID), User.PROPERTIES);
+                        if (user != null) {
+                            owner = new JSONObject();
+                            ActFmSyncService.JsonHelper.jsonFromUser(owner, user);
+                        } else {
+                            owner = null;
+                        }
+                    }
                 } else {
                     owner = ActFmPreferenceService.thisUser();
                 }
-                addImageForMember(membersView, owner);
+                if (owner != null)
+                    addImageForMember(membersView, owner);
 
                 JSONObject unassigned = new JSONObject();
                 unassigned.put("id", Task.USER_ID_UNASSIGNED); //$NON-NLS-1$
                 unassigned.put("name", getActivity().getString(R.string.actfm_EPA_unassigned)); //$NON-NLS-1$
                 addImageForMember(membersView, unassigned);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         View filterAssigned = getView().findViewById(R.id.filter_assigned);

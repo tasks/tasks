@@ -66,7 +66,7 @@ public final class TagData extends RemoteModel {
             TABLE, "picture");
 
     /** Tag team array (JSON) */
-    public static final StringProperty MEMBERS = new StringProperty(
+    @Deprecated public static final StringProperty MEMBERS = new StringProperty(
             TABLE, "members");
 
     /** Tag member count */
@@ -150,13 +150,13 @@ public final class TagData extends RemoteModel {
 
     static {
         defaultValues.put(USER_ID.name, "0");
-        defaultValues.put(USER.name, "{}");
+        defaultValues.put(USER.name, "");
         defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(IS_TEAM.name, 1);
-        defaultValues.put(MEMBERS.name, "[]");
+        defaultValues.put(MEMBERS.name, "");
         defaultValues.put(MEMBER_COUNT.name, 0);
         defaultValues.put(FLAGS.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);

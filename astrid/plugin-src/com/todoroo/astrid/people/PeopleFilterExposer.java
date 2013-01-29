@@ -116,7 +116,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent mySharedTasks(Context context) {
         TodorooCursor<TagData> tagsWithMembers = PluginServices.getTagDataService()
-                .query(Query.select(TagData.NAME, TagData.MEMBERS).where(TagData.MEMBER_COUNT.gt(0)));
+                .query(Query.select(TagData.NAME).where(TagData.MEMBER_COUNT.gt(0)));
         String[] names;
         try {
             if (tagsWithMembers.getCount() == 0) {
