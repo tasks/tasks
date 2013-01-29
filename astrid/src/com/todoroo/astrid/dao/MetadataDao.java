@@ -91,17 +91,17 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid))
             return false;
 
-        TaskOutstanding m = new TaskOutstanding();
-        m.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, taskId);
-        m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
+        TaskOutstanding to = new TaskOutstanding();
+        to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, taskId);
+        to.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
 
         String addedOrRemoved = NameMaps.TAG_ADDED_COLUMN;
         if (deletionDate != null && deletionDate > 0)
             addedOrRemoved = NameMaps.TAG_REMOVED_COLUMN;
 
-        m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
-        m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
-        database.insert(outstandingTable.name, null, m.getSetValues());
+        to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
+        to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
+        database.insert(outstandingTable.name, null, to.getSetValues());
         return true;
     }
 

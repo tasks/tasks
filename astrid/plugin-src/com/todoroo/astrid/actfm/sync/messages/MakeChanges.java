@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -144,6 +145,17 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
 
         public abstract void performChanges();
+
+        protected long getLocalId() {
+            long localId;
+            if (!model.isSaved()) { // We don't have the local task id
+                localId = dao.localIdFromUuid(uuid);
+                model.setId(localId);
+            } else {
+                localId = model.getId();
+            }
+            return localId;
+        }
     }
 
     private class BeforeSaveTaskChanges extends ChangeHooks {
@@ -189,13 +201,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             if (!tagsAdded && !tagsRemoved)
                 return;
 
-            long localId;
-            if (!model.isSaved()) { // We don't have the local task id
-                localId = dao.localIdFromUuid(uuid);
-                model.setId(localId);
-            } else {
-                localId = model.getId();
-            }
+            long localId = AbstractModel.NO_ID;
+            if (tagsAdded || tagsRemoved)
+                localId = getLocalId();
 
             if (tagsAdded) {
                 if (model.isSaved()) {
@@ -251,11 +259,15 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             boolean membersAdded = (addMembers != null && addMembers.length() > 0);
             boolean membersRemoved = (removeMembers != null && removeMembers.length() > 0);
 
+            long localId = AbstractModel.NO_ID;
+            if (membersAdded || membersRemoved)
+                localId = getLocalId();
+
             if (membersAdded) {
                 for (int i = 0; i < addMembers.length(); i++) {
                     try {
                         String memberId = addMembers.getString(i);
-                        tagMetadataDao.createMemberLink(uuid, memberId);
+                        tagMetadataDao.createMemberLink(localId, uuid, memberId, true);
                     } catch (JSONException e) {
                         //
                     }
@@ -272,7 +284,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         //
                     }
                 }
-                tagMetadataDao.removeMemberLinks(uuid, toRemove.toArray(new String[toRemove.size()]), true);
+                tagMetadataDao.removeMemberLinks(localId, uuid, toRemove.toArray(new String[toRemove.size()]), true);
             }
         }
     }

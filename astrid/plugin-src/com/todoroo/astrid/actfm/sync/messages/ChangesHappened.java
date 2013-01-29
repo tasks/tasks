@@ -99,6 +99,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 } else if (NameMaps.TAG_REMOVED_COLUMN.equals(localColumn)) {
                     serverColumn = NameMaps.TAG_REMOVED_COLUMN;
                     changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                } else if (NameMaps.MEMBER_ADDED_COLUMN.equals(localColumn)) {
+                    serverColumn = NameMaps.MEMBER_ADDED_COLUMN;
+                    changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                } else if (NameMaps.MEMBER_REMOVED_COLUMN.equals(localColumn)) {
+                    serverColumn = NameMaps.MEMBER_REMOVED_COLUMN;
+                    changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
                     if (localProperty == null)

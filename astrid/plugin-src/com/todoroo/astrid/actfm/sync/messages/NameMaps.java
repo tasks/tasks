@@ -63,6 +63,10 @@ public class NameMaps {
             excludedFromOutstandingSet.add(property.name);
     }
 
+    // ----------
+    // Tasks
+    // ----------
+
     private static final Map<Property<?>, String> TASK_PROPERTIES_LOCAL_TO_SERVER;
     private static final Map<String, Property<?>> TASK_COLUMN_NAMES_TO_PROPERTIES;
     private static final Map<String, String> TASK_COLUMNS_LOCAL_TO_SERVER;
@@ -107,6 +111,10 @@ public class NameMaps {
     public static final String TAG_REMOVED_COLUMN = "tag_removed";
 
 
+    // ----------
+    // TagData
+    // ----------
+
     private static final Map<Property<?>, String> TAG_DATA_PROPERTIES_LOCAL_TO_SERVER;
     private static final Map<String, Property<?>> TAG_DATA_COLUMN_NAMES_TO_PROPERTIES;
     private static final Map<String, String> TAG_DATA_COLUMNS_LOCAL_TO_SERVER;
@@ -139,6 +147,14 @@ public class NameMaps {
         TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);
     }
 
+    public static final String MEMBER_ADDED_COLUMN = "member_added";
+    public static final String MEMBER_REMOVED_COLUMN = "member_removed";
+
+
+
+    // ----------
+    // Users
+    // ----------
     private static final Map<Property<?>, String> USER_PROPERTIES_LOCAL_TO_SERVER;
     private static final Map<String, Property<?>> USER_COLUMN_NAMES_TO_PROPERTIES;
     private static final Map<String, String> USER_COLUMNS_LOCAL_TO_SERVER;
