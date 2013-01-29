@@ -136,7 +136,18 @@ public final class User extends RemoteModel {
         String name = getValue(NAME);
         if (!(TextUtils.isEmpty(name) || "null".equals(name)))
             return name;
-        return getValue(EMAIL);
+        String firstName = getValue(FIRST_NAME);
+        boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
+        String lastName = getValue(LAST_NAME);
+        boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
+        if (firstNameEmpty && lastNameEmpty)
+            return getValue(EMAIL);
+        StringBuilder nameBuilder = new StringBuilder();
+        if (!firstNameEmpty)
+            nameBuilder.append(firstName).append(" ");
+        if (!lastNameEmpty)
+            nameBuilder.append(lastName);
+        return nameBuilder.toString().trim();
     }
 
     @Override

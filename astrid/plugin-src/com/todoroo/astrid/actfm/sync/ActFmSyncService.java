@@ -76,8 +76,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 import com.todoroo.astrid.utility.Flags;
 
@@ -1703,8 +1703,8 @@ public final class ActFmSyncService {
         }
 
         public static void jsonFromUser(JSONObject json, User model) throws JSONException {
-            json.put("id", model.getValue(User.REMOTE_ID));
-            json.put("name", model.getValue(User.NAME));
+            json.put("id", model.getValue(User.UUID));
+            json.put("name", model.getDisplayName());
             json.put("email", model.getValue(User.EMAIL));
             json.put("picture", model.getValue(User.PICTURE));
         }

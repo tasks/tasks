@@ -163,9 +163,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitLong(Property<Long> property, OE data) {
             Long l = data.getMergedValues().getAsLong(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (l != null) {
-                if (l == 0 && property.checkFlag(Property.PROP_FLAG_USER_ID))
-                    return ActFmPreferenceService.userId();
-                else if (property.checkFlag(Property.PROP_FLAG_DATE)) {
+                if (property.checkFlag(Property.PROP_FLAG_DATE)) {
                     boolean includeTime = true;
                     if (Task.DUE_DATE.equals(property) && !Task.hasDueTime(l))
                         includeTime = false;
@@ -189,7 +187,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
         @Override
         public Object visitString(Property<String> property, OE data) {
-            return getAsString(data);
+            String value = getAsString(data);
+            if (RemoteModel.NO_UUID.equals(value) && property.checkFlag(Property.PROP_FLAG_USER_ID))
+                return ActFmPreferenceService.userId();
+            return value;
         }
 
     }

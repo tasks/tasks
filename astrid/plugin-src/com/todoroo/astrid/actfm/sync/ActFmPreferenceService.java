@@ -59,7 +59,10 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
      */
     public static String userId() {
         try {
-            return Preferences.getStringValue(PREF_USER_ID);
+            String value = Preferences.getStringValue(PREF_USER_ID);
+            if (value == null)
+                return Long.toString(Preferences.getLong(PREF_USER_ID, -2L));
+            return value;
         } catch (Exception e) {
             return Long.toString(Preferences.getLong(PREF_USER_ID, -2L));
         }

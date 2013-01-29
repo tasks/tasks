@@ -188,7 +188,7 @@ public class ActFmInvoker {
     public JSONObject postSync(JSONArray data, String token) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl("api2/" + API_VERSION, "synchronize");
+            String request = createFetchUrl("api/" + API_VERSION, "synchronize");
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
             List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
