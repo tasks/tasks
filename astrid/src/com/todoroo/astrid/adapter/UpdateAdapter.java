@@ -5,21 +5,42 @@
  */
 package com.todoroo.astrid.adapter;
 
+import java.io.IOException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 
 /**
@@ -43,17 +64,6 @@ public class UpdateAdapter extends CursorAdapter {
     private static final Pattern TARGET_LINK_PATTERN = Pattern.compile("\\" + TARGET_LINK_PREFIX + "(\\w*)");  //$NON-NLS-1$//$NON-NLS-2$
     private static final String TASK_LINK_TYPE = "task"; //$NON-NLS-1$
 
-    private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
-    private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
-    private static final String UPDATE_CONFIRMED_FRIENDSHIP = "confirmed_friendship"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_CREATED = "task_created"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_COMPLETED = "task_completed"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_UNCOMPLETED = "task_uncompleted"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_TAGGED = "task_tagged"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_ASSIGNED = "task_assigned"; //$NON-NLS-1$
-    public static final String UPDATE_TASK_COMMENT = "task_comment"; //$NON-NLS-1$
-    private static final String UPDATE_TAG_COMMENT = "tag_comment"; //$NON-NLS-1$
-    private static final String UPDATE_TAG_CREATED = "tag_created"; //$NON-NLS-1$
     public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
     public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
     public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
@@ -98,12 +108,17 @@ public class UpdateAdapter extends CursorAdapter {
      * =========================================================== view setup
      * ====================================================================== */
 
+    private class ModelHolder {
+        public UserActivity activity = new UserActivity();
+        public User user = new User();
+    }
+
     /** Creates a new view for use in the list view */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         ViewGroup view = (ViewGroup)inflater.inflate(resource, parent, false);
 
-        view.setTag(new UserActivity());
+        view.setTag(new ModelHolder());
 
         // populate view content
         bindView(view, context, cursor);
@@ -115,43 +130,48 @@ public class UpdateAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<UserActivity> cursor = (TodorooCursor<UserActivity>)c;
-        UserActivity update = ((UserActivity) view.getTag());
+        ModelHolder mh = ((ModelHolder) view.getTag());
+
+        UserActivity update = mh.activity;
         update.clear();
         update.readFromCursor(cursor);
 
-        setFieldContentsAndVisibility(view, update);
+        User user = mh.user;
+        user.clear();
+        user.readPropertiesFromCursor(cursor);
+
+        setFieldContentsAndVisibility(view, update, user);
     }
 
     /** Helper method to set the contents and visibility of each field */
-    public synchronized void setFieldContentsAndVisibility(View view, UserActivity update) {
-//        JSONObject user = ActFmPreferenceService.userFromModel(update);
-//
-//        // picture
-//        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-//            String pictureUrl = user.optString("picture");
-//            pictureView.setUrl(pictureUrl);
-//        }
-//
-//        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-//            final String updatePicture = update.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_THUMB);
-//            setupImagePopupForCommentView(view, commentPictureView, updatePicture,
-//                    update.getValue(UserActivity.MESSAGE), fragment, imageCache);
-//        }
-//
-//        // name
-//        final TextView nameView = (TextView)view.findViewById(R.id.title); {
-//            nameView.setText(getUpdateComment((AstridActivity)fragment.getActivity(), update, user, linkColor, fromView));
-//            nameView.setMovementMethod(new LinkMovementMethod());
-//        }
-//
-//
-//        // date
-//        final TextView date = (TextView)view.findViewById(R.id.date); {
-//            CharSequence dateString = DateUtils.getRelativeTimeSpanString(update.getValue(UserActivity.CREATED_AT),
-//                    DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
-//                    DateUtils.FORMAT_ABBREV_RELATIVE);
-//            date.setText(dateString);
-//        }
+    public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user) {
+        // picture
+        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+
+            String pictureUrl = user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB);
+            pictureView.setUrl(pictureUrl);
+        }
+
+        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+            final String updatePicture = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_THUMB);
+            setupImagePopupForCommentView(view, commentPictureView, updatePicture,
+                    activity.getValue(UserActivity.MESSAGE), fragment, imageCache);
+        }
+
+        // name
+        final TextView nameView = (TextView)view.findViewById(R.id.title); {
+            nameView.setText(getUpdateComment((AstridActivity)fragment.getActivity(), activity, user, linkColor, fromView));
+            nameView.setMovementMethod(new LinkMovementMethod());
+        }
+
+
+        // date
+        final TextView date = (TextView)view.findViewById(R.id.date); {
+            CharSequence dateString = DateUtils.getRelativeTimeSpanString(activity.getValue(UserActivity.CREATED_AT),
+                    DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE);
+            date.setText(dateString);
+        }
 
     }
 
@@ -160,207 +180,136 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-//    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture,
-//            final String message, final Fragment fragment, ImageDiskCache imageCache) {
-//        if (!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) { //$NON-NLS-1$
-//            commentPictureView.setVisibility(View.VISIBLE);
-//            commentPictureView.setUrl(updatePicture);
-//
-//            if(imageCache.contains(updatePicture)) {
-//                try {
-//                    commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            else {
-//                commentPictureView.setUrl(updatePicture);
-//            }
-//
-//            view.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
-//                    AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
-//                    imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-//                    imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
-//                    imageView.setUrl(updatePicture);
-//                    image.setView(imageView);
-//
-//                    image.setMessage(message);
-//                    image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            return;
-//                        }
-//                    });
-//                    image.show();
-//                }
-//            });
-//        } else {
-//            commentPictureView.setVisibility(View.GONE);
-//        }
-//    }
-//
-//    public static String linkify (String string, String linkColor) {
-//        return String.format("<font color=%s>%s</font>", linkColor, string);  //$NON-NLS-1$
-//    }
-//
-//    @SuppressWarnings("nls")
-//    public static Spanned getUpdateComment (final AstridActivity activity, UserActivity update, JSONObject user, String linkColor, String fromView) {
-//        if (user == null)
-//            user = ActFmPreferenceService.userFromModel(update);
-//
-//        JSONObject otherUser = null;
-//        try {
-//            otherUser = new JSONObject(update.getValue(UserActivity.OTHER_USER));
-//        } catch (JSONException e) {
-//            otherUser = new JSONObject();
-//        }
-//
-//        return getUpdateComment(activity, update, update.getValue(UserActivity.ACTION),
-//                user.optString("name"), update.getValue(UserActivity.TARGET_NAME),
-//                update.getValue(UserActivity.MESSAGE), otherUser.optString("name"),
-//                linkColor, fromView);
-//    }
-//
-//    public static Spanned getUpdateComment (final AstridActivity activity, UserActivity update, String actionCode, String user, String targetName,
-//            String message, String otherUser, String linkColor, String fromView) {
-//        if (TextUtils.isEmpty(user)) {
-//            user = ContextManager.getString(R.string.ENA_no_user);
-//        }
-//
-//        String userLink = user; //linkify(user, linkColor);
-//        String targetNameLink = targetName; //linkify(targetName, linkColor);
-//        String otherUserLink = otherUser; //linkify(otherUser, linkColor);
-//
-//        int commentResource = 0;
-//        if (actionCode.equals(UPDATE_FRIENDS)) {
-//            commentResource = R.string.update_string_friends;
-//        }
-//        else if (actionCode.equals(UPDATE_REQUEST_FRIENDSHIP)) {
-//            commentResource = R.string.update_string_request_friendship;
-//        }
-//        else if (actionCode.equals(UPDATE_CONFIRMED_FRIENDSHIP)) {
-//            commentResource = R.string.update_string_confirmed_friendship;
-//        }
-//        else if (actionCode.equals(UPDATE_TASK_CREATED)) {
-//            if (fromView.equals(FROM_TAG_VIEW))
-//                commentResource = R.string.update_string_task_created_on_list;
-//            else if (fromView.equals(FROM_RECENT_ACTIVITY_VIEW))
-//                commentResource = R.string.update_string_task_created_global;
-//            else
-//                commentResource = R.string.update_string_task_created;
-//        }
-//        else if (actionCode.equals(UPDATE_TASK_COMPLETED)) {
-//            commentResource = R.string.update_string_task_completed;
-//        }
-//        else if (actionCode.equals(UPDATE_TASK_UNCOMPLETED)) {
-//            commentResource = R.string.update_string_task_uncompleted;
-//        }
-//        else if (actionCode.equals(UPDATE_TASK_TAGGED) && !TextUtils.isEmpty(otherUser)) {
-//            if (fromView.equals(FROM_TAG_VIEW))
-//                commentResource = R.string.update_string_task_tagged_list;
-//            else
-//                commentResource = R.string.update_string_task_tagged;
-//        }
-//        else if (actionCode.equals(UPDATE_TASK_ASSIGNED) && !TextUtils.isEmpty(otherUser)) {
-//            commentResource = R.string.update_string_task_assigned;
-//        }
-//        else if (actionCode.equals(UPDATE_TASK_COMMENT)) {
-//            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName))
-//                commentResource = R.string.update_string_default_comment;
-//            else
-//                commentResource = R.string.update_string_task_comment;
-//        }
-//        else if (actionCode.equals(UPDATE_TAG_COMMENT)) {
-//            if (fromView.equals(FROM_TAG_VIEW)  || TextUtils.isEmpty(targetName))
-//                commentResource = R.string.update_string_default_comment;
-//            else
-//                commentResource = R.string.update_string_tag_comment;
-//
-//        }
-//        else if (actionCode.equals(UPDATE_TAG_CREATED)) {
-//            if (fromView.equals(FROM_RECENT_ACTIVITY_VIEW))
-//                commentResource = R.string.update_string_tag_created_global;
-//            else
-//                commentResource = R.string.update_string_tag_created;
-//        }
-//
-//        if (commentResource == 0) {
-//            return Html.fromHtml(String.format("%s %s", userLink, action)); //$NON-NLS-1$
-//        }
-//
-//        String original = ContextManager.getString(commentResource, userLink, targetNameLink, message, otherUserLink);
-//        int taskLinkIndex = original.indexOf(TARGET_LINK_PREFIX);
-//
-//        if (taskLinkIndex < 0)
-//            return Html.fromHtml(original);
-//
-//        String[] components = original.split(" "); //$NON-NLS-1$
-//        SpannableStringBuilder builder = new SpannableStringBuilder();
-//        StringBuilder htmlStringBuilder = new StringBuilder();
-//
-//        for (String comp : components) {
-//            Matcher m = TARGET_LINK_PATTERN.matcher(comp);
-//            if (m.find()) {
-//                builder.append(Html.fromHtml(htmlStringBuilder.toString()));
-//                htmlStringBuilder.setLength(0);
-//
-//                String linkType = m.group(1);
-//                CharSequence link = getLinkSpan(activity, update, actionCode, user,
-//                        targetName, message, otherUser, linkColor, linkType);
-//                if (link != null) {
-//                    builder.append(link);
-//                    if (!m.hitEnd()) {
-//                        builder.append(comp.substring(m.end()));
-//                    }
-//                    builder.append(' ');
-//                }
-//            } else {
-//                htmlStringBuilder.append(comp);
-//                htmlStringBuilder.append(' ');
-//            }
-//        }
-//
-//        if (htmlStringBuilder.length() > 0)
-//            builder.append(Html.fromHtml(htmlStringBuilder.toString()));
-//
-//        return builder;
-//    }
-//
-//    private static CharSequence getLinkSpan(final AstridActivity activity, UserActivity update, String actionCode, String user, String targetName,
-//            String message, String otherUser, String linkColor, String linkType) {
-//        if (TASK_LINK_TYPE.equals(linkType)) {
-//            long taskId = update.getValue(UserActivity.TASK_LOCAL);
-//            if (taskId <= 0) {
-//                Task local = PluginServices.getTaskService().fetchByUUID(update.getValue(UserActivity.TASK_UUID), Task.ID);
-//                if (local != null)
-//                    taskId = local.getId();
-//            }
-//
-//            final long taskIdToUse = taskId;
-//
-//            if (taskId > 0) {
-//                SpannableString taskSpan = new SpannableString(targetName);
-//                taskSpan.setSpan(new ClickableSpan() {
-//                    @Override
-//                    public void onClick(View widget) {
-//                        if (activity != null) // TODO: This shouldn't happen, but sometimes does
-//                            activity.onTaskListItemClicked(taskIdToUse);
-//                    }
-//
-//                    @Override
-//                    public void updateDrawState(TextPaint ds) {
-//                        super.updateDrawState(ds);
-//                        ds.setUnderlineText(false);
-//                    }
-//                }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-//                return taskSpan;
-//            } else {
-//                return Html.fromHtml(linkify(targetName, linkColor));
-//            }
-//        }
-//        return null;
-//    }
+    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture,
+            final String message, final Fragment fragment, ImageDiskCache imageCache) {
+        if (!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) { //$NON-NLS-1$
+            commentPictureView.setVisibility(View.VISIBLE);
+            commentPictureView.setUrl(updatePicture);
+
+            if(imageCache.contains(updatePicture)) {
+                try {
+                    commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                commentPictureView.setUrl(updatePicture);
+            }
+
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
+                    AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
+                    imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                    imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
+                    imageView.setUrl(updatePicture);
+                    image.setView(imageView);
+
+                    image.setMessage(message);
+                    image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    image.show();
+                }
+            });
+        } else {
+            commentPictureView.setVisibility(View.GONE);
+        }
+    }
+
+    public static String linkify (String string, String linkColor) {
+        return String.format("<font color=%s>%s</font>", linkColor, string);  //$NON-NLS-1$
+    }
+
+    public static Spanned getUpdateComment(final AstridActivity context, UserActivity activity, User user, String linkColor, String fromView) {
+        String userDisplay = user.getDisplayName();
+        if (TextUtils.isEmpty(userDisplay))
+            userDisplay = context.getString(R.string.ENA_no_user);
+        String targetName = activity.getValue(UserActivity.TARGET_NAME);
+        String action = activity.getValue(UserActivity.ACTION);
+        String message = activity.getValue(UserActivity.MESSAGE);
+
+        int commentResource = 0;
+        if (UserActivity.ACTION_TASK_COMMENT.equals(action)) {
+            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName))
+                commentResource = R.string.update_string_default_comment;
+            else
+                commentResource = R.string.update_string_task_comment;
+        } else if (UserActivity.ACTION_TAG_COMMENT.equals(action)) {
+            if (fromView.equals(FROM_TAG_VIEW)  || TextUtils.isEmpty(targetName))
+                commentResource = R.string.update_string_default_comment;
+            else
+                commentResource = R.string.update_string_tag_comment;
+        }
+
+        if (commentResource == 0)
+            return Html.fromHtml(String.format("%s %s", userDisplay, message)); //$NON-NLS-1$
+
+        String original = context.getString(commentResource, userDisplay, targetName, message);
+        int taskLinkIndex = original.indexOf(TARGET_LINK_PREFIX);
+
+        if (taskLinkIndex < 0)
+            return Html.fromHtml(original);
+
+        String[] components = original.split(" "); //$NON-NLS-1$
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        StringBuilder htmlStringBuilder = new StringBuilder();
+
+        for (String comp : components) {
+            Matcher m = TARGET_LINK_PATTERN.matcher(comp);
+            if (m.find()) {
+                builder.append(Html.fromHtml(htmlStringBuilder.toString()));
+                htmlStringBuilder.setLength(0);
+
+                String linkType = m.group(1);
+                CharSequence link = getLinkSpan(context, activity, targetName, linkColor, linkType);
+                if (link != null) {
+                    builder.append(link);
+                    if (!m.hitEnd()) {
+                        builder.append(comp.substring(m.end()));
+                    }
+                    builder.append(' ');
+                }
+            } else {
+                htmlStringBuilder.append(comp);
+                htmlStringBuilder.append(' ');
+            }
+        }
+
+        if (htmlStringBuilder.length() > 0)
+            builder.append(Html.fromHtml(htmlStringBuilder.toString()));
+
+        return builder;
+    }
+
+    private static CharSequence getLinkSpan(final AstridActivity activity, UserActivity update, String targetName, String linkColor, String linkType) {
+        if (TASK_LINK_TYPE.equals(linkType)) {
+            final String taskId = update.getValue(UserActivity.TARGET_ID);
+            if (RemoteModel.isValidUuid(taskId)) {
+                SpannableString taskSpan = new SpannableString(targetName);
+                taskSpan.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        if (activity != null) // TODO: This shouldn't happen, but sometimes does
+                            activity.onTaskListItemClicked(taskId);
+                    }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setUnderlineText(false);
+                    }
+                }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                return taskSpan;
+            } else {
+                return Html.fromHtml(linkify(targetName, linkColor));
+            }
+        }
+        return null;
+    }
 }

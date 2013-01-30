@@ -7,11 +7,13 @@ import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.StatisticsConstants;
 
@@ -53,7 +55,9 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        return userActivityDao.query(Query.select(UserActivity.PROPERTIES).where(UserActivity.TARGET_ID.eq(task.getUuid())));
+        return userActivityDao.query(Query.select(UserActivity.PROPERTIES)
+                .where(UserActivity.TARGET_ID.eq(task.getUuid()))
+                .join(Join.left(User.TABLE, UserActivity.USER_UUID.eq(User.UUID))));
     }
 
     @Override
@@ -81,7 +85,7 @@ public class TaskCommentsFragment extends CommentsFragment {
     protected UserActivity createUpdate() {
         UserActivity update = new UserActivity();
         update.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
-        update.setValue(UserActivity.ACTION, UpdateAdapter.UPDATE_TASK_COMMENT);
+        update.setValue(UserActivity.ACTION, UserActivity.ACTION_TASK_COMMENT);
         update.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
         update.setValue(UserActivity.TARGET_ID, task.getUuid());
         update.setValue(UserActivity.TARGET_NAME, task.getValue(Task.TITLE));

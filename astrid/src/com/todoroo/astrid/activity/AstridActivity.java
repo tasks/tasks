@@ -248,6 +248,12 @@ public class AstridActivity extends FragmentActivity
             onTaskListItemClicked(taskId, task.isEditable());
     }
 
+    public void onTaskListItemClicked(String uuid) {
+        Task task = taskDao.fetch(uuid, Task.ID, Task.IS_READONLY, Task.IS_PUBLIC, Task.USER_ID);
+        if (task != null)
+            onTaskListItemClicked(task.getId(), task.isEditable());
+    }
+
     @Override
     public void onTaskListItemClicked(long taskId, boolean editable) {
         if (editable) {

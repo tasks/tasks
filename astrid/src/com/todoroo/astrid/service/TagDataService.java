@@ -11,8 +11,10 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -21,6 +23,7 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -144,11 +147,12 @@ public class TagDataService {
     }
 
     private static Query queryForTagData(TagData tagData) {
-        return Query.select(UserActivity.PROPERTIES).where(Criterion.or(
+        return Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, User.PROPERTIES)).where(Criterion.or(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
                         UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))));
+                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))))
+                .join(Join.left(User.TABLE, UserActivity.USER_UUID.eq(User.UUID)));
     }
 
     public TodorooCursor<UserActivity> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion) {

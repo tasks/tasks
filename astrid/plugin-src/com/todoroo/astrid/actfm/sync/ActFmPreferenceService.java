@@ -11,8 +11,6 @@ import org.json.JSONObject;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
-import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -102,22 +100,22 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_ERROR, "type", type); //$NON-NLS-1$
     }
 
-    /**
-     * Return JSON object user, either yourself or the user of the model
-     * @param update
-     * @return
-     */
-    public static JSONObject userFromModel(RemoteModel model) {
-        if (Task.USER_ID_SELF.equals(model.getValue(RemoteModel.USER_ID_PROPERTY))) {
-            return thisUser();
-        } else {
-            try {
-                return new JSONObject(model.getValue(RemoteModel.USER_JSON_PROPERTY));
-            } catch (JSONException e) {
-                return new JSONObject();
-            }
-        }
-    }
+//    /**
+//     * Return JSON object user, either yourself or the user of the model
+//     * @param update
+//     * @return
+//     */
+//    public static JSONObject userFromModel(RemoteModel model) {
+//        if (Task.USER_ID_SELF.equals(model.getValue(RemoteModel.USER_ID_PROPERTY))) {
+//            return thisUser();
+//        } else {
+//            try {
+//                return new JSONObject(model.getValue(RemoteModel.USER_JSON_PROPERTY));
+//            } catch (JSONException e) {
+//                return new JSONObject();
+//            }
+//        }
+//    }
 
     public synchronized static JSONObject thisUser() {
         if(user == null) {

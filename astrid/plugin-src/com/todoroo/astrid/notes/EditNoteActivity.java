@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -45,8 +43,10 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
@@ -62,6 +62,7 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
@@ -283,14 +284,20 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
 
-        TodorooCursor<UserActivity> updates = userActivityDao.query(Query.select(UserActivity.PROPERTIES)
+        TodorooCursor<UserActivity> updates = userActivityDao.query(Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, User.PROPERTIES))
                 .where(UserActivity.TARGET_ID.eq(task.getUuid()))
+                .join(Join.left(User.TABLE, UserActivity.USER_UUID.eq(User.UUID)))
                 .orderBy(Order.desc(UserActivity.CREATED_AT)));
         try {
             UserActivity update = new UserActivity();
+            User user = new User();
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
+                update.clear();
+                user.clear();
+
                 update.readFromCursor(updates);
-                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update, linkColor);
+                user.readPropertiesFromCursor(updates);
+                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update, user, linkColor);
                 if(noa != null)
                     items.add(noa);
             }
@@ -380,7 +387,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-//            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentPicture, item.title.toString(), fragment, imageCache);
+            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentPicture, item.title.toString(), fragment, imageCache);
         }
     }
 
@@ -421,7 +428,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), UpdateAdapter.UPDATE_TASK_COMMENT, true);
+        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, true);
     }
 
 
@@ -512,13 +519,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         @SuppressWarnings("nls")
-        public static NoteOrUpdate fromUpdate(UserActivity u, String linkColor) {
-            JSONObject user = ActFmPreferenceService.userFromModel(u);
+        public static NoteOrUpdate fromUpdate(UserActivity u, User user, String linkColor) {
+//            JSONObject user = ActFmPreferenceService.userFromModel(u);
 
             String commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
 
-            Spanned title = null; //UpdateAdapter.getUpdateComment(null, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
-            return new NoteOrUpdate(user.optString("picture"),
+            Spanned title = UpdateAdapter.getUpdateComment(null, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+            return new NoteOrUpdate(user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB),
                     title,
                     commentPicture,
                     u.getValue(UserActivity.CREATED_AT));
@@ -540,7 +547,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         addComment(String.format("%s %s",  //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_started),
                 DateUtilities.getTimeString(getContext(), new Date())),
-                UpdateAdapter.UPDATE_TASK_COMMENT,
+                UserActivity.ACTION_TASK_COMMENT,
                 false);
     }
 
@@ -551,7 +558,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 getContext().getString(R.string.TEA_timer_comment_stopped),
                 DateUtilities.getTimeString(getContext(), new Date()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
-                elapsedTime), UpdateAdapter.UPDATE_TASK_COMMENT, false);
+                elapsedTime), UserActivity.ACTION_TASK_COMMENT, false);
     }
 
     /*
