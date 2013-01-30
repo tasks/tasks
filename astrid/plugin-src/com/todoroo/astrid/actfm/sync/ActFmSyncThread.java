@@ -174,7 +174,6 @@ public class ActFmSyncThread {
                     Flags.checkAndClear(Flags.BG_SYNC);
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
-                    messageBatch.add(BriefMe.instantiateBriefMeForClass(UserActivity.class, NameMaps.PUSHED_AT_ACTIVITY));
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -253,6 +252,7 @@ public class ActFmSyncThread {
     private void repopulateQueueFromOutstandingTables() {
         constructChangesHappenedFromOutstandingTable(Task.class, taskDao, taskOutstandingDao);
         constructChangesHappenedFromOutstandingTable(TagData.class, tagDataDao, tagOutstandingDao);
+        constructChangesHappenedFromOutstandingTable(UserActivity.class, userActivityDao, userActivityOutstandingDao);
     }
 
     private <T extends RemoteModel, OE extends OutstandingEntry<T>> void constructChangesHappenedFromOutstandingTable(Class<T> modelClass, RemoteModelDao<T> modelDao, OutstandingEntryDao<OE> oustandingDao) {

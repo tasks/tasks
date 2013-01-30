@@ -70,7 +70,7 @@ public class UserActivity extends RemoteModel {
 
     /** Deleted at */
     public static final LongProperty DELETED_AT = new LongProperty(
-            TABLE, "created_at", Property.PROP_FLAG_DATE);
+            TABLE, "deleted_at", Property.PROP_FLAG_DATE);
 
     public UserActivity() {
         super();

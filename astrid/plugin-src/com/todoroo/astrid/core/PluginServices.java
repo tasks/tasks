@@ -73,7 +73,7 @@ public final class PluginServices {
     UserActivityDao userActivityDao;
 
     @Autowired
-    UserActivityOutstandingDao userActivityOustandingDao;
+    UserActivityOutstandingDao userActivityOutstandingDao;
 
     @Autowired
     TaskOutstandingDao taskOutstandingDao;
@@ -136,7 +136,7 @@ public final class PluginServices {
     }
 
     public static UserActivityOutstandingDao getUserActivityOutstandingDao() {
-        return getInstance().userActivityOustandingDao;
+        return getInstance().userActivityOutstandingDao;
     }
 
     public static ExceptionService getExceptionService() {
