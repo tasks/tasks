@@ -36,7 +36,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -92,9 +91,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     @Autowired
     private TagDataService tagDataService;
-
-    @Autowired
-    private UpdateDao updateDao;
 
     public GCMIntentService() {
         super();

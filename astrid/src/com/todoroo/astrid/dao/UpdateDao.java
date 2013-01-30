@@ -9,12 +9,14 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Update;
 
+
 /**
  * Data Access layer for {@link Update}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Deprecated
 public class UpdateDao extends RemoteModelDao<Update> {
 
     @Autowired Database database;

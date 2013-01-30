@@ -53,7 +53,6 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
@@ -94,7 +93,6 @@ public final class ActFmSyncService {
     @Autowired ActFmDataService actFmDataService;
     @Autowired TaskDao taskDao;
     @Autowired TagDataDao tagDataDao;
-    @Autowired UpdateDao updateDao;
     @Autowired UserDao userDao;
     @Autowired MetadataDao metadataDao;
     @Autowired ABTestEventReportingService abTestEventReportingService;
