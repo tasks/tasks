@@ -24,6 +24,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -61,11 +63,13 @@ public class Database extends AbstractDatabase {
         TagData.TABLE,
         Update.TABLE,
         User.TABLE,
+        UserActivity.TABLE,
         ABTestEvent.TABLE,
         TagMetadata.TABLE,
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
+        UserActivityOutstanding.TABLE,
     };
 
     // --- listeners
@@ -361,14 +365,14 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
+            database.execSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
+            database.execSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Update.TABLE, Update.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Update.TABLE, Update.TASK_UUID, visitor, null));
             database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
             database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));

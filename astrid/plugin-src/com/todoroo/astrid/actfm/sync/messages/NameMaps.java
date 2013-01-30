@@ -11,6 +11,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.data.UserActivity;
 
 @SuppressWarnings("nls")
 public class NameMaps {
@@ -25,10 +26,12 @@ public class NameMaps {
     public static final String TABLE_ID_TASKS = "tasks";
     public static final String TABLE_ID_TAGS = "tags";
     public static final String TABLE_ID_USERS = "users";
+    public static final String TABLE_ID_USER_ACTIVITY = "user_activity";
     public static final String TABLE_ID_PUSHED_AT = "pushed_at";
 
     public static final String PUSHED_AT_TASKS = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_TASKS;
     public static final String PUSHED_AT_TAGS = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_TAGS;
+    public static final String PUSHED_AT_ACTIVITY = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_USER_ACTIVITY;
 
     static {
         // Hardcoded local tables mapped to corresponding server names
@@ -36,6 +39,7 @@ public class NameMaps {
         TABLE_LOCAL_TO_SERVER.put(Task.TABLE, TABLE_ID_TASKS);
         TABLE_LOCAL_TO_SERVER.put(TagData.TABLE, TABLE_ID_TAGS);
         TABLE_LOCAL_TO_SERVER.put(User.TABLE, TABLE_ID_USERS);
+        TABLE_LOCAL_TO_SERVER.put(UserActivity.TABLE, TABLE_ID_USER_ACTIVITY);
 
         // Reverse the mapping to construct the server to local map
         TABLE_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TABLE_LOCAL_TO_SERVER);
@@ -68,6 +72,8 @@ public class NameMaps {
             return computeSyncableProperties(TASK_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_PROPERTIES_EXCLUDED);
         else if (TABLE_ID_TAGS.equals(table))
             return computeSyncableProperties(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER.keySet(), TAG_PROPERTIES_EXCLUDED);
+        else if (TABLE_ID_USER_ACTIVITY.equals(table))
+            return computeSyncableProperties(USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER.keySet(), USER_ACTIVITY_PROPERTIES_EXCLUDED);
         return null;
     }
 
@@ -199,12 +205,47 @@ public class NameMaps {
         USER_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(USER_PROPERTIES_LOCAL_TO_SERVER);
     }
 
+    // ----------
+    // User Activity
+    // ----------
+    private static final Map<Property<?>, String> USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER;
+    private static final Map<String, Property<?>> USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES;
+    private static final Map<String, String> USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER;
+    private static final Map<String, Property<?>> USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL;
+    private static final Set<String> USER_ACTIVITY_PROPERTIES_EXCLUDED;
+
+    private static void putUserActivityPropertyToServerName(Property<?> property, String serverName, boolean excludedFromOutstanding) {
+        putPropertyToServerName(property, serverName, USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER, USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES,
+                USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER, USER_ACTIVITY_PROPERTIES_EXCLUDED, excludedFromOutstanding);
+    }
+
+    static {
+        USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
+        USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
+        USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
+        USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<String>();
+
+        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
+        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
+        putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      false);
+        putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     false);
+        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     false);
+        putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   false);
+        putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
+        putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  false);
+        putUserActivityPropertyToServerName(UserActivity.DELETED_AT,  "deleted_at",  false);
+
+
+        // Reverse the mapping to construct the server to local map
+        USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(USER_PROPERTIES_LOCAL_TO_SERVER);
+    }
+
 
     // ----------
     // Mapping helpers
     // ----------
 
-    private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap) {
+    private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap, Map<A, B> userActivityMap) {
         Map<A, B> map = null;
         if (TABLE_ID_TASKS.equals(table))
             map = taskMap;
@@ -212,6 +253,8 @@ public class NameMaps {
             map = tagMap;
         else if (TABLE_ID_USERS.equals(table))
             map = userMap;
+        else if (TABLE_ID_USER_ACTIVITY.equals(table))
+            map = userActivityMap;
 
         if (map == null)
             return null;
@@ -226,20 +269,23 @@ public class NameMaps {
         } else if (TABLE_ID_TAGS.equals(table)) {
             if (TAG_DATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
                 return !TAG_PROPERTIES_EXCLUDED.contains(column);
+        } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
+            if (USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+                return !USER_ACTIVITY_PROPERTIES_EXCLUDED.contains(column);
         }
         return false;
     }
 
     public static String localColumnNameToServerColumnName(String table, String localColumn) {
-        return mapColumnName(table, localColumn, TASK_COLUMNS_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER, USER_COLUMNS_LOCAL_TO_SERVER);
+        return mapColumnName(table, localColumn, TASK_COLUMNS_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER, USER_COLUMNS_LOCAL_TO_SERVER, USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER);
     }
 
     public static Property<?> localColumnNameToProperty(String table, String localColumn) {
-        return mapColumnName(table, localColumn, TASK_COLUMN_NAMES_TO_PROPERTIES, TAG_DATA_COLUMN_NAMES_TO_PROPERTIES, USER_COLUMN_NAMES_TO_PROPERTIES);
+        return mapColumnName(table, localColumn, TASK_COLUMN_NAMES_TO_PROPERTIES, TAG_DATA_COLUMN_NAMES_TO_PROPERTIES, USER_COLUMN_NAMES_TO_PROPERTIES, USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES);
     }
 
     public static Property<?> serverColumnNameToLocalProperty(String table, String serverColumn) {
-        return mapColumnName(table, serverColumn, TASK_PROPERTIES_SERVER_TO_LOCAL, TAG_DATA_PROPERTIES_SERVER_TO_LOCAL, USER_PROPERTIES_SERVER_TO_LOCAL);
+        return mapColumnName(table, serverColumn, TASK_PROPERTIES_SERVER_TO_LOCAL, TAG_DATA_PROPERTIES_SERVER_TO_LOCAL, USER_PROPERTIES_SERVER_TO_LOCAL, USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL);
     }
 
 }

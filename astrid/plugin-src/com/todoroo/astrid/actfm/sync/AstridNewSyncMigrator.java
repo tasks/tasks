@@ -29,7 +29,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -120,15 +119,7 @@ public class AstridNewSyncMigrator {
             }
         });
 
-        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.UUID, Update.TASK).where(Criterion.or(Update.UUID.eq(RemoteModel.NO_UUID), Update.UUID.isNull()));
-        assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao, null, null, null, new UUIDAssertionExtras<Update>() {
-            @Override
-            public void beforeSave(Update instance) {
-                // Migrate Update.TASK long to Update.TASK_UUID string
-                if (instance.getValue(Update.TASK) != 0)
-                    instance.setValue(Update.TASK_UUID, Long.toString(instance.getValue(Update.TASK)));
-            }
-        });
+        // TODO: Migrate updates here, somehow
 
 
         // --------------

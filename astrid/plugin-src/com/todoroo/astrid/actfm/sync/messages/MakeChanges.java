@@ -102,6 +102,8 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                         pushedAtKey = NameMaps.PUSHED_AT_TASKS;
                     else if (NameMaps.TABLE_ID_TAGS.equals(uuid))
                         pushedAtKey = NameMaps.PUSHED_AT_TAGS;
+                    else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(uuid))
+                        pushedAtKey = NameMaps.PUSHED_AT_ACTIVITY;
 
                     if (pushedAtKey != null)
                         Preferences.setLong(pushedAtKey, tablePushedAt);

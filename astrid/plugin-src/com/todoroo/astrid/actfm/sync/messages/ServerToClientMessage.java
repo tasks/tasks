@@ -7,6 +7,7 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.data.UserActivity;
 
 @SuppressWarnings("nls")
 public abstract class ServerToClientMessage {
@@ -47,6 +48,8 @@ public abstract class ServerToClientMessage {
             return new MakeChanges<TagData>(json, PluginServices.getTagDataDao(), pushedAt);
         else if (NameMaps.TABLE_ID_USERS.equals(table))
             return new MakeChanges<User>(json, PluginServices.getUserDao(), pushedAt);
+        else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
+            return new MakeChanges<UserActivity>(json, PluginServices.getUserActivityDao(), pushedAt);
         else if (NameMaps.TABLE_ID_PUSHED_AT.equals(table))
             return new MakeChanges<RemoteModel>(json, null, 0);
         else

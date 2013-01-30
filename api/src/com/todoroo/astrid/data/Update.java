@@ -24,6 +24,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
  *
  */
 @SuppressWarnings("nls")
+@Deprecated
 public class Update extends RemoteModel {
 
     // --- table

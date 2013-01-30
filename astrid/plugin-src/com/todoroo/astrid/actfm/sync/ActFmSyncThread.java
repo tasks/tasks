@@ -33,12 +33,16 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
+import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
+import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.utility.Flags;
 
 public class ActFmSyncThread {
@@ -66,6 +70,12 @@ public class ActFmSyncThread {
 
     @Autowired
     private TagOutstandingDao tagOutstandingDao;
+
+    @Autowired
+    private UserActivityDao userActivityDao;
+
+    @Autowired
+    private UserActivityOutstandingDao userActivityOutstandingDao;
 
     private String token;
 
@@ -230,6 +240,7 @@ public class ActFmSyncThread {
     private void replayOutstandingChanges(boolean afterErrors) {
         new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, this, afterErrors).execute();
         new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, this, afterErrors).execute();
+        new ReplayOutstandingEntries<UserActivity, UserActivityOutstanding>(UserActivity.class, NameMaps.TABLE_ID_USER_ACTIVITY, userActivityDao, userActivityOutstandingDao, this, afterErrors).execute();
     }
 
     private boolean timeForBackgroundSync() {
