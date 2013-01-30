@@ -55,6 +55,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -108,6 +109,8 @@ public class TagViewFragment extends TaskListFragment {
     @Autowired SyncV2Service syncService;
 
     @Autowired UserDao userDao;
+
+    @Autowired TagMetadataDao tagMetadataDao;
 
     protected View taskListView;
 
@@ -390,6 +393,25 @@ public class TagViewFragment extends TaskListFragment {
                     }
                 } finally {
                     users.close();
+                }
+
+                TodorooCursor<TagMetadata> byEmail = tagMetadataDao.query(Query.select(TagMemberMetadata.USER_UUID)
+                        .where(Criterion.and(TagMetadata.TAG_UUID.eq(tagData.getUuid()),
+                                TagMemberMetadata.USER_UUID.like("%@%")))); //$NON-NLS-1$
+                try {
+                    TagMetadata tm = new TagMetadata();
+                    for (byEmail.moveToFirst(); !byEmail.isAfterLast(); byEmail.moveToNext()) {
+                        tm.clear();
+                        tm.readFromCursor(byEmail);
+                        String email = tm.getValue(TagMemberMetadata.USER_UUID);
+                        if (!TextUtils.isEmpty(email)) {
+                            JSONObject member = new JSONObject();
+                            member.put("email", email); //$NON-NLS-1$
+                            addImageForMember(membersView, member);
+                        }
+                    }
+                } finally {
+                    byEmail.close();
                 }
             }
         } catch (JSONException e) {
