@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -22,6 +23,9 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 
+	private static final LongProperty TASK_REMOTE_ID_FIELD = new LongProperty(Task.TABLE, RemoteModel.UUID_PROPERTY_NAME);
+	private static final LongProperty TAG_REMOTE_ID_FIELD = new LongProperty(TagData.TABLE, RemoteModel.UUID_PROPERTY_NAME);
+	
 	@Autowired
 	private MetadataDao metadataDao;
 	
@@ -38,11 +42,11 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 		// Init 5 unsynced tasks and tags
 		for (int i = 1; i <= 5; i++) {
 			Task task = createTask("Task " + i, true);
-			task.setValue(Task.REMOTE_ID, null);
+			task.setValue(TASK_REMOTE_ID_FIELD, 0L);
 			taskDao.save(task);
 			
 			TagData tag = createTagData("Tag " + i, true);
-			tag.setValue(TagData.REMOTE_ID, null);
+			tag.setValue(TAG_REMOTE_ID_FIELD, 0L);
 			tagDataDao.saveExisting(tag);
 		}
 		

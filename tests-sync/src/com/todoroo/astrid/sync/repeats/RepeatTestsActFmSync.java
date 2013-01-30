@@ -124,7 +124,7 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     protected Task assertTaskExistsRemotely(Task t, long expectedDueDate) {
         Task remote = new Task();
         try {
-            ActFmSyncService.JsonHelper.taskFromJson(invoker.invoke("task_show", "id", t.getValue(Task.REMOTE_ID)), remote,
+            ActFmSyncService.JsonHelper.taskFromJson(invoker.invoke("task_show", "id", t.getValue(Task.UUID)), remote,
                     new ArrayList<Metadata>());
             assertTimesMatch(expectedDueDate, remote.getValue(Task.DUE_DATE).longValue());
         } catch (Exception e) {

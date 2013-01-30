@@ -19,7 +19,7 @@ public class RepeatTestsActFmSyncRemote extends RepeatTestsActFmSync {
         ArrayList<Object> params = new ArrayList<Object>();
         params.add("completed"); params.add(completionDate / 1000L);
 
-        params.add("id"); params.add(remoteModel.getValue(Task.REMOTE_ID));
+        params.add("id"); params.add(remoteModel.getValue(Task.UUID));
         try {
             invoker.invoke("task_save", params.toArray(new Object[params.size()]));
         } catch (Exception e) {
