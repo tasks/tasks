@@ -86,6 +86,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
@@ -101,8 +102,8 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -910,6 +911,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
 
+    public static final String USER_IMAGE_JOIN = "for_images"; // //$NON-NLS-1$
+
     /**
      * Fill in the Task List with current items
      *
@@ -969,6 +972,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                                 Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString() //$NON-NLS-1$
                 + Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
                         tagsJoinCriterion).toString() //$NON-NLS-1$
+                + Join.left(User.TABLE.as(USER_IMAGE_JOIN), Task.USER_ID.eq(User.UUID)).toString()
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(

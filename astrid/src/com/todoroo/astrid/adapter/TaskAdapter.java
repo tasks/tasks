@@ -80,7 +80,9 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -140,6 +142,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.USER,
         Task.REMINDER_LAST,
         Task.SOCIAL_REMINDER,
+        User.PICTURE,
         TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
         TAGS // Concatenated list of tags
     };
@@ -390,6 +393,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (!titleOnlyLayout) {
             viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
+            viewHolder.imageUrl = RemoteModel.getPictureUrlFromCursor(cursor, User.PICTURE, RemoteModel.PICTURE_THUMB);
         }
 
         Task task = viewHolder.task;
@@ -422,6 +426,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ImageView taskActionIcon;
         public boolean isTaskRabbit; // From join query, not part of the task model
         public String tagsString; // From join query, not part of the task model
+        public String imageUrl; // From join query, not part of the task model
 
         public View[] decorations;
     }
@@ -1145,12 +1150,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
                         else {
                             pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
-                            try {
-                                JSONObject user = new JSONObject(task.getValue(Task.USER));
-                                pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
-                            } catch (JSONException e) {
-                                if (Task.isRealUserId(task.getValue(Task.USER_ID))) {
-                                    // TODO: Implement a join here
+                            if (!TextUtils.isEmpty(viewHolder.imageUrl)) {
+                                pictureView.setUrl(viewHolder.imageUrl);
+                            } else if (!TextUtils.isEmpty(task.getValue(Task.USER))) {
+                                try {
+                                    JSONObject user = new JSONObject(task.getValue(Task.USER));
+                                    pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
+                                } catch (JSONException e) {
+                                    //
                                 }
                             }
                         }

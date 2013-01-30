@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 
 /**
  * A model that is synchronized to a remote server and has a remote id
@@ -81,6 +82,16 @@ abstract public class RemoteModel extends AbstractModel {
 
     public String getPictureUrl(StringProperty pictureProperty, String size) {
         String value = getValue(pictureProperty);
+        try {
+            JSONObject pictureJson = new JSONObject(value);
+            return pictureJson.optString(size);
+        } catch (JSONException e) {
+            return value;
+        }
+    }
+
+    public static String getPictureUrlFromCursor(TodorooCursor<?> cursor, StringProperty pictureProperty, String size) {
+        String value = cursor.get(pictureProperty);
         try {
             JSONObject pictureJson = new JSONObject(value);
             return pictureJson.optString(size);
