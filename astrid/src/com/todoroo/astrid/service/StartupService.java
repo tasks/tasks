@@ -52,6 +52,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -101,6 +102,8 @@ public class StartupService {
     @Autowired TaskDao taskDao;
 
     @Autowired TagDataDao tagDataDao;
+
+    @Autowired UserActivityDao userActivityDao;
 
     @Autowired MetadataService metadataService;
 
@@ -215,7 +218,7 @@ public class StartupService {
         abTestInvoker.reportAcquisition();
 
         initializeDatabaseListeners();
-        ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao);
+        ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao, userActivityDao);
 
         // perform startup activities in a background thread
         new Thread(new Runnable() {

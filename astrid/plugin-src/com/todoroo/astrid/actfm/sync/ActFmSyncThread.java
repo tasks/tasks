@@ -81,7 +81,8 @@ public class ActFmSyncThread {
 
     public static enum ModelType {
         TYPE_TASK,
-        TYPE_TAG
+        TYPE_TAG,
+        TYPE_ACTIVITY
     }
 
     private static volatile ActFmSyncThread instance;
@@ -90,14 +91,14 @@ public class ActFmSyncThread {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
-                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao());
+                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao());
                 }
             }
         }
         return instance;
     }
 
-    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao) {
+    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao) {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
@@ -108,6 +109,7 @@ public class ActFmSyncThread {
 
                     taskDao.addListener(new SyncDatabaseListener<Task>(instance, ModelType.TYPE_TASK));
                     tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
+                    userActivityDao.addListener(new SyncDatabaseListener<UserActivity>(instance, ModelType.TYPE_ACTIVITY));
 
                     instance.startSyncThread();
                 }
@@ -172,6 +174,7 @@ public class ActFmSyncThread {
                     Flags.checkAndClear(Flags.BG_SYNC);
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
+                    messageBatch.add(BriefMe.instantiateBriefMeForClass(UserActivity.class, NameMaps.PUSHED_AT_ACTIVITY));
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {

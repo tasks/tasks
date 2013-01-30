@@ -27,6 +27,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
+import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.data.UserActivityOutstanding;
 
 @SuppressWarnings("nls")
 public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
@@ -47,6 +49,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         case TYPE_TAG:
             return new ChangesHappened<TagData, TagOutstanding>(id, TagData.class,
                     PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao());
+        case TYPE_ACTIVITY:
+            return new ChangesHappened<UserActivity, UserActivityOutstanding>(id, UserActivity.class,
+                    PluginServices.getUserActivityDao(), PluginServices.getUserActivityOutstandingDao());
         default:
             return null;
         }
