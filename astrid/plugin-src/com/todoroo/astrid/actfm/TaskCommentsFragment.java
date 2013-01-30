@@ -7,14 +7,12 @@ import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.StatisticsConstants;
 
 public class TaskCommentsFragment extends CommentsFragment {
@@ -55,11 +53,7 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        if (!task.containsNonNullValue(Task.UUID))
-            return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())).orderBy(Order.desc(Update.CREATION_DATE)));
-        else
-            return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
-                    Update.TASK.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))).orderBy(Order.desc(Update.CREATION_DATE)));
+        return userActivityDao.query(Query.select(UserActivity.PROPERTIES).where(UserActivity.TARGET_ID.eq(task.getUuid())));
     }
 
     @Override
@@ -84,16 +78,14 @@ public class TaskCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected Update createUpdate() {
-        Update update = new Update();
-        update.setValue(Update.MESSAGE, addCommentField.getText().toString());
-        update.setValue(Update.ACTION_CODE, UpdateAdapter.UPDATE_TASK_COMMENT);
-        update.setValue(Update.USER_ID, Task.USER_ID_SELF);
-        if (task.containsNonNullValue(Task.UUID))
-            update.setValue(Update.TASK_UUID, task.getValue(Task.UUID));
-        update.setValue(Update.TASK_LOCAL, task.getId());
-        update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));
+    protected UserActivity createUpdate() {
+        UserActivity update = new UserActivity();
+        update.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
+        update.setValue(UserActivity.ACTION, UpdateAdapter.UPDATE_TASK_COMMENT);
+        update.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
+        update.setValue(UserActivity.TARGET_ID, task.getUuid());
+        update.setValue(UserActivity.TARGET_NAME, task.getValue(Task.TITLE));
+        update.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return update;
     }
 

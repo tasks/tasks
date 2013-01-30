@@ -27,7 +27,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -46,7 +45,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -60,12 +58,11 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
@@ -88,7 +85,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired MetadataService metadataService;
-    @Autowired UpdateDao updateDao;
+    @Autowired UserActivityDao userActivityDao;
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private EditText commentField;
@@ -286,16 +283,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
 
-        TodorooCursor<Update> updates;
-        if (!task.containsNonNullValue(Task.UUID)) {
-            updates = updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())).orderBy(Order.desc(Update.CREATION_DATE)));
-        }
-        else  {
-            updates = updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
-                    Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))).orderBy(Order.desc(Update.CREATION_DATE)));
-        }
+        TodorooCursor<UserActivity> updates = userActivityDao.query(Query.select(UserActivity.PROPERTIES)
+                .where(UserActivity.TARGET_ID.eq(task.getUuid()))
+                .orderBy(Order.desc(UserActivity.CREATED_AT)));
         try {
-            Update update = new Update();
+            UserActivity update = new UserActivity();
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.readFromCursor(updates);
                 NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update, linkColor);
@@ -439,39 +431,38 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if (TextUtils.isEmpty(message) && usePicture) {
             message = " ";
         }
-        Update update = new Update();
-        update.setValue(Update.MESSAGE, message);
-        update.setValue(Update.ACTION_CODE, actionCode);
-        update.setValue(Update.USER_ID, Task.USER_ID_SELF);
-        if(task.containsNonNullValue(Task.UUID) && !RemoteModel.NO_UUID.equals(task.getValue(Task.UUID)))
-            update.setValue(Update.TASK_UUID, task.getValue(Task.UUID));
-        update.setValue(Update.TASK_LOCAL, task.getId());
-        update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));
+        UserActivity userActivity = new UserActivity();
+        userActivity.setValue(UserActivity.MESSAGE, message);
+        userActivity.setValue(UserActivity.ACTION, actionCode);
+        userActivity.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
+        userActivity.setValue(UserActivity.TARGET_ID, task.getUuid());
+        userActivity.setValue(UserActivity.TARGET_NAME, task.getValue(Task.TITLE));
+        userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
 
-        if (usePicture && pendingCommentPicture != null) {
-            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
-            try {
-                String updateString = ImageDiskCache.getPictureHash(update);
-                imageCache.put(updateString, pendingCommentPicture);
-                update.setValue(Update.PICTURE, updateString);
-            }
-            catch (Exception e) {
-                Log.e("EditNoteActivity", "Failed to put image to disk...");
-            }
-        }
-        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        updateDao.createNew(update);
-
-        final long updateId = update.getId();
-        final Bitmap tempPicture = usePicture ? pendingCommentPicture : null;
-        new Thread() {
-            @Override
-            public void run() {
-                actFmSyncService.pushUpdate(updateId, tempPicture);
-
-            }
-        }.start();
+        // TODO: Fix picture uploading
+//        if (usePicture && pendingCommentPicture != null) {
+//            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
+//            try {
+//                String updateString = ImageDiskCache.getPictureHash(update);
+//                imageCache.put(updateString, pendingCommentPicture);
+//                update.setValue(Update.PICTURE, updateString);
+//            }
+//            catch (Exception e) {
+//                Log.e("EditNoteActivity", "Failed to put image to disk...");
+//            }
+//        }
+//        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        userActivityDao.createNew(userActivity);
+//
+//        final long updateId = userActivity.getId();
+//        final Bitmap tempPicture = usePicture ? pendingCommentPicture : null;
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                actFmSyncService.pushUpdate(updateId, tempPicture);
+//
+//            }
+//        }.start();
         commentField.setText(""); //$NON-NLS-1$
 
         pendingCommentPicture = usePicture ? null : pendingCommentPicture;
@@ -521,16 +512,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         @SuppressWarnings("nls")
-        public static NoteOrUpdate fromUpdate(Update u, String linkColor) {
+        public static NoteOrUpdate fromUpdate(UserActivity u, String linkColor) {
             JSONObject user = ActFmPreferenceService.userFromModel(u);
 
-            String commentPicture = u.getPictureUrl(Update.PICTURE, RemoteModel.PICTURE_MEDIUM);
+            String commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
 
             Spanned title = UpdateAdapter.getUpdateComment(null, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
             return new NoteOrUpdate(user.optString("picture"),
                     title,
                     commentPicture,
-                    u.getValue(Update.CREATION_DATE));
+                    u.getValue(UserActivity.CREATED_AT));
         }
 
     }

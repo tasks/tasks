@@ -16,10 +16,10 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 
 /**
  * Service layer for {@link TagData}-centered activities.
@@ -31,7 +31,7 @@ public class TagDataService {
 
     @Autowired TagDataDao tagDataDao;
     @Autowired TaskDao taskDao;
-    @Autowired UpdateDao updateDao;
+    @Autowired UserActivityDao userActivityDao;
 
     public TagDataService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -136,24 +136,24 @@ public class TagDataService {
      * Get updates for this tagData
      * @return
      */
-    public TodorooCursor<Update> getUpdates(TagData tagData) {
+    public TodorooCursor<UserActivity> getUpdates(TagData tagData) {
         return getUpdatesWithExtraCriteria(tagData, Criterion.all);
     }
 
     @SuppressWarnings("nls")
-    public TodorooCursor<Update> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion) {
+    public TodorooCursor<UserActivity> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion) {
         if (tagData == null)
-            return updateDao.query(Query.select(Update.PROPERTIES).where(
+            return updateDao.query(Query.select(UserActivity.PROPERTIES).where(
                     criterion).
-                    orderBy(Order.desc(Update.CREATION_DATE)));
+                    orderBy(Order.desc(UserActivity.CREATED_AT)));
 
         if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
-            return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")).orderBy(Order.desc(Update.CREATION_DATE)));
+            return updateDao.query(Query.select(UserActivity.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")).orderBy(Order.desc(Update.CREATION_DATE)));
 
-        return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
+        return updateDao.query(Query.select(UserActivity.PROPERTIES).where(Criterion.and(criterion,
                 Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%"),
                 Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")))).
-                orderBy(Order.desc(Update.CREATION_DATE)));
+                orderBy(Order.desc(UserActivity.CREATED_AT)));
     }
 
     /**
@@ -161,19 +161,19 @@ public class TagDataService {
      * @param tagData
      * @return
      */
-    public Update getLatestUpdate(TagData tagData) {
+    public UserActivity getLatestUpdate(TagData tagData) {
         if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
             return null;
 
         @SuppressWarnings("nls")
-        TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                Update.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%")).
+        TodorooCursor<UserActivity> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
+                UserActivity.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%")).
                 orderBy(Order.desc(Update.CREATION_DATE)).limit(1));
         try {
             if(updates.getCount() == 0)
                 return null;
             updates.moveToFirst();
-            return new Update(updates);
+            return new UserActivity(updates);
         } finally {
             updates.close();
         }

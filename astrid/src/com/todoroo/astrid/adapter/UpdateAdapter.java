@@ -45,7 +45,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 
@@ -130,7 +130,7 @@ public class UpdateAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         ViewGroup view = (ViewGroup)inflater.inflate(resource, parent, false);
 
-        view.setTag(new Update());
+        view.setTag(new UserActivity());
 
         // populate view content
         bindView(view, context, cursor);
@@ -141,8 +141,8 @@ public class UpdateAdapter extends CursorAdapter {
     /** Populates a view with content */
     @Override
     public void bindView(View view, Context context, Cursor c) {
-        TodorooCursor<Update> cursor = (TodorooCursor<Update>)c;
-        Update update = ((Update) view.getTag());
+        TodorooCursor<UserActivity> cursor = (TodorooCursor<UserActivity>)c;
+        UserActivity update = ((UserActivity) view.getTag());
         update.clear();
         update.readFromCursor(cursor);
 
@@ -151,7 +151,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     /** Helper method to set the contents and visibility of each field */
     @SuppressWarnings("nls")
-    public synchronized void setFieldContentsAndVisibility(View view, Update update) {
+    public synchronized void setFieldContentsAndVisibility(View view, UserActivity update) {
         JSONObject user = ActFmPreferenceService.userFromModel(update);
 
         // picture
@@ -161,9 +161,9 @@ public class UpdateAdapter extends CursorAdapter {
         }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            final String updatePicture = update.getPictureUrl(Update.PICTURE, RemoteModel.PICTURE_THUMB);
+            final String updatePicture = update.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_THUMB);
             setupImagePopupForCommentView(view, commentPictureView, updatePicture,
-                    update.getValue(Update.MESSAGE), fragment, imageCache);
+                    update.getValue(UserActivity.MESSAGE), fragment, imageCache);
         }
 
         // name
@@ -175,7 +175,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         // date
         final TextView date = (TextView)view.findViewById(R.id.date); {
-            CharSequence dateString = DateUtils.getRelativeTimeSpanString(update.getValue(Update.CREATION_DATE),
+            CharSequence dateString = DateUtils.getRelativeTimeSpanString(update.getValue(UserActivity.CREATED_AT),
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
             date.setText(dateString);
@@ -235,25 +235,25 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    public static Spanned getUpdateComment (final AstridActivity activity, Update update, JSONObject user, String linkColor, String fromView) {
+    public static Spanned getUpdateComment (final AstridActivity activity, UserActivity update, JSONObject user, String linkColor, String fromView) {
         if (user == null)
             user = ActFmPreferenceService.userFromModel(update);
 
         JSONObject otherUser = null;
         try {
-            otherUser = new JSONObject(update.getValue(Update.OTHER_USER));
+            otherUser = new JSONObject(update.getValue(UserActivity.OTHER_USER));
         } catch (JSONException e) {
             otherUser = new JSONObject();
         }
 
-        return getUpdateComment(activity, update, update.getValue(Update.ACTION_CODE),
-                user.optString("name"), update.getValue(Update.TARGET_NAME),
-                update.getValue(Update.MESSAGE), otherUser.optString("name"),
-                update.getValue(Update.ACTION), linkColor, fromView);
+        return getUpdateComment(activity, update, update.getValue(UserActivity.ACTION),
+                user.optString("name"), update.getValue(UserActivity.TARGET_NAME),
+                update.getValue(UserActivity.MESSAGE), otherUser.optString("name"),
+                linkColor, fromView);
     }
 
-    public static Spanned getUpdateComment (final AstridActivity activity, Update update, String actionCode, String user, String targetName,
-            String message, String otherUser, String action, String linkColor, String fromView) {
+    public static Spanned getUpdateComment (final AstridActivity activity, UserActivity update, String actionCode, String user, String targetName,
+            String message, String otherUser, String linkColor, String fromView) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);
         }
@@ -337,7 +337,7 @@ public class UpdateAdapter extends CursorAdapter {
 
                 String linkType = m.group(1);
                 CharSequence link = getLinkSpan(activity, update, actionCode, user,
-                        targetName, message, otherUser, action, linkColor, linkType);
+                        targetName, message, otherUser, linkColor, linkType);
                 if (link != null) {
                     builder.append(link);
                     if (!m.hitEnd()) {
@@ -357,12 +357,12 @@ public class UpdateAdapter extends CursorAdapter {
         return builder;
     }
 
-    private static CharSequence getLinkSpan(final AstridActivity activity, Update update, String actionCode, String user, String targetName,
-            String message, String otherUser, String action, String linkColor, String linkType) {
+    private static CharSequence getLinkSpan(final AstridActivity activity, UserActivity update, String actionCode, String user, String targetName,
+            String message, String otherUser, String linkColor, String linkType) {
         if (TASK_LINK_TYPE.equals(linkType)) {
-            long taskId = update.getValue(Update.TASK_LOCAL);
+            long taskId = update.getValue(UserActivity.TASK_LOCAL);
             if (taskId <= 0) {
-                Task local = PluginServices.getTaskService().fetchByUUID(update.getValue(Update.TASK_UUID), Task.ID);
+                Task local = PluginServices.getTaskService().fetchByUUID(update.getValue(UserActivity.TASK_UUID), Task.ID);
                 if (local != null)
                     taskId = local.getId();
             }

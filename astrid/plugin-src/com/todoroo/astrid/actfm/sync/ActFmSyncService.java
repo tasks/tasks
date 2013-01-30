@@ -61,12 +61,10 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -175,25 +173,25 @@ public final class ActFmSyncService {
             }
         });
 
-        updateDao.addListener(new ModelUpdateListener<Update>() {
-            @Override
-            public void onModelUpdated(final Update model, boolean outstandingEntries) {
-                if(model.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC))
-                    return;
-                if (actFmPreferenceService.isOngoing())
-                    return;
-                final ContentValues setValues = model.getSetValues();
-                if(setValues == null || !checkForToken() || RemoteModel.isValidUuid(model.getValue(Update.UUID)))
-                    return;
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        pushUpdateOnSave(model, setValues, null);
-                    }
-                }).start();
-            }
-        });
+//        updateDao.addListener(new ModelUpdateListener<Update>() {
+//            @Override
+//            public void onModelUpdated(final Update model, boolean outstandingEntries) {
+//                if(model.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC))
+//                    return;
+//                if (actFmPreferenceService.isOngoing())
+//                    return;
+//                final ContentValues setValues = model.getSetValues();
+//                if(setValues == null || !checkForToken() || RemoteModel.isValidUuid(model.getValue(Update.UUID)))
+//                    return;
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        pushUpdateOnSave(model, setValues, null);
+//                    }
+//                }).start();
+//            }
+//        });
 
         tagDataDao.addListener(new ModelUpdateListener<TagData>() {
             @Override
@@ -242,9 +240,9 @@ public final class ActFmSyncService {
                             case PUSH_TYPE_TAG:
                                 pushTag(pushOp.itemId);
                                 break;
-                            case PUSH_TYPE_UPDATE:
-                                pushUpdate(pushOp.itemId);
-                                break;
+//                            case PUSH_TYPE_UPDATE:
+//                                pushUpdate(pushOp.itemId);
+//                                break;
                             }
                         }
                     }
@@ -304,58 +302,58 @@ public final class ActFmSyncService {
 
     // --- data push methods
 
-    /**
-     * Synchronize with server when data changes
-     */
-    public void pushUpdateOnSave(Update update, ContentValues values, Bitmap imageData) {
-        if(!values.containsKey(Update.MESSAGE.name))
-            return;
-
-        ArrayList<Object> params = new ArrayList<Object>();
-        params.add("message"); params.add(update.getValue(Update.MESSAGE));
-
-        if(update.getValue(Update.TAGS).length() > 0) {
-            String tagId = update.getValue(Update.TAGS);
-            tagId = tagId.substring(1, tagId.indexOf(',', 1));
-            params.add("tag_id"); params.add(tagId);
-        }
-
-        if(!RemoteModel.NO_UUID.equals(update.getValue(Update.TASK_UUID))) {
-            params.add("task_id"); params.add(update.getValue(Update.TASK_UUID));
-        }
-        MultipartEntity picture = null;
-        if (imageData != null) {
-            picture = buildPictureData(imageData);
-        }
-        if(!checkForToken())
-            return;
-
-        try {
-            params.add("token"); params.add(token);
-            JSONObject result;
-            if (picture == null)
-                result = actFmInvoker.invoke("comment_add", params.toArray(new Object[params.size()]));
-            else
-                result = actFmInvoker.post("comment_add", picture, params.toArray(new Object[params.size()]));
-            update.setValue(Update.UUID, Long.toString(result.optLong("id")));
-            ImageDiskCache imageCache = ImageDiskCache.getInstance();
-            //TODO figure out a way to replace local image files with the url
-            String commentPicture = result.optString("picture");
-            if (!TextUtils.isEmpty(commentPicture)) {
-                String cachedPicture = update.getValue(Update.PICTURE);
-                if (!TextUtils.isEmpty(cachedPicture) && imageCache.contains(cachedPicture)) {
-                    imageCache.move(update.getValue(Update.PICTURE), commentPicture);
-                }
-                update.setValue(Update.PICTURE, result.optString("picture"));
-            }
-
-            updateDao.saveExisting(update);
-        } catch (IOException e) {
-            if (notPermanentError(e))
-                addFailedPush(new FailedPush(PUSH_TYPE_UPDATE, update.getId()));
-            handleException("task-save", e);
-        }
-    }
+//    /**
+//     * Synchronize with server when data changes
+//     */
+//    public void pushUpdateOnSave(Update update, ContentValues values, Bitmap imageData) {
+//        if(!values.containsKey(Update.MESSAGE.name))
+//            return;
+//
+//        ArrayList<Object> params = new ArrayList<Object>();
+//        params.add("message"); params.add(update.getValue(Update.MESSAGE));
+//
+//        if(update.getValue(Update.TAGS).length() > 0) {
+//            String tagId = update.getValue(Update.TAGS);
+//            tagId = tagId.substring(1, tagId.indexOf(',', 1));
+//            params.add("tag_id"); params.add(tagId);
+//        }
+//
+//        if(!RemoteModel.NO_UUID.equals(update.getValue(Update.TASK_UUID))) {
+//            params.add("task_id"); params.add(update.getValue(Update.TASK_UUID));
+//        }
+//        MultipartEntity picture = null;
+//        if (imageData != null) {
+//            picture = buildPictureData(imageData);
+//        }
+//        if(!checkForToken())
+//            return;
+//
+//        try {
+//            params.add("token"); params.add(token);
+//            JSONObject result;
+//            if (picture == null)
+//                result = actFmInvoker.invoke("comment_add", params.toArray(new Object[params.size()]));
+//            else
+//                result = actFmInvoker.post("comment_add", picture, params.toArray(new Object[params.size()]));
+//            update.setValue(Update.UUID, Long.toString(result.optLong("id")));
+//            ImageDiskCache imageCache = ImageDiskCache.getInstance();
+//            //TODO figure out a way to replace local image files with the url
+//            String commentPicture = result.optString("picture");
+//            if (!TextUtils.isEmpty(commentPicture)) {
+//                String cachedPicture = update.getValue(Update.PICTURE);
+//                if (!TextUtils.isEmpty(cachedPicture) && imageCache.contains(cachedPicture)) {
+//                    imageCache.move(update.getValue(Update.PICTURE), commentPicture);
+//                }
+//                update.setValue(Update.PICTURE, result.optString("picture"));
+//            }
+//
+//            updateDao.saveExisting(update);
+//        } catch (IOException e) {
+//            if (notPermanentError(e))
+//                addFailedPush(new FailedPush(PUSH_TYPE_UPDATE, update.getId()));
+//            handleException("task-save", e);
+//        }
+//    }
 
     private boolean notPermanentError(Exception e) {
         return !(e instanceof ActFmServiceException);
@@ -567,24 +565,24 @@ public final class ActFmSyncService {
             pushTagDataOnSave(tagData, tagData.getMergedValues());
     }
 
-    /**
-     * Synchronize complete update with server
-     * @param update id
-     */
-    public void pushUpdate(long updateId) {
-        Update update = updateDao.fetch(updateId, Update.PROPERTIES);
-        if (update != null)
-            pushUpdateOnSave(update, update.getMergedValues(), null);
-    }
-
-    /**
-     * Push complete update with new image to server (used for new comments)
-     */
-
-    public void pushUpdate(long updateId, Bitmap imageData) {
-        Update update = updateDao.fetch(updateId, Update.PROPERTIES);
-        pushUpdateOnSave(update, update.getMergedValues(), imageData);
-    }
+//    /**
+//     * Synchronize complete update with server
+//     * @param update id
+//     */
+//    public void pushUpdate(long updateId) {
+//        Update update = updateDao.fetch(updateId, Update.PROPERTIES);
+//        if (update != null)
+//            pushUpdateOnSave(update, update.getMergedValues(), null);
+//    }
+//
+//    /**
+//     * Push complete update with new image to server (used for new comments)
+//     */
+//
+//    public void pushUpdate(long updateId, Bitmap imageData) {
+//        Update update = updateDao.fetch(updateId, Update.PROPERTIES);
+//        pushUpdateOnSave(update, update.getMergedValues(), imageData);
+//    }
 
     //----------------- Push ordering
     public void pushTagOrderingOnSave(long tagDataId) {
@@ -1273,53 +1271,53 @@ public final class ActFmSyncService {
 //        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
 //        pushQueuedUpdates(cursor);
 //    }
-
-    private void pushQueuedUpdatesForTask(Task task) {
-        Criterion criterion = null;
-        if (task.containsNonNullValue(Task.UUID)) {
-            criterion = Criterion.and(Update.UUID.eq(0),
-                    Criterion.or(Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId())));
-        } else
-            return;
-
-        Update template = new Update();
-        template.setValue(Update.TASK_UUID, task.getValue(Task.UUID)); //$NON-NLS-1$
-        updateDao.update(criterion, template);
-
-        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
-        pushQueuedUpdates(cursor);
-    }
-
-    private void pushAllQueuedUpdates() {
-        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(Update.UUID.eq(0)));
-        pushQueuedUpdates(cursor);
-    }
-
-    private void pushQueuedUpdates( TodorooCursor<Update> cursor) {
-
-        try {
-            final ImageDiskCache imageCache = ImageDiskCache.getInstance();
-            for(int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToNext();
-                final Update update = new Update(cursor);
-                new Thread(new Runnable() {
-                    public void run() {
-                        Bitmap picture = null;
-                        if(imageCache != null && imageCache.contains(update.getValue(Update.PICTURE))) {
-                            try {
-                                picture = imageCache.get(update.getValue(Update.PICTURE));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        pushUpdate(update.getId(), picture);
-                    }
-                }).start();
-            }
-        } finally {
-            cursor.close();
-        }
-    }
+//
+//    private void pushQueuedUpdatesForTask(Task task) {
+//        Criterion criterion = null;
+//        if (task.containsNonNullValue(Task.UUID)) {
+//            criterion = Criterion.and(Update.UUID.eq(0),
+//                    Criterion.or(Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId())));
+//        } else
+//            return;
+//
+//        Update template = new Update();
+//        template.setValue(Update.TASK_UUID, task.getValue(Task.UUID)); //$NON-NLS-1$
+//        updateDao.update(criterion, template);
+//
+//        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
+//        pushQueuedUpdates(cursor);
+//    }
+//
+//    private void pushAllQueuedUpdates() {
+//        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(Update.UUID.eq(0)));
+//        pushQueuedUpdates(cursor);
+//    }
+//
+//    private void pushQueuedUpdates( TodorooCursor<Update> cursor) {
+//
+//        try {
+//            final ImageDiskCache imageCache = ImageDiskCache.getInstance();
+//            for(int i = 0; i < cursor.getCount(); i++) {
+//                cursor.moveToNext();
+//                final Update update = new Update(cursor);
+//                new Thread(new Runnable() {
+//                    public void run() {
+//                        Bitmap picture = null;
+//                        if(imageCache != null && imageCache.contains(update.getValue(Update.PICTURE))) {
+//                            try {
+//                                picture = imageCache.get(update.getValue(Update.PICTURE));
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        pushUpdate(update.getId(), picture);
+//                    }
+//                }).start();
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//    }
 
 //    private class UpdateListItemProcessor extends ListItemProcessor<Update> {
 //        @Override

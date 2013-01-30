@@ -37,7 +37,7 @@ import android.util.Log;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 
 /**
  * <p>
@@ -195,8 +195,8 @@ public class ImageDiskCache extends DiskCache<String, Bitmap> {
         return !TextUtils.isEmpty(key) && key.startsWith(CACHED_IDENTIFIER) && super.contains(key);
     }
 
-    public static String getPictureHash(Update update) {
-        return String.format("%s%s%s", CACHED_IDENTIFIER, update.getValue(Update.TASK_UUID), update.getValue(Update.CREATION_DATE));
+    public static String getPictureHash(UserActivity update) {
+        return String.format("%s%s%s", CACHED_IDENTIFIER, update.getValue(UserActivity.TARGET_ID), update.getValue(UserActivity.CREATED_AT));
     }
 
 

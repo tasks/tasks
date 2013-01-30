@@ -3,7 +3,6 @@ package com.timsu.astrid;
 import java.io.IOException;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -41,7 +40,6 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
@@ -358,28 +356,25 @@ public class GCMIntentService extends GCMBaseIntentService {
             FilterWithCustomIntent filter = (FilterWithCustomIntent)TagFilterExposer.filterFromTagData(context, tagData);
             //filter.customExtras.putString(TagViewActivity.EXTRA_START_TAB, "updates");
             if(intent.hasExtra("activity_id")) {
-                try {
-                    Update update = new Update();
-                    update.setValue(Update.UUID, intent.getStringExtra("activity_id"));
-                    update.setValue(Update.USER_ID, intent.getStringExtra("user_id"));
-                    JSONObject user = new JSONObject();
-                    user.put("id", update.getValue(Update.USER_ID));
-                    user.put("name", intent.getStringExtra("user_name"));
-                    update.setValue(Update.ACTION, "commented");
-                    update.setValue(Update.ACTION_CODE, "tag_comment");
-                    update.setValue(Update.TARGET_NAME, intent.getStringExtra("title"));
-                    String message = intent.getStringExtra("alert");
-                    if(message.contains(":"))
-                        message = message.substring(message.indexOf(':') + 2);
-                    update.setValue(Update.MESSAGE, message);
-                    update.setValue(Update.CREATION_DATE, DateUtilities.now());
-                    update.setValue(Update.TAGS, "," + intent.getStringExtra("tag_id") + ",");
-                    updateDao.createNew(update);
-                } catch (JSONException e) {
-                    //
-                } catch (NumberFormatException e) {
-                    //
-                }
+//                try {
+//                    UserActivity update = new UserActivity();
+//                    update.setValue(UserActivity.UUID, intent.getStringExtra("activity_id"));
+//                    update.setValue(UserActivity.USER_UUID, intent.getStringExtra("user_id"));
+//
+//                    update.setValue(Update.ACTION_CODE, "tag_comment");
+//                    update.setValue(Update.TARGET_NAME, intent.getStringExtra("title"));
+//                    String message = intent.getStringExtra("alert");
+//                    if(message.contains(":"))
+//                        message = message.substring(message.indexOf(':') + 2);
+//                    update.setValue(Update.MESSAGE, message);
+//                    update.setValue(Update.CREATION_DATE, DateUtilities.now());
+//                    update.setValue(Update.TAGS, "," + intent.getStringExtra("tag_id") + ",");
+//                    updateDao.createNew(update);
+//                } catch (JSONException e) {
+//                    //
+//                } catch (NumberFormatException e) {
+//                    //
+//                }
             }
 
             Intent launchIntent = new Intent(context, TaskListActivity.class);

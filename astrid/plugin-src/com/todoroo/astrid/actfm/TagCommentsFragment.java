@@ -23,7 +23,7 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TagDataService;
@@ -116,16 +116,15 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     @SuppressWarnings("nls")
-    protected Update createUpdate() {
-        Update update = new Update();
-        update.setValue(Update.MESSAGE, addCommentField.getText().toString());
-        update.setValue(Update.ACTION_CODE, "tag_comment");
-        update.setValue(Update.USER_ID, Task.USER_ID_SELF);
-        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.UUID) + ",");
-        update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
-        update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        update.setValue(Update.TARGET_NAME, tagData.getValue(TagData.NAME));
-        return update;
+    protected UserActivity createUpdate() {
+        UserActivity userActivity = new UserActivity();
+        userActivity.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
+        userActivity.setValue(UserActivity.ACTION, UserActivity.ACTION_TAG_COMMENT);
+        userActivity.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
+        userActivity.setValue(UserActivity.TARGET_ID, tagData.getUuid());
+        userActivity.setValue(UserActivity.TARGET_NAME, tagData.getValue(TagData.NAME));
+        userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
+        return userActivity;
     }
 
     @Override

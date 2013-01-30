@@ -62,8 +62,8 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
@@ -299,7 +299,7 @@ public class TagViewFragment extends TaskListFragment {
         if (tagData != null) {
             long lastViewedComments = Preferences.getLong(CommentsFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), 0);
             int unreadCount = 0;
-            TodorooCursor<Update> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, Update.CREATION_DATE.gt(lastViewedComments));
+            TodorooCursor<UserActivity> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, UserActivity.CREATED_AT.gt(lastViewedComments));
             try {
                 unreadCount = commentCursor.getCount();
             } finally {

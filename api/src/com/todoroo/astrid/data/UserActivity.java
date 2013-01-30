@@ -8,6 +8,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 @SuppressWarnings("nls")
@@ -41,7 +42,7 @@ public class UserActivity extends RemoteModel {
 
     /** User ID (activity initiator) */
     public static final StringProperty USER_UUID = new StringProperty(
-            TABLE, "user_uuid");
+            TABLE, "user_uuid", Property.PROP_FLAG_USER_ID);
 
     /** Action */
     public static final StringProperty ACTION = new StringProperty(
@@ -71,6 +72,25 @@ public class UserActivity extends RemoteModel {
     public static final LongProperty DELETED_AT = new LongProperty(
             TABLE, "created_at", Property.PROP_FLAG_DATE);
 
+    public UserActivity() {
+        super();
+    }
+
+    // --- Action codes
+    public static final String ACTION_TASK_COMMENT = "task_comment";
+    public static final String ACTION_TAG_COMMENT = "tag_comment";
+    public static final String ACTION_REQUEST_FRIENDSHIP = "request_friendship";
+    public static final String ACTION_CONFIRM_FRIENDSHIP = "confirm_friendship";
+    public static final String ACTION_ACHIEVEMENT_REACHED = "achievement_reached";
+
+    public UserActivity(TodorooCursor<UserActivity> cursor) {
+        this();
+        readPropertiesFromCursor(cursor);
+    }
+
+    public void readFromCursor(TodorooCursor<UserActivity> cursor) {
+        super.readPropertiesFromCursor(cursor);
+    }
 
     // --- helpers
 

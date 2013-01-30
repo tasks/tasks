@@ -16,7 +16,6 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -42,9 +41,8 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
-import com.todoroo.astrid.dao.UpdateDao;
-import com.todoroo.astrid.data.SyncFlags;
-import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsService;
@@ -72,7 +70,7 @@ public abstract class CommentsFragment extends ListFragment {
 
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired UpdateDao updateDao;
+    @Autowired UserActivityDao userActivityDao;
 
     public CommentsFragment() {
         DependencyInjectionService.getInstance().inject(this);
@@ -105,7 +103,7 @@ public abstract class CommentsFragment extends ListFragment {
 
     protected abstract void populateListHeader(ViewGroup header);
 
-    protected abstract Update createUpdate();
+    protected abstract UserActivity createUpdate();
 
     protected abstract String commentAddStatistic();
 
@@ -321,34 +319,35 @@ public abstract class CommentsFragment extends ListFragment {
         }
     }
 
-    private String getPictureHashForUpdate(Update u) {
-        String s = u.getValue(Update.TASK_UUID) + u.getValue(Update.CREATION_DATE);
+    private String getPictureHashForUpdate(UserActivity u) {
+        String s = u.getValue(UserActivity.TARGET_ID) + u.getValue(UserActivity.CREATED_AT);
         return s;
     }
     protected void addComment() {
-        Update update = createUpdate();
-        if (picture != null) {
-            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
-            try {
-                String updateString = getPictureHashForUpdate(update);
-                imageCache.put(updateString, picture);
-                update.setValue(Update.PICTURE, updateString);
-            }
-            catch (Exception e) {
-                Log.e("CommentFragment", "Failed to put image to disk...", e);  //$NON-NLS-1$//$NON-NLS-2$
-            }
-        }
-        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        updateDao.createNew(update);
-
-        final long updateId = update.getId();
-        final Bitmap tempPicture = picture;
-        new Thread() {
-            @Override
-            public void run() {
-                actFmSyncService.pushUpdate(updateId, tempPicture);
-            }
-        }.start();
+        UserActivity update = createUpdate();
+        // TODO: Fix picture uploading
+//        if (picture != null) {
+//            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
+//            try {
+//                String updateString = getPictureHashForUpdate(update);
+//                imageCache.put(updateString, picture);
+//                update.setValue(Update.PICTURE, updateString);
+//            }
+//            catch (Exception e) {
+//                Log.e("CommentFragment", "Failed to put image to disk...", e);  //$NON-NLS-1$//$NON-NLS-2$
+//            }
+//        }
+//        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        userActivityDao.createNew(update);
+//
+//        final long updateId = update.getId();
+//        final Bitmap tempPicture = picture;
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                actFmSyncService.pushUpdate(updateId, tempPicture);
+//            }
+//        }.start();
         addCommentField.setText(""); //$NON-NLS-1$
         picture = null;
 

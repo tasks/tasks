@@ -22,7 +22,6 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
@@ -128,34 +127,6 @@ public class Database extends AbstractDatabase {
         append(StoreObject.TABLE).append('(').
         append(StoreObject.TYPE.name).append(',').
         append(StoreObject.ITEM.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-
-        sql.append("CREATE INDEX IF NOT EXISTS up_tid ON ").
-        append(Update.TABLE).append('(').
-        append(Update.TASK_UUID.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-
-        sql.append("CREATE INDEX IF NOT EXISTS up_pid ON ").
-        append(Update.TABLE).append('(').
-        append(Update.TAGS.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-
-        sql.append("CREATE INDEX IF NOT EXISTS up_tkid ON ").
-        append(Update.TABLE).append('(').
-        append(Update.TASK_LOCAL.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-
-        sql.append("CREATE INDEX IF NOT EXISTS up_tgl ON ").
-        append(Update.TABLE).append('(').
-        append(Update.TAGS_LOCAL.name).
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
