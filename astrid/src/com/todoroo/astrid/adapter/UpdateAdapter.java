@@ -38,6 +38,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -227,7 +228,14 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     public static Spanned getUpdateComment(final AstridActivity context, UserActivity activity, User user, String linkColor, String fromView) {
-        String userDisplay = user.getDisplayName();
+        String userDisplay;
+        if (activity.getValue(UserActivity.USER_UUID).equals(Task.USER_ID_SELF)) {
+            userDisplay = context.getString(R.string.update_string_user_self);
+        } else if (user == null) {
+            userDisplay = context.getString(R.string.ENA_no_user);
+        } else {
+            userDisplay = user.getDisplayName();
+        }
         if (TextUtils.isEmpty(userDisplay))
             userDisplay = context.getString(R.string.ENA_no_user);
         String targetName = activity.getValue(UserActivity.TARGET_NAME);

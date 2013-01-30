@@ -8,6 +8,8 @@ package com.todoroo.astrid.actfm.sync;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
+
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
@@ -100,23 +102,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_ERROR, "type", type); //$NON-NLS-1$
     }
 
-//    /**
-//     * Return JSON object user, either yourself or the user of the model
-//     * @param update
-//     * @return
-//     */
-//    public static JSONObject userFromModel(RemoteModel model) {
-//        if (Task.USER_ID_SELF.equals(model.getValue(RemoteModel.USER_ID_PROPERTY))) {
-//            return thisUser();
-//        } else {
-//            try {
-//                return new JSONObject(model.getValue(RemoteModel.USER_JSON_PROPERTY));
-//            } catch (JSONException e) {
-//                return new JSONObject();
-//            }
-//        }
-//    }
-
     public synchronized static JSONObject thisUser() {
         if(user == null) {
             user = new JSONObject();
@@ -162,6 +147,27 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     @Override
     public String getLoggedInUserName() {
         return Preferences.getStringValue(PREF_NAME);
+    }
+
+    @SuppressWarnings("nls")
+    public static String thisUserName() {
+        JSONObject thisUser = thisUser();
+
+        String name = thisUser.optString("name");
+        if (!(TextUtils.isEmpty(name) || "null".equals(name)))
+            return name;
+        String firstName = thisUser.optString("first_name");
+        boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
+        String lastName = thisUser.optString("last_name");
+        boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
+        if (firstNameEmpty && lastNameEmpty)
+            return thisUser.optString("email");
+        StringBuilder nameBuilder = new StringBuilder();
+        if (!firstNameEmpty)
+            nameBuilder.append(firstName).append(" ");
+        if (!lastNameEmpty)
+            nameBuilder.append(lastName);
+        return nameBuilder.toString().trim();
     }
 
 }
