@@ -63,6 +63,23 @@ public class NameMaps {
             excludedFromOutstandingSet.add(property.name);
     }
 
+    public static Property<?>[] syncableProperties(String table) {
+        if (TABLE_ID_TASKS.equals(table))
+            return computeSyncableProperties(TASK_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_PROPERTIES_EXCLUDED);
+        else if (TABLE_ID_TAGS.equals(table))
+            return computeSyncableProperties(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER.keySet(), TAG_PROPERTIES_EXCLUDED);
+        return null;
+    }
+
+    private static Property<?>[] computeSyncableProperties(Set<Property<?>> baseSet, Set<String> excluded) {
+        Set<Property<?>> result = new HashSet<Property<?>>();
+        for (Property<?> elem : baseSet) {
+            if (!excluded.contains(elem.name))
+                result.add(elem);
+        }
+        return result.toArray(new Property<?>[result.size()]);
+    }
+
     // ----------
     // Tasks
     // ----------

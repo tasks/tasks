@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -11,16 +12,23 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
@@ -37,6 +45,9 @@ public class AstridNewSyncMigrator {
     @Autowired private TaskDao taskDao;
     @Autowired private UpdateDao updateDao;
     @Autowired private UserDao userDao;
+
+    @Autowired private TaskOutstandingDao taskOutstandingDao;
+    @Autowired private TagOutstandingDao tagOutstandingDao;
 
     public static final String PREF_SYNC_MIGRATION = "sync_migration";
 
@@ -80,10 +91,10 @@ public class AstridNewSyncMigrator {
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
         Query tagsQuery = Query.select(TagData.ID, TagData.UUID).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
-        assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, null);
+        assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), null);
 
         Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
-        assertUUIDsExist(tasksQuery, new Task(), taskDao, new UUIDAssertionExtras<Task>() {
+        assertUUIDsExist(tasksQuery, new Task(), taskDao, taskOutstandingDao, new TaskOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TASKS), new UUIDAssertionExtras<Task>() {
             @Override
             public void beforeSave(Task instance) {
                 if (instance.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
@@ -109,8 +120,8 @@ public class AstridNewSyncMigrator {
             }
         });
 
-        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.UUID, Update.TASK).where(Criterion.all);
-        assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao, new UUIDAssertionExtras<Update>() {
+        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.UUID, Update.TASK).where(Criterion.or(Update.UUID.eq(RemoteModel.NO_UUID), Update.UUID.isNull()));
+        assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao, null, null, null, new UUIDAssertionExtras<Update>() {
             @Override
             public void beforeSave(Update instance) {
                 // Migrate Update.TASK long to Update.TASK_UUID string
@@ -168,13 +179,15 @@ public class AstridNewSyncMigrator {
         void beforeSave(TYPE instance);
     }
 
-    private <TYPE extends RemoteModel> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao, UUIDAssertionExtras<TYPE> extras) {
+    private <TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao, OutstandingEntryDao<OE> oeDao, OE oe, Property<?>[] propertiesForOutstanding, UUIDAssertionExtras<TYPE> extras) {
         TodorooCursor<TYPE> cursor = dao.query(query);
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 instance.readPropertiesFromCursor(cursor);
+                boolean unsyncedModel = false;
                 if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
                     // No remote id exists, just create a UUID
+                    unsyncedModel = true;
                     instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
                 }
                 if (extras != null)
@@ -182,9 +195,25 @@ public class AstridNewSyncMigrator {
 
                 instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 dao.saveExisting(instance);
+                if (unsyncedModel && propertiesForOutstanding != null) {
+                    createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
+                }
             }
         } finally {
             cursor.close();
+        }
+    }
+
+    private <TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> void createOutstandingEntries(long id, DatabaseDao<TYPE> dao, OutstandingEntryDao<OE> oeDao, OE oe, Property<?>[] propertiesForOutstanding) {
+        TYPE instance = dao.fetch(id, propertiesForOutstanding);
+        long now = DateUtilities.now();
+        for (Property<?> property : propertiesForOutstanding) {
+            oe.clear();
+            oe.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, id);
+            oe.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, property.name);
+            oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, instance.getValue(property).toString());
+            oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, now);
+            oeDao.createNew(oe);
         }
     }
 
