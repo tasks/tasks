@@ -507,8 +507,8 @@ public class TagViewFragment extends TaskListFragment {
                     Criterion assignedCriterion;
                     if (ActFmPreferenceService.userId().equals(currentId))
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
-                    else if (Task.USER_ID_EMAIL.equals(currentId) && !TextUtils.isEmpty(email))
-                        assignedCriterion = Criterion.or(Task.USER_EMAIL.eq(email), Task.USER.like("%" + email + "%")); //$NON-NLS-1$ //$NON-NLS-2$ // Deprecated field OK for backwards compatibility
+                    else if (Task.userIdIsEmail(currentId) && !TextUtils.isEmpty(email))
+                        assignedCriterion = Criterion.or(Task.USER_ID.eq(email), Task.USER.like("%" + email + "%")); //$NON-NLS-1$ //$NON-NLS-2$ // Deprecated field OK for backwards compatibility
                     else
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);

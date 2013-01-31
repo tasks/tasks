@@ -415,7 +415,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) {
         String assignedStr = t.getValue(Task.USER);
         long assignedId = -2;
-        String assignedEmail = t.getValue(Task.USER_EMAIL);
+        String assignedEmail = t.getValue(Task.USER_ID);
         try {
             JSONObject assigned = new JSONObject(assignedStr);
             assignedId = assigned.optLong("id", -2);
@@ -668,21 +668,20 @@ public class EditPeopleControlSet extends PopupControlSet {
                 } catch (JSONException e) {
                     // sad times
                     taskUserId = task.getValue(Task.USER_ID);
-                    if (Task.USER_ID_EMAIL.equals(taskUserId))
-                        taskUserEmail = task.getValue(Task.USER_EMAIL);
+                    if (Task.userIdIsEmail(taskUserId))
+                        taskUserEmail = taskUserId;
                 }
                 String userId = Long.toString(userJson.optLong("id", -2));
                 String userEmail = userJson.optString("email");
 
-                boolean match = (userId.equals(taskUserId) && !Task.USER_ID_EMAIL.equals(userId));
+                boolean match = userId.equals(taskUserId);
                 match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
 
                 dirty = match ? dirty : true;
-                task.setValue(Task.USER_ID, Long.toString(userJson.optLong("id", -2)));
+                String willAssignToId = Long.toString(userJson.optLong("id", -2));
+                task.setValue(Task.USER_ID, willAssignToId);
                 if (Task.USER_ID_EMAIL.equals(task.getValue(Task.USER_ID)))
-                    task.setValue(Task.USER_EMAIL, userEmail);
-                else
-                    task.setValue(Task.USER_EMAIL, "");
+                    task.setValue(Task.USER_ID, userEmail);
                 task.setValue(Task.USER, "");
             }
 

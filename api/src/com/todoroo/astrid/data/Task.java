@@ -165,10 +165,6 @@ public final class Task extends RemoteModel {
     @Deprecated public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
-    /** User email (for assigning by email) */
-    public static final StringProperty USER_EMAIL = new StringProperty(
-            TABLE, "userEmail");
-
     /** Creator user id */
     public static final StringProperty CREATOR_ID = new StringProperty(
             TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
@@ -216,6 +212,12 @@ public final class Task extends RemoteModel {
                 Task.USER_ID_UNASSIGNED.equals(userId) ||
                 Task.USER_ID_EMAIL.equals(userId) ||
                 Task.USER_ID_IGNORE.equals(userId));
+    }
+
+    public static boolean userIdIsEmail(String userId) {
+        if (userId == null)
+            return false;
+        return userId.indexOf('@') >= 0;
     }
 
     // --- notification flags
@@ -301,7 +303,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(USER_ID.name, "0");
         defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(USER.name, "");
-        defaultValues.put(USER_EMAIL.name, "");
+//        defaultValues.put(USER_EMAIL.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
     }
 

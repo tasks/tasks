@@ -326,8 +326,8 @@ public class QuickAddBar extends LinearLayout {
             String assignedTo = peopleControl.getAssignedToString();
             String assignedEmail = "";
             String assignedId = task.getValue(Task.USER_ID);
-            if (Task.USER_ID_EMAIL.equals(task.getValue(Task.USER_ID))) {
-                assignedEmail = task.getValue(Task.USER_EMAIL);
+            if (Task.userIdIsEmail(task.getValue(Task.USER_ID))) {
+                assignedEmail = task.getValue(Task.USER_ID);
             }
 
             resetControlSets();

@@ -927,8 +927,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String assignedTo = peopleControlSet.getAssignedToString();
             String assignedEmail = ""; //$NON-NLS-1$
             String assignedId = Task.USER_ID_IGNORE;
-            if (Task.USER_ID_EMAIL.equals(model.getValue(Task.USER_ID))) {
-                assignedEmail = model.getValue(Task.USER_EMAIL);
+            if (Task.userIdIsEmail(model.getValue(Task.USER_ID))) {
+                assignedEmail = model.getValue(Task.USER_ID);
             }
 
             if (taskEditActivity) {

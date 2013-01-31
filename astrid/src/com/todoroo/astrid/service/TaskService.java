@@ -39,8 +39,8 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
 
@@ -216,7 +216,6 @@ public class TaskService {
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
         newTask.clearValue(Task.USER);
-        newTask.clearValue(Task.USER_EMAIL);
         newTask.clearValue(Task.USER_ID);
 
         taskDao.save(newTask);
