@@ -15,8 +15,8 @@ public abstract class ServerToClientMessage {
     public abstract void processMessage();
 
     public static final String TYPE_MAKE_CHANGES = "MakeChanges";
-    public static final String TYPE_USER_DATA = "UserData";
     public static final String TYPE_ACKNOWLEDGE_CHANGE = "AcknowledgeChange";
+    public static final String TYPE_USER_DATA = "UserData";
     public static final String TYPE_DOUBLE_CHECK = "DoubleCheck";
     public static final String TYPE_DEBUG = "Debug";
 
@@ -32,6 +32,8 @@ public abstract class ServerToClientMessage {
             return instantiateMakeChanges(json, pushedAt);
         else if (TYPE_ACKNOWLEDGE_CHANGE.equals(type))
             return new AcknowledgeChange(json);
+        else if (TYPE_USER_DATA.equals(type))
+            return new UserData(json);
         else if (TYPE_DOUBLE_CHECK.equals(json))
             return new DoubleCheck(json);
         else if (TYPE_DEBUG.equals(json))

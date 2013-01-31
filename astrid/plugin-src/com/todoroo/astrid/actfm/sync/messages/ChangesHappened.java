@@ -124,6 +124,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
                 changeJson.put("column", serverColumn);
 
+                String createdAt = DateUtilities.timeToIso8601(change.getValue(OutstandingEntry.CREATED_AT_PROPERTY), true);
+                changeJson.put("created_at", createdAt);
+
                 array.put(changeJson);
             } catch (JSONException e) {
                 Log.e(ERROR_TAG, "Error writing change to JSON", e);
