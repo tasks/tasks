@@ -148,7 +148,6 @@ public class UpdateAdapter extends CursorAdapter {
     public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user) {
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-
             String pictureUrl = user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB);
             pictureView.setUrl(pictureUrl);
         }
@@ -249,7 +248,7 @@ public class UpdateAdapter extends CursorAdapter {
             else
                 commentResource = R.string.update_string_task_comment;
         } else if (UserActivity.ACTION_TAG_COMMENT.equals(action)) {
-            if (fromView.equals(FROM_TAG_VIEW)  || TextUtils.isEmpty(targetName))
+            if (fromView.equals(FROM_TAG_VIEW) || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
             else
                 commentResource = R.string.update_string_tag_comment;

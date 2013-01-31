@@ -229,7 +229,7 @@ public class NameMaps {
         putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
         putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      false);
         putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     false);
-        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     false);
+        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
         putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   false);
         putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
         putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  false);
@@ -237,7 +237,7 @@ public class NameMaps {
 
 
         // Reverse the mapping to construct the server to local map
-        USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(USER_PROPERTIES_LOCAL_TO_SERVER);
+        USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER);
     }
 
 
