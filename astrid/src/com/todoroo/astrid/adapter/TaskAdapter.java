@@ -119,6 +119,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
 
+    private static final StringProperty PICTURE = new StringProperty(User.TABLE.as(TaskListFragment.USER_IMAGE_JOIN), User.PICTURE.name);
+
     // --- other constants
 
     /** Properties that need to be read from the action item */
@@ -142,7 +144,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.USER,
         Task.REMINDER_LAST,
         Task.SOCIAL_REMINDER,
-        User.PICTURE,
+        PICTURE,
         TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
         TAGS // Concatenated list of tags
     };
@@ -393,7 +395,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (!titleOnlyLayout) {
             viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
-            viewHolder.imageUrl = RemoteModel.getPictureUrlFromCursor(cursor, User.PICTURE, RemoteModel.PICTURE_THUMB);
+            viewHolder.imageUrl = RemoteModel.getPictureUrlFromCursor(cursor, PICTURE, RemoteModel.PICTURE_THUMB);
         }
 
         Task task = viewHolder.task;

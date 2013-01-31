@@ -96,6 +96,8 @@ abstract public class RemoteModel extends AbstractModel {
     public static String getPictureUrlFromCursor(TodorooCursor<?> cursor, StringProperty pictureProperty, String size) {
         String value = cursor.get(pictureProperty);
         try {
+            if (value == null)
+                return null;
             JSONObject pictureJson = new JSONObject(value);
             return pictureJson.optString(size);
         } catch (JSONException e) {

@@ -38,7 +38,7 @@ public class UserActivity extends RemoteModel {
 
     /** Pushed at */
     public static final LongProperty PUSHED_AT = new LongProperty(
-            TABLE, "pushed_at", Property.PROP_FLAG_DATE);
+            TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
     /** User ID (activity initiator) */
     public static final StringProperty USER_UUID = new StringProperty(
