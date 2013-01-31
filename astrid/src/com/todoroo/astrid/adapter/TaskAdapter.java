@@ -395,7 +395,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (!titleOnlyLayout) {
             viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
-            viewHolder.imageUrl = RemoteModel.getPictureUrlFromCursor(cursor, PICTURE, RemoteModel.PICTURE_THUMB);
+            viewHolder.imageUrl = RemoteModel.PictureHelper.getPictureUrlFromCursor(cursor, PICTURE, RemoteModel.PICTURE_THUMB);
         }
 
         Task task = viewHolder.task;

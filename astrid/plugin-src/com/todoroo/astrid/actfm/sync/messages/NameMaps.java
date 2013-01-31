@@ -164,7 +164,7 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.PUSHED_AT,       "pushed_at",    true);
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   true);
         putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  false);
-        putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);
+        putTagPropertyToServerName(TagData.PICTURE,         "picture",      false);
 
         // Reverse the mapping to construct the server to local map
         TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);
@@ -229,7 +229,7 @@ public class NameMaps {
         putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
         putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      false);
         putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     false);
-        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
+        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     false);
         putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   false);
         putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
         putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  false);

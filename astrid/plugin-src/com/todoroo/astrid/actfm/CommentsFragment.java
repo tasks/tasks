@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.actfm;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -42,6 +44,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
@@ -319,35 +322,17 @@ public abstract class CommentsFragment extends ListFragment {
         }
     }
 
-    private String getPictureHashForUpdate(UserActivity u) {
-        String s = u.getValue(UserActivity.TARGET_ID) + u.getValue(UserActivity.CREATED_AT);
-        return s;
-    }
     protected void addComment() {
         UserActivity update = createUpdate();
-        // TODO: Fix picture uploading
-//        if (picture != null) {
-//            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
-//            try {
-//                String updateString = getPictureHashForUpdate(update);
-//                imageCache.put(updateString, picture);
-//                update.setValue(Update.PICTURE, updateString);
-//            }
-//            catch (Exception e) {
-//                Log.e("CommentFragment", "Failed to put image to disk...", e);  //$NON-NLS-1$//$NON-NLS-2$
-//            }
-//        }
-//        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        if (picture != null) {
+            JSONObject pictureJson = RemoteModel.PictureHelper.uploadPictureJson(picture);
+            if (pictureJson != null) {
+                update.setValue(UserActivity.PICTURE, pictureJson.toString());
+            }
+
+        }
+
         userActivityDao.createNew(update);
-//
-//        final long updateId = update.getId();
-//        final Bitmap tempPicture = picture;
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                actFmSyncService.pushUpdate(updateId, tempPicture);
-//            }
-//        }.start();
         addCommentField.setText(""); //$NON-NLS-1$
         picture = null;
 

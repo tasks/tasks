@@ -8,12 +8,14 @@ package com.todoroo.astrid.data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 /**
  * A model that is synchronized to a remote server and has a remote id
@@ -85,23 +87,40 @@ abstract public class RemoteModel extends AbstractModel {
 
     public String getPictureUrl(StringProperty pictureProperty, String size) {
         String value = getValue(pictureProperty);
-        try {
-            JSONObject pictureJson = new JSONObject(value);
-            return pictureJson.optString(size);
-        } catch (JSONException e) {
-            return value;
-        }
+        return PictureHelper.getPictureUrl(value, size);
     }
 
-    public static String getPictureUrlFromCursor(TodorooCursor<?> cursor, StringProperty pictureProperty, String size) {
-        String value = cursor.get(pictureProperty);
-        try {
-            if (value == null)
+    public static class PictureHelper {
+
+        public static String getPictureUrl(String value, String size) {
+            try {
+                if (value == null)
+                    return null;
+                JSONObject pictureJson = new JSONObject(value);
+                if (pictureJson.has("data")) // Unpushed encoded bitmap //$NON-NLS-1$
+                    return null;
+                return pictureJson.optString(size);
+            } catch (JSONException e) {
+                return value;
+            }
+        }
+
+        public static String getPictureUrlFromCursor(TodorooCursor<?> cursor, StringProperty pictureProperty, String size) {
+            String value = cursor.get(pictureProperty);
+            return getPictureUrl(value, size);
+        }
+
+        @SuppressWarnings("nls")
+        public static JSONObject uploadPictureJson(Bitmap bitmap) {
+            try {
+                JSONObject pictureJson = new JSONObject();
+                pictureJson.put("name", "photo.jpg");
+                pictureJson.put("type", "image/jpeg");
+                pictureJson.put("data", AndroidUtilities.encodeBase64Bitmap(bitmap));
+                return pictureJson;
+            } catch (JSONException e) {
                 return null;
-            JSONObject pictureJson = new JSONObject(value);
-            return pictureJson.optString(size);
-        } catch (JSONException e) {
-            return value;
+            }
         }
     }
 }

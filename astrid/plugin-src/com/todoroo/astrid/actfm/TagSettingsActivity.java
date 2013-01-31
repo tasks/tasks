@@ -291,6 +291,12 @@ public class TagSettingsActivity extends FragmentActivity {
 
         tagData.setValue(TagData.TAG_DESCRIPTION, newDesc);
 
+        if (setBitmap != null) {
+            JSONObject pictureJson = RemoteModel.PictureHelper.uploadPictureJson(setBitmap);
+            if (pictureJson != null)
+                tagData.setValue(TagData.PICTURE, pictureJson.toString());
+        }
+
         JSONArray members;
         try {
             members = tagMembers.parseSharedWithAndTags(this, true).optJSONArray("p");
