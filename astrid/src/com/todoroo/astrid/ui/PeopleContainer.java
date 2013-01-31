@@ -271,7 +271,7 @@ public class PeopleContainer extends LinearLayout {
             JSONObject person = people.getJSONObject(i);
             TextView textView = null;
             String imageURL = person.optString("picture", "");
-            if(person.has("id") && ActFmPreferenceService.userId().equals(Long.toString(person.getLong("id"))))
+            if(person.has("id") && ActFmPreferenceService.userId().equals(person.getString("id")))
                 textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME), imageURL);
             else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name")))
                 textView = addPerson(person.getString("name"), imageURL);

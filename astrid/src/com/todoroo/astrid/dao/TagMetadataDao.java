@@ -5,15 +5,22 @@
  */
 package com.todoroo.astrid.dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.content.ContentValues;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.Metadata;
@@ -103,6 +110,18 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         }
     }
 
+    public void removeMemberLink(long tagId, String tagUuid, String memberId, boolean suppressOutstanding) {
+        TagMetadata deleteTemplate = new TagMetadata();
+        deleteTemplate.setValue(TagMetadata.TAG_ID, tagId); // Need this for recording changes in outstanding table
+        deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        deleteTemplate.setValue(TagMemberMetadata.USER_UUID, memberId); // Need this for recording changes in outstanding table
+
+        if (suppressOutstanding)
+            deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+        update(Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                TagMetadata.TAG_UUID.eq(tagUuid), TagMemberMetadata.USER_UUID.eq(memberId)), deleteTemplate);
+    }
+
     public void removeMemberLinks(long tagId, String tagUuid, String[] memberIds, boolean suppressOutstanding) {
         TagMetadata deleteTemplate = new TagMetadata();
         deleteTemplate.setValue(TagMetadata.TAG_ID, tagId); // Need this for recording changes in outstanding table
@@ -121,7 +140,46 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     }
 
     public void synchronizeMembers(long tagId, String tagUuid, JSONArray members) {
-        throw new RuntimeException("IMPLEMENT ME!");
+        Set<String> emails = new HashSet<String>();
+        Set<String> ids = new HashSet<String>();
+
+        for (int i = 0; i < members.length(); i++) {
+            JSONObject person = members.optJSONObject(i);
+            if (person != null) {
+                String id = person.optString("id"); //$NON-NLS-1$
+                if (!TextUtils.isEmpty(id))
+                    ids.add(id);
+
+                String email = person.optString("email"); //$NON-NLS-1$
+                if (!TextUtils.isEmpty(email))
+                    emails.add(email);
+            }
+        }
+
+        TodorooCursor<TagMetadata> currentMembers = query(Query.select(TagMemberMetadata.USER_UUID).where(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY)));
+        try {
+            TagMetadata m = new TagMetadata();
+            for (currentMembers.moveToNext(); !currentMembers.isAfterLast(); currentMembers.moveToNext()) {
+                m.clear();
+                m.readFromCursor(currentMembers);
+
+                String userId = m.getValue(TagMemberMetadata.USER_UUID);
+                boolean exists = ids.remove(userId) || emails.remove(userId);
+                if (!exists) { // Was in database, but not in new members list
+                    removeMemberLink(tagId, tagUuid, userId, false);
+                }
+            }
+        } finally {
+            currentMembers.close();
+        }
+
+        for (String email : emails) {
+            createMemberLink(tagId, tagUuid, email, false);
+        }
+
+        for (String id : ids) {
+            createMemberLink(tagId, tagUuid, id, false);
+        }
     }
 }
 
