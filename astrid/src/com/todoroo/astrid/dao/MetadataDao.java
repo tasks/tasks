@@ -106,7 +106,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
         database.insert(outstandingTable.name, null, to.getSetValues());
         ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<Task, TaskOutstanding>(taskId, Task.class,
-                PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao()));
+                PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao()), null);
         return true;
     }
 

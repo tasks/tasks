@@ -82,7 +82,7 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
 
             if (count > 0 && !afterErrors && actFmSyncThread != null) {
                 ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, dao, outstandingDao);
-                actFmSyncThread.enqueueMessage(ch);
+                actFmSyncThread.enqueueMessage(ch, null);
             }
 
             outstanding.moveToPrevious(); // Move back one to undo the last iteration of the for loop

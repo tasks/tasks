@@ -100,7 +100,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, memberId);
         database.insert(outstandingTable.name, null, to.getSetValues());
         ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<TagData, TagOutstanding>(tagDataId, TagData.class,
-                PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao()));
+                PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao()), null);
         return true;
     }
 

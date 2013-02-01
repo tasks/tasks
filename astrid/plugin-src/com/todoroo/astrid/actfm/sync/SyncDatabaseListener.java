@@ -18,7 +18,7 @@ public class SyncDatabaseListener<MTYPE extends AbstractModel> implements ModelU
     public void onModelUpdated(MTYPE model, boolean outstandingEntries) {
         if (outstandingEntries) {
             ChangesHappened<?, ?> ch = ChangesHappened.instantiateChangesHappened(model.getId(), modelType);
-            actFmSyncThread.enqueueMessage(ch);
+            actFmSyncThread.enqueueMessage(ch, null);
         }
     }
 

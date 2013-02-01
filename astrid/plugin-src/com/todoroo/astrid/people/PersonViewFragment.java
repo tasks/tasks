@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v4.view.Menu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -197,15 +198,15 @@ public class PersonViewFragment extends TaskListFragment {
 
     private void refreshData(final boolean manual) {
         if (user != null) {
-            emptyView.setText(R.string.DLG_loading);
-            new Thread() {
-                @Override
-                public void run() {
-                    // TODO: Fix friend status logic for new sync scheme
-                    if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
+//            emptyView.setText(R.string.DLG_loading);
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    // TODO: Fix friend status logic for new sync scheme
+//                    if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
 //                        actFmSyncService.pushUser(user);
-                        user = userDao.fetch(user.getId(), User.PROPERTIES);
-                    }
+//                        user = userDao.fetch(user.getId(), User.PROPERTIES);
+//                    }
 //                    SyncResultCallback callback;
 //                    try {
 //                        if (getActivity() == null)
@@ -233,10 +234,16 @@ public class PersonViewFragment extends TaskListFragment {
 //                    }
 //
 //                    syncService.synchronizeList(user, manual, callback);
-                    ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)));
-                    // TODO: Refresh
+//                    // TODO: Refresh
+//                }
+//            }.start();
+            Runnable callback = new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("PersonViewFragment", "Refresh data callback");
                 }
-            }.start();
+            };
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
         }
     }
 

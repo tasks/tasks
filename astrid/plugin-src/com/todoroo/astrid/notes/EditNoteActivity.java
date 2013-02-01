@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,7 +35,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -56,6 +56,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
@@ -68,7 +69,6 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -101,6 +101,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private ImageButton pictureButton;
     private Bitmap pendingCommentPicture = null;
     private final Fragment fragment;
+    private final AstridActivity activity;
     private final ImageDiskCache imageCache;
     private final int cameraButton;
     private final String linkColor;
@@ -119,6 +120,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         imageCache = ImageDiskCache.getInstance();
         this.fragment = fragment;
+        this.activity = (AstridActivity) fragment.getActivity();
 
         linkColor = UpdateAdapter.getLinkColor(fragment);
 
@@ -299,7 +301,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
                 update.readFromCursor(updates);
                 user.readPropertiesFromCursor(updates);
-                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update, user, linkColor);
+                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(activity, update, user, linkColor);
                 if(noa != null)
                     items.add(noa);
             }
@@ -398,24 +400,31 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             return;
         }
 
-        final SyncResultCallback callback;
-        if(existingCallback != null)
-            callback = existingCallback;
-        else {
-            callback = new ProgressBarSyncResultCallback(
-                    ((Activity)getContext()), (ProgressBar)parentView.findViewById(R.id.progressBar), new Runnable() {
-                        @Override
-                        public void run() {
-                            setUpListAdapter();
-                            loadingText.setText(R.string.ENA_no_comments);
-                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-                        }
-                    });
+//        final SyncResultCallback callback;
+//        if(existingCallback != null)
+//            callback = existingCallback;
+//        else {
+//            callback = new ProgressBarSyncResultCallback(
+//                    ((Activity)getContext()), (ProgressBar)parentView.findViewById(R.id.progressBar), new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            setUpListAdapter();
+//                            loadingText.setText(R.string.ENA_no_comments);
+//                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
+//                        }
+//                    });
+//
+//            callback.started();
+//            callback.incrementMax(100);
+//        }
+        Runnable callback = new Runnable() {
+            @Override
+            public void run() {
+                Log.e("EditNoteActivity", "Refresh data callback");
+            }
+        };
 
-            callback.started();
-            callback.incrementMax(100);
-        }
-        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)));
+        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), callback);
 
 
 //        actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
@@ -425,9 +434,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 //                callback.finished();
 //            }
 //        });
-        callback.incrementProgress(50);
-        callback.finished();
-        callback.incrementProgress(50);
+//        callback.incrementProgress(50);
+//        callback.finished();
+//        callback.incrementProgress(50);
     }
 
     private void addComment() {
@@ -521,13 +530,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     m.getValue(Metadata.CREATION_DATE));
         }
 
-        @SuppressWarnings("nls")
-        public static NoteOrUpdate fromUpdate(UserActivity u, User user, String linkColor) {
+        public static NoteOrUpdate fromUpdate(AstridActivity context, UserActivity u, User user, String linkColor) {
 //            JSONObject user = ActFmPreferenceService.userFromModel(u);
 
             String commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
 
-            Spanned title = UpdateAdapter.getUpdateComment(null, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+            Spanned title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
             return new NoteOrUpdate(user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB),
                     title,
                     commentPicture,

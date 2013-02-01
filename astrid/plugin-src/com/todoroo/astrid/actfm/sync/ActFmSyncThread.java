@@ -8,12 +8,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -23,7 +21,6 @@ import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -48,6 +45,7 @@ public class ActFmSyncThread {
     private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
 
     private final List<ClientToServerMessage<?>> pendingMessages;
+    private final List<Runnable> pendingCallbacks;
     private final Object monitor;
     private Thread thread;
 
@@ -101,9 +99,10 @@ public class ActFmSyncThread {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
                     List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
+                    List<Runnable> callbackQueue = Collections.synchronizedList(new LinkedList<Runnable>());
                     ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
 
-                    instance = new ActFmSyncThread(syncQueue, monitor);
+                    instance = new ActFmSyncThread(syncQueue, callbackQueue, monitor);
 
                     taskDao.addListener(new SyncDatabaseListener<Task>(instance, ModelType.TYPE_TASK));
                     tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
@@ -116,9 +115,10 @@ public class ActFmSyncThread {
         return instance;
     }
 
-    private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, Object syncMonitor) {
+    private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, List<Runnable> callbackQueue, Object syncMonitor) {
         DependencyInjectionService.getInstance().inject(this);
         this.pendingMessages = messageQueue;
+        this.pendingCallbacks = callbackQueue;
         this.monitor = syncMonitor;
     }
 
@@ -135,9 +135,11 @@ public class ActFmSyncThread {
         }
     }
 
-    public void enqueueMessage(ClientToServerMessage<?> message) {
+    public void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
+            if (callback != null)
+                pendingCallbacks.add(callback);
             synchronized(monitor) {
                 monitor.notifyAll();
             }
@@ -149,6 +151,7 @@ public class ActFmSyncThread {
         try {
             int batchSize = 1;
             List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
+            List<Runnable> callbackBatch = new LinkedList<Runnable>();
             while(true) {
                 synchronized(monitor) {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
@@ -166,6 +169,11 @@ public class ActFmSyncThread {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
                     if (message != null)
                         messageBatch.add(message);
+                }
+
+                while (callbackBatch.size() < batchSize && !callbackBatch.isEmpty()) {
+                    Runnable callback = pendingCallbacks.remove(0);
+                    callbackBatch.add(callback);
                 }
 
                 if (messageBatch.isEmpty() && timeForBackgroundSync()) {
@@ -214,9 +222,14 @@ public class ActFmSyncThread {
                         Log.e(ERROR_TAG, "IOException", e);
                         batchSize = Math.max(batchSize / 2, 1);
                     }
+                    for (Runnable r : callbackBatch) {
+                        r.run();
+                    }
+
                     messageBatch = new LinkedList<ClientToServerMessage<?>>();
-                    Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-                    ContextManager.getContext().sendBroadcast(refresh);
+                    callbackBatch = new LinkedList<Runnable>();
+//                    Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+//                    ContextManager.getContext().sendBroadcast(refresh);
                 }
             }
         } catch (Exception e) {

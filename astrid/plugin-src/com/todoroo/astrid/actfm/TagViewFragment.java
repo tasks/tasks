@@ -22,6 +22,7 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -332,7 +333,14 @@ public class TagViewFragment extends TaskListFragment {
         if (actFmPreferenceService.isLoggedIn()) {
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getValue(TagData.UUID), tagData.getValue(TagData.PUSHED_AT)));
+            Runnable callback = new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("TagViewFragment", "Refresh data callback");
+                }
+            };
+
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getValue(TagData.UUID), tagData.getValue(TagData.PUSHED_AT)), callback);
             // TODO: Refresh and reload tagData
 
 //            syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
@@ -629,29 +637,33 @@ public class TagViewFragment extends TaskListFragment {
         AndroidUtilities.tryUnregisterReceiver(getActivity(), notifyReceiver);
     }
 
+    protected void reloadTagData() {
+        tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
+        if (tagData == null) {
+            // This can happen if a tag has been deleted as part of a sync
+            return;
+        } else if (tagData.isDeleted()) {
+            justDeleted = true;
+            return;
+        }
+        filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
+        getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
+        extras.putParcelable(TOKEN_FILTER, filter);
+        Activity activity = getActivity();
+        if (activity instanceof TaskListActivity) {
+            ((TaskListActivity) activity).setListsTitle(filter.title);
+            FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
+            if (flf != null)
+                flf.clear();
+        }
+        taskAdapter = null;
+        Flags.set(Flags.REFRESH);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
-            tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
-            if (tagData == null) {
-                // This can happen if a tag has been deleted as part of a sync
-                return;
-            } else if (tagData.isDeleted()) {
-                justDeleted = true;
-                return;
-            }
-            filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
-            getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
-            extras.putParcelable(TOKEN_FILTER, filter);
-            Activity activity = getActivity();
-            if (activity instanceof TaskListActivity) {
-                ((TaskListActivity) activity).setListsTitle(filter.title);
-                FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
-                if (flf != null)
-                    flf.clear();
-            }
-            taskAdapter = null;
-            Flags.set(Flags.REFRESH);
+            reloadTagData();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
