@@ -38,7 +38,7 @@ public abstract class ServerToClientMessage {
             return new UserData(json);
         else if (TYPE_DOUBLE_CHECK.equals(json))
             return new DoubleCheck(json);
-        else if (TYPE_DEBUG.equals(json))
+        else if (TYPE_DEBUG.equals(type))
             return new Debug(json);
 
         return null;
