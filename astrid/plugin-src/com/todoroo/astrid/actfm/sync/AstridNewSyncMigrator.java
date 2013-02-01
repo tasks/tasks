@@ -20,6 +20,7 @@ import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.OutstandingEntry;
@@ -29,6 +30,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
+import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -43,6 +46,7 @@ public class AstridNewSyncMigrator {
     @Autowired private TagDataDao tagDataDao;
     @Autowired private TaskDao taskDao;
     @Autowired private UpdateDao updateDao;
+    @Autowired private UserActivityDao userActivityDao;
     @Autowired private UserDao userDao;
 
     @Autowired private TaskOutstandingDao taskOutstandingDao;
@@ -120,6 +124,43 @@ public class AstridNewSyncMigrator {
         });
 
         // TODO: Migrate updates here, somehow
+        TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
+                Criterion.and(Criterion.or(Update.UUID.eq(0), Update.UUID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
+                        Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));
+        try {
+            Update update = new Update();
+            UserActivity userActivity = new UserActivity();
+            for (updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
+                update.clear();
+                userActivity.clear();
+
+                update.readFromCursor(updates);
+
+                boolean setTarget = true;
+                if (!RemoteModel.isUuidEmpty(update.getValue(Update.TASK_UUID))) {
+                    userActivity.setValue(UserActivity.TARGET_ID, update.getValue(Update.TASK_UUID));
+                } else if (update.getValue(Update.TASK_LOCAL) > 0) {
+                    Task local = taskDao.fetch(update.getValue(Update.TASK_LOCAL), Task.UUID);
+                    if (local != null && !RemoteModel.isUuidEmpty(local.getUuid()))
+                        userActivity.setValue(UserActivity.TARGET_ID, local.getUuid());
+                    else
+                        setTarget = false;
+                } else {
+                    setTarget = false;
+                }
+
+                if (setTarget) {
+                    userActivity.setValue(UserActivity.USER_UUID, update.getValue(Update.USER_ID));
+                    userActivity.setValue(UserActivity.ACTION, update.getValue(Update.ACTION_CODE));
+                    userActivity.setValue(UserActivity.MESSAGE, update.getValue(Update.MESSAGE));
+                    userActivity.setValue(UserActivity.CREATED_AT, update.getValue(Update.CREATION_DATE));
+                    userActivityDao.createNew(userActivity);
+                }
+
+            }
+        } finally {
+            updates.close();
+        }
 
 
         // --------------
