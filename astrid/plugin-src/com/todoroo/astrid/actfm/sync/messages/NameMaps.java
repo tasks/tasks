@@ -59,11 +59,11 @@ public class NameMaps {
     // --------------------------------
     private static void putPropertyToServerName(Property<?> property, String serverName,
             Map<Property<?>, String> propertyMap, Map<String, Property<?>> localNameMap, Map<String, String> serverNameMap,
-            Set<String> excludedFromOutstandingSet, boolean excludedFromOustanding) {
+            Set<String> excludedFromOutstandingSet, boolean writeable) {
         propertyMap.put(property, serverName);
         localNameMap.put(property.name, property);
         serverNameMap.put(property.name, serverName);
-        if (excludedFromOustanding && excludedFromOutstandingSet != null)
+        if (!writeable && excludedFromOutstandingSet != null)
             excludedFromOutstandingSet.add(property.name);
     }
 
@@ -109,22 +109,22 @@ public class NameMaps {
         TASK_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         TASK_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTaskPropertyToServerName(Task.TITLE,           "title",          false);
-        putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",     false);
-        putTaskPropertyToServerName(Task.DUE_DATE,        "due",            false);
-        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",     true);
-        putTaskPropertyToServerName(Task.CREATION_DATE,   "created_at",     false);
-        putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at",   false);
-        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         false);
-        putTaskPropertyToServerName(Task.DELETION_DATE,   "deleted_at",     false);
-        putTaskPropertyToServerName(Task.NOTES,           "notes",          false);
-        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         false);
-        putTaskPropertyToServerName(Task.USER_ID,         "user_id",        false);
-        putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     true);
-        putTaskPropertyToServerName(Task.UUID,            "uuid",           true);
-        putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",         false);
-        putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",      true);
-        putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", true);
+        putTaskPropertyToServerName(Task.TITLE,           "title",          true);
+        putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",     true);
+        putTaskPropertyToServerName(Task.DUE_DATE,        "due",            true);
+        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",     false);
+        putTaskPropertyToServerName(Task.CREATION_DATE,   "created_at",     true);
+        putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at",   true);
+        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);
+        putTaskPropertyToServerName(Task.DELETION_DATE,   "deleted_at",     true);
+        putTaskPropertyToServerName(Task.NOTES,           "notes",          true);
+        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);
+        putTaskPropertyToServerName(Task.USER_ID,         "user_id",        true);
+        putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     false);
+        putTaskPropertyToServerName(Task.UUID,            "uuid",           false);
+        putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",         true);
+        putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",      false);
+        putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", false);
 
         TASK_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_PROPERTIES_LOCAL_TO_SERVER);
     }
@@ -154,15 +154,15 @@ public class NameMaps {
         TAG_DATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         TAG_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTagPropertyToServerName(TagData.USER_ID,         "user_id",      false);
-        putTagPropertyToServerName(TagData.NAME,            "name",         false);
-        putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   false);
-        putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   false);
-        putTagPropertyToServerName(TagData.UUID,            "uuid",         true);
-        putTagPropertyToServerName(TagData.TAG_ORDERING,    "tag_ordering", true);
-        putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   true);
-        putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  false);
-        putTagPropertyToServerName(TagData.PICTURE,         "picture",      false);
+        putTagPropertyToServerName(TagData.USER_ID,         "user_id",      true);
+        putTagPropertyToServerName(TagData.NAME,            "name",         true);
+        putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   true);
+        putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
+        putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
+        putTagPropertyToServerName(TagData.TAG_ORDERING,    "tag_ordering", false);
+        putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
+        putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  true);
+        putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);
 
         // Reverse the mapping to construct the server to local map
         TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);
@@ -191,11 +191,11 @@ public class NameMaps {
         USER_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         USER_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
 
-        putUserPropertyToServerName(User.UUID,       "uuid",       true);
-        putUserPropertyToServerName(User.EMAIL,      "email",      true);
-        putUserPropertyToServerName(User.PICTURE,    "picture",    true);
-        putUserPropertyToServerName(User.FIRST_NAME, "first_name", true);
-        putUserPropertyToServerName(User.LAST_NAME,  "last_name",  true);
+        putUserPropertyToServerName(User.UUID,       "uuid",       false);
+        putUserPropertyToServerName(User.EMAIL,      "email",      false);
+        putUserPropertyToServerName(User.PICTURE,    "picture",    false);
+        putUserPropertyToServerName(User.FIRST_NAME, "first_name", false);
+        putUserPropertyToServerName(User.LAST_NAME,  "last_name",  false);
 
 
         // Reverse the mapping to construct the server to local map
@@ -222,15 +222,15 @@ public class NameMaps {
         USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
-        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
-        putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      false);
-        putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     false);
-        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     false);
-        putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   false);
-        putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
-        putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  false);
-        putUserActivityPropertyToServerName(UserActivity.DELETED_AT,  "deleted_at",  false);
+        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        true);
+        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     true);
+        putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      true);
+        putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     true);
+        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
+        putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   true);
+        putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", true);
+        putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  true);
+        putUserActivityPropertyToServerName(UserActivity.DELETED_AT,  "deleted_at",  true);
 
 
         // Reverse the mapping to construct the server to local map
