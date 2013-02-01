@@ -22,11 +22,15 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.tags.TagMemberMetadata;
@@ -95,6 +99,8 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
         to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, memberId);
         database.insert(outstandingTable.name, null, to.getSetValues());
+        ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<TagData, TagOutstanding>(tagDataId, TagData.class,
+                PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao()));
         return true;
     }
 

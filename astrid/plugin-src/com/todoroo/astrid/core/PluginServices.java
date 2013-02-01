@@ -91,9 +91,13 @@ public final class PluginServices {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    private synchronized static PluginServices getInstance() {
-        if(instance == null)
-            instance = new PluginServices();
+    private static PluginServices getInstance() {
+        if(instance == null) {
+            synchronized (PluginServices.class) {
+                if (instance == null)
+                    instance = new PluginServices();
+            }
+        }
         return instance;
     }
 

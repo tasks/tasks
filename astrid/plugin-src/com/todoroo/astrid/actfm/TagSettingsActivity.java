@@ -38,6 +38,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -49,6 +50,7 @@ import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
@@ -428,7 +430,7 @@ public class TagSettingsActivity extends FragmentActivity {
                 people = new JSONArray();
                 TodorooCursor<User> members = userDao.query(Query.select(User.PROPERTIES)
                         .where(User.UUID.in(Query.select(TagMemberMetadata.USER_UUID)
-                                .from(TagMetadata.TABLE).where(TagMetadata.TAG_UUID.eq(tagUuid)))));
+                                .from(TagMetadata.TABLE).where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0))))));
                 try {
                     User user = new User();
                     for (members.moveToFirst(); !members.isAfterLast(); members.moveToNext()) {
@@ -444,6 +446,28 @@ public class TagSettingsActivity extends FragmentActivity {
                     }
                 } finally {
                     members.close();
+                }
+
+                TodorooCursor<TagMetadata> emailMembers = tagMetadataDao.query(Query.select(TagMemberMetadata.USER_UUID)
+                        .where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY),
+                                TagMetadata.DELETION_DATE.eq(0),
+                                TagMemberMetadata.USER_UUID.like("%@%"))));
+                try {
+                    TagMetadata m = new TagMetadata();
+                    for (emailMembers.moveToFirst(); !emailMembers.isAfterLast(); emailMembers.moveToNext()) {
+                        m.clear();
+                        m.readFromCursor(emailMembers);
+
+                        try {
+                            JSONObject userJson = new JSONObject();
+                            userJson.put("email", m.getValue(TagMemberMetadata.USER_UUID));
+                            people.put(userJson);
+                        } catch (JSONException e2) {
+                            //
+                        }
+                    }
+                } finally {
+                    emailMembers.close();
                 }
             }
 

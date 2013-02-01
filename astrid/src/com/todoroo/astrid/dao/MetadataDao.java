@@ -19,7 +19,10 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
@@ -102,6 +105,8 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
         to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
         database.insert(outstandingTable.name, null, to.getSetValues());
+        ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<Task, TaskOutstanding>(taskId, Task.class,
+                PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao()));
         return true;
     }
 
