@@ -123,7 +123,10 @@ public class AstridNewSyncMigrator {
             }
         });
 
-        // TODO: Migrate updates here, somehow
+        // ----------
+        // Migrate unsynced task comments to UserActivity table
+        // ----------
+
         TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
                 Criterion.and(Criterion.or(Update.UUID.eq(0), Update.UUID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
                         Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));

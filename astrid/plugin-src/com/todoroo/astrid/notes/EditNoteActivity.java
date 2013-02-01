@@ -256,7 +256,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             Linkify.addLinks(notes, Linkify.ALL);
         }
 
-        Activity activity = fragment.getActivity();
         if (activity != null) {
             Bitmap bitmap = activity.getIntent().getParcelableExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
             if (bitmap != null) {
@@ -457,36 +456,15 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         userActivity.setValue(UserActivity.TARGET_ID, task.getUuid());
         userActivity.setValue(UserActivity.TARGET_NAME, task.getValue(Task.TITLE));
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
+        if (usePicture && pendingCommentPicture != null) {
+            userActivity.setValue(UserActivity.PICTURE, RemoteModel.PictureHelper.uploadPictureJson(pendingCommentPicture).toString());
+        }
 
-        // TODO: Fix picture uploading
-//        if (usePicture && pendingCommentPicture != null) {
-//            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
-//            try {
-//                String updateString = ImageDiskCache.getPictureHash(update);
-//                imageCache.put(updateString, pendingCommentPicture);
-//                update.setValue(Update.PICTURE, updateString);
-//            }
-//            catch (Exception e) {
-//                Log.e("EditNoteActivity", "Failed to put image to disk...");
-//            }
-//        }
-//        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         userActivityDao.createNew(userActivity);
-//
-//        final long updateId = userActivity.getId();
-//        final Bitmap tempPicture = usePicture ? pendingCommentPicture : null;
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                actFmSyncService.pushUpdate(updateId, tempPicture);
-//
-//            }
-//        }.start();
         commentField.setText(""); //$NON-NLS-1$
 
         pendingCommentPicture = usePicture ? null : pendingCommentPicture;
         if (usePicture) {
-            Activity activity = fragment.getActivity();
             if (activity != null)
                 activity.getIntent().removeExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
         }
@@ -582,7 +560,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             CameraResultCallback callback = new CameraResultCallback() {
                 @Override
                 public void handleCameraResult(Bitmap bitmap) {
-                    Activity activity = fragment.getActivity();
                     if (activity != null) {
                         activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, bitmap);
                     }
