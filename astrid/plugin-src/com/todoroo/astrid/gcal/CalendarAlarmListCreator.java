@@ -225,7 +225,7 @@ public class CalendarAlarmListCreator extends Activity {
         String email = emails.get(index);
         if (emailsToUsers.containsKey(email)) {
             User u = emailsToUsers.get(email);
-            String userName = u.getValue(User.NAME);
+            String userName = u.getDisplayName();
             if (!TextUtils.isEmpty(userName))
                 return userName;
         }

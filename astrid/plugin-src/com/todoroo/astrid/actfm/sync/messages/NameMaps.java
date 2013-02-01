@@ -192,7 +192,6 @@ public class NameMaps {
         USER_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
 
         putUserPropertyToServerName(User.UUID,       "uuid",       false);
-        putUserPropertyToServerName(User.EMAIL,      "email",      false);
         putUserPropertyToServerName(User.PICTURE,    "picture",    false);
         putUserPropertyToServerName(User.FIRST_NAME, "first_name", false);
         putUserPropertyToServerName(User.LAST_NAME,  "last_name",  false);

@@ -55,7 +55,7 @@ public final class User extends RemoteModel {
             TABLE, "last_name");
 
     /** User Email */
-    public static final StringProperty EMAIL = new StringProperty(
+    @Deprecated public static final StringProperty EMAIL = new StringProperty(
             TABLE, "email");
 
     /** User picture */

@@ -45,7 +45,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -454,9 +453,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     private ArrayList<JSONObject> getAstridFriends() {
         ArrayList<JSONObject> astridFriends = new ArrayList<JSONObject>();
         TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
-                .orderBy(Order.asc(Functions.caseStatement(Criterion.or(User.NAME.isNull(), User.NAME.eq("")), //$NON-NLS-1$
-                        Functions.upper(User.EMAIL),
-                        Functions.upper(User.NAME)))));
+                .orderBy(Order.asc(User.FIRST_NAME), Order.asc(User.LAST_NAME), Order.asc(User.NAME), Order.asc(User.EMAIL)));
         try {
             User user = new User();
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
