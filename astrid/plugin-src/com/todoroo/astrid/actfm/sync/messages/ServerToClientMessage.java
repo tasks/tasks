@@ -26,10 +26,10 @@ public abstract class ServerToClientMessage {
         this.json = json;
     }
 
-    public static ServerToClientMessage instantiateMessage(JSONObject json, long pushedAt) {
+    public static ServerToClientMessage instantiateMessage(JSONObject json) {
         String type = json.optString("type");
         if (TYPE_MAKE_CHANGES.equals(type))
-            return instantiateMakeChanges(json, pushedAt);
+            return instantiateMakeChanges(json);
         else if (TYPE_NOW_BRIEFED.equals(type))
             return instantiateNowBriefed(json);
         else if (TYPE_ACKNOWLEDGE_CHANGE.equals(type))
@@ -44,16 +44,16 @@ public abstract class ServerToClientMessage {
         return null;
     }
 
-    private static MakeChanges<?> instantiateMakeChanges(JSONObject json, long pushedAt) {
+    private static MakeChanges<?> instantiateMakeChanges(JSONObject json) {
         String table = json.optString("table");
         if (NameMaps.TABLE_ID_TASKS.equals(table))
-            return new MakeChanges<Task>(json, PluginServices.getTaskDao(), pushedAt);
+            return new MakeChanges<Task>(json, PluginServices.getTaskDao());
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
-            return new MakeChanges<TagData>(json, PluginServices.getTagDataDao(), pushedAt);
+            return new MakeChanges<TagData>(json, PluginServices.getTagDataDao());
         else if (NameMaps.TABLE_ID_USERS.equals(table))
-            return new MakeChanges<User>(json, PluginServices.getUserDao(), pushedAt);
+            return new MakeChanges<User>(json, PluginServices.getUserDao());
         else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
-            return new MakeChanges<UserActivity>(json, PluginServices.getUserActivityDao(), pushedAt);
+            return new MakeChanges<UserActivity>(json, PluginServices.getUserActivityDao());
         else
             return null;
     }

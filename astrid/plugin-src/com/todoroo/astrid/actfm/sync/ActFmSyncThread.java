@@ -1,7 +1,6 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +17,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
@@ -194,18 +192,11 @@ public class ActFmSyncThread {
                         JSONObject response = actFmInvoker.postSync(payload, token);
                         // process responses
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
-                        String modelPushedAtString = response.optString("time");
-                        long modelPushedAt = 0;
-                        try {
-                            modelPushedAt = DateUtilities.parseIso8601(modelPushedAtString);
-                        } catch (ParseException e) {
-                            Log.e(ERROR_TAG, "Unparseable date " + modelPushedAtString, e);
-                        }
                         if (serverMessagesJson != null) {
                             for (int i = 0; i < serverMessagesJson.length(); i++) {
                                 JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
                                 if (serverMessageJson != null) {
-                                    ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson, modelPushedAt);
+                                    ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
                                     if (serverMessage != null) {
                                         serverMessage.processMessage();
                                     } else {
