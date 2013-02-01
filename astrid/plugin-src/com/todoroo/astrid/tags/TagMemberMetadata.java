@@ -12,6 +12,7 @@ public class TagMemberMetadata {
 
     public static TagMetadata newMemberMetadata(long tagId, String tagUuid, String userUuid) {
         TagMetadata m = new TagMetadata();
+        m.setValue(TagMetadata.KEY, KEY);
         m.setValue(TagMetadata.TAG_ID, tagId);
         m.setValue(TagMetadata.TAG_UUID, tagUuid);
         m.setValue(USER_UUID, userUuid);

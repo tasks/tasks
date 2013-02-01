@@ -113,19 +113,19 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     public void removeMemberLink(long tagId, String tagUuid, String memberId, boolean suppressOutstanding) {
         TagMetadata deleteTemplate = new TagMetadata();
         deleteTemplate.setValue(TagMetadata.TAG_ID, tagId); // Need this for recording changes in outstanding table
-        deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        deleteTemplate.setValue(TagMetadata.DELETION_DATE, DateUtilities.now());
         deleteTemplate.setValue(TagMemberMetadata.USER_UUID, memberId); // Need this for recording changes in outstanding table
 
         if (suppressOutstanding)
             deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-        update(Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+        update(Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0),
                 TagMetadata.TAG_UUID.eq(tagUuid), TagMemberMetadata.USER_UUID.eq(memberId)), deleteTemplate);
     }
 
     public void removeMemberLinks(long tagId, String tagUuid, String[] memberIds, boolean suppressOutstanding) {
         TagMetadata deleteTemplate = new TagMetadata();
         deleteTemplate.setValue(TagMetadata.TAG_ID, tagId); // Need this for recording changes in outstanding table
-        deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        deleteTemplate.setValue(TagMetadata.DELETION_DATE, DateUtilities.now());
         if (memberIds != null) {
             for (String uuid : memberIds) {
                 // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
@@ -133,7 +133,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                 deleteTemplate.setValue(TagMemberMetadata.USER_UUID, uuid); // Need this for recording changes in outstanding table
                 if (suppressOutstanding)
                     deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                update(Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                update(Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0),
                         TagMetadata.TAG_UUID.eq(tagUuid), TagMemberMetadata.USER_UUID.eq(uuid)), deleteTemplate);
             }
         }

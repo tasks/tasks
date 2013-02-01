@@ -56,6 +56,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -376,13 +377,9 @@ public class TagViewFragment extends TaskListFragment {
                 TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
                         .where(User.UUID.in(Query.select(TagMemberMetadata.USER_UUID)
                                 .from(TagMetadata.TABLE)
-                                .where(Criterion.and(TagMetadata.TAG_UUID.eq(tagData.getUuid()), TagMetadata.DELETION_DATE.eq(0))))));
+                                .where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagData.getUuid(), TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0))))));
                 try {
                     addedMembers = users.getCount() > 0;
-                    if (addedMembers) {
-                        membersView.setOnClickListener(null);
-                        membersView.removeAllViews();
-                    }
                     User user = new User();
                     for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                         user.clear();
@@ -396,9 +393,10 @@ public class TagViewFragment extends TaskListFragment {
                 }
 
                 TodorooCursor<TagMetadata> byEmail = tagMetadataDao.query(Query.select(TagMemberMetadata.USER_UUID)
-                        .where(Criterion.and(TagMetadata.TAG_UUID.eq(tagData.getUuid()),
-                                TagMemberMetadata.USER_UUID.like("%@%")))); //$NON-NLS-1$
+                        .where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagData.getUuid(), TagMemberMetadata.KEY),
+                                TagMemberMetadata.USER_UUID.like("%@%"), TagMetadata.DELETION_DATE.eq(0)))); //$NON-NLS-1$
                 try {
+                    addedMembers = addedMembers || byEmail.getCount() > 0;
                     TagMetadata tm = new TagMetadata();
                     for (byEmail.moveToFirst(); !byEmail.isAfterLast(); byEmail.moveToNext()) {
                         tm.clear();
@@ -412,6 +410,11 @@ public class TagViewFragment extends TaskListFragment {
                     }
                 } finally {
                     byEmail.close();
+                }
+
+                if (addedMembers) {
+                    membersView.setOnClickListener(null);
+                    membersView.removeAllViews();
                 }
             }
         } catch (JSONException e) {
