@@ -187,5 +187,25 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
             createMemberLink(tagId, tagUuid, id, false);
         }
     }
+
+    public boolean memberOfTagData(String email, String id) {
+        Criterion criterion;
+        if (!RemoteModel.isUuidEmpty(id) && !TextUtils.isEmpty(email))
+            criterion = Criterion.or(TagMemberMetadata.USER_UUID.eq(email), TagMemberMetadata.USER_UUID.eq(id));
+        else if (!RemoteModel.isUuidEmpty(id))
+            criterion = TagMemberMetadata.USER_UUID.eq(id);
+        else if (!TextUtils.isEmpty(email))
+            criterion = TagMemberMetadata.USER_UUID.eq(email);
+        else
+            return false;
+
+        TodorooCursor<TagMetadata> count = query(Query.select(TagMetadata.ID).where(
+                Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), criterion)));
+        try {
+            return count.getCount() > 0;
+        } finally {
+            //
+        }
+    }
 }
 
