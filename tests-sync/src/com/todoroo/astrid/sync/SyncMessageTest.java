@@ -47,26 +47,13 @@ public class SyncMessageTest extends NewSyncTestCase {
 		return makeChanges;
 	}
 	
-	private JSONObject getMakeChangesForPushedAt(long date) throws JSONException {
-		JSONObject makeChanges = new JSONObject();
-		makeChanges.put("type", ServerToClientMessage.TYPE_MAKE_CHANGES);
-		makeChanges.put("table", NameMaps.TABLE_ID_PUSHED_AT);
-		makeChanges.put("uuid", NameMaps.TABLE_ID_TASKS);
-		
-		JSONObject changes = new JSONObject();
-		changes.put("pushed_at", DateUtilities.timeToIso8601(date, true));
-		
-		makeChanges.put("changes", changes);
-		return makeChanges;
-	}
-	
 	public void testMakeChangesMakesChanges() {
 		Task t = createTask();
 		try {
 			JSONObject makeChanges = getMakeChanges();
 			makeChanges.put("uuid", t.getValue(Task.UUID));
 			
-			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
 			message.processMessage();
 			
 			t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
@@ -82,7 +69,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 		try {
 			JSONObject makeChanges = getMakeChanges();
 			makeChanges.put("uuid", "1");
-			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
 			message.processMessage();
 			
 			TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.UUID, Task.TITLE, Task.IMPORTANCE).where(Task.UUID.eq("1")));
@@ -98,21 +85,6 @@ public class SyncMessageTest extends NewSyncTestCase {
 				cursor.close();
 			}
 			
-		} catch (JSONException e) {
-			e.printStackTrace();
-			fail("JSONException");
-		}
-	}
-	
-	public void testMakeChangesToPushedAtValues() {
-		try {
-			long date = DateUtilities.now() / 1000 * 1000;
-			JSONObject makeChanges = getMakeChangesForPushedAt(date);
-			
-			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges, DateUtilities.now());
-			message.processMessage();
-			
-			assertEquals(date, Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0));
 		} catch (JSONException e) {
 			e.printStackTrace();
 			fail("JSONException");

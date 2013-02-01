@@ -27,11 +27,11 @@ public class NameMaps {
     public static final String TABLE_ID_TAGS = "tags";
     public static final String TABLE_ID_USERS = "users";
     public static final String TABLE_ID_USER_ACTIVITY = "user_activities";
-    public static final String TABLE_ID_PUSHED_AT = "pushed_at";
 
-    public static final String PUSHED_AT_TASKS = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_TASKS;
-    public static final String PUSHED_AT_TAGS = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_TAGS;
-    public static final String PUSHED_AT_ACTIVITY = TABLE_ID_PUSHED_AT + "_" + TABLE_ID_USER_ACTIVITY;
+    private static final String PUSHED_AT_PREFIX = "pushed_at";
+    public static final String PUSHED_AT_TASKS = PUSHED_AT_PREFIX + "_" + TABLE_ID_TASKS;
+    public static final String PUSHED_AT_TAGS = PUSHED_AT_PREFIX + "_" + TABLE_ID_TAGS;
+    public static final String PUSHED_AT_ACTIVITY = PUSHED_AT_PREFIX + "_" + TABLE_ID_USER_ACTIVITY;
 
     static {
         // Hardcoded local tables mapped to corresponding server names
@@ -122,7 +122,6 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.USER_ID,         "user_id",        false);
         putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     true);
         putTaskPropertyToServerName(Task.UUID,            "uuid",           true);
-        putTaskPropertyToServerName(Task.PUSHED_AT,       "pushed_at",      true);
         putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",         false);
         putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",      true);
         putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", true);
@@ -161,7 +160,6 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   false);
         putTagPropertyToServerName(TagData.UUID,            "uuid",         true);
         putTagPropertyToServerName(TagData.TAG_ORDERING,    "tag_ordering", true);
-        putTagPropertyToServerName(TagData.PUSHED_AT,       "pushed_at",    true);
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   true);
         putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  false);
         putTagPropertyToServerName(TagData.PICTURE,         "picture",      false);
@@ -196,7 +194,6 @@ public class NameMaps {
         putUserPropertyToServerName(User.UUID,       "uuid",       true);
         putUserPropertyToServerName(User.EMAIL,      "email",      true);
         putUserPropertyToServerName(User.PICTURE,    "picture",    true);
-        putUserPropertyToServerName(User.PUSHED_AT,  "pushed_at",  true);
         putUserPropertyToServerName(User.FIRST_NAME, "first_name", true);
         putUserPropertyToServerName(User.LAST_NAME,  "last_name",  true);
 
