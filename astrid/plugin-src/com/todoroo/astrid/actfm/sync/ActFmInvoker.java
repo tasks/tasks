@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.TimeZone;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +26,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
+import com.twmacinta.util.MD5;
 
 @SuppressWarnings("nls")
 public class ActFmInvoker {
@@ -238,7 +238,10 @@ public class ActFmInvoker {
         }
 
         sigBuilder.append(APP_SECRET);
-        String signature = DigestUtils.md5Hex(sigBuilder.toString());
+        MD5 md5 = new MD5();
+        md5.Update(sigBuilder.toString(), null);
+        String signature = md5.asHex();
+//        String signature = DigestUtils.md5Hex(sigBuilder.toString());
         requestBuilder.append("sig").append('=').append(signature);
         return requestBuilder.toString();
     }
