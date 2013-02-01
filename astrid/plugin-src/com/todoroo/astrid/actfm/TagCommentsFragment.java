@@ -115,7 +115,6 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    @SuppressWarnings("nls")
     protected UserActivity createUpdate() {
         UserActivity userActivity = new UserActivity();
         userActivity.setValue(UserActivity.MESSAGE, addCommentField.getText().toString());
