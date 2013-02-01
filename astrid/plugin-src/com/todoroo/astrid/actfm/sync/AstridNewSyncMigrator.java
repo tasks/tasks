@@ -31,6 +31,7 @@ import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
@@ -165,6 +166,11 @@ public class AstridNewSyncMigrator {
             updates.close();
         }
 
+
+        // ----------
+        // Drop any entries from the Users table that don't have a UUID
+        // ----------
+        userDao.deleteWhere(Criterion.or(User.UUID.isNull(), User.UUID.eq(""), User.UUID.eq("0")));
 
         // --------------
         // Finally, ensure that all tag metadata entities have all important fields filled in
