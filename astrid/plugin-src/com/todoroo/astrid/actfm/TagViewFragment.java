@@ -22,7 +22,6 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -324,37 +323,33 @@ public class TagViewFragment extends TaskListFragment {
         if (tagData != null) {
             long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + tagData.getId(), 0);
             if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
-                refreshData(false);
+                refreshData();
         }
     }
 
     /** refresh the list with latest data from the web */
-    private void refreshData(final boolean manual) {
+    private void refreshData() {
         if (actFmPreferenceService.isLoggedIn()) {
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
             Runnable callback = new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("TagViewFragment", "Refresh data callback");
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                reloadTagData(false);
+                                refresh();
+                                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                            }
+                        });
+                    }
                 }
             };
 
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getValue(TagData.UUID), tagData.getValue(TagData.PUSHED_AT)), callback);
-            // TODO: Refresh and reload tagData
-
-//            syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-//                    R.id.progressBar, new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (manual)
-//                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-//                    else
-//                        refresh();
-//                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-//                }
-//            }));
-//            Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
         }
     }
 
@@ -388,6 +383,10 @@ public class TagViewFragment extends TaskListFragment {
                                 .where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagData.getUuid(), TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0))))));
                 try {
                     addedMembers = users.getCount() > 0;
+                    if (addedMembers) {
+                        membersView.setOnClickListener(null);
+                        membersView.removeAllViews();
+                    }
                     User user = new User();
                     for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                         user.clear();
@@ -404,6 +403,10 @@ public class TagViewFragment extends TaskListFragment {
                         .where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagData.getUuid(), TagMemberMetadata.KEY),
                                 TagMemberMetadata.USER_UUID.like("%@%"), TagMetadata.DELETION_DATE.eq(0)))); //$NON-NLS-1$
                 try {
+                    if (!addedMembers && byEmail.getCount() > 0) {
+                        membersView.setOnClickListener(null);
+                        membersView.removeAllViews();
+                    }
                     addedMembers = addedMembers || byEmail.getCount() > 0;
                     TagMetadata tm = new TagMetadata();
                     for (byEmail.moveToFirst(); !byEmail.isAfterLast(); byEmail.moveToNext()) {
@@ -418,11 +421,6 @@ public class TagViewFragment extends TaskListFragment {
                     }
                 } finally {
                     byEmail.close();
-                }
-
-                if (addedMembers) {
-                    membersView.setOnClickListener(null);
-                    membersView.removeAllViews();
                 }
             }
         } catch (JSONException e) {
@@ -491,7 +489,7 @@ public class TagViewFragment extends TaskListFragment {
             final JSONObject memberToUse = member;
 
             final String memberName = displayName(memberToUse);
-            if (memberToUse.has("picture")) {
+            if (memberToUse.has("picture") && !TextUtils.isEmpty(memberToUse.getString("picture"))) {
                 image.setUrl(memberToUse.getString("picture"));
             }
             image.setOnClickListener(listenerForImage(memberToUse, id, memberName));
@@ -596,7 +594,7 @@ public class TagViewFragment extends TaskListFragment {
                     //refreshUpdatesList();
                 }
             });
-            refreshData(false);
+            refreshData();
 
             NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
             try {
@@ -637,7 +635,7 @@ public class TagViewFragment extends TaskListFragment {
         AndroidUtilities.tryUnregisterReceiver(getActivity(), notifyReceiver);
     }
 
-    protected void reloadTagData() {
+    protected void reloadTagData(boolean onActivityResult) {
         tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
         if (tagData == null) {
             // This can happen if a tag has been deleted as part of a sync
@@ -653,8 +651,12 @@ public class TagViewFragment extends TaskListFragment {
         if (activity instanceof TaskListActivity) {
             ((TaskListActivity) activity).setListsTitle(filter.title);
             FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
-            if (flf != null)
-                flf.clear();
+            if (flf != null) {
+                if (!onActivityResult)
+                    flf.refresh();
+                else
+                    flf.clear();
+            }
         }
         taskAdapter = null;
         Flags.set(Flags.REFRESH);
@@ -663,7 +665,7 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
-            reloadTagData();
+            reloadTagData(true);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -674,7 +676,7 @@ public class TagViewFragment extends TaskListFragment {
         // handle my own menus
         switch (id) {
         case MENU_REFRESH_ID:
-            refreshData(true);
+            refreshData();
             return true;
         case MENU_LIST_SETTINGS_ID:
             settingsListener.onClick(null);

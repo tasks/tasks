@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
+
 import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -24,6 +26,9 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -42,7 +47,6 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.utility.Flags;
 
 /**
  * Exposes sync action
@@ -176,10 +180,16 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
                 actFmPreferenceService.recordSyncStart();
                 updateUserStatus();
-                Flags.set(Flags.BG_SYNC);
-                synchronized(ActFmSyncMonitor.getInstance()) {
-                    ActFmSyncMonitor.getInstance().notifyAll();
-                }
+                Runnable refreshCallback = new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+                        ContextManager.getContext().sendBroadcast(refresh);
+                    }
+                };
+
+                ActFmSyncThread.getInstance().enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), null);
+                ActFmSyncThread.getInstance().enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), refreshCallback);
 
 //                startUsersSync(callback, finisher);
 //

@@ -36,8 +36,6 @@ public class Flags {
      */
     public static final int TLFP_NO_INTERCEPT_TOUCH = 1 << 7;
 
-    public static final int BG_SYNC = 1 << 8;
-
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;
         state &= ~flag;

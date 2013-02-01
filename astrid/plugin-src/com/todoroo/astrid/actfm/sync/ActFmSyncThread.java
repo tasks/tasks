@@ -8,10 +8,12 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -21,6 +23,7 @@ import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -38,7 +41,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
-import com.todoroo.astrid.utility.Flags;
 
 public class ActFmSyncThread {
 
@@ -171,15 +173,21 @@ public class ActFmSyncThread {
                         messageBatch.add(message);
                 }
 
-                while (callbackBatch.size() < batchSize && !callbackBatch.isEmpty()) {
+                while (callbackBatch.size() < batchSize && !pendingCallbacks.isEmpty()) {
                     Runnable callback = pendingCallbacks.remove(0);
                     callbackBatch.add(callback);
                 }
 
                 if (messageBatch.isEmpty() && timeForBackgroundSync()) {
-                    Flags.checkAndClear(Flags.BG_SYNC);
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
+                    callbackBatch.add(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+                            ContextManager.getContext().sendBroadcast(refresh);
+                        }
+                    });
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -228,8 +236,6 @@ public class ActFmSyncThread {
 
                     messageBatch = new LinkedList<ClientToServerMessage<?>>();
                     callbackBatch = new LinkedList<Runnable>();
-//                    Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-//                    ContextManager.getContext().sendBroadcast(refresh);
                 }
             }
         } catch (Exception e) {
@@ -250,7 +256,7 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
-        return Flags.check(Flags.BG_SYNC);
+        return false;
     }
 
     private void repopulateQueueFromOutstandingTables() {
