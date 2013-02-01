@@ -1194,7 +1194,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return true;
         case MENU_COMMENTS_REFRESH_ID: {
             if (editNotes != null)
-                editNotes.refreshData(true, null);
+                editNotes.refreshData();
             return true;
         }
         case MENU_SHOW_COMMENTS_ID: {

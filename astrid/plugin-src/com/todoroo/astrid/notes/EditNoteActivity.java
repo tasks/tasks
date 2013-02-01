@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -73,7 +72,6 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
@@ -153,12 +151,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         if(actFmPreferenceService.isLoggedIn()) {
             if(!task.containsNonNullValue(Task.UUID))
-                refreshData(true, null);
+                refreshData();
             else {
                 String fetchKey = LAST_FETCH_KEY + task.getId();
                 long lastFetchDate = Preferences.getLong(fetchKey, 0);
                 if(DateUtilities.now() > lastFetchDate + 300000L) {
-                    refreshData(false, null);
+                    refreshData();
                     Preferences.setLong(fetchKey, DateUtilities.now());
                 } else {
                     loadingText.setText(R.string.ENA_no_comments);
@@ -394,48 +392,28 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
     }
 
-    public void refreshData(boolean manual, SyncResultCallback existingCallback) {
+    public void refreshData() {
         if(!task.containsNonNullValue(Task.UUID)) {
             return;
         }
 
-//        final SyncResultCallback callback;
-//        if(existingCallback != null)
-//            callback = existingCallback;
-//        else {
-//            callback = new ProgressBarSyncResultCallback(
-//                    ((Activity)getContext()), (ProgressBar)parentView.findViewById(R.id.progressBar), new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            setUpListAdapter();
-//                            loadingText.setText(R.string.ENA_no_comments);
-//                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-//                        }
-//                    });
-//
-//            callback.started();
-//            callback.incrementMax(100);
-//        }
         Runnable callback = new Runnable() {
             @Override
             public void run() {
-                Log.e("EditNoteActivity", "Refresh data callback");
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setUpListAdapter();
+                            loadingText.setText(R.string.ENA_no_comments);
+                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
+                        }
+                    });
+                }
             }
         };
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), callback);
-
-
-//        actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
-//            @Override
-//            public void run() {
-//                callback.incrementProgress(50);
-//                callback.finished();
-//            }
-//        });
-//        callback.incrementProgress(50);
-//        callback.finished();
-//        callback.incrementProgress(50);
     }
 
     private void addComment() {
@@ -509,8 +487,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         public static NoteOrUpdate fromUpdate(AstridActivity context, UserActivity u, User user, String linkColor) {
-//            JSONObject user = ActFmPreferenceService.userFromModel(u);
-
             String commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
 
             Spanned title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
