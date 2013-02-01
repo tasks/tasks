@@ -81,7 +81,7 @@ public final class PluginServices {
     @Autowired
     TagOutstandingDao tagOutstandingDao;
 
-    private static PluginServices instance;
+    private static volatile PluginServices instance;
 
     static {
         AstridDependencyInjector.initialize();
