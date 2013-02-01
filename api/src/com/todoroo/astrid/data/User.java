@@ -60,7 +60,7 @@ public final class User extends RemoteModel {
 
     /** User picture */
     public static final StringProperty PICTURE = new StringProperty(
-            TABLE, "picture");
+            TABLE, "picture", Property.PROP_FLAG_JSON);
 
     /** Remote id */
     public static final StringProperty UUID = new StringProperty(

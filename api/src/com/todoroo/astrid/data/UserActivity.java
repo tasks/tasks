@@ -54,7 +54,7 @@ public class UserActivity extends RemoteModel {
 
     /** Picture */
     public static final StringProperty PICTURE = new StringProperty(
-            TABLE, "picture");
+            TABLE, "picture", Property.PROP_FLAG_JSON);
 
     /** Target id */
     public static final StringProperty TARGET_ID = new StringProperty(

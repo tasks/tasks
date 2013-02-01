@@ -45,6 +45,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     public static final int PROP_FLAG_USER_ID = 1 << 2;
     /** Is this field a boolean? */
     public static final int PROP_FLAG_BOOLEAN = 1 << 3;
+    /** Is this field a serialized JSON object? */
+    public static final int PROP_FLAG_JSON = 1 << 4;
 
     public int flags = 0;
 

@@ -204,6 +204,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             String value = getAsString(data);
             if (RemoteModel.NO_UUID.equals(value) && property.checkFlag(Property.PROP_FLAG_USER_ID))
                 return ActFmPreferenceService.userId();
+            if (property.checkFlag(Property.PROP_FLAG_JSON))
+                try {
+                    return new JSONObject(value);
+                } catch (JSONException e) {
+                    //
+                }
             return value;
         }
 
