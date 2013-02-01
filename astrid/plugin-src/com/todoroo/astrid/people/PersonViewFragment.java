@@ -5,19 +5,17 @@
  */
 package com.todoroo.astrid.people;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v4.view.Menu;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
@@ -154,7 +152,6 @@ public class PersonViewFragment extends TaskListFragment {
             if (setValues != null && setValues.containsKey(User.PENDING_STATUS.name)) {
                 userDao.saveExisting(user);
                 userStatusButton.setVisibility(View.GONE);
-                refreshData(false);
             }
         }
     }
@@ -173,7 +170,7 @@ public class PersonViewFragment extends TaskListFragment {
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
         switch (id) {
         case MENU_REFRESH_ID:
-            refreshData(true);
+            refreshData();
             return true;
         }
         return super.handleOptionsMenuItemSelected(id, intent);
@@ -183,11 +180,11 @@ public class PersonViewFragment extends TaskListFragment {
     protected void initiateAutomaticSyncImpl() {
         if (!isCurrentTaskListFragment())
             return;
-        if (user != null) {
-            long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + user.getId(), 0);
-            if (DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
-                refreshData(false);
-        }
+        refreshData();
+    }
+
+    private void reloadUserData() {
+        user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
     }
 
     @Override
@@ -196,51 +193,22 @@ public class PersonViewFragment extends TaskListFragment {
         setupUserHeader();
     }
 
-    private void refreshData(final boolean manual) {
+    private void refreshData() {
         if (user != null) {
-//            emptyView.setText(R.string.DLG_loading);
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    // TODO: Fix friend status logic for new sync scheme
-//                    if (!TextUtils.isEmpty(user.getValue(User.PENDING_STATUS))) {
-//                        actFmSyncService.pushUser(user);
-//                        user = userDao.fetch(user.getId(), User.PROPERTIES);
-//                    }
-//                    SyncResultCallback callback;
-//                    try {
-//                        if (getActivity() == null)
-//                            throw new NullPointerException("Person view activity is null"); //$NON-NLS-1$
-//                        callback = new ProgressBarSyncResultCallback(getActivity(), PersonViewFragment.this,
-//                                R.id.progressBar, new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                if (getActivity() != null) {
-//                                    if (manual)
-//                                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-//                                    else
-//                                        refresh();
-//                                    emptyView.setText(getEmptyDisplayString());
-//                                }
-//                            }
-//                        });
-//                    } catch (Exception e) { // Fragment no longer attached, but sync and refresh anyways
-//                        callback = new SyncResultCallbackAdapter() {
-//                            @Override
-//                            public void finished() {
-//                                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-//                            };
-//                        };
-//                    }
-//
-//                    syncService.synchronizeList(user, manual, callback);
-//                    // TODO: Refresh
-//                }
-//            }.start();
+            emptyView.setText(R.string.DLG_loading);
             Runnable callback = new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("PersonViewFragment", "Refresh data callback");
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                reloadUserData();
+                                refresh();
+                                emptyView.setText(getEmptyDisplayString());
+                            }
+                        });
+                    }
                 }
             };
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
