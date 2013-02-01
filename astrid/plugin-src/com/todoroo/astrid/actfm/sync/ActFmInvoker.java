@@ -241,7 +241,6 @@ public class ActFmInvoker {
         MD5 md5 = new MD5();
         md5.Update(sigBuilder.toString(), null);
         String signature = md5.asHex();
-//        String signature = DigestUtils.md5Hex(sigBuilder.toString());
         requestBuilder.append("sig").append('=').append(signature);
         return requestBuilder.toString();
     }
