@@ -222,13 +222,13 @@ public class NameMaps {
         USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        true);
-        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     true);
+        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
+        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
         putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      true);
         putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     true);
         putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
         putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   true);
-        putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", true);
+        putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
         putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  true);
         putUserActivityPropertyToServerName(UserActivity.DELETED_AT,  "deleted_at",  true);
 
