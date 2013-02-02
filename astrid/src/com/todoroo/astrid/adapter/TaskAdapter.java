@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -58,23 +57,19 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
@@ -83,7 +78,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -96,6 +90,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -113,11 +108,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
-    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN),
-            Metadata.ID.name).as("taskRabId"); //$NON-NLS-1$
-
+    @SuppressWarnings("nls")
+    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN), Metadata.ID.name).as("taskRabId");
     @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
+    @SuppressWarnings("nls")
+    private static final LongProperty FILE_ID_PROPERTY = new LongProperty(Metadata.TABLE.as(TaskListFragment.FILE_METADATA_JOIN), Metadata.ID.name).as("fileId");
+    @SuppressWarnings("nls")
+    private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
     private static final StringProperty PICTURE = new StringProperty(User.TABLE.as(TaskListFragment.USER_IMAGE_JOIN), User.PICTURE.name);
 
@@ -139,14 +137,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
         Task.RECURRENCE,
-        Task.NOTES,
         Task.USER_ID,
         Task.USER,
         Task.REMINDER_LAST,
         Task.SOCIAL_REMINDER,
         PICTURE,
+        HAS_NOTES_PROPERTY, // Whether or not the task has notes
         TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
-        TAGS // Concatenated list of tags
+        TAGS, // Concatenated list of tags
+        FILE_ID_PROPERTY // File id
     };
 
     public static final Property<?>[] BASIC_PROPERTIES = new Property<?>[] {
@@ -161,33 +160,46 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.DELETION_DATE
     };
 
-    public static int[] IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.importance_check_1,
-        R.drawable.importance_check_2,
-        R.drawable.importance_check_3,
-        R.drawable.importance_check_4,
+    public static final int[] IMPORTANCE_RESOURCES = new int[] {
+        R.drawable.check_box_1,
+        R.drawable.check_box_2,
+        R.drawable.check_box_3,
+        R.drawable.check_box_4,
     };
 
-    public static int[] LEGACY_IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.importance_1,
-        R.drawable.importance_2,
-        R.drawable.importance_3,
-        R.drawable.importance_4,
+    public static final int[] IMPORTANCE_RESOURCES_CHECKED = new int[] {
+        R.drawable.check_box_checked_1,
+        R.drawable.check_box_checked_2,
+        R.drawable.check_box_checked_3,
+        R.drawable.check_box_checked_4,
     };
 
-    public static int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
+    public static final int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
         R.drawable.check_box_large_1,
         R.drawable.check_box_large_2,
         R.drawable.check_box_large_3,
         R.drawable.check_box_large_4,
     };
 
-    public static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
-        R.drawable.importance_check_repeat_1,
-        R.drawable.importance_check_repeat_2,
-        R.drawable.importance_check_repeat_3,
-        R.drawable.importance_check_repeat_4,
+    public static final int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
+        R.drawable.check_box_repeat_1,
+        R.drawable.check_box_repeat_2,
+        R.drawable.check_box_repeat_3,
+        R.drawable.check_box_repeat_4,
     };
+
+    public static final int[] IMPORTANCE_REPEAT_RESOURCES_CHECKED = new int[] {
+        R.drawable.check_box_repeat_checked_1,
+        R.drawable.check_box_repeat_checked_2,
+        R.drawable.check_box_repeat_checked_3,
+        R.drawable.check_box_repeat_checked_4,
+    };
+
+    private static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
+    private static final Drawable[] IMPORTANCE_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_RESOURCES_CHECKED.length];
+    private static final Drawable[] IMPORTANCE_DRAWABLES_LARGE = new Drawable[IMPORTANCE_RESOURCES_LARGE.length];
+    private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
+    private static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_REPEAT_RESOURCES_CHECKED.length];
 
     // --- instance variables
 
@@ -198,6 +210,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static int APPLY_LISTENERS_ROW_BODY= 1;
     public static int APPLY_LISTENERS_NONE = 2;
 
+    protected final Context context;
     protected final TaskListFragment fragment;
     protected final Resources resources;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
@@ -206,7 +219,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final int resource;
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
-    private ActionsLoaderThread actionsLoader;
+//    private ActionsLoaderThread actionsLoader;
     private int fontSize;
     protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
@@ -227,6 +240,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public final DecorationManager decorationManager;
 
+    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
+
     /**
      * Constructor
      *
@@ -246,6 +261,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         super(ContextManager.getContext(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
+        this.context = ContextManager.getContext();
         this.query = query;
         this.resource = resource;
         this.titleOnlyLayout = resource == R.layout.task_adapter_row_title_only;
@@ -264,7 +280,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
-        startTaskActionsThread();
 
         decorationManager = new DecorationManager();
 
@@ -276,6 +291,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fragment.getActivity().getTheme().resolveAttribute(R.attr.asReadonlyTaskBackground, readonlyBg, false);
         readonlyBackground = readonlyBg.data;
 
+        preloadDrawables(IMPORTANCE_RESOURCES, IMPORTANCE_DRAWABLES);
+        preloadDrawables(IMPORTANCE_RESOURCES_CHECKED, IMPORTANCE_DRAWABLES_CHECKED);
+        preloadDrawables(IMPORTANCE_RESOURCES_LARGE, IMPORTANCE_DRAWABLES_LARGE);
+        preloadDrawables(IMPORTANCE_REPEAT_RESOURCES, IMPORTANCE_REPEAT_DRAWABLES);
+        preloadDrawables(IMPORTANCE_REPEAT_RESOURCES_CHECKED, IMPORTANCE_REPEAT_DRAWABLES_CHECKED);
+
+    }
+
+    private void preloadDrawables(int[] resourceIds, Drawable[] drawables) {
+        for (int i = 0; i < resourceIds.length; i++) {
+            drawables[i] = resources.getDrawable(resourceIds[i]);
+        }
     }
 
     protected int computeMinRowHeight() {
@@ -300,13 +327,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
             detailLoader = new DetailLoaderThread();
             detailLoader.start();
-        }
-    }
-
-    private void startTaskActionsThread() {
-        if (!titleOnlyLayout) {
-            actionsLoader = new ActionsLoaderThread();
-            actionsLoader.start();
         }
     }
 
@@ -396,6 +416,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
             viewHolder.imageUrl = RemoteModel.PictureHelper.getPictureUrlFromCursor(cursor, PICTURE, RemoteModel.PICTURE_THUMB);
+            viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
+            viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
         }
 
         Task task = viewHolder.task;
@@ -429,6 +451,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public boolean isTaskRabbit; // From join query, not part of the task model
         public String tagsString; // From join query, not part of the task model
         public String imageUrl; // From join query, not part of the task model
+        public boolean hasFiles; // From join query, not part of the task model
+        public boolean hasNotes;
 
         public View[] decorations;
     }
@@ -493,13 +517,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // Task action
         ImageView taskAction = viewHolder.taskActionIcon;
         if (taskAction != null) {
-            if (taskActionLoader.containsKey(task.getId())) {
+            TaskAction action = getTaskAction(task, viewHolder.hasFiles, viewHolder.hasNotes);
+            if (action != null) {
                 taskAction.setVisibility(View.VISIBLE);
-                TaskAction action = taskActionLoader.get(task.getId());
-                if (action != null) {
-                    taskAction.setImageBitmap(action.icon);
-                    taskAction.setTag(action);
-                }
+                taskAction.setImageDrawable(action.icon);
+                taskAction.setTag(action);
             } else {
                 taskAction.setVisibility(View.GONE);
                 taskAction.setTag(null);
@@ -509,10 +531,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
-        if (Preferences.getBoolean(R.string.p_default_showdecorations_key, false)) {
-            decorationManager.request(viewHolder);
-        }
+    }
 
+    private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {
+        if (titleOnlyLayout || task.isCompleted() || !task.isEditable())
+            return null;
+        if (taskActionLoader.containsKey(task.getId())) {
+            return taskActionLoader.get(task.getId());
+        } else {
+            TaskAction action = LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
+            taskActionLoader.put(task.getId(), action);
+            return action;
+        }
     }
 
     @SuppressWarnings("nls")
@@ -609,6 +639,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showEditNotesDialog(final Task task) {
+        String notes = null;
+        Task t = taskService.fetchById(task.getId(), Task.NOTES);
+        if (t != null)
+            notes = t.getValue(Task.NOTES);
+        if (TextUtils.isEmpty(notes))
+            return;
+
         int theme = ThemeService.getEditDialogTheme();
         final Dialog dialog = new Dialog(fragment.getActivity(), theme);
         dialog.setTitle(R.string.TEA_note_label);
@@ -623,7 +660,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         });
 
         final TextView notesField = (TextView) notesView.findViewById(R.id.notes);
-        notesField.setText(task.getValue(Task.NOTES));
+        notesField.setText(notes);
 
         LayoutParams params = dialog.getWindow().getAttributes();
         params.width = LayoutParams.FILL_PARENT;
@@ -767,67 +804,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-
-    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
-
-
-    @SuppressWarnings("nls")
-    public class ActionsLoaderThread extends Thread {
-        public static final String FILE_COLUMN = "fileId";
-        private static final String METADATA_JOIN = "for_actions";
-
-        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN),
-                Metadata.ID.name).as(FILE_COLUMN);
-
-        @Override
-        public void run() {
-            AndroidUtilities.sleepDeep(500L);
-            String groupedQuery = query.get();
-
-            groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
-
-            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Task.USER_ID,
-                    fileIdProperty)
-                    .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
-                            Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
-                                    Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
-            final TodorooCursor<Task> fetchCursor = taskService.query(q);
-
-            try {
-                Task task = new Task();
-                LinkActionExposer linkActionExposer = new LinkActionExposer();
-
-                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                    task.clear();
-                    task.readFromCursor(fetchCursor);
-                    if(task.isCompleted() || !task.isEditable())
-                        continue;
-
-                    boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
-                    List<TaskAction> actions = linkActionExposer.
-                            getActionsForTask(ContextManager.getContext(), task, hasAttachments);
-                    if (actions.size() > 0)
-                        taskActionLoader.put(task.getId(), actions.get(0));
-                    else
-                        taskActionLoader.remove(task.getId());
-                }
-            } finally {
-                fetchCursor.close();
-            }
-            final Activity activity = fragment.getActivity();
-            if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(taskActionLoader.size() > 0) {
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
-            }
-        }
-    }
-
     /**
      * Add detail to a task
      *
@@ -904,7 +880,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         decorationManager.clearCache();
         taskDetailLoader.clear();
         startDetailThread();
-        startTaskActionsThread();
     }
 
     /**
@@ -1148,10 +1123,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         pictureView.setUrl(null);
                         if (viewHolder.isTaskRabbit) {
                             pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
-                        } else if(Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)))
-                            pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
+                        } else if (Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)))
+                            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone_transparent));
                         else {
-                            pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                            pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
                             if (!TextUtils.isEmpty(viewHolder.imageUrl)) {
                                 pictureView.setUrl(viewHolder.imageUrl);
                             } else if (!TextUtils.isEmpty(task.getValue(Task.USER))) {
@@ -1177,18 +1152,21 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final Task task = viewHolder.task;
         final AsyncImageView pictureView = viewHolder.picture;
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
-            checkBoxView.setChecked(task.isCompleted());
+            boolean completed = task.isCompleted();
+            checkBoxView.setChecked(completed);
             // disable checkbox if task is readonly
             checkBoxView.setEnabled(viewHolder.task.isEditable());
 
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length)
                 value = IMPORTANCE_RESOURCES.length - 1;
+            Drawable[] boxes = IMPORTANCE_DRAWABLES;
             if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                checkBoxView.setImageResource(IMPORTANCE_REPEAT_RESOURCES[value]);
+                boxes = completed ? IMPORTANCE_REPEAT_DRAWABLES_CHECKED : IMPORTANCE_REPEAT_DRAWABLES;
             } else {
-                checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
+                boxes = completed ? IMPORTANCE_DRAWABLES_CHECKED : IMPORTANCE_DRAWABLES;
             }
+            checkBoxView.setImageDrawable(boxes[value]);
             if (titleOnlyLayout)
                 return;
 
@@ -1202,7 +1180,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
                 if (viewHolder.pictureBorder != null)
-                    viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
+                    viewHolder.pictureBorder.setBackgroundDrawable(IMPORTANCE_DRAWABLES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }

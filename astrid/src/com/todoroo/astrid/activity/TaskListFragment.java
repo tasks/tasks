@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
@@ -87,6 +88,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
@@ -187,6 +189,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             new ReminderDebugContextActions.WhenReminder(),
     };
 
+    protected Resources resources;
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -335,6 +338,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
+        resources = getResources();
         setHasOptionsMenu(true);
         syncActionHelper = new SyncActionHelper(getActivity(), this);
         setUpUiComponents();
@@ -382,7 +386,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             filter = extras.getParcelable(TOKEN_FILTER);
             extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
-            filter = CoreFilterExposer.buildInboxFilter(getResources());
+            filter = CoreFilterExposer.buildInboxFilter(resources);
         }
         filter.setFilterQueryOverride(null);
         isInbox = CoreFilterExposer.isInbox(filter);
@@ -913,6 +917,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public static final String USER_IMAGE_JOIN = "for_images"; // //$NON-NLS-1$
 
+    public  static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
+
+
     /**
      * Fill in the Task List with current items
      *
@@ -968,11 +975,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
         String joinedQuery =
                 Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
-                        Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY), //$NON-NLS-1$
-                                Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString() //$NON-NLS-1$
+                        Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY),
+                                Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString()
                 + Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
                         tagsJoinCriterion).toString() //$NON-NLS-1$
-                + Join.left(User.TABLE.as(USER_IMAGE_JOIN), Task.USER_ID.eq(Field.field(USER_IMAGE_JOIN + "." + User.UUID.name))).toString()
+                + Join.left(User.TABLE.as(USER_IMAGE_JOIN),
+                        Task.USER_ID.eq(Field.field(USER_IMAGE_JOIN + "." + User.UUID.name))).toString()
+                + Join.left(Metadata.TABLE.as(FILE_METADATA_JOIN),
+                            Criterion.and(Field.field(FILE_METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
+                                    Task.ID.eq(Field.field(FILE_METADATA_JOIN + "." + Metadata.TASK.name))))
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(

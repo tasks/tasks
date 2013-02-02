@@ -292,7 +292,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if (from >= V4_5_0 && from < V4_5_2) {
-            newVersionString(changeLog, "4.5.1.1 (1/17/13)", new String[] {
+            newVersionString(changeLog, "4.5.2 (1/17/13)", new String[] {
                 "Fixed a crash that could affect some Google Tasks users",
                 "UI polish"
             });

@@ -244,20 +244,14 @@ public class DateUtilities {
         return DateUtilities.getRelativeDay(context, date, true);
     }
 
+    private static final Calendar calendar = Calendar.getInstance();
     public static long getStartOfDay(long time) {
-        Date date = new Date(time);
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        return date.getTime();
-    }
-
-    public static long getEndOfDay(long time) {
-        Date date = new Date(time);
-        date.setHours(23);
-        date.setMinutes(59);
-        date.setSeconds(59);
-        return date.getTime();
+        calendar.setTimeInMillis(time);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
     }
 
     private static long clearTime(Date date) {

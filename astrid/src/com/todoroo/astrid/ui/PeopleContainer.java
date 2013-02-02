@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.helper.AsyncImageView;
+import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class PeopleContainer extends LinearLayout {
 
@@ -38,11 +40,13 @@ public class PeopleContainer extends LinearLayout {
 
     protected OnAddNewPersonListener onAddNewPerson = null;
 
+    protected Resources resources;
+
     // --- accessors and boilerplate
 
     public PeopleContainer(Context arg0, AttributeSet attrs) {
         super(arg0, attrs);
-
+        resources = arg0.getResources();
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.ContactsAutoComplete);
         completeTags = a.getBoolean(R.styleable.ContactsAutoComplete_completeTags, false);
@@ -113,11 +117,11 @@ public class PeopleContainer extends LinearLayout {
             findViewById(R.id.icon);
         imageView.setUrl(image);
         if (TextUtils.isEmpty(textView.getText())) {
-            imageView.setDefaultImageResource(R.drawable.icn_add_contact);
+            imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_add_contact));
             removeButton.setVisibility(View.GONE);
         }
         else {
-            imageView.setDefaultImageResource(R.drawable.icn_default_person_image);
+            imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             removeButton.setVisibility(View.VISIBLE);
         }
 
@@ -140,11 +144,11 @@ public class PeopleContainer extends LinearLayout {
                     addPerson("", "");
                 }
                 if (TextUtils.isEmpty(textView.getText())) {
-                    imageView.setDefaultImageResource(R.drawable.icn_add_contact);
+                    imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_add_contact));
                     removeButton.setVisibility(View.GONE);
                 }
                 else {
-                    imageView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                    imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
                     removeButton.setVisibility(View.VISIBLE);
                 }
 

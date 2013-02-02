@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -69,6 +70,8 @@ public abstract class CommentsFragment extends ListFragment {
     protected static final int MENU_REFRESH_ID = Menu.FIRST;
 
     protected final ImageDiskCache imageCache;
+
+    protected Resources resources;
 
 
     @Autowired ActFmSyncService actFmSyncService;
@@ -136,6 +139,8 @@ public abstract class CommentsFragment extends ListFragment {
         addCommentField.setOnTouchListener(onTouch);
 
         setUpUpdateList();
+
+        resources = getResources();
     }
 
     protected void setUpUpdateList() {

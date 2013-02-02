@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.PendingIntent;
@@ -14,12 +14,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
-import android.text.TextUtils;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 
@@ -39,51 +37,47 @@ import com.todoroo.astrid.notes.NotesAction;
  */
 public class LinkActionExposer {
 
-    private PackageManager pm;
+    public static TaskAction getActionsForTask(Context context, Task task, boolean hasAttachments, boolean hasNotes) {
+        if (task == null) return null;
 
-    public List<TaskAction> getActionsForTask(Context context, Task task, boolean hasAttachments) {
-        List<TaskAction> result = new ArrayList<TaskAction>();
-        if (task == null) return result;
-
-        String notes = task.getValue(Task.NOTES);
         Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getValue(Task.TITLE));
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        if(urlSpans.length == 0 && TextUtils.isEmpty(notes) &&
+        if(urlSpans.length == 0 && !hasNotes &&
                 !hasAttachments)
-            return result;
+            return null;
 
-        pm = context.getPackageManager();
+        PackageManager pm = context.getPackageManager();
 
         for(URLSpan urlSpan : urlSpans) {
             String url = urlSpan.getURL();
             int start = titleSpan.getSpanStart(urlSpan);
             int end = titleSpan.getSpanEnd(urlSpan);
             String text = titleSpan.subSequence(start, end).toString();
-            TaskAction taskAction = createLinkAction(context, task.getId(), url, text);
+            TaskAction taskAction = createLinkAction(context, task.getId(), url, text, pm);
             if (taskAction != null)
-                result.add(taskAction);
+                return taskAction;
         }
 
         Resources r = context.getResources();
         if (hasAttachments) {
-            Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_attachments)).getBitmap();
+            BitmapDrawable icon = getBitmapDrawable(R.drawable.action_attachments, r);
             FilesAction filesAction = new FilesAction("", null, icon); //$NON-NLS-1$
-            result.add(filesAction);
+            return filesAction;
         }
 
-        if (!TextUtils.isEmpty(notes) && !Preferences.getBoolean(R.string.p_showNotes, false)) {
-            Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_notes)).getBitmap();
+        if (hasNotes && !Preferences.getBoolean(R.string.p_showNotes, false)) {
+            BitmapDrawable icon = getBitmapDrawable(R.drawable.action_notes, r);
             NotesAction notesAction = new NotesAction("", null, icon); //$NON-NLS-1$
-            result.add(notesAction);
+            return notesAction;
         }
 
-        return result;
+        return null;
     }
 
     @SuppressWarnings("nls")
-    private TaskAction createLinkAction(Context context, long id, String url, String text) {
+    private static TaskAction createLinkAction(Context context, long id, String url, String text, PackageManager pm) {
         Intent itemIntent = new Intent(Intent.ACTION_VIEW);
         itemIntent.setData(Uri.parse(url));
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(itemIntent, 0);
@@ -107,20 +101,31 @@ public class LinkActionExposer {
         Resources r = context.getResources();
         Drawable icon;
         if (url.startsWith("mailto")) {
-            icon = r.getDrawable(R.drawable.action_mail);
+            icon = getBitmapDrawable(R.drawable.action_mail, r);
         } else if (url.startsWith("tel")) {
-            icon = r.getDrawable(R.drawable.action_tel);
+            icon = getBitmapDrawable(R.drawable.action_tel, r);
         } else {
-            icon = r.getDrawable(R.drawable.action_web);
+            icon = getBitmapDrawable(R.drawable.action_web, r);
         }
-        Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
 
         if(text.length() > 15)
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
 
         TaskAction action = new TaskAction(text,
-                PendingIntent.getActivity(context, (int)id, actionIntent, 0), bitmap);
+                PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
         return action;
+    }
+
+    private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<Integer, BitmapDrawable>();
+
+    private static BitmapDrawable getBitmapDrawable(int resId, Resources resources) {
+        if (IMAGE_CACHE.containsKey(resId))
+            return IMAGE_CACHE.get(resId);
+        else {
+            BitmapDrawable b = (BitmapDrawable) resources.getDrawable(resId);
+            IMAGE_CACHE.put(resId, b);
+            return b;
+        }
     }
 
 }
