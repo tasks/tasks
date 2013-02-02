@@ -33,6 +33,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -98,8 +99,8 @@ public class SyncActionHelper {
                 || !filter.title.equals(activity.getString(R.string.BFE_Active)))
             return;
 
-        long lastAutoSync = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
-        if (DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR) {
+        long tasksPushedAt = Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0);
+        if (DateUtilities.now() - tasksPushedAt > DateUtilities.ONE_HOUR / 2) {
             performSyncServiceV2Sync(false);
         }
     }

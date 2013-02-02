@@ -322,8 +322,8 @@ public class TagViewFragment extends TaskListFragment {
         if (!isCurrentTaskListFragment())
             return;
         if (tagData != null) {
-            long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + tagData.getId(), 0);
-            if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
+            long pushedAt = tagData.getValue(TagData.PUSHED_AT);
+            if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2)
                 refreshData();
         }
     }

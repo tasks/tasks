@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
@@ -182,7 +183,11 @@ public class PersonViewFragment extends TaskListFragment {
     protected void initiateAutomaticSyncImpl() {
         if (!isCurrentTaskListFragment())
             return;
-        refreshData();
+        if (user != null) {
+            long pushedAt = user.getValue(User.PUSHED_AT);
+            if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2)
+                refreshData();
+        }
     }
 
     private void reloadUserData() {
@@ -196,25 +201,23 @@ public class PersonViewFragment extends TaskListFragment {
     }
 
     private void refreshData() {
-        if (user != null) {
-            emptyView.setText(R.string.DLG_loading);
-            Runnable callback = new Runnable() {
-                @Override
-                public void run() {
-                    Activity activity = getActivity();
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            public void run() {
-                                reloadUserData();
-                                refresh();
-                                emptyView.setText(getEmptyDisplayString());
-                            }
-                        });
-                    }
+        emptyView.setText(R.string.DLG_loading);
+        Runnable callback = new Runnable() {
+            @Override
+            public void run() {
+                Activity activity = getActivity();
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            reloadUserData();
+                            refresh();
+                            emptyView.setText(getEmptyDisplayString());
+                        }
+                    });
                 }
-            };
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
-        }
+            }
+        };
+        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
     }
 
     private String getEmptyDisplayString() {

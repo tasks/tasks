@@ -48,7 +48,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
@@ -160,19 +159,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         setUpListAdapter();
 
         if(actFmPreferenceService.isLoggedIn()) {
-            if(!task.containsNonNullValue(Task.UUID))
+            long pushedAt = task.getValue(Task.PUSHED_AT);
+            if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) {
                 refreshData();
-            else {
-                String fetchKey = LAST_FETCH_KEY + task.getId();
-                long lastFetchDate = Preferences.getLong(fetchKey, 0);
-                if(DateUtilities.now() > lastFetchDate + 300000L) {
-                    refreshData();
-                    Preferences.setLong(fetchKey, DateUtilities.now());
-                } else {
-                    loadingText.setText(R.string.ENA_no_comments);
-                    if(items.size() == 0)
-                        loadingText.setVisibility(View.VISIBLE);
-                }
+            } else {
+                loadingText.setText(R.string.ENA_no_comments);
+                if(items.size() == 0)
+                    loadingText.setVisibility(View.VISIBLE);
             }
         }
     }
