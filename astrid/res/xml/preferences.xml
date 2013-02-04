@@ -177,11 +177,6 @@
 	            android:dependency="@string/p_voiceInputEnabled"
 	            android:defaultValue="false" />
         </PreferenceScreen>
-
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_simple_input_boxes"
-            android:title="@string/EPr_simple_input_boxes"
-            android:defaultValue="false"/>
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showSmartConfirmation_key"

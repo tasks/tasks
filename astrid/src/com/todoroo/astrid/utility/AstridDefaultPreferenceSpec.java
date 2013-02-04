@@ -12,8 +12,6 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 
 public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
@@ -121,9 +119,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_use_filters, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_simple_input_boxes,
-                ABChooser.readChoiceForTest(ABTests.AB_SIMPLE_EDIT_BOXES) != 0, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_show_list_members, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_rmd_social, true, ifUnset);
 
@@ -135,11 +130,9 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_show_task_edit_comments, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2,
-                ABChooser.readChoiceForTest(ABTests.AB_TITLE_ONLY) == 0 ? "1" : "2", ifUnset); //$NON-NLS-1$ //$NON-NLS-2$
+        setPreference(prefs, editor, r, R.string.p_taskRowStyle_v2, "1", ifUnset); //$NON-NLS-1$
 
-        setPreference(prefs, editor, r, R.string.p_use_date_shortcuts,
-                ABChooser.readChoiceForTest(ABTests.AB_USE_DATE_SHORTCUTS) != 0, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false, ifUnset);
 
         extras.setExtras(context, prefs, editor, r, ifUnset);
 

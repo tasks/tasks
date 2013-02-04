@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +21,6 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.Pair;
-import com.twmacinta.util.MD5;
 
 @SuppressWarnings("nls")
 public class ProducteevInvoker {
@@ -657,9 +657,7 @@ public class ProducteevInvoker {
         }
 
         sigBuilder.append(apiSecret);
-        MD5 md5 = new MD5();
-        md5.Update(sigBuilder.toString(), null);
-        String signature = md5.asHex();
+        String signature = DigestUtils.md5Hex(sigBuilder.toString());
         requestBuilder.append("api_sig").append('=').append(signature);
         return requestBuilder.toString();
     }

@@ -10,8 +10,6 @@ import java.util.Set;
 
 import android.content.Context;
 
-import com.timsu.astrid.R;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -34,14 +32,7 @@ public class ABTests {
      * @param context
      */
     public void externalInit(Context context) {
-        // If test uninitialized, clear preference. This fixes a bug where the old test would not be initialized correctly
-        if (!Constants.ASTRID_LITE && ABChooser.readChoiceForTest(AB_USE_DATE_SHORTCUTS) == ABChooser.NO_OPTION) {
-            Preferences.clear(context.getString(R.string.p_use_date_shortcuts));
-        }
-
-        if (!Constants.ASTRID_LITE && ABChooser.readChoiceForTest(AB_SIMPLE_EDIT_BOXES) == ABChooser.NO_OPTION) {
-            Preferences.clear(context.getString(R.string.p_simple_input_boxes));
-        }
+        //
     }
 
     /**
@@ -145,20 +136,7 @@ public class ABTests {
         }
     }
 
-    public static final String AB_USE_DATE_SHORTCUTS = "android_use_date_shortcuts_v2"; //$NON-NLS-1$
-
-    public static final String AB_TITLE_ONLY = "android_title_only"; //$NON-NLS-1$
-
-    public static final String AB_SIMPLE_EDIT_BOXES = "android_simple_edit_boxes"; //$NON-NLS-1$
-
     private void initialize() {
-        addTest(AB_USE_DATE_SHORTCUTS, new int[] { 1, 1 },
-                new int[] { 1, 9 }, new String[] { "date-shortcuts-off", "date-shortcuts-on" }, false); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_TITLE_ONLY, new int[] { 9, 1 },
-                new int[] { 1, 0 }, new String[] { "default-row-style", "title-only-style" }, false); //$NON-NLS-1$//$NON-NLS-2$
-
-        addTest(AB_SIMPLE_EDIT_BOXES, new int[] { 1, 1 },
-                new int[] { 9, 1 }, new String[] { "default-box-style", "simple-box-style" }, false); //$NON-NLS-1$//$NON-NLS-2$
+        //
     }
 }

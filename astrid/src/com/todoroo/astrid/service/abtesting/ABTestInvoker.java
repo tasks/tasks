@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,7 +25,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.service.StatisticsService;
-import com.twmacinta.util.MD5;
 
 /**
  * Invoker for communicating with the Astrid Analytics server
@@ -116,9 +116,7 @@ public class ABTestInvoker {
         }
 
         sigBuilder.append(API_SECRET);
-        MD5 md5 = new MD5();
-        md5.Update(sigBuilder.toString(), null);
-        String signature = md5.asHex();
+        String signature = DigestUtils.md5Hex(sigBuilder.toString());
         params.add(new BasicNameValuePair("sig", signature));
 
         try {
