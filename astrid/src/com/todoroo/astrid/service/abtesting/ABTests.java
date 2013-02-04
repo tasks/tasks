@@ -136,10 +136,7 @@ public class ABTests {
         }
     }
 
-    public static final String AB_TITLE_ONLY = "android_title_only"; //$NON-NLS-1$
-
     private void initialize() {
-        addTest(AB_TITLE_ONLY, new int[] { 9, 1 },
-                new int[] { 1, 0 }, new String[] { "default-row-style", "title-only-style" }, false); //$NON-NLS-1$//$NON-NLS-2$
+        //
     }
 }
