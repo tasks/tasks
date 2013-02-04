@@ -110,7 +110,7 @@ public class SubtasksMetadataMigration {
             Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
             parent.children.add(newNode);
         }
-        return AstridOrderedListUpdater.serializeTree(root);
+        return AstridOrderedListUpdater.serializeTree(root, false);
     }
 
     private Node findNextParentForIndent(Node root, int indent) {

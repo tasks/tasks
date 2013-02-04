@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
@@ -20,6 +21,7 @@ import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
@@ -107,68 +109,87 @@ public class SubtasksHelper {
         return ids.toArray(new Long[ids.size()]);
     }
 
+    @SuppressWarnings("nls")
+    public static String[] getStringIdArray(String serializedTree) {
+        ArrayList<String> ids = new ArrayList<String>();
+        String[] values = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
+        for (String idString : values) {
+            if (!TextUtils.isEmpty(idString))
+                ids.add(idString);
+        }
+        return ids.toArray(new String[ids.size()]);
+    }
+
+    /**
+     * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
+     * @param localTree
+     * @return
+     */
     public static String convertTreeToRemoteIds(String localTree) {
-        return convertIdTree(localTree, true);
+        Long[] localIds = getIdArray(localTree);
+        HashMap<Long, String> idMap = getIdMap(localIds, Task.ID, Task.UUID);
+        idMap.put(-1L, "-1"); //$NON-NLS-1$
+
+        Node tree = AstridOrderedListUpdater.buildTreeModel(localTree, null);
+        remapLocalTreeToRemote(tree, idMap);
+        return AstridOrderedListUpdater.serializeTree(tree, true);
     }
 
-    public static String convertTreeToLocalIds(String remoteTree) {
-        return convertIdTree(remoteTree, false);
-    }
-
-    private static String convertIdTree(String treeString, boolean localToRemote) {
-        Long[] ids = getIdArray(treeString);
-        HashMap<Long, Long> idMap = buildIdMap(ids, localToRemote);
-        idMap.put(-1L, -1L);
-
-        Node tree = AstridOrderedListUpdater.buildTreeModel(treeString, null);
-        remapTree(tree, idMap);
-        return AstridOrderedListUpdater.serializeTree(tree);
-    }
-
-    private static void remapTree(Node root, HashMap<Long, Long> idMap) {
+    private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
-            Long remoteId = idMap.get(child.taskId);
-            if (remoteId == null || remoteId <= 0) {
+            String uuid = idMap.get(child.taskId);
+            if (!RemoteModel.isValidUuid(uuid)) {
                 children.remove(i);
                 children.addAll(i, child.children);
                 i--;
             } else {
-                child.taskId = remoteId;
-                remapTree(child, idMap);
+                child.uuid = uuid;
+                remapLocalTreeToRemote(child, idMap);
             }
         }
     }
 
-    private static HashMap<Long, Long> buildIdMap(Long[] localIds, boolean localToRemote) { // If localToRemote is true, keys are local ids. If false. keys are remtoe ids
-        HashMap<Long, Long> map = new HashMap<Long, Long>();
-        Criterion criterion;
-        if (localToRemote)
-            criterion = Task.ID.in(localIds);
-        else
-            criterion = Task.UUID.in(localIds);
+    /**
+     * Takes a subtasks string containing UUIDs and remaps it to one containing local ids
+     * @param remoteTree
+     * @return
+     */
+    public static String convertTreeToLocalIds(String remoteTree) {
+        String[] uuids = getStringIdArray(remoteTree);
+        HashMap<String, Long> idMap = getIdMap(uuids, Task.UUID, Task.ID);
+        idMap.put("-1", -1L); //$NON-NLS-1$
 
-        TodorooCursor<Task> tasks = PluginServices.getTaskService().query(Query.select(Task.ID, Task.UUID).where(criterion));
+        Node tree = AstridOrderedListUpdater.buildTreeModel(remoteTree, null, true);
+        remapRemoteTreeToLocal(tree, idMap);
+        return AstridOrderedListUpdater.serializeTree(tree);
+    }
+
+    private static void remapRemoteTreeToLocal(Node root, HashMap<String, Long> idMap) {
+        ArrayList<Node> children = root.children;
+        for (int i = 0; i < children.size(); i++) {
+            Node child = children.get(i);
+            Long localId = idMap.get(child.uuid);
+            if (localId == null || localId <= 0) {
+                children.remove(i);
+                children.addAll(i, child.children);
+                i--;
+            } else {
+                child.taskId = localId;
+                remapRemoteTreeToLocal(child, idMap);
+            }
+        }
+    }
+
+    private static <A, B> HashMap<A, B> getIdMap(A[] keys, Property<A> keyProperty, Property<B> valueProperty) {
+        HashMap<A, B> map = new HashMap<A, B>();
+        TodorooCursor<Task> tasks = PluginServices.getTaskService().query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {
-            Task t = new Task();
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                t.clear();
-                t.readFromCursor(tasks);
-
-                if (t.containsNonNullValue(Task.UUID)) {
-                    Long key;
-                    Long value;
-                    if (localToRemote) {
-                        key = t.getId();
-                        value = Long.parseLong(t.getValue(Task.UUID));
-                    } else {
-                        key = Long.parseLong(t.getValue(Task.UUID));
-                        value = t.getId();
-                    }
-
-                    map.put(key, value);
-                }
+                A key = tasks.get(keyProperty);
+                B value = tasks.get(valueProperty);
+                map.put(key, value);
             }
         } finally {
             tasks.close();

@@ -15,6 +15,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
@@ -34,12 +35,14 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public static class Node {
         public long taskId;
+        public String uuid; // For parsing and syncing -- not used elsewhere
         public Node parent;
         public int indent;
         public final ArrayList<Node> children = new ArrayList<Node>();
 
         public Node(long taskId, Node parent, int indent) {
             this.taskId = taskId;
+            this.uuid = RemoteModel.NO_UUID;
             this.parent = parent;
             this.indent = indent;
         }
@@ -364,28 +367,41 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback) {
+        return buildTreeModel(serializedTree, callback, false);
+    }
+    public static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback, boolean useUuid) {
         Node root = new Node(-1, null, -1);
         try {
             JSONArray tree = new JSONArray(serializedTree);
-            recursivelyBuildChildren(root, tree, callback);
+            recursivelyBuildChildren(root, tree, callback, useUuid);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error building tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
         }
         return root;
     }
 
-    private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback) throws JSONException {
+    private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback, boolean useUuid) throws JSONException {
         for (int i = 1; i < children.length(); i++) {
             JSONArray subarray = children.optJSONArray(i);
-            Long id;
-            if (subarray == null)
-                id = children.getLong(i);
-            else
-                id = subarray.getLong(0);
+            Long id = 0L;
+            String uuid = RemoteModel.NO_UUID;
+            if (!useUuid) {
+                if (subarray == null)
+                    id = children.getLong(i);
+                else
+                    id = subarray.getLong(0);
+            } else {
+                if (subarray == null)
+                    uuid = children.getString(i);
+                else
+                    uuid = subarray.getString(0);
+            }
 
             Node child = new Node(id, node, node.indent + 1);
+            if (useUuid)
+                child.uuid = uuid;
             if (subarray != null)
-                recursivelyBuildChildren(child, subarray, callback);
+                recursivelyBuildChildren(child, subarray, callback, useUuid);
             node.children.add(child);
             if (callback != null)
                 callback.afterAddNode(child);
@@ -393,30 +409,37 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     protected String serializeTree() {
-        return serializeTree(treeRoot);
+        return serializeTree(treeRoot, false);
     }
 
     public static String serializeTree(Node root) {
+        return serializeTree(root, false);
+    }
+
+    public static String serializeTree(Node root, boolean useUuid) {
         JSONArray tree = new JSONArray();
         if (root == null) {
             return tree.toString();
         }
 
         try {
-            recursivelySerialize(root, tree);
+            recursivelySerialize(root, tree, useUuid);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error serializing tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
         }
         return tree.toString();
     }
 
-    private static void recursivelySerialize(Node node, JSONArray serializeTo) throws JSONException {
+    private static void recursivelySerialize(Node node, JSONArray serializeTo, boolean useUuid) throws JSONException {
         ArrayList<Node> children = node.children;
-        serializeTo.put(node.taskId);
+        if (useUuid)
+            serializeTo.put(node.uuid);
+        else
+            serializeTo.put(node.taskId);
         for (Node child : children) {
             if (child.children.size() > 0) {
                 JSONArray branch = new JSONArray();
-                recursivelySerialize(child, branch);
+                recursivelySerialize(child, branch, useUuid);
                 serializeTo.put(branch);
             } else {
                 serializeTo.put(child.taskId);
