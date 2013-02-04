@@ -16,14 +16,19 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagMetadata;
+import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -60,8 +65,11 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     }
 
                     StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
-                    if (model.getSetValues() != null && model.getSetValues().containsKey(uuidProperty.name))
+                    String oldUuid = null; // For indicating that a uuid collision has occurred
+                    if (model.getSetValues() != null && model.getSetValues().containsKey(uuidProperty.name)) {
+                        oldUuid = uuid;
                         uuid = model.getValue(uuidProperty);
+                    }
 
                     beforeSaveChanges(changes, model, uuid);
 
@@ -75,7 +83,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                             dao.createNew(model);
                         }
                     }
-                    afterSaveChanges(changes, model, uuid);
+                    afterSaveChanges(changes, model, uuid, oldUuid);
 
                 } catch (IllegalAccessException e) {
                     Log.e(ERROR_TAG, "Error instantiating model for MakeChanges", e);
@@ -97,12 +105,12 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             beforeSaveChanges.performChanges();
     }
 
-    private void afterSaveChanges(JSONObject changes, TYPE model, String uuid) {
+    private void afterSaveChanges(JSONObject changes, TYPE model, String uuid, String oldUuid) {
         ChangeHooks afterSaveChanges = null;
         if (NameMaps.TABLE_ID_TASKS.equals(table))
-            afterSaveChanges = new AfterSaveTaskChanges(model, changes, uuid);
+            afterSaveChanges = new AfterSaveTaskChanges(model, changes, uuid, oldUuid);
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
-            afterSaveChanges = new AfterSaveTagChanges(model, changes, uuid);
+            afterSaveChanges = new AfterSaveTagChanges(model, changes, uuid, oldUuid);
         else if (NameMaps.TABLE_ID_USERS.equals(table))
             afterSaveChanges = new AfterSaveUserChanges(model, changes, uuid);
 
@@ -153,6 +161,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             super(model, changes, uuid);
         }
 
+        @SuppressWarnings("deprecation")
         @Override
         public void performChanges() {
             JSONArray addMembers = changes.optJSONArray("member_added");
@@ -164,13 +173,20 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
     private class AfterSaveTaskChanges extends ChangeHooks {
 
-        public AfterSaveTaskChanges(TYPE model, JSONObject changes, String uuid) {
+        private final String oldUuid;
+
+        public AfterSaveTaskChanges(TYPE model, JSONObject changes, String uuid, String oldUuid) {
             super(model, changes, uuid);
+            this.oldUuid = oldUuid;
         }
 
         @SuppressWarnings("null")
         @Override
         public void performChanges() {
+            if (!TextUtils.isEmpty(oldUuid) && !oldUuid.equals(uuid)) {
+                uuidChanged(oldUuid, uuid);
+            }
+
             JSONArray addTags = changes.optJSONArray("tag_added");
             JSONArray removeTags = changes.optJSONArray("tag_removed");
             boolean tagsAdded = (addTags != null && addTags.length() > 0);
@@ -210,17 +226,43 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             }
         }
 
+        private void uuidChanged(String fromUuid, String toUuid) {
+            if (ActFmInvoker.SYNC_DEBUG)
+                Log.e(ERROR_TAG, "Task UUID collision -- old uuid: " + fromUuid + ", new uuid: " + toUuid);
+
+            // Update reference from UserActivity to task uuid
+            UserActivityDao activityDao = PluginServices.getUserActivityDao();
+            UserActivity activityTemplate = new UserActivity();
+            activityTemplate.setValue(UserActivity.TARGET_ID, toUuid);
+            activityTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            activityDao.update(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(fromUuid)), activityTemplate);
+
+            // Update reference from task to tag metadata to task uuid
+            MetadataService metadataService = PluginServices.getMetadataService();
+            Metadata taskToTagTemplate = new Metadata();
+            taskToTagTemplate.setValue(TaskToTagMetadata.TASK_UUID, toUuid);
+            taskToTagTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            metadataService.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TASK_UUID.eq(fromUuid)), taskToTagTemplate);
+        }
+
     }
 
     private class AfterSaveTagChanges extends ChangeHooks {
 
-        public AfterSaveTagChanges(TYPE model, JSONObject changes, String uuid) {
+        private final String oldUuid;
+
+        public AfterSaveTagChanges(TYPE model, JSONObject changes, String uuid, String oldUuid) {
             super(model, changes, uuid);
+            this.oldUuid = oldUuid;
         }
 
         @SuppressWarnings("null")
         @Override
         public void performChanges() {
+            if (!TextUtils.isEmpty(oldUuid) && !oldUuid.equals(uuid)) {
+                uuidChanged(oldUuid, uuid);
+            }
+
             if (changes.has("name")) {
                 Metadata template = new Metadata();
                 template.setValue(TaskToTagMetadata.TAG_NAME, changes.optString("name"));
@@ -263,6 +305,31 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 }
                 tagMetadataDao.removeMemberLinks(localId, uuid, toRemove.toArray(new String[toRemove.size()]), true);
             }
+        }
+
+        private void uuidChanged(String fromUuid, String toUuid) {
+            if (ActFmInvoker.SYNC_DEBUG)
+                Log.e(ERROR_TAG, "Tag UUID collision -- old uuid: " + fromUuid + ", new uuid: " + toUuid);
+
+            UserActivityDao activityDao = PluginServices.getUserActivityDao();
+            UserActivity activityTemplate = new UserActivity();
+            activityTemplate.setValue(UserActivity.TARGET_ID, toUuid);
+            activityTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            activityDao.update(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(fromUuid)), activityTemplate);
+
+            // Update reference from task to tag metadata to tag uuid
+            MetadataService metadataService = PluginServices.getMetadataService();
+            Metadata taskToTagTemplate = new Metadata();
+            taskToTagTemplate.setValue(TaskToTagMetadata.TAG_UUID, toUuid);
+            taskToTagTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            metadataService.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(fromUuid)), taskToTagTemplate);
+
+            // Update reference from tag metadata to tag uuid
+            TagMetadataDao tagMetadataDao = PluginServices.getTagMetadataDao();
+            TagMetadata memberMetadataTemplate = new TagMetadata();
+            memberMetadataTemplate.setValue(TagMetadata.TAG_UUID, toUuid);
+            memberMetadataTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            tagMetadataDao.update(TagMetadata.TAG_UUID.eq(fromUuid), memberMetadataTemplate);
         }
     }
 
