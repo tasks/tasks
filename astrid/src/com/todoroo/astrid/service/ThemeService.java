@@ -49,11 +49,7 @@ public class ThemeService {
     }
 
     public static int getTheme() {
-        int style = getUnsimplifiedTheme();
-        boolean simple = Preferences.getBoolean(R.string.p_simple_input_boxes, false);
-        if (simple)
-            style = simplifyStyle(style);
-        return style;
+        return getUnsimplifiedTheme();
     }
 
     public static int getUnsimplifiedTheme() {
@@ -84,25 +80,6 @@ public class ThemeService {
             return R.style.Theme_White_Alt;
         else
             return R.style.Theme_White_Blue;
-    }
-
-    private static int simplifyStyle(int original) {
-        switch (original) {
-        case R.style.Theme:
-            return R.style.Theme_Simple;
-        case R.style.Theme_Transparent:
-            return R.style.Theme_Transparent_Simple;
-        case R.style.Theme_TransparentWhite:
-            return R.style.Theme_TransparentWhite_Simple;
-        case R.style.Theme_White:
-            return R.style.Theme_White_Simple;
-        case R.style.Theme_White_Blue:
-            return R.style.Theme_White_Blue_Simple;
-        case R.style.Theme_White_Alt:
-            return R.style.Theme_White_Alt_Simple;
-        default:
-            return original;
-        }
     }
 
     public static int getThemeColor() {

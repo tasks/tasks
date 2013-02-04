@@ -74,9 +74,6 @@
 
   <!-- list view section key -->
   <string name="p_list_view">p_list_view</string>
-
-  <!-- simple input box style -->
-  <string name="p_simple_input_boxes">simple_input_boxes</string>
   
   <!-- filters to show -->
   <string name="p_filters_to_show">p_filters_to_show</string>
