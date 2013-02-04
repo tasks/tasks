@@ -10,10 +10,12 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
@@ -101,6 +103,8 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             afterSaveChanges = new AfterSaveTaskChanges(model, changes, uuid);
         else if (NameMaps.TABLE_ID_TAGS.equals(table))
             afterSaveChanges = new AfterSaveTagChanges(model, changes, uuid);
+        else if (NameMaps.TABLE_ID_USERS.equals(table))
+            afterSaveChanges = new AfterSaveUserChanges(model, changes, uuid);
 
         if (afterSaveChanges != null)
             afterSaveChanges.performChanges();
@@ -259,6 +263,18 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 }
                 tagMetadataDao.removeMemberLinks(localId, uuid, toRemove.toArray(new String[toRemove.size()]), true);
             }
+        }
+    }
+
+    private class AfterSaveUserChanges extends ChangeHooks {
+
+        public AfterSaveUserChanges(TYPE model, JSONObject changes, String uuid) {
+            super(model, changes, uuid);
+        }
+
+        @Override
+        public void performChanges() {
+            Preferences.setBoolean(R.string.p_show_friends_view, true);
         }
     }
 
