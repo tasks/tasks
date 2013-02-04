@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +51,6 @@ import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.User;
@@ -407,7 +404,16 @@ public class TagSettingsActivity extends FragmentActivity {
                 setTitle(getString(R.string.tag_settings_title));
             }
         }
-        picture.setUrl(tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM));
+
+        String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
+        Bitmap imageBitmap = null;
+        if (TextUtils.isEmpty(imageUrl))
+            imageBitmap = tagData.getPictureBitmap(TagData.PICTURE);
+
+        if (imageBitmap != null)
+            picture.setImageBitmap(imageBitmap);
+        else
+            picture.setUrl(imageUrl);
         if (!isNewTag) {
             ImageView shortcut = (ImageView) findViewById(R.id.create_shortcut);
             shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getValue(TagData.NAME)));
@@ -485,26 +491,6 @@ public class TagSettingsActivity extends FragmentActivity {
         tagMembers.addPerson("", ""); //$NON-NLS-1$
     }
 
-    private void uploadTagPicture(final Bitmap bitmap) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.UUID), bitmap);
-                    if (TextUtils.isEmpty(url)) return;
-                    if (imageCache.contains(tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM))) {
-                        imageCache.move(tagData.getValue(TagData.PICTURE), url);
-                    }
-                    tagData.setValue(TagData.PICTURE, url);
-                    tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                    tagDataService.save(tagData);
-                } catch (IOException e) {
-                    DialogUtilities.okDialog(TagSettingsActivity.this, e.toString(), null);
-                }
-            }
-        }).start();
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -521,8 +507,6 @@ public class TagSettingsActivity extends FragmentActivity {
             public void handleCameraResult(Bitmap bitmap) {
                 picture.setImageBitmap(bitmap);
                 setBitmap = bitmap;
-                if(!RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
-                    uploadTagPicture(bitmap);
                 saveTagPictureLocally(bitmap);
             }
         };

@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.SpannableString;
@@ -153,8 +154,11 @@ public class UpdateAdapter extends CursorAdapter {
         }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            final String updatePicture = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_THUMB);
-            setupImagePopupForCommentView(view, commentPictureView, updatePicture,
+            String updatePicture = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_THUMB);
+            Bitmap updateBitmap = null;
+            if (TextUtils.isEmpty(updatePicture))
+                updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
+            setupImagePopupForCommentView(view, commentPictureView, updatePicture, updateBitmap,
                     activity.getValue(UserActivity.MESSAGE), fragment, imageCache);
         }
 
@@ -180,11 +184,14 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture,
+    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture, final Bitmap updateBitmap,
             final String message, final Fragment fragment, ImageDiskCache imageCache) {
-        if (!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) { //$NON-NLS-1$
+        if ((!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
-            commentPictureView.setUrl(updatePicture);
+            if (updateBitmap != null)
+                commentPictureView.setImageBitmap(updateBitmap);
+            else
+                commentPictureView.setUrl(updatePicture);
 
             if(imageCache.contains(updatePicture)) {
                 try {
@@ -204,7 +211,10 @@ public class UpdateAdapter extends CursorAdapter {
                     AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
                     imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                     imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
-                    imageView.setUrl(updatePicture);
+                    if (updateBitmap != null)
+                        imageView.setImageBitmap(updateBitmap);
+                    else
+                        imageView.setUrl(updatePicture);
                     image.setView(imageView);
 
                     image.setMessage(message);

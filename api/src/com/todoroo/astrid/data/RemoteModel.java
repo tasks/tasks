@@ -90,6 +90,11 @@ abstract public class RemoteModel extends AbstractModel {
         return PictureHelper.getPictureUrl(value, size);
     }
 
+    public Bitmap getPictureBitmap(StringProperty pictureProperty) {
+        String value = getValue(pictureProperty);
+        return PictureHelper.getPictureBitmap(value);
+    }
+
     public static class PictureHelper {
 
         public static String getPictureUrl(String value, String size) {
@@ -103,6 +108,25 @@ abstract public class RemoteModel extends AbstractModel {
             } catch (JSONException e) {
                 return value;
             }
+        }
+
+        @SuppressWarnings("nls")
+        public static Bitmap getPictureBitmap(String value) {
+            try {
+                if (value == null)
+                    return null;
+                if (value.contains("data")) {
+                    JSONObject pictureJson = new JSONObject(value);
+                    if (pictureJson.has("data")) {
+                        String data = pictureJson.getString("data");
+                        return AndroidUtilities.decodeBase64Bitmap(data);
+                    }
+                }
+                return null;
+            } catch (JSONException e) {
+                return null;
+            }
+
         }
 
         public static String getPictureUrlFromCursor(TodorooCursor<?> cursor, StringProperty pictureProperty, String size) {

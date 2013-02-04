@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
@@ -92,10 +93,16 @@ public class FeaturedTaskListFragment extends TagViewFragment {
         // Repurposed this method to set up the description view
         AsyncImageView imageView = (AsyncImageView) getView().findViewById(R.id.url_image);
         String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
-        if (!TextUtils.isEmpty(imageUrl)) {
+        Bitmap bitmap = null;
+        if (TextUtils.isEmpty(imageUrl))
+            bitmap = tagData.getPictureBitmap(TagData.PICTURE);
+        if (!TextUtils.isEmpty(imageUrl) || bitmap != null) {
             imageView.setVisibility(View.VISIBLE);
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.default_list_0));
-            imageView.setUrl(imageUrl);
+            if (bitmap != null)
+                imageView.setImageBitmap(bitmap);
+            else
+                imageView.setUrl(imageUrl);
         } else {
             imageView.setVisibility(View.GONE);
         }

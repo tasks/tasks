@@ -8,6 +8,7 @@ package com.todoroo.astrid.actfm;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,7 +107,14 @@ public class TagCommentsFragment extends CommentsFragment {
 
         AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
         imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagName)));
-        imageView.setUrl(tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM));
+        String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
+        Bitmap imageBitmap = null;
+        if (TextUtils.isEmpty(imageUrl))
+            imageBitmap = tagData.getPictureBitmap(TagData.PICTURE);
+        if (imageBitmap != null)
+            imageView.setImageBitmap(imageBitmap);
+        else
+            imageView.setUrl(imageUrl);
     }
 
     @Override

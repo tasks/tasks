@@ -391,7 +391,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentPicture, item.title.toString(), fragment, imageCache);
+            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentPicture, item.commentBitmap, item.title.toString(), fragment, imageCache);
         }
     }
 
@@ -466,14 +466,15 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         private final String picture;
         private final Spanned title;
         private final String commentPicture;
+        private final Bitmap commentBitmap;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, Spanned title, String commentPicture,
-                long createdAt) {
+        public NoteOrUpdate(String picture, Spanned title, String commentPicture, Bitmap commentBitmap, long createdAt) {
             super();
             this.picture = picture;
             this.title = title;
             this.commentPicture = commentPicture;
+            this.commentBitmap = commentBitmap;
             this.createdAt = createdAt;
         }
 
@@ -486,16 +487,20 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     title,
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
+                    null,
                     m.getValue(Metadata.CREATION_DATE));
         }
 
         public static NoteOrUpdate fromUpdate(AstridActivity context, UserActivity u, User user, String linkColor) {
             String commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-
+            Bitmap commentBitmap = null;
+            if (TextUtils.isEmpty(commentPicture))
+                commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
             Spanned title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
             return new NoteOrUpdate(user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB),
                     title,
                     commentPicture,
+                    commentBitmap,
                     u.getValue(UserActivity.CREATED_AT));
         }
 
