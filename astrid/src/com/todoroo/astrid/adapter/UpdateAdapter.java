@@ -34,6 +34,8 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -61,6 +63,20 @@ public class UpdateAdapter extends CursorAdapter {
     private final ImageDiskCache imageCache;
     private final String linkColor;
     private final String fromView;
+
+    public static final String USER_TABLE_ALIAS = "users_join"; //$NON-NLS-1$
+
+    public static final StringProperty USER_PICTURE = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.PICTURE.name).as("userPicture"); //$NON-NLS-1$
+    private static final StringProperty USER_FIRST_NAME = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.FIRST_NAME.name).as("userFirstName"); //$NON-NLS-1$
+    private static final StringProperty USER_LAST_NAME = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.LAST_NAME.name).as("userLastName"); //$NON-NLS-1$
+    private static final StringProperty USER_NAME = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.NAME.name).as("userName"); //$NON-NLS-1$
+
+    public static final Property<?>[] USER_PROPERTIES = {
+        USER_PICTURE,
+        USER_FIRST_NAME,
+        USER_LAST_NAME,
+        USER_NAME
+    };
 
     private static final String TARGET_LINK_PREFIX = "$link_"; //$NON-NLS-1$
     private static final Pattern TARGET_LINK_PATTERN = Pattern.compile("\\" + TARGET_LINK_PREFIX + "(\\w*)");  //$NON-NLS-1$//$NON-NLS-2$
@@ -95,6 +111,11 @@ public class UpdateAdapter extends CursorAdapter {
                 Context.LAYOUT_INFLATER_SERVICE);
         imageCache = ImageDiskCache.getInstance();
         this.fromView = fromView;
+
+        String[] columns = c.getColumnNames();
+        for (String s : columns) {
+            System.err.println("COL: " + s);
+        }
 
         this.resource = resource;
         this.fragment = fragment;
@@ -140,17 +161,26 @@ public class UpdateAdapter extends CursorAdapter {
 
         User user = mh.user;
         user.clear();
-        user.readPropertiesFromCursor(cursor);
+        readUserProperties(cursor, user);
 
         setFieldContentsAndVisibility(view, update, user);
+    }
+
+    public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user) {
+        user.setValue(USER_FIRST_NAME, joinCursor.get(USER_FIRST_NAME));
+        user.setValue(USER_LAST_NAME, joinCursor.get(USER_LAST_NAME));
+        user.setValue(USER_NAME, joinCursor.get(USER_NAME));
+        user.setValue(USER_PICTURE, joinCursor.get(USER_PICTURE));
     }
 
     /** Helper method to set the contents and visibility of each field */
     public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user) {
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-            String pictureUrl = user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB);
-            pictureView.setUrl(pictureUrl);
+            if (user.containsNonNullValue(USER_PICTURE)) {
+                String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
+                pictureView.setUrl(pictureUrl);
+            }
         }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
@@ -193,14 +223,13 @@ public class UpdateAdapter extends CursorAdapter {
             else
                 commentPictureView.setUrl(updatePicture);
 
-            if(imageCache.contains(updatePicture)) {
+            if(imageCache.contains(updatePicture) && updateBitmap == null) {
                 try {
                     commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            }  else if (updateBitmap == null) {
                 commentPictureView.setUrl(updatePicture);
             }
 
@@ -243,7 +272,7 @@ public class UpdateAdapter extends CursorAdapter {
         } else if (user == null) {
             userDisplay = context.getString(R.string.ENA_no_user);
         } else {
-            userDisplay = user.getDisplayName();
+            userDisplay = user.getDisplayName(USER_NAME, USER_FIRST_NAME, USER_LAST_NAME);
         }
         if (TextUtils.isEmpty(userDisplay))
             userDisplay = context.getString(R.string.ENA_no_user);

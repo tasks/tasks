@@ -43,6 +43,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -77,10 +78,7 @@ import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
-
-
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
-    private static final String LAST_FETCH_KEY = "task-fetch-"; //$NON-NLS-1$
 
     private Task task;
 
@@ -93,7 +91,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private EditText commentField;
     private TextView loadingText;
     private final View commentsBar;
-    private final View parentView;
     private View timerView;
     private View commentButton;
     private int commentItems = 10;
@@ -137,7 +134,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         setOrientation(VERTICAL);
 
         commentsBar = parent.findViewById(R.id.updatesFooter);
-        parentView = parent;
 
         loadViewForTaskID(t);
     }
@@ -288,9 +284,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
 
-        TodorooCursor<UserActivity> updates = userActivityDao.query(Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, User.PROPERTIES))
+        TodorooCursor<UserActivity> updates = userActivityDao.query(Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, UpdateAdapter.USER_PROPERTIES))
                 .where(UserActivity.TARGET_ID.eq(task.getUuid()))
-                .join(Join.left(User.TABLE, UserActivity.USER_UUID.eq(User.UUID)))
+                .join(Join.left(User.TABLE.as(UpdateAdapter.USER_TABLE_ALIAS), UserActivity.USER_UUID.eq(Field.field(UpdateAdapter.USER_TABLE_ALIAS + "." + User.UUID.name)))) //$NON-NLS-1$
                 .orderBy(Order.desc(UserActivity.CREATED_AT)));
         try {
             UserActivity update = new UserActivity();
@@ -300,7 +296,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 user.clear();
 
                 update.readFromCursor(updates);
-                user.readPropertiesFromCursor(updates);
+                UpdateAdapter.readUserProperties(updates, user);
                 NoteOrUpdate noa = NoteOrUpdate.fromUpdate(activity, update, user, linkColor);
                 if(noa != null)
                     items.add(noa);
@@ -497,7 +493,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             if (TextUtils.isEmpty(commentPicture))
                 commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
             Spanned title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
-            return new NoteOrUpdate(user.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB),
+            String userImage = ""; //$NON-NLS-1$
+            if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
+                userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+            return new NoteOrUpdate(userImage,
                     title,
                     commentPicture,
                     commentBitmap,

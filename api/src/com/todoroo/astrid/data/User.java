@@ -129,12 +129,16 @@ public final class User extends RemoteModel {
     }
 
     public String getDisplayName() {
-        String name = getValue(NAME);
+        return getDisplayName(NAME, FIRST_NAME, LAST_NAME);
+    }
+
+    public String getDisplayName(StringProperty nameProperty, StringProperty firstNameProperty, StringProperty lastNameProperty) {
+        String name = getValue(nameProperty);
         if (!(TextUtils.isEmpty(name) || "null".equals(name)))
             return name;
-        String firstName = getValue(FIRST_NAME);
+        String firstName = getValue(firstNameProperty);
         boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
-        String lastName = getValue(LAST_NAME);
+        String lastName = getValue(lastNameProperty);
         boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
         if (firstNameEmpty && lastNameEmpty)
             return getValue(EMAIL);

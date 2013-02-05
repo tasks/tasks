@@ -301,7 +301,7 @@ public class TagViewFragment extends TaskListFragment {
         if (tagData != null) {
             long lastViewedComments = Preferences.getLong(CommentsFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), 0);
             int unreadCount = 0;
-            TodorooCursor<UserActivity> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, UserActivity.CREATED_AT.gt(lastViewedComments));
+            TodorooCursor<UserActivity> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, UserActivity.CREATED_AT.gt(lastViewedComments), null);
             try {
                 unreadCount = commentCursor.getCount();
             } finally {

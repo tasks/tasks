@@ -5,11 +5,14 @@
  */
 package com.todoroo.astrid.service;
 
+import android.text.TextUtils;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
@@ -142,26 +145,32 @@ public class TagDataService {
      * Get updates for this tagData
      * @return
      */
-    public TodorooCursor<UserActivity> getUpdates(TagData tagData) {
-        return getUpdatesWithExtraCriteria(tagData, Criterion.all);
+    public TodorooCursor<UserActivity> getUpdates(TagData tagData, String userTableAlias, Property<?>... userProperties) {
+        return getUpdatesWithExtraCriteria(tagData, null, userTableAlias, userProperties);
     }
 
-    private static Query queryForTagData(TagData tagData) {
-        return Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, User.PROPERTIES)).where(Criterion.or(
+    private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] userProperties) {
+        Criterion criteria = Criterion.or(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
                         UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))))
-                .join(Join.left(User.TABLE, UserActivity.USER_UUID.eq(User.UUID)));
+                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid()))))));
+        if (extraCriterion != null)
+            criteria = Criterion.and(criteria, extraCriterion);
+
+        Query result = Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, userProperties)).where(criteria);
+        if (!TextUtils.isEmpty(userTableAlias))
+            result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
+        return result;
     }
 
-    public TodorooCursor<UserActivity> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion) {
+    public TodorooCursor<UserActivity> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion, String userTableAlias, Property<?>... userProperties) {
         if (tagData == null)
             return userActivityDao.query(Query.select(UserActivity.PROPERTIES).where(
                     criterion).
                     orderBy(Order.desc(UserActivity.CREATED_AT)));
 
-        return userActivityDao.query(queryForTagData(tagData).orderBy(Order.desc(UserActivity.CREATED_AT)));
+        return userActivityDao.query(queryForTagData(tagData, criterion, userTableAlias, userProperties).orderBy(Order.desc(UserActivity.CREATED_AT)));
     }
 
     /**
@@ -173,7 +182,7 @@ public class TagDataService {
         if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
             return null;
 
-        TodorooCursor<UserActivity> updates = userActivityDao.query(queryForTagData(tagData).orderBy(Order.desc(UserActivity.CREATED_AT)).limit(1));
+        TodorooCursor<UserActivity> updates = userActivityDao.query(queryForTagData(tagData, null, null, null).orderBy(Order.desc(UserActivity.CREATED_AT)).limit(1));
         try {
             if(updates.getCount() == 0)
                 return null;
