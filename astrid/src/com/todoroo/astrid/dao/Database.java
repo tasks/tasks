@@ -15,6 +15,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.data.ABTestEvent;
+import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
@@ -339,6 +340,7 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
             database.execSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
             database.execSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
+            database.execSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
