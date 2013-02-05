@@ -112,11 +112,6 @@ public class UpdateAdapter extends CursorAdapter {
         imageCache = ImageDiskCache.getInstance();
         this.fromView = fromView;
 
-        String[] columns = c.getColumnNames();
-        for (String s : columns) {
-            System.err.println("COL: " + s);
-        }
-
         this.resource = resource;
         this.fragment = fragment;
     }
