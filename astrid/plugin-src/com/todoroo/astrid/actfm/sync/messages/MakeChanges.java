@@ -46,6 +46,36 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         this.dao = dao;
     }
 
+    public static <T extends RemoteModel> T changesToModel(RemoteModelDao<T> dao, JSONObject changes, String table) throws IllegalAccessException, InstantiationException {
+        T model = dao.getModelClass().newInstance();
+        JSONChangeToPropertyVisitor visitor = new JSONChangeToPropertyVisitor(model, changes);
+        Iterator<String> keys = changes.keys();
+        while (keys.hasNext()) {
+            String column = keys.next();
+            Property<?> property = NameMaps.serverColumnNameToLocalProperty(table, column);
+            if (property != null) { // Unsupported property
+                property.accept(visitor, column);
+            }
+        }
+        return model;
+    }
+
+    public static <T extends RemoteModel> void saveOrUpdateModelAfterChanges(RemoteModelDao<T> dao, T model, String oldUuid, String uuid) {
+        Criterion uuidCriterion;
+        if (oldUuid == null)
+            uuidCriterion = RemoteModel.UUID_PROPERTY.eq(uuid);
+        else
+            uuidCriterion = RemoteModel.UUID_PROPERTY.eq(oldUuid);
+
+        if (model.getSetValues() != null && model.getSetValues().size() > 0) {
+            model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            if (dao.update(uuidCriterion, model) <= 0) { // If update doesn't update rows. create a new model
+                model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                dao.createNew(model);
+            }
+        }
+    }
+
     @Override
     public void processMessage() {
         JSONObject changes = json.optJSONObject("changes");
@@ -53,16 +83,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         if (changes != null && !TextUtils.isEmpty(uuid)) {
             if (dao != null) {
                 try {
-                    TYPE model = dao.getModelClass().newInstance();
-                    JSONChangeToPropertyVisitor visitor = new JSONChangeToPropertyVisitor(model, changes);
-                    Iterator<String> keys = changes.keys();
-                    while (keys.hasNext()) {
-                        String column = keys.next();
-                        Property<?> property = NameMaps.serverColumnNameToLocalProperty(table, column);
-                        if (property != null) { // Unsupported property
-                            property.accept(visitor, column);
-                        }
-                    }
+                    TYPE model = changesToModel(dao, changes, table);
 
                     StringProperty uuidProperty = (StringProperty) NameMaps.serverColumnNameToLocalProperty(table, "uuid");
                     String oldUuid = null; // For indicating that a uuid collision has occurred
@@ -76,13 +97,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     if (model.getSetValues() != null && !model.getSetValues().containsKey(uuidProperty.name))
                         model.setValue(uuidProperty, uuid);
 
-                    if (model.getSetValues() != null && model.getSetValues().size() > 0) {
-                        model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                        if (dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), model) <= 0) { // If update doesn't update rows. create a new model
-                            model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                            dao.createNew(model);
-                        }
-                    }
+                    saveOrUpdateModelAfterChanges(dao, model, oldUuid, uuid);
                     afterSaveChanges(changes, model, uuid, oldUuid);
 
                 } catch (IllegalAccessException e) {
