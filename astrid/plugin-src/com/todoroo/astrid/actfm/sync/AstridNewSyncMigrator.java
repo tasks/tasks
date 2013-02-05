@@ -11,7 +11,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
@@ -52,8 +51,6 @@ public class AstridNewSyncMigrator {
     @Autowired private TaskOutstandingDao taskOutstandingDao;
     @Autowired private TagOutstandingDao tagOutstandingDao;
 
-    public static final String PREF_SYNC_MIGRATION = "sync_migration";
-
     private static final String LOG_TAG = "sync-migrate";
 
     public AstridNewSyncMigrator() {
@@ -62,157 +59,170 @@ public class AstridNewSyncMigrator {
 
     @SuppressWarnings("deprecation")
     public void performMigration() {
-        if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false))
-            return;
-
         // --------------
         // First ensure that a TagData object exists for each tag metadata
         // --------------
-        Query noTagDataQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                Criterion.or(TaskToTagMetadata.TAG_UUID.isNull(), TaskToTagMetadata.TAG_UUID.eq(0)),
-                Criterion.not(TaskToTagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TaskToTagMetadata.TAG_NAME);
-
-        TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
         try {
-            Metadata tag = new Metadata();
-            for (noTagData.moveToFirst(); !noTagData.isAfterLast(); noTagData.moveToNext()) {
-                tag.readFromCursor(noTagData);
+            Query noTagDataQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                    MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                    Criterion.or(TaskToTagMetadata.TAG_UUID.isNull(), TaskToTagMetadata.TAG_UUID.eq(0)),
+                    Criterion.not(TaskToTagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TaskToTagMetadata.TAG_NAME);
 
-                if (ActFmInvoker.SYNC_DEBUG)
-                    Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TaskToTagMetadata.TAG_NAME));
+            TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
+            try {
+                Metadata tag = new Metadata();
+                for (noTagData.moveToFirst(); !noTagData.isAfterLast(); noTagData.moveToNext()) {
+                    tag.readFromCursor(noTagData);
 
-                TagData newTagData = new TagData();
-                newTagData.setValue(TagData.NAME, tag.getValue(TaskToTagMetadata.TAG_NAME));
-                tagDataService.save(newTagData);
+                    if (ActFmInvoker.SYNC_DEBUG)
+                        Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TaskToTagMetadata.TAG_NAME));
+
+                    TagData newTagData = new TagData();
+                    newTagData.setValue(TagData.NAME, tag.getValue(TaskToTagMetadata.TAG_NAME));
+                    tagDataService.save(newTagData);
+                }
+            } finally {
+                noTagData.close();
             }
-        } finally {
-            noTagData.close();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error creating tag data", e);
         }
 
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
-        Query tagsQuery = Query.select(TagData.ID, TagData.UUID).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
-        assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), null);
+        try {
+            Query tagsQuery = Query.select(TagData.ID, TagData.UUID).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
+            assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), null);
 
-        Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
-        assertUUIDsExist(tasksQuery, new Task(), taskDao, taskOutstandingDao, new TaskOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TASKS), new UUIDAssertionExtras<Task>() {
-            @Override
-            public void beforeSave(Task instance) {
-                if (instance.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
-                    instance.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, false);
-                    instance.setValue(Task.IS_READONLY, 1);
+            Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
+            assertUUIDsExist(tasksQuery, new Task(), taskDao, taskOutstandingDao, new TaskOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TASKS), new UUIDAssertionExtras<Task>() {
+                @Override
+                public void beforeSave(Task instance) {
+                    if (instance.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
+                        instance.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, false);
+                        instance.setValue(Task.IS_READONLY, 1);
+                    }
+
+                    if (instance.getFlag(Task.FLAGS, Task.FLAG_PUBLIC)) {
+                        instance.setFlag(Task.FLAGS, Task.FLAG_PUBLIC, false);
+                        instance.setValue(Task.IS_PUBLIC, 1);
+                    }
+
+                    String recurrence = instance.getValue(Task.RECURRENCE);
+                    if (!TextUtils.isEmpty(recurrence)) {
+                        boolean repeatAfterCompletion = instance.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION);
+                        instance.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
+
+                        recurrence = recurrence.replaceAll("BYDAY=;", "");
+                        if (repeatAfterCompletion)
+                            recurrence = recurrence + ";FROM=COMPLETION";
+                        instance.setValue(Task.RECURRENCE, recurrence);
+                    }
                 }
-
-                if (instance.getFlag(Task.FLAGS, Task.FLAG_PUBLIC)) {
-                    instance.setFlag(Task.FLAGS, Task.FLAG_PUBLIC, false);
-                    instance.setValue(Task.IS_PUBLIC, 1);
-                }
-
-                String recurrence = instance.getValue(Task.RECURRENCE);
-                if (!TextUtils.isEmpty(recurrence)) {
-                    boolean repeatAfterCompletion = instance.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION);
-                    instance.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
-
-                    recurrence = recurrence.replaceAll("BYDAY=;", "");
-                    if (repeatAfterCompletion)
-                        recurrence = recurrence + ";FROM=COMPLETION";
-                    instance.setValue(Task.RECURRENCE, recurrence);
-                }
-            }
-        });
+            });
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error asserting UUIDs", e);
+        }
 
         // ----------
         // Migrate unsynced task comments to UserActivity table
         // ----------
-
-        TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                Criterion.and(Criterion.or(Update.UUID.eq(0), Update.UUID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
-                        Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));
         try {
-            Update update = new Update();
-            UserActivity userActivity = new UserActivity();
-            for (updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
-                update.clear();
-                userActivity.clear();
+            TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
+                    Criterion.and(Criterion.or(Update.UUID.eq(0), Update.UUID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
+                            Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));
+            try {
+                Update update = new Update();
+                UserActivity userActivity = new UserActivity();
+                for (updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
+                    update.clear();
+                    userActivity.clear();
 
-                update.readFromCursor(updates);
+                    update.readFromCursor(updates);
 
-                boolean setTarget = true;
-                if (!RemoteModel.isUuidEmpty(update.getValue(Update.TASK_UUID))) {
-                    userActivity.setValue(UserActivity.TARGET_ID, update.getValue(Update.TASK_UUID));
-                } else if (update.getValue(Update.TASK_LOCAL) > 0) {
-                    Task local = taskDao.fetch(update.getValue(Update.TASK_LOCAL), Task.UUID);
-                    if (local != null && !RemoteModel.isUuidEmpty(local.getUuid()))
-                        userActivity.setValue(UserActivity.TARGET_ID, local.getUuid());
-                    else
+                    boolean setTarget = true;
+                    if (!RemoteModel.isUuidEmpty(update.getValue(Update.TASK_UUID))) {
+                        userActivity.setValue(UserActivity.TARGET_ID, update.getValue(Update.TASK_UUID));
+                    } else if (update.getValue(Update.TASK_LOCAL) > 0) {
+                        Task local = taskDao.fetch(update.getValue(Update.TASK_LOCAL), Task.UUID);
+                        if (local != null && !RemoteModel.isUuidEmpty(local.getUuid()))
+                            userActivity.setValue(UserActivity.TARGET_ID, local.getUuid());
+                        else
+                            setTarget = false;
+                    } else {
                         setTarget = false;
-                } else {
-                    setTarget = false;
-                }
+                    }
 
-                if (setTarget) {
-                    userActivity.setValue(UserActivity.USER_UUID, update.getValue(Update.USER_ID));
-                    userActivity.setValue(UserActivity.ACTION, update.getValue(Update.ACTION_CODE));
-                    userActivity.setValue(UserActivity.MESSAGE, update.getValue(Update.MESSAGE));
-                    userActivity.setValue(UserActivity.CREATED_AT, update.getValue(Update.CREATION_DATE));
-                    userActivityDao.createNew(userActivity);
-                }
+                    if (setTarget) {
+                        userActivity.setValue(UserActivity.USER_UUID, update.getValue(Update.USER_ID));
+                        userActivity.setValue(UserActivity.ACTION, update.getValue(Update.ACTION_CODE));
+                        userActivity.setValue(UserActivity.MESSAGE, update.getValue(Update.MESSAGE));
+                        userActivity.setValue(UserActivity.CREATED_AT, update.getValue(Update.CREATION_DATE));
+                        userActivityDao.createNew(userActivity);
+                    }
 
+                }
+            } finally {
+                updates.close();
             }
-        } finally {
-            updates.close();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating updates", e);
         }
 
 
         // ----------
         // Drop any entries from the Users table that don't have a UUID
         // ----------
-        userDao.deleteWhere(Criterion.or(User.UUID.isNull(), User.UUID.eq(""), User.UUID.eq("0")));
+        try {
+            userDao.deleteWhere(Criterion.or(User.UUID.isNull(), User.UUID.eq(""), User.UUID.eq("0")));
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error deleting incomplete user entries", e);
+        }
 
         // --------------
         // Finally, ensure that all tag metadata entities have all important fields filled in
         // --------------
-        Query incompleteQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
-                        TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
-        TodorooCursor<Metadata> incompleteMetadata = metadataService.query(incompleteQuery);
         try {
-            Metadata m = new Metadata();
-            for (incompleteMetadata.moveToFirst(); !incompleteMetadata.isAfterLast(); incompleteMetadata.moveToNext()) {
-                m.clear(); // Need this since some properties may be null
-                m.readFromCursor(incompleteMetadata);
-                boolean changes = false;
+            Query incompleteQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                    MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                    Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
+                            TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
+            TodorooCursor<Metadata> incompleteMetadata = metadataService.query(incompleteQuery);
+            try {
+                Metadata m = new Metadata();
+                for (incompleteMetadata.moveToFirst(); !incompleteMetadata.isAfterLast(); incompleteMetadata.moveToNext()) {
+                    m.clear(); // Need this since some properties may be null
+                    m.readFromCursor(incompleteMetadata);
+                    boolean changes = false;
 
-                if (ActFmInvoker.SYNC_DEBUG)
-                    Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
-
-                if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TASK_UUID))) {
                     if (ActFmInvoker.SYNC_DEBUG)
-                        Log.w(LOG_TAG, "No task uuid");
-                    updateTaskUuid(m);
-                    changes = true;
+                        Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
+
+                    if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TASK_UUID))) {
+                        if (ActFmInvoker.SYNC_DEBUG)
+                            Log.w(LOG_TAG, "No task uuid");
+                        updateTaskUuid(m);
+                        changes = true;
+                    }
+
+                    if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TAG_UUID))) {
+                        if (ActFmInvoker.SYNC_DEBUG)
+                            Log.w(LOG_TAG, "No tag uuid");
+                        updateTagUuid(m);
+                        changes = true;
+                    }
+
+                    if (changes)
+                        metadataService.save(m);
+
                 }
-
-                if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TAG_UUID))) {
-                    if (ActFmInvoker.SYNC_DEBUG)
-                        Log.w(LOG_TAG, "No tag uuid");
-                    updateTagUuid(m);
-                    changes = true;
-                }
-
-                if (changes)
-                    metadataService.save(m);
-
+            } finally {
+                incompleteMetadata.close();
             }
-        } finally {
-            incompleteMetadata.close();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error validating task to tag metadata", e);
         }
-
-
-        Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
     }
 
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
