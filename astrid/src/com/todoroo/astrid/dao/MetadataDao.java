@@ -92,7 +92,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         String tagUuid = modelSetValues.getAsString(TaskToTagMetadata.TAG_UUID.name);
         Long deletionDate = modelSetValues.getAsLong(Metadata.DELETION_DATE.name);
         if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid))
-            return true;
+            return false;
 
         TaskOutstanding to = new TaskOutstanding();
         to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, taskId);

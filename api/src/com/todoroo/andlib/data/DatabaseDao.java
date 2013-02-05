@@ -38,6 +38,8 @@ import com.todoroo.astrid.data.SyncFlags;
  */
 public class DatabaseDao<TYPE extends AbstractModel> {
 
+    private static final String ERROR_TAG = "database-dao"; //$NON-NLS-1$
+
     private final Class<TYPE> modelClass;
 
     private Table table;
@@ -235,6 +237,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
                 @Override
                 public void onRollback() {
+                    Log.e(ERROR_TAG, "Error updating rows", new Throwable()); //$NON-NLS-1$
                     result.set(0);
                 }
                 @Override
@@ -298,6 +301,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
                 @Override
                 public void onRollback() {
+                    Log.e(ERROR_TAG, "Error inserting or updating rows", new Throwable()); //$NON-NLS-1$
                     result.set(false);
                 }
                 @Override

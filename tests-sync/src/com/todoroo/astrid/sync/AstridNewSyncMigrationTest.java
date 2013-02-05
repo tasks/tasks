@@ -17,6 +17,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -54,41 +55,48 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 1L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 1");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 		m.clear();
 		
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 2L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "New tag");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 		m.clear();
 		
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 3L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 3");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 		m.clear();
 
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 3L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 4");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 		m.clear();
 
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 5L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 1");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 		m.clear();
 
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 5L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "Tag 5");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 
 		m.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
 		m.setValue(Metadata.TASK, 5L);
 		m.setValue(TaskToTagMetadata.TAG_NAME, "New tag 2");
+		m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
 		metadataDao.createNew(m);
 		
 		// State (task: tags)
