@@ -2,8 +2,6 @@ package com.timsu.astrid;
 
 import java.io.IOException;
 
-import org.json.JSONException;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -29,16 +27,20 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
@@ -92,6 +94,9 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Autowired
     private TagDataService tagDataService;
 
+    @Autowired
+    private UserActivityDao userActivityDao;
+
     public GCMIntentService() {
         super();
         DependencyInjectionService.getInstance().inject(this);
@@ -124,57 +129,47 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     /** Handle web task or list changed */
     protected void handleWebUpdate(Intent intent) {
-        try {
-            if(intent.hasExtra("tag_id")) {
-                TodorooCursor<TagData> cursor = tagDataService.query(
-                        Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(
-                                intent.getStringExtra("tag_id"))));
-                try {
-                    TagData tagData = new TagData();
-                    if(cursor.getCount() == 0) {
-                        tagData.setValue(TagData.UUID, intent.getStringExtra("tag_id"));
-                        tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                        tagDataService.save(tagData);
-                    } else {
-                        cursor.moveToNext();
-                        tagData.readFromCursor(cursor);
-                    }
-
-                    actFmSyncService.fetchTag(tagData);
-                } finally {
-                    cursor.close();
-                }
-            } else if(intent.hasExtra("task_id")) {
-                TodorooCursor<Task> cursor = taskService.query(
-                        Query.select(Task.PROPERTIES).where(Task.UUID.eq(
-                                intent.getStringExtra("task_id"))));
-                try {
-                    final Task task = new Task();
-                    if(cursor.getCount() == 0) {
-                        task.setValue(Task.UUID, intent.getStringExtra("task_id"));
-                        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                        taskService.save(task);
-                    } else {
-                        cursor.moveToNext();
-                        task.readFromCursor(cursor);
-                    }
-
-                    actFmSyncService.fetchTask(task);
-                } catch(NumberFormatException e) {
-                    // invalid task id
-                } finally {
-                    cursor.close();
-                }
+        Runnable refreshCallback = new Runnable() {
+            @Override
+            public void run() {
+                Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+                ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             }
-
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-            ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-        } catch (IOException e) {
-            Log.e("c2dm-tag-rx", "io-exception", e);
-            return;
-        } catch (JSONException e) {
-            Log.e("c2dm-tag-rx", "json-exception", e);
+        };
+        if(intent.hasExtra("tag_id")) {
+            String uuid = intent.getStringExtra("tag_id");
+            TodorooCursor<TagData> cursor = tagDataService.query(
+                    Query.select(TagData.PUSHED_AT).where(TagData.UUID.eq(
+                            uuid)));
+            long pushedAt = 0;
+            try {
+                TagData tagData = new TagData();
+                if(cursor.getCount() > 0) {
+                    cursor.moveToNext();
+                    tagData.readFromCursor(cursor);
+                    pushedAt = tagData.getValue(TagData.PUSHED_AT);
+                }
+            } finally {
+                cursor.close();
+            }
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), refreshCallback);
+        } else if(intent.hasExtra("task_id")) {
+            String uuid = intent.getStringExtra("task_id");
+            TodorooCursor<Task> cursor = taskService.query(
+                    Query.select(Task.PROPERTIES).where(Task.UUID.eq(
+                            uuid)));
+            long pushedAt = 0;
+            try {
+                final Task task = new Task();
+                if(cursor.getCount() > 0) {
+                    cursor.moveToNext();
+                    task.readFromCursor(cursor);
+                    pushedAt = task.getValue(Task.PUSHED_AT);
+                }
+                ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, uuid, pushedAt), refreshCallback);
+            } finally {
+                cursor.close();
+            }
         }
     }
 
@@ -215,10 +210,10 @@ public class GCMIntentService extends GCMBaseIntentService {
         // fetch data
         if(intent.hasExtra("tag_id")) {
             notifyIntent = createTagIntent(context, intent);
-            notifId = (int) Long.parseLong(intent.getStringExtra("tag_id"));
+            notifId = intent.getStringExtra("tag_id").hashCode();
         } else if(intent.hasExtra("task_id")) {
             notifyIntent = createTaskIntent(intent);
-            notifId = (int) Long.parseLong(intent.getStringExtra("task_id"));
+            notifId = intent.getStringExtra("task_id").hashCode();
         } else {
             return;
         }
@@ -280,9 +275,11 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private Intent createTaskIntent(Intent intent) {
+        String uuid = intent.getStringExtra("task_id");
         TodorooCursor<Task> cursor = taskService.query(
                 Query.select(Task.PROPERTIES).where(Task.UUID.eq(
-                        intent.getStringExtra("task_id"))));
+                        uuid)));
+        long pushedAt = 0;
         try {
             final Task task = new Task();
             if(cursor.getCount() == 0) {
@@ -290,24 +287,14 @@ public class GCMIntentService extends GCMBaseIntentService {
                 task.setValue(Task.UUID, intent.getStringExtra("task_id"));
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
                 task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 taskService.save(task);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            actFmSyncService.fetchTask(task);
-                        } catch (IOException e) {
-                            Log.e("c2dm-task-rx", "io-exception", e);
-                        } catch (JSONException e) {
-                            Log.e("c2dm-task-rx", "json-exception", e);
-                        }
-                    }
-                }).start();
             } else {
                 cursor.moveToNext();
                 task.readFromCursor(cursor);
+                pushedAt = task.getValue(Task.PUSHED_AT);
             }
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, uuid, pushedAt), null);
 
             Filter filter = new Filter("", task.getValue(Task.TITLE),
                     new QueryTemplate().where(Task.ID.eq(task.getId())),
@@ -321,56 +308,43 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private Intent createTagIntent(final Context context, final Intent intent) {
+        String uuid = intent.getStringExtra("tag_id");
         TodorooCursor<TagData> cursor = tagDataService.query(
                 Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(
-                        intent.getStringExtra("tag_id"))));
+                        uuid)));
+        long pushedAt = 0;
         try {
             final TagData tagData = new TagData();
             if(cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, intent.getStringExtra("title"));
                 tagData.setValue(TagData.UUID, intent.getStringExtra("tag_id"));
                 tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 tagDataService.save(tagData);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            actFmSyncService.fetchTag(tagData);
-                        } catch (IOException e) {
-                            Log.e("c2dm-tag-rx", "io-exception", e);
-                        } catch (JSONException e) {
-                            Log.e("c2dm-tag-rx", "json-exception", e);
-                        }
-                    }
-                }).start();
             } else {
                 cursor.moveToNext();
                 tagData.readFromCursor(cursor);
+                pushedAt = tagData.getValue(TagData.PUSHED_AT);
             }
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), null);
 
             FilterWithCustomIntent filter = (FilterWithCustomIntent)TagFilterExposer.filterFromTagData(context, tagData);
-            //filter.customExtras.putString(TagViewActivity.EXTRA_START_TAB, "updates");
+
             if(intent.hasExtra("activity_id")) {
-//                try {
-//                    UserActivity update = new UserActivity();
-//                    update.setValue(UserActivity.UUID, intent.getStringExtra("activity_id"));
-//                    update.setValue(UserActivity.USER_UUID, intent.getStringExtra("user_id"));
-//
-//                    update.setValue(Update.ACTION_CODE, "tag_comment");
-//                    update.setValue(Update.TARGET_NAME, intent.getStringExtra("title"));
-//                    String message = intent.getStringExtra("alert");
-//                    if(message.contains(":"))
-//                        message = message.substring(message.indexOf(':') + 2);
-//                    update.setValue(Update.MESSAGE, message);
-//                    update.setValue(Update.CREATION_DATE, DateUtilities.now());
-//                    update.setValue(Update.TAGS, "," + intent.getStringExtra("tag_id") + ",");
-//                    updateDao.createNew(update);
-//                } catch (JSONException e) {
-//                    //
-//                } catch (NumberFormatException e) {
-//                    //
-//                }
+                UserActivity update = new UserActivity();
+                update.setValue(UserActivity.UUID, intent.getStringExtra("activity_id"));
+                update.setValue(UserActivity.USER_UUID, intent.getStringExtra("user_id"));
+
+                update.setValue(UserActivity.ACTION, "tag_comment");
+                update.setValue(UserActivity.TARGET_NAME, intent.getStringExtra("title"));
+                String message = intent.getStringExtra("alert");
+                if(message.contains(":"))
+                    message = message.substring(message.indexOf(':') + 2);
+                update.setValue(UserActivity.MESSAGE, message);
+                update.setValue(UserActivity.CREATED_AT, DateUtilities.now());
+                update.setValue(UserActivity.TARGET_ID, intent.getStringExtra("tag_id"));
+                update.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                userActivityDao.createNew(update);
             }
 
             Intent launchIntent = new Intent(context, TaskListActivity.class);
