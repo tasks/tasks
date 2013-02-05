@@ -9,7 +9,9 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -42,11 +44,11 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 		// Init 5 unsynced tasks and tags
 		for (int i = 1; i <= 5; i++) {
 			Task task = createTask("Task " + i, true);
-			task.setValue(TASK_REMOTE_ID_FIELD, 0L);
+			task.setValue(TASK_REMOTE_ID_FIELD, null);
 			taskDao.save(task);
 			
 			TagData tag = createTagData("Tag " + i, true);
-			tag.setValue(TAG_REMOTE_ID_FIELD, 0L);
+			tag.setValue(TAG_REMOTE_ID_FIELD, null);
 			tagDataDao.saveExisting(tag);
 		}
 		

@@ -37,7 +37,6 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
 public class AstridNewSyncMigrator {
@@ -80,7 +79,7 @@ public class AstridNewSyncMigrator {
             for (noTagData.moveToFirst(); !noTagData.isAfterLast(); noTagData.moveToNext()) {
                 tag.readFromCursor(noTagData);
 
-                if (Constants.DEBUG)
+                if (ActFmInvoker.SYNC_DEBUG)
                     Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TaskToTagMetadata.TAG_NAME));
 
                 TagData newTagData = new TagData();
@@ -187,18 +186,18 @@ public class AstridNewSyncMigrator {
                 m.readFromCursor(incompleteMetadata);
                 boolean changes = false;
 
-                if (Constants.DEBUG)
+                if (ActFmInvoker.SYNC_DEBUG)
                     Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
 
                 if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TASK_UUID))) {
-                    if (Constants.DEBUG)
+                    if (ActFmInvoker.SYNC_DEBUG)
                         Log.w(LOG_TAG, "No task uuid");
                     updateTaskUuid(m);
                     changes = true;
                 }
 
                 if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TAG_UUID))) {
-                    if (Constants.DEBUG)
+                    if (ActFmInvoker.SYNC_DEBUG)
                         Log.w(LOG_TAG, "No tag uuid");
                     updateTagUuid(m);
                     changes = true;
@@ -262,11 +261,11 @@ public class AstridNewSyncMigrator {
         long taskId = m.getValue(Metadata.TASK);
         Task task = taskDao.fetch(taskId, Task.UUID);
         if (task != null) {
-            if (Constants.DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG)
                 Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.UUID));
             m.setValue(TaskToTagMetadata.TASK_UUID, task.getValue(Task.UUID));
         } else {
-            if (Constants.DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG)
                 Log.w(LOG_TAG, "Task not found, deleting link");
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
@@ -276,11 +275,11 @@ public class AstridNewSyncMigrator {
         String tag = m.getValue(TaskToTagMetadata.TAG_NAME);
         TagData tagData = tagDataService.getTag(tag, TagData.UUID);
         if (tagData != null) {
-            if (Constants.DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG)
                 Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));
             m.setValue(TaskToTagMetadata.TAG_UUID, tagData.getValue(TagData.UUID));
         } else {
-            if (Constants.DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG)
                 Log.w(LOG_TAG, "Tag not found, deleting link");
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
