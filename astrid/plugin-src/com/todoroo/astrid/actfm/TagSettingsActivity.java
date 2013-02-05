@@ -354,7 +354,12 @@ public class TagSettingsActivity extends FragmentActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
-        setResult(RESULT_OK);
+        if (isNewTag) {
+            setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
+                    TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
+        } else {
+            setResult(RESULT_OK);
+        }
         tagDataService.save(tagData);
         tagMetadataDao.synchronizeMembers(tagData.getId(), tagData.getUuid(), members);
 
