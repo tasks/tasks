@@ -41,6 +41,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
+import com.todoroo.astrid.utility.Flags;
 
 public class ActFmSyncThread {
 
@@ -256,7 +257,7 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
-        return false;
+        return !Flags.check(Flags.SYNC_MIGRATION_ONGOING);
     }
 
     private void repopulateQueueFromOutstandingTables() {

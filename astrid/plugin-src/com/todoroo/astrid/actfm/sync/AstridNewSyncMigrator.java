@@ -36,6 +36,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
+import com.todoroo.astrid.utility.Flags;
 
 @SuppressWarnings("nls")
 public class AstridNewSyncMigrator {
@@ -59,6 +60,7 @@ public class AstridNewSyncMigrator {
 
     @SuppressWarnings("deprecation")
     public void performMigration() {
+        Flags.set(Flags.SYNC_MIGRATION_ONGOING);
         // --------------
         // First ensure that a TagData object exists for each tag metadata
         // --------------
@@ -223,6 +225,7 @@ public class AstridNewSyncMigrator {
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
         }
+        Flags.checkAndClear(Flags.SYNC_MIGRATION_ONGOING);
     }
 
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
