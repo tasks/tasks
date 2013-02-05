@@ -17,6 +17,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
@@ -49,6 +50,7 @@ public class ActFmSyncThread {
     private final List<ClientToServerMessage<?>> pendingMessages;
     private final List<Runnable> pendingCallbacks;
     private final Object monitor;
+    private boolean migrationHasOccurred;
     private Thread thread;
 
     @Autowired
@@ -122,6 +124,7 @@ public class ActFmSyncThread {
         this.pendingMessages = messageQueue;
         this.pendingCallbacks = callbackQueue;
         this.monitor = syncMonitor;
+        this.migrationHasOccurred = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
     }
 
     public synchronized void startSyncThread() {
@@ -156,10 +159,13 @@ public class ActFmSyncThread {
             List<Runnable> callbackBatch = new LinkedList<Runnable>();
             while(true) {
                 synchronized(monitor) {
-                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
+                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !migrationHasOccurred) {
                         try {
                             monitor.wait();
                             AndroidUtilities.sleepDeep(500L); // Wait briefly for large database operations to finish (e.g. adding a task with several tags may trigger a message before all saves are done--fix this?)
+
+                            if (!migrationHasOccurred)
+                                migrationHasOccurred = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
                         } catch (InterruptedException e) {
                             // Ignored
                         }
