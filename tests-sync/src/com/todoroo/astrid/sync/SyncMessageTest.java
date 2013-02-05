@@ -5,8 +5,6 @@ import org.json.JSONObject;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -34,7 +32,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 	}
 	
 	private static final String MAKE_CHANGES_TITLE = "Made changes to title";
-	private JSONObject getMakeChanges() throws JSONException {
+	private JSONObject getMakeChanges(String... extraChanges) throws JSONException {
 		JSONObject makeChanges = new JSONObject();
 		makeChanges.put("type", ServerToClientMessage.TYPE_MAKE_CHANGES);
 		makeChanges.put("table", NameMaps.TABLE_ID_TASKS);
@@ -42,6 +40,13 @@ public class SyncMessageTest extends NewSyncTestCase {
 		JSONObject changes = new JSONObject();
 		changes.put("title", MAKE_CHANGES_TITLE); 
 		changes.put("importance", Task.IMPORTANCE_DO_OR_DIE);
+		if (extraChanges != null) {
+			for (int i = 0; i < extraChanges.length - 1; i+=2) {
+				String key = extraChanges[i];
+				String value = extraChanges[i + 1];
+				changes.put(key, value);
+			}
+		}
 		
 		makeChanges.put("changes", changes);
 		return makeChanges;
@@ -85,6 +90,35 @@ public class SyncMessageTest extends NewSyncTestCase {
 				cursor.close();
 			}
 			
+		} catch (JSONException e) {
+			e.printStackTrace();
+			fail("JSONException");
+		}
+	}
+	
+	public void testMakeChangesWithUuidCollision() {
+		Task t = createTask();
+		String oldUuid = t.getUuid();
+		try {
+			String newUuid = oldUuid + "blorp";
+			JSONObject makeChanges = getMakeChanges("uuid", newUuid);
+			makeChanges.put("uuid", oldUuid);
+			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
+			message.processMessage();
+			
+			TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.UUID).where(Task.UUID.eq(newUuid)));
+			try {
+				assertEquals(1, cursor.getCount());
+			} finally {
+				cursor.close();
+			}
+
+			cursor = taskDao.query(Query.select(Task.UUID).where(Task.UUID.eq(oldUuid)));
+			try {
+				assertEquals(0, cursor.getCount());
+			} finally {
+				cursor.close();
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 			fail("JSONException");
