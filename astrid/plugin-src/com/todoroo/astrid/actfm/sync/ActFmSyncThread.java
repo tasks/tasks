@@ -257,7 +257,7 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
-        return !Flags.check(Flags.SYNC_MIGRATION_ONGOING);
+        return !Flags.check(Flags.SYNC_MIGRATION_ONGOING) && false; // TODO: replace && false with a real background sync condition
     }
 
     private void repopulateQueueFromOutstandingTables() {
