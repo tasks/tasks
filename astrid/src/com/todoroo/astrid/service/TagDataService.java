@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.service;
 
+import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
@@ -18,11 +19,14 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
+import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -149,7 +153,7 @@ public class TagDataService {
         return getUpdatesWithExtraCriteria(tagData, null, userTableAlias, userProperties);
     }
 
-    private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] userProperties) {
+    private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
         Criterion criteria = Criterion.or(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
@@ -158,7 +162,7 @@ public class TagDataService {
         if (extraCriterion != null)
             criteria = Criterion.and(criteria, extraCriterion);
 
-        Query result = Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, userProperties)).where(criteria);
+        Query result = Query.select(AndroidUtilities.addToArray(activityProperties, userProperties)).where(criteria);
         if (!TextUtils.isEmpty(userTableAlias))
             result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
         return result;
@@ -170,7 +174,29 @@ public class TagDataService {
                     criterion).
                     orderBy(Order.desc(UserActivity.CREATED_AT)));
 
-        return userActivityDao.query(queryForTagData(tagData, criterion, userTableAlias, userProperties).orderBy(Order.desc(UserActivity.CREATED_AT)));
+        return userActivityDao.query(queryForTagData(tagData, criterion, userTableAlias, UserActivity.PROPERTIES, userProperties).orderBy(Order.desc(UserActivity.CREATED_AT)));
+    }
+
+    public Cursor getActivityAndHistoryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>...userProperties) {
+        Query activityQuery = queryForTagData(tagData, extraCriterion, userTableAlias, UpdateAdapter.USER_ACTIVITY_PROPERTIES, userProperties)
+                .from(UserActivity.TABLE);
+        int length = UpdateAdapter.USER_ACTIVITY_PROPERTIES.length;
+        if (userProperties != null)
+            length += userProperties.length;
+
+        Property<?>[] paddingArray = new Property<?>[Math.max(0, length - UpdateAdapter.HISTORY_PROPERTIES.length)];
+        for (int i = 0; i < paddingArray.length; i++) {
+            paddingArray[i] = UpdateAdapter.PADDING_PROPERTY;
+        }
+
+        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, paddingArray)).from(History.TABLE)
+                .where(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())))
+                .from(History.TABLE);
+
+        Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
+        System.err.println("QUERY: " + resultQuery);
+
+        return userActivityDao.query(resultQuery);
     }
 
     /**
@@ -182,7 +208,7 @@ public class TagDataService {
         if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
             return null;
 
-        TodorooCursor<UserActivity> updates = userActivityDao.query(queryForTagData(tagData, null, null, null).orderBy(Order.desc(UserActivity.CREATED_AT)).limit(1));
+        TodorooCursor<UserActivity> updates = userActivityDao.query(queryForTagData(tagData, null, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)).limit(1));
         try {
             if(updates.getCount() == 0)
                 return null;

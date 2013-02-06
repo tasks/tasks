@@ -64,6 +64,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
         this.outstandingDao = outstandingDao;
         this.changes = new ArrayList<OE>();
+        Log.e("CH", "Allocating", new Throwable());
 
     }
 

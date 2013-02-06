@@ -16,6 +16,7 @@ import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SELECT;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
+import static com.todoroo.andlib.sql.SqlConstants.UNION;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static com.todoroo.andlib.sql.SqlTable.table;
 import static java.util.Arrays.asList;
@@ -39,6 +40,7 @@ public final class Query {
     private final ArrayList<Field> fields = new ArrayList<Field>();
     private final ArrayList<Join> joins = new ArrayList<Join>();
     private final ArrayList<Field> groupBies = new ArrayList<Field>();
+    private final ArrayList<Query> unions = new ArrayList<Query>();
     private final ArrayList<Order> orders = new ArrayList<Order>();
     private final ArrayList<Criterion> havings = new ArrayList<Criterion>();
     private int limits = -1;
@@ -78,6 +80,11 @@ public final class Query {
         return this;
     }
 
+    public Query union(Query query) {
+        unions.add(query);
+        return this;
+    }
+
     public Query orderBy(Order... order) {
         orders.addAll(asList(order));
         return this;
@@ -113,6 +120,7 @@ public final class Query {
         if(queryTemplate == null) {
             visitWhereClause(sql);
             visitGroupByClause(sql);
+            visitUnionClause(sql);
             visitOrderByClause(sql);
             visitLimitClause(sql);
         } else {
@@ -154,6 +162,15 @@ public final class Query {
             sql.append(SPACE).append(havingCriterion).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
+    }
+
+    private void visitUnionClause(StringBuilder sql) {
+        if (unions.isEmpty()) {
+            return;
+        }
+        for (Query query : unions) {
+            sql.append(UNION).append(SPACE).append(query).append(SPACE);
+        }
     }
 
     private void visitWhereClause(StringBuilder sql) {

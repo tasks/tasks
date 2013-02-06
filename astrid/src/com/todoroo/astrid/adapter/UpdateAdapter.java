@@ -39,7 +39,9 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
@@ -71,12 +73,43 @@ public class UpdateAdapter extends CursorAdapter {
     private static final StringProperty USER_LAST_NAME = User.LAST_NAME.cloneAs(USER_TABLE_ALIAS, "userLastName"); //$NON-NLS-1$
     private static final StringProperty USER_NAME = User.NAME.cloneAs(USER_TABLE_ALIAS, "userName"); //$NON-NLS-1$
 
+    public static final StringProperty ACTIVITY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
+    public static final StringProperty HISTORY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_HISTORY + "'");  //$NON-NLS-1$
+    public static final StringProperty PADDING_PROPERTY = new StringProperty(null, "'0'"); //$NON-NLS-1$
+
     public static final Property<?>[] USER_PROPERTIES = {
         USER_PICTURE,
         USER_FIRST_NAME,
         USER_LAST_NAME,
         USER_NAME
     };
+
+    public static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
+        UserActivity.CREATED_AT,
+        UserActivity.UUID,
+        UserActivity.ACTION,
+        UserActivity.MESSAGE,
+        UserActivity.TARGET_ID,
+        UserActivity.TARGET_NAME,
+        UserActivity.PICTURE,
+        UserActivity.ID,
+        ACTIVITY_TYPE_PROPERTY,
+    };
+
+    public static final Property<?>[] HISTORY_PROPERTIES = {
+        History.CREATED_AT,
+        History.UUID,
+        History.COLUMN,
+        History.TABLE_ID,
+        History.OLD_VALUE,
+        History.NEW_VALUE,
+        PADDING_PROPERTY,
+        History.ID,
+        HISTORY_TYPE_PROPERTY,
+    };
+
+
+    public static final int TYPE_PROPERTY_INDEX = USER_ACTIVITY_PROPERTIES.length - 1;
 
     private static final String TARGET_LINK_PREFIX = "$link_"; //$NON-NLS-1$
     private static final Pattern TARGET_LINK_PATTERN = Pattern.compile("\\" + TARGET_LINK_PREFIX + "(\\w*)");  //$NON-NLS-1$//$NON-NLS-2$
@@ -129,6 +162,7 @@ public class UpdateAdapter extends CursorAdapter {
     private class ModelHolder {
         public UserActivity activity = new UserActivity();
         public User user = new User();
+        public History history = new History();
     }
 
     /** Creates a new view for use in the list view */
@@ -150,15 +184,42 @@ public class UpdateAdapter extends CursorAdapter {
         TodorooCursor<UserActivity> cursor = (TodorooCursor<UserActivity>)c;
         ModelHolder mh = ((ModelHolder) view.getTag());
 
+        String type = cursor.getString(TYPE_PROPERTY_INDEX);
+
         UserActivity update = mh.activity;
         update.clear();
-        update.readFromCursor(cursor);
 
         User user = mh.user;
         user.clear();
-        readUserProperties(cursor, user);
 
-        setFieldContentsAndVisibility(view, update, user);
+        History history = mh.history;
+        if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
+            readUserActivityProperties(cursor, update);
+            readUserProperties(cursor, user);
+        } else {
+            readHistoryProperties(cursor, history);
+        }
+
+        setFieldContentsAndVisibility(view, update, user, history, type);
+    }
+
+    private static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
+        activity.setValue(UserActivity.CREATED_AT, unionCursor.getLong(0));
+        activity.setValue(UserActivity.UUID, unionCursor.getString(1));
+        activity.setValue(UserActivity.ACTION, unionCursor.getString(2));
+        activity.setValue(UserActivity.MESSAGE, unionCursor.getString(3));
+        activity.setValue(UserActivity.TARGET_ID, unionCursor.getString(4));
+        activity.setValue(UserActivity.TARGET_NAME, unionCursor.getString(5));
+        activity.setValue(UserActivity.PICTURE, unionCursor.getString(6));
+    }
+
+    private static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
+        history.setValue(History.CREATED_AT, unionCursor.getLong(0));
+        history.setValue(History.UUID, unionCursor.getString(1));
+        history.setValue(History.COLUMN, unionCursor.getString(2));
+        history.setValue(History.TABLE_ID, unionCursor.getString(3));
+        history.setValue(History.OLD_VALUE, unionCursor.getString(4));
+        history.setValue(History.NEW_VALUE, unionCursor.getString(5));
     }
 
     public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user) {
@@ -169,8 +230,17 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     /** Helper method to set the contents and visibility of each field */
-    public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user) {
+    public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user, History history, String type) {
         // picture
+        if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
+            setupUserActivityRow(view, activity, user);
+        } else if (NameMaps.TABLE_ID_HISTORY.equals(type)) {
+            setupHistoryRow(view, history);
+        }
+
+    }
+
+    private void setupUserActivityRow(View view, UserActivity activity, User user) {
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
             if (user.containsNonNullValue(USER_PICTURE)) {
                 String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
@@ -201,7 +271,10 @@ public class UpdateAdapter extends CursorAdapter {
                     DateUtils.FORMAT_ABBREV_RELATIVE);
             date.setText(dateString);
         }
+    }
 
+    private void setupHistoryRow(View view, History history) {
+        //
     }
 
     @Override
