@@ -16,6 +16,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -82,6 +83,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("taskOutstandingDao", TaskOutstandingDao.class);
         injectables.put("tagOutstandingDao", TagOutstandingDao.class);
         injectables.put("userActivityOutstandingDao", UserActivityOutstandingDao.class);
+        injectables.put("historyDao", HistoryDao.class);
 
         // com.todoroo.astrid.service
         injectables.put("taskService", TaskService.class);

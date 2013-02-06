@@ -258,7 +258,7 @@ public class NameMaps {
         HISTORY_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         HISTORY_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putHistoryPropertyToServerName(History.UUID,       "uuid",       false);
+        putHistoryPropertyToServerName(History.UUID,       "id",       false);
         putHistoryPropertyToServerName(History.CREATED_AT, "created_at", false);
         putHistoryPropertyToServerName(History.USER_UUID,  "user_id",    false);
         putHistoryPropertyToServerName(History.COLUMN,     "column",     false);

@@ -11,6 +11,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -80,6 +81,9 @@ public final class PluginServices {
 
     @Autowired
     TagOutstandingDao tagOutstandingDao;
+
+    @Autowired
+    HistoryDao historyDao;
 
     private static volatile PluginServices instance;
 
@@ -162,6 +166,10 @@ public final class PluginServices {
 
     public static UserDao getUserDao() {
         return getInstance().userDao;
+    }
+
+    public static HistoryDao getHistoryDao() {
+        return getInstance().historyDao;
     }
 
     // -- helpers
