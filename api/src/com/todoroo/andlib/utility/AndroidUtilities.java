@@ -776,11 +776,24 @@ public class AndroidUtilities {
      * @return
      */
     public static Property<?>[] addToArray(Property<?>[] list, Property<?>... newItems) {
-        Property<?>[] newList = new Property<?>[list.length + newItems.length];
-        for(int i = 0; i < list.length; i++)
-            newList[i] = list[i];
-        for(int i = 0; i < newItems.length; i++)
-            newList[list.length + i] = newItems[i];
+        int originalListLength = 0;
+        int length = 0;
+        if (list != null) {
+            originalListLength = list.length;
+            length += list.length;
+        }
+        if (newItems != null)
+            length += newItems.length;
+
+        Property<?>[] newList = new Property<?>[length];
+        if (list != null) {
+            for(int i = 0; i < list.length; i++)
+                newList[i] = list[i];
+        }
+        if (newItems != null) {
+            for(int i = 0; i < newItems.length; i++)
+                newList[originalListLength + i] = newItems[i];
+        }
         return newList;
     }
 
