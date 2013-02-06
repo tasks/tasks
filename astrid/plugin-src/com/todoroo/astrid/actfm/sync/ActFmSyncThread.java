@@ -223,9 +223,13 @@ public class ActFmSyncThread {
                     }
 
                     for (ClientToServerMessage<?> message : messageBatch) {
+                        try {
                         Runnable r = pendingCallbacks.remove(message);
                         if (r != null)
                             r.run();
+                        } catch (Exception e) {
+                            Log.e(ERROR_TAG, "Unexpected exception executing sync callback", e);
+                        }
                     }
                     if (refreshAfterBatch) {
                         Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
