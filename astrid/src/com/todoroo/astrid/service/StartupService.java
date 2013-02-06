@@ -43,6 +43,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
@@ -202,6 +203,8 @@ public class StartupService {
         if(justUpgraded && version > 0) {
             if(latestSetVersion > 0) {
                 upgradeService.performUpgrade(context, latestSetVersion);
+            } else {
+                Preferences.setBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, true); // New installs should have this flag set up front
             }
             AstridPreferences.setCurrentVersion(version);
             AstridPreferences.setCurrentVersionName(versionName);

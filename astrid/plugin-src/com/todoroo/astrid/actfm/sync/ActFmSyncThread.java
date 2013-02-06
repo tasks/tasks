@@ -19,6 +19,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
@@ -43,7 +44,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
-import com.todoroo.astrid.utility.Flags;
 
 public class ActFmSyncThread {
 
@@ -79,6 +79,8 @@ public class ActFmSyncThread {
     private UserActivityOutstandingDao userActivityOutstandingDao;
 
     private String token;
+
+    private boolean syncMigration = false;
 
     public static enum ModelType {
         TYPE_TASK,
@@ -124,6 +126,7 @@ public class ActFmSyncThread {
         this.pendingMessages = messageQueue;
         this.pendingCallbacks = Collections.synchronizedMap(new HashMap<ClientToServerMessage<?>, Runnable>());
         this.monitor = syncMonitor;
+        this.syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
     }
 
     public synchronized void startSyncThread() {
@@ -157,10 +160,13 @@ public class ActFmSyncThread {
             List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
-                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
+                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
                         try {
                             monitor.wait();
                             AndroidUtilities.sleepDeep(500L); // Wait briefly for large database operations to finish (e.g. adding a task with several tags may trigger a message before all saves are done--fix this?)
+
+                            if (!syncMigration)
+                                syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
                         } catch (InterruptedException e) {
                             // Ignored
                         }
@@ -257,7 +263,7 @@ public class ActFmSyncThread {
     }
 
     private boolean timeForBackgroundSync() {
-        return !Flags.check(Flags.SYNC_MIGRATION_ONGOING) && false; // TODO: replace && false with a real background sync condition
+        return false; // TODO: replace false with a real background sync condition
     }
 
     private void repopulateQueueFromOutstandingTables() {

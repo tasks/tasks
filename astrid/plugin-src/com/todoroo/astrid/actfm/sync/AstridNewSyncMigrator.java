@@ -11,6 +11,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
@@ -36,7 +37,6 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.utility.Flags;
 
 @SuppressWarnings("nls")
 public class AstridNewSyncMigrator {
@@ -54,13 +54,17 @@ public class AstridNewSyncMigrator {
 
     private static final String LOG_TAG = "sync-migrate";
 
+    public static final String PREF_SYNC_MIGRATION = "p_sync_migration";
+
     public AstridNewSyncMigrator() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
     @SuppressWarnings("deprecation")
     public void performMigration() {
-        Flags.set(Flags.SYNC_MIGRATION_ONGOING);
+        if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false))
+            return;
+
         // --------------
         // First ensure that a TagData object exists for each tag metadata
         // --------------
@@ -225,7 +229,11 @@ public class AstridNewSyncMigrator {
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
         }
-        Flags.checkAndClear(Flags.SYNC_MIGRATION_ONGOING);
+        Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
+        ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
+        synchronized (monitor) {
+            monitor.notifyAll();
+        }
     }
 
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
