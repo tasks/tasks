@@ -145,14 +145,6 @@ public class TagDataService {
         return tagDataDao.query(Query.select(properties).withQueryTemplate(sql));
     }
 
-    /**
-     * Get updates for this tagData
-     * @return
-     */
-    public TodorooCursor<UserActivity> getUpdates(TagData tagData, String userTableAlias, Property<?>... userProperties) {
-        return getUpdatesWithExtraCriteria(tagData, null, userTableAlias, userProperties);
-    }
-
     private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
         Criterion criteria = Criterion.or(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
@@ -168,13 +160,13 @@ public class TagDataService {
         return result;
     }
 
-    public TodorooCursor<UserActivity> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion, String userTableAlias, Property<?>... userProperties) {
+    public TodorooCursor<UserActivity> getUserActivityWithExtraCriteria(TagData tagData, Criterion criterion) {
         if (tagData == null)
             return userActivityDao.query(Query.select(UserActivity.PROPERTIES).where(
                     criterion).
                     orderBy(Order.desc(UserActivity.CREATED_AT)));
 
-        return userActivityDao.query(queryForTagData(tagData, criterion, userTableAlias, UserActivity.PROPERTIES, userProperties).orderBy(Order.desc(UserActivity.CREATED_AT)));
+        return userActivityDao.query(queryForTagData(tagData, criterion, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)));
     }
 
     public Cursor getActivityAndHistoryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>...userProperties) {
@@ -194,7 +186,6 @@ public class TagDataService {
                 .from(History.TABLE);
 
         Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
-        System.err.println("QUERY: " + resultQuery);
 
         return userActivityDao.query(resultQuery);
     }

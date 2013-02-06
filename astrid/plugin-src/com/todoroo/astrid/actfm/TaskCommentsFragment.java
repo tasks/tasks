@@ -2,16 +2,24 @@ package com.todoroo.astrid.actfm;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
@@ -55,9 +63,29 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected Cursor getCursor() {
-        return userActivityDao.query(Query.select(UserActivity.PROPERTIES)
-                .where(UserActivity.TARGET_ID.eq(task.getUuid()))
-                .join(Join.left(User.TABLE, UserActivity.USER_UUID.eq(User.UUID))));
+        Query taskQuery = queryForTask(task, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_ACTIVITY_PROPERTIES, UpdateAdapter.USER_PROPERTIES);
+        int length = UpdateAdapter.USER_ACTIVITY_PROPERTIES.length + UpdateAdapter.USER_PROPERTIES.length;
+
+        Property<?>[] paddingArray = new Property<?>[Math.max(0, length - UpdateAdapter.HISTORY_PROPERTIES.length)];
+        for (int i = 0; i < paddingArray.length; i++) {
+            paddingArray[i] = UpdateAdapter.PADDING_PROPERTY;
+        }
+
+        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, paddingArray)).from(History.TABLE)
+                .where(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.eq(task.getUuid())))
+                .from(History.TABLE);
+
+        Query resultQuery = taskQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
+
+        return userActivityDao.query(resultQuery);
+    }
+
+    private static Query queryForTask(Task task, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
+        Query result = Query.select(AndroidUtilities.addToArray(activityProperties, userProperties))
+                .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid())));
+        if (!TextUtils.isEmpty(userTableAlias))
+            result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
+        return result;
     }
 
     @Override
