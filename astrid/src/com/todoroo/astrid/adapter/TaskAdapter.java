@@ -109,15 +109,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
     @SuppressWarnings("nls")
-    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN), Metadata.ID.name).as("taskRabId");
+    private static final LongProperty TASK_RABBIT_ID = Metadata.ID.cloneAs(TaskListFragment.TR_METADATA_JOIN, "taskRabId");
     @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
     @SuppressWarnings("nls")
-    private static final LongProperty FILE_ID_PROPERTY = new LongProperty(Metadata.TABLE.as(TaskListFragment.FILE_METADATA_JOIN), Metadata.ID.name).as("fileId");
+    private static final LongProperty FILE_ID_PROPERTY = Metadata.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     @SuppressWarnings("nls")
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
-    private static final StringProperty PICTURE = new StringProperty(User.TABLE.as(TaskListFragment.USER_IMAGE_JOIN), User.PICTURE.name);
+    private static final StringProperty PICTURE = User.PICTURE.cloneAs(TaskListFragment.USER_IMAGE_JOIN, null);
 
     // --- other constants
 
@@ -219,7 +219,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final int resource;
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
-//    private ActionsLoaderThread actionsLoader;
     private int fontSize;
     protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;

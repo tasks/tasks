@@ -66,10 +66,10 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static final String USER_TABLE_ALIAS = "users_join"; //$NON-NLS-1$
 
-    public static final StringProperty USER_PICTURE = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.PICTURE.name).as("userPicture"); //$NON-NLS-1$
-    private static final StringProperty USER_FIRST_NAME = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.FIRST_NAME.name).as("userFirstName"); //$NON-NLS-1$
-    private static final StringProperty USER_LAST_NAME = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.LAST_NAME.name).as("userLastName"); //$NON-NLS-1$
-    private static final StringProperty USER_NAME = new StringProperty(User.TABLE.as(USER_TABLE_ALIAS), User.NAME.name).as("userName"); //$NON-NLS-1$
+    public static final StringProperty USER_PICTURE = User.PICTURE.cloneAs(USER_TABLE_ALIAS, "userPicture"); //$NON-NLS-1$
+    private static final StringProperty USER_FIRST_NAME = User.FIRST_NAME.cloneAs(USER_TABLE_ALIAS, "userFirstName"); //$NON-NLS-1$
+    private static final StringProperty USER_LAST_NAME = User.LAST_NAME.cloneAs(USER_TABLE_ALIAS, "userLastName"); //$NON-NLS-1$
+    private static final StringProperty USER_NAME = User.NAME.cloneAs(USER_TABLE_ALIAS, "userName"); //$NON-NLS-1$
 
     public static final Property<?>[] USER_PROPERTIES = {
         USER_PICTURE,

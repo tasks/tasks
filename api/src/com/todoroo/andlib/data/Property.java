@@ -9,6 +9,7 @@ import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -95,6 +96,24 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
     }
 
+    /**
+     * Return a clone of this property
+     */
+    public Property<TYPE> cloneAs(String tableAlias, String columnAlias) {
+        Table aliasedTable = this.table;
+        if (!TextUtils.isEmpty(tableAlias))
+            aliasedTable = table.as(tableAlias);
+
+        try {
+            Property<TYPE> newInstance = this.getClass().getConstructor(Table.class, String.class).newInstance(aliasedTable, this.name);
+            if(!TextUtils.isEmpty(columnAlias))
+                return (Property<TYPE>) newInstance.as(columnAlias);
+            return newInstance;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // --- helper classes and interfaces
 
     /**
@@ -145,6 +164,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public IntegerProperty as(String newAlias) {
             return (IntegerProperty) super.as(newAlias);
         }
+
+        @Override
+        public IntegerProperty cloneAs(String tableAlias, String columnAlias) {
+            return (IntegerProperty) this.cloneAs(tableAlias, columnAlias);
+        }
     }
 
     /**
@@ -176,6 +200,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         @Override
         public StringProperty as(String newAlias) {
             return (StringProperty) super.as(newAlias);
+        }
+
+        @Override
+        public StringProperty cloneAs(String tableAlias, String columnAlias) {
+            return (StringProperty) super.cloneAs(tableAlias, columnAlias);
         }
 
         public Criterion in(final String[] value) {
@@ -220,6 +249,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
                 PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
             return visitor.visitDouble(this, data);
         }
+
+        @Override
+        public DoubleProperty cloneAs(String tableAlias, String columnAlias) {
+            return (DoubleProperty) super.cloneAs(tableAlias, columnAlias);
+        }
     }
 
     /**
@@ -251,6 +285,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         @Override
         public LongProperty as(String newAlias) {
             return (LongProperty) super.as(newAlias);
+        }
+
+        @Override
+        public LongProperty cloneAs(String tableAlias, String columnAlias) {
+            return (LongProperty) super.cloneAs(tableAlias, columnAlias);
         }
     }
 
