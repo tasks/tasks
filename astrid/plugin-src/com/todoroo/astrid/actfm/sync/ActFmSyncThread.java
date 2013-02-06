@@ -2,8 +2,10 @@ package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,7 +50,7 @@ public class ActFmSyncThread {
     private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
 
     private final List<ClientToServerMessage<?>> pendingMessages;
-    private final List<Runnable> pendingCallbacks;
+    private final Map<ClientToServerMessage<?>, Runnable> pendingCallbacks;
     private final Object monitor;
     private Thread thread;
 
@@ -102,10 +104,9 @@ public class ActFmSyncThread {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
                     List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
-                    List<Runnable> callbackQueue = Collections.synchronizedList(new LinkedList<Runnable>());
                     ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
 
-                    instance = new ActFmSyncThread(syncQueue, callbackQueue, monitor);
+                    instance = new ActFmSyncThread(syncQueue, monitor);
 
                     taskDao.addListener(new SyncDatabaseListener<Task>(instance, ModelType.TYPE_TASK));
                     tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
@@ -118,10 +119,10 @@ public class ActFmSyncThread {
         return instance;
     }
 
-    private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, List<Runnable> callbackQueue, Object syncMonitor) {
+    private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, Object syncMonitor) {
         DependencyInjectionService.getInstance().inject(this);
         this.pendingMessages = messageQueue;
-        this.pendingCallbacks = callbackQueue;
+        this.pendingCallbacks = Collections.synchronizedMap(new HashMap<ClientToServerMessage<?>, Runnable>());
         this.monitor = syncMonitor;
     }
 
@@ -142,7 +143,7 @@ public class ActFmSyncThread {
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
             if (callback != null)
-                pendingCallbacks.add(callback);
+                pendingCallbacks.put(message, callback);
             synchronized(monitor) {
                 monitor.notifyAll();
             }
@@ -154,7 +155,6 @@ public class ActFmSyncThread {
         try {
             int batchSize = 1;
             List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
-            List<Runnable> callbackBatch = new LinkedList<Runnable>();
             while(true) {
                 synchronized(monitor) {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn()) {
@@ -174,21 +174,11 @@ public class ActFmSyncThread {
                         messageBatch.add(message);
                 }
 
-                while (callbackBatch.size() < batchSize && !pendingCallbacks.isEmpty()) {
-                    Runnable callback = pendingCallbacks.remove(0);
-                    callbackBatch.add(callback);
-                }
-
+                boolean refreshAfterBatch = false;
                 if (messageBatch.isEmpty() && timeForBackgroundSync()) {
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
-                    callbackBatch.add(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-                            ContextManager.getContext().sendBroadcast(refresh);
-                        }
-                    });
+                    refreshAfterBatch = true;
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -231,12 +221,18 @@ public class ActFmSyncThread {
                         Log.e(ERROR_TAG, "IOException", e);
                         batchSize = Math.max(batchSize / 2, 1);
                     }
-                    for (Runnable r : callbackBatch) {
-                        r.run();
+
+                    for (ClientToServerMessage<?> message : messageBatch) {
+                        Runnable r = pendingCallbacks.remove(message);
+                        if (r != null)
+                            r.run();
+                    }
+                    if (refreshAfterBatch) {
+                        Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+                        ContextManager.getContext().sendBroadcast(refresh);
                     }
 
                     messageBatch = new LinkedList<ClientToServerMessage<?>>();
-                    callbackBatch = new LinkedList<Runnable>();
                 }
             }
         } catch (Exception e) {
