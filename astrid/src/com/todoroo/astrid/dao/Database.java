@@ -67,6 +67,7 @@ public class Database extends AbstractDatabase {
         UserActivity.TABLE,
         ABTestEvent.TABLE,
         TagMetadata.TABLE,
+        History.TABLE,
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
