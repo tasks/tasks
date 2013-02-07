@@ -125,6 +125,10 @@ public final class TagData extends RemoteModel {
     public static final StringProperty TAG_ORDERING = new StringProperty(
             TABLE, "tagOrdering");
 
+    /** History fetch date */
+    public static final LongProperty HISTORY_FETCH_DATE = new LongProperty(
+            TABLE, "historyFetch");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 
@@ -156,6 +160,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(FLAGS.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);
         defaultValues.put(DELETION_DATE.name, 0);
+        defaultValues.put(HISTORY_FETCH_DATE.name, 0);
 
         defaultValues.put(THUMB.name, "");
         defaultValues.put(LAST_ACTIVITY_DATE.name, 0);

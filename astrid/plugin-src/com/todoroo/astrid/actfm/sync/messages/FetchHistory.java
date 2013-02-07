@@ -10,21 +10,25 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.HistoryDao;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.User;
 
-public class FetchHistory {
+public class FetchHistory<TYPE extends RemoteModel> {
 
     private static final String ERROR_TAG = "actfm-fetch-history"; //$NON-NLS-1$
 
+    private final RemoteModelDao<TYPE> dao;
+    private final LongProperty historyTimeProperty;
     private final String table;
     private final String uuid;
     private final String taskTitle;
@@ -43,8 +47,11 @@ public class FetchHistory {
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
 
-    public FetchHistory(String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory) {
+    public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty,
+            String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory) {
         DependencyInjectionService.getInstance().inject(this);
+        this.dao = dao;
+        this.historyTimeProperty = historyTimeProperty;
         this.table = table;
         this.uuid = uuid;
         this.taskTitle = taskTitle;
@@ -83,6 +90,7 @@ public class FetchHistory {
                 try {
                     JSONObject result = actFmInvoker.invoke("model_history_list", params.toArray(new Object[params.size()]));
                     JSONArray list = result.optJSONArray("list");
+                    long time = result.optLong("time") * 1000;
                     if (list != null) {
                         for (int i = 0; i < list.length(); i++) {
                             JSONObject historyJson = list.optJSONObject(i);
@@ -112,6 +120,18 @@ public class FetchHistory {
                                 if (historyDao.update(History.UUID.eq(history.getValue(History.UUID)), history) <= 0) {
                                     historyDao.createNew(history);
                                 }
+                            }
+                        }
+                        if (time > 0) {
+                            TYPE template;
+                            try {
+                                template = dao.getModelClass().newInstance();
+                                template.setValue(historyTimeProperty, time);
+                                dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), template);
+                            } catch (InstantiationException e) {
+                                Log.e(ERROR_TAG, "Error instantiating model for recording time", e);
+                            } catch (IllegalAccessException e) {
+                                Log.e(ERROR_TAG, "Error instantiating model for recording time", e);
                             }
                         }
                     }

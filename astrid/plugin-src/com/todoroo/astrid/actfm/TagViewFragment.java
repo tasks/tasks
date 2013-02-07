@@ -57,6 +57,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -105,6 +106,8 @@ public class TagViewFragment extends TaskListFragment {
     protected TagData tagData;
 
     @Autowired TagDataService tagDataService;
+
+    @Autowired TagDataDao tagDataDao;
 
     @Autowired ActFmSyncService actFmSyncService;
 
@@ -353,7 +356,7 @@ public class TagViewFragment extends TaskListFragment {
             };
 
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), callback);
-            new FetchHistory(NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.PUSHED_AT), true).execute();
+            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true).execute();
         }
     }
 
