@@ -177,6 +177,10 @@ public final class Task extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
+    /** History fetch time */
+    public static final LongProperty HISTORY_FETCH_DATE = new LongProperty(
+            TABLE, "historyFetch");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
@@ -297,6 +301,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(IS_PUBLIC.name, 0);
         defaultValues.put(IS_READONLY.name, 0);
         defaultValues.put(CLASSIFICATION.name, "");
+        defaultValues.put(HISTORY_FETCH_DATE.name, 0);
 
         defaultValues.put(LAST_SYNC.name, 0);
         defaultValues.put(UUID.name, NO_UUID);

@@ -347,6 +347,7 @@ public class Database extends AbstractDatabase {
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
+            database.execSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
             database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));

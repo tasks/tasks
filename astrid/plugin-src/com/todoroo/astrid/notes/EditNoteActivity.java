@@ -53,12 +53,14 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
@@ -87,6 +89,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Autowired MetadataService metadataService;
     @Autowired UserActivityDao userActivityDao;
     @Autowired TaskService taskService;
+    @Autowired TaskDao taskDao;
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private EditText commentField;
@@ -145,7 +148,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public void loadViewForTaskID(long t){
         try {
-            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE);
+            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE);
         } catch (SQLiteException e) {
             StartupService.handleSQLiteError(ContextManager.getContext(), e);
         }
@@ -419,6 +422,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         };
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), callback);
+        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), null, task.getValue(Task.HISTORY_FETCH_DATE), false).execute();
     }
 
     private void addComment() {
