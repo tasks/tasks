@@ -17,6 +17,8 @@
     <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
     <string name="update_string_user_self">You</string>
     
+    <string name="history_this_list">this list</string>
+    <string name="history_this_task">this task</string>
     
     <!-- <string name="update_string_friends">%1$s is now friends with %2$s</string>
     <string name="update_string_request_friendship">%1$s wants to be friends with you</string>

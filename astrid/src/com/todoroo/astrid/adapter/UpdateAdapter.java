@@ -419,7 +419,48 @@ public class UpdateAdapter extends CursorAdapter {
         return builder;
     }
 
+    @SuppressWarnings("nls")
     public static Spanned getHistoryComment(final AstridActivity context, History history, String linkColor, String fromView) {
+        String column = history.getValue(History.COLUMN);
+        if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
+            //
+        } else if (History.COL_SHARED_WITH.equals(column) || History.COL_UNSHARED_WITH.equals(column)) {
+            //
+        } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
+            //
+        } else if (History.COL_COMPLETED_AT.equals(column)) {
+            //
+        } else if (History.COL_DELETED_AT.equals(column)) {
+            //
+        } else if (History.COL_IMPORTANCE.equals(column)) {
+            //
+        } else if (History.COL_NOTES_LENGTH.equals(column)) {
+            //
+        } else if (History.COL_PUBLIC.equals(column)) {
+            //
+        } else if (History.COL_DUE.equals(column)) {
+            //
+        } else if (History.COL_REPEAT.equals(column)) {
+            //
+        } else if (History.COL_TASK_REPEATED.equals(column)) {
+            //
+        } else if (History.COL_TITLE.equals(column)) {
+            //
+        } else if (History.COL_NAME.equals(column)) {
+            //
+        } else if (History.COL_DESCRIPTION.equals(column)) {
+            //
+        } else if (History.COL_PICTURE_ID.equals(column) || History.COL_DEFAULT_LIST_IMAGE_ID.equals(column)) {
+            //
+        } else if (History.COL_IS_SILENT.equals(column)) {
+            //
+        } else if (History.COL_IS_FAVORITE.equals(column)) {
+            //
+        } else if (History.COL_USER_ID.equals(column)) {
+            //
+        } else {
+            //
+        }
         return null;
     }
 

@@ -104,4 +104,28 @@ public class History extends AbstractModel {
         return CREATOR;
     }
 
+    // ---- Column ids
+    public static final String COL_TAG_ADDED = "tag_added";
+    public static final String COL_TAG_REMOVED = "tag_removed";
+    public static final String COL_SHARED_WITH = "shared_with";
+    public static final String COL_UNSHARED_WITH = "unshared_with";
+    public static final String COL_MEMBER_ADDED = "member_added";
+    public static final String COL_MEMBER_REMOVED = "member_removed";
+    public static final String COL_COMPLETED_AT = "completed_at";
+    public static final String COL_DELETED_AT = "deleted_at";
+    public static final String COL_IMPORTANCE = "importance";
+    public static final String COL_NOTES_LENGTH = "notes_length";
+    public static final String COL_PUBLIC = "public";
+    public static final String COL_DUE = "due";
+    public static final String COL_REPEAT = "repeat";
+    public static final String COL_TASK_REPEATED = "task_repeated";
+    public static final String COL_TITLE = "title";
+    public static final String COL_NAME = "name";
+    public static final String COL_DESCRIPTION = "description";
+    public static final String COL_PICTURE_ID = "picture_id";
+    public static final String COL_DEFAULT_LIST_IMAGE_ID = "default_list_image_id";
+    public static final String COL_IS_SILENT = "is_silent";
+    public static final String COL_IS_FAVORITE = "is_favorite";
+    public static final String COL_USER_ID = "user_id";
+
 }
