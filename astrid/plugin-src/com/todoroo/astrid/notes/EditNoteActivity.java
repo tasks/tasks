@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -43,11 +44,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -56,12 +53,14 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
@@ -73,6 +72,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
@@ -86,6 +86,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired MetadataService metadataService;
     @Autowired UserActivityDao userActivityDao;
+    @Autowired TaskService taskService;
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private EditText commentField;
@@ -284,20 +285,25 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
 
-        TodorooCursor<UserActivity> updates = userActivityDao.query(Query.select(AndroidUtilities.addToArray(UserActivity.PROPERTIES, UpdateAdapter.USER_PROPERTIES))
-                .where(UserActivity.TARGET_ID.eq(task.getUuid()))
-                .join(Join.left(User.TABLE.as(UpdateAdapter.USER_TABLE_ALIAS), UserActivity.USER_UUID.eq(Field.field(UpdateAdapter.USER_TABLE_ALIAS + "." + User.UUID.name)))) //$NON-NLS-1$
-                .orderBy(Order.desc(UserActivity.CREATED_AT)));
+        TodorooCursor<UserActivity> updates = taskService.getActivityAndHistoryForTask(task);
         try {
             UserActivity update = new UserActivity();
+            History history = new History();
             User user = new User();
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.clear();
                 user.clear();
 
-                update.readFromCursor(updates);
+                String type = updates.getString(UpdateAdapter.TYPE_PROPERTY_INDEX);
+                NoteOrUpdate noa;
+                if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
+                    UpdateAdapter.readUserActivityProperties(updates, update);
+                    noa = NoteOrUpdate.fromUpdateOrHistory(activity, update, null, user, linkColor);
+                } else {
+                    UpdateAdapter.readHistoryProperties(updates, history);
+                    noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
+                }
                 UpdateAdapter.readUserProperties(updates, user);
-                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(activity, update, user, linkColor);
                 if(noa != null)
                     items.add(noa);
             }
@@ -487,20 +493,34 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     m.getValue(Metadata.CREATION_DATE));
         }
 
-        public static NoteOrUpdate fromUpdate(AstridActivity context, UserActivity u, User user, String linkColor) {
-            String commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-            Bitmap commentBitmap = null;
-            if (TextUtils.isEmpty(commentPicture))
-                commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
-            Spanned title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+        public static NoteOrUpdate fromUpdateOrHistory(AstridActivity context, UserActivity u, History history, User user, String linkColor) {
             String userImage = ""; //$NON-NLS-1$
-            if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
-                userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+            String commentPicture = ""; //$NON-NLS-1$
+            Spanned title;
+            Bitmap commentBitmap = null;
+            long createdAt = 0;
+
+            if (u != null) {
+                commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
+                if (TextUtils.isEmpty(commentPicture))
+                    commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
+                title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+                userImage = ""; //$NON-NLS-1$
+                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
+                    userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+                createdAt = u.getValue(UserActivity.CREATED_AT);
+            } else {
+                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
+                    userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+                title = new SpannableString(UpdateAdapter.getHistoryComment(context, history, user, linkColor, UpdateAdapter.FROM_TASK_VIEW));
+                createdAt = history.getValue(History.CREATED_AT);
+            }
+
             return new NoteOrUpdate(userImage,
                     title,
                     commentPicture,
                     commentBitmap,
-                    u.getValue(UserActivity.CREATED_AT));
+                    createdAt);
         }
 
     }

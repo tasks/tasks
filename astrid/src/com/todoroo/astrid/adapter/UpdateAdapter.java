@@ -214,7 +214,7 @@ public class UpdateAdapter extends CursorAdapter {
         setFieldContentsAndVisibility(view, update, user, history, type);
     }
 
-    private static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
+    public static void readUserActivityProperties(TodorooCursor<UserActivity> unionCursor, UserActivity activity) {
         activity.setValue(UserActivity.CREATED_AT, unionCursor.getLong(0));
         activity.setValue(UserActivity.UUID, unionCursor.getString(1));
         activity.setValue(UserActivity.ACTION, unionCursor.getString(2));
@@ -224,7 +224,7 @@ public class UpdateAdapter extends CursorAdapter {
         activity.setValue(UserActivity.PICTURE, unionCursor.getString(6));
     }
 
-    private static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
+    public static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
         history.setValue(History.CREATED_AT, unionCursor.getLong(0));
         history.setValue(History.USER_UUID, unionCursor.getString(1));
         history.setValue(History.COLUMN, unionCursor.getString(2));
