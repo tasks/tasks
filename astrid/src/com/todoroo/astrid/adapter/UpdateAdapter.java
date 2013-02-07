@@ -466,15 +466,13 @@ public class UpdateAdapter extends CursorAdapter {
             } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
                 //
             } else if (History.COL_COMPLETED_AT.equals(column)) {
-                long value = AndroidUtilities.tryParseLong(newValue, 0);
-                if (value > 0) {
+                if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
                     result = context.getString(R.string.history_completed, item);
                 } else {
                     result = context.getString(R.string.history_uncompleted, item);
                 }
             } else if (History.COL_DELETED_AT.equals(column)) {
-                long value = AndroidUtilities.tryParseLong(newValue, 0);
-                if (value > 0) {
+                if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
                     result = context.getString(R.string.history_deleted, item);
                 } else {
                     result = context.getString(R.string.history_undeleted, item);
