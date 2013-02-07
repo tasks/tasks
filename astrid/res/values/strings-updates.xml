@@ -19,6 +19,17 @@
     
     <string name="history_this_list">this list</string>
     <string name="history_this_task">this task</string>
+    <string name="history_deleted">deleted %s</string>
+    <string name="history_undeleted">undeleted %s</string>
+    <string name="history_completed">completed %s</string>
+    <string name="history_uncompleted">uncompleted %s</string>
+    <string name="history_importance_changed">changed %1$s priority from %2$s to %3$s</string>
+    <string name="history_title_changed">changed %1$s title from %2$s to %3$s</string>
+    <string name="history_title_set">set %1$s title to %2$s</string>
+    <string name="history_name_changed">changed name from %1$s to %2$s</string>
+    <string name="history_name_set">set name to %2$s</string>
+    <string name="history_description_changed">changed description from %1$s to %2$s</string>
+    <string name="history_description_set">set description to %2$s</string>
     
     <!-- <string name="update_string_friends">%1$s is now friends with %2$s</string>
     <string name="update_string_request_friendship">%1$s wants to be friends with you</string>

@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -421,47 +424,110 @@ public class UpdateAdapter extends CursorAdapter {
 
     @SuppressWarnings("nls")
     public static Spanned getHistoryComment(final AstridActivity context, History history, String linkColor, String fromView) {
-        String column = history.getValue(History.COLUMN);
-        if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
-            //
-        } else if (History.COL_SHARED_WITH.equals(column) || History.COL_UNSHARED_WITH.equals(column)) {
-            //
-        } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
-            //
-        } else if (History.COL_COMPLETED_AT.equals(column)) {
-            //
-        } else if (History.COL_DELETED_AT.equals(column)) {
-            //
-        } else if (History.COL_IMPORTANCE.equals(column)) {
-            //
-        } else if (History.COL_NOTES_LENGTH.equals(column)) {
-            //
-        } else if (History.COL_PUBLIC.equals(column)) {
-            //
-        } else if (History.COL_DUE.equals(column)) {
-            //
-        } else if (History.COL_REPEAT.equals(column)) {
-            //
-        } else if (History.COL_TASK_REPEATED.equals(column)) {
-            //
-        } else if (History.COL_TITLE.equals(column)) {
-            //
-        } else if (History.COL_NAME.equals(column)) {
-            //
-        } else if (History.COL_DESCRIPTION.equals(column)) {
-            //
-        } else if (History.COL_PICTURE_ID.equals(column) || History.COL_DEFAULT_LIST_IMAGE_ID.equals(column)) {
-            //
-        } else if (History.COL_IS_SILENT.equals(column)) {
-            //
-        } else if (History.COL_IS_FAVORITE.equals(column)) {
-            //
-        } else if (History.COL_USER_ID.equals(column)) {
-            //
+        boolean hasTask = false;
+        JSONArray taskAttrs = null;
+        if (!TextUtils.isEmpty(history.getValue(History.TASK))) {
+            try {
+                taskAttrs = new JSONArray(history.getValue(History.TASK));
+                hasTask = true;
+            } catch (JSONException e) {
+                //
+            }
+        }
+
+        String item;
+        String itemPosessive;
+        if (hasTask && taskAttrs != null) {
+            item = taskAttrs.optString(1);
+            itemPosessive = item + "'s";
         } else {
-            //
+            if (FROM_TASK_VIEW.equals(fromView)) {
+                item = context.getString(R.string.history_this_task);
+            } else {
+                item = context.getString(R.string.history_this_list);
+            }
+            itemPosessive = "";
+        }
+
+        String oldValue = history.getValue(History.OLD_VALUE);
+        String newValue = history.getValue(History.NEW_VALUE);
+
+        String result;
+
+        String column = history.getValue(History.COLUMN);
+        try {
+            if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
+                //
+            } else if (History.COL_SHARED_WITH.equals(column) || History.COL_UNSHARED_WITH.equals(column)) {
+                //
+            } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
+                //
+            } else if (History.COL_COMPLETED_AT.equals(column)) {
+                long value = Long.parseLong(newValue);
+                if (value > 0) {
+                    result = context.getString(R.string.history_completed, item);
+                } else {
+                    result = context.getString(R.string.history_uncompleted, item);
+                }
+            } else if (History.COL_DELETED_AT.equals(column)) {
+                long value = Long.parseLong(newValue);
+                if (value > 0) {
+                    result = context.getString(R.string.history_deleted, item);
+                } else {
+                    result = context.getString(R.string.history_undeleted, item);
+                }
+            } else if (History.COL_IMPORTANCE.equals(column)) {
+                int oldPriority = Integer.parseInt(oldValue);
+                int newPriority = Integer.parseInt(newValue);
+
+                result = context.getString(R.string.history_importance_changed, itemPosessive, priorityString(oldPriority), priorityString(newPriority));
+            } else if (History.COL_NOTES_LENGTH.equals(column)) {
+                //
+            } else if (History.COL_PUBLIC.equals(column)) {
+                //
+            } else if (History.COL_DUE.equals(column)) {
+                //
+            } else if (History.COL_REPEAT.equals(column)) {
+                //
+            } else if (History.COL_TASK_REPEATED.equals(column)) {
+                //
+            } else if (History.COL_TITLE.equals(column)) {
+                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                    result = context.getString(R.string.history_title_changed, itemPosessive, oldValue, newValue);
+                else
+                    result = context.getString(R.string.history_title_set, itemPosessive, newValue);
+            } else if (History.COL_NAME.equals(column)) {
+                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                    result = context.getString(R.string.history_name_changed, oldValue, newValue);
+                else
+                    result = context.getString(R.string.history_name_set, newValue);
+            } else if (History.COL_DESCRIPTION.equals(column)) {
+                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                    result = context.getString(R.string.history_description_changed, oldValue, newValue);
+                else
+                    result = context.getString(R.string.history_description_set, newValue);
+            } else if (History.COL_PICTURE_ID.equals(column) || History.COL_DEFAULT_LIST_IMAGE_ID.equals(column)) {
+                //
+            } else if (History.COL_IS_SILENT.equals(column)) {
+                //
+            } else if (History.COL_IS_FAVORITE.equals(column)) {
+                //
+            } else if (History.COL_USER_ID.equals(column)) {
+                //
+            } else {
+                // default display
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // default display
         }
         return null;
+    }
+
+    @SuppressWarnings("nls")
+    private static final String[] PRIORITY_STRINGS = { "!!!", "!!", "!", "o" };
+    private static String priorityString(int priority) {
+        return PRIORITY_STRINGS[priority];
     }
 
     private static CharSequence getLinkSpan(final AstridActivity activity, UserActivity update, String targetName, String linkColor, String linkType) {
