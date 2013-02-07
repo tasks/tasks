@@ -19,8 +19,13 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -38,6 +43,9 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Autowired
     private TagDataService tagDataService;
+
+    @Autowired
+    private TagDataDao tagDataDao;
 
     public TagCommentsFragment() {
         super();
@@ -119,8 +127,10 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected void performFetch(boolean manual, Runnable done) {
-        done.run();
-//        actFmSyncService.fetchUpdatesForTag(tagData, manual, done);
+        if (tagData != null) {
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), done);
+            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true).execute();
+        }
     }
 
     @Override

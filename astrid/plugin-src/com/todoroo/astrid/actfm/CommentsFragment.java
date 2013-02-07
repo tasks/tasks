@@ -48,7 +48,6 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.ImageDiskCache;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsService;
 
 public abstract class CommentsFragment extends ListFragment {
@@ -264,21 +263,10 @@ public abstract class CommentsFragment extends ListFragment {
 
     protected void refreshActivity(boolean manual) {
         if (actFmPreferenceService.isLoggedIn()) {
-            final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
-                    getActivity(), this, R.id.comments_progressBar, new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshUpdatesList();
-                        }
-                    });
-
-            callback.started();
-            callback.incrementMax(100);
             Runnable doneRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    callback.incrementProgress(50);
-                    callback.finished();
+                    refreshUpdatesList();
                 }
             };
             if (hasModel()) {
@@ -287,7 +275,6 @@ public abstract class CommentsFragment extends ListFragment {
 //                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
                 doneRunnable.run();
             }
-            callback.incrementProgress(50);
         }
     }
 

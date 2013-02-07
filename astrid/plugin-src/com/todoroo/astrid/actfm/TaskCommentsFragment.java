@@ -8,6 +8,10 @@ import android.widget.ListView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -76,8 +80,10 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected void performFetch(boolean manual, Runnable done) {
-        done.run();
-//        actFmSyncService.fetchUpdatesForTask(task, manual, done);
+        if (task != null) {
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), done);
+            new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), null, task.getValue(Task.HISTORY_FETCH_DATE), false).execute();
+        }
     }
 
     @Override
