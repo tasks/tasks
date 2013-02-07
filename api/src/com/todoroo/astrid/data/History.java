@@ -28,7 +28,7 @@ public class History extends AbstractModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote ID */
-    public static final LongProperty UUID = new LongProperty(
+    public static final StringProperty UUID = new StringProperty(
             TABLE, RemoteModel.UUID_PROPERTY_NAME);
 
     /** Created at */

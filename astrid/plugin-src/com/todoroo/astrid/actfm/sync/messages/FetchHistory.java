@@ -81,7 +81,7 @@ public class FetchHistory {
                                 History history = new History();
                                 history.setValue(History.TABLE_ID, table);
                                 history.setValue(History.TARGET_ID, uuid);
-                                history.setValue(History.UUID, historyJson.optLong("id"));
+                                history.setValue(History.UUID, historyJson.optString("id"));
                                 history.setValue(History.USER_UUID, historyJson.optString("user_id"));
                                 history.setValue(History.COLUMN, historyJson.optString("column"));
                                 history.setValue(History.OLD_VALUE, historyJson.optString("prev"));
