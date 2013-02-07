@@ -47,6 +47,8 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
+import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -350,7 +352,8 @@ public class TagViewFragment extends TaskListFragment {
                 }
             };
 
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getValue(TagData.UUID), tagData.getValue(TagData.PUSHED_AT)), callback);
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), callback);
+            new FetchHistory(NameMaps.TABLE_ID_TAGS, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT), true).execute();
         }
     }
 

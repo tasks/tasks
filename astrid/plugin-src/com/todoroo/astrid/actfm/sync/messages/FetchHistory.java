@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -35,6 +36,7 @@ public class FetchHistory {
     private ActFmPreferenceService actFmPreferenceService;
 
     public FetchHistory(String table, String uuid, long modifiedAfter, boolean includeTaskHistory) {
+        DependencyInjectionService.getInstance().inject(this);
         this.table = table;
         this.uuid = uuid;
         this.modifiedAfter = modifiedAfter;
@@ -76,24 +78,25 @@ public class FetchHistory {
                         for (int i = 0; i < list.length(); i++) {
                             JSONObject historyJson = list.optJSONObject(i);
                             if (historyJson != null) {
-                                try {
-                                    History history = MakeChanges.changesToModel(historyDao, historyJson, table);
-                                    history.setValue(History.TABLE_ID, table);
-                                    history.setValue(History.TARGET_ID, uuid);
+                                History history = new History();
+                                history.setValue(History.TABLE_ID, table);
+                                history.setValue(History.TARGET_ID, uuid);
+                                history.setValue(History.UUID, historyJson.optLong("id"));
+                                history.setValue(History.USER_UUID, historyJson.optString("user_id"));
+                                history.setValue(History.COLUMN, historyJson.optString("column"));
+                                history.setValue(History.OLD_VALUE, historyJson.optString("prev"));
+                                history.setValue(History.NEW_VALUE, historyJson.optString("value"));
+                                history.setValue(History.CREATED_AT, historyJson.optLong("created_at") * 1000);
 
-                                    JSONArray taskObj = historyJson.optJSONArray("task");
-                                    if (taskObj != null) {
-                                        history.setValue(History.TABLE_ID, NameMaps.TABLE_ID_TASKS);
-                                        history.setValue(History.TARGET_ID, taskObj.optString(0));
-                                    }
+                                JSONArray taskObj = historyJson.optJSONArray("task");
+                                if (taskObj != null) {
+                                    history.setValue(History.TABLE_ID, NameMaps.TABLE_ID_TASKS);
+                                    history.setValue(History.TARGET_ID, taskObj.optString(0));
+                                    history.setValue(History.TASK, taskObj.toString());
+                                }
 
-                                    if (historyDao.update(History.UUID.eq(history.getUuid()), history) <= 0) {
-                                        historyDao.createNew(history);
-                                    }
-                                } catch (InstantiationException e) {
-                                    Log.e(ERROR_TAG, "Error instantiating history", e);
-                                } catch (IllegalAccessException e) {
-                                    Log.e(ERROR_TAG, "Error instantiating history", e);
+                                if (historyDao.update(History.UUID.eq(history.getValue(History.UUID)), history) <= 0) {
+                                    historyDao.createNew(history);
                                 }
                             }
                         }
@@ -102,7 +105,7 @@ public class FetchHistory {
                     Log.e(ERROR_TAG, "Error getting model history", e);
                 }
             }
-        });
+        }).start();
     }
 
 }

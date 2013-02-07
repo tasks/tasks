@@ -215,7 +215,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     private static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
         history.setValue(History.CREATED_AT, unionCursor.getLong(0));
-        history.setValue(History.UUID, unionCursor.getString(1));
+        history.setValue(History.UUID, unionCursor.getLong(1));
         history.setValue(History.COLUMN, unionCursor.getString(2));
         history.setValue(History.TABLE_ID, unionCursor.getString(3));
         history.setValue(History.OLD_VALUE, unionCursor.getString(4));
@@ -246,6 +246,7 @@ public class UpdateAdapter extends CursorAdapter {
                 String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 pictureView.setUrl(pictureUrl);
             }
+            pictureView.setVisibility(View.VISIBLE);
         }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
@@ -274,7 +275,23 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupHistoryRow(View view, History history) {
-        //
+        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture);
+        pictureView.setVisibility(View.GONE);
+
+        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture);
+        commentPictureView.setVisibility(View.GONE);
+
+        final TextView nameView = (TextView)view.findViewById(R.id.title); {
+            nameView.setText("Changed " + history.getValue(History.COLUMN) + " from " + history.getValue(History.OLD_VALUE) +
+                    " to " + history.getValue(History.NEW_VALUE));
+        }
+
+        final TextView date = (TextView)view.findViewById(R.id.date); {
+            CharSequence dateString = DateUtils.getRelativeTimeSpanString(history.getValue(History.CREATED_AT),
+                    DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE);
+            date.setText(dateString);
+        }
     }
 
     @Override

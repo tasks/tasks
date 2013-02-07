@@ -2,12 +2,13 @@ package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
 
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.History;
 
-public class HistoryDao extends RemoteModelDao<History> {
+public class HistoryDao extends DatabaseDao<History> {
 
     @Autowired
     private Database database;

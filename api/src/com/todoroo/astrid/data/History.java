@@ -12,7 +12,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 @SuppressWarnings("nls")
-public class History extends RemoteModel {
+public class History extends AbstractModel {
 
     /** table for this model */
     public static final Table TABLE = new Table("history", History.class);
@@ -28,8 +28,8 @@ public class History extends RemoteModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote ID */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
+    public static final LongProperty UUID = new LongProperty(
+            TABLE, RemoteModel.UUID_PROPERTY_NAME);
 
     /** Created at */
     public static final LongProperty CREATED_AT = new LongProperty(
@@ -45,11 +45,11 @@ public class History extends RemoteModel {
 
     /** Old value */
     public static final StringProperty OLD_VALUE = new StringProperty(
-            TABLE, "old_value");
+            TABLE, "old_value", Property.PROP_FLAG_NULLABLE);
 
     /** New value */
     public static final StringProperty NEW_VALUE = new StringProperty(
-            TABLE, "new_value");
+            TABLE, "new_value", Property.PROP_FLAG_NULLABLE);
 
     /** Table identifier */
     public static final StringProperty TABLE_ID = new StringProperty(
@@ -59,10 +59,9 @@ public class History extends RemoteModel {
     public static final StringProperty TARGET_ID = new StringProperty(
             TABLE, "target_id");
 
-    @Override
-    public String getUuid() {
-        return getUuidHelper(UUID);
-    }
+    /** Task name and id (JSONArray) */
+    public static final StringProperty TASK = new StringProperty(
+            TABLE, "task");
 
     /** Default values container */
     private static final ContentValues defaultValues = new ContentValues();
@@ -73,7 +72,7 @@ public class History extends RemoteModel {
     }
 
     static {
-        defaultValues.put(UUID.name, NO_UUID);
+        defaultValues.put(UUID.name, 0L);
         defaultValues.put(CREATED_AT.name, 0L);
     }
 

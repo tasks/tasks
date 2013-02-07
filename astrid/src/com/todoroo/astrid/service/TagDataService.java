@@ -182,7 +182,9 @@ public class TagDataService {
         }
 
         Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, paddingArray)).from(History.TABLE)
-                .where(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())))
+                .where(Criterion.or(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())),
+                        Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
+                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))))
                 .from(History.TABLE);
 
         Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
