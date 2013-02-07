@@ -7,7 +7,10 @@ package com.todoroo.astrid.adapter;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -462,9 +465,31 @@ public class UpdateAdapter extends CursorAdapter {
             if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
                 //
             } else if (History.COL_SHARED_WITH.equals(column) || History.COL_UNSHARED_WITH.equals(column)) {
-                //
+                JSONArray members = new JSONArray(newValue);
+                String userId = history.getValue(History.USER_UUID);
+                StringBuilder memberList = new StringBuilder();
+                for (int i = 0; i < members.length(); i++) {
+                    JSONObject m = members.getJSONObject(i);
+                    memberList.append(userDisplay(context, userId, m));
+                    if (i != members.length() - 1)
+                        memberList.append(", ");
+                }
+
+                if (History.COL_SHARED_WITH.equals(column))
+                    result = context.getString(R.string.history_shared_with, item, memberList);
+                else
+                    result = context.getString(R.string.history_unshared_with, item, memberList);
             } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
-                //
+                JSONObject userValue = new JSONObject(newValue);
+                if (history.getValue(History.USER_UUID).equals(userValue.optString("id")) && History.COL_MEMBER_REMOVED.equals(column))
+                    result = context.getString(R.string.history_left_list, item);
+                else {
+                    String userDisplay = userDisplay(context, history.getValue(History.USER_UUID), userValue);
+                    if (History.COL_MEMBER_ADDED.equals(column))
+                        result = context.getString(R.string.history_added_user, userDisplay, item);
+                    else
+                        result = context.getString(R.string.history_removed_user, userDisplay, item);
+                }
             } else if (History.COL_COMPLETED_AT.equals(column)) {
                 if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
                     result = context.getString(R.string.history_completed, item);
@@ -509,7 +534,11 @@ public class UpdateAdapter extends CursorAdapter {
                 else
                     result = context.getString(R.string.history_removed_due_date, itemPosessive);
             } else if (History.COL_REPEAT.equals(column)) {
-                //
+                String repeatString = getRepeatString(context, newValue);
+                if (!TextUtils.isEmpty(repeatString))
+                    result = context.getString(R.string.history_changed_repeat, itemPosessive, repeatString);
+                else
+                    result = context.getString(R.string.history_removed_repeat, itemPosessive);
             } else if (History.COL_TASK_REPEATED.equals(column)) {
                 result = context.getString(R.string.history_completed_repeating_task, item, dateString(context, newValue, oldValue));
             } else if (History.COL_TITLE.equals(column)) {
@@ -589,6 +618,102 @@ public class UpdateAdapter extends CursorAdapter {
             return value;
         }
 
+    }
+
+    private static final HashMap<String, Integer> INTERVAL_LABELS = new HashMap<String, Integer>();
+    static {
+        INTERVAL_LABELS.put("DAILY", R.string.repeat_days); //$NON-NLS-1$
+        INTERVAL_LABELS.put("WEEKDAYS", R.string.repeat_weekdays); //$NON-NLS-1$
+        INTERVAL_LABELS.put("WEEKLY", R.string.repeat_weeks); //$NON-NLS-1$
+        INTERVAL_LABELS.put("MONTHLY", R.string.repeat_months); //$NON-NLS-1$
+        INTERVAL_LABELS.put("YEARLY", R.string.repeat_years); //$NON-NLS-1$
+        INTERVAL_LABELS.put("HOURLY", R.string.repeat_hours); //$NON-NLS-1$
+        INTERVAL_LABELS.put("MINUTELY", R.string.repeat_minutes); //$NON-NLS-1$
+    }
+
+    @SuppressWarnings("nls")
+    private static final String[] SORTED_WEEKDAYS = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
+
+    @SuppressWarnings("nls")
+    private static String getRepeatString(Context context, String value) {
+        if (TextUtils.isEmpty(value) || "null".equals(value))
+            return null;
+
+        try {
+            JSONObject repeat = new JSONObject(value);
+            boolean weekdays = false;
+            if (repeat.has("freq")) {
+                String freq = repeat.getString("freq");
+                int interval = repeat.getInt("interval");
+                JSONArray byDay = repeat.optJSONArray("byday");
+                String[] byDayStrings = null;
+                if (byDay != null) {
+                    byDayStrings = new String[byDay.length()];
+                    for (int i = 0; i < byDay.length(); i++) {
+                        byDayStrings[i] = byDay.getString(i);
+                    }
+                }
+                String result = "";
+                if ("WEEKLY".equals(freq) && byDay != null && byDayStrings != null) {
+                    Arrays.sort(byDayStrings);
+                    StringBuilder daysString = new StringBuilder();
+                    daysString.append("[");
+                    for (String s : byDayStrings) {
+                        daysString.append("\"").append(s).append("\"").append(",");
+                    }
+                    daysString.deleteCharAt(daysString.length() - 1);
+                    daysString.append("]");
+
+                    if (daysString.toString().equals("[\"FR\",\"MO\",\"TH\",\"TU\",\"WE\"]")) {
+                        result = context.getString(R.string.repeat_weekdays);
+                        weekdays = true;
+                    }
+                }
+
+                if (!weekdays) {
+                    if (interval == 1) {
+                        result = context.getString(INTERVAL_LABELS.get(freq));
+                        result = result.substring(0, result.length() - 1);
+                    } else {
+                        result = interval + " " + context.getString(INTERVAL_LABELS.get(freq));
+                    }
+                }
+
+                result = context.getString(R.string.history_repeat_every, result);
+                if ("WEEKLY".equals(freq) && !weekdays && byDay != null && byDay.length() > 0 && byDayStrings != null) {
+                    Arrays.sort(byDayStrings, new Comparator<String>() {
+                        @Override
+                        public int compare(String lhs, String rhs) {
+                            int lhIndex = AndroidUtilities.indexOf(SORTED_WEEKDAYS, lhs);
+                            int rhIndex = AndroidUtilities.indexOf(SORTED_WEEKDAYS, rhs);
+                            if (lhIndex < rhIndex)
+                                return -1;
+                            else if (lhIndex > rhIndex)
+                                return 1;
+                            else
+                                return 0;
+                        }
+                    });
+
+                    StringBuilder byDayDisplay = new StringBuilder();
+                    for (String s : byDayStrings) {
+                        byDayDisplay.append(s).append(", ");
+                    }
+                    byDayDisplay.delete(byDayDisplay.length() - 2, byDayDisplay.length());
+
+                    result += (" " + context.getString(R.string.history_repeat_on, byDayDisplay.toString()));
+                }
+
+                if ("COMPLETION".equals(repeat.optString("from")))
+                    result += (" " + context.getString(R.string.history_repeat_from_completion));
+
+                return result;
+            } else {
+                return null;
+            }
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     @SuppressWarnings("nls")

@@ -23,6 +23,7 @@
     
     <string name="history_this_list">this list</string>
     <string name="history_this_task">this task</string>
+    <string name="history_left_list">left %s</string>
     <string name="history_deleted">deleted %s</string>
     <string name="history_undeleted">undeleted %s</string>
     <string name="history_completed">completed %s</string>
@@ -56,6 +57,15 @@
     <string name="history_set_due_date">set %1$s due date to %2$s</string>
     <string name="history_removed_due_date">removed %s due date</string>
     <string name="history_completed_repeating_task">completed %1$s (now due on %2$s)</string>
+    <string name="history_added_user">added %1$s to %2$s</string>
+    <string name="history_removed_user">removed %1$s from %2$s</string>
+    <string name="history_changed_repeat">changed %1$s repeat to %2$s</string>
+    <string name="history_removed_repeat">removed %s repeat</string>
+    <string name="history_shared_with">shared %1$s with %2$s</string>
+    <string name="history_unshared_with">unshared %1$s with %2$s</string>
+    <string name="history_repeat_every">every %s</string>
+    <string name="history_repeat_on">on %s</string>
+    <string name="history_repeat_from_completion">after completion</string>
     
     <string name="history_default">changed %1$s to %2$s</string>
     
