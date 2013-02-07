@@ -23,6 +23,8 @@
     
     <string name="history_this_list">this list</string>
     <string name="history_this_task">this task</string>
+    <string name="history_tag_added">added %1$s to %2$s</string>
+    <string name="history_tag_removed">removed %1$s from %2$s</string>
     <string name="history_left_list">left %s</string>
     <string name="history_deleted">deleted %s</string>
     <string name="history_undeleted">undeleted %s</string>
