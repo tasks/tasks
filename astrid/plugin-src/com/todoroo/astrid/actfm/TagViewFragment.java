@@ -341,22 +341,24 @@ public class TagViewFragment extends TaskListFragment {
             Runnable callback = new Runnable() {
                 @Override
                 public void run() {
-                    Activity activity = getActivity();
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                reloadTagData(false);
-                                refresh();
-                                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                            }
-                        });
+                    synchronized(this) {
+                        Activity activity = getActivity();
+                        if (activity != null) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    reloadTagData(false);
+                                    refresh();
+                                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                                }
+                            });
+                        }
                     }
                 }
             };
 
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), callback);
-            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true).execute();
+            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true, callback).execute();
         }
     }
 

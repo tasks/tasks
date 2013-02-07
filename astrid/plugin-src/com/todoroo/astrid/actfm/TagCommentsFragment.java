@@ -129,7 +129,7 @@ public class TagCommentsFragment extends CommentsFragment {
     protected void performFetch(boolean manual, Runnable done) {
         if (tagData != null) {
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), done);
-            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true).execute();
+            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true, done).execute();
         }
     }
 

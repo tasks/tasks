@@ -266,13 +266,14 @@ public abstract class CommentsFragment extends ListFragment {
             Runnable doneRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    refreshUpdatesList();
+                    synchronized (this) {
+                        refreshUpdatesList();
+                    }
                 }
             };
             if (hasModel()) {
                 performFetch(manual, doneRunnable);
             } else {
-//                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
                 doneRunnable.run();
             }
         }

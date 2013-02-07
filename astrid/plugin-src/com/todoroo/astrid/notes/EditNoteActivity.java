@@ -408,21 +408,23 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         Runnable callback = new Runnable() {
             @Override
             public void run() {
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setUpListAdapter();
-                            loadingText.setText(R.string.ENA_no_comments);
-                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-                        }
-                    });
+                synchronized(this) {
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setUpListAdapter();
+                                loadingText.setText(R.string.ENA_no_comments);
+                                loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
+                            }
+                        });
+                    }
                 }
             }
         };
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), callback);
-        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), null, task.getValue(Task.HISTORY_FETCH_DATE), false).execute();
+        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), null, task.getValue(Task.HISTORY_FETCH_DATE), false, callback).execute();
     }
 
     private void addComment() {

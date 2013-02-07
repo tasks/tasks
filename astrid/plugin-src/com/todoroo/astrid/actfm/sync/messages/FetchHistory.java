@@ -34,6 +34,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private final String taskTitle;
     private final long modifiedAfter;
     private final boolean includeTaskHistory;
+    private final Runnable done;
 
     @Autowired
     private ActFmInvoker actFmInvoker;
@@ -48,7 +49,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private ActFmPreferenceService actFmPreferenceService;
 
     public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty,
-            String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory) {
+            String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory, Runnable done) {
         DependencyInjectionService.getInstance().inject(this);
         this.dao = dao;
         this.historyTimeProperty = historyTimeProperty;
@@ -57,6 +58,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
         this.taskTitle = taskTitle;
         this.modifiedAfter = modifiedAfter;
         this.includeTaskHistory = includeTaskHistory;
+        this.done = done;
     }
 
     @SuppressWarnings("nls")
@@ -160,9 +162,13 @@ public class FetchHistory<TYPE extends RemoteModel> {
                             }
                         }
                     }
+
                 } catch (IOException e) {
                     Log.e(ERROR_TAG, "Error getting model history", e);
                 }
+
+                if (done != null)
+                    done.run();
             }
         }).start();
     }
