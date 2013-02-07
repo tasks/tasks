@@ -106,7 +106,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static final Property<?>[] HISTORY_PROPERTIES = {
         History.CREATED_AT,
-        History.UUID,
+        History.USER_UUID,
         History.COLUMN,
         History.TABLE_ID,
         History.OLD_VALUE,
@@ -223,7 +223,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     private static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
         history.setValue(History.CREATED_AT, unionCursor.getLong(0));
-        history.setValue(History.UUID, unionCursor.getString(1));
+        history.setValue(History.USER_UUID, unionCursor.getString(1));
         history.setValue(History.COLUMN, unionCursor.getString(2));
         history.setValue(History.TABLE_ID, unionCursor.getString(3));
         history.setValue(History.OLD_VALUE, unionCursor.getString(4));
@@ -291,8 +291,7 @@ public class UpdateAdapter extends CursorAdapter {
         commentPictureView.setVisibility(View.GONE);
 
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText("Changed " + history.getValue(History.COLUMN) + " from " + history.getValue(History.OLD_VALUE) +
-                    " to " + history.getValue(History.NEW_VALUE));
+            nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, linkColor, fromView));
         }
 
         final TextView date = (TextView)view.findViewById(R.id.date); {
@@ -428,7 +427,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    public static Spanned getHistoryComment(final AstridActivity context, History history, String linkColor, String fromView) {
+    public static String getHistoryComment(final AstridActivity context, History history, String linkColor, String fromView) {
         boolean hasTask = false;
         JSONArray taskAttrs = null;
         if (!TextUtils.isEmpty(history.getValue(History.TASK))) {
@@ -457,8 +456,7 @@ public class UpdateAdapter extends CursorAdapter {
         String oldValue = history.getValue(History.OLD_VALUE);
         String newValue = history.getValue(History.NEW_VALUE);
 
-        String result;
-
+        String result = "";
         String column = history.getValue(History.COLUMN);
         try {
             if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
@@ -568,9 +566,13 @@ public class UpdateAdapter extends CursorAdapter {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // default display
+            result = context.getString(R.string.history_default, column, newValue);
         }
-        return null;
+
+        if (TextUtils.isEmpty(result))
+            result = context.getString(R.string.history_default, column, newValue);
+
+        return result;
     }
 
     private static String dateString(Context context, String value, String other) {
