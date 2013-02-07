@@ -172,20 +172,12 @@ public class TagDataService {
     public Cursor getActivityAndHistoryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>...userProperties) {
         Query activityQuery = queryForTagData(tagData, extraCriterion, userTableAlias, UpdateAdapter.USER_ACTIVITY_PROPERTIES, userProperties)
                 .from(UserActivity.TABLE);
-        int length = UpdateAdapter.USER_ACTIVITY_PROPERTIES.length;
-        if (userProperties != null)
-            length += userProperties.length;
 
-        Property<?>[] paddingArray = new Property<?>[Math.max(0, length - UpdateAdapter.HISTORY_PROPERTIES.length)];
-        for (int i = 0; i < paddingArray.length; i++) {
-            paddingArray[i] = UpdateAdapter.PADDING_PROPERTY;
-        }
-
-        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, paddingArray)).from(History.TABLE)
+        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, userProperties)).from(History.TABLE)
                 .where(Criterion.or(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())),
                         Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
                                 .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))))
-                .from(History.TABLE);
+                                .join(Join.left(User.TABLE.as(userTableAlias), History.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
 
         Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
 

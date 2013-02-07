@@ -206,10 +206,10 @@ public class UpdateAdapter extends CursorAdapter {
         History history = mh.history;
         if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
             readUserActivityProperties(cursor, update);
-            readUserProperties(cursor, user);
         } else {
             readHistoryProperties(cursor, history);
         }
+        readUserProperties(cursor, user);
 
         setFieldContentsAndVisibility(view, update, user, history, type);
     }
@@ -247,7 +247,7 @@ public class UpdateAdapter extends CursorAdapter {
         if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
             setupUserActivityRow(view, activity, user);
         } else if (NameMaps.TABLE_ID_HISTORY.equals(type)) {
-            setupHistoryRow(view, history);
+            setupHistoryRow(view, history, user);
         }
 
     }
@@ -286,7 +286,7 @@ public class UpdateAdapter extends CursorAdapter {
         }
     }
 
-    private void setupHistoryRow(View view, History history) {
+    private void setupHistoryRow(View view, History history, User user) {
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture);
         pictureView.setVisibility(View.GONE);
 
@@ -294,7 +294,7 @@ public class UpdateAdapter extends CursorAdapter {
         commentPictureView.setVisibility(View.GONE);
 
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, linkColor, fromView));
+            nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, user, linkColor, fromView));
         }
 
         final TextView date = (TextView)view.findViewById(R.id.date); {
@@ -430,7 +430,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    public static String getHistoryComment(final AstridActivity context, History history, String linkColor, String fromView) {
+    public static String getHistoryComment(final AstridActivity context, History history, User user, String linkColor, String fromView) {
         boolean hasTask = false;
         JSONArray taskAttrs = null;
         if (!TextUtils.isEmpty(history.getValue(History.TASK))) {
@@ -599,7 +599,16 @@ public class UpdateAdapter extends CursorAdapter {
         if (TextUtils.isEmpty(result))
             result = context.getString(R.string.history_default, column, newValue);
 
-        return result;
+        String userDisplay;
+        if (history.getValue(History.USER_UUID).equals(Task.USER_ID_SELF) || history.getValue(History.USER_UUID).equals(ActFmPreferenceService.userId())) {
+            userDisplay = context.getString(R.string.update_string_user_self);
+        } else if (user == null) {
+            userDisplay = context.getString(R.string.ENA_no_user);
+        } else {
+            userDisplay = user.getDisplayName(USER_NAME, USER_FIRST_NAME, USER_LAST_NAME);
+        }
+
+        return userDisplay + " " + result;
     }
 
     private static String dateString(Context context, String value, String other) {

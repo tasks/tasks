@@ -64,16 +64,11 @@ public class TaskCommentsFragment extends CommentsFragment {
     @Override
     protected Cursor getCursor() {
         Query taskQuery = queryForTask(task, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_ACTIVITY_PROPERTIES, UpdateAdapter.USER_PROPERTIES);
-        int length = UpdateAdapter.USER_ACTIVITY_PROPERTIES.length + UpdateAdapter.USER_PROPERTIES.length;
 
-        Property<?>[] paddingArray = new Property<?>[Math.max(0, length - UpdateAdapter.HISTORY_PROPERTIES.length)];
-        for (int i = 0; i < paddingArray.length; i++) {
-            paddingArray[i] = UpdateAdapter.PADDING_PROPERTY;
-        }
-
-        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, paddingArray)).from(History.TABLE)
+        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, UpdateAdapter.USER_PROPERTIES)).from(History.TABLE)
                 .where(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.eq(task.getUuid())))
-                .from(History.TABLE);
+                .from(History.TABLE)
+                .join(Join.left(User.TABLE.as(UpdateAdapter.USER_TABLE_ALIAS), History.USER_UUID.eq(Field.field(UpdateAdapter.USER_TABLE_ALIAS + "." + User.UUID.name)))); //$NON-NLS-1$;
 
         Query resultQuery = taskQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
 
