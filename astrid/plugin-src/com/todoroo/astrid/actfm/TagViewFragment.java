@@ -353,7 +353,7 @@ public class TagViewFragment extends TaskListFragment {
             };
 
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), callback);
-            new FetchHistory(NameMaps.TABLE_ID_TAGS, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT), true).execute();
+            new FetchHistory(NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.PUSHED_AT), true).execute();
         }
     }
 

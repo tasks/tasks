@@ -103,7 +103,7 @@ public class UpdateAdapter extends CursorAdapter {
         History.TABLE_ID,
         History.OLD_VALUE,
         History.NEW_VALUE,
-        PADDING_PROPERTY,
+        History.TASK,
         History.ID,
         HISTORY_TYPE_PROPERTY,
     };
@@ -215,11 +215,12 @@ public class UpdateAdapter extends CursorAdapter {
 
     private static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
         history.setValue(History.CREATED_AT, unionCursor.getLong(0));
-        history.setValue(History.UUID, unionCursor.getLong(1));
+        history.setValue(History.UUID, unionCursor.getString(1));
         history.setValue(History.COLUMN, unionCursor.getString(2));
         history.setValue(History.TABLE_ID, unionCursor.getString(3));
         history.setValue(History.OLD_VALUE, unionCursor.getString(4));
         history.setValue(History.NEW_VALUE, unionCursor.getString(5));
+        history.setValue(History.TASK, unionCursor.getString(6));
     }
 
     public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user) {
@@ -416,6 +417,10 @@ public class UpdateAdapter extends CursorAdapter {
             builder.append(Html.fromHtml(htmlStringBuilder.toString()));
 
         return builder;
+    }
+
+    public static Spanned getHistoryComment(final AstridActivity context, History history, String linkColor, String fromView) {
+        return null;
     }
 
     private static CharSequence getLinkSpan(final AstridActivity activity, UserActivity update, String targetName, String linkColor, String linkType) {

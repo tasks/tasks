@@ -2,6 +2,7 @@ package com.todoroo.astrid.actfm.sync.messages;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +16,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.HistoryDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.History;
+import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.User;
 
 public class FetchHistory {
 
@@ -23,6 +27,7 @@ public class FetchHistory {
 
     private final String table;
     private final String uuid;
+    private final String taskTitle;
     private final long modifiedAfter;
     private final boolean includeTaskHistory;
 
@@ -33,12 +38,16 @@ public class FetchHistory {
     private HistoryDao historyDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private ActFmPreferenceService actFmPreferenceService;
 
-    public FetchHistory(String table, String uuid, long modifiedAfter, boolean includeTaskHistory) {
+    public FetchHistory(String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory) {
         DependencyInjectionService.getInstance().inject(this);
         this.table = table;
         this.uuid = uuid;
+        this.taskTitle = taskTitle;
         this.modifiedAfter = modifiedAfter;
         this.includeTaskHistory = includeTaskHistory;
     }
@@ -93,10 +102,40 @@ public class FetchHistory {
                                     history.setValue(History.TABLE_ID, NameMaps.TABLE_ID_TASKS);
                                     history.setValue(History.TARGET_ID, taskObj.optString(0));
                                     history.setValue(History.TASK, taskObj.toString());
+                                } else if (NameMaps.TABLE_ID_TASKS.equals(table) && !TextUtils.isEmpty(taskTitle)) {
+                                    taskObj = new JSONArray();
+                                    taskObj.put(uuid);
+                                    taskObj.put(taskTitle);
+                                    history.setValue(History.TASK, taskObj.toString());
                                 }
 
                                 if (historyDao.update(History.UUID.eq(history.getValue(History.UUID)), history) <= 0) {
                                     historyDao.createNew(history);
+                                }
+                            }
+                        }
+                    }
+
+                    JSONObject users = result.optJSONObject("users");
+                    if (users != null) {
+                        Iterator<String> keys = users.keys();
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            JSONObject userObj = users.optJSONObject(key);
+                            if (userObj != null) {
+                                String userUuid = userObj.optString("id");
+                                if (RemoteModel.isUuidEmpty(uuid))
+                                    continue;
+
+                                User user = new User();
+                                user.setValue(User.FIRST_NAME, userObj.optString("first_name"));
+                                user.setValue(User.LAST_NAME, userObj.optString("last_name"));
+                                user.setValue(User.NAME, userObj.optString("name"));
+                                user.setValue(User.PICTURE, userObj.optString("picture"));
+                                user.setValue(User.UUID, userUuid);
+
+                                if (userDao.update(User.UUID.eq(userUuid), user) <= 0) {
+                                    userDao.createNew(user);
                                 }
                             }
                         }
