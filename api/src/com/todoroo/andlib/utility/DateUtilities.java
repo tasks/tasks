@@ -97,17 +97,21 @@ public class DateUtilities {
      * @return time, with hours and minutes
      */
     @SuppressWarnings("nls")
-    public static String getTimeString(Context context, Date date) {
+    public static String getTimeString(Context context, Date date, boolean excludeZeroMinutes) {
         String value;
         if (is24HourFormat(context)) {
             value = "H:mm";
-        } else if (date.getMinutes() == 0){
+        } else if (date.getMinutes() == 0 && excludeZeroMinutes){
             value = "h a";
         }
         else {
             value = "h:mm a";
         }
         return new SimpleDateFormat(value).format(date);
+    }
+
+    public static String getTimeString(Context context, Date date) {
+        return getTimeString(context, date, true);
     }
 
     /* Returns true if search string is in sortedValues */
@@ -122,7 +126,7 @@ public class DateUtilities {
      * @return date, with month, day, and year
      */
     @SuppressWarnings("nls")
-    public static String getDateString(Context context, Date date) {
+    public static String getDateString(Context context, Date date, boolean includeYear) {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
@@ -131,9 +135,11 @@ public class DateUtilities {
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
                 || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
-            value = "'#' d'$', yyyy";
+            value = "'#' d'$'";
         else
-            value = "d'$' '#', yyyy";
+            value = "d'$' '#'";
+        if (includeYear)
+            value += ", yyyy";
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
         }else if ("ko".equals(Locale.getDefault().getLanguage())){
@@ -142,6 +148,10 @@ public class DateUtilities {
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "");
         }
         return standardDate;}
+
+    public static String getDateString(Context context, Date date) {
+        return getDateString(context, date, true);
+    }
 
     /**
      * @param context android context
@@ -263,7 +273,7 @@ public class DateUtilities {
     }
 
     public static boolean isoStringHasTime(String iso8601String) {
-        return iso8601String.length() > 12;
+        return iso8601String.length() > 10;
     }
 
     public static long parseIso8601(String iso8601String) throws ParseException {

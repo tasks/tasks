@@ -17,6 +17,10 @@
     <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
     <string name="update_string_user_self">You</string>
     
+    <string name="history_yourself">yourself</string>
+    <string name="history_you">you</string>
+    <string name="history_a_deleted_user">(a deleted user)</string>
+    
     <string name="history_this_list">this list</string>
     <string name="history_this_task">this task</string>
     <string name="history_deleted">deleted %s</string>
@@ -30,6 +34,30 @@
     <string name="history_name_set">set name to %2$s</string>
     <string name="history_description_changed">changed description from %1$s to %2$s</string>
     <string name="history_description_set">set description to %2$s</string>
+    <string name="history_made_public">made %s public</string>
+    <string name="history_made_private">made %s private</string>
+    <string name="history_silenced">silenced %s</string>
+    <string name="history_unsilenced">unsilenced %s</string>
+    <string name="history_favorited">favorited %s</string>
+    <string name="history_unfavorited">unfavorited %s</string>
+    <string name="history_changed_list_picture">change this list\'s picture</string>
+    <string name="history_added_description_characters">added %1$d characters to %2$s description</string>
+    <string name="history_removed_description">removed %s description</string>
+    <string name="history_removed_description_characters">removed %1$d characters from %2$s description</string>
+    <string name="history_updated_description">updated %s description</string>
+    <string name="history_changed_list_owner">changed list owner to %s</string>
+    <string name="history_created_this_list">created this list</string>
+    <string name="history_unassigned">unassigned %s</string>
+    <string name="history_claimed">claimed %s</string>
+    <string name="history_assigned_to">assigned %1$s to %2$s</string>
+    <string name="history_created_for">created %1$s for %2$s</string>
+    <string name="history_created">created %s</string>
+    <string name="history_changed_due_date">changed %1$s due date from %2$s to %3$s</string>
+    <string name="history_set_due_date">set %1$s due date to %2$s</string>
+    <string name="history_removed_due_date">removed %s due date</string>
+    <string name="history_completed_repeating_task">completed %1$s (now due on %2$s)</string>
+    
+    <string name="history_default">changed %1$s to %2$s</string>
     
     <!-- <string name="update_string_friends">%1$s is now friends with %2$s</string>
     <string name="update_string_request_friendship">%1$s wants to be friends with you</string>

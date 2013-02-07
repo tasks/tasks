@@ -6,11 +6,14 @@
 package com.todoroo.astrid.adapter;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -41,7 +44,9 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.data.History;
@@ -463,34 +468,54 @@ public class UpdateAdapter extends CursorAdapter {
             } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
                 //
             } else if (History.COL_COMPLETED_AT.equals(column)) {
-                long value = Long.parseLong(newValue);
+                long value = AndroidUtilities.tryParseLong(newValue, 0);
                 if (value > 0) {
                     result = context.getString(R.string.history_completed, item);
                 } else {
                     result = context.getString(R.string.history_uncompleted, item);
                 }
             } else if (History.COL_DELETED_AT.equals(column)) {
-                long value = Long.parseLong(newValue);
+                long value = AndroidUtilities.tryParseLong(newValue, 0);
                 if (value > 0) {
                     result = context.getString(R.string.history_deleted, item);
                 } else {
                     result = context.getString(R.string.history_undeleted, item);
                 }
             } else if (History.COL_IMPORTANCE.equals(column)) {
-                int oldPriority = Integer.parseInt(oldValue);
-                int newPriority = Integer.parseInt(newValue);
+                int oldPriority = AndroidUtilities.tryParseInt(oldValue, 0);
+                int newPriority = AndroidUtilities.tryParseInt(newValue, 0);
 
                 result = context.getString(R.string.history_importance_changed, itemPosessive, priorityString(oldPriority), priorityString(newPriority));
             } else if (History.COL_NOTES_LENGTH.equals(column)) {
-                //
+                int oldLength = AndroidUtilities.tryParseInt(oldValue, 0);
+                int newLength = AndroidUtilities.tryParseInt(newValue, 0);
+
+                if (oldLength > 0 && newLength > oldLength)
+                    result = context.getString(R.string.history_added_description_characters, (newLength - oldLength), itemPosessive);
+                else if (newLength == 0)
+                    result = context.getString(R.string.history_removed_description, itemPosessive);
+                else if (oldLength > 0 && newLength < oldLength)
+                    result = context.getString(R.string.history_removed_description_characters, (oldLength - newLength), itemPosessive);
+                else if (oldLength > 0 && oldLength == newLength)
+                    result = context.getString(R.string.history_updated_description, itemPosessive);
             } else if (History.COL_PUBLIC.equals(column)) {
-                //
+                int value = AndroidUtilities.tryParseInt(newValue, 0);
+                if (value > 0)
+                    result = context.getString(R.string.history_made_public, item);
+                else
+                    result = context.getString(R.string.history_made_private, item);
             } else if (History.COL_DUE.equals(column)) {
-                //
+                if (!TextUtils.isEmpty(oldValue) && !TextUtils.isEmpty(newValue)
+                        && !"null".equals(oldValue) && !"null".equals(newValue))
+                    result = context.getString(R.string.history_changed_due_date, itemPosessive, dateString(context, oldValue, newValue), dateString(context, newValue, oldValue));
+                else if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue))
+                    result = context.getString(R.string.history_set_due_date, itemPosessive, dateString(context, newValue, DateUtilities.timeToIso8601(DateUtilities.now(), true)));
+                else
+                    result = context.getString(R.string.history_removed_due_date, itemPosessive);
             } else if (History.COL_REPEAT.equals(column)) {
                 //
             } else if (History.COL_TASK_REPEATED.equals(column)) {
-                //
+                result = context.getString(R.string.history_completed_repeating_task, item, dateString(context, newValue, oldValue));
             } else if (History.COL_TITLE.equals(column)) {
                 if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
                     result = context.getString(R.string.history_title_changed, itemPosessive, oldValue, newValue);
@@ -507,21 +532,81 @@ public class UpdateAdapter extends CursorAdapter {
                 else
                     result = context.getString(R.string.history_description_set, newValue);
             } else if (History.COL_PICTURE_ID.equals(column) || History.COL_DEFAULT_LIST_IMAGE_ID.equals(column)) {
-                //
+                result = context.getString(R.string.history_changed_list_picture);
             } else if (History.COL_IS_SILENT.equals(column)) {
-                //
+                int value = AndroidUtilities.tryParseInt(newValue, 0);
+                if (value > 0)
+                    result = context.getString(R.string.history_silenced, item);
+                else
+                    result = context.getString(R.string.history_unsilenced, item);
             } else if (History.COL_IS_FAVORITE.equals(column)) {
-                //
+                int value = AndroidUtilities.tryParseInt(newValue, 0);
+                if (value > 0)
+                    result = context.getString(R.string.history_favorited, item);
+                else
+                    result = context.getString(R.string.history_unfavorited, item);
             } else if (History.COL_USER_ID.equals(column)) {
-                //
+                String userId = history.getValue(History.USER_UUID);
+                JSONObject userValue = new JSONObject(newValue);
+                if (FROM_TAG_VIEW.equals(fromView) && !hasTask) {
+                    if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                        result = context.getString(R.string.history_changed_list_owner, userDisplay(context, userId, userValue));
+                    else
+                        result = context.getString(R.string.history_created_this_list);
+                } else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue) && Task.USER_ID_UNASSIGNED.equals(userValue))
+                    result = context.getString(R.string.history_unassigned, item);
+                else if (Task.USER_ID_UNASSIGNED.equals(oldValue) && userValue.optString("id").equals(ActFmPreferenceService.userId()))
+                    result = context.getString(R.string.history_claimed, item);
+                else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                    result = context.getString(R.string.history_assigned_to, item, userDisplay(context, userId, userValue));
+                else if (!userValue.optString("id").equals(ActFmPreferenceService.userId()) && !Task.USER_ID_UNASSIGNED.equals(userValue.optString("id")))
+                    result = context.getString(R.string.history_created_for, item, userDisplay(context, userId, userValue));
+                else
+                    result = context.getString(R.string.history_created, item);
             } else {
-                // default display
+                result = context.getString(R.string.history_default, column, newValue);
             }
         } catch (Exception e) {
             e.printStackTrace();
             // default display
         }
         return null;
+    }
+
+    private static String dateString(Context context, String value, String other) {
+        boolean includeYear = (!TextUtils.isEmpty(other) && !value.substring(0, 4).equals(other.substring(0, 4)));
+        boolean hasTime = DateUtilities.isoStringHasTime(value);
+
+        long time = 0;
+        try {
+            time = DateUtilities.parseIso8601(value);
+            Date date = new Date(time);
+            String result = DateUtilities.getDateString(context, date, includeYear);
+            if (hasTime)
+                result += ", " + DateUtilities.getTimeString(context, date, false); //$NON-NLS-1$
+            return result;
+        } catch (ParseException e) {
+            return value;
+        }
+
+    }
+
+    @SuppressWarnings("nls")
+    private static String userDisplay(Context context, String historyUserId, JSONObject userJson) {
+        try {
+            String id = userJson.getString("id");
+            String name = userJson.getString("name");
+
+            if (historyUserId.equals(id) && ActFmPreferenceService.userId().equals(id))
+                return context.getString(R.string.history_yourself);
+            else if (ActFmPreferenceService.userId().equals(id))
+                return context.getString(R.string.history_you);
+            else if (RemoteModel.isValidUuid(id))
+                return name;
+            else return context.getString(R.string.history_a_deleted_user);
+        } catch (JSONException e) {
+            return context.getString(R.string.ENA_no_user).toLowerCase();
+        }
     }
 
     @SuppressWarnings("nls")

@@ -925,6 +925,28 @@ public class AndroidUtilities {
     }
 
     /**
+     * Tries to parse an int from a string, returning the default value on failure
+     */
+    public static int tryParseInt(String str, int defaultValue) {
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Tries to parse an int from a string, returning the default value on failure
+     */
+    public static long tryParseLong(String str, long defaultValue) {
+        try {
+            return Long.parseLong(str);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    /**
      * Returns the final word characters after the last '.'
      * @param file
      * @return
