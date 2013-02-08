@@ -267,7 +267,14 @@ public abstract class CommentsFragment extends ListFragment {
                 @Override
                 public void run() {
                     synchronized (this) {
-                        refreshUpdatesList();
+                        Activity activity = getActivity();
+                        if (activity != null)
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refreshUpdatesList();
+                                }
+                            });
                     }
                 }
             };
