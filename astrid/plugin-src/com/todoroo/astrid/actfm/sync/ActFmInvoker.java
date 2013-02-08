@@ -130,7 +130,7 @@ public class ActFmInvoker {
     public JSONObject invokeWithApi(String api, String method, Object... getParameters) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl(api, method, getParameters);
+            String request = createFetchUrl(api, method, true, getParameters);
 
             if (SYNC_DEBUG)
                 Log.e("act-fm-invoke", request);
@@ -164,7 +164,7 @@ public class ActFmInvoker {
     public JSONObject post(String method, HttpEntity data, Object... getParameters) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl(null, method, getParameters);
+            String request = createFetchUrl(null, method, true, getParameters);
 
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
@@ -188,13 +188,16 @@ public class ActFmInvoker {
     public JSONObject postSync(JSONArray data, String token) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl("api/" + API_VERSION, "synchronize");
+            String dataString = data.toString();
+            String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
+
+            String request = createFetchUrl("api/" + API_VERSION, "synchronize", false, "token", token, "data", dataString, "time", timeString);
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
             List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
             pairs.add(new BasicNameValuePair("token", token));
             pairs.add(new BasicNameValuePair("data", data.toString()));
-            pairs.add(new BasicNameValuePair("time", DateUtilities.timeToIso8601(DateUtilities.now(), true)));
+            pairs.add(new BasicNameValuePair("time", timeString));
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
 
             String response = restClient.post(request, entity);
@@ -221,7 +224,7 @@ public class ActFmInvoker {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    private String createFetchUrl(String api, String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private String createFetchUrl(String api, String method, boolean appendParameters, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         ArrayList<Pair<String, Object>> params = new ArrayList<Pair<String, Object>>();
         for(int i = 0; i < getParameters.length; i += 2) {
             if(getParameters[i+1] instanceof ArrayList) {
@@ -281,7 +284,8 @@ public class ActFmInvoker {
             String value = entry.getRight().toString();
             String encoded = URLEncoder.encode(value, "UTF-8");
 
-            requestBuilder.append(key).append('=').append(encoded).append('&');
+            if (appendParameters)
+                requestBuilder.append(key).append('=').append(encoded).append('&');
 
             sigBuilder.append(key).append(value);
         }
