@@ -196,6 +196,7 @@ public class NameMaps {
         putUserPropertyToServerName(User.PICTURE,    "picture",    false);
         putUserPropertyToServerName(User.FIRST_NAME, "first_name", false);
         putUserPropertyToServerName(User.LAST_NAME,  "last_name",  false);
+        putUserPropertyToServerName(User.STATUS,     "connection", true);
 
 
         // Reverse the mapping to construct the server to local map

@@ -57,7 +57,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
     private FilterListItem[] prepareFilters(Context context) {
         TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES)
                 .where(Criterion.not(Criterion.or(User.STATUS.eq(User.STATUS_BLOCKED),
-                                User.STATUS.eq(User.STATUS_IGNORED))))
+                                User.STATUS.eq(User.STATUS_IGNORED), User.STATUS.eq(User.STATUS_RENOUNCE), User.STATUS.eq(User.STATUS_IGNORE))))
                 .orderBy(Order.asc(User.FIRST_NAME), Order.asc(User.LAST_NAME), Order.asc(User.NAME)));
         try {
             List<FilterListItem> items = new ArrayList<FilterListItem>();

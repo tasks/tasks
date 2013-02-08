@@ -57,6 +57,8 @@
   <string name="actfm_friendship_pending">You\'ve sent a friend request to %s!</string>
 
   <string name="actfm_friendship_blocked">You\'ve blocked %s.</string>
+
+  <string name="actfm_friendship_ignored">You\'ve ignored %s.</string>
   
   <string name="actfm_friendship_friends">You\'re friends with %s! Add tasks for them below.</string>
 

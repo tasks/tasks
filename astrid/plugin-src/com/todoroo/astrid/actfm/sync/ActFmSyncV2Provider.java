@@ -23,7 +23,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
@@ -445,16 +444,16 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     }
 
-    private void pushQueuedUsers(final SyncResultCallback callback,
-            final AtomicInteger finisher) {
-        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).where(
-                Criterion.and(User.PENDING_STATUS.isNotNull(), Functions.length(User.PENDING_STATUS).gt(0))));
-        try {
-            pushQueued(callback, finisher, users, true, userPusher);
-        } finally {
-            users.close();
-        }
-    }
+//    private void pushQueuedUsers(final SyncResultCallback callback,
+//            final AtomicInteger finisher) {
+//        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).where(
+//                Criterion.and(User.PENDING_STATUS.isNotNull(), Functions.length(User.PENDING_STATUS).gt(0))));
+//        try {
+//            pushQueued(callback, finisher, users, true, userPusher);
+//        } finally {
+//            users.close();
+//        }
+//    }
 
     // --- synchronize list
 

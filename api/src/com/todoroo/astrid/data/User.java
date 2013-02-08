@@ -76,7 +76,7 @@ public final class User extends RemoteModel {
 
     /** Friendship tatus that needs to be reported to the server.
      * One of the PENDING constants below */
-    public static final StringProperty PENDING_STATUS = new StringProperty(
+    @Deprecated public static final StringProperty PENDING_STATUS = new StringProperty(
             TABLE, "pendingStatus");
 
     /** List of all properties for this model */
@@ -94,7 +94,6 @@ public final class User extends RemoteModel {
         defaultValues.put(PUSHED_AT.name, 0L);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(STATUS.name, "");
-        defaultValues.put(PENDING_STATUS.name, "");
     }
 
     @Override
@@ -108,10 +107,10 @@ public final class User extends RemoteModel {
     public static final String STATUS_IGNORED = "ignored";
     public static final String STATUS_BLOCKED = "blocked";
 
-    public static final String PENDING_REQUEST = "request";
-    public static final String PENDING_APPROVE = "approve";
-    public static final String PENDING_IGNORE = "ignore";
-    public static final String PENDING_UNFRIEND = "unfriend";
+    public static final String STATUS_REQUEST = "request";
+    public static final String STATUS_CONFIRM = "confirm";
+    public static final String STATUS_IGNORE = "ignore";
+    public static final String STATUS_RENOUNCE = "renounce";
 
     // --- data access boilerplate
 

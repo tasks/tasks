@@ -36,8 +36,6 @@ public class PersonViewFragment extends TaskListFragment {
 
     public static final String EXTRA_HIDE_QUICK_ADD = "hide_quickAdd"; //$NON-NLS-1$
 
-    private static final String LAST_FETCH_KEY = "actfm_last_user_"; //$NON-NLS-1$
-
     protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
 
     @Autowired UserDao userDao;
@@ -98,23 +96,24 @@ public class PersonViewFragment extends TaskListFragment {
     private String getUserSubtitleText() {
         String status = user.getValue(User.STATUS);
         String userName = user.getDisplayName();
-        if (User.STATUS_PENDING.equals(status))
+        if (User.STATUS_PENDING.equals(status) || User.STATUS_REQUEST.equals(status))
             return getString(R.string.actfm_friendship_pending, userName);
-        else if (User.STATUS_BLOCKED.equals(status))
+        else if (User.STATUS_BLOCKED.equals(status) || User.STATUS_RENOUNCE.equals(status))
             return getString(R.string.actfm_friendship_blocked, userName);
-        else if (User.STATUS_FRIENDS.equals(status))
+        else if (User.STATUS_FRIENDS.equals(status) || User.STATUS_CONFIRM.equals(status))
             return getString(R.string.actfm_friendship_friends, userName);
         else if (User.STATUS_OTHER_PENDING.equals(status))
             return getString(R.string.actfm_friendship_other_pending, userName);
+        else if (User.STATUS_IGNORED.equals(status) || User.STATUS_IGNORE.equals(status))
+            return getString(R.string.actfm_friendship_ignored, userName);
         else return getString(R.string.actfm_friendship_no_status, userName);
 
     }
 
     private void setupUserStatusButton() {
         String status = user.getValue(User.STATUS);
-        String pendingStatus = user.getValue(User.PENDING_STATUS);
         userStatusButton.setVisibility(View.VISIBLE);
-        if (!TextUtils.isEmpty(pendingStatus))
+        if (User.STATUS_CONFIRM.equals(status) || User.STATUS_IGNORE.equals(status) || User.STATUS_RENOUNCE.equals(status) || User.STATUS_REQUEST.equals(user)) // All the pending status options
             userStatusButton.setVisibility(View.GONE);
         else if (TextUtils.isEmpty(status) || "null".equals(status)) //$NON-NLS-1$
             userStatusButton.setText(getString(R.string.actfm_friendship_connect));
@@ -146,13 +145,13 @@ public class PersonViewFragment extends TaskListFragment {
         if (user != null) { // Just in case
             String status = user.getValue(User.STATUS);
             if (TextUtils.isEmpty(status) || "null".equals(status)) { // Add friend case //$NON-NLS-1$
-                user.setValue(User.PENDING_STATUS, User.PENDING_REQUEST);
+                user.setValue(User.STATUS, User.STATUS_REQUEST);
             } else if (User.STATUS_OTHER_PENDING.equals(status)) { // Accept friend case
-                user.setValue(User.PENDING_STATUS, User.PENDING_APPROVE);
+                user.setValue(User.STATUS, User.STATUS_CONFIRM);
             }
 
             ContentValues setValues = user.getSetValues();
-            if (setValues != null && setValues.containsKey(User.PENDING_STATUS.name)) {
+            if (setValues != null && setValues.containsKey(User.STATUS.name)) {
                 userDao.saveExisting(user);
                 userStatusButton.setVisibility(View.GONE);
             }
