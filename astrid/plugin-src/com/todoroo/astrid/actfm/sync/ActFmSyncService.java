@@ -71,7 +71,6 @@ public final class ActFmSyncService {
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired ActFmInvoker actFmInvoker;
-    @Autowired ActFmDataService actFmDataService;
     @Autowired TaskDao taskDao;
     @Autowired TagDataDao tagDataDao;
     @Autowired UserDao userDao;
@@ -428,7 +427,7 @@ public final class ActFmSyncService {
 
         for (int i = 0; i < featuredLists.length(); i++) {
             JSONObject featObject = featuredLists.getJSONObject(i);
-            actFmDataService.saveFeaturedList(featObject);
+            tagDataService.saveFeaturedList(featObject);
         }
 
         return result.optInt("time", 0);

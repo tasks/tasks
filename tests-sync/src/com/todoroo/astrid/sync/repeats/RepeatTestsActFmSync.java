@@ -6,10 +6,8 @@
 package com.todoroo.astrid.sync.repeats;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.google.ical.values.Frequency;
@@ -21,13 +19,11 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmDataService;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
@@ -35,7 +31,6 @@ import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
     @Autowired MetadataService metadataService;
-    @Autowired ActFmDataService actFmDataService;
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
     protected static ActFmInvoker invoker = null;
