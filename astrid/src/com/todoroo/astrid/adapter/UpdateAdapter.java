@@ -85,7 +85,7 @@ public class UpdateAdapter extends CursorAdapter {
     private static final StringProperty USER_NAME = User.NAME.cloneAs(USER_TABLE_ALIAS, "userName"); //$NON-NLS-1$
 
     public static final StringProperty ACTIVITY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_USER_ACTIVITY + "' as type");  //$NON-NLS-1$//$NON-NLS-2$
-    public static final StringProperty HISTORY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_HISTORY + "'");  //$NON-NLS-1$
+    public static final StringProperty HISTORY_TYPE_PROPERTY = new StringProperty(null, "'" + NameMaps.TABLE_ID_HISTORY + "'");  //$NON-NLS-1$ //$NON-NLS-2$
     public static final StringProperty PADDING_PROPERTY = new StringProperty(null, "'0'"); //$NON-NLS-1$
 
     public static final Property<?>[] USER_PROPERTIES = {
@@ -453,7 +453,7 @@ public class UpdateAdapter extends CursorAdapter {
             } else {
                 item = context.getString(R.string.history_this_list);
             }
-            itemPosessive = "";
+            itemPosessive = item + "'s";
         }
 
         String oldValue = history.getValue(History.OLD_VALUE);

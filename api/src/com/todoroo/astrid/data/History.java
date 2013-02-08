@@ -74,6 +74,10 @@ public class History extends AbstractModel {
     static {
         defaultValues.put(UUID.name, 0L);
         defaultValues.put(CREATED_AT.name, 0L);
+        defaultValues.put(USER_UUID.name, "0");
+        defaultValues.put(OLD_VALUE.name, "");
+        defaultValues.put(NEW_VALUE.name, "");
+        defaultValues.put(TASK.name, "");
     }
 
     @Override
