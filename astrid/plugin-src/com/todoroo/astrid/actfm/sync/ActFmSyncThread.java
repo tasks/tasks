@@ -44,7 +44,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.data.UserActivityOutstanding;
 
 public class ActFmSyncThread {
 
@@ -82,6 +81,8 @@ public class ActFmSyncThread {
     private String token;
 
     private boolean syncMigration = false;
+
+    private boolean isTimeForBackgroundSync = false;
 
     public static enum ModelType {
         TYPE_TASK,
@@ -143,7 +144,7 @@ public class ActFmSyncThread {
         }
     }
 
-    public void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
+    public synchronized void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
             if (callback != null)
@@ -154,10 +155,18 @@ public class ActFmSyncThread {
         }
     }
 
+    public synchronized void setTimeForBackgroundSync(boolean isTimeForBackgroundSync) {
+        this.isTimeForBackgroundSync = isTimeForBackgroundSync;
+        if (isTimeForBackgroundSync)
+            synchronized (monitor) {
+                monitor.notifyAll();
+            }
+    }
+
     @SuppressWarnings("nls")
     private void sync() {
         try {
-            int batchSize = 1;
+            int batchSize = 3;
             List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
@@ -174,19 +183,20 @@ public class ActFmSyncThread {
                     }
                 }
 
-                // Stuff in the document
+                boolean refreshAfterBatch = false;
+                if (timeForBackgroundSync()) {
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), null);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), null);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), null);
+                    repopulateQueueFromOutstandingTables();
+                    refreshAfterBatch = true;
+                    setTimeForBackgroundSync(false);
+                }
+
                 while (messageBatch.size() < batchSize && !pendingMessages.isEmpty()) {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
                     if (message != null)
                         messageBatch.add(message);
-                }
-
-                boolean refreshAfterBatch = false;
-                if (messageBatch.isEmpty() && timeForBackgroundSync()) {
-                    messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
-                    messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
-                    messageBatch.add(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS));
-                    refreshAfterBatch = true;
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -261,11 +271,10 @@ public class ActFmSyncThread {
     private void replayOutstandingChanges(boolean afterErrors) {
         new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, this, afterErrors).execute();
         new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, this, afterErrors).execute();
-        new ReplayOutstandingEntries<UserActivity, UserActivityOutstanding>(UserActivity.class, NameMaps.TABLE_ID_USER_ACTIVITY, userActivityDao, userActivityOutstandingDao, this, afterErrors).execute();
     }
 
     private boolean timeForBackgroundSync() {
-        return false; // TODO: replace false with a real background sync condition
+        return isTimeForBackgroundSync;
     }
 
     private void repopulateQueueFromOutstandingTables() {
@@ -280,9 +289,7 @@ public class ActFmSyncThread {
             for (outstanding.moveToFirst(); !outstanding.isAfterLast(); outstanding.moveToNext()) {
                 Long id = outstanding.get(OutstandingEntry.ENTITY_ID_PROPERTY);
                 ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, modelDao, oustandingDao);
-                if (!pendingMessages.contains(ch)) {
-                    pendingMessages.add(ch);
-                }
+                enqueueMessage(ch, null);
             }
         } finally {
             outstanding.close();

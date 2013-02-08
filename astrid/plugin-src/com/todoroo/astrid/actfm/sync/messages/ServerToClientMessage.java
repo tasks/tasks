@@ -66,6 +66,8 @@ public abstract class ServerToClientMessage {
             return new NowBriefed<TagData>(json, PluginServices.getTagDataDao());
         else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
             return new NowBriefed<UserActivity>(json, PluginServices.getUserActivityDao());
+        else if (NameMaps.TABLE_ID_USERS.equals(table))
+            return new NowBriefed<User>(json, PluginServices.getUserDao());
         else
             return null;
     }
