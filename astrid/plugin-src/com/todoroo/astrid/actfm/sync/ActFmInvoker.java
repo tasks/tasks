@@ -287,7 +287,7 @@ public class ActFmInvoker {
             String value = entry.getRight().toString();
             String encoded = URLEncoder.encode(value, "UTF-8");
 
-            if (!syncMethod || "app_id".equals(key));
+            if (!syncMethod || "app_id".equals(key))
                 requestBuilder.append(key).append('=').append(encoded).append('&');
 
             sigBuilder.append(key).append(value);
