@@ -384,7 +384,6 @@ public class QuickAddBar extends LinearLayout {
             Uri calendarUri = GCalHelper.createTaskEvent(task,
                     ContextManager.getContext().getContentResolver(), new ContentValues());
             task.setValue(Task.CALENDAR_URI, calendarUri.toString());
-            task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             PluginServices.getTaskService().save(task);
         }

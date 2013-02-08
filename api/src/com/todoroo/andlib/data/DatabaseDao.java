@@ -310,10 +310,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 public void onBegin() {/**/}
             });
         }
+        int numOutstanding = 0;
         try {
             result.set(op.makeChange());
             if(result.get()) {
-                if (recordOutstanding && createOutstandingEntries(item.getId(), values)) // Create entries for setValues in outstanding table
+                if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
                     database.getDatabase().setTransactionSuccessful();
             }
         } finally {
@@ -321,7 +322,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 database.getDatabase().endTransaction();
         }
         if (result.get()) {
-            onModelUpdated(item, recordOutstanding);
+            onModelUpdated(item, recordOutstanding && numOutstanding > 0);
             item.markSaved();
         }
         return result.get();
@@ -378,27 +379,29 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return insertOrUpdateAndRecordChanges(item, values, update);
     }
 
-    protected boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
+    protected int createOutstandingEntries(long modelId, ContentValues modelSetValues) {
         Set<Entry<String, Object>> entries = modelSetValues.valueSet();
         long now = DateUtilities.now();
+        int count = 0;
         for (Entry<String, Object> entry : entries) {
             if (entry.getValue() != null && shouldRecordOutstandingEntry(entry.getKey())) {
                 AbstractModel m;
                 try {
                     m = outstandingTable.modelClass.newInstance();
                 } catch (IllegalAccessException e) {
-                    return false;
+                    return -1;
                 } catch (InstantiationException e2) {
-                    return false;
+                    return -1;
                 }
                 m.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, modelId);
                 m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, entry.getKey());
                 m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, entry.getValue().toString());
                 m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, now);
                 database.insert(outstandingTable.name, null, m.getSetValues());
+                count++;
             }
         }
-        return true;
+        return count;
     }
 
     /**

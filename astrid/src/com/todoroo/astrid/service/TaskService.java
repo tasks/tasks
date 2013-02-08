@@ -190,7 +190,6 @@ public class TaskService {
         try {
             if(cursor.getCount() > 0) {
                 Metadata metadata = new Metadata();
-                newTask.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskDao.save(newTask);
                 long newId = newTask.getId();

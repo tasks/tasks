@@ -286,7 +286,6 @@ public class GCMIntentService extends GCMBaseIntentService {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
                 task.setValue(Task.UUID, intent.getStringExtra("task_id"));
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
-                task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 taskService.save(task);
             } else {
@@ -318,7 +317,6 @@ public class GCMIntentService extends GCMBaseIntentService {
             if(cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, intent.getStringExtra("title"));
                 tagData.setValue(TagData.UUID, intent.getStringExtra("tag_id"));
-                tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 tagDataService.save(tagData);
             } else {

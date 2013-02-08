@@ -87,12 +87,12 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     }
 
     @Override
-    protected boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
+    protected int createOutstandingEntries(long modelId, ContentValues modelSetValues) {
         Long taskId = modelSetValues.getAsLong(Metadata.TASK.name);
         String tagUuid = modelSetValues.getAsString(TaskToTagMetadata.TAG_UUID.name);
         Long deletionDate = modelSetValues.getAsLong(Metadata.DELETION_DATE.name);
         if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid))
-            return false;
+            return -1;
 
         TaskOutstanding to = new TaskOutstanding();
         to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, taskId);
@@ -107,7 +107,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         database.insert(outstandingTable.name, null, to.getSetValues());
         ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<Task, TaskOutstanding>(taskId, Task.class,
                 PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao()), null);
-        return true;
+        return 1;
     }
 
     @Override

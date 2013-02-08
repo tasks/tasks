@@ -90,7 +90,7 @@ public class DueDateTimeMigrator {
             adjuster.adjust(date);
             curr.setValue(Task.DUE_DATE, date.getTime());
             curr.getSetValues().put(Task.MODIFICATION_DATE.name, curr.getValue(Task.MODIFICATION_DATE)); // Don't change modification date
-            curr.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+            curr.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             curr.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             taskDao.save(curr);
         }

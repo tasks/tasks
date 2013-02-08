@@ -81,12 +81,12 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     }
 
     @Override
-    protected boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
+    protected int createOutstandingEntries(long modelId, ContentValues modelSetValues) {
         Long tagDataId = modelSetValues.getAsLong(TagMetadata.TAG_ID.name);
         String memberId = modelSetValues.getAsString(TagMemberMetadata.USER_UUID.name);
         Long deletionDate = modelSetValues.getAsLong(TagMetadata.DELETION_DATE.name);
         if (tagDataId == null || tagDataId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(memberId))
-            return false;
+            return -1;
 
         TagOutstanding to = new TagOutstanding();
         to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, tagDataId);
@@ -101,7 +101,7 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         database.insert(outstandingTable.name, null, to.getSetValues());
         ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<TagData, TagOutstanding>(tagDataId, TagData.class,
                 PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao()), null);
-        return true;
+        return 1;
     }
 
     public void createMemberLink(long tagId, String tagUuid, String memberId, boolean suppressOutstanding) {
