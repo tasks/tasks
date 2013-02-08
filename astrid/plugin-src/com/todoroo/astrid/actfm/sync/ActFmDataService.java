@@ -21,7 +21,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -56,41 +55,6 @@ public final class ActFmDataService {
 
     // --- task and metadata methods
 
-    /**
-     * Save / Merge JSON tagData
-     * @param tagObject
-     * @throws JSONException
-     */
-    @SuppressWarnings("nls")
-    public void saveTagData(JSONObject tagObject) throws JSONException {
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
-                Criterion.or(TagData.UUID.eq(tagObject.get("id")),
-                        Criterion.and(TagData.UUID.eq(RemoteModel.NO_UUID),
-                        TagData.NAME.eqCaseInsensitive(tagObject.getString("name"))))));
-        try {
-            cursor.moveToNext();
-            TagData tagData = new TagData();
-            if(!cursor.isAfterLast()) {
-                tagData.readFromCursor(cursor);
-                if(!tagData.getValue(TagData.NAME).equals(tagObject.getString("name")))
-                    TagService.getInstance().rename(tagData.getValue(TagData.NAME), tagObject.getString("name"));
-                cursor.moveToNext();
-            }
-            ActFmSyncService.JsonHelper.tagFromJson(tagObject, tagData);
-            tagDataService.save(tagData);
-
-            // delete the rest
-
-            for(; !cursor.isAfterLast(); cursor.moveToNext()) {
-                tagData.readFromCursor(cursor);
-                if(!tagData.getValue(TagData.NAME).equals(tagObject.getString("name")))
-                    TagService.getInstance().rename(tagData.getValue(TagData.NAME), tagObject.getString("name"));
-                tagDataService.delete(tagData.getId());
-            }
-        } finally {
-            cursor.close();
-        }
-    }
 
     @SuppressWarnings("nls")
     public void saveFeaturedList(JSONObject featObject) throws JSONException {
