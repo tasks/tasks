@@ -130,7 +130,7 @@ public class ActFmInvoker {
     public JSONObject invokeWithApi(String api, String method, Object... getParameters) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl(api, method, true, getParameters);
+            String request = createFetchUrl(api, method, getParameters);
 
             if (SYNC_DEBUG)
                 Log.e("act-fm-invoke", request);
@@ -164,7 +164,7 @@ public class ActFmInvoker {
     public JSONObject post(String method, HttpEntity data, Object... getParameters) throws IOException,
     ActFmServiceException {
         try {
-            String request = createFetchUrl(null, method, true, getParameters);
+            String request = createFetchUrl(null, method, getParameters);
 
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
@@ -191,7 +191,7 @@ public class ActFmInvoker {
             String dataString = data.toString();
             String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
 
-            String request = createFetchUrl("api/" + API_VERSION, "synchronize", false, "token", token, "data", dataString, "time", timeString);
+            String request = createFetchUrl("api/" + API_VERSION, "synchronize", "token", token, "data", dataString, "time", timeString);
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
             List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
@@ -224,7 +224,7 @@ public class ActFmInvoker {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    private String createFetchUrl(String api, String method, boolean appendParameters, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private String createFetchUrl(String api, String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         ArrayList<Pair<String, Object>> params = new ArrayList<Pair<String, Object>>();
         for(int i = 0; i < getParameters.length; i += 2) {
             if(getParameters[i+1] instanceof ArrayList) {
@@ -236,7 +236,10 @@ public class ActFmInvoker {
                 params.add(new Pair<String, Object>(getParameters[i].toString(), getParameters[i+1]));
         }
         params.add(new Pair<String, Object>("app_id", APP_ID));
-        params.add(new Pair<String, Object>("time", System.currentTimeMillis() / 1000L));
+        boolean syncMethod = "synchronize".equals(method);
+
+        if (!syncMethod)
+            params.add(new Pair<String, Object>("time", System.currentTimeMillis() / 1000L));
         if(token != null) {
             boolean foundTokenKey = false;
             for (Pair<String, Object> curr : params) {
@@ -284,7 +287,7 @@ public class ActFmInvoker {
             String value = entry.getRight().toString();
             String encoded = URLEncoder.encode(value, "UTF-8");
 
-            if (appendParameters)
+            if (!syncMethod || "app_id".equals(key));
                 requestBuilder.append(key).append('=').append(encoded).append('&');
 
             sigBuilder.append(key).append(value);
