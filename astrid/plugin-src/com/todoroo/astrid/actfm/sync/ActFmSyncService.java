@@ -32,7 +32,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -77,31 +76,11 @@ public final class ActFmSyncService {
     @Autowired MetadataDao metadataDao;
     @Autowired ABTestEventReportingService abTestEventReportingService;
 
-    public static final long TIME_BETWEEN_TRIES = 5 * DateUtilities.ONE_MINUTE;
-
-    private static final int PUSH_TYPE_TASK = 0;
-    private static final int PUSH_TYPE_TAG = 1;
-    private static final int PUSH_TYPE_UPDATE = 2;
-
     private String token;
 
     public ActFmSyncService() {
         DependencyInjectionService.getInstance().inject(this);
     }
-
-    private class FailedPush {
-        int pushType;
-        long itemId;
-
-        public FailedPush(int pushType, long itemId) {
-            this.pushType = pushType;
-            this.itemId = itemId;
-        }
-    }
-
-    private final List<FailedPush> failedPushes = Collections.synchronizedList(new LinkedList<FailedPush>());
-    private Thread pushRetryThread = null;
-    private Runnable pushRetryRunnable;
 
     private Thread pushOrderThread = null;
     private Runnable pushTagOrderRunnable;
@@ -143,16 +122,6 @@ public final class ActFmSyncService {
                 }
             }
         };
-    }
-
-    private void addFailedPush(FailedPush fp) {
-        failedPushes.add(fp);
-        synchronized(this) {
-            if(pushRetryThread == null) {
-                pushRetryThread = new Thread(pushRetryRunnable);
-                pushRetryThread.start();
-            }
-        }
     }
 
     public void waitUntilEmpty() {
