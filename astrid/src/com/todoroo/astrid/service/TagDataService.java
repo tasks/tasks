@@ -33,6 +33,7 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
@@ -203,6 +204,7 @@ public class TagDataService {
                 cursor.moveToNext();
             }
             ActFmSyncService.JsonHelper.featuredListFromJson(featObject, tagData);
+            tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             save(tagData);
 
         } finally {
