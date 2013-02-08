@@ -13,7 +13,6 @@ import android.util.Log;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.HistoryDao;
@@ -85,7 +84,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
                 }
 
                 if (modifiedAfter > 0) {
-                    params.add("modified_after"); params.add(DateUtilities.timeToIso8601(modifiedAfter, true));
+                    params.add("modified_after"); params.add(modifiedAfter / 1000L);
                 }
 
                 params.add("token"); params.add(token);
