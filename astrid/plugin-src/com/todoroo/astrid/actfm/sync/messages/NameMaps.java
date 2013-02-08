@@ -32,6 +32,7 @@ public class NameMaps {
     private static final String PUSHED_AT_PREFIX = "pushed_at";
     public static final String PUSHED_AT_TASKS = PUSHED_AT_PREFIX + "_" + TABLE_ID_TASKS;
     public static final String PUSHED_AT_TAGS = PUSHED_AT_PREFIX + "_" + TABLE_ID_TAGS;
+    public static final String PUSHED_AT_USERS = PUSHED_AT_PREFIX + "_" + TABLE_ID_USERS;
     public static final String PUSHED_AT_ACTIVITY = PUSHED_AT_PREFIX + "_" + TABLE_ID_USER_ACTIVITY;
 
     static {

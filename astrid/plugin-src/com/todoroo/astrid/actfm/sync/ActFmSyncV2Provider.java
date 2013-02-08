@@ -188,7 +188,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 };
 
                 ActFmSyncThread.getInstance().enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), null);
-                ActFmSyncThread.getInstance().enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), refreshCallback);
+                ActFmSyncThread.getInstance().enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), null);
+                ActFmSyncThread.getInstance().enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), refreshCallback);
 
 //                startUsersSync(callback, finisher);
 //

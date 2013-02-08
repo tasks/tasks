@@ -42,6 +42,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
 
@@ -184,6 +185,7 @@ public class ActFmSyncThread {
                 if (messageBatch.isEmpty() && timeForBackgroundSync()) {
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS));
                     messageBatch.add(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS));
+                    messageBatch.add(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS));
                     refreshAfterBatch = true;
                 }
 
