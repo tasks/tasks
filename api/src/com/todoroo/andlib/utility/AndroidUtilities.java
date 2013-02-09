@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -151,6 +152,32 @@ public class AndroidUtilities {
     public static Bitmap decodeBase64Bitmap(String encoded) {
         byte[] decodedByte = Base64.decode(encoded, 0);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+
+    private static final int BUFFER_SIZE = 4096;
+    public static String encodeBase64File(File file) {
+        try {
+            FileInputStream in = new FileInputStream(file);
+            try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int len = 0;
+            while ((len = in.read(buffer)) > 0) {
+                baos.write(buffer, 0, len);
+            }
+
+            byte[] bytes = baos.toByteArray();
+            return Base64.encodeToString(bytes, Base64.DEFAULT);
+            } finally {
+                in.close();
+            }
+        } catch (FileNotFoundException e) {
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     /**

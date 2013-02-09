@@ -144,6 +144,7 @@ public final class TaskAttachment extends RemoteModel {
         TaskAttachment attachment = new TaskAttachment();
         attachment.setValue(TaskAttachment.TASK_UUID, taskUuid);
         attachment.setValue(NAME, fileName);
+        attachment.setValue(USER_UUID, Task.USER_ID_SELF);
         attachment.setValue(FILE_PATH, filePath);
         attachment.setValue(CONTENT_TYPE, fileType);
         attachment.setValue(DELETED_AT, 0L);

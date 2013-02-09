@@ -255,6 +255,8 @@ public class NameMaps {
     private static final Map<String, Property<?>> TASK_ATTACHMENT_PROPERTIES_SERVER_TO_LOCAL;
     private static final Set<String> TASK_ATTACHMENT_PROPERTIES_EXCLUDED;
 
+    public static final String ATTACHMENT_ADDED_COLUMN = "file";
+
     private static void putTaskAttachmentPropertyToServerName(Property<?> property, String serverName, boolean writeable) {
         putPropertyToServerName(property, serverName, TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER, TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES,
                 TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER, TASK_ATTACHMENT_PROPERTIES_EXCLUDED, writeable);

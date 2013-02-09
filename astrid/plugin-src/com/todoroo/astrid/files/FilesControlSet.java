@@ -46,6 +46,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -256,6 +257,7 @@ public class FilesControlSet extends PopupControlSet {
                     useType = guessedType;
                 if (useType != guessedType) {
                     m.setValue(TaskAttachment.CONTENT_TYPE, useType);
+                    m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskAttachmentDao.saveExisting(m);
                 }
             }
