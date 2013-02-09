@@ -5,9 +5,11 @@
  */
 package com.todoroo.astrid.dao;
 
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -32,6 +34,17 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
     @Override
     protected boolean shouldRecordOutstandingEntry(String columnName) {
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_ATTACHMENTS, columnName);
+    }
+
+    public boolean taskHasAttachments(String taskUuid) {
+        TodorooCursor<TaskAttachment> files = query(Query.select(TaskAttachment.TASK_UUID).where(
+                        Criterion.and(TaskAttachment.TASK_UUID.eq(taskUuid),
+                                TaskAttachment.DELETED_AT.eq(0))).limit(1));
+        try {
+            return files.getCount() > 0;
+        } finally {
+            files.close();
+        }
     }
 
     // --- SQL clause generators

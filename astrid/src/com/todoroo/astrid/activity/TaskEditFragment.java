@@ -70,12 +70,12 @@ import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FileExplore;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -211,6 +211,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Autowired
     private MetadataService metadataService;
+
+    @Autowired
+    private TaskAttachmentDao taskAttachmentDao;
 
     @Autowired
     private AddOnService addOnService;
@@ -870,7 +873,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         loadItem(intent);
 
         synchronized (controls) {
-            if (!FileMetadata.taskHasAttachments(model.getId())) {
+            if (!taskAttachmentDao.taskHasAttachments(model.getUuid())) {
                 filesControlSet.getDisplayView().setVisibility(View.GONE);
             }
             for (TaskEditControlSet controlSet : controls)
@@ -1140,7 +1143,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         String name = dst.getName();
         String extension = AndroidUtilities.getFileExtension(name);
 
-        String type = FileMetadata.FILE_TYPE_OTHER;
+        String type = TaskAttachment.FILE_TYPE_OTHER;
         if (!TextUtils.isEmpty(extension)) {
             MimeTypeMap map = MimeTypeMap.getSingleton();
             String guessedType = map.getMimeTypeFromExtension(extension);
@@ -1163,16 +1166,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             fos.flush();
             fos.close();
 
-            createNewFileAttachment(path, nameRef.get(), FileMetadata.FILE_TYPE_IMAGE + "png");
+            createNewFileAttachment(path, nameRef.get(), TaskAttachment.FILE_TYPE_IMAGE + "png");
         } catch (Exception e) {
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
         }
     }
 
     private void createNewFileAttachment(String path, String fileName, String fileType) {
-        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileName, fileType);
-        metadataService.save(fileMetadata);
-        actFmSyncService.pushAttachmentInBackground(fileMetadata);
+        TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
+        taskAttachmentDao.createNew(attachment);
         filesControlSet.refreshMetadata();
         filesControlSet.getDisplayView().setVisibility(View.VISIBLE);
     }
@@ -1291,7 +1293,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
-            createNewFileAttachment(recordedAudioPath, recordedAudioName, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
+            createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
         } else if (requestCode == REQUEST_CODE_BEAST_MODE) {

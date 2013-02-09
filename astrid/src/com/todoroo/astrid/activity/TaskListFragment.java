@@ -87,8 +87,8 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
@@ -981,9 +981,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                         tagsJoinCriterion).toString() //$NON-NLS-1$
                 + Join.left(User.TABLE.as(USER_IMAGE_JOIN),
                         Task.USER_ID.eq(Field.field(USER_IMAGE_JOIN + "." + User.UUID.name))).toString()
-                + Join.left(Metadata.TABLE.as(FILE_METADATA_JOIN),
-                            Criterion.and(Field.field(FILE_METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
-                                    Task.ID.eq(Field.field(FILE_METADATA_JOIN + "." + Metadata.TASK.name))))
+                + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN) + "." + TaskAttachment.UUID.name))
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(

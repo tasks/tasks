@@ -77,6 +77,7 @@ import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -113,7 +114,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
     @SuppressWarnings("nls")
-    private static final LongProperty FILE_ID_PROPERTY = Metadata.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
+    private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     @SuppressWarnings("nls")
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 

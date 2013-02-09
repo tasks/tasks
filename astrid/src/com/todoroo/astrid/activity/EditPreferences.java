@@ -50,8 +50,8 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
@@ -575,7 +575,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         // pp preferences
         else if (r.getString(R.string.p_files_dir).equals(preference.getKey())) {
-            String dir = Preferences.getStringValue(FileMetadata.FILES_DIRECTORY_PREF);
+            String dir = Preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
 
             if (TextUtils.isEmpty(dir)) {
                 dir = r.getString(R.string.p_files_dir_desc_default);
@@ -665,7 +665,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {
                 String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
-                Preferences.setString(FileMetadata.FILES_DIRECTORY_PREF, dir);
+                Preferences.setString(TaskAttachment.FILES_DIRECTORY_PREF, dir);
             }
             return;
         }

@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.data.TaskAttachment;
 
 public class FileUtilities {
 
@@ -68,12 +69,12 @@ public class FileUtilities {
 
     public static File getAttachmentsDirectory(Context context) {
         File directory = null;
-        String customDir = Preferences.getStringValue(FileMetadata.FILES_DIRECTORY_PREF);
+        String customDir = Preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
         if (!TextUtils.isEmpty(customDir))
             directory = new File(customDir);
 
         if (directory == null || !directory.exists())
-            directory = context.getExternalFilesDir(FileMetadata.FILES_DIRECTORY_DEFAULT);
+            directory = context.getExternalFilesDir(TaskAttachment.FILES_DIRECTORY_DEFAULT);
 
         return directory;
     }
