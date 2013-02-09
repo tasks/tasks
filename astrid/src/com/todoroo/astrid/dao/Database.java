@@ -22,6 +22,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
@@ -68,6 +69,7 @@ public class Database extends AbstractDatabase {
         ABTestEvent.TABLE,
         TagMetadata.TABLE,
         History.TABLE,
+        TaskAttachment.TABLE,
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
@@ -342,6 +344,7 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
             database.execSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
+            database.execSQL(createTableSql(visitor, TaskAttachment.TABLE.name, TaskAttachment.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
