@@ -297,33 +297,35 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         boolean recordOutstanding = shouldRecordOutstanding(item);
         final AtomicBoolean result = new AtomicBoolean(false);
 
-        if (recordOutstanding) { // begin transaction
-            database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
-                @Override
-                public void onRollback() {
-                    Log.e(ERROR_TAG, "Error inserting or updating rows", new Throwable()); //$NON-NLS-1$
-                    result.set(false);
-                }
-                @Override
-                public void onCommit() {/**/}
-                @Override
-                public void onBegin() {/**/}
-            });
-        }
-        int numOutstanding = 0;
-        try {
-            result.set(op.makeChange());
-            if(result.get()) {
-                if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
-                    database.getDatabase().setTransactionSuccessful();
+        synchronized(database) {
+            if (recordOutstanding) { // begin transaction
+                database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
+                    @Override
+                    public void onRollback() {
+                        Log.e(ERROR_TAG, "Error inserting or updating rows", new Throwable()); //$NON-NLS-1$
+                        result.set(false);
+                    }
+                    @Override
+                    public void onCommit() {/**/}
+                    @Override
+                    public void onBegin() {/**/}
+                });
             }
-        } finally {
-            if (recordOutstanding) // commit transaction
-                database.getDatabase().endTransaction();
-        }
-        if (result.get()) {
-            onModelUpdated(item, recordOutstanding && numOutstanding > 0);
-            item.markSaved();
+            int numOutstanding = 0;
+            try {
+                result.set(op.makeChange());
+                if(result.get()) {
+                    if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
+                        database.getDatabase().setTransactionSuccessful();
+                }
+            } finally {
+                if (recordOutstanding) // commit transaction
+                    database.getDatabase().endTransaction();
+            }
+            if (result.get()) {
+                onModelUpdated(item, recordOutstanding && numOutstanding > 0);
+                item.markSaved();
+            }
         }
         return result.get();
     }
