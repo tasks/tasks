@@ -75,8 +75,8 @@ public final class TaskAttachment extends RemoteModel {
             TABLE, "size");
 
     /** File mimetype */
-    public static final StringProperty FILETYPE = new StringProperty(
-            TABLE, "filetype");
+    public static final StringProperty CONTENT_TYPE = new StringProperty(
+            TABLE, "content_type");
 
     /** Attachment creation date */
     public static final LongProperty CREATED_AT = new LongProperty(
@@ -103,7 +103,7 @@ public final class TaskAttachment extends RemoteModel {
         defaultValues.put(URL.name, "");
         defaultValues.put(FILE_PATH.name, "");
         defaultValues.put(SIZE.name, 0);
-        defaultValues.put(FILETYPE.name, "");
+        defaultValues.put(CONTENT_TYPE.name, "");
         defaultValues.put(CREATED_AT.name, 0);
         defaultValues.put(DELETED_AT.name, 0);
     }
