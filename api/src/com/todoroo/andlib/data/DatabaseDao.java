@@ -234,29 +234,31 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (toUpdate.getCount() == 0)
                 return 0;
 
-            database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
-                @Override
-                public void onRollback() {
-                    Log.e(ERROR_TAG, "Error updating rows", new Throwable()); //$NON-NLS-1$
-                    result.set(0);
-                }
-                @Override
-                public void onCommit() {/**/}
-                @Override
-                public void onBegin() {/**/}
-            });
-
-            try {
-                result.set(database.update(table.name, template.getSetValues(),
-                    where.toString(), null));
-                if (result.get() > 0) {
-                    for (Long id : ids) {
-                        createOutstandingEntries(id, template.getSetValues());
+            synchronized (database) {
+                database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
+                    @Override
+                    public void onRollback() {
+                        Log.e(ERROR_TAG, "Error updating rows", new Throwable()); //$NON-NLS-1$
+                        result.set(0);
                     }
+                    @Override
+                    public void onCommit() {/**/}
+                    @Override
+                    public void onBegin() {/**/}
+                });
+
+                try {
+                    result.set(database.update(table.name, template.getSetValues(),
+                            where.toString(), null));
+                    if (result.get() > 0) {
+                        for (Long id : ids) {
+                            createOutstandingEntries(id, template.getSetValues());
+                        }
+                    }
+                    database.getDatabase().setTransactionSuccessful();
+                } finally {
+                    database.getDatabase().endTransaction();
                 }
-                database.getDatabase().setTransactionSuccessful();
-            } finally {
-                database.getDatabase().endTransaction();
             }
             return result.get();
         } else {
