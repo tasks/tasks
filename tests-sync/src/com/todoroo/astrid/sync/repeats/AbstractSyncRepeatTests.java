@@ -47,7 +47,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
-        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         if(task.isSaved())
             taskDao.saveExisting(task);

@@ -46,7 +46,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
-        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         if(task.isSaved())
             taskDao.saveExisting(task);
         else
