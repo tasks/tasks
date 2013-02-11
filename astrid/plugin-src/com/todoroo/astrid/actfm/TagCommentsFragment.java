@@ -114,7 +114,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
 
         AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
-        imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagName)));
+        imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getUuid())));
         String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
         Bitmap imageBitmap = null;
         if (TextUtils.isEmpty(imageUrl))

@@ -220,7 +220,7 @@ public class TagSettingsActivity extends FragmentActivity {
             findViewById(R.id.tag_silenced_container).setVisibility(View.VISIBLE);
         }
 
-        picture.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getValue(TagData.NAME))));
+        picture.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getUuid())));
         picture.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -421,7 +421,7 @@ public class TagSettingsActivity extends FragmentActivity {
             picture.setUrl(imageUrl);
         if (!isNewTag) {
             ImageView shortcut = (ImageView) findViewById(R.id.create_shortcut);
-            shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getValue(TagData.NAME)));
+            shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getUuid()));
         }
 
         String peopleJson = tagData.getValue(TagData.MEMBERS);

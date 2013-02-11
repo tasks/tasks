@@ -48,10 +48,12 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
@@ -327,7 +329,15 @@ public class FilterListFragment extends ListFragment {
         if(label.length() == 0)
             return;
 
-        Bitmap bitmap = superImposeListIcon(activity, filter.listingIcon, filter.listingTitle);
+        String defaultImageId = filter.listingTitle;
+        if (filter instanceof FilterWithUpdate) {
+            FilterWithUpdate fwu = (FilterWithUpdate) filter;
+            Bundle customExtras = fwu.customExtras;
+            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID))
+                defaultImageId = customExtras.getString(TagViewFragment.EXTRA_TAG_UUID);
+        }
+
+        Bitmap bitmap = superImposeListIcon(activity, filter.listingIcon, defaultImageId);
 
         Intent createShortcutIntent = new Intent();
         createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
@@ -340,11 +350,11 @@ public class FilterListFragment extends ListFragment {
                 activity.getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
     }
 
-    public static Bitmap superImposeListIcon(Activity activity, Bitmap listingIcon, String listingTitle) {
+    public static Bitmap superImposeListIcon(Activity activity, Bitmap listingIcon, String uuid) {
         Bitmap emblem = listingIcon;
         if(emblem == null)
             emblem = ((BitmapDrawable) activity.getResources().getDrawable(
-                    TagService.getDefaultImageIDForTag(listingTitle))).getBitmap();
+                    TagService.getDefaultImageIDForTag(uuid))).getBitmap();
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();

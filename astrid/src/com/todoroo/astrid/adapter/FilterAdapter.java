@@ -43,6 +43,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -55,6 +56,7 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.MarketStrategy.NookMarketStrategy;
 import com.todoroo.astrid.service.TaskService;
@@ -582,8 +584,16 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
         if(!nook && filter instanceof FilterWithUpdate) {
+            String defaultImageId = RemoteModel.NO_UUID;
+            FilterWithUpdate fwu = (FilterWithUpdate) filter;
+            Bundle customExtras = fwu.customExtras;
+            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID))
+                defaultImageId = customExtras.getString(TagViewFragment.EXTRA_TAG_UUID);
+            else
+                defaultImageId = viewHolder.name.getText().toString();
+
             viewHolder.urlImage.setVisibility(View.VISIBLE);
-            viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(viewHolder.name.getText().toString())));
+            viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(defaultImageId)));
             viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
         }
 
