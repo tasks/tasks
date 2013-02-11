@@ -56,6 +56,7 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
+import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -126,6 +127,7 @@ public class TagSettingsActivity extends FragmentActivity {
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();
+            tagData.setValue(TagData.UUID, UUIDHelper.newUUID());
         }
 
         ActionBar actionBar = getSupportActionBar();
