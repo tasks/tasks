@@ -84,7 +84,7 @@ public final class TaskAttachment extends RemoteModel {
 
     /** Attachment deletion date */
     public static final LongProperty DELETED_AT = new LongProperty(
-            TABLE, "created_at", Property.PROP_FLAG_DATE);
+            TABLE, "deleted_at", Property.PROP_FLAG_DATE);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TaskAttachment.class);
