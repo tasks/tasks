@@ -125,7 +125,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                         PluginServices.getTaskAttachmentDao().delete(id);
                         continue;
                     } else {
-                        changeJson.put("value", fileJson.toString());
+                        changeJson.put("value", fileJson);
                     }
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
