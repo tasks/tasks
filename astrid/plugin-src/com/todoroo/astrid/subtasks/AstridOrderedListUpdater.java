@@ -42,7 +42,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
         public Node(long taskId, Node parent, int indent) {
             this.taskId = taskId;
-            this.uuid = RemoteModel.NO_UUID;
+            this.uuid = "-1"; //$NON-NLS-1$
             this.parent = parent;
             this.indent = indent;
         }
@@ -442,7 +442,10 @@ public abstract class AstridOrderedListUpdater<LIST> {
                 recursivelySerialize(child, branch, useUuid);
                 serializeTo.put(branch);
             } else {
-                serializeTo.put(child.taskId);
+                if (useUuid)
+                    serializeTo.put(child.uuid);
+                else
+                    serializeTo.put(child.taskId);
             }
         }
     }

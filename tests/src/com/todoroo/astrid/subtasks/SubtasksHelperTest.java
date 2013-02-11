@@ -43,7 +43,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
 
     // Default order: "[-1, [1, 2, [3, 4]], 5, 6]"
 
-    private static String EXPECTED_REMOTE = "[-1, [6, 4, [3, 1]], 2, 5]".replaceAll("\\s", "");
+    private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
     public void testLocalToRemoteIdMapping() {
         String mapped = SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);
