@@ -32,6 +32,7 @@ import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
@@ -41,6 +42,7 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
@@ -87,7 +89,8 @@ public class ActFmSyncThread {
     public static enum ModelType {
         TYPE_TASK,
         TYPE_TAG,
-        TYPE_ACTIVITY
+        TYPE_ACTIVITY,
+        TYPE_ATTACHMENT
     }
 
     private static volatile ActFmSyncThread instance;
@@ -96,14 +99,14 @@ public class ActFmSyncThread {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
-                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao());
+                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao(), PluginServices.getTaskAttachmentDao());
                 }
             }
         }
         return instance;
     }
 
-    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao) {
+    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao, TaskAttachmentDao taskAttachmentDao) {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
@@ -115,6 +118,7 @@ public class ActFmSyncThread {
                     taskDao.addListener(new SyncDatabaseListener<Task>(instance, ModelType.TYPE_TASK));
                     tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
                     userActivityDao.addListener(new SyncDatabaseListener<UserActivity>(instance, ModelType.TYPE_ACTIVITY));
+                    taskAttachmentDao.addListener(new SyncDatabaseListener<TaskAttachment>(instance, ModelType.TYPE_ATTACHMENT));
 
                     instance.startSyncThread();
                 }

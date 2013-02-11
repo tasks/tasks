@@ -44,23 +44,20 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
 
 public class FilesControlSet extends PopupControlSet {
 
     @Autowired
-    private MetadataService metadataService;
+    private TaskAttachmentDao taskAttachmentDao;
 
-    @Autowired
-    private ActFmSyncService actFmSyncService;
-
-    private final ArrayList<Metadata> files = new ArrayList<Metadata>();
+    private final ArrayList<TaskAttachment> files = new ArrayList<TaskAttachment>();
     private final LinearLayout fileDisplayList;
     private LinearLayout fileList;
     private final LayoutInflater inflater;
@@ -77,7 +74,7 @@ public class FilesControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         fileDisplayList.removeAllViews();
-        for (final Metadata m : files) {
+        for (final TaskAttachment m : files) {
             View fileRow = inflater.inflate(R.layout.file_display_row, null);
             LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             lp.gravity = Gravity.RIGHT;
@@ -95,16 +92,16 @@ public class FilesControlSet extends PopupControlSet {
 
     public void refreshMetadata() {
         if (model != null) {
-            TodorooCursor<Metadata> cursor = metadataService.query(
-                    Query.select(Metadata.PROPERTIES)
-                    .where(Criterion.and(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY),
-                            FileMetadata.DELETION_DATE.eq(0))));
+            TodorooCursor<TaskAttachment> cursor = taskAttachmentDao.query(
+                    Query.select(TaskAttachment.PROPERTIES)
+                    .where(Criterion.and(TaskAttachment.TASK_UUID.eq(model.getUuid()),
+                            TaskAttachment.DELETED_AT.eq(0))));
             try {
                 files.clear();
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    Metadata metadata = new Metadata();
-                    metadata.readFromCursor(cursor);
-                    files.add(metadata);
+                    TaskAttachment attachment = new TaskAttachment();
+                    attachment.readFromCursor(cursor);
+                    files.add(attachment);
                 }
             } finally {
                 cursor.close();
@@ -117,15 +114,15 @@ public class FilesControlSet extends PopupControlSet {
 
     private void validateFiles() {
         for (int i = 0; i < files.size(); i++) {
-            Metadata m = files.get(i);
-            if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
-                File f = new File(m.getValue(FileMetadata.FILE_PATH));
+            TaskAttachment m = files.get(i);
+            if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                File f = new File(m.getValue(TaskAttachment.FILE_PATH));
                 if (!f.exists()) {
-                    m.setValue(FileMetadata.FILE_PATH, ""); //$NON-NLS-1$
-                    if (m.containsNonNullValue(FileMetadata.URL)) { // We're ok, just the local file was deleted
-                        metadataService.save(m);
+                    m.setValue(TaskAttachment.FILE_PATH, ""); //$NON-NLS-1$
+                    if (m.containsNonNullValue(TaskAttachment.URL)) { // We're ok, just the local file was deleted
+                        taskAttachmentDao.saveExisting(m);
                     } else { // No local file and no url -- delete the metadata
-                        metadataService.delete(m);
+                        taskAttachmentDao.delete(m.getId());
                         files.remove(i);
                         i--;
                     }
@@ -152,7 +149,7 @@ public class FilesControlSet extends PopupControlSet {
         final LinearLayout finalList = fileList;
         fileList.removeAllViews();
         LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-        for (final Metadata m : files) {
+        for (final TaskAttachment m : files) {
             final View fileRow = inflater.inflate(R.layout.file_row, null);
 
             setUpFileRow(m, fileRow, fileList, lp);
@@ -170,16 +167,15 @@ public class FilesControlSet extends PopupControlSet {
                                 new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface d, int which) {
-                                if (m.getValue(FileMetadata.REMOTE_ID) > 0) {
-                                    m.setValue(FileMetadata.DELETION_DATE, DateUtilities.now());
-                                    metadataService.save(m);
-                                    actFmSyncService.pushAttachmentInBackground(m);
+                                if (RemoteModel.isValidUuid(m.getValue(TaskAttachment.UUID))) {
+                                    m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
+                                    taskAttachmentDao.saveExisting(m);
                                 } else {
-                                    metadataService.delete(m);
+                                    taskAttachmentDao.delete(m.getId());
                                 }
 
-                                if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
-                                    File f = new File(m.getValue(FileMetadata.FILE_PATH));
+                                if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                                    File f = new File(m.getValue(TaskAttachment.FILE_PATH));
                                     f.delete();
                                 }
                                 files.remove(m);
@@ -193,8 +189,8 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
-    private void setupFileClickListener(View view, final Metadata m) {
-        final String filePath = m.containsNonNullValue(FileMetadata.FILE_PATH) ? m.getValue(FileMetadata.FILE_PATH) : null;
+    private void setupFileClickListener(View view, final TaskAttachment m) {
+        final String filePath = m.containsNonNullValue(TaskAttachment.FILE_PATH) ? m.getValue(TaskAttachment.FILE_PATH) : null;
         if (TextUtils.isEmpty(filePath)) {
             view.setOnClickListener(new OnClickListener() {
                 @Override
@@ -218,18 +214,18 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
-    private void showFile(final Metadata m) {
-        final String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
-        final String filePath = m.getValue(FileMetadata.FILE_PATH);
+    private void showFile(final TaskAttachment m) {
+        final String fileType = m.containsNonNullValue(TaskAttachment.CONTENT_TYPE) ? m.getValue(TaskAttachment.CONTENT_TYPE) : TaskAttachment.FILE_TYPE_OTHER;
+        final String filePath = m.getValue(TaskAttachment.FILE_PATH);
 
-        if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
-            RecognizerApi.play(activity, m.getValue(FileMetadata.FILE_PATH), new PlaybackExceptionHandler() {
+        if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
+            RecognizerApi.play(activity, m.getValue(TaskAttachment.FILE_PATH), new PlaybackExceptionHandler() {
                 @Override
                 public void playbackFailed(String file) {
                     showFromIntent(filePath, fileType);
                 }
             });
-        } else if (fileType.startsWith(FileMetadata.FILE_TYPE_IMAGE)) {
+        } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
             AlertDialog image = new AlertDialog.Builder(activity).create();
             ImageView imageView = new ImageView(activity);
             imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -252,7 +248,7 @@ public class FilesControlSet extends PopupControlSet {
             image.show();
         } else {
             String useType = fileType;
-            if (fileType.equals(FileMetadata.FILE_TYPE_OTHER)) {
+            if (fileType.equals(TaskAttachment.FILE_TYPE_OTHER)) {
                 String extension = AndroidUtilities.getFileExtension(filePath);
 
                 MimeTypeMap map = MimeTypeMap.getSingleton();
@@ -260,8 +256,9 @@ public class FilesControlSet extends PopupControlSet {
                 if (!TextUtils.isEmpty(guessedType))
                     useType = guessedType;
                 if (useType != guessedType) {
-                    m.setValue(FileMetadata.FILE_TYPE, useType);
-                    metadataService.save(m);
+                    m.setValue(TaskAttachment.CONTENT_TYPE, useType);
+                    m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                    taskAttachmentDao.saveExisting(m);
                 }
             }
             showFromIntent(filePath, useType);
@@ -279,11 +276,11 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void handleActivityNotFound(String fileType) {
-        if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
+        if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
             searchMarket("com.clov4r.android.nil", R.string.search_market_audio_title, R.string.search_market_audio); //$NON-NLS-1$
-        } else if (fileType.equals(FileMetadata.FILE_TYPE_PDF)) {
+        } else if (fileType.equals(TaskAttachment.FILE_TYPE_PDF)) {
             searchMarket("com.adobe.reader", R.string.search_market_pdf_title, R.string.search_market_pdf); //$NON-NLS-1$
-        } else if (AndroidUtilities.indexOf(FileMetadata.MS_FILETYPES, fileType) >= 0) {
+        } else if (AndroidUtilities.indexOf(TaskAttachment.MS_FILETYPES, fileType) >= 0) {
             searchMarket("com.dataviz.docstogo", R.string.search_market_ms_title, R.string.search_market_ms); //$NON-NLS-1$
         } else {
             DialogUtilities.okDialog(activity, activity.getString(R.string.file_type_unhandled_title),
@@ -311,7 +308,7 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void downloadFile(final Metadata m) {
+    private void downloadFile(final TaskAttachment m) {
         final ProgressDialog pd = new ProgressDialog(activity);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         pd.setMessage(activity.getString(R.string.file_download_progress));
@@ -320,9 +317,9 @@ public class FilesControlSet extends PopupControlSet {
         new Thread() {
             @Override
             public void run() {
-                String urlString = m.getValue(FileMetadata.URL);
+                String urlString = m.getValue(TaskAttachment.URL);
                 urlString = urlString.replace(" ", "%20");
-                String name = m.getValue(FileMetadata.NAME);
+                String name = m.getValue(TaskAttachment.NAME);
                 StringBuilder filePathBuilder = new StringBuilder();
 
                 File directory = FileUtilities.getAttachmentsDirectory(activity);
@@ -378,8 +375,8 @@ public class FilesControlSet extends PopupControlSet {
                     fileOutput.flush();
                     fileOutput.close();
 
-                    m.setValue(FileMetadata.FILE_PATH, file.getAbsolutePath());
-                    metadataService.save(m);
+                    m.setValue(TaskAttachment.FILE_PATH, file.getAbsolutePath());
+                    taskAttachmentDao.saveExisting(m);
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -404,11 +401,11 @@ public class FilesControlSet extends PopupControlSet {
         pd.show();
     }
 
-    private void setUpFileRow(Metadata m, View row, LinearLayout parent, LayoutParams lp) {
+    private void setUpFileRow(TaskAttachment m, View row, LinearLayout parent, LayoutParams lp) {
         TextView nameView = (TextView) row.findViewById(R.id.file_text);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
         String name = getNameString(m);
-        String type = getTypeString(m.getValue(FileMetadata.NAME));
+        String type = getTypeString(m.getValue(TaskAttachment.NAME));
         nameView.setText(name);
 
         if (TextUtils.isEmpty(type))
@@ -419,8 +416,8 @@ public class FilesControlSet extends PopupControlSet {
         parent.addView(row, lp);
     }
 
-    private String getNameString(Metadata metadata) {
-        String name = metadata.getValue(FileMetadata.NAME);
+    private String getNameString(TaskAttachment metadata) {
+        String name = metadata.getValue(TaskAttachment.NAME);
         int extension = name.lastIndexOf('.');
         if (extension < 0)
             return name;

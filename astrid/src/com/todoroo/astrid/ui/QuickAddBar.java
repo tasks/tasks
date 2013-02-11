@@ -46,12 +46,12 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -90,6 +90,8 @@ public class QuickAddBar extends LinearLayout {
     @Autowired ExceptionService exceptionService;
     @Autowired MetadataService metadataService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private TaskAttachmentDao taskAttachmentDao;
 
     private VoiceRecognizer voiceRecognizer;
 
@@ -361,8 +363,8 @@ public class QuickAddBar extends LinearLayout {
                 voiceRecognizer.convert(path);
                 currentVoiceFile = null;
 
-                Metadata fileMetadata = FileMetadata.createNewFileMetadata(task.getId(), path, nameRef.get(), FileMetadata.FILE_TYPE_AUDIO + "m4a");
-                metadataService.save(fileMetadata);
+                TaskAttachment attachment = TaskAttachment.createNewAttachment(task.getUuid(), path, nameRef.get(), TaskAttachment.FILE_TYPE_AUDIO + "m4a");
+                taskAttachmentDao.createNew(attachment);
             }
 
             fragment.onTaskCreated(task);

@@ -148,7 +148,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public void loadViewForTaskID(long t){
         try {
-            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE);
+            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.PUSHED_AT);
         } catch (SQLiteException e) {
             StartupService.handleSQLiteError(ContextManager.getContext(), e);
         }

@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
@@ -14,6 +16,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
@@ -26,6 +29,8 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.data.TaskAttachmentOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
@@ -52,6 +57,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         case TYPE_ACTIVITY:
             return new ChangesHappened<UserActivity, UserActivityOutstanding>(id, UserActivity.class,
                     PluginServices.getUserActivityDao(), PluginServices.getUserActivityOutstandingDao());
+        case TYPE_ATTACHMENT:
+            return new ChangesHappened<TaskAttachment, TaskAttachmentOutstanding>(id, TaskAttachment.class,
+                    PluginServices.getTaskAttachmentDao(), PluginServices.getTaskAttachmentOutstandingDao());
         default:
             return null;
         }
@@ -110,6 +118,15 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 } else if (NameMaps.MEMBER_REMOVED_COLUMN.equals(localColumn)) {
                     serverColumn = NameMaps.MEMBER_REMOVED_COLUMN;
                     changeJson.put("value", change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                } else if (NameMaps.ATTACHMENT_ADDED_COLUMN.equals(localColumn)) {
+                    serverColumn = NameMaps.ATTACHMENT_ADDED_COLUMN;
+                    JSONObject fileJson = getFileJson(change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
+                    if (fileJson == null) {
+                        PluginServices.getTaskAttachmentDao().delete(id);
+                        continue;
+                    } else {
+                        changeJson.put("value", fileJson);
+                    }
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
                     if (localProperty == null)
@@ -152,6 +169,28 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             }
         } finally {
             cursor.close();
+        }
+    }
+
+    private JSONObject getFileJson(String value) {
+        try {
+            JSONObject obj = new JSONObject(value);
+            String path = obj.optString("path");
+            if (TextUtils.isEmpty(path))
+                return null;
+            File f = new File(path);
+            if (!f.exists())
+                return null;
+
+            String encodedFile = AndroidUtilities.encodeBase64File(f);
+            if (TextUtils.isEmpty(encodedFile))
+                return null;
+
+            obj.remove("path");
+            obj.put("data", encodedFile);
+            return obj;
+        } catch (JSONException e) {
+            return null;
         }
     }
 

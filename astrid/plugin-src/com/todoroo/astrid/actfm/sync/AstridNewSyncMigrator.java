@@ -17,6 +17,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UpdateDao;
@@ -29,10 +30,12 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -48,6 +51,7 @@ public class AstridNewSyncMigrator {
     @Autowired private UpdateDao updateDao;
     @Autowired private UserActivityDao userActivityDao;
     @Autowired private UserDao userDao;
+    @Autowired private TaskAttachmentDao taskAttachmentDao;
 
     @Autowired private TaskOutstandingDao taskOutstandingDao;
     @Autowired private TagOutstandingDao tagOutstandingDao;
@@ -131,9 +135,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error asserting UUIDs", e);
         }
 
-        // ----------
+        // --------------
         // Migrate unsynced task comments to UserActivity table
-        // ----------
+        // --------------
         try {
             TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
                     Criterion.and(Criterion.or(Update.UUID.eq(0), Update.UUID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
@@ -177,13 +181,56 @@ public class AstridNewSyncMigrator {
         }
 
 
-        // ----------
+        // --------------
         // Drop any entries from the Users table that don't have a UUID
-        // ----------
+        // --------------
         try {
             userDao.deleteWhere(Criterion.or(User.UUID.isNull(), User.UUID.eq(""), User.UUID.eq("0")));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error deleting incomplete user entries", e);
+        }
+
+        // --------------
+        // Migrate legacy FileMetadata models to new TaskAttachment models
+        // --------------
+        try {
+            TodorooCursor<Metadata> fmCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(MetadataCriteria.withKey(FileMetadata.METADATA_KEY)));
+            try {
+                Metadata m = new Metadata();
+                for (fmCursor.moveToFirst(); !fmCursor.isAfterLast(); fmCursor.moveToNext()) {
+                    m.clear();
+                    m.readFromCursor(fmCursor);
+
+                    TaskAttachment attachment = new TaskAttachment();
+                    Task task = taskDao.fetch(m.getValue(Metadata.TASK), Task.UUID);
+                    if (task == null || !RemoteModel.isValidUuid(task.getUuid()))
+                        continue;
+
+                    Long oldRemoteId = m.getValue(FileMetadata.REMOTE_ID);
+                    boolean synced = false;
+                    if (oldRemoteId != null && oldRemoteId > 0) {
+                        synced = true;
+                        attachment.setValue(TaskAttachment.UUID, Long.toString(oldRemoteId));
+                    }
+                    attachment.setValue(TaskAttachment.TASK_UUID, task.getUuid());
+                    attachment.setValue(TaskAttachment.NAME, m.getValue(FileMetadata.NAME));
+                    attachment.setValue(TaskAttachment.URL, m.getValue(FileMetadata.URL));
+                    attachment.setValue(TaskAttachment.FILE_PATH, m.getValue(FileMetadata.FILE_PATH));
+                    attachment.setValue(TaskAttachment.CONTENT_TYPE, m.getValue(FileMetadata.FILE_TYPE));
+                    attachment.setValue(TaskAttachment.DELETED_AT, m.getValue(FileMetadata.DELETION_DATE));
+
+                    if (synced)
+                        attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+
+                    taskAttachmentDao.createNew(attachment);
+
+                }
+            } finally {
+                fmCursor.close();
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
         }
 
         // --------------
