@@ -269,7 +269,7 @@ public class NameMaps {
         TASK_ATTACHMENT_PROPERTIES_EXCLUDED = new HashSet<String>();
 
         putTaskAttachmentPropertyToServerName(TaskAttachment.UUID,         "uuid",         false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.USER_UUID,    "user_id",      true);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.USER_UUID,    "user_id",      false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.TASK_UUID,    "task_id",      true);
         putTaskAttachmentPropertyToServerName(TaskAttachment.NAME,         "name",         false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.URL,          "url",          false);

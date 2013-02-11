@@ -57,12 +57,13 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
                 JSONObject newFileHash = new JSONObject();
                 newFileHash.put("name", modelSetValues.getAsString(TaskAttachment.NAME.name)); //$NON-NLS-1$
                 newFileHash.put("type", modelSetValues.getAsString(TaskAttachment.CONTENT_TYPE.name)); //$NON-NLS-1$
-                newFileHash.put("path", modelSetValues.getAsString(path)); //$NON-NLS-1$
+                newFileHash.put("path", path); //$NON-NLS-1$
 
                 m.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, modelId);
                 m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, NameMaps.ATTACHMENT_ADDED_COLUMN);
                 m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, newFileHash.toString());
                 m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
+                database.insert(outstandingTable.name, null, m.getSetValues());
             } catch (JSONException e) {
                 return -1;
             }
