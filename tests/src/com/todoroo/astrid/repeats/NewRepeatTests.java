@@ -146,7 +146,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         String result = rrule.toIcal();
         if (fromCompletion)
             result = result + ";FROM=COMPLETION";
-        t.setValue(Task.RECURRENCE, rrule.toIcal());
+        t.setValue(Task.RECURRENCE, result);
         taskDao.save(t);
 
         waitAndSync();
