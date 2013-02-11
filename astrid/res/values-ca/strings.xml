@@ -762,17 +762,6 @@
   <string name="TFE_workingOn">Tasques sent cronometrades</string>
   <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
   <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
-  <string name="update_string_confirmed_friendship">En/na %1$s ha confirmat la sol·licitud d\'amistat</string>
-  <string name="update_string_task_created">En/na %1$s ha creat aquesta tasca</string>
-  <string name="update_string_task_created_global">En/na %1$s ha creat $link_task</string>
-  <string name="update_string_task_created_on_list">En/na %1$s ha afegit $link_task a aquesta llista</string>
-  <string name="update_string_task_completed">En/na %1$s ha completat $link_task. Genial!</string>
-  <string name="update_string_task_uncompleted">En/na %1$s ha desfet la compleció de $link_task.</string>
-  <string name="update_string_task_tagged">En/na %1$s ha afegit $link_task a %4$s</string>
-  <string name="update_string_task_tagged_list">En/na %1$s ha afegit $link_task a aquesta llista</string>
-  <string name="update_string_default_comment">En/na %1$s ha comentat: %3$s</string>
-  <string name="update_string_tag_created">En/na %1$s ha creat aquesta llista</string>
-  <string name="update_string_tag_created_global">En/na %1$s ha creat la llista %2$s</string>
   <string name="welcome_title_1">Benvingut a Astrid</string>
   <string name="welcome_body_5">and much more!</string>
   <string name="PPW_configure_title">Configurar Widget</string>

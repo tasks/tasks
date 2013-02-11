@@ -933,14 +933,6 @@
   <string name="TEA_timer_comment_started">påbörjade uppgiften:</string>
   <string name="TEA_timer_comment_stopped">slutade arbeta med uppgiften:</string>
   <string name="TEA_timer_comment_spent">Nedlagt tid:</string>
-  <string name="update_string_friends">%1$s är nu vän med %2$s</string>
-  <string name="update_string_request_friendship">%1s vill bli vän med dig</string>
-  <string name="update_string_confirmed_friendship">%1$s har accepterat din vänförfrågan</string>
-  <string name="update_string_task_created">%1$s skapade den här uppgiften</string>
-  <string name="update_string_default_comment">%1$s kommenterade: %3$s</string>
-  <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
-  <string name="update_string_tag_created">%1$s skapade denna lista</string>
-  <string name="update_string_tag_created_global">%1$s skapade listan %2$s</string>
   <string name="voice_create_prompt">Prata för att skapa uppgift</string>
   <string name="voice_edit_title_prompt">Prata för att sätta uppgiftens titel</string>
   <string name="voice_edit_note_prompt">Prata för att sätta uppgiftens anteckningar</string>

@@ -988,14 +988,6 @@
   <string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
   <string name="TFE_workingOn">Zadania zostały spracyzowane czasowo</string>
   <string name="TEA_timer_controls">Sterowanie zegara</string>
-  <string name="update_string_request_friendship">%1$s chce być Twoim przyjacielem</string>
-  <string name="update_string_task_completed">%1$s ukończył $link_task. Hurra!</string>
-  <string name="update_string_task_uncompleted">%1$s nie ukończył $link_task.</string>
-  <string name="update_string_default_comment">%1$s skomentował: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: $link_task: %3$s</string>
-  <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
-  <string name="update_string_tag_created">%1$s utworzył tę listę</string>
-  <string name="update_string_tag_created_global">%1$s utworzył listę %2$s</string>
   <string name="voice_create_prompt">Mów by utworzyć zadanie</string>
   <string name="voice_edit_title_prompt">Mów by ustawić tytuł zadania</string>
   <string name="voice_edit_note_prompt">Mów by ustawić notatkę zadania</string>
