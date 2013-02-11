@@ -32,6 +32,7 @@ public class AstridNewSyncMigrationTest extends NewSyncTestCase {
 	
 	public void testAstridSyncMigration() {
 		setupOldDatabase();
+		Preferences.setBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
 		new AstridNewSyncMigrator().performMigration();
 		assertAllModelsHaveUUID();
 		assertAllTagsHaveTagData();
