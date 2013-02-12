@@ -93,8 +93,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /** receiver for new filters */
     protected final FilterReceiver filterReceiver = new FilterReceiver();
-    private final BladeFilterReceiver bladeFilterReceiver = new BladeFilterReceiver();
-    private boolean shouldUseBladeFilter = true;
 
     /** row layout to inflate */
     private final int layout;
@@ -372,18 +370,30 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      *
      */
     public class FilterReceiver extends BroadcastReceiver {
+        private final List<ResolveInfo> filterExposerList;
+
+        public FilterReceiver() {
+            // query astrids AndroidManifest.xml for all registered default-receivers to expose filters
+            PackageManager pm = ContextManager.getContext().getPackageManager();
+            filterExposerList = pm.queryBroadcastReceivers(
+                    new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS),
+                    PackageManager.MATCH_DEFAULT_ONLY);
+        }
+
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                Bundle extras = intent.getExtras();
-                extras.setClassLoader(FilterListHeader.class.getClassLoader());
-                final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                populateFiltersToAdapter(filters);
-                shouldUseBladeFilter = getCount() == 0;
+                for (ResolveInfo filterExposerInfo : filterExposerList) {
+                    String className = filterExposerInfo.activityInfo.name;
+                    AstridFilterExposer filterExposer = null;
+                    filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
+
+                    if (filterExposer != null) {
+                        populateFiltersToAdapter(filterExposer.getFilters());
+                    }
+                }
             } catch (Exception e) {
-                Log.e("receive-filter-" +  //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                        e.toString(), e);
+                e.printStackTrace();
             }
         }
 
@@ -413,50 +423,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    /**
-     * Receiver which gets called after the FilterReceiver
-     * and checks if the filters are populated.
-     * If they aren't (e.g. due to the bug in the ZTE Blade's Parcelable-system throwing a
-     * ClassNotFoundExeption), the filters are fetched manually.
-     *
-     * @author Arne Jans <arne@astrid.com>
-     *
-     */
-    public class BladeFilterReceiver extends FilterReceiver {
-        private final List<ResolveInfo> filterExposerList;
-
-        public BladeFilterReceiver() {
-            // query astrids AndroidManifest.xml for all registered default-receivers to expose filters
-            PackageManager pm = ContextManager.getContext().getPackageManager();
-            filterExposerList = pm.queryBroadcastReceivers(
-                    new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS),
-                    PackageManager.MATCH_DEFAULT_ONLY);
-        }
-
-        @SuppressWarnings("nls")
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (shouldUseBladeFilter && getCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
-                try {
-                    for (ResolveInfo filterExposerInfo : filterExposerList) {
-                        Log.d("BladeFilterReceiver", filterExposerInfo.toString());
-                        String className = filterExposerInfo.activityInfo.name;
-                        AstridFilterExposer filterExposer = null;
-                            filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
-
-                        if (filterExposer != null) {
-                            populateFiltersToAdapter(filterExposer.getFilters());
-                        }
-                    }
-                } catch (Exception e) {
-                    Log.e("receive-bladefilter-" +  //$NON-NLS-1$
-                            intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                            e.toString(), e);
-                }
-            }
-        }
-    }
-
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
@@ -470,16 +436,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * can then add lists to this activity
      */
     public void getLists() {
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS);
-//        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-        // the bladeFilterReceiver will be called after the usual FilterReceiver has finished (to handle the empty list)
-        activity.sendOrderedBroadcast(broadcastIntent,
-                AstridApiConstants.PERMISSION_READ,
-                bladeFilterReceiver,
-                null,
-                Activity.RESULT_OK,
-                null,
-                null);
+        filterReceiver.onReceive(activity, null);
     }
 
     /**
@@ -489,9 +446,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         IntentFilter regularFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
         regularFilter.setPriority(2);
         activity.registerReceiver(filterReceiver, regularFilter);
-        IntentFilter bladeFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        bladeFilter.setPriority(1);
-        activity.registerReceiver(bladeFilterReceiver, bladeFilter);
         getLists();
     }
 
@@ -500,7 +454,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      */
     public void unregisterRecevier() {
         activity.unregisterReceiver(filterReceiver);
-        activity.unregisterReceiver(bladeFilterReceiver);
     }
 
     /**

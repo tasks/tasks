@@ -43,6 +43,10 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     private View currentView;
     private int currentPage;
 
+    private String authToken;
+    private boolean onSuccess = false;
+    private boolean dismissDialog = false;
+
     public static final String KEY_SHOWED_WELCOME_LOGIN = "key_showed_welcome_login"; //$NON-NLS-1$
 
     public static final String TOKEN_MANUAL_SHOW = "manual"; //$NON-NLS-1$
@@ -111,8 +115,13 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SIMPLE);
                 final ProgressDialog pd = DialogUtilities.progressDialog(WelcomeWalkthrough.this, getString(R.string.gtasks_GLA_authenticating));
                 pd.show();
-                GoogleAccountManager accountManager = new GoogleAccountManager(WelcomeWalkthrough.this);
-                Account a = accountManager.getAccountByName(email);
+                getAuthToken(email, pd);
+            }
+
+            private void getAuthToken(final String e,
+                    final ProgressDialog pd) {
+                final GoogleAccountManager accountManager = new GoogleAccountManager(WelcomeWalkthrough.this);
+                Account a = accountManager.getAccountByName(e);
                 AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
                     public void run(final AccountManagerFuture<Bundle> future) {
                         new Thread() {
@@ -121,8 +130,17 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                                 try {
                                     Bundle bundle = future.getResult(30, TimeUnit.SECONDS);
                                     if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
-                                        String authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-                                        onAuthTokenSuccess(email, authToken);
+                                        authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+                                        if (!onSuccess) {
+                                            accountManager.manager.invalidateAuthToken(ActFmGoogleAuthActivity.AUTH_TOKEN_TYPE, authToken);
+                                            getAuthToken(e, pd);
+                                            onSuccess = true;
+                                        } else {
+                                            onAuthTokenSuccess(e, authToken);
+                                            dismissDialog = true;
+                                        }
+                                    } else {
+                                        dismissDialog = true;
                                     }
                                 } catch (final Exception e) {
                                     Log.e("actfm-google-auth", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -138,7 +156,8 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                                         }
                                     });
                                 } finally {
-                                    DialogUtilities.dismissDialog(WelcomeWalkthrough.this, pd);
+                                    if (dismissDialog)
+                                        DialogUtilities.dismissDialog(WelcomeWalkthrough.this, pd);
                                 }
                             }
                         }.start();

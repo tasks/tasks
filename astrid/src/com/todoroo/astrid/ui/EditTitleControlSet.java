@@ -64,6 +64,7 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
                 scaleAnimation.setDuration(100);
                 // set check box to actual action item state
                 completeBox.startAnimation(scaleAnimation);
+                updateCompleteBox();
             }
         });
     }
@@ -101,14 +102,17 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
 
 
     private void updateCompleteBox() {
+        boolean checked = completeBox.isChecked();
+        int[] resourceArray = isRepeating ? (checked ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES)
+                                          : (checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES);
         int valueToUse = importanceValue;
-        if (valueToUse >= TaskAdapter.IMPORTANCE_RESOURCES.length)
-            valueToUse = TaskAdapter.IMPORTANCE_RESOURCES.length - 1;
-        if(valueToUse < TaskAdapter.IMPORTANCE_RESOURCES.length) {
+        if (valueToUse >= resourceArray.length)
+            valueToUse = resourceArray.length - 1;
+        if(valueToUse < resourceArray.length) {
             if (isRepeating) {
-                completeBox.setImageResource(TaskAdapter.IMPORTANCE_REPEAT_RESOURCES[valueToUse]);
+                completeBox.setImageResource(resourceArray[valueToUse]);
             } else {
-                completeBox.setImageResource(TaskAdapter.IMPORTANCE_RESOURCES[valueToUse]);
+                completeBox.setImageResource(resourceArray[valueToUse]);
             }
         }
     }

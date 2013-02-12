@@ -54,6 +54,9 @@ public class ActFmGoogleAuthActivity extends ListActivity {
     private String authToken;
     private String accountName;
 
+    private boolean onSuccess = false;
+    private boolean dismissDialog = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
         }
     }
 
-    private void getAuthToken(Account a, final ProgressDialog pd) {
+    private void getAuthToken(final Account a, final ProgressDialog pd) {
         AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
             public void run(final AccountManagerFuture<Bundle> future) {
                 new Thread() {
@@ -106,7 +109,16 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                             Bundle bundle = future.getResult(30, TimeUnit.SECONDS);
                             if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
                                 authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-                                onAuthTokenSuccess();
+                                if (!onSuccess) {
+                                    accountManager.manager.invalidateAuthToken(AUTH_TOKEN_TYPE, authToken);
+                                    getAuthToken(a, pd);
+                                    onSuccess = true;
+                                } else {
+                                    onAuthTokenSuccess();
+                                    dismissDialog = true;
+                                }
+                            } else {
+                                dismissDialog = true;
                             }
                         } catch (final Exception e) {
                             Log.e("actfm-google-auth", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -121,7 +133,8 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                                 }
                             });
                         } finally {
-                            DialogUtilities.dismissDialog(ActFmGoogleAuthActivity.this, pd);
+                            if (dismissDialog)
+                                DialogUtilities.dismissDialog(ActFmGoogleAuthActivity.this, pd);
                         }
                     }
                 }.start();
