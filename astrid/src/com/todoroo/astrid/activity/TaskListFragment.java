@@ -981,7 +981,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                         tagsJoinCriterion).toString() //$NON-NLS-1$
                 + Join.left(User.TABLE.as(USER_IMAGE_JOIN),
                         Task.USER_ID.eq(Field.field(USER_IMAGE_JOIN + "." + User.UUID.name))).toString()
-                + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN) + "." + TaskAttachment.UUID.name))
+                + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN) + "." + TaskAttachment.TASK_UUID.name))
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
