@@ -40,7 +40,7 @@ import com.todoroo.astrid.utility.Constants;
 public class ActFmInvoker {
 
     /** NOTE: these values are development values & will not work on production */
-    private static final String URL = "//192.168.0.184:3000/api/";
+    private static final String URL = "//192.168.0.122:3000/api/";
     private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
     private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
 
