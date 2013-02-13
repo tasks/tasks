@@ -142,6 +142,9 @@ public class AstridNewSyncMigrator {
                 public boolean shouldCreateOutstandingEntries(TagData instance) {
                     return lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
                 }
+
+                @Override
+                public void afterSave(TagData instance, boolean createdOutstanding) {/**/}
             });
 
             Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS, Task.MODIFICATION_DATE, Task.LAST_SYNC).where(Criterion.all);
@@ -181,6 +184,12 @@ public class AstridNewSyncMigrator {
                         tasksThatNeedTagSync.add(instance.getId());
 
                     return result;
+                }
+
+                @Override
+                public void afterSave(Task instance, boolean createdOutstanding) {
+                    if (createdOutstanding)
+                        tasksThatNeedTagSync.add(instance.getId());
                 }
             });
         } catch (Exception e) {
@@ -381,6 +390,7 @@ public class AstridNewSyncMigrator {
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
         void beforeSave(TYPE instance);
         boolean shouldCreateOutstandingEntries(TYPE instance);
+        void afterSave(TYPE instance, boolean createdOutstanding);
     }
 
     private <TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao, OutstandingEntryDao<OE> oeDao, OE oe, Property<?>[] propertiesForOutstanding, UUIDAssertionExtras<TYPE> extras) {
@@ -401,9 +411,13 @@ public class AstridNewSyncMigrator {
 
                 instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 dao.saveExisting(instance);
+                boolean createdOutstanding = false;
                 if (propertiesForOutstanding != null && (unsyncedModel || (extras != null && extras.shouldCreateOutstandingEntries(instance)))) {
+                    createdOutstanding = true;
                     createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
                 }
+                if (extras != null)
+                    extras.afterSave(instance, createdOutstanding);
             }
         } finally {
             cursor.close();
