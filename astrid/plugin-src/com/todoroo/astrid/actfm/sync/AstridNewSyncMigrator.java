@@ -128,7 +128,7 @@ public class AstridNewSyncMigrator {
             Query tagsQuery = Query.select(TagData.ID, TagData.UUID).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
             assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), null);
 
-            Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS).where(Criterion.all);
+            Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS, Task.MODIFICATION_DATE, Task.LAST_SYNC).where(Criterion.all);
             assertUUIDsExist(tasksQuery, new Task(), taskDao, taskOutstandingDao, new TaskOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TASKS), new UUIDAssertionExtras<Task>() {
                 @Override
                 public void beforeSave(Task instance) {
@@ -152,6 +152,13 @@ public class AstridNewSyncMigrator {
                             recurrence = recurrence + ";FROM=COMPLETION";
                         instance.setValue(Task.RECURRENCE, recurrence);
                     }
+                }
+
+                @Override
+                public boolean shouldCreateOutstandingEntries(Task instance) {
+                    if (!instance.containsNonNullValue(Task.MODIFICATION_DATE))
+                        return true;
+                    return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
                 }
             });
         } catch (Exception e) {
@@ -308,6 +315,7 @@ public class AstridNewSyncMigrator {
 
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
         void beforeSave(TYPE instance);
+        boolean shouldCreateOutstandingEntries(TYPE instance);
     }
 
     private <TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao, OutstandingEntryDao<OE> oeDao, OE oe, Property<?>[] propertiesForOutstanding, UUIDAssertionExtras<TYPE> extras) {
@@ -326,7 +334,7 @@ public class AstridNewSyncMigrator {
 
                 instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 dao.saveExisting(instance);
-                if (unsyncedModel && propertiesForOutstanding != null) {
+                if (propertiesForOutstanding != null && (unsyncedModel || (extras != null && extras.shouldCreateOutstandingEntries(instance)))) {
                     createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
                 }
             }
