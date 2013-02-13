@@ -24,6 +24,7 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.dao.UserActivityDao;
@@ -36,6 +37,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
@@ -44,6 +46,7 @@ import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 @SuppressWarnings("nls")
@@ -57,6 +60,7 @@ public class AstridNewSyncMigrator {
     @Autowired private UserActivityDao userActivityDao;
     @Autowired private UserDao userDao;
     @Autowired private TaskAttachmentDao taskAttachmentDao;
+    @Autowired private TaskListMetadataDao taskListMetadataDao;
 
     @Autowired private TaskOutstandingDao taskOutstandingDao;
     @Autowired private TagOutstandingDao tagOutstandingDao;
@@ -298,6 +302,51 @@ public class AstridNewSyncMigrator {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
+        }
+
+        // --------------
+        // Migrate legacy FileMetadata models to new TaskAttachment models
+        // --------------
+        try {
+            String activeTasksOrder = Preferences.getStringValue(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+            if (TextUtils.isEmpty(activeTasksOrder))
+                activeTasksOrder = "[]";
+
+            TaskListMetadata tlm = new TaskListMetadata();
+            tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
+            tlm.setValue(TaskListMetadata.TASK_IDS, activeTasksOrder);
+            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            taskListMetadataDao.createNew(tlm);
+
+            tlm.clear();
+            String todayTasksOrder = Preferences.getStringValue(SubtasksUpdater.TODAY_TASKS_ORDER);
+            if (TextUtils.isEmpty(todayTasksOrder))
+                todayTasksOrder = "[]";
+
+            tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_TODAY);
+            tlm.setValue(TaskListMetadata.TASK_IDS, todayTasksOrder);
+            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            taskListMetadataDao.createNew(tlm);
+
+            TodorooCursor<TagData> allTagData = tagDataDao.query(Query.select(TagData.UUID, TagData.TAG_ORDERING));
+            try {
+                TagData td = new TagData();
+                for (allTagData.moveToFirst(); !allTagData.isAfterLast(); allTagData.moveToNext()) {
+                    tlm.clear();
+                    td.clear();
+
+                    td.readFromCursor(allTagData);
+                    String tagOrdering = td.getValue(TagData.TAG_ORDERING);
+                    tlm.setValue(TaskListMetadata.TASK_IDS, tagOrdering);
+                    tlm.setValue(TaskListMetadata.TAG_UUID, td.getUuid());
+                    taskListMetadataDao.createNew(tlm);
+                }
+            } finally {
+                allTagData.close();
+            }
+
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating tag ordering", e);
         }
 
         // --------------
