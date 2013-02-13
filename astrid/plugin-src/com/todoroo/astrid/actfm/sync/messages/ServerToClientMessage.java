@@ -6,6 +6,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 
@@ -57,6 +58,8 @@ public abstract class ServerToClientMessage {
             return new MakeChanges<UserActivity>(json, PluginServices.getUserActivityDao());
         else if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table))
             return new MakeChanges<TaskAttachment>(json, PluginServices.getTaskAttachmentDao());
+        else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
+            return new MakeChanges<TaskListMetadata>(json, PluginServices.getTaskListMetadataDao());
         else
             return null;
     }
@@ -73,6 +76,8 @@ public abstract class ServerToClientMessage {
             return new NowBriefed<User>(json, PluginServices.getUserDao());
         else if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table))
             return new NowBriefed<TaskAttachment>(json, PluginServices.getTaskAttachmentDao());
+        else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
+            return new NowBriefed<TaskListMetadata>(json, PluginServices.getTaskListMetadataDao());
         else
             return null;
     }

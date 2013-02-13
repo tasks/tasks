@@ -85,23 +85,5 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
         }
     }
 
-    // --- SQL clause generators
-
-    /**
-     * Generates SQL clauses
-     */
-    public static class TagDataCriteria {
-
-    	/** @returns tasks by id */
-    	public static Criterion byId(long id) {
-    	    return TagData.ID.eq(id);
-    	}
-
-        public static Criterion isTeam() {
-            return TagData.IS_TEAM.eq(1);
-        }
-
-    }
-
 }
 

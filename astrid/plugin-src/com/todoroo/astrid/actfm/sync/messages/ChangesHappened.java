@@ -245,7 +245,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 return ActFmPreferenceService.userId();
             if (property.checkFlag(Property.PROP_FLAG_JSON))
                 try {
-                    return new JSONObject(value);
+                    if (value != null && value.startsWith("["))
+                        return new JSONArray(value);
+                    else
+                        return new JSONObject(value);
                 } catch (JSONException e) {
                     //
                 }

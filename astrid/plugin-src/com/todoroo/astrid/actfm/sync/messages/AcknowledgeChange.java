@@ -29,6 +29,8 @@ public class AcknowledgeChange extends ServerToClientMessage {
             dao = PluginServices.getUserActivityOutstandingDao();
         else if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table))
             dao = PluginServices.getTaskAttachmentOutstandingDao();
+        else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
+            dao = PluginServices.getTaskListMetadataOutstandingDao();
         else
             dao = null;
     }

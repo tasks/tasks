@@ -24,6 +24,8 @@ import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskAttachmentOutstanding;
+import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
@@ -71,11 +73,13 @@ public class Database extends AbstractDatabase {
         TagMetadata.TABLE,
         History.TABLE,
         TaskAttachment.TABLE,
+        TaskListMetadata.TABLE,
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
         UserActivityOutstanding.TABLE,
-        TaskAttachmentOutstanding.TABLE
+        TaskAttachmentOutstanding.TABLE,
+        TaskListMetadataOutstanding.TABLE
     };
 
     // --- listeners
@@ -348,6 +352,8 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
             database.execSQL(createTableSql(visitor, TaskAttachment.TABLE.name, TaskAttachment.PROPERTIES));
+            database.execSQL(createTableSql(visitor, TaskListMetadata.TABLE.name, TaskListMetadata.PROPERTIES));
+            database.execSQL(createTableSql(visitor, TaskListMetadataOutstanding.TABLE.name, TaskListMetadataOutstanding.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));

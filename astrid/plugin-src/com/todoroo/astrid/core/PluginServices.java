@@ -20,6 +20,8 @@ import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskAttachmentOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
+import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
@@ -92,6 +94,12 @@ public final class PluginServices {
 
     @Autowired
     TaskAttachmentOutstandingDao taskAttachmentOutstandingDao;
+
+    @Autowired
+    TaskListMetadataDao taskListMetadataDao;
+
+    @Autowired
+    TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
 
     private static volatile PluginServices instance;
 
@@ -186,6 +194,14 @@ public final class PluginServices {
 
     public static TaskAttachmentOutstandingDao getTaskAttachmentOutstandingDao() {
         return getInstance().taskAttachmentOutstandingDao;
+    }
+
+    public static TaskListMetadataDao getTaskListMetadataDao() {
+        return getInstance().taskListMetadataDao;
+    }
+
+    public static TaskListMetadataOutstandingDao getTaskListMetadataOutstandingDao() {
+        return getInstance().taskListMetadataOutstandingDao;
     }
 
     // -- helpers
