@@ -125,8 +125,19 @@ public class AstridNewSyncMigrator {
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
         try {
-            Query tagsQuery = Query.select(TagData.ID, TagData.UUID).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
-            assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), null);
+            Query tagsQuery = Query.select(TagData.ID, TagData.UUID, TagData.MODIFICATION_DATE).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
+            assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), new UUIDAssertionExtras<TagData>() {
+                private static final String LAST_TAG_FETCH_TIME = "actfm_lastTag"; //$NON-NLS-1$
+                private final long lastFetchTime = Preferences.getLong(LAST_TAG_FETCH_TIME, 0);
+
+                @Override
+                public void beforeSave(TagData instance) {/**/}
+
+                @Override
+                public boolean shouldCreateOutstandingEntries(TagData instance) {
+                    return lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
+                }
+            });
 
             Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS, Task.MODIFICATION_DATE, Task.LAST_SYNC).where(Criterion.all);
             assertUUIDsExist(tasksQuery, new Task(), taskDao, taskOutstandingDao, new TaskOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TASKS), new UUIDAssertionExtras<Task>() {
@@ -156,7 +167,7 @@ public class AstridNewSyncMigrator {
 
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
-                    if (!instance.containsNonNullValue(Task.MODIFICATION_DATE))
+                    if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
                         return true;
                     return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
                 }

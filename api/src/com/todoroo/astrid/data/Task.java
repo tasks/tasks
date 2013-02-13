@@ -170,6 +170,7 @@ public final class Task extends RemoteModel {
             TABLE, "creatorId", Property.PROP_FLAG_USER_ID);
 
     /** Last Sync date */
+    @Deprecated
     public static final LongProperty LAST_SYNC = new LongProperty(
             TABLE, "lastSync", Property.PROP_FLAG_DATE);
 
