@@ -53,10 +53,7 @@ public class SubtasksListFragment extends TaskListFragment {
     @Override
     public void setUpTaskList() {
         if (helper instanceof AstridOrderedListFragmentHelper) {
-            if (isTodayFilter)
-                ((AstridOrderedListFragmentHelper<String>) helper).setList(SubtasksUpdater.TODAY_TASKS_ORDER);
-            else if (isInbox)
-                ((AstridOrderedListFragmentHelper<String>) helper).setList(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+            ((AstridOrderedListFragmentHelper<TaskListMetadata>) helper).setList(taskListMetadata);
         }
         helper.beforeSetUpTaskList(filter);
 

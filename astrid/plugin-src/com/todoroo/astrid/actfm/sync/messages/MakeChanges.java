@@ -18,15 +18,19 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
@@ -258,6 +262,11 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             taskToTagTemplate.setValue(TaskToTagMetadata.TASK_UUID, toUuid);
             taskToTagTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             metadataService.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TASK_UUID.eq(fromUuid)), taskToTagTemplate);
+
+            HistoryDao historyDao = PluginServices.getHistoryDao();
+            History histTemplate = new History();
+            histTemplate.setValue(History.TARGET_ID, toUuid);
+            historyDao.update(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(oldUuid)), histTemplate);
         }
 
     }
@@ -345,6 +354,17 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             memberMetadataTemplate.setValue(TagMetadata.TAG_UUID, toUuid);
             memberMetadataTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             tagMetadataDao.update(TagMetadata.TAG_UUID.eq(fromUuid), memberMetadataTemplate);
+
+            HistoryDao historyDao = PluginServices.getHistoryDao();
+            History histTemplate = new History();
+            histTemplate.setValue(History.TARGET_ID, toUuid);
+            historyDao.update(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(oldUuid)), histTemplate);
+
+            TaskListMetadataDao taskListMetadataDao = PluginServices.getTaskListMetadataDao();
+            TaskListMetadata tlm = new TaskListMetadata();
+            tlm.setValue(TaskListMetadata.TAG_UUID, toUuid);
+            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            taskListMetadataDao.update(TaskListMetadata.TAG_UUID.eq(fromUuid), tlm);
         }
     }
 

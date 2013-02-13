@@ -40,6 +40,7 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
     public TaskListMetadata fetchByTagId(String tagUuid, Property<?>...properties) {
         TodorooCursor<TaskListMetadata> taskListMetadata = query(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
                 TaskListMetadata.FILTER.eq(tagUuid))));
+        taskListMetadata.moveToFirst();
         return returnFetchResult(taskListMetadata);
     }
 

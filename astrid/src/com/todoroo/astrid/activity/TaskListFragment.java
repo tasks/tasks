@@ -414,10 +414,19 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         TagData td = getActiveTagData();
         String tdId;
         if (td == null) {
+            String filterId = null;
             if (isInbox)
-                taskListMetadata = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.PROPERTIES);
+                filterId = TaskListMetadata.FILTER_ID_ALL;
             else if (isTodayFilter)
-                taskListMetadata = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.PROPERTIES);
+                filterId = TaskListMetadata.FILTER_ID_TODAY;
+            if (!TextUtils.isEmpty(filterId)) {
+                taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
+                if (taskListMetadata == null) {
+                    taskListMetadata = new TaskListMetadata();
+                    taskListMetadata.setValue(TaskListMetadata.FILTER, filterId);
+                    taskListMetadataDao.createNew(taskListMetadata);
+                }
+            }
         } else {
             tdId = td.getUuid();
             taskListMetadata = taskListMetadataDao.fetchByTagId(td.getUuid(), TaskListMetadata.PROPERTIES);
