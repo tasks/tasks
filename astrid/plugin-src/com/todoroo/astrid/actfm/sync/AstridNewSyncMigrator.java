@@ -13,6 +13,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -295,7 +296,7 @@ public class AstridNewSyncMigrator {
         }
 
         // --------------
-        // Finally, ensure that all tag metadata entities have all important fields filled in
+        // Ensure that all tag metadata entities have all important fields filled in
         // --------------
         try {
             Query incompleteQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
@@ -338,6 +339,42 @@ public class AstridNewSyncMigrator {
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
         }
+
+        // --------------
+        // Finally, create oustanding entries for tags on unsynced tasks
+        // --------------
+        try {
+            Long[] ids = tasksThatNeedTagSync.toArray(new Long[tasksThatNeedTagSync.size()]);
+            TodorooCursor<Metadata> tagsAdded = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.TASK.in(ids))).orderBy(Order.asc(Metadata.TASK)));
+            try {
+                Metadata m = new Metadata();
+                for (tagsAdded.moveToFirst(); !tagsAdded.isAfterLast(); tagsAdded.moveToNext()) {
+                    m.clear();
+                    m.readFromCursor(tagsAdded);
+                    Long deletionDate = m.getValue(Metadata.DELETION_DATE);
+                    String tagUuid = m.getValue(TaskToTagMetadata.TAG_UUID);
+                    if (!RemoteModel.isValidUuid(tagUuid))
+                        continue;
+
+                    TaskOutstanding to = new TaskOutstanding();
+                    to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, m.getValue(Metadata.TASK));
+                    to.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
+                    String addedOrRemoved = NameMaps.TAG_ADDED_COLUMN;
+                    if (deletionDate != null && deletionDate > 0)
+                        addedOrRemoved = NameMaps.TAG_REMOVED_COLUMN;
+
+                    to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
+                    to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
+                    taskOutstandingDao.createNew(to);
+                }
+            } finally {
+                tagsAdded.close();
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error creating tag_added outstanding entries", e);
+        }
+
         Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
         ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
         synchronized (monitor) {
