@@ -55,7 +55,6 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -958,8 +957,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         String tagName = null;
         if (getActiveTagData() != null)
             tagName = getActiveTagData().getValue(TagData.NAME);
-
-        StringProperty tagProperty = new StringProperty(null, TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name);
 
         Criterion tagsJoinCriterion = Criterion.and(
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY), //$NON-NLS-1$
