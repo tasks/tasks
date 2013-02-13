@@ -1,5 +1,8 @@
 package com.todoroo.astrid.actfm.sync;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -124,6 +127,7 @@ public class AstridNewSyncMigrator {
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
+        final Set<Long> tasksThatNeedTagSync = new HashSet<Long>();
         try {
             Query tagsQuery = Query.select(TagData.ID, TagData.UUID, TagData.MODIFICATION_DATE).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
             assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), new UUIDAssertionExtras<TagData>() {
@@ -167,9 +171,15 @@ public class AstridNewSyncMigrator {
 
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
+                    boolean result;
                     if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
-                        return true;
-                    return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
+                        result = true;
+                    else
+                        result = instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
+                    if (result)
+                        tasksThatNeedTagSync.add(instance.getId());
+
+                    return result;
                 }
             });
         } catch (Exception e) {
@@ -314,6 +324,7 @@ public class AstridNewSyncMigrator {
             } finally {
                 incompleteMetadata.close();
             }
+
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
         }
