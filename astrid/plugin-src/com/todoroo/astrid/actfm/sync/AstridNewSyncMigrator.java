@@ -132,7 +132,7 @@ public class AstridNewSyncMigrator {
             Query tagsQuery = Query.select(TagData.ID, TagData.UUID, TagData.MODIFICATION_DATE).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
             assertUUIDsExist(tagsQuery, new TagData(), tagDataDao, tagOutstandingDao, new TagOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TAGS), new UUIDAssertionExtras<TagData>() {
                 private static final String LAST_TAG_FETCH_TIME = "actfm_lastTag"; //$NON-NLS-1$
-                private final long lastFetchTime = Preferences.getLong(LAST_TAG_FETCH_TIME, 0);
+                private final long lastFetchTime = Preferences.getInt(LAST_TAG_FETCH_TIME, 0) * 1000L;
 
                 @Override
                 public void beforeSave(TagData instance) {/**/}
