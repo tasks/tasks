@@ -132,6 +132,7 @@ public class AstridNewSyncMigrator {
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
+        final Set<Long> tagsThatNeedOrderingSync = new HashSet<Long>();
         final Set<Long> tasksThatNeedTagSync = new HashSet<Long>();
         try {
             Query tagsQuery = Query.select(TagData.ID, TagData.UUID, TagData.MODIFICATION_DATE).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
@@ -148,7 +149,10 @@ public class AstridNewSyncMigrator {
                 }
 
                 @Override
-                public void afterSave(TagData instance, boolean createdOutstanding) {/**/}
+                public void afterSave(TagData instance, boolean createdOutstanding) {
+                    if (createdOutstanding)
+                        tagsThatNeedOrderingSync.add(instance.getId());
+                }
             });
 
             Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS, Task.MODIFICATION_DATE, Task.LAST_SYNC).where(Criterion.all);
@@ -179,15 +183,9 @@ public class AstridNewSyncMigrator {
 
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
-                    boolean result;
                     if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
-                        result = true;
-                    else
-                        result = instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
-                    if (result)
-                        tasksThatNeedTagSync.add(instance.getId());
-
-                    return result;
+                        return true;
+                    return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
                 }
 
                 @Override
@@ -328,7 +326,7 @@ public class AstridNewSyncMigrator {
             tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             taskListMetadataDao.createNew(tlm);
 
-            TodorooCursor<TagData> allTagData = tagDataDao.query(Query.select(TagData.UUID, TagData.TAG_ORDERING));
+            TodorooCursor<TagData> allTagData = tagDataDao.query(Query.select(TagData.ID, TagData.UUID, TagData.TAG_ORDERING));
             try {
                 TagData td = new TagData();
                 for (allTagData.moveToFirst(); !allTagData.isAfterLast(); allTagData.moveToNext()) {
@@ -339,6 +337,8 @@ public class AstridNewSyncMigrator {
                     String tagOrdering = td.getValue(TagData.TAG_ORDERING);
                     tlm.setValue(TaskListMetadata.TASK_IDS, tagOrdering);
                     tlm.setValue(TaskListMetadata.TAG_UUID, td.getUuid());
+                    if (!tagsThatNeedOrderingSync.contains(td.getId()))
+                        tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskListMetadataDao.createNew(tlm);
                 }
             } finally {
