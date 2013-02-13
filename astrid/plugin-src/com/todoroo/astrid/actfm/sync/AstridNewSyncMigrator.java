@@ -249,7 +249,6 @@ public class AstridNewSyncMigrator {
             TodorooCursor<Metadata> fmCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
                     .where(MetadataCriteria.withKey(FileMetadata.METADATA_KEY)));
             try {
-                System.err.println("FILES COUNT: " + fmCursor.getCount());
                 Metadata m = new Metadata();
                 for (fmCursor.moveToFirst(); !fmCursor.isAfterLast(); fmCursor.moveToNext()) {
                     m.clear();
@@ -257,7 +256,6 @@ public class AstridNewSyncMigrator {
 
                     TaskAttachment attachment = new TaskAttachment();
                     Task task = taskDao.fetch(m.getValue(Metadata.TASK), Task.UUID);
-                    System.err.println("TASK UUID: " + task.getUuid());
                     if (task == null || !RemoteModel.isValidUuid(task.getUuid()))
                         continue;
 
@@ -267,7 +265,6 @@ public class AstridNewSyncMigrator {
                         synced = true;
                         attachment.setValue(TaskAttachment.UUID, Long.toString(oldRemoteId));
                     }
-                    System.err.println("ALREADY SYNCED: " + synced);
                     attachment.setValue(TaskAttachment.TASK_UUID, task.getUuid());
                     if (m.containsNonNullValue(FileMetadata.NAME))
                         attachment.setValue(TaskAttachment.NAME, m.getValue(FileMetadata.NAME));
@@ -281,7 +278,6 @@ public class AstridNewSyncMigrator {
                         attachment.setValue(TaskAttachment.DELETED_AT, m.getValue(FileMetadata.DELETION_DATE));
 
                     if (synced) {
-                        System.err.println("ATTACHMENT UUID: " + attachment.getValue(TaskAttachment.UUID));
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     }
 
@@ -393,7 +389,7 @@ public class AstridNewSyncMigrator {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 instance.readPropertiesFromCursor(cursor);
                 boolean unsyncedModel = false;
-                if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
+                if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY)) || "".equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
                     // No remote id exists, just create a UUID
                     unsyncedModel = true;
                     instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
