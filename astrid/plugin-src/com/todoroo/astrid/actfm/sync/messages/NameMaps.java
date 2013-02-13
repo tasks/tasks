@@ -174,7 +174,6 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   true);
         putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
         putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
-        putTagPropertyToServerName(TagData.TAG_ORDERING,    "tag_ordering", false);
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
         putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  true);
         putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);

@@ -86,6 +86,19 @@ public final class TaskListMetadata extends RemoteModel {
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TaskListMetadata.class);
 
+    public static final String FILTER_ID_ALL = "all";
+    public static final String FILTER_ID_TODAY = "today";
+    public static final String FILTER_ID_NO_LIST = "nolist";
+    public static final String FILTER_ID_ASSIGNED_BY_ME = "assigned";
+
+    public static final String SORT_AUTO = "auto";
+    public static final String SORT_MANUAL = "manual";
+    public static final String SORT_DUE = "due";
+    public static final String SORT_CREATED = "created";
+    public static final String SORT_COMPLETED = "completed";
+    public static final String SORT_UPDATED = "updated";
+    public static final String SORT_TITLE = "title";
+
     // --- defaults
 
     /** Default values container */

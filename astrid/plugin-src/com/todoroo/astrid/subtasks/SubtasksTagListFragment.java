@@ -12,21 +12,21 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 
 public class SubtasksTagListFragment extends TagViewFragment {
 
-    private final AstridOrderedListFragmentHelper<TagData> helper;
+    private final AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
     public SubtasksTagListFragment() {
         super();
-        helper = new AstridOrderedListFragmentHelper<TagData>(this, new SubtasksTagUpdater(isBeingFiltered));
+        helper = new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksTagUpdater(isBeingFiltered));
     }
 
     @Override
     protected void postLoadTagData() {
-        helper.setList(tagData);
+        helper.setList(taskListMetadata);
     }
 
     @Override

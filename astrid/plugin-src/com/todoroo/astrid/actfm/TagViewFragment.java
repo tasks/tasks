@@ -83,8 +83,6 @@ import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagViewFragment extends TaskListFragment {
 
-    private static final String LAST_FETCH_KEY = "tag-fetch-"; //$NON-NLS-1$
-
     public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.API_PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
 
     public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
@@ -649,11 +647,14 @@ public class TagViewFragment extends TaskListFragment {
         tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
         if (tagData == null) {
             // This can happen if a tag has been deleted as part of a sync
+            taskListMetadata = null;
             return;
         } else if (tagData.isDeleted()) {
             justDeleted = true;
             return;
         }
+        initializeTaskListMetadata();
+        postLoadTagData();
         filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
         getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
         extras.putParcelable(TOKEN_FILTER, filter);

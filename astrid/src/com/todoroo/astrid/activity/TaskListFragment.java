@@ -83,10 +83,13 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
@@ -180,6 +183,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     @Autowired TagDataService tagDataService;
 
+    @Autowired TaskListMetadataDao taskListMetadataDao;
+
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
@@ -202,6 +207,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected Bundle extras;
     protected boolean isInbox;
     protected boolean isTodayFilter;
+    protected TaskListMetadata taskListMetadata;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
@@ -379,6 +385,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         return null;
     }
 
+    public TaskListMetadata getTaskListMetadata() {
+        return taskListMetadata;
+    }
+
     protected void initializeData() {
         if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
@@ -392,10 +402,31 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (!isInbox)
             isTodayFilter = CustomFilterExposer.isTodayFilter(filter);
 
+        initializeTaskListMetadata();
+
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
+    }
+
+    protected void initializeTaskListMetadata() {
+        TagData td = getActiveTagData();
+        String tdId;
+        if (td == null) {
+            if (isInbox)
+                taskListMetadata = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.PROPERTIES);
+            else if (isTodayFilter)
+                taskListMetadata = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.PROPERTIES);
+        } else {
+            tdId = td.getUuid();
+            taskListMetadata = taskListMetadataDao.fetchByTagId(td.getUuid(), TaskListMetadata.PROPERTIES);
+            if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
+                taskListMetadata = new TaskListMetadata();
+                taskListMetadata.setValue(TaskListMetadata.TAG_UUID, tdId);
+                taskListMetadataDao.createNew(taskListMetadata);
+            }
+        }
     }
 
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {

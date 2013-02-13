@@ -10,13 +10,13 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
 public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
 
-    @Autowired TagDataService tagDataService;
+    @Autowired TaskListMetadataDao taskListMetadataDao;
     @Autowired TaskService taskService;
     @Autowired ActFmSyncService actFmSyncService;
 

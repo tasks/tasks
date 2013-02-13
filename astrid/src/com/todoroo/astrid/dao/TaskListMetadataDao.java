@@ -5,8 +5,12 @@
  */
 package com.todoroo.astrid.dao;
 
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskListMetadata;
@@ -31,6 +35,12 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
     @Override
     protected boolean shouldRecordOutstandingEntry(String columnName) {
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASK_LIST_METADATA, columnName);
+    }
+
+    public TaskListMetadata fetchByTagId(String tagUuid, Property<?>...properties) {
+        TodorooCursor<TaskListMetadata> taskListMetadata = query(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
+                TaskListMetadata.FILTER.eq(tagUuid))));
+        return returnFetchResult(taskListMetadata);
     }
 
 }

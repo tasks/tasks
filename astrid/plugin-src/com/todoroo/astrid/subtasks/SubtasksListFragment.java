@@ -14,6 +14,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 
 /**
  * Fragment for subtasks
@@ -32,8 +33,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
-        AstridOrderedListFragmentHelper<String> olfh =
-            new AstridOrderedListFragmentHelper<String>(this, new SubtasksFilterUpdater());
+        AstridOrderedListFragmentHelper<TaskListMetadata> olfh =
+            new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksFilterUpdater());
         return olfh;
     }
 

@@ -3,9 +3,9 @@ package com.todoroo.astrid.subtasks;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TaskListMetadata;
 
-public class SubtasksTagUpdater extends SubtasksUpdater<TagData> {
+public class SubtasksTagUpdater extends SubtasksFilterUpdater {
 
     private final AtomicBoolean isBeingFiltered;
 
@@ -14,23 +14,16 @@ public class SubtasksTagUpdater extends SubtasksUpdater<TagData> {
     }
 
     @Override
-    protected String getSerializedTree(TagData list, Filter filter) {
-        if (list == null || isBeingFiltered.get())
+    protected String getSerializedTree(TaskListMetadata list, Filter filter) {
+        if (isBeingFiltered.get())
             return "[]"; //$NON-NLS-1$
-        String order = list.getValue(TagData.TAG_ORDERING);
-        if (order == null || "null".equals(order)) //$NON-NLS-1$
-            order = "[]"; //$NON-NLS-1$
-
-        return order;
+        return super.getSerializedTree(list, filter);
     }
 
     @Override
-    protected void writeSerialization(TagData list, String serialized, boolean shouldQueueSync) {
+    protected void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
         if (!isBeingFiltered.get()) {
-            list.setValue(TagData.TAG_ORDERING, serialized);
-            tagDataService.save(list);
-            if (shouldQueueSync)
-                actFmSyncService.pushTagOrderingOnSave(list.getId());
+            super.writeSerialization(list, serialized, shouldQueueSync);
         }
     }
 
