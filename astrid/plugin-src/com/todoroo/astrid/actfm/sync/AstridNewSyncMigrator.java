@@ -248,6 +248,7 @@ public class AstridNewSyncMigrator {
             TodorooCursor<Metadata> fmCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
                     .where(MetadataCriteria.withKey(FileMetadata.METADATA_KEY)));
             try {
+                System.err.println("FILES COUNT: " + fmCursor.getCount());
                 Metadata m = new Metadata();
                 for (fmCursor.moveToFirst(); !fmCursor.isAfterLast(); fmCursor.moveToNext()) {
                     m.clear();
@@ -255,6 +256,7 @@ public class AstridNewSyncMigrator {
 
                     TaskAttachment attachment = new TaskAttachment();
                     Task task = taskDao.fetch(m.getValue(Metadata.TASK), Task.UUID);
+                    System.err.println("TASK UUID: " + task.getUuid());
                     if (task == null || !RemoteModel.isValidUuid(task.getUuid()))
                         continue;
 
@@ -264,15 +266,23 @@ public class AstridNewSyncMigrator {
                         synced = true;
                         attachment.setValue(TaskAttachment.UUID, Long.toString(oldRemoteId));
                     }
+                    System.err.println("ALREADY SYNCED: " + synced);
                     attachment.setValue(TaskAttachment.TASK_UUID, task.getUuid());
-                    attachment.setValue(TaskAttachment.NAME, m.getValue(FileMetadata.NAME));
-                    attachment.setValue(TaskAttachment.URL, m.getValue(FileMetadata.URL));
-                    attachment.setValue(TaskAttachment.FILE_PATH, m.getValue(FileMetadata.FILE_PATH));
-                    attachment.setValue(TaskAttachment.CONTENT_TYPE, m.getValue(FileMetadata.FILE_TYPE));
-                    attachment.setValue(TaskAttachment.DELETED_AT, m.getValue(FileMetadata.DELETION_DATE));
+                    if (m.containsNonNullValue(FileMetadata.NAME))
+                        attachment.setValue(TaskAttachment.NAME, m.getValue(FileMetadata.NAME));
+                    if (m.containsNonNullValue(FileMetadata.URL))
+                        attachment.setValue(TaskAttachment.URL, m.getValue(FileMetadata.URL));
+                    if (m.containsNonNullValue(FileMetadata.FILE_PATH))
+                        attachment.setValue(TaskAttachment.FILE_PATH, m.getValue(FileMetadata.FILE_PATH));
+                    if (m.containsNonNullValue(FileMetadata.FILE_TYPE))
+                        attachment.setValue(TaskAttachment.CONTENT_TYPE, m.getValue(FileMetadata.FILE_TYPE));
+                    if (m.containsNonNullValue(FileMetadata.DELETION_DATE))
+                        attachment.setValue(TaskAttachment.DELETED_AT, m.getValue(FileMetadata.DELETION_DATE));
 
-                    if (synced)
+                    if (synced) {
+                        System.err.println("ATTACHMENT UUID: " + attachment.getValue(TaskAttachment.UUID));
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                    }
 
                     taskAttachmentDao.createNew(attachment);
 
