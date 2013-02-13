@@ -44,17 +44,12 @@ public class Update extends RemoteModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote ID */
-    public static final StringProperty UUID = new StringProperty(
+    public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, UUID_PROPERTY_NAME);
 
     /** Associated Task remote-id (if any) */
-    @Deprecated // We changed uuids to strings
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
-
-    /** Associated Task uuidid (if any) */
-    public static final StringProperty TASK_UUID = new StringProperty(
-            TABLE, "taskUuid");
 
     /** Associated Task local-id (if any) */
     public static final LongProperty TASK_LOCAL = new LongProperty(
@@ -69,15 +64,15 @@ public class Update extends RemoteModel {
             TABLE, "tagsLocal");
 
     /** From user id */
-    public static final StringProperty USER_ID = new StringProperty(
+    public static final LongProperty USER_ID = new LongProperty(
             TABLE, USER_ID_PROPERTY_NAME);
 
     /** From User Object (JSON) */
-    @Deprecated public static final StringProperty USER = new StringProperty(
+    public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
     /** Other user id */
-    public static final StringProperty OTHER_USER_ID = new StringProperty(
+    public static final LongProperty OTHER_USER_ID = new LongProperty(
             TABLE, "other_user_id");
 
     /** Other User Object (JSON) */
@@ -126,15 +121,14 @@ public class Update extends RemoteModel {
     }
 
     static {
-        defaultValues.put(UUID.name, NO_UUID);
+        defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(TASK.name, 0);
-        defaultValues.put(TASK_UUID.name, NO_UUID);
         defaultValues.put(TASK_LOCAL.name, 0);
         defaultValues.put(TAGS.name, "");
         defaultValues.put(TAGS_LOCAL.name, 0);
-        defaultValues.put(USER_ID.name, "0");
+        defaultValues.put(USER_ID.name, 0);
         defaultValues.put(USER.name, "");
-        defaultValues.put(OTHER_USER_ID.name, "0");
+        defaultValues.put(OTHER_USER_ID.name, 0);
         defaultValues.put(OTHER_USER.name, "");
         defaultValues.put(ACTION.name, "");
         defaultValues.put(ACTION_CODE.name, "");
@@ -161,11 +155,11 @@ public class Update extends RemoteModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    }
+    };
 
     @Override
     public String getUuid() {
-        return getUuidHelper(UUID);
+        return null;
     }
 
     // --- parcelable helpers

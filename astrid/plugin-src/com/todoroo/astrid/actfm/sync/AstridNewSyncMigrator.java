@@ -191,7 +191,7 @@ public class AstridNewSyncMigrator {
         // --------------
         try {
             TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                    Criterion.and(Criterion.or(Update.UUID.eq(0), Update.UUID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
+                    Criterion.and(Criterion.or(Update.REMOTE_ID.eq(0), Update.REMOTE_ID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
                             Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));
             try {
                 Update update = new Update();
@@ -203,8 +203,8 @@ public class AstridNewSyncMigrator {
                     update.readFromCursor(updates);
 
                     boolean setTarget = true;
-                    if (!RemoteModel.isUuidEmpty(update.getValue(Update.TASK_UUID))) {
-                        userActivity.setValue(UserActivity.TARGET_ID, update.getValue(Update.TASK_UUID));
+                    if (!RemoteModel.isUuidEmpty(update.getValue(Update.TASK).toString())) {
+                        userActivity.setValue(UserActivity.TARGET_ID, update.getValue(Update.TASK).toString());
                     } else if (update.getValue(Update.TASK_LOCAL) > 0) {
                         Task local = taskDao.fetch(update.getValue(Update.TASK_LOCAL), Task.UUID);
                         if (local != null && !RemoteModel.isUuidEmpty(local.getUuid()))
@@ -216,7 +216,7 @@ public class AstridNewSyncMigrator {
                     }
 
                     if (setTarget) {
-                        userActivity.setValue(UserActivity.USER_UUID, update.getValue(Update.USER_ID));
+                        userActivity.setValue(UserActivity.USER_UUID, update.getValue(Update.USER_ID).toString());
                         userActivity.setValue(UserActivity.ACTION, update.getValue(Update.ACTION_CODE));
                         userActivity.setValue(UserActivity.MESSAGE, update.getValue(Update.MESSAGE));
                         userActivity.setValue(UserActivity.CREATED_AT, update.getValue(Update.CREATION_DATE));
