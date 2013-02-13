@@ -387,9 +387,11 @@ public class AstridNewSyncMigrator {
         TodorooCursor<TYPE> cursor = dao.query(query);
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                instance.clear();
                 instance.readPropertiesFromCursor(cursor);
                 boolean unsyncedModel = false;
-                if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY)) || "".equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
+                if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY)) ||
+                        "".equals(instance.getValue(RemoteModel.UUID_PROPERTY)) || "null".equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
                     // No remote id exists, just create a UUID
                     unsyncedModel = true;
                     instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
