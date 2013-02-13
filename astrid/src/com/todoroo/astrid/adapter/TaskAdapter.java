@@ -125,6 +125,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     /** Properties that need to be read from the action item */
     public static final Property<?>[] PROPERTIES = new Property<?>[] {
         Task.ID,
+        Task.UUID,
         Task.TITLE,
         Task.IS_READONLY,
         Task.IS_PUBLIC,
@@ -151,6 +152,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final Property<?>[] BASIC_PROPERTIES = new Property<?>[] {
         Task.ID,
+        Task.UUID,
         Task.TITLE,
         Task.IS_READONLY,
         Task.IS_PUBLIC,
