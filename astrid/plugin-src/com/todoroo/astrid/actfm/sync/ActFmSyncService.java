@@ -574,9 +574,6 @@ public final class ActFmSyncService {
             if(json.has("is_silent"))
                 model.setFlag(TagData.FLAGS, TagData.FLAG_SILENT,json.getBoolean("is_silent"));
 
-            if(json.has("emergent"))
-                model.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT,json.getBoolean("emergent"));
-
             if(!json.isNull("description"))
                 model.setValue(TagData.TAG_DESCRIPTION, json.getString("description"));
 

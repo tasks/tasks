@@ -173,11 +173,9 @@ public final class TagService {
     }
 
     public QueryTemplate untaggedTemplate() {
-        String[] emergentTags = getEmergentTagIds();
-
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
-                        .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0), Criterion.not(TaskToTagMetadata.TAG_UUID.in(emergentTags)))))),
+                        .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
                 TaskCriteria.isActive(),
                 TaskApiDao.TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
@@ -191,12 +189,8 @@ public final class TagService {
      * @return empty array if no tags, otherwise array
      */
     @Deprecated
-    public Tag[] getGroupedTags(Order order, Criterion activeStatus, boolean includeEmergent) {
-        Criterion criterion;
-        if (includeEmergent)
-            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
-        else
-            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY), Criterion.not(TaskToTagMetadata.TAG_UUID.in(getEmergentTagIds())));
+    public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
+        Criterion criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(criterion).
@@ -213,25 +207,6 @@ public final class TagService {
             return array.toArray(new Tag[array.size()]);
         } finally {
             cursor.close();
-        }
-    }
-
-    public String[] getEmergentTagIds() {
-        TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.UUID)
-                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
-        try {
-            ArrayList<String> tags = new ArrayList<String>();
-            TagData data = new TagData();
-            for (int i = 0; i < emergent.getCount(); i++) {
-                emergent.moveToPosition(i);
-                data.readFromCursor(emergent);
-                String uuid = data.getValue(TagData.UUID);
-                if (!TextUtils.isEmpty(uuid) && !"0".equals(uuid))
-                    tags.add(uuid);
-            }
-            return tags.toArray(new String[tags.size()]);
-        } finally {
-            emergent.close();
         }
     }
 
@@ -338,28 +313,20 @@ public final class TagService {
      * @param taskId
      * @return cursor. PLEASE CLOSE THE CURSOR!
      */
-    public TodorooCursor<Metadata> getTags(long taskId, boolean includeEmergent) {
-        Criterion criterion;
-        if (includeEmergent)
-            criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+    public TodorooCursor<Metadata> getTags(long taskId) {
+        Criterion criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     Metadata.DELETION_DATE.eq(0),
                     MetadataCriteria.byTask(taskId));
-        else
-            criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                    Metadata.DELETION_DATE.eq(0),
-                    MetadataCriteria.byTask(taskId), Criterion.not(TaskToTagMetadata.TAG_UUID.in(getEmergentTagIds())));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
         return metadataDao.query(query);
     }
 
-    public TodorooCursor<TagData> getTagDataForTask(long taskId, boolean includeEmergent, Property<?>... properties) {
+    public TodorooCursor<TagData> getTagDataForTask(long taskId, Property<?>... properties) {
         Criterion criterion = TagData.UUID.in(Query.select(TaskToTagMetadata.TAG_UUID)
                 .from(Metadata.TABLE)
                 .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                         Metadata.DELETION_DATE.eq(0),
                         Metadata.TASK.eq(taskId))));
-        if (!includeEmergent)
-            criterion = Criterion.and(Criterion.not(TagData.UUID.in(getEmergentTagIds())), criterion);
 
         return tagDataService.query(Query.select(properties).where(criterion));
     }
@@ -377,8 +344,8 @@ public final class TagService {
      * @param taskId
      * @return empty string if no tags, otherwise string
      */
-    public String getTagsAsString(long taskId, boolean includeEmergent) {
-        return getTagsAsString(taskId, ", ", includeEmergent);
+    public String getTagsAsString(long taskId) {
+        return getTagsAsString(taskId, ", ");
     }
 
     /**
@@ -387,9 +354,9 @@ public final class TagService {
      * @param taskId
      * @return empty string if no tags, otherwise string
      */
-    public String getTagsAsString(long taskId, String separator, boolean includeEmergent) {
+    public String getTagsAsString(long taskId, String separator) {
         StringBuilder tagBuilder = new StringBuilder();
-        TodorooCursor<Metadata> tags = getTags(taskId, includeEmergent);
+        TodorooCursor<Metadata> tags = getTags(taskId);
         try {
             int length = tags.getCount();
             Metadata metadata = new Metadata();
@@ -437,7 +404,7 @@ public final class TagService {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 tagData.readFromCursor(cursor);
                 Tag tag = new Tag(tagData);
-                if(tagData.getValue(TagData.DELETION_DATE) > 0 || tagData.getFlag(TagData.FLAGS, TagData.FLAG_EMERGENT) || tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
+                if(tagData.getValue(TagData.DELETION_DATE) > 0 || tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
                     continue;
                 }
                 if(TextUtils.isEmpty(tag.tag))

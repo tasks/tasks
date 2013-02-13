@@ -138,6 +138,7 @@ public final class TagData extends RemoteModel {
     public static final int FLAG_SILENT = 1 << 1;
 
     /** whether tag is emergent */
+    @Deprecated
     public static final int FLAG_EMERGENT = 1 << 2;
 
     /** whether tag represents a featured list */

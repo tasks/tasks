@@ -9,6 +9,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -96,6 +97,28 @@ public class AstridNewSyncMigrator {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error creating tag data", e);
+        }
+
+        // --------------
+        // Delete all emergent tag data, we don't need it
+        // --------------
+        try {
+            TodorooCursor<TagData> emergentTags = tagDataDao.query(Query.select(TagData.ID, TagData.NAME).where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
+            try {
+                TagData td = new TagData();
+                for (emergentTags.moveToFirst(); !emergentTags.isAfterLast(); emergentTags.moveToNext()) {
+                    td.clear();
+                    td.readFromCursor(emergentTags);
+                    String name = td.getValue(TagData.NAME);
+                    tagDataDao.delete(td.getId());
+                    if (!TextUtils.isEmpty(name))
+                        metadataService.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_NAME.eq(name)));
+                }
+            } finally {
+                emergentTags.close();
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error clearing emergent tags");
         }
 
         // --------------
@@ -252,14 +275,14 @@ public class AstridNewSyncMigrator {
                     if (ActFmInvoker.SYNC_DEBUG)
                         Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
 
-                    if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TASK_UUID))) {
+                    if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.isUuidEmpty(m.getValue(TaskToTagMetadata.TASK_UUID))) {
                         if (ActFmInvoker.SYNC_DEBUG)
                             Log.w(LOG_TAG, "No task uuid");
                         updateTaskUuid(m);
                         changes = true;
                     }
 
-                    if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TaskToTagMetadata.TAG_UUID))) {
+                    if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.isUuidEmpty(m.getValue(TaskToTagMetadata.TAG_UUID))) {
                         if (ActFmInvoker.SYNC_DEBUG)
                             Log.w(LOG_TAG, "No tag uuid");
                         updateTagUuid(m);
