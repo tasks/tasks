@@ -317,7 +317,10 @@ public class AstridNewSyncMigrator {
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
             tlm.setValue(TaskListMetadata.TASK_IDS, activeTasksOrder);
             tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-            taskListMetadataDao.createNew(tlm);
+            if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_ALL), tlm) <= 0) {
+                tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                taskListMetadataDao.createNew(tlm);
+            }
 
             tlm.clear();
             String todayTasksOrder = Preferences.getStringValue(SubtasksUpdater.TODAY_TASKS_ORDER);
@@ -329,7 +332,10 @@ public class AstridNewSyncMigrator {
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_TODAY);
             tlm.setValue(TaskListMetadata.TASK_IDS, todayTasksOrder);
             tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-            taskListMetadataDao.createNew(tlm);
+            if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_TODAY), tlm) <= 0) {
+                tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                taskListMetadataDao.createNew(tlm);
+            }
 
             TodorooCursor<TagData> allTagData = tagDataDao.query(Query.select(TagData.ID, TagData.UUID, TagData.TAG_ORDERING));
             try {
