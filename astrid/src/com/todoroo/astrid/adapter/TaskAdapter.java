@@ -430,6 +430,19 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         setTaskAppearance(viewHolder, task);
     }
 
+    public String getItemUuid(int position) {
+        TodorooCursor<Task> c = (TodorooCursor<Task>) getCursor();
+        if (c != null) {
+            if (c.moveToPosition(position)) {
+                return c.get(Task.UUID);
+            } else {
+                return RemoteModel.NO_UUID;
+            }
+        } else {
+            return RemoteModel.NO_UUID;
+        }
+    }
+
     /**
      * View Holder saves a lot of findViewById lookups.
      *

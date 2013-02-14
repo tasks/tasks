@@ -33,6 +33,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
@@ -117,13 +118,13 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final DropListener dropListener = new DropListener() {
         @Override
         public void drop(int from, int to) {
-            long targetTaskId = taskAdapter.getItemId(from);
-            if (targetTaskId <= 0) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
-            long destinationTaskId = taskAdapter.getItemId(to);
+            String targetTaskId = taskAdapter.getItemUuid(from);
+            if (!RemoteModel.isValidUuid(targetTaskId)) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            String destinationTaskId = taskAdapter.getItemUuid(to);
 
             try {
                 if(to >= getListView().getCount())
-                    updater.moveTo(list, getFilter(), targetTaskId, -1);
+                    updater.moveTo(list, getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
                 else
                     updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
             } catch (Exception e) {
@@ -147,8 +148,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
 
         protected void indent(int which, int delta) {
-            long targetTaskId = taskAdapter.getItemId(which);
-            if (targetTaskId <= 0) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            String targetTaskId = taskAdapter.getItemUuid(which);
+            if (!RemoteModel.isValidUuid(targetTaskId)) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             try {
                 updater.indent(list, getFilter(), targetTaskId, delta);
             } catch (Exception e) {
@@ -218,7 +219,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
-            int indent = updater.getIndentForTask(vh.task.getId());
+            int indent = updater.getIndentForTask(vh.task.getUuid());
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }
 

@@ -34,16 +34,13 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public static class Node {
-//        public long taskId;
-        public String uuid; // For parsing and syncing -- not used elsewhere
+        public String uuid;
         public Node parent;
         public int indent;
         public final ArrayList<Node> children = new ArrayList<Node>();
 
         public Node(String uuid, Node parent, int indent) {
-//            this.taskId = taskId;
             this.uuid = uuid;
-//            this.uuid = "-1"; //$NON-NLS-1$
             this.parent = parent;
             this.indent = indent;
         }
@@ -57,7 +54,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
     protected abstract void writeSerialization(LIST list, String serialized, boolean shouldQueueSync);
     protected abstract void applyToFilter(Filter filter);
 
-    public int getIndentForTask(long targetTaskId) {
+    public int getIndentForTask(String targetTaskId) {
         Node n = idToNode.get(targetTaskId);
         if (n == null)
             return 0;
@@ -184,7 +181,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         applyToDescendantsHelper(treeRoot, visitor);
     }
 
-    public void indent(LIST list, Filter filter, long targetTaskId, int delta) {
+    public void indent(LIST list, Filter filter, String targetTaskId, int delta) {
         Node node = idToNode.get(targetTaskId);
         indentHelper(list, filter, node, delta);
     }
@@ -242,12 +239,12 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    public void moveTo(LIST list, Filter filter, long targetTaskId, long beforeTaskId) {
+    public void moveTo(LIST list, Filter filter, String targetTaskId, String beforeTaskId) {
         Node target = idToNode.get(targetTaskId);
         if (target == null)
             return;
 
-        if (beforeTaskId == -1) {
+        if ("-1".equals(beforeTaskId)) { //$NON-NLS-1$
             moveToEndOfList(list, filter, target);
             return;
         }

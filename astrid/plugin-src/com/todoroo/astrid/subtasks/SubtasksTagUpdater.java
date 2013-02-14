@@ -28,7 +28,7 @@ public class SubtasksTagUpdater extends SubtasksFilterUpdater {
     }
 
     @Override
-    public int getIndentForTask(long targetTaskId) {
+    public int getIndentForTask(String targetTaskId) {
         if (isBeingFiltered.get())
             return 0;
         return super.getIndentForTask(targetTaskId);
