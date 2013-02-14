@@ -232,22 +232,21 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
     }
 
-    private final Map<Long, ArrayList<Long>> chainedCompletions =
-        Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
+    private final Map<String, ArrayList<String>> chainedCompletions =
+        Collections.synchronizedMap(new HashMap<String, ArrayList<String>>());
 
     private void setCompletedForItemAndSubtasks(final Task item, final boolean completedState) {
-        final long itemId = item.getId();
+        final String itemId = item.getUuid();
 
         final Task model = new Task();
         final long completionDate = completedState ? DateUtilities.now() : 0;
 
         if(completedState == false) {
-            ArrayList<Long> chained = chainedCompletions.get(itemId);
+            ArrayList<String> chained = chainedCompletions.get(itemId);
             if(chained != null) {
-                for(Long taskId : chained) {
-                    model.setId(taskId);
+                for(String taskId : chained) {
                     model.setValue(Task.COMPLETION_DATE, completionDate);
-                    taskService.save(model);
+                    taskService.update(Task.UUID.eq(taskId), model);
                     model.clear();
 
                     taskAdapter.getCompletedItems().put(taskId, false);
@@ -257,23 +256,23 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             return;
         }
 
-        final ArrayList<Long> chained = new ArrayList<Long>();
+        final ArrayList<String> chained = new ArrayList<String>();
         updater.applyToDescendants(itemId, new AstridOrderedListUpdater.OrderedListNodeVisitor() {
             @Override
             public void visitNode(AstridOrderedListUpdater.Node node) {
-                model.setId(node.taskId);
+                String uuid = node.uuid;
                 model.setValue(Task.COMPLETION_DATE, completionDate);
-                taskService.save(model);
+                taskService.update(Task.UUID.eq(uuid), model);
                 model.clear();
 
-                taskAdapter.getCompletedItems().put(node.taskId, true);
-                chained.add(node.taskId);
+                taskAdapter.getCompletedItems().put(node.uuid, true);
+                chained.add(node.uuid);
             }
         });
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            TodorooCursor<Task> recurring = taskService.query(Query.select(Task.ID, Task.RECURRENCE).where(
+            TodorooCursor<Task> recurring = taskService.query(Query.select(Task.ID, Task.UUID, Task.RECURRENCE).where(
                     Criterion.and(Task.ID.in(chained.toArray(new Long[chained.size()])),
                                    Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
             try {
@@ -283,7 +282,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
                     t.clear();
                     t.readFromCursor(recurring);
                     if (!TextUtils.isEmpty(t.getValue(Task.RECURRENCE))) {
-                        updater.moveToParentOf(t.getId(), itemId);
+                        updater.moveToParentOf(t.getUuid(), itemId);
                         madeChanges = true;
                     }
                 }
@@ -311,14 +310,14 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     }
 
     public void onCreateTask(Task task) {
-        updater.onCreateTask(list, getFilter(), task.getId());
+        updater.onCreateTask(list, getFilter(), task.getUuid());
         fragment.reconstructCursor();
         fragment.loadTaskListContent(true);
         fragment.selectCustomId(task.getId());
     }
 
     public void onDeleteTask(Task task) {
-        updater.onDeleteTask(list, getFilter(), task.getId());
+        updater.onDeleteTask(list, getFilter(), task.getUuid());
         taskAdapter.notifyDataSetInvalidated();
     }
 

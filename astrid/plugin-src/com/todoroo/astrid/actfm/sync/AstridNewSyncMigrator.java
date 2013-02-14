@@ -46,6 +46,7 @@ import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -310,6 +311,8 @@ public class AstridNewSyncMigrator {
             if (TextUtils.isEmpty(activeTasksOrder))
                 activeTasksOrder = "[]";
 
+            activeTasksOrder = SubtasksHelper.convertTreeToRemoteIds(activeTasksOrder);
+
             TaskListMetadata tlm = new TaskListMetadata();
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
             tlm.setValue(TaskListMetadata.TASK_IDS, activeTasksOrder);
@@ -320,6 +323,8 @@ public class AstridNewSyncMigrator {
             String todayTasksOrder = Preferences.getStringValue(SubtasksUpdater.TODAY_TASKS_ORDER);
             if (TextUtils.isEmpty(todayTasksOrder))
                 todayTasksOrder = "[]";
+
+            todayTasksOrder = SubtasksHelper.convertTreeToRemoteIds(todayTasksOrder);
 
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_TODAY);
             tlm.setValue(TaskListMetadata.TASK_IDS, todayTasksOrder);
@@ -335,6 +340,8 @@ public class AstridNewSyncMigrator {
 
                     td.readFromCursor(allTagData);
                     String tagOrdering = td.getValue(TagData.TAG_ORDERING);
+                    tagOrdering = SubtasksHelper.convertTreeToRemoteIds(tagOrdering);
+
                     tlm.setValue(TaskListMetadata.TASK_IDS, tagOrdering);
                     tlm.setValue(TaskListMetadata.TAG_UUID, td.getUuid());
                     if (!tagsThatNeedOrderingSync.contains(td.getId()))

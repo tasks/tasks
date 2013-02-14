@@ -93,7 +93,7 @@ public class SubtasksMetadataMigration {
 
     private String buildTreeModelFromMetadata(String tag, TodorooCursor<Metadata> cursor) {
         Metadata item = new Metadata();
-        Node root = new Node(-1, null, -1);
+        Node root = new Node("-1", null, -1); //$NON-NLS-1$
         for (; !cursor.isAfterLast(); cursor.moveToNext()) {
             item.clear();
             item.readFromCursor(cursor);
@@ -107,10 +107,10 @@ public class SubtasksMetadataMigration {
                     indent = i.intValue();
             }
             Node parent = findNextParentForIndent(root, indent);
-            Node newNode = new Node(item.getValue(Metadata.TASK), parent, parent.indent + 1);
+            Node newNode = new Node(item.getValue(Metadata.TASK).toString(), parent, parent.indent + 1);
             parent.children.add(newNode);
         }
-        return AstridOrderedListUpdater.serializeTree(root, false);
+        return AstridOrderedListUpdater.serializeTree(root);
     }
 
     private Node findNextParentForIndent(Node root, int indent) {

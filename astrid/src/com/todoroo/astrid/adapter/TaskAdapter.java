@@ -216,7 +216,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final Context context;
     protected final TaskListFragment fragment;
     protected final Resources resources;
-    protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
+    protected final HashMap<Object, Boolean> completedItems = new HashMap<Object, Boolean>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     protected final int resource;
@@ -884,17 +884,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         startDetailThread();
     }
 
-    /**
-     * Called to tell the cache to be cleared
-     */
-    public void flushSpecific(long taskId) {
-        completedItems.put(taskId, null);
-        decorationManager.clearCache(taskId);
-        taskDetailLoader.remove(taskId);
-        taskActionLoader.remove(taskId);
-    }
-
-    public HashMap<Long, Boolean> getCompletedItems() {
+    public HashMap<Object, Boolean> getCompletedItems() {
         return completedItems;
     }
 
@@ -1075,7 +1065,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (activity == null)
             return;
         // show item as completed if it was recently checked
-        if(completedItems.get(task.getId()) != null) {
+        if(completedItems.get(task.getUuid()) != null || completedItems.get(task.getId()) != null) {
             task.setValue(Task.COMPLETION_DATE,
                     completedItems.get(task.getId()) ? DateUtilities.now() : 0);
         }
@@ -1252,7 +1242,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(onCompletedTaskListener != null)
                 onCompletedTaskListener.onCompletedTask(task, newState);
 
-            completedItems.put(task.getId(), newState);
+            completedItems.put(task.getUuid(), newState);
             taskService.setComplete(task, newState);
         }
     }

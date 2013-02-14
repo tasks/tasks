@@ -91,11 +91,12 @@ public class SubtasksHelper {
         else
             serialized = Preferences.getStringValue(SubtasksUpdater.ACTIVE_TASKS_ORDER);
 
-        return AstridOrderedListUpdater.buildOrderString(getIdArray(serialized));
+        return AstridOrderedListUpdater.buildOrderString(getStringIdArray(serialized));
     }
 
     @SuppressWarnings("nls")
-    public static Long[] getIdArray(String serializedTree) {
+    @Deprecated
+    private static Long[] getIdArray(String serializedTree) {
         ArrayList<Long> ids = new ArrayList<Long>();
         String[] digitsOnly = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : digitsOnly) {
@@ -132,14 +133,19 @@ public class SubtasksHelper {
 
         Node tree = AstridOrderedListUpdater.buildTreeModel(localTree, null);
         remapLocalTreeToRemote(tree, idMap);
-        return AstridOrderedListUpdater.serializeTree(tree, true);
+        return AstridOrderedListUpdater.serializeTree(tree);
     }
 
     private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
-            String uuid = idMap.get(child.taskId);
+
+            long localId = -1L;
+            try {
+                localId = Long.parseLong(child.uuid);
+            } catch (NumberFormatException e) {/**/}
+            String uuid = idMap.get(localId);
             if (!RemoteModel.isValidUuid(uuid)) {
                 children.remove(i);
                 children.addAll(i, child.children);
@@ -147,37 +153,6 @@ public class SubtasksHelper {
             } else {
                 child.uuid = uuid;
                 remapLocalTreeToRemote(child, idMap);
-            }
-        }
-    }
-
-    /**
-     * Takes a subtasks string containing UUIDs and remaps it to one containing local ids
-     * @param remoteTree
-     * @return
-     */
-    public static String convertTreeToLocalIds(String remoteTree) {
-        String[] uuids = getStringIdArray(remoteTree);
-        HashMap<String, Long> idMap = getIdMap(uuids, Task.UUID, Task.ID);
-        idMap.put("-1", -1L); //$NON-NLS-1$
-
-        Node tree = AstridOrderedListUpdater.buildTreeModel(remoteTree, null, true);
-        remapRemoteTreeToLocal(tree, idMap);
-        return AstridOrderedListUpdater.serializeTree(tree);
-    }
-
-    private static void remapRemoteTreeToLocal(Node root, HashMap<String, Long> idMap) {
-        ArrayList<Node> children = root.children;
-        for (int i = 0; i < children.size(); i++) {
-            Node child = children.get(i);
-            Long localId = idMap.get(child.uuid);
-            if (localId == null || localId <= 0) {
-                children.remove(i);
-                children.addAll(i, child.children);
-                i--;
-            } else {
-                child.taskId = localId;
-                remapRemoteTreeToLocal(child, idMap);
             }
         }
     }

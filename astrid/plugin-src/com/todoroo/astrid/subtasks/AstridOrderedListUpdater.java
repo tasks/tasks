@@ -26,7 +26,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public AstridOrderedListUpdater() {
         DependencyInjectionService.getInstance().inject(this);
-        idToNode = new HashMap<Long, Node>();
+        idToNode = new HashMap<String, Node>();
     }
 
     public interface OrderedListNodeVisitor {
@@ -34,15 +34,16 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public static class Node {
-        public long taskId;
+//        public long taskId;
         public String uuid; // For parsing and syncing -- not used elsewhere
         public Node parent;
         public int indent;
         public final ArrayList<Node> children = new ArrayList<Node>();
 
-        public Node(long taskId, Node parent, int indent) {
-            this.taskId = taskId;
-            this.uuid = "-1"; //$NON-NLS-1$
+        public Node(String uuid, Node parent, int indent) {
+//            this.taskId = taskId;
+            this.uuid = uuid;
+//            this.uuid = "-1"; //$NON-NLS-1$
             this.parent = parent;
             this.indent = indent;
         }
@@ -50,7 +51,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     private Node treeRoot;
 
-    private final HashMap<Long, Node> idToNode;
+    private final HashMap<String, Node> idToNode;
 
     protected abstract String getSerializedTree(LIST list, Filter filter);
     protected abstract void writeSerialization(LIST list, String serialized, boolean shouldQueueSync);
@@ -71,7 +72,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         treeRoot = buildTreeModel(serializedTree, new JSONTreeModelBuilder() {
             @Override
             public void afterAddNode(Node node) {
-                idToNode.put(node.taskId, node);
+                idToNode.put(node.uuid, node);
             }
         });
         verifyTreeModel(list, filter);
@@ -79,16 +80,16 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     private void verifyTreeModel(LIST list, Filter filter) {
         boolean changedThings = false;
-        Set<Long> keySet = idToNode.keySet();
-        Set<Long> currentIds = new HashSet<Long>();
-        for (Long id : keySet) {
+        Set<String> keySet = idToNode.keySet();
+        Set<String> currentIds = new HashSet<String>();
+        for (String id : keySet) {
             currentIds.add(id);
         }
-        Set<Long> idsInQuery = new HashSet<Long>();
-        TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID);
+        Set<String> idsInQuery = new HashSet<String>();
+        TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                Long id = tasks.getLong(0);
+                String id = tasks.getString(0);
                 idsInQuery.add(id);
                 if (idToNode.containsKey(id))
                     continue;
@@ -111,8 +112,8 @@ public abstract class AstridOrderedListUpdater<LIST> {
             writeSerialization(list, serializeTree(), false);
     }
 
-    private void removeNodes(Set<Long> idsToRemove) {
-        for (Long id : idsToRemove) {
+    private void removeNodes(Set<String> idsToRemove) {
+        for (String id : idsToRemove) {
             Node node = idToNode.get(id);
             if (node == null)
                 continue;
@@ -132,39 +133,39 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return idToNode.get(taskId);
     }
 
-    public Long[] getOrderedIds() {
-        ArrayList<Long> ids = new ArrayList<Long>();
+    private String[] getOrderedIds() {
+        ArrayList<String> ids = new ArrayList<String>();
         orderedIdHelper(treeRoot, ids);
-        return ids.toArray(new Long[ids.size()]);
+        return ids.toArray(new String[ids.size()]);
     }
 
     public String getOrderString() {
-        Long[] ids = getOrderedIds();
+        String[] ids = getOrderedIds();
         return buildOrderString(ids);
     }
 
-    public static String buildOrderString(Long[] ids) {
+    public static String buildOrderString(String[] ids) {
         StringBuilder builder = new StringBuilder();
         if (ids.length == 0)
             return "(1)"; //$NON-NLS-1$
         for (int i = ids.length - 1; i >= 0; i--) {
-            builder.append(Task.ID.eq(ids[i]).toString());
+            builder.append(Task.UUID.eq(ids[i]).toString());
             if (i > 0)
                 builder.append(", "); //$NON-NLS-1$
         }
         return builder.toString();
     }
 
-    private void orderedIdHelper(Node node, List<Long> ids) {
+    private void orderedIdHelper(Node node, List<String> ids) {
         if (node != treeRoot)
-            ids.add(node.taskId);
+            ids.add(node.uuid);
 
         for (Node child : node.children) {
             orderedIdHelper(child, ids);
         }
     }
 
-    public void applyToDescendants(long taskId, OrderedListNodeVisitor visitor) {
+    public void applyToDescendants(String taskId, OrderedListNodeVisitor visitor) {
         Node n = idToNode.get(taskId);
         if (n == null)
             return;
@@ -262,7 +263,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         moveHelper(list, filter, target, before);
     }
 
-    public void moveToParentOf(long moveThis, long toParentOfThis) {
+    public void moveToParentOf(String moveThis, String toParentOfThis) {
         Node target = idToNode.get(toParentOfThis);
         if (target == null)
             return;
@@ -328,18 +329,18 @@ public abstract class AstridOrderedListUpdater<LIST> {
         applyToFilter(filter);
     }
 
-    public void onCreateTask(LIST list, Filter filter, long taskId) {
-        if (idToNode.containsKey(taskId) || taskId < 0)
+    public void onCreateTask(LIST list, Filter filter, String uuid) {
+        if (idToNode.containsKey(uuid) || !RemoteModel.isValidUuid(uuid))
             return;
 
-        Node newNode = new Node(taskId, treeRoot, 0);
+        Node newNode = new Node(uuid, treeRoot, 0);
         treeRoot.children.add(newNode);
-        idToNode.put(taskId, newNode);
+        idToNode.put(uuid, newNode);
         writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);
     }
 
-    public void onDeleteTask(LIST list, Filter filter, long taskId) {
+    public void onDeleteTask(LIST list, Filter filter, String taskId) {
         Node task = idToNode.get(taskId);
         if (task == null)
             return;
@@ -367,41 +368,28 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback) {
-        return buildTreeModel(serializedTree, callback, false);
-    }
-    public static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback, boolean useUuid) {
-        Node root = new Node(-1, null, -1);
+        Node root = new Node("-1", null, -1); //$NON-NLS-1$
         try {
             JSONArray tree = new JSONArray(serializedTree);
-            recursivelyBuildChildren(root, tree, callback, useUuid);
+            recursivelyBuildChildren(root, tree, callback);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error building tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
         }
         return root;
     }
 
-    private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback, boolean useUuid) throws JSONException {
+    private static void recursivelyBuildChildren(Node node, JSONArray children, JSONTreeModelBuilder callback) throws JSONException {
         for (int i = 1; i < children.length(); i++) {
             JSONArray subarray = children.optJSONArray(i);
-            Long id = 0L;
             String uuid = RemoteModel.NO_UUID;
-            if (!useUuid) {
-                if (subarray == null)
-                    id = children.getLong(i);
-                else
-                    id = subarray.getLong(0);
-            } else {
-                if (subarray == null)
-                    uuid = children.getString(i);
-                else
-                    uuid = subarray.getString(0);
-            }
+            if (subarray == null)
+                uuid = children.getString(i);
+            else
+                uuid = subarray.getString(0);
 
-            Node child = new Node(id, node, node.indent + 1);
-            if (useUuid)
-                child.uuid = uuid;
+            Node child = new Node(uuid, node, node.indent + 1);
             if (subarray != null)
-                recursivelyBuildChildren(child, subarray, callback, useUuid);
+                recursivelyBuildChildren(child, subarray, callback);
             node.children.add(child);
             if (callback != null)
                 callback.afterAddNode(child);
@@ -409,43 +397,33 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     protected String serializeTree() {
-        return serializeTree(treeRoot, false);
+        return serializeTree(treeRoot);
     }
 
     public static String serializeTree(Node root) {
-        return serializeTree(root, false);
-    }
-
-    public static String serializeTree(Node root, boolean useUuid) {
         JSONArray tree = new JSONArray();
         if (root == null) {
             return tree.toString();
         }
 
         try {
-            recursivelySerialize(root, tree, useUuid);
+            recursivelySerialize(root, tree);
         } catch (JSONException e) {
             Log.e("OrderedListUpdater", "Error serializing tree model", e);  //$NON-NLS-1$//$NON-NLS-2$
         }
         return tree.toString();
     }
 
-    private static void recursivelySerialize(Node node, JSONArray serializeTo, boolean useUuid) throws JSONException {
+    private static void recursivelySerialize(Node node, JSONArray serializeTo) throws JSONException {
         ArrayList<Node> children = node.children;
-        if (useUuid)
-            serializeTo.put(node.uuid);
-        else
-            serializeTo.put(node.taskId);
+        serializeTo.put(node.uuid);
         for (Node child : children) {
             if (child.children.size() > 0) {
                 JSONArray branch = new JSONArray();
-                recursivelySerialize(child, branch, useUuid);
+                recursivelySerialize(child, branch);
                 serializeTo.put(branch);
             } else {
-                if (useUuid)
-                    serializeTo.put(child.uuid);
-                else
-                    serializeTo.put(child.taskId);
+                serializeTo.put(child.uuid);
             }
         }
     }

@@ -230,55 +230,6 @@ public final class ActFmSyncService {
         }
     }
 
-    public void fetchFilterOrder(String localFilterId) {
-        if (!checkForToken())
-            return;
-
-        String filterId = SubtasksHelper.serverFilterOrderId(localFilterId);
-        ArrayList<Object> params = new ArrayList<Object>();
-        params.add("filter"); params.add(filterId);
-        params.add("token"); params.add(token);
-
-        try {
-            JSONObject result = actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
-            String order = result.optString("order");
-            if (!TextUtils.isEmpty(order) && !"null".equals(order))
-                Preferences.setString(localFilterId, SubtasksHelper.convertTreeToLocalIds(order));
-        } catch (IOException e) {
-            handleException("fetch-filter-order", e);
-        }
-    }
-
-    public void fetchTagOrder(TagData tagData) {
-        if (!checkForToken())
-            return;
-
-        if (!RemoteModel.isValidUuid(tagData.getUuid()))
-            return;
-
-        try {
-            JSONObject result = actFmInvoker.invoke("list_order", "tag_id", tagData.getValue(TagData.UUID), "token", token);
-            JSONArray ordering = result.optJSONArray("order");
-            if (ordering == null)
-                return;
-            if (ordering.optLong(0) != -1L) {
-                JSONArray newOrdering = new JSONArray();
-                newOrdering.put(-1L);
-                for (int i = 0; i < ordering.length(); i++)
-                    newOrdering.put(ordering.get(i));
-                ordering = newOrdering;
-            }
-            String orderString = ordering.toString();
-            String localOrder = SubtasksHelper.convertTreeToLocalIds(orderString);
-            tagData.setValue(TagData.TAG_ORDERING, localOrder);
-            tagDataService.save(tagData);
-        } catch (JSONException e) {
-            handleException("fetch-tag-order-json", e);
-        } catch (IOException e) {
-            handleException("fetch-tag-order-io", e);
-        }
-    }
-
     // --- data fetch methods
     public int fetchFeaturedLists(int serverTime) throws JSONException, IOException {
         if (!checkForToken())
