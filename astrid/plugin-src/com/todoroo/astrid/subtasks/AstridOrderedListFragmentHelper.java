@@ -273,8 +273,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            TodorooCursor<Task> recurring = taskService.query(Query.select(Task.ID, Task.UUID, Task.RECURRENCE).where(
-                    Criterion.and(Task.ID.in(chained.toArray(new Long[chained.size()])),
+            TodorooCursor<Task> recurring = taskService.query(Query.select(Task.UUID, Task.RECURRENCE).where(
+                    Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
                                    Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
             try {
                 Task t = new Task();

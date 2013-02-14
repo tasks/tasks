@@ -126,7 +126,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    public Node findNodeForTask(long taskId) {
+    public Node findNodeForTask(String taskId) {
         return idToNode.get(taskId);
     }
 
