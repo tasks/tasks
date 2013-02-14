@@ -104,7 +104,9 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
@@ -415,15 +417,24 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         String tdId;
         if (td == null) {
             String filterId = null;
-            if (isInbox)
+            String prefId = null;
+            if (isInbox) {
                 filterId = TaskListMetadata.FILTER_ID_ALL;
-            else if (isTodayFilter)
+                prefId = SubtasksUpdater.ACTIVE_TASKS_ORDER;
+            } else if (isTodayFilter) {
                 filterId = TaskListMetadata.FILTER_ID_TODAY;
+                prefId = SubtasksUpdater.TODAY_TASKS_ORDER;
+            }
             if (!TextUtils.isEmpty(filterId)) {
                 taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
                 if (taskListMetadata == null) {
+                    String defaultOrder = Preferences.getStringValue(prefId);
+                    if (TextUtils.isEmpty(defaultOrder))
+                        defaultOrder = "[]"; //$NON-NLS-1$
+                    defaultOrder = SubtasksHelper.convertTreeToRemoteIds(defaultOrder);
                     taskListMetadata = new TaskListMetadata();
                     taskListMetadata.setValue(TaskListMetadata.FILTER, filterId);
+                    taskListMetadata.setValue(TaskListMetadata.TASK_IDS, defaultOrder);
                     taskListMetadataDao.createNew(taskListMetadata);
                 }
             }
