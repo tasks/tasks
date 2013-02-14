@@ -1078,9 +1078,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (activity == null)
             return;
         // show item as completed if it was recently checked
-        if(completedItems.get(task.getUuid()) != null || completedItems.get(task.getId()) != null) {
+        Boolean value = completedItems.get(task.getUuid());
+        if (value == null)
+            value = completedItems.get(task.getId());
+        if(value != null) {
             task.setValue(Task.COMPLETION_DATE,
-                    completedItems.get(task.getId()) ? DateUtilities.now() : 0);
+                    value ? DateUtilities.now() : 0);
         }
         boolean state = task.isCompleted();
 
