@@ -314,10 +314,10 @@ public class NameMaps {
         putTaskListMetadataPropertyToServerName(TaskListMetadata.TAG_UUID,      "tag_id",        true);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.FILTER,        "filter",        true);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.TASK_IDS,      "task_ids",      true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.SORT,          "sort",          true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.SETTINGS,      "settings",      true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.CHILD_TAG_IDS, "child_tag_ids", true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.IS_COLLAPSED,  "is_collapsed",  true);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.SORT,          "sort",          false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.SETTINGS,      "settings",      false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.CHILD_TAG_IDS, "child_tag_ids", false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.IS_COLLAPSED,  "is_collapsed",  false);
 
         // Reverse the mapping to construct the server to local map
         TASK_LIST_METADATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER);
