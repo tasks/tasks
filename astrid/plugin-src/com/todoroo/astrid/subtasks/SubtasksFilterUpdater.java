@@ -3,6 +3,7 @@ package com.todoroo.astrid.subtasks;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TaskListMetadata;
 
 public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
@@ -28,6 +29,8 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
     protected void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
         if (list != null && syncMigrationOccurred()) {
             list.setValue(TaskListMetadata.TASK_IDS, serialized);
+            if (!shouldQueueSync)
+                list.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             taskListMetadataDao.saveExisting(list);
         }
     }
