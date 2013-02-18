@@ -86,6 +86,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     protected void refresh() {
+        initializeTaskListMetadata();
         setUpTaskList();
     }
 
