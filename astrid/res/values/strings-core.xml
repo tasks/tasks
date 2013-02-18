@@ -429,9 +429,6 @@
 
   <!-- slide 16f -->
   <string name="TEA_control_timer">Timer Controls</string>
-
-  <!-- slide 16g -->
-  <string name="TEA_control_share">Share With Friends</string>
   
   <string name="TEA_control_hidden_section">----Hide Always----</string>
   

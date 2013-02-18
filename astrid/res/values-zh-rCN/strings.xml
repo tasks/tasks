@@ -266,7 +266,6 @@
   <string name="TEA_control_files">文件</string>
   <string name="TEA_control_reminders">提醒</string>
   <string name="TEA_control_timer">定时器控件</string>
-  <string name="TEA_control_share">和朋友们分享</string>
   <string name="TEA_control_hidden_section">----始终隐藏----</string>
   <string name="hide_until_prompt">在我的列表中显示</string>
   <string name="TEA_no_activity">无活动</string>

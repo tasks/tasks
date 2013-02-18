@@ -243,7 +243,6 @@
   <string name="TEA_control_files">Fitxers</string>
   <string name="TEA_control_reminders">Recordatoris</string>
   <string name="TEA_control_timer">Controls de temporització</string>
-  <string name="TEA_control_share">Compartiu-ho amb els amics</string>
   <string name="TEA_control_hidden_section">----Oculta-ho sempre----</string>
   <string name="hide_until_prompt">Mostra a la meva llista</string>
   <string name="TEA_no_activity">No hi ha hagut activitat</string>

@@ -274,7 +274,6 @@
   <string name="TEA_control_files">파일</string>
   <string name="TEA_control_reminders">일정 알림</string>
   <string name="TEA_control_timer">타이머 조절</string>
-  <string name="TEA_control_share">친구와 공유</string>
   <string name="TEA_control_hidden_section">----항상 숨김----</string>
   <string name="hide_until_prompt">내 목록에 표시</string>
   <string name="TEA_no_activity">활동 내역 없음</string>

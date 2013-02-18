@@ -268,7 +268,6 @@
   <string name="TEA_control_files">Fichiers</string>
   <string name="TEA_control_reminders">Rappels</string>
   <string name="TEA_control_timer">Contrôle de rappel</string>
-  <string name="TEA_control_share">Partager avec des amis</string>
   <string name="TEA_control_hidden_section">---- Toujours masquer ----</string>
   <string name="hide_until_prompt">Montrer dans ma liste</string>
   <string name="TEA_no_activity">Aucune activité</string>

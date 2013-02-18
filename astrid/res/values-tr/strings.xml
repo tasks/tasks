@@ -272,7 +272,6 @@
   <string name="TEA_control_files">Dosyalar</string>
   <string name="TEA_control_reminders">Hatırlatmalar</string>
   <string name="TEA_control_timer">Geri Sayım Denetimleri</string>
-  <string name="TEA_control_share">Arkadaşlarla Paylaş</string>
   <string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>
   <string name="hide_until_prompt">Listemde göster</string>
   <string name="TEA_no_activity">Etkinlik yok</string>

@@ -260,7 +260,6 @@
   <string name="TEA_control_files">Files</string>
   <string name="TEA_control_reminders">Promemoria</string>
   <string name="TEA_control_timer">Controlli Tempo</string>
-  <string name="TEA_control_share">Condividi con gli Amici</string>
   <string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
   <string name="hide_until_prompt">Mostra nella mia lista</string>
   <string name="TEA_no_activity">Nessuna attività</string>

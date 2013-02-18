@@ -262,7 +262,6 @@
   <string name="TEA_control_files">Bestanden</string>
   <string name="TEA_control_reminders">Herinneringen</string>
   <string name="TEA_control_timer">Tijd Controlers</string>
-  <string name="TEA_control_share">Deel Met Vrienden</string>
   <string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
   <string name="hide_until_prompt">Laat zien in mijn lijst</string>
   <string name="TEA_no_activity">Geen taken</string>

@@ -206,7 +206,6 @@
   <string name="TEA_control_lists">リスト</string>
   <string name="TEA_control_notes">メモ</string>
   <string name="TEA_control_reminders">リマインダー</string>
-  <string name="TEA_control_share">ともだちと共有</string>
   <string-array name="MCA_dialog_speech_options">
     <item>It must be nice to be so popular!</item>
     <item>Yay! People like you!</item>

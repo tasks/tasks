@@ -466,7 +466,6 @@
       <item >@string/TEA_control_more_section</item>
       <item >@string/TEA_control_reminders</item>
       <item >@string/TEA_control_timer</item>
-      <item >@string/TEA_control_share</item>
       <item >@string/TEA_control_hidden_section</item>
   </string-array>
   
@@ -482,7 +481,7 @@
   <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
   <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
   <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
-  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
+  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string> <!-- Deprecated -->
       
   <string-array name="TEA_control_sets_prefs">
       <item>@string/TEA_ctrl_who_pref</item>
@@ -494,7 +493,6 @@
       <item>@string/TEA_ctrl_more_pref</item>
       <item>@string/TEA_ctrl_reminders_pref</item>
       <item>@string/TEA_ctrl_timer_pref</item>
-      <item>@string/TEA_ctrl_share_pref</item>
       <item>@string/TEA_ctrl_hide_section_pref</item>
   </string-array>
   

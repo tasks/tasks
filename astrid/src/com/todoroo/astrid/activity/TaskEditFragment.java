@@ -665,7 +665,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
-        String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
 
         moreSectionHasControls = false;

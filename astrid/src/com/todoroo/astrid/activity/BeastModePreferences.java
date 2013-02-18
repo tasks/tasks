@@ -213,7 +213,7 @@ public class BeastModePreferences extends ListActivity {
         }
 
         for (String s : itemsArray) {
-            if (!s.equals(context.getResources().getString(R.string.TEA_ctrl_title_pref))){
+            if (!s.equals(context.getString(R.string.TEA_ctrl_title_pref)) && !s.equals(context.getString(R.string.TEA_ctrl_share_pref))) {
                 list.add(s);
             }
         }
