@@ -4,6 +4,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -14,7 +15,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
  */
 public class SubtasksTestCase extends DatabaseTestCase {
 
-    protected SubtasksUpdater<String> updater;
+    protected SubtasksUpdater<TaskListMetadata> updater;
     protected Filter filter;
 
     /* Starting State:
@@ -27,6 +28,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     * F
     */
     public static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]".replaceAll("\\s", "");
+    public static final String DEFAULT_SERIALIZED_TREE_STRING = "[\"-1\", [\"1\", \"2\", [\"3\", \"4\"]], \"5\", \"6\"]".replaceAll("\\s", "");
 
     @Override
     protected void setUp() throws Exception {
@@ -37,10 +39,10 @@ public class SubtasksTestCase extends DatabaseTestCase {
     }
 
     protected void expectParentAndPosition(Task task, Task parent, int positionInParent) {
-        long parentId = (parent == null ? -1 : parent.getId());
-        Node n = updater.findNodeForTask(task.getId());
+        String parentId = (parent == null ? "-1" : parent.getUuid());
+        Node n = updater.findNodeForTask(task.getUuid());
         assertNotNull("No node found for task " + task.getValue(Task.TITLE), n);
-        assertEquals("Parent mismatch", parentId, n.parent.taskId);
+        assertEquals("Parent mismatch", parentId, n.parent.uuid);
         assertEquals("Position mismatch", positionInParent, n.parent.children.indexOf(n));
     }
 

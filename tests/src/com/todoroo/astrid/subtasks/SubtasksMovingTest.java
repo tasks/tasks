@@ -2,6 +2,7 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 
 public class SubtasksMovingTest extends SubtasksTestCase {
 
@@ -11,7 +12,9 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         createTasks();
-        updater.initializeFromSerializedTree(SubtasksUpdater.ACTIVE_TASKS_ORDER, filter, DEFAULT_SERIALIZED_TREE);
+        TaskListMetadata m = new TaskListMetadata();
+        m.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
+        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE));
 
         // Assert initial state is correct
         expectParentAndPosition(A, null, 0);
@@ -39,8 +42,8 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     }
 
     private void whenTriggerMoveBefore(Task target, Task before) {
-        long beforeId = (before == null ? -1 : before.getId());
-        updater.moveTo(null, filter, target.getId(), beforeId);
+        String beforeId = (before == null ? "-1" : before.getUuid());
+        updater.moveTo(null, filter, target.getUuid(), beforeId);
     }
 
     /* Starting State (see SubtasksTestCase):

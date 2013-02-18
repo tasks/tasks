@@ -2,6 +2,7 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 
 public class SubtasksHelperTest extends SubtasksTestCase {
 
@@ -11,7 +12,9 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         createTasks();
-        updater.initializeFromSerializedTree(SubtasksUpdater.ACTIVE_TASKS_ORDER, filter, DEFAULT_SERIALIZED_TREE);
+        TaskListMetadata m = new TaskListMetadata();
+        m.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
+        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE));
     }
 
     private Task createTask(String title, String uuid) {
@@ -31,10 +34,10 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         F = createTask("F", "5"); // Local id 6
     }
 
-    private static final Long[] EXPECTED_ORDER = {-1L, 1L, 2L, 3L, 4L, 5L, 6L };
+    private static final String[] EXPECTED_ORDER = { "-1", "1", "2", "3", "4", "5", "6" };
 
     public void testOrderedIdArray() {
-        Long[] ids = SubtasksHelper.getIdArray(DEFAULT_SERIALIZED_TREE);
+        String[] ids = SubtasksHelper.getStringIdArray(DEFAULT_SERIALIZED_TREE);
         assertEquals(EXPECTED_ORDER.length, ids.length);
         for (int i = 0; i < EXPECTED_ORDER.length; i++) {
             assertEquals(EXPECTED_ORDER[i], ids[i]);
@@ -48,12 +51,4 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         String mapped = SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);
     }
-
-
-    private static String EXPECTED_LOCAL = "[-1, [4, 5, [3, 2]], 6, 1]".replaceAll("\\s", "");
-    public void testRemoteToLocalIdMapping() {
-        String mapped = SubtasksHelper.convertTreeToLocalIds(DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
-        assertEquals(EXPECTED_LOCAL, mapped);
-    }
-
 }
