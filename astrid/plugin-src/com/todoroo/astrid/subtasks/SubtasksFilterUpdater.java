@@ -1,9 +1,17 @@
 package com.todoroo.astrid.subtasks;
 
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.TaskListMetadata;
 
 public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
+
+    private boolean migrationOccurred;
+
+    public SubtasksFilterUpdater() {
+        migrationOccurred = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
+    }
 
     @Override
     protected String getSerializedTree(TaskListMetadata list, Filter filter) {
@@ -18,10 +26,17 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
 
     @Override
     protected void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
-        if (list != null) {
+        if (list != null && syncMigrationOccurred()) {
             list.setValue(TaskListMetadata.TASK_IDS, serialized);
             taskListMetadataDao.saveExisting(list);
         }
+    }
+
+    private boolean syncMigrationOccurred() {
+        if (migrationOccurred)
+            return true;
+        migrationOccurred = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
+        return migrationOccurred;
     }
 
 }
