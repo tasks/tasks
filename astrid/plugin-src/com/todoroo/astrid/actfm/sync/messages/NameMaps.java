@@ -326,7 +326,8 @@ public class NameMaps {
     // Mapping helpers
     // ----------
 
-    private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap, Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap) {
+    private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap,
+            Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap) {
         Map<A, B> map = null;
         if (TABLE_ID_TASKS.equals(table))
             map = taskMap;
@@ -360,20 +361,26 @@ public class NameMaps {
         } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
             if (TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
                 return !TASK_ATTACHMENT_PROPERTIES_EXCLUDED.contains(column);
+        } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
+            if (TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+                return !TASK_LIST_METADATA_PROPERTIES_EXCLUDED.contains(column);
         }
         return false;
     }
 
     public static String localColumnNameToServerColumnName(String table, String localColumn) {
-        return mapColumnName(table, localColumn, TASK_COLUMNS_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER, USER_COLUMNS_LOCAL_TO_SERVER, USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER, TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER, TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER);
+        return mapColumnName(table, localColumn, TASK_COLUMNS_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER, USER_COLUMNS_LOCAL_TO_SERVER,
+                USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER, TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER, TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER);
     }
 
     public static Property<?> localColumnNameToProperty(String table, String localColumn) {
-        return mapColumnName(table, localColumn, TASK_COLUMN_NAMES_TO_PROPERTIES, TAG_DATA_COLUMN_NAMES_TO_PROPERTIES, USER_COLUMN_NAMES_TO_PROPERTIES, USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES, TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES, TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES);
+        return mapColumnName(table, localColumn, TASK_COLUMN_NAMES_TO_PROPERTIES, TAG_DATA_COLUMN_NAMES_TO_PROPERTIES, USER_COLUMN_NAMES_TO_PROPERTIES,
+                USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES, TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES, TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES);
     }
 
     public static Property<?> serverColumnNameToLocalProperty(String table, String serverColumn) {
-        return mapColumnName(table, serverColumn, TASK_PROPERTIES_SERVER_TO_LOCAL, TAG_DATA_PROPERTIES_SERVER_TO_LOCAL, USER_PROPERTIES_SERVER_TO_LOCAL, USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL, TASK_ATTACHMENT_PROPERTIES_SERVER_TO_LOCAL, TASK_LIST_METADATA_PROPERTIES_SERVER_TO_LOCAL);
+        return mapColumnName(table, serverColumn, TASK_PROPERTIES_SERVER_TO_LOCAL, TAG_DATA_PROPERTIES_SERVER_TO_LOCAL, USER_PROPERTIES_SERVER_TO_LOCAL,
+                USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL, TASK_ATTACHMENT_PROPERTIES_SERVER_TO_LOCAL, TASK_LIST_METADATA_PROPERTIES_SERVER_TO_LOCAL);
     }
 
 }

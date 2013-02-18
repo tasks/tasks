@@ -100,7 +100,8 @@ public class ActFmSyncThread {
         TYPE_TASK,
         TYPE_TAG,
         TYPE_ACTIVITY,
-        TYPE_ATTACHMENT
+        TYPE_ATTACHMENT,
+        TYPE_TASK_LIST_METADATA
     }
 
     private static volatile ActFmSyncThread instance;
@@ -109,14 +110,15 @@ public class ActFmSyncThread {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
-                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao(), PluginServices.getTaskAttachmentDao());
+                    initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao(),
+                            PluginServices.getTaskAttachmentDao(), PluginServices.getTaskListMetadataDao());
                 }
             }
         }
         return instance;
     }
 
-    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao, TaskAttachmentDao taskAttachmentDao) {
+    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao, TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao) {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
@@ -129,6 +131,7 @@ public class ActFmSyncThread {
                     tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
                     userActivityDao.addListener(new SyncDatabaseListener<UserActivity>(instance, ModelType.TYPE_ACTIVITY));
                     taskAttachmentDao.addListener(new SyncDatabaseListener<TaskAttachment>(instance, ModelType.TYPE_ATTACHMENT));
+                    taskListMetadataDao.addListener(new SyncDatabaseListener<TaskListMetadata>(instance, ModelType.TYPE_TASK_LIST_METADATA));
 
                     instance.startSyncThread();
                 }

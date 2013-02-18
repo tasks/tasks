@@ -31,6 +31,8 @@ import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskAttachmentOutstanding;
+import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
@@ -60,6 +62,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         case TYPE_ATTACHMENT:
             return new ChangesHappened<TaskAttachment, TaskAttachmentOutstanding>(id, TaskAttachment.class,
                     PluginServices.getTaskAttachmentDao(), PluginServices.getTaskAttachmentOutstandingDao());
+        case TYPE_TASK_LIST_METADATA:
+            return new ChangesHappened<TaskListMetadata, TaskListMetadataOutstanding>(id, TaskListMetadata.class,
+                    PluginServices.getTaskListMetadataDao(), PluginServices.getTaskListMetadataOutstandingDao());
         default:
             return null;
         }
