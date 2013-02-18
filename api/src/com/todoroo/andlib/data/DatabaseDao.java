@@ -388,7 +388,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         long now = DateUtilities.now();
         int count = 0;
         for (Entry<String, Object> entry : entries) {
-            if (entry.getValue() != null && shouldRecordOutstandingEntry(entry.getKey())) {
+            if (entry.getValue() != null && shouldRecordOutstandingEntry(entry.getKey(), entry.getValue())) {
                 AbstractModel m;
                 try {
                     m = outstandingTable.modelClass.newInstance();
@@ -415,7 +415,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @param columnName
      * @return
      */
-    protected boolean shouldRecordOutstandingEntry(String columnName) {
+    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
         return true;
     }
 

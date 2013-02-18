@@ -287,7 +287,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     };
 
     @Override
-    protected boolean shouldRecordOutstandingEntry(String columnName) {
+    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASKS, columnName);
     }
 

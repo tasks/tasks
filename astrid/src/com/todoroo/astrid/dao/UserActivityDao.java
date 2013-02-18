@@ -35,7 +35,7 @@ public class UserActivityDao extends RemoteModelDao<UserActivity> {
     }
 
     @Override
-    protected boolean shouldRecordOutstandingEntry(String columnName) {
+    protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_USER_ACTIVITY, columnName);
     }
 }

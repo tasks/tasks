@@ -194,16 +194,18 @@ public class NameMaps {
     private static final Map<String, Property<?>> USER_COLUMN_NAMES_TO_PROPERTIES;
     private static final Map<String, String> USER_COLUMNS_LOCAL_TO_SERVER;
     private static final Map<String, Property<?>> USER_PROPERTIES_SERVER_TO_LOCAL;
+    private static final Set<String> USER_PROPERTIES_EXCLUDED;
 
     private static void putUserPropertyToServerName(Property<?> property, String serverName, boolean writeable) {
         putPropertyToServerName(property, serverName, USER_PROPERTIES_LOCAL_TO_SERVER, USER_COLUMN_NAMES_TO_PROPERTIES,
-                USER_COLUMNS_LOCAL_TO_SERVER, null, writeable);
+                USER_COLUMNS_LOCAL_TO_SERVER, USER_PROPERTIES_EXCLUDED, writeable);
     }
 
     static {
         USER_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
         USER_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         USER_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
+        USER_PROPERTIES_EXCLUDED = new HashSet<String>();
 
         putUserPropertyToServerName(User.UUID,       "uuid",       false);
         putUserPropertyToServerName(User.PICTURE,    "picture",    false);
@@ -358,6 +360,9 @@ public class NameMaps {
         } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
             if (USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
                 return !USER_ACTIVITY_PROPERTIES_EXCLUDED.contains(column);
+        } else if (TABLE_ID_USERS.equals(table)) {
+            if (USER_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+                return !USER_PROPERTIES_EXCLUDED.contains(column);
         } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
             if (TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
                 return !TASK_ATTACHMENT_PROPERTIES_EXCLUDED.contains(column);
