@@ -1,5 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
+import android.text.TextUtils;
+
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.api.Filter;
@@ -19,7 +21,7 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
         if (list == null)
             return "[]"; //$NON-NLS-1$
         String order = list.getValue(TaskListMetadata.TASK_IDS);
-        if (order == null || "null".equals(order)) //$NON-NLS-1$
+        if (TextUtils.isEmpty(order) || "null".equals(order)) //$NON-NLS-1$
             order = "[]"; //$NON-NLS-1$
 
         return order;
