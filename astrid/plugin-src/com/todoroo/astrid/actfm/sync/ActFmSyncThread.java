@@ -183,7 +183,7 @@ public class ActFmSyncThread {
     @SuppressWarnings("nls")
     private void sync() {
         try {
-            int batchSize = 3;
+            int batchSize = 4;
             List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
@@ -202,10 +202,11 @@ public class ActFmSyncThread {
 
                 boolean refreshAfterBatch = false;
                 if (timeForBackgroundSync()) {
+                    repopulateQueueFromOutstandingTables();
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), null);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), null);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), null);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), null);
-                    repopulateQueueFromOutstandingTables();
                     refreshAfterBatch = true;
                     setTimeForBackgroundSync(false);
                 }
