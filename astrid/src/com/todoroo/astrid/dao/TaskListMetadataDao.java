@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
+import android.text.TextUtils;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -37,6 +39,11 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
     protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
         if (TaskListMetadata.FILTER.name.equals(columnName) || TaskListMetadata.TAG_UUID.name.equals(columnName))
             return !RemoteModel.isUuidEmpty(value.toString());
+
+        if (TaskListMetadata.TASK_IDS.name.equals(columnName)) {
+            String valueString = value.toString();
+            return !(TextUtils.isEmpty(valueString) || "[]".equals(valueString) || "[\"-1\"]".equals(valueString));  //$NON-NLS-1$//$NON-NLS-2$
+        }
 
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASK_LIST_METADATA, columnName);
     }
