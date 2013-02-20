@@ -64,12 +64,15 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         return model;
     }
 
-    public static <T extends RemoteModel> void saveOrUpdateModelAfterChanges(RemoteModelDao<T> dao, T model, String oldUuid, String uuid) {
+    private static <T extends RemoteModel> void saveOrUpdateModelAfterChanges(RemoteModelDao<T> dao, T model, String oldUuid, String uuid, Criterion orCriterion) {
         Criterion uuidCriterion;
         if (oldUuid == null)
             uuidCriterion = RemoteModel.UUID_PROPERTY.eq(uuid);
         else
             uuidCriterion = RemoteModel.UUID_PROPERTY.eq(oldUuid);
+
+        if (orCriterion != null)
+            uuidCriterion = Criterion.or(uuidCriterion, orCriterion);
 
         if (model.getSetValues() != null && model.getSetValues().size() > 0) {
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -101,7 +104,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     if (model.getSetValues() != null && !model.getSetValues().containsKey(uuidProperty.name))
                         model.setValue(uuidProperty, uuid);
 
-                    saveOrUpdateModelAfterChanges(dao, model, oldUuid, uuid);
+                    saveOrUpdateModelAfterChanges(dao, model, oldUuid, uuid, getMatchCriterion(model));
                     afterSaveChanges(changes, model, uuid, oldUuid);
 
                 } catch (IllegalAccessException e) {
@@ -111,6 +114,13 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 }
             }
         }
+    }
+
+    private Criterion getMatchCriterion(TYPE model) {
+        if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table) && model.getSetValues().containsKey(TaskListMetadata.FILTER.name)) {
+            return TaskListMetadata.FILTER.eq(model.getSetValues().getAsString(TaskListMetadata.FILTER.name));
+        }
+        return null;
     }
 
     private void beforeSaveChanges(JSONObject changes, TYPE model, String uuid) {
