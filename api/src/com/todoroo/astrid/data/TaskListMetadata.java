@@ -8,6 +8,7 @@ package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -144,6 +145,10 @@ public final class TaskListMetadata extends RemoteModel {
     @Override
     public String getUuid() {
         return getUuidHelper(UUID);
+    }
+
+    public static boolean taskIdsIsEmpty(String taskIds) {
+        return TextUtils.isEmpty(taskIds) || "[]".equals(taskIds) || "[\"-1\"]".equals(taskIds) || "[-1]".equals(taskIds);
     }
 
     // --- parcelable helpers
