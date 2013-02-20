@@ -106,7 +106,7 @@ public class ActFmSyncThread {
 
     private static volatile ActFmSyncThread instance;
 
-    public static synchronized ActFmSyncThread getInstance() {
+    public static ActFmSyncThread getInstance() {
         if (instance == null) {
             synchronized(ActFmSyncThread.class) {
                 if (instance == null) {
@@ -124,6 +124,7 @@ public class ActFmSyncThread {
                 if (instance == null) {
                     List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
                     ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
+                    ActFmSyncWaitingPool waitingPool = ActFmSyncWaitingPool.getInstance();
 
                     instance = new ActFmSyncThread(syncQueue, monitor);
 
@@ -131,7 +132,7 @@ public class ActFmSyncThread {
                     tagDataDao.addListener(new SyncDatabaseListener<TagData>(instance, ModelType.TYPE_TAG));
                     userActivityDao.addListener(new SyncDatabaseListener<UserActivity>(instance, ModelType.TYPE_ACTIVITY));
                     taskAttachmentDao.addListener(new SyncDatabaseListener<TaskAttachment>(instance, ModelType.TYPE_ATTACHMENT));
-                    taskListMetadataDao.addListener(new SyncDatabaseListener<TaskListMetadata>(instance, ModelType.TYPE_TASK_LIST_METADATA));
+                    taskListMetadataDao.addListener(new TaskListMetadataSyncDatabaseListener(instance, waitingPool, ModelType.TYPE_TASK_LIST_METADATA));
 
                     instance.startSyncThread();
                 }

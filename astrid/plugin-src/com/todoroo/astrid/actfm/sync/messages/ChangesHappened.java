@@ -32,7 +32,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskAttachmentOutstanding;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
@@ -42,9 +41,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     private static final String ERROR_TAG = "actfm-changes-happened";
 
-    private final Class<OE> outstandingClass;
-    private final List<OE> changes;
-    private final OutstandingEntryDao<OE> outstandingDao;
+    protected final Class<OE> outstandingClass;
+    protected final List<OE> changes;
+    protected final OutstandingEntryDao<OE> outstandingDao;
 
     public static final String CHANGES_KEY = "changes";
 
@@ -63,7 +62,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             return new ChangesHappened<TaskAttachment, TaskAttachmentOutstanding>(id, TaskAttachment.class,
                     PluginServices.getTaskAttachmentDao(), PluginServices.getTaskAttachmentOutstandingDao());
         case TYPE_TASK_LIST_METADATA:
-            return new ChangesHappened<TaskListMetadata, TaskListMetadataOutstanding>(id, TaskListMetadata.class,
+            return new TaskListMetadataChangesHappened(id, TaskListMetadata.class,
                     PluginServices.getTaskListMetadataDao(), PluginServices.getTaskListMetadataOutstandingDao());
         default:
             return null;
@@ -157,7 +156,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return array;
     }
 
-    private void populateChanges() {
+    protected void populateChanges() {
         TodorooCursor<OE> cursor = outstandingDao.query(Query.select(DaoReflectionHelpers.getModelProperties(outstandingClass))
                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {

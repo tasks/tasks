@@ -4,6 +4,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
+import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 
 public class SyncDatabaseListener<MTYPE extends AbstractModel> implements ModelUpdateListener<MTYPE> {
 
@@ -18,8 +19,12 @@ public class SyncDatabaseListener<MTYPE extends AbstractModel> implements ModelU
     public void onModelUpdated(MTYPE model, boolean outstandingEntries) {
         if (outstandingEntries) {
             ChangesHappened<?, ?> ch = ChangesHappened.instantiateChangesHappened(model.getId(), modelType);
-            actFmSyncThread.enqueueMessage(ch, null);
+            enqueueMessage(model, ch);
         }
+    }
+
+    protected void enqueueMessage(MTYPE model, ClientToServerMessage<?> message) {
+        actFmSyncThread.enqueueMessage(message, null);
     }
 
 }

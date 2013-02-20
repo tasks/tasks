@@ -323,65 +323,6 @@ public final class ActFmSyncService {
             parameters[i+2] = getParameters[i];
         return actFmInvoker.invoke(method, parameters);
     }
-//
-//    // --- helpers
-//    private void synchronizeAttachments(JSONObject item, Task model) {
-//        TodorooCursor<Metadata> attachments = metadataService.query(Query.select(Metadata.PROPERTIES)
-//                .where(Criterion.and(MetadataCriteria.byTaskAndwithKey(model.getId(),
-//                        FileMetadata.METADATA_KEY), FileMetadata.REMOTE_ID.gt(0))));
-//        try {
-//            HashMap<Long, Metadata> currentFiles = new HashMap<Long, Metadata>();
-//            for (attachments.moveToFirst(); !attachments.isAfterLast(); attachments.moveToNext()) {
-//                Metadata m = new Metadata(attachments);
-//                currentFiles.put(m.getValue(FileMetadata.REMOTE_ID), m);
-//            }
-//
-//            JSONArray remoteFiles = item.getJSONArray("attachments");
-//            for (int i = 0; i < remoteFiles.length(); i++) {
-//                JSONObject file = remoteFiles.getJSONObject(i);
-//
-//                long id = file.optLong("id");
-//                if (currentFiles.containsKey(id)) {
-//                    // Match, make sure name and url are up to date, then remove from map
-//                    Metadata fileMetadata = currentFiles.get(id);
-//                    fileMetadata.setValue(FileMetadata.URL, file.getString("url"));
-//                    fileMetadata.setValue(FileMetadata.NAME, file.getString("name"));
-//                    metadataService.save(fileMetadata);
-//                    currentFiles.remove(id);
-//                } else {
-//                    // Create new file attachment
-//                    Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), "",
-//                            file.getString("name"), file.getString("content_type"));
-//                    String url = file.getString("url");
-//                    newAttachment.setValue(FileMetadata.URL, url);
-//                    newAttachment.setValue(FileMetadata.REMOTE_ID, id);
-//                    metadataService.save(newAttachment);
-//                }
-//            }
-//
-//            // Remove all the leftovers
-//            Set<Long> attachmentsToDelete = currentFiles.keySet();
-//            for (Long remoteId : attachmentsToDelete) {
-//                Metadata toDelete = currentFiles.get(remoteId);
-//                String path = toDelete.getValue(FileMetadata.FILE_PATH);
-//                if (TextUtils.isEmpty(path))
-//                    metadataService.delete(toDelete);
-//                else {
-//                    File f = new File(toDelete.getValue(FileMetadata.FILE_PATH));
-//                    if (!f.exists() || f.delete()) {
-//                        metadataService.delete(toDelete);
-//                    }
-//
-//                }
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } finally {
-//            attachments.close();
-//        }
-//    }
-
 
     protected void handleException(String message, Exception exception) {
         Log.w("actfm-sync", message, exception);
