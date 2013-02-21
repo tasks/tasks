@@ -25,7 +25,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -114,10 +113,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Override
     public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
+        // TODO: Improve this logic. Should only be able to import from settings or something.
+        final boolean isImport = actFmPreferenceService.isLoggedIn();
+        if (isImport && !manual)
+            return;
+
         callback.started();
         callback.incrementMax(100);
 
-        final boolean isImport = actFmPreferenceService.isLoggedIn();
 
         gtasksPreferenceService.recordSyncStart();
 
@@ -376,12 +379,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     private void finishImport() {
-        TodorooCursor<Task> tasks = taskService.query(Query.select(AndroidUtilities.addToArray(Task.PROPERTIES, GtasksList.NAME))
-                .join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
+        TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID, Task.UUID, GtasksList.NAME)
+                .join(Join.inner(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
                 .join(Join.left(StoreObject.TABLE, GtasksMetadata.LIST_ID.eq(GtasksList.REMOTE_ID)))
                 .where(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY)));
         try {
-            for (tasks.moveToFirst(); tasks.isAfterLast(); tasks.moveToNext()) {
+            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String listName = tasks.get(GtasksList.NAME);
                 String tagUuid = RemoteModel.NO_UUID;
                 if (!TextUtils.isEmpty(listName)) {
