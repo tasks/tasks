@@ -398,7 +398,7 @@ public final class TagService {
      */
     public ArrayList<Tag> getTagList() {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).orderBy(Order.asc(TagData.NAME)));
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).orderBy(Order.asc(Functions.upper(TagData.NAME))));
         try {
             TagData tagData = new TagData();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
