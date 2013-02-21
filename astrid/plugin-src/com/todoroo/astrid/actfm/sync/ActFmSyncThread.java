@@ -181,6 +181,14 @@ public class ActFmSyncThread {
             }
     }
 
+    private final Runnable defaultRefreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+            ContextManager.getContext().sendBroadcast(refresh);
+        }
+    };
+
     @SuppressWarnings("nls")
     private void sync() {
         try {
@@ -201,14 +209,12 @@ public class ActFmSyncThread {
                     }
                 }
 
-                boolean refreshAfterBatch = false;
                 if (timeForBackgroundSync()) {
                     repopulateQueueFromOutstandingTables();
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), null);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), null);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), null);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), null);
-                    refreshAfterBatch = true;
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), defaultRefreshRunnable);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), defaultRefreshRunnable);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), defaultRefreshRunnable);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), defaultRefreshRunnable);
                     setTimeForBackgroundSync(false);
                 }
 
@@ -259,18 +265,21 @@ public class ActFmSyncThread {
                         batchSize = Math.max(batchSize / 2, 1);
                     }
 
+                    boolean didDefaultRefreshThisLoop = false;
                     for (ClientToServerMessage<?> message : messageBatch) {
                         try {
-                        Runnable r = pendingCallbacks.remove(message);
-                        if (r != null)
-                            r.run();
+                            Runnable r = pendingCallbacks.remove(message);
+                            if (r != null) {
+                                if (r == defaultRefreshRunnable) {
+                                    if (didDefaultRefreshThisLoop)
+                                        continue;
+                                    didDefaultRefreshThisLoop = true;
+                                }
+                                r.run();
+                            }
                         } catch (Exception e) {
                             Log.e(ERROR_TAG, "Unexpected exception executing sync callback", e);
                         }
-                    }
-                    if (refreshAfterBatch) {
-                        Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-                        ContextManager.getContext().sendBroadcast(refresh);
                     }
 
                     messageBatch = new LinkedList<ClientToServerMessage<?>>();
