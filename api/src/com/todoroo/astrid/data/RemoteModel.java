@@ -8,6 +8,7 @@ package com.todoroo.astrid.data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 
@@ -75,6 +76,16 @@ abstract public class RemoteModel extends AbstractModel {
             return values.getAsString(uuid.name);
         else
             return NO_UUID;
+    }
+
+    public void setUuid(String uuid) {
+        if (setValues == null)
+            setValues = new ContentValues();
+
+        if(NO_UUID.equals(uuid))
+            clearValue(UUID_PROPERTY);
+        else
+            setValues.put(UUID_PROPERTY_NAME, uuid);
     }
 
     public static boolean isUuidEmpty(String uuid) {

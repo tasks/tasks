@@ -25,16 +25,20 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.SyncFlags;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
@@ -53,6 +57,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
+import com.todoroo.astrid.tags.TagService;
 
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
@@ -65,6 +70,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Autowired GtasksListService gtasksListService;
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Autowired TagService tagService;
+    @Autowired TagDataDao tagDataDao;
 
     static {
         AstridDependencyInjector.initialize();
@@ -110,6 +117,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         callback.started();
         callback.incrementMax(100);
 
+        final boolean isImport = actFmPreferenceService.isLoggedIn();
+
         gtasksPreferenceService.recordSyncStart();
 
         new Thread(new Runnable() {
@@ -137,10 +146,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            synchronizeListHelper(list, invoker, manual, handler, callback);
+                            synchronizeListHelper(list, invoker, manual, handler, callback, isImport);
                             callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
-                                pushUpdated(invoker, callback);
+                                if (!isImport)
+                                    pushUpdated(invoker, callback);
+                                else
+                                    finishImport();
                                 finishSync(callback);
                             }
                         }
@@ -186,6 +198,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         if (!GtasksList.TYPE.equals(gtasksList.getValue(StoreObject.TYPE)))
             return;
 
+        final boolean isImport = actFmPreferenceService.isLoggedIn();
+
         callback.started();
         callback.incrementMax(100);
 
@@ -198,7 +212,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     gtasksSyncService.waitUntilEmpty();
                     callback.incrementProgress(13);
                     final GtasksInvoker service = new GtasksInvoker(authToken);
-                    synchronizeListHelper(gtasksList, service, manual, null, callback);
+                    synchronizeListHelper(gtasksList, service, manual, null, callback, isImport);
                 } finally {
                     callback.incrementProgress(25);
                     callback.finished();
@@ -221,7 +235,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
 
     private synchronized void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
-            boolean manual, SyncExceptionHandler errorHandler, SyncResultCallback callback) {
+            boolean manual, SyncExceptionHandler errorHandler, SyncResultCallback callback, boolean isImport) {
         String listId = list.getValue(GtasksList.REMOTE_ID);
         long lastSyncDate;
         if (!manual && list.containsNonNullValue(GtasksList.LAST_SYNC)) {
@@ -253,7 +267,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 list.setValue(GtasksList.LAST_SYNC, DateUtilities.now());
                 storeObjectDao.persist(list);
 
-                if(lastSyncDate == 0) {
+                if(lastSyncDate == 0 && !isImport) {
                     Long[] localIdArray = localIds.toArray(new Long[localIds.size()]);
                     Criterion delete = Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                             GtasksMetadata.LIST_ID.eq(listId),
@@ -356,6 +370,44 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             long setDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
                     newDate.getTime());
             remote.setValue(Task.DUE_DATE, setDate);
+        }
+    }
+
+    private void finishImport() {
+        TodorooCursor<Task> tasks = taskService.query(Query.select(AndroidUtilities.addToArray(Task.PROPERTIES, GtasksList.NAME))
+                .join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
+                .join(Join.left(StoreObject.TABLE, GtasksMetadata.LIST_ID.eq(GtasksList.REMOTE_ID)))
+                .where(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY)));
+        try {
+            for (tasks.moveToFirst(); tasks.isAfterLast(); tasks.moveToNext()) {
+                String listName = tasks.get(GtasksList.NAME);
+                String tagUuid = RemoteModel.NO_UUID;
+                if (!TextUtils.isEmpty(listName)) {
+                    TodorooCursor<TagData> existingTag = tagDataDao.query(Query.select(TagData.UUID).where(TagData.NAME.eq(listName)));
+                    try {
+                        if (existingTag.getCount() > 0) {
+                            existingTag.moveToFirst();
+                            tagUuid = existingTag.get(TagData.UUID);
+                        } else {
+                            TagData td = new TagData();
+                            td.setValue(TagData.NAME, listName);
+                            tagDataDao.createNew(td);
+                            tagUuid = td.getUuid();
+                        }
+                    } finally {
+                        existingTag.close();
+                    }
+
+                    if (!RemoteModel.isUuidEmpty(tagUuid)) {
+                        Task task = new Task();
+                        task.setId(tasks.get(Task.ID));
+                        task.setUuid(tasks.get(Task.UUID));
+                        tagService.createLink(task, listName, tagUuid);
+                    }
+                }
+            }
+        } finally {
+            tasks.close();
         }
     }
 }
