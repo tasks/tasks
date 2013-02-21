@@ -1355,8 +1355,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
+            Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
             deleteTask(task);
             return true;
         }
