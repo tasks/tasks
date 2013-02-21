@@ -91,6 +91,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                 return;
             cursor.moveToFirst();
             remoteTask.task.setId(cursor.get(Metadata.TASK));
+            remoteTask.task.setUuid(taskDao.uuidFromLocalId(remoteTask.task.getId()));
             remoteTask.gtaskMetadata = new Metadata(cursor);
         } finally {
             cursor.close();

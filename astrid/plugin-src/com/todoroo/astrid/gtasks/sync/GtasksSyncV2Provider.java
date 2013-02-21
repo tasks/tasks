@@ -329,6 +329,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             if (local == null) {
                 task.task.clearValue(Task.ID);
+                task.task.clearValue(Task.UUID);
             } else {
                 mergeDates(task.task, local);
                 if(task.task.isCompleted() && !local.isCompleted())
@@ -347,13 +348,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void titleMatchWithActFm(Task task) {
         String title = task.getValue(Task.TITLE);
-        TodorooCursor<Task> match = taskService.query(Query.select(Task.ID)
+        TodorooCursor<Task> match = taskService.query(Query.select(Task.ID, Task.UUID)
                 .join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
                 .where(Criterion.and(Task.TITLE.eq(title), GtasksMetadata.ID.isNull())));
         try {
             if (match.getCount() > 0) {
                 match.moveToFirst();
                 task.setId(match.get(Task.ID));
+                task.setUuid(match.get(Task.UUID));
             }
         } finally {
             match.close();
