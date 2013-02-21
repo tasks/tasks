@@ -30,8 +30,8 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
-import com.todoroo.astrid.sync.SyncMetadataService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.utility.SyncMetadataService;
 
 /**
  * Service for working with GTasks metadata

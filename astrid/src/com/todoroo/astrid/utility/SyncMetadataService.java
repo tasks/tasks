@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.sync;
+package com.todoroo.astrid.utility;
 
 import java.util.ArrayList;
 
@@ -11,15 +11,19 @@ import android.content.Context;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.MetadataApiDao;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
+import com.todoroo.astrid.sync.SyncContainer;
+import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
@@ -28,8 +32,10 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
     // --- instance variables
 
-    protected final TaskApiDao taskDao;
-    protected final MetadataApiDao metadataDao;
+    @Autowired
+    protected TaskDao taskDao;
+    @Autowired
+    protected MetadataDao metadataDao;
 
     // --- abstract methods
 
@@ -54,8 +60,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     // --- implementation
 
     public SyncMetadataService(Context context) {
-        taskDao = new TaskApiDao(context);
-        metadataDao = new MetadataApiDao(context);
+        DependencyInjectionService.getInstance().inject(this);
     }
 
     /**
