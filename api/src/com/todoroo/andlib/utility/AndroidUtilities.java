@@ -143,10 +143,20 @@ public class AndroidUtilities {
     }
 
     public static String encodeBase64Bitmap(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-        return Base64.encodeToString(bytes, Base64.DEFAULT);
+        String result = ""; //$NON-NLS-1$
+        int tries = 0;
+        while ("".equals(result) && tries < 5) { //$NON-NLS-1$
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 - (10 * tries), baos);
+            byte[] bytes = baos.toByteArray();
+            try {
+                result = Base64.encodeToString(bytes, Base64.DEFAULT);
+            } catch (OutOfMemoryError e) {
+                // Too big, try after recompressing
+            }
+            tries++;
+        }
+        return result;
     }
 
     public static Bitmap decodeBase64Bitmap(String encoded) {
