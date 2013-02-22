@@ -15,6 +15,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.core.PluginServices;
@@ -297,9 +298,27 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 uuidChanged(oldUuid, uuid);
             }
 
-            if (changes.has("name")) {
+            String nameCol = NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TAGS, TagData.NAME);
+            String deletedCol = NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TAGS, TagData.DELETION_DATE);
+            if (changes.has(nameCol)) {
                 Metadata template = new Metadata();
-                template.setValue(TaskToTagMetadata.TAG_NAME, changes.optString("name"));
+                template.setValue(TaskToTagMetadata.TAG_NAME, changes.optString(nameCol));
+                PluginServices.getMetadataService().update(
+                        Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                                TaskToTagMetadata.TAG_UUID.eq(uuid)), template);
+            } else if (changes.has(deletedCol)) {
+                Metadata template = new Metadata();
+                String valueString = changes.optString(deletedCol);
+                long deletedValue = 0;
+                if (!TextUtils.isEmpty(valueString)) {
+                    try {
+                        deletedValue = DateUtilities.parseIso8601(valueString);
+                    } catch (Exception e){
+                        //
+                    }
+                }
+                template.setValue(Metadata.DELETION_DATE, deletedValue);
+                template.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 PluginServices.getMetadataService().update(
                         Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                 TaskToTagMetadata.TAG_UUID.eq(uuid)), template);

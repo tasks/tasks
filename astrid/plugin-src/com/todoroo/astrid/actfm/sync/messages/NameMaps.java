@@ -328,7 +328,7 @@ public class NameMaps {
     // Mapping helpers
     // ----------
 
-    private static <A, B> B mapColumnName(String table, String col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap,
+    private static <A, B> B mapColumnName(String table, A col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap,
             Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap) {
         Map<A, B> map = null;
         if (TABLE_ID_TASKS.equals(table))
@@ -371,6 +371,11 @@ public class NameMaps {
                 return !TASK_LIST_METADATA_PROPERTIES_EXCLUDED.contains(column);
         }
         return false;
+    }
+
+    public static String localPropertyToServerColumnName(String table, Property<?> localProperty) {
+        return mapColumnName(table, localProperty, TASK_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, USER_PROPERTIES_LOCAL_TO_SERVER,
+                USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER, TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER, TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER);
     }
 
     public static String localColumnNameToServerColumnName(String table, String localColumn) {
