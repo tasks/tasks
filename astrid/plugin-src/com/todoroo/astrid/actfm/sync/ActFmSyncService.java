@@ -7,38 +7,25 @@ package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.ConditionVariable;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.timsu.astrid.GCMIntentService;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
-import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 /**
@@ -52,68 +39,19 @@ public final class ActFmSyncService {
 
     // --- instance variables
 
-    @Autowired TagDataService tagDataService;
-    @Autowired MetadataService metadataService;
-    @Autowired TaskService taskService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired ActFmInvoker actFmInvoker;
-    @Autowired TaskDao taskDao;
-    @Autowired TagDataDao tagDataDao;
-    @Autowired UserDao userDao;
-    @Autowired MetadataDao metadataDao;
-    @Autowired ABTestEventReportingService abTestEventReportingService;
+    @Autowired
+    private TagDataService tagDataService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private ActFmInvoker actFmInvoker;
+    @Autowired
+    private ABTestEventReportingService abTestEventReportingService;
 
     private String token;
 
     public ActFmSyncService() {
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    private Thread pushOrderThread = null;
-    private Runnable pushTagOrderRunnable;
-    private final List<Object> pushOrderQueue = Collections.synchronizedList(new LinkedList<Object>());
-
-    private final AtomicInteger taskPushThreads = new AtomicInteger(0);
-    private final ConditionVariable waitUntilEmpty = new ConditionVariable(true);
-
-    private static final long WAIT_BEFORE_PUSH_ORDER = 15 * 1000;
-    private void initializeTagOrderRunnable() {
-        pushTagOrderRunnable = new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    if(pushOrderQueue.isEmpty()) {
-                        synchronized(ActFmSyncService.this) {
-                            pushOrderThread = null;
-                            return;
-                        }
-                    }
-                    if (pushOrderQueue.size() > 0) {
-                        AndroidUtilities.sleepDeep(WAIT_BEFORE_PUSH_ORDER);
-                        try {
-                            Object id = pushOrderQueue.remove(0);
-                            if (id instanceof Long) {
-                                Long tagDataId = (Long) id;
-                                TagData td = tagDataService.fetchById(tagDataId, TagData.ID, TagData.UUID, TagData.TAG_ORDERING);
-                                if (td != null) {
-                                    pushTagOrdering(td);
-                                }
-                            } else if (id instanceof String) {
-                                String filterId = (String) id;
-                                pushFilterOrdering(filterId);
-                            }
-                        } catch (IndexOutOfBoundsException e) {
-                            // In case element was removed
-                        }
-                    }
-                }
-            }
-        };
-    }
-
-    public void waitUntilEmpty() {
-        waitUntilEmpty.block();
     }
 
     private void addAbTestEventInfo(List<Object> params) {
@@ -124,109 +62,6 @@ public final class ActFmSyncService {
             }
         } catch (JSONException e) {
             Log.e("Error parsing AB test info", abTestInfo.toString(), e);
-        }
-    }
-
-    //----------------- Push ordering
-    public void pushTagOrderingOnSave(long tagDataId) {
-        pushOrderingOnSave(tagDataId);
-    }
-
-    public void pushFilterOrderingOnSave(String filterId) {
-        pushOrderingOnSave(filterId);
-    }
-
-    private void pushOrderingOnSave(Object id) {
-        if (!pushOrderQueue.contains(id)) {
-            pushOrderQueue.add(id);
-            synchronized(this) {
-                if(pushOrderThread == null) {
-                    pushOrderThread = new Thread(pushTagOrderRunnable);
-                    pushOrderThread.start();
-                }
-            }
-        }
-    }
-
-    public void pushTagOrderingImmediately(TagData tagData) {
-        if (pushOrderQueue.contains(tagData.getId())) {
-            pushOrderQueue.remove(tagData.getId());
-        }
-        pushTagOrdering(tagData);
-    }
-
-    public void pushFilterOrderingImmediately(String filterId) {
-        if (pushOrderQueue.contains(filterId)) {
-            pushOrderQueue.remove(filterId);
-        }
-        pushFilterOrdering(filterId);
-    }
-
-    public boolean cancelTagOrderingPush(long tagDataId) {
-        if (pushOrderQueue.contains(tagDataId)) {
-            pushOrderQueue.remove(tagDataId);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean cancelFilterOrderingPush(String filterId) {
-        if (pushOrderQueue.contains(filterId)) {
-            pushOrderQueue.remove(filterId);
-            return true;
-        }
-        return false;
-    }
-
-    private void pushTagOrdering(TagData tagData) {
-        if (!checkForToken())
-            return;
-
-        String remoteId = tagData.getValue(TagData.UUID);
-        if (!RemoteModel.isValidUuid(remoteId))
-            return;
-
-        // Make sure that all tasks are pushed before attempting to sync tag ordering
-        waitUntilEmpty();
-
-        ArrayList<Object> params = new ArrayList<Object>();
-
-        params.add("tag_id"); params.add(remoteId);
-        params.add("order");
-        params.add(SubtasksHelper.convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING)));
-        params.add("token"); params.add(token);
-
-        try {
-            actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
-        } catch (IOException e) {
-            handleException("push-tag-order", e);
-        }
-    }
-
-    private void pushFilterOrdering(String filterLocalId) {
-        if (!checkForToken())
-            return;
-
-        String filterId = SubtasksHelper.serverFilterOrderId(filterLocalId);
-        if (filterId == null)
-            return;
-
-        // Make sure that all tasks are pushed before attempting to sync filter ordering
-        waitUntilEmpty();
-
-        ArrayList<Object> params = new ArrayList<Object>();
-        String order = Preferences.getStringValue(filterLocalId);
-        if (order == null || "null".equals(order))
-            order = "[]";
-
-        params.add("filter"); params.add(filterId);
-        params.add("order"); params.add(SubtasksHelper.convertTreeToRemoteIds(order));
-        params.add("token"); params.add(token);
-
-        try {
-            actFmInvoker.invoke("list_order", params.toArray(new Object[params.size()]));
-        } catch (IOException e) {
-            handleException("push-filter-order", e);
         }
     }
 

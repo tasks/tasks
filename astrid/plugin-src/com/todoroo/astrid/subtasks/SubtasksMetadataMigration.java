@@ -80,9 +80,6 @@ public class SubtasksMetadataMigration {
             if (td != null) {
                 td.setValue(TagData.TAG_ORDERING, newTree);
                 tagDataService.save(td);
-                if (actFmPreferenceService.isLoggedIn()) {
-                    actFmSyncService.pushTagOrderingOnSave(td.getId());
-                }
             } else {
                 Preferences.setString(SubtasksUpdater.ACTIVE_TASKS_ORDER, newTree);
             }

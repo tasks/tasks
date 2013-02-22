@@ -76,20 +76,6 @@ public class TagDataService {
     }
 
     /**
-     * Delete a model
-     */
-    public void delete(long id) {
-        tagDataDao.delete(id);
-    }
-
-    /**
-     * Delete many
-     */
-    public void deleteWhere(Criterion where) {
-        tagDataDao.deleteWhere(where);
-    }
-
-    /**
      *
      * @param properties
      * @param id id
