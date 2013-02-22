@@ -82,7 +82,7 @@ public class TaskCommentsFragment extends CommentsFragment {
     protected void performFetch(boolean manual, Runnable done) {
         if (task != null) {
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), done);
-            new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), null, task.getValue(Task.HISTORY_FETCH_DATE), false, done).execute();
+            new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), false, done).execute();
         }
     }
 

@@ -424,7 +424,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         };
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), callback);
-        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), null, task.getValue(Task.HISTORY_FETCH_DATE), false, callback).execute();
+        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), false, callback).execute();
     }
 
     private void addComment() {
