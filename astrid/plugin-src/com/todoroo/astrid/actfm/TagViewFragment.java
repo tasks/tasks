@@ -345,9 +345,13 @@ public class TagViewFragment extends TaskListFragment {
                             activity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    reloadTagData(false);
-                                    refresh();
-                                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                                    try {
+                                        reloadTagData(false);
+                                        refresh();
+                                        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                                    } catch (IllegalStateException e) {
+                                        // Can happen when swipe between lists is on
+                                    }
                                 }
                             });
                         }
