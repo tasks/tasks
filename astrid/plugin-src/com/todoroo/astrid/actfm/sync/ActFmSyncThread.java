@@ -210,13 +210,13 @@ public class ActFmSyncThread {
                 }
 
                 if (timeForBackgroundSync()) {
-                    repopulateQueueFromOutstandingTables();
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), defaultRefreshRunnable);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), defaultRefreshRunnable);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), defaultRefreshRunnable);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), defaultRefreshRunnable);
                     setTimeForBackgroundSync(false);
                 }
+                repopulateQueueFromOutstandingTables();
 
                 while (messageBatch.size() < batchSize && !pendingMessages.isEmpty()) {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
