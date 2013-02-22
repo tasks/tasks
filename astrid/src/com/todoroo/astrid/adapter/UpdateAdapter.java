@@ -444,17 +444,14 @@ public class UpdateAdapter extends CursorAdapter {
 
         String item;
         String itemPosessive;
-        if (hasTask && taskAttrs != null) {
+        if (FROM_TASK_VIEW.equals(fromView)) {
+            item = context.getString(R.string.history_this_task);
+        } else if (hasTask && taskAttrs != null) {
             item = taskAttrs.optString(1);
-            itemPosessive = item + "'s";
         } else {
-            if (FROM_TASK_VIEW.equals(fromView)) {
-                item = context.getString(R.string.history_this_task);
-            } else {
-                item = context.getString(R.string.history_this_list);
-            }
-            itemPosessive = item + "'s";
+            item = context.getString(R.string.history_this_list);
         }
+        itemPosessive = item + "'s";
 
         String oldValue = history.getValue(History.OLD_VALUE);
         String newValue = history.getValue(History.NEW_VALUE);
