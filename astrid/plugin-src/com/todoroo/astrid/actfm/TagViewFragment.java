@@ -344,7 +344,7 @@ public class TagViewFragment extends TaskListFragment {
                                         reloadTagData(false);
                                         refresh();
                                         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                                    } catch (IllegalStateException e) {
+                                    } catch (Exception e) {
                                         // Can happen when swipe between lists is on
                                     }
                                 }
