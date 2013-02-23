@@ -258,7 +258,6 @@ public class TagViewFragment extends TaskListFragment {
             cursor.close();
         }
 
-        postLoadTagData();
         super.initializeData();
 
         setUpMembersGallery();
@@ -267,10 +266,6 @@ public class TagViewFragment extends TaskListFragment {
             extras.remove(TOKEN_START_ACTIVITY);
             activity.showComments();
         }
-    }
-
-    protected void postLoadTagData() {
-        // stub
     }
 
     @Override
@@ -658,7 +653,6 @@ public class TagViewFragment extends TaskListFragment {
             return;
         }
         initializeTaskListMetadata();
-        postLoadTagData();
         filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
         getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
         extras.putParcelable(TOKEN_FILTER, filter);

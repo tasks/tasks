@@ -447,6 +447,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 taskListMetadataDao.createNew(taskListMetadata);
             }
         }
+        postLoadTaskListMetadata();
+    }
+
+    protected void postLoadTaskListMetadata() {
+        // Hook
     }
 
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {

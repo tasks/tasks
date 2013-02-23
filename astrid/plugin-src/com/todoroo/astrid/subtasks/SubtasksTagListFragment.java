@@ -25,7 +25,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
-    protected void postLoadTagData() {
+    protected void postLoadTaskListMetadata() {
         helper.setList(taskListMetadata);
     }
 
