@@ -460,8 +460,8 @@ public class UpdateAdapter extends CursorAdapter {
         String column = history.getValue(History.COLUMN);
         try {
             if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
-                JSONObject tagObj = new JSONObject(newValue);
-                String tagName = tagObj.getString("name");
+                JSONArray tagObj = new JSONArray(newValue);
+                String tagName = tagObj.getString(1);
                 if (History.COL_TAG_ADDED.equals(column))
                     result = context.getString(R.string.history_tag_added, item, tagName);
                 else
