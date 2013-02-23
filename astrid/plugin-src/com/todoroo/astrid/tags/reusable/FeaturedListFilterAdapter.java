@@ -38,6 +38,11 @@ public class FeaturedListFilterAdapter extends FilterAdapter {
     }
 
     @Override
+    protected boolean shouldDirectlyPopulateFilters() {
+        return false;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = super.getView(position, convertView, parent);
 

@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Operator;
+import com.todoroo.andlib.sql.UnaryCriterion;
 
 /**
  * Property represents a typed column in a database.
@@ -215,7 +216,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
                 protected void populate(StringBuilder sb) {
                     sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS).append(SPACE);
                     for (String s : value) {
-                        sb.append("\"").append(s.toString()).append("\"").append(COMMA);
+                        sb.append("'").append(UnaryCriterion.sanitize(s)).append("'").append(COMMA);
                     }
                     sb.deleteCharAt(sb.length() - 1).append(RIGHT_PARENTHESIS);
                 }

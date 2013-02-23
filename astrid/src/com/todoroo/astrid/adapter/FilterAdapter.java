@@ -359,6 +359,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         return selection;
     }
 
+    protected boolean shouldDirectlyPopulateFilters() {
+        return true;
+    }
+
     /* ======================================================================
      * ============================================================= receiver
      * ====================================================================== */
@@ -383,13 +387,26 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                for (ResolveInfo filterExposerInfo : filterExposerList) {
-                    String className = filterExposerInfo.activityInfo.name;
-                    AstridFilterExposer filterExposer = null;
-                    filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
+                if (shouldDirectlyPopulateFilters()) {
+                    for (ResolveInfo filterExposerInfo : filterExposerList) {
+                        String className = filterExposerInfo.activityInfo.name;
+                        AstridFilterExposer filterExposer = null;
+                        filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
 
-                    if (filterExposer != null) {
-                        populateFiltersToAdapter(filterExposer.getFilters());
+                        if (filterExposer != null) {
+                            populateFiltersToAdapter(filterExposer.getFilters());
+                        }
+                    }
+                } else {
+                    try {
+                        Bundle extras = intent.getExtras();
+                        extras.setClassLoader(FilterListHeader.class.getClassLoader());
+                        final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
+                        populateFiltersToAdapter(filters);
+                    } catch (Exception e) {
+                        Log.e("receive-filter-" +  //$NON-NLS-1$
+                                intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
+                                e.toString(), e);
                     }
                 }
             } catch (Exception e) {
