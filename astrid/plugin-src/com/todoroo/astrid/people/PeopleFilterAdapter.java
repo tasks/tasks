@@ -40,4 +40,9 @@ public class PeopleFilterAdapter extends FilterAdapter {
     public void unregisterRecevier() {
         activity.unregisterReceiver(filterReceiver);
     }
+
+    @Override
+    protected boolean shouldDirectlyPopulateFilters() {
+        return false;
+    }
 }
