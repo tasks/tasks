@@ -131,5 +131,9 @@ public class History extends AbstractModel {
     public static final String COL_IS_SILENT = "is_silent";
     public static final String COL_IS_FAVORITE = "is_favorite";
     public static final String COL_USER_ID = "user_id";
+    public static final String COL_ATTACHMENT_ADDED = "attachment_added";
+    public static final String COL_ATTACHMENT_REMOVED = "attachment_removed";
+    public static final String COL_ACKNOWLEDGED = "acknowledged";
+
 
 }
