@@ -89,6 +89,8 @@ public final class User extends RemoteModel {
 
     static {
         defaultValues.put(NAME.name, "");
+        defaultValues.put(FIRST_NAME.name, "");
+        defaultValues.put(LAST_NAME.name, "");
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
