@@ -138,11 +138,16 @@ public class TagDataService {
     }
 
     private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
-        Criterion criteria = Criterion.or(
+        Criterion criteria;
+        if (tagData == null)
+            criteria = Criterion.all;
+        else
+            criteria = Criterion.or(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
                         UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
                                 .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid()))))));
+
         if (extraCriterion != null)
             criteria = Criterion.and(criteria, extraCriterion);
 
@@ -165,11 +170,17 @@ public class TagDataService {
         Query activityQuery = queryForTagData(tagData, extraCriterion, userTableAlias, UpdateAdapter.USER_ACTIVITY_PROPERTIES, userProperties)
                 .from(UserActivity.TABLE);
 
+        Criterion historyCriterion;
+        if (tagData == null)
+            historyCriterion = Criterion.none;
+        else
+            historyCriterion = Criterion.or(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())),
+                    Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
+                            .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid()))))));
+
         Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, userProperties)).from(History.TABLE)
-                .where(Criterion.or(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())),
-                        Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))))
-                                .join(Join.left(User.TABLE.as(userTableAlias), History.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
+                .where(historyCriterion)
+                .join(Join.left(User.TABLE.as(userTableAlias), History.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
 
         Query resultQuery = activityQuery.union(historyQuery).orderBy(Order.desc("1")); //$NON-NLS-1$
 
