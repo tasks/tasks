@@ -1,5 +1,5 @@
-/*
- * Copyright 2010 Facebook, Inc.
+/**
+ * Copyright 2010-present Facebook
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,30 +19,44 @@ package com.facebook.android;
 /**
  * Encapsulation of a Facebook Error: a Facebook request that could not be
  * fulfilled.
+ * <p/>
+ * THIS CLASS SHOULD BE CONSIDERED DEPRECATED.
+ * <p/>
+ * All public members of this class are intentionally deprecated.
+ * New code should instead use
+ * {@link com.facebook.FacebookException}
+ * <p/>
+ * Adding @Deprecated to this class causes warnings in other deprecated classes
+ * that reference this one.  That is the only reason this entire class is not
+ * deprecated.
  *
- * @author ssoneff@facebook.com
+ * @devDocDeprecated
  */
-public class FacebookError extends Throwable {
+public class FacebookError extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     private int mErrorCode = 0;
     private String mErrorType;
 
+    @Deprecated
     public FacebookError(String message) {
         super(message);
     }
 
+    @Deprecated
     public FacebookError(String message, String type, int code) {
         super(message);
         mErrorType = type;
         mErrorCode = code;
     }
 
+    @Deprecated
     public int getErrorCode() {
         return mErrorCode;
     }
 
+    @Deprecated
     public String getErrorType() {
         return mErrorType;
     }

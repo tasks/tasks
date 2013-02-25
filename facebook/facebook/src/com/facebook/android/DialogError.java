@@ -1,5 +1,5 @@
-/*
- * Copyright 2010 Facebook, Inc.
+/**
+ * Copyright 2010-present Facebook
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,18 @@ package com.facebook.android;
 
 /**
  * Encapsulation of Dialog Error.
+ * <p/>
+ * THIS CLASS SHOULD BE CONSIDERED DEPRECATED.
+ * <p/>
+ * All public members of this class are intentionally deprecated.
+ * New code should instead use
+ * {@link com.facebook.FacebookException}
+ * <p/>
+ * Adding @Deprecated to this class causes warnings in other deprecated classes
+ * that reference this one.  That is the only reason this entire class is not
+ * deprecated.
  *
- * @author ssoneff@facebook.com
+ * @devDocDeprecated
  */
 public class DialogError extends Throwable {
 
@@ -34,17 +44,20 @@ public class DialogError extends Throwable {
     /** The URL that the dialog was trying to load */
     private String mFailingUrl;
 
+    @Deprecated
     public DialogError(String message, int errorCode, String failingUrl) {
         super(message);
         mErrorCode = errorCode;
         mFailingUrl = failingUrl;
     }
 
-    int getErrorCode() {
+    @Deprecated
+    public int getErrorCode() {
         return mErrorCode;
     }
 
-    String getFailingUrl() {
+    @Deprecated
+    public String getFailingUrl() {
         return mFailingUrl;
     }
 
