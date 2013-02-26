@@ -34,6 +34,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
     static final String PREF_VALUES = "widget-values-";
     static final String PREF_CUSTOM_INTENT = "widget-intent-";
     static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
+    static final String PREF_TAG_ID = "widget-tag-id-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
