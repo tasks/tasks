@@ -360,8 +360,13 @@ public class Database extends AbstractDatabase {
             database.execSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
             database.execSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
+            database.execSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
+            database.execSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.TASKS_PUSHED_AT, visitor, null));
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
             database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));

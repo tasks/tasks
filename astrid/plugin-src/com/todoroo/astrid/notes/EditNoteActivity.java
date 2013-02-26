@@ -66,6 +66,7 @@ import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -423,7 +424,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             }
         };
 
-        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, task.getUuid(), task.getValue(Task.PUSHED_AT)), callback);
+        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
+        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), false, callback).execute();
     }
 

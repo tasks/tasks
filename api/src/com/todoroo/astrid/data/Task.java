@@ -178,6 +178,14 @@ public final class Task extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
+    /** Attachments pushed at date */
+    public static final LongProperty ATTACHMENTS_PUSHED_AT = new LongProperty(
+            TABLE, "attachments_pushed_at", Property.PROP_FLAG_DATE);
+
+    /** User activities pushed at date */
+    public static final LongProperty USER_ACTIVITIES_PUSHED_AT = new LongProperty(
+            TABLE, "activities_pushed_at", Property.PROP_FLAG_DATE);
+
     /** History fetch time */
     public static final LongProperty HISTORY_FETCH_DATE = new LongProperty(
             TABLE, "historyFetch");
@@ -311,6 +319,8 @@ public final class Task extends RemoteModel {
         defaultValues.put(USER.name, "");
 //        defaultValues.put(USER_EMAIL.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
+        defaultValues.put(ATTACHMENTS_PUSHED_AT.name, 0L);
+        defaultValues.put(USER_ACTIVITIES_PUSHED_AT.name, 0L);
     }
 
     @Override

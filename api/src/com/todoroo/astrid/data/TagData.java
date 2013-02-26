@@ -121,6 +121,18 @@ public final class TagData extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
+    /** Tasks pushed at date */
+    public static final LongProperty TASKS_PUSHED_AT = new LongProperty(
+            TABLE, "tasks_pushed_at", Property.PROP_FLAG_DATE);
+
+    /** Metadata pushed at date */
+    public static final LongProperty METADATA_PUSHED_AT = new LongProperty(
+            TABLE, "metadata_pushed_at", Property.PROP_FLAG_DATE);
+
+    /** User activities pushed at date */
+    public static final LongProperty USER_ACTIVITIES_PUSHED_AT = new LongProperty(
+            TABLE, "activities_pushed_at", Property.PROP_FLAG_DATE);
+
     /** Tag ordering */
     public static final StringProperty TAG_ORDERING = new StringProperty(
             TABLE, "tagOrdering");
@@ -169,6 +181,9 @@ public final class TagData extends RemoteModel {
         defaultValues.put(TASK_COUNT.name, 0);
         defaultValues.put(TAG_DESCRIPTION.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
+        defaultValues.put(TASKS_PUSHED_AT.name, 0L);
+        defaultValues.put(METADATA_PUSHED_AT.name, 0L);
+        defaultValues.put(USER_ACTIVITIES_PUSHED_AT.name, 0L);
         defaultValues.put(TAG_ORDERING.name, "[]");
     }
 
