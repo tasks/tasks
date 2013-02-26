@@ -10,6 +10,7 @@ import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,12 +43,14 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
@@ -175,7 +178,7 @@ public class TasksWidget extends AppWidgetProvider {
             TodorooCursor<Task> cursor = null;
             Filter filter = null;
             try {
-                filter = getFilter(widgetId);
+                filter = getFilter(context, widgetId);
                 if (SubtasksHelper.isTagFilter(filter))
                     ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
                 views.setTextViewText(R.id.widget_title, filter.title);
@@ -377,7 +380,7 @@ public class TasksWidget extends AppWidgetProvider {
                 return 5;
         }
 
-        private Filter getFilter(int widgetId) {
+        private Filter getFilter(Context context, int widgetId) {
 
             // base our filter off the inbox filter, replace stuff if we have it
             Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
@@ -401,6 +404,33 @@ public class TasksWidget extends AppWidgetProvider {
                         + widgetId);
                 Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
                 ((FilterWithCustomIntent) filter).customExtras = extras;
+            }
+
+            // Validate tagData
+            long id = Preferences.getLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, 0);
+            TagData tagData = null;
+            if (id > 0) {
+                tagData = tagDataService.fetchById(id, TagData.ID, TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID, TagData.PICTURE, TagData.USER_ID, TagData.MEMBER_COUNT, TagData.TAG_ORDERING);
+                if (tagData != null && !tagData.getValue(TagData.NAME).equals(filter.title)) { // Tag has been renamed; rebuild filter
+                    filter = TagFilterExposer.filterFromTagData(context, tagData);
+                    Preferences.setString(WidgetConfigActivity.PREF_SQL + widgetId, filter.getSqlQuery());
+                    Preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.title);
+                    ContentValues newTaskValues = filter.valuesForNewTasks;
+                    String contentValuesString = null;
+                    if(newTaskValues != null)
+                        contentValuesString = AndroidUtilities.contentValuesToSerializedString(newTaskValues);
+                    Preferences.setString(WidgetConfigActivity.PREF_VALUES + widgetId, contentValuesString);
+                    if (filter instanceof FilterWithCustomIntent) {
+                        String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filter).customExtras);
+                        if (flattenedExtras != null)
+                            Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,
+                                    flattenedExtras);
+                    }
+                }
+            } else {
+                tagData = tagDataService.getTag(filter.title, TagData.ID, TagData.TAG_ORDERING);
+                if (tagData != null)
+                    Preferences.setLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
             }
 
             return filter;
