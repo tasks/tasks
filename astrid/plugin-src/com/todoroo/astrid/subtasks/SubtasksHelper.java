@@ -89,7 +89,7 @@ public class SubtasksHelper {
         String serialized;
         if (tlm != null)
             serialized = tlm.getValue(TaskListMetadata.TASK_IDS);
-        if (tagData != null)
+        else if (tagData != null)
             serialized = convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING));
         else
             serialized = "[]"; //$NON-NLS-1$
@@ -116,7 +116,7 @@ public class SubtasksHelper {
     @SuppressWarnings("nls")
     public static String[] getStringIdArray(String serializedTree) {
         ArrayList<String> ids = new ArrayList<String>();
-        String[] values = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
+        String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : values) {
             if (!TextUtils.isEmpty(idString))
                 ids.add(idString);
