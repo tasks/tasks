@@ -149,7 +149,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public void loadViewForTaskID(long t){
         try {
-            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.PUSHED_AT);
+            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
         } catch (SQLiteException e) {
             StartupService.handleSQLiteError(ContextManager.getContext(), e);
         }
@@ -160,7 +160,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         setUpListAdapter();
 
         if(actFmPreferenceService.isLoggedIn()) {
-            long pushedAt = task.getValue(Task.PUSHED_AT);
+            long pushedAt = task.getValue(Task.USER_ACTIVITIES_PUSHED_AT);
             if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) {
                 refreshData();
             } else {
