@@ -74,6 +74,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="10dip"
                     android:layout_toRightOf="@id/picture"
+                    android:capitalize="sentences"
                     android:text="@string/actfm_TVA_tag_label" />
 
                 <LinearLayout
