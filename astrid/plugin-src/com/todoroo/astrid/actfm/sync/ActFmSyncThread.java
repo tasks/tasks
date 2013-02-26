@@ -230,8 +230,7 @@ public class ActFmSyncThread {
                         JSONObject serialized = message.serializeToJSON();
                         if (serialized != null) {
                             payload.put(serialized);
-                            if (ActFmInvoker.SYNC_DEBUG)
-                                Log.e("actfm-send-message", serialized.toString());
+                            syncLog("Sending: " + serialized);
                         }
                     }
 
@@ -248,9 +247,10 @@ public class ActFmSyncThread {
                                 if (serverMessageJson != null) {
                                     ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
                                     if (serverMessage != null) {
+                                        syncLog("Processing server message of type " + serverMessage.getClass().getSimpleName());
                                         serverMessage.processMessage();
                                     } else {
-                                        Log.e(ERROR_TAG, "Unable to instantiate message " + serverMessageJson.toString());
+                                        syncLog("Unable to instantiate message " + serverMessageJson.toString());
                                     }
                                 }
                             }
@@ -297,6 +297,7 @@ public class ActFmSyncThread {
     // Reapplies changes still in the outstanding tables to the local database
     // Called after a batch has finished processing
     private void replayOutstandingChanges(boolean afterErrors) {
+        syncLog("Replaying outstanding changes"); //$NON-NLS-1$
         new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, this, afterErrors).execute();
         new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, this, afterErrors).execute();
         new ReplayOutstandingEntries<TaskListMetadata, TaskListMetadataOutstanding>(TaskListMetadata.class, NameMaps.TABLE_ID_TASK_LIST_METADATA, taskListMetadataDao, taskListMetadataOutstandingDao, this, afterErrors).execute();
@@ -332,4 +333,8 @@ public class ActFmSyncThread {
         return true;
     }
 
+    private void syncLog(String message) {
+        if (ActFmInvoker.SYNC_DEBUG)
+            Log.e(ERROR_TAG, message);
+    }
 }
