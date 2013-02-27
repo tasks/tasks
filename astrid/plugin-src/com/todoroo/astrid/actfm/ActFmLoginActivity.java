@@ -127,8 +127,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
     private Random rand;
 
-//    private Facebook facebook;
-//    private AsyncFacebookRunner facebookRunner;
     protected TextView errors;
 
     public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
@@ -260,9 +258,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     @SuppressWarnings("nls")
     protected void initializeUI() {
-//        facebook = new Facebook(APP_ID);
-//        facebookRunner = new AsyncFacebookRunner(facebook);
-
         errors = (TextView) findViewById(R.id.error);
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
         if(loginButton == null)
