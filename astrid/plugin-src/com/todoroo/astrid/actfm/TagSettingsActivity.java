@@ -540,6 +540,15 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if (tagName.getText().length() == 0) {
+            finish();
+        } else {
+            saveSettings();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
         case MENU_DISCARD_ID:
