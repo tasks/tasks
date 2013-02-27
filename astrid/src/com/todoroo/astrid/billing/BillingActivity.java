@@ -10,9 +10,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItem;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -26,6 +23,9 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -35,7 +35,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.service.ThemeService;
 
-public class BillingActivity extends FragmentActivity implements AstridPurchaseObserver.RestoreTransactionsListener {
+public class BillingActivity extends SherlockFragmentActivity implements AstridPurchaseObserver.RestoreTransactionsListener {
 
     private static final int DIALOG_CANNOT_CONNECT_ID = 1;
     private static final int DIALOG_BILLING_NOT_SUPPORTED_ID = 2;

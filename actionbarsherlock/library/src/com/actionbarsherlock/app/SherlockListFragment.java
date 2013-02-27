@@ -59,10 +59,20 @@ public class SherlockListFragment extends ListFragment implements OnCreateOption
     public final boolean onOptionsItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(new MenuItemWrapper(item));
     }
+    
+    @Override
+    public final boolean onContextItemSelected(android.view.MenuItem item) {
+    	return onContextItemSelected(new MenuItemWrapper(item));
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //Nothing to see here.
         return false;
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+    	//Nothing to see here.
+    	return false;
     }
 }

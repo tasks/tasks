@@ -26,19 +26,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.SupportActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,6 +47,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -126,7 +124,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends ListFragment implements OnScrollListener,
+public class TaskListFragment extends SherlockListFragment implements OnScrollListener,
         OnSortSelectedListener {
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
@@ -291,7 +289,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     @Override
-    public void onAttach(SupportActivity activity) {
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
         // Check that the container activity has implemented the callback
         // interface
@@ -488,7 +486,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @return true if menu should be displayed
      */
     @Override
-    public final void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, com.actionbarsherlock.view.MenuInflater inflater) {
         Activity activity = getActivity();
         if (activity == null)
             return;

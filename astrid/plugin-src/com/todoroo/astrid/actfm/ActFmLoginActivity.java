@@ -22,7 +22,6 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -41,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.AuthListener;
@@ -97,7 +97,7 @@ import com.todoroo.astrid.service.TaskService;
  * @author Tim Su <tim@astrid.com>
  *
  */
-public class ActFmLoginActivity extends FragmentActivity implements AuthListener {
+public class ActFmLoginActivity extends SherlockFragmentActivity implements AuthListener {
 
     public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
 

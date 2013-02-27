@@ -6,11 +6,11 @@
 package com.todoroo.astrid.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;

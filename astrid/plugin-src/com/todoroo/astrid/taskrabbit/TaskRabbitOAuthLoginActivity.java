@@ -9,11 +9,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -28,7 +28,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
  * @author timsu
  *
  */
-public class TaskRabbitOAuthLoginActivity extends FragmentActivity {
+public class TaskRabbitOAuthLoginActivity extends SherlockFragmentActivity {
 
     /**
      * URL to display

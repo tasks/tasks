@@ -8,12 +8,12 @@ package com.todoroo.astrid.people;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.support.v4.view.Menu;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.actionbarsherlock.view.Menu;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;

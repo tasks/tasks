@@ -30,9 +30,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -51,6 +48,9 @@ import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -73,7 +73,7 @@ import com.todoroo.astrid.ui.ErrorCatchingListView;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TaskRabbitActivity extends FragmentActivity {
+public class TaskRabbitActivity extends SherlockFragmentActivity {
 
 
     public interface TaskRabbitSetListener {
