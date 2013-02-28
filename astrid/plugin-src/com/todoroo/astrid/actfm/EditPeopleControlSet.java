@@ -373,11 +373,13 @@ public class EditPeopleControlSet extends PopupControlSet {
     private String getLongOrStringId(JSONObject obj, String defaultValue) {
         try {
             long value = obj.getLong("id"); //$NON-NLS-1$
+            System.err.println("RETURNING VALUE: " + value);
             return Long.toString(value);
         } catch (JSONException e) {
             String value = obj.optString("id"); //$NON-NLS-1$
             if (TextUtils.isEmpty(value))
                 value = defaultValue;
+            System.err.println("RETURNING VALUE: " + value);
             return value;
         }
     }
@@ -430,7 +432,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     @SuppressWarnings("nls")
     private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) {
         String assignedStr = t.getValue(Task.USER);
-        String assignedId = "-2";
+        String assignedId = Task.USER_ID_IGNORE;
         String assignedEmail = t.getValue(Task.USER_ID);
         try {
             JSONObject assigned = new JSONObject(assignedStr);
@@ -448,6 +450,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                         assignedId = getLongOrStringId(assigned, Task.USER_ID_EMAIL);
                     }
                     assignedEmail = assigned.optString("email");
+                } else if (!t.getValue(Task.USER_ID).contains("@")) {
+                    assignedId = t.getValue(Task.USER_ID);
                 }
             } catch (JSONException e2) {
                 //
