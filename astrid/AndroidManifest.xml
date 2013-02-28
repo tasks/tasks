@@ -92,6 +92,7 @@
                android:hardwareAccelerated="false" 
                android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
   
+	<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/fb_app_id"/>
     <!-- ====================================================== Activities = -->
         
     <!-- Activity that displays task list -->

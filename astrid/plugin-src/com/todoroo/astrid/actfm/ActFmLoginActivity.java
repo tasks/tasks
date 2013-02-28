@@ -95,8 +95,6 @@ import com.todoroo.astrid.service.TaskService;
  */
 public class ActFmLoginActivity extends SherlockFragmentActivity {
 
-    public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
-
     @Autowired
     protected ExceptionService exceptionService;
     @Autowired

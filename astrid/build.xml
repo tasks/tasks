@@ -70,7 +70,7 @@
       <taskdef name="proguard" classname="proguard.ant.ProGuardTask" classpath="${proguard.jar}" />
     </target>
 
-    <target name="-post-astrid-build" depends="teardown-lite" />
+    <target name="-post-astrid-build" depends="teardown-lite, teardown" />
 
     <target name="copy-sources">
       <delete dir="${source.dir}" />
@@ -183,9 +183,9 @@
     <target name="updatekeys-release" if="build.is.mode.release" depends="updatekeys-pre"
             description="update release-only api key values">
       <property file="${apikey.keyfile}" />
-      <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/ActFmLoginActivity.java"
-                     match="APP_ID = .*"
-                     replace="APP_ID = &quot;${apikey.facebook.id}&quot;;" />
+      <replaceregexp file="res/values/keys.xml"
+                     match="fb_app_id&quot;&gt;.*&lt;"
+                     replace="fb_app_id&quot;&gt;${apikey.facebook.id}&lt;" />
     </target>
 
 
@@ -341,6 +341,12 @@
 	  <subant target="teardown-lite">
 	      <fileset file="../api/build.xml"/>
 	  </subant>
+	</target>
+	
+	<target name="teardown">
+		<replaceregexp file="res/values/keys.xml"
+                       match="fb_app_id&quot;&gt;.*&lt;"
+                       replace="fb_app_id&quot;&gt;183862944961271&lt;" />
 	</target>
 
     <!-- build custom unsigned package with updated version name -->
