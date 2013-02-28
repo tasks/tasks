@@ -373,13 +373,11 @@ public class EditPeopleControlSet extends PopupControlSet {
     private String getLongOrStringId(JSONObject obj, String defaultValue) {
         try {
             long value = obj.getLong("id"); //$NON-NLS-1$
-            System.err.println("RETURNING VALUE: " + value);
             return Long.toString(value);
         } catch (JSONException e) {
             String value = obj.optString("id"); //$NON-NLS-1$
             if (TextUtils.isEmpty(value))
                 value = defaultValue;
-            System.err.println("RETURNING VALUE: " + value);
             return value;
         }
     }
