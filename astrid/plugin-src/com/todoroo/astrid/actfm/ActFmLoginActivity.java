@@ -40,9 +40,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.facebook.Request;
+import com.facebook.Request.GraphUserCallback;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 import com.google.android.googlelogin.GoogleLoginServiceHelper;
@@ -261,12 +265,16 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         if(loginButton == null)
             return;
 
-        loginButton.setReadPermissions(Arrays.asList("email", "offline_access", "publish_stream"));
+        loginButton.setReadPermissions(Arrays.asList("email", "offline_access"));
 
         View googleLogin = findViewById(R.id.gg_login);
         if(AmazonMarketStrategy.isKindleFire())
             googleLogin.setVisibility(View.GONE);
         googleLogin.setOnClickListener(googleListener);
+
+        View fbLogin = findViewById(R.id.fb_login_dummy);
+        fbLogin.setOnClickListener(facebookListener);
+
         TextView signUp = (TextView) findViewById(R.id.pw_signup);
         signUp.setOnClickListener(signUpListener);
 
@@ -285,6 +293,19 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     ActFmGoogleAuthActivity.class);
             startActivityForResult(intent, REQUEST_CODE_GOOGLE);
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
+        }
+    };
+
+    protected final OnClickListener facebookListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Session session = Session.getActiveSession();
+            if (session != null && session.isOpened()) {
+                facebookSuccess(session);
+            } else {
+                View fbLogin = findViewById(R.id.fb_login);
+                fbLogin.performClick();
+            }
         }
     };
 
@@ -474,10 +495,27 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
-            Log.e("fb-login", "State opened");
+            facebookSuccess(session);
         } else if (state.isClosed()) {
             Log.e("fb-login", "State closed");
         }
+    }
+
+    private void facebookSuccess(Session session) {
+        progressDialog = DialogUtilities.progressDialog(this,
+                getString(R.string.DLG_please_wait));
+          Request request = Request.newMeRequest(session, new GraphUserCallback() {
+              @Override
+              public void onCompleted(GraphUser user, Response response) {
+                  try {
+                      String email = user.getInnerJSONObject().optString("email"); //$NON-NLS-1$
+                      authenticate(email, user.getFirstName(), user.getLastName(), ActFmInvoker.PROVIDER_FACEBOOK, Session.getActiveSession().getAccessToken());
+                  } catch (Exception e) {
+                      handleError(e);
+                  }
+              }
+          });
+          request.executeAsync();
     }
 
     private UiLifecycleHelper uiHelper;
