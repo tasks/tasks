@@ -370,6 +370,18 @@ public class EditPeopleControlSet extends PopupControlSet {
         });
     }
 
+    private String getLongOrStringId(JSONObject obj, String defaultValue) {
+        try {
+            long value = obj.getLong("id"); //$NON-NLS-1$
+            return Long.toString(value);
+        } catch (JSONException e) {
+            String value = obj.optString("id"); //$NON-NLS-1$
+            if (TextUtils.isEmpty(value))
+                value = defaultValue;
+            return value;
+        }
+    }
+
     @SuppressWarnings("nls")
     private ArrayList<AssignedToUser> convertJsonUsersToAssignedUsers(ArrayList<JSONObject> jsonUsers,
             HashSet<String> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
@@ -378,7 +390,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             JSONObject person = jsonUsers.get(i);
             if(person == null)
                 continue;
-            String id = Long.toString(person.optLong("id", -2));
+            String id = getLongOrStringId(person, Task.USER_ID_EMAIL);
             if(ActFmPreferenceService.userId().equals(id) || ((Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id)))
                 continue;
             userIds.add(id);
@@ -418,11 +430,11 @@ public class EditPeopleControlSet extends PopupControlSet {
     @SuppressWarnings("nls")
     private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) {
         String assignedStr = t.getValue(Task.USER);
-        long assignedId = -2;
+        String assignedId = "-2";
         String assignedEmail = t.getValue(Task.USER_ID);
         try {
             JSONObject assigned = new JSONObject(assignedStr);
-            assignedId = assigned.optLong("id", -2);
+            assignedId = getLongOrStringId(assigned, Task.USER_ID_EMAIL);
             assignedEmail = assigned.optString("email");
         } catch (JSONException e) {
             User assignedUser = userDao.fetch(t.getValue(Task.USER_ID), User.PROPERTIES);
@@ -430,7 +442,11 @@ public class EditPeopleControlSet extends PopupControlSet {
             try {
                 if (assignedUser != null) {
                     ActFmSyncService.JsonHelper.jsonFromUser(assigned, assignedUser);
-                    assignedId = assigned.optLong("id", -2);
+                    try {
+                        assignedId = assigned.getString("id");
+                    } catch (JSONException e2) {
+                        assignedId = getLongOrStringId(assigned, Task.USER_ID_EMAIL);
+                    }
                     assignedEmail = assigned.optString("email");
                 }
             } catch (JSONException e2) {
@@ -443,7 +459,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             for (int i = 0; i < userList.size(); i++) {
                 JSONObject user = userList.get(i).user;
                 if (user != null) {
-                    if (user.optLong("id") == assignedId ||
+                    if (getLongOrStringId(user, Task.USER_ID_EMAIL).equals(assignedId) ||
                             (user.optString("email").equals(assignedEmail) &&
                                     !(TextUtils.isEmpty(assignedEmail))))
                         return index;
@@ -649,12 +665,12 @@ public class EditPeopleControlSet extends PopupControlSet {
                             activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
             }
 
-            if(userJson == null || Task.USER_ID_SELF.equals(Long.toString(userJson.optLong("id", -2)))) {
+            if(userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
                 dirty = Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)) ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 task.setValue(Task.USER, "");
                 assignedToMe = true;
-            } else if(Task.USER_ID_UNASSIGNED.equals(Long.toString(userJson.optLong("id")))) {
+            } else if(Task.USER_ID_UNASSIGNED.equals(getLongOrStringId(userJson, Task.USER_ID_SELF))) {
                 dirty = Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)) ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
                 task.setValue(Task.USER, "");
@@ -664,7 +680,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 try {
                     @SuppressWarnings("deprecation") // For backwards compatibility
                     JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
-                    taskUserId = Long.toString(taskUser.optLong("id", -2));
+                    taskUserId = getLongOrStringId(taskUser, Task.USER_ID_EMAIL);
                     taskUserEmail = taskUser.optString("email");
                 } catch (JSONException e) {
                     // sad times
@@ -672,14 +688,14 @@ public class EditPeopleControlSet extends PopupControlSet {
                     if (Task.userIdIsEmail(taskUserId))
                         taskUserEmail = taskUserId;
                 }
-                String userId = Long.toString(userJson.optLong("id", -2));
+                String userId = getLongOrStringId(userJson, Task.USER_ID_EMAIL);
                 String userEmail = userJson.optString("email");
 
                 boolean match = userId.equals(taskUserId);
                 match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
 
                 dirty = match ? dirty : true;
-                String willAssignToId = Long.toString(userJson.optLong("id", -2));
+                String willAssignToId = getLongOrStringId(userJson, Task.USER_ID_EMAIL);
                 task.setValue(Task.USER_ID, willAssignToId);
                 if (Task.USER_ID_EMAIL.equals(task.getValue(Task.USER_ID)))
                     task.setValue(Task.USER_ID, userEmail);
@@ -759,7 +775,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 userJson = item.user;
         }
 
-        if(userJson == null || Task.USER_ID_SELF.equals(Long.toString(userJson.optLong("id", -2)))) { //$NON-NLS-1$
+        if(userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
             return true;
         }
 
