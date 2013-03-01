@@ -53,6 +53,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
         helper.beforeSetUpTaskList(filter);
 
         super.setUpTaskList();
+        setUpMembersGallery();
 
         unregisterForContextMenu(getListView());
     }

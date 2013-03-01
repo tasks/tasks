@@ -637,7 +637,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     @Override
                     public void run() {
                         try {
-                            loadTaskListContent(true);
+                            refresh();
                         } catch (IllegalStateException e) {
                             // view may have been destroyed
                         }
