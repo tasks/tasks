@@ -329,7 +329,7 @@ public class TagViewFragment extends TaskListFragment {
 
     /** refresh the list with latest data from the web */
     private void refreshData() {
-        if (actFmPreferenceService.isLoggedIn()) {
+        if (actFmPreferenceService.isLoggedIn() && tagData != null && !RemoteModel.isUuidEmpty(tagData.getUuid())) {
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
             Runnable callback = new Runnable() {
