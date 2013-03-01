@@ -140,6 +140,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
             } else {
                 clone = new TagData();
                 clone.setValue(TagData.NAME, localName);
+                tagDataService.save(clone);
             }
 
         } finally {

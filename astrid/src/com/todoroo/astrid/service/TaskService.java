@@ -229,11 +229,13 @@ public class TaskService {
         newTask.clearValue(Task.UUID);
         newTask.clearValue(Task.USER);
         newTask.clearValue(Task.USER_ID);
+        newTask.clearValue(Task.IS_READONLY);
+        newTask.clearValue(Task.IS_PUBLIC);
 
         taskDao.save(newTask);
 
-        if (!RemoteModel.NO_UUID.equals(tagUuid)) {
-            TagService.getInstance().createLink(task, tagName, tagUuid);
+        if (!RemoteModel.isUuidEmpty(tagUuid)) {
+            TagService.getInstance().createLink(newTask, tagName, tagUuid);
         }
         return newTask;
     }
