@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 
@@ -23,12 +24,18 @@ public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMet
         boolean foundOrderChange = false;
         for (int i = changes.size() - 1; i >= 0; i--) {
             TaskListMetadataOutstanding oe = changes.get(i);
-            if (TaskListMetadata.TASK_IDS.name.equals(oe.getValue(TaskListMetadataOutstanding.COLUMN_STRING))) {
+            String column = oe.getValue(TaskListMetadataOutstanding.COLUMN_STRING);
+            if (TaskListMetadata.TASK_IDS.name.equals(column)) {
                 if (foundOrderChange) {
                     changes.remove(i);
                     removedChanges.add(oe.getId());
                 } else {
                     foundOrderChange = true;
+                }
+            } else if (TaskListMetadata.FILTER.name.equals(column) || TaskListMetadata.TAG_UUID.equals(column)) {
+                if (RemoteModel.isUuidEmpty(oe.getValue(TaskListMetadataOutstanding.VALUE_STRING))) {
+                    changes.remove(i);
+                    removedChanges.add(oe.getId());
                 }
             }
         }
