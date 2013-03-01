@@ -64,7 +64,25 @@ import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmServiceException;
 import com.todoroo.astrid.actfm.sync.ActFmSyncMonitor;
+import com.todoroo.astrid.actfm.sync.messages.ConstructOutstandingTableFromMasterTable;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagOutstandingDao;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
+import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
+import com.todoroo.astrid.dao.TaskOutstandingDao;
+import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.dao.UserActivityOutstandingDao;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagOutstanding;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.data.TaskListMetadataOutstanding;
+import com.todoroo.astrid.data.TaskOutstanding;
+import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
@@ -89,6 +107,25 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     protected TaskService taskService;
     @Autowired
     protected ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    private TaskDao taskDao;
+    @Autowired
+    private TaskOutstandingDao taskOutstandingDao;
+    @Autowired
+    private TagDataDao tagDataDao;
+    @Autowired
+    private TagOutstandingDao tagOutstandingDao;
+    @Autowired
+    private UserActivityDao userActivityDao;
+    @Autowired
+    private UserActivityOutstandingDao userActivityOutstandingDao;
+    @Autowired
+    private TaskListMetadataDao taskListMetadataDao;
+    @Autowired
+    private TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
+
+
 
     @Autowired protected SyncV2Service syncService;
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
@@ -526,6 +563,13 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
                     if (result.optBoolean("new")) { // Report new user statistic
                         StatisticsService.reportEvent(StatisticsConstants.ACTFM_NEW_USER, "provider", provider);
+                    }
+                    // Successful login, create outstanding entries
+                    if (!TextUtils.isEmpty(token)) {
+                        new ConstructOutstandingTableFromMasterTable<Task, TaskOutstanding>(NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, Task.CREATION_DATE).execute();
+                        new ConstructOutstandingTableFromMasterTable<TagData, TagOutstanding>(NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, TagData.CREATION_DATE).execute();
+                        new ConstructOutstandingTableFromMasterTable<UserActivity, UserActivityOutstanding>(NameMaps.TABLE_ID_USER_ACTIVITY, userActivityDao, userActivityOutstandingDao, UserActivity.CREATED_AT).execute();
+                        new ConstructOutstandingTableFromMasterTable<TaskListMetadata, TaskListMetadataOutstanding>(NameMaps.TABLE_ID_TASK_LIST_METADATA, taskListMetadataDao, taskListMetadataOutstandingDao, null).execute();
                     }
                     runOnUiThread(new Runnable() {
                         public void run() {
