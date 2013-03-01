@@ -5,6 +5,7 @@ import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.helper.UUIDHelper;
 
@@ -29,7 +30,26 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
             item.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
         }
         return super.createNew(item);
-    };
+    }
+
+    public static int outstandingEntryFlag = -1;
+
+    public static boolean getOutstandingEntryFlag() {
+        if (outstandingEntryFlag == -1) {
+            synchronized (RemoteModelDao.class) {
+                if (PluginServices.getActFmPreferenceService().isLoggedIn())
+                    outstandingEntryFlag = 1;
+                else
+                    outstandingEntryFlag = 0;
+            }
+        }
+        return outstandingEntryFlag > 0;
+    }
+
+    @Override
+    protected boolean shouldRecordOutstanding(RTYPE item) {
+        return super.shouldRecordOutstanding(item) && getOutstandingEntryFlag();
+    }
 
     /**
      * Fetch a model object by UUID

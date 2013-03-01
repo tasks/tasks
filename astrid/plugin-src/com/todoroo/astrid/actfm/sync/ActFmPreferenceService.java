@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -53,6 +54,15 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     // --- user management
+
+    @Override
+    public void setToken(String setting) {
+        super.setToken(setting);
+        if (TextUtils.isEmpty(setting))
+            RemoteModelDao.outstandingEntryFlag = -1;
+        else
+            RemoteModelDao.outstandingEntryFlag = 1;
+    }
 
     /**
      * @return get user id

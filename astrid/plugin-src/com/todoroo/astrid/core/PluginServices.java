@@ -10,6 +10,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -100,6 +101,9 @@ public final class PluginServices {
 
     @Autowired
     TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
+
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
     private static volatile PluginServices instance;
 
@@ -202,6 +206,10 @@ public final class PluginServices {
 
     public static TaskListMetadataOutstandingDao getTaskListMetadataOutstandingDao() {
         return getInstance().taskListMetadataOutstandingDao;
+    }
+
+    public static ActFmPreferenceService getActFmPreferenceService() {
+        return getInstance().actFmPreferenceService;
     }
 
     // -- helpers
