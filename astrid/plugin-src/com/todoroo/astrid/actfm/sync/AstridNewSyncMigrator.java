@@ -20,6 +20,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -145,7 +146,8 @@ public class AstridNewSyncMigrator {
 
                 @Override
                 public boolean shouldCreateOutstandingEntries(TagData instance) {
-                    return lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
+                    boolean result = lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
+                    return result && RemoteModelDao.getOutstandingEntryFlag();
                 }
 
                 @Override
@@ -181,8 +183,9 @@ public class AstridNewSyncMigrator {
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
                     if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
-                        return true;
-                    return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
+                        return RemoteModelDao.getOutstandingEntryFlag();
+
+                    return (instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE)) && RemoteModelDao.getOutstandingEntryFlag();
                 }
 
                 @Override
