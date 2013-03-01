@@ -37,6 +37,11 @@ public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMet
                     changes.remove(i);
                     removedChanges.add(oe.getId());
                 }
+            } else if (TaskListMetadata.TASK_IDS.name.equals(column)) {
+                if (TaskListMetadata.taskIdsIsEmpty(oe.getValue(TaskListMetadataOutstanding.VALUE_STRING))) {
+                    changes.remove(i);
+                    removedChanges.add(oe.getId());
+                }
             }
         }
 
