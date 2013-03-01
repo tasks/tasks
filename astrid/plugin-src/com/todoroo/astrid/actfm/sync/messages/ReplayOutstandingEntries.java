@@ -20,22 +20,19 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
 
     private static final String ERROR_TAG = "actfm-replay-outstanding";
 
-    private final Class<T> modelClass;
+    protected final Class<T> modelClass;
     private final Class<OE> outstandingClass;
     private final String table;
-    private final RemoteModelDao<T> dao;
-    private final OutstandingEntryDao<OE> outstandingDao;
-    private final ActFmSyncThread actFmSyncThread;
+    protected final RemoteModelDao<T> dao;
+    protected final OutstandingEntryDao<OE> outstandingDao;
     private final boolean afterErrors;
 
-    public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao,
-            ActFmSyncThread actFmSyncThread, boolean afterErrors) {
+    public ReplayOutstandingEntries(Class<T> modelClass, String table, RemoteModelDao<T> dao, OutstandingEntryDao<OE> outstandingDao, boolean afterErrors) {
         this.modelClass = modelClass;
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
         this.table = table;
         this.dao = dao;
         this.outstandingDao = outstandingDao;
-        this.actFmSyncThread = actFmSyncThread;
         this.afterErrors = afterErrors;
     }
 
@@ -56,6 +53,10 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
         } catch (Exception e) {
             Log.e(ERROR_TAG, "Unexpected exception in replay outstanding entries", e);
         }
+    }
+
+    protected void enqueueChangesHappenedMessage(long id) {
+        ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<T, OE>(id, modelClass, dao, outstandingDao), null);
     }
 
     private void processItem(long id, OE instance, TodorooCursor<OE> outstanding) {
@@ -80,9 +81,8 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             dao.saveExisting(model);
 
-            if (count > 0 && !afterErrors && actFmSyncThread != null) {
-                ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, dao, outstandingDao);
-                actFmSyncThread.enqueueMessage(ch, null);
+            if (count > 0 && !afterErrors) {
+                enqueueChangesHappenedMessage(id);
             }
 
             outstanding.moveToPrevious(); // Move back one to undo the last iteration of the for loop

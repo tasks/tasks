@@ -32,7 +32,7 @@ public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMet
                 } else {
                     foundOrderChange = true;
                 }
-            } else if (TaskListMetadata.FILTER.name.equals(column) || TaskListMetadata.TAG_UUID.equals(column)) {
+            } else if (TaskListMetadata.FILTER.name.equals(column) || TaskListMetadata.TAG_UUID.name.equals(column)) {
                 if (RemoteModel.isUuidEmpty(oe.getValue(TaskListMetadataOutstanding.VALUE_STRING))) {
                     changes.remove(i);
                     removedChanges.add(oe.getId());
