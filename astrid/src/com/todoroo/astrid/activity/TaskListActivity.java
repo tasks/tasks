@@ -52,6 +52,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
@@ -917,24 +918,21 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private class TagDeletedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String deletedTag = intent.getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
             String deletedTagSql = intent.getStringExtra(TagService.TOKEN_TAG_SQL);
+            String uuid = intent.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+            TaskListFragment tlf = getTaskListFragment();
             FilterListFragment fl = getFilterListFragment();
-            if (deletedTagSql.equals(TagService.SHOW_ACTIVE_TASKS)) {
-                fl.switchToActiveTasks();
-                fl.clear(); // Should auto refresh
-            }
-            else if (fl != null) {
-                Filter currentlyShowing = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-                if (currentlyShowing != null) {
-                    boolean titlesMatch = currentlyShowing.title != null && currentlyShowing.title.equals(deletedTag);
-                    boolean sqlMatches = currentlyShowing.getSqlQuery() != null && currentlyShowing.getSqlQuery().equals(deletedTagSql);
-                    if (titlesMatch && sqlMatches)
-                        fl.switchToActiveTasks();
+            if (tlf != null) {
+                TagData tagData = tlf.getActiveTagData();
+                String activeUuid = RemoteModel.NO_UUID;
+                if (tagData != null)
+                    activeUuid = tagData.getUuid();
+
+                if (deletedTagSql.equals(TagService.SHOW_ACTIVE_TASKS) || activeUuid.equals(uuid)) {
+                    fl.switchToActiveTasks();
+                    fl.clear(); // Should auto refresh
                 }
-                fl.clear(); // Should auto refresh
             }
         }
-
     }
 }

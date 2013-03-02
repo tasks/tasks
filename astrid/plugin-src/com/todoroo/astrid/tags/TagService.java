@@ -375,18 +375,18 @@ public final class TagService {
 
     public boolean deleteOrLeaveTag(Context context, String tag, String sql) {
         int deleted = deleteTagMetadata(tag);
-        TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
+        TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
         boolean shared = false;
+        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if(tagData != null) {
             tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
             PluginServices.getTagDataService().save(tagData);
+            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
             shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && !Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)); // Was I a list member and NOT owner?
         }
         Toast.makeText(context, context.getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
                 Toast.LENGTH_SHORT).show();
 
-        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-        tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tag);
         tagDeleted.putExtra(TOKEN_TAG_SQL, sql);
         context.sendBroadcast(tagDeleted);
         return true;

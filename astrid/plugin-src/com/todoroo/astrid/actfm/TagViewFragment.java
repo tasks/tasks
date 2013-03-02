@@ -242,9 +242,13 @@ public class TagViewFragment extends TaskListFragment {
         if(tag == null && RemoteModel.NO_UUID.equals(uuid))
             return;
 
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
-                Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
-                        TagData.UUID.eq(uuid))));
+        TodorooCursor<TagData> cursor;
+        if (!RemoteModel.isUuidEmpty(uuid)) {
+            cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
+        } else {
+            cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(tag)));
+        }
+
         try {
             tagData = new TagData();
             if(cursor.getCount() == 0) {
