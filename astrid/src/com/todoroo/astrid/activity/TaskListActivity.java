@@ -694,7 +694,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
             boolean memberFound = false;
             if (TextUtils.isEmpty(members))
-                memberFound = td.getValue(TagData.USER_ID).equals(assignedId) || tagMetadataDao.memberOfTagData(assignedEmail, assignedId);
+                memberFound = td.getValue(TagData.USER_ID).equals(assignedId) || tagMetadataDao.memberOfTagData(assignedEmail, td.getUuid(), assignedId);
             else {
                 JSONObject user = new JSONObject();
                 JSONArray membersArray = null;
