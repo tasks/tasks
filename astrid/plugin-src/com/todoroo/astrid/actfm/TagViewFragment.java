@@ -468,6 +468,11 @@ public class TagViewFragment extends TaskListFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else {
+            membersView.removeAllViews();
+            membersView.setOnClickListener(settingsListener);
+            TextView textView = (TextView) getActivity().getLayoutInflater().inflate(R.layout.no_members_text_view, null);
+            membersView.addView(textView);
         }
 
         View filterAssigned = getView().findViewById(R.id.filter_assigned);

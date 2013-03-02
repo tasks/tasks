@@ -31,16 +31,8 @@
 		       android:id="@+id/shared_with"
 		       android:layout_width="wrap_content"
 		       android:paddingLeft="6dip"
-		       android:layout_height="fill_parent">
-		       <TextView
-		          android:id="@+id/no_members"
-		          android:layout_width="fill_parent"
-		          android:layout_height="fill_parent"
-		          android:gravity="center_vertical"
-		          style="@style/TextAppearance"
-		          android:textStyle="bold"
-		          android:textColor="#333333"
-		          android:text="@string/actfm_TVA_no_members_alert"/>
+		       android:layout_height="fill_parent"
+		       android:gravity="center_vertical">
 		    </LinearLayout>
 		  </HorizontalScrollView>
 		  <ImageView 
