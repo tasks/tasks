@@ -36,6 +36,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -84,6 +85,8 @@ public final class TagService {
     @Autowired TaskService taskService;
 
     @Autowired TagDataService tagDataService;
+
+    @Autowired TagDataDao tagDataDao;
 
     public TagService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -373,9 +376,9 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
-    public boolean deleteOrLeaveTag(Context context, String tag, String sql) {
-        int deleted = deleteTagMetadata(tag);
-        TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
+    public boolean deleteOrLeaveTag(Context context, String tag, String uuid) {
+        int deleted = deleteTagMetadata(uuid);
+        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
         boolean shared = false;
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if(tagData != null) {
@@ -387,7 +390,6 @@ public final class TagService {
         Toast.makeText(context, context.getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
                 Toast.LENGTH_SHORT).show();
 
-        tagDeleted.putExtra(TOKEN_TAG_SQL, sql);
         context.sendBroadcast(tagDeleted);
         return true;
     }
@@ -532,12 +534,11 @@ public final class TagService {
         return null;
     }
 
-    private int deleteTagMetadata(String tag) {
-        invalidateTaskCache(tag);
+    private int deleteTagMetadata(String uuid) {
         Metadata deleted = new Metadata();
         deleted.setValue(Metadata.DELETION_DATE, DateUtilities.now());
 
-        return metadataDao.update(tagEqIgnoreCase(tag, Criterion.all), deleted);
+        return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleted);
     }
 
     public int rename(String oldTag, String newTag) {

@@ -74,7 +74,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
         contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.tag);
-        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid.toString());
+        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid);
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
@@ -94,8 +94,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             context.getString(deleteIntentLabel)
         };
         filter.contextMenuIntents = new Intent[] {
-                newTagIntent(context, RenameTagActivity.class, tag, tagTemplate.toString()),
-                newTagIntent(context, DeleteTagActivity.class, tag, tagTemplate.toString())
+                newTagIntent(context, RenameTagActivity.class, tag, tag.uuid),
+                newTagIntent(context, DeleteTagActivity.class, tag, tag.uuid)
         };
 
         filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
@@ -115,10 +115,10 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 
-    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String sql) {
+    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String uuid) {
         Intent ret = new Intent(context, activity);
         ret.putExtra(TAG, tag.tag);
-        ret.putExtra(TagService.TOKEN_TAG_SQL, sql);
+        ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
         return ret;
     }
 
@@ -197,7 +197,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     public abstract static class TagActivity extends Activity {
 
         protected String tag;
-        protected String sql;
+        protected String uuid;
 
         @Autowired public TagService tagService;
         @Autowired public TagDataService tagDataService;
@@ -211,8 +211,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             super.onCreate(savedInstanceState);
 
             tag = getIntent().getStringExtra(TAG);
-            sql = getIntent().getStringExtra(TagService.TOKEN_TAG_SQL);
-            if(tag == null) {
+            uuid = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+
+            if(tag == null || RemoteModel.isUuidEmpty(uuid)) {
                 finish();
                 return;
             }
@@ -284,7 +285,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Override
         protected boolean ok() {
-            return tagService.deleteOrLeaveTag(this, tag, sql);
+            return tagService.deleteOrLeaveTag(this, tag, uuid);
         }
 
     }

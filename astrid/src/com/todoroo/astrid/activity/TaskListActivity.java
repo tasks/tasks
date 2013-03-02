@@ -61,7 +61,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
@@ -918,7 +917,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private class TagDeletedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String deletedTagSql = intent.getStringExtra(TagService.TOKEN_TAG_SQL);
             String uuid = intent.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
             TaskListFragment tlf = getTaskListFragment();
             FilterListFragment fl = getFilterListFragment();
@@ -928,7 +926,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 if (tagData != null)
                     activeUuid = tagData.getUuid();
 
-                if (deletedTagSql.equals(TagService.SHOW_ACTIVE_TASKS) || activeUuid.equals(uuid)) {
+                if (activeUuid.equals(uuid)) {
                     fl.switchToActiveTasks();
                     fl.clear(); // Should auto refresh
                 }
