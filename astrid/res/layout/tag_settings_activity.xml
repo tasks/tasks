@@ -74,7 +74,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="10dip"
                     android:layout_toRightOf="@id/picture"
-                    android:capitalize="sentences"
                     android:text="@string/actfm_TVA_tag_label" />
 
                 <LinearLayout
@@ -96,6 +95,7 @@
                         android:background="#00000000"
                         android:hint="@string/actfm_TVA_tag_name_hint"
                         android:singleLine="true"
+	                    android:capitalize="sentences"
                         android:textCursorDrawable="@null"
                         android:textSize="15sp" />
                 </LinearLayout>
