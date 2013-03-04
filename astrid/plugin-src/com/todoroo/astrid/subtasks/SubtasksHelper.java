@@ -60,7 +60,7 @@ public class SubtasksHelper {
     public static String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
-            TagData tagData = PluginServices.getTagDataService().getTag(tagName, TagData.UUID, TagData.TAG_ORDERING);
+            TagData tagData = PluginServices.getTagDataService().getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
             TaskListMetadataDao tlmd = PluginServices.getTaskListMetadataDao();
             TaskListMetadata tlm = null;
             if (tagData != null) {

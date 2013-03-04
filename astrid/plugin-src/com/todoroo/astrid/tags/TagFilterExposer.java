@@ -38,6 +38,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -200,7 +201,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         protected String uuid;
 
         @Autowired public TagService tagService;
-        @Autowired public TagDataService tagDataService;
+        @Autowired public TagDataDao tagDataDao;
 
         static {
             AstridDependencyInjector.initialize();
@@ -220,7 +221,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             DependencyInjectionService.getInstance().inject(this);
 
 
-            TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.USER_ID);
+            TagData tagData = tagDataDao.fetch(uuid, TagData.MEMBER_COUNT, TagData.USER_ID);
             if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
                 DialogUtilities.okCancelDialog(this, getString(R.string.actfm_tag_operation_owner_delete), getOkListener(), getCancelListener());
                 return;
@@ -310,10 +311,10 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 return false;
             } else {
                 int renamed = tagService.rename(tag, text);
-                TagData tagData = tagDataService.getTag(tag, TagData.ID, TagData.NAME);
+                TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.NAME);
                 if (tagData != null) {
                     tagData.setValue(TagData.NAME, text);
-                    tagDataService.save(tagData);
+                    tagDataDao.saveExisting(tagData);
                 }
                 Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
                         Toast.LENGTH_SHORT).show();

@@ -512,7 +512,7 @@ public class AstridNewSyncMigrator {
 
     private void updateTagUuid(Metadata m) {
         String tag = m.getValue(TaskToTagMetadata.TAG_NAME);
-        TagData tagData = tagDataService.getTag(tag, TagData.UUID);
+        TagData tagData = tagDataService.getTagByName(tag, TagData.UUID);
         if (tagData != null) {
             if (ActFmInvoker.SYNC_DEBUG)
                 Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));

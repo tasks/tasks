@@ -428,7 +428,7 @@ public class TasksWidget extends AppWidgetProvider {
                     }
                 }
             } else {
-                tagData = tagDataService.getTag(filter.title, TagData.ID);
+                tagData = tagDataService.getTagByName(filter.title, TagData.ID);
                 if (tagData != null)
                     Preferences.setLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
             }
