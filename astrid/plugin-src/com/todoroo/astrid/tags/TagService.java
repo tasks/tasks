@@ -47,7 +47,6 @@ import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Flags;
 
 /**
  * Provides operations for working with tags
@@ -191,7 +190,6 @@ public final class TagService {
      * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
-    @Deprecated
     public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
         Criterion criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
@@ -541,43 +539,14 @@ public final class TagService {
         return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleted);
     }
 
-    public int rename(String oldTag, String newTag) {
-        return renameHelper(oldTag, newTag, false);
-    }
+    public int rename(String uuid, String newName) {
+        TagData template = new TagData();
+        template.setValue(TagData.NAME, newName);
+        tagDataDao.update(TagData.UUID.eq(uuid), template);
 
-    public int renameCaseSensitive(String oldTag, String newTag) { // Need this for tag case migration process
-        return renameHelper(oldTag, newTag, true);
-    }
-
-    @Deprecated
-    private int renameHelper(String oldTag, String newTag, boolean caseSensitive) {
-     // First remove newTag from all tasks that have both oldTag and newTag.
-        MetadataService metadataService = PluginServices.getMetadataService();
-        metadataService.deleteWhere(
-                Criterion.and(
-                        Metadata.VALUE1.eq(newTag),
-                        Metadata.TASK.in(rowsWithTag(oldTag, Metadata.TASK))));
-
-        // Then rename all instances of oldTag to newTag.
-        Metadata metadata = new Metadata();
-        metadata.setValue(TaskToTagMetadata.TAG_NAME, newTag);
-        int ret;
-        if (caseSensitive)
-            ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
-        else
-            ret = metadataService.update(tagEqIgnoreCase(oldTag, Criterion.all), metadata);
-        invalidateTaskCache(newTag);
-        return ret;
-    }
-
-
-    private Query rowsWithTag(String tag, Field... projections) {
-        return Query.select(projections).from(Metadata.TABLE).where(Metadata.VALUE1.eq(tag));
-    }
-
-    private void invalidateTaskCache(String tag) {
-        taskService.clearDetails(Task.ID.in(rowsWithTag(tag, Task.ID)));
-        Flags.set(Flags.REFRESH);
+        Metadata metadataTemplate = new Metadata();
+        metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);
+        return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
     }
 
     public static int getDefaultImageIDForTag(String nameOrUUID) {

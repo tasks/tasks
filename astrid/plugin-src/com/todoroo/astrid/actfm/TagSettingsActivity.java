@@ -274,13 +274,13 @@ public class TagSettingsActivity extends FragmentActivity {
         if (nameChanged) {
             if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
                 tagData.setValue(TagData.NAME, newName);
-                service.renameCaseSensitive(oldName, newName);
+                service.rename(tagData.getUuid(), newName);
             } else { // Rename list--check for existing name
                 newName = service.getTagWithCase(newName);
                 tagName.setText(newName);
                 if (!newName.equals(oldName)) {
                     tagData.setValue(TagData.NAME, newName);
-                    service.rename(oldName, newName);
+                    service.rename(tagData.getUuid(), newName);
                 } else {
                     nameChanged = false;
                 }
