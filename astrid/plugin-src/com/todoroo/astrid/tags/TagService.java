@@ -540,8 +540,14 @@ public final class TagService {
     }
 
     public int rename(String uuid, String newName) {
+        return rename(uuid, newName, false);
+    }
+
+    public int rename(String uuid, String newName, boolean suppressSync) {
         TagData template = new TagData();
         template.setValue(TagData.NAME, newName);
+        if (suppressSync)
+            template.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         tagDataDao.update(TagData.UUID.eq(uuid), template);
 
         Metadata metadataTemplate = new Metadata();

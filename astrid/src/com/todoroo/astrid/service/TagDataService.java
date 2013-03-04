@@ -197,7 +197,7 @@ public class TagDataService {
             if (!cursor.isAfterLast()) {
                 tagData.readFromCursor(cursor);
                 if(!tagData.getValue(TagData.NAME).equals(featObject.getString("name")))
-                    TagService.getInstance().rename(tagData.getUuid(), featObject.getString("name"));
+                    TagService.getInstance().rename(tagData.getUuid(), featObject.getString("name"), true);
                 cursor.moveToNext();
             }
             ActFmSyncService.JsonHelper.featuredListFromJson(featObject, tagData);
