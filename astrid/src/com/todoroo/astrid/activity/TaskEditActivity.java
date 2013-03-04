@@ -23,15 +23,15 @@ public class TaskEditActivity extends AstridActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
+        ActionBar actionBar = getSupportActionBar();
         if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
-            getTheme().applyStyle(R.style.SaveAsBackWhite, true);
+            actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
         else
-            getTheme().applyStyle(R.style.SaveAsBack, true);
+            actionBar.setLogo(R.drawable.ic_menu_save);
 
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_edit_wrapper_activity);
 
-		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
 

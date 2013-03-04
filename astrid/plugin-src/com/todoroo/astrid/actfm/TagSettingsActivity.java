@@ -165,10 +165,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             setTheme(ThemeService.getDialogTheme());
         else {
             ThemeService.applyTheme(this);
+            ActionBar actionBar = getSupportActionBar();
             if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
-                getTheme().applyStyle(R.style.SaveAsBackWhite, true);
+                actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
             else
-                getTheme().applyStyle(R.style.SaveAsBack, true);
+                actionBar.setLogo(R.drawable.ic_menu_save);
         }
     }
 
