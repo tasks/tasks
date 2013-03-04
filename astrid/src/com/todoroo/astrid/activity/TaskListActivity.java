@@ -52,6 +52,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.dao.TagMetadataDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
@@ -60,7 +61,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
@@ -120,6 +120,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private boolean swipeEnabled = false;
 
     private final TagDeletedReceiver tagDeletedReceiver = new TagDeletedReceiver();
+    private final TagRenamedReceiver tagRenamedReceiver = new TagRenamedReceiver();
 
     private final OnClickListener mainMenuClickListener = new OnClickListener() {
         @Override
@@ -518,6 +519,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onResume() {
         super.onResume();
         registerReceiver(tagDeletedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED));
+        registerReceiver(tagRenamedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED));
     }
 
     @Override
@@ -531,6 +533,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onStop() {
         super.onStop();
         AndroidUtilities.tryUnregisterReceiver(this, tagDeletedReceiver);
+        AndroidUtilities.tryUnregisterReceiver(this, tagRenamedReceiver);
     }
 
     public void setSelectedItem(Filter item) {
@@ -693,7 +696,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
             boolean memberFound = false;
             if (TextUtils.isEmpty(members))
-                memberFound = td.getValue(TagData.USER_ID).equals(assignedId) || tagMetadataDao.memberOfTagData(assignedEmail, assignedId);
+                memberFound = td.getValue(TagData.USER_ID).equals(assignedId) || tagMetadataDao.memberOfTagData(assignedEmail, td.getUuid(), assignedId);
             else {
                 JSONObject user = new JSONObject();
                 JSONArray membersArray = null;
@@ -914,27 +917,36 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         return super.onKeyDown(keyCode, event);
     }
 
+    private class TagRenamedReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TaskListFragment tlf = getTaskListFragment();
+            if (tlf != null)
+                tlf.refresh();
+
+            FilterListFragment flf = getFilterListFragment();
+            if (flf != null)
+                flf.refresh();
+        }
+    }
+
     private class TagDeletedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String deletedTag = intent.getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
-            String deletedTagSql = intent.getStringExtra(TagService.TOKEN_TAG_SQL);
+            String uuid = intent.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+            TaskListFragment tlf = getTaskListFragment();
             FilterListFragment fl = getFilterListFragment();
-            if (deletedTagSql.equals(TagService.SHOW_ACTIVE_TASKS)) {
-                fl.switchToActiveTasks();
-                fl.clear(); // Should auto refresh
-            }
-            else if (fl != null) {
-                Filter currentlyShowing = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-                if (currentlyShowing != null) {
-                    boolean titlesMatch = currentlyShowing.title != null && currentlyShowing.title.equals(deletedTag);
-                    boolean sqlMatches = currentlyShowing.getSqlQuery() != null && currentlyShowing.getSqlQuery().equals(deletedTagSql);
-                    if (titlesMatch && sqlMatches)
-                        fl.switchToActiveTasks();
+            if (tlf != null) {
+                TagData tagData = tlf.getActiveTagData();
+                String activeUuid = RemoteModel.NO_UUID;
+                if (tagData != null)
+                    activeUuid = tagData.getUuid();
+
+                if (activeUuid.equals(uuid)) {
+                    fl.switchToActiveTasks();
+                    fl.clear(); // Should auto refresh
                 }
-                fl.clear(); // Should auto refresh
             }
         }
-
     }
 }

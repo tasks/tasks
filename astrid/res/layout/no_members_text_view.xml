@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/no_members"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center_vertical"
+	style="@style/TextAppearance"
+	android:textStyle="bold"
+	android:textColor="#333333"
+	android:text="@string/actfm_TVA_no_members_alert"/>

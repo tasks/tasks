@@ -242,9 +242,13 @@ public class TagViewFragment extends TaskListFragment {
         if(tag == null && RemoteModel.NO_UUID.equals(uuid))
             return;
 
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
-                Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
-                        TagData.UUID.eq(uuid))));
+        TodorooCursor<TagData> cursor;
+        if (!RemoteModel.isUuidEmpty(uuid)) {
+            cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
+        } else {
+            cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(tag)));
+        }
+
         try {
             tagData = new TagData();
             if(cursor.getCount() == 0) {
@@ -329,7 +333,7 @@ public class TagViewFragment extends TaskListFragment {
 
     /** refresh the list with latest data from the web */
     private void refreshData() {
-        if (actFmPreferenceService.isLoggedIn()) {
+        if (actFmPreferenceService.isLoggedIn() && tagData != null && !RemoteModel.isUuidEmpty(tagData.getUuid())) {
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
             Runnable callback = new Runnable() {
@@ -468,6 +472,11 @@ public class TagViewFragment extends TaskListFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else {
+            membersView.removeAllViews();
+            membersView.setOnClickListener(settingsListener);
+            TextView textView = (TextView) getActivity().getLayoutInflater().inflate(R.layout.no_members_text_view, null);
+            membersView.addView(textView);
         }
 
         View filterAssigned = getView().findViewById(R.id.filter_assigned);

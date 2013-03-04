@@ -31,13 +31,18 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 @SuppressWarnings("nls")
 public class SqlContentProvider extends ContentProvider {
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
     // --- instance variables
 
     private static UriMatcher uriMatcher;
+
+    static {
+        AstridDependencyInjector.initialize();
+
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+        uriMatcher.addURI(AstridApiConstants.API_PACKAGE + ".private",
+                "sql", 0);
+    }
 
     @Autowired
     private Database database;
@@ -56,12 +61,6 @@ public class SqlContentProvider extends ContentProvider {
         }
     }
 
-    static {
-        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
-        uriMatcher.addURI(AstridApiConstants.API_PACKAGE + ".private",
-                "sql", 0);
-    }
 
     public SqlContentProvider() {
         DependencyInjectionService.getInstance().inject(this);

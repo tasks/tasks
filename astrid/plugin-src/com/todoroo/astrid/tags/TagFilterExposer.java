@@ -38,6 +38,8 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -74,7 +76,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
         contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.tag);
-        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid.toString());
+        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid);
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
@@ -94,8 +96,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             context.getString(deleteIntentLabel)
         };
         filter.contextMenuIntents = new Intent[] {
-                newTagIntent(context, RenameTagActivity.class, tag, tagTemplate.toString()),
-                newTagIntent(context, DeleteTagActivity.class, tag, tagTemplate.toString())
+                newTagIntent(context, RenameTagActivity.class, tag, tag.uuid),
+                newTagIntent(context, DeleteTagActivity.class, tag, tag.uuid)
         };
 
         filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
@@ -115,10 +117,10 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 
-    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String sql) {
+    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String uuid) {
         Intent ret = new Intent(context, activity);
         ret.putExtra(TAG, tag.tag);
-        ret.putExtra(TagService.TOKEN_TAG_SQL, sql);
+        ret.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
         return ret;
     }
 
@@ -197,10 +199,11 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     public abstract static class TagActivity extends Activity {
 
         protected String tag;
-        protected String sql;
+        protected String uuid;
 
         @Autowired public TagService tagService;
-        @Autowired public TagDataService tagDataService;
+        @Autowired public TagDataDao tagDataDao;
+        @Autowired public TagMetadataDao tagMetadataDao;
 
         static {
             AstridDependencyInjector.initialize();
@@ -211,19 +214,16 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             super.onCreate(savedInstanceState);
 
             tag = getIntent().getStringExtra(TAG);
-            sql = getIntent().getStringExtra(TagService.TOKEN_TAG_SQL);
-            if(tag == null) {
+            uuid = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+
+            if(tag == null || RemoteModel.isUuidEmpty(uuid)) {
                 finish();
                 return;
             }
             DependencyInjectionService.getInstance().inject(this);
 
 
-            TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.USER_ID);
-            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
-                DialogUtilities.okCancelDialog(this, getString(R.string.actfm_tag_operation_owner_delete), getOkListener(), getCancelListener());
-                return;
-            }
+            TagData tagData = tagDataDao.fetch(uuid, TagData.MEMBER_COUNT, TagData.USER_ID);
             showDialog(tagData);
         }
 
@@ -275,8 +275,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         @Override
         protected void showDialog(TagData tagData) {
             int string;
-            if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0)
-                string = R.string.DLG_leave_this_shared_tag_question;
+            if (tagData != null && (tagMetadataDao.tagHasMembers(uuid) || tagData.getValue(TagData.MEMBER_COUNT) > 0)) {
+                if (Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)))
+                    string = R.string.actfm_tag_operation_owner_delete;
+                else
+                    string = R.string.DLG_leave_this_shared_tag_question;
+            }
             else
                 string = R.string.DLG_delete_this_tag_question;
             DialogUtilities.okCancelDialog(this, getString(string, tag), getOkListener(), getCancelListener());
@@ -284,7 +288,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Override
         protected boolean ok() {
-            return tagService.deleteOrLeaveTag(this, tag, sql);
+            return tagService.deleteOrLeaveTag(this, tag, uuid);
         }
 
     }
@@ -308,12 +312,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             if (text == null || text.length() == 0) {
                 return false;
             } else {
-                int renamed = tagService.rename(tag, text);
-                TagData tagData = tagDataService.getTag(tag, TagData.ID, TagData.NAME);
-                if (tagData != null) {
-                    tagData.setValue(TagData.NAME, text);
-                    tagDataService.save(tagData);
-                }
+                int renamed = tagService.rename(uuid, text);
                 Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
                         Toast.LENGTH_SHORT).show();
                 return true;

@@ -35,7 +35,7 @@ public class ActFmSyncWaitingPool {
                 return;
             AndroidUtilities.sleepDeep(WAIT_TIME);
             while (!pendingMessages.isEmpty()) {
-                ActFmSyncThread.getInstance().enqueueMessage(pendingMessages.remove(0), null);
+                ActFmSyncThread.getInstance().enqueueMessage(pendingMessages.remove(0), ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);
             }
         }
     };

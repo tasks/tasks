@@ -134,6 +134,7 @@ public final class TagData extends RemoteModel {
             TABLE, "activities_pushed_at", Property.PROP_FLAG_DATE);
 
     /** Tag ordering */
+    @Deprecated
     public static final StringProperty TAG_ORDERING = new StringProperty(
             TABLE, "tagOrdering");
 

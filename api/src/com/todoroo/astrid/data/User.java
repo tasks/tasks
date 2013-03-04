@@ -133,16 +133,20 @@ public final class User extends RemoteModel {
         return getDisplayName(NAME, FIRST_NAME, LAST_NAME);
     }
 
+    private String getCheckedString(StringProperty stringProperty) {
+        return containsNonNullValue(stringProperty) ? getValue(stringProperty) : null;
+    }
+
     public String getDisplayName(StringProperty nameProperty, StringProperty firstNameProperty, StringProperty lastNameProperty) {
-        String name = getValue(nameProperty);
+        String name = getCheckedString(nameProperty);
         if (!(TextUtils.isEmpty(name) || "null".equals(name)))
             return name;
-        String firstName = getValue(firstNameProperty);
+        String firstName = getCheckedString(firstNameProperty);
         boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
-        String lastName = getValue(lastNameProperty);
+        String lastName = getCheckedString(lastNameProperty);
         boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
         if (firstNameEmpty && lastNameEmpty)
-            return getValue(EMAIL);
+            return getCheckedString(EMAIL);
         StringBuilder nameBuilder = new StringBuilder();
         if (!firstNameEmpty)
             nameBuilder.append(firstName).append(" ");

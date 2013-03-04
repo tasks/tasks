@@ -25,7 +25,9 @@ import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
+import com.todoroo.astrid.actfm.sync.messages.ReplayTaskListMetadataOutstanding;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
+import com.todoroo.astrid.actfm.sync.messages.TaskListMetadataChangesHappened;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
@@ -181,7 +183,7 @@ public class ActFmSyncThread {
             }
     }
 
-    private final Runnable defaultRefreshRunnable = new Runnable() {
+    public static final Runnable DEFAULT_REFRESH_RUNNABLE = new Runnable() {
         @Override
         public void run() {
             Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
@@ -211,10 +213,10 @@ public class ActFmSyncThread {
 
                 if (timeForBackgroundSync()) {
                     repopulateQueueFromOutstandingTables();
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), defaultRefreshRunnable);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), defaultRefreshRunnable);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), defaultRefreshRunnable);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), defaultRefreshRunnable);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), DEFAULT_REFRESH_RUNNABLE);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), DEFAULT_REFRESH_RUNNABLE);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), DEFAULT_REFRESH_RUNNABLE);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), DEFAULT_REFRESH_RUNNABLE);
                     setTimeForBackgroundSync(false);
                 }
 
@@ -270,7 +272,7 @@ public class ActFmSyncThread {
                         try {
                             Runnable r = pendingCallbacks.remove(message);
                             if (r != null) {
-                                if (r == defaultRefreshRunnable) {
+                                if (r == DEFAULT_REFRESH_RUNNABLE) {
                                     if (didDefaultRefreshThisLoop)
                                         continue;
                                     didDefaultRefreshThisLoop = true;
@@ -298,9 +300,9 @@ public class ActFmSyncThread {
     // Called after a batch has finished processing
     private void replayOutstandingChanges(boolean afterErrors) {
         syncLog("Replaying outstanding changes"); //$NON-NLS-1$
-        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, this, afterErrors).execute();
-        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, this, afterErrors).execute();
-        new ReplayOutstandingEntries<TaskListMetadata, TaskListMetadataOutstanding>(TaskListMetadata.class, NameMaps.TABLE_ID_TASK_LIST_METADATA, taskListMetadataDao, taskListMetadataOutstandingDao, this, afterErrors).execute();
+        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, afterErrors).execute();
+        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, afterErrors).execute();
+        new ReplayTaskListMetadataOutstanding(taskListMetadataDao, taskListMetadataOutstandingDao, afterErrors).execute();
     }
 
     private boolean timeForBackgroundSync() {
@@ -308,9 +310,11 @@ public class ActFmSyncThread {
     }
 
     public void repopulateQueueFromOutstandingTables() {
+        syncLog("Constructing queue from outstanding tables"); //$NON-NLS-1$
         constructChangesHappenedFromOutstandingTable(Task.class, taskDao, taskOutstandingDao);
         constructChangesHappenedFromOutstandingTable(TagData.class, tagDataDao, tagOutstandingDao);
         constructChangesHappenedFromOutstandingTable(UserActivity.class, userActivityDao, userActivityOutstandingDao);
+        constructChangesHappenedForTaskListMetadata(taskListMetadataDao, taskListMetadataOutstandingDao);
     }
 
     private <T extends RemoteModel, OE extends OutstandingEntry<T>> void constructChangesHappenedFromOutstandingTable(Class<T> modelClass, RemoteModelDao<T> modelDao, OutstandingEntryDao<OE> oustandingDao) {
@@ -318,8 +322,19 @@ public class ActFmSyncThread {
         try {
             for (outstanding.moveToFirst(); !outstanding.isAfterLast(); outstanding.moveToNext()) {
                 Long id = outstanding.get(OutstandingEntry.ENTITY_ID_PROPERTY);
-                ChangesHappened<T, OE> ch = new ChangesHappened<T, OE>(id, modelClass, modelDao, oustandingDao);
-                enqueueMessage(ch, null);
+                enqueueMessage(new ChangesHappened<T, OE>(id, modelClass, modelDao, oustandingDao), null);
+            }
+        } finally {
+            outstanding.close();
+        }
+    }
+
+    private void constructChangesHappenedForTaskListMetadata(TaskListMetadataDao dao, TaskListMetadataOutstandingDao outstandingDao) {
+        TodorooCursor<TaskListMetadataOutstanding> outstanding = outstandingDao.query(Query.select(OutstandingEntry.ENTITY_ID_PROPERTY).groupBy(OutstandingEntry.ENTITY_ID_PROPERTY));
+        try {
+            for (outstanding.moveToFirst(); !outstanding.isAfterLast(); outstanding.moveToNext()) {
+                Long id = outstanding.get(OutstandingEntry.ENTITY_ID_PROPERTY);
+                ActFmSyncWaitingPool.getInstance().enqueueMessage(new TaskListMetadataChangesHappened(id, TaskListMetadata.class, dao, outstandingDao));
             }
         } finally {
             outstanding.close();

@@ -83,7 +83,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
             currentIds.add(id);
         }
         Set<String> idsInQuery = new HashSet<String>();
-        TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.UUID);
+        String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
+        sql = sql + String.format(" ORDER BY %s", Task.CREATION_DATE); //$NON-NLS-1$
+        TodorooCursor<Task> tasks = taskService.fetchFiltered(sql, null, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String id = tasks.getString(0);
@@ -93,7 +95,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
                 changedThings = true;
                 Node newNode = new Node(id, treeRoot, 0);
-                treeRoot.children.add(newNode);
+                treeRoot.children.add(0, newNode);
                 idToNode.put(id, newNode);
             }
 
@@ -331,7 +333,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
             return;
 
         Node newNode = new Node(uuid, treeRoot, 0);
-        treeRoot.children.add(newNode);
+        treeRoot.children.add(0, newNode);
         idToNode.put(uuid, newNode);
         writeSerialization(list, serializeTree(), true);
         applyToFilter(filter);

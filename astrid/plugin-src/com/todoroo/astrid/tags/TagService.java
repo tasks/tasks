@@ -22,6 +22,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -36,6 +37,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -45,7 +47,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Flags;
 
 /**
  * Provides operations for working with tags
@@ -83,6 +84,8 @@ public final class TagService {
     @Autowired TaskService taskService;
 
     @Autowired TagDataService tagDataService;
+
+    @Autowired TagDataDao tagDataDao;
 
     public TagService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -187,7 +190,6 @@ public final class TagService {
      * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
-    @Deprecated
     public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
         Criterion criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
@@ -372,21 +374,20 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
-    public boolean deleteOrLeaveTag(Context context, String tag, String sql) {
-        int deleted = deleteTagMetadata(tag);
-        TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
+    public boolean deleteOrLeaveTag(Context context, String tag, String uuid) {
+        int deleted = deleteTagMetadata(uuid);
+        TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
         boolean shared = false;
+        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
         if(tagData != null) {
             tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
             PluginServices.getTagDataService().save(tagData);
+            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
             shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && !Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)); // Was I a list member and NOT owner?
         }
         Toast.makeText(context, context.getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
                 Toast.LENGTH_SHORT).show();
 
-        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-        tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tag);
-        tagDeleted.putExtra(TOKEN_TAG_SQL, sql);
         context.sendBroadcast(tagDeleted);
         return true;
     }
@@ -531,51 +532,38 @@ public final class TagService {
         return null;
     }
 
-    private int deleteTagMetadata(String tag) {
-        invalidateTaskCache(tag);
+    private int deleteTagMetadata(String uuid) {
         Metadata deleted = new Metadata();
         deleted.setValue(Metadata.DELETION_DATE, DateUtilities.now());
 
-        return metadataDao.update(tagEqIgnoreCase(tag, Criterion.all), deleted);
+        return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleted);
     }
 
-    public int rename(String oldTag, String newTag) {
-        return renameHelper(oldTag, newTag, false);
+    public int rename(String uuid, String newName) {
+        return rename(uuid, newName, false);
     }
 
-    public int renameCaseSensitive(String oldTag, String newTag) { // Need this for tag case migration process
-        return renameHelper(oldTag, newTag, true);
-    }
+    public int rename(String uuid, String newName, boolean suppressSync) {
+        TagData template = new TagData();
+        template.setValue(TagData.NAME, newName);
+        if (suppressSync)
+            template.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+        int result = tagDataDao.update(TagData.UUID.eq(uuid), template);
 
-    @Deprecated
-    private int renameHelper(String oldTag, String newTag, boolean caseSensitive) {
-     // First remove newTag from all tasks that have both oldTag and newTag.
-        MetadataService metadataService = PluginServices.getMetadataService();
-        metadataService.deleteWhere(
-                Criterion.and(
-                        Metadata.VALUE1.eq(newTag),
-                        Metadata.TASK.in(rowsWithTag(oldTag, Metadata.TASK))));
+        boolean tagRenamed = result > 0;
 
-        // Then rename all instances of oldTag to newTag.
-        Metadata metadata = new Metadata();
-        metadata.setValue(TaskToTagMetadata.TAG_NAME, newTag);
-        int ret;
-        if (caseSensitive)
-            ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
-        else
-            ret = metadataService.update(tagEqIgnoreCase(oldTag, Criterion.all), metadata);
-        invalidateTaskCache(newTag);
-        return ret;
-    }
+        Metadata metadataTemplate = new Metadata();
+        metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);
+        result = metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
+        tagRenamed = tagRenamed || result > 0;
 
+        if (tagRenamed) {
+            Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED);
+            intent.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
+            ContextManager.getContext().sendBroadcast(intent);
+        }
 
-    private Query rowsWithTag(String tag, Field... projections) {
-        return Query.select(projections).from(Metadata.TABLE).where(Metadata.VALUE1.eq(tag));
-    }
-
-    private void invalidateTaskCache(String tag) {
-        taskService.clearDetails(Task.ID.in(rowsWithTag(tag, Task.ID)));
-        Flags.set(Flags.REFRESH);
+        return result;
     }
 
     public static int getDefaultImageIDForTag(String nameOrUUID) {

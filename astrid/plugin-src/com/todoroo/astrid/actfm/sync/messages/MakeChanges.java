@@ -118,8 +118,11 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
     }
 
     private Criterion getMatchCriterion(TYPE model) {
-        if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table) && model.getSetValues().containsKey(TaskListMetadata.FILTER.name)) {
-            return TaskListMetadata.FILTER.eq(model.getSetValues().getAsString(TaskListMetadata.FILTER.name));
+        if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
+            if (model.getSetValues().containsKey(TaskListMetadata.FILTER.name))
+                return TaskListMetadata.FILTER.eq(model.getSetValues().getAsString(TaskListMetadata.FILTER.name));
+            else if (model.getSetValues().containsKey(TaskListMetadata.TAG_UUID.name))
+                return TaskListMetadata.TAG_UUID.eq(model.getSetValues().getAsString(TaskListMetadata.TAG_UUID.name));
         }
         return null;
     }

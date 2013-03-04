@@ -20,6 +20,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -133,7 +134,6 @@ public class AstridNewSyncMigrator {
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
-        final Set<Long> tagsThatNeedOrderingSync = new HashSet<Long>();
         final Set<Long> tasksThatNeedTagSync = new HashSet<Long>();
         try {
             Query tagsQuery = Query.select(TagData.ID, TagData.UUID, TagData.MODIFICATION_DATE).where(Criterion.or(TagData.UUID.eq(RemoteModel.NO_UUID), TagData.UUID.isNull()));
@@ -146,14 +146,12 @@ public class AstridNewSyncMigrator {
 
                 @Override
                 public boolean shouldCreateOutstandingEntries(TagData instance) {
-                    return lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
+                    boolean result = lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
+                    return result && RemoteModelDao.getOutstandingEntryFlag();
                 }
 
                 @Override
-                public void afterSave(TagData instance, boolean createdOutstanding) {
-                    if (createdOutstanding)
-                        tagsThatNeedOrderingSync.add(instance.getId());
-                }
+                public void afterSave(TagData instance, boolean createdOutstanding) {/**/}
             });
 
             Query tasksQuery = Query.select(Task.ID, Task.UUID, Task.RECURRENCE, Task.FLAGS, Task.MODIFICATION_DATE, Task.LAST_SYNC).where(Criterion.all);
@@ -185,8 +183,9 @@ public class AstridNewSyncMigrator {
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
                     if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
-                        return true;
-                    return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE);
+                        return RemoteModelDao.getOutstandingEntryFlag();
+
+                    return (instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE)) && RemoteModelDao.getOutstandingEntryFlag();
                 }
 
                 @Override
@@ -350,8 +349,6 @@ public class AstridNewSyncMigrator {
 
                     tlm.setValue(TaskListMetadata.TASK_IDS, tagOrdering);
                     tlm.setValue(TaskListMetadata.TAG_UUID, td.getUuid());
-                    if (!tagsThatNeedOrderingSync.contains(td.getId()))
-                        tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskListMetadataDao.createNew(tlm);
                 }
             } finally {
@@ -515,7 +512,7 @@ public class AstridNewSyncMigrator {
 
     private void updateTagUuid(Metadata m) {
         String tag = m.getValue(TaskToTagMetadata.TAG_NAME);
-        TagData tagData = tagDataService.getTag(tag, TagData.UUID);
+        TagData tagData = tagDataService.getTagByName(tag, TagData.UUID);
         if (tagData != null) {
             if (ActFmInvoker.SYNC_DEBUG)
                 Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));

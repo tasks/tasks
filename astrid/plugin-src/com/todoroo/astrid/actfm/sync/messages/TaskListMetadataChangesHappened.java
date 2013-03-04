@@ -5,13 +5,17 @@ import java.util.Set;
 
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 
 public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMetadata, TaskListMetadataOutstanding> {
 
+    private final Throwable throwable;
+
     public TaskListMetadataChangesHappened(long id, Class<TaskListMetadata> modelClass, TaskListMetadataDao modelDao, TaskListMetadataOutstandingDao outstandingDao) {
         super(id, modelClass, modelDao, outstandingDao);
+        throwable = new Throwable();
     }
 
     @Override
@@ -23,12 +27,18 @@ public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMet
         boolean foundOrderChange = false;
         for (int i = changes.size() - 1; i >= 0; i--) {
             TaskListMetadataOutstanding oe = changes.get(i);
-            if (TaskListMetadata.TASK_IDS.name.equals(oe.getValue(TaskListMetadataOutstanding.COLUMN_STRING))) {
-                if (foundOrderChange) {
+            String column = oe.getValue(TaskListMetadataOutstanding.COLUMN_STRING);
+            if (TaskListMetadata.TASK_IDS.name.equals(column)) {
+                if (foundOrderChange || TaskListMetadata.taskIdsIsEmpty(oe.getValue(TaskListMetadataOutstanding.VALUE_STRING))) {
                     changes.remove(i);
                     removedChanges.add(oe.getId());
                 } else {
                     foundOrderChange = true;
+                }
+            } else if (TaskListMetadata.FILTER.name.equals(column) || TaskListMetadata.TAG_UUID.name.equals(column)) {
+                if (RemoteModel.isUuidEmpty(oe.getValue(TaskListMetadataOutstanding.VALUE_STRING))) {
+                    changes.remove(i);
+                    removedChanges.add(oe.getId());
                 }
             }
         }

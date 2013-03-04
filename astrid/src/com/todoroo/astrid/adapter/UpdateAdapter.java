@@ -103,6 +103,7 @@ public class UpdateAdapter extends CursorAdapter {
         UserActivity.TARGET_ID,
         UserActivity.TARGET_NAME,
         UserActivity.PICTURE,
+        UserActivity.USER_UUID,
         UserActivity.ID,
         ACTIVITY_TYPE_PROPERTY,
     };
@@ -115,6 +116,7 @@ public class UpdateAdapter extends CursorAdapter {
         History.OLD_VALUE,
         History.NEW_VALUE,
         History.TASK,
+        History.USER_UUID,
         History.ID,
         HISTORY_TYPE_PROPERTY,
     };
@@ -222,6 +224,7 @@ public class UpdateAdapter extends CursorAdapter {
         activity.setValue(UserActivity.TARGET_ID, unionCursor.getString(4));
         activity.setValue(UserActivity.TARGET_NAME, unionCursor.getString(5));
         activity.setValue(UserActivity.PICTURE, unionCursor.getString(6));
+        activity.setValue(UserActivity.USER_UUID, unionCursor.getString(7));
     }
 
     public static void readHistoryProperties(TodorooCursor<UserActivity> unionCursor, History history) {
@@ -232,6 +235,7 @@ public class UpdateAdapter extends CursorAdapter {
         history.setValue(History.OLD_VALUE, unionCursor.getString(4));
         history.setValue(History.NEW_VALUE, unionCursor.getString(5));
         history.setValue(History.TASK, unionCursor.getString(6));
+        history.setValue(History.USER_UUID, unionCursor.getString(7));
     }
 
     public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user) {

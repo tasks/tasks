@@ -15,7 +15,6 @@ import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
@@ -484,6 +483,7 @@ public class TitleParserTest extends DatabaseTestCase {
         assertTrue(task.hasDueDate());
 
         task.clearValue(Task.ID);
+        task.clearValue(Task.UUID);
         title = "Jog every day starting from today";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);
@@ -513,6 +513,7 @@ public class TitleParserTest extends DatabaseTestCase {
         assertTrue(task.hasDueDate());
 
         task.clearValue(Task.ID);
+        task.clearValue(Task.UUID);
         title = "Jog every week starting from today";
         task.setValue(Task.TITLE, title);
         TaskService.createWithValues(task, null, title);

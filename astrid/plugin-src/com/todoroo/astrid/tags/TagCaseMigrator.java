@@ -13,6 +13,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
@@ -23,6 +24,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Flags;
 
 public class TagCaseMigrator {
 
@@ -59,7 +61,7 @@ public class TagCaseMigrator {
             }
 
             for (String key : renameMap.keySet()) {
-                TagService.getInstance().renameCaseSensitive(key, renameMap.get(key));
+                renameCaseSensitive(key, renameMap.get(key));
                 updateTagData(key);
             }
 
@@ -138,6 +140,40 @@ public class TagCaseMigrator {
         } finally {
             tasks.close();
         }
+    }
 
+    @Deprecated
+    private int renameCaseSensitive(String oldTag, String newTag) { // Need this for tag case migration process
+        return renameHelper(oldTag, newTag, true);
+    }
+
+    @Deprecated
+    private int renameHelper(String oldTag, String newTag, boolean caseSensitive) {
+     // First remove newTag from all tasks that have both oldTag and newTag.
+        metadataService.deleteWhere(
+                Criterion.and(
+                        Metadata.VALUE1.eq(newTag),
+                        Metadata.TASK.in(rowsWithTag(oldTag, Metadata.TASK))));
+
+        // Then rename all instances of oldTag to newTag.
+        Metadata metadata = new Metadata();
+        metadata.setValue(TaskToTagMetadata.TAG_NAME, newTag);
+        int ret;
+        if (caseSensitive)
+            ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
+        else
+            ret = metadataService.update(TagService.tagEqIgnoreCase(oldTag, Criterion.all), metadata);
+        invalidateTaskCache(newTag);
+        return ret;
+    }
+
+
+    private Query rowsWithTag(String tag, Field... projections) {
+        return Query.select(projections).from(Metadata.TABLE).where(Metadata.VALUE1.eq(tag));
+    }
+
+    private void invalidateTaskCache(String tag) {
+        taskService.clearDetails(Task.ID.in(rowsWithTag(tag, Task.ID)));
+        Flags.set(Flags.REFRESH);
     }
 }

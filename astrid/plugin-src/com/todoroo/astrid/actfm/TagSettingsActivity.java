@@ -274,13 +274,13 @@ public class TagSettingsActivity extends FragmentActivity {
         if (nameChanged) {
             if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
                 tagData.setValue(TagData.NAME, newName);
-                service.renameCaseSensitive(oldName, newName);
+                service.rename(tagData.getUuid(), newName);
             } else { // Rename list--check for existing name
                 newName = service.getTagWithCase(newName);
                 tagName.setText(newName);
                 if (!newName.equals(oldName)) {
                     tagData.setValue(TagData.NAME, newName);
-                    service.rename(oldName, newName);
+                    service.rename(tagData.getUuid(), newName);
                 } else {
                     nameChanged = false;
                 }
@@ -354,14 +354,15 @@ public class TagSettingsActivity extends FragmentActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
+        tagDataService.save(tagData);
+        tagMetadataDao.synchronizeMembers(tagData.getId(), tagData.getUuid(), members);
+
         if (isNewTag) {
             setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
                     TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
         } else {
             setResult(RESULT_OK);
         }
-        tagDataService.save(tagData);
-        tagMetadataDao.synchronizeMembers(tagData.getId(), tagData.getUuid(), members);
 
         refreshSettingsPage();
         finish();
@@ -540,6 +541,15 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if (tagName.getText().length() == 0) {
+            finish();
+        } else {
+            saveSettings();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
         case MENU_DISCARD_ID:
@@ -579,7 +589,7 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     protected boolean deleteTag() {
-        boolean result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), TagService.SHOW_ACTIVE_TASKS);
+        boolean result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), tagData.getUuid());
         setResult(Activity.RESULT_OK);
         finish();
         return result;

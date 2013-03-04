@@ -77,7 +77,8 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                 ((cv.containsKey(TagMetadata.KEY.name) &&
                         TagMemberMetadata.KEY.equals(item.getValue(TagMetadata.KEY))) ||
                 (cv.containsKey(TagMetadata.DELETION_DATE.name) &&
-                        item.getValue(TagMetadata.DELETION_DATE) > 0));
+                        item.getValue(TagMetadata.DELETION_DATE) > 0)) &&
+                RemoteModelDao.getOutstandingEntryFlag();
     }
 
     @Override
@@ -188,19 +189,28 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         }
     }
 
-    public boolean memberOfTagData(String email, String id) {
+    public boolean tagHasMembers(String uuid) {
+        TodorooCursor<TagMetadata> metadata = query(Query.select(TagMetadata.ID).where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(uuid, TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0))));
+        try {
+            return metadata.getCount() > 0;
+        } finally {
+            metadata.close();
+        }
+    }
+
+    public boolean memberOfTagData(String email, String tagId, String memberId) {
         Criterion criterion;
-        if (!RemoteModel.isUuidEmpty(id) && !TextUtils.isEmpty(email))
-            criterion = Criterion.or(TagMemberMetadata.USER_UUID.eq(email), TagMemberMetadata.USER_UUID.eq(id));
-        else if (!RemoteModel.isUuidEmpty(id))
-            criterion = TagMemberMetadata.USER_UUID.eq(id);
+        if (!RemoteModel.isUuidEmpty(memberId) && !TextUtils.isEmpty(email))
+            criterion = Criterion.or(TagMemberMetadata.USER_UUID.eq(email), TagMemberMetadata.USER_UUID.eq(memberId));
+        else if (!RemoteModel.isUuidEmpty(memberId))
+            criterion = TagMemberMetadata.USER_UUID.eq(memberId);
         else if (!TextUtils.isEmpty(email))
             criterion = TagMemberMetadata.USER_UUID.eq(email);
         else
             return false;
 
         TodorooCursor<TagMetadata> count = query(Query.select(TagMetadata.ID).where(
-                Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), criterion)));
+                Criterion.and(TagMetadataCriteria.withKey(TagMemberMetadata.KEY), TagMetadata.TAG_UUID.eq(tagId), criterion)));
         try {
             return count.getCount() > 0;
         } finally {

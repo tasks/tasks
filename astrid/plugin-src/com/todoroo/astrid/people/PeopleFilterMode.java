@@ -12,8 +12,6 @@ import com.todoroo.astrid.ui.MainMenuPopover;
 
 public class PeopleFilterMode implements FilterModeSpec {
 
-//    private AsyncImageView imageView;
-
     @Override
     public Filter getDefaultFilter(Context context) {
         Filter defaultFilter = PeopleFilterExposer.mySharedTasks(context);
@@ -26,18 +24,7 @@ public class PeopleFilterMode implements FilterModeSpec {
     }
 
     @Override
-    public void onFilterItemClickedCallback(FilterListItem item) {
-//        if (imageView == null)
-//            return;
-//        if (item instanceof FilterWithUpdate)
-//            imageView.setUrl(((FilterWithUpdate) item).imageUrl);
-//        else
-//            imageView.setUrl(null);
-    }
-//
-//    public void setImageView(AsyncImageView imageView) {
-//        this.imageView = imageView;
-//    }
+    public void onFilterItemClickedCallback(FilterListItem item) {/**/}
 
     @Override
     public int[] getForbiddenMenuItems() {

@@ -300,6 +300,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
                 String type = updates.getString(UpdateAdapter.TYPE_PROPERTY_INDEX);
                 NoteOrUpdate noa;
+                UpdateAdapter.readUserProperties(updates, user);
                 if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
                     UpdateAdapter.readUserActivityProperties(updates, update);
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, update, null, user, linkColor);
@@ -307,7 +308,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     UpdateAdapter.readHistoryProperties(updates, history);
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
                 }
-                UpdateAdapter.readUserProperties(updates, user);
                 if(noa != null)
                     items.add(noa);
             }

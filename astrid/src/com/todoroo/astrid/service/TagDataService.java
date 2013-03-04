@@ -89,7 +89,7 @@ public class TagDataService {
      * Find a tag by name
      * @return null if doesn't exist
      */
-    public TagData getTag(String name, Property<?>... properties) {
+    public TagData getTagByName(String name, Property<?>... properties) {
         TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
         try {
             if(cursor.getCount() == 0)
@@ -197,7 +197,7 @@ public class TagDataService {
             if (!cursor.isAfterLast()) {
                 tagData.readFromCursor(cursor);
                 if(!tagData.getValue(TagData.NAME).equals(featObject.getString("name")))
-                    TagService.getInstance().rename(tagData.getValue(TagData.NAME), featObject.getString("name"));
+                    TagService.getInstance().rename(tagData.getUuid(), featObject.getString("name"), true);
                 cursor.moveToNext();
             }
             ActFmSyncService.JsonHelper.featuredListFromJson(featObject, tagData);

@@ -12,7 +12,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -21,9 +20,11 @@ import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -56,24 +57,24 @@ public class SubtasksHelper {
     }
 
     @SuppressWarnings("nls")
-    public static String serverFilterOrderId(String localFilterOrderId) {
-        if (SubtasksUpdater.ACTIVE_TASKS_ORDER.equals(localFilterOrderId))
-            return "all";
-        else if (SubtasksUpdater.TODAY_TASKS_ORDER.equals(localFilterOrderId))
-            return "today";
-        return null;
-    }
-
-    @SuppressWarnings("nls")
     public static String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
-            TagData tagData = PluginServices.getTagDataService().getTag(tagName, TagData.TAG_ORDERING);
+            TagData tagData = PluginServices.getTagDataService().getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
+            TaskListMetadataDao tlmd = PluginServices.getTaskListMetadataDao();
+            TaskListMetadata tlm = null;
+            if (tagData != null) {
+                tlm = tlmd.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
+            } else if (CoreFilterExposer.isInbox(filter)) {
+                tlm = tlmd.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
+            } else if (CustomFilterExposer.isTodayFilter(filter)) {
+                tlm = tlmd.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
+            }
 
             query = query.replaceAll("ORDER BY .*", "");
             query = query + String.format(" ORDER BY %s, %s, %s, %s",
                     Task.DELETION_DATE, Task.COMPLETION_DATE,
-                    getOrderString(tagData), Task.CREATION_DATE);
+                    getOrderString(tagData, tlm), Task.CREATION_DATE);
             if (limit > 0)
                 query = query + " LIMIT " + limit;
             query = query.replace(TaskCriteria.isVisible().toString(),
@@ -84,12 +85,14 @@ public class SubtasksHelper {
         return query;
     }
 
-    private static String getOrderString(TagData tagData) {
+    private static String getOrderString(TagData tagData, TaskListMetadata tlm) {
         String serialized;
-        if (tagData != null)
-            serialized = tagData.getValue(TagData.TAG_ORDERING);
+        if (tlm != null)
+            serialized = tlm.getValue(TaskListMetadata.TASK_IDS);
+        else if (tagData != null)
+            serialized = convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING));
         else
-            serialized = Preferences.getStringValue(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+            serialized = "[]"; //$NON-NLS-1$
 
         return AstridOrderedListUpdater.buildOrderString(getStringIdArray(serialized));
     }
@@ -113,7 +116,7 @@ public class SubtasksHelper {
     @SuppressWarnings("nls")
     public static String[] getStringIdArray(String serializedTree) {
         ArrayList<String> ids = new ArrayList<String>();
-        String[] values = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
+        String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : values) {
             if (!TextUtils.isEmpty(idString))
                 ids.add(idString);
