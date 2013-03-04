@@ -183,7 +183,7 @@ public class ActFmSyncThread {
             }
     }
 
-    private final Runnable defaultRefreshRunnable = new Runnable() {
+    public static final Runnable DEFAULT_REFRESH_RUNNABLE = new Runnable() {
         @Override
         public void run() {
             Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
@@ -213,10 +213,10 @@ public class ActFmSyncThread {
 
                 if (timeForBackgroundSync()) {
                     repopulateQueueFromOutstandingTables();
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), defaultRefreshRunnable);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), defaultRefreshRunnable);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), defaultRefreshRunnable);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), defaultRefreshRunnable);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), DEFAULT_REFRESH_RUNNABLE);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), DEFAULT_REFRESH_RUNNABLE);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), DEFAULT_REFRESH_RUNNABLE);
+                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), DEFAULT_REFRESH_RUNNABLE);
                     setTimeForBackgroundSync(false);
                 }
 
@@ -272,7 +272,7 @@ public class ActFmSyncThread {
                         try {
                             Runnable r = pendingCallbacks.remove(message);
                             if (r != null) {
-                                if (r == defaultRefreshRunnable) {
+                                if (r == DEFAULT_REFRESH_RUNNABLE) {
                                     if (didDefaultRefreshThisLoop)
                                         continue;
                                     didDefaultRefreshThisLoop = true;

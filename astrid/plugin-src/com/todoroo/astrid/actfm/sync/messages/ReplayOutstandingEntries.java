@@ -59,6 +59,10 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
         ActFmSyncThread.getInstance().enqueueMessage(new ChangesHappened<T, OE>(id, modelClass, dao, outstandingDao), null);
     }
 
+    protected boolean shouldSaveModel(T model) {
+        return true;
+    }
+
     private void processItem(long id, OE instance, TodorooCursor<OE> outstanding) {
         try {
             T model = modelClass.newInstance();
@@ -79,10 +83,12 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
             }
 
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-            dao.saveExisting(model);
+            if (shouldSaveModel(model)) {
+                dao.saveExisting(model);
 
-            if (count > 0 && !afterErrors) {
-                enqueueChangesHappenedMessage(id);
+                if (count > 0 && !afterErrors) {
+                    enqueueChangesHappenedMessage(id);
+                }
             }
 
             outstanding.moveToPrevious(); // Move back one to undo the last iteration of the for loop
