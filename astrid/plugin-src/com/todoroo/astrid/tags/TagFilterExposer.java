@@ -39,6 +39,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -202,6 +203,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Autowired public TagService tagService;
         @Autowired public TagDataDao tagDataDao;
+        @Autowired public TagMetadataDao tagMetadataDao;
 
         static {
             AstridDependencyInjector.initialize();
@@ -222,10 +224,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
 
             TagData tagData = tagDataDao.fetch(uuid, TagData.MEMBER_COUNT, TagData.USER_ID);
-            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
-                DialogUtilities.okCancelDialog(this, getString(R.string.actfm_tag_operation_owner_delete), getOkListener(), getCancelListener());
-                return;
-            }
             showDialog(tagData);
         }
 
@@ -277,8 +275,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         @Override
         protected void showDialog(TagData tagData) {
             int string;
-            if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0)
-                string = R.string.DLG_leave_this_shared_tag_question;
+            if (tagData != null && (tagMetadataDao.tagHasMembers(uuid) || tagData.getValue(TagData.MEMBER_COUNT) > 0)) {
+                if (Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)))
+                    string = R.string.actfm_tag_operation_owner_delete;
+                else
+                    string = R.string.DLG_leave_this_shared_tag_question;
+            }
             else
                 string = R.string.DLG_delete_this_tag_question;
             DialogUtilities.okCancelDialog(this, getString(string, tag), getOkListener(), getCancelListener());

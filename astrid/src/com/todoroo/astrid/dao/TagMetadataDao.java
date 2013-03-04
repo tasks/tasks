@@ -189,6 +189,15 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         }
     }
 
+    public boolean tagHasMembers(String uuid) {
+        TodorooCursor<TagMetadata> metadata = query(Query.select(TagMetadata.ID).where(Criterion.and(TagMetadataCriteria.byTagAndWithKey(uuid, TagMemberMetadata.KEY), TagMetadata.DELETION_DATE.eq(0))));
+        try {
+            return metadata.getCount() > 0;
+        } finally {
+            metadata.close();
+        }
+    }
+
     public boolean memberOfTagData(String email, String tagId, String memberId) {
         Criterion criterion;
         if (!RemoteModel.isUuidEmpty(memberId) && !TextUtils.isEmpty(email))

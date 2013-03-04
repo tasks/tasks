@@ -22,6 +22,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -548,11 +549,22 @@ public final class TagService {
         template.setValue(TagData.NAME, newName);
         if (suppressSync)
             template.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-        tagDataDao.update(TagData.UUID.eq(uuid), template);
+        int result = tagDataDao.update(TagData.UUID.eq(uuid), template);
+
+        boolean tagRenamed = result > 0;
 
         Metadata metadataTemplate = new Metadata();
         metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);
-        return metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
+        result = metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
+        tagRenamed = tagRenamed || result > 0;
+
+        if (tagRenamed) {
+            Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED);
+            intent.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
+            ContextManager.getContext().sendBroadcast(intent);
+        }
+
+        return result;
     }
 
     public static int getDefaultImageIDForTag(String nameOrUUID) {

@@ -266,4 +266,9 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_EVENT_TAG_DELETED = API_PACKAGE + ".TAG_DELETED";
 
+    /**
+     * Action name for broadcast intent notifying that tag was renamed
+     */
+    public static final String BROADCAST_EVENT_TAG_RENAMED = API_PACKAGE + ".TAG_RENAMED";
+
 }

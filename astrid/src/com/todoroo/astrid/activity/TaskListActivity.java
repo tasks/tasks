@@ -120,6 +120,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private boolean swipeEnabled = false;
 
     private final TagDeletedReceiver tagDeletedReceiver = new TagDeletedReceiver();
+    private final TagRenamedReceiver tagRenamedReceiver = new TagRenamedReceiver();
 
     private final OnClickListener mainMenuClickListener = new OnClickListener() {
         @Override
@@ -518,6 +519,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onResume() {
         super.onResume();
         registerReceiver(tagDeletedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED));
+        registerReceiver(tagRenamedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED));
     }
 
     @Override
@@ -531,6 +533,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onStop() {
         super.onStop();
         AndroidUtilities.tryUnregisterReceiver(this, tagDeletedReceiver);
+        AndroidUtilities.tryUnregisterReceiver(this, tagRenamedReceiver);
     }
 
     public void setSelectedItem(Filter item) {
@@ -912,6 +915,19 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private class TagRenamedReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TaskListFragment tlf = getTaskListFragment();
+            if (tlf != null)
+                tlf.refresh();
+
+            FilterListFragment flf = getFilterListFragment();
+            if (flf != null)
+                flf.refresh();
+        }
     }
 
     private class TagDeletedReceiver extends BroadcastReceiver {
