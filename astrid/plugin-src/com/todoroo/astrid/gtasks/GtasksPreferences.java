@@ -95,10 +95,8 @@ public class GtasksPreferences extends SyncProviderPreferences {
     }
 
     private void startBlockingImport() {
-        //TODO: Implement me
         final ProgressDialog pd = DialogUtilities.progressDialog(this, getString(R.string.gtasks_import_progress));
         pd.setCancelable(false);
-        pd.show();
 
         GtasksImportCallback callback = new GtasksImportCallback(new SyncResultCallbackAdapter() {/**/}) {
             @Override
