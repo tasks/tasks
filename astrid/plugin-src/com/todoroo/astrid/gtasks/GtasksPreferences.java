@@ -96,7 +96,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     private void startBlockingImport() {
         //TODO: Implement me
-        final ProgressDialog pd = DialogUtilities.progressDialog(this, "Importing Google Tasks");
+        final ProgressDialog pd = DialogUtilities.progressDialog(this, getString(R.string.gtasks_import_progress));
         pd.setCancelable(false);
         pd.show();
 
@@ -106,8 +106,13 @@ public class GtasksPreferences extends SyncProviderPreferences {
                 super.finished();
                 for (GtasksImportTuple tuple : importConflicts) {
                     final GtasksImportTuple finalTuple = tuple;
-                    DialogUtilities.okCancelDialog(GtasksPreferences.this,
-                            "Add task " + tuple.taskUuid + " to shared list " + tuple.tagUuid + "?",
+                    String prompt = getString(R.string.gtasks_import_add_to_shared_list, tuple.tagName, tuple.taskName);
+                    DialogUtilities.okCancelCustomDialog(GtasksPreferences.this,
+                            getString(R.string.gtasks_import_dlg_title),
+                            prompt,
+                            R.string.gtasks_import_add_task_ok,
+                            R.string.gtasks_import_add_task_cancel,
+                            android.R.drawable.ic_dialog_alert,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -116,7 +121,8 @@ public class GtasksPreferences extends SyncProviderPreferences {
                                     task.setUuid(finalTuple.taskUuid);
                                     tagService.createLink(task, finalTuple.tagName, finalTuple.tagUuid);
                                 }
-                            }, null);
+                            },
+                            null);
                 }
                 DialogUtilities.dismissDialog(GtasksPreferences.this, pd);
             }

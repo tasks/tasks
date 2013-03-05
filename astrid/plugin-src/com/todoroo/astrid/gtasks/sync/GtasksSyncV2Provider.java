@@ -118,6 +118,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     public static class GtasksImportTuple {
         public long taskId;
+        public String taskName;
         public String taskUuid;
         public String tagUuid;
         public String tagName;
@@ -405,7 +406,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     private void finishImport(SyncResultCallback callback) {
-        TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID, Task.UUID, GtasksList.NAME)
+        TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID, Task.UUID, Task.TITLE, GtasksList.NAME)
                 .join(Join.inner(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
                 .join(Join.left(StoreObject.TABLE, GtasksMetadata.LIST_ID.eq(GtasksList.REMOTE_ID)))
                 .where(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY)));
@@ -430,6 +431,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             if (tagMetadataDao.tagHasMembers(tagUuid) && !taskIsInTag) {
                                 GtasksImportTuple tuple = new GtasksImportTuple();
                                 tuple.taskId = tasks.get(Task.ID);
+                                tuple.taskName = tasks.get(Task.TITLE);
                                 tuple.taskUuid = tasks.get(Task.UUID);
                                 tuple.tagUuid = tagUuid;
                                 tuple.tagName = listName;
