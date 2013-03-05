@@ -579,8 +579,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
                     R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled));
-        else if (booleanPreference(preference, value, R.string.p_third_party_addons,
-                    R.string.EPr_third_party_addons_desc_enabled, R.string.EPr_third_party_addons_desc_disabled));
         else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                     R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time));
         else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
@@ -717,14 +715,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 } catch (NullPointerException e) {
                     return false;
                 }
-                return true;
-            }
-        });
-
-        findPreference(getString(R.string.p_third_party_addons)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                StatisticsService.reportEvent(StatisticsConstants.PREF_THIRD_PARTY_ADDONS, "enabled", newValue.toString()); //$NON-NLS-1$
                 return true;
             }
         });
