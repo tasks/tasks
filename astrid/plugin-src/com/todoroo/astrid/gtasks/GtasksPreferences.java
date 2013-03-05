@@ -15,13 +15,15 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
-import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider.GtasksImportCallback;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider.GtasksImportTuple;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
-import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
+import com.todoroo.astrid.tags.TagService;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -34,6 +36,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
     @Autowired private ActFmPreferenceService actFmPreferenceService;
+    @Autowired private TagService tagService;
 
     public GtasksPreferences() {
         super();
@@ -97,13 +100,27 @@ public class GtasksPreferences extends SyncProviderPreferences {
         pd.setCancelable(false);
         pd.show();
 
-        SyncResultCallback callback = new WidgetUpdatingCallbackWrapper(new SyncResultCallbackAdapter() {
+        GtasksImportCallback callback = new GtasksImportCallback(new SyncResultCallbackAdapter() {/**/}) {
             @Override
             public void finished() {
                 super.finished();
+                for (GtasksImportTuple tuple : importConflicts) {
+                    final GtasksImportTuple finalTuple = tuple;
+                    DialogUtilities.okCancelDialog(GtasksPreferences.this,
+                            "Add task " + tuple.taskUuid + " to shared list " + tuple.tagUuid + "?",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Task task = new Task();
+                                    task.setId(finalTuple.taskId);
+                                    task.setUuid(finalTuple.taskUuid);
+                                    tagService.createLink(task, finalTuple.tagName, finalTuple.tagUuid);
+                                }
+                            }, null);
+                }
                 DialogUtilities.dismissDialog(GtasksPreferences.this, pd);
             }
-        });
+        };
 
         GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, callback);
     }

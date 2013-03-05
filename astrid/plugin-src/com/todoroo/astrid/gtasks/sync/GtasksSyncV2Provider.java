@@ -32,6 +32,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -53,6 +54,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -71,6 +73,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
     @Autowired TagService tagService;
     @Autowired TagDataDao tagDataDao;
+    @Autowired TagMetadataDao tagMetadataDao;
 
     static {
         AstridDependencyInjector.initialize();
@@ -109,6 +112,27 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Override
     public boolean isActive() {
         return gtasksPreferenceService.isLoggedIn() && !actFmPreferenceService.isLoggedIn();
+    }
+
+    public static class GtasksImportTuple {
+        public long taskId;
+        public String taskUuid;
+        public String tagUuid;
+        public String tagName;
+    }
+
+    public static class GtasksImportCallback extends WidgetUpdatingCallbackWrapper {
+
+        protected final ArrayList<GtasksImportTuple> importConflicts;
+
+        public GtasksImportCallback(SyncResultCallback wrap) {
+            super(wrap);
+            importConflicts = new ArrayList<GtasksImportTuple>();
+        }
+
+        public void addImportConflict(GtasksImportTuple tuple) {
+            importConflicts.add(tuple);
+        }
     }
 
     @Override
@@ -155,7 +179,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                                 if (!isImport)
                                     pushUpdated(invoker, callback);
                                 else
-                                    finishImport();
+                                    finishImport(callback);
                                 finishSync(callback);
                             }
                         }
@@ -378,11 +402,16 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
     }
 
-    private void finishImport() {
+    private void finishImport(SyncResultCallback callback) {
         TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID, Task.UUID, GtasksList.NAME)
                 .join(Join.inner(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
                 .join(Join.left(StoreObject.TABLE, GtasksMetadata.LIST_ID.eq(GtasksList.REMOTE_ID)))
                 .where(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY)));
+
+        GtasksImportCallback gtCallback = null;
+        if (callback instanceof GtasksImportCallback)
+            gtCallback = (GtasksImportCallback) callback;
+
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String listName = tasks.get(GtasksList.NAME);
@@ -393,6 +422,19 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                         if (existingTag.getCount() > 0) {
                             existingTag.moveToFirst();
                             tagUuid = existingTag.get(TagData.UUID);
+
+                            if (tagMetadataDao.tagHasMembers(tagUuid)) {
+                                GtasksImportTuple tuple = new GtasksImportTuple();
+                                tuple.taskId = tasks.get(Task.ID);
+                                tuple.taskUuid = tasks.get(Task.UUID);
+                                tuple.tagUuid = tagUuid;
+                                tuple.tagName = listName;
+
+                                if (gtCallback != null)
+                                    gtCallback.addImportConflict(tuple);
+
+                                continue;
+                            }
                         } else {
                             TagData td = new TagData();
                             td.setValue(TagData.NAME, listName);
