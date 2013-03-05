@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +17,11 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
+import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -89,6 +93,19 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     private void startBlockingImport() {
         //TODO: Implement me
+        final ProgressDialog pd = DialogUtilities.progressDialog(this, "Importing Google Tasks");
+        pd.setCancelable(false);
+        pd.show();
+
+        SyncResultCallback callback = new WidgetUpdatingCallbackWrapper(new SyncResultCallbackAdapter() {
+            @Override
+            public void finished() {
+                super.finished();
+                DialogUtilities.dismissDialog(GtasksPreferences.this, pd);
+            }
+        });
+
+        GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, callback);
     }
 
     private void startLogin() {
