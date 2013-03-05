@@ -108,7 +108,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Override
     public boolean isActive() {
-        return gtasksPreferenceService.isLoggedIn();
+        return gtasksPreferenceService.isLoggedIn() && !actFmPreferenceService.isLoggedIn();
     }
 
     @Override
