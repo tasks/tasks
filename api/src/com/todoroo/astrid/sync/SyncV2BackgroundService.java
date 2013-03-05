@@ -77,13 +77,15 @@ abstract public class SyncV2BackgroundService extends Service {
         if(!getSyncUtilities().isLoggedIn())
             return;
 
-        getSyncProvider().synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
-            @Override
-            public void finished() {
-                getSyncUtilities().recordSuccessfulSync();
-                context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-            }
-        });
+        SyncV2Provider provider = getSyncProvider();
+        if (provider.isActive())
+            provider.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
+                @Override
+                public void finished() {
+                    getSyncUtilities().recordSuccessfulSync();
+                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                }
+            });
     }
 
     @Override
