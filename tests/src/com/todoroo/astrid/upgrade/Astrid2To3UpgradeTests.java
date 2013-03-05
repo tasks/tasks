@@ -409,16 +409,6 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                Metadata.PROPERTIES).where(MetadataCriteria.withKey("rmilk")));
-        assertEquals(1, cursor.getCount());
-        cursor.moveToFirst();
-        Metadata metadata = new Metadata(cursor);
-        assertEquals("123", metadata.getValue(Metadata.VALUE1));
-        assertEquals("456", metadata.getValue(Metadata.VALUE2));
-        assertEquals("789000", metadata.getValue(Metadata.VALUE3));
-        cursor.close();
     }
 
 
