@@ -3,9 +3,11 @@ package com.todoroo.astrid.actfm.sync;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -267,17 +269,13 @@ public class ActFmSyncThread {
                         batchSize = Math.max(batchSize / 2, 1);
                     }
 
-                    boolean didDefaultRefreshThisLoop = false;
+                    Set<Runnable> callbacksExecutedThisLoop = new HashSet<Runnable>();
                     for (ClientToServerMessage<?> message : messageBatch) {
                         try {
                             Runnable r = pendingCallbacks.remove(message);
-                            if (r != null) {
-                                if (r == DEFAULT_REFRESH_RUNNABLE) {
-                                    if (didDefaultRefreshThisLoop)
-                                        continue;
-                                    didDefaultRefreshThisLoop = true;
-                                }
+                            if (r != null && !callbacksExecutedThisLoop.contains(r)) {
                                 r.run();
+                                callbacksExecutedThisLoop.add(r);
                             }
                         } catch (Exception e) {
                             Log.e(ERROR_TAG, "Unexpected exception executing sync callback", e);
