@@ -48,7 +48,6 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
@@ -201,8 +200,6 @@ public class TaskService {
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        metadata.setValue(ProducteevTask.ID, 0L);
                     if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
                         metadata.setValue(MilkTaskFields.TASK_ID, 0L);
                         metadata.setValue(MilkTaskFields.TASK_SERIES_ID, 0L);

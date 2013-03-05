@@ -352,14 +352,6 @@
   <string name="EPr_statistics_title">匿名の使用統計データ</string>
   <string name="EPr_statistics_desc_disabled">使用統計情報は送信されません</string>
   <string name="EPr_statistics_desc_enabled">送られた使用統計情報は Astrid の改善に使用されます</string>
-  <string name="producteev_PLA_title">Producteev にログイン</string>
-  <string name="producteev_PLA_body">既存の Producteev アカウントにサインインするか、アカウントを作成してください</string>
-  <string name="producteev_PLA_signIn">サインイン</string>
-  <string name="producteev_PLA_email">メールアドレス</string>
-  <string name="producteev_PLA_password">パスワード</string>
-  <string name="producteev_PLA_timezone">タイムゾーン</string>
-  <string name="producteev_PLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
-  <string name="producteev_PLA_errorAuth">エラー: メールアドレスかパスワードが正しくありません</string>
   <string name="TEA_reminder_label">通知するのは...</string>
   <string name="TEA_reminder_due">期限になったとき</string>
   <string name="TEA_reminder_overdue">期限を過ぎたとき</string>

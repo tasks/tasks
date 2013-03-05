@@ -233,34 +233,6 @@
   <string name="CFC_opencrx_assigned_to_text">มอบหมายให้: ?</string>
   <string name="CFC_opencrx_assigned_to_name">มอบหมายให้...</string>
   <string name="EPr_statistics_desc_disabled">ไม่มีข้อมูลการใช้งานที่จะรายงาน</string>
-  <string name="producteev_FEx_dashboard">พื้นที่ทำงาน</string>
-  <string name="producteev_FEx_responsible_byme">มอบหมายให้กับ</string>
-  <string name="producteev_FEx_responsible_title">มอบหมายให้กับ \'%s\'</string>
-  <string name="producteev_PDE_task_from">จาก %s</string>
-  <string name="producteev_TEA_notes">เพิ่มความคิดเห็น</string>
-  <string name="producteev_default_dashboard">พื้นที่ทำงานตั้งต้น</string>
-  <string name="producteev_create_dashboard">เพิ่มพื้นที่ทำงานใหม่</string>
-  <string name="producteev_create_dashboard_name">ชื่อของพื้นที่ทำงานใหม่</string>
-  <string name="producteev_PPr_defaultdash_title">พื้นที่ทำงานตั้งต้น</string>
-  <string name="producteev_PPr_defaultdash_summary">แผนงานใหม่จะถูกเพิ่มไปยัง: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">แผนงานใหม่จะไม่ถูกเชื่อมโยงข้อมูลตามค่าตั้งต้น</string>
-  <string name="producteev_PLA_title">เข้าใช้งาน Producteev</string>
-  <string name="producteev_PLA_body">เข้าสู่ระบบโดยบัญชี Producteev ที่มีอยู่, หรือสร้างบัญชีใหม่</string>
-  <string name="producteev_PLA_signIn">เข้าสู่ระบบ</string>
-  <string name="producteev_PLA_createNew">สร้างผู้ใช้งานใหม่</string>
-  <string name="producteev_PLA_email">อี-เมล์</string>
-  <string name="producteev_PLA_password">รหัสผ่าน</string>
-  <string name="producteev_PLA_timezone">เขตเวลา</string>
-  <string name="producteev_PLA_firstName">ชื่อจริง</string>
-  <string name="producteev_PLA_lastName">นามสกุล</string>
-  <string name="producteev_PLA_errorEmpty">ข้อผิดพลาด: เติมให้ครบทุกช่อง</string>
-  <string name="producteev_PLA_errorAuth">ข้อผิดพลาด: อีเมล์หรือรหัสผ่าน ไม่ถูกต้อง</string>
-  <string name="producteev_TEA_task_assign_label">มอบหมายแผนงานนี้ให้กับบุคคลนี้:</string>
-  <string name="producteev_TEA_dashboard_assign_label">มอบหมายแผนงานนี้ให้กับพื้นที่ทำงานนี้:</string>
-  <string name="CFC_producteev_in_workspace_text">ในพื้นที่ทำงาน: ?</string>
-  <string name="CFC_producteev_in_workspace_name">ในพื้นที่ทำงาน...</string>
-  <string name="CFC_producteev_assigned_to_text">มอบหมายให้: ?</string>
-  <string name="CFC_producteev_assigned_to_name">มอบหมายให้...</string>
   <string-array name="TEA_reminder_random">
     <item>an hour</item>
     <item>a day</item>

@@ -111,7 +111,7 @@ public class AddOnService {
      * Get one AddOn-descriptor by packageName and title.
      *
      * @param packageName could be Constants.PACKAGE or one of AddOnService-constants
-     * @param title the descriptive title, as in "Producteev" or "Astrid Power Pack"
+     * @param title the descriptive title, as in "Astrid Power Pack"
      * @return the addon-descriptor, if it is available (registered here in getAddOns), otherwise null
      */
     public AddOn getAddOn(String packageName, String title) {

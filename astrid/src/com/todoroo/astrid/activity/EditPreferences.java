@@ -55,8 +55,6 @@ import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
-import com.todoroo.astrid.producteev.ProducteevPreferences;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
@@ -360,10 +358,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
                     && AmazonMarketStrategy.isKindleFire())
-                continue;
-
-            if (ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name)
-                    && !Preferences.getBoolean(R.string.p_third_party_addons, false) && !ProducteevUtilities.INSTANCE.isLoggedIn())
                 continue;
 
             Preference preference = new Preference(this);

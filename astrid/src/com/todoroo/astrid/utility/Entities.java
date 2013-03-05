@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.todoroo.astrid.producteev.api;
+package com.todoroo.astrid.utility;
 
 import java.io.IOException;
 import java.io.StringWriter;

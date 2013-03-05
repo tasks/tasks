@@ -83,8 +83,6 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.opencrx.OpencrxControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.ProducteevControlSet;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
@@ -588,20 +586,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.string.TEA_control_files);
         controls.add(filesControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
-
-        try {
-            if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
-                ProducteevControlSet producteevControl = new ProducteevControlSet(
-                        getActivity(), R.layout.control_set_producteev,
-                        R.layout.control_set_default_display,
-                        R.string.producteev_TEA_control_set_display);
-                controls.add(producteevControl);
-                basicControls.addView(producteevControl.getDisplayView());
-                notesEditText.setHint(R.string.producteev_TEA_notes);
-            }
-        } catch (Exception e) {
-            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
-        }
 
         try {
             if (OpencrxCoreUtils.INSTANCE.isLoggedIn()) {

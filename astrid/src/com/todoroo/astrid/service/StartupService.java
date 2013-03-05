@@ -64,7 +64,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -244,7 +243,6 @@ public class StartupService {
                 taskService.cleanup();
 
                 // if sync ongoing flag was set, clear it
-                ProducteevUtilities.INSTANCE.stopOngoing();
                 MilkUtilities.INSTANCE.stopOngoing();
                 gtasksPreferenceService.stopOngoing();
                 actFmPreferenceService.stopOngoing();
