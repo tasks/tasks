@@ -12,8 +12,11 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -100,6 +103,12 @@ public class ActFmSyncThread {
 
     private boolean isTimeForBackgroundSync = false;
 
+    private final Object progressBarLock = new Object();
+
+    private Activity activity = null;
+
+    private ProgressBar progressBar = null;
+
     public static enum ModelType {
         TYPE_TASK,
         TYPE_TAG,
@@ -166,6 +175,18 @@ public class ActFmSyncThread {
         }
     }
 
+    private final Runnable enqueueMessageProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            synchronized (progressBarLock) {
+                if (progressBar != null) {
+                    progressBar.setMax(progressBar.getMax() + 2);
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    };
+
     public synchronized void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
@@ -174,6 +195,49 @@ public class ActFmSyncThread {
             synchronized(monitor) {
                 monitor.notifyAll();
             }
+
+            if (activity != null) {
+                activity.runOnUiThread(enqueueMessageProgressRunnable);
+            }
+        }
+    }
+
+    public void setProgressBar(Activity activity, ProgressBar progressBar) {
+        synchronized(progressBarLock) {
+            int oldProgress = progressBar.getProgress();
+            int oldMax = progressBar.getMax();
+            this.activity = activity;
+            this.progressBar = progressBar;
+            if (this.activity != null && this.progressBar != null) {
+                this.progressBar.setMax(oldMax);
+                this.progressBar.setProgress(oldProgress);
+                if (oldProgress < oldMax && oldMax != 0) {
+                    this.progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    this.progressBar.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
+    private final Runnable incrementProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            synchronized(progressBarLock) {
+                if (progressBar != null) {
+                    progressBar.incrementProgressBy(1);
+                    if (progressBar.getProgress() == progressBar.getMax()) {
+                        progressBar.setMax(0);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    };
+
+    private void incrementProgress() {
+        if (activity != null) {
+            activity.runOnUiThread(incrementProgressRunnable);
         }
     }
 
@@ -226,6 +290,7 @@ public class ActFmSyncThread {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
                     if (message != null)
                         messageBatch.add(message);
+                    incrementProgress();
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -235,6 +300,8 @@ public class ActFmSyncThread {
                         if (serialized != null) {
                             payload.put(serialized);
                             syncLog("Sending: " + serialized);
+                        } else {
+                            incrementProgress(); // Don't let failed serialization mess up progress bar
                         }
                     }
 
@@ -271,6 +338,7 @@ public class ActFmSyncThread {
 
                     Set<Runnable> callbacksExecutedThisLoop = new HashSet<Runnable>();
                     for (ClientToServerMessage<?> message : messageBatch) {
+                        incrementProgress();
                         try {
                             Runnable r = pendingCallbacks.remove(message);
                             if (r != null && !callbacksExecutedThisLoop.contains(r)) {

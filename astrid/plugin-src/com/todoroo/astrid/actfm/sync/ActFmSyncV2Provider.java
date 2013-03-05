@@ -83,8 +83,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         new Thread(new Runnable() {
             public void run() {
-                callback.started();
-                callback.incrementMax(160);
 
                 final AtomicInteger finisher = new AtomicInteger(1);
 
@@ -92,9 +90,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
                 ActFmSyncThread.getInstance().setTimeForBackgroundSync(true);
 
-                startFeaturedListFetcher(callback, finisher);
-
-                callback.incrementProgress(50);
+                startFeaturedListFetcher(finisher);
             }
         }).start();
     }
@@ -134,8 +130,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     /** fetch changes to tags */
-    private void startFeaturedListFetcher(final SyncResultCallback callback,
-            final AtomicInteger finisher) {
+    private void startFeaturedListFetcher(final AtomicInteger finisher) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -150,9 +145,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 } catch (IOException e) {
                     handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
                 } finally {
-                    callback.incrementProgress(20);
                     if(finisher.decrementAndGet() == 0) {
-                        finishSync(callback);
+                        finishSync(null);
                     }
                 }
             }
