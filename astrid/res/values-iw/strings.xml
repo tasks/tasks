@@ -929,21 +929,6 @@
     <item>אני כל כך גֵּאָה בְּךָ!</item>
     <item>אני אוהבת שאתה פורה!</item>
   </string-array>
-  <string name="rmilk_EOE_button">הגדרות Remember the Milk</string>
-  <string name="rmilk_TLA_repeat">משימה חוזרת של RTM</string>
-  <string name="rmilk_TLA_sync">נדרש סינכרון עם ּRTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">רשימות</string>
-  <string name="rmilk_FEx_list_title">רשימת RTM \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">רשימה של RTM:</string>
-  <string name="rmilk_MEA_repeat_label">סטטוס חזרה של RTM:</string>
-  <string name="rmilk_MEA_repeat_hint">למשל כל שבוע, או אחרי 14 יום</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">אנא התחבר ואשר את אסטריד:</string>
-  <string name="rmilk_MLA_error">מצטערת, אירעה שגיאה בהתחברות למערכת.\n\nהודעת השגיאה הייתה: %s</string>
-  <string name="rmilk_notification_title">אסטריד: Remember the Milk</string>
-  <string name="rmilk_ioerror">שגיאת התחברות! בדוק את החיבור שלך לאינטרנט ואת השרתים של RTM (status.rememberthemilk.com) כדי לנסות לפתור את הבעיה.</string>
   <string name="subtasks_help_title">מיין והזח באסטריד</string>
   <string name="subtasks_help_1">גע והחזק כדי להזיז משימה</string>
   <string name="subtasks_help_2">גרור אנכית כדי לארגן מחדש</string>

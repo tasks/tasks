@@ -990,21 +990,6 @@
     <item>Seninle gurur duyuyorum!</item>
     <item>Verimli olduğun zaman seni çok seviyorum!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk Ayarları</string>
-  <string name="rmilk_TLA_repeat">RTM Yinelenen Görev</string>
-  <string name="rmilk_TLA_sync">RTM ile eşleştirme gerekli</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">Listeler</string>
-  <string name="rmilk_FEx_list_title">RTM Listesi \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">RTM Listesi:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Yineleme Durumu:</string>
-  <string name="rmilk_MEA_repeat_hint">örn: her hafta, 14 gün sonra</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Lütfen giriş yap ve Astrid\'i yetkilendir:</string>
-  <string name="rmilk_MLA_error">Üzgünüz, kullanıcı adınızı doğrulamada hata oluştu. Lütfen tekrar deneyin. \n\n Hata Mesajı: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">Bağlantı Hatası! İnternet bağlantınızı kontrol edin ya da muhtemel çözümler için RTM sunucularını kontrol edin (status.rememberthemilk.com)</string>
   <string name="subtasks_help_title">Astrid\'te Sınıflandırma ve Giritili Yazma</string>
   <string name="subtasks_help_1">Bir görevi taşımak için dokunup sürükleyin</string>
   <string name="subtasks_help_2">Yeniden sıralamak için dikine sürükle</string>

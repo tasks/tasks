@@ -804,17 +804,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Nastavení Remember the Milk</string>
-  <string name="rmilk_TLA_repeat">RTM Opakující se úkol</string>
-  <string name="rmilk_TLA_sync">Je nutná synchronizace s RTM</string>
-  <string name="rmilk_FEx_list">Seznamy</string>
-  <string name="rmilk_FEx_list_title">RTM seznam \'%s\'</string>
-  <string name="rmilk_MEA_list_label">RTM seznam:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Opakovací status:</string>
-  <string name="rmilk_MEA_repeat_hint">to je každý týden, po 14 dnech</string>
-  <string name="rmilk_MLA_label">Prosím přihlaš se a autorizuj Astrid:</string>
-  <string name="rmilk_MLA_error">Omlouvám se, nastala chyba při ověřování tvého přihlášení. Prosím, zkus to znovu. \n\n Chybová hláška: %s</string>
-  <string name="rmilk_ioerror">Chyba připojení! Zkontroluj Tvé Internetové připojení nebo možná RTM servery (status.rememberthemilk.com), pro možná řešení.</string>
   <string name="TEA_tags_label">Seznamy</string>
   <string name="TEA_tags_none">Žádný</string>
   <string name="tag_FEx_header">Seznamy</string>

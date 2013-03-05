@@ -1017,21 +1017,6 @@
     <item>¡Estoy muy orgulloso de usted!</item>
     <item>¡Me encanta cuando usted es productivo!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Ajustes de Remember the Milk</string>
-  <string name="rmilk_TLA_repeat">RTM Tarea Repetitiva</string>
-  <string name="rmilk_TLA_sync">Se necesita sincronizar con RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">Listas</string>
-  <string name="rmilk_FEx_list_title">RTM Lista \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">RTM Lista:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Repita Estado:</string>
-  <string name="rmilk_MEA_repeat_hint">Es decir, cada semana, después de 14 días</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Por favor, inicie sesión y autorice a Astrid:</string>
-  <string name="rmilk_MLA_error">Lo siento. Se produjo un error al verificar sus credenciales. Por favor, intente de nuevo. \n\nMensaje de error: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">Error de conexión! Compruebe su conexión a Internet, o quizá los servidores de RTM (status.rememberthemilk.com), para posibles soluciones.</string>
   <string name="subtasks_help_title">Organice y Aplique Sangrías en Astrid</string>
   <string name="subtasks_help_1">Mantenga presionado para mover una tarea</string>
   <string name="subtasks_help_2">Arrastre verticalmente para reacomodar</string>

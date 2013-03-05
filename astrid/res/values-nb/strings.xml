@@ -564,17 +564,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk innstillinger</string>
-  <string name="rmilk_TLA_repeat">RTM gjentagende oppgave</string>
-  <string name="rmilk_TLA_sync">Trenger synkronisering med RTM</string>
-  <string name="rmilk_FEx_list">Lister</string>
-  <string name="rmilk_FEx_list_title">RTM Liste \'%s\'</string>
-  <string name="rmilk_MEA_list_label">RTM Liste:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Gjentakelsesstatus</string>
-  <string name="rmilk_MEA_repeat_hint">f.eks. hver uke, etter 14 dager</string>
-  <string name="rmilk_MLA_label">Vennligst logg inn og autoriser Astrid</string>
-  <string name="rmilk_MLA_error">Beklager, kunne ikke verifisere innloggingen. Vennligst prøv igjen. \n\n Feilmelding: %s</string>
-  <string name="rmilk_ioerror">Tilkoblings feil! Sjekk internettforbindelsen din, evt. RTM serverene (status.rememberthemilk.com), for mulig feilløsning.</string>
   <string name="TEA_tags_label">Lister</string>
   <string name="tag_FEx_header">Lister</string>
   <string name="TEA_no_tags_modified">Ingen endringer gjort</string>

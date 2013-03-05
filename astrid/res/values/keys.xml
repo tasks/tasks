@@ -403,11 +403,6 @@
     
   <!-- ===========================================================ACTFM == -->
   <string name="actfm_https_key">actfmHttps</string>
-        
-  <!-- ============================================================ MILK == -->
-
-    <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_interval_key">sync_freq</string>
     
   <!-- =========================================================== GTASKS == -->
   

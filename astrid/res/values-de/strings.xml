@@ -978,21 +978,6 @@
     <item>Ich bin stolz auf Sie!</item>
     <item>Es gefällt mir, wenn Sie produktiv sind!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk Einstellungen</string>
-  <string name="rmilk_TLA_repeat">RTM Wiederholende Aufgabe</string>
-  <string name="rmilk_TLA_sync">Synchronisierung mit RTM benötigt</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">Listen</string>
-  <string name="rmilk_FEx_list_title">RTM Liste \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">RTM Liste:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Wiederholungsstatus</string>
-  <string name="rmilk_MEA_repeat_hint">z.B. jede Woche, nach 14 Tagen</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Bitte einloggen und Astrid autorisieren</string>
-  <string name="rmilk_MLA_error">Entschuldigung, beim Einloggen ist ein Fehler aufgetreten. Bitte versuche es erneut. \n\n Fehlermeldung: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">Verbindungsfehler! Bitte überprüfe deine Internetverbindung oder die RTM Server (status.rememberthemilk.com) zur Lösung des Problems.</string>
   <string name="subtasks_help_title">Sortieren und einrücken in Astrid</string>
   <string name="subtasks_help_1">Drücken und halten, um Aufgabe zu verschieben</string>
   <string name="subtasks_help_2">Sortieren ändern durch Ziehen nach oben oder unten</string>

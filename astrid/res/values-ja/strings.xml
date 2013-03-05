@@ -627,11 +627,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk の設定</string>
-  <string name="rmilk_FEx_list">リスト</string>
-  <string name="rmilk_FEx_list_title">RTM のリスト: %s</string>
-  <string name="rmilk_MLA_label">ログインしてAstridに権限を与えてください</string>
-  <string name="rmilk_ioerror">接続に失敗しました。インターネット接続を確認してください。RTM のサーバ運用情報 (status.rememberthemilk.com) も確かめてみてください。</string>
   <string name="TEA_tags_label">リスト</string>
   <string name="tag_FEx_header">リスト</string>
   <string name="TEA_no_tags_modified">変更されませんでした</string>

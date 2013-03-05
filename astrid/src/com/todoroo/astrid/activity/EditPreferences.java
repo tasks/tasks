@@ -11,9 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.weloveastrid.rmilk.MilkPreferences;
-import org.weloveastrid.rmilk.MilkUtilities;
-
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -351,10 +348,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
-
-            if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
-                    !MilkUtilities.INSTANCE.isLoggedIn())
-                continue;
 
             if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
                     && AmazonMarketStrategy.isKindleFire())

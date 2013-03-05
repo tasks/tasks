@@ -8,7 +8,6 @@ package com.todoroo.astrid.service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.StringTokenizer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,7 +16,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.ical.values.RRule;
@@ -191,9 +189,6 @@ public class Astrid2To3UpgradeHelper {
             upgradeTable(context, alertsTable, propertyMap, new TransitionalAlarm(),
                     alarmsDatabase.getDao());
             alarmsDatabase.close();
-
-            // --- upgrade RTM sync mappings
-            migrateSyncMappingToMetadata();
 
             // --- clean up database
             metadataService.cleanup();
@@ -429,51 +424,6 @@ public class Astrid2To3UpgradeHelper {
                 mapCursor.close();
             tagsDb.close();
             tagTaskDb.close();
-        }
-    }
-
-    /**
-     * Move data from sync table into metadata table.
-     */
-    @SuppressWarnings("nls")
-    private void migrateSyncMappingToMetadata() {
-        Context context = ContextManager.getContext();
-
-        if(!checkIfDatabaseExists(context, syncTable))
-            return;
-
-        SQLiteDatabase syncDb = new Astrid2UpgradeHelper(context, syncTable,
-                null, 1).getReadableDatabase();
-
-        Cursor cursor = syncDb.rawQuery("SELECT task, remoteId FROM " + syncTable, null);
-        try {
-            if(cursor.getCount() == 0)
-                return;
-
-            Metadata metadata = new Metadata();
-            metadata.setValue(Metadata.KEY, "rmilk");
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long task = cursor.getLong(0);
-                String id = cursor.getString(1);
-                if(TextUtils.isEmpty(id))
-                    continue;
-
-                StringTokenizer strtok = new StringTokenizer(id, "|");
-                String taskId = strtok.nextToken();
-                String taskSeriesId = strtok.nextToken();
-                String listId = strtok.nextToken();
-
-                metadata.setValue(Metadata.TASK, task);
-                metadata.setValue(Metadata.VALUE1, (listId));
-                metadata.setValue(Metadata.VALUE2, (taskSeriesId));
-                metadata.setValue(Metadata.VALUE3, (taskId));
-                metadata.setValue(Metadata.VALUE4,  "0"); // not accurate, but not important
-                metadataDao.createNew(metadata);
-                metadata.clearValue(Metadata.ID);
-            }
-        } finally {
-            cursor.close();
-            syncDb.close();
         }
     }
 

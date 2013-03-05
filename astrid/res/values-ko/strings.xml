@@ -1017,21 +1017,6 @@
     <item>네가 자랑스럽다!</item>
     <item>네가 생산적일 때가 좋더라!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk 설정</string>
-  <string name="rmilk_TLA_repeat">RTM 반복 일정</string>
-  <string name="rmilk_TLA_sync">RTM 과 싱크가 필요</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">목록</string>
-  <string name="rmilk_FEx_list_title">RTM 목록 \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">RTM 목록:</string>
-  <string name="rmilk_MEA_repeat_label">RTM 반복 설정:</string>
-  <string name="rmilk_MEA_repeat_hint">예: 매주, 14일 후</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">로그인 후 Astrid 를 인증하세요:</string>
-  <string name="rmilk_MLA_error">로그인 정보 확인에 실패하였습니다. 다시 시도하세요. \n\n 에러 메시지: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">연결 오류! 인터넷 연결이나 RTM 서버 (status.rememberthemilk.com) 를 확인하세요.</string>
   <string name="subtasks_help_title">Astrid에서 정렬하고 들여쓰기</string>
   <string name="subtasks_help_1">일정을 옮기려면 길게 두드립니다</string>
   <string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>

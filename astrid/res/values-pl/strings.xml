@@ -917,21 +917,6 @@
     <item>Jestem z Ciebie taka dumna!</item>
     <item>Uwielbiam, gdy jesteś produktywny/a!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Zapamiętaj ustawienia aplikacji \"Remember the Milk\"</string>
-  <string name="rmilk_TLA_repeat">Powtarzanie zadań RTM</string>
-  <string name="rmilk_TLA_sync">Potrzebna synchronizacja z RTM</string>
-  <string name="rmilk_FEx_header">Pamiętaj o mleku</string>
-  <string name="rmilk_FEx_list">Listy</string>
-  <string name="rmilk_FEx_list_title">Lista RTM \'%s\'</string>
-  <string name="rmilk_MEA_title">Pamiętaj o mleku</string>
-  <string name="rmilk_MEA_list_label">Lista RTM:</string>
-  <string name="rmilk_MEA_repeat_label">Status powtarzania RTM:</string>
-  <string name="rmilk_MEA_repeat_hint">np. co tydzień, po 14 dniach</string>
-  <string name="rmilk_MPr_header">Pamiętaj o mleku</string>
-  <string name="rmilk_MLA_label">Zaloguj i autoryzuj Astrid:</string>
-  <string name="rmilk_MLA_error">Wybacz, wystąpił błąd podczas weryfikacji Twojego loginu. Spróbuj ponownie. \n\n Treść błędu: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remeber the Milk</string>
-  <string name="rmilk_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem lub odwiedź serwer RTM (status.rememberthemilk.com) w celu możliwego rozwiązania problemu.</string>
   <string name="TEA_tags_label">Listy</string>
   <string name="TEA_tags_none">Brak</string>
   <string name="TEA_tag_hint">Nowa lista</string>

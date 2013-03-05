@@ -925,21 +925,6 @@
     <item>Ik ben zo trots op je!</item>
     <item>Ik hou ervan wanneer je productief bent!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk instellingen</string>
-  <string name="rmilk_TLA_repeat">RTM herhalende taak</string>
-  <string name="rmilk_TLA_sync">Synchroniseren met RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">Lijsten</string>
-  <string name="rmilk_FEx_list_title">RTM-lijst \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">RTM-lijst:</string>
-  <string name="rmilk_MEA_repeat_label">RTM herhaal status:</string>
-  <string name="rmilk_MEA_repeat_hint">bijv. wekelijks, over 14 dagen</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Aanmelden en Astrid autoriseren:</string>
-  <string name="rmilk_MLA_error">Fout bij het aanmelden. Probeer het nogmaals. \n\n Foutmelding: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">Verbindingsfout! Controleer de internetverbinding, of de RTM servers (status.rememberthemilk.com), voor mogelijke oplossingen.</string>
   <string name="subtasks_help_title">Sorteren en inspringen in Astrid</string>
   <string name="subtasks_help_1">Druk en sleep om een taak te verplaatsen</string>
   <string name="subtasks_help_2">Sleep verticaal om te herschikken</string>

@@ -976,21 +976,6 @@
     <item>我真为您骄傲啊！</item>
     <item>每次您能做那么多事情的时候，我都爱死您了！</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk 设定</string>
-  <string name="rmilk_TLA_repeat">RTM重复任务</string>
-  <string name="rmilk_TLA_sync">需要与 RTM 同步</string>
-  <string name="rmilk_FEx_header">记得登录the Milk。</string>
-  <string name="rmilk_FEx_list">列表</string>
-  <string name="rmilk_FEx_list_title">RTM 列表 \'%s\'</string>
-  <string name="rmilk_MEA_title">记得登录the Milk。</string>
-  <string name="rmilk_MEA_list_label">RTM 列表：</string>
-  <string name="rmilk_MEA_repeat_label">RTM 重复状态：</string>
-  <string name="rmilk_MEA_repeat_hint">例如：每星期，14天后</string>
-  <string name="rmilk_MPr_header">记得登录the Milk。</string>
-  <string name="rmilk_MLA_label">请登陆并授权 Astrid：</string>
-  <string name="rmilk_MLA_error">抱歉，登陆错误。请再试一次。\n\n 错误信息：%s</string>
-  <string name="rmilk_notification_title">同步到网站 \"别忘记牛奶\"</string>
-  <string name="rmilk_ioerror">连接错误！请检查网络链接或 RTM 服务器(status.rememberthemilk.com)。</string>
   <string name="subtasks_help_title">在 Astrid 中排序并缩进</string>
   <string name="subtasks_help_1">轻点并按住一项任务来移动它</string>
   <string name="subtasks_help_2">上下拖动以重新整理</string>

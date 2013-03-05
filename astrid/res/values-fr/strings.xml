@@ -990,21 +990,6 @@
     <item>Je suis si fière de toi !</item>
     <item>J\'adore quand vous êtes productif !</item>
   </string-array>
-  <string name="rmilk_EOE_button">Paramètres Remember the Milk</string>
-  <string name="rmilk_TLA_repeat">Répétition de tâche RTM</string>
-  <string name="rmilk_TLA_sync">Requiert une synchronisation avec RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">Listes</string>
-  <string name="rmilk_FEx_list_title">Liste RTM \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">Liste RTM :</string>
-  <string name="rmilk_MEA_repeat_label">Statut de répétition RTM :</string>
-  <string name="rmilk_MEA_repeat_hint">ex. : chaque semaine, après 14 jours</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Veuillez vous connecter et autoriser Astrid :</string>
-  <string name="rmilk_MLA_error">Désolé, une erreur est survenue lors de la vérification de votre identifiant. Veuillez réessayer. \n\n Message d\'erreur : %s</string>
-  <string name="rmilk_notification_title">Astrid : Remember the Milk</string>
-  <string name="rmilk_ioerror">Erreur de connexion ! Vérifiez votre connexion Internet ou les serveur RTM (status.rememberthemilk.com) pour de possibles solutions.</string>
   <string name="subtasks_help_title">Trier et indenter dans Astrid</string>
   <string name="subtasks_help_1">Garder appuyer pour déplacer une tâche</string>
   <string name="subtasks_help_2">Déplacer verticalement pour réorganiser</string>

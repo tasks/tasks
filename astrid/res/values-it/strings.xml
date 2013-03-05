@@ -755,21 +755,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Ricorda le impostazioni di Milk</string>
-  <string name="rmilk_TLA_repeat">Ripetizione Attività RTM</string>
-  <string name="rmilk_TLA_sync">Necessita la sincronizzazione con RTM</string>
-  <string name="rmilk_FEx_header">Ricorda Milk</string>
-  <string name="rmilk_FEx_list">Liste</string>
-  <string name="rmilk_FEx_list_title">LIsta RTM \'%s\'</string>
-  <string name="rmilk_MEA_title">Ricorda Milk</string>
-  <string name="rmilk_MEA_list_label">Lista RTM:</string>
-  <string name="rmilk_MEA_repeat_label">Stato di ripetizione RTM:</string>
-  <string name="rmilk_MEA_repeat_hint">in altre parole ogni settimana, dopo 14 giorni</string>
-  <string name="rmilk_MPr_header">Ricorda Milk</string>
-  <string name="rmilk_MLA_label">Per favore esegui l\'accesso e autorizza Astrid:</string>
-  <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore: %s</string>
-  <string name="rmilk_notification_title">Astrid: Ricorda il Milk</string>
-  <string name="rmilk_ioerror">Errore di connessione! Verificare la connessione Internet, o magari i server RTM (status.rememberthemilk.com), per le possibili soluzioni.</string>
   <string name="TEA_tags_label">Liste</string>
   <string name="TEA_tag_hint">Nuovo elenco</string>
   <string name="tag_new_list">Nuovo elenco</string>

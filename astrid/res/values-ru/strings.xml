@@ -1011,21 +1011,6 @@
     <item>Я так горжусь Вами!</item>
     <item>Я люблю когда Вы плодотворны!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Запомнить настройки Milk</string>
-  <string name="rmilk_TLA_repeat">Повторяющаяся задача RTM</string>
-  <string name="rmilk_TLA_sync">Необходима синхронизация с RTM</string>
-  <string name="rmilk_FEx_header">Помни про молоко</string>
-  <string name="rmilk_FEx_list">Списки</string>
-  <string name="rmilk_FEx_list_title">Список RTM \'%s\'</string>
-  <string name="rmilk_MEA_title">Помни про молоко</string>
-  <string name="rmilk_MEA_list_label">Список RTM:</string>
-  <string name="rmilk_MEA_repeat_label">Состояние повтора RTM</string>
-  <string name="rmilk_MEA_repeat_hint">например, каждую неделю, спустя 14 дней</string>
-  <string name="rmilk_MPr_header">Помни про молоко</string>
-  <string name="rmilk_MLA_label">Пожалуйста, войдите и авторизуйте Astrid:</string>
-  <string name="rmilk_MLA_error">Извините, при авторизации возникла ошибка. Пожалуйста, попробуйте ещё раз. \n\n Сообщение об ошибке: %s</string>
-  <string name="rmilk_notification_title">Astrid: Помни про молоко</string>
-  <string name="rmilk_ioerror">Ошибка соединения! Проверьте соединение с интернетом и, возможно, сервером RTM (status.rememberthemilk.com) для возможного решения.</string>
   <string name="subtasks_help_title">Сортировка и отступ в Astrid</string>
   <string name="subtasks_help_1">Нажмите и удерживайте, чтобы переместить задачу</string>
   <string name="subtasks_help_2">Перетащите вертикально, чтобы перестроить</string>

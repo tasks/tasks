@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.weloveastrid.rmilk.data.MilkTaskFields;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -200,10 +198,6 @@ public class TaskService {
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
-                        metadata.setValue(MilkTaskFields.TASK_ID, 0L);
-                        metadata.setValue(MilkTaskFields.TASK_SERIES_ID, 0L);
-                    }
                     if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(OpencrxCoreUtils.ACTIVITY_ID, 0L);
 

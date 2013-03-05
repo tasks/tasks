@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.weloveastrid.rmilk.MilkPreferences;
-import org.weloveastrid.rmilk.MilkUtilities;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -199,11 +196,6 @@ public class SyncActionHelper {
 
                 String category = MetadataHelper.resolveActivityCategoryName(
                         resolveInfo, pm);
-
-                if (MilkPreferences.class.getName().equals(
-                        resolveInfo.activityInfo.name)
-                        && !MilkUtilities.INSTANCE.isLoggedIn())
-                    continue;
 
                 if (GtasksPreferences.class.getName().equals(
                         resolveInfo.activityInfo.name)

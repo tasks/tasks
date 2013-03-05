@@ -996,21 +996,6 @@
     <item>Estou tão orgulhoso de você!</item>
     <item>Eu adoro quando você é produtivo(a)!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Configurações do Remember the Milk</string>
-  <string name="rmilk_TLA_repeat">Tarefa recorrente do RTM</string>
-  <string name="rmilk_TLA_sync">Precisa ser sincronizado com RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
-  <string name="rmilk_FEx_list">Listas</string>
-  <string name="rmilk_FEx_list_title">Lista RTM \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
-  <string name="rmilk_MEA_list_label">Lista RTM:</string>
-  <string name="rmilk_MEA_repeat_label">Status de recorrência do RTM:</string>
-  <string name="rmilk_MEA_repeat_hint">ex. semanalmente, depois de 14 dias</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
-  <string name="rmilk_MLA_label">Por favor, conecte-se e autorize o Astrid:</string>
-  <string name="rmilk_MLA_error">Desculpe, houve um erro identificando seu login. Por favor tente novamente. \n\n Mensagem de Erro: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-  <string name="rmilk_ioerror">Erro de conexão! Verifique sua conexão com a Internet, ou talvez os servidores do RTM (status.rememberthemilk.com), para possíveis soluções.</string>
   <string name="subtasks_help_title">Ordenar e Recuar no Astrid</string>
   <string name="subtasks_help_1">Toque e segure para mover a tarefa</string>
   <string name="subtasks_help_2">Arraste verticalmente para reordenar</string>
