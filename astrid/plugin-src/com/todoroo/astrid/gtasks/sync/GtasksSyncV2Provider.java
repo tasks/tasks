@@ -29,6 +29,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -64,6 +65,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
+    @Autowired MetadataDao metadataDao;
     @Autowired StoreObjectDao storeObjectDao;
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
@@ -423,7 +425,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             existingTag.moveToFirst();
                             tagUuid = existingTag.get(TagData.UUID);
 
-                            if (tagMetadataDao.tagHasMembers(tagUuid)) {
+                            boolean taskIsInTag = metadataDao.taskIsInTag(tasks.get(Task.UUID), tagUuid);
+
+                            if (tagMetadataDao.tagHasMembers(tagUuid) && !taskIsInTag) {
                                 GtasksImportTuple tuple = new GtasksImportTuple();
                                 tuple.taskId = tasks.get(Task.ID);
                                 tuple.taskUuid = tasks.get(Task.UUID);
@@ -433,6 +437,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                                 if (gtCallback != null)
                                     gtCallback.addImportConflict(tuple);
 
+                                continue;
+                            } else if (taskIsInTag) {
                                 continue;
                             }
                         } else {

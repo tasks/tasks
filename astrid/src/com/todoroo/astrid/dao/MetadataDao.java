@@ -194,5 +194,15 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         return new TodorooCursor<Metadata>(cursor, properties);
     }
 
+    public boolean taskIsInTag(String taskUuid, String tagUuid) {
+        TodorooCursor<Metadata> cursor = query(Query.select(Metadata.ID).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tagUuid), Metadata.DELETION_DATE.eq(0))));
+        try {
+            return cursor.getCount() > 0;
+        } finally {
+            cursor.close();
+        }
+    }
+
 }
 
