@@ -462,7 +462,8 @@
     </receiver>
     <activity android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
               android:theme="@android:style/Theme"
-              android:label="@string/gtasks_GPr_header">
+              android:label="@string/gtasks_GPr_header"
+              android:screenOrientation="portrait">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
       <meta-data android:name="syncAction"
