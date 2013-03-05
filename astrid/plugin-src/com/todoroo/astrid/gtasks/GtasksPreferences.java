@@ -61,9 +61,34 @@ public class GtasksPreferences extends SyncProviderPreferences {
                 startLogin();
             }
         } else {
-            setResult(RESULT_CODE_SYNCHRONIZE);
-            finish();
+            syncOrImport();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
+            syncOrImport();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void syncOrImport() {
+        if (actFmPreferenceService.isLoggedIn()) {
+            startBlockingImport();
+        } else {
+            setResultForSynchronize();
+        }
+    }
+
+    private void setResultForSynchronize() {
+        setResult(RESULT_CODE_SYNCHRONIZE);
+        finish();
+    }
+
+    private void startBlockingImport() {
+        //TODO: Implement me
     }
 
     private void startLogin() {
