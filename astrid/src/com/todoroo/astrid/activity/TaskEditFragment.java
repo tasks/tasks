@@ -1156,6 +1156,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void createNewFileAttachment(String path, String fileName, String fileType) {
+        if (!ActFmPreferenceService.isPremiumUser())
+            return;
+
         TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
         taskAttachmentDao.createNew(attachment);
         filesControlSet.refreshMetadata();

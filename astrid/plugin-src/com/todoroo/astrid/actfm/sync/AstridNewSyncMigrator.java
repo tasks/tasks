@@ -292,6 +292,8 @@ public class AstridNewSyncMigrator {
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     }
 
+                    if (!ActFmPreferenceService.isPremiumUser())
+                        attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskAttachmentDao.createNew(attachment);
 
                 }
