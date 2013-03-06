@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,9 +82,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     @Override
-    protected boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
+    protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         // Process changes list and serialize to JSON
-        JSONArray changesJson = changesToJSON();
+        JSONArray changesJson = changesToJSON(entity);
         if (changesJson == null || changesJson.length() == 0)
             return false;
         serializeTo.put(CHANGES_KEY, changesJson);
@@ -98,7 +100,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return changes;
     }
 
-    private JSONArray changesToJSON() {
+    private JSONArray changesToJSON(MultipartEntity entity) {
         if (!RemoteModel.NO_UUID.equals(uuid))
             populateChanges();
 
@@ -146,8 +148,21 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
                     if (value == null)
                         changeJson.put("value", JSONObject.NULL);
-                    else
+                    else {
+                        if (localProperty.checkFlag(Property.PROP_FLAG_PICTURE) && value instanceof JSONObject) {
+                            JSONObject json = (JSONObject) value;
+                            if (json.has("path")) {
+                                String path = json.optString("path");
+                                String name = json.optString("name");
+                                File f = new File(path);
+                                if (f.exists() && !TextUtils.isEmpty(name)) {
+                                    json.remove("path");
+                                    entity.addPart(name, new FileBody(f));
+                                }
+                            }
+                        }
                         changeJson.put("value", value);
+                    }
                 }
 
                 changeJson.put("column", serverColumn);

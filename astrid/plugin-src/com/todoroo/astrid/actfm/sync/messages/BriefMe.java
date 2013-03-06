@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,7 +35,7 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
     }
 
     @Override
-    protected boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
+    protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         if (extraParameters != null && extraParameters.length > 0) {
             for (int i = 0; i < extraParameters.length - 1; i++) {
                 try {

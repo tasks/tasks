@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -295,8 +296,9 @@ public class ActFmSyncThread {
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
                     JSONArray payload = new JSONArray();
+                    MultipartEntity entity = new MultipartEntity();
                     for (ClientToServerMessage<?> message : messageBatch) {
-                        JSONObject serialized = message.serializeToJSON();
+                        JSONObject serialized = message.serializeToJSON(entity);
                         if (serialized != null) {
                             payload.put(serialized);
                             syncLog("Sending: " + serialized);
@@ -309,7 +311,7 @@ public class ActFmSyncThread {
                         continue;
 
                     try {
-                        JSONObject response = actFmInvoker.postSync(payload, token);
+                        JSONObject response = actFmInvoker.postSync(payload, entity, token);
                         // process responses
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
                         if (serverMessagesJson != null) {

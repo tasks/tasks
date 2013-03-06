@@ -12,14 +12,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -185,7 +183,7 @@ public class ActFmInvoker {
         }
     }
 
-    public JSONObject postSync(JSONArray data, String token) throws IOException,
+    public JSONObject postSync(JSONArray data, MultipartEntity entity, String token) throws IOException,
     ActFmServiceException {
         try {
             String dataString = data.toString();
@@ -194,11 +192,9 @@ public class ActFmInvoker {
             String request = createFetchUrl("api/" + API_VERSION, "synchronize", "token", token, "data", dataString, "time", timeString);
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
-            List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-            pairs.add(new BasicNameValuePair("token", token));
-            pairs.add(new BasicNameValuePair("data", data.toString()));
-            pairs.add(new BasicNameValuePair("time", timeString));
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
+            entity.addPart("token", new StringBody(token));
+            entity.addPart("data", new StringBody(data.toString()));
+            entity.addPart("time", new StringBody(timeString));
 
             String response = restClient.post(request, entity);
             JSONObject object = new JSONObject(response);

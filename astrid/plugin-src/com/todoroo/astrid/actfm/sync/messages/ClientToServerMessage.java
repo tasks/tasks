@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,7 +62,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         return pushedAt;
     }
 
-    public final JSONObject serializeToJSON() {
+    public final JSONObject serializeToJSON(MultipartEntity entity) {
         JSONObject json = new JSONObject();
         try {
             json.put(TYPE_KEY, getTypeString());
@@ -69,7 +70,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
             json.put(UUID_KEY, uuid);
             String dateValue = DateUtilities.timeToIso8601(pushedAt, true);
             json.put(PUSHED_AT_KEY, dateValue != null ? dateValue : 0);
-            if (serializeExtrasToJSON(json))
+            if (serializeExtrasToJSON(json, entity))
                 return json;
             else
                 return null;
@@ -109,6 +110,6 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         return true;
     }
 
-    protected abstract boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException;
+    protected abstract boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException;
     protected abstract String getTypeString();
 }
