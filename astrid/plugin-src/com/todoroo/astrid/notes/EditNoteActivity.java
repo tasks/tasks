@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -448,7 +450,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         userActivity.setValue(UserActivity.TARGET_NAME, task.getValue(Task.TITLE));
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         if (usePicture && pendingCommentPicture != null) {
-            userActivity.setValue(UserActivity.PICTURE, RemoteModel.PictureHelper.uploadPictureJson(pendingCommentPicture).toString());
+            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(activity, pendingCommentPicture);
+            if (pictureJson != null)
+                userActivity.setValue(UserActivity.PICTURE, pictureJson.toString());
         }
 
         userActivityDao.createNew(userActivity);
