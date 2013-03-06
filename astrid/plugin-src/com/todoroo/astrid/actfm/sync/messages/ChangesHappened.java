@@ -18,7 +18,6 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
@@ -129,8 +128,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     JSONObject fileJson = getFileJson(change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
                     if (fileJson == null) {
                         PluginServices.getTaskAttachmentDao().delete(id);
-                        continue;
-                    } else {
+                        PluginServices.getTaskAttachmentOutstandingDao().deleteWhere(TaskAttachmentOutstanding.ENTITY_ID_PROPERTY.eq(id));
+                        return null;
+                    } else { // JSON has valid file path
+                        addToEntityFromFileJson(entity, fileJson);
                         changeJson.put("value", fileJson);
                     }
                 } else {
@@ -151,15 +152,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     else {
                         if (localProperty.checkFlag(Property.PROP_FLAG_PICTURE) && value instanceof JSONObject) {
                             JSONObject json = (JSONObject) value;
-                            if (json.has("path")) {
-                                String path = json.optString("path");
-                                String name = json.optString("name");
-                                File f = new File(path);
-                                if (f.exists() && !TextUtils.isEmpty(name)) {
-                                    json.remove("path");
-                                    entity.addPart(name, new FileBody(f));
-                                }
-                            }
+                            addToEntityFromFileJson(entity, json);
                         }
                         changeJson.put("value", value);
                     }
@@ -176,6 +169,18 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             }
         }
         return array;
+    }
+
+    private void addToEntityFromFileJson(MultipartEntity entity, JSONObject json) {
+        if (json.has("path")) {
+            String path = json.optString("path");
+            String name = json.optString("name");
+            File f = new File(path);
+            if (f.exists() && !TextUtils.isEmpty(name)) {
+                json.remove("path");
+                entity.addPart(name, new FileBody(f));
+            }
+        }
     }
 
     protected void populateChanges() {
@@ -218,12 +223,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             if (!f.exists())
                 return null;
 
-            String encodedFile = AndroidUtilities.encodeBase64File(f);
-            if (TextUtils.isEmpty(encodedFile))
-                return null;
-
-            obj.remove("path");
-            obj.put("data", encodedFile);
             return obj;
         } catch (JSONException e) {
             return null;
