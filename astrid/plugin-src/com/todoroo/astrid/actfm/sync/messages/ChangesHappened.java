@@ -140,7 +140,11 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     if (serverColumn == null)
                         throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
 
-                    changeJson.put("value", localProperty.accept(visitor, change));
+                    Object value = localProperty.accept(visitor, change);
+                    if (!validateValue(localProperty, value))
+                        return null;
+
+                    changeJson.put("value", value);
                 }
 
                 changeJson.put("column", serverColumn);
@@ -174,6 +178,16 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         } finally {
             cursor.close();
         }
+    }
+
+    // Return false if value is detected to be something that would definitely cause a server error
+    // (e.g. empty task title, etc.)
+    private boolean validateValue(Property<?> property, Object value) {
+        if (Task.TITLE.equals(property)) {
+            if (!(value instanceof String) || TextUtils.isEmpty((String) value))
+                return false;
+        }
+        return true;
     }
 
     private JSONObject getFileJson(String value) {

@@ -35,12 +35,14 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -77,6 +79,9 @@ public class TaskService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private TaskOutstandingDao taskOutstandingDao;
 
     @Autowired
     private MetadataDao metadataDao;
@@ -242,6 +247,7 @@ public class TaskService {
             return;
         else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
+            taskOutstandingDao.deleteWhere(TaskOutstanding.ENTITY_ID_PROPERTY.eq(item.getId()));
             item.setId(Task.NO_ID);
         } else {
             long id = item.getId();
