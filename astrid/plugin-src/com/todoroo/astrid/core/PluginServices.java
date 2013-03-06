@@ -28,6 +28,7 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -104,6 +105,9 @@ public final class PluginServices {
 
     @Autowired
     ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
     private static volatile PluginServices instance;
 
@@ -210,6 +214,10 @@ public final class PluginServices {
 
     public static ActFmPreferenceService getActFmPreferenceService() {
         return getInstance().actFmPreferenceService;
+    }
+
+    public static GtasksPreferenceService getGtasksPreferenceService() {
+        return getInstance().gtasksPreferenceService;
     }
 
     // -- helpers

@@ -45,6 +45,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.actfm.sync.SyncUpgradePrompt;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -239,6 +240,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
+
+        SyncUpgradePrompt.showSyncUpgradePrompt(this);
 
         // Have to call this here because sometimes StartupService
         // isn't called (i.e. if the app was silently alive in the background)
