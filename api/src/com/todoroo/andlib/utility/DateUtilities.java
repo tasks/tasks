@@ -299,7 +299,7 @@ public class DateUtilities {
 
     public static String timeToIso8601(long time, boolean includeTime) {
         if (time == 0)
-            return null;
+            return ""; //$NON-NLS-1$
         Date date = new Date(time);
         String formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
         if (!includeTime)
