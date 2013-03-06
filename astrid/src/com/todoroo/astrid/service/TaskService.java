@@ -549,7 +549,7 @@ public class TaskService {
             task.mergeWithoutReplacement(forTask);
         }
 
-        if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+        if (!Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)))
             task.putTransitory(TRANS_ASSIGNED, true);
 
         PluginServices.getTaskService().quickAdd(task, tags);
