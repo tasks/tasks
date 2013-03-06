@@ -175,10 +175,11 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         if (json.has("path")) {
             String path = json.optString("path");
             String name = json.optString("name");
+            String type = json.optString("type");
             File f = new File(path);
             if (f.exists() && !TextUtils.isEmpty(name)) {
                 json.remove("path");
-                entity.addPart(name, new FileBody(f));
+                entity.addPart(name, new FileBody(f, type));
             }
         }
     }
