@@ -144,7 +144,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     if (!validateValue(localProperty, value))
                         return null;
 
-                    changeJson.put("value", value);
+                    if (value == null)
+                        changeJson.put("value", JSONObject.NULL);
+                    else
+                        changeJson.put("value", value);
                 }
 
                 changeJson.put("column", serverColumn);
@@ -261,15 +264,18 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             String value = getAsString(data);
             if (RemoteModel.NO_UUID.equals(value) && property.checkFlag(Property.PROP_FLAG_USER_ID))
                 return ActFmPreferenceService.userId();
-            if (property.checkFlag(Property.PROP_FLAG_JSON))
+            if (property.checkFlag(Property.PROP_FLAG_JSON)) {
+                if (TextUtils.isEmpty(value))
+                    return null;
                 try {
                     if (value != null && value.startsWith("["))
                         return new JSONArray(value);
                     else
                         return new JSONObject(value);
                 } catch (JSONException e) {
-                    //
+                    return null;
                 }
+            }
             return value;
         }
 
