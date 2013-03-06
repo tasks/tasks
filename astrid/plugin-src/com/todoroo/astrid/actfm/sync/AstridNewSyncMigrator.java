@@ -315,9 +315,7 @@ public class AstridNewSyncMigrator {
             TaskListMetadata tlm = new TaskListMetadata();
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
             tlm.setValue(TaskListMetadata.TASK_IDS, activeTasksOrder);
-            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_ALL), tlm) <= 0) {
-                tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 taskListMetadataDao.createNew(tlm);
             }
 
@@ -330,9 +328,7 @@ public class AstridNewSyncMigrator {
 
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_TODAY);
             tlm.setValue(TaskListMetadata.TASK_IDS, todayTasksOrder);
-            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_TODAY), tlm) <= 0) {
-                tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 taskListMetadataDao.createNew(tlm);
             }
 
