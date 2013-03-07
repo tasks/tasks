@@ -59,7 +59,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 			makeChanges.put("uuid", t.getValue(Task.UUID));
 			
 			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
-			message.processMessage();
+			message.processMessage(null);
 			
 			t = taskDao.fetch(t.getId(), Task.TITLE, Task.IMPORTANCE);
 			assertEquals(MAKE_CHANGES_TITLE, t.getValue(Task.TITLE));
@@ -75,7 +75,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 			JSONObject makeChanges = getMakeChanges();
 			makeChanges.put("uuid", "1");
 			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
-			message.processMessage();
+			message.processMessage(null);
 			
 			TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.UUID, Task.TITLE, Task.IMPORTANCE).where(Task.UUID.eq("1")));
 			try {
@@ -104,7 +104,7 @@ public class SyncMessageTest extends NewSyncTestCase {
 			JSONObject makeChanges = getMakeChanges("uuid", newUuid);
 			makeChanges.put("uuid", oldUuid);
 			ServerToClientMessage message = ServerToClientMessage.instantiateMessage(makeChanges);
-			message.processMessage();
+			message.processMessage(null);
 			
 			TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.UUID).where(Task.UUID.eq(newUuid)));
 			try {
