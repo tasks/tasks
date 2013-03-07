@@ -313,6 +313,7 @@ public class ActFmSyncThread {
                     try {
                         JSONObject response = actFmInvoker.postSync(payload, entity, token);
                         // process responses
+                        String time = response.optString("time");
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
                         if (serverMessagesJson != null) {
                             for (int i = 0; i < serverMessagesJson.length(); i++) {
@@ -321,7 +322,7 @@ public class ActFmSyncThread {
                                     ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
                                     if (serverMessage != null) {
                                         syncLog("Processing server message of type " + serverMessage.getClass().getSimpleName());
-                                        serverMessage.processMessage();
+                                        serverMessage.processMessage(time);
                                     } else {
                                         syncLog("Unable to instantiate message " + serverMessageJson.toString());
                                     }

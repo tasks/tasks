@@ -13,7 +13,7 @@ import com.todoroo.astrid.data.UserActivity;
 @SuppressWarnings("nls")
 public abstract class ServerToClientMessage {
 
-    public abstract void processMessage();
+    public abstract void processMessage(String serverTime);
 
     public static final String TYPE_MAKE_CHANGES = "MakeChanges";
     public static final String TYPE_NOW_BRIEFED = "NowBriefed";

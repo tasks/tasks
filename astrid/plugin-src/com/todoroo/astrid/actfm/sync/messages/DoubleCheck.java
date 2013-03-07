@@ -9,7 +9,7 @@ public class DoubleCheck extends ServerToClientMessage {
     }
 
     @Override
-    public void processMessage() {
+    public void processMessage(String serverTime) {
         // TODO Auto-generated method stub
     }
 

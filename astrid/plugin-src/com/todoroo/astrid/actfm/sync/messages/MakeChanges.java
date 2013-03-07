@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -65,7 +66,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         return model;
     }
 
-    private static <T extends RemoteModel> void saveOrUpdateModelAfterChanges(RemoteModelDao<T> dao, T model, String oldUuid, String uuid, Criterion orCriterion) {
+    private static <T extends RemoteModel> void saveOrUpdateModelAfterChanges(RemoteModelDao<T> dao, T model, String oldUuid, String uuid, String serverTime, Criterion orCriterion) {
         Criterion uuidCriterion;
         if (oldUuid == null)
             uuidCriterion = RemoteModel.UUID_PROPERTY.eq(uuid);
@@ -76,6 +77,16 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             uuidCriterion = Criterion.or(uuidCriterion, orCriterion);
 
         if (model.getSetValues() != null && model.getSetValues().size() > 0) {
+            long pushedAt;
+            try {
+                pushedAt = DateUtilities.parseIso8601(serverTime);
+            } catch (ParseException e) {
+                pushedAt = 0;
+            }
+
+            if (pushedAt > 0)
+                model.setValue(RemoteModel.PUSHED_AT_PROPERTY, pushedAt);
+
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             if (dao.update(uuidCriterion, model) <= 0) { // If update doesn't update rows. create a new model
                 model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -85,7 +96,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
     }
 
     @Override
-    public void processMessage() {
+    public void processMessage(String serverTime) {
         JSONObject changes = json.optJSONObject("changes");
         String uuid = json.optString("uuid");
         if (changes != null && !TextUtils.isEmpty(uuid)) {
@@ -105,7 +116,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     if (model.getSetValues() != null && !model.getSetValues().containsKey(uuidProperty.name))
                         model.setValue(uuidProperty, uuid);
 
-                    saveOrUpdateModelAfterChanges(dao, model, oldUuid, uuid, getMatchCriterion(model));
+                    saveOrUpdateModelAfterChanges(dao, model, oldUuid, uuid, serverTime, getMatchCriterion(model));
                     afterSaveChanges(changes, model, uuid, oldUuid);
 
                 } catch (IllegalAccessException e) {

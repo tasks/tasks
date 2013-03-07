@@ -36,7 +36,7 @@ public class AcknowledgeChange extends ServerToClientMessage {
     }
 
     @Override
-    public void processMessage() {
+    public void processMessage(String serverTime) {
         JSONArray idsArray = json.optJSONArray("ids"); //$NON-NLS-1$
         if (idsArray != null && dao != null) {
             ArrayList<Long> idsList = new ArrayList<Long>();

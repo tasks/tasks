@@ -20,7 +20,7 @@ public class UserData extends ServerToClientMessage {
 
     @Override
     @SuppressWarnings("nls")
-    public void processMessage() {
+    public void processMessage(String serverTime) {
         String uuid = json.optString("uuid");
         String email = json.optString("email");
 
