@@ -15,7 +15,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
 public class SyncUpgradePrompt {
 
@@ -35,7 +34,6 @@ public class SyncUpgradePrompt {
                             R.string.sync_upgr_gtasks_only_btn1, new Runnable() {
                                 @Override
                                 public void run() {
-                                    GtasksSyncV2Provider.getInstance().signOut();
                                     activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
                                 }
                             },
