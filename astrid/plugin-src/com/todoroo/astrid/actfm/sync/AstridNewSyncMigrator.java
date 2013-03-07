@@ -403,6 +403,16 @@ public class AstridNewSyncMigrator {
         }
 
         // --------------
+        // Delete all featured list data
+        // --------------
+        try {
+            tagDataDao.deleteWhere(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0));
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error deleting featured list data", e);
+        }
+
+
+        // --------------
         // Finally, create oustanding entries for tags on unsynced tasks
         // --------------
         try {

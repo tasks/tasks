@@ -600,14 +600,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
              });
-        } else if (r.getString(R.string.p_show_featured_lists).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
-                @Override
-                public boolean onPreferenceChange(Preference p, Object newValue) {
-                    StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_FEATURED_LISTS, "enabled", newValue.toString()); //$NON-NLS-1$
-                    return super.onPreferenceChange(p, newValue);
-                }
-            });
         }
         else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
@@ -673,7 +665,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_config_lite)).setOnPreferenceClickListener(
                 new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite, StatisticsConstants.PREFS_RESET_LITE));
 
-        int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends, R.string.p_show_featured_lists,
+        int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends,
                 R.string.p_show_menu_sync, R.string.p_show_menu_sort, R.string.p_show_menu_addons
         };
         for (int key : menuPrefs) {
