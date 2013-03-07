@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -62,6 +63,7 @@ public class SyncUpgradePrompt {
                             @Override
                             public void run() {
                                 new ActFmSyncV2Provider().signOut();
+                                Toast.makeText(activity, R.string.sync_upgr_logged_out, Toast.LENGTH_LONG).show();
                             }
                         });
                 setLastPromptDate(Long.MAX_VALUE);
@@ -85,9 +87,16 @@ public class SyncUpgradePrompt {
 
     private static Dialog getDialog(Activity activity, int title, int body, Object... buttonsAndListeners) {
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
-        d.setContentView(R.layout.astrid_reminder_view);
+        d.setContentView(R.layout.astrid_reminder_view_portrait);
         ((TextView) d.findViewById(R.id.reminder_title)).setText(title);
         ((TextView) d.findViewById(R.id.reminder_message)).setText(body);
+
+        d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
 
         d.findViewById(R.id.reminder_complete).setVisibility(View.GONE);
         TypedValue tv = new TypedValue();
@@ -105,7 +114,7 @@ public class SyncUpgradePrompt {
                     listener1.run();
             }
         });
-        b1.setTextColor(activity.getResources().getColor(tv.data));
+        b1.setBackgroundColor(activity.getResources().getColor(tv.data));
 
         if (buttonsAndListeners.length < 3) {
             d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
@@ -122,7 +131,7 @@ public class SyncUpgradePrompt {
                         listener2.run();
                 }
             });
-            b2.setTextColor(activity.getResources().getColor(tv.data));
+            b2.setBackgroundColor(activity.getResources().getColor(tv.data));
         }
 
         return d;

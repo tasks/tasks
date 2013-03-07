@@ -356,5 +356,7 @@
   <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
   <string name="sync_upgr_neither_btn1">Sign up now</string>
   
+  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  
 </resources>
 
