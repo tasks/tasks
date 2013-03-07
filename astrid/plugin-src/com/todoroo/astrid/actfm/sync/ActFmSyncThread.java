@@ -240,8 +240,10 @@ public class ActFmSyncThread {
     };
 
     private void incrementProgress() {
-        if (activity != null) {
-            activity.runOnUiThread(incrementProgressRunnable);
+        synchronized (progressBarLock) {
+            if (activity != null) {
+                activity.runOnUiThread(incrementProgressRunnable);
+            }
         }
     }
 
