@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
@@ -58,6 +60,7 @@ import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.widget.TasksWidget;
 
 public class ActFmSyncThread {
 
@@ -316,6 +319,7 @@ public class ActFmSyncThread {
                         String time = response.optString("time");
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
                         if (serverMessagesJson != null) {
+                            setWidgetSuppression(true);
                             for (int i = 0; i < serverMessagesJson.length(); i++) {
                                 JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
                                 if (serverMessageJson != null) {
@@ -331,6 +335,7 @@ public class ActFmSyncThread {
                             JSONArray errors = response.optJSONArray("errors");
                             boolean errorsExist = (errors != null && errors.length() > 0);
                             replayOutstandingChanges(errorsExist);
+                            setWidgetSuppression(false);
                         }
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
@@ -376,6 +381,18 @@ public class ActFmSyncThread {
 
     private boolean timeForBackgroundSync() {
         return isTimeForBackgroundSync;
+    }
+
+    private void setWidgetSuppression(boolean suppress) {
+        long date = suppress ? DateUtilities.now() : 0;
+        TasksWidget.suppressUpdateFlag = date;
+
+        if (date == 0) {
+            Context context = ContextManager.getContext();
+            if (context != null) {
+                TasksWidget.updateWidgets(context);
+            }
+        }
     }
 
     public void repopulateQueueFromOutstandingTables() {
