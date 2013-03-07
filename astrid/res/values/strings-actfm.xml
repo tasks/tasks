@@ -343,11 +343,18 @@
   
   <!-- Sync upgrade messages -->
   <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync</string>
+  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
+  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
+  <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
+  
   <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
   <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
+  
   <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
   <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_btn1">Sign up now</string>
   
 </resources>
 
