@@ -26,7 +26,7 @@ public class SyncUpgradePrompt {
         if (lastPromptDate == -1)
             lastPromptDate = Preferences.getLong(P_SYNC_UPGRADE_PROMPT, 0L);
 
-        Dialog d;
+        Dialog d = null;
         if (DateUtilities.now() - lastPromptDate > DateUtilities.ONE_WEEK * 3) {
             if (!PluginServices.getActFmPreferenceService().isLoggedIn()) {
                 if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
@@ -69,11 +69,8 @@ public class SyncUpgradePrompt {
                 setLastPromptDate(Long.MAX_VALUE);
             } else {
                 // Logged into just astrid--don't need to show prompts anymore
-                d = null;
                 setLastPromptDate(Long.MAX_VALUE);
             }
-        } else {
-            d = null;
         }
 
         if (d != null)
