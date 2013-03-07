@@ -22,25 +22,31 @@ public class SyncUpgradePrompt {
         if (lastPromptDate == -1)
             lastPromptDate = Preferences.getLong(P_SYNC_UPGRADE_PROMPT, 0L);
 
+        Dialog d = null;
         if (DateUtilities.now() - lastPromptDate > DateUtilities.ONE_WEEK * 3) {
             if (!PluginServices.getActFmPreferenceService().isLoggedIn()) {
                 if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
                     // Logged into google but not astrid
-                    // TODO: Show prompt
+                    // TODO: Buttons and listeners
+                    d = getDialog(activity, R.string.sync_upgr_gtasks_only_title, R.string.sync_upgr_gtasks_only_body);
                 } else {
                     // Logged into neither
-                    // TODO: Show prompt
+                 // TODO: Buttons and listeners
+                    d = getDialog(activity, R.string.sync_upgr_neither_title, R.string.sync_upgr_neither_body);
                 }
                 setLastPromptDate(DateUtilities.now());
             } else if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
                 // Logged into both
-                // TODO: Show prompt
+                // TODO: Buttons and listeners
+                d = getDialog(activity, R.string.sync_upgr_both_title, R.string.sync_upgr_both_body);
                 setLastPromptDate(Long.MAX_VALUE);
             } else {
                 // Logged into just astrid--don't need to show prompts anymore
                 setLastPromptDate(Long.MAX_VALUE);
             }
         }
+        if (d != null)
+            d.show();
     }
 
     private static void setLastPromptDate(long date) {
