@@ -3,6 +3,7 @@ package com.todoroo.astrid.actfm.sync.messages;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -104,6 +105,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             populateChanges();
 
         JSONArray array = new JSONArray();
+        AtomicInteger uploadCounter = new AtomicInteger();
         PropertyToJSONVisitor visitor = new PropertyToJSONVisitor();
         for (OE change : changes) {
             try {
@@ -131,8 +133,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                         PluginServices.getTaskAttachmentOutstandingDao().deleteWhere(TaskAttachmentOutstanding.ENTITY_ID_PROPERTY.eq(id));
                         return null;
                     } else { // JSON has valid file path
-                        addToEntityFromFileJson(entity, fileJson);
-                        changeJson.put("value", fileJson);
+                        String name = addToEntityFromFileJson(entity, fileJson, uploadCounter);
+                        if (name != null)
+                            changeJson.put("value", name);
                     }
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
@@ -152,9 +155,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     else {
                         if (localProperty.checkFlag(Property.PROP_FLAG_PICTURE) && value instanceof JSONObject) {
                             JSONObject json = (JSONObject) value;
-                            addToEntityFromFileJson(entity, json);
+                            String name = addToEntityFromFileJson(entity, json, uploadCounter);
+                            if (name != null)
+                                changeJson.put("value", name);
+                        } else {
+                            changeJson.put("value", value);
                         }
-                        changeJson.put("value", value);
                     }
                 }
 
@@ -171,17 +177,19 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return array;
     }
 
-    private void addToEntityFromFileJson(MultipartEntity entity, JSONObject json) {
+    private String addToEntityFromFileJson(MultipartEntity entity, JSONObject json, AtomicInteger uploadCounter) {
         if (json.has("path")) {
             String path = json.optString("path");
-            String name = json.optString("name");
+            String name = String.format("upload-%s-%s-%d", table, uuid, uploadCounter.get());
             String type = json.optString("type");
             File f = new File(path);
-            if (f.exists() && !TextUtils.isEmpty(name)) {
+            if (f.exists()) {
                 json.remove("path");
                 entity.addPart(name, new FileBody(f, type));
+                return name;
             }
         }
+        return null;
     }
 
     protected void populateChanges() {
