@@ -31,7 +31,6 @@ public class SyncUpgradePrompt {
             if (!PluginServices.getActFmPreferenceService().isLoggedIn()) {
                 if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
                     // Logged into google but not astrid
-                    // TODO: Buttons and listeners
                     d = getDialog(activity, R.string.sync_upgr_gtasks_only_title, R.string.sync_upgr_gtasks_only_body,
                             R.string.sync_upgr_gtasks_only_btn1, new Runnable() {
                                 @Override
@@ -44,7 +43,6 @@ public class SyncUpgradePrompt {
                             null);
                 } else {
                     // Logged into neither
-                    // TODO: Buttons and listeners
                     d = getDialog(activity, R.string.sync_upgr_neither_title, R.string.sync_upgr_neither_body,
                             R.string.sync_upgr_neither_btn1, new Runnable() {
                                 @Override
