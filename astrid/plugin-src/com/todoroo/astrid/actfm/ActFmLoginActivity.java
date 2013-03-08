@@ -657,11 +657,15 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                                     @Override
                                     public void run() {
                                         // Delete all tasks not assigned to self
-                                        taskService.deleteWhere(Task.USER_ID.neq(0));
+                                        taskService.deleteWhere(Criterion.or(Task.USER_ID.neq(0), Task.DELETION_DATE.gt(0)));
                                         // Delete user table
                                         userDao.deleteWhere(Criterion.all);
                                         // Delete attachments table
                                         taskAttachmentDao.deleteWhere(Criterion.all);
+                                        // Delete deleted tags
+                                        tagDataDao.deleteWhere(TagData.DELETION_DATE.gt(0));
+                                        // Delete deleted metadata
+                                        metadataDao.deleteWhere(Metadata.DELETION_DATE.gt(0));
 
                                         // Clear all outstanding tables
                                         taskOutstandingDao.deleteWhere(Criterion.all);
