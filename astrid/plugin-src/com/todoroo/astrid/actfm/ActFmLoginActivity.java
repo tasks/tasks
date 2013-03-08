@@ -80,6 +80,8 @@ import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskAttachmentOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
@@ -134,6 +136,10 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     private TaskDao taskDao;
     @Autowired
     private TaskOutstandingDao taskOutstandingDao;
+    @Autowired
+    private TaskAttachmentDao taskAttachmentDao;
+    @Autowired
+    private TaskAttachmentOutstandingDao taskAttachmentOutstandingDao;
     @Autowired
     private TagDataDao tagDataDao;
     @Autowired
@@ -653,12 +659,15 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                                         taskService.deleteWhere(Task.USER_ID.neq(0));
                                         // Delete user table
                                         userDao.deleteWhere(Criterion.all);
+                                        // Delete attachments table
+                                        taskAttachmentDao.deleteWhere(Criterion.all);
 
                                         // Clear all outstanding tables
                                         taskOutstandingDao.deleteWhere(Criterion.all);
                                         tagOutstandingDao.deleteWhere(Criterion.all);
                                         userActivityOutstandingDao.deleteWhere(Criterion.all);
                                         taskListMetadataOutstandingDao.deleteWhere(Criterion.all);
+                                        taskAttachmentOutstandingDao.deleteWhere(Criterion.all);
 
                                         // Make all tags private
                                         tagMetadataDao.deleteWhere(Criterion.all);
