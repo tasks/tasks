@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +74,8 @@ import com.todoroo.astrid.actfm.sync.messages.ConstructOutstandingTableFromMaste
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
@@ -83,6 +87,7 @@ import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
@@ -100,6 +105,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 /**
  * This activity allows users to sign in or log in to Astrid.com
@@ -138,7 +144,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     private TaskListMetadataDao taskListMetadataDao;
     @Autowired
     private TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
-
+    @Autowired
+    private MetadataDao metadataDao;
     @Autowired
     private TagMetadataDao tagMetadataDao;
 
@@ -693,7 +700,73 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         mapUuids(userActivityDao, uuidUserActivityMap);
         mapUuids(taskListMetadataDao, uuidTaskListMetadataMap);
 
-        // TODO: Use maps to rebuild tables
+        Task t = new Task();
+        TagData td = new TagData();
+        Metadata m = new Metadata();
+        UserActivity ua = new UserActivity();
+        TaskListMetadata tlm = new TaskListMetadata();
+
+        Set<Entry<String, String>> entries = uuidTaskMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            t.clear();
+            m.clear();
+            ua.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            t.setValue(Task.UUID, newUuid);
+            ua.setValue(UserActivity.TARGET_ID, newUuid);
+            m.setValue(TaskToTagMetadata.TASK_UUID, newUuid);
+
+            taskDao.update(Task.UUID.eq(oldUuid), t);
+            metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TASK_UUID.eq(oldUuid)), m);
+            userActivityDao.update(UserActivity.TARGET_ID.eq(oldUuid), ua);
+        }
+
+        entries = uuidTagMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            td.clear();
+            ua.clear();
+            m.clear();
+            tlm.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            td.setValue(TagData.UUID, newUuid);
+            ua.setValue(UserActivity.TARGET_ID, newUuid);
+            m.setValue(TaskToTagMetadata.TAG_UUID, newUuid);
+            tlm.setValue(TaskListMetadata.TAG_UUID, newUuid);
+
+            tagDataDao.update(TagData.UUID.eq(oldUuid), td);
+            userActivityDao.update(UserActivity.TARGET_ID.eq(oldUuid), ua);
+            metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(oldUuid)), m);
+            taskListMetadataDao.update(TaskListMetadata.TAG_UUID.eq(oldUuid), tlm);
+        }
+
+        entries = uuidUserActivityMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            ua.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            ua.setValue(UserActivity.UUID, newUuid);
+            userActivityDao.update(UserActivity.UUID.eq(oldUuid), ua);
+        }
+
+        entries = uuidTaskListMetadataMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            tlm.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            tlm.setValue(TaskListMetadata.UUID, newUuid);
+            taskListMetadataDao.update(TaskListMetadata.UUID.eq(oldUuid), tlm);
+        }
+
     }
 
     private <T extends RemoteModel> void mapUuids(RemoteModelDao<T> dao, HashMap<String, String> map) {
