@@ -73,6 +73,7 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
@@ -240,8 +241,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
-
-        SyncUpgradePrompt.showSyncUpgradePrompt(this);
 
         // Have to call this here because sometimes StartupService
         // isn't called (i.e. if the app was silently alive in the background)
@@ -523,6 +522,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         super.onResume();
         registerReceiver(tagDeletedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED));
         registerReceiver(tagRenamedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED));
+
+        if (Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false))
+            SyncUpgradePrompt.showSyncUpgradePrompt(this);
     }
 
     @Override
