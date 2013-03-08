@@ -140,14 +140,14 @@ public class SubtasksHelper {
     }
 
     public static interface TreeRemapHelper<T> {
-        public T getKeyFromUuid(String uuid);
+        public T getKeyFromOldUuid(String uuid);
     }
 
     public static <T> void remapTree(Node root, HashMap<T, String> idMap, TreeRemapHelper<T> helper) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
-            T key = helper.getKeyFromUuid(child.uuid);
+            T key = helper.getKeyFromOldUuid(child.uuid);
             String uuid = idMap.get(key);
             if (!RemoteModel.isValidUuid(uuid)) {
                 children.remove(i);
@@ -162,7 +162,7 @@ public class SubtasksHelper {
 
     private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
         remapTree(root, idMap, new TreeRemapHelper<Long>() {
-            public Long getKeyFromUuid(String uuid) {
+            public Long getKeyFromOldUuid(String uuid) {
                 Long localId = -1L;
                 try {
                     localId = Long.parseLong(uuid);

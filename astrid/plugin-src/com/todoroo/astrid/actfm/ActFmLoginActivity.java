@@ -652,6 +652,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO: Make all data private
                                 final ProgressDialog pd = DialogUtilities.progressDialog(ActFmLoginActivity.this, getString(R.string.actfm_logged_in_different_user_processing));
+
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -679,7 +680,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                finishSignIn(result, token);
+                                                finishSignIn(result, token, true);
                                             }
                                         });
                                         pd.dismiss();
@@ -691,14 +692,14 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteDatabase(database.getName());
-                                finishSignIn(result, token);
+                                finishSignIn(result, token, true);
                             }
                         });
             } else {
-                finishSignIn(result, token);
+                finishSignIn(result, token, false);
             }
         } else {
-            finishSignIn(result, token);
+            finishSignIn(result, token, false);
         }
     }
 
@@ -774,18 +775,19 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             for (tlmCursor.moveToFirst(); !tlmCursor.isAfterLast(); tlmCursor.moveToNext()) {
                 tlm.clear();
                 tlm.readFromCursor(tlmCursor);
-
+                tlm.setValue(TaskListMetadata.UUID, uuidTaskListMetadataMap.get(tlm.getUuid()));
                 String taskIds = tlm.getValue(TaskListMetadata.TASK_IDS);
                 if (!TaskListMetadata.taskIdsIsEmpty(taskIds)) {
                     Node root = AstridOrderedListUpdater.buildTreeModel(taskIds, null);
                     SubtasksHelper.remapTree(root, uuidTaskMap, new TreeRemapHelper<String>() {
-                        public String getKeyFromUuid(String uuid) {
-                            return uuidTaskMap.get(uuid);
+                        public String getKeyFromOldUuid(String uuid) {
+                            return uuid; // Old uuids are the keys
                         }
                     });
                     taskIds = AstridOrderedListUpdater.serializeTree(root);
                     tlm.setValue(TaskListMetadata.TASK_IDS, taskIds);
                 }
+                taskListMetadataDao.saveExisting(tlm);
             }
         } finally {
             tlmCursor.close();
@@ -805,7 +807,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     }
 
     @SuppressWarnings("nls")
-    private void finishSignIn(JSONObject result, String token) {
+    private void finishSignIn(JSONObject result, String token, boolean restart) {
         actFmPreferenceService.setToken(token);
 
         Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
@@ -825,15 +827,21 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         ActFmPreferenceService.reloadThisUser();
 
+        GCMIntentService.register(this);
+
+
+        if (restart) {
+            System.exit(0);
+            return;
+        } else {
+            setResult(RESULT_OK);
+            finish();
+        }
+
         ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
         synchronized (monitor) {
             monitor.notifyAll();
         }
-
-        setResult(RESULT_OK);
-        finish();
-
-        GCMIntentService.register(this);
     }
 
     @SuppressWarnings("nls")
