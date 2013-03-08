@@ -56,6 +56,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -67,6 +68,7 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncMonitor;
 import com.todoroo.astrid.actfm.sync.messages.ConstructOutstandingTableFromMasterTable;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -75,6 +77,7 @@ import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
@@ -102,6 +105,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
 
     @Autowired
+    protected Database database;
+    @Autowired
     protected ExceptionService exceptionService;
     @Autowired
     protected TaskService taskService;
@@ -116,6 +121,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     private TagDataDao tagDataDao;
     @Autowired
     private TagOutstandingDao tagOutstandingDao;
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private UserActivityDao userActivityDao;
     @Autowired
@@ -594,7 +601,46 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     }
 
     @SuppressWarnings("nls")
-    protected void postAuthenticate(JSONObject result, String token) {
+    private void postAuthenticate(final JSONObject result, final String token) {
+        long lastLoggedInUser = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
+        if (lastLoggedInUser > 0) {
+            long newUserId = result.optLong("id");
+            if (lastLoggedInUser != newUserId) {
+                // Prompt for input
+                DialogUtilities.okCancelCustomDialog(this,
+                        getString(R.string.actfm_logged_in_different_user_title),
+                        getString(R.string.actfm_logged_in_different_user_body),
+                        R.string.actfm_logged_in_different_user_keep_data,
+                        R.string.actfm_logged_in_different_user_clear_data,
+                        android.R.drawable.ic_dialog_alert,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO: Make all data private
+                                taskService.deleteWhere(Task.USER_ID.neq(0));
+                                userDao.deleteWhere(Criterion.all);
+                                // Delete all outstanding tables
+                                // Generate new uuids for all tasks/tags and update links
+                                finishSignIn(result, token);
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteDatabase(database.getName());
+                                finishSignIn(result, token);
+                            }
+                        });
+            } else {
+                finishSignIn(result, token);
+            }
+        } else {
+            finishSignIn(result, token);
+        }
+    }
+
+    @SuppressWarnings("nls")
+    private void finishSignIn(JSONObject result, String token) {
         actFmPreferenceService.setToken(token);
 
         Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
