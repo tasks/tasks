@@ -71,6 +71,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmServiceException;
 import com.todoroo.astrid.actfm.sync.ActFmSyncMonitor;
 import com.todoroo.astrid.actfm.sync.messages.ConstructOutstandingTableFromMasterTable;
+import com.todoroo.astrid.actfm.sync.messages.ConstructTaskOutstandingTableFromMasterTable;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.dao.Database;
@@ -96,7 +97,6 @@ import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
-import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
@@ -627,7 +627,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     }
 
     private void constructOutstandingTables() {
-        new ConstructOutstandingTableFromMasterTable<Task, TaskOutstanding>(NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, Task.CREATION_DATE).execute();
+        new ConstructTaskOutstandingTableFromMasterTable(NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, metadataDao, Task.CREATION_DATE).execute();
         new ConstructOutstandingTableFromMasterTable<TagData, TagOutstanding>(NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, TagData.CREATION_DATE).execute();
         new ConstructOutstandingTableFromMasterTable<UserActivity, UserActivityOutstanding>(NameMaps.TABLE_ID_USER_ACTIVITY, userActivityDao, userActivityOutstandingDao, UserActivity.CREATED_AT).execute();
         new ConstructOutstandingTableFromMasterTable<TaskListMetadata, TaskListMetadataOutstanding>(NameMaps.TABLE_ID_TASK_LIST_METADATA, taskListMetadataDao, taskListMetadataOutstandingDao, null).execute();
