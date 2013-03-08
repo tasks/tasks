@@ -105,6 +105,10 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.subtasks.AstridOrderedListUpdater;
+import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.subtasks.SubtasksHelper.TreeRemapHelper;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 /**
@@ -690,7 +694,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     }
 
     private void generateNewUuids() {
-        HashMap<String, String> uuidTaskMap = new HashMap<String, String>();
+        final HashMap<String, String> uuidTaskMap = new HashMap<String, String>();
         HashMap<String, String> uuidTagMap = new HashMap<String, String>();
         HashMap<String, String> uuidUserActivityMap = new HashMap<String, String>();
         HashMap<String, String> uuidTaskListMetadataMap = new HashMap<String, String>();
@@ -756,15 +760,26 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             userActivityDao.update(UserActivity.UUID.eq(oldUuid), ua);
         }
 
-        entries = uuidTaskListMetadataMap.entrySet();
-        for (Entry<String, String> e : entries) {
-            tlm.clear();
+        TodorooCursor<TaskListMetadata> tlmCursor = taskListMetadataDao.query(Query.select(TaskListMetadata.ID, TaskListMetadata.UUID, TaskListMetadata.TASK_IDS, TaskListMetadata.CHILD_TAG_IDS));
+        try {
+            for (tlmCursor.moveToFirst(); !tlmCursor.isAfterLast(); tlmCursor.moveToNext()) {
+                tlm.clear();
+                tlm.readFromCursor(tlmCursor);
 
-            String oldUuid = e.getKey();
-            String newUuid = e.getValue();
-
-            tlm.setValue(TaskListMetadata.UUID, newUuid);
-            taskListMetadataDao.update(TaskListMetadata.UUID.eq(oldUuid), tlm);
+                String taskIds = tlm.getValue(TaskListMetadata.TASK_IDS);
+                if (!TaskListMetadata.taskIdsIsEmpty(taskIds)) {
+                    Node root = AstridOrderedListUpdater.buildTreeModel(taskIds, null);
+                    SubtasksHelper.remapTree(root, uuidTaskMap, new TreeRemapHelper<String>() {
+                        public String getKeyFromUuid(String uuid) {
+                            return uuidTaskMap.get(uuid);
+                        }
+                    });
+                    taskIds = AstridOrderedListUpdater.serializeTree(root);
+                    tlm.setValue(TaskListMetadata.TASK_IDS, taskIds);
+                }
+            }
+        } finally {
+            tlmCursor.close();
         }
 
     }
