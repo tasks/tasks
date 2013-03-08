@@ -675,7 +675,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                                         });
                                         pd.dismiss();
                                     }
-                                });
+                                }).start();
                             }
                         },
                         new DialogInterface.OnClickListener() {
