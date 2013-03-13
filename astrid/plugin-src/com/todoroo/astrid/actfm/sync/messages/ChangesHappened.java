@@ -80,6 +80,8 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         this.outstandingDao = outstandingDao;
         this.changes = new ArrayList<OE>();
 
+        if (!foundEntity) // Stop sending changes for entities that don't exist anymore
+            outstandingDao.deleteWhere(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id));
     }
 
     @Override

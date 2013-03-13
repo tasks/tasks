@@ -20,6 +20,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
     protected final long id;
     protected final String uuid;
     protected final long pushedAt;
+    protected final boolean foundEntity;
 
     public static final String TYPE_KEY = "type";
     public static final String TABLE_KEY = "table";
@@ -32,6 +33,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         this.table = NameMaps.getServerNameForTable(tableClass);
         this.uuid = uuid;
         this.pushedAt = pushedAt;
+        this.foundEntity = true;
         this.id = AbstractModel.NO_ID;
     }
 
@@ -42,6 +44,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         this.table = NameMaps.getServerNameForTable(tableClass);
 
         TYPE entity = getEntity(id, modelDao);
+        this.foundEntity = entity != null;
         if (entity == null) {
             this.uuid = RemoteModel.NO_UUID;
             this.pushedAt = 0;
