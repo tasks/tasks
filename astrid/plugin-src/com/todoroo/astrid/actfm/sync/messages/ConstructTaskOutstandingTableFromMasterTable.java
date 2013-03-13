@@ -33,12 +33,14 @@ public class ConstructTaskOutstandingTableFromMasterTable extends ConstructOutst
                 m.clear();
                 m.readFromCursor(tagMetadata);
 
-                TaskOutstanding oe = new TaskOutstanding();
-                oe.setValue(TaskOutstanding.ENTITY_ID_PROPERTY, itemId);
-                oe.setValue(TaskOutstanding.COLUMN_STRING, NameMaps.TAG_ADDED_COLUMN);
-                oe.setValue(TaskOutstanding.VALUE_STRING, m.getValue(TaskToTagMetadata.TAG_UUID));
-                oe.setValue(TaskOutstanding.CREATED_AT, createdAt);
-                outstandingDao.createNew(oe);
+                if (m.containsNonNullValue(TaskToTagMetadata.TAG_UUID)) {
+                    TaskOutstanding oe = new TaskOutstanding();
+                    oe.setValue(TaskOutstanding.ENTITY_ID_PROPERTY, itemId);
+                    oe.setValue(TaskOutstanding.COLUMN_STRING, NameMaps.TAG_ADDED_COLUMN);
+                    oe.setValue(TaskOutstanding.VALUE_STRING, m.getValue(TaskToTagMetadata.TAG_UUID));
+                    oe.setValue(TaskOutstanding.CREATED_AT, createdAt);
+                    outstandingDao.createNew(oe);
+                }
             }
         } finally {
             tagMetadata.close();
