@@ -313,8 +313,10 @@ public class ActFmSyncThread {
                         }
                     }
 
-                    if (payload.length() == 0)
+                    if (payload.length() == 0) {
+                        messageBatch.clear();
                         continue;
+                    }
 
                     try {
                         JSONObject response = actFmInvoker.postSync(payload, entity, token);
@@ -361,7 +363,7 @@ public class ActFmSyncThread {
                         }
                     }
 
-                    messageBatch = new LinkedList<ClientToServerMessage<?>>();
+                    messageBatch.clear();
                 }
             }
         } catch (Exception e) {
