@@ -11,11 +11,8 @@ import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 
 public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMetadata, TaskListMetadataOutstanding> {
 
-    private final Throwable throwable;
-
     public TaskListMetadataChangesHappened(long id, Class<TaskListMetadata> modelClass, TaskListMetadataDao modelDao, TaskListMetadataOutstandingDao outstandingDao) {
         super(id, modelClass, modelDao, outstandingDao);
-        throwable = new Throwable();
     }
 
     @Override
