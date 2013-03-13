@@ -189,11 +189,6 @@
         android:theme="@android:style/Theme" />
     
     <!-- Start of Crittercism.com Code -->
-	<activity android:name="com.crittercism.NewFeedbackSpringboardActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
-	<activity android:name="com.crittercism.NewFeedbackIssueListActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
-	<activity android:name="com.crittercism.NewFeedbackQuestionListActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
-	<activity android:name="com.crittercism.NewFeedbackItemDetailsActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
-	<activity android:name="com.crittercism.NewFeedbackCreateActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
     <activity android:name="com.crittercism.NotificationActivity"/>
 
     <service android:name="com.crittercism.service.CrittercismService"
@@ -464,7 +459,8 @@
     </receiver>
     <activity android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
               android:theme="@android:style/Theme"
-              android:label="@string/gtasks_GPr_header">
+              android:label="@string/gtasks_GPr_header"
+              android:screenOrientation="portrait">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
       <meta-data android:name="syncAction"
@@ -649,101 +645,6 @@
               android:clearTaskOnLaunch="true">
     </activity>
     <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService"/>
-              
-    <!-- producteev -->
-    <receiver android:name="com.todoroo.astrid.producteev.ProducteevFilterExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.producteev.ProducteevCustomFilterCriteriaExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.producteev.ProducteevPreferences"
-              android:theme="@android:style/Theme"
-              android:label="@string/producteev_PPr_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <meta-data android:name="syncAction"
-                 android:value="true" />
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
-              android:configChanges="orientation|keyboardHidden" />
-    <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.producteev.SYNC" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </service>
-    <receiver android:name="com.todoroo.astrid.producteev.ProducteevStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.producteev.ProducteevDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.producteev.ProducteevSyncActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-
-    <!-- rmilk -->
-    <receiver android:name="org.weloveastrid.rmilk.MilkFilterExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="org.weloveastrid.rmilk.MilkDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="org.weloveastrid.rmilk.MilkLoginActivity" />
-    <activity android:name="org.weloveastrid.rmilk.MilkPreferences"
-              android:theme="@android:style/Theme"
-              android:icon="@drawable/icon"
-              android:label="@string/rmilk_MPr_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <service android:name="org.weloveastrid.rmilk.MilkBackgroundService"/>
-    <receiver android:name="org.weloveastrid.rmilk.MilkStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.STARTUP" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="org.weloveastrid.rmilk.MilkSyncActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
 
     <!-- other task actions -->
     <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">

@@ -75,9 +75,6 @@ public final class Constants {
     /** Notification Manager id for locale */
     public static final int NOTIFICATION_LOCALE = -3;
 
-    /** Notification Manager id for producteev notifications*/
-    public static final int NOTIFICATION_PRODUCTEEV_NOTIFICATIONS = -4;
-
     /** Notification Manager id for astrid.com */
     public static final int NOTIFICATION_ACTFM = -5;
 

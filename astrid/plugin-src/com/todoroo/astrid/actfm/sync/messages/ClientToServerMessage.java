@@ -1,8 +1,10 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -18,6 +20,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
     protected final long id;
     protected final String uuid;
     protected final long pushedAt;
+    protected final boolean foundEntity;
 
     public static final String TYPE_KEY = "type";
     public static final String TABLE_KEY = "table";
@@ -30,6 +33,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         this.table = NameMaps.getServerNameForTable(tableClass);
         this.uuid = uuid;
         this.pushedAt = pushedAt;
+        this.foundEntity = true;
         this.id = AbstractModel.NO_ID;
     }
 
@@ -40,6 +44,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         this.table = NameMaps.getServerNameForTable(tableClass);
 
         TYPE entity = getEntity(id, modelDao);
+        this.foundEntity = entity != null;
         if (entity == null) {
             this.uuid = RemoteModel.NO_UUID;
             this.pushedAt = 0;
@@ -61,7 +66,7 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         return pushedAt;
     }
 
-    public final JSONObject serializeToJSON() {
+    public final JSONObject serializeToJSON(MultipartEntity entity) {
         JSONObject json = new JSONObject();
         try {
             json.put(TYPE_KEY, getTypeString());
@@ -69,11 +74,12 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
             json.put(UUID_KEY, uuid);
             String dateValue = DateUtilities.timeToIso8601(pushedAt, true);
             json.put(PUSHED_AT_KEY, dateValue != null ? dateValue : 0);
-            if (serializeExtrasToJSON(json))
+            if (serializeExtrasToJSON(json, entity))
                 return json;
             else
                 return null;
         } catch (JSONException e) {
+            Crittercism.logHandledException(e);
             return null;
         }
     }
@@ -109,6 +115,6 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         return true;
     }
 
-    protected abstract boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException;
+    protected abstract boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException;
     protected abstract String getTypeString();
 }

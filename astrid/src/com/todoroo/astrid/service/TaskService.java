@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.weloveastrid.rmilk.data.MilkTaskFields;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -37,18 +35,19 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
@@ -80,6 +79,9 @@ public class TaskService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private TaskOutstandingDao taskOutstandingDao;
 
     @Autowired
     private MetadataDao metadataDao;
@@ -201,12 +203,6 @@ public class TaskService {
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        metadata.setValue(ProducteevTask.ID, 0L);
-                    if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
-                        metadata.setValue(MilkTaskFields.TASK_ID, 0L);
-                        metadata.setValue(MilkTaskFields.TASK_SERIES_ID, 0L);
-                    }
                     if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(OpencrxCoreUtils.ACTIVITY_ID, 0L);
 
@@ -251,6 +247,7 @@ public class TaskService {
             return;
         else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
+            taskOutstandingDao.deleteWhere(TaskOutstanding.ENTITY_ID_PROPERTY.eq(item.getId()));
             item.setId(Task.NO_ID);
         } else {
             long id = item.getId();
@@ -552,7 +549,7 @@ public class TaskService {
             task.mergeWithoutReplacement(forTask);
         }
 
-        if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+        if (!Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)))
             task.putTransitory(TRANS_ASSIGNED, true);
 
         PluginServices.getTaskService().quickAdd(task, tags);

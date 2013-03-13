@@ -324,28 +324,6 @@
   <string name="CFC_opencrx_in_workspace_name">I arbejdsområde...</string>
   <string name="EPr_statistics_desc_disabled">Ingen data om brug vil blive rapporteret</string>
   <string name="EPr_statistics_desc_enabled">Hjælp os med at forbedre Astrid ved at sende anonyme data om brug</string>
-  <string name="producteev_FEx_dashboard">Arbejdsområder</string>
-  <string name="producteev_PDE_task_from">fra %s</string>
-  <string name="producteev_TEA_notes">Tilføj en kommentar</string>
-  <string name="producteev_default_dashboard">Standard-arbejdsområde</string>
-  <string name="producteev_no_dashboard">(Synkroniser ikke)</string>
-  <string name="producteev_create_dashboard">Tilføj et nyt arbejdsområde...</string>
-  <string name="producteev_create_dashboard_name">Navn på nyt arbejdsområde</string>
-  <string name="producteev_PPr_defaultdash_title">Standard-arbejdsområde</string>
-  <string name="producteev_PPr_defaultdash_summary">Nye opgaver vil blive føjet til: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">Nye opgaver vil som udgangspunkt ikke blive synkroniseret</string>
-  <string name="producteev_PLA_title">Log ind til Producteev</string>
-  <string name="producteev_PLA_body">Log ind med din eksisterende Producteev-konto eller opret en ny konto!</string>
-  <string name="producteev_PLA_signIn">Log ind</string>
-  <string name="producteev_PLA_createNew">Opret ny bruger</string>
-  <string name="producteev_PLA_password">Adgangskode</string>
-  <string name="producteev_PLA_timezone">Tidszone</string>
-  <string name="producteev_PLA_firstName">Fornavn</string>
-  <string name="producteev_PLA_lastName">Efternavn</string>
-  <string name="producteev_PLA_errorEmpty">Fejl: Udfyld alle felter!</string>
-  <string name="producteev_PLA_errorAuth">Fejl: E-mail eller adgangskode er forkert!</string>
-  <string name="CFC_producteev_in_workspace_text">I arbejdsområde: ?</string>
-  <string name="CFC_producteev_in_workspace_name">I arbejdsområde...</string>
   <string name="TEA_reminder_due">når deadline er nået</string>
   <string name="TEA_reminder_overdue">når deadline er overskredet</string>
   <string name="TEA_reminder_mode_once">Ring en gang</string>
@@ -602,7 +580,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk-opsætning</string>
   <string name="tag_settings_title">Settings:</string>
   <string name="welcome_title_1">Velkommen til Astrid!</string>
   <string name="welcome_body_5">and much more!</string>

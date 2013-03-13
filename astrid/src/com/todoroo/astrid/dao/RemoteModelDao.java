@@ -26,7 +26,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
 
     @Override
     public boolean createNew(RTYPE item) {
-        if (!item.containsValue(RemoteModel.UUID_PROPERTY)) {
+        if (!item.containsValue(RemoteModel.UUID_PROPERTY) || RemoteModel.isUuidEmpty(item.getValue(RemoteModel.UUID_PROPERTY))) {
             item.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
         }
         return super.createNew(item);
@@ -93,6 +93,18 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
                 return AbstractModel.NO_ID;
             cursor.moveToFirst();
             return cursor.get(AbstractModel.ID_PROPERTY);
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public String uuidFromLocalId(long localId) {
+        TodorooCursor<RTYPE> cursor = query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
+        try {
+            if (cursor.getCount() == 0)
+                return RemoteModel.NO_UUID;
+            cursor.moveToFirst();
+            return cursor.get(RemoteModel.UUID_PROPERTY);
         } finally {
             cursor.close();
         }

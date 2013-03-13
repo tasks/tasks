@@ -12,13 +12,11 @@ import android.content.SharedPreferences;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
@@ -93,16 +91,7 @@ public class AstridPreferences {
     }
 
     private static void setShowFeaturedLists() {
-        // Show featured lists if necessary
-        boolean showFeaturedLists = false;
-        TodorooCursor<TagData> featLists = PluginServices.getTagDataService().query(Query.select(TagData.ID)
-                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)).limit(1));
-        try {
-            showFeaturedLists = featLists.getCount() > 0;
-        } finally {
-            featLists.close();
-        }
-        Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, showFeaturedLists);
+        Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, false);
     }
 
     /* ======================================================================

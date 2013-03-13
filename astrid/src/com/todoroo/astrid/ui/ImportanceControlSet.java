@@ -18,8 +18,6 @@ import android.widget.ToggleButton;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 
 /**
  * Control Set for setting task importance
@@ -61,10 +59,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
     }
 
     private int getTextSize() {
-        if (ProducteevUtilities.INSTANCE.isLoggedIn())
-            return 14;
-        else
-            return 24;
+        return 24;
     }
 
     public Integer getImportance() {
@@ -89,8 +84,6 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
         int min = Task.IMPORTANCE_MOST;
         int max = Task.IMPORTANCE_LEAST;
-        if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
-            max = 5;
 
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -102,25 +95,16 @@ public class ImportanceControlSet extends TaskEditControlSet {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
 
-            int dimension;
-            if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
-                dimension = 38;
-            } else {
-                dimension = 38;
-            }
+            int dimension = 38;
             params = new LinearLayout.LayoutParams((int) (metrics.density * dimension), (int) (metrics.density * dimension));
             usedWidth += dimension;
             button.setLayoutParams(params);
 
             StringBuilder label = new StringBuilder();
-            if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
-                label.append(5 - i).append("\n\u2605"); //$NON-NLS-1$
-            else {
-                if (i == max)
-                    label.append('\u25CB');
-                for(int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--)
-                    label.append('!');
-            }
+            if (i == max)
+                label.append('\u25CB');
+            for(int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--)
+                label.append('!');
 
             button.setTextColor(colors[i]);
             button.setTextOff(label);

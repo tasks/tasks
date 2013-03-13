@@ -3,7 +3,10 @@ package com.todoroo.astrid.actfm.sync.messages;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,12 +14,12 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.ModelType;
@@ -77,12 +80,14 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         this.outstandingDao = outstandingDao;
         this.changes = new ArrayList<OE>();
 
+        if (!foundEntity) // Stop sending changes for entities that don't exist anymore
+            outstandingDao.deleteWhere(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id));
     }
 
     @Override
-    protected boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
+    protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         // Process changes list and serialize to JSON
-        JSONArray changesJson = changesToJSON();
+        JSONArray changesJson = changesToJSON(entity);
         if (changesJson == null || changesJson.length() == 0)
             return false;
         serializeTo.put(CHANGES_KEY, changesJson);
@@ -98,11 +103,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return changes;
     }
 
-    private JSONArray changesToJSON() {
+    private JSONArray changesToJSON(MultipartEntity entity) {
         if (!RemoteModel.NO_UUID.equals(uuid))
             populateChanges();
 
         JSONArray array = new JSONArray();
+        AtomicInteger uploadCounter = new AtomicInteger();
         PropertyToJSONVisitor visitor = new PropertyToJSONVisitor();
         for (OE change : changes) {
             try {
@@ -127,9 +133,12 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     JSONObject fileJson = getFileJson(change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
                     if (fileJson == null) {
                         PluginServices.getTaskAttachmentDao().delete(id);
-                        continue;
-                    } else {
-                        changeJson.put("value", fileJson);
+                        PluginServices.getTaskAttachmentOutstandingDao().deleteWhere(TaskAttachmentOutstanding.ENTITY_ID_PROPERTY.eq(id));
+                        return null;
+                    } else { // JSON has valid file path
+                        String name = addToEntityFromFileJson(entity, fileJson, uploadCounter);
+                        if (name != null)
+                            changeJson.put("value", name);
                     }
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
@@ -140,7 +149,22 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     if (serverColumn == null)
                         throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
 
-                    changeJson.put("value", localProperty.accept(visitor, change));
+                    Object value = localProperty.accept(visitor, change);
+                    if (!validateValue(localProperty, value))
+                        return null;
+
+                    if (value == null)
+                        changeJson.put("value", JSONObject.NULL);
+                    else {
+                        if (localProperty.checkFlag(Property.PROP_FLAG_PICTURE) && value instanceof JSONObject) {
+                            JSONObject json = (JSONObject) value;
+                            String name = addToEntityFromFileJson(entity, json, uploadCounter);
+                            if (name != null)
+                                changeJson.put("value", name);
+                        } else {
+                            changeJson.put("value", value);
+                        }
+                    }
                 }
 
                 changeJson.put("column", serverColumn);
@@ -151,9 +175,25 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 array.put(changeJson);
             } catch (JSONException e) {
                 Log.e(ERROR_TAG, "Error writing change to JSON", e);
+                Crittercism.logHandledException(e);
             }
         }
         return array;
+    }
+
+    private String addToEntityFromFileJson(MultipartEntity entity, JSONObject json, AtomicInteger uploadCounter) {
+        if (json.has("path")) {
+            String path = json.optString("path");
+            String name = String.format("upload-%s-%s-%d", table, uuid, uploadCounter.get());
+            String type = json.optString("type");
+            File f = new File(path);
+            if (f.exists()) {
+                json.remove("path");
+                entity.addPart(name, new FileBody(f, type));
+                return name;
+            }
+        }
+        return null;
     }
 
     protected void populateChanges() {
@@ -176,6 +216,16 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         }
     }
 
+    // Return false if value is detected to be something that would definitely cause a server error
+    // (e.g. empty task title, etc.)
+    private boolean validateValue(Property<?> property, Object value) {
+        if (Task.TITLE.equals(property)) {
+            if (!(value instanceof String) || TextUtils.isEmpty((String) value))
+                return false;
+        }
+        return true;
+    }
+
     private JSONObject getFileJson(String value) {
         try {
             JSONObject obj = new JSONObject(value);
@@ -186,12 +236,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             if (!f.exists())
                 return null;
 
-            String encodedFile = AndroidUtilities.encodeBase64File(f);
-            if (TextUtils.isEmpty(encodedFile))
-                return null;
-
-            obj.remove("path");
-            obj.put("data", encodedFile);
             return obj;
         } catch (JSONException e) {
             return null;
@@ -247,15 +291,18 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             String value = getAsString(data);
             if (RemoteModel.NO_UUID.equals(value) && property.checkFlag(Property.PROP_FLAG_USER_ID))
                 return ActFmPreferenceService.userId();
-            if (property.checkFlag(Property.PROP_FLAG_JSON))
+            if (property.checkFlag(Property.PROP_FLAG_JSON)) {
+                if (TextUtils.isEmpty(value))
+                    return null;
                 try {
                     if (value != null && value.startsWith("["))
                         return new JSONArray(value);
                     else
                         return new JSONObject(value);
                 } catch (JSONException e) {
-                    //
+                    return null;
                 }
+            }
             return value;
         }
 

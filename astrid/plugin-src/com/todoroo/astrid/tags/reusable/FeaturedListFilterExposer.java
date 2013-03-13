@@ -22,13 +22,13 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 public class FeaturedListFilterExposer extends TagFilterExposer {
 

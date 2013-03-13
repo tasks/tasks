@@ -140,6 +140,12 @@ public class TaskDao extends RemoteModelDao<Task> {
     	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
     	}
 
+    	/** Check if a given task belongs to someone else & is read-only */
+        public static Criterion ownedByMe() {
+             return Criterion.and(Task.IS_READONLY.eq(0),
+                     Task.USER_ID.eq(0));
+        }
+
     }
 
     // --- custom operations

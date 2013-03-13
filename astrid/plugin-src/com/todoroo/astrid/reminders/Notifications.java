@@ -6,6 +6,8 @@
 package com.todoroo.astrid.reminders;
 
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -251,13 +253,27 @@ public class Notifications extends BroadcastReceiver {
         }
     }
 
+    private static long lastNotificationSound = 0L;
+
+    /**
+     * @returns true if notification should sound
+     */
+    private static boolean checkLastNotificationSound() {
+        long now = DateUtilities.now();
+        if (now - lastNotificationSound > 10000) {
+            lastNotificationSound = now;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Shows an Astrid notification. Pulls in ring tone and quiet hour settings
      * from preferences. You can make it say anything you like.
      * @param ringTimes number of times to ring (-1 = nonstop)
      */
     public static void showNotification(int notificationId, Intent intent, int type, String title,
-            String text, int ringTimes) {
+            final String text, int ringTimes) {
         Context context = ContextManager.getContext();
 
         if(notificationManager == null)
@@ -305,7 +321,7 @@ public class Notifications extends BroadcastReceiver {
         else
             notification.defaults = Notification.DEFAULT_LIGHTS;
 
-        AudioManager audioManager = (AudioManager)context.getSystemService(
+        final AudioManager audioManager = (AudioManager)context.getSystemService(
                 Context.AUDIO_SERVICE);
 
         // detect call state
@@ -317,9 +333,9 @@ public class Notifications extends BroadcastReceiver {
         // if multi-ring is activated and the setting p_rmd_maxvolume allows it, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
-        boolean maxOutVolumeForMultipleRingReminders = Preferences.getBoolean(R.string.p_rmd_maxvolume, true);
+        final boolean maxOutVolumeForMultipleRingReminders = Preferences.getBoolean(R.string.p_rmd_maxvolume, true);
         // remember it to set it to the old value after the alarm
-        int previousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        final int previousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
         if (ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             if (maxOutVolumeForMultipleRingReminders) {
@@ -337,6 +353,7 @@ public class Notifications extends BroadcastReceiver {
             notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
         }
 
+        boolean soundIntervalOk = checkLastNotificationSound();
 
         // quiet hours = no sound
         if(quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
@@ -348,7 +365,7 @@ public class Notifications extends BroadcastReceiver {
                 notification.sound = null;
                 voiceReminder = false;
             } else if(notificationPreference != null) {
-                if(notificationPreference.length() > 0) {
+                if(notificationPreference.length() > 0 && soundIntervalOk) {
                     Uri notificationSound = Uri.parse(notificationPreference);
                     notification.sound = notificationSound;
                 } else {
@@ -366,7 +383,7 @@ public class Notifications extends BroadcastReceiver {
             notification.vibrate = null;
         } else {
             if (Preferences.getBoolean(R.string.p_rmd_vibrate, true)
-                    && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION)) {
+                    && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION) && soundIntervalOk) {
                 notification.vibrate = new long[] {0, 1000, 500, 1000, 500, 1000};
             } else {
                 notification.vibrate = null;
@@ -378,28 +395,36 @@ public class Notifications extends BroadcastReceiver {
 
         for(int i = 0; i < Math.max(ringTimes, 1); i++) {
             notificationManager.notify(notificationId, notification);
-            AndroidUtilities.sleepDeep(500);
         }
         Flags.set(Flags.REFRESH); // Forces a reload when app launches
 
-        if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
-            AndroidUtilities.sleepDeep(2000);
-            for(int i = 0; i < 50; i++) {
-                AndroidUtilities.sleepDeep(500);
-                if(audioManager.getMode() != AudioManager.MODE_RINGTONE)
-                    break;
-            }
-            try {
-                // first reset the Alarm-volume to the value before it was eventually maxed out
-                if (maxOutVolumeForMultipleRingReminders)
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousAlarmVolume, 0);
-                if (voiceReminder)
-                    VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
-            } catch (VerifyError e) {
-                // unavailable
-            }
+        final boolean finalVoiceReminder = voiceReminder;
+
+        if ((finalVoiceReminder || maxOutVolumeForMultipleRingReminders) && soundIntervalOk) {
+            singleThreadVoicePool.submit(new Runnable() {
+                @Override
+                public void run() {
+                    AndroidUtilities.sleepDeep(2000);
+                    for(int i = 0; i < 50; i++) {
+                        AndroidUtilities.sleepDeep(500);
+                        if(audioManager.getMode() != AudioManager.MODE_RINGTONE)
+                            break;
+                    }
+                    try {
+                        // first reset the Alarm-volume to the value before it was eventually maxed out
+                        if (maxOutVolumeForMultipleRingReminders)
+                            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousAlarmVolume, 0);
+                        if (finalVoiceReminder)
+                            VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
+                    } catch (VerifyError e) {
+                        // unavailable
+                    }
+                }
+            });
         }
     }
+
+    private static ExecutorService singleThreadVoicePool = Executors.newSingleThreadExecutor();
 
     /**
      * @return whether we're in quiet hours

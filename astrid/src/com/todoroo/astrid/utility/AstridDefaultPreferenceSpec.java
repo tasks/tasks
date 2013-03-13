@@ -95,7 +95,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_use_contact_picker, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_field_missed_calls, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_third_party_addons, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_end_at_deadline, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_rmd_persistent, true, ifUnset);
@@ -110,7 +109,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_show_menu_search, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_friends, true, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_show_featured_lists, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sync, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sort, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_addons, true, ifUnset);

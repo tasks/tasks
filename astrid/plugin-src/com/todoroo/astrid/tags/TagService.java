@@ -44,7 +44,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -180,7 +179,7 @@ public final class TagService {
                 Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
                         .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
                 TaskCriteria.isActive(),
-                TaskApiDao.TaskCriteria.ownedByMe(),
+                TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
     }
 

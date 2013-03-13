@@ -30,8 +30,8 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
-import com.todoroo.astrid.sync.SyncMetadataService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.utility.SyncMetadataService;
 
 /**
  * Service for working with GTasks metadata
@@ -91,6 +91,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                 return;
             cursor.moveToFirst();
             remoteTask.task.setId(cursor.get(Metadata.TASK));
+            remoteTask.task.setUuid(taskDao.uuidFromLocalId(remoteTask.task.getId()));
             remoteTask.gtaskMetadata = new Metadata(cursor);
         } finally {
             cursor.close();

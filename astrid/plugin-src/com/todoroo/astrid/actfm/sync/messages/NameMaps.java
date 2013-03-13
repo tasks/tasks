@@ -127,7 +127,7 @@ public class NameMaps {
         putTaskPropertyToServerName(Task.TITLE,           "title",          true);
         putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",     true);
         putTaskPropertyToServerName(Task.DUE_DATE,        "due",            true);
-        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",     false);
+        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",     true);
         putTaskPropertyToServerName(Task.CREATION_DATE,   "created_at",     true);
         putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at",   true);
         putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);

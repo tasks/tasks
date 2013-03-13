@@ -292,6 +292,8 @@ public class AstridNewSyncMigrator {
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     }
 
+                    if (!ActFmPreferenceService.isPremiumUser())
+                        attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     taskAttachmentDao.createNew(attachment);
 
                 }
@@ -315,9 +317,7 @@ public class AstridNewSyncMigrator {
             TaskListMetadata tlm = new TaskListMetadata();
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
             tlm.setValue(TaskListMetadata.TASK_IDS, activeTasksOrder);
-            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_ALL), tlm) <= 0) {
-                tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 taskListMetadataDao.createNew(tlm);
             }
 
@@ -330,9 +330,7 @@ public class AstridNewSyncMigrator {
 
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_TODAY);
             tlm.setValue(TaskListMetadata.TASK_IDS, todayTasksOrder);
-            tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_TODAY), tlm) <= 0) {
-                tlm.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                 taskListMetadataDao.createNew(tlm);
             }
 
@@ -403,6 +401,16 @@ public class AstridNewSyncMigrator {
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
         }
+
+        // --------------
+        // Delete all featured list data
+        // --------------
+        try {
+            tagDataDao.deleteWhere(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0));
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error deleting featured list data", e);
+        }
+
 
         // --------------
         // Finally, create oustanding entries for tags on unsynced tasks

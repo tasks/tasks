@@ -7,7 +7,10 @@ package com.todoroo.astrid.actfm;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 
 import org.json.JSONObject;
 
@@ -52,10 +55,13 @@ import com.google.android.googlelogin.GoogleLoginServiceConstants;
 import com.google.android.googlelogin.GoogleLoginServiceHelper;
 import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -65,31 +71,47 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmServiceException;
 import com.todoroo.astrid.actfm.sync.ActFmSyncMonitor;
 import com.todoroo.astrid.actfm.sync.messages.ConstructOutstandingTableFromMasterTable;
+import com.todoroo.astrid.actfm.sync.messages.ConstructTaskOutstandingTableFromMasterTable;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagOutstandingDao;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskAttachmentOutstandingDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
+import com.todoroo.astrid.dao.UserDao;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
-import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
+import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.subtasks.AstridOrderedListUpdater;
+import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
+import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.subtasks.SubtasksHelper.TreeRemapHelper;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 /**
  * This activity allows users to sign in or log in to Astrid.com
@@ -99,6 +121,8 @@ import com.todoroo.astrid.service.TaskService;
  */
 public class ActFmLoginActivity extends SherlockFragmentActivity {
 
+    @Autowired
+    protected Database database;
     @Autowired
     protected ExceptionService exceptionService;
     @Autowired
@@ -111,9 +135,15 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     @Autowired
     private TaskOutstandingDao taskOutstandingDao;
     @Autowired
+    private TaskAttachmentDao taskAttachmentDao;
+    @Autowired
+    private TaskAttachmentOutstandingDao taskAttachmentOutstandingDao;
+    @Autowired
     private TagDataDao tagDataDao;
     @Autowired
     private TagOutstandingDao tagOutstandingDao;
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private UserActivityDao userActivityDao;
     @Autowired
@@ -122,7 +152,10 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     private TaskListMetadataDao taskListMetadataDao;
     @Autowired
     private TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
-
+    @Autowired
+    private MetadataDao metadataDao;
+    @Autowired
+    private TagMetadataDao tagMetadataDao;
 
 
     @Autowired protected SyncV2Service syncService;
@@ -618,11 +651,11 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                         StatisticsService.reportEvent(StatisticsConstants.ACTFM_NEW_USER, "provider", provider);
                     }
                     // Successful login, create outstanding entries
-                    if (!TextUtils.isEmpty(token)) {
-                        new ConstructOutstandingTableFromMasterTable<Task, TaskOutstanding>(NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, Task.CREATION_DATE).execute();
-                        new ConstructOutstandingTableFromMasterTable<TagData, TagOutstanding>(NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, TagData.CREATION_DATE).execute();
-                        new ConstructOutstandingTableFromMasterTable<UserActivity, UserActivityOutstanding>(NameMaps.TABLE_ID_USER_ACTIVITY, userActivityDao, userActivityOutstandingDao, UserActivity.CREATED_AT).execute();
-                        new ConstructOutstandingTableFromMasterTable<TaskListMetadata, TaskListMetadataOutstanding>(NameMaps.TABLE_ID_TASK_LIST_METADATA, taskListMetadataDao, taskListMetadataOutstandingDao, null).execute();
+                    long lastId = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
+                    long newUser = result.optLong("id");
+
+                    if (!TextUtils.isEmpty(token) && (lastId == 0 || lastId == newUser)) {
+                        constructOutstandingTables();
                     }
                     runOnUiThread(new Runnable() {
                         public void run() {
@@ -646,8 +679,192 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         }.start();
     }
 
+    private void constructOutstandingTables() {
+        new ConstructTaskOutstandingTableFromMasterTable(NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, metadataDao, Task.CREATION_DATE).execute();
+        new ConstructOutstandingTableFromMasterTable<TagData, TagOutstanding>(NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, TagData.CREATION_DATE).execute();
+        new ConstructOutstandingTableFromMasterTable<UserActivity, UserActivityOutstanding>(NameMaps.TABLE_ID_USER_ACTIVITY, userActivityDao, userActivityOutstandingDao, UserActivity.CREATED_AT).execute();
+        new ConstructOutstandingTableFromMasterTable<TaskListMetadata, TaskListMetadataOutstanding>(NameMaps.TABLE_ID_TASK_LIST_METADATA, taskListMetadataDao, taskListMetadataOutstandingDao, null).execute();
+    }
+
     @SuppressWarnings("nls")
-    protected void postAuthenticate(JSONObject result, String token) {
+    private void postAuthenticate(final JSONObject result, final String token) {
+        long lastLoggedInUser = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
+        if (lastLoggedInUser > 0) {
+            long newUserId = result.optLong("id");
+            if (lastLoggedInUser != newUserId) {
+                // In this case, we need to either make all data private or clear all data
+                // Prompt for choice
+                DialogUtilities.okCancelCustomDialog(this,
+                        getString(R.string.actfm_logged_in_different_user_title),
+                        getString(R.string.actfm_logged_in_different_user_body),
+                        R.string.actfm_logged_in_different_user_keep_data,
+                        R.string.actfm_logged_in_different_user_clear_data,
+                        android.R.drawable.ic_dialog_alert,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO: Make all data private
+                                final ProgressDialog pd = DialogUtilities.progressDialog(ActFmLoginActivity.this, getString(R.string.actfm_logged_in_different_user_processing));
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Delete all tasks not assigned to self
+                                        taskService.deleteWhere(Criterion.or(Task.USER_ID.neq(0), Task.DELETION_DATE.gt(0)));
+                                        // Delete user table
+                                        userDao.deleteWhere(Criterion.all);
+                                        // Delete attachments table
+                                        taskAttachmentDao.deleteWhere(Criterion.all);
+                                        // Delete deleted tags
+                                        tagDataDao.deleteWhere(TagData.DELETION_DATE.gt(0));
+                                        // Delete deleted metadata
+                                        metadataDao.deleteWhere(Metadata.DELETION_DATE.gt(0));
+
+                                        // Clear all outstanding tables
+                                        taskOutstandingDao.deleteWhere(Criterion.all);
+                                        tagOutstandingDao.deleteWhere(Criterion.all);
+                                        userActivityOutstandingDao.deleteWhere(Criterion.all);
+                                        taskListMetadataOutstandingDao.deleteWhere(Criterion.all);
+                                        taskAttachmentOutstandingDao.deleteWhere(Criterion.all);
+
+                                        // Make all tags private
+                                        tagMetadataDao.deleteWhere(Criterion.all);
+
+                                        // Generate new uuids for all tasks/tags/user activity/task list metadata and update links
+                                        generateNewUuids();
+
+                                        constructOutstandingTables();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                finishSignIn(result, token, true);
+                                            }
+                                        });
+                                        pd.dismiss();
+                                    }
+                                }).start();
+                            }
+                        },
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteDatabase(database.getName());
+                                finishSignIn(result, token, true);
+                            }
+                        });
+            } else {
+                finishSignIn(result, token, false);
+            }
+        } else {
+            finishSignIn(result, token, false);
+        }
+    }
+
+    private void generateNewUuids() {
+        final HashMap<String, String> uuidTaskMap = new HashMap<String, String>();
+        HashMap<String, String> uuidTagMap = new HashMap<String, String>();
+        HashMap<String, String> uuidUserActivityMap = new HashMap<String, String>();
+        HashMap<String, String> uuidTaskListMetadataMap = new HashMap<String, String>();
+
+        mapUuids(taskDao, uuidTaskMap);
+        mapUuids(tagDataDao, uuidTagMap);
+        mapUuids(userActivityDao, uuidUserActivityMap);
+        mapUuids(taskListMetadataDao, uuidTaskListMetadataMap);
+
+        Task t = new Task();
+        TagData td = new TagData();
+        Metadata m = new Metadata();
+        UserActivity ua = new UserActivity();
+        TaskListMetadata tlm = new TaskListMetadata();
+
+        Set<Entry<String, String>> entries = uuidTaskMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            t.clear();
+            m.clear();
+            ua.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            t.setValue(Task.UUID, newUuid);
+            ua.setValue(UserActivity.TARGET_ID, newUuid);
+            m.setValue(TaskToTagMetadata.TASK_UUID, newUuid);
+
+            taskDao.update(Task.UUID.eq(oldUuid), t);
+            metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TASK_UUID.eq(oldUuid)), m);
+            userActivityDao.update(UserActivity.TARGET_ID.eq(oldUuid), ua);
+        }
+
+        entries = uuidTagMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            td.clear();
+            ua.clear();
+            m.clear();
+            tlm.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            td.setValue(TagData.UUID, newUuid);
+            ua.setValue(UserActivity.TARGET_ID, newUuid);
+            m.setValue(TaskToTagMetadata.TAG_UUID, newUuid);
+            tlm.setValue(TaskListMetadata.TAG_UUID, newUuid);
+
+            tagDataDao.update(TagData.UUID.eq(oldUuid), td);
+            userActivityDao.update(UserActivity.TARGET_ID.eq(oldUuid), ua);
+            metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(oldUuid)), m);
+            taskListMetadataDao.update(TaskListMetadata.TAG_UUID.eq(oldUuid), tlm);
+        }
+
+        entries = uuidUserActivityMap.entrySet();
+        for (Entry<String, String> e : entries) {
+            ua.clear();
+
+            String oldUuid = e.getKey();
+            String newUuid = e.getValue();
+
+            ua.setValue(UserActivity.UUID, newUuid);
+            userActivityDao.update(UserActivity.UUID.eq(oldUuid), ua);
+        }
+
+        TodorooCursor<TaskListMetadata> tlmCursor = taskListMetadataDao.query(Query.select(TaskListMetadata.ID, TaskListMetadata.UUID, TaskListMetadata.TASK_IDS, TaskListMetadata.CHILD_TAG_IDS));
+        try {
+            for (tlmCursor.moveToFirst(); !tlmCursor.isAfterLast(); tlmCursor.moveToNext()) {
+                tlm.clear();
+                tlm.readFromCursor(tlmCursor);
+                tlm.setValue(TaskListMetadata.UUID, uuidTaskListMetadataMap.get(tlm.getUuid()));
+                String taskIds = tlm.getValue(TaskListMetadata.TASK_IDS);
+                if (!TaskListMetadata.taskIdsIsEmpty(taskIds)) {
+                    Node root = AstridOrderedListUpdater.buildTreeModel(taskIds, null);
+                    SubtasksHelper.remapTree(root, uuidTaskMap, new TreeRemapHelper<String>() {
+                        public String getKeyFromOldUuid(String uuid) {
+                            return uuid; // Old uuids are the keys
+                        }
+                    });
+                    taskIds = AstridOrderedListUpdater.serializeTree(root);
+                    tlm.setValue(TaskListMetadata.TASK_IDS, taskIds);
+                }
+                taskListMetadataDao.saveExisting(tlm);
+            }
+        } finally {
+            tlmCursor.close();
+        }
+
+    }
+
+    private <T extends RemoteModel> void mapUuids(RemoteModelDao<T> dao, HashMap<String, String> map) {
+        TodorooCursor<T> items = dao.query(Query.select(RemoteModel.UUID_PROPERTY));
+        try {
+            for (items.moveToFirst(); !items.isAfterLast(); items.moveToNext()) {
+                map.put(items.get(RemoteModel.UUID_PROPERTY), UUIDHelper.newUUID());
+            }
+        } finally {
+            items.close();
+        }
+    }
+
+    @SuppressWarnings("nls")
+    private void finishSignIn(JSONObject result, String token, boolean restart) {
         actFmPreferenceService.setToken(token);
 
         Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
@@ -667,15 +884,21 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
         ActFmPreferenceService.reloadThisUser();
 
+        GCMIntentService.register(this);
+
+
+        if (restart) {
+            System.exit(0);
+            return;
+        } else {
+            setResult(RESULT_OK);
+            finish();
+        }
+
         ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
         synchronized (monitor) {
             monitor.notifyAll();
         }
-
-        setResult(RESULT_OK);
-        finish();
-
-        GCMIntentService.register(this);
     }
 
     @SuppressWarnings("nls")

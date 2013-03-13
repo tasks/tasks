@@ -45,6 +45,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -67,6 +68,7 @@ import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -709,6 +711,12 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
             showListsHelp();
         }
         refreshFilterCount();
+
+        if (isCurrentTaskListFragment()) {
+            ProgressBar pb = (ProgressBar) getView().findViewById(R.id.progressBar);
+            ActFmSyncThread.getInstance().setProgressBar(getActivity(), pb);
+        }
+
         initiateAutomaticSync();
     }
 

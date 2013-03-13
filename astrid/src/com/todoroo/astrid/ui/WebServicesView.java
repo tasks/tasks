@@ -49,11 +49,11 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AmazonRequestsHelper;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.producteev.api.StringEscapeUtils;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.StringEscapeUtils;
 
 @SuppressWarnings("nls")
 public class WebServicesView extends LinearLayout {

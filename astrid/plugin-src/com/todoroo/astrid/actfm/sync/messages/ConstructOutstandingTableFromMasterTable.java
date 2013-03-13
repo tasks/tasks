@@ -17,10 +17,10 @@ import com.todoroo.astrid.data.RemoteModel;
 @SuppressWarnings("nls")
 public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> {
 
-    private final String table;
-    private final RemoteModelDao<TYPE> dao;
-    private final OutstandingEntryDao<OE> outstandingDao;
-    private final LongProperty createdAtProperty;
+    protected final String table;
+    protected final RemoteModelDao<TYPE> dao;
+    protected final OutstandingEntryDao<OE> outstandingDao;
+    protected final LongProperty createdAtProperty;
 
     public ConstructOutstandingTableFromMasterTable(String table, RemoteModelDao<TYPE> dao,
             OutstandingEntryDao<OE> outstandingDao, LongProperty createdAtProperty) {
@@ -30,24 +30,31 @@ public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, 
         this.createdAtProperty = createdAtProperty;
     }
 
+    protected void extras(long itemId, long createdAt) {
+        // Subclasses can override
+    }
+
     public void execute() {
         Property<?>[] syncableProperties = NameMaps.syncableProperties(table);
         TodorooCursor<TYPE> items = dao.query(Query.select(AndroidUtilities.addToArray(syncableProperties, AbstractModel.ID_PROPERTY, RemoteModel.UUID_PROPERTY)));
         try {
             OE oe = outstandingDao.getModelClass().newInstance();
             for (items.moveToFirst(); !items.isAfterLast(); items.moveToNext()) {
+                long createdAt;
+                if (createdAtProperty != null)
+                    createdAt = items.get(createdAtProperty);
+                else
+                    createdAt = DateUtilities.now();
                 long itemId = items.get(AbstractModel.ID_PROPERTY);
                 for (Property<?> p : syncableProperties) {
                     oe.clear();
                     oe.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, itemId);
                     oe.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, p.name);
                     oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, items.get(p).toString());
-                    if (createdAtProperty != null)
-                        oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, items.get(createdAtProperty));
-                    else
-                        oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
+                    oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, createdAt);
                     outstandingDao.createNew(oe);
                 }
+                extras(itemId, createdAt);
             }
         } catch (IllegalAccessException e) {
             Log.e("ConstructOutstanding", "Error instantiating outstanding model class", e);

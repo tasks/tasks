@@ -289,35 +289,6 @@
   <string name="CFC_opencrx_assigned_to_name">Tildelt...</string>
   <string name="EPr_statistics_desc_disabled">Ingen bruksdata vil bli rapportert</string>
   <string name="EPr_statistics_desc_enabled">Hjelp oss å forbedre Astrid ved å sende anonym bruksdata</string>
-  <string name="producteev_FEx_dashboard">Arbeidsområder</string>
-  <string name="producteev_FEx_responsible_title">Tildelt til \'%s\'</string>
-  <string name="producteev_PDE_task_from">fra %s</string>
-  <string name="producteev_TEA_notes">Legg til kommentar</string>
-  <string name="producteev_default_dashboard">Standart arbeidsområde</string>
-  <string name="producteev_no_dashboard">(Ikke synkroniser)</string>
-  <string name="producteev_create_dashboard">Legg til nytt arbeidsområde</string>
-  <string name="producteev_create_dashboard_name">Navn for nytt arbeidsområde</string>
-  <string name="producteev_PPr_defaultdash_title">Standart arbeidsområde</string>
-  <string name="producteev_PPr_defaultdash_summary">Nye oppgaver legges til: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">Nye oppgaver synkroniseres ikke automatisk</string>
-  <string name="producteev_PLA_title">Logg inn på Producteev</string>
-  <string name="producteev_PLA_body">Logg inn med din Producteev-konto eller opprett en ny konto!</string>
-  <string name="producteev_PLA_terms">Brukervilkår</string>
-  <string name="producteev_PLA_signIn">Logg inn</string>
-  <string name="producteev_PLA_createNew">Lag ny bruker</string>
-  <string name="producteev_PLA_email">E-post</string>
-  <string name="producteev_PLA_password">Passord</string>
-  <string name="producteev_PLA_timezone">Tidssone</string>
-  <string name="producteev_PLA_firstName">Fornavn</string>
-  <string name="producteev_PLA_lastName">Etternavn</string>
-  <string name="producteev_PLA_errorEmpty">Feil: Alle felt må fylles ut!</string>
-  <string name="producteev_PLA_errorAuth">Feil: feil e-post eller passord!</string>
-  <string name="producteev_TEA_task_assign_label">Tildel følgende person denne oppgaven:</string>
-  <string name="producteev_TEA_dashboard_assign_label">Legg oppgaven til dette arbeidsområdet:</string>
-  <string name="CFC_producteev_in_workspace_text">I arbeidsområde:?</string>
-  <string name="CFC_producteev_in_workspace_name">I arbeidsområde...</string>
-  <string name="CFC_producteev_assigned_to_text">Tildelt: ?</string>
-  <string name="CFC_producteev_assigned_to_name">Tildelt...</string>
   <string name="TEA_reminder_label">Minn meg på...</string>
   <string name="TEA_reminder_due">...når oppgaven forfaller</string>
   <string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>
@@ -593,17 +564,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Remember the Milk innstillinger</string>
-  <string name="rmilk_TLA_repeat">RTM gjentagende oppgave</string>
-  <string name="rmilk_TLA_sync">Trenger synkronisering med RTM</string>
-  <string name="rmilk_FEx_list">Lister</string>
-  <string name="rmilk_FEx_list_title">RTM Liste \'%s\'</string>
-  <string name="rmilk_MEA_list_label">RTM Liste:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Gjentakelsesstatus</string>
-  <string name="rmilk_MEA_repeat_hint">f.eks. hver uke, etter 14 dager</string>
-  <string name="rmilk_MLA_label">Vennligst logg inn og autoriser Astrid</string>
-  <string name="rmilk_MLA_error">Beklager, kunne ikke verifisere innloggingen. Vennligst prøv igjen. \n\n Feilmelding: %s</string>
-  <string name="rmilk_ioerror">Tilkoblings feil! Sjekk internettforbindelsen din, evt. RTM serverene (status.rememberthemilk.com), for mulig feilløsning.</string>
   <string name="TEA_tags_label">Lister</string>
   <string name="tag_FEx_header">Lister</string>
   <string name="TEA_no_tags_modified">Ingen endringer gjort</string>

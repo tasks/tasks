@@ -6,9 +6,7 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.timsu.astrid.GCMIntentService;
@@ -73,8 +71,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         return actFmPreferenceService.isLoggedIn();
     }
 
-    private static final String LAST_FEATURED_TAG_FETCH_TIME = "actfm_last_featuredTag"; //$NON-NLS-1$
-
     // --- synchronize active tasks
 
     @Override
@@ -83,18 +79,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         new Thread(new Runnable() {
             public void run() {
-                callback.started();
-                callback.incrementMax(160);
-
-                final AtomicInteger finisher = new AtomicInteger(1);
 
                 updateUserStatus();
 
                 ActFmSyncThread.getInstance().setTimeForBackgroundSync(true);
-
-                startFeaturedListFetcher(callback, finisher);
-
-                callback.incrementProgress(50);
             }
         }).start();
     }
@@ -131,32 +119,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         } catch (IOException e) {
             handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
         }
-    }
-
-    /** fetch changes to tags */
-    private void startFeaturedListFetcher(final SyncResultCallback callback,
-            final AtomicInteger finisher) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int time = Preferences.getInt(LAST_FEATURED_TAG_FETCH_TIME, 0);
-                try {
-                    if (Preferences.getBoolean(R.string.p_show_featured_lists, false)) {
-                        time = actFmSyncService.fetchFeaturedLists(time);
-                        Preferences.setInt(LAST_FEATURED_TAG_FETCH_TIME, time);
-                    }
-                } catch (JSONException e) {
-                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
-                } catch (IOException e) {
-                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
-                } finally {
-                    callback.incrementProgress(20);
-                    if(finisher.decrementAndGet() == 0) {
-                        finishSync(callback);
-                    }
-                }
-            }
-        }).start();
     }
 
     // --- synchronize list

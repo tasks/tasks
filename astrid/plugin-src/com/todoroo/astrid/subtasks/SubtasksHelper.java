@@ -139,25 +139,37 @@ public class SubtasksHelper {
         return AstridOrderedListUpdater.serializeTree(tree);
     }
 
-    private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
+    public static interface TreeRemapHelper<T> {
+        public T getKeyFromOldUuid(String uuid);
+    }
+
+    public static <T> void remapTree(Node root, HashMap<T, String> idMap, TreeRemapHelper<T> helper) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
-
-            long localId = -1L;
-            try {
-                localId = Long.parseLong(child.uuid);
-            } catch (NumberFormatException e) {/**/}
-            String uuid = idMap.get(localId);
+            T key = helper.getKeyFromOldUuid(child.uuid);
+            String uuid = idMap.get(key);
             if (!RemoteModel.isValidUuid(uuid)) {
                 children.remove(i);
                 children.addAll(i, child.children);
                 i--;
             } else {
                 child.uuid = uuid;
-                remapLocalTreeToRemote(child, idMap);
+                remapTree(child, idMap, helper);
             }
         }
+    }
+
+    private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
+        remapTree(root, idMap, new TreeRemapHelper<Long>() {
+            public Long getKeyFromOldUuid(String uuid) {
+                Long localId = -1L;
+                try {
+                    localId = Long.parseLong(uuid);
+                } catch (NumberFormatException e) {/**/}
+                return localId;
+            }
+        });
     }
 
     private static <A, B> HashMap<A, B> getIdMap(A[] keys, Property<A> keyProperty, Property<B> valueProperty) {

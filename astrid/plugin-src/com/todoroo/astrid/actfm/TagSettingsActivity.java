@@ -293,7 +293,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         tagData.setValue(TagData.TAG_DESCRIPTION, newDesc);
 
         if (setBitmap != null) {
-            JSONObject pictureJson = RemoteModel.PictureHelper.uploadPictureJson(setBitmap);
+            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(this, setBitmap);
             if (pictureJson != null)
                 tagData.setValue(TagData.PICTURE, pictureJson.toString());
         }

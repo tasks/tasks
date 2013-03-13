@@ -10,18 +10,19 @@ import java.io.IOException;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.json.JSONArray;
-import org.weloveastrid.rmilk.MilkUtilities;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Constants;
 
 public class UpdateMessageServiceTest extends DatabaseTestCase {
 
     @Autowired private StoreObjectDao storeObjectDao;
+    @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     public void testNoUpdates() {
         clearLatestUpdates();
@@ -148,25 +149,25 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
 
     public void testUpdateWithInternalPluginOn() {
         clearLatestUpdates();
-        MilkUtilities.INSTANCE.setToken("milk");
+        gtasksPreferenceService.setToken("gtasks");
 
         new TestUpdateMessageService() {
 
             @Override
             void verifyMessage(MessageTuple message) {
-                assertTrue(message.message.toString().contains("rmilk man"));
+                assertTrue(message.message.toString().contains("gtasks man"));
             }
 
             @Override
             String getUpdates(String url) throws IOException {
-                return "[{message:'rmilk man',plugin:'rmilk'}]";
+                return "[{message:'gtasks man',plugin:'gtasks'}]";
             }
         }.processUpdates();
     }
 
     public void testUpdateWithInternalPluginOff() {
         clearLatestUpdates();
-        MilkUtilities.INSTANCE.setToken(null);
+        gtasksPreferenceService.setToken(null);
 
         new TestUpdateMessageService() {
 
@@ -182,7 +183,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
 
             @Override
             String getUpdates(String url) throws IOException {
-                return "[{message:'rmilk man',plugin:'rmilk'}]";
+                return "[{message:'gtasks man',plugin:'gtasks'}]";
             }
         }.processUpdates();
     }

@@ -11,9 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.weloveastrid.rmilk.MilkPreferences;
-import org.weloveastrid.rmilk.MilkUtilities;
-
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -55,8 +52,6 @@ import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
-import com.todoroo.astrid.producteev.ProducteevPreferences;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
@@ -354,16 +349,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
 
-            if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
-                    !MilkUtilities.INSTANCE.isLoggedIn())
-                continue;
-
             if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
                     && AmazonMarketStrategy.isKindleFire())
-                continue;
-
-            if (ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name)
-                    && !Preferences.getBoolean(R.string.p_third_party_addons, false) && !ProducteevUtilities.INSTANCE.isLoggedIn())
                 continue;
 
             Preference preference = new Preference(this);
@@ -592,8 +579,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
                     R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled));
-        else if (booleanPreference(preference, value, R.string.p_third_party_addons,
-                    R.string.EPr_third_party_addons_desc_enabled, R.string.EPr_third_party_addons_desc_disabled));
         else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                     R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time));
         else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
@@ -615,14 +600,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
              });
-        } else if (r.getString(R.string.p_show_featured_lists).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
-                @Override
-                public boolean onPreferenceChange(Preference p, Object newValue) {
-                    StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_FEATURED_LISTS, "enabled", newValue.toString()); //$NON-NLS-1$
-                    return super.onPreferenceChange(p, newValue);
-                }
-            });
         }
         else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
@@ -688,7 +665,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_config_lite)).setOnPreferenceClickListener(
                 new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite, StatisticsConstants.PREFS_RESET_LITE));
 
-        int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends, R.string.p_show_featured_lists,
+        int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends,
                 R.string.p_show_menu_sync, R.string.p_show_menu_sort, R.string.p_show_menu_addons
         };
         for (int key : menuPrefs) {
@@ -730,14 +707,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 } catch (NullPointerException e) {
                     return false;
                 }
-                return true;
-            }
-        });
-
-        findPreference(getString(R.string.p_third_party_addons)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                StatisticsService.reportEvent(StatisticsConstants.PREF_THIRD_PARTY_ADDONS, "enabled", newValue.toString()); //$NON-NLS-1$
                 return true;
             }
         });

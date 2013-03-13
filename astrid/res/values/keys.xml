@@ -59,17 +59,12 @@
   
   <!-- show friends view preference -->
   <string name="p_show_friends_view">show_friends_view</string>
-
-  <!-- enable third party addons preference -->
-  <string name="p_third_party_addons">third_party_addons</string>
   
   <!-- show ideas tab preference -->
   <string name="p_ideas_tab_enabled">ideas_tab_enabled</string>
 
   <!-- force tablets to use phone layout -->
   <string name="p_force_phone_layout">force_phone_layout</string>
-  
-  <!-- show featured lists -->
   
   <!-- account status section key -->
   <string name="p_account">account</string>
@@ -95,7 +90,6 @@
   <string name="p_menu_items">p_menu_items</string>
   <string name="p_show_menu_search">p_show_menu_search</string>
   <string name="p_show_menu_friends">p_show_menu_friends</string>
-  <string name="p_show_featured_lists">p_show_featured_lists_labs</string>
   <string name="p_show_menu_sync">p_show_menu_sync</string>
   <string name="p_show_menu_sort">p_show_menu_sort</string>
   <string name="p_show_menu_addons">p_show_menu_addons</string>
@@ -405,18 +399,6 @@
     
   <!-- ===========================================================ACTFM == -->
   <string name="actfm_https_key">actfmHttps</string>
-        
-  <!-- ============================================================ MILK == -->
-
-    <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_interval_key">sync_freq</string>
-    
-  <!-- ======================================================= PRODUCTEEV == -->
-  
-    <string name="producteev_PPr_interval_key">producteev_sync_freq</string>
-    <string name="producteev_PPr_email">producteev_email</string>    
-    <string name="producteev_PPr_password">producteev_password</string>    
-    <string name="producteev_PPr_defaultdash_key">producteev_defaultdash</string>    
     
   <!-- =========================================================== GTASKS == -->
   

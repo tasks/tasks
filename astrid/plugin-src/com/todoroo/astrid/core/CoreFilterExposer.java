@@ -22,9 +22,9 @@ import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 

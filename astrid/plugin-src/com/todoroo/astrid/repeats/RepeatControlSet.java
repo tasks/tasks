@@ -367,7 +367,7 @@ public class RepeatControlSet extends PopupControlSet {
             result = rrule.toIcal();
         }
 
-        if (type.getSelectedItemPosition() == TYPE_COMPLETION_DATE) {
+        if (type.getSelectedItemPosition() == TYPE_COMPLETION_DATE && !TextUtils.isEmpty(result)) {
             result = result + ";FROM=COMPLETION"; //$NON-NLS-1$
         }
 

@@ -436,29 +436,6 @@
   <string name="opencrx_TEA_task_assign_label">Asigna aquesta tasca a aquesta persona:</string>
   <string name="opencrx_TEA_task_unassigned">&lt;Sense asignar&gt;</string>
   <string name="opencrx_TEA_dashboard_default">&lt;Per defecte&gt;</string>
-  <string name="producteev_FEx_dashboard">Espais de treball</string>
-  <string name="producteev_FEx_responsible_title">Assignat a \'%s\'</string>
-  <string name="producteev_PDE_task_from">de %s</string>
-  <string name="producteev_TEA_notes">Afegir un comentari</string>
-  <string name="producteev_default_dashboard">Espai de treball per defecte</string>
-  <string name="producteev_create_dashboard">Afegir un àrea de treball...</string>
-  <string name="producteev_create_dashboard_name">Nom de l\'àrea de treball</string>
-  <string name="producteev_PPr_defaultdash_title">Espai de treball per defecte</string>
-  <string name="producteev_PPr_defaultdash_summary">Noves tasques s\'afegiran a: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">Les tasques noves no seràn sincronitzades per defecte</string>
-  <string name="producteev_PLA_title">Inicia sessió a Producteev</string>
-  <string name="producteev_PLA_body">Iniciï sessió amb el seu compte de Producteev, o crei un compte nou!</string>
-  <string name="producteev_PLA_terms">Termes &amp; Condicions</string>
-  <string name="producteev_PLA_signIn">Ingresar</string>
-  <string name="producteev_PLA_createNew">Crea un usuari nou</string>
-  <string name="producteev_PLA_email">Adreça electrònica</string>
-  <string name="producteev_PLA_password">Contrasenya</string>
-  <string name="producteev_PLA_firstName">Nom</string>
-  <string name="producteev_PLA_lastName">Cognoms</string>
-  <string name="producteev_PLA_errorEmpty">Error: ompli tots els camps</string>
-  <string name="producteev_PLA_errorAuth">Error: l\'adreça electrònica o contrasenya incorrectes!</string>
-  <string name="producteev_TEA_task_assign_label">Asigna aquesta tasca a aquesta persona:</string>
-  <string name="producteev_TEA_dashboard_assign_label">Asigna aquesta tasca a aquest espai de treball:</string>
   <string name="TEA_reminders_group_label">Recordatoris</string>
   <string name="TEA_reminder_alarm_label">Tipus de So/Vibració</string>
   <string name="TEA_reminder_mode_once">Sona una vegada</string>
@@ -737,17 +714,6 @@
     <item>I\'m so proud of you!</item>
     <item>I love when you\'re productive!</item>
   </string-array>
-  <string name="rmilk_EOE_button">Configuració Remember the Milk</string>
-  <string name="rmilk_TLA_repeat">RTM Tasca Repetitiva</string>
-  <string name="rmilk_TLA_sync">Necessita sincronitzar-se amb RTM</string>
-  <string name="rmilk_FEx_list">Llistes</string>
-  <string name="rmilk_FEx_list_title">RTM Llista \'%s\'</string>
-  <string name="rmilk_MEA_list_label">RTM Llista:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Estat de les Repeticions:</string>
-  <string name="rmilk_MEA_repeat_hint">p.e. cada setmana, després de 14 dies</string>
-  <string name="rmilk_MLA_label">Si us plau, inicia sessió i autoritza Astrid:</string>
-  <string name="rmilk_MLA_error">Ho sento, hi ha hagut un error verificant les credencials. Si us plau, torni-ho a intentar. \n\n Missatge d\'error: %s</string>
-  <string name="rmilk_ioerror">Error de connectivitat! Verifiqui la seva connexió, o potser els servidor de RTM (status.rememberthemilk.com), per possibles solucions.</string>
   <string name="TEA_tags_label">Llistes</string>
   <string name="TEA_tag_hint">Llista nova</string>
   <string name="tag_new_list">Llista nova</string>

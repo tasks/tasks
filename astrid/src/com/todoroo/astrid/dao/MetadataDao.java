@@ -5,6 +5,9 @@
  */
 package com.todoroo.astrid.dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -111,6 +114,56 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         return 1;
     }
 
+    /**
+     * Synchronize metadata for given task id. Deletes rows in database that
+     * are not identical to those in the metadata list, creates rows that
+     * have no match.
+     *
+     * @param taskId id of task to perform synchronization on
+     * @param metadata list of new metadata items to save
+     * @param metadataCriteria criteria to load data for comparison from metadata
+     */
+    public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
+            Criterion metadataCriteria) {
+        HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
+        for(Metadata metadatum : metadata) {
+            metadatum.setValue(Metadata.TASK, taskId);
+            metadatum.clearValue(Metadata.ID);
+            newMetadataValues.add(metadatum.getMergedValues());
+        }
+
+        Metadata item = new Metadata();
+        TodorooCursor<Metadata> cursor = query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
+                metadataCriteria)));
+        try {
+            // try to find matches within our metadata list
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                item.readFromCursor(cursor);
+                long id = item.getId();
+
+                // clear item id when matching with incoming values
+                item.clearValue(Metadata.ID);
+                ContentValues itemMergedValues = item.getMergedValues();
+                if(newMetadataValues.contains(itemMergedValues)) {
+                    newMetadataValues.remove(itemMergedValues);
+                    continue;
+                }
+
+                // not matched. cut it
+                delete(id);
+            }
+        } finally {
+            cursor.close();
+        }
+
+        // everything that remains shall be written
+        for(ContentValues values : newMetadataValues) {
+            item.clear();
+            item.mergeWith(values);
+            persist(item);
+        }
+    }
+
     @Override
     public boolean persist(Metadata item) {
         if(!item.containsValue(Metadata.CREATION_DATE))
@@ -139,6 +192,16 @@ public class MetadataDao extends DatabaseDao<Metadata> {
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
         Cursor cursor = database.rawQuery(sql.toString(), null);
         return new TodorooCursor<Metadata>(cursor, properties);
+    }
+
+    public boolean taskIsInTag(String taskUuid, String tagUuid) {
+        TodorooCursor<Metadata> cursor = query(Query.select(Metadata.ID).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tagUuid), Metadata.DELETION_DATE.eq(0))));
+        try {
+            return cursor.getCount() > 0;
+        } finally {
+            cursor.close();
+        }
     }
 
 }

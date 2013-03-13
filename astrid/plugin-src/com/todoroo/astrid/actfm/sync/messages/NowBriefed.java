@@ -42,7 +42,7 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
     }
 
     @Override
-    public void processMessage() {
+    public void processMessage(String serverTime) {
         if (pushedAt > 0) {
             if (TextUtils.isEmpty(uuid)) {
                 if (!TextUtils.isEmpty(taskId)) {

@@ -3,22 +3,31 @@ package com.todoroo.astrid.actfm.sync;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
@@ -52,6 +61,7 @@ import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.widget.TasksWidget;
 
 public class ActFmSyncThread {
 
@@ -97,6 +107,12 @@ public class ActFmSyncThread {
     private boolean syncMigration = false;
 
     private boolean isTimeForBackgroundSync = false;
+
+    private final Object progressBarLock = new Object();
+
+    private Activity activity = null;
+
+    private ProgressBar progressBar = null;
 
     public static enum ModelType {
         TYPE_TASK,
@@ -164,6 +180,18 @@ public class ActFmSyncThread {
         }
     }
 
+    private final Runnable enqueueMessageProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            synchronized (progressBarLock) {
+                if (progressBar != null) {
+                    progressBar.setMax(progressBar.getMax() + 2);
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    };
+
     public synchronized void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
@@ -171,6 +199,51 @@ public class ActFmSyncThread {
                 pendingCallbacks.put(message, callback);
             synchronized(monitor) {
                 monitor.notifyAll();
+            }
+
+            if (activity != null) {
+                activity.runOnUiThread(enqueueMessageProgressRunnable);
+            }
+        }
+    }
+
+    public void setProgressBar(Activity activity, ProgressBar progressBar) {
+        synchronized(progressBarLock) {
+            int oldProgress = progressBar.getProgress();
+            int oldMax = progressBar.getMax();
+            this.activity = activity;
+            this.progressBar = progressBar;
+            if (this.activity != null && this.progressBar != null) {
+                this.progressBar.setMax(oldMax);
+                this.progressBar.setProgress(oldProgress);
+                if (oldProgress < oldMax && oldMax != 0) {
+                    this.progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    this.progressBar.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
+    private final Runnable incrementProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            synchronized(progressBarLock) {
+                if (progressBar != null) {
+                    progressBar.incrementProgressBy(1);
+                    if (progressBar.getProgress() == progressBar.getMax()) {
+                        progressBar.setMax(0);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    };
+
+    private void incrementProgress() {
+        synchronized (progressBarLock) {
+            if (activity != null) {
+                activity.runOnUiThread(incrementProgressRunnable);
             }
         }
     }
@@ -224,33 +297,41 @@ public class ActFmSyncThread {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
                     if (message != null)
                         messageBatch.add(message);
+                    incrementProgress();
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
                     JSONArray payload = new JSONArray();
+                    MultipartEntity entity = new MultipartEntity();
                     for (ClientToServerMessage<?> message : messageBatch) {
-                        JSONObject serialized = message.serializeToJSON();
+                        JSONObject serialized = message.serializeToJSON(entity);
                         if (serialized != null) {
                             payload.put(serialized);
                             syncLog("Sending: " + serialized);
+                        } else {
+                            incrementProgress(); // Don't let failed serialization mess up progress bar
                         }
                     }
 
-                    if (payload.length() == 0)
+                    if (payload.length() == 0) {
+                        messageBatch.clear();
                         continue;
+                    }
 
                     try {
-                        JSONObject response = actFmInvoker.postSync(payload, token);
+                        JSONObject response = actFmInvoker.postSync(payload, entity, token);
                         // process responses
+                        String time = response.optString("time");
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
                         if (serverMessagesJson != null) {
+                            setWidgetSuppression(true);
                             for (int i = 0; i < serverMessagesJson.length(); i++) {
                                 JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
                                 if (serverMessageJson != null) {
                                     ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
                                     if (serverMessage != null) {
                                         syncLog("Processing server message of type " + serverMessage.getClass().getSimpleName());
-                                        serverMessage.processMessage();
+                                        serverMessage.processMessage(time);
                                     } else {
                                         syncLog("Unable to instantiate message " + serverMessageJson.toString());
                                     }
@@ -259,6 +340,7 @@ public class ActFmSyncThread {
                             JSONArray errors = response.optJSONArray("errors");
                             boolean errorsExist = (errors != null && errors.length() > 0);
                             replayOutstandingChanges(errorsExist);
+                            setWidgetSuppression(false);
                         }
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
@@ -267,29 +349,27 @@ public class ActFmSyncThread {
                         batchSize = Math.max(batchSize / 2, 1);
                     }
 
-                    boolean didDefaultRefreshThisLoop = false;
+                    Set<Runnable> callbacksExecutedThisLoop = new HashSet<Runnable>();
                     for (ClientToServerMessage<?> message : messageBatch) {
+                        incrementProgress();
                         try {
                             Runnable r = pendingCallbacks.remove(message);
-                            if (r != null) {
-                                if (r == DEFAULT_REFRESH_RUNNABLE) {
-                                    if (didDefaultRefreshThisLoop)
-                                        continue;
-                                    didDefaultRefreshThisLoop = true;
-                                }
+                            if (r != null && !callbacksExecutedThisLoop.contains(r)) {
                                 r.run();
+                                callbacksExecutedThisLoop.add(r);
                             }
                         } catch (Exception e) {
                             Log.e(ERROR_TAG, "Unexpected exception executing sync callback", e);
                         }
                     }
 
-                    messageBatch = new LinkedList<ClientToServerMessage<?>>();
+                    messageBatch.clear();
                 }
             }
         } catch (Exception e) {
             // In the worst case, restart thread if something goes wrong
             Log.e(ERROR_TAG, "Unexpected sync thread exception", e);
+            Crittercism.logHandledException(e);
             thread = null;
             startSyncThread();
         }
@@ -307,6 +387,18 @@ public class ActFmSyncThread {
 
     private boolean timeForBackgroundSync() {
         return isTimeForBackgroundSync;
+    }
+
+    private void setWidgetSuppression(boolean suppress) {
+        long date = suppress ? DateUtilities.now() : 0;
+        TasksWidget.suppressUpdateFlag = date;
+
+        if (date == 0) {
+            Context context = ContextManager.getContext();
+            if (context != null) {
+                TasksWidget.updateWidgets(context);
+            }
+        }
     }
 
     public void repopulateQueueFromOutstandingTables() {

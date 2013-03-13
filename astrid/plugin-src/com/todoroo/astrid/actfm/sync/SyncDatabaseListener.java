@@ -9,7 +9,7 @@ import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 public class SyncDatabaseListener<MTYPE extends AbstractModel> implements ModelUpdateListener<MTYPE> {
 
     private final ModelType modelType;
-    private final ActFmSyncThread actFmSyncThread;
+    protected final ActFmSyncThread actFmSyncThread;
     public SyncDatabaseListener(ActFmSyncThread actFmSyncThread, ModelType modelType) {
         this.actFmSyncThread = actFmSyncThread;
         this.modelType = modelType;

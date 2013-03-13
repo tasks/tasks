@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.Date;
-
-import org.weloveastrid.rmilk.data.MilkNoteHelper;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,15 +15,11 @@ import android.os.Bundle;
 
 import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -37,12 +29,9 @@ import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.DueDateTimeMigrator;
-import com.todoroo.astrid.notes.NoteMetadata;
-import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.TagCaseMigrator;
@@ -738,53 +727,6 @@ public final class UpgradeService {
             }
         }
         t.close();
-
-        TodorooCursor<Metadata> m = metadataService.query(Query.select(Metadata.PROPERTIES).
-                where(Criterion.or(Metadata.KEY.eq("producteev-note"),
-                        Metadata.KEY.eq("rmilk-note"))));
-
-        StringProperty PDV_NOTE_ID = Metadata.VALUE1;
-        StringProperty PDV_NOTE_MESSAGE = Metadata.VALUE2;
-        LongProperty PDV_NOTE_CREATED = new LongProperty(Metadata.TABLE, Metadata.VALUE3.name);
-
-        StringProperty RTM_NOTE_ID = Metadata.VALUE1;
-        StringProperty RTM_NOTE_TITLE = Metadata.VALUE2;
-        StringProperty RTM_NOTE_TEXT = Metadata.VALUE3;
-        LongProperty RTM_NOTE_CREATED = new LongProperty(Metadata.TABLE, Metadata.VALUE4.name);
-
-        Metadata metadata = new Metadata();
-        for(m.moveToFirst(); !m.isAfterLast(); m.moveToNext()) {
-            metadata.readFromCursor(m);
-
-            String id, body, title, provider;
-            long created;
-            if("rmilk-note".equals(metadata.getValue(Metadata.KEY))) {
-                id = metadata.getValue(RTM_NOTE_ID);
-                body = metadata.getValue(RTM_NOTE_TEXT);
-                title = metadata.getValue(RTM_NOTE_TITLE);
-                created = metadata.getValue(RTM_NOTE_CREATED);
-                provider = MilkNoteHelper.PROVIDER;
-            } else {
-                id = metadata.getValue(PDV_NOTE_ID);
-                body = metadata.getValue(PDV_NOTE_MESSAGE);
-                created = metadata.getValue(PDV_NOTE_CREATED);
-                title = DateUtilities.getDateStringWithWeekday(ContextManager.getContext(),
-                    new Date(created));
-                provider = ProducteevDataService.NOTE_PROVIDER;
-            }
-
-            metadata.setValue(Metadata.KEY, NoteMetadata.METADATA_KEY);
-            metadata.setValue(Metadata.CREATION_DATE, created);
-            metadata.setValue(NoteMetadata.BODY, body);
-            metadata.setValue(NoteMetadata.TITLE, title);
-            metadata.setValue(NoteMetadata.THUMBNAIL, null);
-            metadata.setValue(NoteMetadata.EXT_PROVIDER, provider);
-            metadata.setValue(NoteMetadata.EXT_ID, id);
-
-            metadata.clearValue(Metadata.ID);
-            metadataService.save(metadata);
-        }
-        m.close();
     }
 
     /**

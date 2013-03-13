@@ -200,13 +200,13 @@ public class DialogUtilities {
      * @param text
      * @return
      */
-    public static ProgressDialog progressDialog(Context context, String text) {
+    public static ProgressDialog progressDialog(Activity context, String text) {
         ProgressDialog dialog = new ProgressDialog(context);
         dialog.setIndeterminate(true);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(text);
         dialog.show();
-        dialog.setOwnerActivity((Activity)context);
+        dialog.setOwnerActivity(context);
         return dialog;
     }
 

@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,7 +14,7 @@ public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServer
     }
 
     @Override
-    protected boolean serializeExtrasToJSON(JSONObject serializeTo) throws JSONException {
+    protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         // No extras
         return true;
     }

@@ -8,8 +8,6 @@ package com.todoroo.astrid.service;
 import java.io.File;
 import java.util.List;
 
-import org.weloveastrid.rmilk.MilkUtilities;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -64,7 +62,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -150,8 +147,6 @@ public class StartupService {
 
         if(!StatisticsService.dontCollectStatistics()) {
             Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID);
-            Crittercism.setShouldUseAmazonMarket(Constants.MARKET_STRATEGY.getClass() ==
-                MarketStrategy.AmazonMarketStrategy.class);
         }
 
         try {
@@ -244,8 +239,6 @@ public class StartupService {
                 taskService.cleanup();
 
                 // if sync ongoing flag was set, clear it
-                ProducteevUtilities.INSTANCE.stopOngoing();
-                MilkUtilities.INSTANCE.stopOngoing();
                 gtasksPreferenceService.stopOngoing();
                 actFmPreferenceService.stopOngoing();
                 OpencrxCoreUtils.INSTANCE.stopOngoing();

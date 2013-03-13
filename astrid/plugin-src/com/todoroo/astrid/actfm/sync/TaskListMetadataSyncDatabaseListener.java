@@ -18,7 +18,7 @@ public class TaskListMetadataSyncDatabaseListener extends SyncDatabaseListener<T
         if (model.getSetValues().containsKey(TaskListMetadata.TASK_IDS.name))
             waitingPool.enqueueMessage(message);
         else
-            super.enqueueMessage(model, message);
+            actFmSyncThread.enqueueMessage(message, ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);
     }
 
 }

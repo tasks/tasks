@@ -68,19 +68,8 @@ public class SyncV2Service {
         if (active.size() == 0)
             return false;
 
-        if (active.size() > 1) {
-            SyncResultCallback newCallback = new WidgetUpdatingCallbackWrapper(callback) {
-                private int next = 1;
-
-                @Override
-                public void finished() {
-                    super.finished();
-                    if (next < active.size())
-                        active.get(next++).synchronizeActiveTasks(manual, this);
-                }
-            };
-
-            active.get(0).synchronizeActiveTasks(manual, newCallback);
+        if (active.size() > 1) { // This should never happen anymore--they can't be active at the same time, but if for some reason they both are, just use ActFm
+            active.get(1).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(callback));
         } else if (active.size() == 1) {
             active.get(0).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(callback));
         }

@@ -63,7 +63,7 @@ public final class TagData extends RemoteModel {
 
     /** Project picture */
     public static final StringProperty PICTURE = new StringProperty(
-            TABLE, "picture", Property.PROP_FLAG_JSON);
+            TABLE, "picture", Property.PROP_FLAG_JSON | Property.PROP_FLAG_PICTURE);
 
     /** Tag team array (JSON) */
     @Deprecated public static final StringProperty MEMBERS = new StringProperty(
