@@ -147,8 +147,6 @@ public class StartupService {
 
         if(!StatisticsService.dontCollectStatistics()) {
             Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID);
-            Crittercism.setShouldUseAmazonMarket(Constants.MARKET_STRATEGY.getClass() ==
-                MarketStrategy.AmazonMarketStrategy.class);
         }
 
         try {

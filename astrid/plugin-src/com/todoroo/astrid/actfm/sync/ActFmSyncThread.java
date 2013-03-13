@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -366,6 +367,7 @@ public class ActFmSyncThread {
         } catch (Exception e) {
             // In the worst case, restart thread if something goes wrong
             Log.e(ERROR_TAG, "Unexpected sync thread exception", e);
+            Crittercism.logHandledException(e);
             thread = null;
             startSyncThread();
         }
