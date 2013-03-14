@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -111,7 +110,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         JSONArray array = new JSONArray();
         AtomicInteger uploadCounter = new AtomicInteger();
         PropertyToJSONVisitor visitor = new PropertyToJSONVisitor();
-        AtomicReference<Object> valueRef = new AtomicReference<Object>();
         for (OE change : changes) {
             try {
                 String localColumn = change.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
@@ -150,11 +148,8 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                         throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
 
                     Object value = localProperty.accept(visitor, change);
-                    valueRef.set(value);
-                    if (!validateValue(localProperty, valueRef))
+                    if (!validateValue(localProperty, value))
                         return null;
-
-                    value = valueRef.get();
 
                     if (value == null)
                         changeJson.put("value", JSONObject.NULL);
@@ -221,13 +216,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     // Return false if value is detected to be something that would definitely cause a server error
     // (e.g. empty task title, etc.)
-    private boolean validateValue(Property<?> property, AtomicReference<Object> valueRef) {
+    private boolean validateValue(Property<?> property, Object value) {
         if (Task.TITLE.equals(property)) {
-            if (!(valueRef.get() instanceof String) || TextUtils.isEmpty((String) valueRef.get()))
+            if (!(value instanceof String) || TextUtils.isEmpty((String) value))
                 return false;
-        } else if (Task.RECURRENCE.equals(property)) {
-            if (";FROM=COMPLETION".equals(valueRef.get()))
-                valueRef.set("");
         }
         return true;
     }
