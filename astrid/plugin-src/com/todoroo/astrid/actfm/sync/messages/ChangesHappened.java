@@ -133,20 +133,13 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 } else if (NameMaps.ATTACHMENT_ADDED_COLUMN.equals(localColumn)) {
                     serverColumn = NameMaps.ATTACHMENT_ADDED_COLUMN;
                     JSONObject fileJson = getFileJson(change.getValue(OutstandingEntry.VALUE_STRING_PROPERTY));
-                    if (fileJson == null) {
+                    String name = fileJson == null ? null : addToEntityFromFileJson(entity, fileJson, uploadCounter);
+                    if (name == null) {
                         PluginServices.getTaskAttachmentDao().delete(id);
                         PluginServices.getTaskAttachmentOutstandingDao().deleteWhere(TaskAttachmentOutstanding.ENTITY_ID_PROPERTY.eq(id));
                         return null;
-                    } else { // JSON has valid file path
-                        String name = addToEntityFromFileJson(entity, fileJson, uploadCounter);
-                        if (name != null) {
-                            changeJson.put("value", name);
-                        } else {
-                            PluginServices.getTaskAttachmentDao().delete(id);
-                            PluginServices.getTaskAttachmentOutstandingDao().deleteWhere(TaskAttachmentOutstanding.ENTITY_ID_PROPERTY.eq(id));
-                            return null;
-                        }
                     }
+                    changeJson.put("value", name);
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
                     if (localProperty == null)
