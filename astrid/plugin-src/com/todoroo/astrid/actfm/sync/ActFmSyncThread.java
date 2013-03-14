@@ -406,10 +406,10 @@ public class ActFmSyncThread {
         }
     }
 
-    private String clientVersion = null;
+    private JSONObject clientVersion = null;
 
     @SuppressWarnings("nls")
-    private String getClientVersion() {
+    private JSONObject getClientVersion() {
         if (clientVersion == null) {
             try {
                 PackageManager pm = ContextManager.getContext().getPackageManager();
@@ -419,7 +419,7 @@ public class ActFmSyncThread {
                 message.put("platform", "android");
                 message.put("versionName", pi.versionName);
                 message.put("versionCode", pi.versionCode);
-                clientVersion = message.toString();
+                clientVersion = message;
             } catch (Exception e) {
                 //
             }
