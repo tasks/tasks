@@ -45,8 +45,7 @@ import android.util.Log;
  * RestClient allows Android to consume web requests.
  * <p>
  * Portions by Praeda:
- * http://senior.ceng.metu.edu.tr/2009/praeda/2009/01/11/a-simple
- * -restful-client-at-android/
+ * http://senior.ceng.metu.edu.tr/2009/praeda/2009/01/11/a-simple-restful-client-at-android/
  *
  * @author Tim Su <tim@todoroo.com>
  *
