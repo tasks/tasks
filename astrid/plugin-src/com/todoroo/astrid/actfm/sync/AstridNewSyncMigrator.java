@@ -170,12 +170,15 @@ public class AstridNewSyncMigrator {
 
                     String recurrence = instance.getValue(Task.RECURRENCE);
                     if (!TextUtils.isEmpty(recurrence)) {
+                        String fromCompletion = ";FROM=COMPLETION";
                         boolean repeatAfterCompletion = instance.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION);
                         instance.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
 
                         recurrence = recurrence.replaceAll("BYDAY=;", "");
-                        if (repeatAfterCompletion)
-                            recurrence = recurrence + ";FROM=COMPLETION";
+                        if (fromCompletion.equals(recurrence))
+                            recurrence = "";
+                        else if (repeatAfterCompletion)
+                            recurrence = recurrence + fromCompletion;
                         instance.setValue(Task.RECURRENCE, recurrence);
                     }
                 }
