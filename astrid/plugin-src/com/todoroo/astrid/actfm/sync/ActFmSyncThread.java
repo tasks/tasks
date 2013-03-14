@@ -321,7 +321,7 @@ public class ActFmSyncThread {
                         continue;
                     }
 
-                    payload.put(0, getClientVersion());
+                    payload.put(getClientVersion());
 
                     try {
                         JSONObject response = actFmInvoker.postSync(payload, entity, token);
