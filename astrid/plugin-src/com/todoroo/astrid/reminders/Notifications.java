@@ -371,7 +371,7 @@ public class Notifications extends BroadcastReceiver {
                 } else {
                     notification.sound = null;
                 }
-            } else {
+            } else if (soundIntervalOk) {
                 notification.defaults |= Notification.DEFAULT_SOUND;
             }
         }
