@@ -16,6 +16,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -61,6 +63,7 @@ import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 
 public class ActFmSyncThread {
@@ -318,6 +321,8 @@ public class ActFmSyncThread {
                         continue;
                     }
 
+                    payload.put(0, getClientVersion());
+
                     try {
                         JSONObject response = actFmInvoker.postSync(payload, entity, token);
                         // process responses
@@ -399,6 +404,27 @@ public class ActFmSyncThread {
                 TasksWidget.updateWidgets(context);
             }
         }
+    }
+
+    private String clientVersion = null;
+
+    @SuppressWarnings("nls")
+    private String getClientVersion() {
+        if (clientVersion == null) {
+            try {
+                PackageManager pm = ContextManager.getContext().getPackageManager();
+                PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
+                JSONObject message = new JSONObject();
+                message.put(ClientToServerMessage.TYPE_KEY, "ClientVersion");
+                message.put("platform", "android");
+                message.put("versionName", pi.versionName);
+                message.put("versionCode", pi.versionCode);
+                clientVersion = message.toString();
+            } catch (Exception e) {
+                //
+            }
+        }
+        return clientVersion;
     }
 
     public void repopulateQueueFromOutstandingTables() {

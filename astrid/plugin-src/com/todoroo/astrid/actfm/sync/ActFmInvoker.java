@@ -22,12 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.todoroo.aacenc.ContextManager;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
@@ -186,23 +183,6 @@ public class ActFmInvoker {
         }
     }
 
-    private String clientVersion = null;
-
-    private String getClientVersion() {
-        if (clientVersion == null) {
-            try {
-                PackageManager pm = ContextManager.getContext().getPackageManager();
-                PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
-                int version = pi.versionCode;
-                String versionName = pi.versionName;
-                clientVersion = "android-" + versionName + "-" + version;
-            } catch (Exception e) {
-                //
-            }
-        }
-        return clientVersion;
-    }
-
     public JSONObject postSync(JSONArray data, MultipartEntity entity, String token) throws IOException,
     ActFmServiceException {
         try {
@@ -215,10 +195,6 @@ public class ActFmInvoker {
             entity.addPart("token", new StringBody(token));
             entity.addPart("data", new StringBody(data.toString()));
             entity.addPart("time", new StringBody(timeString));
-
-            String version = getClientVersion();
-            if (version != null)
-                entity.addPart("client_version", new StringBody(version));
 
             String response = restClient.post(request, entity);
             JSONObject object = new JSONObject(response);
