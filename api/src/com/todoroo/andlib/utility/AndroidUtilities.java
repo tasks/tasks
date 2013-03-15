@@ -123,11 +123,12 @@ public class AndroidUtilities {
     /** Read a bitmap from the specified file, scaling if necessary
      *  Returns null if scaling failed after several tries */
     private static final int[] SAMPLE_SIZES = { 1, 2, 4, 6, 8, 10 };
+    private static final int MAX_DIM = 1024;
     public static Bitmap readScaledBitmap(String file) {
         Bitmap bitmap = null;
         int tries = 0;
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        while(bitmap == null && tries < SAMPLE_SIZES.length) {
+        while(bitmap == null || ((bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM) && tries < SAMPLE_SIZES.length)) {
             opts.inSampleSize = SAMPLE_SIZES[tries];
             try {
                 bitmap = BitmapFactory.decodeFile(file, opts);
