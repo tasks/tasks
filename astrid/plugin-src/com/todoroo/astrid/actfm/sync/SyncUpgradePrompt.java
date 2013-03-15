@@ -58,7 +58,7 @@ public class SyncUpgradePrompt {
                         R.string.sync_upgr_both_btn2, new Runnable() {
                             @Override
                             public void run() {
-                                new ActFmSyncV2Provider().signOut();
+                                new ActFmSyncV2Provider().signOut(activity);
                                 Toast.makeText(activity, R.string.sync_upgr_logged_out, Toast.LENGTH_LONG).show();
                             }
                         });

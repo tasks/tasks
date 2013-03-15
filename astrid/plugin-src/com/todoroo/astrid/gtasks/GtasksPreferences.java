@@ -136,7 +136,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Override
     public void logOut() {
-        GtasksSyncV2Provider.getInstance().signOut();
+        GtasksSyncV2Provider.getInstance().signOut(this);
     }
 
     @Override

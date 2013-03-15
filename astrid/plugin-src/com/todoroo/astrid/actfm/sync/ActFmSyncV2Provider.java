@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
+import android.app.Activity;
+
 import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -59,7 +61,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void signOut() {
+    public void signOut(Activity activity) {
         actFmPreferenceService.setToken(null);
         actFmPreferenceService.clearLastSyncDate();
         ActFmPreferenceService.premiumLogout();

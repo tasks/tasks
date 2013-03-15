@@ -101,7 +101,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
 
     @Override
     public void logOut() {
-        new ActFmSyncV2Provider().signOut();
+        new ActFmSyncV2Provider().signOut(this);
     }
 
     @Override

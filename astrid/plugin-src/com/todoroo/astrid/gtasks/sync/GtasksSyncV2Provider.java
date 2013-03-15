@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
 
+import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.api.services.tasks.model.Tasks;
@@ -104,7 +105,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void signOut() {
+    public void signOut(Activity activity) {
         gtasksPreferenceService.clearLastSyncDate();
         gtasksPreferenceService.setToken(null);
         Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, null);
