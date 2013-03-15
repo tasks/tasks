@@ -687,6 +687,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         taskService.deleteWhere(Criterion.or(Task.USER_ID.neq(0), Task.DELETION_DATE.gt(0)));
         // Delete user table
         userDao.deleteWhere(Criterion.all);
+        // Delete comments this user didn't make
+        userActivityDao.deleteWhere(Criterion.or(UserActivity.USER_UUID.neq(0), UserActivity.DELETED_AT.gt(0)));
         // Delete attachments table
         taskAttachmentDao.deleteWhere(Criterion.all);
         // Delete deleted tags
@@ -761,6 +763,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             String newUuid = e.getValue();
 
             td.setValue(TagData.UUID, newUuid);
+            td.setValue(TagData.USER_ID, Task.USER_ID_SELF);
             td.setValue(TagData.PUSHED_AT, 0L);
             td.setValue(TagData.TASKS_PUSHED_AT, 0L);
             td.setValue(TagData.METADATA_PUSHED_AT, 0L);
