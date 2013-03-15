@@ -70,7 +70,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Preferences.setLong(ActFmPreferenceService.PREF_USER_ID, 0); // As though no one has ever logged in
+                        Preferences.clear(ActFmPreferenceService.PREF_USER_ID); // As though no one has ever logged in
                         activity.deleteDatabase(database.getName());
                         RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_FLAG_UNINITIALIZED);
                         System.exit(0);
