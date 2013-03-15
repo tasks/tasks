@@ -112,9 +112,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     /** Act.fm last sync server time */
     public static final String PREF_SERVER_TIME = IDENTIFIER + "_time"; //$NON-NLS-1$
 
-    /** Whether the user kept existing tasks after last logout */
-    public static final String PREF_CLEARED_TASKS_ON_LOGOUT = IDENTIFIER + "_logout_cleared_tasks"; //$NON-NLS-1$
-
     private static JSONObject user = null;
 
     @Override

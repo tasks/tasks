@@ -20,6 +20,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -78,8 +79,9 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Preferences.setLong(ActFmPreferenceService.PREF_USER_ID, 0); // As though no one has ever logged in
                         activity.deleteDatabase(database.getName());
-                        Preferences.setBoolean(ActFmPreferenceService.PREF_CLEARED_TASKS_ON_LOGOUT, true);
+                        RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_FLAG_UNINITIALIZED);
                         System.exit(0);
                     }
                 },

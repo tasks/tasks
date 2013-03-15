@@ -635,10 +635,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     @SuppressWarnings("nls")
     private void postAuthenticate(final JSONObject result, final String token) {
         long lastLoggedInUser = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
-        boolean clearedOnLastLogOut = Preferences.getBoolean(ActFmPreferenceService.PREF_CLEARED_TASKS_ON_LOGOUT, false);
-        Preferences.setBoolean(ActFmPreferenceService.PREF_CLEARED_TASKS_ON_LOGOUT, false);
 
-        if (lastLoggedInUser > 0 && !clearedOnLastLogOut) {
+        if (lastLoggedInUser > 0) {
             long newUserId = result.optLong("id");
             if (lastLoggedInUser != newUserId) {
                 // In this case, we need to either make all data private or clear all data
@@ -646,9 +644,16 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                 DialogUtilities.okCancelCustomDialog(this,
                         getString(R.string.actfm_logged_in_different_user_title),
                         getString(R.string.actfm_logged_in_different_user_body),
-                        R.string.actfm_logged_in_different_user_keep_data,
                         R.string.actfm_logged_in_different_user_clear_data,
+                        R.string.actfm_logged_in_different_user_keep_data,
                         android.R.drawable.ic_dialog_alert,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteDatabase(database.getName());
+                                finishSignIn(result, token, true);
+                            }
+                        },
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -667,13 +672,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                                         pd.dismiss();
                                     }
                                 }).start();
-                            }
-                        },
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteDatabase(database.getName());
-                                finishSignIn(result, token, true);
                             }
                         });
             } else {
