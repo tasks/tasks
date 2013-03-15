@@ -210,11 +210,16 @@ public abstract class CommentsFragment extends ListFragment {
     }
 
     protected void refreshUpdatesList() {
+        Activity activity = getActivity();
+        View view = getView();
+        if (activity == null || view == null)
+            return;
+
         Cursor cursor = null;
-        ListView listView = ((ListView) getView().findViewById(android.R.id.list));
+        ListView listView = ((ListView) view.findViewById(android.R.id.list));
         if(updateAdapter == null) {
             cursor = getCursor();
-            getActivity().startManagingCursor(cursor);
+            activity.startManagingCursor(cursor);
             String source = getSourceIdentifier();
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
@@ -224,19 +229,19 @@ public abstract class CommentsFragment extends ListFragment {
         } else {
             cursor = updateAdapter.getCursor();
             cursor.requery();
-            getActivity().startManagingCursor(cursor);
+            activity.startManagingCursor(cursor);
             populateListHeader(listHeader);
         }
 
-        View activityContainer = getView().findViewById(R.id.no_activity_container);
+        View activityContainer = view.findViewById(R.id.no_activity_container);
         if (cursor.getCount() == 0) {
             activityContainer.setVisibility(View.VISIBLE);
             TextView textView = (TextView)activityContainer.findViewById(R.id.no_activity_message);
             if(actFmPreferenceService.isLoggedIn()) {
-                textView.setText(getActivity().getString(R.string.ENA_no_comments));
+                textView.setText(activity.getString(R.string.ENA_no_comments));
             }
             else {
-                textView.setText(getActivity().getString(R.string.UpS_no_activity_log_in));
+                textView.setText(activity.getString(R.string.UpS_no_activity_log_in));
                 activityContainer.setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -253,7 +258,7 @@ public abstract class CommentsFragment extends ListFragment {
             listView.setVisibility(View.VISIBLE);
         }
 
-        if (getActivity() instanceof CommentsActivity)
+        if (activity instanceof CommentsActivity)
             setLastViewed();
     }
 

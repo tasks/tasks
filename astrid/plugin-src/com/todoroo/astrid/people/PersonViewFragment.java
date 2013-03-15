@@ -200,23 +200,25 @@ public class PersonViewFragment extends TaskListFragment {
     }
 
     private void refreshData() {
-        emptyView.setText(R.string.DLG_loading);
-        Runnable callback = new Runnable() {
-            @Override
-            public void run() {
-                Activity activity = getActivity();
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            reloadUserData();
-                            refresh();
-                            emptyView.setText(getEmptyDisplayString());
-                        }
-                    });
+        if (user != null) {
+            emptyView.setText(R.string.DLG_loading);
+            Runnable callback = new Runnable() {
+                @Override
+                public void run() {
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                reloadUserData();
+                                refresh();
+                                emptyView.setText(getEmptyDisplayString());
+                            }
+                        });
+                    }
                 }
-            }
-        };
-        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
+            };
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
+        }
     }
 
     private String getEmptyDisplayString() {
