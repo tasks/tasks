@@ -325,7 +325,7 @@ public class TagViewFragment extends TaskListFragment {
         if (!isCurrentTaskListFragment())
             return;
         if (tagData != null) {
-            long pushedAt = tagData.getValue(TagData.PUSHED_AT);
+            long pushedAt = tagData.getValue(TagData.TASKS_PUSHED_AT);
             if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2)
                 refreshData();
         }
