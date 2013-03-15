@@ -65,6 +65,13 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     /**
+     * @return true if the user is now or has ever been logged in
+     */
+    public boolean wasLoggedIn() {
+        return Preferences.getLong(PREF_USER_ID, 0) > 0;
+    }
+
+    /**
      * @return get user id
      */
     public static String userId() {
@@ -104,6 +111,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     /** Act.fm last sync server time */
     public static final String PREF_SERVER_TIME = IDENTIFIER + "_time"; //$NON-NLS-1$
+
+    /** Whether the user kept existing tasks after last logout */
+    public static final String PREF_CLEARED_TASKS_ON_LOGOUT = IDENTIFIER + "_logout_cleared_tasks"; //$NON-NLS-1$
 
     private static JSONObject user = null;
 

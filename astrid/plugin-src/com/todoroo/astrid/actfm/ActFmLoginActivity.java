@@ -599,9 +599,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     }
                     // Successful login, create outstanding entries
                     long lastId = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
-                    long newUser = result.optLong("id");
 
-                    if (!TextUtils.isEmpty(token) && (lastId == 0 || lastId == newUser)) {
+                    if (!TextUtils.isEmpty(token) && lastId == 0) {
                         constructOutstandingTables();
                     }
                     runOnUiThread(new Runnable() {
@@ -636,7 +635,10 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     @SuppressWarnings("nls")
     private void postAuthenticate(final JSONObject result, final String token) {
         long lastLoggedInUser = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
-        if (lastLoggedInUser > 0) {
+        boolean clearedOnLastLogOut = Preferences.getBoolean(ActFmPreferenceService.PREF_CLEARED_TASKS_ON_LOGOUT, false);
+        Preferences.setBoolean(ActFmPreferenceService.PREF_CLEARED_TASKS_ON_LOGOUT, false);
+
+        if (lastLoggedInUser > 0 && !clearedOnLastLogOut) {
             long newUserId = result.optLong("id");
             if (lastLoggedInUser != newUserId) {
                 // In this case, we need to either make all data private or clear all data
@@ -650,38 +652,12 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO: Make all data private
                                 final ProgressDialog pd = DialogUtilities.progressDialog(ActFmLoginActivity.this, getString(R.string.actfm_logged_in_different_user_processing));
 
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        // Delete all tasks not assigned to self
-                                        taskService.deleteWhere(Criterion.or(Task.USER_ID.neq(0), Task.DELETION_DATE.gt(0)));
-                                        // Delete user table
-                                        userDao.deleteWhere(Criterion.all);
-                                        // Delete attachments table
-                                        taskAttachmentDao.deleteWhere(Criterion.all);
-                                        // Delete deleted tags
-                                        tagDataDao.deleteWhere(TagData.DELETION_DATE.gt(0));
-                                        // Delete deleted metadata
-                                        metadataDao.deleteWhere(Metadata.DELETION_DATE.gt(0));
-
-                                        // Clear all outstanding tables
-                                        taskOutstandingDao.deleteWhere(Criterion.all);
-                                        tagOutstandingDao.deleteWhere(Criterion.all);
-                                        userActivityOutstandingDao.deleteWhere(Criterion.all);
-                                        taskListMetadataOutstandingDao.deleteWhere(Criterion.all);
-                                        taskAttachmentOutstandingDao.deleteWhere(Criterion.all);
-
-                                        // Make all tags private
-                                        tagMetadataDao.deleteWhere(Criterion.all);
-
-                                        // Generate new uuids for all tasks/tags/user activity/task list metadata and update links
-                                        generateNewUuids();
-                                        clearTablePushedAtValues();
-
-                                        constructOutstandingTables();
+                                        rebuildAllSyncData();
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -706,6 +682,35 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         } else {
             finishSignIn(result, token, false);
         }
+    }
+
+    private void rebuildAllSyncData() {
+        // Delete all tasks not assigned to self
+        taskService.deleteWhere(Criterion.or(Task.USER_ID.neq(0), Task.DELETION_DATE.gt(0)));
+        // Delete user table
+        userDao.deleteWhere(Criterion.all);
+        // Delete attachments table
+        taskAttachmentDao.deleteWhere(Criterion.all);
+        // Delete deleted tags
+        tagDataDao.deleteWhere(TagData.DELETION_DATE.gt(0));
+        // Delete deleted metadata
+        metadataDao.deleteWhere(Metadata.DELETION_DATE.gt(0));
+
+        // Clear all outstanding tables
+        taskOutstandingDao.deleteWhere(Criterion.all);
+        tagOutstandingDao.deleteWhere(Criterion.all);
+        userActivityOutstandingDao.deleteWhere(Criterion.all);
+        taskListMetadataOutstandingDao.deleteWhere(Criterion.all);
+        taskAttachmentOutstandingDao.deleteWhere(Criterion.all);
+
+        // Make all tags private
+        tagMetadataDao.deleteWhere(Criterion.all);
+
+        // Generate new uuids for all tasks/tags/user activity/task list metadata and update links
+        generateNewUuids();
+        clearTablePushedAtValues();
+
+        constructOutstandingTables();
     }
 
     private void generateNewUuids() {

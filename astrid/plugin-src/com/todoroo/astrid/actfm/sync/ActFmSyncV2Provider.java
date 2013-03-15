@@ -10,11 +10,13 @@ import java.io.IOException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 
 import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
@@ -61,11 +63,27 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void signOut(Activity activity) {
+    public void signOut(final Activity activity) {
         actFmPreferenceService.setToken(null);
         actFmPreferenceService.clearLastSyncDate();
         ActFmPreferenceService.premiumLogout();
         GCMIntentService.unregister(ContextManager.getContext());
+
+        DialogUtilities.okCancelCustomDialog(activity,
+                activity.getString(R.string.actfm_logout_clear_tasks_title),
+                activity.getString(R.string.actfm_logout_clear_tasks_body),
+                R.string.actfm_logout_clear_tasks_yes,
+                R.string.actfm_logout_clear_tasks_no,
+                android.R.drawable.ic_dialog_alert,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        activity.deleteDatabase(database.getName());
+                        Preferences.setBoolean(ActFmPreferenceService.PREF_CLEARED_TASKS_ON_LOGOUT, true);
+                        System.exit(0);
+                    }
+                },
+                null);
     }
 
     @Override

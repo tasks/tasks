@@ -358,8 +358,13 @@
   
   <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
   
-  <string name="actfm_logged_in_different_user_title">Warning! Logging in as different user</string>
-  <string name="actfm_logged_in_different_user_body">This device was previously signed in under a different user account. Do you want to keep existing data or clear everything? (This cannot be undone, and Astrid will restart when you make your choice)</string>
+  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
+  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
+  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
+  <string name="actfm_logout_clear_tasks_no">Keep data</string>
+  
+  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
+  <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
   <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
   <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
   <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>

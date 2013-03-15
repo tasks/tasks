@@ -37,7 +37,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
     public static boolean getOutstandingEntryFlag() {
         if (outstandingEntryFlag == -1) {
             synchronized (RemoteModelDao.class) {
-                if (PluginServices.getActFmPreferenceService().isLoggedIn())
+                if (PluginServices.getActFmPreferenceService().wasLoggedIn())
                     outstandingEntryFlag = 1;
                 else
                     outstandingEntryFlag = 0;
