@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
@@ -146,7 +147,8 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         }
     }
 
-    public void synchronizeMembers(long tagId, String tagUuid, JSONArray members) {
+    public void synchronizeMembers(TagData tagData, String legacyMembersString, String tagUuid, JSONArray members) {
+        long tagId = tagData.getId();
         Set<String> emails = new HashSet<String>();
         Set<String> ids = new HashSet<String>();
 
@@ -161,6 +163,30 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                 if (!TextUtils.isEmpty(email))
                     emails.add(email);
             }
+        }
+
+        if (!TextUtils.isEmpty(legacyMembersString)) {
+            try {
+                JSONArray legacyMembers = new JSONArray(legacyMembersString);
+                for (int i = 0; i < legacyMembers.length(); i++) {
+                    JSONObject user = legacyMembers.optJSONObject(i);
+                    if (user != null) {
+                        String id = user.optString("id"); //$NON-NLS-1$
+                        String email = user.optString("email"); //$NON-NLS-1$
+
+                        if (!TextUtils.isEmpty(id) && ids.contains(id)) {
+                            createMemberLink(tagId, tagUuid, id, false);
+                        } else if (!TextUtils.isEmpty(email) && emails.contains(email)) {
+                            createMemberLink(tagId, tagUuid, email, false);
+                        }
+                    }
+
+                }
+            } catch (JSONException e) {
+                //
+            }
+            tagData.setValue(TagData.MEMBERS, ""); //$NON-NLS-1$
+            PluginServices.getTagDataDao().saveExisting(tagData);
         }
 
         TodorooCursor<TagMetadata> currentMembers = query(Query.select(TagMemberMetadata.USER_UUID).where(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY)));

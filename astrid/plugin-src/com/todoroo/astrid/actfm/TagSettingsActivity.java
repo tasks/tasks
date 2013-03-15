@@ -355,7 +355,7 @@ public class TagSettingsActivity extends FragmentActivity {
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         tagDataService.save(tagData);
-        tagMetadataDao.synchronizeMembers(tagData.getId(), tagData.getUuid(), members);
+        tagMetadataDao.synchronizeMembers(tagData, tagData.getValue(TagData.MEMBERS), tagData.getUuid(), members);
 
         if (isNewTag) {
             setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
