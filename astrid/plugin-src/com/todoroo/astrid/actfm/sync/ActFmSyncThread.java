@@ -196,6 +196,8 @@ public class ActFmSyncThread {
     };
 
     public synchronized void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
+        if (!RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES))
+            return;
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
             if (callback != null)

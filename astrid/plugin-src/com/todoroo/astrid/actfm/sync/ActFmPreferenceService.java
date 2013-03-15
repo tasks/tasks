@@ -59,9 +59,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     public void setToken(String setting) {
         super.setToken(setting);
         if (TextUtils.isEmpty(setting))
-            RemoteModelDao.outstandingEntryFlag = -1;
+            RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_FLAG_UNINITIALIZED);
         else
-            RemoteModelDao.outstandingEntryFlag = 1;
+            RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES | RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 
     /**

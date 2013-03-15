@@ -32,23 +32,36 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
         return super.createNew(item);
     }
 
-    public static int outstandingEntryFlag = -1;
+    private static int outstandingEntryFlag = -1;
 
-    public static boolean getOutstandingEntryFlag() {
+    public static final int OUTSTANDING_FLAG_UNINITIALIZED = -1;
+    public static final int OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING = 1 << 0;
+    public static final int OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES = 1 << 1;
+
+    public static void setOutstandingEntryFlags(int newValue) {
+        synchronized (RemoteModelDao.class) {
+            outstandingEntryFlag = newValue;
+        }
+    }
+
+    public static boolean getOutstandingEntryFlag(int flag) {
         if (outstandingEntryFlag == -1) {
             synchronized (RemoteModelDao.class) {
-                if (PluginServices.getActFmPreferenceService().wasLoggedIn())
-                    outstandingEntryFlag = 1;
-                else
-                    outstandingEntryFlag = 0;
+                int newValue = 0;
+                if (PluginServices.getActFmPreferenceService().isLoggedIn())
+                    newValue = OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES | OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING;
+                else if (PluginServices.getActFmPreferenceService().wasLoggedIn())
+                    newValue = OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING;
+                outstandingEntryFlag = newValue;
             }
         }
-        return outstandingEntryFlag > 0;
+
+        return (outstandingEntryFlag & flag) > 0;
     }
 
     @Override
     protected boolean shouldRecordOutstanding(RTYPE item) {
-        return super.shouldRecordOutstanding(item) && getOutstandingEntryFlag();
+        return super.shouldRecordOutstanding(item) && getOutstandingEntryFlag(OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 
     /**

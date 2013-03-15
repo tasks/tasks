@@ -147,7 +147,7 @@ public class AstridNewSyncMigrator {
                 @Override
                 public boolean shouldCreateOutstandingEntries(TagData instance) {
                     boolean result = lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
-                    return result && RemoteModelDao.getOutstandingEntryFlag();
+                    return result && RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
                 }
 
                 @Override
@@ -186,9 +186,9 @@ public class AstridNewSyncMigrator {
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
                     if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
-                        return RemoteModelDao.getOutstandingEntryFlag();
+                        return RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
 
-                    return (instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE)) && RemoteModelDao.getOutstandingEntryFlag();
+                    return (instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE)) && RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
                 }
 
                 @Override

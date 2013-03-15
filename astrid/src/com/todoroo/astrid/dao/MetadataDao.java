@@ -87,7 +87,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
                         TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY))) ||
                 (cv.containsKey(Metadata.DELETION_DATE.name) &&
                         item.getValue(Metadata.DELETION_DATE) > 0)) &&
-                RemoteModelDao.getOutstandingEntryFlag();
+                RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 
     @Override
