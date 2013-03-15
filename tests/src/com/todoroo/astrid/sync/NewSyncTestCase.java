@@ -29,7 +29,7 @@ public class NewSyncTestCase extends DatabaseTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		RemoteModelDao.outstandingEntryFlag = 1;
+		RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
 	}
 
 	protected Task createTask(String title, boolean suppress) {

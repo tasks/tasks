@@ -16,7 +16,7 @@ public class DatabaseDaoTests extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        RemoteModelDao.outstandingEntryFlag = 1;
+        RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 
     public void testFailedTransactionCreatesNoRows() {
