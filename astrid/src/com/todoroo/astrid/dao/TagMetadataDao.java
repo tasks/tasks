@@ -107,7 +107,13 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     }
 
     public void createMemberLink(long tagId, String tagUuid, String memberId, boolean suppressOutstanding) {
+        createMemberLink(tagId, tagUuid, memberId, false, suppressOutstanding);
+    }
+
+    public void createMemberLink(long tagId, String tagUuid, String memberId, boolean removedMember, boolean suppressOutstanding) {
         TagMetadata newMetadata = TagMemberMetadata.newMemberMetadata(tagId, tagUuid, memberId);
+        if (removedMember)
+            newMetadata.setValue(TagMetadata.DELETION_DATE, DateUtilities.now());
         if (suppressOutstanding)
             newMetadata.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         if (update(Criterion.and(TagMetadataCriteria.byTagAndWithKey(tagUuid, TagMemberMetadata.KEY),
@@ -174,10 +180,10 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                         String id = user.optString("id"); //$NON-NLS-1$
                         String email = user.optString("email"); //$NON-NLS-1$
 
-                        if (!TextUtils.isEmpty(id) && ids.contains(id)) {
-                            createMemberLink(tagId, tagUuid, id, false);
-                        } else if (!TextUtils.isEmpty(email) && emails.contains(email)) {
-                            createMemberLink(tagId, tagUuid, email, false);
+                        if (!TextUtils.isEmpty(id)) {
+                            createMemberLink(tagId, tagUuid, id, !ids.contains(id), false);
+                        } else if (!TextUtils.isEmpty(email)) {
+                            createMemberLink(tagId, tagUuid, email, !emails.contains(email), false);
                         }
                     }
 
