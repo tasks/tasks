@@ -98,7 +98,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     private UserActivityDao userActivityDao;
 
     public GCMIntentService() {
-        super();
+        super(SENDER_ID);
         DependencyInjectionService.getInstance().inject(this);
     }
 
