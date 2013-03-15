@@ -679,6 +679,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
                                         // Generate new uuids for all tasks/tags/user activity/task list metadata and update links
                                         generateNewUuids();
+                                        clearTablePushedAtValues();
 
                                         constructOutstandingTables();
                                         runOnUiThread(new Runnable() {
@@ -734,6 +735,10 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             String newUuid = e.getValue();
 
             t.setValue(Task.UUID, newUuid);
+            t.setValue(Task.PUSHED_AT, 0L);
+            t.setValue(Task.ATTACHMENTS_PUSHED_AT, 0L);
+            t.setValue(Task.USER_ACTIVITIES_PUSHED_AT, 0L);
+            t.setValue(Task.HISTORY_FETCH_DATE, 0L);
             ua.setValue(UserActivity.TARGET_ID, newUuid);
             m.setValue(TaskToTagMetadata.TASK_UUID, newUuid);
 
@@ -753,6 +758,10 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             String newUuid = e.getValue();
 
             td.setValue(TagData.UUID, newUuid);
+            td.setValue(TagData.PUSHED_AT, 0L);
+            td.setValue(TagData.TASKS_PUSHED_AT, 0L);
+            td.setValue(TagData.METADATA_PUSHED_AT, 0L);
+            td.setValue(TagData.USER_ACTIVITIES_PUSHED_AT, 0L);
             ua.setValue(UserActivity.TARGET_ID, newUuid);
             m.setValue(TaskToTagMetadata.TAG_UUID, newUuid);
             tlm.setValue(TaskListMetadata.TAG_UUID, newUuid);
@@ -771,6 +780,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             String newUuid = e.getValue();
 
             ua.setValue(UserActivity.UUID, newUuid);
+            ua.setValue(UserActivity.PUSHED_AT, 0L);
             userActivityDao.update(UserActivity.UUID.eq(oldUuid), ua);
         }
 
@@ -780,6 +790,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                 tlm.clear();
                 tlm.readFromCursor(tlmCursor);
                 tlm.setValue(TaskListMetadata.UUID, uuidTaskListMetadataMap.get(tlm.getUuid()));
+                tlm.setValue(TaskListMetadata.PUSHED_AT, 0L);
                 String taskIds = tlm.getValue(TaskListMetadata.TASK_IDS);
                 if (!TaskListMetadata.taskIdsIsEmpty(taskIds)) {
                     Node root = AstridOrderedListUpdater.buildTreeModel(taskIds, null);
@@ -797,6 +808,13 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             tlmCursor.close();
         }
 
+    }
+
+    private void clearTablePushedAtValues() {
+        String[] pushedAtPrefs = new String[] { NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS,
+                NameMaps.PUSHED_AT_ACTIVITY, NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA };
+        for (String key : pushedAtPrefs)
+            Preferences.clear(key);
     }
 
     private <T extends RemoteModel> void mapUuids(RemoteModelDao<T> dao, HashMap<String, String> map) {
