@@ -21,11 +21,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.RemoteModelDao;
-import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
@@ -35,19 +31,14 @@ import com.todoroo.astrid.sync.SyncV2Provider;
  */
 public class ActFmSyncV2Provider extends SyncV2Provider {
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired ActFmSyncService actFmSyncService;
+    @Autowired
+    private ActFmSyncService actFmSyncService;
 
-    @Autowired TaskService taskService;
-
-    @Autowired TagDataService tagDataService;
-
-    @Autowired MetadataService metadataService;
-
-    @Autowired UserDao userDao;
-
-    @Autowired Database database;
+    @Autowired
+    private Database database;
 
     static {
         AstridDependencyInjector.initialize();
