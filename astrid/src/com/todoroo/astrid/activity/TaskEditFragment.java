@@ -1038,6 +1038,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (title.getText().length() == 0
                 || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
             if (isNewTask) {
+                TimerPlugin.updateTimer(getActivity(), model, false);
                 taskService.delete(model);
                 if (getActivity() instanceof TaskListActivity) {
                     TaskListActivity tla = (TaskListActivity) getActivity();
@@ -1057,8 +1058,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                                         android.R.string.ok, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
-                                                taskService.delete(model);
                                                 TimerPlugin.updateTimer(getActivity(), model, false);
+                                                taskService.delete(model);
                                                 shouldSaveState = false;
 
                                                 Activity a = getActivity();
