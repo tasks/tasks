@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.dao;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -158,6 +159,8 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         Set<String> emails = new HashSet<String>();
         Set<String> ids = new HashSet<String>();
 
+        HashMap<String, String> idToEmail = new HashMap<String, String>();
+
         for (int i = 0; i < members.length(); i++) {
             JSONObject person = members.optJSONObject(i);
             if (person != null) {
@@ -168,6 +171,10 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
                 String email = person.optString("email"); //$NON-NLS-1$
                 if (!TextUtils.isEmpty(email))
                     emails.add(email);
+
+                if (!TextUtils.isEmpty(id) && !TextUtils.isEmpty(email)) {
+                    idToEmail.put(id, email);
+                }
             }
         }
 
@@ -204,6 +211,11 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
 
                 String userId = m.getValue(TagMemberMetadata.USER_UUID);
                 boolean exists = ids.remove(userId) || emails.remove(userId);
+                if (exists && idToEmail.containsKey(userId)) {
+                    String email = idToEmail.get(userId);
+                    emails.remove(email);
+                }
+
                 if (!exists) { // Was in database, but not in new members list
                     removeMemberLink(tagId, tagUuid, userId, false);
                 }
