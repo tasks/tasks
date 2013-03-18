@@ -50,7 +50,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 29;
+    public static final int VERSION = 30;
 
     /**
      * Database name (must be unique)
@@ -343,43 +343,49 @@ public class Database extends AbstractDatabase {
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
-        case 28: try {
-            database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TaskAttachmentOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
-            database.execSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
-            database.execSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
-            database.execSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TaskAttachment.TABLE.name, TaskAttachment.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TaskListMetadata.TABLE.name, TaskListMetadata.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TaskListMetadataOutstanding.TABLE.name, TaskListMetadataOutstanding.PROPERTIES));
+        case 28:
+        case 29:
+            tryExecSQL("DROP TABLE " + History.TABLE.name);
+            tryExecSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, TaskAttachmentOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, TaskAttachment.TABLE.name, TaskAttachment.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, TaskListMetadata.TABLE.name, TaskListMetadata.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, TaskListMetadataOutstanding.TABLE.name, TaskListMetadataOutstanding.PROPERTIES));
 
-            database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
-            database.execSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
-            database.execSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
-            database.execSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
-            database.execSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.TASKS_PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
-            database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));
-            database.execSQL(addColumnSql(User.TABLE, User.LAST_NAME, visitor, null));
-        } catch (SQLiteException e) {
-            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-        }
-
+            tryExecSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.IS_PUBLIC, visitor, "0"));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.TASKS_PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
+            tryExecSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
+            tryExecSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));
+            tryExecSQL(addColumnSql(User.TABLE, User.LAST_NAME, visitor, null));
 
         return true;
         }
 
         return false;
+    }
+
+    private void tryExecSQL(String sql) {
+        try {
+            database.execSQL(sql);
+        } catch (SQLiteException e) {
+            Log.e("astrid", "SQL Error: " + sql, e);
+        }
     }
 
     private static String addColumnSql(Table table, Property<?> property, SqlConstructorVisitor visitor, String defaultValue) {
