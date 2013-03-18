@@ -172,7 +172,7 @@ public class ActFmSyncThread {
 
     public synchronized void startSyncThread() {
         if (thread == null || !thread.isAlive()) {
-            repopulateQueueFromOutstandingTables();
+            setTimeForBackgroundSync(true);
             thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
