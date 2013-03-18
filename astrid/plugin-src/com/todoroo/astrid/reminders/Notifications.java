@@ -8,6 +8,7 @@ package com.todoroo.astrid.reminders;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -260,7 +261,7 @@ public class Notifications extends BroadcastReceiver {
      */
     private static boolean checkLastNotificationSound() {
         long now = DateUtilities.now();
-        if (now - lastNotificationSound > 10000) {
+        if (now - lastNotificationSound > 10000 || forceNotificationManager) {
             lastNotificationSound = now;
             return true;
         }
@@ -395,6 +396,12 @@ public class Notifications extends BroadcastReceiver {
 
         singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,
                 maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, text));
+        if (forceNotificationManager)
+            try {
+                singleThreadVoicePool.awaitTermination(1000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                //
+            }
     }
 
     private static class NotificationRunnable implements Runnable {
