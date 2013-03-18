@@ -12,11 +12,9 @@ import org.json.JSONObject;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -51,7 +49,9 @@ import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -62,6 +62,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
+import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
@@ -82,7 +83,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
-    public static final String TOKEN_NEW_LIST_CREATED = "newListCreated"; //$NON-NLS-1$
+    public static final String TOKEN_SWITCH_TO_FILTER = "newListCreated"; //$NON-NLS-1$
 
     /** For indicating the new list screen should be launched at fragment setup time */
     public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
@@ -120,9 +121,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private boolean commentsVisible = false;
 
     private boolean swipeEnabled = false;
-
-    private final TagDeletedReceiver tagDeletedReceiver = new TagDeletedReceiver();
-    private final TagRenamedReceiver tagRenamedReceiver = new TagRenamedReceiver();
 
     private final OnClickListener mainMenuClickListener = new OnClickListener() {
         @Override
@@ -465,9 +463,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 onBackPressed();
         }
 
-        if (getIntent().hasExtra(TOKEN_NEW_LIST_CREATED)) {
-            Filter newList = getIntent().getParcelableExtra(TOKEN_NEW_LIST_CREATED);
-            getIntent().removeExtra(TOKEN_NEW_LIST_CREATED);
+        if (getIntent().hasExtra(TOKEN_SWITCH_TO_FILTER)) {
+            Filter newList = getIntent().getParcelableExtra(TOKEN_SWITCH_TO_FILTER);
+            getIntent().removeExtra(TOKEN_SWITCH_TO_FILTER);
             onFilterItemClicked(newList);
         }
 
@@ -520,8 +518,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(tagDeletedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED));
-        registerReceiver(tagRenamedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED));
 
         if (Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false))
             SyncUpgradePrompt.showSyncUpgradePrompt(this);
@@ -537,8 +533,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onStop() {
         super.onStop();
-        AndroidUtilities.tryUnregisterReceiver(this, tagDeletedReceiver);
-        AndroidUtilities.tryUnregisterReceiver(this, tagRenamedReceiver);
     }
 
     public void setSelectedItem(Filter item) {
@@ -624,7 +618,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
-                getIntent().putExtra(TOKEN_NEW_LIST_CREATED, newList); // Handle in onPostResume()
+                getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, newList); // Handle in onPostResume()
                 FilterListFragment fla = getFilterListFragment();
                 if (fla != null && getFragmentLayout() != LAYOUT_SINGLE)
                     fla.clear();
@@ -648,6 +642,49 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                         tagsChanged(true);
                 }
                 tlf.refresh();
+            }
+        } else if (requestCode == FilterListFragment.REQUEST_CUSTOM_INTENT && resultCode == RESULT_OK && data != null) {
+            // Tag renamed or deleted
+            String action = data.getAction();
+            String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+
+            if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
+                TaskListFragment tlf = getTaskListFragment();
+                FilterListFragment fl = getFilterListFragment();
+                if (tlf != null) {
+                    TagData tagData = tlf.getActiveTagData();
+                    String activeUuid = RemoteModel.NO_UUID;
+                    if (tagData != null)
+                        activeUuid = tagData.getUuid();
+
+                    if (activeUuid.equals(uuid)) {
+                        getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, CoreFilterExposer.buildInboxFilter(getResources())); // Handle in onPostResume()
+                        fl.clear(); // Should auto refresh
+                    } else {
+                        tlf.refresh();
+                    }
+                }
+
+                if (fl != null)
+                    fl.refresh();
+            } else if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
+                TaskListFragment tlf = getTaskListFragment();
+                if (tlf != null) {
+                    TagData td = tlf.getActiveTagData();
+                    if (td != null && td.getUuid().equals(uuid)) {
+                        td = PluginServices.getTagDataDao().fetch(uuid, TagData.PROPERTIES);
+                        if (td != null) {
+                            Filter filter = TagFilterExposer.filterFromTagData(this, td);
+                            getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, filter);
+                        }
+                    } else {
+                        tlf.refresh();
+                    }
+                }
+
+                FilterListFragment flf = getFilterListFragment();
+                if (flf != null)
+                    flf.refresh();
             }
         }
 
@@ -920,38 +957,5 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    private class TagRenamedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            TaskListFragment tlf = getTaskListFragment();
-            if (tlf != null)
-                tlf.refresh();
-
-            FilterListFragment flf = getFilterListFragment();
-            if (flf != null)
-                flf.refresh();
-        }
-    }
-
-    private class TagDeletedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String uuid = intent.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
-            TaskListFragment tlf = getTaskListFragment();
-            FilterListFragment fl = getFilterListFragment();
-            if (tlf != null) {
-                TagData tagData = tlf.getActiveTagData();
-                String activeUuid = RemoteModel.NO_UUID;
-                if (tagData != null)
-                    activeUuid = tagData.getUuid();
-
-                if (activeUuid.equals(uuid)) {
-                    fl.switchToActiveTasks();
-                    fl.clear(); // Should auto refresh
-                }
-            }
-        }
     }
 }

@@ -82,7 +82,7 @@ public class FilterListFragment extends ListFragment {
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
-    private static final int REQUEST_CUSTOM_INTENT = 1;
+    public static final int REQUEST_CUSTOM_INTENT = 10;
     static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
     public static final int REQUEST_NEW_LIST = 4;
@@ -257,7 +257,7 @@ public class FilterListFragment extends ListFragment {
                             if (which == 0) {
                                 showCreateShortcutDialog(getActivity(), ShortcutActivity.createIntent(filter), filter);
                             } else {
-                                startActivityForResult(intents[which - 1], REQUEST_CUSTOM_INTENT);
+                                getActivity().startActivityForResult(intents[which - 1], REQUEST_CUSTOM_INTENT);
                             }
                         }
                     });
@@ -391,7 +391,7 @@ public class FilterListFragment extends ListFragment {
             }
             case CONTEXT_MENU_INTENT: {
                 Intent intent = item.getIntent();
-                startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
+                getActivity().startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
                 return true;
             }
             default: {

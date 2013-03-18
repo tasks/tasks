@@ -232,8 +232,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     try {
-                        if (ok()) {
-                            setResult(RESULT_OK);
+                        Intent result = ok();
+                        if (result != null) {
+                            setResult(RESULT_OK, result);
                         } else {
                             toastNoChanges();
                             setResult(RESULT_CANCELED);
@@ -267,7 +268,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         protected abstract void showDialog(TagData tagData);
 
-        protected abstract boolean ok();
+        protected abstract Intent ok();
     }
 
     public static class DeleteTagActivity extends TagActivity {
@@ -287,7 +288,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
 
         @Override
-        protected boolean ok() {
+        protected Intent ok() {
             return tagService.deleteOrLeaveTag(this, tag, uuid);
         }
 
@@ -304,18 +305,25 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
 
         @Override
-        protected boolean ok() {
+        protected Intent ok() {
             if(editor == null)
-                return false;
+                return null;
 
             String text = editor.getText().toString();
             if (text == null || text.length() == 0) {
-                return false;
+                return null;
             } else {
                 int renamed = tagService.rename(uuid, text);
                 Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
                         Toast.LENGTH_SHORT).show();
-                return true;
+
+                if (renamed > 0) {
+                    Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED);
+                    intent.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
+                    ContextManager.getContext().sendBroadcast(intent);
+                    return intent;
+                }
+                return null;
             }
         }
     }

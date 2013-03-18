@@ -22,7 +22,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -374,7 +373,7 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
-    public boolean deleteOrLeaveTag(Context context, String tag, String uuid) {
+    public Intent deleteOrLeaveTag(Context context, String tag, String uuid) {
         int deleted = deleteTagMetadata(uuid);
         TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
         boolean shared = false;
@@ -389,7 +388,7 @@ public final class TagService {
                 Toast.LENGTH_SHORT).show();
 
         context.sendBroadcast(tagDeleted);
-        return true;
+        return tagDeleted;
     }
 
     /**
@@ -556,12 +555,6 @@ public final class TagService {
         metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);
         result = metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)), metadataTemplate);
         tagRenamed = tagRenamed || result > 0;
-
-        if (tagRenamed) {
-            Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED);
-            intent.putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid);
-            ContextManager.getContext().sendBroadcast(intent);
-        }
 
         return result;
     }

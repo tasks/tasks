@@ -588,11 +588,10 @@ public class TagSettingsActivity extends FragmentActivity {
         }, null );
     }
 
-    protected boolean deleteTag() {
-        boolean result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), tagData.getUuid());
-        setResult(Activity.RESULT_OK);
+    protected void deleteTag() {
+        Intent result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), tagData.getUuid());
+        setResult(Activity.RESULT_OK, result);
         finish();
-        return result;
     }
 
 }
