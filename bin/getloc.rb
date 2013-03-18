@@ -83,7 +83,7 @@ def import(tmp_files, lang, platform, dst_files_block)
 
         for i in 0...tmp_files.length
           file = File.join(tmp_all_dir, l, File.basename(tmp_files[i]))
-          %x(sed -i '' "s/'/\\\\\\'/g" #{file}) if platform == :android
+          %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{file}) if platform == :android
           puts "Moving #{file} to #{dst_files[i]}"
           %x(mv #{file} #{dst_files[i]})
         end
@@ -97,7 +97,7 @@ def import(tmp_files, lang, platform, dst_files_block)
     for i in 0...tmp_files.length
       name = File.basename(tmp_files[i])
       %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
-      %x(sed -i '' "s/'/\\\\\\'/g" #{tmp_files[i]}) if platform == :android
+      %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{tmp_files[i]}) if platform == :android
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
