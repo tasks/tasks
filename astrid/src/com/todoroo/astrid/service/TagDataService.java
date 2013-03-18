@@ -140,13 +140,13 @@ public class TagDataService {
     private static Query queryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
         Criterion criteria;
         if (tagData == null)
-            criteria = Criterion.all;
+            criteria = UserActivity.DELETED_AT.eq(0);
         else
-            criteria = Criterion.or(
+            criteria = Criterion.and(UserActivity.DELETED_AT.eq(0), Criterion.or(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
                         UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid()))))));
+                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))));
 
         if (extraCriterion != null)
             criteria = Criterion.and(criteria, extraCriterion);
