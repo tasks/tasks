@@ -41,7 +41,7 @@ public class History extends AbstractModel {
 
     /** Column name */
     public static final StringProperty COLUMN = new StringProperty(
-            TABLE, "column");
+            TABLE, "columnString");
 
     /** Old value */
     public static final StringProperty OLD_VALUE = new StringProperty(
