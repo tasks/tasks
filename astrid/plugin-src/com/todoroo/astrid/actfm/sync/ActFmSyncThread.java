@@ -195,6 +195,13 @@ public class ActFmSyncThread {
         }
     };
 
+    public static void clearTablePushedAtValues() {
+        String[] pushedAtPrefs = new String[] { NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS,
+                NameMaps.PUSHED_AT_ACTIVITY, NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA };
+        for (String key : pushedAtPrefs)
+            Preferences.clear(key);
+    }
+
     public synchronized void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
         if (!RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES))
             return;

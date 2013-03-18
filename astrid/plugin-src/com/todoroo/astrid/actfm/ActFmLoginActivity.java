@@ -70,6 +70,7 @@ import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmServiceException;
 import com.todoroo.astrid.actfm.sync.ActFmSyncMonitor;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.messages.ConstructOutstandingTableFromMasterTable;
 import com.todoroo.astrid.actfm.sync.messages.ConstructTaskOutstandingTableFromMasterTable;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -650,6 +651,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                ActFmSyncThread.clearTablePushedAtValues();
                                 deleteDatabase(database.getName());
                                 finishSignIn(result, token, true);
                             }
@@ -708,7 +710,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         // Generate new uuids for all tasks/tags/user activity/task list metadata and update links
         generateNewUuids();
-        clearTablePushedAtValues();
+        ActFmSyncThread.clearTablePushedAtValues();
 
         constructOutstandingTables();
     }
@@ -814,13 +816,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             tlmCursor.close();
         }
 
-    }
-
-    private void clearTablePushedAtValues() {
-        String[] pushedAtPrefs = new String[] { NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS,
-                NameMaps.PUSHED_AT_ACTIVITY, NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA };
-        for (String key : pushedAtPrefs)
-            Preferences.clear(key);
     }
 
     private <T extends RemoteModel> void mapUuids(RemoteModelDao<T> dao, HashMap<String, String> map) {
