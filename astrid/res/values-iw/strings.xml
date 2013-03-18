@@ -58,7 +58,7 @@
 
   <string name="actfm_friendship_blocked">חסמת את %s.</string>
 
-  <string name="actfm_friendship_ignored">You\'ve ignored %s.</string>
+  <string name="actfm_friendship_ignored">התעלמת מ-%s</string>
   
   <string name="actfm_friendship_friends">אתה חבר של %s! הוסף משימות עבורם למטה.</string>
 
@@ -168,7 +168,7 @@
   <string name="actfm_EPA_share_with">שתף עם:</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share</string>
+  <string name="actfm_EPA_collaborators_header">שתפי</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">רשימה: %s</string>
@@ -179,7 +179,7 @@
   <string name="actfm_EPA_message_text">הזמנה</string>
   
   <!-- task sharing dialog: message body -->
-  <string name="actfm_EPA_message_body">עזור לי לבצע את זה!</string>
+  <string name="actfm_EPA_message_body">עזרי לי לבצע את זה!</string>
   
   <!-- task sharing dialog: list members section header -->
   <string name="actfm_EPA_assign_header_members">חברים ברשימה</string>
@@ -211,7 +211,7 @@
   
   <string name="actfm_EPA_login_button">התחברות</string>
   
-  <string name="actfm_EPA_dont_share_button">אל תשתף</string>
+  <string name="actfm_EPA_dont_share_button">אל תשתפי</string>
   
   <string name="actfm_EPA_add_person_to_list_title">משימה הוטלה</string>
   
@@ -236,10 +236,10 @@
   <string name="actfm_ALA_gg_login">התחבר באמצעות גוגל</string>
   
   <!-- share login: Quickly log in as <%s -> email> -->
-  <string name="actfm_quick_login">Sign in: %s</string>
+  <string name="actfm_quick_login">התחבר: %s</string>
 
   <!-- share login: Reject quick login -->
-  <string name="actfm_quick_login_reject">Not %s?</string>
+  <string name="actfm_quick_login_reject">לא %s?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">שם פרטי</string>
@@ -271,7 +271,7 @@
   <string name="actfm_ALA_error_user_exists">שם המשתמש כבר קיים. אולי תרצה להתחבר עם שם זה.</string>
   
   <!-- Login error: wrong password -->
-  <string name="actfm_ALA_error_wrong_password">מצטערים, הססמא הזו אינה נכונה. אנא נסה שנית .</string>
+  <string name="actfm_ALA_error_wrong_password">מצטערים, הסיסמא הזו אינה נכונה. אנא נסה שנית .</string>
   
   <!-- Forgot password link -->
   <string name="actfm_ALA_forgot_password">שכחת סיסמא?</string>
@@ -302,7 +302,7 @@
   <!-- ================================================ Synchronization == -->
       
   <!-- Indicates the logged in user name. %s -> user\'s name -->
-  <string name="actfm_status_title_logged_in">מחובר כ %s</string>    
+  <string name="actfm_status_title_logged_in"> מצב - מחובר כ %s</string>    
       
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com</string>
@@ -339,32 +339,32 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
-  <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
+  <string name="sync_upgr_both_title">שימוש באסטריד ובגוגל ללא כפילויות</string>
+  <string name="sync_upgr_both_body">הבה נאמר את האמת.״משימות גוגל״ הוא מוצר נוח, אבל לא מגניב כמו אסטריד. כדי למנוע כפילויות, לא תוכל יותר לסנכרן ברקע בו זמנית  גם מול astrid.com   גם מול משימות גוגל. תוכל עדיין ליבא את משימות גוגל באמצעות הגדרות/גיבוי וסינכרון, או לשנמך את פעילותך לסנכרון מול גוגל בלבד.</string>
+  <string name="sync_upgr_both_btn1">השאר עם אסטריד</string>
+  <string name="sync_upgr_both_btn2">שנמוך ל״משימות גוגל״</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
-  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
+  <string name="sync_upgr_gtasks_only_title">שדרג חינם לסנכרון מול אתר אסטריד</string>
+  <string name="sync_upgr_gtasks_only_body"> קבל גישה למשימות שלך מכל המכשירים של, כולל מג\'ימייל,  בעזרת סינכרון מול אתר אסטריד. שדרג לסנכררון מול אתר אסטריד )תוכל תמיד לחזור ל״משימות גוגל״ אבל אני בטוח שלא תרצה לעשות זאת).</string>
+  <string name="sync_upgr_gtasks_only_btn1">שדרג לסנכרון מול אתר אסטריד</string>
+  <string name="sync_upgr_gtasks_only_btn2">השאר עם ״משימות גוגל״</string>
   
-  <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_title">סינכרון וגיבוי חינם!</string>
+  <string name="sync_upgr_neither_body">אל תשים את משימותיך על קרן הצבי! הגיבוי החדש והמשופר מול אתר אסטריד יאפשר לך לשמור את משימותיך ולגשת אליהן מכל מקום.</string>
   <string name="sync_upgr_neither_btn1">הרשם עכשו</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">התנתקת מאסטריד</string>
   
-  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
-  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
-  <string name="actfm_logout_clear_tasks_no">Keep data</string>
+  <string name="actfm_logout_clear_tasks_title">לְהָסִיר את הנתונים?</string>
+  <string name="actfm_logout_clear_tasks_body">הֲתִּרְצֶה להסיר את המשימות והרשימות?</string>
+  <string name="actfm_logout_clear_tasks_yes">הסרת נתונים</string>
+  <string name="actfm_logout_clear_tasks_no">שמירת הנתונם</string>
   
-  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-  <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-  <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-  <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-  <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
+  <string name="actfm_logged_in_different_user_title">התחברות עם משתמש אחר</string>
+  <string name="actfm_logged_in_different_user_body">הֲתִּרְצֶה למחוק משימות שעל הטלפון טרם הסנכרון?</string>
+  <string name="actfm_logged_in_different_user_keep_data">שמירת הנתונם</string>
+  <string name="actfm_logged_in_different_user_clear_data">הסרת כל הנתונים</string>
+  <string name="actfm_logged_in_different_user_processing">מעבדת נתונים קיימים...</string>
   
   
 
@@ -414,7 +414,7 @@
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">הגיבוי האחרון נכשל</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">"(גע  כדי להציג את השגיאה)"</string>
+    <string name="backup_status_failed_subtitle">"(טפח  כדי להציג את השגיאה)"</string>
     <!-- slide 48a: Backup Status: never backed up -->    
     <string name="backup_status_never">לא נעשו גיבויים מעולם!</string>
 
@@ -431,7 +431,7 @@
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     
-    <string name="backup_BPr_cloud_already_logged_in">יש לך כבר גיבוי בענן באתר Astrid.com</string>
+    <string name="backup_BPr_cloud_already_logged_in">יש לך כבר גיבוי בענן באתר astrid.com</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -448,7 +448,7 @@
   <string name="backup_BAc_export">ייצוא משימות</string>
   
   <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">הקלק לגיבוי חינם בענן באתר Astrid.com</string>
+  <string name="backup_BAc_cloud">הקלק לגיבוי חינם בענן באתר astrid.com</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
@@ -463,7 +463,7 @@
   <string name="export_progress_title">מייצאת...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
-  <string name="import_summary_title">סיכום יבוא</string>
+  <string name="import_summary_title">סיכום פעולת השחזור</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">"הקובץ \' %1$s\' הכיל  %2$s משימות: \n\n %3$s יובאו,\n %4$s היו קיימות כבר,\nוב־%5$s היו שגיאות.\n"</string>
@@ -503,10 +503,10 @@
   <string name="read_permission_label">הרשאות אסטריד</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">קריאת משימות, הצגת מסנני משימות</string>
+  <string name="read_permission_desc">קריאת משימות, הצגת מַסְנְנֵי משימות</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">הרשאות Astrid</string>
+  <string name="write_permission_label">הרשאות אסטריד</string>
   
   <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">יצירת משימות חדשות, עריכת משימות קיימות.</string>
@@ -531,10 +531,10 @@
   <!-- Button for going to Market -->
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">אני מקבל</string>
+  <string name="DLG_accept">אני מסכים</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">אני מסרב</string>
+  <string name="DLG_decline">אינני מסכים</string>
 
   <!-- EULA title -->
   <string name="DLG_eula_title">Astrid תנאי שימוש</string>
@@ -594,10 +594,10 @@
   <string name="TLA_menu_addons">תוספים</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort</string>
+  <string name="TLA_menu_sort">מיון</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">סנכרן כעת</string>
+  <string name="TLA_menu_sync">סנכרני כעת</string>
   
   <!-- Menu: Search -->
   <string name="TLA_menu_search">חיפוש</string>
@@ -724,7 +724,7 @@
   <string name="SSD_deleted">הצג משימות שנמחקו</string>
   
   <!-- Sort Selection: drag with subtasks -->
-  <string name="SSD_sort_drag">Manual order with subtasks</string>
+  <string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid מיון חכם</string>
@@ -736,7 +736,7 @@
   <string name="SSD_sort_due">ע״פ מועד יעד</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By priority</string>
+  <string name="SSD_sort_importance">ע״פ עדיפות</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">ע״פ מועד עדכון אחרון</string>
@@ -760,14 +760,14 @@
   <!-- Displayed when loading filters -->    
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">צור קיצור על שולחן העבודה</string>
+  <string name="FLA_context_shortcut">יצירת קיצור על שולחן העבודה</string>
   
   <!-- Menu: Search -->
   
   <!-- Menu: Help -->    
   
   <!-- slide 28c: Create Shortcut Dialog Title -->    
-  <string name="FLA_shortcut_dialog_title">יצירת קיצור</string>
+  <string name="FLA_shortcut_dialog_title">יצירת קיצור על שולחן העבודה</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
   <string name="FLA_shortcut_dialog">שם הקיצור:</string>
@@ -816,7 +816,7 @@
   <string name="TEA_urgency_none">ללא</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide until</string>
+  <string name="TEA_hideUntil_label">הסתרה עד</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">המשימה תוסתר עד %s</string>
@@ -828,7 +828,7 @@
   <string name="TEA_note_label">תיאור</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task description...</string>
+  <string name="TEA_notes_hint">הזן את תיאור המשימה...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
@@ -846,7 +846,7 @@
   <string name="TEA_menu_delete">מחיקת משימה</string>
   
   <!-- Menu: Task comments -->
-  <string name="TEA_menu_refresh_comments">Refresh comments</string>
+  <string name="TEA_menu_refresh_comments">רַעְנֵן הערות</string>
 
   <string name="TEA_menu_comments">הערות</string>
   
@@ -864,14 +864,14 @@
   <string name="TEA_tab_activity">פעילות</string>
   
   <!-- slide 15e:  Task edit tab: more editing settings -->
-  <string name="TEA_tab_more">עוד</string>
+  <string name="TEA_tab_more">פרטים</string>
   
   <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">רעיונות</string>
   
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No date</item>
+      <item>ללא תאריך</item>
       <item>יום מסוים</item>
       <item>היום</item>
       <item>מחר</item>
@@ -885,7 +885,7 @@
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Never</item>
+      <item>אף פעם</item>
       <item>עד ה</item>
       <item>יום לפני תאריך היעד</item>
       <item>שבוע לפני תאריך היעד</item>
@@ -900,7 +900,7 @@
   <!-- slide 9c/ 35a -->
   <string name="TEA_control_when">מתי</string>
   <!-- slide 35b -->
-  <string name="TEA_control_more_section">----More Section----</string>
+  <string name="TEA_control_more_section">----פרטים----</string>
   <!-- slide 16a/35c -->
   <string name="TEA_control_importance">עדיפות</string>  
   <!-- slide 16b/35d -->
@@ -1108,7 +1108,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">הגדרות אסטריד</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">שיתוף אסטריד</string>
 
   <string name="EPr_share_astrid_summary">ספר על אסטריד ברשתות חברתיות</string>
   
@@ -1134,7 +1134,7 @@
   <string name="EPr_fontSize_title">אורך רשימת משימות</string>
   
   <!-- Preference: Filters to show pref screen title -->
-  <string name="EPr_filters_to_show_title">Filters to show</string>
+  <string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
   
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">הצג אישור על תזכורות חכמות</string>
@@ -1145,19 +1145,19 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show description in task</string>
+  <string name="EPr_showNotes_title">הצג תיאור עם המשימה</string>
   
   <!-- Edit screen preference category -->
-  <string name="EPr_edit_screen_options">Edit screen options</string>
+  <string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
   
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Edit screen order</string>
+  <string name="EPr_beastMode_title">עריכת סדר מסך</string>
   
-  <string name="EPr_beastMode_shortcut">Customize</string>
+  <string name="EPr_beastMode_shortcut">התאמה אישית</string>
   
-  <string name="EPr_time_increment">5 minute increments</string>
+  <string name="EPr_time_increment">צעדים של 5 דקות</string>
   
-  <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
+  <string name="EPr_use_date_shortcuts">הצג קיצורי תאריך</string>
   
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">התאם אישית את מסך עריכת משימה</string>
@@ -1165,9 +1165,9 @@
   <string name="EPr_beastMode_reset">אפס להגדרות ברירת מחדל</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
+  <string name="EPr_showNotes_desc_disabled">התיאור יהיה נגיש ממסך עריכת המשימה</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">התיאור יוצג תמיד</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">שורת משימות דחוסה</string>
@@ -1191,41 +1191,41 @@
   
   <!-- Preferences: task row style -->
   <string-array name="EPr_task_row_styles">
-      <item>Original</item>
-      <item>Simple</item>
-      <item>Title only</item>
+      <item>מקורי</item>
+      <item>פשוט</item>
+      <item>כותרת בלבד</item>
   </string-array>
   
   <string-array name="EPr_task_row_style_descriptions">
       <item>צמצם את הכותרת לשתי שורות עם תאריך מצד ימין</item>
       <item>צמצם את הכותרת לשורה אחת כולל תאריך ורשימות מתחת</item>
-      <item>Single line title only</item>
+      <item>שורת כותרת פשוטה בלבד</item>
   </string-array>
   
   <!-- task row style title (%s -> style) -->
-  <string name="EPr_task_row_style_title">Row style: %s</string>
+  <string name="EPr_task_row_style_title">סגנון שורה: %s</string>
   
   <!-- Preference: custom filters enabled -->
-  <string name="EPr_use_filters_title">Use filters</string>
-  <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
+  <string name="EPr_use_filters_title">השתמש בְּמַסְנְנִים</string>
+  <string name="EPr_use_filters_subtitle">מאפשר לך ליצור מַסְנְנִים מותאמים אישית</string>
 
   <!-- Preference: show list members in shared list -->
-  <string name="EPr_show_list_members_title">Show list members in shared lists</string>
+  <string name="EPr_show_list_members_title">הצג חברים ברשימה ברשימות משותפות</string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_simple_input_boxes">Simple text boxes</string>
+  <string name="EPr_simple_input_boxes">תיבות טקסט פשוטות</string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
+  <string name="EPr_show_quickadd_controls">בקרת הוספה מהירה מתקדם</string>
 
   <!-- Preference: menu items -->
-  <string name="EPr_menu_items">Menu items</string>
+  <string name="EPr_menu_items">פריטי תפריט</string>
 
   <!-- Preference: list view -->
-  <string name="EPr_list_view">List view</string>
+  <string name="EPr_list_view">תצוגת רשימה</string>
 
   <!-- Preference: task edit comments -->
-  <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
+  <string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>
   
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">צבע ערכת נושא</string>
@@ -1256,26 +1256,26 @@
   <string name="EPr_ideas_tab_description">קבל רעיונות שיסייעו לך לבצע משימות</string>
   
   <!-- Preferences: calendar event start time -->
-  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
-  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  <string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
+  <string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
+  <string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
   
   <string name="EPr_force_phone_layout">מקלדת טלפון</string>
 
   <string name="EPr_show_featured_lists">הצג רשימות מועדפות</string>
   
   <!-- Configurations -->
-  <string name="EPr_configurations_title">Set configuration</string>
-  <string name="EPr_config_default">Default</string>
-  <string name="EPr_config_lite">Astrid Lite</string>
+  <string name="EPr_configurations_title">קביעת קונפיגורציה</string>
+  <string name="EPr_config_default">מחדל</string>
+  <string name="EPr_config_lite">אסטריד לייט</string>
   
   <!-- Dialog title when setting preference configuration -->
-  <string name="EPr_config_dialog_title">Set configuration?</string>
+  <string name="EPr_config_dialog_title">לקבוע קונפיגורציה?</string>
   <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
-  <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
+  <string name="EPr_config_dialog_text">שחזר את כל ההעדפות לקונפיגורציה %s?</string>
   
   <!-- default configuration name for the above dialog -->
-  <string name="EPr_config_dialog_default_id">default</string>
+  <string name="EPr_config_dialog_default_id">מחדל</string>
   
   
   <!-- Swipe between lists -->
@@ -1317,11 +1317,11 @@
     <!-- slide 36b -->
     <item>יום - אדום</item>
     <!-- slide 36b -->
-    <item>Sky blue</item>
+    <item>תכלת</item>
     <!-- slide 36c -->
-    <item>Night</item>
+    <item>לילה</item>
     <!-- slide 36d -->
-    <item>Transparent (white text)</item>
+    <item>שקוף (טקסט לבן)</item>
     <!-- slide 36e -->
     <item>שקוף (טקסט שחור)</item>
   </string-array>
@@ -1331,10 +1331,10 @@
     <item>שמור כְּיִשּׂוּמוֹן</item>
     <item>יום - כחול</item>
     <item>יום - אדום</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (white text)</item>
-    <item>Transparent (black text)</item>
+    <item>תכלת</item>
+    <item>לילה</item>
+    <item>שקוף (טקסט לבן)</item>
+    <item>שקוף (טקסט שחור)</item>
     <item>סגנון ישן</item>
   </string-array>
   
@@ -1460,7 +1460,7 @@
 
   <!-- slide 32g: Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
-  <string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
+  <string name="EPr_defaults_summary">עדיפות, מועד יעד, הוספה ליומן</string>
   
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
@@ -1468,7 +1468,7 @@
   <string name="EPr_default_urgency_desc">כעת: %s</string>
   
   <!-- slide 40a: Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default priority</string>
+  <string name="EPr_default_importance_title">עדיפות מחדל</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">כעת: %s</string>
   
@@ -1483,7 +1483,7 @@
   <string name="EPr_default_reminders_desc">כעת: %s</string>
   
   <!-- slide 19a/46c: Preference: Default Add To Calendar Title -->
-  <string name="EPr_default_addtocalendar_title">ברירת מחדל של הוספה ליומן</string>
+  <string name="EPr_default_addtocalendar_title">הוספה ליומן כברירת מחדל</string>
   <!-- Preference: Default Add To Calendar Setting Description (disabled) -->
   <string name="EPr_default_addtocalendar_desc_disabled">משימות חדשות לא תיצורנה אירוע בלוח השנה של גוגל</string>
   <!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
@@ -1637,14 +1637,14 @@
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Priority at least ?</string>
+    <string name="CFC_importance_text">עדיפות לפחות?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Priority...</string>        
+    <string name="CFC_importance_name">עדיפות</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">רשימה: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">רשימה...</string>
+    <string name="CFC_tag_name">רשימה.</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
     <string name="CFC_tag_contains_name">שם הרשימה מכיל...</string>
@@ -1683,14 +1683,14 @@
   <!-- Toast when unable to open calendar event -->
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">אירוע יומן עודכן אף הוא</string>
+  <string name="gcal_TEA_calendar_updated">אירוע יומן עודכן!</string>
   
   <!-- No calendar label (don\'t add option) -->
   <string name="gcal_TEA_nocal">אל תוסיף</string>
   
-  <string name="gcal_TEA_none_selected">To calendar?</string>
+  <string name="gcal_TEA_none_selected">ליומן?</string>
   
-  <string name="gcal_TEA_has_event">אירוע בלוח שנה</string>
+  <string name="gcal_TEA_has_event">אירוע יומן</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -1803,15 +1803,15 @@
  שים לב שסינכרון מול שני האתרים יכול במקרים מסויימים להביא לתוצאות בלתי צפויות.
  האם אתה בטוח שברצונך להסתנכרן מול ״משימות גוגל״?</string>
       
-    <string name="gtasks_import_progress">Importing Google Tasks...</string>
+    <string name="gtasks_import_progress"> מייבאת את ״משימות גוגל״</string>
 
-    <string name="gtasks_import_add_to_shared_list">The list %1$s is shared with others! Do you still want to add the task %2$s to it?</string>
+    <string name="gtasks_import_add_to_shared_list">הרשימה %1$s משותפת עם אחרים! האם אתה בטוח שברצונך להוסיף את המשימה %2$sלרשימה זו?</string>
 
-    <string name="gtasks_import_dlg_title">Google Tasks Import</string>
+    <string name="gtasks_import_dlg_title">ייבוא ״משימות גוגל״</string>
 
-    <string name="gtasks_import_add_task_ok">Add task</string>
+    <string name="gtasks_import_add_task_ok">הוסף משימה</string>
 
-    <string name="gtasks_import_add_task_cancel">Don\'t add task</string>
+    <string name="gtasks_import_add_task_cancel">אל תוסיף משימה</string>
         
 
 
@@ -1928,7 +1928,7 @@
     <string name="opencrx_FEx_dashboard">משטחי עבודה</string>
     
     <!-- filter category for OpenCRX responsible person -->
-    <string name="opencrx_FEx_responsible">ה</string>
+    <string name="opencrx_FEx_responsible">הוטל על</string>
     
     <!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
     <string name="opencrx_FEx_responsible_title">הוטל על \'%s\'</string>
@@ -2161,15 +2161,15 @@
     
     <string name="subscriptions_learn_more">מידע נוסף</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
-    <string name="kii_premium_abort">Special offer aborted</string>
-    <string name="kii_premium_declined">Special offer declined</string>
-    <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
+    <string name="kii_premium_success">תודה על שנענית להצעה המיוחדת שלנו. מיד אפתח לחודש את הנעילה של אסריד פרימיום.</string>
+    <string name="kii_premium_abort">ההצעה המיוחדת בוטלה</string>
+    <string name="kii_premium_declined">סירבת להצעה המיוחדת</string>
+    <string name="kii_premium_error">הטיפול בעיבוד הצעה המיוחדת לא הצליח. אנא נסה שוב מאוחר יותר.</string>
     
-    <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-    <string name="premium_offers_start">Get it free!</string>
+    <string name="premium_offers_title">הצעה מיוחדת</string>
+    <string name="premium_offers_subtitle">רוצה חודש של אסטריד פרימיום חינם?</string>
+    <string name="premium_offers_detail">כדי לקבל חודש חינם של אסטריד פרימיום, יהיה עליך לצפות בסירטון חסות קצר. (הם יבקשו את כתובת הדוא"ל שלך</string>
+    <string name="premium_offers_start">קבל חינם!</string>
     
     <string name="premium_billing_title">אסטריד פרימיום</string>
     <string name="premium_buy_month">חודש</string>
@@ -2224,13 +2224,13 @@
   <string name="TEA_reminder_alarm_label">סוג צלצול/רטט:</string>
 
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Once</string>
+  <string name="TEA_reminder_mode_once">פעם אחת</string>
 
   <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Five times</string>
+  <string name="TEA_reminder_mode_five">חמש פעמים</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  <string name="TEA_reminder_mode_nonstop">עד אשר אבטל את התזכורות</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2342,11 +2342,11 @@
   <string name="rmd_EPr_persistent_desc_false">כפתור «הָסִירִי הכל» יסיר את כל ההתראות</string>
 
   <!-- Reminder Preference: Social Reminders Title -->
-  <string name="rmd_EPr_social_title">Social encouragement</string>
+  <string name="rmd_EPr_social_title">עידוד חברתי</string>
   <!-- Reminder Preference: Social Reminders Summary (enabled) -->
-  <string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
+  <string name="rmd_EPr_social_summary_enabled">התזכורות תראינה מי סומך עליך לביצוע משימות משותפות.</string>
   <!-- Reminder Preference: Social Reminders Summary (disabled) -->
-  <string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
+  <string name="rmd_EPr_social_summary_disabled">התזכורות לא תראינה מי סומך עליך לביצוע משימות משותפות.</string>
   
   
   
@@ -2610,7 +2610,7 @@
   <string name="repeat_interval_prompt">אינטרוול חזרות</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Repeating?</string>
+  <string name="repeat_never">חוזרת?</string>
   <!-- slide 20f-->
   <string name="repeat_dont">ללא חזרות</string>
       
@@ -2636,11 +2636,11 @@
   </string-array>
   
   <string name="repeat_days">ימים</string>
-  <string name="repeat_weekdays">weekdays</string>
-  <string name="repeat_weeks">weeks</string>
-  <string name="repeat_months">months</string>
-  <string name="repeat_years">years</string>
-  <string name="repeat_hours">hours</string>
+  <string name="repeat_weekdays">ימי עבודה</string>
+  <string name="repeat_weeks">שבועות</string>
+  <string name="repeat_months">חודשים</string>
+  <string name="repeat_years">שנים</string>
+  <string name="repeat_hours">שעות</string>
   <string name="repeat_minutes">דקות</string>
   
   <string-array name="repeat_until_shortcuts">
@@ -2745,7 +2745,7 @@
   <string name="TEA_tags_label">רשימות</string>
   
   <!-- Tags label long version -->
-  <string name="TEA_tags_label_long">Add to lists</string>
+  <string name="TEA_tags_label_long">הוסף לרשימות</string>
   
   <!-- slide 16h: Tags none -->
   <string name="TEA_tags_none">אין</string>
@@ -2862,7 +2862,7 @@
     <string name="TFE_workingOn">משימות עם הערכת זמן</string>
     
     <!-- Title for TEA -->
-    <string name="TEA_timer_controls">Timer</string>
+    <string name="TEA_timer_controls">טיימר</string>
     
     
     <!-- Edit Notes: create comment for when timer is started -->
@@ -2890,66 +2890,66 @@
     
     <!-- These are still in use -->
     <string name="update_string_default_comment">%1$s הוסיף: %3$s</string>
-    <string name="update_string_task_comment">%1$s on $link_task: %3$s</string>
-    <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
+    <string name="update_string_task_comment">%1$s על $link_task: %3$s</string>
+    <string name="update_string_tag_comment">%1$s על %2$s: %3$s</string>
     <string name="update_string_user_self">את/אתה</string>
     
-    <string name="history_yourself">yourself</string>
+    <string name="history_yourself">אתה</string>
     <string name="history_you">אתה</string>
-    <string name="history_a_deleted_user">(a deleted user)</string>
+    <string name="history_a_deleted_user">(משתמש שנמחק)</string>
     
     <string name="history_this_list">רשימה זו</string>
     <string name="history_this_task">משימה זו</string>
-    <string name="history_tag_added">added %1$s to %2$s</string>
-    <string name="history_tag_removed">removed %1$s from %2$s</string>
-    <string name="history_attach_added">attached %1$s to %2$s</string>
-    <string name="history_attach_removed">removed %1$s from %2$s</string>
-    <string name="history_left_list">left %s</string>
-    <string name="history_deleted">deleted %s</string>
-    <string name="history_undeleted">undeleted %s</string>
-    <string name="history_completed">completed %s</string>
-    <string name="history_uncompleted">uncompleted %s</string>
-    <string name="history_importance_changed">changed %1$s priority from %2$s to %3$s</string>
-    <string name="history_title_changed">changed %1$s title from %2$s to %3$s</string>
-    <string name="history_title_set">set %1$s title to %2$s</string>
-    <string name="history_name_changed">changed name from %1$s to %2$s</string>
-    <string name="history_name_set">set name to %2$s</string>
-    <string name="history_description_changed">changed description from %1$s to %2$s</string>
-    <string name="history_description_set">set description to %2$s</string>
-    <string name="history_made_public">made %s public</string>
-    <string name="history_made_private">made %s private</string>
-    <string name="history_silenced">silenced %s</string>
-    <string name="history_unsilenced">unsilenced %s</string>
-    <string name="history_favorited">favorited %s</string>
-    <string name="history_unfavorited">unfavorited %s</string>
-    <string name="history_changed_list_picture">change this list\'s picture</string>
-    <string name="history_added_description_characters">added %1$d characters to %2$s description</string>
-    <string name="history_removed_description">removed %s description</string>
-    <string name="history_removed_description_characters">removed %1$d characters from %2$s description</string>
-    <string name="history_updated_description">updated %s description</string>
-    <string name="history_changed_list_owner">changed list owner to %s</string>
-    <string name="history_created_this_list">created this list</string>
-    <string name="history_unassigned">unassigned %s</string>
-    <string name="history_claimed">claimed %s</string>
-    <string name="history_assigned_to">assigned %1$s to %2$s</string>
-    <string name="history_created_for">created %1$s for %2$s</string>
-    <string name="history_created">created %s</string>
-    <string name="history_changed_due_date">changed %1$s due date from %2$s to %3$s</string>
-    <string name="history_set_due_date">set %1$s due date to %2$s</string>
-    <string name="history_removed_due_date">removed %s due date</string>
-    <string name="history_completed_repeating_task">completed %1$s (now due on %2$s)</string>
-    <string name="history_added_user">added %1$s to %2$s</string>
-    <string name="history_removed_user">removed %1$s from %2$s</string>
-    <string name="history_changed_repeat">changed %1$s repeat to %2$s</string>
-    <string name="history_removed_repeat">removed %s repeat</string>
-    <string name="history_shared_with">shared %1$s with %2$s</string>
-    <string name="history_unshared_with">unshared %1$s with %2$s</string>
-    <string name="history_repeat_every">every %s</string>
-    <string name="history_repeat_on">on %s</string>
-    <string name="history_repeat_from_completion">after completion</string>
-    <string name="history_acknowledged">viewed %s</string>
+    <string name="history_tag_added">הוסיף את  %1$s ל%2$s</string>
+    <string name="history_tag_removed">הסיר את %1$s מ%2$s</string>
+    <string name="history_attach_added">צירף את %1$s ל %2$s</string>
+    <string name="history_attach_removed">הסיר את %1$s מ %2$s</string>
+    <string name="history_left_list">%s: נותרה</string>
+    <string name="history_deleted">%s: נמחקה</string>
+    <string name="history_undeleted">%s: מחיקה בוטלה</string>
+    <string name="history_completed">%s: בוצעה</string>
+    <string name="history_uncompleted">%s: לא בוצעה</string>
+    <string name="history_importance_changed">שינה את העדיפות של %1$s מ %2$s   ל %3$s</string>
+    <string name="history_title_changed">שינה את הכותרת של  %1$s מ   %2$s ל %3$s </string>
+    <string name="history_title_set">קבע את הכותרת של  %1$s ל %2$s</string>
+    <string name="history_name_changed">שינה את השם מ  %1$s  ל  %2$s</string>
+    <string name="history_name_set">קבע את השם ל %2$s</string>
+    <string name="history_description_changed">שינה את התיאור מ %1$s ל %2$s</string>
+    <string name="history_description_set">קבע את התיאור ל %2$s</string>
+    <string name="history_made_public">הפך את %s לציבורית</string>
+    <string name="history_made_private">הפך את %s לפרטית</string>
+    <string name="history_silenced">החריש את %s</string>
+    <string name="history_unsilenced">ביטל את ההחרשה של %s</string>
+    <string name="history_favorited">הפך את  %s למועדפת</string>
+    <string name="history_unfavorited">ביטל את ההעדפה של %s</string>
+    <string name="history_changed_list_picture">שינה את התמונה של רשימה זו</string>
+    <string name="history_added_description_characters">הוסיף %1$d תווים לתיאור של  %2$s </string>
+    <string name="history_removed_description">הסיר את התיאור של %s</string>
+    <string name="history_removed_description_characters">הסיר %1$d תווים מהתיאור של %2$s</string>
+    <string name="history_updated_description">עדכן את התיאור של %s</string>
+    <string name="history_changed_list_owner">שינה את הבעלים של הרשימה ל %s</string>
+    <string name="history_created_this_list">יצר רשימה זו</string>
+    <string name="history_unassigned">ביטל את ההטלה של %s</string>
+    <string name="history_claimed">%s תפס בעלות</string>
+    <string name="history_assigned_to">הטיל את %1$s על %2$s</string>
+    <string name="history_created_for">יצר את %1$s בעבור %2$s</string>
+    <string name="history_created">יצר את %s</string>
+    <string name="history_changed_due_date">שינה את תאריך היעד של  %1$s מ- %2$s ל %3$s</string>
+    <string name="history_set_due_date">קבע %1$s תאריך היעד ל %2$s</string>
+    <string name="history_removed_due_date">הסיר את תאריך היעד של %s</string>
+    <string name="history_completed_repeating_task">ביצע את %1$s (מועד יעד כעת: %2$s)</string>
+    <string name="history_added_user">הוסיף את %1$s ל %2$s</string>
+    <string name="history_removed_user">הסיר את %1$s מ %2$s</string>
+    <string name="history_changed_repeat">שינה את החזרות של %1$s ל %2$s</string>
+    <string name="history_removed_repeat">%s: הוסרו חזרות</string>
+    <string name="history_shared_with">שיתף את %1$s עם %2$s</string>
+    <string name="history_unshared_with">ביטל את השיתוף של %1$s עם %2$s</string>
+    <string name="history_repeat_every">כל %s</string>
+    <string name="history_repeat_on">על %s</string>
+    <string name="history_repeat_from_completion">אחרי ביצוע</string>
+    <string name="history_acknowledged">הציג את %s</string>
     
-    <string name="history_default">changed %1$s to %2$s</string>
+    <string name="history_default">שינה את %1$s ל %2$s</string>
 
 
 <!-- 
@@ -3109,7 +3109,7 @@
     	<item>תוצאה בחיים: %d משימות בוצעו</item>
     	<item>חַיֵּךְ! גמרת כבר %d משימות!</item>
     </string-array>
-  	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
+  	<string name="PPW_encouragements_none_completed">לא סיימת יותר מדי משימות עדיין! שנתחיל?</string>
         
     <string-array name="PPW_colors">
         <item>שחור</item>

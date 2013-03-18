@@ -152,10 +152,10 @@
   <string name="SyP_label">סינכרון וגיבוי</string>  
 
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
+  <string name="Sync_now_label">סנכרני כעת</string>  
 
   <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Google Tasks, מידע שמור, גיבוי מקומי</string>  
+  <string name="SyP_summary">אתר אסטריד, ״משימות גוגל״, מידע שמור, גיבוי מקומי</string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">שגיאה בחיבור! בדוק את חיבור הַמִּרְשֶׁתֶת שלך</string>
