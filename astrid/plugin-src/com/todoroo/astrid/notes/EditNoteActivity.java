@@ -416,6 +416,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                task = PluginServices.getTaskService().fetchById(task.getId(), Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+                                if (task == null)
+                                    return;
                                 setUpListAdapter();
                                 loadingText.setText(R.string.ENA_no_comments);
                                 loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
