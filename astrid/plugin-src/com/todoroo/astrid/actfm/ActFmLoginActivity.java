@@ -792,11 +792,24 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             userActivityDao.update(UserActivity.UUID.eq(oldUuid), ua);
         }
 
-        TodorooCursor<TaskListMetadata> tlmCursor = taskListMetadataDao.query(Query.select(TaskListMetadata.ID, TaskListMetadata.UUID, TaskListMetadata.TASK_IDS, TaskListMetadata.CHILD_TAG_IDS));
+        TodorooCursor<TaskListMetadata> tlmCursor = taskListMetadataDao.query(Query.select(TaskListMetadata.ID, TaskListMetadata.UUID, TaskListMetadata.FILTER, TaskListMetadata.TAG_UUID,
+                TaskListMetadata.TASK_IDS, TaskListMetadata.CHILD_TAG_IDS));
         try {
             for (tlmCursor.moveToFirst(); !tlmCursor.isAfterLast(); tlmCursor.moveToNext()) {
                 tlm.clear();
                 tlm.readFromCursor(tlmCursor);
+                String filterId = tlm.getValue(TaskListMetadata.FILTER);
+                String tagUuid = tlm.getValue(TaskListMetadata.TAG_UUID);
+
+                // Hack to make sure outstanding entry gets created for filter or uuid
+                if (!TextUtils.isEmpty(filterId)) {
+                    tlm.setValue(TaskListMetadata.FILTER, ""); //$NON-NLS-1$
+                    tlm.setValue(TaskListMetadata.FILTER, filterId);
+                } else if (!RemoteModel.isUuidEmpty(tagUuid)) {
+                    tlm.setValue(TaskListMetadata.TAG_UUID, ""); //$NON-NLS-1$
+                    tlm.setValue(TaskListMetadata.TAG_UUID, tagUuid);
+                }
+
                 tlm.setValue(TaskListMetadata.UUID, uuidTaskListMetadataMap.get(tlm.getUuid()));
                 tlm.setValue(TaskListMetadata.PUSHED_AT, 0L);
                 String taskIds = tlm.getValue(TaskListMetadata.TASK_IDS);
