@@ -376,5 +376,9 @@
   
   <string name="actfm_sync_ongoing">Sync ongoing...</string>
   
+  <string name="EPr_reset_sync_state">Reset sync</string>
+  <string name="EPr_reset_sync_state_summary">Refreshes sync token and resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
+  
 </resources>
 

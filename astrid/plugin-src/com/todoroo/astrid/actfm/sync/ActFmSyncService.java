@@ -144,6 +144,21 @@ public final class ActFmSyncService {
         }
     }
 
+    public String refreshToken() {
+        try {
+            JSONObject result = invoke("refresh_token");
+            String newToken = result.optString("token");
+            if (!TextUtils.isEmpty(newToken)) {
+                actFmPreferenceService.setToken(newToken);
+                checkForToken();
+            }
+            return newToken;
+        } catch (IOException e) {
+            //
+        }
+        return null;
+    }
+
     // --- generic invokation
 
     /** invoke authenticated method against the server */

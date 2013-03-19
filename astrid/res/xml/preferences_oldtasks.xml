@@ -9,6 +9,11 @@
     android:title="@string/EPr_manage_header">
     
     <com.todoroo.astrid.ui.MultilinePreference
+        android:title="@string/EPr_reset_sync_state"
+        android:key="@string/EPr_reset_sync_state"
+        android:summary="@string/EPr_reset_sync_state_summary" />
+    
+    <com.todoroo.astrid.ui.MultilinePreference
         android:title="@string/EPr_manage_delete_completed"
         android:key="@string/EPr_manage_delete_completed" 
         android:summary="@string/EPr_manage_delete_completed_summary"/>
