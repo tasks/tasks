@@ -16,11 +16,13 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.billing.BillingActivity;
@@ -133,8 +135,16 @@ public class ActFmPreferences extends SyncProviderPreferences {
         boolean loggedIn = getUtilities().isLoggedIn();
         PreferenceCategory status = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_group_status));
 
-        if (loggedIn)
-            status.setTitle(getString(R.string.actfm_status_title_logged_in, actFmPreferenceService.getLoggedInUserName()));
+        if (loggedIn) {
+            String title = actFmPreferenceService.getLoggedInUserName();
+            String email = Preferences.getStringValue(ActFmPreferenceService.PREF_EMAIL);
+            if (!TextUtils.isEmpty(email)) {
+                if (!TextUtils.isEmpty(title))
+                    title += "\n"; //$NON-NLS-1$
+                title += email;
+            }
+            status.setTitle(getString(R.string.actfm_status_title_logged_in, title));
+        }
         else
             status.setTitle(R.string.sync_SPr_group_status);
 

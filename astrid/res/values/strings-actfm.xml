@@ -303,7 +303,7 @@
   <!-- ================================================ Synchronization == -->
       
   <!-- Indicates the logged in user name. %s -> user's name -->
-  <string name="actfm_status_title_logged_in">Status - Logged in as %s</string>    
+  <string name="actfm_status_title_logged_in">Logged in as %s</string>    
       
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com</string>
