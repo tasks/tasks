@@ -19,6 +19,8 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     private final AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
+    private int lastVisibleIndex = -1;
+
     public SubtasksTagListFragment() {
         super();
         helper = new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksTagUpdater(isBeingFiltered));
@@ -56,6 +58,20 @@ public class SubtasksTagListFragment extends TagViewFragment {
         setUpMembersGallery();
 
         unregisterForContextMenu(getListView());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        lastVisibleIndex = getListView().getFirstVisiblePosition();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (lastVisibleIndex >=0) {
+            getListView().setSelection(lastVisibleIndex);
+        }
     }
 
     @Override

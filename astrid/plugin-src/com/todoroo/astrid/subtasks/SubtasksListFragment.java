@@ -26,6 +26,8 @@ public class SubtasksListFragment extends TaskListFragment {
 
     protected OrderedListFragmentHelperInterface<?> helper;
 
+    private int lastVisibleIndex = -1;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         helper = createFragmentHelper();
@@ -60,6 +62,20 @@ public class SubtasksListFragment extends TaskListFragment {
         super.setUpTaskList();
 
         unregisterForContextMenu(getListView());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        lastVisibleIndex = getListView().getFirstVisiblePosition();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (lastVisibleIndex >=0) {
+            getListView().setSelection(lastVisibleIndex);
+        }
     }
 
     @Override
