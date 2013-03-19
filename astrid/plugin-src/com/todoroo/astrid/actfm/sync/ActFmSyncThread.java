@@ -296,6 +296,7 @@ public class ActFmSyncThread {
                     }
                 }
 
+                boolean recordSyncSuccess = true;
                 if (timeForBackgroundSync()) {
                     repopulateQueueFromOutstandingTables();
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), DEFAULT_REFRESH_RUNNABLE);
@@ -358,6 +359,9 @@ public class ActFmSyncThread {
                         }
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
+
+                        if (recordSyncSuccess)
+                            actFmPreferenceService.recordSuccessfulSync();
                     } catch (IOException e) {
                         Log.e(ERROR_TAG, "IOException", e);
                         batchSize = Math.max(batchSize / 2, 1);
