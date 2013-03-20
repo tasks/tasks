@@ -404,6 +404,9 @@ public class TagViewFragment extends TaskListFragment {
                                                     // TODO: Make this better
                                                     tagData.clearValue(TagData.ID);
                                                     tagData.clearValue(TagData.UUID);
+                                                    tagData.clearValue(TagData.USER_ID);
+                                                    tagData.clearValue(TagData.DELETION_DATE);
+                                                    tagData.setValue(TagData.CREATION_DATE, DateUtilities.now());
 
                                                     tagDataDao.createNew(tagData);
                                                     Filter newFilter = TagFilterExposer.filterFromTagData(tla, tagData);
