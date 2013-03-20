@@ -389,7 +389,12 @@ public class ActFmSyncThread {
                         try {
                             SyncMessageCallback r = pendingCallbacks.remove(message);
                             if (r != null && !callbacksExecutedThisLoop.contains(r)) {
-                                r.runOnSuccess();
+                                List<JSONObject> errorList = errorMap.get(i);
+                                if (errorList == null || errorList.isEmpty())
+                                    r.runOnSuccess();
+                                else
+                                    r.runOnErrors(errorList);
+
                                 callbacksExecutedThisLoop.add(r);
                             }
                         } catch (Exception e) {
