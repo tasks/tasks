@@ -415,7 +415,7 @@ public class TagViewFragment extends TaskListFragment {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     String uuid = tagData.getUuid();
                                                     tagDataDao.delete(tagData.getId());
-                                                    metadataDao.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TagMetadata.TAG_UUID.eq(uuid)));
+                                                    metadataDao.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
                                                     tagMetadataDao.deleteWhere(TagMetadata.TAG_UUID.eq(uuid));
                                                     tla.switchToActiveTasks();
                                                 }
