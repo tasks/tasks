@@ -52,7 +52,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
@@ -282,13 +281,6 @@ public class FilterListFragment extends SherlockListFragment {
     public void onListItemClick(ListView parent, View v, int position, long id) {
         Filter item = adapter.getItem(position);
         mListener.onFilterItemClicked(item);
-    }
-
-    public void switchToActiveTasks() {
-        if (adapter.getCount() > 0)
-            mListener.onFilterItemClicked(adapter.getItem(0));
-        else
-            mListener.onFilterItemClicked(CoreFilterExposer.buildInboxFilter(getResources()));
     }
 
     @Override

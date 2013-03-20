@@ -369,6 +369,10 @@
   <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
   <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
   
+  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view this list (you may have been removed). Would you like to create a new list with the same name?</string>
+  <string name="actfm_tag_not_authorized_new_list">Create new list</string>
+  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
   
 </resources>
 

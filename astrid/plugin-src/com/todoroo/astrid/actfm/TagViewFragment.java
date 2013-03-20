@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -59,6 +61,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
@@ -79,6 +83,7 @@ import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
@@ -117,6 +122,8 @@ public class TagViewFragment extends TaskListFragment {
     @Autowired SyncV2Service syncService;
 
     @Autowired UserDao userDao;
+
+    @Autowired MetadataDao metadataDao;
 
     @Autowired TagMetadataDao tagMetadataDao;
 
@@ -361,7 +368,49 @@ public class TagViewFragment extends TaskListFragment {
                 }
                 @Override
                 public void runOnErrors(List<JSONObject> errors) {
-                    // TODO: Implement this
+                    Activity activity = getActivity();
+                    if (activity != null && activity instanceof TaskListActivity) {
+                        boolean notAuthorized = false;
+                        for (JSONObject error : errors) {
+                            String errorCode = error.optString("code"); //$NON-NLS-1$
+                            if ("not_authorized".equals(errorCode)) { //$NON-NLS-1$
+                                notAuthorized = true;
+                                break;
+                            }
+                        }
+
+                        final String tagName = tagData.getValue(TagData.NAME);
+                        if (notAuthorized) {
+                            final TaskListActivity tla = (TaskListActivity) activity;
+                            tla.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DialogUtilities.okCancelCustomDialog(tla,
+                                            tla.getString(R.string.actfm_tag_not_authorized_title),
+                                            tla.getString(R.string.actfm_tag_not_authorized_body),
+                                            R.string.actfm_tag_not_authorized_new_list,
+                                            R.string.actfm_tag_not_authorized_leave_list,
+                                            android.R.drawable.ic_dialog_alert,
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    // TODO: Implement
+                                                }
+                                            },
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    String uuid = tagData.getUuid();
+                                                    tagDataDao.delete(tagData.getId());
+                                                    metadataDao.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TagMetadata.TAG_UUID.eq(uuid)));
+                                                    tagMetadataDao.deleteWhere(TagMetadata.TAG_UUID.eq(uuid));
+                                                    tla.switchToActiveTasks();
+                                                }
+                                            });
+                                }
+                            });
+                        }
+
+                    }
                 }
             };
 
@@ -638,10 +687,11 @@ public class TagViewFragment extends TaskListFragment {
             parentOnResume();
             // tag was deleted locally in settings
             // go back to active tasks
-            FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
+            AstridActivity activity = ((AstridActivity) getActivity());
+            FilterListFragment fl = activity.getFilterListFragment();
             if (fl != null) {
                 fl.clear(); // Should auto refresh
-                fl.switchToActiveTasks();
+                activity.switchToActiveTasks();
             }
             return;
         }

@@ -36,6 +36,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -401,6 +402,10 @@ public class AstridActivity extends SherlockFragmentActivity
 
         if (errorStr > 0)
             DialogUtilities.okDialog(this, getString(errorStr), null);
+    }
+
+    public void switchToActiveTasks() {
+        onFilterItemClicked(CoreFilterExposer.buildInboxFilter(getResources()));
     }
 
     @Override

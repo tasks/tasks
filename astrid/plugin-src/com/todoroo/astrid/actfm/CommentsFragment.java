@@ -287,9 +287,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 }
 
                 @Override
-                public void runOnErrors(List<JSONObject> errors) {
-                    // TODO: Implement this
-                }
+                public void runOnErrors(List<JSONObject> errors) {/**/}
             };
             if (hasModel()) {
                 performFetch(manual, doneRunnable);

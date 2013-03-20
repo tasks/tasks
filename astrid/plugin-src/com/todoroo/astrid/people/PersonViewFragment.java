@@ -222,9 +222,7 @@ public class PersonViewFragment extends TaskListFragment {
                     }
                 }
                 @Override
-                public void runOnErrors(List<JSONObject> errors) {
-                    // TODO: Implement this
-                }
+                public void runOnErrors(List<JSONObject> errors) {/**/}
             };
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
         }
