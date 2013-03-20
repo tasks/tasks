@@ -5,15 +5,13 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
@@ -25,7 +23,6 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -35,6 +32,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -44,13 +42,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.facebook.android.AsyncFacebookRunner;
-import com.facebook.android.AsyncFacebookRunner.RequestListener;
-import com.facebook.android.AuthListener;
-import com.facebook.android.Facebook;
-import com.facebook.android.FacebookError;
-import com.facebook.android.LoginButton;
-import com.facebook.android.Util;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.facebook.Request;
+import com.facebook.Request.GraphUserCallback;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
 import com.google.android.googlelogin.GoogleLoginServiceHelper;
 import com.timsu.astrid.GCMIntentService;
@@ -120,9 +120,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
  * @author Tim Su <tim@astrid.com>
  *
  */
-public class ActFmLoginActivity extends FragmentActivity implements AuthListener {
-
-    public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
+public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     @Autowired
     protected Database database;
@@ -165,8 +163,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
     private Random rand;
 
-    private Facebook facebook;
-    private AsyncFacebookRunner facebookRunner;
     protected TextView errors;
 
     public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
@@ -207,6 +203,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         rand = new Random(DateUtilities.now());
 
+        uiHelper = new UiLifecycleHelper(this, callback);
+        uiHelper.onCreate(savedInstanceState);
         initializeUI();
 
         getWindow().setFormat(PixelFormat.RGBA_8888);
@@ -230,13 +228,21 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     @Override
     protected void onResume() {
         super.onResume();
+        uiHelper.onResume();
         StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        uiHelper.onPause();
         StatisticsService.sessionPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
     }
 
     @Override
@@ -288,21 +294,21 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     @SuppressWarnings("nls")
     protected void initializeUI() {
-        facebook = new Facebook(APP_ID);
-        facebookRunner = new AsyncFacebookRunner(facebook);
-
         errors = (TextView) findViewById(R.id.error);
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
         if(loginButton == null)
             return;
 
-        loginButton.init(this, facebook, this, new String[] { "email",
-                "offline_access", "publish_stream" });
+        loginButton.setReadPermissions(Arrays.asList("email", "offline_access"));
 
         View googleLogin = findViewById(R.id.gg_login);
         if(AmazonMarketStrategy.isKindleFire())
             googleLogin.setVisibility(View.GONE);
         googleLogin.setOnClickListener(googleListener);
+
+        View fbLogin = findViewById(R.id.fb_login_dummy);
+        fbLogin.setOnClickListener(facebookListener);
+
         TextView signUp = (TextView) findViewById(R.id.pw_signup);
         signUp.setOnClickListener(signUpListener);
 
@@ -321,6 +327,19 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     ActFmGoogleAuthActivity.class);
             startActivityForResult(intent, REQUEST_CODE_GOOGLE);
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
+        }
+    };
+
+    protected final OnClickListener facebookListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Session session = Session.getActiveSession();
+            if (session != null && session.isOpened()) {
+                facebookSuccess(session);
+            } else {
+                View fbLogin = findViewById(R.id.fb_login);
+                fbLogin.performClick();
+            }
         }
     };
 
@@ -508,75 +527,109 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     // --- facebook handler
 
-    public void onFBAuthSucceed() {
-        createUserAccountFB();
+    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+        if (state.isOpened()) {
+            facebookSuccess(session);
+        } else if (state.isClosed()) {
+            Log.e("fb-login", "State closed");
+        }
     }
 
-    public void onFBAuthFail(String error) {
-        DialogUtilities.okDialog(this, getString(R.string.actfm_ALA_title),
-                android.R.drawable.ic_dialog_alert, error, null);
-    }
-
-    @Override
-    public void onFBAuthCancel() {
-        // do nothing
-    }
-
-    private ProgressDialog progressDialog;
-
-    /**
-     * Create user account via FB
-     */
-    public void createUserAccountFB() {
+    private void facebookSuccess(Session session) {
         progressDialog = DialogUtilities.progressDialog(this,
                 getString(R.string.DLG_please_wait));
-        facebookRunner.request("me", new SLARequestListener()); //$NON-NLS-1$
+          Request request = Request.newMeRequest(session, new GraphUserCallback() {
+              @Override
+              public void onCompleted(GraphUser user, Response response) {
+                  try {
+                      String email = user.getInnerJSONObject().optString("email"); //$NON-NLS-1$
+                      authenticate(email, user.getFirstName(), user.getLastName(), ActFmInvoker.PROVIDER_FACEBOOK, Session.getActiveSession().getAccessToken());
+                  } catch (Exception e) {
+                      handleError(e);
+                  }
+              }
+          });
+          request.executeAsync();
     }
 
-    private class SLARequestListener implements RequestListener {
+    private UiLifecycleHelper uiHelper;
 
+    private final Session.StatusCallback callback = new Session.StatusCallback() {
         @Override
-        public void onComplete(String response, Object state) {
-            JSONObject json;
-            try {
-                json = Util.parseJson(response);
-                String firstName = json.getString("first_name"); //$NON-NLS-1$
-                String lastName = json.getString("last_name"); //$NON-NLS-1$
-                String email = json.getString("email"); //$NON-NLS-1$
-
-                authenticate(email, firstName, lastName, ActFmInvoker.PROVIDER_FACEBOOK,
-                        facebook.getAccessToken());
-                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_FB);
-            } catch (FacebookError e) {
-                handleError(e);
-            } catch (JSONException e) {
-                handleError(e);
-            }
+        public void call(Session session, SessionState state, Exception exception) {
+            onSessionStateChange(session, state, exception);
         }
+    };
 
-        @Override
-        public void onFacebookError(FacebookError e, Object state) {
-            handleError(e);
-        }
-
-        @Override
-        public void onFileNotFoundException(FileNotFoundException e,
-                Object state) {
-            handleError(e);
-        }
-
-        @Override
-        public void onIOException(IOException e, Object state) {
-            handleError(e);
-        }
-
-        @Override
-        public void onMalformedURLException(MalformedURLException e,
-                Object state) {
-            handleError(e);
-        }
-
-    }
+//    public void onFBAuthSucceed() {
+//        createUserAccountFB();
+//    }
+//
+//    public void onFBAuthFail(String error) {
+//        DialogUtilities.okDialog(this, getString(R.string.actfm_ALA_title),
+//                android.R.drawable.ic_dialog_alert, error, null);
+//    }
+//
+//    @Override
+//    public void onFBAuthCancel() {
+//        // do nothing
+//    }
+//
+    private ProgressDialog progressDialog;
+//
+//    /**
+//     * Create user account via FB
+//     */
+//    public void createUserAccountFB() {
+//        progressDialog = DialogUtilities.progressDialog(this,
+//                getString(R.string.DLG_please_wait));
+//        facebookRunner.request("me", new SLARequestListener()); //$NON-NLS-1$
+//    }
+//
+//    private class SLARequestListener implements RequestListener {
+//
+//        @Override
+//        public void onComplete(String response, Object state) {
+//            JSONObject json;
+//            try {
+//                json = Util.parseJson(response);
+//                String firstName = json.getString("first_name"); //$NON-NLS-1$
+//                String lastName = json.getString("last_name"); //$NON-NLS-1$
+//                String email = json.getString("email"); //$NON-NLS-1$
+//
+//                authenticate(email, firstName, lastName, ActFmInvoker.PROVIDER_FACEBOOK,
+//                        facebook.getAccessToken());
+//                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_FB);
+//            } catch (FacebookError e) {
+//                handleError(e);
+//            } catch (JSONException e) {
+//                handleError(e);
+//            }
+//        }
+//
+//        @Override
+//        public void onFacebookError(FacebookError e, Object state) {
+//            handleError(e);
+//        }
+//
+//        @Override
+//        public void onFileNotFoundException(FileNotFoundException e,
+//                Object state) {
+//            handleError(e);
+//        }
+//
+//        @Override
+//        public void onIOException(IOException e, Object state) {
+//            handleError(e);
+//        }
+//
+//        @Override
+//        public void onMalformedURLException(MalformedURLException e,
+//                Object state) {
+//            handleError(e);
+//        }
+//
+//    }
 
     // --- utilities
 
@@ -913,6 +966,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     @SuppressWarnings("nls")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_CANCELED)
             return;
@@ -921,25 +976,27 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             String accounts[] = data.getStringArrayExtra(
                     GoogleLoginServiceConstants.ACCOUNTS_KEY);
             credentialsListener.getCredentials(accounts);
-        } else if (requestCode == LoginButton.REQUEST_CODE_FACEBOOK) {
-            if (data == null)
-                return;
-
-            String error = data.getStringExtra("error");
-            if (error == null) {
-                error = data.getStringExtra("error_type");
-            }
-            String token = data.getStringExtra("access_token");
-            if (error != null) {
-                onFBAuthFail(error);
-            } else if (token == null) {
-                onFBAuthFail("Something went wrong! Please try again.");
-            } else {
-                facebook.setAccessToken(token);
-                onFBAuthSucceed();
-            }
-            errors.setVisibility(View.GONE);
-        } else if (requestCode == REQUEST_CODE_GOOGLE) {
+        }
+//        else if (requestCode == LoginButton.REQUEST_CODE_FACEBOOK) {
+//            if (data == null)
+//                return;
+//
+//            String error = data.getStringExtra("error");
+//            if (error == null) {
+//                error = data.getStringExtra("error_type");
+//            }
+//            String token = data.getStringExtra("access_token");
+//            if (error != null) {
+//                onFBAuthFail(error);
+//            } else if (token == null) {
+//                onFBAuthFail("Something went wrong! Please try again.");
+//            } else {
+//                facebook.setAccessToken(token);
+//                onFBAuthSucceed();
+//            }
+//            errors.setVisibility(View.GONE);
+//        }
+        else if (requestCode == REQUEST_CODE_GOOGLE) {
             if (data == null)
                 return;
             String email = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_EMAIL);

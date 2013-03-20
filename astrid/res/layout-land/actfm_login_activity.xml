@@ -36,7 +36,7 @@
             android:gravity="center_vertical"
             android:paddingTop="5dip" >
 
-            <com.facebook.android.LoginButton
+            <com.facebook.widget.LoginButton
 	          android:id="@+id/fb_login"
 	          android:layout_width="fill_parent"
 	          android:layout_height="45dip"
@@ -48,6 +48,22 @@
 	          android:textSize="14sp"
 	          android:gravity="left|center_vertical"
 	          android:background="@drawable/fb_login_background"
+	          android:textColor="@android:color/white"
+	          android:text="@string/actfm_ALA_fb_login" 
+	          android:visibility="gone"/>
+            
+            <Button
+	          android:id="@+id/fb_login_dummy"
+	          android:layout_width="fill_parent"
+	          android:layout_height="45dip"
+	          android:layout_marginLeft="15dip"
+              android:layout_marginRight="15dip"
+              android:layout_marginBottom="15dip"
+              android:layout_marginTop="15dip"
+	          android:paddingLeft="70dip"
+	          android:textSize="14sp"
+	          android:gravity="left|center_vertical"
+	          android:background="@drawable/google_login_background"
 	          android:textColor="@android:color/white"
 	          android:text="@string/actfm_ALA_fb_login" />
             

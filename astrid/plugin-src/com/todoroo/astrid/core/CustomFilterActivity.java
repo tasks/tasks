@@ -22,20 +22,20 @@ import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
@@ -66,7 +66,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends FragmentActivity {
+public class CustomFilterActivity extends SherlockFragmentActivity {
 
     private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
     private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
@@ -519,7 +519,7 @@ public class CustomFilterActivity extends FragmentActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(android.support.v4.view.MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -528,7 +528,7 @@ public class CustomFilterActivity extends FragmentActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(android.view.MenuItem item) {
         if(item.getGroupId() == MENU_GROUP_FILTER) {
             // give an initial value for the row before adding it
             CustomFilterCriterion criterion = getNth(item.getItemId(), criteria);

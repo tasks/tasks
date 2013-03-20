@@ -12,15 +12,15 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.ActionBar.Tab;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -37,7 +37,7 @@ import com.todoroo.astrid.utility.Constants;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class AddOnActivity extends FragmentActivity {
+public class AddOnActivity extends SherlockFragmentActivity {
 
     /** boolean: whether to start on available page */
     public static final String TOKEN_START_WITH_AVAILABLE = "av"; //$NON-NLS-1$

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -20,6 +19,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
@@ -60,7 +60,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
  * @author Arne
  *
  */
-public class AstridActivity extends FragmentActivity
+public class AstridActivity extends SherlockFragmentActivity
     implements FilterListFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
     RecognizerApiListener {

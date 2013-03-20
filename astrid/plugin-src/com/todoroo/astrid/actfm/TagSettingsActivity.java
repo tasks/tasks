@@ -16,10 +16,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +27,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -70,7 +70,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TagSettingsActivity extends FragmentActivity {
+public class TagSettingsActivity extends SherlockFragmentActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
@@ -165,10 +165,11 @@ public class TagSettingsActivity extends FragmentActivity {
             setTheme(ThemeService.getDialogTheme());
         else {
             ThemeService.applyTheme(this);
+            ActionBar actionBar = getSupportActionBar();
             if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
-                getTheme().applyStyle(R.style.SaveAsBackWhite, true);
+                actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
             else
-                getTheme().applyStyle(R.style.SaveAsBack, true);
+                actionBar.setLogo(R.drawable.ic_menu_save);
         }
     }
 

@@ -73,7 +73,7 @@ public class SubtitleItem extends TextItem {
         super.inflate(r, parser, attrs);
 
         TypedArray a = r.obtainAttributes(attrs, R.styleable.SubtitleItem);
-        subtitle = a.getString(R.styleable.SubtitleItem_subtitle);
+        subtitle = a.getString(R.styleable.SubtitleItem_gdsubtitle);
         a.recycle();
     }
 }
