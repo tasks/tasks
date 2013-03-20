@@ -67,8 +67,10 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.dao.TagMetadataDao.TagMetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
@@ -126,6 +128,8 @@ public class TagViewFragment extends TaskListFragment {
     @Autowired MetadataDao metadataDao;
 
     @Autowired TagMetadataDao tagMetadataDao;
+
+    @Autowired TaskListMetadataDao taskListMetadataDao;
 
     protected View taskListView;
 
@@ -393,7 +397,17 @@ public class TagViewFragment extends TaskListFragment {
                                             android.R.drawable.ic_dialog_alert,
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    // TODO: Implement
+                                                    tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+                                                    tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                                                    tagDataDao.saveExisting(tagData);
+
+                                                    // TODO: Make this better
+                                                    tagData.clearValue(TagData.ID);
+                                                    tagData.clearValue(TagData.UUID);
+
+                                                    tagDataDao.createNew(tagData);
+                                                    Filter newFilter = TagFilterExposer.filterFromTagData(tla, tagData);
+                                                    tla.onFilterItemClicked(newFilter);
                                                 }
                                             },
                                             new DialogInterface.OnClickListener() {
