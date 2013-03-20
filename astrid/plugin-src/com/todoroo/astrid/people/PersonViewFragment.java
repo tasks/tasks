@@ -5,6 +5,10 @@
  */
 package com.todoroo.astrid.people;
 
+import java.util.List;
+
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -20,6 +24,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.UserDao;
@@ -202,9 +207,9 @@ public class PersonViewFragment extends TaskListFragment {
     private void refreshData() {
         if (user != null) {
             emptyView.setText(R.string.DLG_loading);
-            Runnable callback = new Runnable() {
+            SyncMessageCallback callback = new SyncMessageCallback() {
                 @Override
-                public void run() {
+                public void runOnSuccess() {
                     Activity activity = getActivity();
                     if (activity != null) {
                         activity.runOnUiThread(new Runnable() {
@@ -215,6 +220,10 @@ public class PersonViewFragment extends TaskListFragment {
                             }
                         });
                     }
+                }
+                @Override
+                public void runOnErrors(List<JSONObject> errors) {
+                    // TODO: Implement this
                 }
             };
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);

@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.actfm;
 
+import java.util.List;
+
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -41,6 +43,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
@@ -112,7 +115,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected abstract String commentAddStatistic();
 
-    protected abstract void performFetch(boolean manual, Runnable done);
+    protected abstract void performFetch(boolean manual, SyncMessageCallback done);
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -268,9 +271,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected void refreshActivity(boolean manual) {
         if (actFmPreferenceService.isLoggedIn()) {
-            Runnable doneRunnable = new Runnable() {
+            SyncMessageCallback doneRunnable = new SyncMessageCallback() {
                 @Override
-                public void run() {
+                public void runOnSuccess() {
                     synchronized (this) {
                         Activity activity = getActivity();
                         if (activity != null)
@@ -282,11 +285,16 @@ public abstract class CommentsFragment extends SherlockListFragment {
                             });
                     }
                 }
+
+                @Override
+                public void runOnErrors(List<JSONObject> errors) {
+                    // TODO: Implement this
+                }
             };
             if (hasModel()) {
                 performFetch(manual, doneRunnable);
             } else {
-                doneRunnable.run();
+                doneRunnable.runOnSuccess();
             }
         }
     }

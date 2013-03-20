@@ -129,13 +129,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     /** Handle web task or list changed */
     protected void handleWebUpdate(Intent intent) {
-        Runnable refreshCallback = new Runnable() {
-            @Override
-            public void run() {
-                Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-                ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            }
-        };
         if(intent.hasExtra("tag_id")) {
             String uuid = intent.getStringExtra("tag_id");
             TodorooCursor<TagData> cursor = tagDataService.query(
@@ -152,7 +145,7 @@ public class GCMIntentService extends GCMBaseIntentService {
             } finally {
                 cursor.close();
             }
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), refreshCallback);
+            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);
         } else if(intent.hasExtra("task_id")) {
             String uuid = intent.getStringExtra("task_id");
             TodorooCursor<Task> cursor = taskService.query(
@@ -166,7 +159,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                     task.readFromCursor(cursor);
                     pushedAt = task.getValue(Task.PUSHED_AT);
                 }
-                ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, uuid, pushedAt), refreshCallback);
+                ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, uuid, pushedAt), ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);
             } finally {
                 cursor.close();
             }

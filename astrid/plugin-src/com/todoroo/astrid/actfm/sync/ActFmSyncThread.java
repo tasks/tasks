@@ -1,6 +1,7 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -71,7 +72,7 @@ public class ActFmSyncThread {
     private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
 
     private final List<ClientToServerMessage<?>> pendingMessages;
-    private final Map<ClientToServerMessage<?>, Runnable> pendingCallbacks;
+    private final Map<ClientToServerMessage<?>, SyncMessageCallback> pendingCallbacks;
     private final Object monitor;
     private Thread thread;
 
@@ -116,6 +117,11 @@ public class ActFmSyncThread {
     private Activity activity = null;
 
     private ProgressBar progressBar = null;
+
+    public static interface SyncMessageCallback {
+        public void runOnSuccess();
+        public void runOnErrors(List<JSONObject> errors);
+    }
 
     public static enum ModelType {
         TYPE_TASK,
@@ -165,7 +171,7 @@ public class ActFmSyncThread {
     private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, Object syncMonitor) {
         DependencyInjectionService.getInstance().inject(this);
         this.pendingMessages = messageQueue;
-        this.pendingCallbacks = Collections.synchronizedMap(new HashMap<ClientToServerMessage<?>, Runnable>());
+        this.pendingCallbacks = Collections.synchronizedMap(new HashMap<ClientToServerMessage<?>, SyncMessageCallback>());
         this.monitor = syncMonitor;
         this.syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
     }
@@ -202,7 +208,7 @@ public class ActFmSyncThread {
             Preferences.clear(key);
     }
 
-    public synchronized void enqueueMessage(ClientToServerMessage<?> message, Runnable callback) {
+    public synchronized void enqueueMessage(ClientToServerMessage<?> message, SyncMessageCallback callback) {
         if (!RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES))
             return;
         if (!pendingMessages.contains(message)) {
@@ -268,19 +274,22 @@ public class ActFmSyncThread {
             }
     }
 
-    public static final Runnable DEFAULT_REFRESH_RUNNABLE = new Runnable() {
+    public static final SyncMessageCallback DEFAULT_REFRESH_RUNNABLE = new SyncMessageCallback() {
         @Override
-        public void run() {
+        public void runOnSuccess() {
             Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(refresh);
         }
+
+        @Override
+        public void runOnErrors(List<JSONObject> errors) {/**/}
     };
 
     @SuppressWarnings("nls")
     private void sync() {
         try {
             int batchSize = 4;
-            List<ClientToServerMessage<?>> messageBatch = new LinkedList<ClientToServerMessage<?>>();
+            List<ClientToServerMessage<?>> messageBatch = new ArrayList<ClientToServerMessage<?>>();
             while(true) {
                 synchronized(monitor) {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
@@ -316,14 +325,18 @@ public class ActFmSyncThread {
                 if (!messageBatch.isEmpty() && checkForToken()) {
                     JSONArray payload = new JSONArray();
                     MultipartEntity entity = new MultipartEntity();
-                    for (ClientToServerMessage<?> message : messageBatch) {
+                    for (int i = 0; i < messageBatch.size(); i++) {
+                        ClientToServerMessage<?> message = messageBatch.get(i);
                         JSONObject serialized = message.serializeToJSON(entity);
                         if (serialized != null) {
                             payload.put(serialized);
                             syncLog("Sending: " + serialized);
                         } else {
+                            messageBatch.remove(i);
+                            i--;
                             incrementProgress(); // Don't let failed serialization mess up progress bar
                         }
+
                     }
 
                     if (payload.length() == 0) {
@@ -333,6 +346,7 @@ public class ActFmSyncThread {
 
                     payload.put(getClientVersion());
 
+                    JSONArray errors = null;
                     try {
                         JSONObject response = actFmInvoker.postSync(payload, entity, token);
                         // process responses
@@ -352,7 +366,7 @@ public class ActFmSyncThread {
                                     }
                                 }
                             }
-                            JSONArray errors = response.optJSONArray("errors");
+                            errors = response.optJSONArray("errors");
                             boolean errorsExist = (errors != null && errors.length() > 0);
                             replayOutstandingChanges(errorsExist);
                             setWidgetSuppression(false);
@@ -367,13 +381,15 @@ public class ActFmSyncThread {
                         batchSize = Math.max(batchSize / 2, 1);
                     }
 
-                    Set<Runnable> callbacksExecutedThisLoop = new HashSet<Runnable>();
-                    for (ClientToServerMessage<?> message : messageBatch) {
+                    Set<SyncMessageCallback> callbacksExecutedThisLoop = new HashSet<SyncMessageCallback>();
+                    Map<Integer, List<JSONObject>> errorMap = buildErrorMap(errors);
+                    for (int i = 0; i < messageBatch.size(); i++) {
+                        ClientToServerMessage<?> message = messageBatch.get(i);
                         incrementProgress();
                         try {
-                            Runnable r = pendingCallbacks.remove(message);
+                            SyncMessageCallback r = pendingCallbacks.remove(message);
                             if (r != null && !callbacksExecutedThisLoop.contains(r)) {
-                                r.run();
+                                r.runOnSuccess();
                                 callbacksExecutedThisLoop.add(r);
                             }
                         } catch (Exception e) {
@@ -392,6 +408,26 @@ public class ActFmSyncThread {
             startSyncThread();
         }
 
+    }
+
+    private Map<Integer, List<JSONObject>> buildErrorMap(JSONArray errors) {
+        Map<Integer, List<JSONObject>> result = new HashMap<Integer, List<JSONObject>>();
+        if (errors != null) {
+            for (int i = 0; i < errors.length(); i++) {
+                JSONObject error = errors.optJSONObject(i);
+                if (error != null && error.has("index")) { //$NON-NLS-1$
+                    int index = error.optInt("index"); //$NON-NLS-1$
+                    List<JSONObject> errorList = result.get(index);
+                    if (errorList == null) {
+                        errorList = new LinkedList<JSONObject>();
+                        result.put(index, errorList);
+                    }
+                    error.remove("index"); //$NON-NLS-1$
+                    errorList.add(error);
+                }
+            }
+        }
+        return result;
     }
 
     // Reapplies changes still in the outstanding tables to the local database

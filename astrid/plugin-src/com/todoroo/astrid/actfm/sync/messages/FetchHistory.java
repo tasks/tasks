@@ -15,6 +15,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.UserDao;
@@ -33,7 +34,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private final String taskTitle;
     private final long modifiedAfter;
     private final boolean includeTaskHistory;
-    private final Runnable done;
+    private final SyncMessageCallback done;
 
     @Autowired
     private ActFmInvoker actFmInvoker;
@@ -48,7 +49,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private ActFmPreferenceService actFmPreferenceService;
 
     public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty,
-            String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory, Runnable done) {
+            String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory, SyncMessageCallback done) {
         DependencyInjectionService.getInstance().inject(this);
         this.dao = dao;
         this.historyTimeProperty = historyTimeProperty;
@@ -167,7 +168,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
                 }
 
                 if (done != null)
-                    done.run();
+                    done.runOnSuccess();
             }
         }).start();
     }

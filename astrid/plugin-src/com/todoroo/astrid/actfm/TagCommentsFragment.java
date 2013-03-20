@@ -20,6 +20,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -126,7 +127,7 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected void performFetch(boolean manual, Runnable done) {
+    protected void performFetch(boolean manual, SyncMessageCallback done) {
         if (tagData != null) {
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, tagData.getValue(TagData.USER_ACTIVITIES_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), done);
             new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TAGS, tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), true, done).execute();

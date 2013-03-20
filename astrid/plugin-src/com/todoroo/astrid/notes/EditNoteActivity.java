@@ -54,6 +54,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
+import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
@@ -408,9 +409,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             return;
         }
 
-        Runnable callback = new Runnable() {
+        SyncMessageCallback callback = new SyncMessageCallback() {
             @Override
-            public void run() {
+            public void runOnSuccess() {
                 synchronized(this) {
                     if (activity != null) {
                         activity.runOnUiThread(new Runnable() {
@@ -428,6 +429,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                         });
                     }
                 }
+            }
+            @Override
+            public void runOnErrors(List<JSONObject> errors) {
+                // TODO: Implement this
             }
         };
 
