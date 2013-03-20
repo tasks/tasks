@@ -84,6 +84,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagMemberMetadata;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -114,6 +115,8 @@ public class TagViewFragment extends TaskListFragment {
     protected TagData tagData;
 
     @Autowired TagDataService tagDataService;
+
+    @Autowired TagService tagService;
 
     @Autowired TagDataDao tagDataDao;
 
@@ -407,8 +410,23 @@ public class TagViewFragment extends TaskListFragment {
                                                     tagData.clearValue(TagData.USER_ID);
                                                     tagData.clearValue(TagData.DELETION_DATE);
                                                     tagData.setValue(TagData.CREATION_DATE, DateUtilities.now());
-
                                                     tagDataDao.createNew(tagData);
+                                                    String newUuid = tagData.getUuid();
+
+                                                    TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(), null, Task.ID, Task.UUID, Task.USER_ID);
+                                                    try {
+                                                        Task t = new Task();
+                                                        for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
+                                                            t.clear();
+                                                            t.readFromCursor(tasks);
+                                                            if (Task.USER_ID_SELF.equals(t.getValue(Task.USER_ID))) {
+                                                                tagService.createLink(t, tagName, newUuid);
+                                                            }
+                                                        }
+                                                    } finally {
+                                                        tasks.close();
+                                                    }
+
                                                     Filter newFilter = TagFilterExposer.filterFromTagData(tla, tagData);
                                                     tla.onFilterItemClicked(newFilter);
                                                 }
