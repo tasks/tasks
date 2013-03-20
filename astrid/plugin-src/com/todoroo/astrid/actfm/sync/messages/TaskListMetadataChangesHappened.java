@@ -49,29 +49,31 @@ public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMet
         }
 
         if (pushedAt == 0 && !foundTagOrFilterId) { // Try to validate message
-            TaskListMetadata tlm = dao.fetch(uuid, TaskListMetadata.FILTER, TaskListMetadata.TAG_UUID);
-            String filterId = tlm.getValue(TaskListMetadata.FILTER);
-            String tagUuid = tlm.getValue(TaskListMetadata.TAG_UUID);
+            TaskListMetadata tlm = dao.fetch(id, TaskListMetadata.FILTER, TaskListMetadata.TAG_UUID);
+            if (tlm != null) {
+                String filterId = tlm.getValue(TaskListMetadata.FILTER);
+                String tagUuid = tlm.getValue(TaskListMetadata.TAG_UUID);
 
-            TaskListMetadataOutstanding tlmo = new TaskListMetadataOutstanding();
-            boolean validChange = false;
+                TaskListMetadataOutstanding tlmo = new TaskListMetadataOutstanding();
+                boolean validChange = false;
 
-            if (!TextUtils.isEmpty(filterId)) {
-                validChange = true;
-                tlmo.setValue(TaskListMetadataOutstanding.ENTITY_ID_PROPERTY, id);
-                tlmo.setValue(TaskListMetadataOutstanding.COLUMN_STRING, TaskListMetadata.FILTER.name);
-                tlmo.setValue(TaskListMetadataOutstanding.VALUE_STRING, filterId);
-                tlmo.setValue(TaskListMetadataOutstanding.CREATED_AT, 0L);
-            } else if (!RemoteModel.isUuidEmpty(tagUuid)) {
-                validChange = true;
-                tlmo.setValue(TaskListMetadataOutstanding.ENTITY_ID_PROPERTY, id);
-                tlmo.setValue(TaskListMetadataOutstanding.COLUMN_STRING, TaskListMetadata.TAG_UUID.name);
-                tlmo.setValue(TaskListMetadataOutstanding.VALUE_STRING, tagUuid);
-                tlmo.setValue(TaskListMetadataOutstanding.CREATED_AT, 0L);
-            }
+                if (!TextUtils.isEmpty(filterId)) {
+                    validChange = true;
+                    tlmo.setValue(TaskListMetadataOutstanding.ENTITY_ID_PROPERTY, id);
+                    tlmo.setValue(TaskListMetadataOutstanding.COLUMN_STRING, TaskListMetadata.FILTER.name);
+                    tlmo.setValue(TaskListMetadataOutstanding.VALUE_STRING, filterId);
+                    tlmo.setValue(TaskListMetadataOutstanding.CREATED_AT, 0L);
+                } else if (!RemoteModel.isUuidEmpty(tagUuid)) {
+                    validChange = true;
+                    tlmo.setValue(TaskListMetadataOutstanding.ENTITY_ID_PROPERTY, id);
+                    tlmo.setValue(TaskListMetadataOutstanding.COLUMN_STRING, TaskListMetadata.TAG_UUID.name);
+                    tlmo.setValue(TaskListMetadataOutstanding.VALUE_STRING, tagUuid);
+                    tlmo.setValue(TaskListMetadataOutstanding.CREATED_AT, 0L);
+                }
 
-            if (validChange) {
-                changes.add(tlmo);
+                if (validChange) {
+                    changes.add(tlmo);
+                }
             }
         }
 
