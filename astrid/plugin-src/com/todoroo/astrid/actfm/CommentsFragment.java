@@ -7,6 +7,7 @@ package com.todoroo.astrid.actfm;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -287,7 +288,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 }
 
                 @Override
-                public void runOnErrors(List<JSONObject> errors) {/**/}
+                public void runOnErrors(List<JSONArray> errors) {/**/}
             };
             if (hasModel()) {
                 performFetch(manual, doneRunnable);

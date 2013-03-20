@@ -120,7 +120,7 @@ public class ActFmSyncThread {
 
     public static interface SyncMessageCallback {
         public void runOnSuccess();
-        public void runOnErrors(List<JSONObject> errors);
+        public void runOnErrors(List<JSONArray> errors);
     }
 
     public static enum ModelType {
@@ -282,7 +282,7 @@ public class ActFmSyncThread {
         }
 
         @Override
-        public void runOnErrors(List<JSONObject> errors) {/**/}
+        public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
     @SuppressWarnings("nls")
@@ -382,14 +382,14 @@ public class ActFmSyncThread {
                     }
 
                     Set<SyncMessageCallback> callbacksExecutedThisLoop = new HashSet<SyncMessageCallback>();
-                    Map<Integer, List<JSONObject>> errorMap = buildErrorMap(errors);
+                    Map<Integer, List<JSONArray>> errorMap = buildErrorMap(errors);
                     for (int i = 0; i < messageBatch.size(); i++) {
                         ClientToServerMessage<?> message = messageBatch.get(i);
                         incrementProgress();
                         try {
                             SyncMessageCallback r = pendingCallbacks.remove(message);
                             if (r != null && !callbacksExecutedThisLoop.contains(r)) {
-                                List<JSONObject> errorList = errorMap.get(i);
+                                List<JSONArray> errorList = errorMap.get(i);
                                 if (errorList == null || errorList.isEmpty())
                                     r.runOnSuccess();
                                 else
@@ -415,19 +415,18 @@ public class ActFmSyncThread {
 
     }
 
-    private Map<Integer, List<JSONObject>> buildErrorMap(JSONArray errors) {
-        Map<Integer, List<JSONObject>> result = new HashMap<Integer, List<JSONObject>>();
+    private Map<Integer, List<JSONArray>> buildErrorMap(JSONArray errors) {
+        Map<Integer, List<JSONArray>> result = new HashMap<Integer, List<JSONArray>>();
         if (errors != null) {
             for (int i = 0; i < errors.length(); i++) {
-                JSONObject error = errors.optJSONObject(i);
-                if (error != null && error.has("index")) { //$NON-NLS-1$
-                    int index = error.optInt("index"); //$NON-NLS-1$
-                    List<JSONObject> errorList = result.get(index);
+                JSONArray error = errors.optJSONArray(i);
+                if (error != null && error.length() > 0) {
+                    int index = error.optInt(0);
+                    List<JSONArray> errorList = result.get(index);
                     if (errorList == null) {
-                        errorList = new LinkedList<JSONObject>();
+                        errorList = new LinkedList<JSONArray>();
                         result.put(index, errorList);
                     }
-                    error.remove("index"); //$NON-NLS-1$
                     errorList.add(error);
                 }
             }

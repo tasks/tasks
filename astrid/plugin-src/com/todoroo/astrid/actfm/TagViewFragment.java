@@ -371,12 +371,12 @@ public class TagViewFragment extends TaskListFragment {
                     }
                 }
                 @Override
-                public void runOnErrors(List<JSONObject> errors) {
+                public void runOnErrors(List<JSONArray> errors) {
                     Activity activity = getActivity();
                     if (activity != null && activity instanceof TaskListActivity) {
                         boolean notAuthorized = false;
-                        for (JSONObject error : errors) {
-                            String errorCode = error.optString("code"); //$NON-NLS-1$
+                        for (JSONArray error : errors) {
+                            String errorCode = error.optString(1);
                             if ("not_authorized".equals(errorCode)) { //$NON-NLS-1$
                                 notAuthorized = true;
                                 break;
@@ -391,7 +391,7 @@ public class TagViewFragment extends TaskListFragment {
                                 public void run() {
                                     DialogUtilities.okCancelCustomDialog(tla,
                                             tla.getString(R.string.actfm_tag_not_authorized_title),
-                                            tla.getString(R.string.actfm_tag_not_authorized_body),
+                                            tla.getString(R.string.actfm_tag_not_authorized_body, tagName),
                                             R.string.actfm_tag_not_authorized_new_list,
                                             R.string.actfm_tag_not_authorized_leave_list,
                                             android.R.drawable.ic_dialog_alert,

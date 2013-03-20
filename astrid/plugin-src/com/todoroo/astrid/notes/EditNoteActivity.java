@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -431,7 +432,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             }
             @Override
-            public void runOnErrors(List<JSONObject> errors) {/**/}
+            public void runOnErrors(List<JSONArray> errors) {/**/}
         };
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);

@@ -7,7 +7,7 @@ package com.todoroo.astrid.people;
 
 import java.util.List;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -222,7 +222,7 @@ public class PersonViewFragment extends TaskListFragment {
                     }
                 }
                 @Override
-                public void runOnErrors(List<JSONObject> errors) {/**/}
+                public void runOnErrors(List<JSONArray> errors) {/**/}
             };
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
         }
