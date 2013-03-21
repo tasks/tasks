@@ -55,7 +55,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -374,7 +373,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     private void saveTagPictureLocally(Bitmap bitmap) {
         if (bitmap == null) return;
         try {
-            String tagPicture = ImageDiskCache.getPictureHash(tagData);
+            String tagPicture = RemoteModel.PictureHelper.getPictureHash(tagData);
             imageCache.put(tagPicture, bitmap);
             tagData.setValue(TagData.PICTURE, tagPicture);
         }
