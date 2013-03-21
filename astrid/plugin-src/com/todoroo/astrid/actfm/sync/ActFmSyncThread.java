@@ -374,8 +374,10 @@ public class ActFmSyncThread {
 
                         batchSize = Math.min(batchSize, messageBatch.size()) * 2;
 
-                        if (recordSyncSuccess)
+                        if (recordSyncSuccess) {
+                            actFmPreferenceService.setLastError(null, null);
                             actFmPreferenceService.recordSuccessfulSync();
+                        }
                     } catch (IOException e) {
                         Log.e(ERROR_TAG, "IOException", e);
                         batchSize = Math.max(batchSize / 2, 1);
