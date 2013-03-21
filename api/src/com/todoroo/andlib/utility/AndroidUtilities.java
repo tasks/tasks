@@ -707,6 +707,29 @@ public class AndroidUtilities {
         }
     }
 
+    public static String readInputStream(InputStream input) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(input), 1 << 14);
+            String line;
+            StringBuilder buffer = new StringBuilder();
+            while ((line = in.readLine()) != null) {
+                buffer.append(line).append('\n');
+            }
+            return buffer.toString();
+        } catch (IOException e) {
+            return ""; //$NON-NLS-1$
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    // Ignore
+                }
+            }
+        }
+    }
+
     /**
      * Performs an md5 hash on the input string
      * @param input

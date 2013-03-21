@@ -5,10 +5,8 @@
  */
 package com.todoroo.andlib.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.zip.GZIPInputStream;
 
@@ -41,11 +39,10 @@ import org.apache.http.protocol.HttpContext;
 
 import android.util.Log;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
+
 /**
  * RestClient allows Android to consume web requests.
- * <p>
- * Portions by Praeda:
- * http://senior.ceng.metu.edu.tr/2009/praeda/2009/01/11/a-simple-restful-client-at-android/
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -89,34 +86,6 @@ public class HttpRestClient implements RestClient {
 
         HttpConnectionParams.setConnectionTimeout(params, timeout);
         HttpConnectionParams.setSoTimeout(params, timeout);
-    }
-
-    private static String convertStreamToString(InputStream is) {
-        /*
-         * To convert the InputStream to String we use the
-         * BufferedReader.readLine() method. We iterate until the BufferedReader
-         * return null which means there's no more data to read. Each line will
-         * appended to a StringBuilder and returned as String.
-         */
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is), 16384);
-        StringBuilder sb = new StringBuilder();
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n"); //$NON-NLS-1$
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return sb.toString();
     }
 
     private HttpParams params;
@@ -200,7 +169,7 @@ public class HttpRestClient implements RestClient {
         if (entity != null) {
             InputStream contentStream = entity.getContent();
             try {
-                body = convertStreamToString(contentStream);
+                body = AndroidUtilities.readInputStream(contentStream);
             } finally {
                 contentStream.close();
             }
