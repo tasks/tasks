@@ -531,7 +531,7 @@ public final class TagService {
         return null;
     }
 
-    private int deleteTagMetadata(String uuid) {
+    public int deleteTagMetadata(String uuid) {
         Metadata deleted = new Metadata();
         deleted.setValue(Metadata.DELETION_DATE, DateUtilities.now());
 

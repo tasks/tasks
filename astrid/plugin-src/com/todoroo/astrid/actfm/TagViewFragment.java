@@ -400,6 +400,7 @@ public class TagViewFragment extends TaskListFragment {
                                             android.R.drawable.ic_dialog_alert,
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
+                                                    String oldUuid = tagData.getUuid();
                                                     tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
                                                     tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                                                     tagDataDao.saveExisting(tagData);
@@ -426,6 +427,7 @@ public class TagViewFragment extends TaskListFragment {
                                                     } finally {
                                                         tasks.close();
                                                     }
+                                                    tagService.deleteTagMetadata(oldUuid);
 
                                                     Filter newFilter = TagFilterExposer.filterFromTagData(tla, tagData);
                                                     tla.onFilterItemClicked(newFilter);
