@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
@@ -91,7 +90,6 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
-import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -106,8 +104,6 @@ import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
-import com.todoroo.astrid.ui.WebServicesView;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
@@ -198,7 +194,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final int TAB_VIEW_UPDATES = 0;
     public static final int TAB_VIEW_MORE = 1;
-    public static final int TAB_VIEW_WEB_SERVICES = 2;
 
     @Autowired
     private ExceptionService exceptionService;
@@ -226,7 +221,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private ImageButton voiceAddNoteButton;
 
     private EditPeopleControlSet peopleControlSet = null;
-    private TaskRabbitControlSet taskRabbitControl = null;
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
     private TagsControlSet tagsControlSet = null;
@@ -266,8 +260,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private boolean showEditComments;
 
     private int commentIcon = R.drawable.comment_dark_blue;
-
-    private WebServicesView webServices = null;
 
     private int tabStyle = 0;
 
@@ -380,12 +372,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
 
-        boolean hasTitle = !TextUtils.isEmpty(model.getValue(Task.TITLE));
-
-        if(hasTitle && Preferences.getBoolean(R.string.p_ideas_tab_enabled, false) && Constants.MARKET_STRATEGY.allowIdeasTab())
-            tabStyle = (TaskEditViewPager.TAB_SHOW_ACTIVITY | TaskEditViewPager.TAB_SHOW_WEB);
-        else
-            tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
+        tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
 
         if (!showEditComments)
             tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
@@ -406,20 +393,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (editNotes != null)
             editNotes.addListener(this);
-
-
-        if(hasTitle) {
-            if(webServices == null) {
-                webServices = new WebServicesView(getActivity());
-                webServices.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                        LayoutParams.WRAP_CONTENT));
-                webServices.setPadding(10, 5, 10, 10);
-                webServices.taskRabbitControl = taskRabbitControl;
-                webServices.setTask(model);
-            } else {
-                webServices.refresh();
-            }
-        }
 
         if (tabStyle == 0) {
             return;
@@ -505,11 +478,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN);
-        if(Locale.getDefault().getCountry().equals("US")) { //$NON-NLS-1$
-            taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
-            controls.add(taskRabbitControl);
-            peopleControlSet.addListener(taskRabbitControl);
-        }
         controls.add(peopleControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
@@ -660,11 +628,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 break; // As soon as we hit the hide section, we're done
             } else if (item.equals(moreSectionTrigger)) {
                 section = moreControls;
-                if (taskRabbitControl != null) {
-                    taskRabbitControl.getDisplayView().setVisibility(View.GONE);
-                    section.addView(taskRabbitControl.getDisplayView());
-                }
-
             } else {
                 View controlSet = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
@@ -843,10 +806,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         model = null;
         uuid = RemoteModel.NO_UUID;
         populateFields(intent);
-        if (webServices != null) {
-            webServices.setTask(model);
-            webServices.reset();
-        }
         loadMoreContainer();
     }
 
@@ -1261,9 +1220,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (editNotes == null)
             instantiateEditNotes();
 
-        if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
-            return;
-        } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
+        if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         } else if (requestCode == REQUEST_VOICE_RECOG
                 && resultCode == Activity.RESULT_OK) {
@@ -1339,8 +1296,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return TAB_VIEW_UPDATES;
         case TaskEditViewPager.TAB_SHOW_MORE:
             return TAB_VIEW_MORE;
-        case TaskEditViewPager.TAB_SHOW_WEB:
-            return TAB_VIEW_WEB_SERVICES;
         }
 
         // error experienced
@@ -1360,10 +1315,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return moreControls;
         case TAB_VIEW_UPDATES:
             return editNotes;
-        case TAB_VIEW_WEB_SERVICES:
-            return webServices;
         }
-
         return null;
     }
 
@@ -1378,8 +1330,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case TAB_VIEW_UPDATES:
             view = editNotes;
             break;
-        case TAB_VIEW_WEB_SERVICES:
-            view = webServices;
         }
 
         if (view == null || mPager == null) return;
@@ -1424,28 +1374,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPageSelected(final int position) {
-        final Runnable onPageSelected = new Runnable() {
-            @Override
-            public void run() {
-                setPagerHeightForPosition(position);
-
-                NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
-                if(getTabForPosition(position) == TAB_VIEW_WEB_SERVICES)
-                    scrollView.setScrollabelViews(webServices.getScrollableViews());
-                else
-                    scrollView.setScrollabelViews(null);
-            }
-        };
-
-        if(getTabForPosition(position) == TAB_VIEW_WEB_SERVICES)
-            webServices.onPageSelected(new Runnable() {
-                @Override
-                public void run() {
-                    onPageSelected.run();
-                }
-            });
-        else
-            onPageSelected.run();
+        setPagerHeightForPosition(position);
+        NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
+        scrollView.setScrollabelViews(null);
     }
 
     @Override

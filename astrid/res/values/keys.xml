@@ -59,9 +59,6 @@
   
   <!-- show friends view preference -->
   <string name="p_show_friends_view">show_friends_view</string>
-  
-  <!-- show ideas tab preference -->
-  <string name="p_ideas_tab_enabled">ideas_tab_enabled</string>
 
   <!-- force tablets to use phone layout -->
   <string name="p_force_phone_layout">force_phone_layout</string>
@@ -412,9 +409,6 @@
 
   <!-- Anonymous usage statistics -->
   <string name="p_statistics">statistics</string>
-
-  <!-- Ideas tab autoloading -->
-  <string name="p_autoIdea">ideaauto</string>
   
   <!-- ================================================= NEW USER EXPERIENCE -->
   <!-- Preference Keys (do not translate) -->

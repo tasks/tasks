@@ -23,7 +23,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -39,13 +38,11 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -160,11 +157,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         int themeFlags = ThemeService.getFilterThemeFlags();
         Filter f = new Filter(r.getString(R.string.BFE_Assigned),
                 r.getString(R.string.BFE_Assigned),
-                new QueryTemplate().join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))
-                    .where(Criterion.and(TaskCriteria.isActive(),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
-                        Criterion.or(Task.USER_ID.neq(0),
-                                    TaskRabbitMetadata.ID.gt(0)))),
+                        Task.USER_ID.neq(0))),
                         null);
         f.listingIcon = ((BitmapDrawable)r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_assigned, themeFlags))).getBitmap();

@@ -87,9 +87,6 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_rmd_persistent, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_ideas_tab_enabled, false, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_autoIdea, false, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_use_filters, false, ifUnset);

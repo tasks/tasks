@@ -109,7 +109,6 @@ import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
-import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -971,8 +970,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
                 });
     }
 
-    public static final String TR_METADATA_JOIN = "for_taskrab"; //$NON-NLS-1$
-
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
 
     public static final String USER_IMAGE_JOIN = "for_images"; // //$NON-NLS-1$
@@ -1030,10 +1027,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         // TODO: For now, we'll modify the query to join and include the task rabbit and tag data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
         String joinedQuery =
-                Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
-                        Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY),
-                                Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString()
-                + Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
+                Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
                         tagsJoinCriterion).toString() //$NON-NLS-1$
                 + Join.left(User.TABLE.as(USER_IMAGE_JOIN),
                         Task.USER_ID.eq(Field.field(USER_IMAGE_JOIN + "." + User.UUID.name))).toString()

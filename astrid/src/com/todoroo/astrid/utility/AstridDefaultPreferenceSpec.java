@@ -99,9 +99,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_rmd_persistent, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_ideas_tab_enabled, false, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_autoIdea, false, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_show_today_filter, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_recently_modified_filter, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_ive_assigned_filter, true, ifUnset);

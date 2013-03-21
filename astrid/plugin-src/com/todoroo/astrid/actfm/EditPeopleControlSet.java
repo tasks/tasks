@@ -112,8 +112,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private boolean assignedToMe = false;
 
-    private AssignedToUser taskRabbitUser = null;
-
     private AssignedToUser contactPickerUser = null;
 
     private boolean loadedUI = false;
@@ -314,19 +312,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true) && contactPickerAvailable();
             if (addContactPicker)
                 coreUsers.add(contactsIndex, contactPickerUser);
-
-            for (AssignedChangedListener l : listeners) {
-                if (l.shouldShowTaskRabbit()) {
-                    taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
-                    int taskRabbitIndex = addUnassigned ? 3 : 2;
-                    if (!addContactPicker)
-                        taskRabbitIndex--;
-                    if(l.didPostToTaskRabbit()){
-                        coreUsers.add(taskRabbitIndex, taskRabbitUser);
-                        assignedIndex = taskRabbitIndex;
-                    }
-                }
-            }
 
             if (assignedIndex == 0) {
                 assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);
@@ -653,7 +638,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     return true;
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
-                    if (item.equals(taskRabbitUser) || item.equals(contactPickerUser)) { //don't want to ever set the user as the task rabbit user
+                    if (item.equals(contactPickerUser)) { //don't want to ever set the user as the task rabbit user
                         return true;
                     }
                     userJson = item.user;

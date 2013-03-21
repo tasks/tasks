@@ -193,7 +193,6 @@ public abstract class MarketStrategy {
                 R.string.p_voicePrefSection,
                 R.string.p_end_at_deadline,
                 R.string.p_field_missed_calls,
-                R.string.p_ideas_tab_enabled,
                 R.string.p_rmd_vibrate,
                 R.string.gcal_p_default,
                 R.string.p_theme_widget,

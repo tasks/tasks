@@ -86,11 +86,6 @@
                 android:key="@string/p_time_increment"
                 android:title="@string/EPr_time_increment"
                 android:defaultValue="true"/>
-	            
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_autoIdea"
-	            android:title="@string/EPr_ideaAuto_title"
-	            android:defaultValue="true" />
             
         </PreferenceScreen>
         

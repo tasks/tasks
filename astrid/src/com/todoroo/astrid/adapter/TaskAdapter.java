@@ -74,7 +74,6 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -110,8 +109,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
     @SuppressWarnings("nls")
-    private static final LongProperty TASK_RABBIT_ID = Metadata.ID.cloneAs(TaskListFragment.TR_METADATA_JOIN, "taskRabId");
-    @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
     @SuppressWarnings("nls")
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
@@ -145,7 +142,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.SOCIAL_REMINDER,
         PICTURE,
         HAS_NOTES_PROPERTY, // Whether or not the task has notes
-        TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
         TAGS, // Concatenated list of tags
         FILE_ID_PROPERTY // File id
     };
@@ -415,7 +411,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
         if (!titleOnlyLayout) {
-            viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
             viewHolder.tagsString = cursor.get(TAGS);
             viewHolder.imageUrl = RemoteModel.PictureHelper.getPictureUrlFromCursor(cursor, PICTURE, RemoteModel.PICTURE_THUMB);
             viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
@@ -463,7 +458,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public LinearLayout taskRow;
         public View taskActionContainer;
         public ImageView taskActionIcon;
-        public boolean isTaskRabbit; // From join query, not part of the task model
         public String tagsString; // From join query, not part of the task model
         public String imageUrl; // From join query, not part of the task model
         public boolean hasFiles; // From join query, not part of the task model
@@ -1120,7 +1114,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             // image view
             final AsyncImageView pictureView = viewHolder.picture; {
                 if (pictureView != null) {
-                    if(Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)) && !viewHolder.isTaskRabbit) {
+                    if(Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
                         pictureView.setVisibility(View.GONE);
                         if (viewHolder.pictureBorder != null)
                             viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -1129,9 +1123,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         if (viewHolder.pictureBorder != null)
                             viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                         pictureView.setUrl(null);
-                        if (viewHolder.isTaskRabbit) {
-                            pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
-                        } else if (Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)))
+                        if (Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)))
                             pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone_transparent));
                         else {
                             pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
