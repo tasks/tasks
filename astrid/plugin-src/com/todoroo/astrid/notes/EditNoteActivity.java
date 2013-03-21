@@ -401,7 +401,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentPicture, item.commentBitmap, item.title.toString(), fragment, imageCache);
+            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.pictureFull, item.commentBitmap, item.title.toString(), fragment, imageCache);
         }
     }
 
@@ -488,15 +488,17 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private static class NoteOrUpdate {
         private final String picture;
         private final Spanned title;
-        private final String commentPicture;
+        private final String pictureThumb;
+        private final String pictureFull;
         private final Bitmap commentBitmap;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, Spanned title, String commentPicture, Bitmap commentBitmap, long createdAt) {
+        public NoteOrUpdate(String picture, Spanned title, String pictureThumb, String pictureFull, Bitmap commentBitmap, long createdAt) {
             super();
             this.picture = picture;
             this.title = title;
-            this.commentPicture = commentPicture;
+            this.pictureThumb = pictureThumb;
+            this.pictureFull = pictureFull;
             this.commentBitmap = commentBitmap;
             this.createdAt = createdAt;
         }
@@ -510,20 +512,23 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     title,
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
+                    m.getValue(NoteMetadata.COMMENT_PICTURE),
                     null,
                     m.getValue(Metadata.CREATION_DATE));
         }
 
         public static NoteOrUpdate fromUpdateOrHistory(AstridActivity context, UserActivity u, History history, User user, String linkColor) {
             String userImage = ""; //$NON-NLS-1$
-            String commentPicture = ""; //$NON-NLS-1$
+            String pictureThumb = ""; //$NON-NLS-1$
+            String pictureFull = ""; //$NON-NLS-1$
             Spanned title;
             Bitmap commentBitmap = null;
             long createdAt = 0;
 
             if (u != null) {
-                commentPicture = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
-                if (TextUtils.isEmpty(commentPicture))
+                pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
+                pictureFull = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
+                if (TextUtils.isEmpty(pictureThumb))
                     commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
                 title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
                 userImage = ""; //$NON-NLS-1$
@@ -539,7 +544,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
             return new NoteOrUpdate(userImage,
                     title,
-                    commentPicture,
+                    pictureThumb,
+                    pictureFull,
                     commentBitmap,
                     createdAt);
         }

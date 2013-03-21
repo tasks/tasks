@@ -266,11 +266,12 @@ public class UpdateAdapter extends CursorAdapter {
         }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            String updatePicture = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_THUMB);
+            String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
+            String pictureFull = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
             Bitmap updateBitmap = null;
-            if (TextUtils.isEmpty(updatePicture))
+            if (TextUtils.isEmpty(pictureThumb))
                 updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
-            setupImagePopupForCommentView(view, commentPictureView, updatePicture, updateBitmap,
+            setupImagePopupForCommentView(view, commentPictureView, pictureThumb, pictureFull, updateBitmap,
                     activity.getValue(UserActivity.MESSAGE), fragment, imageCache);
         }
 
@@ -314,23 +315,23 @@ public class UpdateAdapter extends CursorAdapter {
         return false;
     }
 
-    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture, final Bitmap updateBitmap,
+    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
             final String message, final Fragment fragment, ImageDiskCache imageCache) {
-        if ((!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) || updateBitmap != null) { //$NON-NLS-1$
+        if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
             if (updateBitmap != null)
                 commentPictureView.setImageBitmap(updateBitmap);
             else
-                commentPictureView.setUrl(updatePicture);
+                commentPictureView.setUrl(pictureThumb);
 
-            if(imageCache.contains(updatePicture) && updateBitmap == null) {
+            if(imageCache.contains(pictureThumb) && updateBitmap == null) {
                 try {
-                    commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
+                    commentPictureView.setDefaultImageBitmap(imageCache.get(pictureThumb));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }  else if (updateBitmap == null) {
-                commentPictureView.setUrl(updatePicture);
+                commentPictureView.setUrl(pictureThumb);
             }
 
             view.setOnClickListener(new OnClickListener() {
@@ -343,7 +344,7 @@ public class UpdateAdapter extends CursorAdapter {
                     if (updateBitmap != null)
                         imageView.setImageBitmap(updateBitmap);
                     else
-                        imageView.setUrl(updatePicture);
+                        imageView.setUrl(pictureFull);
                     image.setView(imageView);
 
                     image.setMessage(message);
