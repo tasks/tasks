@@ -41,7 +41,7 @@ import android.os.Build;
 import android.os.StatFs;
 import android.util.Log;
 
-import com.timsu.astrid.BuildConfig;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * <p>
@@ -549,7 +549,7 @@ public abstract class DiskCache<K, V> {
             final long size = cacheFile.length();
             if (clear(cacheFile)) {
                 trimmed += size;
-                if (BuildConfig.DEBUG) {
+                if (Constants.DEBUG) {
                     Log.d(TAG, "trimmed unqueued " + cacheFile.getName() + " from cache.");
                 }
             }
@@ -571,7 +571,7 @@ public abstract class DiskCache<K, V> {
 
             if (clear(cacheFile)) {
                 trimmed += size;
-                if (BuildConfig.DEBUG) {
+                if (Constants.DEBUG) {
                     Log.d(TAG, "trimmed " + cacheFile.getName() + " from cache.");
                 }
             } else {
@@ -579,7 +579,7 @@ public abstract class DiskCache<K, V> {
             }
         }
 
-        if (BuildConfig.DEBUG) {
+        if (Constants.DEBUG) {
             Log.d(TAG, "trimmed a total of " + trimmed + " bytes from cache.");
         }
         return trimmed;
