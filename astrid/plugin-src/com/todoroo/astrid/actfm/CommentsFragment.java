@@ -51,8 +51,10 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.helper.ImageDiskCache;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.StatisticsService;
+
+import edu.mit.mobile.android.imagecache.ImageCache;
 
 public abstract class CommentsFragment extends SherlockListFragment {
 
@@ -72,7 +74,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected static final int MENU_REFRESH_ID = Menu.FIRST;
 
-    protected final ImageDiskCache imageCache;
+    protected final ImageCache imageCache;
 
     protected Resources resources;
 
@@ -83,7 +85,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     public CommentsFragment() {
         DependencyInjectionService.getInstance().inject(this);
-        imageCache = ImageDiskCache.getInstance();
+        imageCache = AsyncImageView.getImageCache();
     }
 
     @Override

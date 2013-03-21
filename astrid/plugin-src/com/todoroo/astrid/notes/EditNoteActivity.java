@@ -74,7 +74,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -82,6 +81,8 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import edu.mit.mobile.android.imagecache.ImageCache;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
@@ -111,7 +112,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private final Resources resources;
 
-    private final ImageDiskCache imageCache;
+    private final ImageCache imageCache;
     private final int cameraButton;
     private final String linkColor;
 
@@ -127,7 +128,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public EditNoteActivity(Fragment fragment, View parent, long t) {
         super(fragment.getActivity());
 
-        imageCache = ImageDiskCache.getInstance();
+        imageCache = AsyncImageView.getImageCache();
         this.fragment = fragment;
 
         this.activity = (AstridActivity) fragment.getActivity();

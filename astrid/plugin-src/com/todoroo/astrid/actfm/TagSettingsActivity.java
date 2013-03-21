@@ -70,6 +70,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
+import edu.mit.mobile.android.imagecache.ImageCache;
+
 public class TagSettingsActivity extends SherlockFragmentActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
@@ -108,14 +110,14 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     private EditText tagDescription;
     private CheckBox isSilent;
     private Bitmap setBitmap;
-    private final ImageDiskCache imageCache;
+    private final ImageCache imageCache;
 
     private boolean isNewTag = false;
     private boolean isDialog;
 
     public TagSettingsActivity() {
         DependencyInjectionService.getInstance().inject(this);
-        imageCache = ImageDiskCache.getInstance();
+        imageCache = AsyncImageView.getImageCache();
     }
 
     @Override

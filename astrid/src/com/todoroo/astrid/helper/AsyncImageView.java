@@ -9,8 +9,13 @@ import java.io.IOException;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import com.todoroo.andlib.service.ContextManager;
+
+import edu.mit.mobile.android.imagecache.ImageCache;
 
 /**
  * Subclass of greendroid.widget.AsyncImageView, so that we can cache the image
@@ -21,21 +26,20 @@ import android.util.AttributeSet;
  */
 public class AsyncImageView extends greendroid.widget.AsyncImageView {
 
-    private final ImageDiskCache imageDiskCache;
+    private final ImageCache imageDiskCache;
     private Bitmap cacheImage;
     private String cacheURL = ""; //$NON-NLS-1$
     public AsyncImageView(Context context) {
         super(context);
-
-        imageDiskCache = ImageDiskCache.getInstance();
+        imageDiskCache = getImageCache();
     }
     public AsyncImageView(Context context, AttributeSet set) {
         super(context, set);
-        imageDiskCache = ImageDiskCache.getInstance();
+        imageDiskCache = getImageCache();
     }
     public AsyncImageView(Context context, AttributeSet set, int defStyle) {
         super(context, set, defStyle);
-        imageDiskCache = ImageDiskCache.getInstance();
+        imageDiskCache = getImageCache();
     }
     @Override
     public void setUrl(String url) {
@@ -72,6 +76,19 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
         Bitmap b = Bitmap.createBitmap(getDrawingCache());
         setDrawingCacheEnabled(false); // clear drawing cache
         return b;
+    }
+
+    private static volatile ImageCache imageCacheInstance = null;
+
+    public static ImageCache getImageCache() {
+        if (imageCacheInstance == null) {
+            synchronized(AsyncImageView.class) {
+                if (imageCacheInstance == null) {
+                    imageCacheInstance = new ImageCache(ContextManager.getContext(), CompressFormat.JPEG, 85);
+                }
+            }
+        }
+        return imageCacheInstance;
     }
 
 }

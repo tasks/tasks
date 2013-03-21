@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,6 +117,22 @@ abstract public class RemoteModel extends AbstractModel {
     public static class PictureHelper {
 
         public static final String PICTURES_DIRECTORY = "pictures"; //$NON-NLS-1$
+
+        public static String getPictureHash(UserActivity update) {
+            return String.format("cached::%s%s", update.getValue(UserActivity.TARGET_ID), update.getValue(UserActivity.CREATED_AT));
+        }
+
+
+        public static String getPictureHash(TagData tagData) {
+            long tag_date = 0;
+            if (tagData.containsValue(TagData.CREATION_DATE)) {
+                tag_date = tagData.getValue(TagData.CREATION_DATE);
+            }
+            if (tag_date == 0) {
+                tag_date = DateUtilities.dateToUnixtime(new Date());
+            }
+            return String.format("cached::%s%s", tagData.getValue(TagData.NAME), tag_date);
+        }
 
         @SuppressWarnings("nls")
         public static JSONObject savePictureJson(Context context, Bitmap bitmap) {

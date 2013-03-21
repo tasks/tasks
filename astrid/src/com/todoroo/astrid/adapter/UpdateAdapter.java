@@ -58,7 +58,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.helper.ImageDiskCache;
+
+import edu.mit.mobile.android.imagecache.ImageCache;
 
 /**
  * Adapter for displaying a user's activity
@@ -73,7 +74,7 @@ public class UpdateAdapter extends CursorAdapter {
     protected final Fragment fragment;
     private final int resource;
     private final LayoutInflater inflater;
-    private final ImageDiskCache imageCache;
+    private final ImageCache imageCache;
     private final String linkColor;
     private final String fromView;
 
@@ -155,7 +156,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        imageCache = ImageDiskCache.getInstance();
+        imageCache = AsyncImageView.getImageCache();
         this.fromView = fromView;
 
         this.resource = resource;
@@ -316,7 +317,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
-            final String message, final Fragment fragment, ImageDiskCache imageCache) {
+            final String message, final Fragment fragment, ImageCache imageCache) {
         if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
             if (updateBitmap != null)
