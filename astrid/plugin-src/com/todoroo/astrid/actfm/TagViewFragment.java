@@ -144,7 +144,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private Filter originalFilter;
 
-    private boolean justDeleted = false;
+    protected boolean justDeleted = false;
 
     // --- UI initialization
 

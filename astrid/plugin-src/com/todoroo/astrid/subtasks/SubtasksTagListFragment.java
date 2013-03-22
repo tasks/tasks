@@ -69,7 +69,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (lastVisibleIndex >=0) {
+        if (lastVisibleIndex >= 0 && !justDeleted) {
             getListView().setSelection(lastVisibleIndex);
         }
     }
