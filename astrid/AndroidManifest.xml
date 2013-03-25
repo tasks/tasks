@@ -197,11 +197,6 @@
     		<action android:name="com.crittercism.service.CrittercismService" />
     	</intent-filter>
     </service>
-    <receiver android:name="com.crittercism.service.BReceiver">
-    	<intent-filter>
-    		<action android:name="android.intent.action.BOOT_COMPLETED"></action>
-    	</intent-filter>
-    </receiver>
     <!-- End of Crittercism.com Code -->
     
         
