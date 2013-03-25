@@ -334,7 +334,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 public void onClick(DialogInterface d, int which) {
 
                     tagMembers.removeAllViews();
-                    tagMembers.addPerson("", ""); //$NON-NLS-1$
+                    tagMembers.addPerson("", "", false); //$NON-NLS-1$
                 }
             };
             DialogUtilities.okCancelCustomDialog(TagSettingsActivity.this, getString(R.string.actfm_EPA_login_button),
@@ -496,7 +496,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             }
         }
 
-        tagMembers.addPerson("", ""); //$NON-NLS-1$
+        tagMembers.addPerson("", "", false); //$NON-NLS-1$
     }
 
     @Override

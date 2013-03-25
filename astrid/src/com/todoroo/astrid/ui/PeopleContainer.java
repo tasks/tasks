@@ -67,11 +67,11 @@ public class PeopleContainer extends LinearLayout {
     // --- methods
 
     public TextView addPerson() {
-        return addPerson("", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        return addPerson("", "", false); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /** Adds a tag to the tag field */
-    public TextView addPerson(String person, String image) {
+    public TextView addPerson(String person, String image, boolean isSelf) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // check if already exists
@@ -98,20 +98,23 @@ public class PeopleContainer extends LinearLayout {
         }
 
         final ImageButton removeButton = (ImageButton)tagItem.findViewById(R.id.button1);
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                TextView lastView = getLastTextView();
-                if(lastView == textView && textView.getText().length() == 0)
-                    return;
+        if (isSelf)
+            removeButton.setVisibility(View.GONE);
+        else
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    TextView lastView = getLastTextView();
+                    if(lastView == textView && textView.getText().length() == 0)
+                        return;
 
-                if(getChildCount() > 1)
-                    removeView(tagItem);
-                else {
-                    textView.setText(""); //$NON-NLS-1$
-                    textView.setEnabled(true);
+                    if(getChildCount() > 1)
+                        removeView(tagItem);
+                    else {
+                        textView.setText(""); //$NON-NLS-1$
+                        textView.setEnabled(true);
+                    }
                 }
-            }
-        });
+            });
 
         final AsyncImageView imageView = (AsyncImageView)tagItem.
             findViewById(R.id.icon);
@@ -119,8 +122,7 @@ public class PeopleContainer extends LinearLayout {
         if (TextUtils.isEmpty(textView.getText())) {
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_add_contact));
             removeButton.setVisibility(View.GONE);
-        }
-        else {
+        } else if (!isSelf) {
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             removeButton.setVisibility(View.VISIBLE);
         }
@@ -141,7 +143,7 @@ public class PeopleContainer extends LinearLayout {
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
                 if(count > 0 && getLastTextView() == textView) {
-                    addPerson("", "");
+                    addPerson("", "", false);
                 }
                 if (TextUtils.isEmpty(textView.getText())) {
                     imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_add_contact));
@@ -164,7 +166,7 @@ public class PeopleContainer extends LinearLayout {
                 if(actionId != EditorInfo.IME_NULL)
                     return false;
                 if(getLastTextView().getText().length() != 0) {
-                    addPerson("", "");
+                    addPerson("", "", false);
                 }
                 return true;
             }
@@ -276,11 +278,11 @@ public class PeopleContainer extends LinearLayout {
             TextView textView = null;
             String imageURL = person.optString("picture", "");
             if(person.has("id") && ActFmPreferenceService.userId().equals(person.getString("id")))
-                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME), imageURL);
+                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME), imageURL, true);
             else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name")))
-                textView = addPerson(person.getString("name"), imageURL);
+                textView = addPerson(person.getString("name"), imageURL, false);
             else if(!TextUtils.isEmpty(person.optString("email")) && !"null".equals(person.optString("email")))
-                textView = addPerson(person.getString("email"), imageURL);
+                textView = addPerson(person.getString("email"), imageURL, false);
 
             if(textView != null) {
                 textView.setTag(person);
