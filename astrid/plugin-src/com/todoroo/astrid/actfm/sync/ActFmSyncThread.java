@@ -14,17 +14,22 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.crittercism.app.Crittercism;
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.NotificationManager;
+import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -109,6 +114,10 @@ public class ActFmSyncThread {
 
     private boolean isTimeForBackgroundSync = false;
 
+    private final NotificationManager notificationManager;
+
+    private int notificationId = -1;
+
     public static interface SyncMessageCallback {
         public void runOnSuccess();
         public void runOnErrors(List<JSONArray> errors);
@@ -165,6 +174,7 @@ public class ActFmSyncThread {
         this.pendingCallbacks = Collections.synchronizedMap(new HashMap<ClientToServerMessage<?>, SyncMessageCallback>());
         this.monitor = syncMonitor;
         this.syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
+        this.notificationManager = new AndroidNotificationManager(ContextManager.getContext());
     }
 
     public synchronized void startSyncThread() {
@@ -228,6 +238,10 @@ public class ActFmSyncThread {
                 synchronized(monitor) {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
                         try {
+                            if (pendingMessages.isEmpty() && notificationId >= 0) {
+                                notificationManager.cancel(notificationId);
+                                notificationId = -1;
+                            }
                             monitor.wait();
                             AndroidUtilities.sleepDeep(500L); // Wait briefly for large database operations to finish (e.g. adding a task with several tags may trigger a message before all saves are done--fix this?)
 
@@ -275,6 +289,8 @@ public class ActFmSyncThread {
                         messageBatch.clear();
                         continue;
                     }
+
+                    setupNotification();
 
                     payload.put(getClientVersion());
 
@@ -442,6 +458,23 @@ public class ActFmSyncThread {
             }
         } finally {
             outstanding.close();
+        }
+    }
+
+    private void setupNotification() {
+        try {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(ContextManager.getContext());
+            builder.setContentText(ContextManager.getString(R.string.actfm_sync_ongoing))
+            .setContentTitle(ContextManager.getString(R.string.app_name))
+            .setOngoing(true)
+            .setSmallIcon(android.R.drawable.stat_notify_sync)
+            .setContentIntent(PendingIntent.getActivity(ContextManager.getContext().getApplicationContext(), 0, new Intent(), 0));
+
+
+            notificationManager.notify(0, builder.getNotification());
+            notificationId = 0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

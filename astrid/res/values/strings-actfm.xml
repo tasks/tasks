@@ -374,5 +374,7 @@
   <string name="actfm_tag_not_authorized_new_list">Create new list</string>
   <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
   
+  <string name="actfm_sync_ongoing">Sync ongoing...</string>
+  
 </resources>
 

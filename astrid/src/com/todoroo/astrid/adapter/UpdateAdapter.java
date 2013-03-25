@@ -325,7 +325,7 @@ public class UpdateAdapter extends CursorAdapter {
             else
                 commentPictureView.setUrl(pictureThumb);
 
-            if(imageCache.contains(pictureThumb) && updateBitmap == null) {
+            if (pictureThumb != null && imageCache.contains(pictureThumb) && updateBitmap == null) {
                 try {
                     commentPictureView.setDefaultImageBitmap(imageCache.get(pictureThumb));
                 } catch (IOException e) {
