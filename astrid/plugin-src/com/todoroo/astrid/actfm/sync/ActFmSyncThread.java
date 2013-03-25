@@ -14,14 +14,11 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -112,12 +109,6 @@ public class ActFmSyncThread {
 
     private boolean isTimeForBackgroundSync = false;
 
-    private final Object progressBarLock = new Object();
-
-    private Activity activity = null;
-
-    private ProgressBar progressBar = null;
-
     public static interface SyncMessageCallback {
         public void runOnSuccess();
         public void runOnErrors(List<JSONArray> errors);
@@ -189,18 +180,6 @@ public class ActFmSyncThread {
         }
     }
 
-    private final Runnable enqueueMessageProgressRunnable = new Runnable() {
-        @Override
-        public void run() {
-            synchronized (progressBarLock) {
-                if (progressBar != null) {
-                    progressBar.setMax(progressBar.getMax() + 2);
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    };
-
     public static void clearTablePushedAtValues() {
         String[] pushedAtPrefs = new String[] { NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS,
                 NameMaps.PUSHED_AT_ACTIVITY, NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA };
@@ -217,51 +196,6 @@ public class ActFmSyncThread {
                 pendingCallbacks.put(message, callback);
             synchronized(monitor) {
                 monitor.notifyAll();
-            }
-
-            if (activity != null) {
-                activity.runOnUiThread(enqueueMessageProgressRunnable);
-            }
-        }
-    }
-
-    public void setProgressBar(Activity activity, ProgressBar progressBar) {
-        synchronized(progressBarLock) {
-            int oldProgress = progressBar.getProgress();
-            int oldMax = progressBar.getMax();
-            this.activity = activity;
-            this.progressBar = progressBar;
-            if (this.activity != null && this.progressBar != null) {
-                this.progressBar.setMax(oldMax);
-                this.progressBar.setProgress(oldProgress);
-                if (oldProgress < oldMax && oldMax != 0) {
-                    this.progressBar.setVisibility(View.VISIBLE);
-                } else {
-                    this.progressBar.setVisibility(View.GONE);
-                }
-            }
-        }
-    }
-
-    private final Runnable incrementProgressRunnable = new Runnable() {
-        @Override
-        public void run() {
-            synchronized(progressBarLock) {
-                if (progressBar != null) {
-                    progressBar.incrementProgressBy(1);
-                    if (progressBar.getProgress() == progressBar.getMax()) {
-                        progressBar.setMax(0);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }
-            }
-        }
-    };
-
-    private void incrementProgress() {
-        synchronized (progressBarLock) {
-            if (activity != null) {
-                activity.runOnUiThread(incrementProgressRunnable);
             }
         }
     }
@@ -319,7 +253,6 @@ public class ActFmSyncThread {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
                     if (message != null)
                         messageBatch.add(message);
-                    incrementProgress();
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -334,7 +267,6 @@ public class ActFmSyncThread {
                         } else {
                             messageBatch.remove(i);
                             i--;
-                            incrementProgress(); // Don't let failed serialization mess up progress bar
                         }
 
                     }
@@ -387,7 +319,6 @@ public class ActFmSyncThread {
                     Map<Integer, List<JSONArray>> errorMap = buildErrorMap(errors);
                     for (int i = 0; i < messageBatch.size(); i++) {
                         ClientToServerMessage<?> message = messageBatch.get(i);
-                        incrementProgress();
                         try {
                             SyncMessageCallback r = pendingCallbacks.remove(message);
                             if (r != null && !callbacksExecutedThisLoop.contains(r)) {
