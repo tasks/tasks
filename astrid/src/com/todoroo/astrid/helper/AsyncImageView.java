@@ -46,8 +46,7 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
         if (cacheImage != null && cacheURL.equals(url) && !TextUtils.isEmpty(url)) {
             setImageBitmap(cacheImage);
             return;
-        }
-        else if(imageDiskCache != null && imageDiskCache.contains(url)) {
+        } else if (url != null && imageDiskCache != null && imageDiskCache.contains(url)) {
             try {
                 cacheImage = imageDiskCache.get(url);
                 setImageBitmap(cacheImage);
