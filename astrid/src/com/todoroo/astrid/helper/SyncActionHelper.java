@@ -33,10 +33,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
-import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -89,11 +87,7 @@ public class SyncActionHelper {
 
     // --- automatic sync logic
 
-    public void initiateAutomaticSync(Filter filter) {
-        if (filter == null || filter.title == null
-                || !filter.title.equals(activity.getString(R.string.BFE_Active)))
-            return;
-
+    public void initiateAutomaticSync() {
         long tasksPushedAt = Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0);
         if (DateUtilities.now() - tasksPushedAt > DateUtilities.ONE_HOUR / 2) {
             performSyncServiceV2Sync(false);
@@ -198,8 +192,7 @@ public class SyncActionHelper {
                         resolveInfo, pm);
 
                 if (GtasksPreferences.class.getName().equals(
-                        resolveInfo.activityInfo.name)
-                        && AmazonMarketStrategy.isKindleFire())
+                        resolveInfo.activityInfo.name))
                     continue;
 
                 if (resolveInfo.activityInfo.metaData != null) {
@@ -221,8 +214,11 @@ public class SyncActionHelper {
                     fragment.startActivityForResult(actions[which], TaskListFragment.ACTIVITY_SETTINGS);
                 }
             };
-
-            showSyncOptionMenu(actions, listener);
+            if (actions.length == 1) {
+                fragment.startActivityForResult(actions[0], TaskListFragment.ACTIVITY_SETTINGS);
+            } else {
+                showSyncOptionMenu(actions, listener);
+            }
 
         } else {
             syncService.synchronizeActiveTasks(true, syncResultCallback);

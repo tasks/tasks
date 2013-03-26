@@ -749,8 +749,8 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
      * the above method takes care of calling it in the correct way
      */
     protected void initiateAutomaticSyncImpl() {
-        if (isCurrentTaskListFragment())
-            syncActionHelper.initiateAutomaticSync(filter);
+        if (isCurrentTaskListFragment() && isInbox)
+            syncActionHelper.initiateAutomaticSync();
     }
 
     // Subclasses should override this
