@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">연락처를 선택하세요</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">다른 사람에게 맡기기!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1858,10 +1855,6 @@
   <string name="welcome_login_confirm_later_cancel">됐거든요</string>
   
   <string name="welcome_login_confirm_later_dialog">Astrid을 잘 사용하기 위해 가입하세요! 무료로 온라인 백업, Astrid.com 에 전체 동기화, 이메일로 일정 추가하기 그리고 친구들과 일정 목록을 공유할수 있습니다!</string>
-  
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">일정 형식을 변경하기</string>
 
 
 <!-- 

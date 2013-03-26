@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">Elegir un contacto</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">¡Encargarlo fuera!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1870,9 +1867,6 @@ Ten en cuenta que sincronizarse con ambos servicios puede, en algún caso, lleva
 Es gratis, obtienes copias de seguridad en línea, sincronización completa con Astrid.com,
 podrás agregar tareas vía correo electrónico, e incluso compartir listas de tareas con tus amigos!</string>
   
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">Cambiar el tipo de tarea</string>
 
 
 <!-- 

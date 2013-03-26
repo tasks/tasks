@@ -471,8 +471,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // EditPeopleControlSet relies on the "tags" transitory created by the
         // TagsControlSet, so we put the tags control before the people control
-        // EditPeopleControlSet also relies on taskRabbitControl set being added
-        // that way it can tell if it needs to show task rabbit in the spinner
 
         peopleControlSet = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,

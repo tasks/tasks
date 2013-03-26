@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">連絡先を選択する</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">アウトソーシング</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1880,10 +1877,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
   For free, you get online backup, full synchronization with Astrid.com, the 
   ability to add tasks via email, and you can even share task lists with friends!</string>
-  
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">Change the type of task</string>
 
 
 <!-- 

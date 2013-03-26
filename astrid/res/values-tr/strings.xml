@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">Bir kişi seç</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">Dış kaynak kullan!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1862,10 +1859,6 @@
   <string name="welcome_login_confirm_later_cancel">Hayır, teşekkürler</string>
   
   <string name="welcome_login_confirm_later_dialog">Astridden mümkün olduğunca faydalanmak için giriş yapın. Ücretsiz olarak çevirimiçi yedekleme, Astrid.com ile senkronizasyon, email ile görev ekleme ve arkadaşlar ile görev listesi paylaşma özelliklerine ulaşın.</string>
-  
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">Görev türünü değiştir</string>
 
 
 <!-- 

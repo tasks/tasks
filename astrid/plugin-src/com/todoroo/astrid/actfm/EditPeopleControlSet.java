@@ -8,8 +8,6 @@ package com.todoroo.astrid.actfm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,15 +118,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final Resources resources;
 
-    private final List<AssignedChangedListener> listeners = new LinkedList<AssignedChangedListener>();
-
-    public interface AssignedChangedListener {
-        public boolean showTaskRabbitForUser(String name, JSONObject json);
-        public boolean shouldShowTaskRabbit();
-        public boolean didPostToTaskRabbit();
-    }
-
-    private int selected = 0; //need to remember last selected state for task rabbit
+    private int selected = 0; // remember last selected state
 
     static {
         AstridDependencyInjector.initialize();
@@ -528,16 +518,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                     long id) {
                 AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(position);
 
-                for (AssignedChangedListener l : listeners) {
-                    if(l.showTaskRabbitForUser(user.label, user.user)) {
-                        assignedDisplay.setText(user.toString());
-                        assignedCustom.setText(""); //$NON-NLS-1$
-                        DialogUtilities.dismissDialog(activity, dialog);
-                        return;
-                    }
-
-                }
-
                 if (user.user.has(CONTACT_CHOOSER_USER)) {
                     Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                     fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
@@ -638,7 +618,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     return true;
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
-                    if (item.equals(contactPickerUser)) { //don't want to ever set the user as the task rabbit user
+                    if (item.equals(contactPickerUser)) { //don't want to ever set the user as the fake contact picker user
                         return true;
                     }
                     userJson = item.user;
@@ -853,14 +833,5 @@ public class EditPeopleControlSet extends PopupControlSet {
         dialog.getWindow()
             .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
                     | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-    }
-
-    public void addListener(AssignedChangedListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeListener(AssignedChangedListener listener) {
-        if (listeners.contains(listener))
-            listeners.remove(listener);
     }
 }

@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">Wybierz kontakt</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">Zleć to!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1861,10 +1858,6 @@ i odzyskanie zadań z kopi zapasowej (Settings->Sync and backup->Backup->Import 
   <string name="welcome_login_confirm_later_cancel">Nie, dzięki</string>
   
   <string name="welcome_login_confirm_later_dialog">Zaloguj się by wyciągnąć z Astrid jeszcze więcej! Za darmo otrzymasz kopię zapasową online, pełną synchronizację z Astrid.com, możliwość dodawania zadań przez e-mail i będziesz mógł dzielić się swoimi listami zadań ze znajomymi!</string>
-  
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">Zmień rodzaj zadania</string>
 
 
 <!-- 

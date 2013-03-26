@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">Scegli un contatto</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">Delega!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1869,9 +1866,6 @@ Sei sicuro di volerti sincronizzare con Google Tasks?</string>
 Gratuitamente, hai il backup online, la sincronizzazione completa con Astrid.com, la
 possibilità di aggiungere attività via email, e puoi anche condividere elenchi di attività con gli amici!</string>
   
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">Cambia il tipo di task</string>
 
 
 <!-- 

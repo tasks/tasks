@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">Kies een contactpersoon</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">Besteed dit uit!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1858,10 +1855,6 @@
   <string name="welcome_login_confirm_later_cancel">Nee, bedankt</string>
   
   <string name="welcome_login_confirm_later_dialog">Log in om het meeste uit Astrid te halen! Je krijgt gratis online backup, synchronisatie met Astrid.com, de mogelijkheid om taken toe te voegen via e-mail en lijsten te delen met vrienden!</string>
-  
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">Verander het type taak</string>
 
 
 <!-- 

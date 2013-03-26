@@ -1017,7 +1017,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         if (tagName != null)
             tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name).neq(tagName));
 
-        // TODO: For now, we'll modify the query to join and include the task rabbit and tag data here.
+        // TODO: For now, we'll modify the query to join and include the things like tag data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
         String joinedQuery =
                 Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),

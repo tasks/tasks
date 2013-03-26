@@ -456,7 +456,6 @@
   <string name="welcome_login_confirm_later_ok">Jasně!</string>
   <string name="welcome_login_confirm_later_cancel">Ne, díky</string>
   <string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Astrid více! Zdarma získáte online zálohování, plnou synchronizaci s Astrid.com, možnost přidávat úkoly emailem a dokonce můžete sdílet seznamy úkolů s přáteli!</string>
-  <string name="help_popover_taskrabbit_type">Změnit druh úkolu</string>
   <string name="locale_edit_alerts_title">Astrid Upozornění filtrů</string>
   <string name="locale_edit_intro">Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:</string>
   <string name="locale_interval_label">Omezit upozornění na:</string>

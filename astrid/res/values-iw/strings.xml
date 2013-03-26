@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">בחר איש קשר</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">העבר למיקור חוץ!</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1869,9 +1866,6 @@
   
   <string name="welcome_login_confirm_later_dialog">עליך להרשם כדי להפיק את המירב מאסטריד! תוכל לקבל גיבויים חינם, סינכרון מלא עם אתר astrid.com, אפשרות להוסיף משימות בדוא״ל, ואפילו אפשרות לשתף משימות עם חברים!</string>
   
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">שנה את סוג המשימה</string>
 
 
 <!-- 

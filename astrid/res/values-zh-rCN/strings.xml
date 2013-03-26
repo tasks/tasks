@@ -159,9 +159,6 @@
   <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">选择联系人</string>
   
-  <!-- slide 17a: task sharing dialog: use task rabbit -->
-  <string name="actfm_EPA_task_rabbit">将任务外包</string>
-  
   <!-- task sharing dialog: custom email assignment -->
   
   <!-- task sharing dialog: shared with label -->
@@ -1860,10 +1857,6 @@
   <string name="welcome_login_confirm_later_cancel">不了，谢谢</string>
   
   <string name="welcome_login_confirm_later_dialog">登录吧，充分利用清单小助理！无需任何费用，您就可以获得在线备份、和 Astrid.com 全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！</string>
-  
-  
-  <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_taskrabbit_type">更改任务类型</string>
 
 
 <!-- 
