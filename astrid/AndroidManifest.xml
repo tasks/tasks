@@ -48,6 +48,9 @@
   
   <!-- Required for GCM - keeps the processor from sleeping when a message is received. -->
   <uses-permission android:name="android.permission.WAKE_LOCK" />
+  
+  <!-- Used to initiate sync when device comes back online -->
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
   <!-- ============================================== Exported Permissions = -->
 
@@ -420,6 +423,12 @@
 	
     <service android:name=".GCMIntentService" />
     
+    <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread.NetworkStateChangedReceiver">
+        <intent-filter>
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+       </intent-filter>
+    </receiver>
+    
     <!-- gtasks -->
     <activity android:name="com.todoroo.astrid.gtasks.GtasksListFragment"
               android:windowSoftInputMode="stateHidden|adjustResize"
@@ -649,9 +658,7 @@
       </intent-filter>
     </receiver>
     
-    <!-- Task Rabbit -->
-    <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitMapActivity"></activity>
-    <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitActivity"></activity><activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
+    <activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
               android:windowSoftInputMode="stateHidden"
               android:screenOrientation="portrait"></activity>
     

@@ -15,10 +15,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -487,5 +490,22 @@ public class ActFmSyncThread {
     private void syncLog(String message) {
         if (ActFmInvoker.SYNC_DEBUG)
             Log.e(ERROR_TAG, message);
+    }
+
+    public static class NetworkStateChangedReceiver extends BroadcastReceiver {
+        private static long lastSyncFromNetworkChange = 0;
+        private static final String PREF_LAST_SYNC_FROM_NETWORK_CHANGE = "p_last_sync_from_net_change"; //$NON-NLS-1$
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            lastSyncFromNetworkChange = Preferences.getLong(PREF_LAST_SYNC_FROM_NETWORK_CHANGE, 0L);
+            if (DateUtilities.now() - lastSyncFromNetworkChange > DateUtilities.ONE_MINUTE * 10) {
+                NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+                if (info != null && NetworkInfo.State.CONNECTED.equals(info.getState())) {
+                    ActFmSyncThread syncThread = ActFmSyncThread.getInstance();
+                    syncThread.repopulateQueueFromOutstandingTables();
+                    Preferences.setLong(PREF_LAST_SYNC_FROM_NETWORK_CHANGE, DateUtilities.now());
+                }
+            }
+        }
     }
 }
