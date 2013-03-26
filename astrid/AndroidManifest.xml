@@ -422,7 +422,7 @@
 	
     <service android:name=".GCMIntentService" />
     
-    <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread.NetworkStateChangedReceiver">
+    <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread$NetworkStateChangedReceiver">
         <intent-filter>
             <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
        </intent-filter>
