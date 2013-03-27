@@ -101,7 +101,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
                 try {
                     JSONObject result = actFmInvoker.invoke("model_history_list", params.toArray(new Object[params.size()]));
                     JSONArray list = result.optJSONArray("list");
-                    boolean hasMore = result.optBoolean("has_more");
+                    boolean hasMore = result.optInt("has_more") > 0;
                     long time = result.optLong("time") * 1000;
                     if (hasMore && offset == 0) {
                         historyDao.deleteWhere(History.TARGET_ID.eq(uuid));

@@ -115,6 +115,32 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final ImageCache imageCache;
     private final int cameraButton;
     private final String linkColor;
+    private int historyCount = 0;
+
+    private final SyncMessageCallback callback = new SyncMessageCallback() {
+        @Override
+        public void runOnSuccess() {
+            synchronized(this) {
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (task == null)
+                                return;
+                            fetchTask(task.getId());
+                            if (task == null)
+                                return;
+                            setUpListAdapter();
+                            loadingText.setText(R.string.ENA_no_comments);
+                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
+                        }
+                    });
+                }
+            }
+        }
+        @Override
+        public void runOnErrors(List<JSONArray> errors) {/**/}
+    };
 
     private static boolean respondToPicture = false;
 
@@ -283,6 +309,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private void setUpListAdapter() {
         items.clear();
         this.removeAllViews();
+        historyCount = 0;
         TodorooCursor<Metadata> notes = metadataService.query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
@@ -316,6 +343,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 } else {
                     UpdateAdapter.readHistoryProperties(updates, history);
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
+                    historyCount++;
                 }
                 if(noa != null)
                     items.add(noa);
@@ -341,7 +369,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             this.addView(notesView);
         }
 
-        if (items.size() > commentItems) {
+        if (items.size() > commentItems || task.getValue(Task.HISTORY_HAS_MORE) > 0) {
             Button loadMore = new Button(getContext());
             loadMore.setText(R.string.TEA_load_more);
             loadMore.setBackgroundColor(Color.alpha(0));
@@ -350,6 +378,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     // Perform action on click
                     commentItems += 10;
                     setUpListAdapter();
+                    if (task.getValue(Task.HISTORY_HAS_MORE) > 0)
+                        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
+                                task.getUuid(), task.getValue(Task.TITLE), 0, historyCount, false, callback).execute();
                 }
             });
             this.addView(loadMore);
@@ -364,7 +395,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             noUpdates.setTextSize(16);
             this.addView(noUpdates);
         }
-
 
         for (UpdatesChangedListener l : listeners) {
             l.updatesChanged();
@@ -414,31 +444,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if(!task.containsNonNullValue(Task.UUID)) {
             return;
         }
-
-        SyncMessageCallback callback = new SyncMessageCallback() {
-            @Override
-            public void runOnSuccess() {
-                synchronized(this) {
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (task == null)
-                                    return;
-                                fetchTask(task.getId());
-                                if (task == null)
-                                    return;
-                                setUpListAdapter();
-                                loadingText.setText(R.string.ENA_no_comments);
-                                loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void runOnErrors(List<JSONArray> errors) {/**/}
-        };
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
