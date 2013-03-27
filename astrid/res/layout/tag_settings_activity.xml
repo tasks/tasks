@@ -96,6 +96,7 @@
                         android:hint="@string/actfm_TVA_tag_name_hint"
                         android:singleLine="true"
 	                    android:capitalize="sentences"
+	                    android:imeOptions="flagNoExtractUi"
                         android:textCursorDrawable="@null"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -149,6 +150,7 @@
                     style="@style/TextAppearance"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="flagNoExtractUi"
                     android:background="#00000000"
                     android:hint="@string/actfm_TVA_tag_description_hint"
                     android:textCursorDrawable="@null"
