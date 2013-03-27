@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -62,6 +64,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected UpdateAdapter updateAdapter;
     protected EditText addCommentField;
     protected ViewGroup listHeader;
+    protected Button footerView = null;
 
     protected ImageButton pictureButton;
 
@@ -119,6 +122,10 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected abstract String commentAddStatistic();
 
     protected abstract void performFetch(boolean manual, SyncMessageCallback done);
+
+    protected abstract boolean canLoadMoreHistory();
+
+    protected abstract void loadMoreHistory(int offset, SyncMessageCallback callback);
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -266,32 +273,47 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
         if (activity instanceof CommentsActivity)
             setLastViewed();
+
+        if (footerView != null) {
+            listView.removeFooterView(footerView);
+            if (canLoadMoreHistory()) {
+                footerView = new Button(getActivity());
+                footerView.setText(R.string.TEA_load_more);
+                footerView.setBackgroundColor(Color.alpha(0));
+                footerView.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        loadMoreHistory(0, doneRunnable);
+                    }
+                });
+            }
+        }
     }
 
     protected void setLastViewed() {
         //
     }
 
+    private final SyncMessageCallback doneRunnable = new SyncMessageCallback() {
+        @Override
+        public void runOnSuccess() {
+            synchronized (this) {
+                Activity activity = getActivity();
+                if (activity != null)
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshUpdatesList();
+                        }
+                    });
+            }
+        }
+
+        @Override
+        public void runOnErrors(List<JSONArray> errors) {/**/}
+    };
+
     protected void refreshActivity(boolean manual) {
         if (actFmPreferenceService.isLoggedIn()) {
-            SyncMessageCallback doneRunnable = new SyncMessageCallback() {
-                @Override
-                public void runOnSuccess() {
-                    synchronized (this) {
-                        Activity activity = getActivity();
-                        if (activity != null)
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    refreshUpdatesList();
-                                }
-                            });
-                    }
-                }
-
-                @Override
-                public void runOnErrors(List<JSONArray> errors) {/**/}
-            };
             if (hasModel()) {
                 performFetch(manual, doneRunnable);
             } else {

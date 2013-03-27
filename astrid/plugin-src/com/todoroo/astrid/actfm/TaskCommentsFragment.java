@@ -80,6 +80,17 @@ public class TaskCommentsFragment extends CommentsFragment {
     }
 
     @Override
+    protected boolean canLoadMoreHistory() {
+        return task.getValue(Task.HISTORY_HAS_MORE) > 0;
+    }
+
+    @Override
+    protected void loadMoreHistory(int offset, SyncMessageCallback callback) {
+        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
+                task.getUuid(), task.getValue(Task.TITLE), 0, offset, false, callback).execute();
+    }
+
+    @Override
     protected void performFetch(boolean manual, SyncMessageCallback done) {
         if (task != null) {
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), done);

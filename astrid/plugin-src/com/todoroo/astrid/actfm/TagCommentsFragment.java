@@ -89,6 +89,17 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
+    protected boolean canLoadMoreHistory() {
+        return tagData.getValue(TagData.HISTORY_HAS_MORE) > 0;
+    }
+
+    @Override
+    protected void loadMoreHistory(int offset, SyncMessageCallback callback) {
+        new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
+                tagData.getUuid(), null, 0, offset, true, callback).execute();
+    }
+
+    @Override
     protected void addHeaderToListView(ListView listView) {
         if (AstridPreferences.useTabletLayout(getActivity()) && tagData != null) {
             listHeader = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.tag_updates_header, listView, false);
