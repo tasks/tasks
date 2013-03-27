@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -71,7 +72,7 @@ public class PeopleContainer extends LinearLayout {
     }
 
     /** Adds a tag to the tag field */
-    public TextView addPerson(String person, String image, boolean isSelf) {
+    public TextView addPerson(String person, String image, boolean hideRemove) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // check if already exists
@@ -98,7 +99,7 @@ public class PeopleContainer extends LinearLayout {
         }
 
         final ImageButton removeButton = (ImageButton)tagItem.findViewById(R.id.button1);
-        if (isSelf)
+        if (hideRemove)
             removeButton.setVisibility(View.GONE);
         else
             removeButton.setOnClickListener(new View.OnClickListener() {
@@ -122,9 +123,10 @@ public class PeopleContainer extends LinearLayout {
         if (TextUtils.isEmpty(textView.getText())) {
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_add_contact));
             removeButton.setVisibility(View.GONE);
-        } else if (!isSelf) {
+        } else {
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
-            removeButton.setVisibility(View.VISIBLE);
+            if (!hideRemove)
+                removeButton.setVisibility(View.VISIBLE);
         }
 
 
@@ -277,12 +279,23 @@ public class PeopleContainer extends LinearLayout {
             JSONObject person = people.getJSONObject(i);
             TextView textView = null;
             String imageURL = person.optString("picture", "");
-            if(person.has("id") && ActFmPreferenceService.userId().equals(person.getString("id")))
-                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME), imageURL, true);
-            else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name")))
-                textView = addPerson(person.getString("name"), imageURL, false);
-            else if(!TextUtils.isEmpty(person.optString("email")) && !"null".equals(person.optString("email")))
-                textView = addPerson(person.getString("email"), imageURL, false);
+            boolean owner = person.optBoolean("owner");
+            boolean hideRemove = owner;
+            String name = "";
+
+            if(person.has("id") && ActFmPreferenceService.userId().equals(person.getString("id"))) {
+                name = Preferences.getStringValue(ActFmPreferenceService.PREF_NAME);
+                hideRemove = true;
+            } else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name"))) {
+                name = person.getString("name");
+            } else if(!TextUtils.isEmpty(person.optString("email")) && !"null".equals(person.optString("email"))) {
+                name = person.getString("email");
+            }
+
+            if (owner)
+                name = name + " " + ContextManager.getString(R.string.actfm_list_owner);
+
+            textView = addPerson(name, imageURL, hideRemove);
 
             if(textView != null) {
                 textView.setTag(person);

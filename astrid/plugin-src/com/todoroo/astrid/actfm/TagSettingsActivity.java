@@ -484,6 +484,18 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 } finally {
                     emailMembers.close();
                 }
+
+                User u = userDao.fetch(tagData.getValue(TagData.USER_ID), User.PROPERTIES);
+                if (u != null) {
+                    try {
+                        JSONObject owner = new JSONObject();
+                        ActFmSyncService.JsonHelper.jsonFromUser(owner, u);
+                        owner.put("owner", true);
+                        people.put(owner);
+                    } catch (JSONException e2) {
+                        //
+                    }
+                }
             }
 
         }
