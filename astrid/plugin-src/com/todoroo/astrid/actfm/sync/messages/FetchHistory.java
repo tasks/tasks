@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -29,10 +30,12 @@ public class FetchHistory<TYPE extends RemoteModel> {
 
     private final RemoteModelDao<TYPE> dao;
     private final LongProperty historyTimeProperty;
+    private final IntegerProperty historyHasMoreProperty;
     private final String table;
     private final String uuid;
     private final String taskTitle;
     private final long modifiedAfter;
+    private final int offset;
     private final boolean includeTaskHistory;
     private final SyncMessageCallback done;
 
@@ -48,15 +51,17 @@ public class FetchHistory<TYPE extends RemoteModel> {
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
 
-    public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty,
-            String table, String uuid, String taskTitle, long modifiedAfter, boolean includeTaskHistory, SyncMessageCallback done) {
+    public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty, IntegerProperty historyHasMoreProperty,
+            String table, String uuid, String taskTitle, long modifiedAfter, int offset, boolean includeTaskHistory, SyncMessageCallback done) {
         DependencyInjectionService.getInstance().inject(this);
         this.dao = dao;
         this.historyTimeProperty = historyTimeProperty;
+        this.historyHasMoreProperty = historyHasMoreProperty;
         this.table = table;
         this.uuid = uuid;
         this.taskTitle = taskTitle;
         this.modifiedAfter = modifiedAfter;
+        this.offset = offset;
         this.includeTaskHistory = includeTaskHistory;
         this.done = done;
     }
@@ -88,11 +93,19 @@ public class FetchHistory<TYPE extends RemoteModel> {
                     params.add("modified_after"); params.add(modifiedAfter / 1000L);
                 }
 
+                if (offset > 0) {
+                    params.add("offset"); params.add(offset);
+                }
+
                 params.add("token"); params.add(token);
                 try {
                     JSONObject result = actFmInvoker.invoke("model_history_list", params.toArray(new Object[params.size()]));
                     JSONArray list = result.optJSONArray("list");
+                    boolean hasMore = result.optBoolean("has_more");
                     long time = result.optLong("time") * 1000;
+                    if (hasMore && offset == 0) {
+                        historyDao.deleteWhere(History.TARGET_ID.eq(uuid));
+                    }
                     if (list != null) {
                         for (int i = 0; i < list.length(); i++) {
                             JSONObject historyJson = list.optJSONObject(i);
@@ -129,6 +142,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
                             try {
                                 template = dao.getModelClass().newInstance();
                                 template.setValue(historyTimeProperty, time);
+                                template.setValue(historyHasMoreProperty, hasMore ? 1 : 0);
                                 dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), template);
                             } catch (InstantiationException e) {
                                 Log.e(ERROR_TAG, "Error instantiating model for recording time", e);

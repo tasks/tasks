@@ -152,9 +152,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         return R.drawable.camera_button;
     }
 
+    private void fetchTask(long id) {
+        task = PluginServices.getTaskService().fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+    }
+
     public void loadViewForTaskID(long t){
         try {
-            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+            fetchTask(t);
         } catch (SQLiteException e) {
             StartupService.handleSQLiteError(ContextManager.getContext(), e);
         }
@@ -421,7 +425,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                             public void run() {
                                 if (task == null)
                                     return;
-                                task = PluginServices.getTaskService().fetchById(task.getId(), Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
+                                fetchTask(task.getId());
                                 if (task == null)
                                     return;
                                 setUpListAdapter();
@@ -438,7 +442,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
-        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, NameMaps.TABLE_ID_TASKS, task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), false, callback).execute();
+        new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
+                task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, false, callback).execute();
     }
 
     private void addComment() {
