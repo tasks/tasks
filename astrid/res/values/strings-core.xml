@@ -791,6 +791,9 @@
   <!-- default configuration name for the above dialog -->
   <string name="EPr_config_dialog_default_id">default</string>
   
+  <!-- Preference title for showing save and cancel buttons in task edit page -->
+  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
+  
   
   <!-- Swipe between lists -->
   <!-- Preference: swipe between lists performance -->

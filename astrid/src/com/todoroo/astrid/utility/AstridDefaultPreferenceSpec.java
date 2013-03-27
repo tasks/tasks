@@ -129,6 +129,8 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false, ifUnset);
 
+        setPreference(prefs, editor, r, R.string.p_save_and_cancel, false, ifUnset);
+
         extras.setExtras(context, prefs, editor, r, ifUnset);
 
         editor.commit();

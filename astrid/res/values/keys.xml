@@ -83,6 +83,9 @@
   <!-- show comments in task edit -->
   <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
   
+  <!-- show save and cancel buttons in task edit -->
+  <string name="p_save_and_cancel">p_save_and_cancel</string>
+  
   <!-- menu items to show -->
   <string name="p_menu_items">p_menu_items</string>
   <string name="p_show_menu_search">p_show_menu_search</string>

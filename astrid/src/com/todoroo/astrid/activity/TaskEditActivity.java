@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.service.ThemeService;
 
@@ -24,10 +25,14 @@ public class TaskEditActivity extends AstridActivity {
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
         ActionBar actionBar = getSupportActionBar();
-        if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
-            actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
-        else
-            actionBar.setLogo(R.drawable.ic_menu_save);
+        if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
+            if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
+                actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
+            else
+                actionBar.setLogo(R.drawable.ic_menu_save);
+        } else {
+            actionBar.setLogo(null);
+        }
 
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_edit_wrapper_activity);
