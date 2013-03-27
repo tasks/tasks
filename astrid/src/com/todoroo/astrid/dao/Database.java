@@ -350,6 +350,7 @@ public class Database extends AbstractDatabase {
         }
         case 28:
         case 29:
+        case 30:
             tryExecSQL("DROP TABLE " + History.TABLE.name);
             tryExecSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
@@ -367,10 +368,12 @@ public class Database extends AbstractDatabase {
             tryExecSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             tryExecSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
+            tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_HAS_MORE, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_HAS_MORE, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.TASKS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
