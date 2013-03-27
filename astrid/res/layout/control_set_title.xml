@@ -37,6 +37,7 @@
         android:inputType="textMultiLine"
         android:paddingLeft="5dip"
         android:scrollbars="vertical"
+        android:imeOptions="flagNoExtractUi"
         android:text=""
         android:textColor="?attr/asTextColor" />
 
