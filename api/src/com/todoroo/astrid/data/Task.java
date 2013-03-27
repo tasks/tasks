@@ -92,6 +92,7 @@ public final class Task extends RemoteModel {
     public static final LongProperty DETAILS_DATE = new LongProperty(
             TABLE, "detailsDate", Property.PROP_FLAG_DATE);
 
+    @Deprecated
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
 
