@@ -309,10 +309,9 @@ public class ActFmSyncThread {
                                 if (serverMessageJson != null) {
                                     ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
                                     if (serverMessage != null) {
-                                        syncLog("Processing server message of type " + serverMessage.getClass().getSimpleName());
                                         serverMessage.processMessage(time);
                                     } else {
-                                        syncLog("Unable to instantiate message " + serverMessageJson.toString());
+                                        syncLog("Index " + i + " unable to instantiate message " + serverMessageJson.toString());
                                     }
                                 }
                             }
