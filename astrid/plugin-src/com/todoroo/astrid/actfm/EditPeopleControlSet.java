@@ -144,19 +144,10 @@ public class EditPeopleControlSet extends PopupControlSet {
         setUpListeners();
     }
 
-//    @Override
-//    protected void setupOkButton(View v) {
-//        super.setupOkButton(getSharedWithView());
-//        Button dismiss = (Button) getSharedWithView().findViewById(R.id.edit_dlg_ok);
-//        if (dismiss != null) {
-//            dismiss.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    DialogUtilities.dismissDialog(EditPeopleControlSet.this.activity, sharedWithDialog);
-//                }
-//            });
-//        }
-//    }
+    @Override
+    protected void setupOkButton(View v) {
+        //
+    }
 
     @Override
     public void readFromTask(Task sourceTask) {
