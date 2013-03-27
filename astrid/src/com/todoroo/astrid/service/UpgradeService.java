@@ -27,8 +27,11 @@ import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.core.SavedFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.DueDateTimeMigrator;
@@ -225,6 +228,16 @@ public final class UpgradeService {
                                 new SubtasksMetadataMigration().performMigration();
 
                             if (from < V4_6_0) {
+                                if (Preferences.getBoolean(R.string.p_use_filters, false)) {
+                                    TodorooCursor<StoreObject> cursor = PluginServices.getStoreObjectDao().query(Query.select(StoreObject.PROPERTIES).where(
+                                            StoreObject.TYPE.eq(SavedFilter.TYPE)).limit(1));
+                                    try {
+                                        if (cursor.getCount() == 0)
+                                            Preferences.setBoolean(R.string.p_use_filters, false);
+                                    } finally {
+                                        cursor.close();
+                                    }
+                                }
                                 new AstridNewSyncMigrator().performMigration();
                                 new GCMIntentService.GCMMigration().performMigration(UpgradeActivity.this);
                             }

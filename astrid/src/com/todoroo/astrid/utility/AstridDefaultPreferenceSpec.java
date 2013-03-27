@@ -112,7 +112,7 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_calendar_reminders, true, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_use_filters, true, ifUnset);
+        setPreference(prefs, editor, r, R.string.p_use_filters, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_list_members, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_rmd_social, true, ifUnset);
