@@ -57,9 +57,7 @@
     <string name="CFA_context_delete">Delete Row</string>
     
     <!-- slide 30b: Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">Long press on items for additional options</string>
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">Add Criteria</string>

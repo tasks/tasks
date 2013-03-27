@@ -14,10 +14,19 @@
     <EditText android:id="@+id/filterName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dip"
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="15dip"
         android:layout_weight="1"
+        android:background="@null"
         android:hint="@string/CFA_filterName_hint"
         android:capitalize="sentences" />
+    
+    <View 
+        android:layout_height="1px"
+        android:layout_width="fill_parent"
+        android:background="#e9e9e9"/>
     
     <!-- List -->
     <com.todoroo.astrid.ui.ErrorCatchingListView android:id="@android:id/list"
@@ -26,6 +35,16 @@
         android:layout_weight="100"
         android:scrollbars="vertical"
         android:cacheColorHint="#00000000"/>
+    
+    <!-- help text -->
+    <TextView android:id="@+id/help"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingLeft="5dip"
+        android:text="@string/CFA_help"
+        style="@style/TextAppearance"/>
     
     <!-- buttons -->
     <LinearLayout

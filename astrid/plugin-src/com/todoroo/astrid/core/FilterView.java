@@ -23,9 +23,9 @@ public class FilterView extends View {
 
     private int start = 0, end = 0, max = 1;
 
-    private static final int FILTER_COLOR = Color.rgb(85, 155, 255);
-    private static final int BG_COLOR = Color.CYAN;
-    private static final int TEXT_COLOR = Color.BLACK;
+    private static final int FILTER_COLOR = Color.rgb(0x1f, 0x78, 0xb4);
+    private static final int BG_COLOR = Color.rgb(0xe9, 0xe9, 0xe9);
+    private static final int TEXT_COLOR = Color.WHITE;
 
     // --- boilerplate
 
@@ -74,7 +74,7 @@ public class FilterView extends View {
         paint.setColor(TEXT_COLOR);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(16);
-        canvas.drawText(Integer.toString(end), getWidth() / 2, getHeight() / 2, paint);
+        canvas.drawText(Integer.toString(end), getWidth() / 2, getHeight() / 2 + 8, paint);
     }
 
 }
