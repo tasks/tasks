@@ -611,11 +611,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             else
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
             onVoiceReminderStatusChanged(preference, (Boolean)value);
-        } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_enabled);
         }
     }
 
