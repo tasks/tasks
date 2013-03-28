@@ -127,6 +127,8 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected abstract void loadMoreHistory(int offset, SyncMessageCallback callback);
 
+    protected abstract void refetchModel();
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -302,6 +304,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            refetchModel();
                             refreshUpdatesList();
                         }
                     });

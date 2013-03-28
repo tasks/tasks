@@ -74,6 +74,13 @@ public class TagCommentsFragment extends CommentsFragment {
     }
 
     @Override
+    protected void refetchModel() {
+        if (tagData != null) {
+            tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
+        }
+    }
+
+    @Override
     protected String getModelName() {
         return tagData.getValue(TagData.NAME);
     }

@@ -45,6 +45,13 @@ public class TaskCommentsFragment extends CommentsFragment {
     }
 
     @Override
+    protected void refetchModel() {
+        if (task != null) {
+            task = taskDao.fetch(task.getId(), Task.PROPERTIES);
+        }
+    }
+
+    @Override
     protected boolean hasModel() {
         return task != null;
     }
