@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -241,8 +242,14 @@ public class QuickAddBar extends LinearLayout {
 
         LayoutParams lp = new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
-        quickAddControls.addView(peopleControl.getDisplayView(), 0, lp);
-        quickAddControls.addView(deadlineControl.getDisplayView(), 2, lp);
+        View peopleDisplay = peopleControl.getDisplayView();
+        View deadlineDisplay = deadlineControl.getDisplayView();
+        quickAddControls.addView(peopleDisplay, 0, lp);
+        quickAddControls.addView(deadlineDisplay, 2, lp);
+        TextView tv = (TextView) deadlineDisplay.findViewById(R.id.display_row_edit);
+        tv.setGravity(Gravity.LEFT);
+        tv = (TextView) peopleDisplay.findViewById(R.id.display_row_edit);
+        tv.setGravity(Gravity.LEFT);
     }
 
     private void resetControlSets() {

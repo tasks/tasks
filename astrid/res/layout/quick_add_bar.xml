@@ -75,9 +75,15 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="vertical"
-	        android:layout_marginBottom="5dip"
+	        android:paddingBottom="5dip"
+	        android:background="#22000000"
 	        android:visibility="gone">
 	        
+            <View 
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="?attr/asSeparatorBackground"/> 
+                           
 	        <LinearLayout 
 	            android:id="@+id/taskListQuickaddControls"
 	            android:layout_width="fill_parent"
