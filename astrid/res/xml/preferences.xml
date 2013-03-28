@@ -134,6 +134,10 @@
 	                android:title="@string/today"
 	                android:defaultValue="true"/>
 	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	                android:key="@string/p_show_waiting_on_me_filter"
+	                android:title="@string/BFE_waiting_on_me"
+	                android:defaultValue="true"/>
+	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	                android:key="@string/p_show_recently_modified_filter"
 	                android:title="@string/BFE_Recent"
 	                android:defaultValue="true"/>

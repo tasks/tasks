@@ -5,7 +5,11 @@
  */
 package com.todoroo.astrid.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -16,15 +20,19 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -49,12 +57,17 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
 
     private FilterListItem[] prepareFilters(Resources r) {
         // core filters
-        Filter inbox = buildInboxFilter(r);
+        List<FilterListItem> filters = new ArrayList<FilterListItem>(3);
+
+        filters.add(buildInboxFilter(r));
+        if (Preferences.getBoolean(R.string.p_show_today_filter, true))
+            filters.add(getTodayFilter(r));
+
+        if (Preferences.getBoolean(R.string.p_show_waiting_on_me_filter, true))
+            filters.add(getWaitingOnMeFilter(r));
 
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[1];
-        list[0] = inbox;
-        return list;
+        return filters.toArray(new FilterListItem[filters.size()]);
     }
 
     /**
@@ -75,6 +88,37 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
         return inbox;
     }
 
+    public static Filter getTodayFilter(Resources r) {
+        int themeFlags = ThemeService.getFilterThemeFlags();
+        String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
+        ContentValues todayValues = new ContentValues();
+        todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
+        Filter todayFilter = new Filter(todayTitle,
+                todayTitle,
+                new QueryTemplate().where(
+                        Criterion.and(TaskCriteria.activeVisibleMine(),
+                                Task.DUE_DATE.gt(0),
+                                Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
+                                todayValues);
+        todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
+                ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
+        return todayFilter;
+    }
+
+    public static Filter getWaitingOnMeFilter(Resources r) {
+         Filter waitingOnMe = new Filter(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
+                 new QueryTemplate().where(
+                         Criterion.and(TaskCriteria.activeVisibleMine(),
+                                 Task.UUID.in(Query.select(WaitingOnMe.TASK_UUID)
+                                         .from(WaitingOnMe.TABLE).where(WaitingOnMe.DELETED_AT.eq(0))))), null);
+
+         int themeFlags = ThemeService.getFilterThemeFlags();
+         waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(
+                 ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
+         return waitingOnMe;
+
+    }
+
     /**
      * Is this the inbox?
      * @param filter
@@ -82,6 +126,10 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
      */
     public static boolean isInbox(Filter filter) {
         return (filter != null && filter.equals(buildInboxFilter(ContextManager.getContext().getResources())));
+    }
+
+    public static boolean isTodayFilter(Filter filter) {
+        return (filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources())));
     }
 
     @Override

@@ -73,6 +73,7 @@
   <string name="p_filters_to_show">p_filters_to_show</string>
   <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
   <string name="p_show_today_filter">p_show_today_f</string>
+  <string name="p_show_waiting_on_me_filter">p_show_waiting_on_me_f</string>
   <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
   <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
   <string name="p_show_not_in_list_filter">p_show_no_list_f</string>

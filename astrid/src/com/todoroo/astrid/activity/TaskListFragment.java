@@ -78,7 +78,6 @@ import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
-import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -399,7 +398,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         isInbox = CoreFilterExposer.isInbox(filter);
         isTodayFilter = false;
         if (!isInbox)
-            isTodayFilter = CustomFilterExposer.isTodayFilter(filter);
+            isTodayFilter = CoreFilterExposer.isTodayFilter(filter);
 
         initializeTaskListMetadata();
 

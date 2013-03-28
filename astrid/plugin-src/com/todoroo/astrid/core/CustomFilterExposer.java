@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -35,7 +33,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
@@ -76,27 +73,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         return savedFilters;
     }
 
-    public static Filter getTodayFilter(Resources r) {
-        int themeFlags = ThemeService.getFilterThemeFlags();
-        String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
-        ContentValues todayValues = new ContentValues();
-        todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
-        Filter todayFilter = new Filter(todayTitle,
-                todayTitle,
-                new QueryTemplate().where(
-                        Criterion.and(TaskCriteria.activeVisibleMine(),
-                                Task.DUE_DATE.gt(0),
-                                Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
-                                todayValues);
-        todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
-        return todayFilter;
-    }
-
-    public static boolean isTodayFilter(Filter filter) {
-        return (filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources())));
-    }
-
     private Filter[] buildSavedFilters(Context context, Resources r) {
         int themeFlags = ThemeService.getFilterThemeFlags();
 
@@ -110,9 +86,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
             ArrayList<Filter> list = new ArrayList<Filter>();
 
             // stock filters
-            if (Preferences.getBoolean(R.string.p_show_today_filter, true))
-                list.add(getTodayFilter(r));
-
             if (Preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
                 Filter recent = new Filter(r.getString(R.string.BFE_Recent),
                         r.getString(R.string.BFE_Recent),
