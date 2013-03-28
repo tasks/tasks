@@ -50,6 +50,9 @@ public class WaitingOnMe extends RemoteModel {
     public static final LongProperty READ_AT = new LongProperty(
             TABLE, "read_at", Property.PROP_FLAG_DATE);
 
+    public static final LongProperty PUSHED_AT = new LongProperty(
+            TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
+
     @Override
     public String getUuid() {
         return getUuidHelper(UUID);
