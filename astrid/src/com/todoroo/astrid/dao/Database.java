@@ -32,6 +32,8 @@ import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
+import com.todoroo.astrid.data.WaitingOnMe;
+import com.todoroo.astrid.data.WaitingOnMeOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -51,7 +53,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 30;
+    public static final int VERSION = 31;
 
     /**
      * Database name (must be unique)
@@ -374,6 +376,10 @@ public class Database extends AbstractDatabase {
             tryExecSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(User.TABLE, User.FIRST_NAME, visitor, null));
             tryExecSQL(addColumnSql(User.TABLE, User.LAST_NAME, visitor, null));
+
+        case 30:
+            tryExecSQL(createTableSql(visitor, WaitingOnMe.TABLE.name, WaitingOnMe.PROPERTIES));
+            tryExecSQL(createTableSql(visitor, WaitingOnMeOutstanding.TABLE.name, WaitingOnMeOutstanding.PROPERTIES));
 
         return true;
         }
