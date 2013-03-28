@@ -77,12 +77,14 @@ public class Database extends AbstractDatabase {
         History.TABLE,
         TaskAttachment.TABLE,
         TaskListMetadata.TABLE,
+        WaitingOnMe.TABLE,
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
         UserActivityOutstanding.TABLE,
         TaskAttachmentOutstanding.TABLE,
-        TaskListMetadataOutstanding.TABLE
+        TaskListMetadataOutstanding.TABLE,
+        WaitingOnMeOutstanding.TABLE
     };
 
     // --- listeners
