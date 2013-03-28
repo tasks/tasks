@@ -499,7 +499,7 @@ public class ActFmSyncThread {
             lastSyncFromNetworkChange = Preferences.getLong(PREF_LAST_SYNC_FROM_NETWORK_CHANGE, 0L);
             if (DateUtilities.now() - lastSyncFromNetworkChange > DateUtilities.ONE_MINUTE * 10) {
                 NetworkInfo info = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
-                if (info != null && NetworkInfo.State.CONNECTED.equals(info.getState())) {
+                if (info != null && NetworkInfo.State.CONNECTED.equals(info.getState()) && PluginServices.getActFmPreferenceService().isLoggedIn()) {
                     ActFmSyncThread syncThread = ActFmSyncThread.getInstance();
                     syncThread.repopulateQueueFromOutstandingTables();
                     Preferences.setLong(PREF_LAST_SYNC_FROM_NETWORK_CHANGE, DateUtilities.now());
