@@ -79,6 +79,8 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
                         pushedAtKey = NameMaps.PUSHED_AT_USERS;
                     else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
                         pushedAtKey = NameMaps.PUSHED_AT_TASK_LIST_METADATA;
+                    else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table))
+                        pushedAtKey = NameMaps.PUSHED_AT_WAITING_ON_ME;
 
                     if (pushedAtKey != null)
                         Preferences.setLong(pushedAtKey, pushedAt);
