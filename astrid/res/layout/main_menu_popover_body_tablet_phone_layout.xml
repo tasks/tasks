@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_width="280dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gdi_arrow_up"
+        android:background="?attr/asListPopoverBg">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+	        <LinearLayout
+	            android:id="@+id/topFixedItems"
+	            android:layout_width="280dip"
+	            android:layout_height="wrap_content"
+	            android:background="@android:color/transparent"
+	            android:orientation="vertical"/>
+	        <include layout="@layout/fla_separator"/>
+		    <LinearLayout
+		        android:id="@+id/content"
+		        android:layout_width="280dip"
+		        android:layout_height="wrap_content"
+		        android:background="@android:color/transparent"
+		        android:orientation="vertical"/>
+	        <include layout="@layout/fla_separator"/>
+	        <LinearLayout
+	            android:id="@+id/bottomFixedItems"
+	            android:layout_width="280dip"
+	            android:layout_height="wrap_content"
+	            android:background="@android:color/transparent"
+	            android:orientation="vertical"/>
+        </LinearLayout>
+    </ScrollView>
+</merge>

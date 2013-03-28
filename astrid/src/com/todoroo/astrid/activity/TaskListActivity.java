@@ -363,9 +363,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void createMainMenuPopover() {
         int layout;
-        boolean isTablet = AstridPreferences.useTabletLayout(this);
-        if (isTablet)
+        boolean isTabletLayout = AstridPreferences.useTabletLayout(this);
+        if (isTabletLayout)
             layout = R.layout.main_menu_popover_tablet;
+        else if (AndroidUtilities.isTabletSized(this))
+            layout = R.layout.main_menu_popover_tablet_phone_layout;
         else
             layout = R.layout.main_menu_popover;
 
@@ -377,7 +379,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             }
         });
 
-        if (isTablet)
+        if (isTabletLayout)
             mainMenuPopover.refreshFixedItems();
     }
 

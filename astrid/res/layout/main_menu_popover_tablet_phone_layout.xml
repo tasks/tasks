@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<com.todoroo.astrid.ui.TouchInterceptingFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+	<RelativeLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:paddingLeft="10dip">
+	
+	    <include layout="@layout/main_menu_popover_body_tablet_phone_layout"/>
+	
+	    <ImageView
+	        android:id="@+id/gdi_arrow_up"
+	        android:layout_width="27dip"
+	        android:layout_height="27dip"
+	        android:layout_marginLeft="-10dip"
+	        android:scaleType="fitCenter"
+	        android:layout_marginBottom="-8dip"
+	        android:src="?attr/asListArrowUp" />
+	
+	    <ImageView
+	        android:id="@+id/gdi_arrow_down"
+	        android:layout_width="27dip"
+	        android:layout_height="27dip"
+	        android:scaleType="fitCenter"
+	        android:layout_marginBottom="-8dip"
+	        android:layout_below="@android:id/list"/>
+	</RelativeLayout>
+</com.todoroo.astrid.ui.TouchInterceptingFrameLayout>
