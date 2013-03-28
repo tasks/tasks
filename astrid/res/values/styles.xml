@@ -47,9 +47,16 @@
         <item name="asHeaderTextColorInverse">?attr/asAbBackgroundColor</item>
         
         <!-- actionbar-styling -->
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle</item>
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
         <item name="vpiTabTextStyle">@style/CustomTabPageIndicator.Text</item>
+    </style>
+    
+    <style name="AstridV11ActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
+        <item name="android:background">@drawable/header_blue</item>
+        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+        <item name="android:logo">@drawable/home_button_blue</item>
     </style>
     
     <style name="AstridActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
@@ -58,12 +65,17 @@
         <item name="logo">@drawable/home_button_blue</item>
     </style>
     
+    <style name="AstridV11ActionBarStyle.Transparent">
+        <item name="android:background">#aa000000</item>
+    </style>
+    
     <style name="AstridActionBarStyle.Transparent">
         <item name="background">#aa000000</item>
     </style>
     
     <style name="Theme.Transparent" parent="Theme">
 		<item name="asContentBackground">#22000000</item>
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Transparent</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.Transparent</item>
         <item name="asQuickaddBackgroundColor">#22000000</item>
         <item name="asEditBackground">#33272327</item>
@@ -107,7 +119,14 @@
         <item name="asReadonlyTaskBackground">#fff6d7</item>
         
         <!-- actionbar-styling -->
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.White</item>
+    </style>
+    
+    <style name="AstridV11ActionBarStyle.White">
+        <item name="android:background">@drawable/header_red</item>
+        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+        <item name="android:logo">@drawable/home_button_red</item>
     </style>
     
     <style name="AstridActionBarStyle.White">
@@ -128,7 +147,13 @@
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_dark_blue</item>
         <item name="asAbBackgroundColor">#e9e9e9</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark_blue</item>
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White.Blue</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.White.Blue</item>
+    </style>
+    
+    <style name="AstridV11ActionBarStyle.White.Blue">
+        <item name="android:background">@drawable/header_day_blue</item>
+        <item name="android:logo">@drawable/home_button_dark_blue</item>
     </style>
     
     <style name="AstridActionBarStyle.White.Blue">
@@ -150,9 +175,15 @@
         <item name="asAbBackgroundColor">#eee</item>
         <item name="asHeaderTextColor">@android:color/white</item>
         <item name="asHeaderTextColorInverse">?attr/asThemeTextColor</item>
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White.Alt</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.White.Alt</item>
     </style>
     
+    <style name="AstridV11ActionBarStyle.White.Alt">
+        <item name="android:logo">@drawable/home_button_blue_alt</item>
+        <item name="android:background">@drawable/header_blue_alt</item>
+    </style>
+
     <style name="AstridActionBarStyle.White.Alt">
         <item name="logo">@drawable/home_button_blue_alt</item>
         <item name="background">@drawable/header_blue_alt</item>
@@ -164,11 +195,16 @@
         <item name="asEditBackground">#33272327</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_black</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White.Blue.Transparent</item> 
         <item name="actionBarStyle">@style/AstridActionBarStyle.White.Blue.Transparent</item> 
         
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
+    </style>
+    
+    <style name="AstridV11ActionBarStyle.White.Blue.Transparent">
+        <item name="android:background">#aa000000</item>
     </style>
     
     <style name="AstridActionBarStyle.White.Blue.Transparent">
@@ -197,6 +233,7 @@
         <item name="asMembersHeaderBackground">#d0d0d0</item>
         <item name="asSeparatorBackground">#888888</item>
         <!-- actionbar-styling -->
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog</item>
         
         <item name="android:windowIsFloating">true</item>
@@ -217,6 +254,12 @@
         <item name="asThemeTextColor">@color/blue_theme_color</item>
     </style>
     
+    <style name="AstridV11ActionBarStyle.Dialog">
+        <item name="android:background">@drawable/header_background</item>
+        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+        <item name="android:logo">@drawable/icon_48</item>
+    </style>
+    
     <style name="AstridActionBarStyle.Dialog">
         <item name="background">@drawable/header_background</item>
         <item name="displayOptions">useLogo|showHome|showTitle</item>
@@ -233,11 +276,18 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">#d0d0d0</item>
         <!-- actionbar-styling -->
+        <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.Dialog.White</item>        
         <item name="actionBarStyle">@style/AstridActionBarStyle.Dialog.White</item>        
         
         <item name="asEditBackground">#dddddd</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
+    </style>
+    
+    <style name="AstridV11ActionBarStyle.Dialog.White">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+        <item name="android:logo">@drawable/icon_48</item>
     </style>
     
     <style name="AstridActionBarStyle.Dialog.White">
