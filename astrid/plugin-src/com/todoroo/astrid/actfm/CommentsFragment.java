@@ -47,6 +47,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
@@ -240,11 +241,19 @@ public abstract class CommentsFragment extends SherlockListFragment {
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
                     cursor, false, source);
             addHeaderToListView(listView);
+            addFooterToListView(listView);
             listView.setAdapter(updateAdapter);
         } else {
             cursor = updateAdapter.getCursor();
             cursor.requery();
             activity.startManagingCursor(cursor);
+            if (footerView != null && !canLoadMoreHistory()) {
+                listView.removeFooterView(footerView);
+                footerView = null;
+            } else if (footerView == null && canLoadMoreHistory()) {
+                addFooterToListView(listView);
+                listView.setAdapter(updateAdapter);
+            }
             populateListHeader(listHeader);
         }
 
@@ -276,19 +285,32 @@ public abstract class CommentsFragment extends SherlockListFragment {
         if (activity instanceof CommentsActivity)
             setLastViewed();
 
+    }
+
+    private void addFooterToListView(ListView listView) {
         if (footerView != null) {
             listView.removeFooterView(footerView);
-            if (canLoadMoreHistory()) {
-                footerView = new Button(getActivity());
-                footerView.setText(R.string.TEA_load_more);
-                footerView.setBackgroundColor(Color.alpha(0));
-                footerView.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        loadMoreHistory(0, doneRunnable);
-                    }
-                });
-            }
         }
+        if (canLoadMoreHistory()) {
+            footerView = new Button(getActivity());
+            footerView.setText(R.string.TEA_load_more);
+            footerView.setBackgroundColor(Color.alpha(0));
+            footerView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    int historyCount = 0;
+                    Cursor c = updateAdapter.getCursor();
+                    for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+                        if (NameMaps.TABLE_ID_HISTORY.equals(c.getString(UpdateAdapter.TYPE_PROPERTY_INDEX)))
+                            historyCount++;
+                    }
+                    loadMoreHistory(historyCount, doneRunnable);
+                }
+            });
+            listView.addFooterView(footerView);
+        } else {
+            footerView = null;
+        }
+
     }
 
     protected void setLastViewed() {

@@ -51,8 +51,6 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
-import com.todoroo.astrid.actfm.sync.messages.FetchHistory;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -454,10 +452,10 @@ public class TagViewFragment extends TaskListFragment {
             ActFmSyncThread.getInstance().repopulateQueueFromOutstandingTables();
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<Task>(Task.class, null, tagData.getValue(TagData.TASKS_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), callback);
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, tagData.getUuid(), tagData.getValue(TagData.PUSHED_AT)), callback);
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, tagData.getValue(TagData.USER_ACTIVITIES_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), callback);
+//            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, tagData.getValue(TagData.USER_ACTIVITIES_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), callback);
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskListMetadata>(TaskListMetadata.class, null, tagData.getValue(TagData.METADATA_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), callback);
-            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
-                    tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), 0, true, null).execute();
+//            new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
+//                    tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), 0, true, null).execute();
         }
     }
 

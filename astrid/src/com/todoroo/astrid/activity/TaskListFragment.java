@@ -1165,7 +1165,11 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         Activity activity = getActivity();
         if (activity != null) {
             Intent intent = new Intent(activity, CommentsActivity.class);
-            intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
+            long id = 0;
+            TagData td = getActiveTagData();
+            if (td != null)
+                id = td.getId();
+            intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, id);
             startActivity(intent);
             AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
         }

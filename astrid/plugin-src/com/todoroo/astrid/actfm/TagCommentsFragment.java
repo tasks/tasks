@@ -64,8 +64,11 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected void loadModelFromIntent(Intent intent) {
-        if (tagData == null)
-            tagData = intent.getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
+        if (tagData == null) {
+            long id = intent.getLongExtra(TagViewFragment.EXTRA_TAG_DATA, 0);
+            if (id > 0)
+                tagData = tagDataService.fetchById(id, TagData.PROPERTIES);
+        }
     }
 
     @Override
