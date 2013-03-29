@@ -105,7 +105,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT)
                 params.width = (3 * metrics.widthPixels) / 5;
             else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH)
-                params.width = (3 * metrics.widthPixels) / 4;
+                params.width = (4 * metrics.widthPixels) / 5;
         }
 
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);

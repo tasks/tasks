@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -265,6 +266,12 @@ public final class TagsControlSet extends PopupControlSet {
                 setTagSelected(tag);
             }
         }
+    }
+
+    @Override
+    protected void additionalDialogSetup() {
+        super.additionalDialogSetup();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     @Override
