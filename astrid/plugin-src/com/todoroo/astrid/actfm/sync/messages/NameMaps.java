@@ -356,6 +356,7 @@ public class NameMaps {
         putWaitingOnMePropertyToServerName(WaitingOnMe.CREATED_AT,      "created_at",      false);
         putWaitingOnMePropertyToServerName(WaitingOnMe.DELETED_AT,      "deleted_at",      true);
         putWaitingOnMePropertyToServerName(WaitingOnMe.READ_AT,         "read_at",         true);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.ACKNOWLEDGED,    "acknowledged",    true);
 
         // Reverse the mapping to construct the server to local map
         WAITING_ON_ME_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER);

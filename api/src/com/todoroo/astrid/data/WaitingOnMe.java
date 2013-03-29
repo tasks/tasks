@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
@@ -49,6 +50,9 @@ public class WaitingOnMe extends RemoteModel {
 
     public static final LongProperty READ_AT = new LongProperty(
             TABLE, "read_at", Property.PROP_FLAG_DATE);
+
+    public static final IntegerProperty ACKNOWLEDGED = new IntegerProperty(
+            TABLE, "acknowledged", Property.PROP_FLAG_BOOLEAN);
 
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
