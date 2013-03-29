@@ -38,6 +38,8 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
+import com.todoroo.astrid.data.WaitingOnMe;
+import com.todoroo.astrid.data.WaitingOnMeOutstanding;
 
 @SuppressWarnings("nls")
 public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
@@ -67,6 +69,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         case TYPE_TASK_LIST_METADATA:
             return new TaskListMetadataChangesHappened(id, TaskListMetadata.class,
                     PluginServices.getTaskListMetadataDao(), PluginServices.getTaskListMetadataOutstandingDao());
+        case TYPE_WAITING_ON_ME:
+            return new ChangesHappened<WaitingOnMe, WaitingOnMeOutstanding>(id, WaitingOnMe.class,
+                    PluginServices.getWaitingOnMeDao(), PluginServices.getWaitingOnMeOutstandingDao());
         default:
             return null;
         }

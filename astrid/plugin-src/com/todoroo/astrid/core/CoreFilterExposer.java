@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -18,15 +19,18 @@ import android.graphics.drawable.BitmapDrawable;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.WaitingOnMeFragment;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -64,7 +68,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
             filters.add(getTodayFilter(r));
 
         if (Preferences.getBoolean(R.string.p_show_waiting_on_me_filter, true) &&
-                PluginServices.getWaitingOnMeDao().count(Query.select(WaitingOnMe.ID).where(WaitingOnMe.DELETED_AT.eq(0))) > 0);
+                PluginServices.getWaitingOnMeDao().count(Query.select(WaitingOnMe.ID).where(WaitingOnMe.DELETED_AT.eq(0))) > 0)
             filters.add(getWaitingOnMeFilter(r));
 
         // transmit filter list
@@ -107,12 +111,11 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
     }
 
     public static Filter getWaitingOnMeFilter(Resources r) {
-         Filter waitingOnMe = new Filter(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
-                 new QueryTemplate().where(
+         FilterWithCustomIntent waitingOnMe = new FilterWithCustomIntent(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
+                 new QueryTemplate().join(Join.inner(WaitingOnMe.TABLE, Task.UUID.eq(WaitingOnMe.TASK_UUID))).where(
                          Criterion.and(TaskCriteria.activeVisibleMine(),
-                                 Task.UUID.in(Query.select(WaitingOnMe.TASK_UUID)
-                                         .from(WaitingOnMe.TABLE).where(WaitingOnMe.DELETED_AT.eq(0))))), null);
-
+                                 WaitingOnMe.DELETED_AT.eq(0))), null);
+         waitingOnMe.customTaskList = new ComponentName(ContextManager.getContext(), WaitingOnMeFragment.class);
          int themeFlags = ThemeService.getFilterThemeFlags();
          waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(
                  ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();

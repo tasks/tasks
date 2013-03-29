@@ -1067,7 +1067,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param name
      * @param progress
      */
-    void setTaskAppearance(ViewHolder viewHolder, Task task) {
+    protected void setTaskAppearance(ViewHolder viewHolder, Task task) {
         Activity activity = fragment.getActivity();
         if (activity == null)
             return;
