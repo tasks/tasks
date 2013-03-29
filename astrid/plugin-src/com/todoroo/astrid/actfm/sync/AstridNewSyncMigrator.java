@@ -6,6 +6,7 @@ import java.util.Set;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -88,8 +89,9 @@ public class AstridNewSyncMigrator {
                 Criterion.or(TaskToTagMetadata.TAG_UUID.isNull(), TaskToTagMetadata.TAG_UUID.eq(0)),
                 Criterion.not(TaskToTagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TaskToTagMetadata.TAG_NAME);
 
-        TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
+        TodorooCursor<Metadata> noTagData = null;
         try {
+            noTagData = metadataService.query(noTagDataQuery);
             Metadata tag = new Metadata();
             TagData newTagData = new TagData();
             for (noTagData.moveToFirst(); !noTagData.isAfterLast(); noTagData.moveToNext()) {
@@ -105,17 +107,23 @@ public class AstridNewSyncMigrator {
                     tagDataService.save(newTagData);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error creating tag data", e);
+                    Crittercism.logHandledException(e);
                 }
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error creating tag data", e);
+            Crittercism.logHandledException(e);
         } finally {
-            noTagData.close();
+            if (noTagData != null)
+                noTagData.close();
         }
 
         // --------------
         // Delete all emergent tag data, we don't need it
         // --------------
-        TodorooCursor<TagData> emergentTags = tagDataDao.query(Query.select(TagData.ID, TagData.NAME).where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
+        TodorooCursor<TagData> emergentTags = null;
         try {
+            emergentTags = tagDataDao.query(Query.select(TagData.ID, TagData.NAME).where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
             TagData td = new TagData();
             for (emergentTags.moveToFirst(); !emergentTags.isAfterLast(); emergentTags.moveToNext()) {
                 try {
@@ -127,10 +135,14 @@ public class AstridNewSyncMigrator {
                         metadataService.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_NAME.eq(name)));
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error clearing emergent tags");
+                    Crittercism.logHandledException(e);
                 }
             }
+        } catch (Exception e){
+            Crittercism.logHandledException(e);
         } finally {
-            emergentTags.close();
+            if (emergentTags != null)
+                emergentTags.close();
         }
 
         // --------------
@@ -173,23 +185,30 @@ public class AstridNewSyncMigrator {
             });
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error asserting UUIDs", e);
+            Crittercism.logHandledException(e);
         }
 
         // --------------
         // Update task flags
         // --------------
         Task template = new Task();
-        template.setValue(Task.IS_READONLY, 1);
-        taskDao.update(Functions.bitwiseAnd(Task.FLAGS, Task.FLAG_IS_READONLY).gt(0), template);
-        template.clear();
-        template.setValue(Task.IS_PUBLIC, 1);
-        taskDao.update(Functions.bitwiseAnd(Task.FLAGS, Task.FLAG_PUBLIC).gt(0), template);
+        try {
+            template.setValue(Task.IS_READONLY, 1);
+            taskDao.update(Functions.bitwiseAnd(Task.FLAGS, Task.FLAG_IS_READONLY).gt(0), template);
+            template.clear();
+            template.setValue(Task.IS_PUBLIC, 1);
+            taskDao.update(Functions.bitwiseAnd(Task.FLAGS, Task.FLAG_PUBLIC).gt(0), template);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error clearing task flags", e);
+            Crittercism.logHandledException(e);
+        }
 
         // --------------
         // Update recurrence values
         // --------------
-        TodorooCursor<Task> tasksWithRecurrence = taskDao.query(Query.select(Task.ID, Task.FLAGS, Task.RECURRENCE).where(Criterion.or(Task.RECURRENCE.isNotNull(), Task.RECURRENCE.neq(""))));
+        TodorooCursor<Task> tasksWithRecurrence = null;
         try {
+            tasksWithRecurrence = taskDao.query(Query.select(Task.ID, Task.FLAGS, Task.RECURRENCE).where(Criterion.or(Task.RECURRENCE.isNotNull(), Task.RECURRENCE.neq(""))));
             for (tasksWithRecurrence.moveToFirst(); !tasksWithRecurrence.isAfterLast(); tasksWithRecurrence.moveToNext()) {
                 try {
                     template.clear();
@@ -211,19 +230,25 @@ public class AstridNewSyncMigrator {
                     }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating recurrence", e);
+                    Crittercism.logHandledException(e);
                 }
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating recurrence", e);
+            Crittercism.logHandledException(e);
         } finally {
-            tasksWithRecurrence.close();
+            if (tasksWithRecurrence != null)
+                tasksWithRecurrence.close();
         }
 
         // --------------
         // Migrate unsynced task comments to UserActivity table
         // --------------
-        TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                Criterion.and(Criterion.or(Update.REMOTE_ID.eq(0), Update.REMOTE_ID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
-                        Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));
+        TodorooCursor<Update> updates = null;
         try {
+            updates = updateDao.query(Query.select(Update.PROPERTIES).where(
+                    Criterion.and(Criterion.or(Update.REMOTE_ID.eq(0), Update.REMOTE_ID.isNull()), Criterion.or(Update.ACTION_CODE.eq(UserActivity.ACTION_TAG_COMMENT),
+                            Update.ACTION_CODE.eq(UserActivity.ACTION_TASK_COMMENT)))));
             Update update = new Update();
             UserActivity userActivity = new UserActivity();
             for (updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
@@ -255,11 +280,16 @@ public class AstridNewSyncMigrator {
                     }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating updates", e);
+                    Crittercism.logHandledException(e);
                 }
 
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating updates", e);
+            Crittercism.logHandledException(e);
         } finally {
-            updates.close();
+            if (updates != null)
+                updates.close();
         }
 
 
@@ -271,21 +301,24 @@ public class AstridNewSyncMigrator {
             userDao.deleteWhere(Criterion.or(User.UUID.isNull(), User.UUID.eq(""), User.UUID.eq("0")));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error deleting incomplete user entries", e);
+            Crittercism.logHandledException(e);
         }
 
         // --------------
         // Migrate legacy FileMetadata models to new TaskAttachment models
         // --------------
-        TodorooCursor<Metadata> fmCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
-                .where(MetadataCriteria.withKey(FileMetadata.METADATA_KEY)));
+        TodorooCursor<Metadata> fmCursor = null;
         try {
+            fmCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(MetadataCriteria.withKey(FileMetadata.METADATA_KEY)));
             Metadata m = new Metadata();
+            TaskAttachment attachment = new TaskAttachment();
             for (fmCursor.moveToFirst(); !fmCursor.isAfterLast(); fmCursor.moveToNext()) {
                 try {
+                    attachment.clear();
                     m.clear();
                     m.readFromCursor(fmCursor);
 
-                    TaskAttachment attachment = new TaskAttachment();
                     Task task = taskDao.fetch(m.getValue(Metadata.TASK), Task.UUID);
                     if (task == null || !RemoteModel.isValidUuid(task.getUuid()))
                         continue;
@@ -317,16 +350,22 @@ public class AstridNewSyncMigrator {
                     taskAttachmentDao.createNew(attachment);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
+                    Crittercism.logHandledException(e);
                 }
 
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
+            Crittercism.logHandledException(e);
         } finally {
-            fmCursor.close();
+            if (fmCursor != null)
+                fmCursor.close();
         }
 
         // --------------
         // Create task list metadata entries for each tag
         // --------------
+        TaskListMetadata tlm = new TaskListMetadata();
         try {
             String activeTasksOrder = Preferences.getStringValue(SubtasksUpdater.ACTIVE_TASKS_ORDER);
             if (TextUtils.isEmpty(activeTasksOrder))
@@ -334,13 +373,17 @@ public class AstridNewSyncMigrator {
 
             activeTasksOrder = SubtasksHelper.convertTreeToRemoteIds(activeTasksOrder);
 
-            TaskListMetadata tlm = new TaskListMetadata();
             tlm.setValue(TaskListMetadata.FILTER, TaskListMetadata.FILTER_ID_ALL);
             tlm.setValue(TaskListMetadata.TASK_IDS, activeTasksOrder);
             if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_ALL), tlm) <= 0) {
                 taskListMetadataDao.createNew(tlm);
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating active tasks ordering", e);
+            Crittercism.logHandledException(e);
+        }
 
+        try {
             tlm.clear();
             String todayTasksOrder = Preferences.getStringValue(SubtasksUpdater.TODAY_TASKS_ORDER);
             if (TextUtils.isEmpty(todayTasksOrder))
@@ -353,43 +396,50 @@ public class AstridNewSyncMigrator {
             if (taskListMetadataDao.update(TaskListMetadata.FILTER.eq(TaskListMetadata.FILTER_ID_TODAY), tlm) <= 0) {
                 taskListMetadataDao.createNew(tlm);
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error migrating today ordering", e);
+            Crittercism.logHandledException(e);
+        }
 
-            TodorooCursor<TagData> allTagData = tagDataDao.query(Query.select(TagData.ID, TagData.UUID, TagData.TAG_ORDERING));
-            try {
-                TagData td = new TagData();
-                for (allTagData.moveToFirst(); !allTagData.isAfterLast(); allTagData.moveToNext()) {
-                    try {
-                        tlm.clear();
-                        td.clear();
+        TodorooCursor<TagData> allTagData = null;
+        try {
+            allTagData = tagDataDao.query(Query.select(TagData.ID, TagData.UUID, TagData.TAG_ORDERING));
+            TagData td = new TagData();
+            for (allTagData.moveToFirst(); !allTagData.isAfterLast(); allTagData.moveToNext()) {
+                try {
+                    tlm.clear();
+                    td.clear();
 
-                        td.readFromCursor(allTagData);
-                        String tagOrdering = td.getValue(TagData.TAG_ORDERING);
-                        tagOrdering = SubtasksHelper.convertTreeToRemoteIds(tagOrdering);
+                    td.readFromCursor(allTagData);
+                    String tagOrdering = td.getValue(TagData.TAG_ORDERING);
+                    tagOrdering = SubtasksHelper.convertTreeToRemoteIds(tagOrdering);
 
-                        tlm.setValue(TaskListMetadata.TASK_IDS, tagOrdering);
-                        tlm.setValue(TaskListMetadata.TAG_UUID, td.getUuid());
-                        taskListMetadataDao.createNew(tlm);
-                    } catch (Exception e) {
-                        Log.e(LOG_TAG, "Error migrating tag ordering", e);
-                    }
+                    tlm.setValue(TaskListMetadata.TASK_IDS, tagOrdering);
+                    tlm.setValue(TaskListMetadata.TAG_UUID, td.getUuid());
+                    taskListMetadataDao.createNew(tlm);
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, "Error migrating tag ordering", e);
+                    Crittercism.logHandledException(e);
                 }
-            } finally {
-                allTagData.close();
             }
-
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating tag ordering", e);
+            Crittercism.logHandledException(e);
+        } finally {
+            if (allTagData != null)
+                allTagData.close();
         }
 
         // --------------
         // Ensure that all tag metadata entities have all important fields filled in
         // --------------
-        Query incompleteQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
-                        TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
-        TodorooCursor<Metadata> incompleteMetadata = metadataService.query(incompleteQuery);
+        TodorooCursor<Metadata> incompleteMetadata = null;
         try {
+            Query incompleteQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                    MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                    Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
+                            TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
+            incompleteMetadata = metadataService.query(incompleteQuery);;
             Metadata m = new Metadata();
             for (incompleteMetadata.moveToFirst(); !incompleteMetadata.isAfterLast(); incompleteMetadata.moveToNext()) {
                 try {
@@ -416,11 +466,16 @@ public class AstridNewSyncMigrator {
 
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error validating task to tag metadata", e);
+                    Crittercism.logHandledException(e);
                 }
 
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error validating task to tag metadata", e);
+            Crittercism.logHandledException(e);
         } finally {
-            incompleteMetadata.close();
+            if (incompleteMetadata != null)
+                incompleteMetadata.close();
         }
 
         // --------------
@@ -430,16 +485,18 @@ public class AstridNewSyncMigrator {
             tagDataDao.deleteWhere(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error deleting featured list data", e);
+            Crittercism.logHandledException(e);
         }
 
 
         // --------------
         // Finally, create oustanding entries for tags on unsynced tasks
         // --------------
-        Long[] ids = tasksThatNeedTagSync.toArray(new Long[tasksThatNeedTagSync.size()]);
-        TodorooCursor<Metadata> tagsAdded = metadataService.query(Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.TASK.in(ids))).orderBy(Order.asc(Metadata.TASK)));
+        TodorooCursor<Metadata> tagsAdded = null;
         try {
+            Long[] ids = tasksThatNeedTagSync.toArray(new Long[tasksThatNeedTagSync.size()]);
+            tagsAdded = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.TASK.in(ids))).orderBy(Order.asc(Metadata.TASK)));
             Metadata m = new Metadata();
             for (tagsAdded.moveToFirst(); !tagsAdded.isAfterLast(); tagsAdded.moveToNext()) {
                 try {
@@ -462,11 +519,16 @@ public class AstridNewSyncMigrator {
                     taskOutstandingDao.createNew(to);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error creating tag_added outstanding entries", e);
+                    Crittercism.logHandledException(e);
                 }
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error creating tag_added outstanding entries", e);
+            Crittercism.logHandledException(e);
         } finally {
-            tagsAdded.close();
-            }
+            if (tagsAdded != null)
+                tagsAdded.close();
+        }
 
         Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
         ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
@@ -481,35 +543,41 @@ public class AstridNewSyncMigrator {
     }
 
     private <TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao, OutstandingEntryDao<OE> oeDao, OE oe, Property<?>[] propertiesForOutstanding, UUIDAssertionExtras<TYPE> extras) {
-        TodorooCursor<TYPE> cursor = dao.query(query);
+        TodorooCursor<TYPE> cursor = null;
         try {
+            cursor = dao.query(query);
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 try {
-                instance.clear();
-                instance.readPropertiesFromCursor(cursor);
-                boolean unsyncedModel = false;
-                if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY)) ||
-                        "".equals(instance.getValue(RemoteModel.UUID_PROPERTY)) || "null".equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
-                    // No remote id exists, just create a UUID
-                    unsyncedModel = true;
-                    instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
-                }
+                    instance.clear();
+                    instance.readPropertiesFromCursor(cursor);
+                    boolean unsyncedModel = false;
+                    if (!instance.containsNonNullValue(RemoteModel.UUID_PROPERTY) || RemoteModel.NO_UUID.equals(instance.getValue(RemoteModel.UUID_PROPERTY)) ||
+                            "".equals(instance.getValue(RemoteModel.UUID_PROPERTY)) || "null".equals(instance.getValue(RemoteModel.UUID_PROPERTY))) {
+                        // No remote id exists, just create a UUID
+                        unsyncedModel = true;
+                        instance.setValue(RemoteModel.UUID_PROPERTY, UUIDHelper.newUUID());
+                    }
 
-                instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                dao.saveExisting(instance);
-                boolean createdOutstanding = false;
-                if (propertiesForOutstanding != null && (unsyncedModel || (extras != null && extras.shouldCreateOutstandingEntries(instance)))) {
-                    createdOutstanding = true;
-                    createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
-                }
-                if (extras != null)
-                    extras.afterSave(instance, createdOutstanding);
+                    instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                    dao.saveExisting(instance);
+                    boolean createdOutstanding = false;
+                    if (propertiesForOutstanding != null && (unsyncedModel || (extras != null && extras.shouldCreateOutstandingEntries(instance)))) {
+                        createdOutstanding = true;
+                        createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
+                    }
+                    if (extras != null)
+                        extras.afterSave(instance, createdOutstanding);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error asserting UUIDs", e);
+                    Crittercism.logHandledException(e);
                 }
             }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error asserting UUIDs", e);
+            Crittercism.logHandledException(e);
         } finally {
-            cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
     }
 
