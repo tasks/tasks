@@ -36,7 +36,6 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private final String taskTitle;
     private final long modifiedAfter;
     private final int offset;
-    private final boolean includeTaskHistory;
     private final SyncMessageCallback done;
 
     @Autowired
@@ -52,7 +51,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private ActFmPreferenceService actFmPreferenceService;
 
     public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty, IntegerProperty historyHasMoreProperty,
-            String table, String uuid, String taskTitle, long modifiedAfter, int offset, boolean includeTaskHistory, SyncMessageCallback done) {
+            String table, String uuid, String taskTitle, long modifiedAfter, int offset, SyncMessageCallback done) {
         DependencyInjectionService.getInstance().inject(this);
         this.dao = dao;
         this.historyTimeProperty = historyTimeProperty;
@@ -62,7 +61,6 @@ public class FetchHistory<TYPE extends RemoteModel> {
         this.taskTitle = taskTitle;
         this.modifiedAfter = modifiedAfter;
         this.offset = offset;
-        this.includeTaskHistory = includeTaskHistory;
         this.done = done;
     }
 
@@ -84,10 +82,6 @@ public class FetchHistory<TYPE extends RemoteModel> {
                     return;
 
                 params.add(uuid);
-
-                if (includeTaskHistory) {
-                    params.add("include_tasks"); params.add(1);
-                }
 
                 if (modifiedAfter > 0) {
                     params.add("modified_after"); params.add(modifiedAfter / 1000L);

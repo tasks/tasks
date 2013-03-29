@@ -106,7 +106,7 @@ public class TagCommentsFragment extends CommentsFragment {
     @Override
     protected void loadMoreHistory(int offset, SyncMessageCallback callback) {
         new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
-                tagData.getUuid(), null, 0, offset, true, callback).execute();
+                tagData.getUuid(), null, 0, offset, callback).execute();
     }
 
     @Override
@@ -152,7 +152,7 @@ public class TagCommentsFragment extends CommentsFragment {
         if (tagData != null) {
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, tagData.getValue(TagData.USER_ACTIVITIES_PUSHED_AT), BriefMe.TAG_ID_KEY, tagData.getUuid()), done);
             new FetchHistory<TagData>(tagDataDao, TagData.HISTORY_FETCH_DATE, TagData.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TAGS,
-                    tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), 0, true, done).execute();
+                    tagData.getUuid(), null, tagData.getValue(TagData.HISTORY_FETCH_DATE), 0, done).execute();
         }
     }
 

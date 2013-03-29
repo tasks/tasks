@@ -380,7 +380,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     setUpListAdapter();
                     if (task.getValue(Task.HISTORY_HAS_MORE) > 0)
                         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
-                                task.getUuid(), task.getValue(Task.TITLE), 0, historyCount, false, callback).execute();
+                                task.getUuid(), task.getValue(Task.TITLE), 0, historyCount, callback).execute();
                 }
             });
             this.addView(loadMore);
@@ -448,7 +448,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
-                task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, false, callback).execute();
+                task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, callback).execute();
     }
 
     private void addComment() {
