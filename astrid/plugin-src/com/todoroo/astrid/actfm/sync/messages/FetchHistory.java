@@ -107,7 +107,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
                                 History history = new History();
                                 history.setValue(History.TABLE_ID, table);
                                 history.setValue(History.TARGET_ID, uuid);
-                                history.setValue(History.UUID, historyJson.optString("id"));
+                                history.setValue(History.UUID, historyJson.optString("id") + ":" + uuid);
                                 history.setValue(History.USER_UUID, historyJson.optString("user_id"));
                                 history.setValue(History.COLUMN, historyJson.optString("column"));
                                 history.setValue(History.OLD_VALUE, historyJson.optString("prev"));
@@ -124,6 +124,8 @@ public class FetchHistory<TYPE extends RemoteModel> {
                                     taskObj.put(uuid);
                                     taskObj.put(taskTitle);
                                     history.setValue(History.TASK, taskObj.toString());
+                                } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
+                                    history.setValue(History.TAG_ID, uuid);
                                 }
 
                                 if (historyDao.update(History.UUID.eq(history.getValue(History.UUID)), history) <= 0) {

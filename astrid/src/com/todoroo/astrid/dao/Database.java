@@ -53,7 +53,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 32;
+    public static final int VERSION = 33;
 
     /**
      * Database name (must be unique)
@@ -350,14 +350,12 @@ public class Database extends AbstractDatabase {
         }
         case 28:
         case 29:
-            tryExecSQL("DROP TABLE " + History.TABLE.name);
             tryExecSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TaskAttachmentOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TagMetadata.TABLE.name, TagMetadata.PROPERTIES));
             tryExecSQL(createTableSql(visitor, UserActivity.TABLE.name, UserActivity.PROPERTIES));
             tryExecSQL(createTableSql(visitor, UserActivityOutstanding.TABLE.name, UserActivityOutstanding.PROPERTIES));
-            tryExecSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TaskAttachment.TABLE.name, TaskAttachment.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TaskListMetadata.TABLE.name, TaskListMetadata.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TaskListMetadataOutstanding.TABLE.name, TaskListMetadataOutstanding.PROPERTIES));
@@ -386,6 +384,10 @@ public class Database extends AbstractDatabase {
         case 31:
             tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_HAS_MORE, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_HAS_MORE, visitor, null));
+        case 32:
+            tryExecSQL("DROP TABLE " + History.TABLE.name);
+            tryExecSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
+
         return true;
         }
 

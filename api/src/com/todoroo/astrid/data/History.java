@@ -63,6 +63,11 @@ public class History extends AbstractModel {
     public static final StringProperty TASK = new StringProperty(
             TABLE, "task");
 
+    /** Associated tag id */
+    public static final StringProperty TAG_ID = new StringProperty(
+            TABLE, "tag_id");
+
+
     /** Default values container */
     private static final ContentValues defaultValues = new ContentValues();
 
@@ -74,9 +79,10 @@ public class History extends AbstractModel {
     static {
         defaultValues.put(UUID.name, 0L);
         defaultValues.put(CREATED_AT.name, 0L);
-        defaultValues.put(USER_UUID.name, "0");
+        defaultValues.put(USER_UUID.name, RemoteModel.NO_UUID);
         defaultValues.put(OLD_VALUE.name, "");
         defaultValues.put(NEW_VALUE.name, "");
+        defaultValues.put(TAG_ID.name, RemoteModel.NO_UUID);
         defaultValues.put(TASK.name, "");
     }
 

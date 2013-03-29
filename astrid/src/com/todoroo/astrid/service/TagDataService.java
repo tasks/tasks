@@ -23,7 +23,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -174,9 +173,7 @@ public class TagDataService {
         if (tagData == null)
             historyCriterion = Criterion.none;
         else
-            historyCriterion = Criterion.or(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TAGS), History.TARGET_ID.eq(tagData.getUuid())),
-                    Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                            .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid()))))));
+            historyCriterion = History.TAG_ID.eq(tagData.getUuid());
 
         Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, userProperties)).from(History.TABLE)
                 .where(historyCriterion)
