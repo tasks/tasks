@@ -352,12 +352,7 @@ public class TaskService {
      * @return how many tasks are matched by this query
      */
     public int count(Query query) {
-        TodorooCursor<Task> cursor = taskDao.query(query);
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
+        return taskDao.count(query);
     }
 
     /**

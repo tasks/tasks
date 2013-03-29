@@ -440,4 +440,13 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         cursor.moveToFirst();
         return new TodorooCursor<TYPE>(cursor, properties);
     }
+
+    public int count(Query query) {
+        TodorooCursor<TYPE> cursor = query(query);
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
 }

@@ -63,7 +63,8 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
         if (Preferences.getBoolean(R.string.p_show_today_filter, true))
             filters.add(getTodayFilter(r));
 
-        if (Preferences.getBoolean(R.string.p_show_waiting_on_me_filter, true))
+        if (Preferences.getBoolean(R.string.p_show_waiting_on_me_filter, true) &&
+                PluginServices.getWaitingOnMeDao().count(Query.select(WaitingOnMe.ID).where(WaitingOnMe.DELETED_AT.eq(0))) > 0);
             filters.add(getWaitingOnMeFilter(r));
 
         // transmit filter list
