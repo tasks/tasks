@@ -53,7 +53,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 31;
+    public static final int VERSION = 32;
 
     /**
      * Database name (must be unique)
@@ -350,7 +350,6 @@ public class Database extends AbstractDatabase {
         }
         case 28:
         case 29:
-        case 30:
             tryExecSQL("DROP TABLE " + History.TABLE.name);
             tryExecSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             tryExecSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
@@ -368,12 +367,10 @@ public class Database extends AbstractDatabase {
             tryExecSQL(addColumnSql(Task.TABLE, Task.IS_READONLY, visitor, "0"));
             tryExecSQL(addColumnSql(Task.TABLE, Task.CLASSIFICATION, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_FETCH_DATE, visitor, null));
-            tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_HAS_MORE, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.ATTACHMENTS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(Task.TABLE, Task.USER_ACTIVITIES_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_FETCH_DATE, visitor, null));
-            tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_HAS_MORE, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.TASKS_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.METADATA_PUSHED_AT, visitor, null));
             tryExecSQL(addColumnSql(TagData.TABLE, TagData.USER_ACTIVITIES_PUSHED_AT, visitor, null));
@@ -386,6 +383,9 @@ public class Database extends AbstractDatabase {
             tryExecSQL(createTableSql(visitor, WaitingOnMe.TABLE.name, WaitingOnMe.PROPERTIES));
             tryExecSQL(createTableSql(visitor, WaitingOnMeOutstanding.TABLE.name, WaitingOnMeOutstanding.PROPERTIES));
 
+        case 31:
+            tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_HAS_MORE, visitor, null));
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_HAS_MORE, visitor, null));
         return true;
         }
 
