@@ -136,7 +136,8 @@ public class FetchHistory<TYPE extends RemoteModel> {
                             try {
                                 template = dao.getModelClass().newInstance();
                                 template.setValue(historyTimeProperty, time);
-                                template.setValue(historyHasMoreProperty, hasMore ? 1 : 0);
+                                if (modifiedAfter == 0 || hasMore)
+                                    template.setValue(historyHasMoreProperty, hasMore ? 1 : 0);
                                 dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), template);
                             } catch (InstantiationException e) {
                                 Log.e(ERROR_TAG, "Error instantiating model for recording time", e);
