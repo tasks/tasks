@@ -262,6 +262,8 @@ public class UpdateAdapter extends CursorAdapter {
             if (user.containsNonNullValue(USER_PICTURE)) {
                 String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 pictureView.setUrl(pictureUrl);
+            } else {
+                pictureView.setUrl(null);
             }
             pictureView.setVisibility(View.VISIBLE);
         }
@@ -293,8 +295,15 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupHistoryRow(View view, History history, User user) {
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture);
-        pictureView.setVisibility(View.GONE);
+        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+            if (user.containsNonNullValue(USER_PICTURE)) {
+                String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
+                pictureView.setUrl(pictureUrl);
+            } else {
+                pictureView.setUrl(null);
+            }
+            pictureView.setVisibility(View.VISIBLE);
+        }
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture);
         commentPictureView.setVisibility(View.GONE);
