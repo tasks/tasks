@@ -124,7 +124,9 @@ public class FetchHistory<TYPE extends RemoteModel> {
                                     taskObj.put(uuid);
                                     taskObj.put(taskTitle);
                                     history.setValue(History.TASK, taskObj.toString());
-                                } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
+                                }
+
+                                if (NameMaps.TABLE_ID_TAGS.equals(table)) {
                                     history.setValue(History.TAG_ID, uuid);
                                 }
 
