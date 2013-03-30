@@ -89,7 +89,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                                 null);
         int themeFlags = ThemeService.getFilterThemeFlags();
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
+                ThemeService.getDrawable(R.drawable.waiting_on_me, themeFlags))).getBitmap();
         return inbox;
     }
 
