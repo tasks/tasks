@@ -1787,8 +1787,6 @@
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">後台驗證出錯了。請在Astrid 運行時嘗試啟動同步。</string>
-    
-    <string name="gtasks_dual_sync_warning">您當前正在和Astrid.com 同步。請注意，在一些情況下，和兩個服務一起同步可能會導致出現意外的結果。您真的想和Google 工作表同步嗎？</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 

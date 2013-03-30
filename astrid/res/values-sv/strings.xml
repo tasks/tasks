@@ -1793,10 +1793,6 @@ och återställer dina aktuella uppgifter från en backup
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Autentisering i bakgrunden misslyckades. Vänligen försök starta en synkronisering medan Astrid körs.</string>
-    
-    <string name="gtasks_dual_sync_warning">Du synkroniserar för närvarande med med Astrid.com.
-Var vänlig notera att synkning av båda tjänsterna samtidigt i vissa fall kan ge oväntade resultat.
-Är du säker på att du vill synkronisera med Google Tasks?</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 

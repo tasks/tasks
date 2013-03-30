@@ -1793,8 +1793,6 @@
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Ошибка фоновой аутентификации. Пожалуйста, попробуйте синхронизироваться, когда Astrid запущен.</string>
-    
-    <string name="gtasks_dual_sync_warning">Сейчас происходит синхронизация с Astrid.com. Имейте в виду, что синхронизация с обеими службами в некоторых случаях может привести к ошибкам. Вы уверены, что хотите синхронизироваться с Google Tasks?</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 

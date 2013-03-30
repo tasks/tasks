@@ -1787,8 +1787,6 @@
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Erro ao autenticar em plano de fundo. Por favor tente iniciar a sincronização enquanto o Astrid estiver rodando.</string>
-    
-    <string name="gtasks_dual_sync_warning">Atualmente você está sincronizando com Astrid.com. Esteja ciente de que a sincronização com ambos os serviços podem, em alguns casos, levar a resultados inesperados. Tem certeza de que deseja sincronizar com o Google Tasks?</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 

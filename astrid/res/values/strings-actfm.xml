@@ -315,8 +315,9 @@
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. 
-      Be advised that synchronizing with both services can in some cases lead to unexpected results. 
+  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
+      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
       Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->

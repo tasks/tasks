@@ -56,17 +56,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
     @Override
     public void startSync() {
         if (!gtasksPreferenceService.isLoggedIn()) {
-            if (actFmPreferenceService.isLoggedIn()) {
-                DialogUtilities.okCancelDialog(this, getString(R.string.DLG_warning), getString(R.string.gtasks_dual_sync_warning),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                startLogin();
-                            }
-                        }, null);
-            } else {
-                startLogin();
-            }
+            startLogin();
         } else {
             syncOrImport();
         }

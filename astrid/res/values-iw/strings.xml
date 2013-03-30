@@ -1795,10 +1795,6 @@
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">האימות המתבצע ברקע נכשל. אנא נסה להתחיל את הסינכרון בזמן שאסטריד פועלת.</string>
-    
-    <string name="gtasks_dual_sync_warning">הסנכרון כעת הוא מול אתר astrid.com.
- שים לב שסינכרון מול שני האתרים יכול במקרים מסויימים להביא לתוצאות בלתי צפויות.
- האם אתה בטוח שברצונך להסתנכרן מול ״משימות גוגל״?</string>
       
     <string name="gtasks_import_progress"> מייבאת את ״משימות גוגל״</string>
 

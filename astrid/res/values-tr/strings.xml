@@ -1791,8 +1791,6 @@
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Artalanda kimlik doğrulama hatası. Lütfen Astrid çalışırken bir eşlemeyi sıfırlamayı deneyin.</string>
-    
-    <string name="gtasks_dual_sync_warning">Şu anda Astrid.com ile eşleştirme yapıyorsunuz. Şu aklınızda olsun ki iki hizmet ile de eşleştirme yapmak bazı istenmeyen durumlara sebep olabilir. Google Görevleri ile eşleştirme yapmak istiyor musunuz?</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 

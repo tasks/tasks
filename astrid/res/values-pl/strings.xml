@@ -1790,8 +1790,6 @@ i odzyskanie zadań z kopi zapasowej (Settings->Sync and backup->Backup->Import 
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Błąd uwierzytelniania w tle. Spróbuj zainicjalizować synchronizację, gdy aplikacja Astrid będzie włączone.</string>
-    
-    <string name="gtasks_dual_sync_warning">Jesteś zsynchronizowany z Astrid.com. Pamiętaj, że synchronizacja z obydwoma serwisami może w pewnych przypadkach prowadzić do nieoczekiwanych rezultatów. Jesteś pewny, że chcesz się zsynchronizować z Listą zadań Google?</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 

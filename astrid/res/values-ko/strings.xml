@@ -1787,8 +1787,6 @@
 
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">백그라운드에서 인증 에러가 발생했습니다. Astrid가 실행중일 때 동기화를 시작해 보세요.</string>
-    
-    <string name="gtasks_dual_sync_warning">현재 Astrid.com 과 동기화 중입니다. 두 서비스를 동시에 동기화하면 예상치 않은 결과가 나타날 수 있습니다. 구글 일정과 동기화 하시겠습니까?</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 
