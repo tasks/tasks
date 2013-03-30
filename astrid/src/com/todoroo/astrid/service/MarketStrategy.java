@@ -103,21 +103,6 @@ public abstract class MarketStrategy {
 
     }
 
-    public static class WebMarketStrategy extends MarketStrategy {
-
-        @Override
-        public Intent generateMarketLink(String packageName) {
-            return new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://weloveastrid.com/store")); //$NON-NLS-1$
-        }
-
-        @Override
-        public String strategyId() {
-            return "web_market"; //$NON-NLS-1$
-        }
-
-    }
-
     public static class AmazonMarketStrategy extends MarketStrategy {
 
         @Override

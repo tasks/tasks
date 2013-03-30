@@ -21,18 +21,16 @@ public class AddOn {
     private final String author;
     private final String description;
     private final String packageName;
-    private final String webPage;
     private final Bitmap icon;
 
     public AddOn(boolean free, boolean internal, String title, String author, String description,
-            String packageName, String webPage, Bitmap icon) {
+            String packageName, Bitmap icon) {
         this.free = free;
         this.internal = internal;
         this.title = title;
         this.author = author;
         this.description = description;
         this.packageName = packageName;
-        this.webPage = webPage;
         this.icon = icon;
     }
 
@@ -76,13 +74,6 @@ public class AddOn {
      */
     public String getPackageName() {
         return packageName;
-    }
-
-    /**
-     * @return add-on web-page
-     */
-    public String getWebPage() {
-        return webPage;
     }
 
     /**

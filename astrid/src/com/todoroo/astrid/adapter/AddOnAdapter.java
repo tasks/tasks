@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.AddOn;
@@ -41,8 +41,6 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
     private final Activity activity;
     private final LayoutInflater inflater;
     private final boolean installed;
-    public static final Intent ALTERNATE_MARKET_INTENT = new Intent(Intent.ACTION_VIEW,
-            Uri.parse("http://weloveastrid.com/store")); //$NON-NLS-1$
 
     public AddOnAdapter(Activity activity, boolean installed, List<AddOn> objects) {
         super(activity, R.id.title, objects);
@@ -63,7 +61,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
                     activity.startActivity(buttonTag.intent);
                     StatisticsService.reportEvent("addon-" + buttonTag.event); //$NON-NLS-1$
                 } catch (ActivityNotFoundException e) {
-                    activity.startActivity(ALTERNATE_MARKET_INTENT);
+                    Toast.makeText(activity, R.string.market_unavailable, Toast.LENGTH_LONG).show();
                 }
             }
         }

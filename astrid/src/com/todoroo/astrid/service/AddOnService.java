@@ -141,13 +141,13 @@ public class AddOnService {
         if(Constants.MARKET_STRATEGY.includesPowerPack())
             list.add(new AddOn(false, true, r.getString(R.string.AOA_ppack_title), null,
                 r.getString(R.string.AOA_ppack_description),
-                POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
+                POWER_PACK_PACKAGE,
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap()));
 
         if(Constants.MARKET_STRATEGY.includesLocalePlugin())
             list.add(new AddOn(false, true, r.getString(R.string.AOA_locale_title), null,
                 r.getString(R.string.AOA_locale_description),
-                LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
+                LOCALE_PACKAGE,
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap()));
 
         return list.toArray(new AddOn[list.size()]);
