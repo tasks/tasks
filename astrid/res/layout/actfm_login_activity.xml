@@ -61,7 +61,7 @@
           android:paddingLeft="70dip"
           android:textSize="16sp"
           android:gravity="left|center_vertical"
-          android:background="@drawable/google_login_background"
+          android:background="@drawable/fb_login_background"
           android:textColor="@android:color/white"
           android:text="@string/actfm_ALA_fb_login" />
           
