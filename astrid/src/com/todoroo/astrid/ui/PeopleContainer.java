@@ -235,6 +235,8 @@ public class PeopleContainer extends LinearLayout {
             if (peopleAsJSON) {
                 JSONObject person = PeopleContainer.createUserJson(textView);
                 if (person != null) {
+                    if (person.optBoolean("owner")) //$NON-NLS-1$
+                        continue;
                     String email = person.optString("email");
                     Long id = person.optLong("id", -1);
                     if (!TextUtils.isEmpty(email) && !addedEmails.contains(email)) {
