@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -29,6 +30,7 @@ import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.SyncV2Service;
@@ -224,7 +226,15 @@ public class PersonViewFragment extends TaskListFragment {
                 @Override
                 public void runOnErrors(List<JSONArray> errors) {/**/}
             };
-            ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<User>(User.class, user.getValue(User.UUID), user.getValue(User.PUSHED_AT)), callback);
+            long pushedAt = user.getValue(User.PUSHED_AT);
+            JSONArray existingTasks = new JSONArray();
+            TodorooCursor<Task> tasksCursor = (TodorooCursor<Task>) taskAdapter.getCursor();
+            for (tasksCursor.moveToFirst(); !tasksCursor.isAfterLast(); tasksCursor.moveToNext()) {
+                existingTasks.put(tasksCursor.get(Task.UUID));
+            }
+
+            BriefMe<Task> briefMe = new BriefMe<Task>(Task.class, null, pushedAt, "user_id", user.getValue(User.UUID), "existing_tasks", existingTasks);  //$NON-NLS-1$//$NON-NLS-2$
+            ActFmSyncThread.getInstance().enqueueMessage(briefMe, callback);
         }
     }
 
