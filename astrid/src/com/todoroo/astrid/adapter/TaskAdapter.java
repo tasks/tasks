@@ -109,7 +109,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
     @SuppressWarnings("nls")
-    private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
+    private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '')"+ ", '  |  ')").as("tags");
     @SuppressWarnings("nls")
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     @SuppressWarnings("nls")
