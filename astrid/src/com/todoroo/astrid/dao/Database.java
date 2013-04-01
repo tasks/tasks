@@ -153,7 +153,7 @@ public class Database extends AbstractDatabase {
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
-        
+
         sql.append("CREATE INDEX IF NOT EXISTS hist_tag_id ON ").
         append(History.TABLE).append('(').
         append(History.TAG_ID.name).
@@ -394,6 +394,7 @@ public class Database extends AbstractDatabase {
         case 32:
             tryExecSQL("DROP TABLE " + History.TABLE.name);
             tryExecSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
+            tryExecSQL(addColumnSql(User.TABLE, User.TASKS_PUSHED_AT, visitor, null));
 
         return true;
         }

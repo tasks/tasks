@@ -14,6 +14,7 @@ import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 
 @SuppressWarnings("nls")
 public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -25,6 +26,7 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
     private final String uuid;
     private final String taskId;
     private final String tagId;
+    private final String userId;
     private long pushedAt;
 
     public NowBriefed(JSONObject json, RemoteModelDao<TYPE> dao) {
@@ -33,6 +35,7 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
         this.uuid = json.optString("uuid");
         this.taskId = json.optString(BriefMe.TASK_ID_KEY);
         this.tagId = json.optString(BriefMe.TAG_ID_KEY);
+        this.userId = json.optString(BriefMe.USER_ID_KEY);
         this.dao = dao;
         try {
             this.pushedAt = DateUtilities.parseIso8601(json.optString("pushed_at"));
@@ -67,6 +70,12 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
                     if (template.getSetValues() != null)
                         PluginServices.getTagDataDao().update(TagData.UUID.eq(tagId), template);
 
+                } else if (!TextUtils.isEmpty(userId)) {
+                    if (NameMaps.TABLE_ID_TASKS.equals(table)) {
+                        User template = new User();
+                        template.setValue(User.TASKS_PUSHED_AT, pushedAt);
+                        PluginServices.getUserDao().update(User.UUID.eq(userId), template);
+                    }
                 } else {
                     String pushedAtKey = null;
                     if (NameMaps.TABLE_ID_TASKS.equals(table))

@@ -70,6 +70,10 @@ public final class User extends RemoteModel {
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
+    /** Pushed at date */
+    public static final LongProperty TASKS_PUSHED_AT = new LongProperty(
+            TABLE, "tasks_pushed_at");
+
     /** Friendship status. One of the STATUS constants below */
     public static final StringProperty STATUS = new StringProperty(
             TABLE, "status");
@@ -94,6 +98,7 @@ public final class User extends RemoteModel {
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(PUSHED_AT.name, 0L);
+        defaultValues.put(TASKS_PUSHED_AT.name, 0L);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(STATUS.name, "");
     }

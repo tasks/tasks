@@ -191,7 +191,10 @@ public class PersonViewFragment extends TaskListFragment {
             return;
         if (user != null) {
             long pushedAt = user.getValue(User.PUSHED_AT);
-            if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2)
+            long tasksPushedAt = user.getValue(User.TASKS_PUSHED_AT);
+
+            if((DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) ||
+                    (DateUtilities.now() - tasksPushedAt > DateUtilities.ONE_HOUR / 2))
                 refreshData();
         }
     }
@@ -226,14 +229,14 @@ public class PersonViewFragment extends TaskListFragment {
                 @Override
                 public void runOnErrors(List<JSONArray> errors) {/**/}
             };
-            long pushedAt = user.getValue(User.PUSHED_AT);
+            long pushedAt = user.getValue(User.TASKS_PUSHED_AT);
             JSONArray existingTasks = new JSONArray();
             TodorooCursor<Task> tasksCursor = (TodorooCursor<Task>) taskAdapter.getCursor();
             for (tasksCursor.moveToFirst(); !tasksCursor.isAfterLast(); tasksCursor.moveToNext()) {
                 existingTasks.put(tasksCursor.get(Task.UUID));
             }
 
-            BriefMe<Task> briefMe = new BriefMe<Task>(Task.class, null, pushedAt, "user_id", user.getValue(User.UUID), "existing_tasks", existingTasks);  //$NON-NLS-1$//$NON-NLS-2$
+            BriefMe<Task> briefMe = new BriefMe<Task>(Task.class, null, pushedAt, BriefMe.USER_ID_KEY, user.getValue(User.UUID), "existing_task_ids", existingTasks);  //$NON-NLS-1$
             ActFmSyncThread.getInstance().enqueueMessage(briefMe, callback);
         }
     }

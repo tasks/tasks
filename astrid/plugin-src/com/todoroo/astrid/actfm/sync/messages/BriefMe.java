@@ -16,6 +16,7 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
 
     public static final String TASK_ID_KEY = "task_id"; //$NON-NLS-1$
     public static final String TAG_ID_KEY = "tag_id"; //$NON-NLS-1$
+    public static final String USER_ID_KEY = "user_id";  //$NON-NLS-1$
 
     public static <TYPE extends RemoteModel> BriefMe<TYPE> instantiateBriefMeForClass(Class<TYPE> cls, String pushedAtKey) {
         long pushedAt = Preferences.getLong(pushedAtKey, 0);
@@ -37,7 +38,7 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
     @Override
     protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         if (extraParameters != null && extraParameters.length > 0) {
-            for (int i = 0; i < extraParameters.length - 1; i++) {
+            for (int i = 0; i < extraParameters.length - 1; i+=2) {
                 try {
                     String key = (String) extraParameters[i];
                     Object value = extraParameters[i + 1];
