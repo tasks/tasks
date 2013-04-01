@@ -273,6 +273,11 @@
                      replace="com.todoroo.astridlite.WRITE"
 		             flags="g"
 	                 />
+	  <replaceregexp file="AndroidManifest.xml"
+	                 match="&lt;action android:name=&quot;com.timsu.astrid"
+                     replace="&lt;action android:name=&quot;com.todoroo.astridlite"
+		             flags="g"
+	                 />
       <replaceregexp file="AndroidManifest.xml"
                      match="(android:versionName=&quot;)4"
                      replace="\10"
