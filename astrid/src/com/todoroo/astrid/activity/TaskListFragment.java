@@ -129,6 +129,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
 
     // --- activities
 
+    public static final long AUTOSYNC_INTERVAL = 90000L;
     private static final long BACKGROUND_REFRESH_INTERVAL = 120000L;
     private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_EDIT_TASK = 0;

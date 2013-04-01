@@ -82,7 +82,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     protected void initiateAutomaticSyncImpl() {
         if (!isCurrentTaskListFragment())
             return;
-        if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_HOUR) {
+        if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_MINUTE * 10) {
             refreshData(false);
         }
     }

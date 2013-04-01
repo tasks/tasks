@@ -89,7 +89,7 @@ public class SyncActionHelper {
 
     public void initiateAutomaticSync() {
         long tasksPushedAt = Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0);
-        if (DateUtilities.now() - tasksPushedAt > DateUtilities.ONE_HOUR / 2) {
+        if (DateUtilities.now() - tasksPushedAt > TaskListFragment.AUTOSYNC_INTERVAL) {
             performSyncServiceV2Sync(false);
         }
     }

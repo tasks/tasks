@@ -193,8 +193,8 @@ public class PersonViewFragment extends TaskListFragment {
             long pushedAt = user.getValue(User.PUSHED_AT);
             long tasksPushedAt = user.getValue(User.TASKS_PUSHED_AT);
 
-            if((DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) ||
-                    (DateUtilities.now() - tasksPushedAt > DateUtilities.ONE_HOUR / 2))
+            if((DateUtilities.now() - pushedAt > AUTOSYNC_INTERVAL) ||
+                    (DateUtilities.now() - tasksPushedAt > AUTOSYNC_INTERVAL))
                 refreshData();
         }
     }
