@@ -128,7 +128,7 @@ public class AndroidUtilities {
         Bitmap bitmap = null;
         int tries = 0;
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        while(bitmap == null || ((bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM) && tries < SAMPLE_SIZES.length)) {
+        while((bitmap == null || (bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM)) && tries < SAMPLE_SIZES.length) {
             opts.inSampleSize = SAMPLE_SIZES[tries];
             try {
                 bitmap = BitmapFactory.decodeFile(file, opts);
