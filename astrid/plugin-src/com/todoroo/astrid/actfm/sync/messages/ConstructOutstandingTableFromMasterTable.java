@@ -36,7 +36,7 @@ public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, 
 
     public void execute() {
         Property<?>[] syncableProperties = NameMaps.syncableProperties(table);
-        TodorooCursor<TYPE> items = dao.query(Query.select(AndroidUtilities.addToArray(syncableProperties, AbstractModel.ID_PROPERTY, RemoteModel.UUID_PROPERTY)));
+        TodorooCursor<TYPE> items = dao.query(Query.select(AndroidUtilities.addToArray(Property.class, syncableProperties, AbstractModel.ID_PROPERTY, RemoteModel.UUID_PROPERTY)));
         try {
             OE oe = outstandingDao.getModelClass().newInstance();
             for (items.moveToFirst(); !items.isAfterLast(); items.moveToNext()) {

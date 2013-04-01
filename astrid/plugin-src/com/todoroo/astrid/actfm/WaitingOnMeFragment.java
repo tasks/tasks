@@ -32,7 +32,7 @@ public class WaitingOnMeFragment extends TaskListFragment {
 
     @Override
     public Property<?>[] taskProperties() {
-        return AndroidUtilities.addToArray(super.taskProperties(), WaitingOnMe.READ_AT, WaitingOnMe.ACKNOWLEDGED);
+        return AndroidUtilities.addToArray(Property.class, super.taskProperties(), WaitingOnMe.READ_AT, WaitingOnMe.ACKNOWLEDGED);
     }
 
     @Override

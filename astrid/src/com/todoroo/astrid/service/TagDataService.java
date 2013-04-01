@@ -23,7 +23,6 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -151,7 +150,7 @@ public class TagDataService {
         if (extraCriterion != null)
             criteria = Criterion.and(criteria, extraCriterion);
 
-        Query result = Query.select(AndroidUtilities.addToArray(activityProperties, userProperties)).where(criteria);
+        Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties, userProperties)).where(criteria);
         if (!TextUtils.isEmpty(userTableAlias))
             result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
         return result;
@@ -176,7 +175,7 @@ public class TagDataService {
         else
             historyCriterion = History.TAG_ID.eq(tagData.getUuid());
 
-        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, userProperties)).from(History.TABLE)
+        Query historyQuery = Query.select(AndroidUtilities.addToArray(Property.class, UpdateAdapter.HISTORY_PROPERTIES, userProperties)).from(History.TABLE)
                 .where(historyCriterion)
                 .join(Join.left(User.TABLE.as(userTableAlias), History.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
 

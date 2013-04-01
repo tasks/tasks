@@ -574,7 +574,7 @@ public class TaskService {
     public TodorooCursor<UserActivity> getActivityAndHistoryForTask(Task task) {
         Query taskQuery = queryForTask(task, UpdateAdapter.USER_TABLE_ALIAS, UpdateAdapter.USER_ACTIVITY_PROPERTIES, UpdateAdapter.USER_PROPERTIES);
 
-        Query historyQuery = Query.select(AndroidUtilities.addToArray(UpdateAdapter.HISTORY_PROPERTIES, UpdateAdapter.USER_PROPERTIES)).from(History.TABLE)
+        Query historyQuery = Query.select(AndroidUtilities.addToArray(Property.class, UpdateAdapter.HISTORY_PROPERTIES, UpdateAdapter.USER_PROPERTIES)).from(History.TABLE)
                 .where(Criterion.and(History.TABLE_ID.eq(NameMaps.TABLE_ID_TASKS), History.TARGET_ID.eq(task.getUuid())))
                 .from(History.TABLE)
                 .join(Join.left(User.TABLE.as(UpdateAdapter.USER_TABLE_ALIAS), History.USER_UUID.eq(Field.field(UpdateAdapter.USER_TABLE_ALIAS + "." + User.UUID.name)))); //$NON-NLS-1$;
@@ -585,7 +585,7 @@ public class TaskService {
     }
 
     private static Query queryForTask(Task task, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
-        Query result = Query.select(AndroidUtilities.addToArray(activityProperties, userProperties))
+        Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties, userProperties))
                 .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
         if (!TextUtils.isEmpty(userTableAlias))
             result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -57,7 +58,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.ExceptionService;
 
 /**
@@ -791,7 +791,7 @@ public class AndroidUtilities {
      * @param newItems
      * @return
      */
-    public static Property<?>[] addToArray(Property<?>[] list, Property<?>... newItems) {
+    public static <T> T[] addToArray(Class<T> type, T[] list, T... newItems) {
         int originalListLength = 0;
         int length = 0;
         if (list != null) {
@@ -801,7 +801,7 @@ public class AndroidUtilities {
         if (newItems != null)
             length += newItems.length;
 
-        Property<?>[] newList = new Property<?>[length];
+        T[] newList = (T[]) Array.newInstance(type, length);
         if (list != null) {
             for(int i = 0; i < list.length; i++)
                 newList[i] = list[i];
