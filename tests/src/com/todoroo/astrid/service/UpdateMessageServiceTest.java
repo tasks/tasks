@@ -163,6 +163,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
                 return "[{message:'gtasks man',plugin:'gtasks'}]";
             }
         }.processUpdates();
+        gtasksPreferenceService.setToken(null);
     }
 
     public void testUpdateWithInternalPluginOff() {
