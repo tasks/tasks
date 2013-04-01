@@ -294,6 +294,13 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from < V4_6_0) {
+            newVersionString(changeLog, "4.6.0 (4/01/13)", new String[] {
+                    "4.6 is a big step towards FLAWLESS sync with Astrid.com! This update also includes numerous bug fixes and UI improvements. " +
+                    "Note: Simultaneous sync with Google Tasks and Astrid.com is no longer supported. Still want to with your tasks in Gmail? Remind Me by Astrid on the Chrome Store."
+            });
+        }
+
         if (from >= V4_5_0 && from < V4_5_3) {
             newVersionString(changeLog, "4.5.3 (2/04/13)", new String[] {
                 "Performance improvements when scrolling in lists",
