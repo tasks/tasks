@@ -393,16 +393,21 @@ public class AndroidUtilities {
         public void put(T object, String key, char type, String value) throws NumberFormatException;
     }
 
+    @SuppressWarnings("nls")
     private static <T> void fromSerialized(String string, T object, SerializedPut<T> putter) {
         String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
         for(int i = 0; i < pairs.length; i += 2) {
-            String key = pairs[i].replaceAll(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR);
-            String value = pairs[i+1].substring(1);
             try {
-                putter.put(object, key, pairs[i+1].charAt(0), value);
-            } catch (NumberFormatException e) {
-                // failed parse to number
-                putter.put(object, key, 's', value);
+                String key = pairs[i].replaceAll(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR);
+                String value = pairs[i+1].substring(1);
+                try {
+                    putter.put(object, key, pairs[i+1].charAt(0), value);
+                } catch (NumberFormatException e) {
+                    // failed parse to number
+                    putter.put(object, key, 's', value);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("deserialize", "Badly formed serialization: " + string, e);
             }
         }
     }
