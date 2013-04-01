@@ -304,13 +304,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
         DialogUtilities.okCancelDialog(this, getString(R.string.EPr_reset_sync_state_detailed), new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                pd = DialogUtilities.runWithProgressDialog(OldTaskPreferences.this, new Runnable() {
-                    @Override
-                    public void run() {
-                        ActFmSyncThread.clearTablePushedAtValues();
-                        //TODO: Maybe clear outstanding tables?
-                    }
-                });
+                ActFmSyncThread.clearTablePushedAtValues();
             }
         }, null);
     }
