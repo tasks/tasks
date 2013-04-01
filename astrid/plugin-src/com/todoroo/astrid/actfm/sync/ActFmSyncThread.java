@@ -287,10 +287,13 @@ public class ActFmSyncThread {
                 if (!messageBatch.isEmpty() && checkForToken()) {
                     JSONArray payload = new JSONArray();
                     MultipartEntity entity = new MultipartEntity();
+                    boolean containsChangesHappened = false;
                     for (int i = 0; i < messageBatch.size(); i++) {
                         ClientToServerMessage<?> message = messageBatch.get(i);
                         JSONObject serialized = message.serializeToJSON(entity);
                         if (serialized != null) {
+                            if (message instanceof ChangesHappened)
+                                containsChangesHappened = true;
                             payload.put(serialized);
                             syncLog("Sending: " + serialized);
                         } else {
@@ -311,7 +314,7 @@ public class ActFmSyncThread {
 
                     JSONArray errors = null;
                     try {
-                        JSONObject response = actFmInvoker.postSync(payload, entity, token);
+                        JSONObject response = actFmInvoker.postSync(payload, entity, containsChangesHappened, token);
                         // process responses
                         String time = response.optString("time");
                         JSONArray serverMessagesJson = response.optJSONArray("messages");
