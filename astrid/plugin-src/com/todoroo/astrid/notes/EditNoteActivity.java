@@ -442,12 +442,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, true);
+        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), task.getValue(Task.TITLE), true);
     }
 
 
     @SuppressWarnings("nls")
-    private void addComment(String message, String actionCode, boolean usePicture) {
+    private void addComment(String message, String actionCode, String uuid, String title, boolean usePicture) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message) && usePicture) {
             message = " ";
@@ -456,8 +456,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         userActivity.setValue(UserActivity.MESSAGE, message);
         userActivity.setValue(UserActivity.ACTION, actionCode);
         userActivity.setValue(UserActivity.USER_UUID, Task.USER_ID_SELF);
-        userActivity.setValue(UserActivity.TARGET_ID, task.getUuid());
-        userActivity.setValue(UserActivity.TARGET_NAME, task.getValue(Task.TITLE));
+        userActivity.setValue(UserActivity.TARGET_ID, uuid);
+        userActivity.setValue(UserActivity.TARGET_NAME, title);
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         if (usePicture && pendingCommentPicture != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(activity, pendingCommentPicture);
@@ -568,6 +568,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 getContext().getString(R.string.TEA_timer_comment_started),
                 DateUtilities.getTimeString(getContext(), new Date())),
                 UserActivity.ACTION_TASK_COMMENT,
+                t.getUuid(),
+                t.getValue(Task.TITLE),
                 false);
     }
 
@@ -578,7 +580,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 getContext().getString(R.string.TEA_timer_comment_stopped),
                 DateUtilities.getTimeString(getContext(), new Date()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
-                elapsedTime), UserActivity.ACTION_TASK_COMMENT, false);
+                elapsedTime), UserActivity.ACTION_TASK_COMMENT,
+                t.getUuid(),
+                t.getValue(Task.TITLE),
+                false);
     }
 
     /*
