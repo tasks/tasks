@@ -126,10 +126,10 @@
   <string name="DLG_no">Nee</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">Sluiten</string>
+  <string name="DLG_close">Sluit</string>
   
   <!-- general dialog done -->
-  <string name="DLG_done">Gereed</string>
+  <string name="DLG_done">Gedaan</string>
   
   <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
@@ -152,7 +152,7 @@
   <string name="SyP_label">Synchronisatie</string>  
 
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
+  <string name="Sync_now_label">Nu synchroniseren</string>  
 
   <!-- Sync label subtitle -->
   <string name="SyP_summary">Astrid.com, Google Taken, opgeslagen data, lokale back-up</string>  

@@ -297,7 +297,7 @@ public final class UpgradeService {
         if (from < V4_6_0) {
             newVersionString(changeLog, "4.6.0 (4/01/13)", new String[] {
                     "4.6 is a big step towards FLAWLESS sync with Astrid.com! This update also includes numerous bug fixes and UI improvements. " +
-                    "Note: Simultaneous sync with Google Tasks and Astrid.com is no longer supported. Still want to with your tasks in Gmail? Remind Me by Astrid on the Chrome Store."
+                    "Note: Simultaneous sync with Google Tasks and Astrid.com is no longer supported. Still want to view your tasks in Gmail? Try Remind Me by Astrid on the Chrome Store."
             });
         }
 

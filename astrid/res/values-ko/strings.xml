@@ -218,6 +218,8 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">추가하지 않기</string>
   
+  <string name="actfm_list_owner">(owner)</string>
+  
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
@@ -312,7 +314,10 @@
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">당신은 지금 구글 일정과 동기화하고 있습니다. 두 서비스를 동기화 할 때 경우에 따라 예상치 못한 결과가 발생할 수 있음을 유의해 주십시오. 구글 일정과 Astrid.com을 동기화 하시겠습니까?</string>
+  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
+      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">계정 유형</string>
@@ -363,6 +368,16 @@
   <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
   <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
   
+  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
+  <string name="actfm_tag_not_authorized_new_list">Create new list</string>
+  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  
+  <string name="actfm_sync_ongoing">동기화 진행 중...</string>
+  
+  <string name="EPr_reset_sync_state">Reset sync</string>
+  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -799,7 +814,7 @@
   <string name="TEA_when_header_label">시간</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">일정 요약</string>
+  <string name="TEA_title_hint">Task name</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">우선순위</string>
@@ -1274,6 +1289,9 @@
   <!-- default configuration name for the above dialog -->
   <string name="EPr_config_dialog_default_id">default</string>
   
+  <!-- Preference title for showing save and cancel buttons in task edit page -->
+  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
+  
   
   <!-- Swipe between lists -->
   <!-- Preference: swipe between lists performance -->
@@ -1552,6 +1570,9 @@
     
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">내 할 일</string>
+    
+    <!-- Waiting on me filter -->
+    <string name="BFE_waiting_on_me">Waiting On Me</string>
         
     <!-- Search Filter -->
     
@@ -1597,7 +1618,7 @@
     <string name="CFA_context_delete">가로줄 삭제</string>
     
     <!-- slide 30b: Filter Screen Help Text -->
-    <string name="CFA_help">이 화면은 새 필터를 만들도록 도와줍니다. 아래의 버튼으로 새 필터 기준을 추가하고, 길게 또는 짧게 눌러서 조정할 수 있습니다. 모두 마친 후에는 \"보기\" 버튼을 눌러 주세요.</string>
+    <string name="CFA_help">Long press on items for additional options</string>
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">기준 추가</string>
@@ -2720,7 +2741,7 @@
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-
+ 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">새 목록</string>
   
@@ -2757,7 +2778,7 @@
   <!-- filter header for tags which have no active tasks -->
   
   <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">어떤 목록에도 없음</string>
+  <string name="tag_FEx_untagged">Uncategorized</string>
   
   <!-- slide 27a: %s => tag name -->
 

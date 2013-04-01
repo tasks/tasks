@@ -218,6 +218,8 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">Lägg inte till</string>
   
+  <string name="actfm_list_owner">(owner)</string>
+  
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
@@ -312,9 +314,10 @@
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">Du synkroniserar för närvarande med Google Tasks.
-Var vänlig notera att synkning av båda tjänsterna samtidigt i vissa fall kan ge oväntade resultat.
-Är du säker på att du vill synkronisera med Astrid.com?</string>
+  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
+      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">Kontotyp</string>
@@ -365,6 +368,16 @@ Var vänlig notera att synkning av båda tjänsterna samtidigt i vissa fall kan 
   <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
   <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
   
+  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
+  <string name="actfm_tag_not_authorized_new_list">Create new list</string>
+  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  
+  <string name="actfm_sync_ongoing">Synkronisering pågår...</string>
+  
+  <string name="EPr_reset_sync_state">Reset sync</string>
+  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -801,7 +814,7 @@ Var vänlig notera att synkning av båda tjänsterna samtidigt i vissa fall kan 
   <string name="TEA_when_header_label">När</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Uppgiftssammanfattning</string>
+  <string name="TEA_title_hint">Task name</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Priority</string>
@@ -1276,6 +1289,9 @@ Var vänlig notera att synkning av båda tjänsterna samtidigt i vissa fall kan 
   <!-- default configuration name for the above dialog -->
   <string name="EPr_config_dialog_default_id">default</string>
   
+  <!-- Preference title for showing save and cancel buttons in task edit page -->
+  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
+  
   
   <!-- Swipe between lists -->
   <!-- Preference: swipe between lists performance -->
@@ -1558,6 +1574,9 @@ och återställer dina aktuella uppgifter från en backup
     
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">My Tasks</string>
+    
+    <!-- Waiting on me filter -->
+    <string name="BFE_waiting_on_me">Waiting On Me</string>
         
     <!-- Search Filter -->
     
@@ -1603,7 +1622,7 @@ och återställer dina aktuella uppgifter från en backup
     <string name="CFA_context_delete">Radera rad</string>
     
     <!-- slide 30b: Filter Screen Help Text -->
-    <string name="CFA_help">Denna skärm låter dig skapa nya filter. Lägg till kriterier med hjälp av knappen nedan. Klicka eller klicka och håll på ett kriterium för att göra inställningar och klicka sedan på \"Visa\"!</string>
+    <string name="CFA_help">Long press on items for additional options</string>
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">Lägg till kriterium</string>
@@ -2729,7 +2748,7 @@ kommer inte att kunna utföra köp.</string>
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-
+ 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Ny lista</string>
   
@@ -2766,7 +2785,7 @@ kommer inte att kunna utföra köp.</string>
   <!-- filter header for tags which have no active tasks -->
   
   <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Ingen lista</string>
+  <string name="tag_FEx_untagged">Uncategorized</string>
   
   <!-- slide 27a: %s => tag name -->
 

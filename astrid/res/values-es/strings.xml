@@ -58,7 +58,7 @@
 
   <string name="actfm_friendship_blocked">Ha bloqueado a %s.</string>
 
-  <string name="actfm_friendship_ignored">You\'ve ignored %s.</string>
+  <string name="actfm_friendship_ignored">Ha ignorado %s.</string>
   
   <string name="actfm_friendship_friends">Es amigo/a de %s. Añada tareas para ellos abajo.</string>
 
@@ -165,7 +165,7 @@
   <string name="actfm_EPA_share_with">Compartir con:</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share</string>
+  <string name="actfm_EPA_collaborators_header">Compartir</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">Lista: %s</string>
@@ -218,6 +218,8 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">No agregar</string>
   
+  <string name="actfm_list_owner">(owner)</string>
+  
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
@@ -233,10 +235,10 @@
   <string name="actfm_ALA_gg_login">Conectarse con Google</string>
   
   <!-- share login: Quickly log in as <%s -> email> -->
-  <string name="actfm_quick_login">Sign in: %s</string>
+  <string name="actfm_quick_login">Iniciar sesión: %s</string>
 
   <!-- share login: Reject quick login -->
-  <string name="actfm_quick_login_reject">Not %s?</string>
+  <string name="actfm_quick_login_reject">¿No es %s?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">Nombre</string>
@@ -312,7 +314,10 @@
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">Está sincronizando con Google Tasks. Tenga en cuenta que sincronizar con ambos servicios puede llevar en algunos casos a resultados inesperados. ¿Estas seguro que quiere sincronizar con Astrid.com?</string>
+  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
+      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">Tipo de cuenta</string>
@@ -336,8 +341,8 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
+  <string name="sync_upgr_both_title">Usando Astrid.com + Google sin Duplicados</string>
+  <string name="sync_upgr_both_body">Seamos honestos. Google Tasks es práctico pero no es tan guay como Astrid. Para evitar duplicados ya no puedes sincronizar con Astrid.com y al mismo tiempo sincronizar en segundo plano con Google Tasks. Todavía puedes importar tus Google Tasks yendo a Configuración → Copias y Sincronización o reducir la sincronización a sólo con Google Tasks.</string>
   <string name="sync_upgr_both_btn1">Stick with Astrid</string>
   <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
   
@@ -363,6 +368,16 @@
   <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
   <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
   
+  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
+  <string name="actfm_tag_not_authorized_new_list">Crea una nueva lista</string>
+  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  
+  <string name="actfm_sync_ongoing">Sincronización en marcha</string>
+  
+  <string name="EPr_reset_sync_state">Reset sync</string>
+  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -799,7 +814,7 @@
   <string name="TEA_when_header_label">Cuando</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Descripción de la tarea</string>
+  <string name="TEA_title_hint">Task name</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Prioridad</string>
@@ -843,7 +858,7 @@
   <string name="TEA_menu_delete">Borrar Tarea</string>
   
   <!-- Menu: Task comments -->
-  <string name="TEA_menu_refresh_comments">Refresh comments</string>
+  <string name="TEA_menu_refresh_comments">Actualizar comentarios</string>
 
   <string name="TEA_menu_comments">Comentarios</string>
   
@@ -1105,7 +1120,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Astrid: Preferencias</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Compartir Astrid</string>
 
   <string name="EPr_share_astrid_summary">Comparte Astrid en tu red social favorita</string>
   
@@ -1131,7 +1146,7 @@
   <string name="EPr_fontSize_title">Tamaño de la lista de tareas</string>
   
   <!-- Preference: Filters to show pref screen title -->
-  <string name="EPr_filters_to_show_title">Filters to show</string>
+  <string name="EPr_filters_to_show_title">Filtros a mostrar</string>
   
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Mostrar confirmación para recordatorios inteligentes</string>
@@ -1142,7 +1157,7 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show description in task</string>
+  <string name="EPr_showNotes_title">Mostrar descripción en tarea</string>
   
   <!-- Edit screen preference category -->
   <string name="EPr_edit_screen_options">Edit screen options</string>
@@ -1150,7 +1165,7 @@
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Edit screen order</string>
   
-  <string name="EPr_beastMode_shortcut">Customize</string>
+  <string name="EPr_beastMode_shortcut">Personalizar</string>
   
   <string name="EPr_time_increment">5 minute increments</string>
   
@@ -1203,7 +1218,7 @@
   <string name="EPr_task_row_style_title">Row style: %s</string>
   
   <!-- Preference: custom filters enabled -->
-  <string name="EPr_use_filters_title">Use filters</string>
+  <string name="EPr_use_filters_title">Usar filtros</string>
   <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
 
   <!-- Preference: show list members in shared list -->
@@ -1263,7 +1278,7 @@
   
   <!-- Configurations -->
   <string name="EPr_configurations_title">Set configuration</string>
-  <string name="EPr_config_default">Default</string>
+  <string name="EPr_config_default">Predeterminado</string>
   <string name="EPr_config_lite">Astrid Lite</string>
   
   <!-- Dialog title when setting preference configuration -->
@@ -1273,6 +1288,9 @@
   
   <!-- default configuration name for the above dialog -->
   <string name="EPr_config_dialog_default_id">default</string>
+  
+  <!-- Preference title for showing save and cancel buttons in task edit page -->
+  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
   
   
   <!-- Swipe between lists -->
@@ -1461,7 +1479,7 @@ Astrid podría no avisarle cuanto venza una tarea.\n</string>
   <string name="EPr_default_urgency_desc">Actualmente: %s</string>
   
   <!-- slide 40a: Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default priority</string>
+  <string name="EPr_default_importance_title">Prioridad predeterminada</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Actualmente: %s</string>
   
@@ -1554,6 +1572,9 @@ Astrid podría no avisarle cuanto venza una tarea.\n</string>
     
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Mis Tareas</string>
+    
+    <!-- Waiting on me filter -->
+    <string name="BFE_waiting_on_me">Waiting On Me</string>
         
     <!-- Search Filter -->
     
@@ -1599,9 +1620,7 @@ Astrid podría no avisarle cuanto venza una tarea.\n</string>
     <string name="CFA_context_delete">Eliminar fila</string>
     
     <!-- slide 30b: Filter Screen Help Text -->
-    <string name="CFA_help">Esta pantalla le permite crear nuevos filtros. Agregue
-criterios usando el botón inferior, un toque corto o largo para ajustarlos,
-luego presione en \"Ver\"!</string>
+    <string name="CFA_help">Long press on items for additional options</string>
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">Añadir Criterio</string>
@@ -1801,9 +1820,9 @@ Intenta acceder desde el navegador, a continuación vuelve a reintentarlo nuevam
 
     <string name="gtasks_import_dlg_title">Google Tasks Import</string>
 
-    <string name="gtasks_import_add_task_ok">Add task</string>
+    <string name="gtasks_import_add_task_ok">Añadir tarea</string>
 
-    <string name="gtasks_import_add_task_cancel">Don\'t add task</string>
+    <string name="gtasks_import_add_task_cancel">No añadir tarea</string>
         
 
 
@@ -1862,7 +1881,6 @@ Intenta acceder desde el navegador, a continuación vuelve a reintentarlo nuevam
   <string name="welcome_login_confirm_later_dialog">¡Inicia sesión para aprovechar Astrid al máximo!
 Es gratis, obtienes copias de seguridad en línea, sincronización completa con Astrid.com,
 podrás agregar tareas vía correo electrónico, e incluso compartir listas de tareas con tus amigos!</string>
-  
 
 
 <!-- 
@@ -2149,12 +2167,12 @@ no le será posible hacer compras.</string>
     
     <string name="subscriptions_learn_more">Más información</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
-    <string name="kii_premium_abort">Special offer aborted</string>
-    <string name="kii_premium_declined">Special offer declined</string>
+    <string name="kii_premium_success">¡Gracias por participar en esta oferta! Se ha desbloqueado su mes gratuito de Astrid Premium.</string>
+    <string name="kii_premium_abort">Oferta especial interrumpida</string>
+    <string name="kii_premium_declined">Oferta especial rechazada</string>
     <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
     
-    <string name="premium_offers_title">Special Offer</string>
+    <string name="premium_offers_title">Oferta especial</string>
     <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
     <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
     <string name="premium_offers_start">Get it free!</string>
@@ -2211,13 +2229,13 @@ no le será posible hacer compras.</string>
   <string name="TEA_reminder_alarm_label">Tipo de Tono/Vibración:</string>
 
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Once</string>
+  <string name="TEA_reminder_mode_once">Una vez</string>
 
   <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Five times</string>
+  <string name="TEA_reminder_mode_five">Cinco veces</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  <string name="TEA_reminder_mode_nonstop">Hasta que cancele la alarma</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2623,11 +2641,11 @@ no le será posible hacer compras.</string>
   </string-array>
   
   <string name="repeat_days">días</string>
-  <string name="repeat_weekdays">weekdays</string>
-  <string name="repeat_weeks">weeks</string>
-  <string name="repeat_months">months</string>
-  <string name="repeat_years">years</string>
-  <string name="repeat_hours">hours</string>
+  <string name="repeat_weekdays">días laborales</string>
+  <string name="repeat_weeks">semanas</string>
+  <string name="repeat_months">meses</string>
+  <string name="repeat_years">años</string>
+  <string name="repeat_hours">horas</string>
   <string name="repeat_minutes">minutos</string>
   
   <string-array name="repeat_until_shortcuts">
@@ -2732,8 +2750,8 @@ no le será posible hacer compras.</string>
   <string name="TEA_tags_label">Listas</string>
   
   <!-- Tags label long version -->
-  <string name="TEA_tags_label_long">Add to lists</string>
-
+  <string name="TEA_tags_label_long">Añadir a listas</string>
+ 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Nueva lista</string>
   
@@ -2770,7 +2788,7 @@ no le será posible hacer compras.</string>
   <!-- filter header for tags which have no active tasks -->
   
   <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">En ninguna lista</string>
+  <string name="tag_FEx_untagged">Uncategorized</string>
   
   <!-- slide 27a: %s => tag name -->
 
@@ -2843,7 +2861,7 @@ no le será posible hacer compras.</string>
     <string name="TFE_workingOn">Tareas que se están cronometrando</string>
     
     <!-- Title for TEA -->
-    <string name="TEA_timer_controls">Timer</string>
+    <string name="TEA_timer_controls">Temporizador</string>
     
     
     <!-- Edit Notes: create comment for when timer is started -->

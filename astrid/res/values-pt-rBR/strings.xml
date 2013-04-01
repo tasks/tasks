@@ -218,6 +218,8 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">Não adicionar</string>
   
+  <string name="actfm_list_owner">(owner)</string>
+  
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
@@ -312,7 +314,10 @@
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">Atualmente você está sincronizando com as tarefas do Google. Esteja ciente de que a sincronização com ambos os serviços podem, em alguns casos, levar a resultados inesperados. Tem certeza de que deseja sincronizar com Astrid.com?</string>
+  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
+      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">Tipo de Conta</string>
@@ -336,10 +341,10 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
+  <string name="sync_upgr_both_title">Usando Astrid.com + Google sem Duplicações</string>
+  <string name="sync_upgr_both_body">Vamos ser honestos. A Tarefas do Google são convenientes, mas não tão legais como as do Astrid. Para evitar duplicações você não pode mais sincronizar com Astrid.com e sincronizar em segundo plano com as Tarefas do Google ao mesmo tempo. Você ainda oide importar as tarefas do Google visitando Configuração → Backup &amp; Sincronização ou desatualizar para só sincronizar com as tarefas do Google</string>
   <string name="sync_upgr_both_btn1">Stick with Astrid</string>
-  <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
+  <string name="sync_upgr_both_btn2">Dezatualise para Tarefas do Google</string>
   
   <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
   <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
@@ -363,6 +368,16 @@
   <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
   <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
   
+  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
+  <string name="actfm_tag_not_authorized_new_list">Criar nova lista</string>
+  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  
+  <string name="actfm_sync_ongoing">Sincronizando...</string>
+  
+  <string name="EPr_reset_sync_state">Reset sync</string>
+  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -799,7 +814,7 @@
   <string name="TEA_when_header_label">Quando</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Resumo da Tarefa</string>
+  <string name="TEA_title_hint">Task name</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Prioridade</string>
@@ -1274,6 +1289,9 @@
   <!-- default configuration name for the above dialog -->
   <string name="EPr_config_dialog_default_id">default</string>
   
+  <!-- Preference title for showing save and cancel buttons in task edit page -->
+  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
+  
   
   <!-- Swipe between lists -->
   <!-- Preference: swipe between lists performance -->
@@ -1552,6 +1570,9 @@
     
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Minhas Tarefas</string>
+    
+    <!-- Waiting on me filter -->
+    <string name="BFE_waiting_on_me">Waiting On Me</string>
         
     <!-- Search Filter -->
     
@@ -1597,7 +1618,7 @@
     <string name="CFA_context_delete">Remover critério</string>
     
     <!-- slide 30b: Filter Screen Help Text -->
-    <string name="CFA_help">Esta tela permite que você crie um novo filtro. Adicione critérios utilizando o botão abaixo. Dê um toque rápido ou lento no critério para ajustá-lo, e então toque em Visualizar!</string>
+    <string name="CFA_help">Long press on items for additional options</string>
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">Adicionar critério</string>
@@ -2720,7 +2741,7 @@
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-
+ 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Nova lista</string>
   
@@ -2757,7 +2778,7 @@
   <!-- filter header for tags which have no active tasks -->
   
   <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Em nenhuma lista</string>
+  <string name="tag_FEx_untagged">Uncategorized</string>
   
   <!-- slide 27a: %s => tag name -->
 

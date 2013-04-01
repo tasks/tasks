@@ -58,7 +58,7 @@
 
   <string name="actfm_friendship_blocked">Je hebt %s geblokkeerd.</string>
 
-  <string name="actfm_friendship_ignored">You\'ve ignored %s.</string>
+  <string name="actfm_friendship_ignored">Je hebt %s genegeerd</string>
   
   <string name="actfm_friendship_friends">Je bent bevriend met %s! Voeg hieronder voor hem/haar een taak toe.</string>
 
@@ -84,7 +84,7 @@
     <!-- Tab for showing comments & updates -->
     <item>Activiteit</item>
     <!-- Tab for showing setting -->
-    <item>Instellingen voor Lijst</item>
+    <item>Lijst Voorkeuren</item>
   </string-array>
   
   <!-- Tag View: filtered by assigned to user (%s => user name) -->
@@ -165,7 +165,7 @@
   <string name="actfm_EPA_share_with">Deel met:</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share</string>
+  <string name="actfm_EPA_collaborators_header">Delen</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">Lijst: %s</string>
@@ -218,6 +218,8 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">Niet toevoegen</string>
   
+  <string name="actfm_list_owner">(owner)</string>
+  
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
@@ -233,10 +235,10 @@
   <string name="actfm_ALA_gg_login">Verbind met Google</string>
   
   <!-- share login: Quickly log in as <%s -> email> -->
-  <string name="actfm_quick_login">Sign in: %s</string>
+  <string name="actfm_quick_login">Inloggen als %s</string>
 
   <!-- share login: Reject quick login -->
-  <string name="actfm_quick_login_reject">Not %s?</string>
+  <string name="actfm_quick_login_reject">Niet %s?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">Voornaam</string>
@@ -312,7 +314,10 @@
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">Op dit moment synchroniseer je met Google Tasks. Let erop dat synchroniseren met beide diensten in sommige gevallen kan leiden tot onverwachte resultaten. Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
+  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
+      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">Type account</string>
@@ -336,33 +341,43 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
-  <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
+  <string name="sync_upgr_both_title">Gebruik Astrid.com + Google zonder duplicaten</string>
+  <string name="sync_upgr_both_body">Laten we eerlijk zijn. Google Taken is gemakkelijk maar niet zo cool als Astrid. Om duplicaten te voorkomen kun je niet langer tegelijkertijd zowel Astrid.com als Google Taken synchroniseren. Je kunt nog wel je Google Taken importeren via Instelllingen → Backup &amp; Sync, of downgraden naar enkel synchronisatie met Google Taken.</string>
+  <string name="sync_upgr_both_btn1">Blijf bij Astrid</string>
+  <string name="sync_upgr_both_btn2">Downgrade naar Google Taken</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
-  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
+  <string name="sync_upgr_gtasks_only_title">Upgrade gratis naar Astrid Sync!</string>
+  <string name="sync_upgr_gtasks_only_body">Toegang tot je taken op al je apparaten en op Gmail met Astrid.com sync. Upgrade naar Astrid.com Sync (je kunt altijd terug naar Google Taken - maar zul je niet willen)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Upgrade naar Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_btn2">Blijf bij Google Taken</string>
   
-  <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_title">Gratis backyp &amp; Sync!</string>
+  <string name="sync_upgr_neither_body">Loop geen risico met je to-do\'s! Nieuwe en verbeterde Astrid sync om je taken te bewaren en er overal toegang tot te hebben.</string>
   <string name="sync_upgr_neither_btn1">Registreer nu</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">Je bent uitgelogd uit Astrid</string>
   
-  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
-  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
-  <string name="actfm_logout_clear_tasks_no">Keep data</string>
+  <string name="actfm_logout_clear_tasks_title">Data wissen?</string>
+  <string name="actfm_logout_clear_tasks_body">Wil je jouw taken en lijsten wissen?</string>
+  <string name="actfm_logout_clear_tasks_yes">Data wissen</string>
+  <string name="actfm_logout_clear_tasks_no">Data behouden</string>
   
-  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-  <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-  <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-  <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-  <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
+  <string name="actfm_logged_in_different_user_title">Inloggen als een andere gebruiker</string>
+  <string name="actfm_logged_in_different_user_body">Wil je de bestaande telefoon taken verwijderen voor synchronisatie?</string>
+  <string name="actfm_logged_in_different_user_keep_data">Data behouden</string>
+  <string name="actfm_logged_in_different_user_clear_data">Alle gegevens wissen</string>
+  <string name="actfm_logged_in_different_user_processing">Verwerken van bestaande data</string>
   
+  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
+  <string name="actfm_tag_not_authorized_new_list">Maak een nieuwe lijst</string>
+  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  
+  <string name="actfm_sync_ongoing">Synchronisatie bezig...</string>
+  
+  <string name="EPr_reset_sync_state">Reset sync</string>
+  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -384,7 +399,7 @@
     
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
-      <item>Alarm!</item>
+      <item>Voeg Alarm toe</item>
     </string-array>
     
 
@@ -591,7 +606,7 @@
   <string name="TLA_menu_addons">Uitbreidingen</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort</string>
+  <string name="TLA_menu_sort">Sorteren</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Nu Synchroniseren</string>
@@ -640,8 +655,8 @@
       <item>Actief</item>
       <item>Vandaag</item>
       <item>Binnenkort</item>
-      <item>Te laat</item>
-      <item>Gereed</item>
+      <item>Te Laat</item>
+      <item>Gedaan</item>
       <item>Verborgen</item>      
   </string-array>
   
@@ -721,7 +736,7 @@
   <string name="SSD_deleted">Verwijderde taken weergeven</string>
   
   <!-- Sort Selection: drag with subtasks -->
-  <string name="SSD_sort_drag">Manual order with subtasks</string>
+  <string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Slim Sorteren</string>
@@ -733,7 +748,7 @@
   <string name="SSD_sort_due">Op einddatum</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By priority</string>
+  <string name="SSD_sort_importance">Op prioriteit</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">Op datum gewijzigd</string>
@@ -799,7 +814,7 @@
   <string name="TEA_when_header_label">Wanneer</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Samenvatting taak</string>
+  <string name="TEA_title_hint">Task name</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Prioriteit</string>
@@ -813,7 +828,7 @@
   <string name="TEA_urgency_none">Geen</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide until</string>
+  <string name="TEA_hideUntil_label">Verbergen tot</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Taak is verborgen tot %s</string>
@@ -825,7 +840,7 @@
   <string name="TEA_note_label">Omschrijving</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task description...</string>
+  <string name="TEA_notes_hint">Voer taakomschrijving in</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">Tijdsduur</string>
@@ -843,7 +858,7 @@
   <string name="TEA_menu_delete">Taak verwijderen</string>
   
   <!-- Menu: Task comments -->
-  <string name="TEA_menu_refresh_comments">Refresh comments</string>
+  <string name="TEA_menu_refresh_comments">Opmerkingen vernieuwen</string>
 
   <string name="TEA_menu_comments">Opmerkingen</string>
   
@@ -868,7 +883,7 @@
   
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No date</item>
+      <item>Geen datum</item>
       <item>Specifieke dag</item>
       <item>Vandaag</item>
       <item>Morgen</item>
@@ -882,7 +897,7 @@
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Never</item>
+      <item>Nooit</item>
       <item>Einddatum </item>
       <item>Dag voor einddatum</item>
       <item>Week voor einddatum</item>
@@ -1105,7 +1120,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Astrid: Instellingen</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Deel Astrid</string>
 
   <string name="EPr_share_astrid_summary">Deel over Astrid op je favoriete sociale netwerk</string>
   
@@ -1131,7 +1146,7 @@
   <string name="EPr_fontSize_title">Taaklijst lettertypegrootte</string>
   
   <!-- Preference: Filters to show pref screen title -->
-  <string name="EPr_filters_to_show_title">Filters to show</string>
+  <string name="EPr_filters_to_show_title">Te tonen filters</string>
   
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Laat bevestiging zien voor slimme herinneringen</string>
@@ -1142,19 +1157,19 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show description in task</string>
+  <string name="EPr_showNotes_title">Toon omschrijving in taak</string>
   
   <!-- Edit screen preference category -->
-  <string name="EPr_edit_screen_options">Edit screen options</string>
+  <string name="EPr_edit_screen_options">Scherm opties bewerken</string>
   
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Edit screen order</string>
+  <string name="EPr_beastMode_title">Scherm volgorde bewerken</string>
   
-  <string name="EPr_beastMode_shortcut">Customize</string>
+  <string name="EPr_beastMode_shortcut">Aanpassen</string>
   
-  <string name="EPr_time_increment">5 minute increments</string>
+  <string name="EPr_time_increment">stappen van 5 minuten</string>
   
-  <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
+  <string name="EPr_use_date_shortcuts">Gebruik datum snelkoppelingen</string>
   
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
@@ -1162,9 +1177,9 @@
   <string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
+  <string name="EPr_showNotes_desc_disabled">Omschrijving zal toegankelijk zijn vanaf het bewerk taak scherm</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Omschrijving zal altijd worden getoond</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">Compacte Taakrij</string>
@@ -1188,41 +1203,41 @@
   
   <!-- Preferences: task row style -->
   <string-array name="EPr_task_row_styles">
-      <item>Original</item>
-      <item>Simple</item>
-      <item>Title only</item>
+      <item>Origineel</item>
+      <item>Simpel</item>
+      <item>Enkel titel</item>
   </string-array>
   
   <string-array name="EPr_task_row_style_descriptions">
       <item>Titel afkappen naar twee regels met datum aan rechterkant</item>
       <item>Titel afkappen tot één regel met datum en onderstaande lijsten</item>
-      <item>Single line title only</item>
+      <item>Enkele regel enkel titel</item>
   </string-array>
   
   <!-- task row style title (%s -> style) -->
-  <string name="EPr_task_row_style_title">Row style: %s</string>
+  <string name="EPr_task_row_style_title">Regel stijl %s</string>
   
   <!-- Preference: custom filters enabled -->
-  <string name="EPr_use_filters_title">Use filters</string>
-  <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
+  <string name="EPr_use_filters_title">Gebruik filters</string>
+  <string name="EPr_use_filters_subtitle">Laat je eigen filters definieren</string>
 
   <!-- Preference: show list members in shared list -->
-  <string name="EPr_show_list_members_title">Show list members in shared lists</string>
+  <string name="EPr_show_list_members_title">Toon ledenlijst in gedeelde lijsten</string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_simple_input_boxes">Simple text boxes</string>
+  <string name="EPr_simple_input_boxes">Eenvoudige tekst vakken</string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
+  <string name="EPr_show_quickadd_controls">Geavanceerde snel toevoegen controls</string>
 
   <!-- Preference: menu items -->
   <string name="EPr_menu_items">Menu items</string>
 
   <!-- Preference: list view -->
-  <string name="EPr_list_view">List view</string>
+  <string name="EPr_list_view">Lijst weergave</string>
 
   <!-- Preference: task edit comments -->
-  <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
+  <string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
   
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Kleuren Thema</string>
@@ -1253,26 +1268,29 @@
   <string name="EPr_ideas_tab_description">Krijg ideeën om je te helpen taken te voltooien</string>
   
   <!-- Preferences: calendar event start time -->
-  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
-  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  <string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
+  <string name="EPr_cal_end_at_due_time">Agendai tem op tijd afronden</string>
+  <string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
   
   <string name="EPr_force_phone_layout">Gebruik telefoon layout</string>
 
   <string name="EPr_show_featured_lists">Laat aanbevolen lijsten zien</string>
   
   <!-- Configurations -->
-  <string name="EPr_configurations_title">Set configuration</string>
-  <string name="EPr_config_default">Default</string>
+  <string name="EPr_configurations_title">Configuratie instellen</string>
+  <string name="EPr_config_default">Standaard</string>
   <string name="EPr_config_lite">Astrid Lite</string>
   
   <!-- Dialog title when setting preference configuration -->
-  <string name="EPr_config_dialog_title">Set configuration?</string>
+  <string name="EPr_config_dialog_title">Configuratie instellen?</string>
   <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
-  <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
+  <string name="EPr_config_dialog_text">Reset voorkeuren naar de %s configuratie?</string>
   
   <!-- default configuration name for the above dialog -->
-  <string name="EPr_config_dialog_default_id">default</string>
+  <string name="EPr_config_dialog_default_id">standaard</string>
+  
+  <!-- Preference title for showing save and cancel buttons in task edit page -->
+  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
   
   
   <!-- Swipe between lists -->
@@ -1314,11 +1332,11 @@
     <!-- slide 36b -->
     <item>Dag - Rood</item>
     <!-- slide 36b -->
-    <item>Sky blue</item>
+    <item>Hemelsblauw</item>
     <!-- slide 36c -->
-    <item>Night</item>
+    <item>Nacht</item>
     <!-- slide 36d -->
-    <item>Transparent (white text)</item>
+    <item>Transparant (witte tekst)</item>
     <!-- slide 36e -->
     <item>Transparant (Zwarte Tekst)</item>
   </string-array>
@@ -1328,10 +1346,10 @@
     <item>Zelfde als app</item>
     <item>Dag - Blauw</item>
     <item>Dag - Rood</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (white text)</item>
-    <item>Transparent (black text)</item>
+    <item>Hemelsblauw</item>
+    <item>Nacht</item>
+    <item>Transparant (witte tekst)</item>
+    <item>Transparant (zwarte tekst)</item>
     <item>Oude Stijl</item>
   </string-array>
   
@@ -1451,7 +1469,7 @@
 
   <!-- slide 32g: Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
-  <string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
+  <string name="EPr_defaults_summary">Prioriteit, eind datum, toevoegen aan agenda</string>
   
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Standaard prioriteit</string>
@@ -1459,7 +1477,7 @@
   <string name="EPr_default_urgency_desc">Nu: %s</string>
   
   <!-- slide 40a: Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default priority</string>
+  <string name="EPr_default_importance_title">Standaard prioriteit</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Nu: %s</string>
   
@@ -1552,6 +1570,9 @@
     
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Mijn taken</string>
+    
+    <!-- Waiting on me filter -->
+    <string name="BFE_waiting_on_me">Waiting On Me</string>
         
     <!-- Search Filter -->
     
@@ -1597,7 +1618,7 @@
     <string name="CFA_context_delete">Regel verwijderen</string>
     
     <!-- slide 30b: Filter Screen Help Text -->
-    <string name="CFA_help">Met dit scherm kunnen nieuwe filters worden gemaakt. Criteria kunnen met onderstaande knop worden toegevoegd, kort of lang drukken om ze aan te passen en klik daarna op \"Weergeven\".</string>
+    <string name="CFA_help">Long press on items for additional options</string>
     
     <!-- slide 30c: Filter Button: add new -->
     <string name="CFA_button_add">Criteria toevoegen</string>
@@ -1626,9 +1647,9 @@
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Priority at least ?</string>
+    <string name="CFC_importance_text">Prioriteit ten minste ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Priority...</string>        
+    <string name="CFC_importance_name">Prioriteit...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">Lijst: ?</string>
@@ -1677,7 +1698,7 @@
   <!-- No calendar label (don\'t add option) -->
   <string name="gcal_TEA_nocal">Niet toevoegen</string>
   
-  <string name="gcal_TEA_none_selected">To calendar?</string>
+  <string name="gcal_TEA_none_selected">Naar agenda?</string>
   
   <string name="gcal_TEA_has_event">Agenda-item</string>
   
@@ -1788,15 +1809,15 @@
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Error authenticatie op achtergrond bezig. Probeer alstublieft een synchronisatie te starten wanneer Astrid is gestart.</string>
       
-    <string name="gtasks_import_progress">Importing Google Tasks...</string>
+    <string name="gtasks_import_progress">Google Taken importeren</string>
 
-    <string name="gtasks_import_add_to_shared_list">The list %1$s is shared with others! Do you still want to add the task %2$s to it?</string>
+    <string name="gtasks_import_add_to_shared_list">De lijst %1$s is gedeeld met anderen! Wil je de taak %2$s nog steeds toevoegen?</string>
 
-    <string name="gtasks_import_dlg_title">Google Tasks Import</string>
+    <string name="gtasks_import_dlg_title">Google Taken import</string>
 
-    <string name="gtasks_import_add_task_ok">Add task</string>
+    <string name="gtasks_import_add_task_ok">Taak toevoegen</string>
 
-    <string name="gtasks_import_add_task_cancel">Don\'t add task</string>
+    <string name="gtasks_import_add_task_cancel">Taak niet toevoegen</string>
         
 
 
@@ -2138,15 +2159,15 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
     
     <string name="subscriptions_learn_more">Meer informatie</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
-    <string name="kii_premium_abort">Special offer aborted</string>
-    <string name="kii_premium_declined">Special offer declined</string>
-    <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
+    <string name="kii_premium_success">Bedankt voor deelname aan deze aanbieding! Je maand gratis Astrid Premium is nu actief.</string>
+    <string name="kii_premium_abort">Speciale aanbieding afgebroken</string>
+    <string name="kii_premium_declined">Speciale aanbieding afgewezen</string>
+    <string name="kii_premium_error">Er was een fout tijdens het verwerken van deze aanbieding. Probeer het later opnieuw.</string>
     
-    <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-    <string name="premium_offers_start">Get it free!</string>
+    <string name="premium_offers_title">Speciale aanbieding</string>
+    <string name="premium_offers_subtitle">Wil je één maand gratis Astrid Premium?</string>
+    <string name="premium_offers_detail">Om een maand gratis Astrid Premium te krijgen kun je een korte video bekijken van deze sponsor (Ze zullen je ook vragen om je e-mail adres.)</string>
+    <string name="premium_offers_start">Krijg het gratis!</string>
     
     <string name="premium_billing_title">Astrid Premium</string>
     <string name="premium_buy_month">1 maand</string>
@@ -2200,13 +2221,13 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <string name="TEA_reminder_alarm_label">Geluid/Trillen:</string>
 
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Once</string>
+  <string name="TEA_reminder_mode_once">Eens</string>
 
   <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Five times</string>
+  <string name="TEA_reminder_mode_five">Vijf keer</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  <string name="TEA_reminder_mode_nonstop">Totdat ik het alarm stop</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2318,11 +2339,11 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
 
   <!-- Reminder Preference: Social Reminders Title -->
-  <string name="rmd_EPr_social_title">Social encouragement</string>
+  <string name="rmd_EPr_social_title">Sociale aanmoediging</string>
   <!-- Reminder Preference: Social Reminders Summary (enabled) -->
-  <string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
+  <string name="rmd_EPr_social_summary_enabled">Herinneringen zullen je laten zien wie er op je rekent voor gedeelde taken</string>
   <!-- Reminder Preference: Social Reminders Summary (disabled) -->
-  <string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
+  <string name="rmd_EPr_social_summary_disabled">Herinneringen zullen je niet laten zien wie er op je rekent voor gedeelde taken</string>
   
   
   
@@ -2523,7 +2544,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
       <item>Lege lijsten zijn mooie lijsten...</item>
       <item>Waarom niet vandaag?</item>
       <item>Maak het af, ik word er niet goed van!</item>
-      <item>Kan dit af? Natuurlijk kan dit af!</item>
+      <item>Kan dit af? Natuurlijk!</item>
       <item>Gaat dit ooit afkomen?</item>
       <item>Zo gaat \'ie goed! Zet door!</item>
       <item>Ik ben trots op je! Kom op!</item>
@@ -2586,7 +2607,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <string name="repeat_interval_prompt">Herhaal interval</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Repeating?</string>
+  <string name="repeat_never">Herhalend?</string>
   <!-- slide 20f-->
   <string name="repeat_dont">Niet herhalen</string>
       
@@ -2612,11 +2633,11 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   </string-array>
   
   <string name="repeat_days">dagen </string>
-  <string name="repeat_weekdays">weekdays</string>
-  <string name="repeat_weeks">weeks</string>
-  <string name="repeat_months">months</string>
-  <string name="repeat_years">years</string>
-  <string name="repeat_hours">hours</string>
+  <string name="repeat_weekdays">weekdagen</string>
+  <string name="repeat_weeks">weken</string>
+  <string name="repeat_months">maanden</string>
+  <string name="repeat_years">jaren</string>
+  <string name="repeat_hours">uren</string>
   <string name="repeat_minutes">minuten</string>
   
   <string-array name="repeat_until_shortcuts">
@@ -2721,8 +2742,8 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <string name="TEA_tags_label">Lijsten</string>
   
   <!-- Tags label long version -->
-  <string name="TEA_tags_label_long">Add to lists</string>
-
+  <string name="TEA_tags_label_long">Voeg toe aan lijsten</string>
+ 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Nieuwe lijst</string>
   
@@ -2759,7 +2780,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <!-- filter header for tags which have no active tasks -->
   
   <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Niet in een Lijst</string>
+  <string name="tag_FEx_untagged">Uncategorized</string>
   
   <!-- slide 27a: %s => tag name -->
 
@@ -2860,66 +2881,66 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
     
     <!-- These are still in use -->
     <string name="update_string_default_comment">%1$s heeft gereageerd: %3$s</string>
-    <string name="update_string_task_comment">%1$s on $link_task: %3$s</string>
-    <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
+    <string name="update_string_task_comment">%1$s op $link_task: %3$s</string>
+    <string name="update_string_tag_comment">%1$s op %2$s: %3$s</string>
     <string name="update_string_user_self">Jij</string>
     
-    <string name="history_yourself">yourself</string>
+    <string name="history_yourself">jijzelf</string>
     <string name="history_you">jij</string>
-    <string name="history_a_deleted_user">(a deleted user)</string>
+    <string name="history_a_deleted_user">(een verwijderde gebruiker)</string>
     
     <string name="history_this_list">deze lijst</string>
     <string name="history_this_task">deze taak</string>
-    <string name="history_tag_added">added %1$s to %2$s</string>
-    <string name="history_tag_removed">removed %1$s from %2$s</string>
-    <string name="history_attach_added">attached %1$s to %2$s</string>
-    <string name="history_attach_removed">removed %1$s from %2$s</string>
-    <string name="history_left_list">left %s</string>
-    <string name="history_deleted">deleted %s</string>
-    <string name="history_undeleted">undeleted %s</string>
-    <string name="history_completed">completed %s</string>
-    <string name="history_uncompleted">uncompleted %s</string>
-    <string name="history_importance_changed">changed %1$s priority from %2$s to %3$s</string>
-    <string name="history_title_changed">changed %1$s title from %2$s to %3$s</string>
-    <string name="history_title_set">set %1$s title to %2$s</string>
-    <string name="history_name_changed">changed name from %1$s to %2$s</string>
-    <string name="history_name_set">set name to %2$s</string>
-    <string name="history_description_changed">changed description from %1$s to %2$s</string>
-    <string name="history_description_set">set description to %2$s</string>
-    <string name="history_made_public">made %s public</string>
-    <string name="history_made_private">made %s private</string>
-    <string name="history_silenced">silenced %s</string>
-    <string name="history_unsilenced">unsilenced %s</string>
-    <string name="history_favorited">favorited %s</string>
-    <string name="history_unfavorited">unfavorited %s</string>
-    <string name="history_changed_list_picture">change this list\'s picture</string>
-    <string name="history_added_description_characters">added %1$d characters to %2$s description</string>
-    <string name="history_removed_description">removed %s description</string>
-    <string name="history_removed_description_characters">removed %1$d characters from %2$s description</string>
-    <string name="history_updated_description">updated %s description</string>
-    <string name="history_changed_list_owner">changed list owner to %s</string>
-    <string name="history_created_this_list">created this list</string>
-    <string name="history_unassigned">unassigned %s</string>
-    <string name="history_claimed">claimed %s</string>
-    <string name="history_assigned_to">assigned %1$s to %2$s</string>
-    <string name="history_created_for">created %1$s for %2$s</string>
-    <string name="history_created">created %s</string>
-    <string name="history_changed_due_date">changed %1$s due date from %2$s to %3$s</string>
-    <string name="history_set_due_date">set %1$s due date to %2$s</string>
-    <string name="history_removed_due_date">removed %s due date</string>
-    <string name="history_completed_repeating_task">completed %1$s (now due on %2$s)</string>
-    <string name="history_added_user">added %1$s to %2$s</string>
-    <string name="history_removed_user">removed %1$s from %2$s</string>
-    <string name="history_changed_repeat">changed %1$s repeat to %2$s</string>
-    <string name="history_removed_repeat">removed %s repeat</string>
-    <string name="history_shared_with">shared %1$s with %2$s</string>
-    <string name="history_unshared_with">unshared %1$s with %2$s</string>
-    <string name="history_repeat_every">every %s</string>
-    <string name="history_repeat_on">on %s</string>
-    <string name="history_repeat_from_completion">after completion</string>
-    <string name="history_acknowledged">viewed %s</string>
+    <string name="history_tag_added">%1$s toegevoegd aan %2$s</string>
+    <string name="history_tag_removed">%1$s verwijderd van %2$s</string>
+    <string name="history_attach_added">%1$s bijgevoegd aan %2$s</string>
+    <string name="history_attach_removed">%1$s verwijderd van %2$s</string>
+    <string name="history_left_list">resterend %s</string>
+    <string name="history_deleted">verwijderd %s</string>
+    <string name="history_undeleted">herstelde %s</string>
+    <string name="history_completed">voltooid %s</string>
+    <string name="history_uncompleted">onvoltooid %s</string>
+    <string name="history_importance_changed">prioriteit %1$s veranderd van %2$s naar %3$s</string>
+    <string name="history_title_changed">%1$s titel veranderd van %2$s naar %3$s</string>
+    <string name="history_title_set">%1$s tiltel ingesteld op %2$s</string>
+    <string name="history_name_changed">naam van %1$s veranderd in %2$s</string>
+    <string name="history_name_set">naam ingesteld op %2$s</string>
+    <string name="history_description_changed">omschrijving %1$s veranderd in %2$s</string>
+    <string name="history_description_set">omschrijving ingesteld op %2$s</string>
+    <string name="history_made_public">%s openbaar gemaakt</string>
+    <string name="history_made_private">%s prive gemaakt</string>
+    <string name="history_silenced">%s gedempt</string>
+    <string name="history_unsilenced">%s niet langer gedempt</string>
+    <string name="history_favorited">%s gemarkeerd als favoriet</string>
+    <string name="history_unfavorited">%s verwijderd als favoriet</string>
+    <string name="history_changed_list_picture">veranderd de afbeelding van deze lijst</string>
+    <string name="history_added_description_characters">%1$d tekens toegevoegd aan de omschrijving van %2$s</string>
+    <string name="history_removed_description">omschrijving van %s verwijderd</string>
+    <string name="history_removed_description_characters">%1$d tekens van de omschrijving van %2$s verwijderd</string>
+    <string name="history_updated_description">omschrijving van %s bijgewerkt</string>
+    <string name="history_changed_list_owner">lijst eigenaar van %s bijgewerkt</string>
+    <string name="history_created_this_list">deze lijst aangemaakt</string>
+    <string name="history_unassigned">niet toegewezen %s</string>
+    <string name="history_claimed">%s geclaimed</string>
+    <string name="history_assigned_to">%1$s toegewezen aan %2$s</string>
+    <string name="history_created_for">%1$s aangemaakt voor %2$s</string>
+    <string name="history_created">%s aangemaakt</string>
+    <string name="history_changed_due_date">einddatum %1$s veranderd van %2$s naar %3$s</string>
+    <string name="history_set_due_date">%1$s einddatum ingesteld op %2$s</string>
+    <string name="history_removed_due_date">einddatum %s verwijderd</string>
+    <string name="history_completed_repeating_task">voltooid %1$s (verloopt nu op %2$s)</string>
+    <string name="history_added_user">%1$s toegevoegd aan %2$s</string>
+    <string name="history_removed_user">%1$s verwijderd van %2$s</string>
+    <string name="history_changed_repeat">herhaling van %1$s gewijzigd in %2$s</string>
+    <string name="history_removed_repeat">herhaling van %s verwijderd</string>
+    <string name="history_shared_with">%1$s gedeeld met %2$s</string>
+    <string name="history_unshared_with">%1$s niet langer gedeeld met %2$s</string>
+    <string name="history_repeat_every">elke %s</string>
+    <string name="history_repeat_on">op %s</string>
+    <string name="history_repeat_from_completion">na voltooing</string>
+    <string name="history_acknowledged">%s bekeken</string>
     
-    <string name="history_default">changed %1$s to %2$s</string>
+    <string name="history_default">%1$s veranderd in %2$s</string>
 
 
 <!-- 
@@ -3046,7 +3067,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
     <string name="PPW_show_dates">Toon deadlines</string>
     <string name="PPW_filter">Filter selecteren</string>
     
-    <string name="PPW_due">Gereed:</string>
+    <string name="PPW_due">Einddatum:</string>
     <string name="PPW_past_due">Verlopen:</string>
     
     <string name="PPW_old_astrid_notice">Je hebt tenminste versie 3.6 van Astrid nodig voor deze widget.</string>
@@ -3079,7 +3100,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
     	<item>Totaal: %d taken voltooid</item>
     	<item>Voel je goed! Je hebt al %d taken af!</item>
     </string-array>
-  	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
+  	<string name="PPW_encouragements_none_completed">Je hebt nog niet veel taken afgerond! Zullen we?</string>
         
     <string-array name="PPW_colors">
         <item>Zwart</item>
@@ -3091,7 +3112,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
     <string name="PPW_widget_dlg_text">Deze widget is alleen beschikbaar met het Power Pack!</string>
     <string name="PPW_widget_dlg_ok">Voorbeeld</string>
     
-    <string name="PPW_demo_title1">Onderdelen op %s gaan hier naar toe</string>
+    <string name="PPW_demo_title1">Onderdelen over %s gaan hier naartoe</string>
     <string name="PPW_demo_title2">Power Pack heeft Premium Widgets</string>
     <string name="PPW_demo_title3">...geluidsopname toegevoegd en goede gevoelens</string>
     <string name="PPW_demo_title4">Klik voor meer informatie!</string>
@@ -3104,7 +3125,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
     <string name="PPW_check_share_lists">Deel lijsten!</string>
     <string name="PPW_api_level">Sorry! Deze widget wordt alleen ondersteund op Android 3.0 of hoger. </string>
     
-    <string name="EPr_widget_enabled_title">Widgets in-/uitschakelen</string>
+    <string name="EPr_widget_enabled_title">Widgets In-/Uitschakelen</string>
     <string name="PPW_restart_for_enabled_state">Je moet misschien je telefoon opnieuw opstarten voordat deze aanpassing effect heeft.</string>
 
 </resources>
