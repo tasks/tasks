@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
+import com.google.android.gcm.GCMConstants;
 import com.google.android.gcm.GCMRegistrar;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -55,6 +56,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     public static final String SENDER_ID = "1003855277730"; //$NON-NLS-1$
     public static final String PREF_REGISTRATION = "gcm_id";
     public static final String PREF_NEEDS_REGISTRATION = "gcm_needs_reg";
+    public static final String PREF_NEEDS_RETRY = "gcm_needs_retry";
 
     private static final String PREF_LAST_GCM = "c2dm_last";
     public static final String PREF_C2DM_REGISTRATION = "c2dm_key";
@@ -407,7 +409,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     @Override
     protected void onError(Context context, String intent) {
-        // Unrecoverable
+        if ((GCMConstants.ERROR_AUTHENTICATION_FAILED.equals(intent) || GCMConstants.ERROR_ACCOUNT_MISSING.equals(intent))
+                && !Preferences.getBoolean(PREF_NEEDS_RETRY, false)) {
+            Preferences.setBoolean(PREF_NEEDS_RETRY, true);
+        }
     }
 
     // =========== Migration ============= //

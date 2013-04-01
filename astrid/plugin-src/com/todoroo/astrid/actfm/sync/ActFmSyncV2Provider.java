@@ -106,6 +106,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     public void updateUserStatus() {
         if (Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION) != null) {
             actFmSyncService.setGCMRegistration(Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION));
+        } else if (Preferences.getBoolean(GCMIntentService.PREF_NEEDS_RETRY, false)) {
+            GCMIntentService.register(ContextManager.getContext());
         }
 
         if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {

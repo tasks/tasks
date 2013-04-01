@@ -138,6 +138,7 @@ public final class ActFmSyncService {
             Preferences.setString(GCMIntentService.PREF_REGISTRATION, regId);
             Preferences.setString(GCMIntentService.PREF_C2DM_REGISTRATION, null);
             Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, null);
+            Preferences.setBoolean(GCMIntentService.PREF_NEEDS_RETRY, false);
         } catch (IOException e) {
             Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, regId);
             Log.e("gcm", "error-gcm-register", e);
