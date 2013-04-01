@@ -307,7 +307,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 pd = DialogUtilities.runWithProgressDialog(OldTaskPreferences.this, new Runnable() {
                     @Override
                     public void run() {
-                        actFmSyncService.refreshToken();
                         ActFmSyncThread.clearTablePushedAtValues();
                         //TODO: Maybe clear outstanding tables?
                     }
