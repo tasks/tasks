@@ -170,9 +170,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         // --- untagged
         if (shouldAddUntagged) {
-            int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
-                    R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
-            Filter untagged = new Filter(r.getString(untaggedLabel),
+            Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                     r.getString(R.string.tag_FEx_untagged),
                     TagService.getInstance().untaggedTemplate(),
                     null);

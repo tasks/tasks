@@ -2722,9 +2722,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-  
-  <!-- slide 16h: Tags none -->
-  <string name="TEA_tags_none">Geen</string>
 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Nieuwe lijst</string>
@@ -2763,9 +2760,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   
   <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Niet in een Lijst</string>
-  
-  <!-- clarifying title for people who have Google and Astrid lists -->
-  <string name="tag_FEx_untagged_w_astrid">Niet in een Astrid Lijst</string>
   
   <!-- slide 27a: %s => tag name -->
 

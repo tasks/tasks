@@ -2747,9 +2747,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-  
-  <!-- slide 16h: Tags none -->
-  <string name="TEA_tags_none">None</string>
 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">New list</string>
@@ -2788,9 +2785,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Not in any List</string>
-  
-  <!-- clarifying title for people who have Google and Astrid lists -->
-  <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
   
   <!-- slide 27a: %s => tag name -->
 

@@ -804,7 +804,6 @@
     <item>I love when you\'re productive!</item>
   </string-array>
   <string name="TEA_tags_label">Seznamy</string>
-  <string name="TEA_tags_none">Žádný</string>
   <string name="tag_FEx_header">Seznamy</string>
   <string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
   <string name="tag_settings_title">Settings:</string>

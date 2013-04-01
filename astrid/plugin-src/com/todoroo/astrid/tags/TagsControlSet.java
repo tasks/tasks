@@ -98,7 +98,7 @@ public final class TagsControlSet extends PopupControlSet {
         }
 
         if (builder.length() == 0)
-            builder.append(activity.getString(R.string.TEA_tags_none));
+            builder.append(activity.getString(R.string.tag_FEx_untagged));
         return builder.toString();
     }
 

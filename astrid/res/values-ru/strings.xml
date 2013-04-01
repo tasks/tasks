@@ -2729,9 +2729,6 @@
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-  
-  <!-- slide 16h: Tags none -->
-  <string name="TEA_tags_none">Пусто</string>
 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Новый список</string>
@@ -2770,9 +2767,6 @@
   
   <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Не входит в списки</string>
-  
-  <!-- clarifying title for people who have Google and Astrid lists -->
-  <string name="tag_FEx_untagged_w_astrid">Не в списке Astrid</string>
   
   <!-- slide 27a: %s => tag name -->
 

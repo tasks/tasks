@@ -2733,9 +2733,6 @@ no le será posible hacer compras.</string>
   
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Add to lists</string>
-  
-  <!-- slide 16h: Tags none -->
-  <string name="TEA_tags_none">ninguna</string>
 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Nueva lista</string>
@@ -2774,9 +2771,6 @@ no le será posible hacer compras.</string>
   
   <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">En ninguna lista</string>
-  
-  <!-- clarifying title for people who have Google and Astrid lists -->
-  <string name="tag_FEx_untagged_w_astrid">No está en ninguna lista de Astrid</string>
   
   <!-- slide 27a: %s => tag name -->
 
