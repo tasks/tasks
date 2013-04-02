@@ -10,7 +10,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.text.util.Linkify;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -36,8 +35,12 @@ public class EditNotesControlSet extends PopupControlSet {
         else
             textToUse = model.getValue(Task.NOTES);
 
-        notesPreview.setText(textToUse);
-        notesPreview.setVisibility(TextUtils.isEmpty(textToUse) ? View.GONE : View.VISIBLE);
+        if (TextUtils.isEmpty(textToUse)) {
+            notesPreview.setText(R.string.TEA_notes_empty);
+        } else {
+            notesPreview.setText(textToUse);
+        }
+
         linkifyDisplayView();
     }
 

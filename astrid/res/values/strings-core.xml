@@ -340,6 +340,9 @@
   
   <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Description</string>
+
+  <!-- slide 16c: Task note label -->
+  <string name="TEA_notes_empty">Description...</string>
   
   <!-- Task note hint -->
   <string name="TEA_notes_hint">Enter task description...</string>
