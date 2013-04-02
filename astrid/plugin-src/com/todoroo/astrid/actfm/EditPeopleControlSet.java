@@ -794,14 +794,16 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
+        String displayString;
         if (!TextUtils.isEmpty(assignedCustom.getText())) {
-            assignedDisplay.setText(assignedCustom.getText());
+            displayString = activity.getString(R.string.TEA_assigned_to, assignedCustom.getText());
         } else {
             AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
             if (user == null)
                 user = (AssignedToUser) assignedList.getAdapter().getItem(0);
-            assignedDisplay.setText(user.toString());
+            displayString = activity.getString(R.string.TEA_assigned_to, user.toString());
         }
+        assignedDisplay.setText(displayString);
     }
 
     @Override

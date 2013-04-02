@@ -52,7 +52,14 @@ public class DeadlineControlSet extends PopupControlSet {
             }
         }
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        dateDisplay.setText(displayString);
+        if (TextUtils.isEmpty(displayString)) {
+            dateDisplay.setText(R.string.TEA_deadline_hint);
+            dateDisplay.setTextColor(unsetColor);
+        } else {
+            dateDisplay.setText(displayString);
+            dateDisplay.setTextColor(themeColor);
+        }
+
     }
 
     @Override

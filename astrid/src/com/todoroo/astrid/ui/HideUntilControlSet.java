@@ -193,7 +193,18 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     @Override
     protected void refreshDisplayView() {
         TextView auxDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        auxDisplay.setText(adapter.getItem(selection).toString());
+        HideUntilValue value = adapter.getItem(selection);
+        if (value.setting == Task.HIDE_UNTIL_NONE) {
+            auxDisplay.setText(R.string.TEA_hideUntil_label);
+            auxDisplay.setTextColor(unsetColor);
+        } else {
+            String display = value.toString();
+            if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME)
+                display = display.toLowerCase();
+
+            auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
+            auxDisplay.setTextColor(themeColor);
+        }
     }
 
     @Override

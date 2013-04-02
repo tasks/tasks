@@ -6,7 +6,10 @@
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -24,10 +27,15 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
  */
 public class TimerControlSet extends PopupControlSet implements TimerActionListener {
 
-    TaskEditControlSet estimated, elapsed;
+    TimeDurationTaskEditControlSet estimated, elapsed;
+    private final TextView displayEdit;
 
     public TimerControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
+
+        displayEdit = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        displayEdit.setText(R.string.TEA_timer_controls);
+        displayEdit.setTextColor(unsetColor);
 
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
@@ -92,11 +100,42 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
             task.setValue(property, controlSet.getTimeDurationInSeconds());
             return null;
         }
+
+        public String getDisplayString() {
+            int seconds = controlSet.getTimeDurationInSeconds();
+            if (seconds > 0)
+                return DateUtils.formatElapsedTime(controlSet.getTimeDurationInSeconds());
+            return null;
+        }
     }
 
     @Override
     protected void refreshDisplayView() {
-        // Nothing to do here yet
+        String est = estimated.getDisplayString();
+        if (!TextUtils.isEmpty(est))
+            est = activity.getString(R.string.TEA_timer_est, est);
+        String elap = elapsed.getDisplayString();
+        if (!TextUtils.isEmpty(elap))
+            elap = activity.getString(R.string.TEA_timer_elap, elap);
+
+        String toDisplay;
+
+        if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap))
+            toDisplay = est + ", " + elap; //$NON-NLS-1$
+        else if (!TextUtils.isEmpty(est))
+            toDisplay = est;
+        else if (!TextUtils.isEmpty(elap))
+            toDisplay = elap;
+        else
+            toDisplay = null;
+
+        if (!TextUtils.isEmpty(toDisplay)) {
+            displayEdit.setText(toDisplay);
+            displayEdit.setTextColor(themeColor);
+        } else {
+            displayEdit.setText(R.string.TEA_timer_controls);
+            displayEdit.setTextColor(unsetColor);
+        }
     }
 
     @Override
