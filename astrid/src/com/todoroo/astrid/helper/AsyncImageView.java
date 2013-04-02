@@ -10,6 +10,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -83,6 +84,12 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
         if (imageCacheInstance == null) {
             synchronized(AsyncImageView.class) {
                 if (imageCacheInstance == null) {
+                    try {
+                        if (Looper.myLooper() == null)
+                            Looper.prepare();
+                    } catch (Exception e) {
+                        // Ignore
+                    }
                     imageCacheInstance = new ImageCache(ContextManager.getContext(), CompressFormat.JPEG, 85);
                 }
             }
