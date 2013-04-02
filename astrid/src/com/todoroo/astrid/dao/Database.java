@@ -53,7 +53,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 33;
+    public static final int VERSION = 34;
 
     /**
      * Database name (must be unique)
@@ -395,6 +395,9 @@ public class Database extends AbstractDatabase {
             tryExecSQL("DROP TABLE " + History.TABLE.name);
             tryExecSQL(createTableSql(visitor, History.TABLE.name, History.PROPERTIES));
             tryExecSQL(addColumnSql(User.TABLE, User.TASKS_PUSHED_AT, visitor, null));
+        case 33:
+            tryExecSQL(addColumnSql(TagData.TABLE, TagData.LAST_AUTOSYNC, visitor, null));
+            tryExecSQL(addColumnSql(User.TABLE, User.LAST_AUTOSYNC, visitor, null));
 
         return true;
         }

@@ -190,12 +190,13 @@ public class PersonViewFragment extends TaskListFragment {
         if (!isCurrentTaskListFragment())
             return;
         if (user != null) {
-            long pushedAt = user.getValue(User.PUSHED_AT);
-            long tasksPushedAt = user.getValue(User.TASKS_PUSHED_AT);
+            long lastAutosync = user.getValue(User.LAST_AUTOSYNC);
 
-            if((DateUtilities.now() - pushedAt > AUTOSYNC_INTERVAL) ||
-                    (DateUtilities.now() - tasksPushedAt > AUTOSYNC_INTERVAL))
+            if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
                 refreshData();
+                user.setValue(User.LAST_AUTOSYNC, DateUtilities.now());
+                userDao.saveExisting(user);
+            }
         }
     }
 

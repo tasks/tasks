@@ -30,7 +30,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
@@ -88,7 +87,7 @@ public class SyncActionHelper {
     // --- automatic sync logic
 
     public void initiateAutomaticSync() {
-        long tasksPushedAt = Preferences.getLong(NameMaps.PUSHED_AT_TASKS, 0);
+        long tasksPushedAt = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
         if (DateUtilities.now() - tasksPushedAt > TaskListFragment.AUTOSYNC_INTERVAL) {
             performSyncServiceV2Sync(false);
         }

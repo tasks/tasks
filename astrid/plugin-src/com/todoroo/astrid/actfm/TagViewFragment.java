@@ -339,9 +339,12 @@ public class TagViewFragment extends TaskListFragment {
         if (!isCurrentTaskListFragment())
             return;
         if (tagData != null) {
-            long pushedAt = tagData.getValue(TagData.TASKS_PUSHED_AT);
-            if(DateUtilities.now() - pushedAt > AUTOSYNC_INTERVAL)
+            long lastAutosync = tagData.getValue(TagData.LAST_AUTOSYNC);
+            if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
+                tagData.setValue(TagData.LAST_AUTOSYNC, DateUtilities.now());
+                tagDataDao.saveExisting(tagData);
                 refreshData();
+            }
         }
     }
 

@@ -146,6 +146,10 @@ public final class TagData extends RemoteModel {
     public static final IntegerProperty HISTORY_HAS_MORE = new IntegerProperty(
             TABLE, "historyHasMore");
 
+    /** Last autosync */
+    public static final LongProperty LAST_AUTOSYNC = new LongProperty(
+            TABLE, "lastAutosync");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 
@@ -180,6 +184,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(DELETION_DATE.name, 0);
         defaultValues.put(HISTORY_FETCH_DATE.name, 0);
         defaultValues.put(HISTORY_HAS_MORE.name, 0);
+        defaultValues.put(LAST_AUTOSYNC.name, 0);
 
         defaultValues.put(THUMB.name, "");
         defaultValues.put(LAST_ACTIVITY_DATE.name, 0);

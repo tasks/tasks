@@ -78,6 +78,10 @@ public final class User extends RemoteModel {
     public static final StringProperty STATUS = new StringProperty(
             TABLE, "status");
 
+    /** Last autosync */
+    public static final LongProperty LAST_AUTOSYNC = new LongProperty(
+            TABLE, "lastAutosync");
+
     /** Friendship tatus that needs to be reported to the server.
      * One of the PENDING constants below */
     @Deprecated public static final StringProperty PENDING_STATUS = new StringProperty(
@@ -101,6 +105,7 @@ public final class User extends RemoteModel {
         defaultValues.put(TASKS_PUSHED_AT.name, 0L);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(STATUS.name, "");
+        defaultValues.put(LAST_AUTOSYNC.name, 0L);
     }
 
     @Override
