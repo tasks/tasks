@@ -10,16 +10,17 @@
     <item>
         <shape android:shape="rectangle" >
             <gradient
-                android:endColor="#eeeeee"
-                android:startColor="#d8d8d8" />
+                android:angle="270"
+                android:endColor="#777"
+                android:startColor="#999" />
 
-            <corners android:radius="4dp" />
+            <corners android:radius="2dp" />
         </shape>
     </item>
-    <item android:bottom="2dp" android:right="1dp">
+    <item android:bottom="2dp" android:right="1dp" android:top="1dp" android:left="1dp">
         <shape android:shape="rectangle" >
             <solid android:color="#ffffff" />
-            <corners android:radius="4dp" />
+            <corners android:radius="2dp" />
         </shape>
     </item>
 
