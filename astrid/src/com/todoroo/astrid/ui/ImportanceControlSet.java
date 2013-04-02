@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
@@ -91,7 +92,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
         int width = (int) (metrics.widthPixels / metrics.density) - 20;
         int usedWidth = 0;
 
-        for(int i = min; i <= max; i++) {
+        for(int i = max; i >= min; i--) {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
 
@@ -119,11 +120,13 @@ public class ImportanceControlSet extends TaskEditControlSet {
             button.setTag(i);
 
             buttons.add(button);
-            container.addView(button);
-        }
 
-        if (usedWidth > width * 2 /3 ) {
-            getView().findViewById(R.id.display_row_title).setVisibility(View.GONE);
+            View padding = new View(activity);
+            LinearLayout.LayoutParams paddingParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            paddingParams.weight = 1.0f;
+            padding.setLayoutParams(paddingParams);
+            container.addView(padding);
+            container.addView(button);
         }
     }
 

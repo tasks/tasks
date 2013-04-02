@@ -20,16 +20,10 @@
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:layout_height="50dip">
-	      <TextView
-	        android:id="@+id/display_row_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/TEA_importance_label"
-	        style="@style/TextAppearance.GEN_EditLabel" />
-	      <View 
-	          android:layout_height="wrap_content"
-	          android:layout_width="wrap_content"
-	          android:layout_weight="1"/>
+	      <View android:id="@+id/display_row_icon"
+             android:layout_width="25dip"
+             android:layout_height="25dip"
+             android:background="#ff0000"/>
       </LinearLayout>
       
       <View

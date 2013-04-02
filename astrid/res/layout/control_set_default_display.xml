@@ -18,6 +18,10 @@
         android:paddingRight="10dip"
         android:gravity="center_vertical">
         
+         <View android:id="@+id/display_row_icon"
+             android:layout_width="25dip"
+             android:layout_height="25dip"
+             android:background="#ff0000"/>
 	     <TextView
 	         android:id="@+id/display_row_title"
 		     android:layout_width="wrap_content"
