@@ -100,7 +100,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected boolean canLoadMoreHistory() {
-        return tagData.getValue(TagData.HISTORY_HAS_MORE) > 0;
+        return hasModel() && tagData.getValue(TagData.HISTORY_HAS_MORE) > 0;
     }
 
     @Override

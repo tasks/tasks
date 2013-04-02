@@ -88,7 +88,7 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected boolean canLoadMoreHistory() {
-        return task.getValue(Task.HISTORY_HAS_MORE) > 0;
+        return hasModel() && task.getValue(Task.HISTORY_HAS_MORE) > 0;
     }
 
     @Override
