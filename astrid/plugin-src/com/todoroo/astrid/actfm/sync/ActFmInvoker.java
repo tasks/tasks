@@ -22,8 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -183,16 +185,27 @@ public class ActFmInvoker {
         }
     }
 
-    public JSONObject postSync(JSONArray data, MultipartEntity entity, String token) throws IOException,
+    public JSONObject postSync(JSONArray data, MultipartEntity entity, boolean changesHappened, String tok) throws IOException,
     ActFmServiceException {
         try {
             String dataString = data.toString();
             String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
 
-            String request = createFetchUrl("api/" + API_VERSION, "synchronize", "token", token, "data", dataString, "time", timeString);
+            Object[] params = { "token", tok, "data", dataString, "time", timeString };
+
+            if (changesHappened) {
+                String gcm = Preferences.getStringValue(GCMIntentService.PREF_REGISTRATION);
+                if (!TextUtils.isEmpty(gcm)) {
+                    params = AndroidUtilities.addToArray(Object.class, params, "gcm", gcm);
+                    System.err.println("ADDED TOKEN: " + gcm);
+                    entity.addPart("gcm", new StringBody(gcm));
+                }
+            }
+
+            String request = createFetchUrl("api/" + API_VERSION, "synchronize", params);
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
-            entity.addPart("token", new StringBody(token));
+            entity.addPart("token", new StringBody(tok));
             entity.addPart("data", new StringBody(data.toString()));
             entity.addPart("time", new StringBody(timeString));
 
