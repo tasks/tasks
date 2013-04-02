@@ -440,7 +440,7 @@ public class ActFmSyncThread {
                 message.put("versionCode", pi.versionCode);
                 clientVersion = message;
             } catch (Exception e) {
-                //
+                Log.e(ERROR_TAG, "Error getting client version", e);
             }
         }
         return clientVersion;
