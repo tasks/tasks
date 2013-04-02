@@ -21,8 +21,8 @@
         android:paddingRight="10dip"
         android:layout_height="50dip">
 	      <View android:id="@+id/display_row_icon"
-             android:layout_width="24dip"
-             android:layout_height="24dip"
+             android:layout_width="20dip"
+             android:layout_height="20dip"
              android:background="#ff0000"/>
       </LinearLayout>
       
