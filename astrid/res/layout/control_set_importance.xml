@@ -20,10 +20,11 @@
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:layout_height="50dip">
-	      <View android:id="@+id/display_row_icon"
+	      <ImageView android:id="@+id/display_row_icon"
              android:layout_width="20dip"
              android:layout_height="20dip"
-             android:background="#ff0000"/>
+             android:scaleType="fitCenter"
+             android:src="@drawable/tea_icn_priority_gray"/>
       </LinearLayout>
       
       <View

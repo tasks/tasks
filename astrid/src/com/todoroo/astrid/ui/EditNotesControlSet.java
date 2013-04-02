@@ -13,6 +13,7 @@ import android.text.util.Linkify;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -22,9 +23,11 @@ public class EditNotesControlSet extends PopupControlSet {
 
     protected EditText editText;
     protected TextView notesPreview;
+    protected ImageView image;
 
     public EditNotesControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     @Override
@@ -38,9 +41,11 @@ public class EditNotesControlSet extends PopupControlSet {
         if (TextUtils.isEmpty(textToUse)) {
             notesPreview.setText(R.string.TEA_notes_empty);
             notesPreview.setTextColor(unsetColor);
+            image.setImageResource(R.drawable.tea_icn_edit_gray);
         } else {
             notesPreview.setText(textToUse);
             notesPreview.setTextColor(themeColor);
+            image.setImageResource(R.drawable.tea_icn_edit);
         }
 
         linkifyDisplayView();

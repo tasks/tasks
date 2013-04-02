@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,12 +29,14 @@ public class DeadlineControlSet extends PopupControlSet {
     private DateAndTimePicker dateAndTimePicker;
     private final View[] extraViews;
     private final RepeatControlSet repeatControlSet;
+    private final ImageView image;
 
     public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout,
             RepeatControlSet repeatControlSet, View...extraViews) {
         super(activity, viewLayout, displayViewLayout, 0);
         this.extraViews = extraViews;
         this.repeatControlSet = repeatControlSet;
+        this.image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     @Override

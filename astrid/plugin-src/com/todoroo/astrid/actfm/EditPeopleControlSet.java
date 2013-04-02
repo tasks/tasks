@@ -34,6 +34,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -140,6 +141,8 @@ public class EditPeopleControlSet extends PopupControlSet {
         assignedClear = getView().findViewById(R.id.assigned_clear);
 
         assignedDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        ImageView image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
+        image.setImageResource(R.drawable.tea_icn_assign);
         setUpListeners();
     }
 
@@ -803,6 +806,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 user = (AssignedToUser) assignedList.getAdapter().getItem(0);
             displayString = activity.getString(R.string.TEA_assigned_to, user.toString());
         }
+
         assignedDisplay.setText(displayString);
     }
 

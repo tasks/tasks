@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public final class TagsControlSet extends PopupControlSet {
     private ListView selectedTags;
     private boolean populated = false;
     private HashMap<String, Integer> tagIndices;
+    private final ImageView image;
 
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
@@ -64,6 +66,7 @@ public final class TagsControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     private Tag[] getTagArray() {
@@ -308,9 +311,11 @@ public final class TagsControlSet extends PopupControlSet {
         if (!TextUtils.isEmpty(tagString)) {
             tagsDisplay.setText(tagString);
             tagsDisplay.setTextColor(themeColor);
+            image.setImageResource(R.drawable.tea_icn_lists);
         } else {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
             tagsDisplay.setTextColor(unsetColor);
+            image.setImageResource(R.drawable.tea_icn_lists_gray);
         }
     }
 
