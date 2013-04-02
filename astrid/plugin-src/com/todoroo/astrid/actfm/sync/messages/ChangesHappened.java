@@ -52,7 +52,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     public static final String CHANGES_KEY = "changes";
 
-    public static ChangesHappened<?, ?> instantiateChangesHappened(Long id, ModelType modelType) {
+    public static ChangesHappened<?, ?> instantiateChangesHappened(long id, ModelType modelType) {
         switch(modelType) {
         case TYPE_TASK:
             return new ChangesHappened<Task, TaskOutstanding>(id, Task.class,
