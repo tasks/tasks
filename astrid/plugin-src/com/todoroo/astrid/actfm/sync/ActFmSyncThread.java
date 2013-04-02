@@ -337,7 +337,7 @@ public class ActFmSyncThread {
                             setWidgetSuppression(false);
                         }
 
-                        batchSize = Math.min(batchSize, messageBatch.size()) * 2;
+                        batchSize = Math.max(12, Math.min(batchSize, messageBatch.size()) * 2);
 
                         if (recordSyncSuccess) {
                             actFmPreferenceService.setLastError(null, null);
