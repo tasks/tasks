@@ -37,8 +37,10 @@ public class EditNotesControlSet extends PopupControlSet {
 
         if (TextUtils.isEmpty(textToUse)) {
             notesPreview.setText(R.string.TEA_notes_empty);
+            notesPreview.setTextColor(unsetColor);
         } else {
             notesPreview.setText(textToUse);
+            notesPreview.setTextColor(themeColor);
         }
 
         linkifyDisplayView();

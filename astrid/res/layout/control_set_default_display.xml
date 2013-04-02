@@ -24,18 +24,11 @@
              android:layout_height="24dip"
              android:background="#ff0000"/>
 	     <TextView
-	         android:id="@+id/display_row_title"
-		     android:layout_width="wrap_content"
-		     android:layout_height="wrap_content"
-		     android:layout_marginRight="10dip"
-		     style="@style/TextAppearance.GEN_EditLabel" />
-	     <TextView
 	         android:id="@+id/display_row_edit"
 		     android:layout_width="fill_parent"
 	         android:layout_height="wrap_content"
 		     android:layout_weight="1"
-	         android:gravity="right"
-	         android:paddingLeft="10dip"
+	         android:gravity="left"
 		     style="@style/TextAppearance.EditRowDisplay" />
       </LinearLayout>
       <View

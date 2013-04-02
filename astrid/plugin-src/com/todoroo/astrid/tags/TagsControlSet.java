@@ -11,6 +11,7 @@ import java.util.LinkedHashSet;
 
 import android.app.Activity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -63,7 +64,6 @@ public final class TagsControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        this.displayText.setText(activity.getString(R.string.TEA_tags_label));
     }
 
     private Tag[] getTagArray() {
@@ -97,8 +97,6 @@ public final class TagsControlSet extends PopupControlSet {
             builder.append(tag);
         }
 
-        if (builder.length() == 0)
-            builder.append(activity.getString(R.string.tag_FEx_untagged));
         return builder.toString();
     }
 
@@ -306,7 +304,14 @@ public final class TagsControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        tagsDisplay.setText(buildTagString());
+        String tagString = buildTagString();
+        if (!TextUtils.isEmpty(tagString)) {
+            tagsDisplay.setText(tagString);
+            tagsDisplay.setTextColor(themeColor);
+        } else {
+            tagsDisplay.setText(R.string.tag_FEx_untagged);
+            tagsDisplay.setTextColor(unsetColor);
+        }
     }
 
     public boolean hasLists() {

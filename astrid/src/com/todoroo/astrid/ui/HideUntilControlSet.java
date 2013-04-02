@@ -45,7 +45,6 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     public HideUntilControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         this.title = title;
-        this.displayText.setText(activity.getString(R.string.TEA_hideUntil_label));
     }
 
     private ArrayAdapter<HideUntilValue> adapter;

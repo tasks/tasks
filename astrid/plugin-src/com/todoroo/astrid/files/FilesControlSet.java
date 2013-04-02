@@ -66,7 +66,6 @@ public class FilesControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
 
-        displayText.setText(activity.getString(R.string.TEA_control_files));
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }

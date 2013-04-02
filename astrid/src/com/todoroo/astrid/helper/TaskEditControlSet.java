@@ -29,12 +29,20 @@ public abstract class TaskEditControlSet {
     private View view;
     protected Task model;
     protected boolean initialized = false;
+    protected final int themeColor;
+    protected final int unsetColor;
 
     public TaskEditControlSet(Activity activity, int viewLayout) {
         this.activity = activity;
         this.viewLayout = viewLayout;
         if (viewLayout == -1)
             initialized = true;
+
+        TypedValue tv = new TypedValue();
+        activity.getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
+        themeColor = activity.getResources().getColor(tv.data);
+
+        unsetColor = activity.getResources().getColor(R.color.task_edit_deadline_gray);
     }
 
     public View getView() {

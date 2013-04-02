@@ -132,7 +132,6 @@ public class EditPeopleControlSet extends PopupControlSet {
         this.resources = activity.getResources();
         this.loginRequestCode = loginRequestCode;
         this.fragment = fragment;
-        displayText.setText(activity.getString(R.string.TEA_control_who));
 
         assignedCustom = (EditText) getView().findViewById(R.id.assigned_custom);
         assignedList = (ListView) getView().findViewById(R.id.assigned_list);

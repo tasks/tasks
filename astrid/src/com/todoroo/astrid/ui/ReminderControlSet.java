@@ -42,7 +42,6 @@ public class ReminderControlSet extends PopupControlSet {
     public ReminderControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
         extraViews = new ArrayList<View>();
-        displayText.setText(activity.getString(R.string.TEA_reminders_group_label));
     }
 
     public void addViewToBody(View v) {

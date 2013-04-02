@@ -33,7 +33,6 @@ public class DeadlineControlSet extends PopupControlSet {
             RepeatControlSet repeatControlSet, View...extraViews) {
         super(activity, viewLayout, displayViewLayout, 0);
         this.extraViews = extraViews;
-        this.displayText.setText(activity.getString(R.string.TEA_when_header_label));
         this.repeatControlSet = repeatControlSet;
     }
 
