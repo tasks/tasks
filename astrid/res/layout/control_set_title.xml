@@ -16,11 +16,11 @@
 
     <com.todoroo.astrid.ui.CheckableImageView
         android:id="@+id/completeBox"
-        android:layout_width="45dip"
+        android:layout_width="35dip"
         android:layout_height="wrap_content"
         android:minHeight="30dip"
         android:layout_marginRight="5dip"
-        android:layout_marginLeft="5dip"
+        android:layout_marginLeft="4dip"
         android:scaleType="center"
         android:src="@drawable/btn_check" />
 
@@ -35,7 +35,6 @@
         android:freezesText="true"
         android:hint="@string/TEA_title_hint"
         android:inputType="textMultiLine"
-        android:paddingLeft="5dip"
         android:scrollbars="vertical"
         android:imeOptions="flagNoExtractUi"
         android:text=""
