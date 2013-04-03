@@ -807,6 +807,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             displayString = activity.getString(R.string.TEA_assigned_to, user.toString());
         }
 
+        assignedDisplay.setTextColor(themeColor);
         assignedDisplay.setText(displayString);
     }
 

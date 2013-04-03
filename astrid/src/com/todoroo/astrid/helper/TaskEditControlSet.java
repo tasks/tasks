@@ -38,10 +38,7 @@ public abstract class TaskEditControlSet {
         if (viewLayout == -1)
             initialized = true;
 
-        TypedValue tv = new TypedValue();
-        activity.getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
-        themeColor = activity.getResources().getColor(tv.data);
-
+        themeColor = activity.getResources().getColor(R.color.task_edit_selected);
         unsetColor = activity.getResources().getColor(R.color.task_edit_deadline_gray);
     }
 
