@@ -1358,7 +1358,8 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
             Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
-            deleteTask(task);
+            if (task != null)
+                deleteTask(task);
             return true;
         }
         case CONTEXT_MENU_UNDELETE_TASK_ID: {
