@@ -248,7 +248,8 @@
         <item name="android:windowTitleBackgroundStyle">@style/DialogTitle</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         
-        
+        <item name="windowActionBar">false</item>
+        <item name="windowContentOverlay">@null</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>

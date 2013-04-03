@@ -17,9 +17,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,6 +33,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -124,6 +127,20 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         setupForDialogOrFullscreen();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tag_settings_activity);
+
+        if (isDialog) {
+            LayoutParams params = getWindow().getAttributes();
+            params.width = LayoutParams.FILL_PARENT;
+            params.height = LayoutParams.WRAP_CONTENT;
+
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT)
+                params.width = (3 * metrics.widthPixels) / 5;
+            else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH)
+                params.width = (4 * metrics.widthPixels) / 5;
+            getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        }
+
         tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
         if (tagData == null) {
             isNewTag = true;
@@ -162,8 +179,10 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     private void setupForDialogOrFullscreen() {
         isDialog = AstridPreferences.useTabletLayout(this);
-        if (isDialog)
+        if (isDialog) {
             setTheme(ThemeService.getDialogTheme());
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        }
         else {
             ThemeService.applyTheme(this);
             ActionBar actionBar = getSupportActionBar();
