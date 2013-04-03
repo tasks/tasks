@@ -1296,15 +1296,17 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
     }
 
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
+        Activity activity = getActivity();
         switch(id) {
         case MENU_ADDONS_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_ADDONS);
-            intent = new Intent(getActivity(), AddOnActivity.class);
-            startActivityForResult(intent, ACTIVITY_ADDONS);
-            return true;
+            if (activity != null) {
+                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_ADDONS);
+                intent = new Intent(activity, AddOnActivity.class);
+                startActivityForResult(intent, ACTIVITY_ADDONS);
+                return true;
+            }
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-            Activity activity = getActivity();
             if (activity != null) {
                 AlertDialog dialog = SortSelectionActivity.createDialog(
                         getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
@@ -1316,13 +1318,16 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
             syncActionHelper.performSyncAction();
             return true;
         case MENU_ADDON_INTENT_ID:
-            AndroidUtilities.startExternalIntent(getActivity(), intent,
-                    ACTIVITY_MENU_EXTERNAL);
+            if (activity != null)
+                AndroidUtilities.startExternalIntent(activity, intent,
+                        ACTIVITY_MENU_EXTERNAL);
             return true;
         case MENU_NEW_FILTER_ID:
-            intent = new Intent(getActivity(), CustomFilterActivity.class);
-            getActivity().startActivityForResult(intent, ACTIVITY_REQUEST_NEW_FILTER);
-            return true;
+            if (activity != null) {
+                intent = new Intent(activity, CustomFilterActivity.class);
+                activity.startActivityForResult(intent, ACTIVITY_REQUEST_NEW_FILTER);
+                return true;
+            }
         }
         return false;
     }

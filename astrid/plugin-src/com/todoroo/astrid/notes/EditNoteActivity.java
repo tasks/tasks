@@ -211,8 +211,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     // --- UI preparation
 
     private void setUpInterface() {
-
-
         timerView = commentsBar.findViewById(R.id.timer_container);
         commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
