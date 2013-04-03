@@ -590,7 +590,10 @@ public class AstridNewSyncMigrator {
             oe.clear();
             oe.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, id);
             oe.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, property.name);
-            oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, instance.getValue(property).toString());
+            Object value = instance.getValue(property);
+            if (value == null)
+                value = "";
+            oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, value.toString());
             oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, now);
             oeDao.createNew(oe);
         }
