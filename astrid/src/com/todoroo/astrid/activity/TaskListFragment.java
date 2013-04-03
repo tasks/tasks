@@ -367,12 +367,14 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-                TodorooCursor<Task> cursor = (TodorooCursor<Task>)taskAdapter.getItem(position);
-                Task task = new Task(cursor);
-                if(task.isDeleted())
-                    return;
+                if (taskAdapter != null) {
+                    TodorooCursor<Task> cursor = (TodorooCursor<Task>)taskAdapter.getItem(position);
+                    Task task = new Task(cursor);
+                    if(task.isDeleted())
+                        return;
 
-                onTaskListItemClicked(id, task.isEditable());
+                    onTaskListItemClicked(id, task.isEditable());
+                }
             }
         });
     }
