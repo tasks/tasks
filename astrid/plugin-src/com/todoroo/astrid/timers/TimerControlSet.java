@@ -16,6 +16,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
@@ -136,7 +137,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
             displayEdit.setTextColor(themeColor);
-            image.setImageResource(R.drawable.tea_icn_timer);
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_timer, R.drawable.tea_icn_timer_lightblue));
         } else {
             displayEdit.setText(R.string.TEA_timer_controls);
             displayEdit.setTextColor(unsetColor);

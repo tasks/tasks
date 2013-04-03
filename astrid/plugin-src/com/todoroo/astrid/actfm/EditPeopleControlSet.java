@@ -65,6 +65,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
@@ -142,7 +143,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         assignedDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         ImageView image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
-        image.setImageResource(R.drawable.tea_icn_assign);
+        image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_assign, R.drawable.tea_icn_assign_lightblue));
         setUpListeners();
     }
 

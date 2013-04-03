@@ -193,7 +193,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
         personStatus = (TextView) actionBar.getCustomView().findViewById(R.id.person_image);
         commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
-        if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
+        if (ThemeService.getTheme() == R.style.Theme_White_Alt)
             commentsButton.setTextColor(getResources().getColor(R.color.blue_theme_color));
 
         initializeFragments(actionBar);

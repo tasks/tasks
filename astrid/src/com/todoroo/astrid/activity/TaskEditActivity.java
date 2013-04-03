@@ -26,7 +26,7 @@ public class TaskEditActivity extends AstridActivity {
         ThemeService.applyTheme(this);
         ActionBar actionBar = getSupportActionBar();
         if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
-            if (ThemeService.getUnsimplifiedTheme() == R.style.Theme_White_Alt)
+            if (ThemeService.getTheme() == R.style.Theme_White_Alt)
                 actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
             else
                 actionBar.setLogo(R.drawable.ic_menu_save);

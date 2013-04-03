@@ -49,10 +49,6 @@ public class ThemeService {
     }
 
     public static int getTheme() {
-        return getUnsimplifiedTheme();
-    }
-
-    public static int getUnsimplifiedTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme);
         return getStyleForSetting(preference);
     }
@@ -60,7 +56,7 @@ public class ThemeService {
     public static int getWidgetTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme_widget);
         if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference))
-            return getUnsimplifiedTheme();
+            return getTheme();
         else if (THEME_WIDGET_LEGACY.equals(preference))
             return TasksWidget.THEME_LEGACY;
         else
@@ -83,7 +79,7 @@ public class ThemeService {
     }
 
     public static int getThemeColor() {
-        int theme = getUnsimplifiedTheme();
+        int theme = getTheme();
         switch(theme) {
         case R.style.Theme:
         case R.style.Theme_Transparent:
@@ -99,7 +95,7 @@ public class ThemeService {
 
     public static int getEditDialogTheme() {
         boolean ics = AndroidUtilities.getSdkVersion() >= 14;
-        int themeSetting = getUnsimplifiedTheme();
+        int themeSetting = getTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
             if (ics)
@@ -116,7 +112,7 @@ public class ThemeService {
     }
 
     public static int getDialogTheme() {
-        int themeSetting = getUnsimplifiedTheme();
+        int themeSetting = getTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
             theme = R.style.Theme_Dialog;
@@ -128,7 +124,7 @@ public class ThemeService {
 
     public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
-            int theme = getUnsimplifiedTheme();
+            int theme = getTheme();
             if (theme == R.style.Theme || theme == R.style.Theme_Transparent)
                 return android.R.color.white;
             else
@@ -166,7 +162,7 @@ public class ThemeService {
     }
 
     public static int getDrawable(int lightDrawable, int alter) {
-        int theme = getUnsimplifiedTheme();
+        int theme = getTheme();
         boolean darkTheme = theme == R.style.Theme || theme == R.style.Theme_Transparent;
         switch(alter) {
         case FLAG_FORCE_DARK:
@@ -256,6 +252,24 @@ public class ThemeService {
 
         throw new RuntimeException("No theme drawable found for " +
                 ContextManager.getResources().getResourceName(lightDrawable));
+    }
+
+    public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
+        int theme = getTheme();
+        if (theme == R.style.Theme || theme == R.style.Theme_White_Alt || theme == R.style.Theme_TransparentWhite) {
+            return lightBlueDrawable;
+        } else {
+            return regularDrawable;
+        }
+    }
+
+    public static int getTaskEditThemeColor() {
+        int theme = getTheme();
+        if (theme == R.style.Theme || theme == R.style.Theme_White_Alt || theme == R.style.Theme_TransparentWhite) {
+            return R.color.blue_theme_color;
+        } else {
+            return R.color.dark_blue_theme_color;
+        }
     }
 
     public static void forceTheme(int theme) {

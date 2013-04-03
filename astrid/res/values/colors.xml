@@ -23,7 +23,6 @@
     <color name="tablet_list_bg">#292929</color>
     <color name="tablet_list_selected">#000000</color>
     <color name="reminder_background">#262626</color>
-    <color name="task_edit_selected">#385487</color>
     
     <color name="widget_text_color_light">#535353</color>
     <color name="widget_text_color_dark">#ffffff</color>

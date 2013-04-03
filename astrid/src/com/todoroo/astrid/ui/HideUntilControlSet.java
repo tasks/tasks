@@ -22,6 +22,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
 /**
@@ -208,7 +209,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
             auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
             auxDisplay.setTextColor(themeColor);
-            image.setImageResource(R.drawable.tea_icn_hide);
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_hide, R.drawable.tea_icn_hide_lightblue));
         }
     }
 

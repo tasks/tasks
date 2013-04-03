@@ -36,6 +36,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
 /**
@@ -231,7 +232,7 @@ public class GCalControlSet extends PopupControlSet {
     protected void refreshDisplayView() {
         TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
         calendar.setTextColor(themeColor);
-        image.setImageResource(R.drawable.tea_icn_addcal);
+        image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_addcal, R.drawable.tea_icn_addcal_lightblue));
         if (initialized) {
             if (hasEvent) {
                 calendar.setText(R.string.gcal_TEA_has_event);

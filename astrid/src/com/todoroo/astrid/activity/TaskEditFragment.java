@@ -66,7 +66,6 @@ import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -83,8 +82,6 @@ import com.todoroo.astrid.opencrx.OpencrxControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.AddOnService;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
@@ -203,19 +200,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private TaskService taskService;
 
     @Autowired
-    private MetadataService metadataService;
-
-    @Autowired
     private TaskAttachmentDao taskAttachmentDao;
 
     @Autowired
-    private AddOnService addOnService;
-
-    @Autowired
     private ActFmPreferenceService actFmPreferenceService;
-
-    @Autowired
-    private ActFmSyncService actFmSyncService;
 
     // --- UI components
 

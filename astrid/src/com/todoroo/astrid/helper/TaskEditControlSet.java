@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.EditDialogOkBackground;
 
 // --- interface
@@ -38,7 +39,7 @@ public abstract class TaskEditControlSet {
         if (viewLayout == -1)
             initialized = true;
 
-        themeColor = activity.getResources().getColor(R.color.task_edit_selected);
+        themeColor = activity.getResources().getColor(ThemeService.getTaskEditThemeColor());
         unsetColor = activity.getResources().getColor(R.color.task_edit_deadline_gray);
     }
 

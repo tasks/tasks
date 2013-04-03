@@ -34,6 +34,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
@@ -311,7 +312,7 @@ public final class TagsControlSet extends PopupControlSet {
         if (!TextUtils.isEmpty(tagString)) {
             tagsDisplay.setText(tagString);
             tagsDisplay.setTextColor(themeColor);
-            image.setImageResource(R.drawable.tea_icn_lists);
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_lists, R.drawable.tea_icn_lists_lightblue));
         } else {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
             tagsDisplay.setTextColor(unsetColor);

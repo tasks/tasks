@@ -22,6 +22,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.service.ThemeService;
 
 public class DeadlineControlSet extends PopupControlSet {
 
@@ -62,7 +63,7 @@ public class DeadlineControlSet extends PopupControlSet {
         } else {
             dateDisplay.setText(displayString);
             dateDisplay.setTextColor(themeColor);
-            image.setImageResource(R.drawable.tea_icn_date);
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_date, R.drawable.tea_icn_date_lightblue));
         }
 
     }

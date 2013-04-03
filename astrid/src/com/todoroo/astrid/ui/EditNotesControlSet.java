@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.ThemeService;
 
 public class EditNotesControlSet extends PopupControlSet {
 
@@ -45,7 +46,7 @@ public class EditNotesControlSet extends PopupControlSet {
         } else {
             notesPreview.setText(textToUse);
             notesPreview.setTextColor(themeColor);
-            image.setImageResource(R.drawable.tea_icn_edit);
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_edit, R.drawable.tea_icn_edit_lightblue));
         }
 
         linkifyDisplayView();
