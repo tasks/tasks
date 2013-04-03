@@ -44,7 +44,8 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
-    public static final int V4_6_0 = 300;
+    public static final int V4_6_0 = 301;
+    public static final int V4_6_0_BETA = 300;
     public static final int V4_5_3 = 294;
     public static final int V4_5_2 = 293;
     public static final int V4_5_1 = 292;
@@ -175,7 +176,7 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
-        int maxWithUpgrade = V4_6_0; // The last version that required a migration
+        int maxWithUpgrade = V4_6_0_BETA; // The last version that required a migration
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
@@ -227,7 +228,7 @@ public final class UpgradeService {
                             if (from < V4_4_2)
                                 new SubtasksMetadataMigration().performMigration();
 
-                            if (from < V4_6_0) {
+                            if (from < V4_6_0_BETA) {
                                 if (Preferences.getBoolean(R.string.p_use_filters, false)) {
                                     TodorooCursor<StoreObject> cursor = PluginServices.getStoreObjectDao().query(Query.select(StoreObject.PROPERTIES).where(
                                             StoreObject.TYPE.eq(SavedFilter.TYPE)).limit(1));
@@ -295,7 +296,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if (from < V4_6_0) {
-            newVersionString(changeLog, "4.6.0 (4/01/13)", new String[] {
+            newVersionString(changeLog, "4.6.0 (4/02/13)", new String[] {
                     "4.6 is a big step towards FLAWLESS sync with Astrid.com! This update also includes numerous bug fixes and UI improvements. " +
                     "Note: Simultaneous sync with Google Tasks and Astrid.com is no longer supported. Still want to view your tasks in Gmail? Try Remind Me by Astrid on the Chrome Store."
             });
