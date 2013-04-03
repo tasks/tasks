@@ -206,7 +206,7 @@ public class ActFmInvoker {
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
             entity.addPart("token", new StringBody(tok));
-            entity.addPart("data", new StringBody(data.toString()));
+            entity.addPart("data", new StringBody(dataString));
             entity.addPart("time", new StringBody(timeString));
 
             String response = restClient.post(request, entity);
