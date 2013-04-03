@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -42,6 +41,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
@@ -400,19 +400,16 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.repeat_image_icon);
+        ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
         if (doRepeat) {
             repeatDisplay.setText(getRepeatString(true));
-
-            TypedValue repeatIcon = new TypedValue();
-            activity.getTheme().resolveAttribute(R.attr.asRepeatIcon, repeatIcon, false);
-            repeatImage.setImageResource(repeatIcon.data);
             repeatDisplay.setTextColor(themeColor);
+            repeatImage.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_repeat, R.drawable.tea_icn_repeat));
 
         } else {
             repeatDisplay.setTextColor(unsetColor);
             repeatDisplay.setText(R.string.repeat_never);
-            repeatImage.setImageResource(R.drawable.icn_edit_repeats);
+            repeatImage.setImageResource(R.drawable.tea_icn_repeat_gray);
         }
     }
 

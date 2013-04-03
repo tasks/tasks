@@ -37,7 +37,6 @@
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
         <item name="asAbBackgroundColor">#000000</item>
         <item name="asQuickaddBackgroundColor">?attr/asAbBackgroundColor</item>
-        <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg_white</item>
         <item name="asListArrowUp">@drawable/list_arrow_up_white</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon</item>
@@ -110,7 +109,6 @@
         <item name="asPeopleMenu">@drawable/people_menu_button_red</item>
         <item name="asThemeTextColor">@color/red_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
-        <item name="asRepeatIcon">@drawable/icn_edit_repeats_red</item>
         <item name="asAbBackgroundColor">#ffffff</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg</item>
         <item name="asListArrowUp">@drawable/list_arrow_up</item>
@@ -144,7 +142,6 @@
         <item name="asPeopleMenu">@drawable/people_menu_button_dark_blue</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_dark_blue</item>
-        <item name="asRepeatIcon">@drawable/icn_edit_repeats_dark_blue</item>
         <item name="asAbBackgroundColor">#e9e9e9</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark_blue</item>
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White.Blue</item>
@@ -171,7 +168,6 @@
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue_alt</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_alt</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
-        <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
         <item name="asAbBackgroundColor">#eee</item>
         <item name="asHeaderTextColor">@android:color/white</item>
         <item name="asHeaderTextColorInverse">?attr/asThemeTextColor</item>

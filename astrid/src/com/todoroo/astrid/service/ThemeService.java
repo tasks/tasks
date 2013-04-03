@@ -268,7 +268,7 @@ public class ThemeService {
         if (theme == R.style.Theme || theme == R.style.Theme_White_Alt || theme == R.style.Theme_TransparentWhite) {
             return R.color.blue_theme_color;
         } else {
-            return R.color.dark_blue_theme_color;
+            return R.color.task_edit_selected;
         }
     }
 
