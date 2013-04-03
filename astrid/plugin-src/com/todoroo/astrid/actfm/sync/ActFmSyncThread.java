@@ -40,7 +40,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
-import com.todoroo.astrid.actfm.sync.messages.JSONPayloadArray;
+import com.todoroo.astrid.actfm.sync.messages.JSONPayloadBuilder;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ReplayTaskListMetadataOutstanding;
@@ -286,7 +286,7 @@ public class ActFmSyncThread {
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
-                    JSONPayloadArray payload = new JSONPayloadArray();
+                    JSONPayloadBuilder payload = new JSONPayloadBuilder();
                     MultipartEntity entity = new MultipartEntity();
                     boolean containsChangesHappened = false;
                     for (int i = 0; i < messageBatch.size(); i++) {
@@ -306,15 +306,14 @@ public class ActFmSyncThread {
                         messageBatch.clear();
                         continue;
                     }
-                    System.err.println("PAYLOAD: " + payload.toString());
 
                     setupNotification();
 
-                    payload.put(getClientVersion());
+                    payload.addJSONObject(getClientVersion());
 
                     JSONArray errors = null;
                     try {
-                        JSONObject response = actFmInvoker.postSync(payload, entity, containsChangesHappened, token);
+                        JSONObject response = actFmInvoker.postSync(payload.closeAndReturnString(), entity, containsChangesHappened, token);
                         // process responses
                         String time = response.optString("time");
                         JSONArray serverMessagesJson = response.optJSONArray("messages");

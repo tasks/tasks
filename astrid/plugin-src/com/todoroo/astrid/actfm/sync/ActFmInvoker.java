@@ -18,7 +18,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -185,13 +184,12 @@ public class ActFmInvoker {
         }
     }
 
-    public JSONObject postSync(JSONArray data, MultipartEntity entity, boolean changesHappened, String tok) throws IOException,
+    public JSONObject postSync(String data, MultipartEntity entity, boolean changesHappened, String tok) throws IOException,
     ActFmServiceException {
         try {
-            String dataString = data.toString();
             String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
 
-            Object[] params = { "token", tok, "data", dataString, "time", timeString };
+            Object[] params = { "token", tok, "data", data, "time", timeString };
 
             if (changesHappened) {
                 String gcm = Preferences.getStringValue(GCMIntentService.PREF_REGISTRATION);
@@ -206,7 +204,7 @@ public class ActFmInvoker {
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
             entity.addPart("token", new StringBody(tok));
-            entity.addPart("data", new StringBody(dataString));
+            entity.addPart("data", new StringBody(data));
             entity.addPart("time", new StringBody(timeString));
 
             String response = restClient.post(request, entity);

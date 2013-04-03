@@ -1,21 +1,32 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
 import org.apache.http.entity.mime.MultipartEntity;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class JSONPayloadArray extends JSONArray {
+public class JSONPayloadBuilder {
 
     private final StringBuilder sb = new StringBuilder("["); //$NON-NLS-1$
+    private final StringBuilder temp = new StringBuilder();
 
     private int messageCount = 0;
 
     public boolean addMessage(ClientToServerMessage<?> message, MultipartEntity entity) {
         try {
             JSONObject serialized = message.serializeToJSON(entity);
-            if (serialized != null) {
-                sb.append(serialized.toString())
+            return addJSONObject(serialized);
+        } catch (OutOfMemoryError e) {
+            return false;
+        }
+    }
+
+    public boolean addJSONObject(JSONObject obj) {
+        try {
+            temp.delete(0, temp.length());
+            if (obj != null) {
+                temp.append(obj)
                 .append(","); //$NON-NLS-1$
+
+                sb.append(temp);
 
                 messageCount++;
                 return true;
