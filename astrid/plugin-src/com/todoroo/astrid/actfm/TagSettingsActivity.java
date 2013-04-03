@@ -181,7 +181,8 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog) {
             setTheme(ThemeService.getDialogTheme());
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            if (AndroidUtilities.getSdkVersion() < 14)
+                requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
         else {
             ThemeService.applyTheme(this);
