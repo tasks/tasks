@@ -227,12 +227,14 @@ public class GCalControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
+        calendar.setTextColor(themeColor);
         if (initialized) {
             if (hasEvent) {
                 calendar.setText(R.string.gcal_TEA_has_event);
             } else if (calendarSelector.getSelectedItemPosition() != 0) {
                 calendar.setText((String)calendarSelector.getSelectedItem());
             } else {
+                calendar.setTextColor(unsetColor);
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         } else {
@@ -242,6 +244,7 @@ public class GCalControlSet extends PopupControlSet {
             } else if (index >= 0 && index < calendars.calendars.length) {
                 calendar.setText(calendars.calendars[index]);
             } else {
+                calendar.setTextColor(unsetColor);
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         }

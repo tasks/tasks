@@ -407,8 +407,10 @@ public class RepeatControlSet extends PopupControlSet {
             TypedValue repeatIcon = new TypedValue();
             activity.getTheme().resolveAttribute(R.attr.asRepeatIcon, repeatIcon, false);
             repeatImage.setImageResource(repeatIcon.data);
+            repeatDisplay.setTextColor(themeColor);
 
         } else {
+            repeatDisplay.setTextColor(unsetColor);
             repeatDisplay.setText(R.string.repeat_never);
             repeatImage.setImageResource(R.drawable.icn_edit_repeats);
         }
