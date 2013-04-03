@@ -502,7 +502,7 @@ public class ActFmSyncThread {
         return true;
     }
 
-    private void syncLog(String message) {
+    public static void syncLog(String message) {
         if (ActFmInvoker.SYNC_DEBUG)
             Log.e(ERROR_TAG, message);
     }
