@@ -226,6 +226,7 @@ public class AstridNewSyncMigrator {
                             recurrence = recurrence + fromCompletion;
                         template.setValue(Task.RECURRENCE, recurrence);
 
+                        template.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                         taskDao.saveExisting(template);
                     }
                 } catch (Exception e) {
@@ -559,6 +560,7 @@ public class AstridNewSyncMigrator {
                     }
 
                     instance.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                    instance.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                     dao.saveExisting(instance);
                     boolean createdOutstanding = false;
                     if (propertiesForOutstanding != null && (unsyncedModel || (extras != null && extras.shouldCreateOutstandingEntries(instance)))) {
