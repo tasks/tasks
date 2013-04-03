@@ -40,6 +40,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
+import com.todoroo.astrid.actfm.sync.messages.JSONPayloadArray;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ReplayTaskListMetadataOutstanding;
@@ -285,17 +286,15 @@ public class ActFmSyncThread {
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
-                    JSONArray payload = new JSONArray();
+                    JSONPayloadArray payload = new JSONPayloadArray();
                     MultipartEntity entity = new MultipartEntity();
                     boolean containsChangesHappened = false;
                     for (int i = 0; i < messageBatch.size(); i++) {
                         ClientToServerMessage<?> message = messageBatch.get(i);
-                        JSONObject serialized = message.serializeToJSON(entity);
-                        if (serialized != null) {
+                        boolean success = payload.addMessage(message, entity);
+                        if (success) {
                             if (message instanceof ChangesHappened)
                                 containsChangesHappened = true;
-                            payload.put(serialized);
-                            syncLog("Sending: " + serialized);
                         } else {
                             messageBatch.remove(i);
                             i--;
@@ -303,10 +302,11 @@ public class ActFmSyncThread {
 
                     }
 
-                    if (payload.length() == 0) {
+                    if (payload.getMessageCount() == 0) {
                         messageBatch.clear();
                         continue;
                     }
+                    System.err.println("PAYLOAD: " + payload.toString());
 
                     setupNotification();
 
