@@ -272,6 +272,11 @@ public class DateAndTimePicker extends LinearLayout {
         this.listener = listener;
     }
 
+    public boolean isAfterNow() {
+        long dueDate = constructDueDate();
+        return dueDate > DateUtilities.now();
+    }
+
     public String getDisplayString(Context context, boolean useNewline, boolean hideYear) {
         long dueDate = constructDueDate();
         return getDisplayString(context, dueDate, useNewline, hideYear, false);

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -43,10 +44,14 @@ public class DeadlineControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         StringBuilder displayString = new StringBuilder();
-        if (initialized)
+        boolean isOverdue;
+        if (initialized) {
+            isOverdue = !dateAndTimePicker.isAfterNow();
             displayString.append(dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd));
-        else
+        } else {
+            isOverdue = model.getValue(Task.DUE_DATE) < DateUtilities.now();
             displayString.append(DateAndTimePicker.getDisplayString(activity, model.getValue(Task.DUE_DATE), isQuickadd, isQuickadd, false));
+        }
 
         if (!isQuickadd && repeatControlSet != null) {
             String repeatString = repeatControlSet.getStringForExternalDisplay();
@@ -62,8 +67,13 @@ public class DeadlineControlSet extends PopupControlSet {
             image.setImageResource(R.drawable.tea_icn_date_gray);
         } else {
             dateDisplay.setText(displayString);
-            dateDisplay.setTextColor(themeColor);
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_date, R.drawable.tea_icn_date_lightblue));
+            if (isOverdue) {
+                dateDisplay.setTextColor(activity.getResources().getColor(R.color.red_theme_color));
+                image.setImageResource(R.drawable.tea_icn_date_red);
+            } else {
+                dateDisplay.setTextColor(themeColor);
+                image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_date, R.drawable.tea_icn_date_lightblue));
+            }
         }
 
     }
