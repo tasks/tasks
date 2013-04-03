@@ -558,75 +558,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         }
     };
 
-//    public void onFBAuthSucceed() {
-//        createUserAccountFB();
-//    }
-//
-//    public void onFBAuthFail(String error) {
-//        DialogUtilities.okDialog(this, getString(R.string.actfm_ALA_title),
-//                android.R.drawable.ic_dialog_alert, error, null);
-//    }
-//
-//    @Override
-//    public void onFBAuthCancel() {
-//        // do nothing
-//    }
-//
     private ProgressDialog progressDialog;
-//
-//    /**
-//     * Create user account via FB
-//     */
-//    public void createUserAccountFB() {
-//        progressDialog = DialogUtilities.progressDialog(this,
-//                getString(R.string.DLG_please_wait));
-//        facebookRunner.request("me", new SLARequestListener()); //$NON-NLS-1$
-//    }
-//
-//    private class SLARequestListener implements RequestListener {
-//
-//        @Override
-//        public void onComplete(String response, Object state) {
-//            JSONObject json;
-//            try {
-//                json = Util.parseJson(response);
-//                String firstName = json.getString("first_name"); //$NON-NLS-1$
-//                String lastName = json.getString("last_name"); //$NON-NLS-1$
-//                String email = json.getString("email"); //$NON-NLS-1$
-//
-//                authenticate(email, firstName, lastName, ActFmInvoker.PROVIDER_FACEBOOK,
-//                        facebook.getAccessToken());
-//                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_FB);
-//            } catch (FacebookError e) {
-//                handleError(e);
-//            } catch (JSONException e) {
-//                handleError(e);
-//            }
-//        }
-//
-//        @Override
-//        public void onFacebookError(FacebookError e, Object state) {
-//            handleError(e);
-//        }
-//
-//        @Override
-//        public void onFileNotFoundException(FileNotFoundException e,
-//                Object state) {
-//            handleError(e);
-//        }
-//
-//        @Override
-//        public void onIOException(IOException e, Object state) {
-//            handleError(e);
-//        }
-//
-//        @Override
-//        public void onMalformedURLException(MalformedURLException e,
-//                Object state) {
-//            handleError(e);
-//        }
-//
-//    }
 
     // --- utilities
 
