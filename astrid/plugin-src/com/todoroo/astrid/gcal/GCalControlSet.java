@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public class GCalControlSet extends PopupControlSet {
     private boolean hasEvent = false;
     private Spinner calendarSelector;
     private final int title;
+    private final ImageView image;
 
     public GCalControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
@@ -63,6 +65,7 @@ public class GCalControlSet extends PopupControlSet {
         this.title = title;
         calendars = Calendars.getCalendars();
         getView(); // Hack to force initialized
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     @Override
@@ -228,6 +231,7 @@ public class GCalControlSet extends PopupControlSet {
     protected void refreshDisplayView() {
         TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
         calendar.setTextColor(themeColor);
+        image.setImageResource(R.drawable.tea_icn_addcal);
         if (initialized) {
             if (hasEvent) {
                 calendar.setText(R.string.gcal_TEA_has_event);
@@ -235,6 +239,7 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText((String)calendarSelector.getSelectedItem());
             } else {
                 calendar.setTextColor(unsetColor);
+                image.setImageResource(R.drawable.tea_icn_addcal_gray);
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         } else {
@@ -245,6 +250,7 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText(calendars.calendars[index]);
             } else {
                 calendar.setTextColor(unsetColor);
+                image.setImageResource(R.drawable.tea_icn_addcal_gray);
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         }

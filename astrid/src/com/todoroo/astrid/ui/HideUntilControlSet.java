@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,12 +40,14 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     private int previousSetting = Task.HIDE_UNTIL_NONE;
     private final int title;
     private int selection;
+    private final ImageView image;
 
     private long existingDate = EXISTING_TIME_UNSET;
 
     public HideUntilControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         this.title = title;
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     private ArrayAdapter<HideUntilValue> adapter;
@@ -197,6 +200,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         if (value.setting == Task.HIDE_UNTIL_NONE) {
             auxDisplay.setText(R.string.TEA_hideUntil_label);
             auxDisplay.setTextColor(unsetColor);
+            image.setImageResource(R.drawable.tea_icn_hide_gray);
         } else {
             String display = value.toString();
             if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME)
@@ -204,6 +208,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
             auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
             auxDisplay.setTextColor(themeColor);
+            image.setImageResource(R.drawable.tea_icn_hide);
         }
     }
 

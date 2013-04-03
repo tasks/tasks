@@ -16,9 +16,11 @@
       android:layout_height="50dip"
       android:paddingLeft="5dip"
       android:gravity="center_vertical">
-      <ImageView 
-        style="@style/EditRowImage"
-        android:src="@drawable/icn_edit_calendar"/>
+      <ImageView android:id="@+id/display_row_icon"
+             android:layout_marginRight="10dip"
+             android:layout_width="20dip"
+             android:layout_height="20dip"
+             android:scaleType="fitCenter"/>
 	  <TextView
 	      android:id="@+id/calendar_display_which"
 	      android:layout_width="fill_parent"
@@ -27,7 +29,6 @@
 	      android:gravity="left"
 	      android:maxLines="1"
 	      android:ellipsize="end"
-	      android:paddingLeft="5dip"
 	      style="@style/TextAppearance.EditRowDisplay" />
   </LinearLayout>
   <View

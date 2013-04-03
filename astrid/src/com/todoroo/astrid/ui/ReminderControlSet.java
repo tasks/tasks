@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +46,9 @@ public class ReminderControlSet extends PopupControlSet {
         TextView label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         label.setText(R.string.TEA_reminders_group_label);
         label.setTextColor(unsetColor);
+
+        ImageView image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
+        image.setImageResource(R.drawable.tea_icn_reminder_gray);
     }
 
     public void addViewToBody(View v) {

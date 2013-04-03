@@ -21,9 +21,7 @@
         <ImageView android:id="@+id/display_row_icon"
              android:layout_marginRight="10dip"
              android:layout_width="20dip"
-             android:layout_height="20dip"
-             android:scaleType="fitCenter"
-             android:background="#ff0000"/>
+             android:layout_height="20dip"/>
 	     <TextView
 	         android:id="@+id/display_row_edit"
 		     android:layout_width="fill_parent"

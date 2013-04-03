@@ -58,9 +58,11 @@ public class DeadlineControlSet extends PopupControlSet {
         if (TextUtils.isEmpty(displayString)) {
             dateDisplay.setText(R.string.TEA_deadline_hint);
             dateDisplay.setTextColor(unsetColor);
+            image.setImageResource(R.drawable.tea_icn_date_gray);
         } else {
             dateDisplay.setText(displayString);
             dateDisplay.setTextColor(themeColor);
+            image.setImageResource(R.drawable.tea_icn_date);
         }
 
     }
