@@ -524,8 +524,10 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     // --- facebook handler
 
+    @SuppressWarnings("nls")
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
+            Log.e("fb-login", "State opened");
             facebookSuccess(session);
         } else if (state.isClosed()) {
             Log.e("fb-login", "State closed");
