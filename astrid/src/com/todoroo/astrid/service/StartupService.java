@@ -258,6 +258,7 @@ public class StartupService {
 
                 checkForSubtasksUse();
                 checkForSwipeListsUse();
+                checkForVoiceRemindersUse();
             }
         }).start();
 
@@ -371,6 +372,17 @@ public class StartupService {
                 StatisticsService.reportEvent(StatisticsConstants.SWIPE_USED);
             }
             Preferences.setBoolean(PREF_SWIPE_CHECK, true);
+        }
+    }
+
+    private static final String PREF_VOICE_REMINDERS_CHECK = "voice_reminders_check"; //$NON-NLS-1$
+
+    private void checkForVoiceRemindersUse() {
+        if (!Preferences.getBoolean(PREF_VOICE_REMINDERS_CHECK, false)) {
+            if (Preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)) {
+                StatisticsService.reportEvent(StatisticsConstants.VOICE_REMINDERS_ENABLED);
+                Preferences.setBoolean(PREF_VOICE_REMINDERS_CHECK, true);
+            }
         }
     }
 

@@ -91,4 +91,6 @@ public class StatisticsConstants {
     public static final String PREF_SHOW_FEATURED_LISTS = "pref-show-featured-lists";
 
     public static final String PREF_CHANGED_PREFIX = "pref-changed-";
+
+    public static final String VOICE_REMINDERS_ENABLED = "voice-reminders-enabled";
 }
