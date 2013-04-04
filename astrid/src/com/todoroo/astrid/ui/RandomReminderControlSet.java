@@ -102,4 +102,8 @@ public class RandomReminderControlSet extends TaskEditControlSet {
             task.setValue(Task.REMINDER_PERIOD, 0L);
         return null;
     }
+
+    public boolean hasRandomReminder() {
+        return settingCheckbox.isChecked();
+    }
 }

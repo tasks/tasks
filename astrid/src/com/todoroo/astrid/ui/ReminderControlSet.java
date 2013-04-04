@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.ThemeService;
 
 /**
  * Control set dealing with reminder settings
@@ -36,6 +38,8 @@ public class ReminderControlSet extends PopupControlSet {
     private TextView modeDisplay;
     private LinearLayout remindersBody;
     private final List<View> extraViews;
+    private final TextView label;
+    private final ImageView image;
 
     private RandomReminderControlSet randomControlSet;
     private AlarmControlSet alarmControl;
@@ -43,12 +47,9 @@ public class ReminderControlSet extends PopupControlSet {
     public ReminderControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
         extraViews = new ArrayList<View>();
-        TextView label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        label.setText(R.string.TEA_reminders_group_label);
-        label.setTextColor(unsetColor);
+        label = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
 
-        ImageView image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
-        image.setImageResource(R.drawable.tea_icn_reminder_gray);
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
     }
 
     public void addViewToBody(View v) {
@@ -161,6 +162,37 @@ public class ReminderControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        // Nothing to do here
+        int value;
+        if (initialized)
+            value = getValue();
+        else
+            value = model.getValue(Task.REMINDER_FLAGS);
+
+        StringBuilder sb = new StringBuilder();
+        if ((value & Task.NOTIFY_AT_DEADLINE) > 0)
+            sb.append(activity.getString(R.string.TEA_reminder_due_short));
+
+        if ((value & Task.NOTIFY_AFTER_DEADLINE) > 0) {
+            if (sb.length() > 0)
+                sb.append(" / "); //$NON-NLS-1$
+            sb.append(activity.getString(R.string.TEA_reminder_overdue_short));
+        }
+
+        if ((randomControlSet != null && randomControlSet.hasRandomReminder()) || (randomControlSet == null && model.getValue(Task.REMINDER_PERIOD) > 0)) {
+            if (sb.length() > 0)
+                sb.append(" / "); //$NON-NLS-1$
+            sb.append(activity.getString(R.string.TEA_reminder_randomly_short));
+        }
+
+        String toDisplay = sb.toString();
+        if (!TextUtils.isEmpty(toDisplay)) {
+            label.setText(toDisplay);
+            label.setTextColor(themeColor);
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_reminder, R.drawable.tea_icn_reminder_lightblue));
+        } else {
+            label.setText(R.string.TEA_reminders_group_label);
+            label.setTextColor(unsetColor);
+            image.setImageResource(R.drawable.tea_icn_reminder_gray);
+        }
     }
 }

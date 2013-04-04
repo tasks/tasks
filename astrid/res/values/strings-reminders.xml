@@ -11,7 +11,7 @@
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Reminders</string>
+  <string name="TEA_reminders_group_label">Reminder settings</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Remind me</string>
@@ -36,6 +36,12 @@
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  
+  <string name="TEA_reminder_due_short">When due</string>
+
+  <string name="TEA_reminder_overdue_short">When overdue</string>
+
+  <string name="TEA_reminder_randomly_short">Randomly</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->

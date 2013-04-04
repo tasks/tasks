@@ -21,10 +21,10 @@
   <string name="repeat_every">Every %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Repeat Interval</string>
+  <string name="repeat_interval_prompt">Repeat interval</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Repeating?</string>
+  <string name="repeat_never">Not repeating</string>
   <!-- slide 20f-->
   <string name="repeat_dont">Don\'t repeat</string>
       
