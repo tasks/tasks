@@ -646,6 +646,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         findPreference(getString(R.string.p_fontSize)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
+        findPreference(getString(R.string.p_hide_plus_button)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+
         findPreference(getString(R.string.p_config_default)).setOnPreferenceClickListener(
                 new SetDefaultsClickListener(new AstridDefaultPreferenceSpec(), R.string.EPr_config_dialog_default_id, StatisticsConstants.PREFS_RESET_DEFAULT));
 

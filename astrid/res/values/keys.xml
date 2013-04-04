@@ -281,6 +281,8 @@
   
   <string name="p_use_date_shortcuts">p_use_date_shortcuts</string>
   
+  <string name="p_hide_plus_button">p_hide_plus_button</string>
+  
   <!-- Configurations -->
   <string name="p_configurations">p_configurations</string>
   <string name="p_config_default">p_config_default</string>

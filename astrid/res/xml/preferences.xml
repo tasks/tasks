@@ -156,6 +156,11 @@
 	            android:title="@string/EPr_show_quickadd_controls"
 	            android:defaultValue="true" />
 	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	                android:key="@string/p_hide_plus_button"
+	                android:title="@string/EPr_hide_plus_button"
+	                android:defaultValue="false"/>
+	        
 	        <CheckBoxPreference
 	            android:key="@string/p_swipe_lists_enabled"
 	            android:title="@string/EPr_swipe_lists_performance_title" 

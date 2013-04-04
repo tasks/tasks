@@ -143,12 +143,16 @@ public class QuickAddBar extends LinearLayout {
         quickAddBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final boolean visible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
+                final boolean controlsVisible = !TextUtils.isEmpty(s) && quickAddBox.hasFocus();
                 final boolean showControls = Preferences.getBoolean(R.string.p_show_quickadd_controls, true);
+
+                final boolean plusVisible = !TextUtils.isEmpty(s);
+                final boolean hidePlus = Preferences.getBoolean(R.string.p_hide_plus_button, false);
                 quickAddControlsContainer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        quickAddControlsContainer.setVisibility((showControls && visible) ? View.VISIBLE : View.GONE);
+                        quickAddButton.setVisibility((plusVisible || !hidePlus) ? View.VISIBLE : View.GONE);
+                        quickAddControlsContainer.setVisibility((showControls && controlsVisible) ? View.VISIBLE : View.GONE);
                     }
                 }, 10);
             }
@@ -165,6 +169,7 @@ public class QuickAddBar extends LinearLayout {
 
         quickAddButton = ((ImageButton) findViewById(
                 R.id.quickAddButton));
+        quickAddButton.setVisibility(Preferences.getBoolean(R.string.p_hide_plus_button, false) ? View.GONE : View.VISIBLE);
 
         // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
