@@ -193,13 +193,6 @@
     
     <!-- Start of Crittercism.com Code -->
     <activity android:name="com.crittercism.NotificationActivity"/>
-
-    <service android:name="com.crittercism.service.CrittercismService"
-    	android:process="com.crittercism.service" android:exported="true">
-    	<intent-filter>
-    		<action android:name="com.crittercism.service.CrittercismService" />
-    	</intent-filter>
-    </service>
     <!-- End of Crittercism.com Code -->
     
         
