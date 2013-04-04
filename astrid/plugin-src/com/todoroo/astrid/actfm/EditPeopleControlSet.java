@@ -108,6 +108,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final View assignedClear;
 
+    private final ImageView image;
+
     private final int loginRequestCode;
 
     private boolean assignedToMe = false;
@@ -142,8 +144,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         assignedClear = getView().findViewById(R.id.assigned_clear);
 
         assignedDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        ImageView image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
-        image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_assign, R.drawable.tea_icn_assign_lightblue));
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
         setUpListeners();
     }
 
@@ -799,17 +800,34 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         String displayString;
+        boolean unassigned = false;
         if (!TextUtils.isEmpty(assignedCustom.getText())) {
             displayString = activity.getString(R.string.TEA_assigned_to, assignedCustom.getText());
         } else {
             AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
             if (user == null)
                 user = (AssignedToUser) assignedList.getAdapter().getItem(0);
-            displayString = activity.getString(R.string.TEA_assigned_to, user.toString());
+
+            String id = getLongOrStringId(user.user, Task.USER_ID_IGNORE);
+            if (Task.USER_ID_UNASSIGNED.equals(id)) {
+                unassigned = true;
+                displayString = activity.getString(R.string.actfm_EPA_unassigned);
+            } else {
+                String userString = user.toString();
+                if (Task.USER_ID_SELF.equals(id))
+                    userString = userString.toLowerCase();
+                displayString = activity.getString(R.string.TEA_assigned_to, userString);
+            }
+
+
         }
 
-        assignedDisplay.setTextColor(themeColor);
+        assignedDisplay.setTextColor(unassigned ? unsetColor : themeColor);
         assignedDisplay.setText(displayString);
+        if (unassigned)
+            image.setImageResource(R.drawable.tea_icn_assign_gray);
+        else
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_assign, R.drawable.tea_icn_assign_lightblue));
     }
 
     @Override
