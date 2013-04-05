@@ -19,6 +19,7 @@ import android.widget.ToggleButton;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.service.ThemeService;
 
 /**
  * Control Set for setting task importance
@@ -45,7 +46,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
             if(b.getTag() == i) {
                 b.setTextSize(getTextSize());
                 b.setChecked(true);
-                b.setBackgroundResource(R.drawable.importance_background_selected);
+                b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark));
             } else {
                 b.setTextSize(getTextSize());
                 b.setChecked(false);

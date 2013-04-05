@@ -254,22 +254,20 @@ public class ThemeService {
                 ContextManager.getResources().getResourceName(lightDrawable));
     }
 
-    public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
+    public static int getDarkVsLight(int resForWhite, int resForDark) {
         int theme = getTheme();
         if (theme == R.style.Theme || theme == R.style.Theme_White_Alt || theme == R.style.Theme_TransparentWhite) {
-            return lightBlueDrawable;
+            return resForDark;
         } else {
-            return regularDrawable;
+            return resForWhite;
         }
+    }
+    public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
+        return getDarkVsLight(regularDrawable, lightBlueDrawable);
     }
 
     public static int getTaskEditThemeColor() {
-        int theme = getTheme();
-        if (theme == R.style.Theme || theme == R.style.Theme_White_Alt || theme == R.style.Theme_TransparentWhite) {
-            return R.color.blue_theme_color;
-        } else {
-            return R.color.task_edit_selected;
-        }
+        return getDarkVsLight(R.color.task_edit_selected, R.color.blue_theme_color);
     }
 
     public static void forceTheme(int theme) {
