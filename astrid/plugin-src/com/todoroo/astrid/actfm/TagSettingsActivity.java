@@ -183,14 +183,17 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             setTheme(ThemeService.getDialogTheme());
             if (AndroidUtilities.getSdkVersion() < 14)
                 requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
-        else {
+        } else {
             ThemeService.applyTheme(this);
             ActionBar actionBar = getSupportActionBar();
-            if (ThemeService.getTheme() == R.style.Theme_White_Alt)
-                actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
-            else
-                actionBar.setLogo(R.drawable.ic_menu_save);
+            if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
+                if (ThemeService.getTheme() == R.style.Theme_White_Alt)
+                    actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
+                else
+                    actionBar.setLogo(R.drawable.ic_menu_save);
+            } else {
+                actionBar.setLogo(null);
+            }
         }
     }
 
@@ -562,9 +565,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item;
-        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
+            item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
+            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_close));
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        }
 
         if (isDialog) {
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
