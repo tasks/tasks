@@ -30,6 +30,8 @@
             style="@style/TextAppearance.EditRowDisplay"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip"
             android:gravity="left" />
     </LinearLayout>
 
