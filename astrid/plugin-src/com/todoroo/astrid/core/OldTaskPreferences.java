@@ -14,6 +14,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
+import com.facebook.Session;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -124,6 +125,10 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         editor.commit();
 
                         deleteDatabase(database.getName());
+                        Session activeSession = Session.getActiveSession();
+                        if (activeSession != null) {
+                            activeSession.closeAndClearTokenInformation();
+                        }
 
                         AstridPreferences.setPreferenceDefaults();
 
