@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/task_edit_background"/>
+    <item android:drawable="@drawable/custom_tab_indicator_dark_selected"/>    
+
+</layer-list>

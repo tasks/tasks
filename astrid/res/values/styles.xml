@@ -559,7 +559,7 @@
     <style name="CustomTabPageIndicator.Text" parent="Widget.TabPageIndicator.Text">
         <item name="android:textColor">?attr/asTextColor</item>                                                                                                                                                              
         <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:layout_marginLeft">0dip</item>
         <item name="android:layout_marginRight">0dip</item>
     </style>
