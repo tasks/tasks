@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -162,30 +161,50 @@ public class ReminderControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
+        int reminderCount = 0;
+        StringBuilder reminderString = new StringBuilder();
+
+        // Has random reminder?
+        if ((randomControlSet != null && randomControlSet.hasRandomReminder()) || (randomControlSet == null && model.getValue(Task.REMINDER_PERIOD) > 0)) {
+            reminderString.append(activity.getString(R.string.TEA_reminder_randomly_short));
+            reminderCount++;
+        }
+
         int value;
         if (initialized)
             value = getValue();
         else
             value = model.getValue(Task.REMINDER_FLAGS);
 
-        StringBuilder sb = new StringBuilder();
-        if ((value & Task.NOTIFY_AT_DEADLINE) > 0)
-            sb.append(activity.getString(R.string.TEA_reminder_due_short));
+        boolean appendedWhen = false;
+        if ((value & Task.NOTIFY_AT_DEADLINE) > 0) {
+            if (reminderCount > 0)
+                reminderString.append(" & "); //$NON-NLS-1$
 
-        if ((value & Task.NOTIFY_AFTER_DEADLINE) > 0) {
-            if (sb.length() > 0)
-                sb.append(" / "); //$NON-NLS-1$
-            sb.append(activity.getString(R.string.TEA_reminder_overdue_short));
+            reminderString.append(activity.getString(R.string.TEA_reminder_when)).append(" "); //$NON-NLS-1$
+            reminderString.append(activity.getString(R.string.TEA_reminder_due_short));
+            reminderCount++;
+            appendedWhen = true;
         }
 
-        if ((randomControlSet != null && randomControlSet.hasRandomReminder()) || (randomControlSet == null && model.getValue(Task.REMINDER_PERIOD) > 0)) {
-            if (sb.length() > 0)
-                sb.append(" / "); //$NON-NLS-1$
-            sb.append(activity.getString(R.string.TEA_reminder_randomly_short));
+        if ((value & Task.NOTIFY_AFTER_DEADLINE) > 0 && reminderCount < 2) {
+            if (reminderCount > 0)
+                reminderString.append(" & "); //$NON-NLS-1$
+
+            if (!appendedWhen)
+                reminderString.append(activity.getString(R.string.TEA_reminder_when)).append(" "); //$NON-NLS-1$
+            reminderString.append(activity.getString(R.string.TEA_reminder_overdue_short));
+            reminderCount++;
         }
 
-        String toDisplay = sb.toString();
-        if (!TextUtils.isEmpty(toDisplay)) {
+        if (reminderCount > 0) {
+            String toDisplay;
+            if (reminderCount == 1) {
+                toDisplay = activity.getString(R.string.TEA_reminder_display_one, reminderString.toString());
+            } else {
+                toDisplay = activity.getString(R.string.TEA_reminder_display_multiple, reminderString.toString());
+            }
+
             label.setText(toDisplay);
             label.setTextColor(themeColor);
             image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_reminder, R.drawable.tea_icn_reminder_lightblue));

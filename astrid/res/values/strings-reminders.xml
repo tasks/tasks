@@ -37,11 +37,17 @@
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
   
-  <string name="TEA_reminder_due_short">When due</string>
+  <string name="TEA_reminder_when">when</string>
+  
+  <string name="TEA_reminder_due_short">due</string>
 
-  <string name="TEA_reminder_overdue_short">When overdue</string>
+  <string name="TEA_reminder_overdue_short">overdue</string>
 
-  <string name="TEA_reminder_randomly_short">Randomly</string>
+  <string name="TEA_reminder_randomly_short">randomly</string>
+
+  <string name="TEA_reminder_display_one">Remind me %s</string>
+  
+  <string name="TEA_reminder_display_multiple">Remind %s</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
