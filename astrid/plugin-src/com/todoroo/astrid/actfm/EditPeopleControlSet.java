@@ -431,8 +431,10 @@ public class EditPeopleControlSet extends PopupControlSet {
             for (int i = 0; i < userList.size(); i++) {
                 JSONObject user = userList.get(i).user;
                 if (user != null) {
-                    if (user.optBoolean(CONTACT_CHOOSER_USER))
+                    if (user.optBoolean(CONTACT_CHOOSER_USER)) {
+                        index++;
                         continue;
+                    }
                     if (getLongOrStringId(user, Task.USER_ID_EMAIL).equals(assignedId) ||
                             (user.optString("email").equals(assignedEmail) &&
                                     !(TextUtils.isEmpty(assignedEmail))))
