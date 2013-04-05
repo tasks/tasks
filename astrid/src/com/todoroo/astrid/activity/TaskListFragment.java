@@ -886,6 +886,8 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
      * this occurs to save resources and time.
      */
     public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if (taskAdapter == null)
+            return;
         switch (scrollState) {
         case OnScrollListener.SCROLL_STATE_IDLE:
             if (taskAdapter.isFling)

@@ -474,14 +474,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         userActivityDao.createNew(userActivity);
-        commentField.setText(""); //$NON-NLS-1$
+        if (commentField != null)
+            commentField.setText(""); //$NON-NLS-1$
 
         pendingCommentPicture = usePicture ? null : pendingCommentPicture;
         if (usePicture) {
             if (activity != null)
                 activity.getIntent().removeExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
         }
-        pictureButton.setImageResource(cameraButton);
+        if (pictureButton != null)
+            pictureButton.setImageResource(cameraButton);
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
         setUpListAdapter();

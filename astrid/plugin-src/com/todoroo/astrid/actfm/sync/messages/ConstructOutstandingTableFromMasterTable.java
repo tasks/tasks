@@ -50,7 +50,11 @@ public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, 
                     oe.clear();
                     oe.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, itemId);
                     oe.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, p.name);
-                    oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, items.get(p).toString());
+                    Object value = items.get(p);
+                    if (value == null)
+                        continue;
+
+                    oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, value.toString());
                     oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, createdAt);
                     outstandingDao.createNew(oe);
                 }
