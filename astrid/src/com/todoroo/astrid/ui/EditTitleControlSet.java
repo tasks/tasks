@@ -6,6 +6,7 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -115,6 +116,11 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
                 completeBox.setImageResource(resourceArray[valueToUse]);
             }
         }
+
+        if (checked)
+            editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        else
+            editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
 }
