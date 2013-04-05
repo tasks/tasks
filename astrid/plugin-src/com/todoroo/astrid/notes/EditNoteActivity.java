@@ -370,6 +370,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if (items.size() > commentItems || task.getValue(Task.HISTORY_HAS_MORE) > 0) {
             Button loadMore = new Button(getContext());
             loadMore.setText(R.string.TEA_load_more);
+            loadMore.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
             loadMore.setBackgroundColor(Color.alpha(0));
             loadMore.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -386,6 +387,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         else if (items.size() == 0) {
             TextView noUpdates = new TextView(getContext());
             noUpdates.setText(R.string.TEA_no_activity);
+            noUpdates.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
             noUpdates.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));
             noUpdates.setPadding(10, 10, 10, 10);
