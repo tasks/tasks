@@ -44,6 +44,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_6_2 = 303;
     public static final int V4_6_1 = 302;
     public static final int V4_6_0 = 301;
     public static final int V4_6_0_BETA = 300;
@@ -275,6 +276,10 @@ public final class UpgradeService {
                 Preferences.clear(key);
                 Preferences.setString(R.string.p_taskRowStyle_v2, value ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
             }
+        }
+
+        if (from < V4_6_2) {
+            Preferences.setBoolean(R.string.p_show_timer_shortcut, true);
         }
     }
 
