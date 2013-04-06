@@ -49,6 +49,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
@@ -214,6 +215,48 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         timerView = commentsBar.findViewById(R.id.timer_container);
         commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
+
+        boolean showTimerShortcut = Preferences.getBoolean(R.string.p_show_timer_shortcut, false);
+
+        if (showTimerShortcut) {
+            commentField.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+                    commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
+                            : View.GONE);
+                    timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
+                            : View.VISIBLE);
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    //
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    //
+                }
+            });
+
+            commentField.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        timerView.setVisibility(View.GONE);
+                        commentButton.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        timerView.setVisibility(View.VISIBLE);
+                        commentButton.setVisibility(View.GONE);
+                    }
+                }
+            });
+        } else {
+            timerView.setVisibility(View.GONE);
+            commentButton.setVisibility(View.VISIBLE);
+        }
+
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
@@ -222,39 +265,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     return true;
                 }
                 return false;
-            }
-        });
-        commentField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
-                        : View.GONE);
-                timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
-                        : View.VISIBLE);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //
-            }
-        });
-
-        commentField.setOnFocusChangeListener(new OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    timerView.setVisibility(View.GONE);
-                    commentButton.setVisibility(View.VISIBLE);
-                }
-                else {
-                    timerView.setVisibility(View.VISIBLE);
-                    commentButton.setVisibility(View.GONE);
-                }
             }
         });
         commentButton.setOnClickListener(new OnClickListener() {
