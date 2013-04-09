@@ -9,6 +9,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:textSize="16sp"
+        android:text="@string/EPr_beastMode_hint"/>
+    
     <com.commonsware.cwac.tlv.TouchListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tlv="http://schemas.android.com/apk/res/com.timsu.astrid"
@@ -27,8 +34,7 @@
     <Button
         android:id="@+id/reset"
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
-        android:text="@string/EPr_beastMode_reset"
-        android:layout_weight="1"/>
+        android:layout_height="50dip"
+        android:text="@string/EPr_beastMode_reset"/>
     
 </LinearLayout>

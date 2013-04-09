@@ -693,6 +693,8 @@
   <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Reset to defaults</string>
+  
+  <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
