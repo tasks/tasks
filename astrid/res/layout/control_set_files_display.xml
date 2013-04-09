@@ -29,8 +29,6 @@
 	         android:layout_height="wrap_content"
 		     android:layout_weight="1"
 	         android:gravity="left"
-	         android:paddingTop="5dip"
-	         android:paddingBottom="5dip"
 	         android:orientation="vertical"/>
       </LinearLayout>
       <View

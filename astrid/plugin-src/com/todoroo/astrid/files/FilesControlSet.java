@@ -76,9 +76,9 @@ public class FilesControlSet extends PopupControlSet {
     protected void refreshDisplayView() {
         fileDisplayList.removeAllViews();
         if (files != null && files.size() > 0) {
-            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_edit, R.drawable.tea_icn_edit_lightblue));
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_files, R.drawable.tea_icn_files_lightblue));
         } else {
-            image.setImageResource(R.drawable.tea_icn_edit_gray);
+            image.setImageResource(R.drawable.tea_icn_files_gray);
         }
         for (final TaskAttachment m : files) {
             View fileRow = inflater.inflate(R.layout.file_display_row, null);

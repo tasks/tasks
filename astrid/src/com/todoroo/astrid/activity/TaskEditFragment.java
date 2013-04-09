@@ -816,6 +816,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     }
 
+    public void refreshFilesDisplay() {
+        boolean hasAttachments = taskAttachmentDao.taskHasAttachments(model.getUuid());
+        filesControlSet.getDisplayView().setVisibility(hasAttachments ? View.VISIBLE : View.GONE);
+        filesControlSet.readFromTask(model);
+    }
+
     /** Populate UI component values from the model */
     private void populateFields() {
         populateFields(getActivity().getIntent());

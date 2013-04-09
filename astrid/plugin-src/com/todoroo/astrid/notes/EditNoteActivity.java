@@ -455,7 +455,25 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
-        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), callback);
+        ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TaskAttachment>(TaskAttachment.class, null, task.getValue(Task.ATTACHMENTS_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), new SyncMessageCallback() {
+            @Override
+            public void runOnSuccess() {
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TaskEditFragment tef = activity.getTaskEditFragment();
+                            if (tef != null) {
+                                tef.refreshFilesDisplay();
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void runOnErrors(List<JSONArray> errors) {/**/}
+        });
         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
                 task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, callback).execute();
     }
