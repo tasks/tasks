@@ -195,7 +195,6 @@ public class ActFmInvoker {
                 String gcm = Preferences.getStringValue(GCMIntentService.PREF_REGISTRATION);
                 if (!TextUtils.isEmpty(gcm)) {
                     params = AndroidUtilities.addToArray(Object.class, params, "gcm", gcm);
-                    System.err.println("ADDED TOKEN: " + gcm);
                     entity.addPart("gcm", new StringBody(gcm));
                 }
             }
