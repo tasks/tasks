@@ -153,8 +153,10 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                         throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
 
                     Object value = localProperty.accept(visitor, change);
-                    if (!validateValue(localProperty, value))
+                    if (!validateValue(localProperty, value)) {
+                        outstandingDao.delete(change.getId());
                         return null;
+                    }
 
                     if (value == null)
                         changeJson.put("value", JSONObject.NULL);
