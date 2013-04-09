@@ -46,7 +46,10 @@ public class ImportanceControlSet extends TaskEditControlSet {
             if(b.getTag() == i) {
                 b.setTextSize(getTextSize());
                 b.setChecked(true);
-                b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark));
+                int resource = ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark);
+                if (ThemeService.getTheme() == R.style.Theme_White_Alt)
+                    resource = R.drawable.importance_background_selected;
+                b.setBackgroundResource(resource);
             } else {
                 b.setTextSize(getTextSize());
                 b.setChecked(false);
@@ -90,16 +93,12 @@ public class ImportanceControlSet extends TaskEditControlSet {
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        int width = (int) (metrics.widthPixels / metrics.density) - 20;
-        int usedWidth = 0;
-
         for(int i = max; i >= min; i--) {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
 
             int dimension = 38;
             params = new LinearLayout.LayoutParams((int) (metrics.density * dimension), (int) (metrics.density * dimension));
-            usedWidth += dimension;
             button.setLayoutParams(params);
 
             StringBuilder label = new StringBuilder();
