@@ -18,9 +18,10 @@
         android:layout_marginBottom="5dip"
         android:layout_marginLeft="10dip"
         android:paddingRight="5dip"
+        android:paddingLeft="3dip"
         android:layout_weight="1"
         android:textAppearance="@style/TextAppearance.EditRowDisplay"
-        android:gravity="right|center_vertical"/>
+        android:gravity="left|center_vertical"/>
     <TextView
         android:id="@+id/file_type"
         android:minWidth="37dip"

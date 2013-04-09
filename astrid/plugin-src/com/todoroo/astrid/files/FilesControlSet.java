@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,6 +48,7 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
 
@@ -61,22 +61,28 @@ public class FilesControlSet extends PopupControlSet {
     private final LinearLayout fileDisplayList;
     private LinearLayout fileList;
     private final LayoutInflater inflater;
+    private final ImageView image;
 
     public FilesControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
 
         fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
+        image = (ImageView) getDisplayView().findViewById(R.id.display_row_icon);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     protected void refreshDisplayView() {
         fileDisplayList.removeAllViews();
+        if (files != null && files.size() > 0) {
+            image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_edit, R.drawable.tea_icn_edit_lightblue));
+        } else {
+            image.setImageResource(R.drawable.tea_icn_edit_gray);
+        }
         for (final TaskAttachment m : files) {
             View fileRow = inflater.inflate(R.layout.file_display_row, null);
-            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            lp.gravity = Gravity.RIGHT;
+            LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
             setUpFileRow(m, fileRow, fileDisplayList, lp);
         }
     }
@@ -402,6 +408,7 @@ public class FilesControlSet extends PopupControlSet {
 
     private void setUpFileRow(TaskAttachment m, View row, LinearLayout parent, LayoutParams lp) {
         TextView nameView = (TextView) row.findViewById(R.id.file_text);
+        nameView.setTextColor(themeColor);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
         String name = getNameString(m);
         String type = getTypeString(m.getValue(TaskAttachment.NAME));
