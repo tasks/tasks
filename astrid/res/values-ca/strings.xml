@@ -125,7 +125,6 @@
   <string name="ENA_refresh_comments">Actualitza els comentaris</string>
   <string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>
   <string name="TLA_no_items_person">En/na %s no ha\ncompartit cap tasca amb vós</string>
-  <string name="TLA_menu_addons">Complements</string>
   <string name="TLA_menu_sort">Ordenació i subtasques</string>
   <string name="TLA_menu_sync">Sincronitza ara</string>
   <string name="TLA_menu_search">Cerca</string>

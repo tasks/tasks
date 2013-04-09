@@ -33,7 +33,6 @@
   <string name="DLG_loading">กำลังโหลด...</string>
   <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
   <string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
-  <string name="TLA_menu_addons">ส่วนเสริม</string>
   <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   <string name="TLA_custom">ปรับแต่ง</string>
   <string-array name="TLA_filters">

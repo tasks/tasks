@@ -49,7 +49,6 @@
   <string name="DLG_eula_title">Astrid Brukervilkår</string>
   <string name="DLG_loading">Laster ...</string>
   <string name="WID_dateButtonUnset">Klikk for å sette</string>
-  <string name="TLA_menu_addons">Tillegg</string>
   <string name="TLA_menu_sort">Sorter &amp; Skjult</string>
   <string name="TLA_menu_settings">Innstillinger</string>
   <string name="TLA_custom">Egendefinert</string>

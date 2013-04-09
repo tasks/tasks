@@ -602,9 +602,6 @@
   <!-- Task List: Displayed instead of list when no items present in people view (%s-> person\'s name) -->    
   <string name="TLA_no_items_person">%s não tem</string>
   
-  <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Complementos</string>
-  
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
   <string name="TLA_menu_sort">Sort</string>
   

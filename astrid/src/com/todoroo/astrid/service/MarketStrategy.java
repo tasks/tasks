@@ -32,13 +32,6 @@ public abstract class MarketStrategy {
         return true;
     }
 
-    /**
-     * @return true if addons should be shown
-     */
-    public boolean showAddonMenu() {
-        return true;
-    }
-
     public int[] excludedSettings() {
         return null;
     }

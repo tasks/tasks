@@ -93,7 +93,6 @@
   <string name="p_show_menu_friends">p_show_menu_friends</string>
   <string name="p_show_menu_sync">p_show_menu_sync</string>
   <string name="p_show_menu_sort">p_show_menu_sort</string>
-  <string name="p_show_menu_addons">p_show_menu_addons</string>
   
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->

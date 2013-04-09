@@ -124,7 +124,6 @@
   <string name="ENA_refresh_comments">Obnovit komentáře</string>
   <string name="TLA_no_items">Žádné úkoly!</string>
   <string name="TLA_no_items_person">%s s vámi\nnesdílí žádné úkoly</string>
-  <string name="TLA_menu_addons">Doplňky</string>
   <string name="TLA_menu_sort">Třídit &amp; skryté</string>
   <string name="TLA_menu_sync">Sychronizovat</string>
   <string name="TLA_menu_search">Hledat</string>

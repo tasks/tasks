@@ -109,7 +109,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
@@ -141,7 +140,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
 
     // --- menu codes
 
-    public static final int MENU_ADDONS_ID = R.string.TLA_menu_addons;
     protected static final int MENU_SETTINGS_ID = R.string.TLA_menu_settings;
     public static final int MENU_SORT_ID = R.string.TLA_menu_sort;
     protected static final int MENU_SYNC_ID = R.string.TLA_menu_sync;
@@ -518,11 +516,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         if (Preferences.getBoolean(R.string.p_use_filters, true))
             addMenuItem(menu, R.string.FLA_new_filter,
                     ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
-
-        // --- addons
-        if(Constants.MARKET_STRATEGY.showAddonMenu() && Preferences.getBoolean(R.string.p_show_menu_addons, true))
-            addMenuItem(menu, R.string.TLA_menu_addons,
-                ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(
@@ -1300,13 +1293,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
         Activity activity = getActivity();
         switch(id) {
-        case MENU_ADDONS_ID:
-            if (activity != null) {
-                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_ADDONS);
-                intent = new Intent(activity, AddOnActivity.class);
-                startActivityForResult(intent, ACTIVITY_ADDONS);
-                return true;
-            }
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
             if (activity != null) {

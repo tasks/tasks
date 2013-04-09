@@ -118,10 +118,6 @@
 	                android:title="@string/TLA_menu_sort"
 	                android:defaultValue="true"/>
 	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_addons"
-	                android:title="@string/TLA_menu_addons"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
 		            android:key="@string/p_use_filters"
 		            android:title="@string/EPr_use_filters_title"
 		            android:summary="@string/EPr_use_filters_subtitle"

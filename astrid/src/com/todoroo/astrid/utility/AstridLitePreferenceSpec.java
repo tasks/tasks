@@ -110,7 +110,6 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_show_menu_friends, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sync, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sort, true, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_show_menu_addons, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_quickadd_controls, true, ifUnset);
 
@@ -121,7 +120,7 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_use_date_shortcuts, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_save_and_cancel, false, ifUnset);
-        
+
         setPreference(prefs, editor, r, R.string.p_hide_plus_button, ABChooser.readChoiceForTest(ABTests.AB_HIDE_PLUS_BUTTON) > 0, ifUnset);
 
         extras.setExtras(context, prefs, editor, r, ifUnset);

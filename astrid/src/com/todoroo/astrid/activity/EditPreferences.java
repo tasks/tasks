@@ -655,7 +655,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite, StatisticsConstants.PREFS_RESET_LITE));
 
         int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends,
-                R.string.p_show_menu_sync, R.string.p_show_menu_sort, R.string.p_show_menu_addons
+                R.string.p_show_menu_sync, R.string.p_show_menu_sort,
         };
         for (int key : menuPrefs) {
             findPreference(getString(key)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
