@@ -5,6 +5,9 @@
  */
 package com.todoroo.astrid.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,6 +36,7 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.DueDateTimeMigrator;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -280,6 +284,27 @@ public final class UpgradeService {
 
         if (from < V4_6_2) {
             Preferences.setBoolean(R.string.p_show_timer_shortcut, true);
+            try {
+                TodorooCursor<TaskOutstanding> outstandingWithTitle = PluginServices.getTaskOutstandingDao()
+                        .query(Query.select(TaskOutstanding.TASK_ID)
+                                .where(Criterion.and(TaskOutstanding.COLUMN_STRING.eq(Task.TITLE.name),
+                                        Criterion.or(TaskOutstanding.VALUE_STRING.isNotNull(), TaskOutstanding.VALUE_STRING.neq("")))) //$NON-NLS-1$
+                                        .groupBy(TaskOutstanding.TASK_ID));
+                    List<Long> ids = new ArrayList<Long>();
+                    for (outstandingWithTitle.moveToFirst(); !outstandingWithTitle.isAfterLast(); outstandingWithTitle.moveToNext()) {
+                        try {
+                            ids.add(outstandingWithTitle.get(TaskOutstanding.TASK_ID));
+                        } catch (Exception e) {
+                            //
+                        }
+                    }
+
+                    PluginServices.getTaskOutstandingDao().deleteWhere(Criterion.and(TaskOutstanding.TASK_ID.in(ids.toArray(new Long[ids.size()])),
+                            TaskOutstanding.COLUMN_STRING.eq(Task.TITLE.name),
+                            Criterion.or(TaskOutstanding.VALUE_STRING.isNull(), TaskOutstanding.VALUE_STRING.eq("")))); //$NON-NLS-1$
+            } catch (Exception e) {
+                //
+            }
         }
     }
 

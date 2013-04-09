@@ -67,7 +67,6 @@ import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TaskCommentsFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
@@ -835,7 +834,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (isNewTask) {
             taskOutstandingDao.deleteWhere(Criterion.and(TaskOutstanding.TASK_ID.eq(model.getId()),
-                    TaskOutstanding.COLUMN_STRING.eq(NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TASKS, Task.TITLE)),
+                    TaskOutstanding.COLUMN_STRING.eq(Task.TITLE.name),
                     Criterion.or(TaskOutstanding.VALUE_STRING.isNull(), TaskOutstanding.VALUE_STRING.eq("")))); //$NON-NLS-1$
         }
 
