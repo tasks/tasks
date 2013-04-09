@@ -216,30 +216,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
 
-        boolean showTimerShortcut = Preferences.getBoolean(R.string.p_show_timer_shortcut, false);
+        final boolean showTimerShortcut = Preferences.getBoolean(R.string.p_show_timer_shortcut, false);
 
         if (showTimerShortcut) {
-            commentField.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void afterTextChanged(Editable s) {
-                    commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
-                            : View.GONE);
-                    timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
-                            : View.VISIBLE);
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    //
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    //
-                }
-            });
-
             commentField.setOnFocusChangeListener(new OnFocusChangeListener() {
-
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
@@ -254,8 +234,27 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             });
         } else {
             timerView.setVisibility(View.GONE);
-            commentButton.setVisibility(View.VISIBLE);
         }
+
+        commentField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
+                        : View.GONE);
+                if (showTimerShortcut)
+                    timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
+                            : View.VISIBLE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //
+            }
+        });
 
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
