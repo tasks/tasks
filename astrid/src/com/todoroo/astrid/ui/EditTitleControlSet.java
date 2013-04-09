@@ -8,8 +8,10 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.graphics.Paint;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ import android.widget.EditText;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -40,7 +43,6 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     @Autowired
     private TaskService taskService;
 
-
     public EditTitleControlSet(Activity activity, int layout, int editText) {
         super(activity, layout);
         this.editTextId = editText;
@@ -50,6 +52,16 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     @Override
     protected void afterInflate() {
         this.editText = (EditText) getView().findViewById(editTextId);
+        editText.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    AndroidUtilities.hideSoftInputForViews(activity, editText);
+                    return true;
+                }
+                return false;
+            }
+        });
         this.completeBox = (CheckableImageView) getView().findViewById(R.id.completeBox);
     }
 

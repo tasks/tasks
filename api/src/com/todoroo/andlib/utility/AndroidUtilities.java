@@ -134,6 +134,7 @@ public class AndroidUtilities {
                 bitmap = BitmapFactory.decodeFile(file, opts);
             } catch (OutOfMemoryError e) {
                 // Too big
+                Log.e("decode-bitmap", "Out of memory with sample size " + opts.inSampleSize, e);  //$NON-NLS-1$//$NON-NLS-2$
             }
             tries++;
         }
