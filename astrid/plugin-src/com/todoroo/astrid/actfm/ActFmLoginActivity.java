@@ -41,6 +41,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.facebook.Request;
@@ -844,6 +845,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                 result.optString("email"));
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE,
                 result.optString("picture"));
+
+        if (!result.optBoolean("new"))
+            Toast.makeText(this, R.string.actfm_ALA_user_exists_sync_alert, Toast.LENGTH_LONG).show();
 
         ActFmPreferenceService.reloadThisUser();
 

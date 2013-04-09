@@ -282,6 +282,9 @@
   <!-- Password reset sent (%s -> email) -->
   <string name="actfm_ALA_reset_sent">Password reset sent to %s</string>
   
+  <!-- User already exists - first sync may be slow -->
+  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
+  
   <!-- User not found -->
   <string name="actfm_ALA_error_user_not_found">User not found by that email. Try signing up instead!</string>
   
