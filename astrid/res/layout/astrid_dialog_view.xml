@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="5dip">
+        
+        <TextView 
+            android:id="@+id/dialog_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/dismiss"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_close"/>
+    
+    </LinearLayout>
+    
+    <include layout="@layout/astrid_speech_bubble"/>
+    
+    <Button
+        android:id="@+id/button0"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:background="?attr/asThemeTextColor"/>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:background="?attr/asThemeTextColor"/>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:background="?attr/asThemeTextColor"/>
+
+</LinearLayout>
