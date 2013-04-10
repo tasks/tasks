@@ -109,6 +109,10 @@ public final class TagData extends RemoteModel {
     public static final IntegerProperty IS_UNREAD = new IntegerProperty(
             TABLE, "isUnread");
 
+    /** Whether tag is a folder */
+    public static final IntegerProperty IS_FOLDER = new IntegerProperty(
+            TABLE, "isFolder", Property.PROP_FLAG_BOOLEAN);
+
     /** Task count */
     public static final IntegerProperty TASK_COUNT = new IntegerProperty(
             TABLE, "taskCount");
@@ -196,6 +200,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(METADATA_PUSHED_AT.name, 0L);
         defaultValues.put(USER_ACTIVITIES_PUSHED_AT.name, 0L);
         defaultValues.put(TAG_ORDERING.name, "[]");
+        defaultValues.put(IS_FOLDER.name, 0);
     }
 
     @Override

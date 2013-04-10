@@ -183,6 +183,7 @@ public class NameMaps {
         putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
         putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  true);
         putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);
+        putTagPropertyToServerName(TagData.IS_FOLDER,       "is_folder",    false);
 
         // Reverse the mapping to construct the server to local map
         TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);

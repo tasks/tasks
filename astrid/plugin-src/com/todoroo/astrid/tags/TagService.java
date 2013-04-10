@@ -397,15 +397,15 @@ public final class TagService {
      */
     public ArrayList<Tag> getTagList() {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.and(TagData.DELETION_DATE.eq(0), TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.and(TagData.DELETION_DATE.eq(0), TagData.IS_FOLDER.neq(1), TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
         try {
             TagData tagData = new TagData();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 tagData.readFromCursor(cursor);
-                Tag tag = new Tag(tagData);
                 if(tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
                     continue;
                 }
+                Tag tag = new Tag(tagData);
                 if(TextUtils.isEmpty(tag.tag))
                     continue;
                 tagList.add(tag);
