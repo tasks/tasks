@@ -44,6 +44,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -62,6 +63,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.CommentsActivity;
@@ -107,6 +109,7 @@ import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
+import com.todoroo.astrid.ui.FeedbackPromptDialogs;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
@@ -125,6 +128,9 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         OnSortSelectedListener {
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
+
+    private static final String PREF_LAST_FEEDBACK_TIME = "pref_last_feedback_time"; //$NON-NLS-1$
+    private static final long FEEDBACK_TIME_INTERVAL = DateUtilities.ONE_WEEK * 12;
 
     // --- activities
 
@@ -705,6 +711,56 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         refreshFilterCount();
 
         initiateAutomaticSync();
+
+        showFeedbackPrompt();
+    }
+
+    private void showFeedbackPrompt() {
+        if (!(this instanceof TagViewFragment) &&
+                (DateUtilities.now() - Preferences.getLong(PREF_LAST_FEEDBACK_TIME, 0)) > FEEDBACK_TIME_INTERVAL &&
+                taskService.getUserActivationStatus()) {
+            final FrameLayout root = (FrameLayout) getView();
+            final View feedbackPrompt = getActivity().getLayoutInflater().inflate(R.layout.feedback_prompt, root, false);
+
+            feedbackPrompt.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        root.removeView(feedbackPrompt);
+                    } catch (Exception e) {
+                        //
+                    }
+                }
+            });
+
+            feedbackPrompt.findViewById(R.id.positiveFeedback).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        root.removeView(feedbackPrompt);
+                        FeedbackPromptDialogs.showFeedbackDialog((AstridActivity) getActivity(), true);
+//                        Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            feedbackPrompt.findViewById(R.id.negativeFeedback).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        root.removeView(feedbackPrompt);
+                        FeedbackPromptDialogs.showFeedbackDialog((AstridActivity) getActivity(), false);
+//                        Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            root.addView(feedbackPrompt);
+        }
     }
 
     protected boolean isCurrentTaskListFragment() {

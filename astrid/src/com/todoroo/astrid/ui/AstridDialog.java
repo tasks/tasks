@@ -20,7 +20,7 @@ public class AstridDialog extends Dialog {
         super(activity, R.style.ReminderDialog);
         setContentView(forcePortrait ? R.layout.astrid_dialog_view_portrait : R.layout.astrid_dialog_view);
 
-        buttons = new Button[2];
+        buttons = new Button[3];
         buttons[0] = (Button) findViewById(R.id.button0);
         buttons[1] = (Button) findViewById(R.id.button1);
         buttons[2] = (Button) findViewById(R.id.button2);

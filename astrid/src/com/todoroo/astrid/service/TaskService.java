@@ -327,12 +327,12 @@ public class TaskService {
         if (Preferences.getBoolean(PREF_USER_ACTVATED, false))
             return true;
 
-        TodorooCursor<Task> all = query(Query.select(Task.ID));
+        TodorooCursor<Task> all = query(Query.select(Task.ID).limit(TOTAL_TASKS_FOR_ACTIVATION));
         try {
             if (all.getCount() < TOTAL_TASKS_FOR_ACTIVATION)
                 return false;
 
-            TodorooCursor<Task> completed = query(Query.select(Task.ID).where(TaskCriteria.completed()));
+            TodorooCursor<Task> completed = query(Query.select(Task.ID).where(TaskCriteria.completed()).limit(COMPLETED_TASKS_FOR_ACTIVATION));
             try {
                 if (completed.getCount() < COMPLETED_TASKS_FOR_ACTIVATION)
                     return false;
