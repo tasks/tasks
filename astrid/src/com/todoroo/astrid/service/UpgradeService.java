@@ -25,6 +25,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.actfm.sync.EmptyTitleOutstandingEntryMigration;
+import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -45,6 +46,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_6_3 = 304;
     public static final int V4_6_2 = 303;
     public static final int V4_6_1 = 302;
     public static final int V4_6_0 = 301;
@@ -285,6 +287,11 @@ public final class UpgradeService {
 
         if (from < V4_6_2) {
             Preferences.setBoolean(R.string.p_show_timer_shortcut, true);
+        }
+
+        if (from < V4_6_3) {
+            if (ActFmPreferenceService.isPremiumUser())
+                Preferences.clear(NameMaps.PUSHED_AT_TAGS);
         }
     }
 
