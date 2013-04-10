@@ -6,6 +6,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -35,8 +36,12 @@ public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, 
     }
 
     public void execute() {
+        execute(Criterion.all);
+    }
+
+    public void execute(Criterion criterion) {
         Property<?>[] syncableProperties = NameMaps.syncableProperties(table);
-        TodorooCursor<TYPE> items = dao.query(Query.select(AndroidUtilities.addToArray(Property.class, syncableProperties, AbstractModel.ID_PROPERTY, RemoteModel.UUID_PROPERTY)));
+        TodorooCursor<TYPE> items = dao.query(Query.select(AndroidUtilities.addToArray(Property.class, syncableProperties, AbstractModel.ID_PROPERTY, RemoteModel.UUID_PROPERTY)).where(criterion));
         try {
             OE oe = outstandingDao.getModelClass().newInstance();
             for (items.moveToFirst(); !items.isAfterLast(); items.moveToNext()) {
