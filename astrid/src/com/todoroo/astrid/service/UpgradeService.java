@@ -307,7 +307,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if (from >= V4_6_0 && from < V4_6_2) {
-            newVersionString(changeLog, "4.6.2 (4/09/13)", new String[] {
+            newVersionString(changeLog, "4.6.2 (4/10/13)", new String[] {
                 "Fixed a bug that could prevent certain tasks from syncing correctly",
                 "UI improvements"
             });
