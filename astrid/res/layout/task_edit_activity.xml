@@ -56,10 +56,7 @@
 		            android:layout_below="@id/wom_message"
 		            android:layout_marginRight="10dip"
 		            android:layout_alignLeft="@id/wom_message"
-		            android:paddingLeft="3dip"
-		            android:paddingRight="3dip"
-		            android:paddingTop="1dip"
-		            android:paddingBottom="1dip"
+		            android:padding="6dip"
 		            android:textColor="@android:color/white"
 		            android:text="@string/wom_acknowledge"/>
 		        
@@ -70,10 +67,7 @@
 		            android:layout_marginRight="5dip"
 		            android:layout_toRightOf="@id/wom_acknowledge"
 		            android:layout_below="@id/wom_message"
-		            android:paddingLeft="3dip"
-		            android:paddingRight="3dip"
-		            android:paddingTop="1dip"
-		            android:paddingBottom="1dip"
+		            android:padding="6dip"
 		            android:textColor="@android:color/white"
 		            android:text="@string/wom_dismiss"/>
 		        
