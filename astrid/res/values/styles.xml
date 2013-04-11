@@ -30,6 +30,7 @@
         <item name="asEditTextBackground">@null</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
+        <item name="asWomEditRowBackground">@drawable/wom_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
         <item name="asMainMenu">@drawable/menu_button_blue</item>
         <item name="asPeopleMenu">@drawable/people_menu_button_blue</item>
@@ -79,6 +80,7 @@
         <item name="asQuickaddBackgroundColor">#22000000</item>
         <item name="asEditBackground">#33272327</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_black</item>
+        <item name="asWomEditRowBackground">@drawable/task_edit_background_transparent_black</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
          
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -89,7 +91,7 @@
         
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@android:color/white</item>
-        <item name="asEditBackground">#dddddd</item>
+        <item name="asEditBackground">#e5e5e5</item>
         <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#000000</item>
         <item name="asTextColorInverse">#ffffff</item>
@@ -104,6 +106,7 @@
         <item name="asCommentButtonImg">@drawable/comment_red</item>
         <item name="asFilledCommentButtonImg">@drawable/comment_red_filled</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
+        <item name="asWomEditRowBackground">@drawable/wom_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
         <item name="asMainMenu">@drawable/menu_button_red</item>
         <item name="asPeopleMenu">@drawable/people_menu_button_red</item>
@@ -190,6 +193,7 @@
         <item name="asQuickaddBackgroundColor">#22000000</item>
         <item name="asEditBackground">#33272327</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_black</item>
+        <item name="asWomEditRowBackground">@drawable/task_edit_background_transparent_black</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle.White.Blue.Transparent</item> 
         <item name="actionBarStyle">@style/AstridActionBarStyle.White.Blue.Transparent</item> 

@@ -5,7 +5,6 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:id="@+id/taskEditParent"
     style="@style/Content"
     android:layout_width="fill_parent"
@@ -33,8 +32,8 @@
                 android:layout_margin="3dip"
 		        android:layout_marginBottom="10dip"
 		        android:padding="10dip"
-		        android:visibility="visible"
-		        style="@style/EditRow">
+		        android:visibility="gone"
+		        android:background="?attr/asWomEditRowBackground">
 		        <ImageView 
 		            android:id="@+id/wom_icon"
 	                android:layout_marginRight="10dip"
@@ -47,6 +46,7 @@
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_marginBottom="10dip"
+		            android:textStyle="bold"
 		            android:layout_toRightOf="@id/wom_icon"/>
 		        
 		        <TextView 

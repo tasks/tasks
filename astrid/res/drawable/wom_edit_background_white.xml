@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Bottom 2dp Shadow -->
+    <item>
+        <shape android:shape="rectangle" >
+            <solid
+                android:color="#aaa"/>
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+    <item android:bottom="2px" android:right="1px" android:top="1px" android:left="1px">
+        <shape android:shape="rectangle" >
+            <solid android:color="#ddd" />
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+
+</layer-list>

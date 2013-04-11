@@ -10,6 +10,7 @@
   <attr name="asContentBackground" format="color"/>
   <attr name="asEditBackground" format="color"/>
   <attr name="asEditRowBackground" format="reference"/>
+  <attr name="asWomEditRowBackground" format="reference"/>
   <attr name="asEditTabBackground" format="reference"/>
   <attr name="asHeaderBackground" format="reference"/>
   <attr name="asHeaderButtonBackground" format="reference"/>

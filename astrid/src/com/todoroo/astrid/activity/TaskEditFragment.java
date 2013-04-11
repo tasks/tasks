@@ -821,9 +821,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
                 TextView womText = (TextView) waitingOnMe.findViewById(R.id.wom_message);
                 womText.setText(getWomText(wom));
+                womText.setTextColor(getResources().getColor(ThemeService.getTaskEditThemeColor()));
 
                 ImageView womIcon = (ImageView) waitingOnMe.findViewById(R.id.wom_icon);
-                womIcon.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_edit, R.drawable.tea_icn_edit_lightblue));
+                womIcon.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_waiting, R.drawable.tea_icn_waiting_lightblue));
             }
         }
     }
