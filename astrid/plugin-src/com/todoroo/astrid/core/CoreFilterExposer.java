@@ -89,7 +89,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                                 null);
         int themeFlags = ThemeService.getFilterThemeFlags();
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.waiting_on_me, themeFlags))).getBitmap();
+                ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
         return inbox;
     }
 
@@ -118,7 +118,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
          waitingOnMe.customTaskList = new ComponentName(ContextManager.getContext(), WaitingOnMeFragment.class);
          int themeFlags = ThemeService.getFilterThemeFlags();
          waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(
-                 ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
+                 ThemeService.getDrawable(R.drawable.waiting_on_me, themeFlags))).getBitmap();
          return waitingOnMe;
 
     }
