@@ -30,6 +30,7 @@
 		        android:id="@+id/waiting_on_me"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
+                android:layout_margin="3dip"
 		        android:layout_marginBottom="10dip"
 		        android:padding="10dip"
 		        android:visibility="visible"
