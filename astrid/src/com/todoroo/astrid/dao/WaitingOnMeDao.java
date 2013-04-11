@@ -26,7 +26,10 @@ public class WaitingOnMeDao extends RemoteModelDao<WaitingOnMe> {
 
     public WaitingOnMe findByTask(String taskUuid) {
         TodorooCursor<WaitingOnMe> cursor = query(Query.select(WaitingOnMe.PROPERTIES).where(
-                Criterion.and(WaitingOnMe.TASK_UUID.eq(taskUuid), WaitingOnMe.ACKNOWLEDGED.eq(0), WaitingOnMe.DELETED_AT.eq(0))));
+                Criterion.and(WaitingOnMe.TASK_UUID.eq(taskUuid),
+                        Criterion.or(WaitingOnMe.ACKNOWLEDGED.eq(0), WaitingOnMe.ACKNOWLEDGED.isNull()),
+                        Criterion.or(WaitingOnMe.DELETED_AT.eq(0), WaitingOnMe.DELETED_AT.isNull()))));
+        cursor.moveToFirst();
         return returnFetchResult(cursor);
     }
 }

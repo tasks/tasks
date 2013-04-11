@@ -28,7 +28,7 @@
         
         <TextView 
             android:id="@+id/wom_dismiss"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="20dip" 
             android:textColor="@android:color/white"
             android:background="#707070"
@@ -36,7 +36,7 @@
         
         <TextView 
             android:id="@+id/wom_acknowledge"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="20dip" 
             android:textColor="@android:color/white"
             android:background="?attr/asThemeTextColor"
