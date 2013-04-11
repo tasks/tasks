@@ -944,7 +944,7 @@
   
   <!-- ======================================================== Waiting on me -->
 
-  <string name="wom_commented">%s made a comment</string>
+  <string name="wom_commented">%s commented on your task</string>
   <string name="wom_mentioned">%s mentioned you</string>
   <string name="wom_assigned">%s assigned this to you</string>
   <string name="wom_raised_pri">%s raised the priority</string>
