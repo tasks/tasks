@@ -16,6 +16,7 @@
         android:id="@+id/waiting_on_me"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
+        android:padding="5dip"
         android:gravity="center_vertical"
         android:visibility="gone"
         android:background="?attr/asMembersHeaderBackground">
@@ -23,13 +24,13 @@
             android:id="@+id/wom_message"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
             android:layout_weight="1"/>
         
         <TextView 
             android:id="@+id/wom_dismiss"
             android:layout_width="wrap_content"
-            android:layout_height="20dip" 
+            android:layout_height="fill_parent" 
+            android:layout_marginRight="5dip"
             android:textColor="@android:color/white"
             android:background="#707070"
             android:text="@string/wom_dismiss"/>
@@ -37,7 +38,7 @@
         <TextView 
             android:id="@+id/wom_acknowledge"
             android:layout_width="wrap_content"
-            android:layout_height="20dip" 
+            android:layout_height="fill_parent" 
             android:textColor="@android:color/white"
             android:background="?attr/asThemeTextColor"
             android:text="@string/wom_acknowledge"/>
