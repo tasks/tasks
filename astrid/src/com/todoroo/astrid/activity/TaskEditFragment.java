@@ -43,6 +43,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -820,6 +821,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
                 TextView womText = (TextView) waitingOnMe.findViewById(R.id.wom_message);
                 womText.setText(getWomText(wom));
+
+                ImageView womIcon = (ImageView) waitingOnMe.findViewById(R.id.wom_icon);
+                womIcon.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_edit, R.drawable.tea_icn_edit_lightblue));
             }
         }
     }

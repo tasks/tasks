@@ -68,7 +68,8 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
             filters.add(getTodayFilter(r));
 
         if (Preferences.getBoolean(R.string.p_show_waiting_on_me_filter, true) &&
-                PluginServices.getWaitingOnMeDao().count(Query.select(WaitingOnMe.ID).where(Criterion.and(WaitingOnMe.DELETED_AT.eq(0), WaitingOnMe.READ_AT.eq(0), WaitingOnMe.ACKNOWLEDGED.neq(1)))) > 0)
+                PluginServices.getWaitingOnMeDao().count(Query.select(WaitingOnMe.ID).where(Criterion.and(WaitingOnMe.DELETED_AT.eq(0),
+                        Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.neq(1))))) > 0)
             filters.add(getWaitingOnMeFilter(r));
 
         // transmit filter list
@@ -113,8 +114,9 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
     public static Filter getWaitingOnMeFilter(Resources r) {
          FilterWithCustomIntent waitingOnMe = new FilterWithCustomIntent(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
                  new QueryTemplate().join(Join.inner(WaitingOnMe.TABLE, Task.UUID.eq(WaitingOnMe.TASK_UUID))).where(
-                         Criterion.and(TaskCriteria.activeVisibleMine(),
-                                 WaitingOnMe.DELETED_AT.eq(0), Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.eq(0)))).groupBy(Task.UUID), null);
+                         Criterion.and(WaitingOnMe.DELETED_AT.eq(0),
+                                 Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.neq(1))))
+                                 .groupBy(Task.UUID), null);
          waitingOnMe.customTaskList = new ComponentName(ContextManager.getContext(), WaitingOnMeFragment.class);
          int themeFlags = ThemeService.getFilterThemeFlags();
          waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(

@@ -729,7 +729,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
                         try {
                             root.removeView(feedbackPrompt);
                             FeedbackPromptDialogs.showFeedbackDialog((AstridActivity) getActivity(), true);
-                            //                        Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
+                            Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -742,7 +742,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
                         try {
                             root.removeView(feedbackPrompt);
                             FeedbackPromptDialogs.showFeedbackDialog((AstridActivity) getActivity(), false);
-                            //                        Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
+                            Preferences.setLong(PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
