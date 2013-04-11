@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/feedback_banner"
     android:layout_width="match_parent"
     android:layout_height="43dip"
     android:gravity="center_vertical"
-    android:background="@android:color/darker_gray"
+    android:background="?attr/asThemeTextColor"
     android:orientation="horizontal" >
     
     <TextView
@@ -13,9 +14,9 @@
 	    android:gravity="center_vertical"
 	    style="@style/TextAppearance"
 	    android:textStyle="bold"
-	    android:textColor="#333333"
+	    android:textColor="?attr/asTextColorInverse"
 	    android:layout_weight="1"
-	    android:text="How is Astrid doing?"/>
+	    android:text="@string/feedback_banner_text"/>
     
     <TextView
         android:id="@+id/positiveFeedback"
@@ -34,14 +35,5 @@
         android:layout_marginRight="10dip"
         android:background="#00ff00"
         android:text="-"/>
-    
-    <ImageView
-        android:id="@+id/dismiss"
-        android:layout_width="25dip"
-        android:layout_height="25dip"
-        android:layout_marginRight="10dip"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_menu_close"/>
-    
 
 </LinearLayout>
