@@ -30,7 +30,7 @@
         <item name="asEditTextBackground">@null</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
-        <item name="asWomEditRowBackground">@drawable/wom_edit_background</item>
+        <item name="asWomEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
         <item name="asMainMenu">@drawable/menu_button_blue</item>
         <item name="asPeopleMenu">@drawable/people_menu_button_blue</item>

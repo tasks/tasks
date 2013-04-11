@@ -21,6 +21,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -800,7 +802,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (wom != null) {
                 final View waitingOnMe = getView().findViewById(R.id.waiting_on_me);
                 waitingOnMe.setVisibility(View.VISIBLE);
-                waitingOnMe.findViewById(R.id.wom_dismiss).setOnClickListener(new OnClickListener() {
+
+                int themeColor = getResources().getColor(ThemeService.getTaskEditThemeColor());
+
+                TextView dismiss = (TextView) waitingOnMe.findViewById(R.id.wom_dismiss);
+                dismiss.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         WaitingOnMe template = new WaitingOnMe();
@@ -809,7 +815,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                         waitingOnMe.setVisibility(View.GONE);
                     }
                 });
-                waitingOnMe.findViewById(R.id.wom_acknowledge).setOnClickListener(new OnClickListener() {
+                dismiss.setTextColor(getResources().getColor(R.color.task_edit_deadline_gray));
+                GradientDrawable gd = new GradientDrawable();
+                gd.setColor(ThemeService.getDarkVsLight(Color.rgb(0xee, 0xee, 0xee), Color.rgb(0x22, 0x22, 0x22), false));
+                gd.setCornerRadius(4.0f);
+                dismiss.setBackgroundDrawable(gd);
+
+                TextView ack = (TextView) waitingOnMe.findViewById(R.id.wom_acknowledge);
+                ack.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         WaitingOnMe template = new WaitingOnMe();
@@ -818,10 +831,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                         waitingOnMe.setVisibility(View.GONE);
                     }
                 });
+                ack.setTextColor(themeColor);
+                gd = new GradientDrawable();
+                gd.setColor(ThemeService.getDarkVsLight(Color.WHITE, Color.rgb(0x22, 0x22, 0x22), false));
+                gd.setCornerRadius(4.0f);
+                ack.setBackgroundDrawable(gd);
 
                 TextView womText = (TextView) waitingOnMe.findViewById(R.id.wom_message);
                 womText.setText(getWomText(wom));
-                womText.setTextColor(getResources().getColor(ThemeService.getTaskEditThemeColor()));
+                womText.setTextColor(themeColor);
 
                 ImageView womIcon = (ImageView) waitingOnMe.findViewById(R.id.wom_icon);
                 womIcon.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_waiting, R.drawable.tea_icn_waiting_lightblue));

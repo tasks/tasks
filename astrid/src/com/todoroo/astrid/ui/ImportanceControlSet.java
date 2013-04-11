@@ -46,10 +46,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
             if(b.getTag() == i) {
                 b.setTextSize(getTextSize());
                 b.setChecked(true);
-                int resource = ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark);
-                if (ThemeService.getTheme() == R.style.Theme_White_Alt)
-                    resource = R.drawable.importance_background_selected;
-                b.setBackgroundResource(resource);
+                b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark, false));
             } else {
                 b.setTextSize(getTextSize());
                 b.setChecked(false);
