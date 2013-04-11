@@ -18,22 +18,22 @@
 	    android:layout_weight="1"
 	    android:text="@string/feedback_banner_text"/>
     
-    <TextView
+    <ImageView
         android:id="@+id/positiveFeedback"
         android:layout_width="25dip"
         android:layout_height="25dip"
         android:gravity="center"
+        android:scaleType="fitCenter"
         android:layout_marginRight="10dip"
-        android:background="#ff0000"
-        android:text="+"/>
+        android:src="@drawable/icn_thumbsup"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/negativeFeedback"
         android:layout_width="25dip"
         android:layout_height="25dip"
         android:gravity="center"
+        android:scaleType="fitCenter"
         android:layout_marginRight="10dip"
-        android:background="#00ff00"
-        android:text="-"/>
+        android:src="@drawable/icn_thumbsdown"/>
 
 </LinearLayout>
