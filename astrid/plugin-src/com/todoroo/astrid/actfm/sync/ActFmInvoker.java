@@ -193,6 +193,7 @@ public class ActFmInvoker {
 
             if (changesHappened) {
                 String gcm = Preferences.getStringValue(GCMIntentService.PREF_REGISTRATION);
+                ActFmSyncThread.syncLog("Sending GCM token: " + gcm);
                 if (!TextUtils.isEmpty(gcm)) {
                     params = AndroidUtilities.addToArray(Object.class, params, "gcm", gcm);
                     entity.addPart("gcm", new StringBody(gcm));
