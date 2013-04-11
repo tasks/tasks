@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -192,6 +193,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 //
             }
         });
+        commentButton.setVisibility(TextUtils.isEmpty(addCommentField.getText()) ? View.GONE : View.VISIBLE);
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
