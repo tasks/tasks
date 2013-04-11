@@ -12,6 +12,37 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <LinearLayout 
+        android:id="@+id/waiting_on_me"
+        android:layout_width="fill_parent"
+        android:layout_height="43dip"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:background="?attr/asMembersHeaderBackground">
+        <TextView 
+            android:id="@+id/wom_message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"/>
+        
+        <TextView 
+            android:id="@+id/wom_dismiss"
+            android:layout_width="fill_parent"
+            android:layout_height="20dip" 
+            android:textColor="@android:color/white"
+            android:background="#707070"
+            android:text="@string/wom_dismiss"/>
+        
+        <TextView 
+            android:id="@+id/wom_acknowledge"
+            android:layout_width="fill_parent"
+            android:layout_height="20dip" 
+            android:textColor="@android:color/white"
+            android:background="?attr/asThemeTextColor"
+            android:text="@string/wom_acknowledge"/>
+    </LinearLayout>
+    
     <com.todoroo.astrid.ui.NestableScrollView
         android:id="@+id/edit_scroll"
         style="@style/Content_EditScroll"

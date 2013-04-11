@@ -114,7 +114,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
          FilterWithCustomIntent waitingOnMe = new FilterWithCustomIntent(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
                  new QueryTemplate().join(Join.inner(WaitingOnMe.TABLE, Task.UUID.eq(WaitingOnMe.TASK_UUID))).where(
                          Criterion.and(TaskCriteria.activeVisibleMine(),
-                                 WaitingOnMe.DELETED_AT.eq(0))), null);
+                                 WaitingOnMe.DELETED_AT.eq(0), WaitingOnMe.ACKNOWLEDGED.eq(0))).groupBy(Task.UUID), null);
          waitingOnMe.customTaskList = new ComponentName(ContextManager.getContext(), WaitingOnMeFragment.class);
          int themeFlags = ThemeService.getFilterThemeFlags();
          waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(
