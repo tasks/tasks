@@ -129,7 +129,7 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
-    private static final String PREF_LAST_FEEDBACK_TIME = "pref_last_feedback_time"; //$NON-NLS-1$
+    public static final String PREF_LAST_FEEDBACK_TIME = "pref_last_feedback_time"; //$NON-NLS-1$
     private static final long FEEDBACK_TIME_INTERVAL = DateUtilities.ONE_WEEK * 12;
 
     // --- activities

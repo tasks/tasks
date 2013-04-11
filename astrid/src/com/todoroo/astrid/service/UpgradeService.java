@@ -20,6 +20,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -28,6 +29,7 @@ import com.todoroo.astrid.actfm.sync.EmptyTitleOutstandingEntryMigration;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SavedFilter;
@@ -292,6 +294,7 @@ public final class UpgradeService {
         if (from < V4_6_3) {
             if (ActFmPreferenceService.isPremiumUser())
                 Preferences.clear(NameMaps.PUSHED_AT_TAGS);
+            Preferences.setLong(TaskListFragment.PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
         }
     }
 
