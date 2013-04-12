@@ -979,13 +979,15 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 
-  <string name="feedback_negative_title">Rate Astrid?</string>
+  <string name="feedback_negative_title">Leave feedback?</string>
 
   <string name="feedback_negative_body">Sorry to hear that we\'re having issues</string>
 
   <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
   
-  <string name="feedback_button">Rate Astrid</string>
+  <string name="feedback_positive_button">Rate Astrid</string>
+
+  <string name="feedback_negative_button">Leave feedback</string>
   
   <string name="feedback_not_now">Not now</string>
   
