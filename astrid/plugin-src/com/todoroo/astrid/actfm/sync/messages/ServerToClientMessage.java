@@ -21,6 +21,7 @@ public abstract class ServerToClientMessage {
     public static final String TYPE_ACKNOWLEDGE_CHANGE = "AcknowledgeChange";
     public static final String TYPE_USER_DATA = "UserData";
     public static final String TYPE_DOUBLE_CHECK = "DoubleCheck";
+    public static final String TYPE_USER_MIGRATED = "UserMigrated";
     public static final String TYPE_DEBUG = "Debug";
 
     protected final JSONObject json;
@@ -39,8 +40,10 @@ public abstract class ServerToClientMessage {
             return new AcknowledgeChange(json);
         else if (TYPE_USER_DATA.equals(type))
             return new UserData(json);
-        else if (TYPE_DOUBLE_CHECK.equals(json))
+        else if (TYPE_DOUBLE_CHECK.equals(type))
             return new DoubleCheck(json);
+        else if (TYPE_USER_MIGRATED.equals(type))
+            return new UserMigrated(json);
         else if (TYPE_DEBUG.equals(type))
             return new Debug(json);
 

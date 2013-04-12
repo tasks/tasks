@@ -19,7 +19,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.messages.ConvertSelfUserIdsToZero;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.RemoteModelDao;
@@ -122,16 +121,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         try {
             JSONObject status = actFmSyncService.invoke("user_status"); //$NON-NLS-1$
-            long oldId = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, -1);
-            if (status.has("id")) {
-                long newId = status.optLong("id");
-                Preferences.setLong(ActFmPreferenceService.PREF_USER_ID, newId);
-                if (oldId > 0 && oldId != newId) {
-                    // Migrate all db userIds that = newId to 0
-                    new ConvertSelfUserIdsToZero().execute();
-                    ActFmSyncThread.clearTablePushedAtValues();
-                }
-            }
+            if (status.has("id"))
+                Preferences.setString(ActFmPreferenceService.PREF_USER_ID, Long.toString(status.optLong("id")));
             if (status.has("name"))
                 Preferences.setString(ActFmPreferenceService.PREF_NAME, status.optString("name"));
             if (status.has("first_name"))

@@ -584,9 +584,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                         StatisticsService.reportEvent(StatisticsConstants.ACTFM_NEW_USER, "provider", provider);
                     }
                     // Successful login, create outstanding entries
-                    long lastId = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
+                    String lastId = ActFmPreferenceService.userId(); //Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
 
-                    if (!TextUtils.isEmpty(token) && lastId == 0) {
+                    if (!TextUtils.isEmpty(token) && RemoteModel.isUuidEmpty(lastId)) {
                         constructOutstandingTables();
                     }
                     runOnUiThread(new Runnable() {
@@ -620,11 +620,11 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     @SuppressWarnings("nls")
     private void postAuthenticate(final JSONObject result, final String token) {
-        long lastLoggedInUser = Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
+        String lastLoggedInUser = ActFmPreferenceService.userId();
 
-        if (lastLoggedInUser > 0) {
-            long newUserId = result.optLong("id");
-            if (lastLoggedInUser != newUserId) {
+        if (RemoteModel.isValidUuid(lastLoggedInUser)) {
+            String newUserId = Long.toString(result.optLong("id"));
+            if (!lastLoggedInUser.equals(newUserId)) {
                 // In this case, we need to either make all data private or clear all data
                 // Prompt for choice
                 DialogUtilities.okCancelCustomDialog(this,
@@ -831,8 +831,8 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     private void finishSignIn(JSONObject result, String token, boolean restart) {
         actFmPreferenceService.setToken(token);
 
-        Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
-                result.optLong("id"));
+        Preferences.setString(ActFmPreferenceService.PREF_USER_ID,
+                Long.toString(result.optLong("id")));
         Preferences.setString(ActFmPreferenceService.PREF_NAME,
                 result.optString("name"));
         Preferences.setString(ActFmPreferenceService.PREF_FIRST_NAME,

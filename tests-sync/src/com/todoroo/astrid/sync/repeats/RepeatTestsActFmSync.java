@@ -85,8 +85,8 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     private void postAuthenticate(JSONObject result, String token) {
         actFmPreferenceService.setToken(token);
 
-        Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
-                result.optLong("id"));
+        Preferences.setString(ActFmPreferenceService.PREF_USER_ID,
+                Long.toString(result.optLong("id")));
         Preferences.setString(ActFmPreferenceService.PREF_NAME, result.optString("name"));
         Preferences.setString(ActFmPreferenceService.PREF_EMAIL, result.optString("email"));
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE, result.optString("picture"));

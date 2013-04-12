@@ -14,6 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.RemoteModelDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -68,7 +69,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
      * @return true if the user is now or has ever been logged in
      */
     public boolean wasLoggedIn() {
-        return Preferences.getLong(PREF_USER_ID, 0) > 0;
+        return RemoteModel.isValidUuid(userId());
     }
 
     /**
