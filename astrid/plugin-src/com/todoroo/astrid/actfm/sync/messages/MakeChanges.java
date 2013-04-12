@@ -32,8 +32,10 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -229,6 +231,12 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         public void performChanges() {
             if (!TextUtils.isEmpty(oldUuid) && !oldUuid.equals(uuid)) {
                 uuidChanged(oldUuid, uuid);
+            }
+
+            if (changes.has(NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TASKS, Task.DUE_DATE))) {
+                Task t = PluginServices.getTaskDao().fetch(uuid, Task.PROPERTIES);
+                if (t != null)
+                    ReminderService.getInstance().scheduleAlarm(t);
             }
 
             JSONArray addTags = changes.optJSONArray("tag_added");
