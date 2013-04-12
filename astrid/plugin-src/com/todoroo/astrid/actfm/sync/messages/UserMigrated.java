@@ -17,7 +17,7 @@ public class UserMigrated extends ServerToClientMessage {
         String newUuid = json.optString("new_user_id"); //$NON-NLS-1$
         if (RemoteModel.isValidUuid(newUuid)) {
             Preferences.setString(ActFmPreferenceService.PREF_USER_ID, newUuid);
-            new ConvertSelfUserIdsToZero();
+            new ConvertSelfUserIdsToZero().execute();
         }
     }
 
