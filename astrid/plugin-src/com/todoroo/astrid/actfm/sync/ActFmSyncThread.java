@@ -253,7 +253,7 @@ public class ActFmSyncThread {
                 synchronized(monitor) {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
                         try {
-                            if (pendingMessages.isEmpty() && notificationId >= 0) {
+                            if ((pendingMessages.isEmpty() || !actFmPreferenceService.isLoggedIn()) && notificationId >= 0) {
                                 notificationManager.cancel(notificationId);
                                 notificationId = -1;
                             }
