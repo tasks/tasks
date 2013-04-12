@@ -8,6 +8,7 @@ package com.todoroo.astrid.actfm.sync;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -203,8 +204,15 @@ public class ActFmInvoker {
             String request = createFetchUrl("api/" + API_VERSION, "synchronize", params);
             if (SYNC_DEBUG)
                 Log.e("act-fm-post", request);
+            Charset chars;
+            try {
+                chars = Charset.forName("UTF-8");
+            } catch (Exception e) {
+                chars = null;
+            }
+
             entity.addPart("token", new StringBody(tok));
-            entity.addPart("data", new StringBody(data));
+            entity.addPart("data", new StringBody(data, chars));
             entity.addPart("time", new StringBody(timeString));
 
             String response = restClient.post(request, entity);
