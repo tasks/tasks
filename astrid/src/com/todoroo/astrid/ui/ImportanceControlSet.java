@@ -32,6 +32,8 @@ public class ImportanceControlSet extends TaskEditControlSet {
     private final int[] colors;
     private final List<ImportanceChangedListener> listeners = new LinkedList<ImportanceChangedListener>();
 
+    private static final int TEXT_SIZE = 18;
+
     public interface ImportanceChangedListener {
         public void importanceChanged(int i, int color);
     }
@@ -44,13 +46,10 @@ public class ImportanceControlSet extends TaskEditControlSet {
     public void setImportance(Integer i) {
         for(CompoundButton b : buttons) {
             if(b.getTag() == i) {
-                b.setTextSize(getTextSize());
                 b.setChecked(true);
                 b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark, false));
             } else {
-                b.setTextSize(getTextSize());
                 b.setChecked(false);
-                b.setTextColor(colors[(Integer)b.getTag()]);
                 b.setBackgroundResource(0);
             }
         }
@@ -58,10 +57,6 @@ public class ImportanceControlSet extends TaskEditControlSet {
         for (ImportanceChangedListener l : listeners) {
             l.importanceChanged(i, colors[i]);
         }
-    }
-
-    private int getTextSize() {
-        return 24;
     }
 
     public Integer getImportance() {
@@ -115,6 +110,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
                 }
             });
             button.setTag(i);
+            button.setTextSize(TEXT_SIZE);
 
             buttons.add(button);
 
