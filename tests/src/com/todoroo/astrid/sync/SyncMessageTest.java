@@ -11,7 +11,6 @@ import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
-import com.todoroo.astrid.actfm.sync.messages.UserMigrated;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
@@ -160,7 +159,8 @@ public class SyncMessageTest extends NewSyncTestCase {
 	        fail("JSONException");
 	    }
 
-	    new UserMigrated(userMigrated).processMessage(null);
+	    ServerToClientMessage message = ServerToClientMessage.instantiateMessage(userMigrated);
+	    message.processMessage(null);
 
 	    t = taskDao.fetch(t.getId(), Task.USER_ID);
 	    td = tagDataDao.fetch(td.getId(), TagData.USER_ID);
