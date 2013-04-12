@@ -43,7 +43,7 @@ public final class ReminderService  {
 
     // --- constants
 
-    private static final Property<?>[] PROPERTIES = new Property<?>[] {
+    public static final Property<?>[] NOTIFICATION_PROPERTIES = new Property<?>[] {
         Task.ID,
         Task.CREATION_DATE,
         Task.COMPLETION_DATE,
@@ -124,7 +124,7 @@ public final class ReminderService  {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
-        TodorooCursor<Task> cursor = getTasksWithReminders(PROPERTIES);
+        TodorooCursor<Task> cursor = getTasksWithReminders(NOTIFICATION_PROPERTIES);
         try {
             Task task = new Task();
             now = DateUtilities.now(); // Before mass scheduling, initialize now variable
@@ -178,9 +178,9 @@ public final class ReminderService  {
 
         // read data if necessary
         if(shouldPerformPropertyCheck) {
-            for(Property<?> property : PROPERTIES) {
+            for(Property<?> property : NOTIFICATION_PROPERTIES) {
                 if(!task.containsValue(property)) {
-                    task = taskDao.fetch(task.getId(), PROPERTIES);
+                    task = taskDao.fetch(task.getId(), NOTIFICATION_PROPERTIES);
                     if(task == null)
                         return;
                     break;

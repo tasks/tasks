@@ -234,7 +234,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             }
 
             if (changes.has(NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TASKS, Task.DUE_DATE))) {
-                Task t = PluginServices.getTaskDao().fetch(uuid, Task.PROPERTIES);
+                Task t = PluginServices.getTaskDao().fetch(uuid, ReminderService.NOTIFICATION_PROPERTIES);
                 if (t != null)
                     ReminderService.getInstance().scheduleAlarm(t);
             }
