@@ -40,8 +40,7 @@ public class ConvertSelfUserIdsToZero {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    public synchronized void execute() {
-        String selfId = ActFmPreferenceService.userId();
+    public synchronized void execute(String selfId) {
         if (RemoteModel.isValidUuid(selfId)) {
             updateDatabase(taskDao, new Task(), Task.CREATOR_ID, selfId);
             updateDatabase(taskDao, new Task(), Task.USER_ID, selfId);
@@ -50,6 +49,11 @@ public class ConvertSelfUserIdsToZero {
             updateDatabase(userActivityDao, new UserActivity(), UserActivity.USER_UUID, selfId);
             updateDatabase(waitingOnMeDao, new WaitingOnMe(), WaitingOnMe.WAITING_USER_ID, selfId);
         }
+    }
+
+    public synchronized void execute() {
+        String selfId = ActFmPreferenceService.userId();
+        execute(selfId);
     }
 
     private <T extends AbstractModel> void updateDatabase(DatabaseDao<T> dao, T instance, StringProperty property, String selfId) {

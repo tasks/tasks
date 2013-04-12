@@ -14,10 +14,15 @@ public class UserMigrated extends ServerToClientMessage {
 
     @Override
     public void processMessage(String serverTime) {
+        String oldUuid = json.optString("prev_user_id"); //$NON-NLS-1$
         String newUuid = json.optString("new_user_id"); //$NON-NLS-1$
         if (RemoteModel.isValidUuid(newUuid)) {
             Preferences.setString(ActFmPreferenceService.PREF_USER_ID, newUuid);
             new ConvertSelfUserIdsToZero().execute();
+        }
+
+        if (RemoteModel.isValidUuid(oldUuid)) {
+            new ConvertSelfUserIdsToZero().execute(oldUuid);
         }
     }
 
