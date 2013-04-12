@@ -26,6 +26,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.AstridNewSyncMigrator;
 import com.todoroo.astrid.actfm.sync.EmptyTitleOutstandingEntryMigration;
+import com.todoroo.astrid.actfm.sync.messages.ConvertSelfUserIdsToZero;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
@@ -183,7 +184,7 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
-        int maxWithUpgrade = V4_6_2; // The last version that required a migration
+        int maxWithUpgrade = V4_6_3; // The last version that required a migration
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
@@ -252,6 +253,10 @@ public final class UpgradeService {
 
                             if (from < V4_6_2) {
                                 new EmptyTitleOutstandingEntryMigration().performMigration();
+                            }
+
+                            if (from < V4_6_3) {
+                                new ConvertSelfUserIdsToZero().execute();
                             }
 
                         } finally {
