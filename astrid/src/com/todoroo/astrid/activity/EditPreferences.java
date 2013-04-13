@@ -78,7 +78,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  */
 public class EditPreferences extends TodorooPreferenceActivity {
 
-    private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
+    private static final String SUPPORT_URL = "http://astrid.helpshift.com/a/astrid/?p=android"; //$NON-NLS-1$
 
     private static final int APPEARANCE_PREFERENCE = 4;
 
