@@ -331,6 +331,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.close();
         }
 
+        User self = UpdateAdapter.getSelfUser();
 
         TodorooCursor<UserActivity> updates = taskService.getActivityAndHistoryForTask(task);
         try {
@@ -343,12 +344,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
                 String type = updates.getString(UpdateAdapter.TYPE_PROPERTY_INDEX);
                 NoteOrUpdate noa;
-                UpdateAdapter.readUserProperties(updates, user);
+                boolean isSelf;
                 if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
                     UpdateAdapter.readUserActivityProperties(updates, update);
+                    isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
+                    UpdateAdapter.readUserProperties(updates, user, self, isSelf);
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, update, null, user, linkColor);
                 } else {
                     UpdateAdapter.readHistoryProperties(updates, history);
+                    isSelf = Task.USER_ID_SELF.equals(history.getValue(History.USER_UUID));
+                    UpdateAdapter.readUserProperties(updates, user, self, isSelf);
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
                     historyCount++;
                 }

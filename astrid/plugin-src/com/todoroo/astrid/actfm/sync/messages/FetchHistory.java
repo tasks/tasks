@@ -22,6 +22,7 @@ import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 
 public class FetchHistory<TYPE extends RemoteModel> {
@@ -108,6 +109,10 @@ public class FetchHistory<TYPE extends RemoteModel> {
                                 history.setValue(History.TABLE_ID, table);
                                 history.setValue(History.TARGET_ID, uuid);
                                 history.setValue(History.UUID, historyJson.optString("id") + ":" + uuid);
+
+                                String userId = historyJson.optString("user_id");
+                                if (userId.equals(ActFmPreferenceService.userId()))
+                                    userId = Task.USER_ID_SELF;
                                 history.setValue(History.USER_UUID, historyJson.optString("user_id"));
                                 history.setValue(History.COLUMN, historyJson.optString("column"));
                                 history.setValue(History.OLD_VALUE, historyJson.optString("prev"));

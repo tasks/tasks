@@ -49,6 +49,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -133,6 +134,8 @@ public class UpdateAdapter extends CursorAdapter {
     public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
     public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
 
+    private final User self;
+
     /**
      * Constructor
      *
@@ -161,6 +164,23 @@ public class UpdateAdapter extends CursorAdapter {
 
         this.resource = resource;
         this.fragment = fragment;
+        this.self = getSelfUser();
+    }
+
+    public static User getSelfUser() {
+        User self = new User();
+        readPreferenceToUser(self, USER_FIRST_NAME, ActFmPreferenceService.PREF_FIRST_NAME);
+        readPreferenceToUser(self, USER_LAST_NAME, ActFmPreferenceService.PREF_LAST_NAME);
+        readPreferenceToUser(self, USER_NAME, ActFmPreferenceService.PREF_NAME);
+        readPreferenceToUser(self, USER_PICTURE, ActFmPreferenceService.PREF_PICTURE);
+        return self;
+    }
+
+    private static void readPreferenceToUser(User u, StringProperty prop, String prefKey) {
+        String val = Preferences.getStringValue(prefKey);
+        if (val == null)
+            val = ""; //$NON-NLS-1$
+        u.setValue(prop, val);
     }
 
     public static String getLinkColor(Fragment f) {
@@ -207,12 +227,15 @@ public class UpdateAdapter extends CursorAdapter {
         user.clear();
 
         History history = mh.history;
+        boolean isSelf;
         if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
             readUserActivityProperties(cursor, update);
+            isSelf = Task.USER_ID_SELF.equals(update.getValue(UserActivity.USER_UUID));
         } else {
             readHistoryProperties(cursor, history);
+            isSelf = Task.USER_ID_SELF.equals(history.getValue(History.USER_UUID));
         }
-        readUserProperties(cursor, user);
+        readUserProperties(cursor, user, self, isSelf);
 
         setFieldContentsAndVisibility(view, update, user, history, type);
     }
@@ -239,11 +262,16 @@ public class UpdateAdapter extends CursorAdapter {
         history.setValue(History.USER_UUID, unionCursor.getString(7));
     }
 
-    public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user) {
-        user.setValue(USER_FIRST_NAME, joinCursor.get(USER_FIRST_NAME));
-        user.setValue(USER_LAST_NAME, joinCursor.get(USER_LAST_NAME));
-        user.setValue(USER_NAME, joinCursor.get(USER_NAME));
-        user.setValue(USER_PICTURE, joinCursor.get(USER_PICTURE));
+    public static void readUserProperties(TodorooCursor<UserActivity> joinCursor, User user, User self, boolean isSelf) {
+        if (isSelf) {
+            user.mergeWith(self.getSetValues());
+        } else {
+            user.setValue(USER_FIRST_NAME, joinCursor.get(USER_FIRST_NAME));
+            user.setValue(USER_LAST_NAME, joinCursor.get(USER_LAST_NAME));
+            user.setValue(USER_NAME, joinCursor.get(USER_NAME));
+            user.setValue(USER_PICTURE, joinCursor.get(USER_PICTURE));
+        }
+
     }
 
     /** Helper method to set the contents and visibility of each field */
