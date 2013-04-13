@@ -37,7 +37,7 @@ Getting Started With Development
 
 9. Read the following contributor and debugging workflow and help make Astrid better!
 
-10. Sign a [Contributors License Agreement](https://github.com/downloads/todoroo/astrid/Contributors%20Licensing%20Agreement.pdf) and send it to astrid AT todoroo.com 
+10. Sign a [Contributors License Agreement](https://github.com/downloads/todoroo/astrid/Contributors%20Licensing%20Agreement.pdf) and send it to tim AT astrid.com 
 
 Testing on a device - Debugging
 ---------------
