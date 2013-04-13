@@ -321,6 +321,12 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_6_0 && from < V4_6_3) {
+            newVersionString(changeLog, "4.6.3 (4/15/13)", new String[] {
+                "Fixed a bug that could prevent some foreign language tasks from syncing correctly",
+            });
+        }
+
         if (from >= V4_6_0 && from < V4_6_2) {
             newVersionString(changeLog, "4.6.2 (4/10/13)", new String[] {
                 "Fixed a bug that could prevent certain tasks from syncing correctly",
