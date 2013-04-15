@@ -414,6 +414,7 @@ public final class Task extends RemoteModel {
     public static final int HIDE_UNTIL_WEEK_BEFORE = 3;
     public static final int HIDE_UNTIL_SPECIFIC_DAY = 4;
     public static final int HIDE_UNTIL_SPECIFIC_DAY_TIME = 5;
+    public static final int HIDE_UNTIL_DUE_TIME = 6;
 
     /**
      * Creates due date for this task. If this due date has no time associated,
@@ -487,6 +488,7 @@ public final class Task extends RemoteModel {
         case HIDE_UNTIL_NONE:
             return 0;
         case HIDE_UNTIL_DUE:
+        case HIDE_UNTIL_DUE_TIME:
             date = getValue(DUE_DATE);
             break;
         case HIDE_UNTIL_DAY_BEFORE:
@@ -507,7 +509,7 @@ public final class Task extends RemoteModel {
             return date;
 
         Date hideUntil = new Date(date / 1000L * 1000L); // get rid of millis
-        if(setting != HIDE_UNTIL_SPECIFIC_DAY_TIME) {
+        if(setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && setting != HIDE_UNTIL_DUE_TIME) {
             hideUntil.setHours(0);
             hideUntil.setMinutes(0);
             hideUntil.setSeconds(0);

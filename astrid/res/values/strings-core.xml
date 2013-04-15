@@ -412,6 +412,7 @@
       <!-- hideUntil: labels for edit page. -->
       <item>Never</item>
       <item>Due date</item>
+      <item>Due time</item>
       <item>Day before due</item>
       <item>Week before due</item>
       <item>Specific day/time</item>

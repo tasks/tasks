@@ -86,9 +86,10 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         HideUntilValue[] values = new HideUntilValue[labels.length];
         values[0] = new HideUntilValue(labels[0], Task.HIDE_UNTIL_NONE);
         values[1] = new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE);
-        values[2] = new HideUntilValue(labels[2], Task.HIDE_UNTIL_DAY_BEFORE);
-        values[3] = new HideUntilValue(labels[3], Task.HIDE_UNTIL_WEEK_BEFORE);
-        values[4] = new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1);
+        values[2] = new HideUntilValue(labels[2], Task.HIDE_UNTIL_DUE_TIME);
+        values[3] = new HideUntilValue(labels[3], Task.HIDE_UNTIL_DAY_BEFORE);
+        values[4] = new HideUntilValue(labels[4], Task.HIDE_UNTIL_WEEK_BEFORE);
+        values[5] = new HideUntilValue(labels[5], Task.HIDE_UNTIL_SPECIFIC_DAY, -1);
 
         if(specificDate > 0) {
             HideUntilValue[] updated = new HideUntilValue[values.length + 1];
@@ -238,13 +239,13 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             selection = 0;
             date = 0;
         } else if(date == dueTime) {
-            selection = 1;
+            selection = task.hasDueTime() ? 2 : 1;
             date = 0;
         } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {
-            selection = 2;
+            selection = 3;
             date = 0;
         } else if(date + DateUtilities.ONE_WEEK == dueDay.getTime()) {
-            selection = 3;
+            selection = 4;
             date = 0;
         }
 
