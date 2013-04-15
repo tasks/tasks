@@ -213,6 +213,9 @@ public class GCMIntentService extends GCMBaseIntentService {
             return;
         }
 
+        if (notifyIntent == null)
+            return;
+
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_C2DM);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
@@ -340,12 +343,16 @@ public class GCMIntentService extends GCMBaseIntentService {
                 userActivityDao.createNew(update);
             }
 
-            Intent launchIntent = new Intent(context, TaskListActivity.class);
-            launchIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            filter.customExtras.putBoolean(TagViewFragment.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
-            launchIntent.putExtras(filter.customExtras);
+            if (filter != null) {
+                Intent launchIntent = new Intent(context, TaskListActivity.class);
+                launchIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+                filter.customExtras.putBoolean(TagViewFragment.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
+                launchIntent.putExtras(filter.customExtras);
 
-            return launchIntent;
+                return launchIntent;
+            } else {
+                return null;
+            }
         } finally {
             cursor.close();
         }

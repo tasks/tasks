@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -511,7 +512,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         // title / size
         int countInt = -1;
-        if(filterCounts.containsKey(filter) || filter.listingTitle.matches(".* \\(\\d+\\)$")) { //$NON-NLS-1$
+        if(filterCounts.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
             viewHolder.size.setVisibility(View.VISIBLE);
             String count;
             if (filterCounts.containsKey(filter)) {

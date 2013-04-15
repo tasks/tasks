@@ -158,6 +158,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public EditNoteActivity(Fragment fragment, View parent, long t) {
         super(fragment.getActivity());
+        DependencyInjectionService.getInstance().inject(this);
 
         imageCache = AsyncImageView.getImageCache();
         this.fragment = fragment;
@@ -177,7 +178,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         cameraButton = getDefaultCameraButton();
 
-        DependencyInjectionService.getInstance().inject(this);
         setOrientation(VERTICAL);
 
         commentsBar = parent.findViewById(R.id.updatesFooter);
