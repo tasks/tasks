@@ -137,9 +137,6 @@ public class ABTests {
     }
 
     private void initialize() {
-        addTest(AB_HIDE_PLUS_BUTTON, new int[] { 1, 1 }, new int[] { 1, 0 },
-                new String[] { "plus-button-shown", "plus-button-hidden" }, true); //$NON-NLS-1$ //$NON-NLS-2$
+        //
     }
-
-    public static final String AB_HIDE_PLUS_BUTTON = "android-hide-plus-button"; //$NON-NLS-1$
 }
