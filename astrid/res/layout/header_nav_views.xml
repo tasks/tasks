@@ -25,9 +25,12 @@
 		    android:id="@+id/lists_nav"
 		    android:layout_width="wrap_content"
 		    android:layout_height="match_parent"
-		    android:layout_margin="5dip"
+		    android:layout_marginRight="5dip"
+		    android:layout_marginTop="5dip"
+		    android:layout_marginBottom="5dip"
+		    android:layout_marginLeft="0dip"
 		    android:paddingRight="5dip"
-		    android:paddingLeft="5dip"
+		    android:paddingLeft="4dip"
 		    android:gravity="center_vertical">
 		    
 		    <TextView
