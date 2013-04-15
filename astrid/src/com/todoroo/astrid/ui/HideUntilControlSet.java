@@ -233,13 +233,16 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         dueDay.setSeconds(0);
 
         // For the hide until due case, we need the time component
-        long dueTime = task.hasDueTime() ? task.getValue(Task.DUE_DATE)/1000L*1000L : dueDay.getTime();
+        long dueTime = task.getValue(Task.DUE_DATE)/1000L*1000L;
 
         if(date == 0) {
             selection = 0;
             date = 0;
-        } else if(date == dueTime) {
-            selection = task.hasDueTime() ? 2 : 1;
+        } else if(date == dueDay.getTime()) {
+            selection = 1;
+            date = 0;
+        } else if (date == dueTime){
+            selection = 2;
             date = 0;
         } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {
             selection = 3;
