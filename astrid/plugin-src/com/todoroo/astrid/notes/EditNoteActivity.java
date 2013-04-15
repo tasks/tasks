@@ -30,6 +30,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -118,6 +119,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final String linkColor;
     private int historyCount = 0;
 
+    private final int color;
+    private final int grayColor;
+
     private final SyncMessageCallback callback = new SyncMessageCallback() {
         @Override
         public void runOnSuccess() {
@@ -161,6 +165,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         this.activity = (AstridActivity) fragment.getActivity();
 
         this.resources = fragment.getResources();
+        TypedValue tv = new TypedValue();
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asTextColor, tv, false);
+        color = tv.data;
+
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
+        grayColor = tv.data;
 
 
         linkColor = UpdateAdapter.getLinkColor(fragment);
@@ -437,6 +447,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(item.title);
+            if (NameMaps.TABLE_ID_HISTORY.equals(item.type))
+                nameView.setTextColor(grayColor);
+            else
+                nameView.setTextColor(color);
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 
@@ -531,6 +545,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private static class NoteOrUpdate {
+        private final String type;
         private final String picture;
         private final Spanned title;
         private final String pictureThumb;
@@ -538,7 +553,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         private final Bitmap commentBitmap;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, Spanned title, String pictureThumb, String pictureFull, Bitmap commentBitmap, long createdAt) {
+        public NoteOrUpdate(String picture, Spanned title, String pictureThumb, String pictureFull, Bitmap commentBitmap, long createdAt, String type) {
             super();
             this.picture = picture;
             this.title = title;
@@ -546,6 +561,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             this.pictureFull = pictureFull;
             this.commentBitmap = commentBitmap;
             this.createdAt = createdAt;
+            this.type = type;
         }
 
         public static NoteOrUpdate fromMetadata(Metadata m) {
@@ -559,7 +575,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
                     null,
-                    m.getValue(Metadata.CREATION_DATE));
+                    m.getValue(Metadata.CREATION_DATE), null);
         }
 
         public static NoteOrUpdate fromUpdateOrHistory(AstridActivity context, UserActivity u, History history, User user, String linkColor) {
@@ -569,6 +585,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             Spanned title;
             Bitmap commentBitmap = null;
             long createdAt = 0;
+            String type = null;
 
             if (u != null) {
                 pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
@@ -580,11 +597,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
                     userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 createdAt = u.getValue(UserActivity.CREATED_AT);
+                type = NameMaps.TABLE_ID_USER_ACTIVITY;
             } else {
                 if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
                     userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 title = new SpannableString(UpdateAdapter.getHistoryComment(context, history, user, linkColor, UpdateAdapter.FROM_TASK_VIEW));
                 createdAt = history.getValue(History.CREATED_AT);
+                type = NameMaps.TABLE_ID_HISTORY;
             }
 
             return new NoteOrUpdate(userImage,
@@ -592,7 +611,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     pictureThumb,
                     pictureFull,
                     commentBitmap,
-                    createdAt);
+                    createdAt,
+                    type);
         }
 
     }

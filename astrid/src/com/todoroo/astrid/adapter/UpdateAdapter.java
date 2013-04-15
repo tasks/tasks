@@ -136,6 +136,9 @@ public class UpdateAdapter extends CursorAdapter {
 
     private final User self;
 
+    private final int color;
+    private final int grayColor;
+
     /**
      * Constructor
      *
@@ -165,6 +168,13 @@ public class UpdateAdapter extends CursorAdapter {
         this.resource = resource;
         this.fragment = fragment;
         this.self = getSelfUser();
+
+        TypedValue tv = new TypedValue();
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asTextColor, tv, false);
+        color = tv.data;
+
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asDueDateColor, tv, false);
+        grayColor = tv.data;
     }
 
     public static User getSelfUser() {
@@ -310,6 +320,7 @@ public class UpdateAdapter extends CursorAdapter {
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(getUpdateComment((AstridActivity)fragment.getActivity(), activity, user, linkColor, fromView));
             nameView.setMovementMethod(new LinkMovementMethod());
+            nameView.setTextColor(color);
         }
 
 
@@ -338,6 +349,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, user, linkColor, fromView));
+            nameView.setTextColor(grayColor);
         }
 
         final TextView date = (TextView)view.findViewById(R.id.date); {
