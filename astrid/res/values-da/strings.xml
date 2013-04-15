@@ -155,7 +155,8 @@
   </string-array>
   <string-array name="TEA_hideUntil">
     <item>Altid</item>
-    <item>At due date</item>
+    <item>Due date</item>
+    <item>Due time</item>
     <item>Dag før deadline</item>
     <item>Uge før deadline</item>
     <item>Specifik dag/tid</item>

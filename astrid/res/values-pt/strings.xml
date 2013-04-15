@@ -139,7 +139,8 @@
   </string-array>
   <string-array name="TEA_hideUntil">
     <item>Sempre</item>
-    <item>At due date</item>
+    <item>Due date</item>
+    <item>Due time</item>
     <item>Dias antes de expirar</item>
     <item>Semanas antes de expirar</item>
     <item>Dia/Hora Específico</item>

@@ -228,6 +228,7 @@
   <string-array name="TEA_hideUntil">
     <item>Sempre</item>
     <item>Al finalitzar la data límit</item>
+    <item>Due time</item>
     <item>El dia abans del venciment</item>
     <item>La setmana abans del venciment</item>
     <item>Dia/Hora concret</item>

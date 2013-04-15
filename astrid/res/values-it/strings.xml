@@ -282,6 +282,9 @@ condividerle e delegarle ad altri.</string>
   <!-- Password reset sent (%s -> email) -->
   <string name="actfm_ALA_reset_sent">Link per reimpostare la password inviato a \'%s\'</string>
   
+  <!-- User already exists - first sync may be slow -->
+  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
+  
   <!-- User not found -->
   <string name="actfm_ALA_error_user_not_found">Nessun utente corrisponde a questa email. In alternativa effettuate il login.</string>
   
@@ -817,7 +820,11 @@ condividerle e delegarle ad altri.</string>
   <!-- Task importance label -->
   <string name="TEA_importance_label">Priorità</string>
   
-  <!-- Task urgency label -->
+  <!-- Task due date hint -->
+  <string name="TEA_deadline_hint">Set due date</string>
+  
+  <!-- Task assigned to string (%s -> assigned person name) -->
+  <string name="TEA_assigned_to">Assigned to %s</string>
   
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">In un orario specifico?</string>
@@ -827,6 +834,9 @@ condividerle e delegarle ad altri.</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide until</string>
+
+  <!-- Task hide until label -->
+  <string name="TEA_hideUntil_display">Hide until %s</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">L\'attività verrà nascosta fino a: %s</string>
@@ -836,6 +846,9 @@ condividerle e delegarle ad altri.</string>
   
   <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Descrizione</string>
+
+  <!-- slide 16c: Task note label -->
+  <string name="TEA_notes_empty">Description...</string>
   
   <!-- Task note hint -->
   <string name="TEA_notes_hint">Enter task description...</string>
@@ -879,6 +892,10 @@ condividerle e delegarle ad altri.</string>
   <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">Idee</string>
   
+  <string name="TEA_timer_est">Est. %s</string>
+
+  <string name="TEA_timer_elap">Elapsed %s</string>
+  
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
       <item>No date</item>
@@ -897,8 +914,9 @@ condividerle e delegarle ad altri.</string>
       <!-- hideUntil: labels for edit page. -->
       <item>Never</item>
       <item>Data di scadenza</item>
-      <item>Giorno prima della scadenza</item>
-      <item>Settimana prima della scadenza</item>
+      <item>Due time</item>
+      <item>Day before due</item>
+      <item>Week before due</item>
       <item>Giorno/Tempo Specifici</item>
   </string-array>
   
@@ -1169,10 +1187,14 @@ condividerle e delegarle ad altri.</string>
   
   <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
   
+  <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
+  
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Ripristina predefiniti</string>
+  
+  <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
@@ -1227,6 +1249,9 @@ condividerle e delegarle ad altri.</string>
 
   <!-- Preference: simple input box style -->
   <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
+
+  <!-- Preference: don\'t show plus button until input present -->
+  <string name="EPr_hide_plus_button">Hide plus button</string>
 
   <!-- Preference: menu items -->
   <string name="EPr_menu_items">Menu items</string>
@@ -1419,6 +1444,18 @@ condividerle e delegarle ad altri.</string>
 
   <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">Seleziona le attività da visualizzare...</string>
+  
+  <!-- ======================================================== Waiting on me -->
+
+  <string name="wom_commented">%s commented on your task.</string>
+  <string name="wom_mentioned">%s mentioned you.</string>
+  <string name="wom_assigned">%s assigned this to you.</string>
+  <string name="wom_raised_pri">%s raised the priority.</string>
+  <string name="wom_changed_due">%s changed the due date.</string>
+  <string name="wom_default">%s wants your attention.</string>
+  
+  <string name="wom_dismiss">Dismiss</string>
+  <string name="wom_acknowledge">I\'ve read this</string>
 
   <!-- ============================================================= About == -->
   
@@ -1439,6 +1476,24 @@ Astrid è un open-source ed è sostenuto con orgoglio da Todoroo, Inc.</string>
   <string name="p_premium">Premium</string>
   
   <!-- ============================================================= Misc == -->
+  
+  <string name="feedback_positive_title">Rate Astrid?</string>
+
+  <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
+
+  <string name="feedback_negative_title">Leave feedback?</string>
+
+  <string name="feedback_negative_body">Sorry to hear that we\'re having issues</string>
+
+  <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
+  
+  <string name="feedback_positive_button">Rate Astrid</string>
+
+  <string name="feedback_negative_button">Leave feedback</string>
+  
+  <string name="feedback_not_now">Not now</string>
+  
+  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">Sembra che si stia utilizzando un\'applicazione che può terminare i processi (%s)! Se è possibile, aggiungere Astrid all\'elenco di esclusione in modo che non venga terminato. Contrariamente, Astrid potrebbe non avvisarti quando le tue attività saranno compiute.\n</string>
@@ -2210,7 +2265,7 @@ non potrai fare acquisti.</string>
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Promemoria</string>
+  <string name="TEA_reminders_group_label">Reminder settings</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Ricordamelo:</string>
@@ -2235,6 +2290,18 @@ non potrai fare acquisti.</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  
+  <string name="TEA_reminder_when">when</string>
+  
+  <string name="TEA_reminder_due_short">due</string>
+
+  <string name="TEA_reminder_overdue_short">overdue</string>
+
+  <string name="TEA_reminder_randomly_short">randomly</string>
+
+  <string name="TEA_reminder_display_one">Remind me %s</string>
+  
+  <string name="TEA_reminder_display_multiple">Remind %s</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2497,9 +2564,11 @@ non potrai fare acquisti.</string>
   
   <!-- =============================================== random reminders == -->
 
-  <string-array name="reminders_social">
-      <item>Questa gente conta su di te!</item>
-  </string-array>
+  <string name="reminders_social">Questa gente conta su di te!</string>
+  
+  <string name="reminders_social_one">%s is counting on you!</string>
+  
+  <string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
@@ -2614,7 +2683,7 @@ non potrai fare acquisti.</string>
   <string name="repeat_interval_prompt">Intervallo di ripetizione</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Repeating?</string>
+  <string name="repeat_never">Not repeating</string>
   <!-- slide 20f-->
   <string name="repeat_dont">Non ripetere</string>
       

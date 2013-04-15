@@ -118,7 +118,8 @@
   </string-array>
   <string-array name="TEA_hideUntil">
     <item>Alltid</item>
-    <item>At due date</item>
+    <item>Due date</item>
+    <item>Due time</item>
     <item>Dagen før forfall</item>
     <item>Uke før forfall</item>
     <item>Spesifikk dag/tidspunkt</item>

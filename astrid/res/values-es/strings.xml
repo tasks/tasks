@@ -218,7 +218,7 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">No agregar</string>
   
-  <string name="actfm_list_owner">(owner)</string>
+  <string name="actfm_list_owner">(propietario)</string>
   
   <!-- ========================================= sharing login activity == -->
 
@@ -280,6 +280,9 @@
   
   <!-- Password reset sent (%s -> email) -->
   <string name="actfm_ALA_reset_sent">El enlace para restaurar la contraseña se ha enviado a  %s\'</string>
+  
+  <!-- User already exists - first sync may be slow -->
+  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
   
   <!-- User not found -->
   <string name="actfm_ALA_error_user_not_found">Usuario no encontrado con dicho correo electrónico. Intente registrarse en su lugar!</string>
@@ -343,35 +346,35 @@
   <!-- Sync upgrade messages -->
   <string name="sync_upgr_both_title">Usando Astrid.com + Google sin Duplicados</string>
   <string name="sync_upgr_both_body">Seamos honestos. Google Tasks es práctico pero no es tan guay como Astrid. Para evitar duplicados ya no puedes sincronizar con Astrid.com y al mismo tiempo sincronizar en segundo plano con Google Tasks. Todavía puedes importar tus Google Tasks yendo a Configuración → Copias y Sincronización o reducir la sincronización a sólo con Google Tasks.</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
+  <string name="sync_upgr_both_btn1">Quédate en Astrid</string>
   <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
-  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
+  <string name="sync_upgr_gtasks_only_title">¡Apúntate a Astrid Sync gratis!</string>
+  <string name="sync_upgr_gtasks_only_body">Ten acceso a tus tareas desde todos tus dispositivos y desde Gmail con Astrid.com sync. ¡Apúntate a Astrid.com Sync (siempre puedes volver a Google tasas, ¡pero no vas a querer!)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Apúntate a Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_btn2">Quedarse en Google Tasks</string>
   
-  <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
+  <string name="sync_upgr_neither_title">¡Copia de seguridad &amp; sincronización gratuitas!</string>
   <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
   <string name="sync_upgr_neither_btn1">Regístrese ahora</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">Te has desconectado de Astrid</string>
   
-  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
-  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
-  <string name="actfm_logout_clear_tasks_no">Keep data</string>
+  <string name="actfm_logout_clear_tasks_title">¿Borrar los datos?</string>
+  <string name="actfm_logout_clear_tasks_body">¿Deseas borrar tus tareas y tus listas?</string>
+  <string name="actfm_logout_clear_tasks_yes">Borrar datos</string>
+  <string name="actfm_logout_clear_tasks_no">Mantener los datos</string>
   
-  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
+  <string name="actfm_logged_in_different_user_title">Conectarse como otro usuario</string>
   <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-  <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-  <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-  <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
+  <string name="actfm_logged_in_different_user_keep_data">Mantener los datos</string>
+  <string name="actfm_logged_in_different_user_clear_data">Borrar todos los datos</string>
+  <string name="actfm_logged_in_different_user_processing">Procesando los datos existentes...</string>
   
-  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_title">No autorizado</string>
   <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
   <string name="actfm_tag_not_authorized_new_list">Crea una nueva lista</string>
-  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  <string name="actfm_tag_not_authorized_leave_list">Abandonar lista</string>
   
   <string name="actfm_sync_ongoing">Sincronización en marcha</string>
   
@@ -603,7 +606,7 @@
   <string name="TLA_no_items_person">%s no tiene\ntareas compartidas contigo</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort</string>
+  <string name="TLA_menu_sort">Ordenar</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sincronizar ahora</string>
@@ -745,7 +748,7 @@
   <string name="SSD_sort_due">Por fecha límite</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By priority</string>
+  <string name="SSD_sort_importance">Por prioridad</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">Por última modificación</string>
@@ -811,12 +814,16 @@
   <string name="TEA_when_header_label">Cuando</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Task name</string>
+  <string name="TEA_title_hint">Nombre de la tarea</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Prioridad</string>
   
-  <!-- Task urgency label -->
+  <!-- Task due date hint -->
+  <string name="TEA_deadline_hint">Set due date</string>
+  
+  <!-- Task assigned to string (%s -> assigned person name) -->
+  <string name="TEA_assigned_to">Assigned to %s</string>
   
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">A una hora específica?</string>
@@ -825,7 +832,10 @@
   <string name="TEA_urgency_none">Ninguna</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide until</string>
+  <string name="TEA_hideUntil_label">Ocultar hasta</string>
+
+  <!-- Task hide until label -->
+  <string name="TEA_hideUntil_display">Hide until %s</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">La tarea estara oculta hasta %s</string>
@@ -835,9 +845,12 @@
   
   <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Descripción</string>
+
+  <!-- slide 16c: Task note label -->
+  <string name="TEA_notes_empty">Description...</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task description...</string>
+  <string name="TEA_notes_hint">Introducir descripción de la tarea...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">¿Cuanto tiempo llevará?</string>
@@ -878,9 +891,13 @@
   <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">Ideas</string>
   
+  <string name="TEA_timer_est">Est. %s</string>
+
+  <string name="TEA_timer_elap">Elapsed %s</string>
+  
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No date</item>
+      <item>Sin fecha</item>
       <item>Día específico</item>
       <item>Hoy</item>
       <item>Mañana</item>
@@ -894,10 +911,11 @@
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Never</item>
+      <item>Nunca</item>
       <item>Fecha de vencimiento</item>
-      <item>Día antes de fecha límite</item>
-      <item>Semana antes de fecha límite</item>
+      <item>Due time</item>
+      <item>Day before due</item>
+      <item>Week before due</item>
       <item>Día/Hora específicos</item>
   </string-array>
   
@@ -1157,26 +1175,30 @@
   <string name="EPr_showNotes_title">Mostrar descripción en tarea</string>
   
   <!-- Edit screen preference category -->
-  <string name="EPr_edit_screen_options">Edit screen options</string>
+  <string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
   
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Edit screen order</string>
+  <string name="EPr_beastMode_title">Editar el orden de pantalla</string>
   
   <string name="EPr_beastMode_shortcut">Personalizar</string>
   
-  <string name="EPr_time_increment">5 minute increments</string>
+  <string name="EPr_time_increment">Incrementos de 5 minutos</string>
   
-  <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
+  <string name="EPr_use_date_shortcuts">Utilizar abreviaturas de fecha</string>
+  
+  <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
   
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Personalizar la disposición de la pantalla de edición de tareas</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
+  
+  <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">La descripción se mostrará siempre</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">Fila de tarea compacta</string>
@@ -1202,7 +1224,7 @@
   <string-array name="EPr_task_row_styles">
       <item>Original</item>
       <item>Simple</item>
-      <item>Title only</item>
+      <item>Solo título</item>
   </string-array>
   
   <string-array name="EPr_task_row_style_descriptions">
@@ -1212,7 +1234,7 @@
   </string-array>
   
   <!-- task row style title (%s -> style) -->
-  <string name="EPr_task_row_style_title">Row style: %s</string>
+  <string name="EPr_task_row_style_title">Estilo de fila: %s</string>
   
   <!-- Preference: custom filters enabled -->
   <string name="EPr_use_filters_title">Usar filtros</string>
@@ -1227,11 +1249,14 @@
   <!-- Preference: simple input box style -->
   <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 
+  <!-- Preference: don\'t show plus button until input present -->
+  <string name="EPr_hide_plus_button">Hide plus button</string>
+
   <!-- Preference: menu items -->
-  <string name="EPr_menu_items">Menu items</string>
+  <string name="EPr_menu_items">Objetos del menú</string>
 
   <!-- Preference: list view -->
-  <string name="EPr_list_view">List view</string>
+  <string name="EPr_list_view">Vista de listas</string>
 
   <!-- Preference: task edit comments -->
   <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
@@ -1274,17 +1299,17 @@
   <string name="EPr_show_featured_lists">Mostrar listas destacadas</string>
   
   <!-- Configurations -->
-  <string name="EPr_configurations_title">Set configuration</string>
+  <string name="EPr_configurations_title">Definir configuración</string>
   <string name="EPr_config_default">Predeterminado</string>
   <string name="EPr_config_lite">Astrid Lite</string>
   
   <!-- Dialog title when setting preference configuration -->
-  <string name="EPr_config_dialog_title">Set configuration?</string>
+  <string name="EPr_config_dialog_title">¿Definir configuración?</string>
   <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
   <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
   
   <!-- default configuration name for the above dialog -->
-  <string name="EPr_config_dialog_default_id">default</string>
+  <string name="EPr_config_dialog_default_id">predeterminado</string>
   
   <!-- Preference title for showing save and cancel buttons in task edit page -->
   <string name="EPr_show_save_and_cancel">Show save and cancel </string>
@@ -1329,9 +1354,9 @@
     <!-- slide 36b -->
     <item>Día - Rojo</item>
     <!-- slide 36b -->
-    <item>Sky blue</item>
+    <item>Azul cielo</item>
     <!-- slide 36c -->
-    <item>Night</item>
+    <item>Noche</item>
     <!-- slide 36d -->
     <item>Transparent (white text)</item>
     <!-- slide 36e -->
@@ -1418,6 +1443,18 @@
 
   <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">Seleccione las tareas que ver...</string>
+  
+  <!-- ======================================================== Waiting on me -->
+
+  <string name="wom_commented">%s commented on your task.</string>
+  <string name="wom_mentioned">%s mentioned you.</string>
+  <string name="wom_assigned">%s assigned this to you.</string>
+  <string name="wom_raised_pri">%s raised the priority.</string>
+  <string name="wom_changed_due">%s changed the due date.</string>
+  <string name="wom_default">%s wants your attention.</string>
+  
+  <string name="wom_dismiss">Dismiss</string>
+  <string name="wom_acknowledge">I\'ve read this</string>
 
   <!-- ============================================================= About == -->
   
@@ -1437,6 +1474,24 @@
   <string name="p_premium">Premium</string>
   
   <!-- ============================================================= Misc == -->
+  
+  <string name="feedback_positive_title">Rate Astrid?</string>
+
+  <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
+
+  <string name="feedback_negative_title">Leave feedback?</string>
+
+  <string name="feedback_negative_body">Sorry to hear that we\'re having issues</string>
+
+  <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
+  
+  <string name="feedback_positive_button">Rate Astrid</string>
+
+  <string name="feedback_negative_button">Leave feedback</string>
+  
+  <string name="feedback_not_now">Not now</string>
+  
+  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">¡Parece que está usando una app que puede matar procesos (%s)! Si puede, 
@@ -1648,7 +1703,7 @@ Astrid podría no avisarle cuanto venza una tarea.\n</string>
     <!-- Criteria: importance - display text (? -> user input)-->
     <string name="CFC_importance_text">Priority at least ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Priority...</string>        
+    <string name="CFC_importance_name">Prioridad...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">Lista: ?</string>
@@ -1697,7 +1752,7 @@ Astrid podría no avisarle cuanto venza una tarea.\n</string>
   <!-- No calendar label (don\'t add option) -->
   <string name="gcal_TEA_nocal">No agregar</string>
   
-  <string name="gcal_TEA_none_selected">To calendar?</string>
+  <string name="gcal_TEA_none_selected">¿Al calendario?</string>
   
   <string name="gcal_TEA_has_event">Evento de llamada</string>
   
@@ -2172,7 +2227,7 @@ no le será posible hacer compras.</string>
     <string name="premium_offers_title">Oferta especial</string>
     <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
     <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-    <string name="premium_offers_start">Get it free!</string>
+    <string name="premium_offers_start">¡Consíguelo gratis!</string>
     
     <string name="premium_billing_title">Astrid Premium</string>
     <string name="premium_buy_month">1 mes</string>
@@ -2208,7 +2263,7 @@ no le será posible hacer compras.</string>
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Recordatorios</string>
+  <string name="TEA_reminders_group_label">Reminder settings</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Recordarme:</string>
@@ -2233,6 +2288,18 @@ no le será posible hacer compras.</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Hasta que cancele la alarma</string>
+  
+  <string name="TEA_reminder_when">when</string>
+  
+  <string name="TEA_reminder_due_short">due</string>
+
+  <string name="TEA_reminder_overdue_short">overdue</string>
+
+  <string name="TEA_reminder_randomly_short">randomly</string>
+
+  <string name="TEA_reminder_display_one">Remind me %s</string>
+  
+  <string name="TEA_reminder_display_multiple">Remind %s</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2495,9 +2562,11 @@ no le será posible hacer compras.</string>
   
   <!-- =============================================== random reminders == -->
 
-  <string-array name="reminders_social">
-      <item>¡Estas personas están confiando en usted!</item>
-  </string-array>
+  <string name="reminders_social">Estas personas están contando con usted!</string>
+  
+  <string name="reminders_social_one">%s is counting on you!</string>
+  
+  <string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
@@ -2612,7 +2681,7 @@ no le será posible hacer compras.</string>
   <string name="repeat_interval_prompt">Intervalo de repetición</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Repeating?</string>
+  <string name="repeat_never">Not repeating</string>
   <!-- slide 20f-->
   <string name="repeat_dont">No repetir</string>
       
@@ -2890,9 +2959,9 @@ no le será posible hacer compras.</string>
     <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
     <string name="update_string_user_self">Tú</string>
     
-    <string name="history_yourself">yourself</string>
+    <string name="history_yourself">tú mismo</string>
     <string name="history_you">tú</string>
-    <string name="history_a_deleted_user">(a deleted user)</string>
+    <string name="history_a_deleted_user">(un usuario borrado)</string>
     
     <string name="history_this_list">esta lista</string>
     <string name="history_this_task">esta tarea</string>
@@ -2900,11 +2969,11 @@ no le será posible hacer compras.</string>
     <string name="history_tag_removed">removed %1$s from %2$s</string>
     <string name="history_attach_added">attached %1$s to %2$s</string>
     <string name="history_attach_removed">removed %1$s from %2$s</string>
-    <string name="history_left_list">left %s</string>
-    <string name="history_deleted">deleted %s</string>
-    <string name="history_undeleted">undeleted %s</string>
-    <string name="history_completed">completed %s</string>
-    <string name="history_uncompleted">uncompleted %s</string>
+    <string name="history_left_list">izquierda %s</string>
+    <string name="history_deleted">borrado %s</string>
+    <string name="history_undeleted">recuperado %s</string>
+    <string name="history_completed">completado %s</string>
+    <string name="history_uncompleted">incompleto %s</string>
     <string name="history_importance_changed">changed %1$s priority from %2$s to %3$s</string>
     <string name="history_title_changed">changed %1$s title from %2$s to %3$s</string>
     <string name="history_title_set">set %1$s title to %2$s</string>
@@ -2914,7 +2983,7 @@ no le será posible hacer compras.</string>
     <string name="history_description_set">set description to %2$s</string>
     <string name="history_made_public">made %s public</string>
     <string name="history_made_private">made %s private</string>
-    <string name="history_silenced">silenced %s</string>
+    <string name="history_silenced">silenciado %s</string>
     <string name="history_unsilenced">unsilenced %s</string>
     <string name="history_favorited">favorited %s</string>
     <string name="history_unfavorited">unfavorited %s</string>
@@ -2925,8 +2994,8 @@ no le será posible hacer compras.</string>
     <string name="history_updated_description">updated %s description</string>
     <string name="history_changed_list_owner">changed list owner to %s</string>
     <string name="history_created_this_list">created this list</string>
-    <string name="history_unassigned">unassigned %s</string>
-    <string name="history_claimed">claimed %s</string>
+    <string name="history_unassigned">no asignado %s</string>
+    <string name="history_claimed">reclamado %s</string>
     <string name="history_assigned_to">assigned %1$s to %2$s</string>
     <string name="history_created_for">created %1$s for %2$s</string>
     <string name="history_created">created %s</string>
@@ -2940,8 +3009,8 @@ no le será posible hacer compras.</string>
     <string name="history_removed_repeat">removed %s repeat</string>
     <string name="history_shared_with">shared %1$s with %2$s</string>
     <string name="history_unshared_with">unshared %1$s with %2$s</string>
-    <string name="history_repeat_every">every %s</string>
-    <string name="history_repeat_on">on %s</string>
+    <string name="history_repeat_every">cada %s</string>
+    <string name="history_repeat_on">en %s</string>
     <string name="history_repeat_from_completion">after completion</string>
     <string name="history_acknowledged">viewed %s</string>
     

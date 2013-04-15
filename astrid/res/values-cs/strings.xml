@@ -221,6 +221,7 @@
   <string-array name="TEA_hideUntil">
     <item>Vždy</item>
     <item>Do termínu</item>
+    <item>Due time</item>
     <item>Den před ukončením</item>
     <item>Týden před ukončením</item>
     <item>Určitý den/čas</item>

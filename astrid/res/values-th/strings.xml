@@ -91,7 +91,8 @@
   </string-array>
   <string-array name="TEA_hideUntil">
     <item>ตลอดไป</item>
-    <item>At due date</item>
+    <item>Due date</item>
+    <item>Due time</item>
     <item>วันก่อนถึงกำหนด</item>
     <item>สัปดาห์ก่อนถึงกำหนด</item>
     <item>ระบุ วัน/เวลา</item>

@@ -165,7 +165,7 @@
   <string name="actfm_EPA_share_with">Поделиться с:</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share</string>
+  <string name="actfm_EPA_collaborators_header">Поделиться</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">Список: %s</string>
@@ -218,7 +218,7 @@
   
   <string name="actfm_EPA_add_person_to_list_cancel">Не добавлять</string>
   
-  <string name="actfm_list_owner">(owner)</string>
+  <string name="actfm_list_owner">(владелец)</string>
   
   <!-- ========================================= sharing login activity == -->
 
@@ -236,10 +236,10 @@
   <string name="actfm_ALA_gg_login">Подключиться к Google</string>
   
   <!-- share login: Quickly log in as <%s -> email> -->
-  <string name="actfm_quick_login">Sign in: %s</string>
+  <string name="actfm_quick_login">Войти: %s</string>
 
   <!-- share login: Reject quick login -->
-  <string name="actfm_quick_login_reject">Not %s?</string>
+  <string name="actfm_quick_login_reject">Не %s?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">Имя</string>
@@ -281,6 +281,9 @@
   
   <!-- Password reset sent (%s -> email) -->
   <string name="actfm_ALA_reset_sent">Ссылка для сброса  пароля отправлена на %s</string>
+  
+  <!-- User already exists - first sync may be slow -->
+  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
   
   <!-- User not found -->
   <string name="actfm_ALA_error_user_not_found">Пользователь с указанным email не найден. Попробуйте зарегестрироваться!</string>
@@ -342,42 +345,42 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
-  <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
+  <string name="sync_upgr_both_title">Использование Astrid.com + Google без Дубликатов</string>
+  <string name="sync_upgr_both_body">Давайте будем откровенны. Google Tasks удобен, но не так крут как Astrid.  Чтобы предотвратить создание дуликатов, Вам нет больше необходимости синхронизироваться с Astrid.com  и фоном с Google Tasks  в одно и то же время. Вам достаточно импортировать ваши задачи из  Google Tasks в Settings → Backup &amp; Sync, или откатится до синхронизации только с Google Tasks.</string>
+  <string name="sync_upgr_both_btn1">с Astrid</string>
+  <string name="sync_upgr_both_btn2">Откатить до Google Tasks</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
-  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
+  <string name="sync_upgr_gtasks_only_title">Бесплатно обновить до Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_body">Доступ к Вашим задачам с любого устройства и из Gmail c Astrid.com sync. Обновитесь до Astrid.com Sync  (Вы всегда можете перейти обратно - но вряд ли захитите)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Обновить до Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_btn2">Вместе с Google Tasks</string>
   
-  <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_title">Бесплатный бэкап &amp; Sync!</string>
+  <string name="sync_upgr_neither_body">Не рискуйте безопасностью ваших заметок! Используйте новый улучшенный Astrid sync для хранения заметок откуда угодно. </string>
   <string name="sync_upgr_neither_btn1">OK</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">Вы вышли из системы</string>
   
-  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
-  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
-  <string name="actfm_logout_clear_tasks_no">Keep data</string>
+  <string name="actfm_logout_clear_tasks_title">Очистить данные?</string>
+  <string name="actfm_logout_clear_tasks_body">Вы хотите очистить ваши задачи и списки?</string>
+  <string name="actfm_logout_clear_tasks_yes">Очистить данные</string>
+  <string name="actfm_logout_clear_tasks_no">Сохранить данные</string>
   
-  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-  <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-  <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-  <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-  <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
+  <string name="actfm_logged_in_different_user_title">Войти как другой пользователь</string>
+  <string name="actfm_logged_in_different_user_body">Вы хотите удалить существующие телефонные задачи перед синхронизацией?</string>
+  <string name="actfm_logged_in_different_user_keep_data">Сохранить данные</string>
+  <string name="actfm_logged_in_different_user_clear_data">Очистить все данные</string>
+  <string name="actfm_logged_in_different_user_processing">Обработка существующих данных...</string>
   
-  <string name="actfm_tag_not_authorized_title">Not authorized</string>
+  <string name="actfm_tag_not_authorized_title">Не авторизовано </string>
   <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
   <string name="actfm_tag_not_authorized_new_list">Создать новый список</string>
-  <string name="actfm_tag_not_authorized_leave_list">Leave list</string>
+  <string name="actfm_tag_not_authorized_leave_list">Покинуть список</string>
   
   <string name="actfm_sync_ongoing">Процесс синхронизации…</string>
   
-  <string name="EPr_reset_sync_state">Reset sync</string>
-  <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
+  <string name="EPr_reset_sync_state">Сброс синхронизации</string>
+  <string name="EPr_reset_sync_state_summary">Сбросьте некоторые данные, чтобы разрешить проблему синхронизации</string>
   <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
@@ -552,7 +555,7 @@
   <string name="DLG_decline">Отказываюсь</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Правила использования Astrid</string>
+  <string name="DLG_eula_title">Условия использования Astrid</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Подождите, пожалуйста</string>
@@ -606,7 +609,7 @@
   <string name="TLA_no_items_person">%s пока не открыл вам\nсвоих задач</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort</string>
+  <string name="TLA_menu_sort">Сортировка</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Синхронизация</string>
@@ -736,7 +739,7 @@
   <string name="SSD_deleted">Показать удалённые задачи</string>
   
   <!-- Sort Selection: drag with subtasks -->
-  <string name="SSD_sort_drag">Manual order with subtasks</string>
+  <string name="SSD_sort_drag">Ручной порядок с подзадачами</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Умная сортировка Astrid</string>
@@ -748,7 +751,7 @@
   <string name="SSD_sort_due">По намеченному сроку</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By priority</string>
+  <string name="SSD_sort_importance">По приоритету</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">Последние изменённые</string>
@@ -814,12 +817,16 @@
   <string name="TEA_when_header_label">Когда</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Task name</string>
+  <string name="TEA_title_hint">Имя задачи</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Приоритет</string>
   
-  <!-- Task urgency label -->
+  <!-- Task due date hint -->
+  <string name="TEA_deadline_hint">Set due date</string>
+  
+  <!-- Task assigned to string (%s -> assigned person name) -->
+  <string name="TEA_assigned_to">Assigned to %s</string>
   
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">В указанное время?</string>
@@ -828,7 +835,10 @@
   <string name="TEA_urgency_none">Пусто</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide until</string>
+  <string name="TEA_hideUntil_label">Скрыть до</string>
+
+  <!-- Task hide until label -->
+  <string name="TEA_hideUntil_display">Hide until %s</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Задача будет скрыта до %s</string>
@@ -838,9 +848,12 @@
   
   <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Описание</string>
+
+  <!-- slide 16c: Task note label -->
+  <string name="TEA_notes_empty">Description...</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task description...</string>
+  <string name="TEA_notes_hint">Введите описание задачи...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">Как долго это продлится?</string>
@@ -858,7 +871,7 @@
   <string name="TEA_menu_delete">Удалить задачу</string>
   
   <!-- Menu: Task comments -->
-  <string name="TEA_menu_refresh_comments">Refresh comments</string>
+  <string name="TEA_menu_refresh_comments">Обновить комментарии</string>
 
   <string name="TEA_menu_comments">Комментарии</string>
   
@@ -881,9 +894,13 @@
   <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">Идеи</string>
   
+  <string name="TEA_timer_est">Est. %s</string>
+
+  <string name="TEA_timer_elap">Elapsed %s</string>
+  
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No date</item>
+      <item>Без даты</item>
       <item>Конкретный день</item>
       <item>Сегодня</item>
       <item>Завтра</item>
@@ -897,10 +914,11 @@
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Never</item>
+      <item>Никогда</item>
       <item>Дата выполнения</item>
-      <item>За день до намеченного срока</item>
-      <item>За неделю до намеченного срока</item>
+      <item>Due time</item>
+      <item>Day before due</item>
+      <item>Week before due</item>
       <item>Определённый день/время</item>
   </string-array>
   
@@ -1120,7 +1138,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Astrid: Настройки</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Поделиться Astrid</string>
 
   <string name="EPr_share_astrid_summary">Расскажи про Astrid в любимой социальной сети</string>
   
@@ -1146,7 +1164,7 @@
   <string name="EPr_fontSize_title">Размер списка задач</string>
   
   <!-- Preference: Filters to show pref screen title -->
-  <string name="EPr_filters_to_show_title">Filters to show</string>
+  <string name="EPr_filters_to_show_title">Показать фильтры</string>
   
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Показывать подтверждения для умных напоминаний</string>
@@ -1157,29 +1175,33 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show description in task</string>
+  <string name="EPr_showNotes_title">Показать описание в задаче</string>
   
   <!-- Edit screen preference category -->
-  <string name="EPr_edit_screen_options">Edit screen options</string>
+  <string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
   
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Edit screen order</string>
+  <string name="EPr_beastMode_title">Редактировать порядок экранов</string>
   
-  <string name="EPr_beastMode_shortcut">Customize</string>
+  <string name="EPr_beastMode_shortcut">Настроить</string>
   
-  <string name="EPr_time_increment">5 minute increments</string>
+  <string name="EPr_time_increment">Шаг 5 минут</string>
   
-  <string name="EPr_use_date_shortcuts">Use date shortcuts</string>
+  <string name="EPr_use_date_shortcuts">Использовать ярлыки дат</string>
+  
+  <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
   
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Настройки по умолчанию</string>
+  
+  <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>  
+  <string name="EPr_showNotes_desc_disabled">Описание будет доступно на экране редактирования задачи</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Всегда показывать описание</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">Компактные строки задач</string>
@@ -1203,41 +1225,45 @@
   
   <!-- Preferences: task row style -->
   <string-array name="EPr_task_row_styles">
-      <item>Original</item>
-      <item>Simple</item>
-      <item>Title only</item>
+      <item>Оригинальный</item>
+      <item>Простой</item>
+      <item>Только заголовки</item>
   </string-array>
   
   <string-array name="EPr_task_row_style_descriptions">
       <item>Сократить заголовок до двух строк с указанием даты справа</item>
       <item>Сократить заголовок до одной строки с указанием даты и списков ниже</item>
-      <item>Single line title only</item>
+      <item>В одну линию с заголовками</item>
   </string-array>
   
   <!-- task row style title (%s -> style) -->
-  <string name="EPr_task_row_style_title">Row style: %s</string>
+  <string name="EPr_task_row_style_title">Стиль строки: %s</string>
   
   <!-- Preference: custom filters enabled -->
-  <string name="EPr_use_filters_title">Use filters</string>
-  <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
+  <string name="EPr_use_filters_title">Использовать фильтры
+</string>
+  <string name="EPr_use_filters_subtitle">Позволяет создавать настраиваемые фильтры</string>
 
   <!-- Preference: show list members in shared list -->
-  <string name="EPr_show_list_members_title">Show list members in shared lists</string>
+  <string name="EPr_show_list_members_title">Отображать список участников в общих списках </string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_simple_input_boxes">Simple text boxes</string>
+  <string name="EPr_simple_input_boxes">Простые текстовые поля</string>
 
   <!-- Preference: simple input box style -->
-  <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
+  <string name="EPr_show_quickadd_controls">Расширенные возможности быстрого добавления</string>
+
+  <!-- Preference: don\'t show plus button until input present -->
+  <string name="EPr_hide_plus_button">Hide plus button</string>
 
   <!-- Preference: menu items -->
-  <string name="EPr_menu_items">Menu items</string>
+  <string name="EPr_menu_items">Элементы меню</string>
 
   <!-- Preference: list view -->
-  <string name="EPr_list_view">List view</string>
+  <string name="EPr_list_view">Списком</string>
 
   <!-- Preference: task edit comments -->
-  <string name="EPr_show_task_edit_comments">Show comments in task edit</string>
+  <string name="EPr_show_task_edit_comments">Показывать комментарии в редакторе задачи</string>
   
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Цветовая тема</string>
@@ -1268,8 +1294,8 @@
   <string name="EPr_ideas_tab_description">Взгляните на идеи, которые помогут вам выполнить задачи.</string>
   
   <!-- Preferences: calendar event start time -->
-  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
-  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
+  <string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
+  <string name="EPr_cal_end_at_due_time">Завершение события при наступлении срока</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
   
   <string name="EPr_force_phone_layout">Использовать режим телефона</string>
@@ -1278,19 +1304,19 @@
   
   <!-- Configurations -->
   <string name="EPr_configurations_title">Set configuration</string>
-  <string name="EPr_config_default">Default</string>
-  <string name="EPr_config_lite">Astrid Lite</string>
+  <string name="EPr_config_default">По умолчанию</string>
+  <string name="EPr_config_lite">Astrid простая версия</string>
   
   <!-- Dialog title when setting preference configuration -->
-  <string name="EPr_config_dialog_title">Set configuration?</string>
+  <string name="EPr_config_dialog_title">Установить конфигурацию?</string>
   <!-- Dialog prompt when setting preference configuration (%s -> name of configuration)-->
-  <string name="EPr_config_dialog_text">Reset preferences to the %s configuration?</string>
+  <string name="EPr_config_dialog_text">Сбросить настройки до %s</string>
   
   <!-- default configuration name for the above dialog -->
-  <string name="EPr_config_dialog_default_id">default</string>
+  <string name="EPr_config_dialog_default_id">По умолчанию</string>
   
   <!-- Preference title for showing save and cancel buttons in task edit page -->
-  <string name="EPr_show_save_and_cancel">Show save and cancel </string>
+  <string name="EPr_show_save_and_cancel">Показать сохранить и отменить</string>
   
   
   <!-- Swipe between lists -->
@@ -1332,11 +1358,11 @@
     <!-- slide 36b -->
     <item>День - Красный</item>
     <!-- slide 36b -->
-    <item>Sky blue</item>
+    <item>Небесно голубой</item>
     <!-- slide 36c -->
-    <item>Night</item>
+    <item>Ночь</item>
     <!-- slide 36d -->
-    <item>Transparent (white text)</item>
+    <item>Прозрачный (белый текст)</item>
     <!-- slide 36e -->
     <item>Прозрачный (черный текст)</item>
   </string-array>
@@ -1346,10 +1372,10 @@
     <item>Та же что и в приложении</item>
     <item>День - Синий</item>
     <item>День - Красный</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (white text)</item>
-    <item>Transparent (black text)</item>
+    <item>Голубой</item>
+    <item>Ночь</item>
+    <item>Прозрачный (белый текст)</item>
+    <item>Прозрачный (черный текст)</item>
     <item>Старый стиль</item>
   </string-array>
   
@@ -1421,6 +1447,18 @@
 
   <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">Выберите задачи для просмотра…</string>
+  
+  <!-- ======================================================== Waiting on me -->
+
+  <string name="wom_commented">%s commented on your task.</string>
+  <string name="wom_mentioned">%s mentioned you.</string>
+  <string name="wom_assigned">%s assigned this to you.</string>
+  <string name="wom_raised_pri">%s raised the priority.</string>
+  <string name="wom_changed_due">%s changed the due date.</string>
+  <string name="wom_default">%s wants your attention.</string>
+  
+  <string name="wom_dismiss">Dismiss</string>
+  <string name="wom_acknowledge">I\'ve read this</string>
 
   <!-- ============================================================= About == -->
   
@@ -1440,6 +1478,24 @@
   <string name="p_premium">Премиум</string>
   
   <!-- ============================================================= Misc == -->
+  
+  <string name="feedback_positive_title">Rate Astrid?</string>
+
+  <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
+
+  <string name="feedback_negative_title">Leave feedback?</string>
+
+  <string name="feedback_negative_body">Sorry to hear that we\'re having issues</string>
+
+  <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
+  
+  <string name="feedback_positive_button">Rate Astrid</string>
+
+  <string name="feedback_negative_button">Leave feedback</string>
+  
+  <string name="feedback_not_now">Not now</string>
+  
+  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Astrid в список исключений иначе возможны сложности с напоминаниями.\n</string>
@@ -1472,7 +1528,7 @@
 
   <!-- slide 32g: Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
-  <string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
+  <string name="EPr_defaults_summary">Приоритет, срок выполнения, добавить в календарь</string>
   
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
@@ -1480,7 +1536,7 @@
   <string name="EPr_default_urgency_desc">Текущая: %s</string>
   
   <!-- slide 40a: Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default priority</string>
+  <string name="EPr_default_importance_title">Приоритет по умолчанию</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Текущая: %s</string>
   
@@ -1650,9 +1706,9 @@
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Priority at least ?</string>
+    <string name="CFC_importance_text">Приоритет?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Priority...</string>        
+    <string name="CFC_importance_name">Приоритет...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">Список: ?</string>
@@ -1701,7 +1757,7 @@
   <!-- No calendar label (don\'t add option) -->
   <string name="gcal_TEA_nocal">Не добавлять</string>
   
-  <string name="gcal_TEA_none_selected">To calendar?</string>
+  <string name="gcal_TEA_none_selected">В календарь ?</string>
   
   <string name="gcal_TEA_has_event">Календарное событие</string>
   
@@ -1812,15 +1868,15 @@
     <!-- Error when authorization error happens in background sync -->
     <string name="gtasks_error_background_sync_auth">Ошибка фоновой аутентификации. Пожалуйста, попробуйте синхронизироваться, когда Astrid запущен.</string>
       
-    <string name="gtasks_import_progress">Importing Google Tasks...</string>
+    <string name="gtasks_import_progress">Импорт из Google Tasks</string>
 
-    <string name="gtasks_import_add_to_shared_list">The list %1$s is shared with others! Do you still want to add the task %2$s to it?</string>
+    <string name="gtasks_import_add_to_shared_list">Список %1$s сделан общедоступным! Вы всё ещё хотите добавлять задачи в %2$s?</string>
 
-    <string name="gtasks_import_dlg_title">Google Tasks Import</string>
+    <string name="gtasks_import_dlg_title">Импорт Google задач</string>
 
-    <string name="gtasks_import_add_task_ok">Add task</string>
+    <string name="gtasks_import_add_task_ok">Добавить задание</string>
 
-    <string name="gtasks_import_add_task_cancel">Don\'t add task</string>
+    <string name="gtasks_import_add_task_cancel">Не добавляйте задачи</string>
         
 
 
@@ -2163,15 +2219,15 @@
     
     <string name="subscriptions_learn_more">Узнать больше</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
-    <string name="kii_premium_abort">Special offer aborted</string>
-    <string name="kii_premium_declined">Special offer declined</string>
-    <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
+    <string name="kii_premium_success">Спасибо, что приняли предложение ! Ваш бесплатный месяц Astrid Premium разблокирован.</string>
+    <string name="kii_premium_abort">Специальное предложение отменено</string>
+    <string name="kii_premium_declined">Специальное предложение отклонено</string>
+    <string name="kii_premium_error">Произошла ошибка при обработке. Пожалуйста повторите попытку позже.</string>
     
-    <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-    <string name="premium_offers_start">Get it free!</string>
+    <string name="premium_offers_title">Специальное предложение</string>
+    <string name="premium_offers_subtitle">Хотите один месяц Premium бесплатно?</string>
+    <string name="premium_offers_detail">Чтобы получить бесплатный месяц, вы должны просмотреть видео от спонсора. Ему также потребуется Ваш email.</string>
+    <string name="premium_offers_start">Получи бесплатно !</string>
     
     <string name="premium_billing_title">Astrid Премиум</string>
     <string name="premium_buy_month">1 месяц</string>
@@ -2207,7 +2263,7 @@
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Напоминания</string>
+  <string name="TEA_reminders_group_label">Reminder settings</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Напомнить мне:</string>
@@ -2225,13 +2281,25 @@
   <string name="TEA_reminder_alarm_label">Тип звонка/вибрации</string>
 
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Once</string>
+  <string name="TEA_reminder_mode_once">раз</string>
 
   <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Five times</string>
+  <string name="TEA_reminder_mode_five">Пять раз</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Until I dismiss alarm</string>
+  <string name="TEA_reminder_mode_nonstop">Пока я не отключу сигнал</string>
+  
+  <string name="TEA_reminder_when">when</string>
+  
+  <string name="TEA_reminder_due_short">due</string>
+
+  <string name="TEA_reminder_overdue_short">overdue</string>
+
+  <string name="TEA_reminder_randomly_short">randomly</string>
+
+  <string name="TEA_reminder_display_one">Remind me %s</string>
+  
+  <string name="TEA_reminder_display_multiple">Remind %s</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2343,7 +2411,7 @@
   <string name="rmd_EPr_persistent_desc_false">Уведомления можно очистить кнопкой \"Очистить все\"</string>
 
   <!-- Reminder Preference: Social Reminders Title -->
-  <string name="rmd_EPr_social_title">Social encouragement</string>
+  <string name="rmd_EPr_social_title">Поддержка от друзей</string>
   <!-- Reminder Preference: Social Reminders Summary (enabled) -->
   <string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
   <!-- Reminder Preference: Social Reminders Summary (disabled) -->
@@ -2494,9 +2562,11 @@
   
   <!-- =============================================== random reminders == -->
 
-  <string-array name="reminders_social">
-      <item>Эти люди рассчитывают на Вас!</item>
-  </string-array>
+  <string name="reminders_social">Эти люди рассчитывают на Вас!</string>
+  
+  <string name="reminders_social_one">%s is counting on you!</string>
+  
+  <string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
@@ -2611,7 +2681,7 @@
   <string name="repeat_interval_prompt">Интервал повтора</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Repeating?</string>
+  <string name="repeat_never">Not repeating</string>
   <!-- slide 20f-->
   <string name="repeat_dont">Не повторять</string>
       
@@ -2637,11 +2707,11 @@
   </string-array>
   
   <string name="repeat_days">дни</string>
-  <string name="repeat_weekdays">weekdays</string>
-  <string name="repeat_weeks">weeks</string>
-  <string name="repeat_months">months</string>
-  <string name="repeat_years">years</string>
-  <string name="repeat_hours">hours</string>
+  <string name="repeat_weekdays">Дни недели</string>
+  <string name="repeat_weeks">недели</string>
+  <string name="repeat_months">месяцы</string>
+  <string name="repeat_years">годы</string>
+  <string name="repeat_hours">часы</string>
   <string name="repeat_minutes">минуты</string>
   
   <string-array name="repeat_until_shortcuts">
@@ -2746,7 +2816,7 @@
   <string name="TEA_tags_label">Списки</string>
   
   <!-- Tags label long version -->
-  <string name="TEA_tags_label_long">Add to lists</string>
+  <string name="TEA_tags_label_long">Добавить в список</string>
  
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Новый список</string>
@@ -2784,7 +2854,7 @@
   <!-- filter header for tags which have no active tasks -->
   
   <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Uncategorized</string>
+  <string name="tag_FEx_untagged">Без категории</string>
   
   <!-- slide 27a: %s => tag name -->
 
@@ -2857,7 +2927,7 @@
     <string name="TFE_workingOn">Задачи для замера времени</string>
     
     <!-- Title for TEA -->
-    <string name="TEA_timer_controls">Timer</string>
+    <string name="TEA_timer_controls">Таймер</string>
     
     
     <!-- Edit Notes: create comment for when timer is started -->
@@ -2889,46 +2959,46 @@
     <string name="update_string_tag_comment">%1$s on %2$s: %3$s</string>
     <string name="update_string_user_self">Вы</string>
     
-    <string name="history_yourself">yourself</string>
+    <string name="history_yourself">себя</string>
     <string name="history_you">Вы</string>
-    <string name="history_a_deleted_user">(a deleted user)</string>
+    <string name="history_a_deleted_user">(удаленный пользователь)</string>
     
     <string name="history_this_list">этот список</string>
     <string name="history_this_task">это задание</string>
-    <string name="history_tag_added">added %1$s to %2$s</string>
-    <string name="history_tag_removed">removed %1$s from %2$s</string>
+    <string name="history_tag_added">добавлен %1$s  в  %2$s</string>
+    <string name="history_tag_removed">удален %1$s из %2$s</string>
     <string name="history_attach_added">attached %1$s to %2$s</string>
-    <string name="history_attach_removed">removed %1$s from %2$s</string>
-    <string name="history_left_list">left %s</string>
-    <string name="history_deleted">deleted %s</string>
-    <string name="history_undeleted">undeleted %s</string>
-    <string name="history_completed">completed %s</string>
-    <string name="history_uncompleted">uncompleted %s</string>
-    <string name="history_importance_changed">changed %1$s priority from %2$s to %3$s</string>
+    <string name="history_attach_removed">удален %1$s из %2$s</string>
+    <string name="history_left_list">осталось %s</string>
+    <string name="history_deleted">удалено %s</string>
+    <string name="history_undeleted">востановлено %s</string>
+    <string name="history_completed">выполнено %s</string>
+    <string name="history_uncompleted">не выполнено %s</string>
+    <string name="history_importance_changed">изменил %1$s приоритет с  %2$s на %3$s</string>
     <string name="history_title_changed">changed %1$s title from %2$s to %3$s</string>
-    <string name="history_title_set">set %1$s title to %2$s</string>
-    <string name="history_name_changed">changed name from %1$s to %2$s</string>
+    <string name="history_title_set">установил %1$s заголовок %2$s</string>
+    <string name="history_name_changed">изменил имя с %1$s на %2$s</string>
     <string name="history_name_set">set name to %2$s</string>
     <string name="history_description_changed">changed description from %1$s to %2$s</string>
     <string name="history_description_set">set description to %2$s</string>
     <string name="history_made_public">made %s public</string>
-    <string name="history_made_private">made %s private</string>
+    <string name="history_made_private">сделано %s частными</string>
     <string name="history_silenced">silenced %s</string>
     <string name="history_unsilenced">unsilenced %s</string>
     <string name="history_favorited">favorited %s</string>
     <string name="history_unfavorited">unfavorited %s</string>
-    <string name="history_changed_list_picture">change this list\'s picture</string>
+    <string name="history_changed_list_picture">изменить изображение этого листа</string>
     <string name="history_added_description_characters">added %1$d characters to %2$s description</string>
     <string name="history_removed_description">removed %s description</string>
     <string name="history_removed_description_characters">removed %1$d characters from %2$s description</string>
     <string name="history_updated_description">updated %s description</string>
     <string name="history_changed_list_owner">changed list owner to %s</string>
-    <string name="history_created_this_list">created this list</string>
-    <string name="history_unassigned">unassigned %s</string>
-    <string name="history_claimed">claimed %s</string>
+    <string name="history_created_this_list">создал этот список</string>
+    <string name="history_unassigned">не назначенный %s</string>
+    <string name="history_claimed">заявлен %s</string>
     <string name="history_assigned_to">assigned %1$s to %2$s</string>
     <string name="history_created_for">created %1$s for %2$s</string>
-    <string name="history_created">created %s</string>
+    <string name="history_created">создано %s</string>
     <string name="history_changed_due_date">changed %1$s due date from %2$s to %3$s</string>
     <string name="history_set_due_date">set %1$s due date to %2$s</string>
     <string name="history_removed_due_date">removed %s due date</string>
@@ -2939,10 +3009,10 @@
     <string name="history_removed_repeat">removed %s repeat</string>
     <string name="history_shared_with">shared %1$s with %2$s</string>
     <string name="history_unshared_with">unshared %1$s with %2$s</string>
-    <string name="history_repeat_every">every %s</string>
+    <string name="history_repeat_every">каждый %s</string>
     <string name="history_repeat_on">on %s</string>
-    <string name="history_repeat_from_completion">after completion</string>
-    <string name="history_acknowledged">viewed %s</string>
+    <string name="history_repeat_from_completion">после завершения</string>
+    <string name="history_acknowledged">просмотрен %s</string>
     
     <string name="history_default">changed %1$s to %2$s</string>
 

@@ -152,7 +152,7 @@
   <string name="SyP_label">Synchronizacja</string>  
 
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
+  <string name="Sync_now_label">Zsynchronizuj</string>  
 
   <!-- Sync label subtitle -->
   <string name="SyP_summary">Astrid.com, Zadania Google, zapisane dane, lokalna kopia zapasowa</string>  

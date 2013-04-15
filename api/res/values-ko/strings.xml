@@ -143,7 +143,7 @@
  <!-- ====================================================== SyncProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">일정 동기화 중입니다...</string>
+  <string name="SyP_progress">일정을 동기화 중입니다...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">동기화하는 중...</string>
@@ -152,7 +152,7 @@
   <string name="SyP_label">동기화 &amp; 백업</string>  
 
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
+  <string name="Sync_now_label">지금 동기화하기</string>  
 
   <!-- Sync label subtitle -->
   <string name="SyP_summary">Astrid.com, 구글 일정, 저장한 자료, 로컬 백업</string>  
@@ -183,7 +183,7 @@
   <string name="sync_status_never">동기화 한 적이 없습니다!</string>
 
   <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">옵션</string>
+  <string name="sync_SPr_group_options">설정</string>
 
   <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">백그라운드 동기화</string>
@@ -214,7 +214,7 @@
   <string name="sync_SPr_last_error">상태 보고</string>
   
   <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Astrid 팀에게 보고서를 보내려면 클릭</string>
+  <string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>
   <!-- Sync: send error report button -->
   <string name="sync_SPr_send_report">보고서 보내기</string>
   
