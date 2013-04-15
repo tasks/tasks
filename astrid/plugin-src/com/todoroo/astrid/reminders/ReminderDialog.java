@@ -5,8 +5,10 @@
  */
 package com.todoroo.astrid.reminders;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.json.JSONArray;
@@ -173,10 +175,11 @@ public class ReminderDialog extends Dialog {
             return;
         Resources resources = activity.getResources();
         LinkedHashSet<String> pictureUrls = new LinkedHashSet<String>();
+        List<String> names = new ArrayList<String>();
         AtomicBoolean isSharedTask = new AtomicBoolean(false);
 
         if (pictureUrls.size() < MAX_FACES) {
-            addTagFaces(task.getId(), pictureUrls, isSharedTask);
+            addTagFaces(task.getId(), pictureUrls, names, isSharedTask);
         }
 
         if (pictureUrls.size() > 0) {
@@ -206,8 +209,15 @@ public class ReminderDialog extends Dialog {
             container.setOrientation(LinearLayout.VERTICAL);
             container.addView(layout, 0);
 
-            ((TextView) findViewById(R.id.reminder_message)).setText(
-                    Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminders_social)));
+            String text;
+            if (names.size() == 0)
+                text = activity.getString(R.string.reminders_social);
+            else if (names.size() == 1)
+                text = activity.getString(R.string.reminders_social_one, names.get(0));
+            else
+                text = activity.getString(R.string.reminders_social_multiple, names.get(0), names.get(1));
+
+            ((TextView) findViewById(R.id.reminder_message)).setText(text);
 
             task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_FACES);
         } else {
@@ -218,7 +228,7 @@ public class ReminderDialog extends Dialog {
         }
     }
 
-    private void addPicturesFromJSONArray(JSONArray array, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) throws JSONException {
+    private void addPicturesFromJSONArray(JSONArray array, LinkedHashSet<String> pictureUrls, List<String> names, AtomicBoolean isSharedTask) throws JSONException {
         for (int i = 0; i < array.length(); i++) {
             JSONObject person = array.getJSONObject(i);
             if (person.has("picture")) { //$NON-NLS-1$
@@ -229,11 +239,22 @@ public class ReminderDialog extends Dialog {
                 if (!TextUtils.isEmpty(pictureUrl)) {
                     pictureUrls.add(pictureUrl);
                 }
+
+                String name = person.optString("first_name"); //$NON-NLS-1$
+                if (!TextUtils.isEmpty(name))
+                    names.add(name);
+                else {
+                    name = person.optString("name"); //$NON-NLS-1$
+                    if (!TextUtils.isEmpty(name))
+                        names.add(name);
+                }
+
+
             }
         }
     }
 
-    private void addTagFaces(long taskId, LinkedHashSet<String> pictureUrls, AtomicBoolean isSharedTask) {
+    private void addTagFaces(long taskId, LinkedHashSet<String> pictureUrls, List<String> names, AtomicBoolean isSharedTask) {
         TodorooCursor<TagData> tags = tagService.getTagDataForTask(taskId, Criterion.all, TagData.UUID, TagData.MEMBERS);
         try {
             TagData td = new TagData();
@@ -241,7 +262,7 @@ public class ReminderDialog extends Dialog {
                 td.readFromCursor(tags);
                 try {
                     JSONArray people = new JSONArray(td.getValue(TagData.MEMBERS));
-                    addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
+                    addPicturesFromJSONArray(people, pictureUrls, names, isSharedTask);
                 } catch (JSONException e) {
                     JSONArray people = new JSONArray();
                     TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
@@ -263,7 +284,7 @@ public class ReminderDialog extends Dialog {
                             }
                         }
                         try {
-                            addPicturesFromJSONArray(people, pictureUrls, isSharedTask);
+                            addPicturesFromJSONArray(people, pictureUrls, names, isSharedTask);
                         } catch (JSONException e2) {
                             //
                         }

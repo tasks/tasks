@@ -187,6 +187,7 @@ public final class ActFmSyncService {
             json.put("name", model.getDisplayName());
             json.put("email", model.getValue(User.EMAIL));
             json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB));
+            json.put("first_name", model.getValue(User.FIRST_NAME));
         }
 
         public static void featuredListFromJson(JSONObject json, TagData model) throws JSONException {

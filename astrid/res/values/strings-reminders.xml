@@ -310,9 +310,11 @@
   
   <!-- =============================================== random reminders == -->
 
-  <string-array name="reminders_social">
-      <item>These people are counting on you!</item>
-  </string-array>
+  <string name="reminders_social">These people are counting on you!</string>
+  
+  <string name="reminders_social_one">%s is counting on you!</string>
+  
+  <string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
