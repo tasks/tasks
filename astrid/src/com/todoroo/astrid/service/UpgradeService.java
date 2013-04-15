@@ -323,7 +323,10 @@ public final class UpgradeService {
 
         if (from >= V4_6_0 && from < V4_6_3) {
             newVersionString(changeLog, "4.6.3 (4/15/13)", new String[] {
-                "Fixed a bug that could prevent some foreign language tasks from syncing correctly",
+                    "BIG RELEASE!",
+                    "\"Waiting on me\" shows shared tasks assigned to you or where you were mentioned by name",
+                    "Sync fixes for non-english languages and for multiple android devices",
+                    "Scrollable widgets and other Power Pack features now free! Thank you to everyone who purchased one-time add-ons and supported Astrid through the years!"
             });
         }
 
