@@ -586,7 +586,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     // Successful login, create outstanding entries
                     String lastId = ActFmPreferenceService.userId(); //Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);
 
-                    if (!TextUtils.isEmpty(token) && RemoteModel.isUuidEmpty(lastId)) {
+                    if (!TextUtils.isEmpty(token) && !RemoteModel.isValidUuid(lastId)) {
                         constructOutstandingTables();
                     }
                     runOnUiThread(new Runnable() {
