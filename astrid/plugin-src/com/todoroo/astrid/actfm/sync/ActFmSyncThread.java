@@ -491,7 +491,9 @@ public class ActFmSyncThread {
             notificationManager.notify(0, builder.getNotification());
             notificationId = 0;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(ERROR_TAG, "Exception creating notification", e); //$NON-NLS-1$
+        } catch (Error e) {
+            Log.e(ERROR_TAG, "Error creating notification", e); //$NON-NLS-1$
         }
     }
 
