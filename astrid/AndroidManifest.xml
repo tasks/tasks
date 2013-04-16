@@ -207,7 +207,8 @@
     </receiver>
     
     <!-- widgets -->
-    <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
+    <receiver android:name="com.todoroo.astrid.widget.TasksWidget"
+        android:label="@string/widget_mini">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
       </intent-filter>

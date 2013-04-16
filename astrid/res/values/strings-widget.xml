@@ -6,7 +6,7 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <string name="widget_mini">Astrid Mini</string>
+    <string name="widget_mini">- Astrid Mini -</string>
     
     <!-- Resources for power pack widget -->
     
