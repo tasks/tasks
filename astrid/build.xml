@@ -50,6 +50,12 @@
             unless="sdk.dir"
     />
 
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <pathelement location="antlib/ant-contrib-1.0b3.jar"/>
+      </classpath>
+    </taskdef>
+
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 
@@ -327,7 +333,7 @@
 	      <fileset file="../api/build.xml"/>
 	  </subant>
 	</target>
-
+	
 	<target name="teardown">
 		<replaceregexp file="res/values/keys.xml"
                        match="fb_app_id&quot;&gt;.*&lt;"
