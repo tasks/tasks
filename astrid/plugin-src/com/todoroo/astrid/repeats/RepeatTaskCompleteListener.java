@@ -128,7 +128,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         else if(rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion)
             return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
         else if (rrule.getFreq() == Frequency.MONTHLY)
-            return handleMonthlyRepeat(original, startDateAsDV, rrule);
+            return handleMonthlyRepeat(original, startDateAsDV, task.hasDueTime(), rrule);
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
     }
@@ -155,7 +155,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
     }
 
-    private static long handleMonthlyRepeat(Date original, DateValue startDateAsDV, RRule rrule) {
+    private static long handleMonthlyRepeat(Date original, DateValue startDateAsDV, boolean hasDueTime, RRule rrule) {
         if (DateUtilities.isEndOfMonth(original)) {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(original.getTime());
@@ -164,7 +164,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
             cal.add(Calendar.MONTH, interval);
             cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
-            return cal.getTimeInMillis();
+            long time = cal.getTimeInMillis();
+            if (hasDueTime)
+                return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
+            else
+                return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
         } else {
             return invokeRecurrence(rrule, original, startDateAsDV);
         }
