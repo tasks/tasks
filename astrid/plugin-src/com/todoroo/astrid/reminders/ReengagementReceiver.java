@@ -47,6 +47,9 @@ public class ReengagementReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+            return;
+
         DependencyInjectionService.getInstance().inject(this);
 
         int reengagementReminders = Preferences.getInt(ReengagementService.PREF_REENGAGEMENT_COUNT, 1);
