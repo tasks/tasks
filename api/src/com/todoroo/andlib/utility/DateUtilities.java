@@ -247,6 +247,21 @@ public class DateUtilities {
         return DateUtilities.getDateStringHideYear(context, new Date(date));
     }
 
+    public static boolean isEndOfMonth(Date d) {
+        int date = d.getDate();
+        if (date < 28)
+            return false;
+
+        int month = d.getMonth();
+        if (month == Calendar.FEBRUARY)
+            return date >= 28;
+
+        if (month == Calendar.APRIL || month == Calendar.JUNE || month == Calendar.SEPTEMBER || month == Calendar.NOVEMBER)
+            return date >= 30;
+
+        return date >= 31;
+    }
+
     /**
      * Calls getRelativeDay with abbreviated parameter defaulted to true
      */

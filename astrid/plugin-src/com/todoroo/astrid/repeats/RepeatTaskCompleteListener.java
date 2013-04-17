@@ -127,6 +127,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             return handleSubdayRepeat(original, rrule);
         else if(rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion)
             return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
+        else if (rrule.getFreq() == Frequency.MONTHLY)
+            return handleMonthlyRepeat(original, startDateAsDV, rrule);
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
     }
@@ -151,6 +153,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
         else
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
+    }
+
+    private static long handleMonthlyRepeat(Date original, DateValue startDateAsDV, RRule rrule) {
+        //
+        return invokeRecurrence(rrule, original, startDateAsDV);
     }
 
     private static Comparator<WeekdayNum> weekdayCompare = new Comparator<WeekdayNum>() {
