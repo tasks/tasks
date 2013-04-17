@@ -58,7 +58,7 @@ import com.todoroo.astrid.utility.Constants;
 @SuppressWarnings("nls")
 public class UpdateMessageService {
 
-    private static final String URL = "http://www.weloveastrid.com/updates.php";
+    private static final String URL = "http://blog.astrid.com/updates";
 
     private static final String PLUGIN_GTASKS = "gtasks";
 
