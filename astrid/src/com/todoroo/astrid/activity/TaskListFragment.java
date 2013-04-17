@@ -40,7 +40,6 @@ import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -124,8 +123,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends SherlockListFragment implements OnScrollListener,
-        OnSortSelectedListener {
+public class TaskListFragment extends SherlockListFragment implements OnSortSelectedListener {
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
@@ -913,30 +911,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         // do nothing
     }
 
-    /**
-     * Detect when user is flinging the task, disable task adapter loading when
-     * this occurs to save resources and time.
-     */
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if (taskAdapter == null)
-            return;
-        switch (scrollState) {
-        case OnScrollListener.SCROLL_STATE_IDLE:
-            if (taskAdapter.isFling)
-                taskAdapter.notifyDataSetChanged();
-            taskAdapter.isFling = false;
-            break;
-        case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-            if (taskAdapter.isFling)
-                taskAdapter.notifyDataSetChanged();
-            taskAdapter.isFling = false;
-            break;
-        case OnScrollListener.SCROLL_STATE_FLING:
-            taskAdapter.isFling = true;
-            break;
-        }
-    }
-
     /*
      * ======================================================================
      * =================================================== managing list view
@@ -1024,7 +998,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         taskAdapter = createTaskAdapter(currentCursor);
 
         setListAdapter(taskAdapter);
-        getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
 
         loadTaskListContent(true);

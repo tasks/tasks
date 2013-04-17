@@ -214,7 +214,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final Resources resources;
     protected final HashMap<Object, Boolean> completedItems = new HashMap<Object, Boolean>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
-    public boolean isFling = false;
     protected final int resource;
     protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
