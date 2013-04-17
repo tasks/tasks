@@ -156,8 +156,18 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     private static long handleMonthlyRepeat(Date original, DateValue startDateAsDV, RRule rrule) {
-        //
-        return invokeRecurrence(rrule, original, startDateAsDV);
+        if (DateUtilities.isEndOfMonth(original)) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(original.getTime());
+
+            int interval = rrule.getInterval();
+
+            cal.add(Calendar.MONTH, interval);
+            cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
+            return cal.getTimeInMillis();
+        } else {
+            return invokeRecurrence(rrule, original, startDateAsDV);
+        }
     }
 
     private static Comparator<WeekdayNum> weekdayCompare = new Comparator<WeekdayNum>() {
