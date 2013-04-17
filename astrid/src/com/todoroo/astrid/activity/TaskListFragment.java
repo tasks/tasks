@@ -1063,7 +1063,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public void reconstructCursor() {
         TodorooCursor<Task> cursor = constructCursor();
-        if (cursor == null)
+        if (cursor == null || taskAdapter == null)
             return;
         taskAdapter.changeCursor(cursor);
     }
