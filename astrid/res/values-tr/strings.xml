@@ -3118,12 +3118,14 @@
 -->
 
     
+    <string name="widget_mini">- Astrid Mini -</string>
+    
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Astrid Ücretli 4x2</string>
-    <string name="PPW_widget_43_label">Astrid Ücretli 4x3</string>
-    <string name="PPW_widget_44_label">Astrid Ücretli 4x4</string>
-    <string name="PPW_widget_v11_label">Astrid Kaydırılabilir Premium</string>
+    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
+    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
+    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
+    <string name="PPW_widget_v11_label">- Astrid -</string>
     <string name="PPW_widget_custom_label">Astrid Özel Başlatıcı Premium</string>
     <string name="PPW_widget_custom_launcherpro_label">Astrid Başlatıcı Pro Premium</string>
     

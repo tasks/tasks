@@ -282,7 +282,7 @@
   <string name="actfm_ALA_reset_sent">새 비밀번호를 %s으로 보냈습니다. </string>
   
   <!-- User already exists - first sync may be slow -->
-  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
+  <string name="actfm_ALA_user_exists_sync_alert">첫 동기화는 시간이 걸립니다--기다려 주셔서 감사합니다!</string>
   
   <!-- User not found -->
   <string name="actfm_ALA_error_user_not_found">해당 이메일로 가입된 사용자가 없습니다. 가입신청 해 보세요!</string>
@@ -825,10 +825,10 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="TEA_importance_label">우선순위</string>
   
   <!-- Task due date hint -->
-  <string name="TEA_deadline_hint">Set due date</string>
+  <string name="TEA_deadline_hint">마감일 설정</string>
   
   <!-- Task assigned to string (%s -> assigned person name) -->
-  <string name="TEA_assigned_to">Assigned to %s</string>
+  <string name="TEA_assigned_to">%s 님에게 할당</string>
   
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">특정한 시간에?</string>
@@ -840,7 +840,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="TEA_hideUntil_label">숨기기 기간:</string>
 
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_display">Hide until %s</string>
+  <string name="TEA_hideUntil_display">%s 까지 숨기기</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">%s 까지 일정을 숨깁니다</string>
@@ -852,7 +852,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="TEA_note_label">설명</string>
 
   <!-- slide 16c: Task note label -->
-  <string name="TEA_notes_empty">Description...</string>
+  <string name="TEA_notes_empty">설명</string>
   
   <!-- Task note hint -->
   <string name="TEA_notes_hint">일정 내용을 입력하세요</string>
@@ -896,9 +896,9 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">아이디어</string>
   
-  <string name="TEA_timer_est">Est. %s</string>
+  <string name="TEA_timer_est">동부표준시 %s</string>
 
-  <string name="TEA_timer_elap">Elapsed %s</string>
+  <string name="TEA_timer_elap">경과 시간: %s</string>
   
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
@@ -918,9 +918,9 @@ Astrid.com 과 동기화하시겠습니까?</string>
       <!-- hideUntil: labels for edit page. -->
       <item>사용안함</item>
       <item>마감일</item>
-      <item>Due time</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>마감 시간</item>
+      <item>마감 하루 전</item>
+      <item>마감 일주일 전</item>
       <item>특정한 요일/시간</item>
   </string-array>
   
@@ -1191,14 +1191,14 @@ Astrid.com 과 동기화하시겠습니까?</string>
   
   <string name="EPr_use_date_shortcuts">날짜를 짧게 사용하기</string>
   
-  <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
+  <string name="EPr_show_timer_shortcut">타이머 바로가기 보기</string>
   
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">일정 편집화면 레이아웃 설정하기</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
   
-  <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
+  <string name="EPr_beastMode_hint">각 줄의 왼쪽 손잡이를 끌어서 일정 편집 화면을 사용자 정의하기</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">설명은 일정 편집 화면에서 수정할 수 있습니다.</string>  
@@ -1255,7 +1255,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="EPr_show_quickadd_controls">고급 빠른추가 조정</string>
 
   <!-- Preference: don\'t show plus button until input present -->
-  <string name="EPr_hide_plus_button">Hide plus button</string>
+  <string name="EPr_hide_plus_button">플러스 버튼 감추기</string>
 
   <!-- Preference: menu items -->
   <string name="EPr_menu_items">메뉴 항목</string>
@@ -1451,15 +1451,15 @@ Astrid.com 과 동기화하시겠습니까?</string>
   
   <!-- ======================================================== Waiting on me -->
 
-  <string name="wom_commented">%s commented on your task.</string>
-  <string name="wom_mentioned">%s mentioned you.</string>
-  <string name="wom_assigned">%s assigned this to you.</string>
-  <string name="wom_raised_pri">%s raised the priority.</string>
-  <string name="wom_changed_due">%s changed the due date.</string>
-  <string name="wom_default">%s wants your attention.</string>
+  <string name="wom_commented">%s님이 당신의 일정에 댓글을 달았습니다.</string>
+  <string name="wom_mentioned">%s님이 당신을 언급했습니다.</string>
+  <string name="wom_assigned">%s님이 당신에게 이것을 할당했습니다.</string>
+  <string name="wom_raised_pri">%s님이 우선순위를 올렸습니다.</string>
+  <string name="wom_changed_due">%s님이 마감일을 변경했습니다.</string>
+  <string name="wom_default">%s님이 당신의 주의를 원합니다.</string>
   
-  <string name="wom_dismiss">Dismiss</string>
-  <string name="wom_acknowledge">I\'ve read this</string>
+  <string name="wom_dismiss">해제하기</string>
+  <string name="wom_acknowledge">이것을 읽었습니다</string>
 
   <!-- ============================================================= About == -->
   
@@ -1481,23 +1481,23 @@ Astrid.com 과 동기화하시겠습니까?</string>
   
   <!-- ============================================================= Misc == -->
   
-  <string name="feedback_positive_title">Rate Astrid?</string>
+  <string name="feedback_positive_title">평가할까요?</string>
 
-  <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
+  <string name="feedback_positive_body">도움이 되었다니 기쁘네요! 평가를 위해 잠시 시간을 내주실래요?</string>
 
-  <string name="feedback_negative_title">Leave feedback?</string>
+  <string name="feedback_negative_title">피드백을 남길까요?</string>
 
-  <string name="feedback_negative_body">Sorry to hear that we\'re having issues</string>
+  <string name="feedback_negative_body">문제가 있다니 미안합니다</string>
 
-  <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
+  <string name="feedback_activity_error">마켓의 피드백 부분을 열수가 없습니다--당신의 기기에서 이용할 수 없는 것 같습니다.</string>
   
-  <string name="feedback_positive_button">Rate Astrid</string>
+  <string name="feedback_positive_button">아스트리드 평가하기</string>
 
-  <string name="feedback_negative_button">Leave feedback</string>
+  <string name="feedback_negative_button">피드백 남기기</string>
   
-  <string name="feedback_not_now">Not now</string>
+  <string name="feedback_not_now">지금은 안 됨</string>
   
-  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
+  <string name="feedback_banner_text">당신에게 아스트리드는 어땠습니까?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">프로세스(%s)를 강제종료할 수 있는 앱을 사용하고 있는 것 같습니다! 
@@ -1711,7 +1711,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">최소 우선순위 ?</string>
+    <string name="CFC_importance_text">최소 우선순위?</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">우선순위...</string>        
     
@@ -2271,7 +2271,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Reminder settings</string>
+  <string name="TEA_reminders_group_label">알림 설정</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">알려주세요:</string>
@@ -2297,17 +2297,17 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">알람을 직접 끌 때까지</string>
   
-  <string name="TEA_reminder_when">when</string>
+  <string name="TEA_reminder_when">언제</string>
   
-  <string name="TEA_reminder_due_short">due</string>
+  <string name="TEA_reminder_due_short">마감</string>
 
-  <string name="TEA_reminder_overdue_short">overdue</string>
+  <string name="TEA_reminder_overdue_short">기한 초과</string>
 
-  <string name="TEA_reminder_randomly_short">randomly</string>
+  <string name="TEA_reminder_randomly_short">임의로</string>
 
-  <string name="TEA_reminder_display_one">Remind me %s</string>
+  <string name="TEA_reminder_display_one">%s를 알려주세요</string>
   
-  <string name="TEA_reminder_display_multiple">Remind %s</string>
+  <string name="TEA_reminder_display_multiple">%s 알리기</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2572,9 +2572,9 @@ Astrid.com 과 동기화하시겠습니까?</string>
 
   <string name="reminders_social">이 사람들은 당신만 믿고 있어!</string>
   
-  <string name="reminders_social_one">%s is counting on you!</string>
+  <string name="reminders_social_one">%s님이 당신을 의지하고 있습니다!</string>
   
-  <string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
+  <string name="reminders_social_multiple">%1$s, %2$s 님 등이 당신을 의지하고 있습니다!</string>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
@@ -2689,7 +2689,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="repeat_interval_prompt">반복 주기</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Not repeating</string>
+  <string name="repeat_never">반복하지 않기</string>
   <!-- slide 20f-->
   <string name="repeat_dont">반복하지 않기</string>
       
@@ -3132,12 +3132,14 @@ Astrid.com 과 동기화하시겠습니까?</string>
 -->
 
     
+    <string name="widget_mini">- Astrid Mini -</string>
+    
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">아스트리드 프리미엄 4x2</string>
-    <string name="PPW_widget_43_label">아스트리드 프리미엄  4x3</string>
-    <string name="PPW_widget_44_label">아스트리드 프리미엄 4x4</string>
-    <string name="PPW_widget_v11_label">아스트리드 프리미엄 스크롤</string>
+    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
+    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
+    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
+    <string name="PPW_widget_v11_label">- Astrid -</string>
     <string name="PPW_widget_custom_label">아스트리드 사용자 런처 프리미엄</string>
     <string name="PPW_widget_custom_launcherpro_label">아스트리드 런쳐 프로 프리미엄</string>
     

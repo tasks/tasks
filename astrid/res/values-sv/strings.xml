@@ -350,26 +350,26 @@
   <string name="sync_upgr_both_btn2">Nedgradera till Google Uppgifter</string>
   
   <string name="sync_upgr_gtasks_only_title">Uppgradera till Astrid Sync gratis!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
-  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
+  <string name="sync_upgr_gtasks_only_body">Få tillgång till dina uppgifter från alla dina enheter och från Gmail med Astrid.com Synk. Uppgradera till Astrid.com Synk (Du kan alltid gå tillbaka till Google Uppgifter - men du kommer inte att vilja!)</string>
+  <string name="sync_upgr_gtasks_only_btn1">Uppgradera till Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_btn2">Behåll Google Uppgifter</string>
   
   <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
-  <string name="sync_upgr_neither_btn1">Sign up now</string>
+  <string name="sync_upgr_neither_body">Utsätt inte dina uppgifter för fara! Med nya och förbättrade Astrid sync får du tillgång till dina uppgifter var som helst ifrån.</string>
+  <string name="sync_upgr_neither_btn1">Registrera dig nu</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">Du har loggats ut från Astrid</string>
   
-  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
-  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
-  <string name="actfm_logout_clear_tasks_no">Keep data</string>
+  <string name="actfm_logout_clear_tasks_title">Rensa data?</string>
+  <string name="actfm_logout_clear_tasks_body">Vill du radera dina uppgifter och data?</string>
+  <string name="actfm_logout_clear_tasks_yes">Radera data</string>
+  <string name="actfm_logout_clear_tasks_no">Behåll data</string>
   
-  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-  <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-  <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-  <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-  <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
+  <string name="actfm_logged_in_different_user_title">Loggar in som annan användare</string>
+  <string name="actfm_logged_in_different_user_body">Vill du radera nuvarande telefonuppgifter innan synkronisering?</string>
+  <string name="actfm_logged_in_different_user_keep_data">Behåll data</string>
+  <string name="actfm_logged_in_different_user_clear_data">Radera alla data</string>
+  <string name="actfm_logged_in_different_user_processing">Bearbetar nuvarande data</string>
   
   <string name="actfm_tag_not_authorized_title">Not authorized</string>
   <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
@@ -606,7 +606,7 @@
   <string name="TLA_no_items_person">%s delar\ninga uppgifter med dig</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort</string>
+  <string name="TLA_menu_sort">Sortera</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Synkronisera nu</string>
@@ -736,7 +736,7 @@
   <string name="SSD_deleted">Visa raderade uppgifter</string>
   
   <!-- Sort Selection: drag with subtasks -->
-  <string name="SSD_sort_drag">Manual order with subtasks</string>
+  <string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid intelligent sortering</string>
@@ -748,7 +748,7 @@
   <string name="SSD_sort_due">Efter förfallodatum</string>
   
   <!-- slide 23d: Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By priority</string>
+  <string name="SSD_sort_importance">Efter prioritet</string>
   
   <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">Efter senaste ändringen</string>
@@ -817,7 +817,7 @@
   <string name="TEA_title_hint">Task name</string>
   
   <!-- Task importance label -->
-  <string name="TEA_importance_label">Priority</string>
+  <string name="TEA_importance_label">Prioritet</string>
   
   <!-- Task due date hint -->
   <string name="TEA_deadline_hint">Set due date</string>
@@ -832,7 +832,7 @@
   <string name="TEA_urgency_none">Ingen</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide until</string>
+  <string name="TEA_hideUntil_label">Dölj tills</string>
 
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_display">Hide until %s</string>
@@ -850,7 +850,7 @@
   <string name="TEA_notes_empty">Description...</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter task description...</string>
+  <string name="TEA_notes_hint">Ange uppgiftsbeskrivning...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
@@ -868,7 +868,7 @@
   <string name="TEA_menu_delete">Radera uppgift</string>
   
   <!-- Menu: Task comments -->
-  <string name="TEA_menu_refresh_comments">Refresh comments</string>
+  <string name="TEA_menu_refresh_comments">Uppdatera kommentarer</string>
 
   <string name="TEA_menu_comments">Kommentarer</string>
   
@@ -929,7 +929,7 @@
   <!-- slide 35b -->
   <string name="TEA_control_more_section">----More Section----</string>
   <!-- slide 16a/35c -->
-  <string name="TEA_control_importance">Priority</string>  
+  <string name="TEA_control_importance">Prioritet</string>  
   <!-- slide 16b/35d -->
   <string name="TEA_control_lists">Listor</string>  
   <!-- slide 16c/35e -->
@@ -1135,7 +1135,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Inställningar</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Dela Astrid</string>
 
   <string name="EPr_share_astrid_summary">Dela på ditt sociala favoritnätverk</string>
   
@@ -1161,7 +1161,7 @@
   <string name="EPr_fontSize_title">Storlek på uppgiftslista</string>
   
   <!-- Preference: Filters to show pref screen title -->
-  <string name="EPr_filters_to_show_title">Filters to show</string>
+  <string name="EPr_filters_to_show_title">Filter att visa</string>
   
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Visa bekräftelse vid smarta påminnelser</string>
@@ -1172,10 +1172,10 @@
   <!-- Preferemce: Show task edit confirmation toasts -->
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show description in task</string>
+  <string name="EPr_showNotes_title">Visa beskrivning i uppgiften</string>
   
   <!-- Edit screen preference category -->
-  <string name="EPr_edit_screen_options">Edit screen options</string>
+  <string name="EPr_edit_screen_options">Ändra skärminställningar</string>
   
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Edit screen order</string>
@@ -3121,12 +3121,14 @@ kommer inte att kunna utföra köp.</string>
 -->
 
     
+    <string name="widget_mini">- Astrid Mini -</string>
+    
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
-    <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
-    <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
-    <string name="PPW_widget_v11_label">Astrids skrollbara premium</string>
+    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
+    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
+    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
+    <string name="PPW_widget_v11_label">- Astrid -</string>
     <string name="PPW_widget_custom_label">Astrid Konfigurerbara Launcher Premium</string>
     <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Professionell Premium</string>
     

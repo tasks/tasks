@@ -282,7 +282,7 @@
   <string name="actfm_ALA_reset_sent">Link om uw wachtwoord opnieuw aan te maken is verstuurd naar \'%s\'</string>
   
   <!-- User already exists - first sync may be slow -->
-  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
+  <string name="actfm_ALA_user_exists_sync_alert">De eerste keer synchroniseren zal langer dan normaal duren. Dank je voor je geduld</string>
   
   <!-- User not found -->
   <string name="actfm_ALA_error_user_not_found">Gebruiker is niet gevonden met dat e-mailadres. Meld je dus aan! </string>
@@ -820,10 +820,10 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   <string name="TEA_importance_label">Prioriteit</string>
   
   <!-- Task due date hint -->
-  <string name="TEA_deadline_hint">Set due date</string>
+  <string name="TEA_deadline_hint">Stel de einddatum in</string>
   
   <!-- Task assigned to string (%s -> assigned person name) -->
-  <string name="TEA_assigned_to">Assigned to %s</string>
+  <string name="TEA_assigned_to">Toegewezen aan %s</string>
   
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">Specifieke tijd?</string>
@@ -835,7 +835,7 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   <string name="TEA_hideUntil_label">Verbergen tot</string>
 
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_display">Hide until %s</string>
+  <string name="TEA_hideUntil_display">Verberg tot %s</string>
   
   <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Taak is verborgen tot %s</string>
@@ -847,7 +847,7 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   <string name="TEA_note_label">Omschrijving</string>
 
   <!-- slide 16c: Task note label -->
-  <string name="TEA_notes_empty">Description...</string>
+  <string name="TEA_notes_empty">Omschrijving</string>
   
   <!-- Task note hint -->
   <string name="TEA_notes_hint">Voer taakomschrijving in</string>
@@ -891,9 +891,9 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">Ideeën</string>
   
-  <string name="TEA_timer_est">Est. %s</string>
+  <string name="TEA_timer_est">Gesch. %s</string>
 
-  <string name="TEA_timer_elap">Elapsed %s</string>
+  <string name="TEA_timer_elap">Verstreken %s</string>
   
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
@@ -913,9 +913,9 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
       <!-- hideUntil: labels for edit page. -->
       <item>Nooit</item>
       <item>Einddatum </item>
-      <item>Due time</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>Eindtijd</item>
+      <item>Dag voor einddatum</item>
+      <item>Week voor einddatum</item>
       <item>Specifieke dag/tijd</item>
   </string-array>
   
@@ -1186,14 +1186,14 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   
   <string name="EPr_use_date_shortcuts">Gebruik datum snelkoppelingen</string>
   
-  <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
+  <string name="EPr_show_timer_shortcut">Toon timer snelkoppeling</string>
   
   <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
   
-  <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
+  <string name="EPr_beastMode_hint">Pas uw taak bewerken scherm aan door de linker handle van elke rij te verslepen</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Omschrijving zal toegankelijk zijn vanaf het bewerk taak scherm</string>  
@@ -1250,7 +1250,7 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   <string name="EPr_show_quickadd_controls">Geavanceerde snel toevoegen controls</string>
 
   <!-- Preference: don\'t show plus button until input present -->
-  <string name="EPr_hide_plus_button">Hide plus button</string>
+  <string name="EPr_hide_plus_button">Verberg plus knop</string>
 
   <!-- Preference: menu items -->
   <string name="EPr_menu_items">Menu items</string>
@@ -1446,15 +1446,15 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   
   <!-- ======================================================== Waiting on me -->
 
-  <string name="wom_commented">%s commented on your task.</string>
-  <string name="wom_mentioned">%s mentioned you.</string>
-  <string name="wom_assigned">%s assigned this to you.</string>
-  <string name="wom_raised_pri">%s raised the priority.</string>
-  <string name="wom_changed_due">%s changed the due date.</string>
-  <string name="wom_default">%s wants your attention.</string>
+  <string name="wom_commented">%s heeft gereageerd op je taak.</string>
+  <string name="wom_mentioned">%s heeft je vermeld.</string>
+  <string name="wom_assigned">%s heeft dit toegewezen aan jou.</string>
+  <string name="wom_raised_pri">%s heeft de prioriteit verhoogd.</string>
+  <string name="wom_changed_due">%s heeft de einddatum veranderd.</string>
+  <string name="wom_default">%s wil je aandacht.</string>
   
-  <string name="wom_dismiss">Dismiss</string>
-  <string name="wom_acknowledge">I\'ve read this</string>
+  <string name="wom_dismiss">Sluit</string>
+  <string name="wom_acknowledge">Ik heb dit gelezen</string>
 
   <!-- ============================================================= About == -->
   
@@ -1475,23 +1475,23 @@ Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   
   <!-- ============================================================= Misc == -->
   
-  <string name="feedback_positive_title">Rate Astrid?</string>
+  <string name="feedback_positive_title">Beoordeel Astrid?</string>
 
-  <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
+  <string name="feedback_positive_body">Fijn dat ik kon helpen! Heb je een momentje om ons een 5-ster waardering te geven?</string>
 
-  <string name="feedback_negative_title">Leave feedback?</string>
+  <string name="feedback_negative_title">Geef feedback?</string>
 
-  <string name="feedback_negative_body">Sorry to hear that we\'re having issues</string>
+  <string name="feedback_negative_body">Sorry om te horen dat we problemen hebben</string>
 
-  <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
+  <string name="feedback_activity_error">Oeps! Het is niet gelukt om de market review sectie te starten--mogelijk is het niet beschikbaar op je apparaat.</string>
   
-  <string name="feedback_positive_button">Rate Astrid</string>
+  <string name="feedback_positive_button">Beoordeel Astrid</string>
 
-  <string name="feedback_negative_button">Leave feedback</string>
+  <string name="feedback_negative_button">Geef feedback</string>
   
-  <string name="feedback_not_now">Not now</string>
+  <string name="feedback_not_now">Nu niet</string>
   
-  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
+  <string name="feedback_banner_text">Hoe werkt Astrid voor jou?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! Voeg Astrid indien mogelijk toe aan de lijst met uitgezonderde programma\'s. Als u dit niet doet kan Astrid u niet helpen met taken herinneren!\n</string>
@@ -2255,7 +2255,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Reminder settings</string>
+  <string name="TEA_reminders_group_label">Instellingen herinneringen</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Herinneren:</string>
@@ -2281,17 +2281,17 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Totdat ik het alarm stop</string>
   
-  <string name="TEA_reminder_when">when</string>
+  <string name="TEA_reminder_when">wanneer</string>
   
-  <string name="TEA_reminder_due_short">due</string>
+  <string name="TEA_reminder_due_short">einddatum</string>
 
-  <string name="TEA_reminder_overdue_short">overdue</string>
+  <string name="TEA_reminder_overdue_short">te laat</string>
 
-  <string name="TEA_reminder_randomly_short">randomly</string>
+  <string name="TEA_reminder_randomly_short">willekeurig</string>
 
-  <string name="TEA_reminder_display_one">Remind me %s</string>
+  <string name="TEA_reminder_display_one">Herinner me %s</string>
   
-  <string name="TEA_reminder_display_multiple">Remind %s</string>
+  <string name="TEA_reminder_display_multiple">Herinner %s</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -2556,9 +2556,9 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 
   <string name="reminders_social">Deze mensen rekenen op je!</string>
   
-  <string name="reminders_social_one">%s is counting on you!</string>
+  <string name="reminders_social_one">%s rekent op je!</string>
   
-  <string name="reminders_social_multiple">%1$s, %2$s, and others are counting on you!</string>
+  <string name="reminders_social_multiple">%1$s, %2$s, en anderen rekenen op je!</string>
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
@@ -2673,7 +2673,7 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
   <string name="repeat_interval_prompt">Herhaal interval</string>
   
   <!-- slide 19b-->
-  <string name="repeat_never">Not repeating</string>
+  <string name="repeat_never">Niet herhalend</string>
   <!-- slide 20f-->
   <string name="repeat_dont">Niet herhalen</string>
       
@@ -3116,12 +3116,14 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 -->
 
     
+    <string name="widget_mini">- Astrid Mini -</string>
+    
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
-    <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
-    <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
-    <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
+    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
+    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
+    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
+    <string name="PPW_widget_v11_label">- Astrid -</string>
     <string name="PPW_widget_custom_label">Astrid Gepersonaliseerd Startscherm Premium</string>
     <string name="PPW_widget_custom_launcherpro_label">Astrid Startscherm Pro Premium</string>
     
