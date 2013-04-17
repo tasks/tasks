@@ -649,13 +649,6 @@ public class TagViewFragment extends TaskListFragment {
         };
     }
 
-    @Override
-    protected Intent getOnClickQuickAddIntent(Task t) {
-        Intent intent = super.getOnClickQuickAddIntent(t);
-        // Customize extras
-        return intent;
-    }
-
     private void resetAssignedFilter() {
         currentId = Task.USER_ID_IGNORE;
         isBeingFiltered.set(false);

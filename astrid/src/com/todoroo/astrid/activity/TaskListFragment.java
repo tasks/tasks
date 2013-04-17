@@ -609,14 +609,6 @@ public class TaskListFragment extends SherlockListFragment implements OnScrollLi
         });
     }
 
-    // Subclasses can override these to customize extras in quickadd intent
-    protected Intent getOnClickQuickAddIntent(Task t) {
-        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
-        intent.putExtra(TaskEditFragment.TOKEN_ID, t.getId());
-        intent.putExtra(TOKEN_FILTER, filter);
-        return intent;
-    }
-
     public void transitionForTaskEdit() {
         AndroidUtilities.callOverridePendingTransition(getActivity(),
                 R.anim.slide_left_in, R.anim.slide_left_out);
