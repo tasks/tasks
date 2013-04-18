@@ -49,6 +49,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_6_4 = 305;
     public static final int V4_6_3 = 304;
     public static final int V4_6_2 = 303;
     public static final int V4_6_1 = 302;
@@ -321,7 +322,14 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
-        if (from >= V4_6_0 && from < V4_6_3) {
+        if (from >= V4_6_0 && from < V4_6_4) {
+            newVersionString(changeLog, "4.6.4 (4/18/13)", new String[] {
+                 "Improvements to monthly repeating tasks scheduled for the end of the month",
+                 "Minor bugfixes"
+            });
+        }
+
+        if (from < V4_6_3) {
             newVersionString(changeLog, "4.6.3 (4/15/13)", new String[] {
                     "BIG RELEASE!",
                     "\"Waiting on me\" shows shared tasks assigned to you or where you were mentioned by name",
