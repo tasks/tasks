@@ -32,7 +32,7 @@
     </subant>
   </target>
 
-  <target name="release-all" depends="clean,get-version,release,release-lite,release-nomarket">    
+  <target name="release-all" depends="clean,get-version,release,release-lite,release-amazon,release-amazon-signed,release-nook,release-webmarket,release-nomarket">    
     <!-- custom builds -->
     <for list="-other" param="name">
       <sequential>
@@ -42,6 +42,15 @@
         </subant>
       </sequential>
     </for>
+  </target>
+
+  <target name="release-amazon" depends="get-version">
+    <subant>
+      <fileset file="astrid/build.xml" />
+      <property name="custom.version.name" value=".1000" />
+      <property name="custom.market.strategy" value="AmazonMarketStrategy" />
+      <target name="unsigned-custom" />
+    </subant>
   </target>
 
   <target name="release-amazon-signed" depends="get-version">
@@ -58,6 +67,14 @@
       <property name="custom.version.name" value="-nomarket" />
       <property name="custom.market.strategy" value="NoMarketStrategy" />
     </subant>
+  </target>
+    
+  <target name="release-nook" depends="get-version">
+    <subant target="release-custom">
+      <fileset file="astrid/build.xml" />
+      <property name="custom.version.name" value="-nook" />
+      <property name="custom.market.strategy" value="NookMarketStrategy" />
+    </subant>  
   </target>
     
   <target name="release-lite" depends="get-version">

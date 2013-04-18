@@ -104,6 +104,7 @@ import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
@@ -302,6 +303,8 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         loginButton.setReadPermissions(Arrays.asList("email", "offline_access"));
 
         View googleLogin = findViewById(R.id.gg_login);
+        if(AmazonMarketStrategy.isKindleFire())
+            googleLogin.setVisibility(View.GONE);
         googleLogin.setOnClickListener(googleListener);
 
         View fbLogin = findViewById(R.id.fb_login_dummy);

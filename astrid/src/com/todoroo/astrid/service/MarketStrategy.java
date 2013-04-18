@@ -8,6 +8,8 @@ package com.todoroo.astrid.service;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.timsu.astrid.R;
+
 public abstract class MarketStrategy {
 
     /**
@@ -90,6 +92,92 @@ public abstract class MarketStrategy {
         @Override
         public boolean billingSupported() {
             return true;
+        }
+
+    }
+
+    public static class AmazonMarketStrategy extends MarketStrategy {
+
+        @Override
+        public Intent generateMarketLink(String packageName) {
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://www.amazon.com/gp/mas/dl/android?p=" + //$NON-NLS-1$
+                            packageName));
+        }
+
+        @Override
+        public boolean includesLocalePlugin() {
+            return false;
+        }
+
+        /**
+         * @return true if the device is a kindle fire and needs special treatment
+         */
+        public static boolean isKindleFire() {
+            return android.os.Build.MANUFACTURER.equals("Amazon") && //$NON-NLS-1$
+                android.os.Build.MODEL.contains("Kindle"); //$NON-NLS-1$
+        }
+
+        @Override
+        public int[] excludedSettings() {
+            return new int[] {
+                R.string.p_theme_widget,
+                R.string.p_voicePrefSection,
+                R.string.p_end_at_deadline,
+                R.string.p_field_missed_calls
+            };
+        }
+
+        @Override
+        public String strategyId() {
+            return "amazon_market"; //$NON-NLS-1$
+        }
+
+    }
+
+    public static class NookMarketStrategy extends MarketStrategy {
+
+        @Override
+        public Intent generateMarketLink(String packageName) {
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
+                            packageName));
+        }
+
+        @Override
+        public boolean includesLocalePlugin() {
+            return false;
+        }
+
+        @Override
+        public boolean allowIdeasTab() {
+            return false;
+        }
+
+        @Override
+        public int[] excludedSettings() {
+            return new int[] {
+                R.string.p_theme_widget,
+                R.string.p_voicePrefSection,
+                R.string.p_end_at_deadline,
+                R.string.p_field_missed_calls,
+                R.string.p_rmd_vibrate,
+                R.string.gcal_p_default,
+                R.string.p_theme_widget,
+                R.string.p_voiceInputEnabled,
+                R.string.p_voiceInputCreatesTask,
+                R.string.p_use_contact_picker
+            };
+        }
+
+        @Override
+        public boolean defaultPhoneLayout() {
+            return true;
+        }
+
+        @Override
+        public String strategyId() {
+            return "nook_market"; //$NON-NLS-1$
         }
 
     }

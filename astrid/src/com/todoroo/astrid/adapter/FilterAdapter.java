@@ -59,8 +59,10 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.helper.AsyncImageView;
+import com.todoroo.astrid.service.MarketStrategy.NookMarketStrategy;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
@@ -112,6 +114,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     private FilterDataSourceChangedListener listener;
 
+    private final boolean nook;
+
 
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
@@ -140,6 +144,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
         this.filterCounts = new HashMap<Filter, Integer>();
+
+        this.nook = (Constants.MARKET_STRATEGY instanceof NookMarketStrategy);
 
         if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
             filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
@@ -505,7 +511,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         viewHolder.urlImage.setVisibility(View.GONE);
         viewHolder.icon.setVisibility(View.GONE);
 
-        if(filter.listingIcon != null) {
+        if(!nook && filter.listingIcon != null) {
             viewHolder.icon.setVisibility(View.VISIBLE);
             viewHolder.icon.setImageBitmap(filter.listingIcon);
         }
@@ -548,7 +554,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.name.setTextColor(Color.GRAY);
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
-        if(filter instanceof FilterWithUpdate) {
+        if(!nook && filter instanceof FilterWithUpdate) {
             String defaultImageId = RemoteModel.NO_UUID;
             FilterWithUpdate fwu = (FilterWithUpdate) filter;
             Bundle customExtras = fwu.customExtras;
@@ -560,6 +566,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.urlImage.setVisibility(View.VISIBLE);
             viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(defaultImageId)));
             viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
+        }
+
+        if (nook) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewHolder.name.getLayoutParams();
+            params.setMargins((int) (8 * metrics.density), 0, 0, 0);
         }
 
         if (filter.color != 0)
