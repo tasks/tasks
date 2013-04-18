@@ -32,7 +32,7 @@
     </subant>
   </target>
 
-  <target name="release-all" depends="clean,get-version,release,release-lite,release-amazon,release-amazon-signed,release-nook,release-webmarket,release-nomarket">    
+  <target name="release-all" depends="clean,get-version,release,release-lite,release-amazon,release-amazon-signed,release-nook,release-nomarket">    
     <!-- custom builds -->
     <for list="-other" param="name">
       <sequential>
