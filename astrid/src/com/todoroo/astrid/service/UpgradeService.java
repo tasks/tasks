@@ -49,6 +49,7 @@ import com.todoroo.astrid.utility.Constants;
 
 public final class UpgradeService {
 
+    public static final int V4_6_5 = 306;
     public static final int V4_6_4 = 305;
     public static final int V4_6_3 = 304;
     public static final int V4_6_2 = 303;
@@ -322,8 +323,8 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
-        if (from >= V4_6_0 && from < V4_6_4) {
-            newVersionString(changeLog, "4.6.4 (4/18/13)", new String[] {
+        if (from >= V4_6_0 && from < V4_6_4) { // Versions 4.6.4 and 4.6.5 are virtually identical--the former went out to the Amazon store only
+            newVersionString(changeLog, "4.6.5 (4/23/13)", new String[] {
                  "Improvements to monthly repeating tasks scheduled for the end of the month",
                  "Minor bugfixes"
             });

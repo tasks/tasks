@@ -6,8 +6,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="4.6.4"
-          android:versionCode="305">
+          android:versionName="4.6.5"
+          android:versionCode="306">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
