@@ -27,6 +27,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.billing.BillingActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.service.PremiumUnlockService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -76,7 +77,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
 
         PreferenceScreen screen = getPreferenceScreen();
         Preference inAppBilling = findPreference(getString(R.string.actfm_inapp_billing));
-        if (Constants.ASTRID_LITE)
+        if (Constants.ASTRID_LITE || Preferences.getBoolean(PremiumUnlockService.PREF_KILL_SWITCH, false))
             screen.removePreference(inAppBilling);
         else
             inAppBilling.setOnPreferenceClickListener(new OnPreferenceClickListener() {
