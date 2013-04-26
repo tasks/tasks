@@ -55,7 +55,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                                 Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
                             TaskDao.TaskCriteria.activeAndVisible(),
                             MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                            TaskToTagMetadata.TAG_NAME.eq("?"))).toString(),
+                            TaskToTagMetadata.TAG_NAME.eq("?"), Metadata.DELETION_DATE.eq(0))).toString(),
                     values, tagNames, tagNames,
                     ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                     context.getString(R.string.CFC_tag_name));
@@ -71,7 +71,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                                     Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
                                             TaskDao.TaskCriteria.activeAndVisible(),
                                             MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                                            TaskToTagMetadata.TAG_NAME.like("%?%"))).toString(),
+                                            TaskToTagMetadata.TAG_NAME.like("%?%"), Metadata.DELETION_DATE.eq(0))).toString(),
                                             null, context.getString(R.string.CFC_tag_contains_name), "",
                                             ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                                             context.getString(R.string.CFC_tag_contains_name));
