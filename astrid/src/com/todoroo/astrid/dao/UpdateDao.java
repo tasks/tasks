@@ -21,7 +21,6 @@ public class UpdateDao extends RemoteModelDao<Update> {
     @Autowired
     Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
     public UpdateDao() {
         super(Update.class);
         DependencyInjectionService.getInstance().inject(this);

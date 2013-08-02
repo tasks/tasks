@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -161,7 +160,6 @@ public class Database extends AbstractDatabase {
     }
 
     @Override
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "SF_SWITCH_FALLTHROUGH")
     protected synchronized boolean onUpgrade(int oldVersion, int newVersion) {
         SqlConstructorVisitor visitor = new SqlConstructorVisitor();
         switch (oldVersion) {
@@ -432,7 +430,6 @@ public class Database extends AbstractDatabase {
             database.execSQL(sql);
         } catch (SQLiteException e) {
             Log.e("astrid", "SQL Error: " + sql, e);
-            Crittercism.logHandledException(e);
         }
     }
 

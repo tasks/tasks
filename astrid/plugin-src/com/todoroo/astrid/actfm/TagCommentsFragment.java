@@ -32,7 +32,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -169,11 +168,6 @@ public class TagCommentsFragment extends CommentsFragment {
         userActivity.setValue(UserActivity.TARGET_NAME, tagData.getValue(TagData.NAME));
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return userActivity;
-    }
-
-    @Override
-    protected String commentAddStatistic() {
-        return StatisticsConstants.ACTFM_TAG_COMMENT;
     }
 
     @Override

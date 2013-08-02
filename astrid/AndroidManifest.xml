@@ -216,11 +216,6 @@
                 android:screenOrientation="portrait"
                 android:theme="@android:style/Theme"/>
 
-        <!-- Start of Crittercism.com Code -->
-        <activity android:name="com.crittercism.NotificationActivity"/>
-        <!-- End of Crittercism.com Code -->
-
-
         <!-- ======================================================= Receivers = -->
 
         <receiver android:name="com.todoroo.astrid.reminders.Notifications"/>

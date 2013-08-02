@@ -21,7 +21,6 @@ public class StoreObjectDao extends DatabaseDao<StoreObject> {
     @Autowired
     private Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
     public StoreObjectDao() {
         super(StoreObject.class);
         DependencyInjectionService.getInstance().inject(this);

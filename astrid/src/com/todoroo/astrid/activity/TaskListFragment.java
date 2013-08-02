@@ -40,7 +40,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListFragment;
@@ -91,8 +90,6 @@ import com.todoroo.astrid.reminders.ReminderDebugContextActions;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -1205,11 +1202,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * @param item task that was completed
      */
     protected void onTaskCompleted(Task item) {
-        if (isInbox) {
-            StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_INBOX);
-        } else {
-            StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_FILTER);
-        }
     }
 
     /**
@@ -1358,7 +1350,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         Activity activity = getActivity();
         switch (id) {
             case MENU_SORT_ID:
-                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
                 if (activity != null) {
                     AlertDialog dialog = SortSelectionActivity.createDialog(
                             getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
@@ -1366,7 +1357,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 }
                 return true;
             case MENU_SYNC_ID:
-                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
                 syncActionHelper.performSyncAction();
                 return true;
             case MENU_ADDON_INTENT_ID:
@@ -1476,7 +1466,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             return;
         }
 
-        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
         Intent intent = new Intent(activity, EditPreferences.class);
         startActivityForResult(intent, ACTIVITY_SETTINGS);
     }

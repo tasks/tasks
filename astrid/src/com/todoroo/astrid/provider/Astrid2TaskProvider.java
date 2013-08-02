@@ -25,8 +25,6 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -272,7 +270,6 @@ public class Astrid2TaskProvider extends ContentProvider {
                     task.setValue(Task.COMPLETION_DATE,
                             values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
                     if (task.isCompleted()) {
-                        StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_API2);
                     }
                 }
 

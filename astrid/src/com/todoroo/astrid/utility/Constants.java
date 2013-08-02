@@ -13,12 +13,6 @@ public final class Constants {
     // --- general application constants
 
     /**
-     * LCL API Key
-     */
-    public static final String LOCALYTICS_KEY_LITE = "f3a40b93823ac2024b062f2-d96a8860-4a2c-11e2-35ca-004b50a28849";
-    public static final String LOCALYTICS_KEY = "ae35a010c66a997ab129ab7-3e2adf46-8bb3-11e0-fe8b-007f58cb3154";
-
-    /**
      * Application Package
      */
     public static final String PACKAGE = "com.timsu.astrid";
@@ -85,10 +79,6 @@ public final class Constants {
      * Notification Manager id for astrid.com
      */
     public static final int NOTIFICATION_ACTFM = -5;
-
-    // --- crittercism
-
-    public static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5";
 
     // --- amazon
 

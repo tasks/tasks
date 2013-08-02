@@ -31,8 +31,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
@@ -148,7 +146,6 @@ public class GCalControlSet extends PopupControlSet {
                 !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
         if ((gcalCreateEventEnabled || calendarSelector.getSelectedItemPosition() != 0) &&
                 calendarUri == null) {
-            StatisticsService.reportEvent(StatisticsConstants.CREATE_CALENDAR_EVENT);
 
             try {
                 ContentResolver cr = activity.getContentResolver();

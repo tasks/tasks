@@ -9,7 +9,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StatisticsService;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
@@ -51,24 +50,6 @@ public class ABTestInvoker {
 
     public ABTestInvoker() {
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    public void reportAcquisition() {
-        if (!Preferences.getBoolean(PREF_REPORTED_ACQUISITION, false) &&
-                !StatisticsService.dontCollectStatistics()) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HttpEntity postData = createPostData(null);
-                        restClient.post(URL + ACQUISITION_METHOD, postData);
-                        Preferences.setBoolean(PREF_REPORTED_ACQUISITION, true);
-                    } catch (IOException e) {
-                        // Ignored
-                    }
-                }
-            }).start();
-        }
     }
 
     /**

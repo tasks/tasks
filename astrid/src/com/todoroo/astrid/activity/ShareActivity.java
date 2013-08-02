@@ -15,8 +15,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.timsu.astrid.R;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 
 public class ShareActivity extends SherlockFragmentActivity {
@@ -45,7 +43,6 @@ public class ShareActivity extends SherlockFragmentActivity {
         setUpTextView(google, getString(R.string.share_with_google), "https://plus.google.com/116404018347675245869", "google"); //$NON-NLS-1$ //$NON-NLS-2$
 
         setupText();
-        StatisticsService.reportEvent(StatisticsConstants.SHARE_PAGE_VIEWED);
     }
 
     private void setUpTextView(TextView tv, String text, final String url, final String buttonId) {
@@ -53,7 +50,6 @@ public class ShareActivity extends SherlockFragmentActivity {
         ((View) tv.getParent()).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                StatisticsService.reportEvent(StatisticsConstants.SHARE_BUTTON_CLICKED, "button", buttonId); //$NON-NLS-1$
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }

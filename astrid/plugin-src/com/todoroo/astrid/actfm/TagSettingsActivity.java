@@ -55,8 +55,6 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.UUIDHelper;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -382,7 +380,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         int oldMemberCount = tagData.getValue(TagData.MEMBER_COUNT);
         if (members.length() > oldMemberCount) {
-            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LIST_SHARED);
         }
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
         tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());

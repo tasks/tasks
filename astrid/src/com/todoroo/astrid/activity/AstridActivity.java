@@ -43,8 +43,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -112,7 +110,6 @@ public class AstridActivity extends SherlockFragmentActivity
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
-        StatisticsService.sessionStart(this);
 
         new StartupService().onStartupApplication(this);
     }
@@ -131,14 +128,7 @@ public class AstridActivity extends SherlockFragmentActivity
     protected void onPause() {
         super.onPause();
 
-        StatisticsService.sessionPause();
         AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        StatisticsService.sessionStop(this);
     }
 
     /**
@@ -151,7 +141,6 @@ public class AstridActivity extends SherlockFragmentActivity
         }
         if (item instanceof SearchFilter) {
             onSearchRequested();
-            StatisticsService.reportEvent(StatisticsConstants.FILTER_SEARCH);
             return false;
         } else {
             // If showing both fragments, directly update the tasklist-fragment
@@ -168,7 +157,6 @@ public class AstridActivity extends SherlockFragmentActivity
 
                 // no animation for dualpane-layout
                 AndroidUtilities.callOverridePendingTransition(this, 0, 0);
-                StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
                 return true;
             } else if (item instanceof IntentFilter) {
                 try {

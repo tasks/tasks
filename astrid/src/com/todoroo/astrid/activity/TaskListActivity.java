@@ -54,8 +54,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
 import com.todoroo.astrid.people.PersonViewFragment;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -865,22 +863,16 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         switch (getIntent().getIntExtra(TOKEN_SOURCE,
                 Constants.SOURCE_DEFAULT)) {
             case Constants.SOURCE_NOTIFICATION:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
                 break;
             case Constants.SOURCE_OTHER:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
                 break;
             case Constants.SOURCE_PPWIDGET:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
                 break;
             case Constants.SOURCE_WIDGET:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
                 break;
             case Constants.SOURCE_C2DM:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
                 break;
             case Constants.SOURCE_REENGAGEMENT:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_REENGAGEMENT);
         }
         getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }

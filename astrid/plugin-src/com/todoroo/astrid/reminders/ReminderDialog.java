@@ -38,8 +38,6 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
@@ -85,7 +83,6 @@ public class ReminderDialog extends Dialog {
                 task.setValue(Task.REMINDER_SNOOZE, time);
                 PluginServices.getTaskService().save(task);
                 dismiss();
-                StatisticsService.reportEvent(StatisticsConstants.TASK_SNOOZE);
             }
         };
         final OnTimeSetListener onTimeSet = new OnTimeSetListener() {

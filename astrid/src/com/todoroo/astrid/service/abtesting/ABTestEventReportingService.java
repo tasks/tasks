@@ -18,7 +18,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 
 import org.json.JSONArray;
@@ -78,67 +77,11 @@ public final class ABTestEventReportingService {
             public void run() {
                 try {
                     abTestEventDao.createRelativeDateEvents();
-                    pushAllUnreportedABTestEvents();
-//                    reportUserActivation();
                 } catch (SQLiteException e) {
                     StartupService.handleSQLiteError(context, e);
                 }
             }
         }).start();
-    }
-
-    private void pushAllUnreportedABTestEvents() {
-        synchronized (ABTestEventReportingService.class) {
-            if (StatisticsService.dontCollectStatistics()) {
-                return;
-            }
-            final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
-                    .where(ABTestEvent.REPORTED.eq(0))
-                    .orderBy(Order.asc(ABTestEvent.TEST_NAME), Order.asc(ABTestEvent.TIME_INTERVAL)));
-            if (unreported.getCount() > 0) {
-                try {
-                    JSONArray payload = jsonArrayFromABTestEvents(unreported);
-                    abTestInvoker.post(ABTestInvoker.AB_RETENTION_METHOD, payload);
-                    ABTestEvent model = new ABTestEvent();
-                    for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
-                        model.readFromCursor(unreported);
-                        model.setValue(ABTestEvent.REPORTED, 1);
-                        abTestEventDao.saveExisting(model);
-                    }
-                } catch (JSONException e) {
-                    handleException(e);
-                } catch (IOException e) {
-                    handleException(e);
-                } finally {
-                    unreported.close();
-                }
-            }
-        }
-    }
-
-    private void reportUserActivation() {
-        synchronized (ABTestEventReportingService.class) {
-            if (StatisticsService.dontCollectStatistics()) {
-                return;
-            }
-            if (Preferences.getBoolean(PREF_REPORTED_ACTIVATION, false) || !taskService.getUserActivationStatus()) {
-                return;
-            }
-
-            final TodorooCursor<ABTestEvent> variants = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
-                    .groupBy(ABTestEvent.TEST_NAME));
-            try {
-                JSONArray payload = jsonArrayForActivationAnalytics(variants);
-                abTestInvoker.post(ABTestInvoker.AB_ACTIVATION_METHOD, payload);
-                Preferences.setBoolean(PREF_REPORTED_ACTIVATION, true);
-            } catch (JSONException e) {
-                handleException(e);
-            } catch (IOException e) {
-                handleException(e);
-            } finally {
-                variants.close();
-            }
-        }
     }
 
     public JSONArray getTestsWithVariantsArray() {

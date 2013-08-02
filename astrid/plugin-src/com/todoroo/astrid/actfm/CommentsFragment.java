@@ -51,7 +51,6 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -123,8 +122,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected abstract void populateListHeader(ViewGroup header);
 
     protected abstract UserActivity createUpdate();
-
-    protected abstract String commentAddStatistic();
 
     protected abstract void performFetch(boolean manual, SyncMessageCallback done);
 
@@ -412,8 +409,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
         resetPictureButton();
         refreshUpdatesList();
-
-        StatisticsService.reportEvent(commentAddStatistic());
     }
 
     @Override

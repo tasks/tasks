@@ -27,10 +27,5 @@
                 android:title="@string/EPr_cal_end_or_start_at_due_time"
                 android:key="@string/p_end_at_deadline"/>
 
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-                android:key="@string/p_statistics"
-                android:title="@string/EPr_statistics_title"
-                android:defaultValue="true"/>
-
     </PreferenceScreen>
 </PreferenceScreen>

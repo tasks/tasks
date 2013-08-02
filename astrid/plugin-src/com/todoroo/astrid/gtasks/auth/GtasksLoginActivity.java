@@ -32,7 +32,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 
 import java.io.IOException;
@@ -159,29 +158,6 @@ public class GtasksLoginActivity extends ListActivity {
         Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, accountName);
         setResult(RESULT_OK);
         finish();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        StatisticsService.sessionStart(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        StatisticsService.sessionPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        StatisticsService.sessionStop(this);
     }
 
     private static final int REQUEST_AUTHENTICATE = 0;

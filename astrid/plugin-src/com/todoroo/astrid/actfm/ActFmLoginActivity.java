@@ -96,8 +96,6 @@ import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater;
@@ -212,8 +210,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
 
-        recordPageView();
-
         setResult(RESULT_CANCELED);
     }
 
@@ -231,30 +227,18 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     protected void onResume() {
         super.onResume();
         uiHelper.onResume();
-        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         uiHelper.onPause();
-        StatisticsService.sessionPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
-    }
-
-    @Override
-    protected void onStop() {
-        StatisticsService.sessionStop(this);
-        super.onStop();
-    }
-
-    protected void recordPageView() {
-        StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SHOW);
     }
 
     protected void setupTermsOfService(TextView tos) {
@@ -331,7 +315,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
             Intent intent = new Intent(ActFmLoginActivity.this,
                     ActFmGoogleAuthActivity.class);
             startActivityForResult(intent, REQUEST_CODE_GOOGLE);
-            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
         }
     };
 
@@ -395,7 +378,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
                     authenticate(email.getText().toString(),
                             firstName, lastName, ActFmInvoker.PROVIDER_PASSWORD, generateRandomPassword());
-                    StatisticsService.reportEvent(StatisticsConstants.ACTFM_SIGNUP_PW);
                 }
             }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
@@ -462,7 +444,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     authenticate(email.getText().toString(),
                             "", "", ActFmInvoker.PROVIDER_PASSWORD,  //$NON-NLS-1$//$NON-NLS-2$
                             password.getText().toString());
-                    StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_PW);
                 }
             }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
@@ -594,7 +575,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     final String token = actFmInvoker.getToken();
 
                     if (result.optBoolean("new")) { // Report new user statistic
-                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_NEW_USER, "provider", provider);
                     }
                     // Successful login, create outstanding entries
                     String lastId = ActFmPreferenceService.userId(); //Preferences.getLong(ActFmPreferenceService.PREF_USER_ID, 0);

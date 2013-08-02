@@ -49,7 +49,6 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -279,27 +278,14 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        StatisticsService.sessionStop(this);
-        super.onStop();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
         registerReceiver(filterCriteriaReceiver, new IntentFilter(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA));
         populateCriteria();
     }
 
     @Override
     protected void onPause() {
-        StatisticsService.sessionPause();
         super.onPause();
         unregisterReceiver(filterCriteriaReceiver);
     }

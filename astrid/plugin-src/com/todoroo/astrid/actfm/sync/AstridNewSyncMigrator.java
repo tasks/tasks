@@ -3,7 +3,6 @@ package com.todoroo.astrid.actfm.sync;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -120,12 +119,10 @@ public class AstridNewSyncMigrator {
                     tagDataService.save(newTagData);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error creating tag data", e);
-                    Crittercism.logHandledException(e);
                 }
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error creating tag data", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (noTagData != null) {
                 noTagData.close();
@@ -150,11 +147,9 @@ public class AstridNewSyncMigrator {
                     }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error clearing emergent tags");
-                    Crittercism.logHandledException(e);
                 }
             }
         } catch (Exception e) {
-            Crittercism.logHandledException(e);
         } finally {
             if (emergentTags != null) {
                 emergentTags.close();
@@ -203,7 +198,6 @@ public class AstridNewSyncMigrator {
             });
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error asserting UUIDs", e);
-            Crittercism.logHandledException(e);
         }
 
         // --------------
@@ -218,7 +212,6 @@ public class AstridNewSyncMigrator {
             taskDao.update(Functions.bitwiseAnd(Task.FLAGS, Task.FLAG_PUBLIC).gt(0), template);
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error clearing task flags", e);
-            Crittercism.logHandledException(e);
         }
 
         // --------------
@@ -250,12 +243,10 @@ public class AstridNewSyncMigrator {
                     }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating recurrence", e);
-                    Crittercism.logHandledException(e);
                 }
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating recurrence", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (tasksWithRecurrence != null) {
                 tasksWithRecurrence.close();
@@ -302,13 +293,11 @@ public class AstridNewSyncMigrator {
                     }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating updates", e);
-                    Crittercism.logHandledException(e);
                 }
 
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating updates", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (updates != null) {
                 updates.close();
@@ -323,7 +312,6 @@ public class AstridNewSyncMigrator {
             userDao.deleteWhere(Criterion.or(User.UUID.isNull(), User.UUID.eq(""), User.UUID.eq("0")));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error deleting incomplete user entries", e);
-            Crittercism.logHandledException(e);
         }
 
         // --------------
@@ -379,13 +367,11 @@ public class AstridNewSyncMigrator {
                     taskAttachmentDao.createNew(attachment);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
-                    Crittercism.logHandledException(e);
                 }
 
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (fmCursor != null) {
                 fmCursor.close();
@@ -411,7 +397,6 @@ public class AstridNewSyncMigrator {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating active tasks ordering", e);
-            Crittercism.logHandledException(e);
         }
 
         try {
@@ -430,7 +415,6 @@ public class AstridNewSyncMigrator {
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating today ordering", e);
-            Crittercism.logHandledException(e);
         }
 
         TodorooCursor<TagData> allTagData = null;
@@ -451,12 +435,10 @@ public class AstridNewSyncMigrator {
                     taskListMetadataDao.createNew(tlm);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating tag ordering", e);
-                    Crittercism.logHandledException(e);
                 }
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error migrating tag ordering", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (allTagData != null) {
                 allTagData.close();
@@ -503,13 +485,11 @@ public class AstridNewSyncMigrator {
 
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error validating task to tag metadata", e);
-                    Crittercism.logHandledException(e);
                 }
 
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (incompleteMetadata != null) {
                 incompleteMetadata.close();
@@ -523,7 +503,6 @@ public class AstridNewSyncMigrator {
             tagDataDao.deleteWhere(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0));
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error deleting featured list data", e);
-            Crittercism.logHandledException(e);
         }
 
 
@@ -559,12 +538,10 @@ public class AstridNewSyncMigrator {
                     taskOutstandingDao.createNew(to);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error creating tag_added outstanding entries", e);
-                    Crittercism.logHandledException(e);
                 }
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error creating tag_added outstanding entries", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (tagsAdded != null) {
                 tagsAdded.close();
@@ -613,12 +590,10 @@ public class AstridNewSyncMigrator {
                     }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error asserting UUIDs", e);
-                    Crittercism.logHandledException(e);
                 }
             }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error asserting UUIDs", e);
-            Crittercism.logHandledException(e);
         } finally {
             if (cursor != null) {
                 cursor.close();

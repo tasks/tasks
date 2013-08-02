@@ -17,7 +17,6 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
 
 public class TaskCommentsFragment extends CommentsFragment {
@@ -116,10 +115,4 @@ public class TaskCommentsFragment extends CommentsFragment {
         update.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         return update;
     }
-
-    @Override
-    protected String commentAddStatistic() {
-        return StatisticsConstants.ACTFM_TASK_COMMENT;
-    }
-
 }

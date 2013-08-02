@@ -28,8 +28,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -131,7 +129,6 @@ public class FeaturedTaskListFragment extends TagViewFragment {
             return;
         }
 
-        StatisticsService.reportEvent(StatisticsConstants.FEATURED_LIST_CLONED);
         final String localName = tagData.getValue(TagData.NAME) + " " + getString(R.string.actfm_feat_list_suffix); //$NON-NLS-1$
         TagData clone = new TagData();
         TodorooCursor<TagData> existing = tagDataService.query(Query.select(TagData.PROPERTIES)

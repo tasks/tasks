@@ -17,8 +17,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * Control set dealing with random reminder settings
@@ -102,7 +100,6 @@ public class RandomReminderControlSet extends TaskEditControlSet {
             int hourValue = hours[periodSpinner.getSelectedItemPosition()];
             task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
             if (task.getSetValues().containsKey(Task.REMINDER_PERIOD.name)) {
-                StatisticsService.reportEvent(StatisticsConstants.RANDOM_REMINDER_SAVED);
             }
         } else {
             task.setValue(Task.REMINDER_PERIOD, 0L);

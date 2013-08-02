@@ -84,8 +84,6 @@ import com.todoroo.astrid.opencrx.OpencrxControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
@@ -790,12 +788,8 @@ public final class TaskEditFragment extends SherlockFragment implements
         }
 
         if (model.getValue(Task.TITLE).length() == 0) {
-            StatisticsService.reportEvent(StatisticsConstants.CREATE_TASK);
-
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
-        } else {
-            StatisticsService.reportEvent(StatisticsConstants.EDIT_TASK);
         }
 
         setIsNewTask(model.getValue(Task.TITLE).length() == 0);
@@ -1352,7 +1346,6 @@ public final class TaskEditFragment extends SherlockFragment implements
     @Override
     public void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
 
         if (shouldSaveState) {
             save(true);
@@ -1362,7 +1355,6 @@ public final class TaskEditFragment extends SherlockFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(getActivity());
         populateFields();
     }
 
@@ -1416,17 +1408,6 @@ public final class TaskEditFragment extends SherlockFragment implements
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
         outState.putString(TASK_UUID, uuid.toString());
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        StatisticsService.sessionStop(getActivity());
     }
 
     private void adjustInfoPopovers() {

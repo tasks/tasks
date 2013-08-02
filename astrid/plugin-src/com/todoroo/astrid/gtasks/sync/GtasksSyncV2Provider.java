@@ -45,8 +45,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
@@ -393,7 +391,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             } else {
                 mergeDates(task.task, local);
                 if (task.task.isCompleted() && !local.isCompleted()) {
-                    StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
                 }
             }
         } else { // Set default importance and reminders for remotely created tasks

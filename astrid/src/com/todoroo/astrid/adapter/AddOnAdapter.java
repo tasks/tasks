@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.AddOn;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Constants;
 
 import java.util.List;
@@ -58,7 +57,6 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             if (buttonTag != null) {
                 try {
                     activity.startActivity(buttonTag.intent);
-                    StatisticsService.reportEvent("addon-" + buttonTag.event); //$NON-NLS-1$
                 } catch (ActivityNotFoundException e) {
                     Toast.makeText(activity, R.string.market_unavailable, Toast.LENGTH_LONG).show();
                 }

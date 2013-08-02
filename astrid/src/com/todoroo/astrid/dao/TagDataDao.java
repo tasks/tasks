@@ -21,7 +21,6 @@ public class TagDataDao extends RemoteModelDao<TagData> {
     @Autowired
     Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
     public TagDataDao() {
         super(TagData.class);
         DependencyInjectionService.getInstance().inject(this);

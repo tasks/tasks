@@ -29,8 +29,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -47,7 +45,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     @Autowired
     private Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
     public MetadataDao() {
         super(Metadata.class);
         DependencyInjectionService.getInstance().inject(this);
@@ -181,7 +178,6 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         if (Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
             if (state && item.containsNonNullValue(Metadata.KEY) &&
                     item.getValue(Metadata.KEY).equals(TaskToTagMetadata.KEY)) {
-                StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_LIST);
                 Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);
             }
         }

@@ -9,9 +9,6 @@ import android.os.Environment;
 
 import java.io.File;
 
-import edu.umd.cs.findbugs.annotations.CheckForNull;
-
-
 /**
  * Constants for backup XML attributes and nodes.
  *
@@ -78,7 +75,6 @@ public class BackupConstants {
     /**
      * @return export directory for tasks, or null if no SD card
      */
-    @CheckForNull
     public static File defaultExportDirectory() {
         String storageState = Environment.getExternalStorageState();
         if (storageState.equals(Environment.MEDIA_MOUNTED)) {

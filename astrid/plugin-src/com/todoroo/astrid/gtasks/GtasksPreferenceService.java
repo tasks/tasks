@@ -7,8 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 /**
@@ -69,7 +67,6 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
 
     @Override
     protected void reportLastErrorImpl(String lastError, String type) {
-        StatisticsService.reportEvent(StatisticsConstants.GTASKS_SYNC_ERROR, "type", type); //$NON-NLS-1$
     }
 
 }

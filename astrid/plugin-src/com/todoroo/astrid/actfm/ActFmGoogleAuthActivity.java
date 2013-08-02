@@ -26,7 +26,6 @@ import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountMa
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.service.StatisticsService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -156,25 +155,6 @@ public class ActFmGoogleAuthActivity extends ListActivity {
         data.putExtra(RESULT_TOKEN, authToken);
         setResult(RESULT_OK, data);
         finish();
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        StatisticsService.sessionStart(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        StatisticsService.sessionPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        StatisticsService.sessionStop(this);
     }
 
     private static final int REQUEST_AUTHENTICATE = 0;
