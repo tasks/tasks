@@ -120,7 +120,6 @@ public class ABTestEvent extends AbstractModel {
     // --- data access boilerplate
 
     public ABTestEvent() {
-        super();
     }
 
     public ABTestEvent(TodorooCursor<ABTestEvent> cursor) {
@@ -129,7 +128,7 @@ public class ABTestEvent extends AbstractModel {
     }
 
     public void readFromCursor(TodorooCursor<ABTestEvent> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

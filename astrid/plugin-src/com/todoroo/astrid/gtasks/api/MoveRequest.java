@@ -37,7 +37,7 @@ public class MoveRequest extends PushRequest {
 
     @Override
     public Task executePush() throws IOException {
-        return service.moveGtask(super.listId, taskId, parentId, priorSiblingId);
+        return service.moveGtask(listId, taskId, parentId, priorSiblingId);
     }
 
     @Override

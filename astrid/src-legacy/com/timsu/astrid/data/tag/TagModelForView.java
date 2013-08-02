@@ -59,7 +59,6 @@ public class TagModelForView extends AbstractTagModel {
      * Constructor for creating a new model
      */
     TagModelForView(String name) {
-        super();
         setName(name);
     }
 

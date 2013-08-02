@@ -178,7 +178,6 @@ public class Update extends RemoteModel {
     // --- data access boilerplate
 
     public Update() {
-        super();
     }
 
     public Update(TodorooCursor<Update> cursor) {
@@ -187,7 +186,7 @@ public class Update extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<Update> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

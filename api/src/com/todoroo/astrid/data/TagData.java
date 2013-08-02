@@ -284,7 +284,6 @@ public final class TagData extends RemoteModel {
     // --- data access boilerplate
 
     public TagData() {
-        super();
     }
 
     public TagData(TodorooCursor<TagData> cursor) {
@@ -293,7 +292,7 @@ public final class TagData extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<TagData> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

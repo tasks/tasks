@@ -80,7 +80,6 @@ public class HttpRestClient implements RestClient {
     }
 
     public HttpRestClient(int timeout) {
-        super();
         this.timeout = timeout;
 
         HttpConnectionParams.setConnectionTimeout(params, timeout);

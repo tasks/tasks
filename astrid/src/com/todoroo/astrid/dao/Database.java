@@ -89,7 +89,6 @@ public class Database extends AbstractDatabase {
     // --- listeners
 
     public Database() {
-        super();
         addListener(new DatabaseUpdateListener() {
             @Override
             public void onDatabaseUpdated() {

@@ -17,7 +17,6 @@ public class HttpUnavailableException extends IOException {
     private static final long serialVersionUID = 5373340422464657279L;
 
     public HttpUnavailableException() {
-        super();
         DependencyInjectionService.getInstance().inject(this);
     }
 

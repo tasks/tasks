@@ -25,7 +25,6 @@ public class FilterWithUpdate extends FilterWithCustomIntent {
     public String updateText = null;
 
     protected FilterWithUpdate() {
-        super();
     }
 
     public FilterWithUpdate(String listingTitle, String title,

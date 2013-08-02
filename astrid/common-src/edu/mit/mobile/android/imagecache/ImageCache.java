@@ -132,7 +132,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
         private final ImageCache mCache;
 
         public ImageLoadHandler(ImageCache cache) {
-            super();
             mCache = cache;
         }
 

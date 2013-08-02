@@ -21,7 +21,6 @@ package com.todoroo.astrid.billing;
  */
 public class Base64DecoderException extends Exception {
     public Base64DecoderException() {
-        super();
     }
 
     public Base64DecoderException(String s) {

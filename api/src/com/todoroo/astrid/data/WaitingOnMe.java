@@ -73,7 +73,6 @@ public class WaitingOnMe extends RemoteModel {
     }
 
     public WaitingOnMe() {
-        super();
     }
 
     public WaitingOnMe(TodorooCursor<WaitingOnMe> cursor) {
@@ -82,7 +81,7 @@ public class WaitingOnMe extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<WaitingOnMe> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     private static final ContentValues defaultValues = new ContentValues();

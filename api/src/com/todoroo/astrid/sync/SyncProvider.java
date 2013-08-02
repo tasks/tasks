@@ -429,7 +429,6 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         public SyncData(ArrayList<TYPE> remoteUpdated,
                         TodorooCursor<Task> localCreated,
                         TodorooCursor<Task> localUpdated) {
-            super();
             this.remoteUpdated = remoteUpdated;
             this.localCreated = localCreated;
             this.localUpdated = localUpdated;

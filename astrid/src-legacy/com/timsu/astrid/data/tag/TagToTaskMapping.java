@@ -93,7 +93,6 @@ public class TagToTaskMapping extends LegacyAbstractModel {
     // --- constructor pass-through
 
     TagToTaskMapping(TaskIdentifier task, TagIdentifier tag) {
-        super();
         setTask(task);
         setTag(tag);
     }

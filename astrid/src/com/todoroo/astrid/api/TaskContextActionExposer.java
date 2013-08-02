@@ -24,7 +24,6 @@ public interface TaskContextActionExposer {
         public Runnable action;
 
         public TaskContextAction(int labelResource, Runnable action) {
-            super();
             this.labelResource = labelResource;
             this.action = action;
         }

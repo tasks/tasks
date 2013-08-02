@@ -401,7 +401,6 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
     // --- constructors and abstract methods
 
     AbstractTaskModel() {
-        super();
     }
 
     /**

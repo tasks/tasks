@@ -41,7 +41,6 @@ abstract public class WidgetConfigActivity extends ListActivity {
     FilterAdapter adapter = null;
 
     public WidgetConfigActivity() {
-        super();
     }
 
     abstract public void updateWidget();

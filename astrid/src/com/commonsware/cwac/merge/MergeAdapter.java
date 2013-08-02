@@ -43,7 +43,6 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      * Stock constructor, simply chaining to the superclass.
      */
     public MergeAdapter() {
-        super();
     }
 
     /**

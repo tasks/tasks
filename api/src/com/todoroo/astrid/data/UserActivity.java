@@ -101,7 +101,6 @@ public class UserActivity extends RemoteModel {
             TABLE, "deleted_at", Property.PROP_FLAG_DATE);
 
     public UserActivity() {
-        super();
     }
 
     // --- Action codes
@@ -117,7 +116,7 @@ public class UserActivity extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<UserActivity> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     // --- helpers

@@ -350,7 +350,6 @@ public class BillingService extends Service implements ServiceConnection {
     }
 
     public BillingService() {
-        super();
     }
 
     public void setContext(Context context) {

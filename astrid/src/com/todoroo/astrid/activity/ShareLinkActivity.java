@@ -27,7 +27,6 @@ public final class ShareLinkActivity extends TaskListActivity {
     private static final String TOKEN_LINK_HANDLED = "linkHandled"; //$NON-NLS-1$
 
     public ShareLinkActivity() {
-        super();
         DependencyInjectionService.getInstance().inject(this);
     }
 

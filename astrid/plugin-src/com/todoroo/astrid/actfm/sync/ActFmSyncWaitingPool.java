@@ -42,7 +42,6 @@ public class ActFmSyncWaitingPool {
     };
 
     private ActFmSyncWaitingPool() {
-        super();
         singleThreadPool = Executors.newSingleThreadExecutor();
         pendingMessages = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
     }

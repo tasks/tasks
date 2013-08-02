@@ -131,7 +131,6 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
     // --- constructor pass-through
 
     AbstractTagModel() {
-        super();
     }
 
     /**

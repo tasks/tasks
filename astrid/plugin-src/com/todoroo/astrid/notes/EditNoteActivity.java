@@ -579,7 +579,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         private final long createdAt;
 
         public NoteOrUpdate(String picture, Spanned title, String pictureThumb, String pictureFull, Bitmap commentBitmap, long createdAt, String type) {
-            super();
             this.picture = picture;
             this.title = title;
             this.pictureThumb = pictureThumb;

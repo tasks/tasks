@@ -120,7 +120,6 @@ public class History extends AbstractModel {
     }
 
     public History() {
-        super();
     }
 
     public History(TodorooCursor<History> cursor) {
@@ -129,7 +128,7 @@ public class History extends AbstractModel {
     }
 
     public void readFromCursor(TodorooCursor<History> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     /**

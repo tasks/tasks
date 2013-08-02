@@ -29,8 +29,8 @@ public class MoveListRequest extends PushRequest {
 
     @Override
     public Task executePush() throws IOException {
-        Task localSave = service.getGtask(super.getListId(), idTaskToMove);
-        service.deleteGtask(super.getListId(), idTaskToMove);
+        Task localSave = service.getGtask(getListId(), idTaskToMove);
+        service.deleteGtask(getListId(), idTaskToMove);
         transferProperties(localSave);
         return service.createGtask(dstList, toPush);
     }

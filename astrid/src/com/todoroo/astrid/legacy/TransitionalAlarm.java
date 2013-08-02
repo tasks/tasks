@@ -90,7 +90,6 @@ public class TransitionalAlarm extends AbstractModel {
 
     @Deprecated
     public TransitionalAlarm() {
-        super();
     }
 
     public TransitionalAlarm(TodorooCursor<TransitionalAlarm> cursor) {
@@ -99,7 +98,7 @@ public class TransitionalAlarm extends AbstractModel {
     }
 
     public void readFromCursor(TodorooCursor<TransitionalAlarm> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

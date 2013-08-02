@@ -42,7 +42,6 @@ public class TaskModelForSync extends AbstractTaskModel {
     // --- constructors
 
     public TaskModelForSync() {
-        super();
         setCreationDate(new Date());
     }
 

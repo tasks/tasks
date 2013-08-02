@@ -153,7 +153,6 @@ public final class TaskListMetadata extends RemoteModel {
     // --- data access boilerplate
 
     public TaskListMetadata() {
-        super();
     }
 
     public TaskListMetadata(TodorooCursor<TaskListMetadata> cursor) {
@@ -162,7 +161,7 @@ public final class TaskListMetadata extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<TaskListMetadata> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

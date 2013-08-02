@@ -109,7 +109,6 @@ public class SyncMapping extends LegacyAbstractModel {
 //    }
 
     public SyncMapping(TaskIdentifier task, int syncServiceId, String remoteId) {
-        super();
         setTask(task);
         setSyncServiceId(syncServiceId);
         setRemoteId(remoteId);

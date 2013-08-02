@@ -55,7 +55,6 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     private MetadataDao metadataDao;
 
     public GtasksTaskListUpdater() {
-        super();
     }
 
     // --- overrides

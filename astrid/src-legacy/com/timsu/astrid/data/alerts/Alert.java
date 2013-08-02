@@ -95,7 +95,6 @@ public class Alert extends LegacyAbstractModel {
     // --- constructor pass-through
 
     Alert(TaskIdentifier task, Date date) {
-        super();
         setTask(task);
         setDate(date);
     }

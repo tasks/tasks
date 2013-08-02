@@ -33,7 +33,6 @@ public class TaskCommentsFragment extends CommentsFragment {
     private TaskService taskService;
 
     public TaskCommentsFragment() {
-        super();
     }
 
     @Override

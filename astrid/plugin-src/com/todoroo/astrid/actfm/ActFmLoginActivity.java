@@ -186,7 +186,6 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     }
 
     public ActFmLoginActivity() {
-        super();
         DependencyInjectionService.getInstance().inject(this);
     }
 

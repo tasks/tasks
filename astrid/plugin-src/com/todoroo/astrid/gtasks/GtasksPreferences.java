@@ -41,7 +41,6 @@ public class GtasksPreferences extends SyncProviderPreferences {
     private TagService tagService;
 
     public GtasksPreferences() {
-        super();
         DependencyInjectionService.getInstance().inject(this);
     }
 

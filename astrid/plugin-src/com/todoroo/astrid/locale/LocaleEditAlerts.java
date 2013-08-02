@@ -343,7 +343,7 @@ public final class LocaleEditAlerts extends ListActivity {
             }
         }
 
-        return super.onOptionsItemSelected(item);
+        return onOptionsItemSelected(item);
     }
 
 }

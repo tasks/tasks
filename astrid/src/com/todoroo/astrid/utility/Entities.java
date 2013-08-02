@@ -655,7 +655,6 @@ class Entities {
          * Constructs a new instance of <code>BinaryEntityMap</code>.
          */
         public BinaryEntityMap() {
-            super();
         }
 
         /**
@@ -1068,7 +1067,6 @@ class Entities {
          *                                  than zero, or if the load factor is nonpositive.
          */
         public IntHashMap(int initialCapacity, float loadFactor) {
-            super();
             if (initialCapacity < 0) {
                 throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
             }

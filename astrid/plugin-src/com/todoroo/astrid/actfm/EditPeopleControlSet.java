@@ -235,7 +235,6 @@ public class EditPeopleControlSet extends PopupControlSet {
         public JSONObject user;
 
         public AssignedToUser(String label, JSONObject user) {
-            super();
             this.label = label;
             this.user = user;
         }

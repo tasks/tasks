@@ -155,7 +155,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
     AstridDependencyInjector() {
         // prevent instantiation
-        super();
     }
 
     /**

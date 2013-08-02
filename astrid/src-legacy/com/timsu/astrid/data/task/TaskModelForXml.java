@@ -52,7 +52,6 @@ public class TaskModelForXml extends AbstractTaskModel {
     // --- constructors
 
     public TaskModelForXml() {
-        super();
         setCreationDate(new Date());
         taskAttributesMap = new HashMap<String, String>(FIELD_LIST.length);
     }

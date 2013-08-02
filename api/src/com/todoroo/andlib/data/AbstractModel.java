@@ -590,7 +590,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         private final Class<TYPE> cls;
 
         public ModelCreator(Class<TYPE> cls) {
-            super();
             this.cls = cls;
         }
 

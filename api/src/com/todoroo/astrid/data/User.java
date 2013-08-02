@@ -160,7 +160,6 @@ public final class User extends RemoteModel {
     // --- data access boilerplate
 
     public User() {
-        super();
     }
 
     public User(TodorooCursor<User> cursor) {
@@ -169,7 +168,7 @@ public final class User extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<User> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     public String getDisplayName() {

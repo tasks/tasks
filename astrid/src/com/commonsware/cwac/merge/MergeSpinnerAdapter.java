@@ -30,7 +30,6 @@ public class MergeSpinnerAdapter extends MergeAdapter {
      * Stock constructor, simply chaining to the superclass.
      */
     public MergeSpinnerAdapter() {
-        super();
     }
 
     /*

@@ -38,7 +38,6 @@ public class TaskModelForEdit extends AbstractTaskModel {
     // --- constructors
 
     public TaskModelForEdit() {
-        super();
         setCreationDate(new Date());
     }
 

@@ -33,7 +33,6 @@ public class SyncAction implements Parcelable {
      * @param intent intent to invoke
      */
     public SyncAction(String label, PendingIntent intent) {
-        super();
         this.label = label;
         this.intent = intent;
     }

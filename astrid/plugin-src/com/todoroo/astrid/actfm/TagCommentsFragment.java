@@ -49,7 +49,6 @@ public class TagCommentsFragment extends CommentsFragment {
     private TagDataDao tagDataDao;
 
     public TagCommentsFragment() {
-        super();
     }
 
     public TagCommentsFragment(TagData tagData) {

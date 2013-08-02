@@ -104,7 +104,6 @@ public class TagMetadata extends AbstractModel {
     }
 
     public TagMetadata() {
-        super();
     }
 
     public TagMetadata(TodorooCursor<TagMetadata> cursor) {
@@ -113,7 +112,7 @@ public class TagMetadata extends AbstractModel {
     }
 
     public void readFromCursor(TodorooCursor<TagMetadata> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

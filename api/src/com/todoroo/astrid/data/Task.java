@@ -426,7 +426,6 @@ public final class Task extends RemoteModel {
     // --- data access boilerplate
 
     public Task() {
-        super();
     }
 
     public Task(TodorooCursor<Task> cursor) {
@@ -435,7 +434,7 @@ public final class Task extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<Task> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

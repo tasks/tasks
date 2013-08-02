@@ -34,7 +34,6 @@ public class ActFmServiceException extends IOException {
     }
 
     public ActFmServiceException(JSONObject result) {
-        super();
         this.result = result;
     }
 

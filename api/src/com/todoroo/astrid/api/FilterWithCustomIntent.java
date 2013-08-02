@@ -29,7 +29,6 @@ public class FilterWithCustomIntent extends Filter {
     public Bundle customExtras = null;
 
     protected FilterWithCustomIntent() {
-        super();
     }
 
     public FilterWithCustomIntent(String listingTitle, String title,

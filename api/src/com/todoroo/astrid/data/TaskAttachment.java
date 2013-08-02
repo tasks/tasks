@@ -198,7 +198,6 @@ public final class TaskAttachment extends RemoteModel {
     // --- data access boilerplate
 
     public TaskAttachment() {
-        super();
     }
 
     public TaskAttachment(TodorooCursor<TaskAttachment> cursor) {
@@ -207,7 +206,7 @@ public final class TaskAttachment extends RemoteModel {
     }
 
     public void readFromCursor(TodorooCursor<TaskAttachment> cursor) {
-        super.readPropertiesFromCursor(cursor);
+        readPropertiesFromCursor(cursor);
     }
 
     @Override
