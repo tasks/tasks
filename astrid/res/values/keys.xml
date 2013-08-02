@@ -5,8 +5,6 @@
 -->
 <resources>
 
-    <string name="fb_app_id">183862944961271</string>
-
     <!-- ======================================================== REMINDERS == -->
 
     <!-- whether reminders should appear at all -->

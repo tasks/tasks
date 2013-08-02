@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/android-aac-enc/android-aac-enc.iml" filepath="$PROJECT_DIR$/android-aac-enc/android-aac-enc.iml" />
       <module fileurl="file://$PROJECT_DIR$/api/api.iml" filepath="$PROJECT_DIR$/api/api.iml" />
       <module fileurl="file://$PROJECT_DIR$/astrid/astrid.iml" filepath="$PROJECT_DIR$/astrid/astrid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/facebook/facebook/facebook.iml" filepath="$PROJECT_DIR$/facebook/facebook/facebook.iml" />
       <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/tests-sync/tests-sync.iml" filepath="$PROJECT_DIR$/tests-sync/tests-sync.iml" />
     </modules>

@@ -13,67 +13,12 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.core.PluginServices;
 
 public class SyncUpgradePrompt {
 
     private static final String P_SYNC_UPGRADE_PROMPT = "p_sync_upgr_prompt"; //$NON-NLS-1$
     private static long lastPromptDate = -1;
-
-    public static void showSyncUpgradePrompt(final Activity activity) {
-        if (lastPromptDate == -1) {
-            lastPromptDate = Preferences.getLong(P_SYNC_UPGRADE_PROMPT, 0L);
-        }
-
-        Dialog d = null;
-        if (DateUtilities.now() - lastPromptDate > DateUtilities.ONE_WEEK * 3) {
-            if (!PluginServices.getActFmPreferenceService().isLoggedIn()) {
-                if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
-                    // Logged into google but not astrid
-                    d = getDialog(activity, R.string.sync_upgr_gtasks_only_title, R.string.sync_upgr_gtasks_only_body,
-                            R.string.sync_upgr_gtasks_only_btn1, new Runnable() {
-                        @Override
-                        public void run() {
-                            activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
-                        }
-                    },
-                            R.string.sync_upgr_gtasks_only_btn2,
-                            null);
-                } else {
-                    // Logged into neither
-                    d = getDialog(activity, R.string.sync_upgr_neither_title, R.string.sync_upgr_neither_body,
-                            R.string.sync_upgr_neither_btn1, new Runnable() {
-                        @Override
-                        public void run() {
-                            activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
-                        }
-                    });
-                }
-                setLastPromptDate(DateUtilities.now());
-            } else if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
-                // Logged into both
-                d = getDialog(activity, R.string.sync_upgr_both_title, R.string.sync_upgr_both_body,
-                        R.string.sync_upgr_both_btn1,
-                        null,
-                        R.string.sync_upgr_both_btn2, new Runnable() {
-                    @Override
-                    public void run() {
-                        new ActFmSyncV2Provider().signOut(activity);
-                        Toast.makeText(activity, R.string.sync_upgr_logged_out, Toast.LENGTH_LONG).show();
-                    }
-                });
-                setLastPromptDate(Long.MAX_VALUE);
-            } else {
-                // Logged into just astrid--don't need to show prompts anymore
-                setLastPromptDate(Long.MAX_VALUE);
-            }
-        }
-
-        if (d != null) {
-            d.show();
-        }
-    }
 
     private static void setLastPromptDate(long date) {
         lastPromptDate = date;

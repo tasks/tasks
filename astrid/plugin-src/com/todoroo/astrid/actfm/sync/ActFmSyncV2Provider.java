@@ -8,7 +8,6 @@ package com.todoroo.astrid.actfm.sync;
 import android.app.Activity;
 import android.content.DialogInterface;
 
-import com.facebook.Session;
 import com.timsu.astrid.GCMIntentService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -60,10 +59,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         actFmPreferenceService.clearLastSyncDate();
         ActFmPreferenceService.premiumLogout();
         GCMIntentService.unregister(ContextManager.getContext());
-        Session activeSession = Session.getActiveSession();
-        if (activeSession != null) {
-            activeSession.closeAndClearTokenInformation();
-        }
 
         DialogUtilities.okCancelCustomDialog(activity,
                 activity.getString(R.string.actfm_logout_clear_tasks_title),

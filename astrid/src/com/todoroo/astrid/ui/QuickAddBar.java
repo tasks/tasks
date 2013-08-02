@@ -35,7 +35,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -301,24 +300,8 @@ public class QuickAddBar extends LinearLayout {
             }
             boolean assignedToMe = usePeopleControl ? peopleControl.willBeAssignedToMe() : true;
             if (!assignedToMe && !actFmPreferenceService.isLoggedIn()) {
-                DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
-                    }
-                };
-
-                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        // Reset people control
-                        peopleControl.assignToMe();
-                    }
-                };
-                DialogUtilities.okCancelCustomDialog(activity, activity.getString(R.string.actfm_EPA_login_button),
-                        activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
-                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
-                        okListener, cancelListener);
+                // Reset people control
+                peopleControl.assignToMe();
                 return null;
             }
 

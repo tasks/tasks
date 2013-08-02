@@ -46,7 +46,6 @@ public class ActFmInvoker {
     private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
     private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
 
-    public static final String PROVIDER_FACEBOOK = "facebook";
     public static final String PROVIDER_GOOGLE = "google";
     public static final String PROVIDER_PASSWORD = "password";
 

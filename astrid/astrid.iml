@@ -39,7 +39,6 @@
     <orderEntry type="library" exported="" name="google-http-client" level="project" />
     <orderEntry type="library" exported="" name="googleloginclient-helper" level="project" />
     <orderEntry type="library" exported="" name="google-api-client" level="project" />
-    <orderEntry type="module" module-name="facebook" />
   </component>
 </module>
 

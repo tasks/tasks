@@ -271,14 +271,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 textView.setText(activity.getString(R.string.ENA_no_comments));
             } else {
                 textView.setText(activity.getString(R.string.UpS_no_activity_log_in));
-                activityContainer.setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(new Intent(getActivity(), ActFmLoginActivity.class),
-                                TagSettingsActivity.REQUEST_ACTFM_LOGIN);
-                    }
-                });
             }
             listView.setVisibility(View.GONE);
         } else {

@@ -11,7 +11,6 @@
       <directory url="file://$PROJECT_DIR$/viewPagerIndicator/library/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/greendroid/GreenDroid/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/tests-sync/gen" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/facebook/facebook/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

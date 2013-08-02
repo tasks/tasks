@@ -692,26 +692,8 @@ public class EditPeopleControlSet extends PopupControlSet {
             }
 
             if (dirty && !actFmPreferenceService.isLoggedIn()) {
-                DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        fragment.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
-                                loginRequestCode);
-                    }
-                };
-
-                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        makePrivateTask();
-                        task.setValue(Task.USER_ID, Task.USER_ID_SELF);
-                    }
-                };
-                DialogUtilities.okCancelCustomDialog(activity, activity.getString(R.string.actfm_EPA_login_button),
-                        activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
-                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
-                        okListener, cancelListener);
-
+                makePrivateTask();
+                task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 return false;
             }
 
