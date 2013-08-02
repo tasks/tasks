@@ -53,7 +53,7 @@ public class VoiceRecognizer {
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(
                 new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return (activities.size() != 0);
+        return activities.size() != 0;
     }
 
     private VoiceRecognizer() {

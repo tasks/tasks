@@ -256,7 +256,7 @@ public class ActFmSyncThread {
             List<ClientToServerMessage<?>> messageBatch = new ArrayList<ClientToServerMessage<?>>();
             while (true) {
                 synchronized (monitor) {
-                    while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
+                    while (pendingMessages.isEmpty() && !timeForBackgroundSync() || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
                         try {
                             if ((pendingMessages.isEmpty() || !actFmPreferenceService.isLoggedIn()) && notificationId >= 0) {
                                 notificationManager.cancel(notificationId);
@@ -339,7 +339,7 @@ public class ActFmSyncThread {
                                 }
                             }
                             errors = response.optJSONArray("errors");
-                            boolean errorsExist = (errors != null && errors.length() > 0);
+                            boolean errorsExist = errors != null && errors.length() > 0;
                             replayOutstandingChanges(errorsExist);
                             setWidgetSuppression(false);
                         }

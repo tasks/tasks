@@ -151,8 +151,6 @@ public class Metadata extends AbstractModel {
         return getIdHelper(ID);
     }
 
-    ;
-
     // --- parcelable helpers
 
     private static final Creator<Metadata> CREATOR = new ModelCreator<Metadata>(Metadata.class);

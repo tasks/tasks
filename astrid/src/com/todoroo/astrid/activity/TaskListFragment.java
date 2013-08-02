@@ -367,7 +367,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
         Fragment filterlistFrame = getFragmentManager().findFragmentByTag(
                 FilterListFragment.TAG_FILTERLIST_FRAGMENT);
-        mDualFragments = (filterlistFrame != null)
+        mDualFragments = filterlistFrame != null
                 && filterlistFrame.isInLayout();
 
         if (mDualFragments) {
@@ -481,7 +481,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     protected void addMenuItem(Menu menu, int title, int imageRes, int id, boolean showAsAction) {
         AstridActivity activity = (AstridActivity) getActivity();
-        if ((activity.getFragmentLayout() != AstridActivity.LAYOUT_SINGLE && showAsAction) || !(activity instanceof TaskListActivity)) {
+        if (activity.getFragmentLayout() != AstridActivity.LAYOUT_SINGLE && showAsAction || !(activity instanceof TaskListActivity)) {
             MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
             item.setIcon(imageRes);
             if (activity instanceof TaskListActivity) {
@@ -553,8 +553,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
                 queryIntent, 0);
         int length = resolveInfoList.size();
-        for (int i = 0; i < length; i++) {
-            ResolveInfo resolveInfo = resolveInfoList.get(i);
+        for (ResolveInfo resolveInfo : resolveInfoList) {
             Intent intent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
@@ -624,7 +623,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         });
 
         // set listener for astrid icon
-        ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(new OnClickListener() {
+        getView().findViewById(android.R.id.empty).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 quickAddBar.performButtonClick();
@@ -732,7 +731,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     private void showFeedbackPrompt() {
         if (!(this instanceof TagViewFragment) &&
-                (DateUtilities.now() - Preferences.getLong(PREF_LAST_FEEDBACK_TIME, 0)) > FEEDBACK_TIME_INTERVAL &&
+                DateUtilities.now() - Preferences.getLong(PREF_LAST_FEEDBACK_TIME, 0) > FEEDBACK_TIME_INTERVAL &&
                 taskService.getUserActivationStatus()) {
             final LinearLayout root = (LinearLayout) getView().findViewById(R.id.taskListParent);
             if (root.findViewById(R.id.feedback_banner) == null) {

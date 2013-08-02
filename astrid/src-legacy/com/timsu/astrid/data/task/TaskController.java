@@ -594,7 +594,7 @@ public class TaskController extends LegacyAbstractController {
         final String where = AbstractTaskModel.NAME + " = ? AND "
                 + AbstractTaskModel.CREATION_DATE + " LIKE ?";
 
-        String approximateCreationDate = (creationDate / 1000) + "%";
+        String approximateCreationDate = creationDate / 1000 + "%";
         Cursor cursor = database.query(true, tasksTable, fieldList,
                 where, new String[]{name, approximateCreationDate}, null, null, null, null);
         if (cursor == null) {
@@ -649,9 +649,9 @@ public class TaskController extends LegacyAbstractController {
                         AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                         AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
                         System.currentTimeMillis() + ")", null, null, null,
-                AbstractTaskModel.IMPORTANCE + " * " + (5 * 24 * 3600 * 1000L) +
+                AbstractTaskModel.IMPORTANCE + " * " + 5 * 24 * 3600 * 1000L +
                         " + CASE WHEN MAX(pdd, ddd) = 0 THEN " +
-                        (System.currentTimeMillis() + (7 * 24 * 3600 * 1000L)) +
+                        (System.currentTimeMillis() + 7 * 24 * 3600 * 1000L) +
                         " ELSE (CASE WHEN pdd = 0 THEN ddd ELSE pdd END) END ASC", limit);
 
         try {
@@ -672,9 +672,9 @@ public class TaskController extends LegacyAbstractController {
                         AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                         AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
                         System.currentTimeMillis() + ")", null, null, null,
-                AbstractTaskModel.IMPORTANCE + " * " + (5 * 24 * 3600 * 1000L) +
+                AbstractTaskModel.IMPORTANCE + " * " + 5 * 24 * 3600 * 1000L +
                         " + CASE WHEN MAX(pdd, ddd) = 0 THEN " +
-                        (System.currentTimeMillis() + (7 * 24 * 3600 * 1000L)) +
+                        (System.currentTimeMillis() + 7 * 24 * 3600 * 1000L) +
                         " ELSE (CASE WHEN pdd = 0 THEN ddd ELSE pdd END) END ASC", limit);
 
         try {

@@ -50,7 +50,7 @@ public class TaskEditActivity extends AstridActivity {
     public void updateTitle(boolean isNewTask) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            TextView title = ((TextView) actionBar.getCustomView().findViewById(R.id.title));
+            TextView title = (TextView) actionBar.getCustomView().findViewById(R.id.title);
             if (ActFmPreferenceService.isPremiumUser()) {
                 title.setText(""); //$NON-NLS-1$
             } else {
@@ -66,7 +66,7 @@ public class TaskEditActivity extends AstridActivity {
     protected void onResume() {
         super.onResume();
 
-        Fragment frag = (Fragment) getSupportFragmentManager()
+        Fragment frag = getSupportFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
         if (frag != null) {
             fragmentLayout = LAYOUT_DOUBLE;

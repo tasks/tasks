@@ -221,7 +221,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         @Override
         public void performChanges() {
             JSONArray addMembers = changes.optJSONArray("member_added");
-            boolean membersAdded = (addMembers != null && addMembers.length() > 0);
+            boolean membersAdded = addMembers != null && addMembers.length() > 0;
             if (membersAdded) {
                 model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
             }
@@ -248,7 +248,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     changes.has(NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TASKS, Task.COMPLETION_DATE))) {
                 Task t = PluginServices.getTaskDao().fetch(uuid, ReminderService.NOTIFICATION_PROPERTIES);
                 if (t != null) {
-                    if ((changes.has("task_repeated") && t.getValue(Task.DUE_DATE) > DateUtilities.now()) || t.getValue(Task.COMPLETION_DATE) > 0) {
+                    if (changes.has("task_repeated") && t.getValue(Task.DUE_DATE) > DateUtilities.now() || t.getValue(Task.COMPLETION_DATE) > 0) {
                         Notifications.cancelNotifications(t.getId());
                     }
                     ReminderService.getInstance().scheduleAlarm(t);
@@ -257,8 +257,8 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
             JSONArray addTags = changes.optJSONArray("tag_added");
             JSONArray removeTags = changes.optJSONArray("tag_removed");
-            boolean tagsAdded = (addTags != null && addTags.length() > 0);
-            boolean tagsRemoved = (removeTags != null && removeTags.length() > 0);
+            boolean tagsAdded = addTags != null && addTags.length() > 0;
+            boolean tagsRemoved = removeTags != null && removeTags.length() > 0;
             if (!tagsAdded && !tagsRemoved) {
                 return;
             }
@@ -369,8 +369,8 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
             JSONArray addMembers = changes.optJSONArray("member_added");
             JSONArray removeMembers = changes.optJSONArray("member_removed");
-            boolean membersAdded = (addMembers != null && addMembers.length() > 0);
-            boolean membersRemoved = (removeMembers != null && removeMembers.length() > 0);
+            boolean membersAdded = addMembers != null && addMembers.length() > 0;
+            boolean membersRemoved = removeMembers != null && removeMembers.length() > 0;
 
             long localId = AbstractModel.NO_ID;
             if (membersAdded || membersRemoved) {

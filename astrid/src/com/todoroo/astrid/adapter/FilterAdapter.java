@@ -163,7 +163,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.selectable = selectable;
         this.filterCounts = new HashMap<Filter, Integer>();
 
-        this.nook = (Constants.MARKET_STRATEGY instanceof NookMarketStrategy);
+        this.nook = Constants.MARKET_STRATEGY instanceof NookMarketStrategy;
 
         if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE) {
             filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
@@ -333,7 +333,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.item = (FilterListItem) getItem(position);
+        viewHolder.item = getItem(position);
         populateView(viewHolder);
 
         Filter selected = null;
@@ -547,7 +547,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         // title / size
         int countInt = -1;
-        if (filterCounts.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
+        if (filterCounts.containsKey(filter) || !TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$")) { //$NON-NLS-1$
             viewHolder.size.setVisibility(View.VISIBLE);
             String count;
             if (filterCounts.containsKey(filter)) {

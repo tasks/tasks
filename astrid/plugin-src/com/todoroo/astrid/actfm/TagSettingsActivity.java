@@ -141,10 +141,10 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             params.height = LayoutParams.WRAP_CONTENT;
 
             DisplayMetrics metrics = getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT) {
-                params.width = (3 * metrics.widthPixels) / 5;
-            } else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH) {
-                params.width = (4 * metrics.widthPixels) / 5;
+            if (metrics.widthPixels / metrics.density >= AndroidUtilities.MIN_TABLET_HEIGHT) {
+                params.width = 3 * metrics.widthPixels / 5;
+            } else if (metrics.widthPixels / metrics.density >= AndroidUtilities.MIN_TABLET_WIDTH) {
+                params.width = 4 * metrics.widthPixels / 5;
             }
             getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
         }

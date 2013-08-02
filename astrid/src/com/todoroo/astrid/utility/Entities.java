@@ -442,7 +442,7 @@ class Entities {
          */
         @Override
         public void add(String name, int value) {
-            mapNameToValue.put(name, new Integer(value));
+            mapNameToValue.put(name, value);
             mapValueToName.put(value, name);
         }
 
@@ -463,7 +463,7 @@ class Entities {
             if (value == null) {
                 return -1;
             }
-            return ((Integer) value).intValue();
+            return (Integer) value;
         }
     }
 
@@ -477,8 +477,8 @@ class Entities {
          */
         @Override
         public void add(String name, int value) {
-            mapNameToValue.put(name, new Integer(value));
-            mapValueToName.put(new Integer(value), name);
+            mapNameToValue.put(name, value);
+            mapValueToName.put(value, name);
         }
 
         /**
@@ -486,7 +486,7 @@ class Entities {
          */
         @Override
         public String name(int value) {
-            return (String) mapValueToName.get(new Integer(value));
+            return (String) mapValueToName.get(value);
         }
 
         /**
@@ -498,7 +498,7 @@ class Entities {
             if (value == null) {
                 return -1;
             }
-            return ((Integer) value).intValue();
+            return (Integer) value;
         }
     }
 
@@ -679,7 +679,7 @@ class Entities {
             int high = size - 1;
 
             while (low <= high) {
-                int mid = (low + high) >> 1;
+                int mid = low + high >> 1;
                 int midVal = values[mid];
 
                 if (midVal < key) {
@@ -735,8 +735,8 @@ class Entities {
      * @param entityArray array of entities to be added
      */
     public void addEntities(String[][] entityArray) {
-        for (int i = 0; i < entityArray.length; ++i) {
-            addEntity(entityArray[i][0], Integer.parseInt(entityArray[i][1]));
+        for (String[] anEntityArray : entityArray) {
+            addEntity(anEntityArray[0], Integer.parseInt(anEntityArray[1]));
         }
     }
 
@@ -872,7 +872,7 @@ class Entities {
      * @return A newly created StringWriter
      */
     private StringWriter createStringWriter(String str) {
-        return new StringWriter((int) (str.length() + (str.length() * 0.1)));
+        return new StringWriter((int) (str.length() + str.length() * 0.1));
     }
 
     /**

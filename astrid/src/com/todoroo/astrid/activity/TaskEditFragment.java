@@ -380,8 +380,8 @@ public final class TaskEditFragment extends SherlockFragment implements
     }
 
     private void loadMoreContainer() {
-        View moreTab = (View) getView().findViewById(R.id.more_container);
-        View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
+        View moreTab = getView().findViewById(R.id.more_container);
+        View commentsBar = getView().findViewById(R.id.updatesFooter);
 
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
 
@@ -651,11 +651,11 @@ public final class TaskEditFragment extends SherlockFragment implements
                 TaskEditControlSet curr = controlSetMap.get(item);
 
                 if (curr != null) {
-                    controlSet = (LinearLayout) curr.getDisplayView();
+                    controlSet = curr.getDisplayView();
                 }
 
                 if (controlSet != null) {
-                    if ((i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger))) {
+                    if (i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger)) {
                         removeTeaSeparator(controlSet);
                     }
                     section.addView(controlSet);
@@ -665,7 +665,7 @@ public final class TaskEditFragment extends SherlockFragment implements
                 }
 
                 if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
-                    ((PopupControlSet) curr).getDisplayView().performClick();
+                    curr.getDisplayView().performClick();
                 }
             }
         }
@@ -996,7 +996,7 @@ public final class TaskEditFragment extends SherlockFragment implements
         taskService.save(model);
 
         if (!onPause && !cancelFinish) {
-            boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
+            boolean taskEditActivity = getActivity() instanceof TaskEditActivity;
             boolean isAssignedToMe = peopleControlSet.isAssignedToMe();
             boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
                     && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
@@ -1016,7 +1016,6 @@ public final class TaskEditFragment extends SherlockFragment implements
                         data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
                     }
                     if (Task.isRealUserId(assignedId)) {
-                        ;
                     }
                     data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
                 }
@@ -1493,7 +1492,6 @@ public final class TaskEditFragment extends SherlockFragment implements
                 MeasureSpec.AT_MOST);
         view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
         height = Math.max(view.getMeasuredHeight(), height);
-        ;
         LayoutParams pagerParams = mPager.getLayoutParams();
         if (height > 0 && height != pagerParams.height) {
             pagerParams.height = height;

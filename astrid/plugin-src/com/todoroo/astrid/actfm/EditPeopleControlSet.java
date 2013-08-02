@@ -366,13 +366,12 @@ public class EditPeopleControlSet extends PopupControlSet {
     private ArrayList<AssignedToUser> convertJsonUsersToAssignedUsers(ArrayList<JSONObject> jsonUsers,
                                                                       HashSet<String> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
         ArrayList<AssignedToUser> users = new ArrayList<AssignedToUser>();
-        for (int i = 0; i < jsonUsers.size(); i++) {
-            JSONObject person = jsonUsers.get(i);
+        for (JSONObject person : jsonUsers) {
             if (person == null) {
                 continue;
             }
             String id = getLongOrStringId(person, Task.USER_ID_EMAIL);
-            if (ActFmPreferenceService.userId().equals(id) || ((Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id))) {
+            if (ActFmPreferenceService.userId().equals(id) || (Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id)) {
                 continue;
             }
             userIds.add(id);
@@ -446,16 +445,16 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         int index = 0;
         for (ArrayList<AssignedToUser> userList : userLists) {
-            for (int i = 0; i < userList.size(); i++) {
-                JSONObject user = userList.get(i).user;
+            for (AssignedToUser anUserList : userList) {
+                JSONObject user = anUserList.user;
                 if (user != null) {
                     if (user.optBoolean(CONTACT_CHOOSER_USER)) {
                         index++;
                         continue;
                     }
                     if (getLongOrStringId(user, Task.USER_ID_EMAIL).equals(assignedId) ||
-                            (user.optString("email").equals(assignedEmail) &&
-                                    !(TextUtils.isEmpty(assignedEmail)))) {
+                            user.optString("email").equals(assignedEmail) &&
+                                    !TextUtils.isEmpty(assignedEmail)) {
                         return index;
                     }
                 }
@@ -683,7 +682,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 String userEmail = userJson.optString("email");
 
                 boolean match = userId.equals(taskUserId);
-                match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
+                match = match || userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail);
 
                 dirty = match ? dirty : true;
                 String willAssignToId = getLongOrStringId(userJson, Task.USER_ID_EMAIL);

@@ -194,8 +194,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay,
                                               Calendar date) {
         WeekdayNum next = byDay.get(0);
-        for (int i = 0; i < byDay.size(); i++) {
-            WeekdayNum weekday = byDay.get(i);
+        for (WeekdayNum weekday : byDay) {
             if (weekday.wday.javaDayNum > date.get(Calendar.DAY_OF_WEEK)) {
                 return weekday;
             }

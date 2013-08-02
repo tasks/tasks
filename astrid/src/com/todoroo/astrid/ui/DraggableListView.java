@@ -133,7 +133,7 @@ public class DraggableListView extends ListView {
     }
 
     private int getItemForPosition(int y) {
-        int adjustedy = y - mDragPoint.y - (mItemHeightNormal / 2);
+        int adjustedy = y - mDragPoint.y - mItemHeightNormal / 2;
         int pos = myPointToPosition(0, adjustedy);
         if (pos >= 0) {
             if (pos <= mFirstDragPos) {
@@ -318,7 +318,7 @@ public class DraggableListView extends ListView {
             return null;
         }
 
-        return (View) getChildAt(itemNum - getFirstVisiblePosition());
+        return getChildAt(itemNum - getFirstVisiblePosition());
     }
 
     // --- drag logic
@@ -363,8 +363,6 @@ public class DraggableListView extends ListView {
         }
     }
 
-    ;
-
     /**
      * @return true if drag was initiated
      */
@@ -377,7 +375,7 @@ public class DraggableListView extends ListView {
             return false;
         }
 
-        View item = (View) getChildAt(itemNum - getFirstVisiblePosition());
+        View item = getChildAt(itemNum - getFirstVisiblePosition());
 
         if (!isDraggableRow(item)) {
             return false;

@@ -468,9 +468,9 @@ public class TasksXmlImporter {
 
                 Metadata metadata = new Metadata();
                 metadata.setValue(Metadata.TASK, currentTask.getId());
-                metadata.setValue(Metadata.VALUE1, (listId));
-                metadata.setValue(Metadata.VALUE2, (taskSeriesId));
-                metadata.setValue(Metadata.VALUE3, (taskId));
+                metadata.setValue(Metadata.VALUE1, listId);
+                metadata.setValue(Metadata.VALUE2, taskSeriesId);
+                metadata.setValue(Metadata.VALUE3, taskId);
                 metadata.setValue(Metadata.VALUE4, syncOnComplete ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
                 metadataService.save(metadata);
                 return true;
@@ -560,7 +560,7 @@ public class TasksXmlImporter {
          * helper method to set field on a task
          */
         @SuppressWarnings("nls")
-        private final boolean setTaskField(Task task, String field, String value) {
+        private boolean setTaskField(Task task, String field, String value) {
             if (field.equals(LegacyTaskModel.ID)) {
                 // ignore
             } else if (field.equals(LegacyTaskModel.NAME)) {
@@ -591,7 +591,7 @@ public class TasksXmlImporter {
             } else if (field.equals(LegacyTaskModel.PREFERRED_DUE_DATE)) {
                 String definite = xpp.getAttributeValue(null, LegacyTaskModel.DEFINITE_DUE_DATE);
                 if (definite != null) {
-                    ; // handled above
+                    // handled above
                 } else {
                     task.setValue(Task.DUE_DATE,
                             BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());

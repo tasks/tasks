@@ -124,9 +124,9 @@ public abstract class PurchaseObserver {
                 //     intent, 0, 0, 0);
                 mStartIntentSenderArgs[0] = pendingIntent.getIntentSender();
                 mStartIntentSenderArgs[1] = intent;
-                mStartIntentSenderArgs[2] = Integer.valueOf(0);
-                mStartIntentSenderArgs[3] = Integer.valueOf(0);
-                mStartIntentSenderArgs[4] = Integer.valueOf(0);
+                mStartIntentSenderArgs[2] = 0;
+                mStartIntentSenderArgs[3] = 0;
+                mStartIntentSenderArgs[4] = 0;
                 mStartIntentSender.invoke(mActivity, mStartIntentSenderArgs);
             } catch (Exception e) {
                 Log.e(TAG, "error starting activity", e); //$NON-NLS-1$

@@ -55,7 +55,7 @@ public class FilterShortcutActivity extends ListActivity {
                 return;
             }
             Intent shortcutIntent = ShortcutActivity.createIntent(
-                    (Filter) filter);
+                    filter);
 
             Bitmap bitmap = FilterListFragment.superImposeListIcon(FilterShortcutActivity.this,
                     filter.listingIcon, filter.listingTitle);

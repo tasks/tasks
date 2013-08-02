@@ -103,7 +103,7 @@ public class SubtasksMetadataMigration {
             if (item.containsNonNullValue(SubtasksMetadata.INDENT)) {
                 Integer i = item.getValue(SubtasksMetadata.INDENT);
                 if (i != null) {
-                    indent = i.intValue();
+                    indent = i;
                 }
             }
             Node parent = findNextParentForIndent(root, indent);

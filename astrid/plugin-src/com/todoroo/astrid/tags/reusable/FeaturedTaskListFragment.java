@@ -53,7 +53,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     protected void setupQuickAddBar() {
         super.setupQuickAddBar();
         quickAddBar.setVisibility(View.GONE);
-        ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(null);
+        getView().findViewById(android.R.id.empty).setOnClickListener(null);
     }
 
     @Override

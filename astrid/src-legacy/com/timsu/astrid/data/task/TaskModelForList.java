@@ -67,7 +67,7 @@ public class TaskModelForList extends AbstractTaskModel {
             int hoursLeft = (int) ((getDefiniteDueDate().getTime() -
                     System.currentTimeMillis()) / 1000 / 3600);
             if (hoursLeft < 5 * 24) {
-                weight += (hoursLeft - 5 * 24);
+                weight += hoursLeft - 5 * 24;
             }
             weight -= 20;
         }

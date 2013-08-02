@@ -300,7 +300,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     protected boolean shouldRecordOutstanding(TYPE item) {
-        return (outstandingTable != null) &&
+        return outstandingTable != null &&
                 !item.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES);
     }
 
@@ -328,7 +328,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             try {
                 result.set(op.makeChange());
                 if (result.get()) {
-                    if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
+                    if (recordOutstanding && (numOutstanding = createOutstandingEntries(item.getId(), values)) != -1) // Create entries for setValues in outstanding table
                     {
                         database.getDatabase().setTransactionSuccessful();
                     }

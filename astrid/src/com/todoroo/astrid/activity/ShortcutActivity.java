@@ -186,7 +186,7 @@ public class ShortcutActivity extends Activity {
                 ShortcutActivity.class);
 
         if (filter instanceof FilterWithCustomIntent) {
-            FilterWithCustomIntent customFilter = ((FilterWithCustomIntent) filter);
+            FilterWithCustomIntent customFilter = (FilterWithCustomIntent) filter;
             if (customFilter.customExtras != null) {
                 shortcutIntent.putExtras(customFilter.customExtras);
             }

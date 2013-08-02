@@ -219,26 +219,26 @@ public class Base64 {
         // We have to shift left 24 in order to flush out the 1's that appear
         // when Java treats a value as negative that is cast from a byte to an int.
         int inBuff =
-                (numSigBytes > 0 ? ((source[srcOffset] << 24) >>> 8) : 0)
-                        | (numSigBytes > 1 ? ((source[srcOffset + 1] << 24) >>> 16) : 0)
-                        | (numSigBytes > 2 ? ((source[srcOffset + 2] << 24) >>> 24) : 0);
+                (numSigBytes > 0 ? source[srcOffset] << 24 >>> 8 : 0)
+                        | (numSigBytes > 1 ? source[srcOffset + 1] << 24 >>> 16 : 0)
+                        | (numSigBytes > 2 ? source[srcOffset + 2] << 24 >>> 24 : 0);
 
         switch (numSigBytes) {
             case 3:
-                destination[destOffset] = alphabet[(inBuff >>> 18)];
-                destination[destOffset + 1] = alphabet[(inBuff >>> 12) & 0x3f];
-                destination[destOffset + 2] = alphabet[(inBuff >>> 6) & 0x3f];
-                destination[destOffset + 3] = alphabet[(inBuff) & 0x3f];
+                destination[destOffset] = alphabet[inBuff >>> 18];
+                destination[destOffset + 1] = alphabet[inBuff >>> 12 & 0x3f];
+                destination[destOffset + 2] = alphabet[inBuff >>> 6 & 0x3f];
+                destination[destOffset + 3] = alphabet[inBuff & 0x3f];
                 return destination;
             case 2:
-                destination[destOffset] = alphabet[(inBuff >>> 18)];
-                destination[destOffset + 1] = alphabet[(inBuff >>> 12) & 0x3f];
-                destination[destOffset + 2] = alphabet[(inBuff >>> 6) & 0x3f];
+                destination[destOffset] = alphabet[inBuff >>> 18];
+                destination[destOffset + 1] = alphabet[inBuff >>> 12 & 0x3f];
+                destination[destOffset + 2] = alphabet[inBuff >>> 6 & 0x3f];
                 destination[destOffset + 3] = EQUALS_SIGN;
                 return destination;
             case 1:
-                destination[destOffset] = alphabet[(inBuff >>> 18)];
-                destination[destOffset + 1] = alphabet[(inBuff >>> 12) & 0x3f];
+                destination[destOffset] = alphabet[inBuff >>> 18];
+                destination[destOffset + 1] = alphabet[inBuff >>> 12 & 0x3f];
                 destination[destOffset + 2] = EQUALS_SIGN;
                 destination[destOffset + 3] = EQUALS_SIGN;
                 return destination;
@@ -313,7 +313,7 @@ public class Base64 {
         int lenDiv3 = (len + 2) / 3; // ceil(len / 3)
         int len43 = lenDiv3 * 4;
         byte[] outBuff = new byte[len43 // Main 4:3
-                + (len43 / maxLineLength)]; // New lines
+                + len43 / maxLineLength]; // New lines
 
         int d = 0;
         int e = 0;
@@ -325,13 +325,13 @@ public class Base64 {
             // encode3to4( source, d + off, 3, outBuff, e, alphabet );
             // but inlined for faster encoding (~20% improvement)
             int inBuff =
-                    ((source[d + off] << 24) >>> 8)
-                            | ((source[d + 1 + off] << 24) >>> 16)
-                            | ((source[d + 2 + off] << 24) >>> 24);
-            outBuff[e] = alphabet[(inBuff >>> 18)];
-            outBuff[e + 1] = alphabet[(inBuff >>> 12) & 0x3f];
-            outBuff[e + 2] = alphabet[(inBuff >>> 6) & 0x3f];
-            outBuff[e + 3] = alphabet[(inBuff) & 0x3f];
+                    source[d + off] << 24 >>> 8
+                            | source[d + 1 + off] << 24 >>> 16
+                            | source[d + 2 + off] << 24 >>> 24;
+            outBuff[e] = alphabet[inBuff >>> 18];
+            outBuff[e + 1] = alphabet[inBuff >>> 12 & 0x3f];
+            outBuff[e + 2] = alphabet[inBuff >>> 6 & 0x3f];
+            outBuff[e + 3] = alphabet[inBuff & 0x3f];
 
             lineLength += 4;
             if (lineLength == maxLineLength) {
@@ -353,7 +353,7 @@ public class Base64 {
             e += 4;
         }
 
-        assert (e == outBuff.length);
+        assert e == outBuff.length;
         return outBuff;
     }
 
@@ -388,17 +388,17 @@ public class Base64 {
         // Example: Dk==
         if (source[srcOffset + 2] == EQUALS_SIGN) {
             int outBuff =
-                    ((decodabet[source[srcOffset]] << 24) >>> 6)
-                            | ((decodabet[source[srcOffset + 1]] << 24) >>> 12);
+                    decodabet[source[srcOffset]] << 24 >>> 6
+                            | decodabet[source[srcOffset + 1]] << 24 >>> 12;
 
             destination[destOffset] = (byte) (outBuff >>> 16);
             return 1;
         } else if (source[srcOffset + 3] == EQUALS_SIGN) {
             // Example: DkL=
             int outBuff =
-                    ((decodabet[source[srcOffset]] << 24) >>> 6)
-                            | ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
-                            | ((decodabet[source[srcOffset + 2]] << 24) >>> 18);
+                    decodabet[source[srcOffset]] << 24 >>> 6
+                            | decodabet[source[srcOffset + 1]] << 24 >>> 12
+                            | decodabet[source[srcOffset + 2]] << 24 >>> 18;
 
             destination[destOffset] = (byte) (outBuff >>> 16);
             destination[destOffset + 1] = (byte) (outBuff >>> 8);
@@ -406,14 +406,14 @@ public class Base64 {
         } else {
             // Example: DkLE
             int outBuff =
-                    ((decodabet[source[srcOffset]] << 24) >>> 6)
-                            | ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
-                            | ((decodabet[source[srcOffset + 2]] << 24) >>> 18)
-                            | ((decodabet[source[srcOffset + 3]] << 24) >>> 24);
+                    decodabet[source[srcOffset]] << 24 >>> 6
+                            | decodabet[source[srcOffset + 1]] << 24 >>> 12
+                            | decodabet[source[srcOffset + 2]] << 24 >>> 18
+                            | decodabet[source[srcOffset + 3]] << 24 >>> 24;
 
             destination[destOffset] = (byte) (outBuff >> 16);
             destination[destOffset + 1] = (byte) (outBuff >> 8);
-            destination[destOffset + 2] = (byte) (outBuff);
+            destination[destOffset + 2] = (byte) outBuff;
             return 3;
         }
     } // end decodeToBytes
@@ -536,8 +536,8 @@ public class Base64 {
                         if (b4Posn == 0 || b4Posn == 1) {
                             throw new Base64DecoderException(
                                     "invalid padding byte '=' at byte offset " + i);
-                        } else if ((b4Posn == 3 && bytesLeft > 2)
-                                || (b4Posn == 4 && bytesLeft > 1)) {
+                        } else if (b4Posn == 3 && bytesLeft > 2
+                                || b4Posn == 4 && bytesLeft > 1) {
                             throw new Base64DecoderException(
                                     "padding byte '=' falsely signals end of encoded value "
                                             + "at offset " + i);

@@ -98,8 +98,8 @@ public class HelpInfoPopover extends QuickActionWidget {
         int dyTop = anchorRect.top;
         int dyBottom = getScreenHeight() - anchorRect.bottom;
 
-        boolean onTop = (dyTop > dyBottom);
-        int popupY = (onTop) ? anchorRect.top - rootHeight + offsetY : anchorRect.bottom - offsetY;
+        boolean onTop = dyTop > dyBottom;
+        int popupY = onTop ? anchorRect.top - rootHeight + offsetY : anchorRect.bottom - offsetY;
 
         setWidgetSpecs(popupY, onTop);
     }

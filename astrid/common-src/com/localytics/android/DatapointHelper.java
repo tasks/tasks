@@ -177,7 +177,7 @@ import java.security.NoSuchAlgorithmException;
         if (Constants.CURRENT_API_LEVEL >= 8) {
             final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", new Class<?>[]{String.class}, new Object[]{"android.hardware.telephony"}); //$NON-NLS-1$//$NON-NLS-2$
 
-            if (!hasTelephony.booleanValue()) {
+            if (!hasTelephony) {
                 if (Constants.IS_LOGGABLE) {
                     Log.i(Constants.LOG_TAG, "Device does not have telephony; cannot read telephony id"); //$NON-NLS-1$
                 }

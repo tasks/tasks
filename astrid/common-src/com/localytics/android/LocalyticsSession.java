@@ -262,7 +262,7 @@ public final class LocalyticsSession {
          * Note that getting the application context may have unpredictable results for apps sharing a process running Android 2.1
          * and earlier. See <http://code.google.com/p/android/issues/detail?id=4469> for details.
          */
-        mContext = !(context.getClass().getName().equals("android.test.RenamingDelegatingContext")) && Constants.CURRENT_API_LEVEL >= 8 ? context.getApplicationContext() : context; //$NON-NLS-1$
+        mContext = !context.getClass().getName().equals("android.test.RenamingDelegatingContext") && Constants.CURRENT_API_LEVEL >= 8 ? context.getApplicationContext() : context; //$NON-NLS-1$
         String localyticsKey = key;
 
         mSessionHandler = new SessionHandler(mContext, localyticsKey, sSessionHandlerThread.getLooper());
@@ -506,7 +506,7 @@ public final class LocalyticsSession {
         final int stepQuantity = (maxValue - minValue + step) / step;
         final int[] steps = new int[stepQuantity + 1];
         for (int currentStep = 0; currentStep <= stepQuantity; currentStep++) {
-            steps[currentStep] = minValue + (currentStep) * step;
+            steps[currentStep] = minValue + currentStep * step;
         }
         return createRangedAttribute(actualValue, steps);
     }
@@ -548,9 +548,9 @@ public final class LocalyticsSession {
             if (bucketIndex < 0) {
                 // if the index wasn't found, then we want the value before the insertion point as the lower end
                 // the special case where the insertion point is 0 is covered above, so we don't have to worry about it here
-                bucketIndex = (-bucketIndex) - 2;
+                bucketIndex = -bucketIndex - 2;
             }
-            if (steps[bucketIndex] == (steps[bucketIndex + 1] - 1)) {
+            if (steps[bucketIndex] == steps[bucketIndex + 1] - 1) {
                 bucket = Integer.toString(steps[bucketIndex]);
             } else {
                 bucket = steps[bucketIndex] + "-" + (steps[bucketIndex + 1] - 1); //$NON-NLS-1$
@@ -837,7 +837,7 @@ public final class LocalyticsSession {
                     values.put(ApiKeysDbColumns.API_KEY, mApiKey);
                     values.put(ApiKeysDbColumns.UUID, UUID.randomUUID().toString());
                     values.put(ApiKeysDbColumns.OPT_OUT, Boolean.FALSE);
-                    values.put(ApiKeysDbColumns.CREATED_TIME, Long.valueOf(System.currentTimeMillis()));
+                    values.put(ApiKeysDbColumns.CREATED_TIME, System.currentTimeMillis());
 
                     mApiKeyId = mProvider.insert(ApiKeysDbColumns.TABLE_NAME, values);
                 }
@@ -871,7 +871,7 @@ public final class LocalyticsSession {
          */
         /* package */void optOut(final boolean isOptingOut) {
             if (Constants.IS_LOGGABLE) {
-                Log.v(Constants.LOG_TAG, String.format("Prior opt-out state is %b, requested opt-out state is %b", Boolean.valueOf(mIsOptedOut), Boolean.valueOf(isOptingOut))); //$NON-NLS-1$
+                Log.v(Constants.LOG_TAG, String.format("Prior opt-out state is %b, requested opt-out state is %b", mIsOptedOut, isOptingOut)); //$NON-NLS-1$
             }
 
             // Do nothing if opt-out is unchanged
@@ -883,7 +883,7 @@ public final class LocalyticsSession {
                 @Override
                 public void run() {
                     final ContentValues values = new ContentValues();
-                    values.put(ApiKeysDbColumns.OPT_OUT, Boolean.valueOf(isOptingOut));
+                    values.put(ApiKeysDbColumns.OPT_OUT, isOptingOut);
                     mProvider.update(ApiKeysDbColumns.TABLE_NAME, values, String.format("%s = ?", ApiKeysDbColumns._ID), new String[]{Long.toString(mApiKeyId)}); //$NON-NLS-1$
 
                     if (!mIsSessionOpen) {
@@ -1085,11 +1085,11 @@ public final class LocalyticsSession {
             final TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 
             final ContentValues values = new ContentValues();
-            values.put(SessionsDbColumns.API_KEY_REF, Long.valueOf(mApiKeyId));
-            values.put(SessionsDbColumns.SESSION_START_WALL_TIME, Long.valueOf(System.currentTimeMillis()));
+            values.put(SessionsDbColumns.API_KEY_REF, mApiKeyId);
+            values.put(SessionsDbColumns.SESSION_START_WALL_TIME, System.currentTimeMillis());
             values.put(SessionsDbColumns.UUID, UUID.randomUUID().toString());
             values.put(SessionsDbColumns.APP_VERSION, DatapointHelper.getAppVersion(mContext));
-            values.put(SessionsDbColumns.ANDROID_SDK, Integer.valueOf(Constants.CURRENT_API_LEVEL));
+            values.put(SessionsDbColumns.ANDROID_SDK, Constants.CURRENT_API_LEVEL);
             values.put(SessionsDbColumns.ANDROID_VERSION, VERSION.RELEASE);
 
             // Try and get the deviceId. If it is unavailable (or invalid) use the installation ID instead.
@@ -1233,11 +1233,11 @@ public final class LocalyticsSession {
             final long eventId;
             {
                 final ContentValues values = new ContentValues();
-                values.put(EventsDbColumns.SESSION_KEY_REF, Long.valueOf(mSessionId));
+                values.put(EventsDbColumns.SESSION_KEY_REF, mSessionId);
                 values.put(EventsDbColumns.UUID, UUID.randomUUID().toString());
                 values.put(EventsDbColumns.EVENT_NAME, event);
-                values.put(EventsDbColumns.REAL_TIME, Long.valueOf(SystemClock.elapsedRealtime()));
-                values.put(EventsDbColumns.WALL_TIME, Long.valueOf(System.currentTimeMillis()));
+                values.put(EventsDbColumns.REAL_TIME, SystemClock.elapsedRealtime());
+                values.put(EventsDbColumns.WALL_TIME, System.currentTimeMillis());
 
                 /*
                  * Special case for open event: keep the start time in sync with the start time put into the sessions table.
@@ -1249,7 +1249,7 @@ public final class LocalyticsSession {
                                 {SessionsDbColumns.SESSION_START_WALL_TIME}, String.format("%s = ?", SessionsDbColumns._ID), new String[]{Long.toString(mSessionId)}, null); //$NON-NLS-1$
 
                         if (cursor.moveToFirst()) {
-                            values.put(EventsDbColumns.WALL_TIME, Long.valueOf(cursor.getLong(cursor.getColumnIndexOrThrow(SessionsDbColumns.SESSION_START_WALL_TIME))));
+                            values.put(EventsDbColumns.WALL_TIME, cursor.getLong(cursor.getColumnIndexOrThrow(SessionsDbColumns.SESSION_START_WALL_TIME)));
                         } else {
                             // this should never happen
                             throw new RuntimeException("Session didn't exist"); //$NON-NLS-1$
@@ -1281,13 +1281,13 @@ public final class LocalyticsSession {
                     count++;
                     if (count > Constants.MAX_NUM_ATTRIBUTES) {
                         if (Constants.IS_LOGGABLE) {
-                            Log.w(Constants.LOG_TAG, String.format("Map contains %s keys while the maximum number of attributes is %s.  Some attributes were not written.  Consider reducing the number of attributes.", Integer.valueOf(attributes.size()), Integer.valueOf(Constants.MAX_NUM_ATTRIBUTES))); //$NON-NLS-1$
+                            Log.w(Constants.LOG_TAG, String.format("Map contains %s keys while the maximum number of attributes is %s.  Some attributes were not written.  Consider reducing the number of attributes.", attributes.size(), Constants.MAX_NUM_ATTRIBUTES)); //$NON-NLS-1$
                         }
                         break;
                     }
 
                     final ContentValues values = new ContentValues();
-                    values.put(AttributesDbColumns.EVENTS_KEY_REF, Long.valueOf(eventId));
+                    values.put(AttributesDbColumns.EVENTS_KEY_REF, eventId);
                     values.put(AttributesDbColumns.ATTRIBUTE_KEY, entry.getKey());
                     values.put(AttributesDbColumns.ATTRIBUTE_VALUE, entry.getValue());
 
@@ -1305,8 +1305,8 @@ public final class LocalyticsSession {
             if (!OPEN_EVENT.equals(event) && !CLOSE_EVENT.equals(event) && !OPT_IN_EVENT.equals(event) && !OPT_OUT_EVENT.equals(event) && !FLOW_EVENT.equals(event)) {
                 final ContentValues values = new ContentValues();
                 values.put(EventHistoryDbColumns.NAME, event.substring(mContext.getPackageName().length() + 1, event.length()));
-                values.put(EventHistoryDbColumns.TYPE, Integer.valueOf(EventHistoryDbColumns.TYPE_EVENT));
-                values.put(EventHistoryDbColumns.SESSION_KEY_REF, Long.valueOf(mSessionId));
+                values.put(EventHistoryDbColumns.TYPE, EventHistoryDbColumns.TYPE_EVENT);
+                values.put(EventHistoryDbColumns.SESSION_KEY_REF, mSessionId);
                 values.putNull(EventHistoryDbColumns.PROCESSED_IN_BLOB);
                 mProvider.insert(EventHistoryDbColumns.TABLE_NAME, values);
 
@@ -1365,8 +1365,8 @@ public final class LocalyticsSession {
              */
             final ContentValues values = new ContentValues();
             values.put(EventHistoryDbColumns.NAME, screen);
-            values.put(EventHistoryDbColumns.TYPE, Integer.valueOf(EventHistoryDbColumns.TYPE_SCREEN));
-            values.put(EventHistoryDbColumns.SESSION_KEY_REF, Long.valueOf(mSessionId));
+            values.put(EventHistoryDbColumns.TYPE, EventHistoryDbColumns.TYPE_SCREEN);
+            values.put(EventHistoryDbColumns.SESSION_KEY_REF, mSessionId);
             values.putNull(EventHistoryDbColumns.PROCESSED_IN_BLOB);
             mProvider.insert(EventHistoryDbColumns.TABLE_NAME, values);
 
@@ -1468,7 +1468,7 @@ public final class LocalyticsSession {
                                     break;
                                 }
                             }
-                            eventIds.add(Long.valueOf(eventsCursor.getLong(idColumn)));
+                            eventIds.add(eventsCursor.getLong(idColumn));
                             break;
                         }
                         case BOTH:
@@ -1500,7 +1500,7 @@ public final class LocalyticsSession {
                     for (final Long x : eventIds) {
                         values.clear();
 
-                        values.put(UploadBlobEventsDbColumns.UPLOAD_BLOBS_KEY_REF, Long.valueOf(blobId));
+                        values.put(UploadBlobEventsDbColumns.UPLOAD_BLOBS_KEY_REF, blobId);
                         values.put(UploadBlobEventsDbColumns.EVENTS_KEY_REF, x);
 
                         mProvider.insert(UploadBlobEventsDbColumns.TABLE_NAME, values);
@@ -1508,7 +1508,7 @@ public final class LocalyticsSession {
                 }
 
                 final ContentValues values = new ContentValues();
-                values.put(EventHistoryDbColumns.PROCESSED_IN_BLOB, Long.valueOf(blobId));
+                values.put(EventHistoryDbColumns.PROCESSED_IN_BLOB, blobId);
                 mProvider.update(EventHistoryDbColumns.TABLE_NAME, values, String.format("%s IS NULL", EventHistoryDbColumns.PROCESSED_IN_BLOB), null); //$NON-NLS-1$
             }
         }
@@ -1526,7 +1526,7 @@ public final class LocalyticsSession {
          * @see #MESSAGE_UPLOAD
          */
         /* package */void upload(final Runnable callback) {
-            if (sIsUploadingMap.get(mApiKey).booleanValue()) {
+            if (sIsUploadingMap.get(mApiKey)) {
                 if (Constants.IS_LOGGABLE) {
                     Log.d(Constants.LOG_TAG, "Already uploading"); //$NON-NLS-1$
                 }
@@ -1743,7 +1743,7 @@ public final class LocalyticsSession {
                 final StatusLine status = response.getStatusLine();
                 final int statusCode = status.getStatusCode();
                 if (Constants.IS_LOGGABLE) {
-                    Log.v(Constants.LOG_TAG, String.format("Upload complete with status %d", Integer.valueOf(statusCode))); //$NON-NLS-1$
+                    Log.v(Constants.LOG_TAG, String.format("Upload complete with status %d", statusCode)); //$NON-NLS-1$
                 }
 
                 /*
@@ -1882,7 +1882,7 @@ public final class LocalyticsSession {
                     /*
                      * Add the blob to the list of blobs to be deleted
                      */
-                    blobsToDelete.add(Long.valueOf(blobId));
+                    blobsToDelete.add(blobId);
 
                     // delete all attributes for the event
                     provider.delete(AttributesDbColumns.TABLE_NAME, String.format("%s = ?", AttributesDbColumns.EVENTS_KEY_REF), new String[]{Long.toString(eventId)}); //$NON-NLS-1$
@@ -1904,7 +1904,7 @@ public final class LocalyticsSession {
                             provider.delete(EventHistoryDbColumns.TABLE_NAME, String.format("%s = ?", EventHistoryDbColumns.SESSION_KEY_REF), new String[] //$NON-NLS-1$
                                     {Long.toString(sessionId)});
 
-                            sessionsToDelete.add(Long.valueOf(eventCursor.getLong(eventCursor.getColumnIndexOrThrow(EventsDbColumns.SESSION_KEY_REF))));
+                            sessionsToDelete.add(eventCursor.getLong(eventCursor.getColumnIndexOrThrow(EventsDbColumns.SESSION_KEY_REF)));
                         }
                     } finally {
                         if (null != eventCursor) {

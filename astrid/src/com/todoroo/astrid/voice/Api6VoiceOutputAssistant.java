@@ -71,7 +71,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
     }
 
     private void initTTS() {
-        mTts = new TextToSpeech(context, (OnInitListener) this);
+        mTts = new TextToSpeech(context, this);
     }
 
     @Override

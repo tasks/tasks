@@ -251,9 +251,9 @@ public class ActFmInvoker {
         for (int i = 0; i < getParameters.length; i += 2) {
             if (getParameters[i + 1] instanceof ArrayList) {
                 ArrayList<?> list = (ArrayList<?>) getParameters[i + 1];
-                for (int j = 0; j < list.size(); j++) {
+                for (Object aList : list) {
                     params.add(new Pair<String, Object>(getParameters[i].toString() + "[]",
-                            list.get(j)));
+                            aList));
                 }
             } else {
                 params.add(new Pair<String, Object>(getParameters[i].toString(), getParameters[i + 1]));

@@ -94,7 +94,6 @@ public class Addon implements Parcelable {
             return new Addon[size];
         }
 
-        ;
     };
 
 }

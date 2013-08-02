@@ -106,7 +106,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         try {
             if (metadata.getCount() > 0) {
                 metadata.moveToFirst();
-                return (new Metadata(metadata).getValue(Metadata.TASK));
+                return new Metadata(metadata).getValue(Metadata.TASK);
             } else {
                 return AbstractModel.NO_ID;
             }
@@ -198,8 +198,8 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
      * @return
      */
     public String getRemoteSiblingId(String listId, Metadata gtasksMetadata) {
-        final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT).intValue());
-        final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK).longValue());
+        final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT));
+        final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK));
         final AtomicReference<String> sibling = new AtomicReference<String>();
         OrderedListIterator iterator = new OrderedListIterator() {
             @Override
@@ -208,7 +208,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                 if (t == null || t.isDeleted()) {
                     return;
                 }
-                int currIndent = metadata.getValue(GtasksMetadata.INDENT).intValue();
+                int currIndent = metadata.getValue(GtasksMetadata.INDENT);
                 long currParent = metadata.getValue(GtasksMetadata.PARENT_TASK);
 
                 if (currIndent == indentToMatch.get() && currParent == parentToMatch.get()) {

@@ -131,7 +131,7 @@ public class MissedCallActivity extends Activity {
                 .setText(getString(R.string.MCA_title,
                         TextUtils.isEmpty(name) ? number : name, timeString));
 
-        ImageView pictureView = ((ImageView) findViewById(R.id.contact_picture));
+        ImageView pictureView = (ImageView) findViewById(R.id.contact_picture);
         if (contactId >= 0) {
             Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
             InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(), uri);

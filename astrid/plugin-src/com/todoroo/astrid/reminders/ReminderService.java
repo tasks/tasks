@@ -155,7 +155,7 @@ public final class ReminderService {
 
     private long getNowValue() {
         // If we're in the midst of mass scheduling, use the prestored now var
-        return (now == -1 ? DateUtilities.now() : now);
+        return now == -1 ? DateUtilities.now() : now;
     }
 
     public static final long NO_ALARM = Long.MAX_VALUE;
@@ -375,14 +375,14 @@ public final class ReminderService {
                                 long millisAfterQuiet = dueDate - quietHoursEndDate.getTime();
 
                                 // if there is more time after quiethours today, select quiethours-end for reminder
-                                if (millisAfterQuiet > (millisToQuiet / ((float) (1 - (1 / periodDivFactor))))) {
+                                if (millisAfterQuiet > millisToQuiet / (float) (1 - 1 / periodDivFactor)) {
                                     dueDateAlarm = quietHoursEndDate.getTime();
                                 } else {
-                                    dueDateAlarm = getNowValue() + (long) (millisToQuiet / periodDivFactor);
+                                    dueDateAlarm = getNowValue() + millisToQuiet / periodDivFactor;
                                 }
                             } else {
                                 // after quietHours, reuse dueDate for end of day
-                                dueDateAlarm = getNowValue() + (long) (millisToEndOfDay / periodDivFactor);
+                                dueDateAlarm = getNowValue() + millisToEndOfDay / periodDivFactor;
                             }
                         } else { // wrap across 24/hour boundary
                             if (hour >= quietHoursStart) {
@@ -394,12 +394,12 @@ public final class ReminderService {
                             } else {
                                 // quietHours didnt start yet
                                 millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
-                                dueDateAlarm = getNowValue() + (long) (millisToQuiet / periodDivFactor);
+                                dueDateAlarm = getNowValue() + millisToQuiet / periodDivFactor;
                             }
                         }
                     } else {
                         // Quiet hours not activated, simply schedule the reminder on 1/periodDivFactor towards the end of day
-                        dueDateAlarm = getNowValue() + (long) (millisToEndOfDay / periodDivFactor);
+                        dueDateAlarm = getNowValue() + millisToEndOfDay / periodDivFactor;
                     }
 
                     if (dueDate > getNowValue() && dueDateAlarm < getNowValue()) {
@@ -429,7 +429,7 @@ public final class ReminderService {
      */
     private long calculateNextRandomReminder(Task task) {
         long reminderPeriod = task.getValue(Task.REMINDER_PERIOD);
-        if ((reminderPeriod) > 0) {
+        if (reminderPeriod > 0) {
             long when = task.getValue(Task.REMINDER_LAST);
 
             if (when == 0) {

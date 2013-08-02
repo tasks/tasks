@@ -95,7 +95,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected String getSourceIdentifier() {
-        return (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
+        return tagData == null ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
     }
 
     @Override

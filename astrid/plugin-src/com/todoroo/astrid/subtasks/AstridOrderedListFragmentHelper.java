@@ -188,7 +188,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             if (v == null) {
                 return;
             }
-            ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
+            taskAdapter.getListener().onClick(v);
         }
     };
 

@@ -79,7 +79,7 @@ abstract public class RemoteModel extends AbstractModel {
      */
     public static final String NO_UUID = "0"; //$NON-NLS-1$
 
-    public static final boolean isValidUuid(String uuid) {
+    public static boolean isValidUuid(String uuid) {
         try {
             long value = Long.parseLong(uuid);
             return value > 0;

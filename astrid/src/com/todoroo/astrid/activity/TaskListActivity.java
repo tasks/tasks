@@ -387,7 +387,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             layout = R.layout.main_menu_popover;
         }
 
-        mainMenuPopover = new MainMenuPopover(this, layout, (fragmentLayout != LAYOUT_SINGLE), this);
+        mainMenuPopover = new MainMenuPopover(this, layout, fragmentLayout != LAYOUT_SINGLE, this);
         mainMenuPopover.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -449,7 +449,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void setupActivityFragment(TagData tagData) {
         super.setupActivityFragment(tagData);
 
-        int visibility = (filterModeSpec.showComments() ? View.VISIBLE : View.GONE);
+        int visibility = filterModeSpec.showComments() ? View.VISIBLE : View.GONE;
 
         if (fragmentLayout != LAYOUT_TRIPLE) {
             commentsButton.setVisibility(visibility);
@@ -467,8 +467,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void setListsDropdownSelected(boolean selected) {
         int oldTextColor = lists.getTextColors().getDefaultColor();
-        int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
-                R.style.TextAppearance_ActionBar_ListsHeader);
+        int textStyle = selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
+                R.style.TextAppearance_ActionBar_ListsHeader;
 
         TypedValue listDisclosure = new TypedValue();
         getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);

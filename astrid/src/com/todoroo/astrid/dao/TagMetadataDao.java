@@ -81,10 +81,10 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     protected boolean shouldRecordOutstanding(TagMetadata item) {
         ContentValues cv = item.getSetValues();
         return super.shouldRecordOutstanding(item) && cv != null &&
-                ((cv.containsKey(TagMetadata.KEY.name) &&
-                        TagMemberMetadata.KEY.equals(item.getValue(TagMetadata.KEY))) ||
-                        (cv.containsKey(TagMetadata.DELETION_DATE.name) &&
-                                item.getValue(TagMetadata.DELETION_DATE) > 0)) &&
+                (cv.containsKey(TagMetadata.KEY.name) &&
+                        TagMemberMetadata.KEY.equals(item.getValue(TagMetadata.KEY)) ||
+                        cv.containsKey(TagMetadata.DELETION_DATE.name) &&
+                                item.getValue(TagMetadata.DELETION_DATE) > 0) &&
                 RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 

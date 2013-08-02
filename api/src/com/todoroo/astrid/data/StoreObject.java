@@ -124,8 +124,6 @@ public class StoreObject extends AbstractModel {
         return getIdHelper(ID);
     }
 
-    ;
-
     // --- parcelable helpers
 
     private static final Creator<StoreObject> CREATOR = new ModelCreator<StoreObject>(StoreObject.class);

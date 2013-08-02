@@ -138,7 +138,7 @@ public class AndroidUtilities {
         Bitmap bitmap = null;
         int tries = 0;
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        while ((bitmap == null || (bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM)) && tries < SAMPLE_SIZES.length) {
+        while ((bitmap == null || bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM) && tries < SAMPLE_SIZES.length) {
             opts.inSampleSize = SAMPLE_SIZES[tries];
             try {
                 bitmap = BitmapFactory.decodeFile(file, opts);
@@ -605,7 +605,7 @@ public class AndroidUtilities {
         Arrays.sort(files, new Comparator<File>() {
             @Override
             public int compare(File o1, File o2) {
-                return Long.valueOf(o2.lastModified()).compareTo(Long.valueOf(o1.lastModified()));
+                return Long.valueOf(o2.lastModified()).compareTo(o1.lastModified());
             }
         });
     }
@@ -973,7 +973,7 @@ public class AndroidUtilities {
             float effectiveWidth = Math.min(width, height);
             float effectiveHeight = Math.max(width, height);
 
-            return (effectiveWidth >= MIN_TABLET_WIDTH && effectiveHeight >= MIN_TABLET_HEIGHT);
+            return effectiveWidth >= MIN_TABLET_WIDTH && effectiveHeight >= MIN_TABLET_HEIGHT;
         } else {
             return false;
         }

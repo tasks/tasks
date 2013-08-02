@@ -35,7 +35,7 @@ public final class ReflectionUtils {
      * @throws RuntimeException if the class or method doesn't exist
      */
     public static <T> T tryInvokeStatic(final Class<?> classObject, final String methodName, final Class<?>[] types, final Object[] args) {
-        return (T) helper(null, classObject, null, methodName, types, args);
+        return helper(null, classObject, null, methodName, types, args);
     }
 
     /**
@@ -50,7 +50,7 @@ public final class ReflectionUtils {
      * @throws RuntimeException if the class or method doesn't exist
      */
     public static <T> T tryInvokeStatic(final String className, final String methodName, final Class<?>[] types, final Object[] args) {
-        return (T) helper(className, null, null, methodName, types, args);
+        return helper(className, null, null, methodName, types, args);
     }
 
     /**
@@ -65,7 +65,7 @@ public final class ReflectionUtils {
      * @throws RuntimeException if the class or method doesn't exist
      */
     public static <T> T tryInvokeInstance(final Object target, final String methodName, final Class<?>[] types, final Object[] args) {
-        return (T) helper(target, null, null, methodName, types, args);
+        return helper(target, null, null, methodName, types, args);
     }
 
     @SuppressWarnings("unchecked")

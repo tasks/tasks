@@ -492,8 +492,6 @@ public abstract class DiskCache<K, V> {
         }
     }
 
-    ;
-
     private final Comparator<File> mLastModifiedOldestFirstComparator = new Comparator<File>() {
 
         @Override

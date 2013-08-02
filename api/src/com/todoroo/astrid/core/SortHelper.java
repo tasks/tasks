@@ -86,7 +86,7 @@ public class SortHelper {
     }
 
     public static int setManualSort(int flags, boolean status) {
-        flags = (flags & ~FLAG_DRAG_DROP);
+        flags = flags & ~FLAG_DRAG_DROP;
         if (status) {
             flags |= FLAG_DRAG_DROP;
         }
@@ -106,7 +106,7 @@ public class SortHelper {
                         "+3*" + Task.COMPLETION_DATE);
                 break;
             case SORT_IMPORTANCE:
-                order = Order.asc(Task.IMPORTANCE + "*" + (2 * DateUtilities.now()) + //$NON-NLS-1$
+                order = Order.asc(Task.IMPORTANCE + "*" + 2 * DateUtilities.now() + //$NON-NLS-1$
                         "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
                         2 * DateUtilities.now(),
                         Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
@@ -133,7 +133,7 @@ public class SortHelper {
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 Functions.now() + "*2",
-                adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
+                adjustedDueDateFunction()) + " + " + 2 * DateUtilities.ONE_DAY + " * " +
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
 

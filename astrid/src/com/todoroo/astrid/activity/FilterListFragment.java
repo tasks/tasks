@@ -299,7 +299,7 @@ public class FilterListFragment extends SherlockListFragment {
         android.view.MenuItem menuItem;
 
         if (item instanceof Filter) {
-            Filter filter = (Filter) item;
+            Filter filter = item;
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
             menuItem.setIntent(ShortcutActivity.createIntent(filter));
         }

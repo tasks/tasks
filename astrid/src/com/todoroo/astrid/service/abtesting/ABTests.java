@@ -133,7 +133,7 @@ public class ABTests {
      *                          (i.e. the arrays should be the same length if this one exists)
      */
     public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions, boolean appliesToAstridLite) {
-        if (!Constants.ASTRID_LITE || (Constants.ASTRID_LITE && appliesToAstridLite)) {
+        if (!Constants.ASTRID_LITE || Constants.ASTRID_LITE && appliesToAstridLite) {
             ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
             bundles.put(testKey, bundle);
         }

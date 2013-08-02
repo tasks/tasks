@@ -619,9 +619,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             return (TYPE[]) Array.newInstance(cls, size);
         }
 
-        ;
     }
-
-    ;
 
 }

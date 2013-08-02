@@ -185,7 +185,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         addCommentField.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                commentButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
+                commentButton.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
 
             @Override
@@ -241,7 +241,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         }
 
         Cursor cursor = null;
-        ListView listView = ((ListView) view.findViewById(android.R.id.list));
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
         if (updateAdapter == null) {
             cursor = getCursor();
             activity.startManagingCursor(cursor);

@@ -330,7 +330,7 @@ public class Astrid2To3UpgradeHelper {
      * @param dao
      */
     @SuppressWarnings("nls")
-    private static final <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
+    private static <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
                                                                         HashMap<String, Property<?>> propertyMap, TYPE model,
                                                                         DatabaseDao<TYPE> dao) {
 

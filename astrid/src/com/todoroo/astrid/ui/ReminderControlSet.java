@@ -169,7 +169,7 @@ public class ReminderControlSet extends PopupControlSet {
         StringBuilder reminderString = new StringBuilder();
 
         // Has random reminder?
-        if ((randomControlSet != null && randomControlSet.hasRandomReminder()) || (randomControlSet == null && model.getValue(Task.REMINDER_PERIOD) > 0)) {
+        if (randomControlSet != null && randomControlSet.hasRandomReminder() || randomControlSet == null && model.getValue(Task.REMINDER_PERIOD) > 0) {
             reminderString.append(activity.getString(R.string.TEA_reminder_randomly_short));
             reminderCount++;
         }

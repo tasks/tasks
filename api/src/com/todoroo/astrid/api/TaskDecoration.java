@@ -96,7 +96,6 @@ public final class TaskDecoration implements Parcelable {
             return new TaskDecoration[size];
         }
 
-        ;
     };
 
 }

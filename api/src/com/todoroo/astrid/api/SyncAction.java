@@ -104,7 +104,6 @@ public class SyncAction implements Parcelable {
             return new SyncAction[size];
         }
 
-        ;
     };
 
 }

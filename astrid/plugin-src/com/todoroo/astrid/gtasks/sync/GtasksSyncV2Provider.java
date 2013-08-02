@@ -356,12 +356,12 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         task.setValue(Task.TITLE, remoteTask.getTitle());
         task.setValue(Task.CREATION_DATE, DateUtilities.now());
         task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted(), 0));
-        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted().booleanValue()) {
+        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
             task.setValue(Task.DELETION_DATE, 0L);
-        } else if (remoteTask.getDeleted().booleanValue()) {
+        } else if (remoteTask.getDeleted()) {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
         }
-        if (remoteTask.getHidden() != null && remoteTask.getHidden().booleanValue()) {
+        if (remoteTask.getHidden() != null && remoteTask.getHidden()) {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
         }
 

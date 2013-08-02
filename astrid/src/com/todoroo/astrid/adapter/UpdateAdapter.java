@@ -226,7 +226,7 @@ public class UpdateAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<UserActivity> cursor = (TodorooCursor<UserActivity>) c;
-        ModelHolder mh = ((ModelHolder) view.getTag());
+        ModelHolder mh = (ModelHolder) view.getTag();
 
         String type = cursor.getString(TYPE_PROPERTY_INDEX);
 
@@ -377,7 +377,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
                                                      final String message, final Fragment fragment, ImageCache imageCache) {
-        if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
+        if (!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
             if (updateBitmap != null) {
                 commentPictureView.setImageBitmap(updateBitmap);
@@ -602,11 +602,11 @@ public class UpdateAdapter extends CursorAdapter {
                 int newLength = AndroidUtilities.tryParseInt(newValue, 0);
 
                 if (oldLength > 0 && newLength > oldLength) {
-                    result = context.getString(R.string.history_added_description_characters, (newLength - oldLength), itemPosessive);
+                    result = context.getString(R.string.history_added_description_characters, newLength - oldLength, itemPosessive);
                 } else if (newLength == 0) {
                     result = context.getString(R.string.history_removed_description, itemPosessive);
                 } else if (oldLength > 0 && newLength < oldLength) {
-                    result = context.getString(R.string.history_removed_description_characters, (oldLength - newLength), itemPosessive);
+                    result = context.getString(R.string.history_removed_description_characters, oldLength - newLength, itemPosessive);
                 } else if (oldLength > 0 && oldLength == newLength) {
                     result = context.getString(R.string.history_updated_description, itemPosessive);
                 }
@@ -714,7 +714,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private static String dateString(Context context, String value, String other) {
-        boolean includeYear = (!TextUtils.isEmpty(other) && !value.substring(0, 4).equals(other.substring(0, 4)));
+        boolean includeYear = !TextUtils.isEmpty(other) && !value.substring(0, 4).equals(other.substring(0, 4));
         boolean hasTime = DateUtilities.isoStringHasTime(value);
 
         long time = 0;
@@ -816,11 +816,11 @@ public class UpdateAdapter extends CursorAdapter {
                     }
                     byDayDisplay.delete(byDayDisplay.length() - 2, byDayDisplay.length());
 
-                    result += (" " + context.getString(R.string.history_repeat_on, byDayDisplay.toString()));
+                    result += " " + context.getString(R.string.history_repeat_on, byDayDisplay.toString());
                 }
 
                 if ("COMPLETION".equals(repeat.optString("from"))) {
-                    result += (" " + context.getString(R.string.history_repeat_from_completion));
+                    result += " " + context.getString(R.string.history_repeat_from_completion);
                 }
 
                 return result;

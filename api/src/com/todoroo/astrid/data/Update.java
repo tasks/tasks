@@ -194,8 +194,6 @@ public class Update extends RemoteModel {
         return getIdHelper(ID);
     }
 
-    ;
-
     @Override
     public String getUuid() {
         return null;

@@ -154,8 +154,8 @@ public class QuickAddBar extends LinearLayout {
                 quickAddControlsContainer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        quickAddButton.setVisibility((plusVisible || !hidePlus) ? View.VISIBLE : View.GONE);
-                        quickAddControlsContainer.setVisibility((showControls && controlsVisible) ? View.VISIBLE : View.GONE);
+                        quickAddButton.setVisibility(plusVisible || !hidePlus ? View.VISIBLE : View.GONE);
+                        quickAddControlsContainer.setVisibility(showControls && controlsVisible ? View.VISIBLE : View.GONE);
                     }
                 }, 10);
             }
@@ -170,8 +170,8 @@ public class QuickAddBar extends LinearLayout {
         int fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
         quickAddBox.setTextSize(Math.min(fontSize, 22));
 
-        quickAddButton = ((ImageButton) findViewById(
-                R.id.quickAddButton));
+        quickAddButton = (ImageButton) findViewById(
+                R.id.quickAddButton);
         quickAddButton.setVisibility(Preferences.getBoolean(R.string.p_hide_plus_button, false) ? View.GONE : View.VISIBLE);
 
         // set listener for quick add button
@@ -371,9 +371,9 @@ public class QuickAddBar extends LinearLayout {
                 fragment.loadTaskListContent(true);
                 fragment.selectCustomId(task.getId());
                 if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
-                    showAlertForMarkupTask((AstridActivity) activity, task, title);
+                    showAlertForMarkupTask(activity, task, title);
                 } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                    showAlertForRepeatingTask((AstridActivity) activity, task);
+                    showAlertForRepeatingTask(activity, task);
                 }
             }
 

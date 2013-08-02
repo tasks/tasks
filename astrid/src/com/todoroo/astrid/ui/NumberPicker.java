@@ -248,7 +248,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private String formatNumber(int value) {
-        return (mFormatter != null) ? mFormatter.toString(value) : String
+        return mFormatter != null ? mFormatter.toString(value) : String
                 .valueOf(value);
     }
 
@@ -257,8 +257,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
         // Wrap around the values if we go past the start or end
         if (current > mEnd) {
-            ;
-            current = mStart + (current - mEnd) - 1;
+            current = mStart + current - mEnd - 1;
         } else if (current < mStart) {
             current = mEnd - (mStart - current) + 1;
         }
@@ -302,7 +301,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private void validateCurrentView(CharSequence str, boolean notifyChange) {
         if (!TextUtils.isEmpty(str)) {
             int val = getSelectedPos(str.toString());
-            if ((val >= mStart) && (val <= mEnd)) {
+            if (val >= mStart && val <= mEnd) {
                 mPrevious = mCurrent;
                 mCurrent = val;
                 if (notifyChange) {

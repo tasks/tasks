@@ -167,7 +167,7 @@ import java.util.Set;
         final long result = mDb.insertOrThrow(tableName, null, values);
 
         if (Constants.IS_LOGGABLE) {
-            Log.v(Constants.LOG_TAG, String.format("Inserted row with new id %d", Long.valueOf(result))); //$NON-NLS-1$
+            Log.v(Constants.LOG_TAG, String.format("Inserted row with new id %d", result)); //$NON-NLS-1$
         }
 
         return result;
@@ -269,7 +269,7 @@ import java.util.Set;
         }
 
         if (Constants.IS_LOGGABLE) {
-            Log.v(Constants.LOG_TAG, String.format("Deleted %d rows", Integer.valueOf(count))); //$NON-NLS-1$
+            Log.v(Constants.LOG_TAG, String.format("Deleted %d rows", count)); //$NON-NLS-1$
         }
 
         return count;
@@ -434,7 +434,7 @@ import java.util.Set;
              * Note: the events history should be using foreign key constrains on the upload blobs table, but that is currently
              * disabled to simplify the implementation of the upload processing.
              */
-            db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER REFERENCES %s(%s) NOT NULL, %s TEXT NOT NULL CHECK(%s IN (%s, %s)), %s TEXT NOT NULL, %s INTEGER);", EventHistoryDbColumns.TABLE_NAME, EventHistoryDbColumns._ID, EventHistoryDbColumns.SESSION_KEY_REF, SessionsDbColumns.TABLE_NAME, SessionsDbColumns._ID, EventHistoryDbColumns.TYPE, EventHistoryDbColumns.TYPE, Integer.valueOf(EventHistoryDbColumns.TYPE_EVENT), Integer.valueOf(EventHistoryDbColumns.TYPE_SCREEN), EventHistoryDbColumns.NAME, EventHistoryDbColumns.PROCESSED_IN_BLOB)); //$NON-NLS-1$
+            db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER REFERENCES %s(%s) NOT NULL, %s TEXT NOT NULL CHECK(%s IN (%s, %s)), %s TEXT NOT NULL, %s INTEGER);", EventHistoryDbColumns.TABLE_NAME, EventHistoryDbColumns._ID, EventHistoryDbColumns.SESSION_KEY_REF, SessionsDbColumns.TABLE_NAME, SessionsDbColumns._ID, EventHistoryDbColumns.TYPE, EventHistoryDbColumns.TYPE, EventHistoryDbColumns.TYPE_EVENT, EventHistoryDbColumns.TYPE_SCREEN, EventHistoryDbColumns.NAME, EventHistoryDbColumns.PROCESSED_IN_BLOB)); //$NON-NLS-1$
             //db.execSQL(String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER REFERENCES %s(%s) NOT NULL, %s TEXT NOT NULL CHECK(%s IN (%s, %s)), %s TEXT NOT NULL, %s INTEGER REFERENCES %s(%s));", EventHistoryDbColumns.TABLE_NAME, EventHistoryDbColumns._ID, EventHistoryDbColumns.SESSION_KEY_REF, SessionsDbColumns.TABLE_NAME, SessionsDbColumns._ID, EventHistoryDbColumns.TYPE, EventHistoryDbColumns.TYPE, Integer.valueOf(EventHistoryDbColumns.TYPE_EVENT), Integer.valueOf(EventHistoryDbColumns.TYPE_SCREEN), EventHistoryDbColumns.NAME, EventHistoryDbColumns.PROCESSED_IN_BLOB, UploadBlobsDbColumns.TABLE_NAME, UploadBlobsDbColumns._ID)); //$NON-NLS-1$
 
             // attributes table

@@ -39,7 +39,7 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
     public static int getPageForPosition(int position, int tabStyle) {
         int numOnesEncountered = 0;
         for (int i = 0; i <= 2; i++) {
-            if ((tabStyle & (1 << i)) > 0) {
+            if ((tabStyle & 1 << i) > 0) {
                 numOnesEncountered++;
             }
             if (numOnesEncountered == position + 1) {

@@ -214,12 +214,12 @@ public class ModernAuthManager implements AuthManager {
 
     private void runWhenFinished() {
         if (whenFinished != null) {
-            (new Thread() {
+            new Thread() {
                 @Override
                 public void run() {
                     whenFinished.run();
                 }
-            }).start();
+            }.start();
         }
     }
 

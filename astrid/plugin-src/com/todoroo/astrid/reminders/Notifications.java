@@ -202,7 +202,7 @@ public class Notifications extends BroadcastReceiver {
         String taskTitle = task.getValue(Task.TITLE);
         boolean nonstopMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_NONSTOP);
         boolean ringFiveMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_FIVE);
-        int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);
+        int ringTimes = nonstopMode ? -1 : ringFiveMode ? 5 : 1;
 
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
@@ -306,7 +306,7 @@ public class Notifications extends BroadcastReceiver {
         }
 
         // quiet hours? unless alarm clock
-        boolean quietHours = (type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) ? false : isQuietHours();
+        boolean quietHours = type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE ? false : isQuietHours();
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -358,7 +358,7 @@ public class Notifications extends BroadcastReceiver {
         boolean maxOutVolumeForMultipleRingReminders = Preferences.getBoolean(R.string.p_rmd_maxvolume, true);
         // remember it to set it to the old value after the alarm
         int previousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-        if (ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
+        if (ringTimes != 1 && type != ReminderService.TYPE_RANDOM) {
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             if (maxOutVolumeForMultipleRingReminders) {
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
@@ -456,7 +456,7 @@ public class Notifications extends BroadcastReceiver {
                 AndroidUtilities.sleepDeep(500);
             }
             Flags.set(Flags.REFRESH); // Forces a reload when app launches
-            if ((voiceReminder || maxOutVolumeForMultipleRingReminders)) {
+            if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
                 AndroidUtilities.sleepDeep(2000);
                 for (int i = 0; i < 50; i++) {
                     AndroidUtilities.sleepDeep(500);

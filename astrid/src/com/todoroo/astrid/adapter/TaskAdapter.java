@@ -97,7 +97,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class TaskAdapter extends CursorAdapter implements Filterable {
+public class TaskAdapter extends CursorAdapter {
 
     public interface OnCompletedTaskListener {
         public void onCompletedTask(Task item, boolean newState);
@@ -269,7 +269,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        this.simpleLayout = (resource == R.layout.task_adapter_row_simple);
+        this.simpleLayout = resource == R.layout.task_adapter_row_simple;
         this.minRowHeight = computeMinRowHeight();
 
         startDetailThread();
@@ -409,7 +409,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Override
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>) c;
-        ViewHolder viewHolder = ((ViewHolder) view.getTag());
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         if (!titleOnlyLayout) {
             viewHolder.tagsString = cursor.get(TAGS);
@@ -520,7 +520,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else if (Preferences.getBoolean(R.string.p_showNotes, false)) {
                 viewHolder.details1.setVisibility(View.VISIBLE);
                 if (details.startsWith(DETAIL_SEPARATOR)) {
-                    StringBuffer buffer = new StringBuffer(details);
+                    StringBuilder buffer = new StringBuilder(details);
                     int length = DETAIL_SEPARATOR.length();
                     while (buffer.lastIndexOf(DETAIL_SEPARATOR, length) == 0) {
                         buffer.delete(0, length);
@@ -1092,7 +1092,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
         }
 
-        final CheckBox completeBox = ((CheckBox) container.findViewById(R.id.completeBox));
+        final CheckBox completeBox = (CheckBox) container.findViewById(R.id.completeBox);
         completeBox.performClick();
     }
 

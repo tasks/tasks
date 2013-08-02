@@ -375,7 +375,7 @@ public class FilesControlSet extends PopupControlSet {
                         fileOutput.write(buffer, 0, bufferLength);
                         downloadedSize += bufferLength;
 
-                        int progress = (int) (downloadedSize * 100 / totalSize);
+                        int progress = downloadedSize * 100 / totalSize;
                         pd.setProgress(progress);
                     }
 

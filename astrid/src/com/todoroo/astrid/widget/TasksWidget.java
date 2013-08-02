@@ -230,7 +230,7 @@ public class TasksWidget extends AppWidgetProvider {
                     views.addView(R.id.taskbody, row);
 
                     RemoteViews separator = new RemoteViews(Constants.PACKAGE, R.layout.widget_separator);
-                    boolean isLastRow = (i == cursor.getCount() - 1) || (i == numberOfTasks - 1);
+                    boolean isLastRow = i == cursor.getCount() - 1 || i == numberOfTasks - 1;
                     if (!isLastRow) {
                         views.addView(R.id.taskbody, separator);
                     }
@@ -319,7 +319,7 @@ public class TasksWidget extends AppWidgetProvider {
 
         private boolean isDarkTheme() {
             int theme = ThemeService.getWidgetTheme();
-            return (theme == R.style.Theme || theme == R.style.Theme_Transparent);
+            return theme == R.style.Theme || theme == R.style.Theme_Transparent;
         }
 
         private boolean isLegacyTheme() {
@@ -355,7 +355,7 @@ public class TasksWidget extends AppWidgetProvider {
                 views.setViewVisibility(R.id.widget_header_separator, View.GONE);
                 return views;
             } else if (isDarkTheme()) {
-                layout = (theme == R.style.Theme_Transparent ? R.layout.widget_initialized_dark_transparent : R.layout.widget_initialized_dark);
+                layout = theme == R.style.Theme_Transparent ? R.layout.widget_initialized_dark_transparent : R.layout.widget_initialized_dark;
                 titleColor = r.getColor(R.color.widget_text_color_dark);
                 buttonDrawable = R.drawable.plus_button_blue;
             } else if (theme == R.style.Theme_White) {
@@ -367,7 +367,7 @@ public class TasksWidget extends AppWidgetProvider {
                 titleColor = r.getColor(R.color.widget_text_color_light);
                 buttonDrawable = R.drawable.plus_button_blue;
             } else {
-                layout = (theme == R.style.Theme_TransparentWhite ? R.layout.widget_initialized_transparent : R.layout.widget_initialized);
+                layout = theme == R.style.Theme_TransparentWhite ? R.layout.widget_initialized_transparent : R.layout.widget_initialized;
                 titleColor = r.getColor(R.color.widget_text_color_light);
                 buttonDrawable = R.drawable.plus_button_dark_blue;
             }

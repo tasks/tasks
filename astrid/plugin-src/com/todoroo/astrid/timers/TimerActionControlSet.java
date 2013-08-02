@@ -30,7 +30,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
     private boolean timerActive;
     private final List<TimerActionListener> listeners = new LinkedList<TimerActionListener>();
 
-    public TimerActionControlSet(Activity activity, View parent) {
+    public TimerActionControlSet(final Activity activity, View parent) {
         super(activity, -1);
         LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
         timerButton = (ImageView) parent.findViewById(R.id.timer_button);

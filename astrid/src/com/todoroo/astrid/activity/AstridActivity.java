@@ -146,7 +146,7 @@ public class AstridActivity extends SherlockFragmentActivity
      */
     @Override
     public boolean onFilterItemClicked(FilterListItem item) {
-        if (this instanceof TaskListActivity && (item instanceof Filter)) {
+        if (this instanceof TaskListActivity && item instanceof Filter) {
             ((TaskListActivity) this).setSelectedItem((Filter) item);
         }
         if (item instanceof SearchFilter) {

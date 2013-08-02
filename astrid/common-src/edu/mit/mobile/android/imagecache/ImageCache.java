@@ -98,7 +98,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
 
     private final HashSet<OnImageLoadListener> mImageLoadListeners = new HashSet<ImageCache.OnImageLoadListener>();
 
-    public static final int DEFAULT_CACHE_SIZE = (24 /* MiB */ * 1024 * 1024); // in bytes
+    public static final int DEFAULT_CACHE_SIZE = 24 /* MiB */ * 1024 * 1024; // in bytes
 
     private DrawableMemCache<String> mMemCache = new DrawableMemCache<String>(DEFAULT_CACHE_SIZE);
 
@@ -144,7 +144,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
             }
         }
 
-        ;
     }
 
     private final ImageLoadHandler mHandler = new ImageLoadHandler(this);
@@ -565,7 +564,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
             return Long.valueOf(another.when).compareTo(when);
         }
 
-        ;
     }
 
     private void oomClear() {

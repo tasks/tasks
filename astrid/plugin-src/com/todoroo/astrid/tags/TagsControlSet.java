@@ -84,8 +84,8 @@ public final class TagsControlSet extends PopupControlSet {
 
     private ArrayList<String> getTagNames(Tag[] tags) {
         ArrayList<String> names = new ArrayList<String>();
-        for (int i = 0; i < tags.length; i++) {
-            names.add(tags[i].toString());
+        for (Tag tag : tags) {
+            names.add(tag.toString());
         }
         return names;
     }

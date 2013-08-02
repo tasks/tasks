@@ -145,8 +145,8 @@ public class Filter extends FilterListItem {
         final int prime = 31;
         int result = 1;
         result = prime * result
-                + ((sqlQuery == null) ? 0 : sqlQuery.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
+                + (sqlQuery == null ? 0 : sqlQuery.hashCode());
+        result = prime * result + (title == null ? 0 : title.hashCode());
         return result;
     }
 

@@ -355,9 +355,9 @@ public class RepeatControlSet extends PopupControlSet {
                     rrule.setFreq(Frequency.WEEKLY);
 
                     ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
-                    for (int i = 0; i < daysOfWeek.length; i++) {
-                        if (daysOfWeek[i].isChecked()) {
-                            days.add(new WeekdayNum(0, (Weekday) daysOfWeek[i].getTag()));
+                    for (CompoundButton aDaysOfWeek : daysOfWeek) {
+                        if (aDaysOfWeek.isChecked()) {
+                            days.add(new WeekdayNum(0, (Weekday) aDaysOfWeek.getTag()));
                         }
                     }
                     rrule.setByDay(days);

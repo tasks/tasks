@@ -134,11 +134,11 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
      * @return
      */
     public static boolean isInbox(Filter filter) {
-        return (filter != null && filter.equals(buildInboxFilter(ContextManager.getContext().getResources())));
+        return filter != null && filter.equals(buildInboxFilter(ContextManager.getContext().getResources()));
     }
 
     public static boolean isTodayFilter(Filter filter) {
-        return (filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources())));
+        return filter != null && filter.equals(getTodayFilter(ContextManager.getContext().getResources()));
     }
 
     @Override

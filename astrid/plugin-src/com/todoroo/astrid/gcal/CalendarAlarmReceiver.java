@@ -95,10 +95,10 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                 boolean shouldShowReminder;
                 if (fromPostpone) {
                     long timeAfter = DateUtilities.now() - endTime;
-                    shouldShowReminder = (timeAfter > DateUtilities.ONE_MINUTE * 2);
+                    shouldShowReminder = timeAfter > DateUtilities.ONE_MINUTE * 2;
                 } else {
                     long timeUntil = startTime - DateUtilities.now();
-                    shouldShowReminder = (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20);
+                    shouldShowReminder = timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20;
                 }
 
                 if (shouldShowReminder) {

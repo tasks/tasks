@@ -32,14 +32,14 @@ public class Calendars {
     private static final boolean USE_ICS_NAMES = AndroidUtilities.getSdkVersion() >= 14;
 
     public static final String ID_COLUMN_NAME = "_id";
-    public static final String CALENDARS_DISPLAY_COL = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_DISPLAY_NAME : "displayName");
-    public static final String CALENDARS_ACCESS_LEVEL_COL = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL : "access_level");
-    public static final String EVENTS_DTSTART_COL = (USE_ICS_NAMES ? CalendarContract.Events.DTSTART : "dtstart");
-    public static final String EVENTS_DTEND_COL = (USE_ICS_NAMES ? CalendarContract.Events.DTEND : "dtend");
-    public static final String EVENTS_NAME_COL = (USE_ICS_NAMES ? CalendarContract.Events.TITLE : "title");
-    public static final String ATTENDEES_EVENT_ID_COL = (USE_ICS_NAMES ? CalendarContract.Attendees.EVENT_ID : "event_id");
-    public static final String ATTENDEES_NAME_COL = (USE_ICS_NAMES ? CalendarContract.Attendees.ATTENDEE_NAME : "attendeeName");
-    public static final String ATTENDEES_EMAIL_COL = (USE_ICS_NAMES ? CalendarContract.Attendees.ATTENDEE_EMAIL : "attendeeEmail");
+    public static final String CALENDARS_DISPLAY_COL = USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_DISPLAY_NAME : "displayName";
+    public static final String CALENDARS_ACCESS_LEVEL_COL = USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL : "access_level";
+    public static final String EVENTS_DTSTART_COL = USE_ICS_NAMES ? CalendarContract.Events.DTSTART : "dtstart";
+    public static final String EVENTS_DTEND_COL = USE_ICS_NAMES ? CalendarContract.Events.DTEND : "dtend";
+    public static final String EVENTS_NAME_COL = USE_ICS_NAMES ? CalendarContract.Events.TITLE : "title";
+    public static final String ATTENDEES_EVENT_ID_COL = USE_ICS_NAMES ? CalendarContract.Attendees.EVENT_ID : "event_id";
+    public static final String ATTENDEES_NAME_COL = USE_ICS_NAMES ? CalendarContract.Attendees.ATTENDEE_NAME : "attendeeName";
+    public static final String ATTENDEES_EMAIL_COL = USE_ICS_NAMES ? CalendarContract.Attendees.ATTENDEE_EMAIL : "attendeeEmail";
 
 
     private static final String[] CALENDARS_PROJECTION = new String[]{

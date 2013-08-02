@@ -43,7 +43,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
             } else {
                 value = data.getInt(key);
             }
-            model.setValue((IntegerProperty) property, value);
+            model.setValue(property, value);
         } catch (JSONException e) {
             Log.e(ERROR_TAG, "Error reading int value with key " + key + " from JSON " + data, e);
         }
@@ -65,7 +65,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
                     value = 0;
                 }
             }
-            model.setValue((LongProperty) property, value);
+            model.setValue(property, value);
         } catch (JSONException e) {
             Log.e(ERROR_TAG, "Error reading long value with key " + key + " from JSON " + data, e);
         }
@@ -76,7 +76,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
     public Void visitDouble(Property<Double> property, String key) {
         try {
             double value = data.getDouble(key);
-            model.setValue((DoubleProperty) property, value);
+            model.setValue(property, value);
         } catch (JSONException e) {
             Log.e(ERROR_TAG, "Error reading double value with key " + key + " from JSON " + data, e);
         }
@@ -96,12 +96,12 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
                 model.setValue(Task.USER, ""); // Clear this value for migration purposes
             }
 
-            model.setValue((StringProperty) property, value);
+            model.setValue(property, value);
         } catch (JSONException e) {
             try {
                 JSONObject object = data.getJSONObject(key);
                 if (object != null) {
-                    model.setValue((StringProperty) property, object.toString());
+                    model.setValue(property, object.toString());
                 }
             } catch (JSONException e2) {
                 Log.e(ERROR_TAG, "Error reading JSON value with key " + key + " from JSON " + data, e);

@@ -32,8 +32,8 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
 
     @Override
     public TaskDecoration expose(Task task) {
-        if (task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
-                task.getValue(Task.TIMER_START) == 0)) {
+        if (task == null || task.getValue(Task.ELAPSED_SECONDS) == 0 &&
+                task.getValue(Task.TIMER_START) == 0) {
             return null;
         }
 

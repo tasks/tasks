@@ -196,7 +196,7 @@ public class BillingService extends Service implements ServiceConnection {
                 Log.i(TAG, "CheckBillingSupported response code: " +
                         ResponseCode.valueOf(responseCode));
             }
-            boolean billingSupported = (responseCode == ResponseCode.RESULT_OK.ordinal());
+            boolean billingSupported = responseCode == ResponseCode.RESULT_OK.ordinal();
             ResponseHandler.checkBillingSupportedResponse(billingSupported, mProductType);
             return BillingConstants.BILLING_RESPONSE_INVALID_REQUEST_ID;
         }

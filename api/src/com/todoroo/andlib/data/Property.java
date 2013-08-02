@@ -28,7 +28,7 @@ import static com.todoroo.andlib.sql.SqlConstants.SPACE;
  * @author Tim Su <tim@todoroo.com>
  */
 @SuppressWarnings("nls")
-public abstract class Property<TYPE> extends Field implements Cloneable {
+public abstract class Property<TYPE> extends Field {
 
     // --- implementation
 
@@ -74,7 +74,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * expression which is derived from default table name
      */
     protected Property(Table table, String columnName) {
-        this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
+        this(table, columnName, table == null ? columnName : table.name() + "." + columnName);
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * expression which is derived from default table name
      */
     protected Property(Table table, String columnName, int flags) {
-        this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
+        this(table, columnName, table == null ? columnName : table.name() + "." + columnName);
         this.flags = flags;
     }
 
@@ -185,7 +185,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         @Override
         public IntegerProperty cloneAs(String tableAlias, String columnAlias) {
-            return (IntegerProperty) this.cloneAs(tableAlias, columnAlias);
+            return this.cloneAs(tableAlias, columnAlias);
         }
     }
 

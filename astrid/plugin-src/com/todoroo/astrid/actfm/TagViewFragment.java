@@ -171,7 +171,7 @@ public class TagViewFragment extends TaskListFragment {
             }
         };
 
-        ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
+        getView().findViewById(R.id.quickAddText).setOnTouchListener(onTouch);
 
         View membersEdit = getView().findViewById(R.id.members_edit);
         if (membersEdit != null) {
@@ -752,7 +752,7 @@ public class TagViewFragment extends TaskListFragment {
             parentOnResume();
             // tag was deleted locally in settings
             // go back to active tasks
-            AstridActivity activity = ((AstridActivity) getActivity());
+            AstridActivity activity = (AstridActivity) getActivity();
             FilterListFragment fl = activity.getFilterListFragment();
             if (fl != null) {
                 fl.clear(); // Should auto refresh

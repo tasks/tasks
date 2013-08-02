@@ -47,15 +47,15 @@ public class MergeSpinnerAdapter extends MergeAdapter {
             int size = piece.getCount();
 
             if (position < size) {
-                return (((SpinnerAdapter) piece).getDropDownView(position,
+                return ((SpinnerAdapter) piece).getDropDownView(position,
                         convertView,
-                        parent));
+                        parent);
             }
 
             position -= size;
         }
 
-        return (null);
+        return null;
     }
 
     /**

@@ -636,7 +636,7 @@ public final class Task extends RemoteModel {
     }
 
     public boolean isEditable() {
-        return (getValue(Task.IS_READONLY) == 0) &&
+        return getValue(Task.IS_READONLY) == 0 &&
                 !(getValue(Task.IS_PUBLIC) == 1 && !Task.USER_ID_SELF.equals(getValue(Task.USER_ID)));
     }
 
@@ -652,7 +652,7 @@ public final class Task extends RemoteModel {
      * Checks whether provided due date has a due time or only a date
      */
     public static boolean hasDueTime(long dueDate) {
-        return dueDate > 0 && (dueDate % 60000 > 0);
+        return dueDate > 0 && dueDate % 60000 > 0;
     }
 
 }

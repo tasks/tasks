@@ -252,7 +252,7 @@ public class TitleParser {
             setCalendarToDefaultTime(dCal);
             dCal.set(Calendar.MONTH, Integer.parseInt(match.group(2).trim()) - 1);
             dCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(match.group(4)));
-            if (match.group(6) != null && !(match.group(6).trim()).equals("")) {
+            if (match.group(6) != null && !match.group(6).trim().equals("")) {
                 String yearString = match.group(6);
                 if (match.group(6).length() == 2) {
                     yearString = "20" + match.group(6);
@@ -337,12 +337,12 @@ public class TitleParser {
                 }
 
                 //sets it to the next occurrence of that hour if no am/pm is provided. doesn't include military time
-                if (Integer.parseInt(m.group(2)) <= 12 && (m.group(4) == null || (m.group(4).trim()).equals(""))) {
+                if (Integer.parseInt(m.group(2)) <= 12 && (m.group(4) == null || m.group(4).trim().equals(""))) {
                     while (timeCal.getTime().getTime() < today.getTime().getTime()) {
                         timeCal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY) + 12);
                     }
                 } else { //if am/pm is provided and the time is in the past, set it to the next day. Military time included.
-                    if (timeCal.get(Calendar.HOUR) != 0 && (timeCal.getTime().getTime() < today.getTime().getTime())) {
+                    if (timeCal.get(Calendar.HOUR) != 0 && timeCal.getTime().getTime() < today.getTime().getTime()) {
                         timeCal.set(Calendar.DAY_OF_MONTH, timeCal.get(Calendar.DAY_OF_MONTH) + 1);
                     }
                     if (timeCal.get(Calendar.HOUR) == 0) {

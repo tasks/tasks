@@ -262,7 +262,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         Collections.sort(data.remoteUpdated, new Comparator<TYPE>() {
             private static final int SENTINEL = -2;
 
-            private final int check(TYPE o1, TYPE o2, LongProperty property) {
+            private int check(TYPE o1, TYPE o2, LongProperty property) {
                 long o1Property = o1.task.getValue(property);
                 long o2Property = o2.task.getValue(property);
                 if (o1Property != 0 && o2Property != 0) {
@@ -294,7 +294,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
             TYPE remote = data.remoteUpdated.get(i);
 
             // don't synchronize new & deleted tasks
-            if (!remote.task.isSaved() && (remote.task.isDeleted())) {
+            if (!remote.task.isSaved() && remote.task.isDeleted()) {
                 continue;
             }
 
@@ -318,7 +318,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                 }
 
                 // if there is a conflict, merge
-                int remoteIndex = matchTask((ArrayList<TYPE>) data.remoteUpdated, local);
+                int remoteIndex = matchTask(data.remoteUpdated, local);
                 if (remoteIndex != -1) {
                     TYPE remote = data.remoteUpdated.get(remoteIndex);
 

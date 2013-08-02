@@ -133,11 +133,11 @@ public class TouchListView extends ErrorCatchingListView {
                         break;
                     }
 
-                    View item = (View) getChildAt(itemnum - getFirstVisiblePosition());
+                    View item = getChildAt(itemnum - getFirstVisiblePosition());
 
                     if (isDraggableRow(item)) {
                         mDragPoint = y - item.getTop();
-                        mCoordOffset = ((int) ev.getRawY()) - y;
+                        mCoordOffset = (int) ev.getRawY() - y;
                         View dragger = item.findViewById(grabberId);
                         Rect r = mTempRect;
 //										dragger.getDrawingRect(r);
@@ -147,7 +147,7 @@ public class TouchListView extends ErrorCatchingListView {
                         r.top = dragger.getTop();
                         r.bottom = dragger.getBottom();
 
-                        if ((r.left < x) && (x < r.right)) {
+                        if (r.left < x && x < r.right) {
                             item.setDrawingCacheEnabled(true);
                             // Create a copy of the drawing cache so that it does not get recycled
                             // by the framework when the list tries to clean up memory
@@ -182,7 +182,7 @@ public class TouchListView extends ErrorCatchingListView {
     }
 
     protected boolean isDraggableRow(View view) {
-        return (view.findViewById(grabberId) != null);
+        return view.findViewById(grabberId) != null;
     }
 
     /*
@@ -203,7 +203,7 @@ public class TouchListView extends ErrorCatchingListView {
     }
 
     private int getItemForPosition(int y) {
-        int adjustedy = y - mDragPoint - (mItemHeightNormal / 2);
+        int adjustedy = y - mDragPoint - mItemHeightNormal / 2;
         int pos = myPointToPosition(0, adjustedy);
         if (pos >= 0) {
             if (pos <= mFirstDragPos) {
@@ -444,12 +444,12 @@ public class TouchListView extends ErrorCatchingListView {
 
         if (mRemoveMode == SLIDE_RIGHT) {
             if (x > width / 2) {
-                alpha = ((float) (width - x)) / (width / 2);
+                alpha = (float) (width - x) / (width / 2);
             }
             mWindowParams.alpha = alpha;
         } else if (mRemoveMode == SLIDE_LEFT) {
             if (x < width / 2) {
-                alpha = ((float) x) / (width / 2);
+                alpha = (float) x / (width / 2);
             }
             mWindowParams.alpha = alpha;
         }

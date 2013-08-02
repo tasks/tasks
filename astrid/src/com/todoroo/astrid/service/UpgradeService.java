@@ -286,7 +286,6 @@ public final class UpgradeService {
                         }
                     }
 
-                    ;
                 }.start();
             } else {
                 finished = true;

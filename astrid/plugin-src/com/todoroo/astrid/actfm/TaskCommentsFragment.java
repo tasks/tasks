@@ -72,7 +72,7 @@ public class TaskCommentsFragment extends CommentsFragment {
 
     @Override
     protected String getSourceIdentifier() {
-        return (task == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TASK_VIEW;
+        return task == null ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TASK_VIEW;
     }
 
     @Override

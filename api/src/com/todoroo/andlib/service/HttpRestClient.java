@@ -122,8 +122,8 @@ public class HttpRestClient implements RestClient {
                 Header ceheader = entity.getContentEncoding();
                 if (ceheader != null) {
                     HeaderElement[] codecs = ceheader.getElements();
-                    for (int i = 0; i < codecs.length; i++) {
-                        if (codecs[i].getName().equalsIgnoreCase("gzip")) {
+                    for (HeaderElement codec : codecs) {
+                        if (codec.getName().equalsIgnoreCase("gzip")) {
                             response.setEntity(
                                     new GzipDecompressingEntity(response.getEntity()));
                             return;

@@ -16,7 +16,7 @@ import android.os.Parcelable;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class TextInputCriterion extends CustomFilterCriterion implements Parcelable {
+public class TextInputCriterion extends CustomFilterCriterion {
 
     /**
      * Text area prompt
@@ -75,7 +75,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(prompt);
         dest.writeString(hint);
-        super.writeToParcel(dest);
+        writeToParcel(dest);
     }
 
     /**

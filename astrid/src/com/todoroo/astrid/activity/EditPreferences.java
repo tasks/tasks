@@ -352,8 +352,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         // Loop through a list of all packages (including plugins, addons)
         // that have a settings action
-        for (int i = 0; i < length; i++) {
-            ResolveInfo resolveInfo = resolveInfoList.get(i);
+        for (ResolveInfo resolveInfo : resolveInfoList) {
             final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
@@ -538,7 +537,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
 
-                ;
             });
 
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
@@ -564,7 +562,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             } else {
                 int index = 0;
                 if (value instanceof String && !TextUtils.isEmpty((String) value)) {
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String) value);
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), value);
                 }
                 if (index < 0) {
                     index = 0;
@@ -579,7 +577,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             } else {
                 int index = 0;
                 if (value instanceof String && !TextUtils.isEmpty((String) value)) {
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String) value);
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), value);
                 }
                 if (index < 0) {
                     index = 0;
@@ -599,19 +597,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
         } else if (booleanPreference(preference, value, R.string.p_statistics,
                 R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
                 R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
                 R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
                 R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
-            ;
         } else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
@@ -716,7 +709,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue != null && ((Boolean) newValue)) {
+                    if (newValue != null && (Boolean) newValue) {
                         CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
                     }
                     return true;
@@ -729,7 +722,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Boolean value = (Boolean) newValue;
                 try {
-                    if (!value.booleanValue()) {
+                    if (!value) {
                         Crittercism.setOptOutStatus(true);
                     } else {
                         Crittercism.setOptOutStatus(false);

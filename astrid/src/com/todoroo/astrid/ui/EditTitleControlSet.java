@@ -116,8 +116,8 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
 
     private void updateCompleteBox() {
         boolean checked = completeBox.isChecked();
-        int[] resourceArray = isRepeating ? (checked ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES)
-                : (checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES);
+        int[] resourceArray = isRepeating ? checked ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES
+                : checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES;
         int valueToUse = importanceValue;
         if (valueToUse >= resourceArray.length) {
             valueToUse = resourceArray.length - 1;

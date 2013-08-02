@@ -515,9 +515,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         String oSimilar = "oO0";
         String puncSimilar = ".,";
 
-        boolean match = (iSimilar.indexOf(last) > 0 && iSimilar.indexOf(check) > 0)
-                || (oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0)
-                || (puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0);
+        boolean match = iSimilar.indexOf(last) > 0 && iSimilar.indexOf(check) > 0
+                || oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0
+                || puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0;
 
         if (match) {
             return false;

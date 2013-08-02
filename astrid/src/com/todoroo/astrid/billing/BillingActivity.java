@@ -192,8 +192,8 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
 
         StringBuilder builder = new StringBuilder("<html><style type=\"text/css\">li { padding-bottom: 13px } </style><body><ul>");
 
-        for (int i = 0; i < bullets.length; i++) {
-            String curr = getString(bullets[i]);
+        for (int bullet : bullets) {
+            String curr = getString(bullet);
             if (curr.contains("\n")) {
                 curr = curr.replace("\n", "<br>");
             }

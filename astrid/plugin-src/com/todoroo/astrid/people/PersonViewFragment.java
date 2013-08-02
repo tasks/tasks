@@ -70,7 +70,7 @@ public class PersonViewFragment extends TaskListFragment {
         if (extras.containsKey(EXTRA_USER_ID_LOCAL)) {
             user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
         }
-        emptyView = ((TextView) getView().findViewById(android.R.id.empty));
+        emptyView = (TextView) getView().findViewById(android.R.id.empty);
         emptyView.setText(getEmptyDisplayString());
 
         setupUserHeader();

@@ -256,7 +256,7 @@ public class TasksXmlExporter {
         public Void visitInteger(Property<Integer> property, AbstractModel data) {
             try {
                 Integer value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
+                String valueString = value == null ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
@@ -274,7 +274,7 @@ public class TasksXmlExporter {
         public Void visitLong(Property<Long> property, AbstractModel data) {
             try {
                 Long value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
+                String valueString = value == null ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
@@ -292,7 +292,7 @@ public class TasksXmlExporter {
         public Void visitDouble(Property<Double> property, AbstractModel data) {
             try {
                 Double value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
+                String valueString = value == null ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing

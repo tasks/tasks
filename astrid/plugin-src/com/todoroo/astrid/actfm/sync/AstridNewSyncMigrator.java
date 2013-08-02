@@ -174,7 +174,7 @@ public class AstridNewSyncMigrator {
 
                 @Override
                 public boolean shouldCreateOutstandingEntries(TagData instance) {
-                    boolean result = lastFetchTime == 0 || (instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime);
+                    boolean result = lastFetchTime == 0 || instance.containsNonNullValue(TagData.MODIFICATION_DATE) && instance.getValue(TagData.MODIFICATION_DATE) > lastFetchTime;
                     return result && RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
                 }
 
@@ -191,7 +191,7 @@ public class AstridNewSyncMigrator {
                         return RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
                     }
 
-                    return (instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE)) && RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
+                    return instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE) && RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
                 }
 
                 @Override
@@ -473,7 +473,6 @@ public class AstridNewSyncMigrator {
                     Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
                             TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
             incompleteMetadata = metadataService.query(incompleteQuery);
-            ;
             Metadata m = new Metadata();
             for (incompleteMetadata.moveToFirst(); !incompleteMetadata.isAfterLast(); incompleteMetadata.moveToNext()) {
                 try {
@@ -605,7 +604,7 @@ public class AstridNewSyncMigrator {
                     instance.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                     dao.saveExisting(instance);
                     boolean createdOutstanding = false;
-                    if (propertiesForOutstanding != null && (unsyncedModel || (extras != null && extras.shouldCreateOutstandingEntries(instance)))) {
+                    if (propertiesForOutstanding != null && (unsyncedModel || extras != null && extras.shouldCreateOutstandingEntries(instance))) {
                         createdOutstanding = true;
                         createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
                     }

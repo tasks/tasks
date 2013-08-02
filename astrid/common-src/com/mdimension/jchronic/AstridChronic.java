@@ -184,7 +184,7 @@ public class AstridChronic {
         }
         long guessValue;
         if (span.getWidth() > 1) {
-            guessValue = span.getBegin() + (span.getWidth() / 2);
+            guessValue = span.getBegin() + span.getWidth() / 2;
         } else {
             guessValue = span.getBegin();
         }

@@ -234,7 +234,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 }
             }
         }
-        ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount() - 1 ? View.GONE : View.VISIBLE);
+        mIndicator.setVisibility(currentPage == mAdapter.getCount() - 1 ? View.GONE : View.VISIBLE);
     }
 
     protected void setupPWLogin() {

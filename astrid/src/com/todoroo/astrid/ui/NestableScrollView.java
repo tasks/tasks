@@ -22,8 +22,8 @@ public class NestableScrollView extends ScrollView {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         if (scrollableViews != null) {
-            for (int i = 0; i < scrollableViews.length; i++) {
-                View view = findViewById(scrollableViews[i]);
+            for (int scrollableView : scrollableViews) {
+                View view = findViewById(scrollableView);
                 if (view != null) {
                     Rect rect = new Rect();
                     view.getHitRect(rect);

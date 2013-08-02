@@ -15,7 +15,7 @@ import android.os.Parcelable;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public final class IntentFilter extends FilterListItem implements Parcelable {
+public final class IntentFilter extends FilterListItem {
 
     /**
      * PendingIntent to trigger when pressed

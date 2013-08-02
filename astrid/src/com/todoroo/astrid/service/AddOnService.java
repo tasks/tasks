@@ -141,9 +141,9 @@ public class AddOnService {
 
         AddOn addon = null;
         AddOn[] addons = getAddOns();
-        for (int i = 0; i < addons.length; i++) {
-            if (packageName.equals(addons[i].getPackageName()) && title.equals(addons[i].getTitle())) {
-                addon = addons[i];
+        for (AddOn addon1 : addons) {
+            if (packageName.equals(addon1.getPackageName()) && title.equals(addon1.getTitle())) {
+                addon = addon1;
             }
         }
         return addon;

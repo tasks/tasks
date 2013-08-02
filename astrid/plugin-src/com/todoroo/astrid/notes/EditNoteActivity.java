@@ -258,10 +258,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
+                commentButton.setVisibility(s.length() > 0 || pendingCommentPicture != null ? View.VISIBLE
                         : View.GONE);
                 if (showTimerShortcut) {
-                    timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
+                    timerView.setVisibility(s.length() > 0 || pendingCommentPicture != null ? View.GONE
                             : View.VISIBLE);
                 }
             }
@@ -699,8 +699,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             };
 
-            return (ActFmCameraModule.activityResult((Activity) getContext(),
-                    requestCode, resultCode, data, callback));
+            return ActFmCameraModule.activityResult((Activity) getContext(),
+                    requestCode, resultCode, data, callback);
         } else {
             return false;
         }

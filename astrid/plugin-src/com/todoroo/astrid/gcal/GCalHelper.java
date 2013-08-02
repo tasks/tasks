@@ -87,8 +87,8 @@ public class GCalHelper {
                 values.put("transparency", 0);
                 values.put("visibility", 0);
             }
-            boolean valuesContainCalendarId = (values.containsKey(CALENDAR_ID_COLUMN) &&
-                    !TextUtils.isEmpty(values.getAsString(CALENDAR_ID_COLUMN)));
+            boolean valuesContainCalendarId = values.containsKey(CALENDAR_ID_COLUMN) &&
+                    !TextUtils.isEmpty(values.getAsString(CALENDAR_ID_COLUMN));
             if (!valuesContainCalendarId) {
                 String calendarId = Calendars.getDefaultCalendar();
                 if (!TextUtils.isEmpty(calendarId)) {

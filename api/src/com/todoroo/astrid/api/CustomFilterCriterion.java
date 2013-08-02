@@ -85,8 +85,8 @@ abstract public class CustomFilterCriterion implements Parcelable {
         identifier = source.readString();
         text = source.readString();
         sql = source.readString();
-        valuesForNewTasks = (ContentValues) source.readParcelable(ContentValues.class.getClassLoader());
-        icon = (Bitmap) source.readParcelable(Bitmap.class.getClassLoader());
+        valuesForNewTasks = source.readParcelable(ContentValues.class.getClassLoader());
+        icon = source.readParcelable(Bitmap.class.getClassLoader());
         name = source.readString();
     }
 }

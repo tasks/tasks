@@ -267,7 +267,7 @@ public class ThemeService {
 
     public static int getDarkVsLight(int resForWhite, int resForDark, boolean altIsDark) {
         int theme = getTheme();
-        if (theme == R.style.Theme || (theme == R.style.Theme_White_Alt && altIsDark) || theme == R.style.Theme_TransparentWhite) {
+        if (theme == R.style.Theme || theme == R.style.Theme_White_Alt && altIsDark || theme == R.style.Theme_TransparentWhite) {
             return resForDark;
         } else {
             return resForWhite;

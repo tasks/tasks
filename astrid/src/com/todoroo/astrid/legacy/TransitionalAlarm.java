@@ -106,8 +106,6 @@ public class TransitionalAlarm extends AbstractModel {
         return getIdHelper(ID);
     }
 
-    ;
-
     // --- parcelable helpers
 
     private static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);

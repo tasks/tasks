@@ -55,7 +55,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             this.displayView = null;
         }
 
-        titleString = (title > 0) ? activity.getString(title) : ""; //$NON-NLS-1$
+        titleString = title > 0 ? activity.getString(title) : ""; //$NON-NLS-1$
 
         if (displayView != null) {
             displayView.setOnClickListener(getDisplayClickListener());
@@ -97,10 +97,10 @@ public abstract class PopupControlSet extends TaskEditControlSet {
 
         if (AndroidUtilities.isTabletSized(activity)) {
             DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT) {
-                params.width = (3 * metrics.widthPixels) / 5;
-            } else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH) {
-                params.width = (4 * metrics.widthPixels) / 5;
+            if (metrics.widthPixels / metrics.density >= AndroidUtilities.MIN_TABLET_HEIGHT) {
+                params.width = 3 * metrics.widthPixels / 5;
+            } else if (metrics.widthPixels / metrics.density >= AndroidUtilities.MIN_TABLET_WIDTH) {
+                params.width = 4 * metrics.widthPixels / 5;
             }
         }
 

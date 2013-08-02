@@ -63,7 +63,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     public static String getDeviceID() {
         String id = Secure.getString(ContextManager.getContext().getContentResolver(), Secure.ANDROID_ID);
-        ;
         if (AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
             //the following uses relection to get android.os.Build.SERIAL to avoid having to build with Gingerbread
             try {
@@ -342,7 +341,7 @@ public class GCMIntentService extends GCMBaseIntentService {
             }
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), null);
 
-            FilterWithCustomIntent filter = (FilterWithCustomIntent) TagFilterExposer.filterFromTagData(context, tagData);
+            FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(context, tagData);
 
             if (intent.hasExtra("activity_id")) {
                 UserActivity update = new UserActivity();
@@ -406,7 +405,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     // ==================== Registration ============== //
 
-    public static final void register(Context context) {
+    public static void register(Context context) {
         try {
             if (AndroidUtilities.getSdkVersion() >= 8) {
                 GCMRegistrar.checkDevice(context);
@@ -424,7 +423,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         }
     }
 
-    public static final void unregister(Context context) {
+    public static void unregister(Context context) {
         try {
             if (AndroidUtilities.getSdkVersion() >= 8) {
                 GCMRegistrar.unregister(context);

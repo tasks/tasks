@@ -187,8 +187,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             filters.add(untagged);
         }
 
-        for (int i = 0; i < tags.length; i++) {
-            Filter f = constructFilter(context, tags[i]);
+        for (Tag tag : tags) {
+            Filter f = constructFilter(context, tag);
             if (f != null) {
                 filters.add(f);
             }

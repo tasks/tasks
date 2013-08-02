@@ -584,6 +584,6 @@ public final class TagService {
             int random = (int) (Math.random() * 4);
             return default_tag_images[random];
         }
-        return default_tag_images[((int) Math.abs(nameOrUUID.hashCode())) % 4];
+        return default_tag_images[Math.abs(nameOrUUID.hashCode()) % 4];
     }
 }

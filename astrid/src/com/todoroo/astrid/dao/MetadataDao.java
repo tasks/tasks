@@ -88,10 +88,10 @@ public class MetadataDao extends DatabaseDao<Metadata> {
     protected boolean shouldRecordOutstanding(Metadata item) {
         ContentValues cv = item.getSetValues();
         return super.shouldRecordOutstanding(item) && cv != null &&
-                ((cv.containsKey(Metadata.KEY.name) &&
-                        TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY))) ||
-                        (cv.containsKey(Metadata.DELETION_DATE.name) &&
-                                item.getValue(Metadata.DELETION_DATE) > 0)) &&
+                (cv.containsKey(Metadata.KEY.name) &&
+                        TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY)) ||
+                        cv.containsKey(Metadata.DELETION_DATE.name) &&
+                                item.getValue(Metadata.DELETION_DATE) > 0) &&
                 RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 

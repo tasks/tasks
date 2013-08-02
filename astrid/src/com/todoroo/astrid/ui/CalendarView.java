@@ -97,7 +97,7 @@ public class CalendarView extends View {
         initCalendarView(context);
     }
 
-    private final void initCalendarView(Context context) {
+    private void initCalendarView(Context context) {
         Display display = ((WindowManager) context.getSystemService(
                 Context.WINDOW_SERVICE)).getDefaultDisplay();
 
@@ -277,7 +277,7 @@ public class CalendarView extends View {
         leftArrowHeight = (int) (leftArrow.getHeight() * density / 2);
         leftArrowWidth = (int) (leftArrow.getWidth() * density / 2);
         leftArrowX = 5;
-        leftArrowY = 4 + (int) ((monthTitleHeight / 2 - leftArrowHeight / 2));
+        leftArrowY = 4 + (int) (monthTitleHeight / 2 - leftArrowHeight / 2);
         canvas.drawBitmap(leftArrow, new Rect(0, 0, leftArrow.getWidth(), leftArrow.getHeight()),
                 new Rect(leftArrowX, leftArrowY, leftArrowX + leftArrowWidth,
                         leftArrowY + leftArrowHeight), null);
@@ -287,8 +287,8 @@ public class CalendarView extends View {
         Bitmap rightArrow = ((BitmapDrawable) getResources().getDrawable(R.drawable.icn_arrow_right)).getBitmap();
         rightArrowHeight = (int) (rightArrow.getHeight() * density / 2);
         rightArrowWidth = (int) (rightArrow.getWidth() * density / 2);
-        rightArrowX = (int) (getMeasuredWidth() - (2 * density) - (PADDING * 3) - rightArrow.getWidth());
-        rightArrowY = 4 + (int) ((monthTitleHeight / 2 - rightArrowHeight / 2));
+        rightArrowX = (int) (getMeasuredWidth() - 2 * density - PADDING * 3 - rightArrow.getWidth());
+        rightArrowY = 4 + (int) (monthTitleHeight / 2 - rightArrowHeight / 2);
         canvas.drawBitmap(rightArrow, new Rect(0, 0, rightArrow.getWidth(), rightArrow.getHeight()),
                 new Rect(rightArrowX, rightArrowY, rightArrowX + rightArrowWidth,
                         rightArrowY + rightArrowHeight), null);
@@ -307,8 +307,8 @@ public class CalendarView extends View {
         int dayLeft = 3;
         int dayTop = (int) (monthTitleHeight + PADDING * 2);
 
-        boxWidth = (getMeasuredWidth() - (PADDING * 2)) / 7.0f;
-        boxHeight = (int) (((getMeasuredHeight() - (monthTitleHeight) - 16) - (PADDING * 8)) / 7);
+        boxWidth = (getMeasuredWidth() - PADDING * 2) / 7.0f;
+        boxHeight = (int) ((getMeasuredHeight() - monthTitleHeight - 16 - PADDING * 8) / 7);
 
         float textX = 0;
         float textY = 0;
@@ -321,7 +321,7 @@ public class CalendarView extends View {
             calendar.add(Calendar.DATE, 1);
 
             textX = dayLeft + boxWidth - TEXT_PADDING * 3;
-            textY = dayTop + (boxHeight - boxHeight / 8) - TEXT_PADDING * 2;
+            textY = dayTop + boxHeight - boxHeight / 8 - TEXT_PADDING * 2;
             canvas.drawText(day, textX, textY, rightAlignPaint);
 
             dayLeft += boxWidth;
@@ -414,8 +414,8 @@ public class CalendarView extends View {
     private void performClick(int x, int y) {
         // System.out.println("---------------------Current x, y : " + x + ", " + y);
         // Handle left-right arrow click -- start
-        if ((x > leftArrowX && x < (leftArrowX + leftArrowWidth * 2))
-                && (y > leftArrowY - leftArrowHeight / 2 && y < (leftArrowY + 3 * leftArrowHeight / 2))) {
+        if (x > leftArrowX && x < leftArrowX + leftArrowWidth * 2
+                && y > leftArrowY - leftArrowHeight / 2 && y < leftArrowY + 3 * leftArrowHeight / 2) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(getCoercedDate(getToday(calendar), calendarDate));
             int currentDay = calendar.get(Calendar.DATE);
@@ -430,8 +430,8 @@ public class CalendarView extends View {
             if (onSelectedDateListener != null) {
                 onSelectedDateListener.onSelectedDate(calendarDate);
             }
-        } else if ((x > rightArrowX - rightArrowWidth && x < (rightArrowX + rightArrowWidth))
-                && (y > rightArrowY - rightArrowHeight / 2 && y < (rightArrowY + 3 * rightArrowHeight / 2))) {
+        } else if (x > rightArrowX - rightArrowWidth && x < rightArrowX + rightArrowWidth
+                && y > rightArrowY - rightArrowHeight / 2 && y < rightArrowY + 3 * rightArrowHeight / 2) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(getCoercedDate(getToday(calendar), calendarDate));
             int currentDay = calendar.get(Calendar.DATE);
@@ -454,7 +454,7 @@ public class CalendarView extends View {
                 return;
             }
             for (int i = 0; i < dayLeftArr.length; i++) {
-                if ((x > dayLeftArr[i] && x < dayLeftArr[i] + boxWidth) && (y > dayTopArr[i] && y < dayTopArr[i] + boxHeight)) {
+                if (x > dayLeftArr[i] && x < dayLeftArr[i] + boxWidth && y > dayTopArr[i] && y < dayTopArr[i] + boxHeight) {
                     currentHighlightDay = i + 1;
                     Calendar calendar = Calendar.getInstance();
                     Date today = getToday(calendar);
@@ -482,7 +482,7 @@ public class CalendarView extends View {
     }
 
     public Date getCoercedDate(Date ifZero, Date ifNotZero) {
-        return (calendarDate.getTime() == 0 ? ifZero : ifNotZero);
+        return calendarDate.getTime() == 0 ? ifZero : ifNotZero;
     }
 
     public Date getCalendarDate() {

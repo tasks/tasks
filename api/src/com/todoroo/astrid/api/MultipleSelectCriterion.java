@@ -16,7 +16,7 @@ import android.os.Parcelable;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class MultipleSelectCriterion extends CustomFilterCriterion implements Parcelable {
+public class MultipleSelectCriterion extends CustomFilterCriterion {
 
     /**
      * Array of entries for user to select from
@@ -74,7 +74,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(entryTitles);
         dest.writeStringArray(entryValues);
-        super.writeToParcel(dest);
+        writeToParcel(dest);
     }
 
     /**

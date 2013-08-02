@@ -314,14 +314,14 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     }
 
     private void setUpListeners() {
-        ((Button) findViewById(R.id.add)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.showContextMenu();
             }
         });
 
-        final Button saveAndView = ((Button) findViewById(R.id.saveAndView));
+        final Button saveAndView = (Button) findViewById(R.id.saveAndView);
         saveAndView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

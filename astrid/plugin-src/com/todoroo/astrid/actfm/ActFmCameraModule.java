@@ -67,7 +67,7 @@ public class ActFmCameraModule {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
                     }
                     activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
+                } else if (which == 1 && cameraAvailable || which == 0 && !cameraAvailable) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
                     activity.startActivityForResult(Intent.createChooser(intent,
@@ -116,7 +116,7 @@ public class ActFmCameraModule {
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
                     }
                     fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
-                } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
+                } else if (which == 1 && cameraAvailable || which == 0 && !cameraAvailable) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
                     fragment.startActivityForResult(Intent.createChooser(intent,

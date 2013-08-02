@@ -203,7 +203,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             if (v == null) {
                 return;
             }
-            ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
+            taskAdapter.getListener().onClick(v);
         }
     };
 
