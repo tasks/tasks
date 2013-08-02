@@ -12,7 +12,6 @@ import com.timsu.astrid.GCMIntentService;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
@@ -83,49 +82,6 @@ public final class ActFmSyncService {
         }
 
         return result.optInt("time", 0);
-    }
-
-    public void updateUserSubscriptionStatus(Runnable onSuccess, Runnable onRecoverableError, Runnable onInvalidToken) {
-        String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
-        String productId = Preferences.getStringValue(BillingConstants.PREF_PRODUCT_ID);
-        try {
-            if (!checkForToken()) {
-                throw new ActFmServiceException("Not logged in", null);
-            }
-
-            ArrayList<Object> params = new ArrayList<Object>();
-            params.add("purchase_token");
-            params.add(purchaseToken);
-            params.add("product_id");
-            params.add(productId);
-            addAbTestEventInfo(params);
-            params.add("token");
-            params.add(token);
-
-            actFmInvoker.invoke("premium_update_android", params.toArray(new Object[params.size()]));
-            Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
-            if (onSuccess != null) {
-                onSuccess.run();
-            }
-        } catch (Exception e) {
-            if (e instanceof ActFmServiceException) {
-                ActFmServiceException ae = (ActFmServiceException) e;
-                if (ae.result != null && ae.result.optString("status").equals("error")) {
-                    if (ae.result.optString("code").equals("invalid_purchase_token")) { // Not a valid purchase--expired or duolicate
-                        Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, false);
-                        Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
-                        if (onInvalidToken != null) {
-                            onInvalidToken.run();
-                        }
-                        return;
-                    }
-                }
-            }
-            Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
-            if (onRecoverableError != null) {
-                onRecoverableError.run();
-            }
-        }
     }
 
     public void setGCMRegistration(String regId) {

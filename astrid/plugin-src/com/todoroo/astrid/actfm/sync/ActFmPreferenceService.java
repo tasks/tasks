@@ -9,10 +9,8 @@ import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.service.PremiumUnlockService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -171,18 +169,10 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     public static boolean isPremiumUser() {
-        if (Preferences.getBoolean(PremiumUnlockService.PREF_KILL_SWITCH, false)) {
-            return true;
-        }
-
-        if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
-            return Preferences.getBoolean(PREF_LOCAL_PREMIUM, false);
-        }
-        return Preferences.getBoolean(PREF_PREMIUM, false);
+        return true;
     }
 
     public static void premiumLogout() {
-        Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
         Preferences.setBoolean(PREF_LOCAL_PREMIUM, false);
         Preferences.setBoolean(PREF_PREMIUM, false);
     }
@@ -210,7 +200,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         }
         return name;
     }
-
 
     public static String thisUserName() {
         JSONObject thisUser = thisUser();

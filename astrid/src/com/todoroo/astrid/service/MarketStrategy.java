@@ -46,16 +46,6 @@ public abstract class MarketStrategy {
     }
 
     /**
-     * Most market strategies don't support billing at this time,
-     * so we'll make the default false
-     *
-     * @return
-     */
-    public boolean billingSupported() {
-        return false;
-    }
-
-    /**
      * Return true if the preference to use the phone layout should be
      * turned on by default (only true for Nook)
      *
@@ -90,12 +80,6 @@ public abstract class MarketStrategy {
         public String strategyId() {
             return "android_market"; //$NON-NLS-1$
         }
-
-        @Override
-        public boolean billingSupported() {
-            return true;
-        }
-
     }
 
     public static class AmazonMarketStrategy extends MarketStrategy {

@@ -14,7 +14,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -112,10 +111,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             GCMIntentService.register(ContextManager.getContext());
         }
 
-        if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
-            actFmSyncService.updateUserSubscriptionStatus(null, null, null);
-        }
-
         try {
             JSONObject status = actFmSyncService.invoke("user_status"); //$NON-NLS-1$
             if (status.has("id")) {
@@ -129,9 +124,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             }
             if (status.has("last_name")) {
                 Preferences.setString(ActFmPreferenceService.PREF_LAST_NAME, status.optString("last_name"));
-            }
-            if (status.has("premium") && !Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
-                Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, status.optBoolean("premium"));
             }
             if (status.has("email")) {
                 Preferences.setString(ActFmPreferenceService.PREF_EMAIL, status.optString("email"));

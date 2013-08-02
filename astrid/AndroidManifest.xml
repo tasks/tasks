@@ -43,9 +43,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <!-- required for in-app billing of premium subscriptions -->
-    <uses-permission android:name="com.android.vending.BILLING"/>
-
     <!-- Required for GCM - keeps the processor from sleeping when a message is received. -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
@@ -611,21 +608,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-
-        <!-- premium -->
-        <service android:name="com.todoroo.astrid.billing.BillingService"/>
-
-        <receiver android:name="com.todoroo.astrid.billing.BillingReceiver">
-            <intent-filter>
-                <action android:name="com.android.vending.billing.IN_APP_NOTIFY"/>
-                <action android:name="com.android.vending.billing.RESPONSE_CODE"/>
-                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED"/>
-            </intent-filter>
-        </receiver>
-
-        <activity
-                android:name="com.todoroo.astrid.billing.BillingActivity"
-                android:screenOrientation="portrait"/>
 
         <activity
                 android:name="com.todoroo.astrid.files.AACRecordingActivity"
