@@ -16,7 +16,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 import org.json.JSONArray;
@@ -43,25 +42,11 @@ public final class ActFmSyncService {
     private ActFmPreferenceService actFmPreferenceService;
     @Autowired
     private ActFmInvoker actFmInvoker;
-    @Autowired
-    private ABTestEventReportingService abTestEventReportingService;
 
     private String token;
 
     public ActFmSyncService() {
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    private void addAbTestEventInfo(List<Object> params) {
-        JSONArray abTestInfo = abTestEventReportingService.getTestsWithVariantsArray();
-        try {
-            for (int i = 0; i < abTestInfo.length(); i++) {
-                params.add("ab_variants[]");
-                params.add(abTestInfo.getString(i));
-            }
-        } catch (JSONException e) {
-            Log.e("Error parsing AB test info", abTestInfo.toString(), e);
-        }
     }
 
     // --- data fetch methods

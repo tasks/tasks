@@ -61,9 +61,6 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTestInvoker;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.subtasks.SubtasksMetadata;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
@@ -133,15 +130,6 @@ public class StartupService {
 
     @Autowired
     GtasksSyncService gtasksSyncService;
-
-    @Autowired
-    ABChooser abChooser;
-
-    @Autowired
-    ABTests abTests;
-
-    @Autowired
-    ABTestInvoker abTestInvoker;
 
     /**
      * bit to prevent multiple initializations
@@ -233,10 +221,6 @@ public class StartupService {
 
         final int finalLatestVersion = latestSetVersion;
 
-        abTests.externalInit(context);
-
-        abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
-
         initializeDatabaseListeners();
         ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao, userActivityDao, taskAttachmentDao, taskListMetadataDao, waitingOnMeDao);
 
@@ -279,7 +263,6 @@ public class StartupService {
             }
         }).start();
 
-        AstridPreferences.resetPreferencesFromAbTests(latestSetVersion);
         AstridPreferences.setPreferenceDefaults();
         CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 

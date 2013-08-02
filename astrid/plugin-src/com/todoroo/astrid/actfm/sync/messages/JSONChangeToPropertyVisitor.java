@@ -4,11 +4,7 @@ import android.util.Log;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.DoubleProperty;
-import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Task;

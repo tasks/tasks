@@ -7,7 +7,6 @@ package com.todoroo.astrid.actfm;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -56,7 +55,6 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
@@ -100,9 +98,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @Autowired
     TagDataService tagDataService;
-
-    @Autowired
-    ABChooser abChooser;
 
     private final Fragment fragment;
 

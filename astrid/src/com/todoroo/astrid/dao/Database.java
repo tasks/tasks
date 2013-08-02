@@ -14,7 +14,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
@@ -70,7 +69,6 @@ public class Database extends AbstractDatabase {
             Update.TABLE,
             User.TABLE,
             UserActivity.TABLE,
-            ABTestEvent.TABLE,
             TagMetadata.TABLE,
             History.TABLE,
             TaskAttachment.TABLE,
@@ -334,12 +332,6 @@ public class Database extends AbstractDatabase {
                 }
 
             case 23:
-                try {
-                    database.execSQL(createTableSql(visitor, ABTestEvent.TABLE.name, ABTestEvent.PROPERTIES));
-                } catch (SQLiteException e) {
-                    Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
-                }
-
             case 24:
                 try {
                     database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
