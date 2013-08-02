@@ -34,6 +34,7 @@ public class DialogUtilities {
         }
 
         tryOnUiThread(activity, new Runnable() {
+            @Override
             public void run() {
                 new AlertDialog.Builder(activity)
                         .setTitle(R.string.DLG_question_title)
@@ -82,6 +83,7 @@ public class DialogUtilities {
         }
 
         tryOnUiThread(activity, new Runnable() {
+            @Override
             public void run() {
                 new AlertDialog.Builder(activity)
                         .setTitle(R.string.DLG_information_title)
@@ -108,6 +110,7 @@ public class DialogUtilities {
         }
 
         tryOnUiThread(activity, new Runnable() {
+            @Override
             public void run() {
                 new AlertDialog.Builder(activity)
                         .setTitle(title)
@@ -165,6 +168,7 @@ public class DialogUtilities {
         }
 
         tryOnUiThread(activity, new Runnable() {
+            @Override
             public void run() {
                 new AlertDialog.Builder(activity)
                         .setTitle(R.string.DLG_confirm_title)
@@ -228,6 +232,7 @@ public class DialogUtilities {
             return;
         }
         tryOnUiThread(activity, new Runnable() {
+            @Override
             public void run() {
                 try {
                     dialog.dismiss();

@@ -33,6 +33,7 @@ public class ExpandableListFragment extends Fragment
     final private Handler mHandler = new Handler();
 
     final private Runnable mRequestFocus = new Runnable() {
+        @Override
         public void run() {
             mList.focusableViewAvailable(mList);
         }
@@ -40,6 +41,7 @@ public class ExpandableListFragment extends Fragment
 
     final private AdapterView.OnItemClickListener mOnClickListener
             = new AdapterView.OnItemClickListener() {
+        @Override
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             onListItemClick((ListView) parent, v, position, id);
         }

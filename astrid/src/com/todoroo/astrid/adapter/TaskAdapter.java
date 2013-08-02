@@ -874,6 +874,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         private final HashMap<Integer, Drawable> cache =
                 new HashMap<Integer, Drawable>(3);
 
+        @Override
         @SuppressWarnings("nls")
         public Drawable getDrawable(String source) {
             int drawable = 0;
@@ -1042,6 +1043,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
 
             int[] location = new int[2];

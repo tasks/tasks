@@ -122,6 +122,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
                 subtitle = r.getString(R.string.backup_status_failed_subtitle);
                 statusColor = Color.rgb(100, 0, 0);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
                     public boolean onPreferenceClick(Preference p) {
                         DialogUtilities.okDialog(BackupPreferences.this, error, null);
                         return true;

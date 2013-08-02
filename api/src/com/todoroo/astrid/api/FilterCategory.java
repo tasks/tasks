@@ -46,6 +46,7 @@ public class FilterCategory extends FilterListItem {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -67,6 +68,7 @@ public class FilterCategory extends FilterListItem {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterCategory createFromParcel(Parcel source) {
             FilterCategory item = new FilterCategory();
             item.readFromParcel(source);
@@ -88,6 +90,7 @@ public class FilterCategory extends FilterListItem {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterCategory[] newArray(int size) {
             return new FilterCategory[size];
         }

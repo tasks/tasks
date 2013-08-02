@@ -47,6 +47,7 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
         mPicker.setCurrent(initialValue);
     }
 
+    @Override
     public void onClick(DialogInterface dialog, int which) {
         if (mCallback != null) {
             mPicker.clearFocus();

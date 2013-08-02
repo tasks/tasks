@@ -68,6 +68,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
         // Extended prefs
         Preference preference = screen.findPreference(getString(R.string.EPr_manage_delete_completed));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 showDeleteCompletedDialog();
                 return true;
@@ -85,6 +86,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
         preference = screen.findPreference(getString(R.string.EPr_manage_purge_deleted));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 showPurgeDeletedDialog();
                 return true;
@@ -93,6 +95,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
         preference = screen.findPreference(getString(R.string.EPr_manage_delete_completed_gcal));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 showDeleteCompletedEventsDialog();
                 return true;
@@ -101,6 +104,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
         preference = screen.findPreference(getString(R.string.EPr_manage_delete_all_gcal));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 showDeleteAllEventsDialog();
                 return true;
@@ -109,6 +113,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
         preference = screen.findPreference(getString(R.string.EPr_manage_clear_all));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 showClearDataDialog();
                 return true;

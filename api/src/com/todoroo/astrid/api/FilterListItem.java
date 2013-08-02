@@ -50,6 +50,7 @@ abstract public class FilterListItem implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(listingTitle);
         dest.writeParcelable(listingIcon, 0);

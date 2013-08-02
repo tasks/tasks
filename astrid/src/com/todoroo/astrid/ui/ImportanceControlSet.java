@@ -109,6 +109,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
             button.setPadding(0, 1, 0, 0);
 
             button.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     setImportance((Integer) button.getTag());
                 }

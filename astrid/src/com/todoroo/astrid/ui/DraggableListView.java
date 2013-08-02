@@ -331,6 +331,7 @@ public class DraggableListView extends ListView {
             this.ev = ev;
         }
 
+        @Override
         public void run() {
             try {
                 Thread.sleep(300L);
@@ -345,6 +346,7 @@ public class DraggableListView extends ListView {
                 Thread.sleep(1000L);
 
                 post(new Runnable() {
+                    @Override
                     public void run() {
                         stopDragging();
                         dragThread = null;

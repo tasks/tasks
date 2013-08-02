@@ -74,6 +74,7 @@ public class ExceptionService {
             }
 
             ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         new AlertDialog.Builder(context)
@@ -114,6 +115,7 @@ public class ExceptionService {
          * @param name
          * @param error
          */
+        @Override
         public void handleError(String name, Throwable error) {
             String tag = null;
             if (ContextManager.getContext() != null) {
@@ -156,6 +158,7 @@ public class ExceptionService {
             DependencyInjectionService.getInstance().inject(this);
         }
 
+        @Override
         public void uncaughtException(Thread thread, Throwable ex) {
             if (exceptionService != null) {
                 exceptionService.reportError("uncaught", ex); //$NON-NLS-1$

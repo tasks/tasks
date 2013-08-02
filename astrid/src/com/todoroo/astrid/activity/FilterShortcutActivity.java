@@ -47,6 +47,7 @@ public class FilterShortcutActivity extends ListActivity {
     }
 
     final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             Filter filter = (Filter) adapter.getSelection();
             if (filter == null) {

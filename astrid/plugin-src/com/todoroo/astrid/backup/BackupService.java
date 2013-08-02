@@ -161,6 +161,7 @@ public class BackupService extends Service {
     }
 
     private BackupDirectorySetting backupDirectorySetting = new BackupDirectorySetting() {
+        @Override
         public File getBackupDirectory() {
             return BackupConstants.defaultExportDirectory();
         }

@@ -136,6 +136,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton) alertItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 alertsContainer.removeView(alertItem);
             }

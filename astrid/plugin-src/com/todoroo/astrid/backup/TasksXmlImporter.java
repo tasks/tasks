@@ -84,6 +84,7 @@ public class TasksXmlImporter {
 
     private void setProgressMessage(final String message) {
         handler.post(new Runnable() {
+            @Override
             public void run() {
                 progressDialog.setMessage(message);
             }
@@ -189,6 +190,7 @@ public class TasksXmlImporter {
         builder.setMessage(message);
         builder.setPositiveButton(context.getString(android.R.string.ok),
                 new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                         if (runAfterImport != null) {

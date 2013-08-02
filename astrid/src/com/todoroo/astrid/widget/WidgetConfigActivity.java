@@ -87,6 +87,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
         public void onClick(View v) {
             // Save configuration options
             saveConfiguration(adapter.getSelection());

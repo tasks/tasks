@@ -203,6 +203,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
                     filterCounts.put(filter, size);
                     activity.runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
                             notifyDataSetChanged();
                         }
@@ -645,6 +646,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                         public void onSendFinished(PendingIntent pendingIntent, Intent intent,
                                                    int resultCode, String resultData, Bundle resultExtras) {
                             activity.runOnUiThread(new Runnable() {
+                                @Override
                                 public void run() {
                                     clear();
                                 }

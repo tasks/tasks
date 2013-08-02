@@ -144,6 +144,7 @@ public class AstridActivity extends SherlockFragmentActivity
     /**
      * Handles items being clicked from the filterlist-fragment. Return true if item is handled.
      */
+    @Override
     public boolean onFilterItemClicked(FilterListItem item) {
         if (this instanceof TaskListActivity && (item instanceof Filter)) {
             ((TaskListActivity) this).setSelectedItem((Filter) item);

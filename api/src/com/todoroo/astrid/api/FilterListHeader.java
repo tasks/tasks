@@ -37,6 +37,7 @@ public class FilterListHeader extends FilterListItem {
 
     // --- parcelable
 
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -48,12 +49,14 @@ public class FilterListHeader extends FilterListItem {
 
     public static final Parcelable.Creator<FilterListHeader> CREATOR = new Parcelable.Creator<FilterListHeader>() {
 
+        @Override
         public FilterListHeader createFromParcel(Parcel source) {
             FilterListHeader item = new FilterListHeader();
             item.readFromParcel(source);
             return item;
         }
 
+        @Override
         public FilterListHeader[] newArray(int size) {
             return new FilterListHeader[size];
         }

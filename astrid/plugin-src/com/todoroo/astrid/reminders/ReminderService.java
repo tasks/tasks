@@ -474,6 +474,7 @@ public final class ReminderService {
          * @param type
          * @param flags
          */
+        @Override
         @SuppressWarnings("nls")
         public void createAlarm(Task task, long time, int type) {
             if (task.getId() == Task.NO_ID) {

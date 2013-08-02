@@ -41,6 +41,7 @@ public class MergeSpinnerAdapter extends MergeAdapter {
      * @see android.widget.BaseAdapter#getDropDownView(int,
      * android.view.View, android.view.ViewGroup)
      */
+    @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
         for (ListAdapter piece : pieces) {
@@ -64,6 +65,7 @@ public class MergeSpinnerAdapter extends MergeAdapter {
      *
      * @param view Single view to add
      */
+    @Override
     public void addView(View view) {
         throw new RuntimeException("Not supported with MergeSpinnerAdapter");
     }
@@ -75,6 +77,7 @@ public class MergeSpinnerAdapter extends MergeAdapter {
      * @param view    Single view to add
      * @param enabled false if views are disabled, true if enabled
      */
+    @Override
     public void addView(View view, boolean enabled) {
         throw new RuntimeException("Not supported with MergeSpinnerAdapter");
     }
@@ -85,6 +88,7 @@ public class MergeSpinnerAdapter extends MergeAdapter {
      *
      * @param views List of views to add
      */
+    @Override
     public void addViews(List<View> views) {
         throw new RuntimeException("Not supported with MergeSpinnerAdapter");
     }
@@ -96,6 +100,7 @@ public class MergeSpinnerAdapter extends MergeAdapter {
      * @param views   List of views to add
      * @param enabled false if views are disabled, true if enabled
      */
+    @Override
     public void addViews(List<View> views, boolean enabled) {
         throw new RuntimeException("Not supported with MergeSpinnerAdapter");
     }

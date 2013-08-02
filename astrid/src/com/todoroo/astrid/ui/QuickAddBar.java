@@ -176,6 +176,7 @@ public class QuickAddBar extends LinearLayout {
 
         // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), true);
                 if (task != null && task.getValue(Task.TITLE).length() == 0) {

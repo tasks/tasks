@@ -74,6 +74,7 @@ public class FilterWithUpdate extends FilterWithCustomIntent {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterWithUpdate createFromParcel(Parcel source) {
             FilterWithUpdate item = new FilterWithUpdate();
             item.readFromParcel(source);
@@ -83,6 +84,7 @@ public class FilterWithUpdate extends FilterWithCustomIntent {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterWithUpdate[] newArray(int size) {
             return new FilterWithUpdate[size];
         }

@@ -166,6 +166,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             preference.setSummary(r.getString(R.string.sync_SPr_status_subtitle, status));
 
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
                 public boolean onPreferenceClick(Preference p) {
                     startSync();
                     return true;
@@ -219,6 +220,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         else if (r.getString(R.string.sync_SPr_forget_key).equals(preference.getKey())) {
             boolean loggedIn = getUtilities().isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
                 public boolean onPreferenceClick(Preference p) {
                     DialogUtilities.okCancelDialog(SyncProviderPreferences.this,
                             r.getString(R.string.sync_forget_confirm), new OnClickListener() {

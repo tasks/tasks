@@ -740,6 +740,7 @@ public final class TaskEditFragment extends SherlockFragment implements
             }
 
             activity.runOnUiThread(new Runnable() {
+                @Override
                 public void run() {
                     onUiThread();
                 }
@@ -1157,6 +1158,7 @@ public final class TaskEditFragment extends SherlockFragment implements
                 R.string.DLG_delete_this_task_question).setIcon(
                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                 android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int which) {
                 TimerPlugin.updateTimer(getActivity(), model, false);
                 taskService.delete(model);

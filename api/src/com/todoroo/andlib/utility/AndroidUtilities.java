@@ -79,6 +79,7 @@ public class AndroidUtilities {
         final int inputType = editor.getInputType();
         editor.setInputType(InputType.TYPE_NULL);
         editor.setOnTouchListener(new OnTouchListener() {
+            @Override
             public boolean onTouch(View v, MotionEvent event) {
                 editor.setInputType(inputType);
                 editor.setOnTouchListener(null);
@@ -359,6 +360,7 @@ public class AndroidUtilities {
 
         ContentValues result = new ContentValues();
         fromSerialized(string, result, new SerializedPut<ContentValues>() {
+            @Override
             public void put(ContentValues object, String key, char type, String value) throws NumberFormatException {
                 switch (type) {
                     case 'i':
@@ -395,6 +397,7 @@ public class AndroidUtilities {
 
         Bundle result = new Bundle();
         fromSerialized(string, result, new SerializedPut<Bundle>() {
+            @Override
             public void put(Bundle object, String key, char type, String value) throws NumberFormatException {
                 switch (type) {
                     case 'i':
@@ -600,6 +603,7 @@ public class AndroidUtilities {
      */
     public static void sortFilesByDateDesc(File[] files) {
         Arrays.sort(files, new Comparator<File>() {
+            @Override
             public int compare(File o1, File o2) {
                 return Long.valueOf(o2.lastModified()).compareTo(Long.valueOf(o1.lastModified()));
             }

@@ -59,6 +59,7 @@ public final class TaskDecoration implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -66,6 +67,7 @@ public final class TaskDecoration implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(decoration, 0);
         dest.writeInt(position);
@@ -79,6 +81,7 @@ public final class TaskDecoration implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public TaskDecoration createFromParcel(Parcel source) {
             return new TaskDecoration((RemoteViews) source.readParcelable(
                     RemoteViews.class.getClassLoader()),
@@ -88,6 +91,7 @@ public final class TaskDecoration implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public TaskDecoration[] newArray(int size) {
             return new TaskDecoration[size];
         }

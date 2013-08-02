@@ -1542,6 +1542,7 @@ public final class LocalyticsSession {
 
             try {
                 mProvider.runBatchTransaction(new Runnable() {
+                    @Override
                     public void run() {
                         preUploadBuildBlobs();
                     }
@@ -1666,6 +1667,7 @@ public final class LocalyticsSession {
 
                             if (uploadSessions(String.format(ANALYTICS_URL, mApiKey), builder.toString())) {
                                 mProvider.runBatchTransaction(new Runnable() {
+                                    @Override
                                     public void run() {
                                         deleteBlobsAndSessions(mProvider);
                                     }

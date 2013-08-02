@@ -46,6 +46,7 @@ public class TaskListContextMenuExtensionLoader {
 
     public void loadInNewThread(final Context context) {
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 loadContextMenuIntents(context);
             }

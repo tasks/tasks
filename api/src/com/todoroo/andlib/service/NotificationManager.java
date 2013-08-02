@@ -35,14 +35,17 @@ public interface NotificationManager {
                     context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
+        @Override
         public void cancel(int id) {
             nm.cancel(id);
         }
 
+        @Override
         public void cancelAll() {
             nm.cancelAll();
         }
 
+        @Override
         public void notify(int id, Notification notification) {
             nm.notify(id, notification);
         }

@@ -446,6 +446,7 @@ public class FilterListFragment extends SherlockListFragment {
                 .setView(frameLayout)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createShortcut.run();
                     }

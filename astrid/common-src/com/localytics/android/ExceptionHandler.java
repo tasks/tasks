@@ -14,6 +14,7 @@ import android.util.Log;
  * crash. This handler therefore suppresses all uncaught exceptions from the Localytics library.
  */
 /* package */final class ExceptionHandler implements Thread.UncaughtExceptionHandler {
+    @Override
     public void uncaughtException(final Thread thread, final Throwable throwable) {
         /*
          * Wrap all the work done by the exception handler in a try-catch. It would be ironic if this exception handler itself

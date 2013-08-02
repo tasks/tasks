@@ -169,6 +169,7 @@ public class GtasksListFragment extends SubtasksListFragment {
                 Activity activity = getActivity();
                 if (activity != null) {
                     activity.runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
                             loadTaskListContent(true);
                         }

@@ -35,10 +35,12 @@ public class CheckableImageView extends ImageView implements Checkable {
     private boolean mBroadcasting;
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
+    @Override
     public void toggle() {
         setChecked(!mChecked);
     }
 
+    @Override
     @ViewDebug.ExportedProperty
     public boolean isChecked() {
         return mChecked;
@@ -49,6 +51,7 @@ public class CheckableImageView extends ImageView implements Checkable {
      *
      * @param checked true to check the button, false to uncheck it
      */
+    @Override
     public void setChecked(boolean checked) {
         if (mChecked != checked) {
             mChecked = checked;

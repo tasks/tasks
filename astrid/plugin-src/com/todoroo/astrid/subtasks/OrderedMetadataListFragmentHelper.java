@@ -86,6 +86,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         return tlv;
     }
 
+    @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
@@ -118,10 +119,12 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
     }
 
+    @Override
     public void beforeSetUpTaskList(Filter filter) {
         updater.initialize(list, filter);
     }
 
+    @Override
     public Property<?>[] taskProperties() {
         Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
         if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
@@ -204,6 +207,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         }
     };
 
+    @Override
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
                                          AtomicReference<String> sqlQueryTemplate) {
 
@@ -317,6 +321,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         //
     }
 
+    @Override
     public void onDeleteTask(Task task) {
         updater.onDeleteTask(getFilter(), list, task.getId());
         taskAdapter.notifyDataSetInvalidated();

@@ -556,6 +556,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
             final CriterionInstance instance = new CriterionInstance();
             instance.criterion = criterion;
             adapter.showOptionsFor(instance, new Runnable() {
+                @Override
                 public void run() {
                     adapter.add(instance);
                     updateList();

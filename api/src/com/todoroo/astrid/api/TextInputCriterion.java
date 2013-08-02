@@ -63,6 +63,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -70,6 +71,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(prompt);
         dest.writeString(hint);
@@ -84,6 +86,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
         /**
          * {@inheritDoc}
          */
+        @Override
         public TextInputCriterion createFromParcel(Parcel source) {
             TextInputCriterion item = new TextInputCriterion();
             item.prompt = source.readString();
@@ -95,6 +98,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
         /**
          * {@inheritDoc}
          */
+        @Override
         public TextInputCriterion[] newArray(int size) {
             return new TextInputCriterion[size];
         }
