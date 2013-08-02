@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -60,7 +59,6 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.voice.VoiceRecognizer;
-import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
 import java.util.ArrayList;
@@ -75,8 +73,6 @@ import java.util.Map.Entry;
  * @author Tim Su <tim@todoroo.com>
  */
 public class EditPreferences extends TodorooPreferenceActivity {
-
-    private static final String SUPPORT_URL = "http://astrid.helpshift.com/a/astrid/?p=android"; //$NON-NLS-1$
 
     private static final int APPEARANCE_PREFERENCE = 4;
 
@@ -164,53 +160,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         final Resources r = getResources();
 
         // first-order preferences
-        Preference preference = screen.findPreference(getString(R.string.p_about));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showAbout();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.p_tutorial));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                Intent showWelcomeLogin = new Intent(EditPreferences.this, WelcomeWalkthrough.class);
-                showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
-                showWelcomeLogin.putExtra(WelcomeWalkthrough.TOKEN_MANUAL_SHOW, true);
-                startActivity(showWelcomeLogin);
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.p_help));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showSupport();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.p_account));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showAccountPrefs();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.EPr_share_astrid));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showShareActivity();
-                return true;
-            }
-        });
+        Preference preference;
 
         Preference beastMode = findPreference(getString(R.string.p_beastMode));
         beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -288,43 +238,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
     }
 
-    /**
-     * Show about dialog
-     */
-    private void showAbout() {
-        String version = "unknown"; //$NON-NLS-1$
-        try {
-            version = getPackageManager().getPackageInfo(Constants.PACKAGE, 0).versionName;
-        } catch (NameNotFoundException e) {
-            // sadness
-        }
-        About.showAbout(this, version);
-    }
-
-    private void showSupport() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(SUPPORT_URL));
-        startActivity(intent);
-    }
-
     private void showBeastMode() {
         Intent intent = new Intent(this, BeastModePreferences.class);
         intent.setAction(AstridApiConstants.ACTION_SETTINGS);
-        startActivity(intent);
-    }
-
-    private void showAccountPrefs() {
-        if (actFmPreferenceService.isLoggedIn()) {
-            Intent intent = new Intent(this, ActFmPreferences.class);
-            intent.setAction(AstridApiConstants.ACTION_SETTINGS);
-            startActivityForResult(intent, REQUEST_CODE_SYNC);
-        } else {
-            Intent intent = new Intent(this, ActFmLoginActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    private void showShareActivity() {
-        Intent intent = new Intent(this, ShareActivity.class);
         startActivity(intent);
     }
 

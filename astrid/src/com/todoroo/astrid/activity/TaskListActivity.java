@@ -68,7 +68,6 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -540,15 +539,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void setListsTitle(String title) {
         lists.setText(title);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false)) {
-            SyncUpgradePrompt.showSyncUpgradePrompt(this);
-        }
     }
 
     @Override

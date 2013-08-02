@@ -194,9 +194,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.todoroo.astrid.activity.ShareActivity"/>
-
-
         <activity
                 android:name="com.todoroo.astrid.service.UpdateScreenFlow"
                 android:screenOrientation="portrait"
