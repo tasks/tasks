@@ -5,33 +5,34 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.Date;
-
 import android.database.Cursor;
 
 import com.timsu.astrid.data.enums.Importance;
 
+import java.util.Date;
 
 
-/** Fields that you would want to edit in the TaskModel */
+/**
+ * Fields that you would want to edit in the TaskModel
+ */
 public class TaskModelForEdit extends AbstractTaskModel {
 
-    static String[] FIELD_LIST = new String[] {
-        NAME,
-        IMPORTANCE,
-        ESTIMATED_SECONDS,
-        ELAPSED_SECONDS,
-        DEFINITE_DUE_DATE,
-        PREFERRED_DUE_DATE,
-        HIDDEN_UNTIL,
-        BLOCKING_ON,
-        NOTIFICATIONS,
-        NOTIFICATION_FLAGS,
-        LAST_NOTIFIED,
-        PROGRESS_PERCENTAGE,
-        NOTES,
-        REPEAT,
-        CALENDAR_URI,
+    static String[] FIELD_LIST = new String[]{
+            NAME,
+            IMPORTANCE,
+            ESTIMATED_SECONDS,
+            ELAPSED_SECONDS,
+            DEFINITE_DUE_DATE,
+            PREFERRED_DUE_DATE,
+            HIDDEN_UNTIL,
+            BLOCKING_ON,
+            NOTIFICATIONS,
+            NOTIFICATION_FLAGS,
+            LAST_NOTIFIED,
+            PROGRESS_PERCENTAGE,
+            NOTES,
+            REPEAT,
+            CALENDAR_URI,
     };
 
     // --- constructors

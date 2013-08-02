@@ -60,6 +60,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             displayView.setOnClickListener(getDisplayClickListener());
         }
     }
+
     @Override
     public View getDisplayView() {
         return displayView;

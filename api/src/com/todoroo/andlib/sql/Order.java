@@ -5,10 +5,10 @@
  */
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public class Order {
     private final Object expression;
@@ -45,8 +45,8 @@ public class Order {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(expression.toString())
-          .append(SPACE)
-          .append(orderType.toString());
+                .append(SPACE)
+                .append(orderType.toString());
 
         for (Order secondary : secondaryExpressions) {
             sb.append(", ").append(secondary.toString()); //$NON-NLS-1$
@@ -56,7 +56,7 @@ public class Order {
     }
 
     public Order reverse() {
-        if(orderType == OrderType.ASC)
+        if (orderType == OrderType.ASC)
             return new Order(expression, OrderType.DESC);
         else
             return new Order(expression, OrderType.ASC);

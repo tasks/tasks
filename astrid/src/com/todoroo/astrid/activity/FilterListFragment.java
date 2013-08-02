@@ -63,7 +63,6 @@ import com.todoroo.astrid.welcome.HelpInfoPopover;
  * to filter their task list.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class FilterListFragment extends SherlockListFragment {
 
@@ -86,7 +85,8 @@ public class FilterListFragment extends SherlockListFragment {
 
     // --- instance variables
 
-    @Autowired ExceptionService exceptionService;
+    @Autowired
+    ExceptionService exceptionService;
 
     protected FilterAdapter adapter = null;
 
@@ -100,7 +100,8 @@ public class FilterListFragment extends SherlockListFragment {
      * ======================================================= initialization
      * ====================================================================== */
 
-    /** Container Activity must implement this interface and we ensure
+    /**
+     * Container Activity must implement this interface and we ensure
      * that it does during the onAttach() callback
      */
     public interface OnFilterItemClickedListener {
@@ -134,7 +135,7 @@ public class FilterListFragment extends SherlockListFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         Activity activity = getActivity();
         int layout = getLayout(activity);
         ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
@@ -191,7 +192,7 @@ public class FilterListFragment extends SherlockListFragment {
     public void onResume() {
         super.onResume();
         StatisticsService.sessionStart(getActivity());
-        if(adapter != null)
+        if (adapter != null)
             adapter.registerRecevier();
 
         // also load sync actions
@@ -213,7 +214,7 @@ public class FilterListFragment extends SherlockListFragment {
     public void onPause() {
         StatisticsService.sessionPause();
         super.onPause();
-        if(adapter != null)
+        if (adapter != null)
             adapter.unregisterRecevier();
         try {
             getActivity().unregisterReceiver(refreshReceiver);
@@ -226,7 +227,9 @@ public class FilterListFragment extends SherlockListFragment {
      * ===================================================== populating lists
      * ====================================================================== */
 
-    /** Sets up the coach list adapter */
+    /**
+     * Sets up the coach list adapter
+     */
     protected void setUpList() {
         adapter.setListView(getListView());
         setListAdapter(adapter);
@@ -236,7 +239,7 @@ public class FilterListFragment extends SherlockListFragment {
             getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view,
-                        int position, long id) {
+                                               int position, long id) {
                     // Do stuff
                     final Filter filter = adapter.getItem(position);
                     final String[] labels = filter.contextMenuLabels;
@@ -285,27 +288,27 @@ public class FilterListFragment extends SherlockListFragment {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
+                                    ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 
         Filter item = adapter.getItem(info.position);
 
         android.view.MenuItem menuItem;
 
-        if(item instanceof Filter) {
+        if (item instanceof Filter) {
             Filter filter = (Filter) item;
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
             menuItem.setIntent(ShortcutActivity.createIntent(filter));
         }
 
-        for(int i = 0; i < item.contextMenuLabels.length; i++) {
-            if(item.contextMenuIntents.length <= i)
+        for (int i = 0; i < item.contextMenuLabels.length; i++) {
+            if (item.contextMenuIntents.length <= i)
                 break;
             menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
             menuItem.setIntent(item.contextMenuIntents[i]);
         }
 
-        if(menu.size() > 0)
+        if (menu.size() > 0)
             menu.setHeaderTitle(item.listingTitle);
     }
 
@@ -316,7 +319,7 @@ public class FilterListFragment extends SherlockListFragment {
      * @param label
      */
     private static void createShortcut(Activity activity, Filter filter, Intent shortcutIntent, String label) {
-        if(label.length() == 0)
+        if (label.length() == 0)
             return;
 
         String defaultImageId = filter.listingTitle;
@@ -342,7 +345,7 @@ public class FilterListFragment extends SherlockListFragment {
 
     public static Bitmap superImposeListIcon(Activity activity, Bitmap listingIcon, String uuid) {
         Bitmap emblem = listingIcon;
-        if(emblem == null)
+        if (emblem == null)
             emblem = ((BitmapDrawable) activity.getResources().getDrawable(
                     TagService.getDefaultImageIDForTag(uuid))).getBitmap();
 
@@ -371,11 +374,11 @@ public class FilterListFragment extends SherlockListFragment {
         // handle my own menus
         switch (item.getItemId()) {
             case CONTEXT_MENU_SHORTCUT: {
-                AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
                 final Intent shortcutIntent = item.getIntent();
-                FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
-                if(filter instanceof Filter)
-                    showCreateShortcutDialog(getActivity(), shortcutIntent, (Filter)filter);
+                FilterListItem filter = ((FilterAdapter.ViewHolder) info.targetView.getTag()).item;
+                if (filter instanceof Filter)
+                    showCreateShortcutDialog(getActivity(), shortcutIntent, (Filter) filter);
 
                 return true;
             }
@@ -394,11 +397,11 @@ public class FilterListFragment extends SherlockListFragment {
     }
 
     public static void showCreateShortcutDialog(final Activity activity, final Intent shortcutIntent,
-            final Filter filter) {
+                                                final Filter filter) {
         FrameLayout frameLayout = new FrameLayout(activity);
         frameLayout.setPadding(10, 0, 10, 0);
         final EditText editText = new EditText(activity);
-        if(filter.listingTitle == null)
+        if (filter.listingTitle == null)
             filter.listingTitle = ""; //$NON-NLS-1$
         editText.setText(filter.listingTitle.
                 replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -416,7 +419,7 @@ public class FilterListFragment extends SherlockListFragment {
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL) {
+                if (actionId == EditorInfo.IME_NULL) {
                     createShortcut.run();
                     return true;
                 }
@@ -425,17 +428,17 @@ public class FilterListFragment extends SherlockListFragment {
         });
 
         new AlertDialog.Builder(activity)
-        .setTitle(R.string.FLA_shortcut_dialog_title)
-        .setMessage(R.string.FLA_shortcut_dialog)
-        .setView(frameLayout)
-        .setIcon(android.R.drawable.ic_dialog_info)
-        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                createShortcut.run();
-            }
-        })
-        .setNegativeButton(android.R.string.cancel, null)
-        .show().setOwnerActivity(activity);
+                .setTitle(R.string.FLA_shortcut_dialog_title)
+                .setMessage(R.string.FLA_shortcut_dialog)
+                .setView(frameLayout)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        createShortcut.run();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show().setOwnerActivity(activity);
     }
 
     public void clear() {
@@ -456,12 +459,11 @@ public class FilterListFragment extends SherlockListFragment {
      * Receiver which receives refresh intents
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
+            if (intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
                 return;
 
             Activity activity = getActivity();

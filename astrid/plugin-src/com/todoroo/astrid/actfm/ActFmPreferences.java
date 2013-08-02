@@ -39,12 +39,13 @@ import com.todoroo.astrid.utility.Constants;
  * initiate actions from the menu.
  *
  * @author timsu
- *
  */
 public class ActFmPreferences extends SyncProviderPreferences {
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
     @Override
     public int getPreferenceResource() {
@@ -145,12 +146,11 @@ public class ActFmPreferences extends SyncProviderPreferences {
                 title += email;
             }
             status.setTitle(getString(R.string.actfm_status_title_logged_in, title));
-        }
-        else
+        } else
             status.setTitle(R.string.sync_SPr_group_status);
 
         if (r.getString(R.string.actfm_https_key).equals(preference.getKey())) {
-            if ((Boolean)value)
+            if ((Boolean) value)
                 preference.setSummary(R.string.actfm_https_enabled);
             else
                 preference.setSummary(R.string.actfm_https_disabled);
@@ -174,7 +174,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
                             r.getString(R.string.sync_forget_confirm), new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog,
-                                int which) {
+                                            int which) {
                             logOut();
                             initializePreference(getPreferenceScreen());
                         }
@@ -182,7 +182,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
                     return true;
                 }
             });
-            if(!loggedIn) {
+            if (!loggedIn) {
                 getPreferenceScreen().removePreference(preference);
             }
 

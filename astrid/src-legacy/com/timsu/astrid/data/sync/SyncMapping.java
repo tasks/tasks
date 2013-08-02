@@ -17,23 +17,30 @@ import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 
-/** A single tag on a task */
+/**
+ * A single tag on a task
+ */
 @SuppressWarnings("nls")
 public class SyncMapping extends LegacyAbstractModel {
 
 
-    /** Version number of this model */
-    static final int                   VERSION             = 1;
+    /**
+     * Version number of this model
+     */
+    static final int VERSION = 1;
 
     // field names
 
-    static final String                TASK          = "task";
-    static final String                SYNC_SERVICE  = "service";
-    static final String                REMOTE_ID     = "remoteId";
-    static final String                UPDATED       = "updated";
+    static final String TASK = "task";
+    static final String SYNC_SERVICE = "service";
+    static final String REMOTE_ID = "remoteId";
+    static final String UPDATED = "updated";
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
+
     static {
         defaultValues.put(UPDATED, 0);
     }
@@ -43,17 +50,19 @@ public class SyncMapping extends LegacyAbstractModel {
         return defaultValues;
     }
 
-    static String[] FIELD_LIST = new String[] {
-        LegacyAbstractController.KEY_ROWID,
-        TASK,
-        SYNC_SERVICE,
-        REMOTE_ID,
-        UPDATED,
+    static String[] FIELD_LIST = new String[]{
+            LegacyAbstractController.KEY_ROWID,
+            TASK,
+            SYNC_SERVICE,
+            REMOTE_ID,
+            UPDATED,
     };
 
     // --- database helper
 
-    /** Database Helper manages creating new tables and updating old ones */
+    /**
+     * Database Helper manages creating new tables and updating old ones
+     */
     static class SyncMappingDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
         Context context;
@@ -67,14 +76,14 @@ public class SyncMapping extends LegacyAbstractModel {
         @Override
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
-            append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
-                append(TASK).append(" integer not null,").
-                append(SYNC_SERVICE).append(" integer not null,").
-                append(REMOTE_ID).append(" text not null,").
-                append(UPDATED).append(" integer not null,").
-                append("unique (").append(TASK).append(",").append(SYNC_SERVICE).append(")").
-            append(");").toString();
+                    append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
+                    append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                    append(TASK).append(" integer not null,").
+                    append(SYNC_SERVICE).append(" integer not null,").
+                    append(REMOTE_ID).append(" text not null,").
+                    append(UPDATED).append(" integer not null,").
+                    append("unique (").append(TASK).append(",").append(SYNC_SERVICE).append(")").
+                    append(");").toString();
             db.execSQL(sql);
         }
 
@@ -83,10 +92,10 @@ public class SyncMapping extends LegacyAbstractModel {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
 
-            switch(oldVersion) {
-            default:
-                // we don't know how to handle it... show an error
-                Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
+            switch (oldVersion) {
+                default:
+                    // we don't know how to handle it... show an error
+                    Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
 
             }
         }

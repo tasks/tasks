@@ -15,24 +15,30 @@ import com.todoroo.astrid.data.Metadata;
 
 /**
  * Metadata entries for a GTasks Task
- * @author Tim Su <tim@todoroo.com>
  *
+ * @author Tim Su <tim@todoroo.com>
  */
 public class GtasksMetadata {
 
     static final int VALUE_UNSET = -1;
 
-    /** metadata key */
+    /**
+     * metadata key
+     */
     public static final String METADATA_KEY = "gtasks"; //$NON-NLS-1$
 
-    /** task id in google */
+    /**
+     * task id in google
+     */
     public static final StringProperty ID = new StringProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 
     public static final StringProperty LIST_ID = new StringProperty(Metadata.TABLE,
             Metadata.VALUE2.name);
 
-    /** parent task id, or 0 if top level task */
+    /**
+     * parent task id, or 0 if top level task
+     */
     public static final LongProperty PARENT_TASK = new LongProperty(Metadata.TABLE,
             Metadata.VALUE3.name);
 
@@ -50,6 +56,7 @@ public class GtasksMetadata {
 
     /**
      * Creates default GTasks metadata item
+     *
      * @param taskId if > 0, will set metadata task field
      * @return
      */
@@ -59,14 +66,14 @@ public class GtasksMetadata {
         metadata.setValue(ID, ""); //$NON-NLS-1$
 
         String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
-        if(defaultList == null)
+        if (defaultList == null)
             defaultList = "@default"; //$NON-NLS-1$
 
         metadata.setValue(LIST_ID, defaultList);
         metadata.setValue(PARENT_TASK, AbstractModel.NO_ID);
         metadata.setValue(INDENT, 0);
         metadata.setValue(ORDER, DateUtilities.now());
-        if(taskId > AbstractModel.NO_ID)
+        if (taskId > AbstractModel.NO_ID)
             metadata.setValue(Metadata.TASK, taskId);
         return metadata;
     }

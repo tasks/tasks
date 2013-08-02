@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.people;
 
-import java.util.List;
-
-import org.json.JSONArray;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -37,6 +33,10 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
+import org.json.JSONArray;
+
+import java.util.List;
+
 public class PersonViewFragment extends TaskListFragment {
 
     public static final String EXTRA_USER_ID_LOCAL = "user_local_id"; //$NON-NLS-1$
@@ -45,13 +45,17 @@ public class PersonViewFragment extends TaskListFragment {
 
     protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
 
-    @Autowired UserDao userDao;
+    @Autowired
+    UserDao userDao;
 
-    @Autowired SyncV2Service syncService;
+    @Autowired
+    SyncV2Service syncService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmSyncService actFmSyncService;
 
     private AsyncImageView userImage;
     private TextView userSubtitle;
@@ -167,7 +171,7 @@ public class PersonViewFragment extends TaskListFragment {
 
     @Override
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
-        if(actFmPreferenceService.isLoggedIn()) {
+        if (actFmPreferenceService.isLoggedIn()) {
             addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
                     ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
         } else {
@@ -178,9 +182,9 @@ public class PersonViewFragment extends TaskListFragment {
     @Override
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
         switch (id) {
-        case MENU_REFRESH_ID:
-            refreshData();
-            return true;
+            case MENU_REFRESH_ID:
+                refreshData();
+                return true;
         }
         return super.handleOptionsMenuItemSelected(id, intent);
     }
@@ -192,7 +196,7 @@ public class PersonViewFragment extends TaskListFragment {
         if (user != null) {
             long lastAutosync = user.getValue(User.LAST_AUTOSYNC);
 
-            if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
+            if (DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
                 refreshData();
                 user.setValue(User.LAST_AUTOSYNC, DateUtilities.now());
                 userDao.saveExisting(user);
@@ -227,6 +231,7 @@ public class PersonViewFragment extends TaskListFragment {
                         });
                     }
                 }
+
                 @Override
                 public void runOnErrors(List<JSONArray> errors) {/**/}
             };

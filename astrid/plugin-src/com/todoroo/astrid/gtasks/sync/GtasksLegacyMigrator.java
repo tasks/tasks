@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
@@ -28,19 +24,28 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Class to handle migration of legacy metadata (old remote ids) to new
  * metadata based on the official remote ids returned by the api.
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 public class GtasksLegacyMigrator {
 
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
-    @Autowired GtasksListService gtasksListService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    GtasksListService gtasksListService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
     private final GtasksInvoker gtasksService;
     private final GtasksListService listService;
@@ -50,7 +55,7 @@ public class GtasksLegacyMigrator {
         AstridDependencyInjector.initialize();
     }
 
-    public GtasksLegacyMigrator(GtasksInvoker service,GtasksListService listService, TaskLists allLists) {
+    public GtasksLegacyMigrator(GtasksInvoker service, GtasksListService listService, TaskLists allLists) {
         DependencyInjectionService.getInstance().inject(this);
         this.gtasksService = service;
         this.listService = listService;
@@ -67,7 +72,7 @@ public class GtasksLegacyMigrator {
             TodorooCursor<Task> allTasksWithGtaskData = taskService.query(Query.select(Task.PROPERTIES).
                     where(Task.ID.in(
                             Query.select(Metadata.TASK).from(Metadata.TABLE).
-                            where(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY)))));
+                                    where(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY)))));
 
             try {
                 if (allTasksWithGtaskData.getCount() > 0) {

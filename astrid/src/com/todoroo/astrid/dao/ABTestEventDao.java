@@ -29,13 +29,14 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
     /**
      * Creates the baseline +0 days event (i.e. the first time the user
      * launches the app containing this test)
-     * @param testName - the name of the test
+     *
+     * @param testName    - the name of the test
      * @param testVariant - which option was chosen for this user
-     * @param newUser - are they a new user?
-     * @param activeUser - are they an activated user?
+     * @param newUser     - are they a new user?
+     * @param activeUser  - are they an activated user?
      */
     public void createInitialTestEvent(String testName, String testVariant,
-            boolean newUser, boolean activeUser) {
+                                       boolean newUser, boolean activeUser) {
         ABTestEvent event = new ABTestEvent();
         event.setValue(ABTestEvent.TEST_NAME, testName);
         event.setValue(ABTestEvent.TEST_VARIANT, testVariant);
@@ -49,9 +50,10 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
 
     /**
      * Only public for unit testing--don't use unless you really mean it!
-     *
+     * <p/>
      * Creates data points for the specified test name, creating one data point
      * for each time interval that hasn't yet been recorded up to the specified one
+     *
      * @param testName
      * @param timeInterval
      */
@@ -108,8 +110,8 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
                 String testName = event.getValue(ABTestEvent.TEST_NAME);
                 int timeInterval = -1;
                 long days = timeSinceBase / DateUtilities.ONE_DAY;
-                for(int i = 0; i < ABTestEvent.TIME_INTERVALS.length; i++)
-                    if(days >= ABTestEvent.TIME_INTERVALS[i])
+                for (int i = 0; i < ABTestEvent.TIME_INTERVALS.length; i++)
+                    if (days >= ABTestEvent.TIME_INTERVALS[i])
                         timeInterval = ABTestEvent.TIME_INTERVALS[i];
 
                 if (timeInterval > 0)

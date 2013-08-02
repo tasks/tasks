@@ -22,7 +22,6 @@ import com.todoroo.astrid.api.PermaSql;
  * want to use the {@link MetadataApiDao} object.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskApiDao extends ContentResolverDao<Task> {
 
@@ -35,66 +34,90 @@ public class TaskApiDao extends ContentResolverDao<Task> {
      */
     public static class TaskCriteria {
 
-        /** @return tasks by id */
+        /**
+         * @return tasks by id
+         */
         public static Criterion byId(long id) {
             return Task.ID.eq(id);
         }
 
-        /** @return tasks that were deleted */
+        /**
+         * @return tasks that were deleted
+         */
         public static Criterion isDeleted() {
             return Task.DELETION_DATE.neq(0);
         }
 
-        /** @return tasks that were not deleted */
+        /**
+         * @return tasks that were not deleted
+         */
         public static Criterion notDeleted() {
             return Task.DELETION_DATE.eq(0);
         }
 
-        /** @return tasks that have not yet been completed or deleted */
+        /**
+         * @return tasks that have not yet been completed or deleted
+         */
         public static Criterion activeAndVisible() {
             return Criterion.and(Task.COMPLETION_DATE.eq(0),
                     Task.DELETION_DATE.eq(0),
                     Task.HIDE_UNTIL.lt(Functions.now()));
         }
 
-        /** @return tasks that have not yet been completed or deleted */
+        /**
+         * @return tasks that have not yet been completed or deleted
+         */
         public static Criterion isActive() {
             return Criterion.and(Task.COMPLETION_DATE.eq(0),
                     Task.DELETION_DATE.eq(0));
         }
 
-        /** @return tasks that are not hidden at current time */
+        /**
+         * @return tasks that are not hidden at current time
+         */
         public static Criterion isVisible() {
             return Task.HIDE_UNTIL.lt(Functions.now());
         }
 
-        /** @return tasks that have a due date */
+        /**
+         * @return tasks that have a due date
+         */
         public static Criterion hasDeadlines() {
             return Task.DUE_DATE.neq(0);
         }
 
-        /** @return tasks that are due before a certain unixtime */
+        /**
+         * @return tasks that are due before a certain unixtime
+         */
         public static Criterion dueBeforeNow() {
             return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.now()));
         }
 
-        /** @return tasks that are due after a certain unixtime */
+        /**
+         * @return tasks that are due after a certain unixtime
+         */
         public static Criterion dueAfterNow() {
             return Task.DUE_DATE.gt(Functions.now());
         }
 
-        /** @return tasks completed before a given unixtime */
+        /**
+         * @return tasks completed before a given unixtime
+         */
         public static Criterion completed() {
             return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(Functions.now()));
         }
 
-        /** @return tasks that have a blank or null title */
+        /**
+         * @return tasks that have a blank or null title
+         */
         @SuppressWarnings("nls")
         public static Criterion hasNoTitle() {
             return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
         }
 
-        /** @return tasks that have not yet been completed or deleted */
+        /**
+         * @return tasks that have not yet been completed or deleted
+         */
         public static Criterion activeVisibleMine() {
             return Criterion.and(Task.COMPLETION_DATE.eq(0),
                     Task.DELETION_DATE.eq(0),
@@ -103,16 +126,19 @@ public class TaskApiDao extends ContentResolverDao<Task> {
                     Task.USER_ID.eq(0));
         }
 
-        /** Check if a given task belongs to someone else & is read-only */
+        /**
+         * Check if a given task belongs to someone else & is read-only
+         */
         public static Criterion ownedByMe() {
-             return Criterion.and(Task.IS_READONLY.eq(0),
-                     Task.USER_ID.eq(0));
+            return Criterion.and(Task.IS_READONLY.eq(0),
+                    Task.USER_ID.eq(0));
         }
 
     }
 
     /**
      * Count tasks matching criterion
+     *
      * @param criterion
      * @return # of tasks matching
      */
@@ -127,6 +153,7 @@ public class TaskApiDao extends ContentResolverDao<Task> {
 
     /**
      * Count tasks matching query tepmlate
+     *
      * @param queryTemplate
      * @return # of tasks matching
      */
@@ -157,24 +184,26 @@ public class TaskApiDao extends ContentResolverDao<Task> {
         return false;
     }
 
-    /** @return true if task change shouldn't be broadcast */
+    /**
+     * @return true if task change shouldn't be broadcast
+     */
     public static boolean insignificantChange(ContentValues values) {
-        if(values == null || values.size() == 0)
+        if (values == null || values.size() == 0)
             return true;
 
-        if(values.containsKey(Task.DETAILS_DATE.name) &&
+        if (values.containsKey(Task.DETAILS_DATE.name) &&
                 values.size() <= 3)
             return true;
 
-        if(values.containsKey(Task.REMINDER_LAST.name) &&
+        if (values.containsKey(Task.REMINDER_LAST.name) &&
                 values.size() <= 2)
             return true;
 
-        if(values.containsKey(Task.REMINDER_SNOOZE.name) &&
+        if (values.containsKey(Task.REMINDER_SNOOZE.name) &&
                 values.size() <= 2)
             return true;
 
-        if(values.containsKey(Task.TIMER_START.name) &&
+        if (values.containsKey(Task.TIMER_START.name) &&
                 values.size() <= 2)
             return true;
 

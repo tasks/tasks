@@ -53,7 +53,7 @@ public class EditNotesControlSet extends PopupControlSet {
     }
 
     private void linkifyDisplayView() {
-        if(!TextUtils.isEmpty(notesPreview.getText())) {
+        if (!TextUtils.isEmpty(notesPreview.getText())) {
             notesPreview.setLinkTextColor(Color.rgb(100, 160, 255));
             Linkify.addLinks(notesPreview, Linkify.ALL);
         }
@@ -69,8 +69,8 @@ public class EditNotesControlSet extends PopupControlSet {
     protected void additionalDialogSetup() {
         super.additionalDialogSetup();
         dialog.getWindow()
-            .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
-                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                        | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class EditNotesControlSet extends PopupControlSet {
 
     @Override
     protected boolean onOkClick() {
-        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         return super.onOkClick();
     }
@@ -96,7 +96,7 @@ public class EditNotesControlSet extends PopupControlSet {
     @Override
     protected void onCancelClick() {
         super.onCancelClick();
-        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 

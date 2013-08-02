@@ -5,6 +5,17 @@
  */
 package com.todoroo.andlib.sql;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+
+import com.todoroo.andlib.data.Property;
+import com.todoroo.astrid.api.AstridApiConstants;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.todoroo.andlib.sql.SqlConstants.ALL;
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.DISTINCT;
@@ -20,17 +31,6 @@ import static com.todoroo.andlib.sql.SqlConstants.UNION;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static com.todoroo.andlib.sql.SqlTable.table;
 import static java.util.Arrays.asList;
-
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-
-import com.todoroo.andlib.data.Property;
-import com.todoroo.astrid.api.AstridApiConstants;
 
 public final class Query {
 
@@ -117,14 +117,14 @@ public final class Query {
         visitFromClause(sql);
 
         visitJoinClause(sql);
-        if(queryTemplate == null) {
+        if (queryTemplate == null) {
             visitWhereClause(sql);
             visitGroupByClause(sql);
             visitUnionClause(sql);
             visitOrderByClause(sql);
             visitLimitClause(sql);
         } else {
-            if(groupBies.size() > 0 || orders.size() > 0 ||
+            if (groupBies.size() > 0 || orders.size() > 0 ||
                     havings.size() > 0)
                 throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
             sql.append(queryTemplate);
@@ -198,7 +198,7 @@ public final class Query {
 
     private void visitSelectClause(StringBuilder sql) {
         sql.append(SELECT).append(SPACE);
-        if(distinct)
+        if (distinct)
             sql.append(DISTINCT).append(SPACE);
         if (fields.isEmpty()) {
             sql.append(ALL).append(SPACE);
@@ -211,7 +211,7 @@ public final class Query {
     }
 
     private void visitLimitClause(StringBuilder sql) {
-        if(limits > -1)
+        if (limits > -1)
             sql.append(LIMIT).append(SPACE).append(limits).append(SPACE);
     }
 
@@ -226,6 +226,7 @@ public final class Query {
 
     /**
      * Gets a list of fields returned by this query
+     *
      * @return
      */
     public Property<?>[] getFields() {
@@ -234,6 +235,7 @@ public final class Query {
 
     /**
      * Add the SQL query template (comes after the "from")
+     *
      * @param template
      * @return query
      */
@@ -244,6 +246,7 @@ public final class Query {
 
     /**
      * Parse out properties and run query
+     *
      * @param cr
      * @param baseUri
      * @return
@@ -251,24 +254,24 @@ public final class Query {
     public Cursor queryContentResolver(ContentResolver cr, Uri baseUri) {
         Uri uri = baseUri;
 
-        if(joins.size() != 0)
+        if (joins.size() != 0)
             throw new UnsupportedOperationException("can't perform join in content resolver query"); //$NON-NLS-1$
 
         String[] projection = new String[fields.size()];
-        for(int i = 0; i < projection.length; i++)
+        for (int i = 0; i < projection.length; i++)
             projection[i] = fields.get(i).toString();
 
         StringBuilder groupByClause = new StringBuilder();
         StringBuilder selectionClause = new StringBuilder();
         StringBuilder orderClause = new StringBuilder();
-        if(queryTemplate != null) {
+        if (queryTemplate != null) {
             QueryTemplateHelper.queryForContentResolver(queryTemplate,
                     selectionClause, orderClause, groupByClause);
         } else {
-            if(groupBies.size() > 0) {
+            if (groupBies.size() > 0) {
                 for (Field groupBy : groupBies)
                     groupByClause.append(SPACE).append(groupBy).append(COMMA);
-                if(groupByClause.length() > 0)
+                if (groupByClause.length() > 0)
                     groupByClause.deleteCharAt(groupByClause.length() - 1);
             }
 
@@ -277,39 +280,43 @@ public final class Query {
 
             for (Order order : orders)
                 orderClause.append(SPACE).append(order).append(COMMA);
-            if(orderClause.length() > 0)
+            if (orderClause.length() > 0)
                 orderClause.deleteCharAt(orderClause.length() - 1);
         }
 
-        if(groupByClause.length() > 0)
+        if (groupByClause.length() > 0)
             uri = Uri.withAppendedPath(baseUri, AstridApiConstants.GROUP_BY_URI +
                     groupByClause.toString().trim());
         return cr.query(uri, projection, selectionClause.toString(), null,
                 orderClause.toString());
     }
 
-    /** query template helper */
+    /**
+     * query template helper
+     */
     public static class QueryTemplateHelper {
 
-        /** build a content resolver query */
+        /**
+         * build a content resolver query
+         */
         @SuppressWarnings("nls")
         public static void queryForContentResolver(String queryTemplate,
-                StringBuilder selectionClause, StringBuilder orderClause,
-                StringBuilder groupByClause) {
+                                                   StringBuilder selectionClause, StringBuilder orderClause,
+                                                   StringBuilder groupByClause) {
 
             Pattern where = Pattern.compile("WHERE (.*?)(LIMIT|HAVING|GROUP|ORDER|\\Z)");
             Matcher whereMatcher = where.matcher(queryTemplate);
-            if(whereMatcher.find())
+            if (whereMatcher.find())
                 selectionClause.append(whereMatcher.group(1).trim());
 
             Pattern group = Pattern.compile("GROUP BY (.*?)(LIMIT|HAVING|ORDER|\\Z)");
             Matcher groupMatcher = group.matcher(queryTemplate);
-            if(groupMatcher.find())
+            if (groupMatcher.find())
                 groupByClause.append(groupMatcher.group(1).trim());
 
             Pattern order = Pattern.compile("ORDER BY (.*?)(LIMIT|HAVING|\\Z)");
             Matcher orderMatcher = order.matcher(queryTemplate);
-            if(orderMatcher.find())
+            if (orderMatcher.find())
                 orderClause.append(orderMatcher.group(1).trim());
         }
 

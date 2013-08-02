@@ -5,9 +5,6 @@
  */
 package com.timsu.astrid.data;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -15,7 +12,12 @@ import android.util.Log;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 
-/** Abstract controller class. Mostly contains some static fields */
+import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
+
+/**
+ * Abstract controller class. Mostly contains some static fields
+ */
 @SuppressWarnings("nls")
 abstract public class LegacyAbstractController {
 
@@ -49,6 +51,7 @@ abstract public class LegacyAbstractController {
     }
 
     abstract public void open();
+
     abstract public void close();
 
     // cursor iterator
@@ -72,7 +75,7 @@ abstract public class LegacyAbstractController {
                 cursor.moveToNext();
                 return model;
 
-            // ugh...
+                // ugh...
             } catch (IllegalArgumentException e) {
                 Log.e("CursorIterator", e.toString());
             } catch (SecurityException e) {

@@ -17,25 +17,27 @@
 */
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:minWidth="300dip"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+              android:orientation="vertical"
+              android:minWidth="300dip"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
 
     <View
-      android:layout_width="fill_parent"
-      android:layout_height="1dip"
-      android:padding="5dip"
-      android:background="@android:drawable/divider_horizontal_dark" />
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:padding="5dip"
+            android:background="@android:drawable/divider_horizontal_dark"/>
 
-    <Button android:id="@+id/importButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:text="@string/backup_BAc_import" />
+    <Button
+            android:id="@+id/importButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_BAc_import"/>
 
-    <Button android:id="@+id/exportButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:text="@string/backup_BAc_export" />
-        
+    <Button
+            android:id="@+id/exportButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_BAc_export"/>
+
 </LinearLayout>

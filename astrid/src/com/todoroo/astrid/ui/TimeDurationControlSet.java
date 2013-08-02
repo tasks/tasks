@@ -32,7 +32,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     private final IntegerProperty property;
 
     public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
-            int timeButtonId, int prefixResource, int titleResource) {
+                                  int timeButtonId, int prefixResource, int titleResource) {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
@@ -40,7 +40,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         this.titleResource = titleResource;
         this.property = property;
 
-        timeButton = (TextView)view.findViewById(timeButtonId);
+        timeButton = (TextView) view.findViewById(timeButtonId);
         ((View) timeButton.getParent()).setOnClickListener(this);
     }
 
@@ -53,13 +53,13 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     }
 
     public void setTimeDuration(Integer timeDurationInSeconds) {
-        if(timeDurationInSeconds == null)
+        if (timeDurationInSeconds == null)
             timeDurationInSeconds = 0;
 
         timeDuration = timeDurationInSeconds;
 
         Resources r = activity.getResources();
-        if(timeDurationInSeconds == 0) {
+        if (timeDurationInSeconds == 0) {
             timeButton.setText(r.getString(R.string.WID_dateButtonUnset));
             return;
         }
@@ -70,24 +70,28 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         timeButton.setText(prefix + DateUtils.formatElapsedTime(timeDuration));
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
-        initialValues = new int[] { hours, minutes };
+        initialValues = new int[]{hours, minutes};
 
         if (model != null)
             model.setValue(property, timeDuration);
     }
 
-    /** Called when NumberPicker activity is completed */
+    /**
+     * Called when NumberPicker activity is completed
+     */
     public void onNumbersPicked(int[] values) {
         setTimeDuration(values[0] * 3600 + values[1] * 60);
     }
 
-    /** Called when time button is clicked */
+    /**
+     * Called when time button is clicked
+     */
     public void onClick(View v) {
-        if(dialog == null) {
+        if (dialog == null) {
             dialog = new NNumberPickerDialog(activity, this,
                     activity.getResources().getString(titleResource),
-                    new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
-                    new int[] {999, 59}, new String[] {":", null});
+                    new int[]{0, 0}, new int[]{1, 5}, new int[]{0, 0},
+                    new int[]{999, 59}, new String[]{":", null});
             final NumberPicker hourPicker = dialog.getPicker(0);
             final NumberPicker minutePicker = dialog.getPicker(1);
             minutePicker.setFormatter(new NumberPicker.Formatter() {
@@ -99,12 +103,12 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
             minutePicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
                 @Override
                 public int onChanged(NumberPicker picker, int oldVal, int newVal) {
-                    if(newVal < 0) {
-                        if(hourPicker.getCurrent() == 0)
+                    if (newVal < 0) {
+                        if (hourPicker.getCurrent() == 0)
                             return 0;
                         hourPicker.setCurrent(hourPicker.getCurrent() - 1);
                         return 60 + newVal;
-                    } else if(newVal > 59) {
+                    } else if (newVal > 59) {
                         hourPicker.setCurrent(hourPicker.getCurrent() + 1);
                         return newVal % 60;
                     }
@@ -113,7 +117,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
             });
         }
 
-        if(initialValues != null)
+        if (initialValues != null)
             dialog.setInitialValues(initialValues);
 
         dialog.show();

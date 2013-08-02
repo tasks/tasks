@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gcal;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -39,11 +36,13 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Control Set for managing repeats
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class GCalControlSet extends PopupControlSet {
 
@@ -88,7 +87,7 @@ public class GCalControlSet extends PopupControlSet {
         calendarSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
-                    int arg2, long arg3) {
+                                       int arg2, long arg3) {
                 refreshDisplayView();
             }
 
@@ -102,17 +101,17 @@ public class GCalControlSet extends PopupControlSet {
     @Override
     protected void readFromTaskOnInitialize() {
         String uri = GCalHelper.getTaskEventUri(model);
-        if(!TextUtils.isEmpty(uri)) {
+        if (!TextUtils.isEmpty(uri)) {
             try {
                 calendarUri = Uri.parse(uri);
 
                 // try to load calendar
                 ContentResolver cr = activity.getContentResolver();
-                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
+                Cursor cursor = cr.query(calendarUri, new String[]{"dtstart"}, null, null, null); //$NON-NLS-1$
                 try {
                     boolean deleted = cursor.getCount() == 0;
 
-                    if(deleted) {
+                    if (deleted) {
                         calendarUri = null;
                         return;
                     }
@@ -144,12 +143,12 @@ public class GCalControlSet extends PopupControlSet {
             return null;
 
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
-                                        !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
+                !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
         if ((gcalCreateEventEnabled || calendarSelector.getSelectedItemPosition() != 0) &&
                 calendarUri == null) {
             StatisticsService.reportEvent(StatisticsConstants.CREATE_CALENDAR_EVENT);
 
-            try{
+            try {
                 ContentResolver cr = activity.getContentResolver();
 
                 ContentValues values = new ContentValues();
@@ -157,7 +156,7 @@ public class GCalControlSet extends PopupControlSet {
                 values.put("calendar_id", calendarId);
 
                 calendarUri = GCalHelper.createTaskEvent(task, cr, values);
-                if(calendarUri != null) {
+                if (calendarUri != null) {
                     task.setValue(Task.CALENDAR_URI, calendarUri.toString());
 
                     if (calendarSelector.getSelectedItemPosition() != 0 && !hasEvent) {
@@ -173,21 +172,21 @@ public class GCalControlSet extends PopupControlSet {
                 exceptionService.displayAndReportError(activity,
                         activity.getString(R.string.gcal_TEA_error), e);
             }
-        } else if(calendarUri != null) {
+        } else if (calendarUri != null) {
             try {
                 ContentValues updateValues = new ContentValues();
 
                 // check if we need to update the item
                 ContentValues setValues = task.getSetValues();
-                if(setValues.containsKey(Task.TITLE.name))
+                if (setValues.containsKey(Task.TITLE.name))
                     updateValues.put("title", task.getValue(Task.TITLE));
-                if(setValues.containsKey(Task.NOTES.name))
+                if (setValues.containsKey(Task.NOTES.name))
                     updateValues.put("description", task.getValue(Task.NOTES));
-                if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name))
+                if (setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name))
                     GCalHelper.createStartAndEndDate(task, updateValues);
 
                 ContentResolver cr = activity.getContentResolver();
-                if(cr.update(calendarUri, updateValues, null, null) > 0)
+                if (cr.update(calendarUri, updateValues, null, null) > 0)
                     return activity.getString(R.string.gcal_TEA_calendar_updated);
             } catch (Exception e) {
                 exceptionService.reportError("unable-to-update-calendar: " +  //$NON-NLS-1$
@@ -200,15 +199,15 @@ public class GCalControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     private void viewCalendarEvent() {
-        if(calendarUri == null)
+        if (calendarUri == null)
             return;
 
         ContentResolver cr = activity.getContentResolver();
         Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
-        Cursor cursor = cr.query(calendarUri, new String[] { "dtstart", "dtend" },
+        Cursor cursor = cr.query(calendarUri, new String[]{"dtstart", "dtend"},
                 null, null, null);
         try {
-            if(cursor.getCount() == 0) {
+            if (cursor.getCount() == 0) {
                 // event no longer exists, recreate it
                 calendarUri = null;
                 writeToModel(model);
@@ -237,7 +236,7 @@ public class GCalControlSet extends PopupControlSet {
             if (hasEvent) {
                 calendar.setText(R.string.gcal_TEA_has_event);
             } else if (calendarSelector.getSelectedItemPosition() != 0) {
-                calendar.setText((String)calendarSelector.getSelectedItem());
+                calendar.setText((String) calendarSelector.getSelectedItem());
             } else {
                 calendar.setTextColor(unsetColor);
                 image.setImageResource(R.drawable.tea_icn_addcal_gray);

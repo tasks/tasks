@@ -10,8 +10,8 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 /**
  * Contains useful methods common to all subtasks tests
- * @author Sam
  *
+ * @author Sam
  */
 public class SubtasksTestCase extends DatabaseTestCase {
 

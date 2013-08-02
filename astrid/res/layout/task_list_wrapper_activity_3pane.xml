@@ -5,45 +5,45 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/Content"
-    android:orientation="horizontal">
-  
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Content"
+        android:orientation="horizontal">
+
     <!-- Filter List -->
     <FrameLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_weight="60"
-	    android:background="@android:color/white"
-	    android:id="@+id/filterlist_fragment_container" />
-  
-	<View 
-        android:layout_width="1px"
-        android:layout_height="match_parent"
-        android:background="?attr/asSeparatorBackground"/>
-  
-	<LinearLayout
-	    android:id="@+id/right_column"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_weight="40"
-	    android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="60"
+            android:background="@android:color/white"
+            android:id="@+id/filterlist_fragment_container"/>
+
+    <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="?attr/asSeparatorBackground"/>
+
+    <LinearLayout
+            android:id="@+id/right_column"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:orientation="vertical">
         <!-- Task List -->
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:id="@+id/tasklist_fragment_container" />	    
-	    
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:id="@+id/tasklist_fragment_container"/>
+
         <!-- Task Edit -->
-		<FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/taskedit_fragment_container"
-            android:visibility="gone" />
-	  
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/taskedit_fragment_container"
+                android:visibility="gone"/>
+
     </LinearLayout>
-  
+
 </LinearLayout>

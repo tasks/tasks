@@ -5,10 +5,9 @@
  */
 package com.todoroo.andlib.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.util.zip.GZIPInputStream;
+import android.util.Log;
+
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -37,15 +36,15 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HttpContext;
 
-import android.util.Log;
-
-import com.todoroo.andlib.utility.AndroidUtilities;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.util.zip.GZIPInputStream;
 
 /**
  * RestClient allows Android to consume web requests.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class HttpRestClient implements RestClient {
 
@@ -108,7 +107,7 @@ public class HttpRestClient implements RestClient {
                     final HttpRequest request,
                     final HttpContext context) throws HttpException, IOException {
                 if (!request.containsHeader("Accept-Encoding"))
-                        request.addHeader("Accept-Encoding", "gzip");
+                    request.addHeader("Accept-Encoding", "gzip");
             }
 
         });
@@ -141,7 +140,7 @@ public class HttpRestClient implements RestClient {
 
         @Override
         public InputStream getContent()
-            throws IOException, IllegalStateException {
+                throws IOException, IllegalStateException {
 
             // the wrapped entity's getContent() decides about repeatability
             InputStream wrappedin = wrappedEntity.getContent();
@@ -159,7 +158,7 @@ public class HttpRestClient implements RestClient {
 
     private String processHttpResponse(HttpResponse response) throws IOException {
         int statusCode = response.getStatusLine().getStatusCode();
-        if(statusCode >= HTTP_UNAVAILABLE_START && statusCode <= HTTP_UNAVAILABLE_END) {
+        if (statusCode >= HTTP_UNAVAILABLE_START && statusCode <= HTTP_UNAVAILABLE_END) {
             throw new HttpUnavailableException();
         }
 
@@ -175,7 +174,7 @@ public class HttpRestClient implements RestClient {
             }
         }
 
-        if(statusCode != HTTP_OK) {
+        if (statusCode != HTTP_OK) {
             System.out.println(body);
             throw new HttpErrorException(response.getStatusLine().getStatusCode(),
                     response.getStatusLine().getReasonPhrase());
@@ -192,7 +191,7 @@ public class HttpRestClient implements RestClient {
      * @throws IOException
      */
     public synchronized String get(String url) throws IOException {
-        if(debug)
+        if (debug)
             Log.d("http-rest-client-get", url); //$NON-NLS-1$
 
         try {
@@ -213,18 +212,17 @@ public class HttpRestClient implements RestClient {
      * Issue an HTTP POST for the given URL, return the response
      *
      * @param url
-     * @param data
-     *            url-encoded data
+     * @param data url-encoded data
      * @throws IOException
      */
     public synchronized String post(String url, HttpEntity data, Header... headers) throws IOException {
-        if(debug)
+        if (debug)
             Log.d("http-rest-client-post", url + " | " + data); //$NON-NLS-1$ //$NON-NLS-2$
 
         try {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(data);
-            for(Header header : headers)
+            for (Header header : headers)
                 httpPost.addHeader(header);
             HttpResponse response = getClient().execute(httpPost);
 

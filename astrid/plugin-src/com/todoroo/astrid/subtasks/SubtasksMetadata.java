@@ -14,17 +14,20 @@ import com.todoroo.astrid.data.Metadata;
  * Metadata entries for a Subtask list
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @Deprecated
 public class SubtasksMetadata {
 
     public static final String LIST_ACTIVE_TASKS = "[AT]"; //$NON-NLS-1$
 
-    /** metadata key */
+    /**
+     * metadata key
+     */
     public static final String METADATA_KEY = "subtasks"; //$NON-NLS-1$
 
-    /** tag name */
+    /**
+     * tag name
+     */
     public static final StringProperty TAG = new StringProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 

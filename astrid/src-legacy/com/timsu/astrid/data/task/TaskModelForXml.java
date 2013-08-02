@@ -5,9 +5,6 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.Date;
-import java.util.HashMap;
-
 import android.database.Cursor;
 
 import com.timsu.astrid.data.LegacyAbstractController;
@@ -15,10 +12,13 @@ import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 
+import java.util.Date;
+import java.util.HashMap;
+
 @SuppressWarnings("nls")
 public class TaskModelForXml extends AbstractTaskModel {
 
-    static String[] FIELD_LIST = new String[] {
+    static String[] FIELD_LIST = new String[]{
             LegacyAbstractController.KEY_ROWID,
             NAME,
             IMPORTANCE,
@@ -117,71 +117,51 @@ public class TaskModelForXml extends AbstractTaskModel {
 
     public boolean setField(String field, String value) {
         boolean success = true;
-        if(field.equals(NAME)) {
+        if (field.equals(NAME)) {
             setName(value);
-        }
-        else if(field.equals(NOTES)) {
+        } else if (field.equals(NOTES)) {
             setNotes(value);
-        }
-        else if(field.equals(PROGRESS_PERCENTAGE)) {
+        } else if (field.equals(PROGRESS_PERCENTAGE)) {
             setProgressPercentage(Integer.parseInt(value));
-        }
-        else if(field.equals(IMPORTANCE)) {
+        } else if (field.equals(IMPORTANCE)) {
             setImportance(Importance.valueOf(value));
-        }
-        else if(field.equals(ESTIMATED_SECONDS)) {
+        } else if (field.equals(ESTIMATED_SECONDS)) {
             setEstimatedSeconds(Integer.parseInt(value));
-        }
-        else if(field.equals(ELAPSED_SECONDS)) {
+        } else if (field.equals(ELAPSED_SECONDS)) {
             setElapsedSeconds(Integer.parseInt(value));
-        }
-        else if(field.equals(TIMER_START)) {
+        } else if (field.equals(TIMER_START)) {
             setTimerStart(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(DEFINITE_DUE_DATE)) {
+        } else if (field.equals(DEFINITE_DUE_DATE)) {
             setDefiniteDueDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(PREFERRED_DUE_DATE)) {
+        } else if (field.equals(PREFERRED_DUE_DATE)) {
             setPreferredDueDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(HIDDEN_UNTIL)) {
+        } else if (field.equals(HIDDEN_UNTIL)) {
             setHiddenUntil(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(BLOCKING_ON)) {
+        } else if (field.equals(BLOCKING_ON)) {
             setBlockingOn(new TaskIdentifier(Long.parseLong(value)));
-        }
-        else if(field.equals(POSTPONE_COUNT)) {
+        } else if (field.equals(POSTPONE_COUNT)) {
             setPostponeCount(Integer.parseInt(value));
-        }
-        else if(field.equals(NOTIFICATIONS)) {
+        } else if (field.equals(NOTIFICATIONS)) {
             setNotificationIntervalSeconds(Integer.parseInt(value));
-        }
-        else if(field.equals(CREATION_DATE)) {
+        } else if (field.equals(CREATION_DATE)) {
             setCreationDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(COMPLETION_DATE)) {
+        } else if (field.equals(COMPLETION_DATE)) {
             setCompletionDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(NOTIFICATION_FLAGS)) {
+        } else if (field.equals(NOTIFICATION_FLAGS)) {
             setNotificationFlags(Integer.parseInt(value));
-        }
-        else if(field.equals(LAST_NOTIFIED)) {
+        } else if (field.equals(LAST_NOTIFIED)) {
             setLastNotificationTime(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(REPEAT_INTERVAL)) {
+        } else if (field.equals(REPEAT_INTERVAL)) {
             try {
                 setRepeatInterval(RepeatInterval.valueOf(value));
             } catch (Exception e) {
                 // bad saving format, old backup
             }
-        }
-        else if(field.equals(REPEAT_VALUE)) {
+        } else if (field.equals(REPEAT_VALUE)) {
             setRepeatValue(Integer.parseInt(value));
-        }
-        else if(field.equals(FLAGS)) {
+        } else if (field.equals(FLAGS)) {
             setFlags(Integer.parseInt(value));
-        }
-        else {
+        } else {
             success = false;
         }
         return success;

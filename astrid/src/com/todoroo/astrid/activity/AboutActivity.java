@@ -41,12 +41,12 @@ class About {
 
         StringBuilder aboutText = new StringBuilder();
         aboutText.append("<b>").append(r.getString(R.string.app_name)).append("</b><br />").
-            append(r.getString(R.string.p_about_text, versionName).replace("\n", "<br />")).append("<br /><br />").
-            append("<a href='http://github.com/todoroo/astrid'>Source Code</a><br />").
-    		append("<a href='http://astrid.com/privacy'>Privacy Policy</a><br />").
-    		append("<a href='http://astrid.com/terms'>Terms of Use</a><br /><br />").
-    		append("Visit <a href='http://astrid.com'>astrid.com</a> " +
-    				"for more information, to add translations or help make Astrid better!");
+                append(r.getString(R.string.p_about_text, versionName).replace("\n", "<br />")).append("<br /><br />").
+                append("<a href='http://github.com/todoroo/astrid'>Source Code</a><br />").
+                append("<a href='http://astrid.com/privacy'>Privacy Policy</a><br />").
+                append("<a href='http://astrid.com/terms'>Terms of Use</a><br /><br />").
+                append("Visit <a href='http://astrid.com'>astrid.com</a> " +
+                        "for more information, to add translations or help make Astrid better!");
 
         final AlertDialog.Builder d = new AlertDialog.Builder(activity);
 

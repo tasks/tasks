@@ -4,11 +4,11 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:shape="rectangle">
-    <corners 
-        android:bottomLeftRadius="8dip"
-        android:bottomRightRadius="8dip"/>
-    <solid 
-        android:color="@color/widget_body_legacy"/>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <corners
+            android:bottomLeftRadius="8dip"
+            android:bottomRightRadius="8dip"/>
+    <solid
+            android:color="@color/widget_body_legacy"/>
 </shape>

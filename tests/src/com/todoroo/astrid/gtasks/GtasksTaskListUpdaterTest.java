@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
@@ -17,12 +14,18 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("nls")
 public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
-    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    private GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Autowired
+    private GtasksListService gtasksListService;
+    @Autowired
+    private GtasksMetadataService gtasksMetadataService;
 
     public void testBasicParentComputation() {
         Task[] tasks = givenTasksABCDE();
@@ -88,13 +91,13 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         assertNotNull("metadata was found", metadata);
         assertEquals("order", order, metadata.getValue(GtasksMetadata.ORDER).longValue());
-        assertEquals("indentation", indent, (int)metadata.getValue(GtasksMetadata.INDENT));
+        assertEquals("indentation", indent, (int) metadata.getValue(GtasksMetadata.INDENT));
     }
 
     private void thenExpectMetadataParent(Task task, Task expectedParent) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         long parent = metadata.getValue(GtasksMetadata.PARENT_TASK);
-        if(expectedParent == null)
+        if (expectedParent == null)
             assertEquals("Task " + task.getValue(Task.TITLE) + " parent none", 0, parent);
         else
             assertEquals("Task " + task.getValue(Task.TITLE) + " parent " +
@@ -103,7 +106,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     private void thenExpectSibling(Task task, Task expectedSibling) {
         long sibling = gtasksTaskListUpdater.siblings.get(task.getId());
-        if(expectedSibling == null)
+        if (expectedSibling == null)
             assertEquals("Task " + task.getValue(Task.TITLE) + " sibling null", 0L, sibling);
         else
             assertEquals("Task " + task.getValue(Task.TITLE) + " sibling " +
@@ -112,7 +115,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     private void thenExpectParent(Task task, Task expectedParent) {
         long parent = gtasksTaskListUpdater.parents.get(task.getId());
-        if(expectedParent == null)
+        if (expectedParent == null)
             assertEquals("Task " + task.getValue(Task.TITLE) + " parent null", 0L, parent);
         else
             assertEquals("Task " + task.getValue(Task.TITLE) + " parent " +
@@ -138,25 +141,25 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     }
 
     private void whenCalculatingOrder() {
-        for(StoreObject list : gtasksListService.getLists())
+        for (StoreObject list : gtasksListService.getLists())
             gtasksTaskListUpdater.correctMetadataForList(list.getValue(GtasksList.REMOTE_ID));
     }
 
 
     /**
      * A
-     *  B
-     *  C
-     *   D
+     * B
+     * C
+     * D
      * E
      */
     private Task[] givenTasksABCDE() {
-        return new Task[] {
-            createTask("A", 0, 0),
-            createTask("B", 1, 1),
-            createTask("C", 2, 1),
-            createTask("D", 3, 2),
-            createTask("E", 4, 0),
+        return new Task[]{
+                createTask("A", 0, 0),
+                createTask("B", 1, 1),
+                createTask("C", 2, 1),
+                createTask("D", 3, 2),
+                createTask("E", 4, 0),
         };
     }
 
@@ -167,9 +170,9 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
-        if(order != GtasksMetadata.VALUE_UNSET)
+        if (order != GtasksMetadata.VALUE_UNSET)
             metadata.setValue(GtasksMetadata.ORDER, order);
-        if(indent != GtasksMetadata.VALUE_UNSET)
+        if (indent != GtasksMetadata.VALUE_UNSET)
             metadata.setValue(GtasksMetadata.INDENT, indent);
         PluginServices.getMetadataService().save(metadata);
         return task;

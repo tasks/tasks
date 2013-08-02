@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
-import java.io.IOException;
-
 import com.google.api.services.tasks.model.Task;
+
+import java.io.IOException;
 
 /**
  * Abstract class that encapsulates some push request to the server
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 public abstract class PushRequest {
     protected String listId;
@@ -28,6 +28,7 @@ public abstract class PushRequest {
     public String getListId() {
         return listId;
     }
+
     public void setListId(String listId) {
         this.listId = listId;
     }
@@ -35,6 +36,7 @@ public abstract class PushRequest {
     public Task getToPush() {
         return toPush;
     }
+
     public void setToPush(Task toPush) {
         this.toPush = toPush;
     }
@@ -42,6 +44,7 @@ public abstract class PushRequest {
     public GtasksInvoker getService() {
         return service;
     }
+
     public void setService(GtasksInvoker service) {
         this.service = service;
     }

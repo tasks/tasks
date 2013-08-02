@@ -13,7 +13,6 @@ import android.os.Parcelable;
  * a user to show/hide all of its children.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class FilterCategory extends FilterListItem {
 
@@ -24,10 +23,9 @@ public class FilterCategory extends FilterListItem {
 
     /**
      * Constructor for creating a new FilterCategory
-     * @param listingTitle
-     *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param children
-     *            filters belonging to this category
+     *
+     * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
+     * @param children     filters belonging to this category
      */
     public FilterCategory(String listingTitle, Filter[] children) {
         this.listingTitle = listingTitle;
@@ -37,8 +35,7 @@ public class FilterCategory extends FilterListItem {
     /**
      * Constructor for creating a new FilterCategory
      *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
+     * @param plugin {@link Addon} identifier that encompasses object
      */
     protected FilterCategory() {
         //
@@ -77,8 +74,8 @@ public class FilterCategory extends FilterListItem {
             Parcelable[] parcelableChildren = source.readParcelableArray(
                     FilterCategory.class.getClassLoader());
             item.children = new Filter[parcelableChildren.length];
-            for(int i = 0; i < item.children.length; i++) {
-                if(parcelableChildren[i] instanceof FilterListItem)
+            for (int i = 0; i < item.children.length; i++) {
+                if (parcelableChildren[i] instanceof FilterListItem)
                     item.children[i] = (Filter) parcelableChildren[i];
                 else
                     item.children[i] = null;

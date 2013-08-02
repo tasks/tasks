@@ -20,7 +20,8 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
-    @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    private GtasksMetadataService gtasksMetadataService;
 
     private Task task;
     private Metadata metadata;
@@ -135,7 +136,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         task.setValue(Task.TITLE, "cats");
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
-        if(id != null)
+        if (id != null)
             metadata.setValue(GtasksMetadata.ID, id);
         metadata.setValue(Metadata.TASK, task.getId());
         PluginServices.getMetadataService().save(metadata);
@@ -162,7 +163,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     @Override
     public void setContext(Context context) {
         super.setContext(context);
-        if(!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
+        if (!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
             Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
     }
 

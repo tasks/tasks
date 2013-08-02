@@ -29,8 +29,8 @@ import com.todoroo.astrid.ui.ImportanceControlSet.ImportanceChangedListener;
 
 /**
  * Control set for mapping a Property to an EditText
- * @author Tim Su <tim@todoroo.com>
  *
+ * @author Tim Su <tim@todoroo.com>
  */
 public class EditTitleControlSet extends TaskEditControlSet implements ImportanceChangedListener, RepeatChangedListener {
     private EditText editText;
@@ -117,11 +117,11 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
     private void updateCompleteBox() {
         boolean checked = completeBox.isChecked();
         int[] resourceArray = isRepeating ? (checked ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES)
-                                          : (checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES);
+                : (checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES);
         int valueToUse = importanceValue;
         if (valueToUse >= resourceArray.length)
             valueToUse = resourceArray.length - 1;
-        if(valueToUse < resourceArray.length) {
+        if (valueToUse < resourceArray.length) {
             if (isRepeating) {
                 completeBox.setImageResource(resourceArray[valueToUse]);
             } else {

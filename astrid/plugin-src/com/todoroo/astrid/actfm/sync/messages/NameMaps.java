@@ -1,10 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -16,6 +11,11 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.WaitingOnMe;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("nls")
 public class NameMaps {
@@ -73,8 +73,8 @@ public class NameMaps {
     // ---- Column name mappings -------
     // --------------------------------
     private static void putPropertyToServerName(Property<?> property, String serverName,
-            Map<Property<?>, String> propertyMap, Map<String, Property<?>> localNameMap, Map<String, String> serverNameMap,
-            Set<String> excludedFromOutstandingSet, boolean writeable) {
+                                                Map<Property<?>, String> propertyMap, Map<String, Property<?>> localNameMap, Map<String, String> serverNameMap,
+                                                Set<String> excludedFromOutstandingSet, boolean writeable) {
         propertyMap.put(property, serverName);
         localNameMap.put(property.name, property);
         serverNameMap.put(property.name, serverName);
@@ -130,22 +130,22 @@ public class NameMaps {
         TASK_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         TASK_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTaskPropertyToServerName(Task.TITLE,           "title",          true);
-        putTaskPropertyToServerName(Task.IMPORTANCE,      "importance",     true);
-        putTaskPropertyToServerName(Task.DUE_DATE,        "due",            true);
-        putTaskPropertyToServerName(Task.HIDE_UNTIL,      "hide_until",     true);
-        putTaskPropertyToServerName(Task.CREATION_DATE,   "created_at",     true);
-        putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at",   true);
-        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);
-        putTaskPropertyToServerName(Task.DELETION_DATE,   "deleted_at",     true);
-        putTaskPropertyToServerName(Task.NOTES,           "notes",          true);
-        putTaskPropertyToServerName(Task.RECURRENCE,      "repeat",         true);
-        putTaskPropertyToServerName(Task.USER_ID,         "user_id",        true);
-        putTaskPropertyToServerName(Task.CREATOR_ID,      "creator_id",     false);
-        putTaskPropertyToServerName(Task.UUID,            "uuid",           false);
-        putTaskPropertyToServerName(Task.IS_PUBLIC,       "public",         true);
-        putTaskPropertyToServerName(Task.IS_READONLY,     "read_only",      false);
-        putTaskPropertyToServerName(Task.CLASSIFICATION,  "classification", false);
+        putTaskPropertyToServerName(Task.TITLE, "title", true);
+        putTaskPropertyToServerName(Task.IMPORTANCE, "importance", true);
+        putTaskPropertyToServerName(Task.DUE_DATE, "due", true);
+        putTaskPropertyToServerName(Task.HIDE_UNTIL, "hide_until", true);
+        putTaskPropertyToServerName(Task.CREATION_DATE, "created_at", true);
+        putTaskPropertyToServerName(Task.COMPLETION_DATE, "completed_at", true);
+        putTaskPropertyToServerName(Task.RECURRENCE, "repeat", true);
+        putTaskPropertyToServerName(Task.DELETION_DATE, "deleted_at", true);
+        putTaskPropertyToServerName(Task.NOTES, "notes", true);
+        putTaskPropertyToServerName(Task.RECURRENCE, "repeat", true);
+        putTaskPropertyToServerName(Task.USER_ID, "user_id", true);
+        putTaskPropertyToServerName(Task.CREATOR_ID, "creator_id", false);
+        putTaskPropertyToServerName(Task.UUID, "uuid", false);
+        putTaskPropertyToServerName(Task.IS_PUBLIC, "public", true);
+        putTaskPropertyToServerName(Task.IS_READONLY, "read_only", false);
+        putTaskPropertyToServerName(Task.CLASSIFICATION, "classification", false);
 
         TASK_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_PROPERTIES_LOCAL_TO_SERVER);
     }
@@ -168,6 +168,7 @@ public class NameMaps {
         putPropertyToServerName(property, serverName, TAG_DATA_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_COLUMN_NAMES_TO_PROPERTIES,
                 TAG_DATA_COLUMNS_LOCAL_TO_SERVER, TAG_PROPERTIES_EXCLUDED, writeable);
     }
+
     static {
         // Hardcoded local columns mapped to corresponding server names
         TAG_DATA_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
@@ -175,15 +176,15 @@ public class NameMaps {
         TAG_DATA_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
         TAG_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTagPropertyToServerName(TagData.USER_ID,         "user_id",      true);
-        putTagPropertyToServerName(TagData.NAME,            "name",         true);
-        putTagPropertyToServerName(TagData.CREATION_DATE,   "created_at",   true);
-        putTagPropertyToServerName(TagData.DELETION_DATE,   "deleted_at",   true);
-        putTagPropertyToServerName(TagData.UUID,            "uuid",         false);
-        putTagPropertyToServerName(TagData.TASK_COUNT,      "task_count",   false);
-        putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description",  true);
-        putTagPropertyToServerName(TagData.PICTURE,         "picture",      true);
-        putTagPropertyToServerName(TagData.IS_FOLDER,       "is_folder",    false);
+        putTagPropertyToServerName(TagData.USER_ID, "user_id", true);
+        putTagPropertyToServerName(TagData.NAME, "name", true);
+        putTagPropertyToServerName(TagData.CREATION_DATE, "created_at", true);
+        putTagPropertyToServerName(TagData.DELETION_DATE, "deleted_at", true);
+        putTagPropertyToServerName(TagData.UUID, "uuid", false);
+        putTagPropertyToServerName(TagData.TASK_COUNT, "task_count", false);
+        putTagPropertyToServerName(TagData.TAG_DESCRIPTION, "description", true);
+        putTagPropertyToServerName(TagData.PICTURE, "picture", true);
+        putTagPropertyToServerName(TagData.IS_FOLDER, "is_folder", false);
 
         // Reverse the mapping to construct the server to local map
         TAG_DATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER);
@@ -191,7 +192,6 @@ public class NameMaps {
 
     public static final String MEMBER_ADDED_COLUMN = "member_added";
     public static final String MEMBER_REMOVED_COLUMN = "member_removed";
-
 
 
     // ----------
@@ -214,11 +214,11 @@ public class NameMaps {
         USER_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         USER_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putUserPropertyToServerName(User.UUID,       "uuid",       false);
-        putUserPropertyToServerName(User.PICTURE,    "picture",    false);
+        putUserPropertyToServerName(User.UUID, "uuid", false);
+        putUserPropertyToServerName(User.PICTURE, "picture", false);
         putUserPropertyToServerName(User.FIRST_NAME, "first_name", false);
-        putUserPropertyToServerName(User.LAST_NAME,  "last_name",  false);
-        putUserPropertyToServerName(User.STATUS,     "connection", true);
+        putUserPropertyToServerName(User.LAST_NAME, "last_name", false);
+        putUserPropertyToServerName(User.STATUS, "connection", true);
 
 
         // Reverse the mapping to construct the server to local map
@@ -245,15 +245,15 @@ public class NameMaps {
         USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         USER_ACTIVITY_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putUserActivityPropertyToServerName(UserActivity.UUID,        "uuid",        false);
-        putUserActivityPropertyToServerName(UserActivity.USER_UUID,   "user_id",     false);
-        putUserActivityPropertyToServerName(UserActivity.ACTION,      "action",      true);
-        putUserActivityPropertyToServerName(UserActivity.MESSAGE,     "message",     true);
-        putUserActivityPropertyToServerName(UserActivity.PICTURE,     "picture",     true);
-        putUserActivityPropertyToServerName(UserActivity.TARGET_ID,   "target_id",   true);
+        putUserActivityPropertyToServerName(UserActivity.UUID, "uuid", false);
+        putUserActivityPropertyToServerName(UserActivity.USER_UUID, "user_id", false);
+        putUserActivityPropertyToServerName(UserActivity.ACTION, "action", true);
+        putUserActivityPropertyToServerName(UserActivity.MESSAGE, "message", true);
+        putUserActivityPropertyToServerName(UserActivity.PICTURE, "picture", true);
+        putUserActivityPropertyToServerName(UserActivity.TARGET_ID, "target_id", true);
         putUserActivityPropertyToServerName(UserActivity.TARGET_NAME, "target_name", false);
-        putUserActivityPropertyToServerName(UserActivity.CREATED_AT,  "created_at",  true);
-        putUserActivityPropertyToServerName(UserActivity.DELETED_AT,  "deleted_at",  true);
+        putUserActivityPropertyToServerName(UserActivity.CREATED_AT, "created_at", true);
+        putUserActivityPropertyToServerName(UserActivity.DELETED_AT, "deleted_at", true);
 
 
         // Reverse the mapping to construct the server to local map
@@ -282,15 +282,15 @@ public class NameMaps {
         TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         TASK_ATTACHMENT_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTaskAttachmentPropertyToServerName(TaskAttachment.UUID,         "uuid",         false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.USER_UUID,    "user_id",      false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.TASK_UUID,    "task_id",      true);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.NAME,         "name",         false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.URL,          "url",          false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.SIZE,         "size",         false);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.UUID, "uuid", false);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.USER_UUID, "user_id", false);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.TASK_UUID, "task_id", true);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.NAME, "name", false);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.URL, "url", false);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.SIZE, "size", false);
         putTaskAttachmentPropertyToServerName(TaskAttachment.CONTENT_TYPE, "content_type", false);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.CREATED_AT,   "created_at",   true);
-        putTaskAttachmentPropertyToServerName(TaskAttachment.DELETED_AT,   "deleted_at",   true);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.CREATED_AT, "created_at", true);
+        putTaskAttachmentPropertyToServerName(TaskAttachment.DELETED_AT, "deleted_at", true);
 
 
         // Reverse the mapping to construct the server to local map
@@ -317,14 +317,14 @@ public class NameMaps {
         TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         TASK_LIST_METADATA_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.UUID,          "uuid",          false);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.TAG_UUID,      "tag_id",        true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.FILTER,        "filter",        true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.TASK_IDS,      "task_ids",      true);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.SORT,          "sort",          false);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.SETTINGS,      "settings",      false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.UUID, "uuid", false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.TAG_UUID, "tag_id", true);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.FILTER, "filter", true);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.TASK_IDS, "task_ids", true);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.SORT, "sort", false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.SETTINGS, "settings", false);
         putTaskListMetadataPropertyToServerName(TaskListMetadata.CHILD_TAG_IDS, "child_tag_ids", false);
-        putTaskListMetadataPropertyToServerName(TaskListMetadata.IS_COLLAPSED,  "is_collapsed",  false);
+        putTaskListMetadataPropertyToServerName(TaskListMetadata.IS_COLLAPSED, "is_collapsed", false);
 
         // Reverse the mapping to construct the server to local map
         TASK_LIST_METADATA_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER);
@@ -350,14 +350,14 @@ public class NameMaps {
         WAITING_ON_ME_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
         WAITING_ON_ME_PROPERTIES_EXCLUDED = new HashSet<String>();
 
-        putWaitingOnMePropertyToServerName(WaitingOnMe.UUID,            "uuid",            false);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.UUID, "uuid", false);
         putWaitingOnMePropertyToServerName(WaitingOnMe.WAITING_USER_ID, "waiting_user_id", false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.TASK_UUID,       "task_id",         false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.WAIT_TYPE,       "wait_type",       false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.CREATED_AT,      "created_at",      false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.DELETED_AT,      "deleted_at",      true);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.READ_AT,         "read_at",         true);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.ACKNOWLEDGED,    "acknowledged",    true);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.TASK_UUID, "task_id", false);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.WAIT_TYPE, "wait_type", false);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.CREATED_AT, "created_at", false);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.DELETED_AT, "deleted_at", true);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.READ_AT, "read_at", true);
+        putWaitingOnMePropertyToServerName(WaitingOnMe.ACKNOWLEDGED, "acknowledged", true);
 
         // Reverse the mapping to construct the server to local map
         WAITING_ON_ME_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER);
@@ -369,7 +369,7 @@ public class NameMaps {
     // ----------
 
     private static <A, B> B mapColumnName(String table, A col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap,
-            Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap, Map<A, B> waitingOnMeMap) {
+                                          Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap, Map<A, B> waitingOnMeMap) {
         Map<A, B> map = null;
         if (TABLE_ID_TASKS.equals(table))
             map = taskMap;
@@ -394,8 +394,8 @@ public class NameMaps {
 
     public static boolean shouldRecordOutstandingColumnForTable(String table, String column) {
         if (TABLE_ID_TASKS.equals(table)) {
-           if (TASK_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
-               return !TASK_PROPERTIES_EXCLUDED.contains(column);
+            if (TASK_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+                return !TASK_PROPERTIES_EXCLUDED.contains(column);
         } else if (TABLE_ID_TAGS.equals(table)) {
             if (TAG_DATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
                 return !TAG_PROPERTIES_EXCLUDED.contains(column);

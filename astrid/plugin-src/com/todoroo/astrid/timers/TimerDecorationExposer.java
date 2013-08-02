@@ -25,7 +25,6 @@ import com.todoroo.astrid.data.Task;
  * Exposes {@link TaskDecoration} for timers
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TimerDecorationExposer implements TaskDecorationExposer {
 
@@ -33,7 +32,7 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
 
     @Override
     public TaskDecoration expose(Task task) {
-        if(task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
+        if (task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
                 task.getValue(Task.TIMER_START) == 0))
             return null;
 
@@ -44,7 +43,7 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
                 TaskDecoration.POSITION_LEFT, 0);
 
         long elapsed = task.getValue(Task.ELAPSED_SECONDS) * 1000L;
-        if(task.getValue(Task.TIMER_START) != 0) {
+        if (task.getValue(Task.TIMER_START) != 0) {
             decoration.color = TIMING_BG_COLOR;
             elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
             decoration.decoration.setChronometer(R.id.timer, SystemClock.elapsedRealtime() -
@@ -66,7 +65,7 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
 
     public void updateDecoration(Context context, Task task) {
         TaskDecoration decoration = expose(task);
-        if(decoration == null)
+        if (decoration == null)
             return;
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DECORATIONS);

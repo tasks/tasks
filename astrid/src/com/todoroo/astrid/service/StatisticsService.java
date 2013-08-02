@@ -6,8 +6,6 @@
 
 package com.todoroo.astrid.service;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Context;
 
@@ -15,6 +13,8 @@ import com.localytics.android.LocalyticsSession;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
+
+import java.util.HashMap;
 
 public class StatisticsService {
 
@@ -26,10 +26,10 @@ public class StatisticsService {
      * @param context
      */
     public static void sessionStart(Context context) {
-        if(dontCollectStatistics())
+        if (dontCollectStatistics())
             return;
 
-        if(localyticsSession != null) {
+        if (localyticsSession != null) {
             localyticsSession.open(); // Multiple calls to open are ok, we just need to make sure it gets reopened after pause
         } else {
             localyticsSession = new LocalyticsSession(context.getApplicationContext(),
@@ -48,10 +48,10 @@ public class StatisticsService {
      * @param context
      */
     public static void sessionStop(Context context) {
-        if(dontCollectStatistics())
+        if (dontCollectStatistics())
             return;
 
-        if(localyticsSession != null)
+        if (localyticsSession != null)
             localyticsSession.upload();
     }
 
@@ -59,16 +59,17 @@ public class StatisticsService {
      * Indicate session was paused
      */
     public static void sessionPause() {
-        if(dontCollectStatistics())
+        if (dontCollectStatistics())
             return;
 
-        if(localyticsSession != null) {
+        if (localyticsSession != null) {
             localyticsSession.close();
         }
     }
 
     /**
      * Indicates an error occurred
+     *
      * @param name
      * @param message
      * @param trace
@@ -79,18 +80,19 @@ public class StatisticsService {
 
     /**
      * Indicates an event should be reported
+     *
      * @param event
      */
     public static void reportEvent(String event, String... attributes) {
-        if(dontCollectStatistics())
+        if (dontCollectStatistics())
             return;
 
-        if(localyticsSession != null) {
-            if(attributes.length > 0) {
+        if (localyticsSession != null) {
+            if (attributes.length > 0) {
                 HashMap<String, String> attrMap = new HashMap<String, String>();
-                for(int i = 1; i < attributes.length; i += 2) {
-                    if(attributes[i] != null)
-                        attrMap.put(attributes[i-1], attributes[i]);
+                for (int i = 1; i < attributes.length; i += 2) {
+                    if (attributes[i] != null)
+                        attrMap.put(attributes[i - 1], attributes[i]);
                 }
                 localyticsSession.tagEvent(event, attrMap);
             } else

@@ -1,12 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -24,6 +17,13 @@ import com.todoroo.astrid.data.History;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class FetchHistory<TYPE extends RemoteModel> {
 
@@ -52,7 +52,7 @@ public class FetchHistory<TYPE extends RemoteModel> {
     private ActFmPreferenceService actFmPreferenceService;
 
     public FetchHistory(RemoteModelDao<TYPE> dao, LongProperty historyTimeProperty, IntegerProperty historyHasMoreProperty,
-            String table, String uuid, String taskTitle, long modifiedAfter, int offset, SyncMessageCallback done) {
+                        String table, String uuid, String taskTitle, long modifiedAfter, int offset, SyncMessageCallback done) {
         DependencyInjectionService.getInstance().inject(this);
         this.dao = dao;
         this.historyTimeProperty = historyTimeProperty;
@@ -85,14 +85,17 @@ public class FetchHistory<TYPE extends RemoteModel> {
                 params.add(uuid);
 
                 if (modifiedAfter > 0) {
-                    params.add("modified_after"); params.add(modifiedAfter / 1000L);
+                    params.add("modified_after");
+                    params.add(modifiedAfter / 1000L);
                 }
 
                 if (offset > 0) {
-                    params.add("offset"); params.add(offset);
+                    params.add("offset");
+                    params.add(offset);
                 }
 
-                params.add("token"); params.add(token);
+                params.add("token");
+                params.add(token);
                 try {
                     JSONObject result = actFmInvoker.invoke("model_history_list", params.toArray(new Object[params.size()]));
                     JSONArray list = result.optJSONArray("list");

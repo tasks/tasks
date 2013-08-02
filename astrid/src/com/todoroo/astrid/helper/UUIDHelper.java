@@ -13,7 +13,8 @@ public class UUIDHelper {
     public static String newUUID() {
         long uuid = 0;
         do {
-            uuid = UUID.randomUUID().getLeastSignificantBits() & 0x7fffffffffffffffL;;
+            uuid = UUID.randomUUID().getLeastSignificantBits() & 0x7fffffffffffffffL;
+            ;
         } while (uuid < MIN_UUID);
         return Long.toString(uuid);
     }

@@ -1,16 +1,16 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class AcknowledgeChange extends ServerToClientMessage {
 

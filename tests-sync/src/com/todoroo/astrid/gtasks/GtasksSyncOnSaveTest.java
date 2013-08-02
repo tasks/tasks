@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
@@ -31,12 +27,20 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
 public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
-    @Autowired TaskService taskService;
-    @Autowired GtasksSyncService gtasksSyncService;
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    GtasksSyncService gtasksSyncService;
+    @Autowired
+    GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
     private static GtasksInvoker gtasksService;
     private boolean initialized = false;
@@ -49,7 +53,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
 
     public void testSyncOnCreate() throws IOException {
-        if(bypassTests) return;
+        if (bypassTests) return;
         performBasicCreation("");
     }
 
@@ -80,7 +84,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     }
 
     public void testSyncOnTitleUpdate() throws IOException {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = performBasicCreation("-title will change");
 
         String newTitle = "Title has changed!";
@@ -94,7 +98,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     }
 
     public void testSyncOnDueDateUpdate() throws IOException {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = performBasicCreation("-due date will change");
 
         long dueDate = new Date(115, 2, 14).getTime();
@@ -108,7 +112,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     }
 
     public void testSyncOnNotesUpdate() throws IOException {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = performBasicCreation("-notes will change");
 
         String notes = "Noted!";
@@ -122,7 +126,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     }
 
     public void testSyncOnCompleted() throws IOException {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = performBasicCreation("-will be completed");
 
         long completionDate = (DateUtilities.now() / 1000L) * 1000L;
@@ -137,7 +141,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     }
 
     public void testSyncOnDeleted() throws IOException {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = performBasicCreation("-will be deleted");
 
         long deletionDate = DateUtilities.now();
@@ -188,7 +192,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
             }
         }
         if (toUse == null) {
-            if(accounts.length == 0) {
+            if (accounts.length == 0) {
                 bypassTests = true;
                 return;
             }

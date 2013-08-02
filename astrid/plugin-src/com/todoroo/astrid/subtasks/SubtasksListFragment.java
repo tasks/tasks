@@ -20,7 +20,6 @@ import com.todoroo.astrid.data.TaskListMetadata;
  * Fragment for subtasks
  *
  * @author Tim Su <tim@astrid.com>
- *
  */
 public class SubtasksListFragment extends TaskListFragment {
 
@@ -36,7 +35,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
         AstridOrderedListFragmentHelper<TaskListMetadata> olfh =
-            new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksFilterUpdater());
+                new AstridOrderedListFragmentHelper<TaskListMetadata>(this, new SubtasksFilterUpdater());
         return olfh;
     }
 
@@ -73,7 +72,7 @@ public class SubtasksListFragment extends TaskListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (lastVisibleIndex >=0) {
+        if (lastVisibleIndex >= 0) {
             getListView().setSelection(lastVisibleIndex);
         }
     }

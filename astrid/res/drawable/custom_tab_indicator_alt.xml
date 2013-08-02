@@ -16,7 +16,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="false" android:state_pressed="false" android:drawable="@drawable/custom_tab_indicator_unselected_alt" />
-    <item android:state_selected="true"  android:state_pressed="false" android:drawable="@drawable/custom_tab_indicator_selected_alt_layer" />
-    
+    <item android:state_selected="false" android:state_pressed="false" android:drawable="@drawable/custom_tab_indicator_unselected_alt"/>
+    <item android:state_selected="true" android:state_pressed="false" android:drawable="@drawable/custom_tab_indicator_selected_alt_layer"/>
+
 </selector>

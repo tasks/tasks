@@ -66,16 +66,24 @@ public final class Constants {
 
     // --- notification id's
 
-    /** Notification Manager id for sync notifications */
+    /**
+     * Notification Manager id for sync notifications
+     */
     public static final int NOTIFICATION_SYNC = -1;
 
-    /** Notification Manager id for timing */
+    /**
+     * Notification Manager id for timing
+     */
     public static final int NOTIFICATION_TIMER = -2;
 
-    /** Notification Manager id for locale */
+    /**
+     * Notification Manager id for locale
+     */
     public static final int NOTIFICATION_LOCALE = -3;
 
-    /** Notification Manager id for astrid.com */
+    /**
+     * Notification Manager id for astrid.com
+     */
     public static final int NOTIFICATION_ACTFM = -5;
 
     // --- crittercism

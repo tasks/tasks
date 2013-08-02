@@ -5,33 +5,34 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
-    android:layout_width="fill_parent"
-    android:layout_height="52dip"
-    android:paddingTop="2dip"
-    android:paddingBottom="2dip"
-    android:paddingLeft="4dip"
-    android:paddingRight="4dip"
-    android:orientation="horizontal">
-    
+              android:layout_width="fill_parent"
+              android:layout_height="52dip"
+              android:paddingTop="2dip"
+              android:paddingBottom="2dip"
+              android:paddingLeft="4dip"
+              android:paddingRight="4dip"
+              android:orientation="horizontal">
+
     <!-- grabber -->
     <LinearLayout
-        android:id="@+id/row_body"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-	    <ImageView android:id="@+id/grabber"
-	        android:layout_width="wrap_content"
-	        android:layout_height="fill_parent"
-	        android:scaleType="center"
-	        android:src="@drawable/grabber"/>
-	    
-	    <TextView
-	        android:id="@+id/text"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingLeft="10dip"
-	        android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:id="@+id/row_body"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+        <ImageView
+                android:id="@+id/grabber"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:scaleType="center"
+                android:src="@drawable/grabber"/>
+
+        <TextView
+                android:id="@+id/text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
     </LinearLayout>
 </LinearLayout>

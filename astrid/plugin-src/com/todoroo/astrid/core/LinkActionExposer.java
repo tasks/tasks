@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +26,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Exposes {@link TaskDecoration} for phone numbers, emails, urls, etc
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class LinkActionExposer {
 
@@ -44,13 +43,13 @@ public class LinkActionExposer {
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        if(urlSpans.length == 0 && !hasNotes &&
+        if (urlSpans.length == 0 && !hasNotes &&
                 !hasAttachments)
             return null;
 
         PackageManager pm = context.getPackageManager();
 
-        for(URLSpan urlSpan : urlSpans) {
+        for (URLSpan urlSpan : urlSpans) {
             String url = urlSpan.getURL();
             int start = titleSpan.getSpanStart(urlSpan);
             int end = titleSpan.getSpanEnd(urlSpan);
@@ -85,12 +84,12 @@ public class LinkActionExposer {
         Intent actionIntent;
 
         // if options > 1, display open with...
-        if(resolveInfoList.size() > 1) {
+        if (resolveInfoList.size() > 1) {
             actionIntent = Intent.createChooser(itemIntent, text);
         }
 
         // else show app that gets opened
-        else if(resolveInfoList.size() == 1) {
+        else if (resolveInfoList.size() == 1) {
             actionIntent = itemIntent;
         }
 
@@ -108,11 +107,11 @@ public class LinkActionExposer {
             icon = getBitmapDrawable(R.drawable.action_web, r);
         }
 
-        if(text.length() > 15)
+        if (text.length() > 15)
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
 
         TaskAction action = new TaskAction(text,
-                PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
+                PendingIntent.getActivity(context, (int) id, actionIntent, 0), (BitmapDrawable) icon);
         return action;
     }
 

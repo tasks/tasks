@@ -5,30 +5,30 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/taskListParent"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants"
-    style="@style/Content"
-    android:orientation="vertical">
-    
+              android:id="@+id/taskListParent"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:descendantFocusability="beforeDescendants"
+              style="@style/Content"
+              android:orientation="vertical">
+
     <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="fill_parent" 
-        android:layout_height="5dip"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:visibility="gone"/>
-        
+            android:id="@+id/progressBar"
+            android:layout_width="fill_parent"
+            android:layout_height="5dip"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:visibility="gone"/>
+
     <!-- Body goes here -->
-        
+
     <!-- Footer -->
-    <com.todoroo.astrid.ui.QuickAddBar 
-        android:id="@+id/taskListFooter"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/Content" />
-        
+    <com.todoroo.astrid.ui.QuickAddBar
+            android:id="@+id/taskListFooter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/Content"/>
+
 </LinearLayout>

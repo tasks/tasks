@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.HashSet;
-import java.util.List;
-
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -17,6 +14,9 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
+
+import java.util.HashSet;
+import java.util.List;
 
 public class GtasksListService {
 
@@ -33,7 +33,7 @@ public class GtasksListService {
     }
 
     private void readLists() {
-        if(lists != null) {
+        if (lists != null) {
             return;
         }
 
@@ -41,7 +41,7 @@ public class GtasksListService {
                 where(StoreObjectCriteria.byType(GtasksList.TYPE)));
         try {
             lists = new StoreObject[cursor.getCount()];
-            for(int i = 0; i < lists.length; i++) {
+            for (int i = 0; i < lists.length; i++) {
                 cursor.moveToNext();
                 StoreObject dashboard = new StoreObject(cursor);
                 lists[i] = dashboard;
@@ -58,17 +58,18 @@ public class GtasksListService {
 
     /**
      * Get list name
+     *
      * @param listId
      * @return NOT_FOUND if no list by this id exists, otherwise list name
      */
     public String getListName(String listId) {
         StoreObject list = getList(listId);
-        if(list != LIST_NOT_FOUND_OBJECT)
+        if (list != LIST_NOT_FOUND_OBJECT)
             return list.getValue(GtasksList.NAME);
         return LIST_NOT_FOUND;
     }
 
-    public void migrateListIds (TaskLists remoteLists) {
+    public void migrateListIds(TaskLists remoteLists) {
         readLists();
 
         List<TaskList> items = remoteLists.getItems();
@@ -93,24 +94,24 @@ public class GtasksListService {
         readLists();
 
         HashSet<Long> previousLists = new HashSet<Long>(lists.length);
-        for(StoreObject list : lists)
+        for (StoreObject list : lists)
             previousLists.add(list.getId());
 
         List<TaskList> items = remoteLists.getItems();
         StoreObject[] newLists = new StoreObject[items.size()];
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             com.google.api.services.tasks.model.TaskList remote = items.get(i);
 
             String id = remote.getId();
             StoreObject local = null;
-            for(StoreObject list : lists) {
-                if(list.getValue(GtasksList.REMOTE_ID).equals(id)) {
+            for (StoreObject list : lists) {
+                if (list.getValue(GtasksList.REMOTE_ID).equals(id)) {
                     local = list;
                     break;
                 }
             }
 
-            if(local == null)
+            if (local == null)
                 local = new StoreObject();
 
             local.setValue(StoreObject.TYPE, GtasksList.TYPE);
@@ -124,7 +125,7 @@ public class GtasksListService {
         lists = newLists;
 
         // check for lists that aren't on remote server
-        for(Long listId : previousLists) {
+        for (Long listId : previousLists) {
             storeObjectDao.delete(listId);
         }
     }
@@ -159,8 +160,8 @@ public class GtasksListService {
 
     public StoreObject getList(String listId) {
         readLists();
-        for(StoreObject list : lists)
-            if(list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId))
+        for (StoreObject list : lists)
+            if (list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId))
                 return list;
         return LIST_NOT_FOUND_OBJECT;
     }

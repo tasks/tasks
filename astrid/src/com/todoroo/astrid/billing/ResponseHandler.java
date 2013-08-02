@@ -21,7 +21,7 @@ import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
  * application might also want to forward some responses on to its own server,
  * and that could be done here (in a background thread) but this example does
  * not do that.
- *
+ * <p/>
  * You should modify and obfuscate this code before using it.
  */
 public class ResponseHandler {
@@ -36,6 +36,7 @@ public class ResponseHandler {
 
     /**
      * Registers an observer that updates the UI.
+     *
      * @param observer the observer to register
      */
     public static synchronized void register(PurchaseObserver observer) {
@@ -44,6 +45,7 @@ public class ResponseHandler {
 
     /**
      * Unregisters a previously registered observer.
+     *
      * @param observer the previously registered observer.
      */
     public static synchronized void unregister(PurchaseObserver observer) {
@@ -54,6 +56,7 @@ public class ResponseHandler {
      * Notifies the application of the availability of the MarketBillingService.
      * This method is called in response to the application calling
      * {@link BillingService#checkBillingSupported()}.
+     *
      * @param supported true if in-app billing is supported.
      */
     public static void checkBillingSupportedResponse(boolean supported, String type) {
@@ -68,9 +71,9 @@ public class ResponseHandler {
      * we need to start the activity on the activity stack of the application.
      *
      * @param pendingIntent a PendingIntent that we received from Android Market that
-     *     will create the new buy page activity
-     * @param intent an intent containing a request id in an extra field that
-     *     will be passed to the buy page activity when it is created
+     *                      will create the new buy page activity
+     * @param intent        an intent containing a request id in an extra field that
+     *                      will be passed to the buy page activity when it is created
      */
     public static void buyPageIntentResponse(PendingIntent pendingIntent, Intent intent) {
         if (sPurchaseObserver == null) {
@@ -92,14 +95,15 @@ public class ResponseHandler {
      * the user has purchased an item, in which case the BillingService will
      * also call this method. Finally, this method can be called if the item
      * was refunded.
-     * @param purchaseState the state of the purchase request (PURCHASED,
-     *     CANCELED, or REFUNDED)
-     * @param productId a string identifying a product for sale
-     * @param orderId a string identifying the order
-     * @param purchaseTime the time the product was purchased, in milliseconds
-     *     since the epoch (Jan 1, 1970)
+     *
+     * @param purchaseState    the state of the purchase request (PURCHASED,
+     *                         CANCELED, or REFUNDED)
+     * @param productId        a string identifying a product for sale
+     * @param orderId          a string identifying the order
+     * @param purchaseTime     the time the product was purchased, in milliseconds
+     *                         since the epoch (Jan 1, 1970)
      * @param developerPayload the developer provided "payload" associated with
-     *     the order
+     *                         the order
      */
     public static void purchaseResponse(
             final Context context, final PurchaseState purchaseState, final String productId,
@@ -111,7 +115,7 @@ public class ResponseHandler {
 
                 // This needs to be synchronized because the UI thread can change the
                 // value of sPurchaseObserver.
-                synchronized(ResponseHandler.class) {
+                synchronized (ResponseHandler.class) {
                     if (sPurchaseObserver != null) {
                         sPurchaseObserver.postPurchaseStateChange(
                                 purchaseState, productId, 1, purchaseTime, developerPayload, purchaseToken);
@@ -128,14 +132,15 @@ public class ResponseHandler {
      * the server. This is NOT used for any purchase state changes. All
      * purchase state changes are received in the {@link BillingReceiver} and
      * are handled in {@link Security#verifyPurchase(String, String)}.
-     * @param context the context
-     * @param request the RequestPurchase request for which we received a
-     *     response code
+     *
+     * @param context      the context
+     * @param request      the RequestPurchase request for which we received a
+     *                     response code
      * @param responseCode a response code from Market to indicate the state
-     * of the request
+     *                     of the request
      */
     public static void responseCodeReceived(Context context, RequestPurchase request,
-            ResponseCode responseCode) {
+                                            ResponseCode responseCode) {
         if (sPurchaseObserver != null) {
             sPurchaseObserver.onRequestPurchaseResponse(request, responseCode);
         }
@@ -144,14 +149,15 @@ public class ResponseHandler {
     /**
      * This is called when we receive a response code from Android Market for a
      * RestoreTransactions request.
-     * @param context the context
-     * @param request the RestoreTransactions request for which we received a
-     *     response code
+     *
+     * @param context      the context
+     * @param request      the RestoreTransactions request for which we received a
+     *                     response code
      * @param responseCode a response code from Market to indicate the state
-     *     of the request
+     *                     of the request
      */
     public static void responseCodeReceived(Context context, RestoreTransactions request,
-            ResponseCode responseCode) {
+                                            ResponseCode responseCode) {
         if (sPurchaseObserver != null) {
             sPurchaseObserver.onRestoreTransactionsResponse(request, responseCode);
         }

@@ -17,7 +17,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true"
-          android:drawable="@drawable/btn_dismiss_pressed" />
-    <item android:drawable="@drawable/btn_dismiss_normal" />
+          android:drawable="@drawable/btn_dismiss_pressed"/>
+    <item android:drawable="@drawable/btn_dismiss_normal"/>
 
 </selector>

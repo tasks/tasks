@@ -1,11 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.text.TextUtils;
@@ -41,6 +35,12 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DraggableListView;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
+
 public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
 
 
@@ -48,8 +48,10 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final AstridOrderedListUpdater<LIST> updater;
     private final TaskListFragment fragment;
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    MetadataService metadataService;
 
     private DraggableTaskAdapter taskAdapter;
 
@@ -89,7 +91,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         getTouchListView().setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        if(Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0)
+        if (Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0)
             showSubtasksHelp();
     }
 
@@ -119,11 +121,12 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         @Override
         public void drop(int from, int to) {
             String targetTaskId = taskAdapter.getItemUuid(from);
-            if (!RemoteModel.isValidUuid(targetTaskId)) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            if (!RemoteModel.isValidUuid(targetTaskId))
+                return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             String destinationTaskId = taskAdapter.getItemUuid(to);
 
             try {
-                if(to >= getListView().getCount())
+                if (to >= getListView().getCount())
                     updater.moveTo(list, getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
                 else
                     updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
@@ -149,7 +152,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         protected void indent(int which, int delta) {
             String targetTaskId = taskAdapter.getItemUuid(which);
-            if (!RemoteModel.isValidUuid(targetTaskId)) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            if (!RemoteModel.isValidUuid(targetTaskId))
+                return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             try {
                 updater.indent(list, getFilter(), targetTaskId, delta);
             } catch (Exception e) {
@@ -164,7 +168,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final GrabberClickListener rowClickListener = new GrabberClickListener() {
         @Override
         public void onLongClick(final View v) {
-            if(v == null)
+            if (v == null)
                 return;
 
             fragment.registerForContextMenu(getListView());
@@ -174,14 +178,14 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         @Override
         public void onClick(View v) {
-            if(v == null)
+            if (v == null)
                 return;
             ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
         }
     };
 
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
-            AtomicReference<String> sqlQueryTemplate) {
+                                         AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(fragment, TaskListFragment.getTaskRowResource(),
                 cursor, sqlQueryTemplate, false, null);
@@ -201,8 +205,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final class DraggableTaskAdapter extends TaskAdapter {
 
         private DraggableTaskAdapter(TaskListFragment activity, int resource,
-                Cursor c, AtomicReference<String> query, boolean autoRequery,
-                OnCompletedTaskListener onCompletedTaskListener) {
+                                     Cursor c, AtomicReference<String> query, boolean autoRequery,
+                                     OnCompletedTaskListener onCompletedTaskListener) {
             super(activity, resource, c, query, autoRequery,
                     onCompletedTaskListener);
 
@@ -211,7 +215,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         @Override
         protected ViewHolder getTagFromCheckBox(View v) {
-            return (ViewHolder)((View)v.getParent()).getTag();
+            return (ViewHolder) ((View) v.getParent()).getTag();
         }
 
         @Override
@@ -234,7 +238,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     }
 
     private final Map<String, ArrayList<String>> chainedCompletions =
-        Collections.synchronizedMap(new HashMap<String, ArrayList<String>>());
+            Collections.synchronizedMap(new HashMap<String, ArrayList<String>>());
 
     private void setCompletedForItemAndSubtasks(final Task item, final boolean completedState) {
         final String itemId = item.getUuid();
@@ -242,10 +246,10 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         final Task model = new Task();
         final long completionDate = completedState ? DateUtilities.now() : 0;
 
-        if(completedState == false) {
+        if (completedState == false) {
             ArrayList<String> chained = chainedCompletions.get(itemId);
-            if(chained != null) {
-                for(String taskId : chained) {
+            if (chained != null) {
+                for (String taskId : chained) {
                     model.setValue(Task.COMPLETION_DATE, completionDate);
                     taskService.update(Task.UUID.eq(taskId), model);
                     model.clear();
@@ -271,11 +275,11 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             }
         });
 
-        if(chained.size() > 0) {
+        if (chained.size() > 0) {
             // move recurring items to item parent
             TodorooCursor<Task> recurring = taskService.query(Query.select(Task.UUID, Task.RECURRENCE).where(
                     Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
-                                   Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
+                            Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
             try {
                 Task t = new Task();
                 boolean madeChanges = false;

@@ -52,6 +52,7 @@ public class TaskListFragmentPager extends ViewPager {
 
     /**
      * Show the supplied filter, adding it to the data source if it doesn't exist
+     *
      * @param f
      */
     public void showFilter(Filter f) {
@@ -61,6 +62,7 @@ public class TaskListFragmentPager extends ViewPager {
 
     /**
      * Show the filter at the supplied index, with animation
+     *
      * @param index
      */
     public void showFilter(int index) {
@@ -69,6 +71,7 @@ public class TaskListFragmentPager extends ViewPager {
 
     /**
      * Returns the currently showing fragment
+     *
      * @return
      */
     public TaskListFragment getCurrentFragment() {

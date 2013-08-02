@@ -6,6 +6,9 @@
 package com.todoroo.andlib.test;
 
 
+import android.content.res.Resources;
+
+import com.timsu.astrid.R;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -14,17 +17,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import android.content.res.Resources;
-
-import com.timsu.astrid.R;
-
 /**
  * Tests translations for consistency with the default values. You must
  * extend this class and create it with your own values for strings
  * and arrays.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 abstract public class TranslationTests extends TodorooTestCase {
 
@@ -50,10 +48,14 @@ abstract public class TranslationTests extends TodorooTestCase {
     private static final class FormatStringData {
         private static final char[] scratch = new char[10];
 
-        /** format characters */
+        /**
+         * format characters
+         */
         public final char[] characters;
 
-        /** the original string */
+        /**
+         * the original string
+         */
         public final String string;
 
         public FormatStringData(String string) {
@@ -61,32 +63,35 @@ abstract public class TranslationTests extends TodorooTestCase {
 
             int pos = -1;
             int count = 0;
-            while(true) {
+            while (true) {
                 pos = string.indexOf('%', ++pos);
-                if(pos++ == -1)
+                if (pos++ == -1)
                     break;
-                if(pos >= string.length())
+                if (pos >= string.length())
                     scratch[count++] = '\0';
                 else
                     scratch[count++] = string.charAt(pos);
             }
             characters = new char[count];
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
                 characters[i] = scratch[i];
             }
         }
 
-        /** test that the characters match */
+        /**
+         * test that the characters match
+         */
         public boolean matches(FormatStringData other) {
-            if(characters.length != other.characters.length)
+            if (characters.length != other.characters.length)
                 return false;
-            outer: for(int i = 0; i < characters.length; i++) {
-                if(Character.isDigit(characters[i])) {
-                    for(int j = 0; j < other.characters.length; j++)
-                        if(characters[i] == other.characters[j])
+            outer:
+            for (int i = 0; i < characters.length; i++) {
+                if (Character.isDigit(characters[i])) {
+                    for (int j = 0; j < other.characters.length; j++)
+                        if (characters[i] == other.characters[j])
                             break outer;
                     return false;
-                } else if(characters[i] != other.characters[i])
+                } else if (characters[i] != other.characters[i])
                     return false;
 
             }
@@ -96,9 +101,9 @@ abstract public class TranslationTests extends TodorooTestCase {
         @Override
         public String toString() {
             StringBuilder value = new StringBuilder("[");
-            for(int i = 0; i < characters.length; i++) {
+            for (int i = 0; i < characters.length; i++) {
                 value.append(characters[i]);
-                if(i < characters.length - 1)
+                if (i < characters.length - 1)
                     value.append(',');
             }
             value.append("]: '").append(string).append('\'');
@@ -149,7 +154,7 @@ abstract public class TranslationTests extends TodorooTestCase {
 
         final StringBuilder failures = new StringBuilder();
 
-        for(int i = 0; i < strings.length; i++) {
+        for (int i = 0; i < strings.length; i++) {
             try {
                 String string = r.getString(strings[i]);
                 formatStrings[i] = new FormatStringData(string);
@@ -164,13 +169,13 @@ abstract public class TranslationTests extends TodorooTestCase {
         forEachLocale(new Runnable() {
             public void run() {
                 Locale locale = r.getConfiguration().locale;
-                for(int i = 0; i < strings.length; i++) {
+                for (int i = 0; i < strings.length; i++) {
                     try {
                         if (strings[i] == R.string.premium_speech_bubble_2) // Special exception--this string contains a % character
                             continue;
                         String string = r.getString(strings[i]);
                         FormatStringData newFS = new FormatStringData(string);
-                        if(!newFS.matches(formatStrings[i])) {
+                        if (!newFS.matches(formatStrings[i])) {
                             String name = r.getResourceName(strings[i]);
                             failures.append(String.format("%s (%s): %s != %s\n",
                                     name, locale.toString(), newFS, formatStrings[i]));
@@ -200,7 +205,7 @@ abstract public class TranslationTests extends TodorooTestCase {
         forEachLocale(new Runnable() {
             public void run() {
                 Locale locale = r.getConfiguration().locale;
-                for(int i = 0; i < dateStrings.length; i++) {
+                for (int i = 0; i < dateStrings.length; i++) {
                     try {
                         String string = r.getString(dateStrings[i]);
                         try {
@@ -232,7 +237,7 @@ abstract public class TranslationTests extends TodorooTestCase {
         final int[] sizes = new int[arrays.length];
         final StringBuilder failures = new StringBuilder();
 
-        for(int i = 0; i < arrays.length; i++) {
+        for (int i = 0; i < arrays.length; i++) {
             try {
                 sizes[i] = r.getStringArray(arrays[i]).length;
             } catch (Resources.NotFoundException e) {
@@ -245,8 +250,8 @@ abstract public class TranslationTests extends TodorooTestCase {
 
         forEachLocale(new Runnable() {
             public void run() {
-                for(int i = 0; i < arrays.length; i++) {
-                    if(sizes[i] == -1)
+                for (int i = 0; i < arrays.length; i++) {
+                    if (sizes[i] == -1)
                         continue;
                     int size;
                     try {
@@ -259,7 +264,7 @@ abstract public class TranslationTests extends TodorooTestCase {
                         continue;
                     }
 
-                    if(size != sizes[i]) {
+                    if (size != sizes[i]) {
                         String name = r.getResourceName(arrays[i]);
                         Locale locale = r.getConfiguration().locale;
                         failures.append(String.format("%s (%s): size %d != %d\n",
@@ -279,9 +284,9 @@ abstract public class TranslationTests extends TodorooTestCase {
     private int errorCount(StringBuilder failures) {
         int count = 0;
         int pos = -1;
-        while(true) {
+        while (true) {
             pos = failures.indexOf("\n", pos + 1);
-            if(pos == -1)
+            if (pos == -1)
                 return count;
             count++;
         }
@@ -293,7 +298,7 @@ abstract public class TranslationTests extends TodorooTestCase {
     public int[] getResourceIds(Class<?> resources) throws Exception {
         Field[] fields = resources.getDeclaredFields();
         List<Integer> ids = new ArrayList<Integer>(fields.length);
-        for(int i = 0; i < fields.length; i++) {
+        for (int i = 0; i < fields.length; i++) {
             try {
                 ids.add(fields[i].getInt(null));
             } catch (Exception e) {
@@ -301,7 +306,7 @@ abstract public class TranslationTests extends TodorooTestCase {
             }
         }
         int[] idsAsIntArray = new int[ids.size()];
-        for(int i = 0; i < ids.size(); i++)
+        for (int i = 0; i < ids.size(); i++)
             idsAsIntArray[i] = ids.get(i);
         return idsAsIntArray;
     }

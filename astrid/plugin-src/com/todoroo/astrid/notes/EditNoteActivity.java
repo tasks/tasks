@@ -5,16 +5,6 @@
  */
 package com.todoroo.astrid.notes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -84,6 +74,16 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import edu.mit.mobile.android.imagecache.ImageCache;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
@@ -92,12 +92,18 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private Task task;
 
-    @Autowired ActFmSyncService actFmSyncService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired MetadataService metadataService;
-    @Autowired UserActivityDao userActivityDao;
-    @Autowired TaskService taskService;
-    @Autowired TaskDao taskDao;
+    @Autowired
+    ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    UserActivityDao userActivityDao;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    TaskDao taskDao;
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private EditText commentField;
@@ -125,7 +131,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final SyncMessageCallback callback = new SyncMessageCallback() {
         @Override
         public void runOnSuccess() {
-            synchronized(this) {
+            synchronized (this) {
                 if (activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -143,6 +149,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             }
         }
+
         @Override
         public void runOnErrors(List<JSONArray> errors) {/**/}
     };
@@ -153,6 +160,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public interface UpdatesChangedListener {
         public void updatesChanged();
+
         public void commentAdded();
     }
 
@@ -193,30 +201,29 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         task = PluginServices.getTaskService().fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, Task.USER_ACTIVITIES_PUSHED_AT, Task.ATTACHMENTS_PUSHED_AT);
     }
 
-    public void loadViewForTaskID(long t){
+    public void loadViewForTaskID(long t) {
         try {
             fetchTask(t);
         } catch (SQLiteException e) {
             StartupService.handleSQLiteError(ContextManager.getContext(), e);
         }
-        if(task == null) {
+        if (task == null) {
             return;
         }
         setUpInterface();
         setUpListAdapter();
 
-        if(actFmPreferenceService.isLoggedIn()) {
+        if (actFmPreferenceService.isLoggedIn()) {
             long pushedAt = task.getValue(Task.USER_ACTIVITIES_PUSHED_AT);
-            if(DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) {
+            if (DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) {
                 refreshData();
             } else {
                 loadingText.setText(R.string.ENA_no_comments);
-                if(items.size() == 0)
+                if (items.size() == 0)
                     loadingText.setVisibility(View.VISIBLE);
             }
         }
     }
-
 
 
     // --- UI preparation
@@ -235,8 +242,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     if (hasFocus) {
                         timerView.setVisibility(View.GONE);
                         commentButton.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         timerView.setVisibility(View.VISIBLE);
                         commentButton.setVisibility(View.GONE);
                     }
@@ -260,6 +266,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //
@@ -269,7 +276,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL && commentField.getText().length() > 0) {
+                if (actionId == EditorInfo.IME_NULL && commentField.getText().length() > 0) {
                     addComment();
                     return true;
                 }
@@ -301,7 +308,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 respondToPicture = true;
             }
         });
-        if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
+        if (!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
             TextView notes = new TextView(getContext());
             notes.setLinkTextColor(Color.rgb(100, 160, 255));
             notes.setTextSize(18);
@@ -333,7 +340,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                                 NoteMetadata.METADATA_KEY)));
         try {
             Metadata metadata = new Metadata();
-            for(notes.moveToFirst(); !notes.isAfterLast(); notes.moveToNext()) {
+            for (notes.moveToFirst(); !notes.isAfterLast(); notes.moveToNext()) {
                 metadata.readFromCursor(notes);
                 items.add(NoteOrUpdate.fromMetadata(metadata));
             }
@@ -348,7 +355,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             UserActivity update = new UserActivity();
             History history = new History();
             User user = new User();
-            for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
+            for (updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.clear();
                 user.clear();
 
@@ -367,7 +374,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
                     historyCount++;
                 }
-                if(noa != null)
+                if (noa != null)
                     items.add(noa);
             }
         } finally {
@@ -377,7 +384,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
             @Override
             public int compare(NoteOrUpdate a, NoteOrUpdate b) {
-                if(a.createdAt < b.createdAt)
+                if (a.createdAt < b.createdAt)
                     return 1;
                 else if (a.createdAt == b.createdAt)
                     return 0;
@@ -407,8 +414,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             });
             this.addView(loadMore);
-        }
-        else if (items.size() == 0) {
+        } else if (items.size() == 0) {
             TextView noUpdates = new TextView(getContext());
             noUpdates.setText(R.string.TEA_no_activity);
             noUpdates.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
@@ -426,26 +432,29 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
 
-
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
+        View convertView = ((Activity) getContext()).getLayoutInflater().inflate(
                 R.layout.update_adapter_row, parent, false);
 
         bindView(convertView, note);
         return convertView;
     }
 
-    /** Helper method to set the contents and visibility of each field */
+    /**
+     * Helper method to set the contents and visibility of each field
+     */
     public synchronized void bindView(View view, NoteOrUpdate item) {
         // picture
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+        final AsyncImageView pictureView = (AsyncImageView) view.findViewById(R.id.picture);
+        {
             pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             pictureView.setUrl(item.picture);
 
         }
 
         // name
-        final TextView nameView = (TextView)view.findViewById(R.id.title); {
+        final TextView nameView = (TextView) view.findViewById(R.id.title);
+        {
             nameView.setText(item.title);
             if (NameMaps.TABLE_ID_HISTORY.equals(item.type))
                 nameView.setTextColor(grayColor);
@@ -455,7 +464,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         // date
-        final TextView date = (TextView)view.findViewById(R.id.date); {
+        final TextView date = (TextView) view.findViewById(R.id.date);
+        {
             CharSequence dateString = DateUtils.getRelativeTimeSpanString(item.createdAt,
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
@@ -463,13 +473,14 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         // picture
-        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+        final AsyncImageView commentPictureView = (AsyncImageView) view.findViewById(R.id.comment_picture);
+        {
             UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.pictureThumb, item.pictureFull, item.commentBitmap, item.title.toString(), fragment, imageCache);
         }
     }
 
     public void refreshData() {
-        if(!task.containsNonNullValue(Task.UUID)) {
+        if (!task.containsNonNullValue(Task.UUID)) {
             return;
         }
 
@@ -565,9 +576,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         public static NoteOrUpdate fromMetadata(Metadata m) {
-            if(!m.containsNonNullValue(NoteMetadata.THUMBNAIL))
+            if (!m.containsNonNullValue(NoteMetadata.THUMBNAIL))
                 m.setValue(NoteMetadata.THUMBNAIL, ""); //$NON-NLS-1$
-            if(!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE))
+            if (!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE))
                 m.setValue(NoteMetadata.COMMENT_PICTURE, ""); //$NON-NLS-1$
             Spanned title = Html.fromHtml(String.format("%s\n%s", m.getValue(NoteMetadata.TITLE), m.getValue(NoteMetadata.BODY))); //$NON-NLS-1$
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
@@ -669,7 +680,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             };
 
-            return (ActFmCameraModule.activityResult((Activity)getContext(),
+            return (ActFmCameraModule.activityResult((Activity) getContext(),
                     requestCode, resultCode, data, callback));
         } else {
             return false;

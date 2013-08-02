@@ -1,7 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -19,6 +17,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("deprecation") // Subtasks metadata is deprecated
 public class SubtasksMetadataMigration {

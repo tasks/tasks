@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,6 +23,9 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.AstridTimePicker.TimePickerEnabledChangedListener;
 import com.todoroo.astrid.ui.CalendarView.OnSelectedDateListener;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class DateAndTimePicker extends LinearLayout {
 
@@ -87,7 +87,7 @@ public class DateAndTimePicker extends LinearLayout {
     public void initializeWithDate(long dateValue) {
         Date date = new Date(dateValue);
         Date forCalendar;
-        if (dateValue> 0)
+        if (dateValue > 0)
             forCalendar = getDateForCalendar(date);
         else
             forCalendar = date;
@@ -149,9 +149,9 @@ public class DateAndTimePicker extends LinearLayout {
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.DateAndTimePicker);
         for (int i = 0; i < t.getIndexCount(); i++) {
             int attr = t.getIndex(i);
-            switch(attr) {
-            case R.styleable.DateAndTimePicker_shortcutLabels:
-                arrayResource = t.getResourceId(attr, R.array.TEA_urgency);
+            switch (attr) {
+                case R.styleable.DateAndTimePicker_shortcutLabels:
+                    arrayResource = t.getResourceId(attr, R.array.TEA_urgency);
             }
         }
 

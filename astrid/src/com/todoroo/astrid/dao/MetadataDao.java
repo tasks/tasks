@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -37,19 +34,21 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 /**
  * Data Access layer for {@link Metadata}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class MetadataDao extends DatabaseDao<Metadata> {
 
     @Autowired
     private Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
-	public MetadataDao() {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
+    public MetadataDao() {
         super(Metadata.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
@@ -62,20 +61,26 @@ public class MetadataDao extends DatabaseDao<Metadata> {
      */
     public static class MetadataCriteria {
 
-    	/** Returns all metadata associated with a given task */
-    	public static Criterion byTask(long taskId) {
-    	    return Metadata.TASK.eq(taskId);
-    	}
+        /**
+         * Returns all metadata associated with a given task
+         */
+        public static Criterion byTask(long taskId) {
+            return Metadata.TASK.eq(taskId);
+        }
 
-    	/** Returns all metadata associated with a given key */
-    	public static Criterion withKey(String key) {
-    	    return Metadata.KEY.eq(key);
-    	}
+        /**
+         * Returns all metadata associated with a given key
+         */
+        public static Criterion withKey(String key) {
+            return Metadata.KEY.eq(key);
+        }
 
-    	/** Returns all metadata associated with a given key */
-    	public static Criterion byTaskAndwithKey(long taskId, String key) {
-    	    return Criterion.and(withKey(key), byTask(taskId));
-    	}
+        /**
+         * Returns all metadata associated with a given key
+         */
+        public static Criterion byTaskAndwithKey(long taskId, String key) {
+            return Criterion.and(withKey(key), byTask(taskId));
+        }
 
     }
 
@@ -85,8 +90,8 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         return super.shouldRecordOutstanding(item) && cv != null &&
                 ((cv.containsKey(Metadata.KEY.name) &&
                         TaskToTagMetadata.KEY.equals(item.getValue(Metadata.KEY))) ||
-                (cv.containsKey(Metadata.DELETION_DATE.name) &&
-                        item.getValue(Metadata.DELETION_DATE) > 0)) &&
+                        (cv.containsKey(Metadata.DELETION_DATE.name) &&
+                                item.getValue(Metadata.DELETION_DATE) > 0)) &&
                 RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 
@@ -119,14 +124,14 @@ public class MetadataDao extends DatabaseDao<Metadata> {
      * are not identical to those in the metadata list, creates rows that
      * have no match.
      *
-     * @param taskId id of task to perform synchronization on
-     * @param metadata list of new metadata items to save
+     * @param taskId           id of task to perform synchronization on
+     * @param metadata         list of new metadata items to save
      * @param metadataCriteria criteria to load data for comparison from metadata
      */
     public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriteria) {
+                                    Criterion metadataCriteria) {
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
-        for(Metadata metadatum : metadata) {
+        for (Metadata metadatum : metadata) {
             metadatum.setValue(Metadata.TASK, taskId);
             metadatum.clearValue(Metadata.ID);
             newMetadataValues.add(metadatum.getMergedValues());
@@ -137,14 +142,14 @@ public class MetadataDao extends DatabaseDao<Metadata> {
                 metadataCriteria)));
         try {
             // try to find matches within our metadata list
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 item.readFromCursor(cursor);
                 long id = item.getId();
 
                 // clear item id when matching with incoming values
                 item.clearValue(Metadata.ID);
                 ContentValues itemMergedValues = item.getMergedValues();
-                if(newMetadataValues.contains(itemMergedValues)) {
+                if (newMetadataValues.contains(itemMergedValues)) {
                     newMetadataValues.remove(itemMergedValues);
                     continue;
                 }
@@ -157,7 +162,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         }
 
         // everything that remains shall be written
-        for(ContentValues values : newMetadataValues) {
+        for (ContentValues values : newMetadataValues) {
             item.clear();
             item.mergeWith(values);
             persist(item);
@@ -166,11 +171,11 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
     @Override
     public boolean persist(Metadata item) {
-        if(!item.containsValue(Metadata.CREATION_DATE))
+        if (!item.containsValue(Metadata.CREATION_DATE))
             item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
 
         boolean state = super.persist(item);
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
+        if (Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
             if (state && item.containsNonNullValue(Metadata.KEY) &&
                     item.getValue(Metadata.KEY).equals(TaskToTagMetadata.KEY)) {
                 StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_LIST);
@@ -183,6 +188,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
     /**
      * Fetch all metadata that are unattached to the task
+     *
      * @param database
      * @param properties
      * @return

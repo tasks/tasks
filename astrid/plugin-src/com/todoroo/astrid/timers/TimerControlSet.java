@@ -25,7 +25,6 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
  * Control Set for managing repeats
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TimerControlSet extends PopupControlSet implements TimerActionListener {
 
@@ -44,10 +43,10 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
-                );
+        );
         elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration,
                 0, R.string.DLG_hour_minutes
-                );
+        );
     }
 
     @Override
@@ -74,15 +73,15 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
     /**
      * Control set for mapping a Property to a TimeDurationControlSet
-     * @author Tim Su <tim@todoroo.com>
      *
+     * @author Tim Su <tim@todoroo.com>
      */
     public class TimeDurationTaskEditControlSet extends TaskEditControlSet {
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 
         public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId,
-                int prefixResource, int titleResource) {
+                                              int prefixResource, int titleResource) {
             super(activity, -1);
             this.property = property;
             this.controlSet = new TimeDurationControlSet(activity, v, property,

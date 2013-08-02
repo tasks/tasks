@@ -12,7 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
  * Represents an intent that can be called on a task
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskAction {
 
@@ -39,10 +38,8 @@ public class TaskAction {
     /**
      * Create an EditOperation object
      *
-     * @param text
-     *            label to display
-     * @param intent
-     *            intent to invoke. {@link #EXTRAS_TASK_ID} will be passed
+     * @param text   label to display
+     * @param intent intent to invoke. {@link #EXTRAS_TASK_ID} will be passed
      */
     public TaskAction(String text, PendingIntent intent, BitmapDrawable icon) {
         super();

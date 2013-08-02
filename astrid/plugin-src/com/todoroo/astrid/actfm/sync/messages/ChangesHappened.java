@@ -1,16 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -41,6 +30,17 @@ import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.data.WaitingOnMeOutstanding;
 
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 @SuppressWarnings("nls")
 public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
 
@@ -53,32 +53,32 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     public static final String CHANGES_KEY = "changes";
 
     public static ChangesHappened<?, ?> instantiateChangesHappened(long id, ModelType modelType) {
-        switch(modelType) {
-        case TYPE_TASK:
-            return new ChangesHappened<Task, TaskOutstanding>(id, Task.class,
-                    PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao());
-        case TYPE_TAG:
-            return new ChangesHappened<TagData, TagOutstanding>(id, TagData.class,
-                    PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao());
-        case TYPE_ACTIVITY:
-            return new ChangesHappened<UserActivity, UserActivityOutstanding>(id, UserActivity.class,
-                    PluginServices.getUserActivityDao(), PluginServices.getUserActivityOutstandingDao());
-        case TYPE_ATTACHMENT:
-            return new ChangesHappened<TaskAttachment, TaskAttachmentOutstanding>(id, TaskAttachment.class,
-                    PluginServices.getTaskAttachmentDao(), PluginServices.getTaskAttachmentOutstandingDao());
-        case TYPE_TASK_LIST_METADATA:
-            return new TaskListMetadataChangesHappened(id, TaskListMetadata.class,
-                    PluginServices.getTaskListMetadataDao(), PluginServices.getTaskListMetadataOutstandingDao());
-        case TYPE_WAITING_ON_ME:
-            return new ChangesHappened<WaitingOnMe, WaitingOnMeOutstanding>(id, WaitingOnMe.class,
-                    PluginServices.getWaitingOnMeDao(), PluginServices.getWaitingOnMeOutstandingDao());
-        default:
-            return null;
+        switch (modelType) {
+            case TYPE_TASK:
+                return new ChangesHappened<Task, TaskOutstanding>(id, Task.class,
+                        PluginServices.getTaskDao(), PluginServices.getTaskOutstandingDao());
+            case TYPE_TAG:
+                return new ChangesHappened<TagData, TagOutstanding>(id, TagData.class,
+                        PluginServices.getTagDataDao(), PluginServices.getTagOutstandingDao());
+            case TYPE_ACTIVITY:
+                return new ChangesHappened<UserActivity, UserActivityOutstanding>(id, UserActivity.class,
+                        PluginServices.getUserActivityDao(), PluginServices.getUserActivityOutstandingDao());
+            case TYPE_ATTACHMENT:
+                return new ChangesHappened<TaskAttachment, TaskAttachmentOutstanding>(id, TaskAttachment.class,
+                        PluginServices.getTaskAttachmentDao(), PluginServices.getTaskAttachmentOutstandingDao());
+            case TYPE_TASK_LIST_METADATA:
+                return new TaskListMetadataChangesHappened(id, TaskListMetadata.class,
+                        PluginServices.getTaskListMetadataDao(), PluginServices.getTaskListMetadataOutstandingDao());
+            case TYPE_WAITING_ON_ME:
+                return new ChangesHappened<WaitingOnMe, WaitingOnMeOutstanding>(id, WaitingOnMe.class,
+                        PluginServices.getWaitingOnMeDao(), PluginServices.getWaitingOnMeOutstandingDao());
+            default:
+                return null;
         }
     }
 
     public ChangesHappened(long id, Class<TYPE> modelClass, RemoteModelDao<TYPE> modelDao,
-            OutstandingEntryDao<OE> outstandingDao) {
+                           OutstandingEntryDao<OE> outstandingDao) {
         super(id, modelClass, modelDao);
 
         this.outstandingClass = DaoReflectionHelpers.getOutstandingClass(modelClass);
@@ -201,7 +201,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
 
     protected void populateChanges() {
         TodorooCursor<OE> cursor = outstandingDao.query(Query.select(DaoReflectionHelpers.getModelProperties(outstandingClass))
-               .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
+                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 try {

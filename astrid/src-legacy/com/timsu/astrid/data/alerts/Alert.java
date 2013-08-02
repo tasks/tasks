@@ -5,8 +5,6 @@
  */
 package com.timsu.astrid.data.alerts;
 
-import java.util.Date;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,36 +16,46 @@ import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
+import java.util.Date;
 
-/** A single alert on a task */
+
+/**
+ * A single alert on a task
+ */
 @SuppressWarnings("nls")
 public class Alert extends LegacyAbstractModel {
 
-    /** Version number of this model */
-    static final int                   VERSION             = 1;
+    /**
+     * Version number of this model
+     */
+    static final int VERSION = 1;
 
     // field names
 
-    public static final String                TASK                = "task";
-    public static final String                DATE                = "date";
+    public static final String TASK = "task";
+    public static final String DATE = "date";
 
-    /** Default values container */
-    private static final ContentValues defaultValues       = new ContentValues();
+    /**
+     * Default values container
+     */
+    private static final ContentValues defaultValues = new ContentValues();
 
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
     }
 
-    static String[] FIELD_LIST = new String[] {
-        LegacyAbstractController.KEY_ROWID,
-        TASK,
-        DATE,
+    static String[] FIELD_LIST = new String[]{
+            LegacyAbstractController.KEY_ROWID,
+            TASK,
+            DATE,
     };
 
     // --- database helper
 
-    /** Database Helper manages creating new tables and updating old ones */
+    /**
+     * Database Helper manages creating new tables and updating old ones
+     */
     static class AlertDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
         Context context;
@@ -61,12 +69,12 @@ public class Alert extends LegacyAbstractModel {
         @Override
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
-            append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
-                append(TASK).append(" integer not null,").
-                append(DATE).append(" integer not null,").
-                append("unique (").append(TASK).append(",").append(DATE).append(")").
-            append(");").toString();
+                    append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
+                    append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                    append(TASK).append(" integer not null,").
+                    append(DATE).append(" integer not null,").
+                    append("unique (").append(TASK).append(",").append(DATE).append(")").
+                    append(");").toString();
             db.execSQL(sql);
         }
 
@@ -75,10 +83,10 @@ public class Alert extends LegacyAbstractModel {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
 
-            switch(oldVersion) {
-            default:
-                // we don't know how to handle it... show an error
-                Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
+            switch (oldVersion) {
+                default:
+                    // we don't know how to handle it... show an error
+                    Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
             }
         }
     }

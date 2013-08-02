@@ -16,7 +16,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
-public class OpencrxCoreUtils extends SyncProviderUtilities{
+public class OpencrxCoreUtils extends SyncProviderUtilities {
 
     public static final String OPENCRX_ACTIVITY_METADATA_KEY = "opencrx"; //$NON-NLS-1$
 
@@ -38,7 +38,7 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
 
     public static final OpencrxCoreUtils INSTANCE = new OpencrxCoreUtils();
 
-    private OpencrxCoreUtils(){
+    private OpencrxCoreUtils() {
         // prevent instantiation
     }
 
@@ -58,7 +58,7 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
     public void stopOngoing() {
         SharedPreferences sharedPreferences = OpencrxCoreUtils.getPrefs();
 
-        if (sharedPreferences != null){
+        if (sharedPreferences != null) {
             Editor editor = sharedPreferences.edit();
             editor.putBoolean(getIdentifier() + PREF_ONGOING, false);
             editor.commit();
@@ -67,18 +67,19 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
 
     /**
      * Gets default creator from setting
+     *
      * @return CREATOR_NO_SYNC if should not sync, otherwise remote id
      */
     public long getDefaultCreator() {
-        long defaultCreatorId = CREATOR_NO_SYNC ;
+        long defaultCreatorId = CREATOR_NO_SYNC;
         SharedPreferences sharedPreferences = OpencrxCoreUtils.getPrefs();
 
-        if (sharedPreferences != null){
+        if (sharedPreferences != null) {
             String defCreatorString = sharedPreferences.getString(PREF_DEFAULT_CREATOR, String.valueOf(CREATOR_NO_SYNC));
 
-            try{
+            try {
                 defaultCreatorId = Long.parseLong(defCreatorString);
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 defaultCreatorId = CREATOR_NO_SYNC;
             }
         }
@@ -86,12 +87,12 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
         return defaultCreatorId;
     }
 
-    public long getDefaultAssignedUser(){
+    public long getDefaultAssignedUser() {
         SharedPreferences sharedPreferences = OpencrxCoreUtils.getPrefs();
 
-        if (sharedPreferences != null){
+        if (sharedPreferences != null) {
             return sharedPreferences.getLong(PREF_USER_ID, -1);
-        }else{
+        } else {
             return -1;
         }
     }
@@ -100,7 +101,7 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
         try {
             Context crxContext = ContextManager.getContext().createPackageContext(OPENCRX_PACKAGE, 0);
             SharedPreferences sharedPreferences = crxContext.getSharedPreferences(PREFS_FILE,
-                                            Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
+                    Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
             return sharedPreferences;
         } catch (NameNotFoundException e) {
             return null;
@@ -121,6 +122,7 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
     public String getIdentifier() {
         return IDENTIFIER;
     }
+
     @Override
     public int getSyncIntervalKey() {
         return 0;

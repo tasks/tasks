@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.io.InputStream;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -39,13 +37,16 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.TagDataService;
 
+import java.io.InputStream;
+
 @SuppressWarnings({"nls", "deprecation"})
 public class ContactListAdapter extends CursorAdapter {
 
-    @Autowired TagDataService tagDataService;
+    @Autowired
+    TagDataService tagDataService;
 
-    private static final String[] PEOPLE_PROJECTION = new String[] {
-        Email._ID, Email.CONTACT_ID, ContactsContract.Contacts.DISPLAY_NAME, Email.DATA
+    private static final String[] PEOPLE_PROJECTION = new String[]{
+            Email._ID, Email.CONTACT_ID, ContactsContract.Contacts.DISPLAY_NAME, Email.DATA
     };
 
     private boolean completeSharedTags = false;
@@ -74,10 +75,10 @@ public class ContactListAdapter extends CursorAdapter {
         TextView text2 = (TextView) view.findViewById(android.R.id.text2);
         ImageView imageView = (ImageView) view.findViewById(R.id.icon);
 
-        if(cursor.getColumnNames().length == PEOPLE_PROJECTION.length) {
+        if (cursor.getColumnNames().length == PEOPLE_PROJECTION.length) {
             int name = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
             int email = cursor.getColumnIndexOrThrow(Email.DATA);
-            if(cursor.isNull(name)) {
+            if (cursor.isNull(name)) {
                 text1.setText(cursor.getString(email));
                 text2.setText("");
             } else {
@@ -110,7 +111,7 @@ public class ContactListAdapter extends CursorAdapter {
             uri = params[0];
             InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContent, uri);
             if (input == null)
-                 return null;
+                return null;
             return BitmapFactory.decodeStream(input);
         }
 
@@ -118,19 +119,19 @@ public class ContactListAdapter extends CursorAdapter {
         protected void onPostExecute(Bitmap bitmap) {
             if (isCancelled())
                 bitmap = null;
-            if(imageView != null && uri.equals(imageView.getTag()) && bitmap != null)
+            if (imageView != null && uri.equals(imageView.getTag()) && bitmap != null)
                 imageView.setImageBitmap(bitmap);
         }
     }
 
     @Override
     public String convertToString(Cursor cursor) {
-        if(cursor.getColumnIndex(Email.DATA) > -1) {
+        if (cursor.getColumnIndex(Email.DATA) > -1) {
             int name = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
             int email = cursor.getColumnIndexOrThrow(Email.DATA);
-            if(cursor.isNull(name))
+            if (cursor.isNull(name))
                 return cursor.getString(email);
-            return cursor.getString(name) + " <" + cursor.getString(email) +">";
+            return cursor.getString(name) + " <" + cursor.getString(email) + ">";
         } else {
             int name = cursor.getColumnIndexOrThrow(TagData.NAME.name);
             return "#" + cursor.getString(name);
@@ -149,11 +150,11 @@ public class ContactListAdapter extends CursorAdapter {
         Cursor peopleCursor = mContent.query(uri, PEOPLE_PROJECTION,
                 null, null, sort);
 
-        if(!completeSharedTags)
+        if (!completeSharedTags)
             return peopleCursor;
 
         Criterion crit = Criterion.all;
-        if(constraint != null)
+        if (constraint != null)
             crit = Functions.upper(TagData.NAME).like("%" + constraint.toString().toUpperCase() + "%");
         else
             crit = Criterion.none;
@@ -161,7 +162,7 @@ public class ContactListAdapter extends CursorAdapter {
                 where(Criterion.and(TagData.USER_ID.eq(0), TagData.MEMBER_COUNT.gt(0),
                         crit)).orderBy(Order.desc(TagData.NAME)));
 
-        return new MergeCursor(new Cursor[] { tagCursor, peopleCursor });
+        return new MergeCursor(new Cursor[]{tagCursor, peopleCursor});
     }
 
     private final ContentResolver mContent;
@@ -173,7 +174,7 @@ public class ContactListAdapter extends CursorAdapter {
         ContentResolver cr = ContextManager.getContext().getContentResolver();
         ContentValues personValues = new ContentValues();
         ContentValues emailValues = new ContentValues();
-        for(int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 2000; i++) {
             personValues.clear();
             personValues.put(Contacts.People.NAME, "John " + i + " Doe");
             Uri newPersonUri = cr.insert(Contacts.People.CONTENT_URI, personValues);
@@ -186,7 +187,7 @@ public class ContactListAdapter extends CursorAdapter {
                 emailValues.put(Contacts.ContactMethods.TYPE,
                         Contacts.ContactMethods.TYPE_HOME);
                 emailValues.put(Contacts.ContactMethods.DATA,
-                    "john." + i + ".doe@test.com");
+                        "john." + i + ".doe@test.com");
                 cr.insert(emailUri, emailValues);
             }
         }

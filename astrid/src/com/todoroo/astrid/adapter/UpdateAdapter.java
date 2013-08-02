@@ -5,19 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -60,13 +47,25 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import edu.mit.mobile.android.imagecache.ImageCache;
 
 /**
  * Adapter for displaying a user's activity
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class UpdateAdapter extends CursorAdapter {
 
@@ -91,36 +90,36 @@ public class UpdateAdapter extends CursorAdapter {
     public static final StringProperty PADDING_PROPERTY = new StringProperty(null, "'0'"); //$NON-NLS-1$
 
     public static final Property<?>[] USER_PROPERTIES = {
-        USER_PICTURE,
-        USER_FIRST_NAME,
-        USER_LAST_NAME,
-        USER_NAME
+            USER_PICTURE,
+            USER_FIRST_NAME,
+            USER_LAST_NAME,
+            USER_NAME
     };
 
     public static final Property<?>[] USER_ACTIVITY_PROPERTIES = {
-        UserActivity.CREATED_AT,
-        UserActivity.UUID,
-        UserActivity.ACTION,
-        UserActivity.MESSAGE,
-        UserActivity.TARGET_ID,
-        UserActivity.TARGET_NAME,
-        UserActivity.PICTURE,
-        UserActivity.USER_UUID,
-        UserActivity.ID,
-        ACTIVITY_TYPE_PROPERTY,
+            UserActivity.CREATED_AT,
+            UserActivity.UUID,
+            UserActivity.ACTION,
+            UserActivity.MESSAGE,
+            UserActivity.TARGET_ID,
+            UserActivity.TARGET_NAME,
+            UserActivity.PICTURE,
+            UserActivity.USER_UUID,
+            UserActivity.ID,
+            ACTIVITY_TYPE_PROPERTY,
     };
 
     public static final Property<?>[] HISTORY_PROPERTIES = {
-        History.CREATED_AT,
-        History.USER_UUID,
-        History.COLUMN,
-        History.TABLE_ID,
-        History.OLD_VALUE,
-        History.NEW_VALUE,
-        History.TASK,
-        History.USER_UUID,
-        History.ID,
-        HISTORY_TYPE_PROPERTY,
+            History.CREATED_AT,
+            History.USER_UUID,
+            History.COLUMN,
+            History.TABLE_ID,
+            History.OLD_VALUE,
+            History.NEW_VALUE,
+            History.TASK,
+            History.USER_UUID,
+            History.ID,
+            HISTORY_TYPE_PROPERTY,
     };
 
 
@@ -143,18 +142,14 @@ public class UpdateAdapter extends CursorAdapter {
      * Constructor
      *
      * @param activity
-     * @param resource
-     *            layout resource to inflate
-     * @param c
-     *            database cursor
-     * @param autoRequery
-     *            whether cursor is automatically re-queried on changes
-     * @param onCompletedTaskListener
-     *            goal listener. can be null
+     * @param resource                layout resource to inflate
+     * @param c                       database cursor
+     * @param autoRequery             whether cursor is automatically re-queried on changes
+     * @param onCompletedTaskListener goal listener. can be null
      */
     public UpdateAdapter(Fragment fragment, int resource,
-            Cursor c, boolean autoRequery,
-            String fromView) {
+                         Cursor c, boolean autoRequery,
+                         String fromView) {
         super(fragment.getActivity(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
@@ -209,10 +204,12 @@ public class UpdateAdapter extends CursorAdapter {
         public History history = new History();
     }
 
-    /** Creates a new view for use in the list view */
+    /**
+     * Creates a new view for use in the list view
+     */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        ViewGroup view = (ViewGroup)inflater.inflate(resource, parent, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(resource, parent, false);
 
         view.setTag(new ModelHolder());
 
@@ -222,10 +219,12 @@ public class UpdateAdapter extends CursorAdapter {
         return view;
     }
 
-    /** Populates a view with content */
+    /**
+     * Populates a view with content
+     */
     @Override
     public void bindView(View view, Context context, Cursor c) {
-        TodorooCursor<UserActivity> cursor = (TodorooCursor<UserActivity>)c;
+        TodorooCursor<UserActivity> cursor = (TodorooCursor<UserActivity>) c;
         ModelHolder mh = ((ModelHolder) view.getTag());
 
         String type = cursor.getString(TYPE_PROPERTY_INDEX);
@@ -284,7 +283,9 @@ public class UpdateAdapter extends CursorAdapter {
 
     }
 
-    /** Helper method to set the contents and visibility of each field */
+    /**
+     * Helper method to set the contents and visibility of each field
+     */
     public synchronized void setFieldContentsAndVisibility(View view, UserActivity activity, User user, History history, String type) {
         // picture
         if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(type)) {
@@ -296,7 +297,8 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupUserActivityRow(View view, UserActivity activity, User user) {
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+        final AsyncImageView pictureView = (AsyncImageView) view.findViewById(R.id.picture);
+        {
             if (user.containsNonNullValue(USER_PICTURE)) {
                 String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 pictureView.setUrl(pictureUrl);
@@ -306,7 +308,8 @@ public class UpdateAdapter extends CursorAdapter {
             pictureView.setVisibility(View.VISIBLE);
         }
 
-        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+        final AsyncImageView commentPictureView = (AsyncImageView) view.findViewById(R.id.comment_picture);
+        {
             String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
             String pictureFull = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
             Bitmap updateBitmap = null;
@@ -317,15 +320,17 @@ public class UpdateAdapter extends CursorAdapter {
         }
 
         // name
-        final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getUpdateComment((AstridActivity)fragment.getActivity(), activity, user, linkColor, fromView));
+        final TextView nameView = (TextView) view.findViewById(R.id.title);
+        {
+            nameView.setText(getUpdateComment((AstridActivity) fragment.getActivity(), activity, user, linkColor, fromView));
             nameView.setMovementMethod(new LinkMovementMethod());
             nameView.setTextColor(color);
         }
 
 
         // date
-        final TextView date = (TextView)view.findViewById(R.id.date); {
+        final TextView date = (TextView) view.findViewById(R.id.date);
+        {
             CharSequence dateString = DateUtils.getRelativeTimeSpanString(activity.getValue(UserActivity.CREATED_AT),
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
@@ -334,7 +339,8 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private void setupHistoryRow(View view, History history, User user) {
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+        final AsyncImageView pictureView = (AsyncImageView) view.findViewById(R.id.picture);
+        {
             if (user.containsNonNullValue(USER_PICTURE)) {
                 String pictureUrl = user.getPictureUrl(USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 pictureView.setUrl(pictureUrl);
@@ -344,15 +350,17 @@ public class UpdateAdapter extends CursorAdapter {
             pictureView.setVisibility(View.VISIBLE);
         }
 
-        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture);
+        final AsyncImageView commentPictureView = (AsyncImageView) view.findViewById(R.id.comment_picture);
         commentPictureView.setVisibility(View.GONE);
 
-        final TextView nameView = (TextView)view.findViewById(R.id.title); {
+        final TextView nameView = (TextView) view.findViewById(R.id.title);
+        {
             nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, user, linkColor, fromView));
             nameView.setTextColor(grayColor);
         }
 
-        final TextView date = (TextView)view.findViewById(R.id.date); {
+        final TextView date = (TextView) view.findViewById(R.id.date);
+        {
             CharSequence dateString = DateUtils.getRelativeTimeSpanString(history.getValue(History.CREATED_AT),
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
@@ -366,7 +374,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String pictureThumb, final String pictureFull, final Bitmap updateBitmap,
-            final String message, final Fragment fragment, ImageCache imageCache) {
+                                                     final String message, final Fragment fragment, ImageCache imageCache) {
         if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
             if (updateBitmap != null)
@@ -380,7 +388,7 @@ public class UpdateAdapter extends CursorAdapter {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }  else if (updateBitmap == null) {
+            } else if (updateBitmap == null) {
                 commentPictureView.setUrl(pictureThumb);
             }
 
@@ -412,7 +420,7 @@ public class UpdateAdapter extends CursorAdapter {
         }
     }
 
-    public static String linkify (String string, String linkColor) {
+    public static String linkify(String string, String linkColor) {
         return String.format("<font color=%s>%s</font>", linkColor, string);  //$NON-NLS-1$
     }
 
@@ -697,6 +705,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     private static final HashMap<String, Integer> INTERVAL_LABELS = new HashMap<String, Integer>();
+
     static {
         INTERVAL_LABELS.put("DAILY", R.string.repeat_days); //$NON-NLS-1$
         INTERVAL_LABELS.put("WEEKDAYS", R.string.repeat_weekdays); //$NON-NLS-1$
@@ -708,7 +717,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    private static final String[] SORTED_WEEKDAYS = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
+    private static final String[] SORTED_WEEKDAYS = {"SU", "MO", "TU", "WE", "TH", "FR", "SA"};
 
     @SuppressWarnings("nls")
     private static String getRepeatString(Context context, String value) {
@@ -811,7 +820,8 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    private static final String[] PRIORITY_STRINGS = { "!!!", "!!", "!", "o" };
+    private static final String[] PRIORITY_STRINGS = {"!!!", "!!", "!", "o"};
+
     private static String priorityString(int priority) {
         return PRIORITY_STRINGS[priority];
     }

@@ -4,244 +4,247 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1年</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d 年</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1か月</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d か月</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1週間</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d 週間</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1 日</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d 日</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">1 Weekday</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1 時間</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d 時間</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1 分</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d 分</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 秒</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d 秒</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 時間</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d 時間</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 分</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d 分</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 秒</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d 秒</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">タスク 1 件</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">タスク %d 件</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1人</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d人</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">Today</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">Tomorrow</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">昨日</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">明日</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">昨日</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">確認</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">確認</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">インフォメーション</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">エラー</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">保存</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">はい</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">いいえ</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">閉じる</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">完了</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">お待ちください</string>
+    <!-- ==================================================== Generic Units == -->
 
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">タスクの同期中...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">同期中...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">同期</string>  
+    <plurals name="DUt_years">
+        <!-- plurals: years -->
+        <item quantity="one">1年</item>
+        <!-- plurals: years -->
+        <item quantity="other">%d 年</item>
+    </plurals>
+    <plurals name="DUt_months">
+        <!-- plurals: months -->
+        <item quantity="one">1か月</item>
+        <!-- plurals: months -->
+        <item quantity="other">%d か月</item>
+    </plurals>
+    <plurals name="DUt_weeks">
+        <!-- plurals: days -->
+        <item quantity="one">1週間</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d 週間</item>
+    </plurals>
+    <plurals name="DUt_days">
+        <!-- plurals: days -->
+        <item quantity="one">1 日</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d 日</item>
+    </plurals>
+    <plurals name="DUt_weekdays">
+        <!-- plurals: days -->
+        <item quantity="one">1 Weekday</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d Weekdays</item>
+    </plurals>
+    <plurals name="DUt_hours">
+        <!-- plurals: hours -->
+        <item quantity="one">1 時間</item>
+        <!-- plurals: hours -->
+        <item quantity="other">%d 時間</item>
+    </plurals>
+    <plurals name="DUt_minutes">
+        <!-- plurals: minutes -->
+        <item quantity="one">1 分</item>
+        <!-- plurals: minutes -->
+        <item quantity="other">%d 分</item>
+    </plurals>
+    <plurals name="DUt_seconds">
+        <!-- plurals: seconds -->
+        <item quantity="one">1 秒</item>
+        <!-- plurals: seconds -->
+        <item quantity="other">%d 秒</item>
+    </plurals>
+    <plurals name="DUt_hoursShort">
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="one">1 時間</item>
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="other">%d 時間</item>
+    </plurals>
+    <plurals name="DUt_minutesShort">
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="one">1 分</item>
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="other">%d 分</item>
+    </plurals>
+    <plurals name="DUt_secondsShort">
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="one">1 秒</item>
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="other">%d 秒</item>
+    </plurals>
+    <plurals name="Ntasks">
+        <!-- plurals: tasks -->
+        <item quantity="one">タスク 1 件</item>
+        <!-- plurals: tasks -->
+        <item quantity="other">タスク %d 件</item>
+    </plurals>
+    <plurals name="Npeople">
+        <!-- plurals: people -->
+        <item quantity="one">1人</item>
+        <!-- plurals: people -->
+        <item quantity="other">%d人</item>
+    </plurals>
 
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
+    <!-- slide 10a, 12c: today -->
+    <string name="today">Today</string>
 
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>  
+    <!-- tomorrow -->
+    <string name="tomorrow">Tomorrow</string>
 
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">接続エラー！インターネットに接続できるか確認してください。</string>
+    <!-- yesterday -->
+    <string name="yesterday">昨日</string>
 
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">状況</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not logged in</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">同期中</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">前回の同期:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">失敗: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Sync w/ errors: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">最後の同期: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">同期していません</string>
+    <!-- slide 12c: tomorrow, abbreviated -->
+    <string name="tmrw">明日</string>
 
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">オプション</string>
+    <!-- slide 12c: yesterday, abbreviated -->
+    <string name="yest">昨日</string>
 
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">バックグラウンド同期</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">現在の設定: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Wi-Fi のみ</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Wi-Fi が有効なときだけバックグラウンドで同期する</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">アクション</string>
+    <!-- ================================================== Generic Dialogs == -->
 
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Synchronize now</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">ログインと同期</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">ログインアカウント：</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">Status report</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">Send report</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">ログアウト</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">すべての同期データを消去します</string>
+    <!-- confirmation dialog title -->
+    <string name="DLG_confirm_title">確認</string>
 
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">There was a problem connecting to the network
-      during the last sync with %s. Please try again later.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>無効</item>
-      <item>15分毎</item>
-      <item>30分毎</item>
-      <item>1時間毎</item>
-      <item>3時間毎</item>
-      <item>6時間毎</item>
-      <item>12時間毎</item>
-      <item>毎日</item>
-      <item>3日に一度</item>
-      <item>毎週</item>
-  </string-array>    
-    
+    <!-- question dialog title -->
+    <string name="DLG_question_title">確認</string>
+
+    <!-- information dialog title -->
+    <string name="DLG_information_title">インフォメーション</string>
+
+    <!-- error dialog title -->
+    <string name="DLG_error_title">エラー</string>
+
+    <!-- general dialog save-->
+    <string name="DLG_save">保存</string>
+
+    <!-- general dialog yes-->
+    <string name="DLG_yes">はい</string>
+
+    <!-- general dialog no-->
+    <string name="DLG_no">いいえ</string>
+
+    <!-- general dialog close-->
+    <string name="DLG_close">閉じる</string>
+
+    <!-- general dialog done -->
+    <string name="DLG_done">完了</string>
+
+    <!-- error dialog (%s => error message)-->
+    <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s
+    </string>
+
+    <!-- error dialog (no message indicated)-->
+    <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+
+    <!-- Progress dialog shown when doing something slow -->
+    <string name="DLG_wait">お待ちください</string>
+
+    <!-- ====================================================== SyncProvider == -->
+
+    <!-- Sync Notification: message when sync service active -->
+    <string name="SyP_progress">タスクの同期中...</string>
+
+    <!-- Sync Notification: toast when sync activated from activity -->
+    <string name="SyP_progress_toast">同期中...</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="SyP_label">同期</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="Sync_now_label">Sync now</string>
+
+    <!-- Sync label subtitle -->
+    <string name="SyP_summary">Astrid.com, Google Tasks, saved data, local backup</string>
+
+    <!-- Error msg when io exception  -->
+    <string name="SyP_ioerror">接続エラー！インターネットに接続できるか確認してください。</string>
+
+    <!-- ================================================== SyncPreferences == -->
+
+    <!-- Status Group Label -->
+    <string name="sync_SPr_group_status">状況</string>
+
+    <!-- Sync status subtitle, %s-> status message -->
+    <string name="sync_SPr_status_subtitle">Status: %s</string>
+    <!-- Sync Status: log in -->
+    <string name="sync_status_loggedout">Not logged in</string>
+    <!-- Status: ongoing -->
+    <string name="sync_status_ongoing">同期中</string>
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">前回の同期:\n%s</string>
+    <!-- Sync Status: failure status (%s -> last attempted sync date) -->
+    <string name="sync_status_failed">失敗: %s</string>
+    <!-- Sync Status: error status (%s -> last sync date) -->
+    <string name="sync_status_errors">Sync w/ errors: %s</string>
+    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+    <string name="sync_status_failed_subtitle">最後の同期: %s</string>
+    <!-- Sync Status: never sync\'d -->
+    <string name="sync_status_never">同期していません</string>
+
+    <!-- Options Group Label -->
+    <string name="sync_SPr_group_options">オプション</string>
+
+    <!-- Preference: Synchronization Interval Title -->
+    <string name="sync_SPr_interval_title">バックグラウンド同期</string>
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
+    <string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
+    <string name="sync_SPr_interval_desc">現在の設定: %s</string>
+
+    <!-- Preference: Background Wifi Title -->
+    <string name="sync_SPr_bgwifi_title">Wi-Fi のみ</string>
+    <!-- Preference: Background Wifi Description (enabled) -->
+    <string name="sync_SPr_bgwifi_desc_enabled">Wi-Fi が有効なときだけバックグラウンドで同期する</string>
+    <!-- Preference: Background Wifi Description (disabled) -->
+    <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur
+    </string>
+
+    <!-- Actions Group Label  -->
+    <string name="sync_SPr_group_actions">アクション</string>
+
+    <!-- Synchronize Now Button -->
+    <string name="sync_SPr_sync">Synchronize now</string>
+    <!-- Synchronize Now Button if not logged in-->
+    <string name="sync_SPr_sync_log_in">ログインと同期</string>
+
+    <!-- Sync: Prefix string before logged in identifier -->
+    <string name="sync_SPr_logged_in_prefix">ログインアカウント：</string>
+
+    <!-- Sync: Last error -->
+    <string name="sync_SPr_last_error">Status report</string>
+
+    <!-- Sync: last error click for more -->
+    <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
+    <!-- Sync: send error report button -->
+    <string name="sync_SPr_send_report">Send report</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">ログアウト</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">すべての同期データを消去します</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>
+
+    <!-- Sync error: network connectivity problems. %s-> name of sync service-->
+    <string name="sync_error_offline">There was a problem connecting to the network
+        during the last sync with %s. Please try again later.
+    </string>
+
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+        <item>無効</item>
+        <item>15分毎</item>
+        <item>30分毎</item>
+        <item>1時間毎</item>
+        <item>3時間毎</item>
+        <item>6時間毎</item>
+        <item>12時間毎</item>
+        <item>毎日</item>
+        <item>3日に一度</item>
+        <item>毎週</item>
+    </string-array>
+
 </resources>

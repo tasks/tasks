@@ -24,7 +24,7 @@ public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, 
     protected final LongProperty createdAtProperty;
 
     public ConstructOutstandingTableFromMasterTable(String table, RemoteModelDao<TYPE> dao,
-            OutstandingEntryDao<OE> outstandingDao, LongProperty createdAtProperty) {
+                                                    OutstandingEntryDao<OE> outstandingDao, LongProperty createdAtProperty) {
         this.table = table;
         this.dao = dao;
         this.outstandingDao = outstandingDao;

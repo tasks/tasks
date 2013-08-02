@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -14,6 +12,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import java.util.Date;
 
 public class ReminderServiceTests extends DatabaseTestCase {
 
@@ -37,7 +37,9 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(original);
     }
 
-    /** tests with no alarms */
+    /**
+     * tests with no alarms
+     */
     public void testNoReminders() {
         service.setScheduler(new NoAlarmExpected());
 
@@ -49,7 +51,9 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.scheduleAlarm(task);
     }
 
-    /** tests with due date */
+    /**
+     * tests with due date
+     */
     public void testDueDates() {
         service.setScheduler(new AlarmExpected() {
             @Override
@@ -57,7 +61,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 if (time == ReminderService.NO_ALARM)
                     return;
                 super.createAlarm(task, time, type);
-                assertEquals((long)task.getValue(Task.DUE_DATE), time);
+                assertEquals((long) task.getValue(Task.DUE_DATE), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
@@ -72,10 +76,12 @@ public class ReminderServiceTests extends DatabaseTestCase {
         // test due date in the future
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
     }
 
-    /** tests with random */
+    /**
+     * tests with random
+     */
     public void testRandom() {
         // test random
         final Task task = new Task();
@@ -93,10 +99,12 @@ public class ReminderServiceTests extends DatabaseTestCase {
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
     }
 
-    /** tests with overdue */
+    /**
+     * tests with overdue
+     */
     public void testOverdue() {
         // test due date in the future
         service.setScheduler(new AlarmExpected() {
@@ -130,7 +138,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
 
         // test due date in the past, but recently notified
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
@@ -146,10 +154,12 @@ public class ReminderServiceTests extends DatabaseTestCase {
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
     }
 
-    /** tests with multiple */
+    /**
+     * tests with multiple
+     */
     public void testMultipleReminders() {
         // test due date in the future, enable random
         final Task task = new Task();
@@ -169,13 +179,13 @@ public class ReminderServiceTests extends DatabaseTestCase {
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
 
         // now set the due date in the past
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
-        ((AlarmExpected)service.getScheduler()).alarmCreated = false;
+        ((AlarmExpected) service.getScheduler()).alarmCreated = false;
         service.scheduleAlarm(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
 
         // now set the due date before the random
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_HOUR);
@@ -185,16 +195,18 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 if (time == ReminderService.NO_ALARM)
                     return;
                 super.createAlarm(task, time, type);
-                assertEquals((long)task.getValue(Task.DUE_DATE), time);
+                assertEquals((long) task.getValue(Task.DUE_DATE), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
     }
 
 
-    /** tests with snooze */
+    /**
+     * tests with snooze
+     */
     public void testSnoozeReminders() {
         // test due date and snooze in the future
         final Task task = new Task();
@@ -214,7 +226,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
 
         // snooze in the past
         task.setValue(Task.REMINDER_SNOOZE, DateUtilities.now() - DateUtilities.ONE_WEEK);
@@ -230,7 +242,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
             }
         });
         taskDao.save(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+        assertTrue(((AlarmExpected) service.getScheduler()).alarmCreated);
     }
 
 
@@ -238,7 +250,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
 
     public class NoAlarmExpected implements AlarmScheduler {
         public void createAlarm(Task task, long time, int type) {
-            if(time == 0 || time == Long.MAX_VALUE)
+            if (time == 0 || time == Long.MAX_VALUE)
                 return;
             fail("created alarm, no alarm expected (" + type + ": " + new Date(time));
         }
@@ -246,6 +258,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
 
     public class AlarmExpected implements AlarmScheduler {
         public boolean alarmCreated = false;
+
         public void createAlarm(Task task, long time, int type) {
             alarmCreated = true;
         }

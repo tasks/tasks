@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.Date;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,11 +23,12 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
+import java.util.Date;
+
 /**
  * Control set for specifying when a task should be hidden
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class HideUntilControlSet extends PopupControlSet implements OnItemSelectedListener {
 
@@ -57,7 +56,6 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
      * Container class for urgencies
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     private class HideUntilValue {
         public String label;
@@ -91,12 +89,12 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         values[4] = new HideUntilValue(labels[4], Task.HIDE_UNTIL_WEEK_BEFORE);
         values[5] = new HideUntilValue(labels[5], Task.HIDE_UNTIL_SPECIFIC_DAY, -1);
 
-        if(specificDate > 0) {
+        if (specificDate > 0) {
             HideUntilValue[] updated = new HideUntilValue[values.length + 1];
-            for(int i = 0; i < values.length; i++)
-                updated[i+1] = values[i];
+            for (int i = 0; i < values.length; i++)
+                updated[i + 1] = values[i];
             Date hideUntilAsDate = new Date(specificDate);
-            if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
+            if (hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
                 updated[0] = new HideUntilValue(DateUtilities.getDateString(activity, new Date(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
@@ -118,7 +116,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         // if specific date selected, show dialog
         // ... at conclusion of dialog, update our list
         HideUntilValue item = adapter.getItem(position);
-        if(item.date == SPECIFIC_DATE) {
+        if (item.date == SPECIFIC_DATE) {
             customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
             customDate.setSeconds(0);
 
@@ -226,28 +224,28 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     public void readFromTask(Task task) {
         long date = task.getValue(Task.HIDE_UNTIL);
 
-        Date dueDay = new Date(task.getValue(Task.DUE_DATE)/1000L*1000L);
+        Date dueDay = new Date(task.getValue(Task.DUE_DATE) / 1000L * 1000L);
 
         dueDay.setHours(0);
         dueDay.setMinutes(0);
         dueDay.setSeconds(0);
 
         // For the hide until due case, we need the time component
-        long dueTime = task.getValue(Task.DUE_DATE)/1000L*1000L;
+        long dueTime = task.getValue(Task.DUE_DATE) / 1000L * 1000L;
 
-        if(date == 0) {
+        if (date == 0) {
             selection = 0;
             date = 0;
-        } else if(date == dueDay.getTime()) {
+        } else if (date == dueDay.getTime()) {
             selection = 1;
             date = 0;
-        } else if (date == dueTime){
+        } else if (date == dueTime) {
             selection = 2;
             date = 0;
-        } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {
+        } else if (date + DateUtilities.ONE_DAY == dueDay.getTime()) {
             selection = 3;
             date = 0;
-        } else if(date + DateUtilities.ONE_WEEK == dueDay.getTime()) {
+        } else if (date + DateUtilities.ONE_WEEK == dueDay.getTime()) {
             selection = 4;
             date = 0;
         }
@@ -270,10 +268,10 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        if(adapter == null || spinner == null)
+        if (adapter == null || spinner == null)
             return null;
         HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
-        if(item == null)
+        if (item == null)
             return null;
         long value = task.createHideUntil(item.setting, item.date);
         task.setValue(Task.HIDE_UNTIL, value);

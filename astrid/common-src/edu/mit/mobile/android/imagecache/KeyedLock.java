@@ -1,17 +1,16 @@
 package edu.mit.mobile.android.imagecache;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-import android.util.Log;
-
 /**
  * A synchronization lock that creates a separate lock for each key.
  *
- * @author <a href="mailto:spomeroy@mit.edu">Steve Pomeroy</a>
- *
  * @param <K>
+ * @author <a href="mailto:spomeroy@mit.edu">Steve Pomeroy</a>
  */
 public class KeyedLock<K> {
     private static final String TAG = KeyedLock.class.getSimpleName();

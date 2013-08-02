@@ -13,7 +13,6 @@ import com.todoroo.andlib.sql.SqlTable;
  * clone the table when it returns.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class Table extends SqlTable {
     public final String name;
@@ -32,12 +31,13 @@ public final class Table extends SqlTable {
 
     /**
      * Reads a list of properties from model class by reflection
+     *
      * @return property array
      */
     @SuppressWarnings("nls")
     public Property<?>[] getProperties() {
         try {
-            return (Property<?>[])modelClass.getField("PROPERTIES").get(null);
+            return (Property<?>[]) modelClass.getField("PROPERTIES").get(null);
         } catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         } catch (SecurityException e) {
@@ -61,25 +61,26 @@ public final class Table extends SqlTable {
 
     /**
      * Create a field object based on the given property
+     *
      * @param property
      * @return
      */
     @SuppressWarnings("nls")
     public Field field(Property<?> property) {
-        if(alias != null)
+        if (alias != null)
             return Field.field(alias + "." + property.name);
         return Field.field(name + "." + property.name);
     }
 
     @Override
     public String toString() {
-        if(hasAlias())
+        if (hasAlias())
             return expression + " AS " + alias; //$NON-NLS-1$
         return expression;
     }
 
     public String name() {
-        if(hasAlias())
+        if (hasAlias())
             return alias;
         return name;
     }

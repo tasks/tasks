@@ -13,7 +13,6 @@ import com.todoroo.andlib.data.Table;
  * Database wrapper
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class AlarmDatabase extends AbstractDatabase {
@@ -35,8 +34,8 @@ public class AlarmDatabase extends AbstractDatabase {
      * List of table/ If you're adding a new table, add it to this list and
      * also make sure that our SQLite helper does the right thing.
      */
-    public static final Table[] TABLES =  new Table[] {
-        TransitionalAlarm.TABLE
+    public static final Table[] TABLES = new Table[]{
+            TransitionalAlarm.TABLE
     };
 
     // --- implementation
@@ -66,9 +65,9 @@ public class AlarmDatabase extends AbstractDatabase {
     protected synchronized void onCreateTables() {
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE INDEX IF NOT EXISTS a_task ON ").
-            append(TransitionalAlarm.TABLE).append('(').
+                append(TransitionalAlarm.TABLE).append('(').
                 append(TransitionalAlarm.TASK.name).
-            append(')');
+                append(')');
         database.execSQL(sql.toString());
     }
 

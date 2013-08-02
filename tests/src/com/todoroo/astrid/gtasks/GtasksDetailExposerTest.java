@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,9 +20,13 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GtasksDetailExposerTest extends DatabaseTestCase {
 
-    @Autowired private GtasksListService gtasksListService;
+    @Autowired
+    private GtasksListService gtasksListService;
     private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
     private final DetailListener detailListener = new DetailListener();
 
@@ -113,7 +114,7 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
         Task newTask = new Task();
         PluginServices.getTaskService().save(newTask);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(newTask.getId());
-        if(list != null)
+        if (list != null)
             metadata.setValue(GtasksMetadata.LIST_ID, list);
         PluginServices.getMetadataService().save(metadata);
         return task = newTask;

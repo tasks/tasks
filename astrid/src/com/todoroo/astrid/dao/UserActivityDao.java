@@ -29,7 +29,7 @@ public class UserActivityDao extends RemoteModelDao<UserActivity> {
     @Override
     public boolean saveExisting(UserActivity item) {
         ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0)
+        if (values == null || values.size() == 0)
             return false;
         return super.saveExisting(item);
     }

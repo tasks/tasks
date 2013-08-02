@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.Calendar;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
@@ -22,6 +20,8 @@ import android.widget.ToggleButton;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+
+import java.util.Calendar;
 
 public class AstridTimePicker extends LinearLayout {
 
@@ -39,7 +39,6 @@ public class AstridTimePicker extends LinearLayout {
     public interface TimePickerEnabledChangedListener {
         public void timePickerEnabledChanged(boolean hasTime);
     }
-
 
 
     public AstridTimePicker(Context context, AttributeSet attrs) {
@@ -94,7 +93,7 @@ public class AstridTimePicker extends LinearLayout {
                 CustomBorderDrawable.customButton(0, 0, cornerRadius, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
 
         if (!useShortcuts) {
-            View[] pickers = new View[] { hours, minutes };
+            View[] pickers = new View[]{hours, minutes};
             for (View view : pickers) {
                 View v = view.findViewById(R.id.timepicker_input);
                 LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();

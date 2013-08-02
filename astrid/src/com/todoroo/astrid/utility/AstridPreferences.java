@@ -41,7 +41,9 @@ public class AstridPreferences {
 
     public static final String P_SUBTASKS_HELP = "sthelp"; //$NON-NLS-1$
 
-    /** Set preference defaults, if unset. called at startup */
+    /**
+     * Set preference defaults, if unset. called at startup
+     */
     public static void setPreferenceDefaults() {
         AstridPreferenceSpec spec;
         if (Constants.ASTRID_LITE)
@@ -69,6 +71,7 @@ public class AstridPreferences {
 
     /**
      * Reset preferences based on archived AB tests
+     *
      * @param fromVersion
      */
     public static void resetPreferencesFromAbTests(long fromVersion) {
@@ -98,7 +101,9 @@ public class AstridPreferences {
      * ========================================================= public prefs
      * ====================================================================== */
 
-    /** Get publicly readable preferences */
+    /**
+     * Get publicly readable preferences
+     */
     public static SharedPreferences getPublicPrefs(Context context) {
         context = context.getApplicationContext();
         return context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS,
@@ -109,17 +114,23 @@ public class AstridPreferences {
      * ========================================================= system prefs
      * ====================================================================== */
 
-	/** CurrentVersion: the currently installed version of Astrid */
+    /**
+     * CurrentVersion: the currently installed version of Astrid
+     */
     public static int getCurrentVersion() {
         return Preferences.getInt(P_CURRENT_VERSION, 0);
     }
 
-    /** CurrentVersion: the currently installed version of Astrid */
+    /**
+     * CurrentVersion: the currently installed version of Astrid
+     */
     public static void setCurrentVersion(int version) {
         Preferences.setInt(P_CURRENT_VERSION, version);
     }
 
-    /** The name (e.g. 4.0.1) of the currently installed version of astrid*/
+    /**
+     * The name (e.g. 4.0.1) of the currently installed version of astrid
+     */
     public static String getCurrentVersionName() {
         String versionName = Preferences.getStringValue(P_CURRENT_VERSION_NAME);
         if (versionName == null)
@@ -131,10 +142,12 @@ public class AstridPreferences {
         Preferences.setString(P_CURRENT_VERSION_NAME, versionName);
     }
 
-    /** If true, can show a help popover. If false, another one was recently shown */
+    /**
+     * If true, can show a help popover. If false, another one was recently shown
+     */
     public static boolean canShowPopover() {
         long last = Preferences.getLong(P_LAST_POPOVER, 0);
-        if(System.currentTimeMillis() - last < MIN_POPOVER_TIME)
+        if (System.currentTimeMillis() - last < MIN_POPOVER_TIME)
             return false;
         Preferences.setLong(P_LAST_POPOVER, System.currentTimeMillis());
         return true;

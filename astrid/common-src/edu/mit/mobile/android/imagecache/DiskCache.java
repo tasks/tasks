@@ -17,6 +17,13 @@ package edu.mit.mobile.android.imagecache;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
+import android.os.Build;
+import android.os.StatFs;
+import android.util.Log;
+
+import com.todoroo.astrid.utility.Constants;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -37,35 +44,26 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import android.os.Build;
-import android.os.StatFs;
-import android.util.Log;
-
-import com.todoroo.astrid.utility.Constants;
-
 /**
  * <p>
  * A simple disk cache.
  * </p>
- *
+ * <p/>
  * <p>
  * By default, the maximum size of the cache is automatically set based on the amount of free space
  * available to the cache. Alternatively, a fixed size can be specified using
  * {@link #setCacheMaxSize(long)}.
  * </p>
- *
+ * <p/>
  * <p>
  * By default, the cache will automatically maintain its size by periodically checking to see if it
  * estimates that a trim is needed and if it is, proceeding to running {@link #trim()} on a worker
  * thread. This feature can be controlled by {@link #setAutoTrimFrequency(int)}.
  * </p>
  *
+ * @param <K> the key to store/retrieve the value
+ * @param <V> the value that will be stored to disk
  * @author <a href="mailto:spomeroy@mit.edu">Steve Pomeroy</a>
- *
- * @param <K>
- *            the key to store/retrieve the value
- * @param <V>
- *            the value that will be stored to disk
  */
 public abstract class DiskCache<K, V> {
     private static final String TAG = "DiskCache";
@@ -126,12 +124,9 @@ public abstract class DiskCache<K, V> {
     /**
      * Creates a new disk cache.
      *
-     * @param cacheBase
-     *            The base directory within which all the cache files will be stored.
-     * @param cachePrefix
-     *            If you want a prefix to the filenames, place one here. Otherwise, pass null.
-     * @param cacheSuffix
-     *            A suffix to the cache filename. Null is also ok here.
+     * @param cacheBase   The base directory within which all the cache files will be stored.
+     * @param cachePrefix If you want a prefix to the filenames, place one here. Otherwise, pass null.
+     * @param cacheSuffix A suffix to the cache filename. Null is also ok here.
      */
     public DiskCache(File cacheBase, String cachePrefix, String cacheSuffix) {
         mCacheBase = cacheBase;
@@ -159,8 +154,7 @@ public abstract class DiskCache<K, V> {
      * size based on the available disk space. This can be explicitly set by passing this
      * {@link #AUTO_MAX_CACHE_SIZE}.
      *
-     * @param maxSize
-     *            maximum size of the cache, in bytes.
+     * @param maxSize maximum size of the cache, in bytes.
      */
     public void setCacheMaxSize(long maxSize) {
         mMaxDiskUsage = maxSize;
@@ -170,9 +164,8 @@ public abstract class DiskCache<K, V> {
      * After this many puts, if it looks like there's a low space condition, {@link #trim()} will
      * automatically be called.
      *
-     * @param autoTrimFrequency
-     *            Set to {@link #AUTO_TRIM_DISABLED} to turn off auto trim. The default is
-     *            {@link #DEFAULT_AUTO_TRIM_FREQUENCY}.
+     * @param autoTrimFrequency Set to {@link #AUTO_TRIM_DISABLED} to turn off auto trim. The default is
+     *                          {@link #DEFAULT_AUTO_TRIM_FREQUENCY}.
      */
     public void setAutoTrimFrequency(int autoTrimFrequency) {
         mAutoTrimFrequency = autoTrimFrequency;
@@ -232,10 +225,8 @@ public abstract class DiskCache<K, V> {
      * Writes the value stored in the cache to disk by calling
      * {@link #toDisk(Object, Object, OutputStream)}.
      *
-     * @param key
-     *            The key to find the value.
-     * @param value
-     *            the data to be written to disk.
+     * @param key   The key to find the value.
+     * @param value the data to be written to disk.
      */
     public final synchronized void put(K key, V value) throws IOException, FileNotFoundException {
         final File saveHere = getFile(key);
@@ -401,7 +392,7 @@ public abstract class DiskCache<K, V> {
      *
      * @param key
      * @return true if the cached item has been removed or was already removed, false if it was not
-     *         able to be removed.
+     * able to be removed.
      */
     public synchronized boolean clear(K key) {
         final File readFrom = getFile(key);
@@ -425,7 +416,7 @@ public abstract class DiskCache<K, V> {
      *
      * @param cacheFile
      * @return true if the cached item has been removed or was already removed, false if it was not
-     *         able to be removed.
+     * able to be removed.
      */
     private synchronized boolean clear(File cacheFile) {
 
@@ -445,11 +436,11 @@ public abstract class DiskCache<K, V> {
 
     /**
      * Clears the cache files from disk.
-     *
+     * <p/>
      * Note: this only clears files that match the given prefix/suffix.
      *
      * @return true if the operation succeeded without error. It is possible that it will fail and
-     *         the cache ends up being partially cleared.
+     * the cache ends up being partially cleared.
      */
     public synchronized boolean clear() {
         boolean success = true;
@@ -499,7 +490,9 @@ public abstract class DiskCache<K, V> {
             return (mCachePrefix != null ? path.startsWith(mCachePrefix) : true)
                     && (mCacheSuffix != null ? path.endsWith(mCacheSuffix) : true);
         }
-    };
+    }
+
+    ;
 
     private final Comparator<File> mLastModifiedOldestFirstComparator = new Comparator<File>() {
 

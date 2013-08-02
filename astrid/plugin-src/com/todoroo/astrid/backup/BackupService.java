@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.util.Arrays;
-import java.util.Comparator;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -23,6 +18,11 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Inspired heavily by SynchronizationService
@@ -61,6 +61,7 @@ public class BackupService extends Service {
 
     /**
      * Test hook for backup
+     *
      * @param context
      */
     public void testBackup(Context context) {
@@ -127,12 +128,12 @@ public class BackupService extends Service {
             }
         };
         File astridDir = backupDirectorySetting.getBackupDirectory();
-        if(astridDir == null)
+        if (astridDir == null)
             return;
 
         // grab all backup files, sort by modified date, delete old ones
         File[] files = astridDir.listFiles(backupFileFilter);
-        if(files == null)
+        if (files == null)
             return;
 
         Arrays.sort(files, new Comparator<File>() {
@@ -141,16 +142,16 @@ public class BackupService extends Service {
                 return -Long.valueOf(file1.lastModified()).compareTo(Long.valueOf(file2.lastModified()));
             }
         });
-        for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
-            if(!files[i].delete())
+        for (int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
+            if (!files[i].delete())
                 Log.i("astrid-backups", "Unable to delete: " + files[i]); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
     /**
      * Interface for setting where backups go
-     * @author Tim Su <tim@todoroo.com>
      *
+     * @author Tim Su <tim@todoroo.com>
      */
     public interface BackupDirectorySetting {
         public File getBackupDirectory();

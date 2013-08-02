@@ -5,37 +5,33 @@
  */
 package com.localytics.android;
 
-import org.json.JSONArray;
-
 import android.Manifest.permission;
+
+import org.json.JSONArray;
 
 /**
  * Set of constants for building JSON objects that get sent to the Localytics web service.
  */
-/* package */final class JsonObjects
-{
+/* package */final class JsonObjects {
     /**
      * Private constructor prevents instantiation
      *
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
-    private JsonObjects()
-    {
+    private JsonObjects() {
         throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
     }
 
     /**
      * Set of constants for the blob header JSON object.
      */
-    public static final class BlobHeader
-    {
+    public static final class BlobHeader {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private BlobHeader()
-        {
+        private BlobHeader() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -76,28 +72,26 @@ import android.Manifest.permission;
         /**
          * Attributes under {@link BlobHeader#KEY_ATTRIBUTES}
          */
-        public static final class Attributes
-        {
+        public static final class Attributes {
             /**
              * Private constructor prevents instantiation
              *
              * @throws UnsupportedOperationException because this class cannot be instantiated.
              */
-            private Attributes()
-            {
+            private Attributes() {
                 throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
             }
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Data connection type.
              */
             public static final String KEY_DATA_CONNECTION = "dac"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Version name of the application, taken from the Android Manifest.
              */
             public static final String KEY_CLIENT_APP_VERSION = "av"; //$NON-NLS-1$
@@ -109,34 +103,34 @@ import android.Manifest.permission;
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              */
             public static final String KEY_DEVICE_COUNTRY = "dc"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Manufacturer of the device (e.g. HTC, Samsung, Motorola, Kyocera, etc.)
              */
             public static final String KEY_DEVICE_MANUFACTURER = "dma"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Model of the device (e.g. dream,
              */
             public static final String KEY_DEVICE_MODEL = "dmo"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Android version (e.g. 1.6 or 2.3.4).
              */
             public static final String KEY_DEVICE_OS_VERSION = "dov"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Telephony ID of the device, if the device has telephony and the app has {@link permission#READ_PHONE_STATE}.
              * Otherwise null.
              */
@@ -144,21 +138,21 @@ import android.Manifest.permission;
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Platform of the device. For Android devices, this is always "android"
              */
             public static final String KEY_DEVICE_PLATFORM = "dp"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * SHA-256 hash of the device's serial number. Only reported for Android 2.3 or later. Otherwise null.
              */
             public static final String KEY_DEVICE_SERIAL_HASH = "dms"; //$NON-NLS-1$
 
             /**
              * Type: {@code int}
-             * <p>
+             * <p/>
              * SDK compatibility level of the device.
              *
              * @see android.os.Build.VERSION#SDK
@@ -167,7 +161,7 @@ import android.Manifest.permission;
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * SHA-256 hash of the device's Telephony ID, if the device has telephony and the app has
              * {@link permission#READ_PHONE_STATE}. Otherwise null.
              */
@@ -175,28 +169,28 @@ import android.Manifest.permission;
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Country for the device's current locale settings
              */
             public static final String KEY_LOCALE_COUNTRY = "dlc"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Language for the device's current locale settings
              */
             public static final String KEY_LOCALE_LANGUAGE = "dll"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Api key
              */
             public static final String KEY_LOCALYTICS_API_KEY = "au"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Localytics library version
              *
              * @see Constants#LOCALYTICS_CLIENT_LIBRARY_VERSION
@@ -205,7 +199,7 @@ import android.Manifest.permission;
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Data type for the JSON object.
              *
              * @see #VALUE_DATA_TYPE
@@ -214,14 +208,14 @@ import android.Manifest.permission;
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              * Network carrier of the device
              */
             public static final String KEY_NETWORK_CARRIER = "nca"; //$NON-NLS-1$
 
             /**
              * Type: {@code String}
-             * <p>
+             * <p/>
              */
             public static final String KEY_NETWORK_COUNTRY = "nc"; //$NON-NLS-1$
 
@@ -243,21 +237,19 @@ import android.Manifest.permission;
     /**
      * Set of constants for the session open event.
      */
-    /* package */static final class SessionOpen
-    {
+    /* package */static final class SessionOpen {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private SessionOpen()
-        {
+        private SessionOpen() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * Data type for the JSON object.
          *
          * @see #VALUE_DATA_TYPE
@@ -271,21 +263,21 @@ import android.Manifest.permission;
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Epoch timestamp when the session was started in seconds.
          */
         public static final String KEY_WALL_TIME_SECONDS = "ct"; //$NON-NLS-1$
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * UUID of the event, which is the same thing as the session UUID
          */
         public static final String KEY_EVENT_UUID = "u"; //$NON-NLS-1$
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Count for the number of sessions
          */
         public static final String KEY_COUNT = "nth"; //$NON-NLS-1$
@@ -294,21 +286,19 @@ import android.Manifest.permission;
     /**
      * Set of constants for the session close event.
      */
-    /* package */static final class SessionClose
-    {
+    /* package */static final class SessionClose {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private SessionClose()
-        {
+        private SessionClose() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * Data type for the JSON object.
          *
          * @see #VALUE_DATA_TYPE
@@ -317,42 +307,42 @@ import android.Manifest.permission;
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * UUID of the event.
          */
         public static final String KEY_EVENT_UUID = "u"; //$NON-NLS-1$
 
         /**
          * Type: {@code String[]} (technically, a JSON array of strings)
-         * <p>
+         * <p/>
          * Ordered list of flow events that occurred
          */
         public static final String KEY_FLOW_ARRAY = "fl"; //$NON-NLS-1$
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Epoch timestamp when the session was started
          */
         public static final String KEY_SESSION_LENGTH_SECONDS = "ctl"; //$NON-NLS-1$
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Start time of the parent session
          */
         public static final String KEY_SESSION_START_TIME = "ss"; //$NON-NLS-1$
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * UUID of the session.
          */
         public static final String KEY_SESSION_UUID = "su"; //$NON-NLS-1$
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Epoch timestamp when the session was started in seconds.
          */
         public static final String KEY_WALL_TIME_SECONDS = "ct"; //$NON-NLS-1$
@@ -368,21 +358,19 @@ import android.Manifest.permission;
     /**
      * Set of constants for the session event event.
      */
-    /* package */static final class SessionEvent
-    {
+    /* package */static final class SessionEvent {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private SessionEvent()
-        {
+        private SessionEvent() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * Data type for the JSON object.
          *
          * @see #VALUE_DATA_TYPE
@@ -398,37 +386,37 @@ import android.Manifest.permission;
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Epoch timestamp when the session was started in seconds.
          */
         public static final String KEY_WALL_TIME_SECONDS = "ct"; //$NON-NLS-1$
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * UUID of the session.
          */
         public static final String KEY_SESSION_UUID = "su"; //$NON-NLS-1$
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * UUID of the event.
          */
         public static final String KEY_EVENT_UUID = "u"; //$NON-NLS-1$
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * Name of the event.
          */
         public static final String KEY_NAME = "n"; //$NON-NLS-1$
 
         /**
          * Type: {@code JSONObject}.
-         * <p>
+         * <p/>
          * Maps to the attributes of the event.
-         * <p>
+         * <p/>
          * Note that this key is optional. If it is present, it will point to a non-null value representing the attributes of the
          * event. Otherwise the key will not exist, indicating the event had no attributes.
          */
@@ -438,21 +426,19 @@ import android.Manifest.permission;
     /**
      * Set of constants for the session opt in/out event
      */
-    /* package */static final class OptEvent
-    {
+    /* package */static final class OptEvent {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private OptEvent()
-        {
+        private OptEvent() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * Data type for the JSON object.
          *
          * @see #VALUE_DATA_TYPE
@@ -468,21 +454,21 @@ import android.Manifest.permission;
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Epoch timestamp when the session was started in seconds.
          */
         public static final String KEY_WALL_TIME_SECONDS = "ct"; //$NON-NLS-1$
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * API key
          */
         public static final String KEY_API_KEY = "u"; //$NON-NLS-1$
 
         /**
          * Type: {@code boolean}
-         * <p>
+         * <p/>
          * True to opt-out. False to opt-in
          */
         public static final String KEY_OPT = "out"; //$NON-NLS-1$
@@ -491,21 +477,19 @@ import android.Manifest.permission;
     /**
      * Set of constants for the session flow event.
      */
-    /* package */static final class EventFlow
-    {
+    /* package */static final class EventFlow {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private EventFlow()
-        {
+        private EventFlow() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
         /**
          * Type: {@code String}
-         * <p>
+         * <p/>
          * Data type for the JSON object.
          *
          * @see #VALUE_DATA_TYPE
@@ -514,28 +498,28 @@ import android.Manifest.permission;
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * UUID of the event, which is the same thing as the session UUID
          */
         public static final String KEY_EVENT_UUID = "u"; //$NON-NLS-1$
 
         /**
          * Type: {@code long}
-         * <p>
+         * <p/>
          * Start time of the parents session.
          */
         public static final String KEY_SESSION_START_TIME = "ss"; //$NON-NLS-1$
 
         /**
          * Type: {@code Element[]} (technically a {@link JSONArray} of {@link Element} objects)
-         * <p>
+         * <p/>
          * Ordered set of new flow elements that occurred since the last upload for this session.
          */
         public static final String KEY_FLOW_NEW = "nw"; //$NON-NLS-1$
 
         /**
          * Type: {@code Element[]} (technically a {@link JSONArray} of {@link Element} objects)
-         * <p>
+         * <p/>
          * Ordered set of old flow elements that occurred during all previous uploads for this session.
          */
         public static final String KEY_FLOW_OLD = "od"; //$NON-NLS-1$
@@ -548,15 +532,13 @@ import android.Manifest.permission;
         /**
          * Flow event element that indicates the type and name of the flow event.
          */
-        /* package */static final class Element
-        {
+        /* package */static final class Element {
             /**
              * Private constructor prevents instantiation
              *
              * @throws UnsupportedOperationException because this class cannot be instantiated.
              */
-            private Element()
-            {
+            private Element() {
                 throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
             }
 

@@ -42,7 +42,9 @@ abstract public class SyncProviderUtilities {
 
     protected static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
 
-    /** Get preferences object from the context */
+    /**
+     * Get preferences object from the context
+     */
     protected static SharedPreferences getPrefs() {
         return PreferenceManager.getDefaultSharedPreferences(ContextManager.getContext());
     }
@@ -61,54 +63,74 @@ abstract public class SyncProviderUtilities {
         return getPrefs().getString(getIdentifier() + PREF_TOKEN, null) != null;
     }
 
-    /** authentication token, or null if doesn't exist */
+    /**
+     * authentication token, or null if doesn't exist
+     */
     public String getToken() {
         return getPrefs().getString(getIdentifier() + PREF_TOKEN, null);
     }
 
-    /** Returns something like "Logged in as: user@gmail.com" */
+    /**
+     * Returns something like "Logged in as: user@gmail.com"
+     */
     abstract public String getLoggedInUserName();
 
-    /** Sets the authentication token. Set to null to clear. */
+    /**
+     * Sets the authentication token. Set to null to clear.
+     */
     public void setToken(String setting) {
         Editor editor = getPrefs().edit();
         editor.putString(getIdentifier() + PREF_TOKEN, setting);
         editor.commit();
     }
 
-    /** @return Last Successful Sync Date, or 0 */
+    /**
+     * @return Last Successful Sync Date, or 0
+     */
     public long getLastSyncDate() {
         return getPrefs().getLong(getIdentifier() + PREF_LAST_SYNC, 0);
     }
 
-    /** @return Last Attempted Sync Date, or 0 if it was successful */
+    /**
+     * @return Last Attempted Sync Date, or 0 if it was successful
+     */
     public long getLastAttemptedSyncDate() {
         return getPrefs().getLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC, 0);
     }
 
-    /** @return Last Error, or null if no last error */
+    /**
+     * @return Last Error, or null if no last error
+     */
     public String getLastError() {
         return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR, null);
     }
 
-    /** @return Last Error type, or null if no last error */
+    /**
+     * @return Last Error type, or null if no last error
+     */
     public String getLastErrorType() {
         return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR_TYPE, null);
     }
 
-    /** @return Last Error, or null if no last error */
+    /**
+     * @return Last Error, or null if no last error
+     */
     public boolean isOngoing() {
         return getPrefs().getBoolean(getIdentifier() + PREF_ONGOING, false);
     }
 
-    /** Deletes Last Successful Sync Date */
+    /**
+     * Deletes Last Successful Sync Date
+     */
     public void clearLastSyncDate() {
         Editor editor = getPrefs().edit();
         editor.remove(getIdentifier() + PREF_LAST_SYNC);
         editor.commit();
     }
 
-    /** Set Last Error */
+    /**
+     * Set Last Error
+     */
     public void setLastError(String error, String type) {
         Editor editor = getPrefs().edit();
         editor.putString(getIdentifier() + PREF_LAST_ERROR, error);
@@ -116,14 +138,18 @@ abstract public class SyncProviderUtilities {
         editor.commit();
     }
 
-    /** Set Ongoing */
+    /**
+     * Set Ongoing
+     */
     public void stopOngoing() {
         Editor editor = getPrefs().edit();
         editor.putBoolean(getIdentifier() + PREF_ONGOING, false);
         editor.commit();
     }
 
-    /** Set Last Successful Sync Date */
+    /**
+     * Set Last Successful Sync Date
+     */
     public void recordSuccessfulSync() {
         Editor editor = getPrefs().edit();
         editor.putLong(getIdentifier() + PREF_LAST_SYNC, DateUtilities.now() + 1000);
@@ -131,7 +157,9 @@ abstract public class SyncProviderUtilities {
         editor.commit();
     }
 
-    /** Report last error if one exists */
+    /**
+     * Report last error if one exists
+     */
     public void reportLastError() {
         String lastError = getLastError();
         if (!TextUtils.isEmpty(lastError)) {
@@ -144,7 +172,9 @@ abstract public class SyncProviderUtilities {
         // Subclasses can override if necessary
     }
 
-    /** Set Last Attempted Sync Date */
+    /**
+     * Set Last Attempted Sync Date
+     */
     public void recordSyncStart() {
         Editor editor = getPrefs().edit();
         editor.putLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC,

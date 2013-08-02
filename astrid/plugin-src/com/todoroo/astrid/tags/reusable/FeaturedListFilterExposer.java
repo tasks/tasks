@@ -1,7 +1,5 @@
 package com.todoroo.astrid.tags.reusable;
 
-import java.util.List;
-
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,6 +27,8 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
+
+import java.util.List;
 
 public class FeaturedListFilterExposer extends TagFilterExposer {
 
@@ -58,7 +58,7 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
 
         Class<?> fragmentClass = FeaturedTaskListFragment.class;
         filter.customTaskList = new ComponentName(ContextManager.getContext(), fragmentClass);
-        if(tag.image != null)
+        if (tag.image != null)
             filter.imageUrl = tag.image;
 
         Bundle extras = new Bundle();
@@ -71,12 +71,12 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
 
     public static Filter getDefaultFilter() {
         TodorooCursor<TagData> firstFilter = PluginServices.getTagDataService()
-        .query(Query.select(TagData.PROPERTIES)
-                .where(Criterion.and(
-                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0),
-                        TagData.DELETION_DATE.eq(0),
-                        TagData.NAME.isNotNull(),
-                        TagData.NAME.neq(""))) //$NON-NLS-1$
+                .query(Query.select(TagData.PROPERTIES)
+                        .where(Criterion.and(
+                                Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0),
+                                TagData.DELETION_DATE.eq(0),
+                                TagData.NAME.isNotNull(),
+                                TagData.NAME.neq(""))) //$NON-NLS-1$
                         .orderBy(Order.asc(TagData.NAME))
                         .limit(1));
         try {

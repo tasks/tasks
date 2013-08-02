@@ -5,11 +5,11 @@
  */
 package com.todoroo.andlib.service;
 
+import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.HashMap;
-
-import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
 
 /**
  * A Dependency Injector knows how to inject certain dependencies based
@@ -17,7 +17,6 @@ import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
  * code to insert this dependency injector into the DI chain.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 abstract public class AbstractDependencyInjector {
 
@@ -48,29 +47,27 @@ abstract public class AbstractDependencyInjector {
      * Cache of classes that were instantiated by the injector
      */
     protected final HashMap<Class<?>, WeakReference<Object>> createdObjects =
-        new HashMap<Class<?>, WeakReference<Object>>();
+            new HashMap<Class<?>, WeakReference<Object>>();
 
     /**
      * Gets the injected object for this field. If implementing class does not
      * know how to handle this dependency, it should return null
      *
-     * @param object
-     *            object to perform dependency injection on
-     * @param field
-     *            field tagged with {link Autowired} annotation
+     * @param object object to perform dependency injection on
+     * @param field  field tagged with {link Autowired} annotation
      * @return object to assign to this field, or null
      */
     public Object getInjection(Object object, Field field) {
-        if(injectables.containsKey(field.getName())) {
+        if (injectables.containsKey(field.getName())) {
             Object injection = injectables.get(field.getName());
 
             // if it's a class, instantiate the class
-            if(injection instanceof Class<?>) {
-                if(createdObjects.containsKey(injection) &&
+            if (injection instanceof Class<?>) {
+                if (createdObjects.containsKey(injection) &&
                         createdObjects.get(injection).get() != null) {
                     injection = createdObjects.get(injection).get();
                 } else {
-                    Class<?> cls = (Class<?>)injection;
+                    Class<?> cls = (Class<?>) injection;
                     try {
                         injection = cls.newInstance();
                     } catch (IllegalAccessException e) {

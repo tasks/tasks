@@ -10,7 +10,6 @@ package com.todoroo.andlib.test;
  * Utility methods used in unit tests
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TestUtilities {
 

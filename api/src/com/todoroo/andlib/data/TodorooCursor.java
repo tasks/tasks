@@ -5,35 +5,42 @@
  */
 package com.todoroo.andlib.data;
 
-import java.util.WeakHashMap;
-
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+
+import java.util.WeakHashMap;
 
 /**
  * AstridCursor wraps a cursor and allows users to query for individual
  * {@link Property} types or read an entire {@link AbstractModel} from
  * a database row.
  *
- * @author Tim Su <tim@todoroo.com>
- *
  * @param <TYPE> a model type that is returned by this cursor
+ * @author Tim Su <tim@todoroo.com>
  */
 public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
 
-    /** Properties read by this cursor */
+    /**
+     * Properties read by this cursor
+     */
     private final Property<?>[] properties;
 
-    /** Weakly cache field name to column id references for this cursor.
-     * Because it's a weak hash map, entire keys can be discarded by GC */
+    /**
+     * Weakly cache field name to column id references for this cursor.
+     * Because it's a weak hash map, entire keys can be discarded by GC
+     */
     private final WeakHashMap<String, Integer> columnIndexCache;
 
-    /** Property reading visitor */
+    /**
+     * Property reading visitor
+     */
     private static final CursorReadingVisitor reader = new CursorReadingVisitor();
 
-    /** Wrapped cursor */
+    /**
+     * Wrapped cursor
+     */
     private final Cursor cursor;
 
     /**
@@ -55,11 +62,11 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      * Get the value for the given property on the underlying {@link Cursor}
      *
      * @param <PROPERTY_TYPE> type to return
-     * @param property to retrieve
+     * @param property        to retrieve
      * @return
      */
     public <PROPERTY_TYPE> PROPERTY_TYPE get(Property<PROPERTY_TYPE> property) {
-        return (PROPERTY_TYPE)property.accept(reader, this);
+        return (PROPERTY_TYPE) property.accept(reader, this);
     }
 
     /**
@@ -71,6 +78,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
 
     /**
      * Gets entire property list
+     *
      * @return
      */
     public Property<?>[] getProperties() {
@@ -82,7 +90,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      */
     public synchronized int getColumnIndexFromCache(String field) {
         Integer index = columnIndexCache.get(field);
-        if(index == null) {
+        if (index == null) {
             index = getColumnIndexOrThrow(field);
             columnIndexCache.put(field, index);
         }
@@ -94,37 +102,36 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      * Visitor that reads the given property from a cursor
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class CursorReadingVisitor implements PropertyVisitor<Object, TodorooCursor<?>> {
 
         public Object visitDouble(Property<Double> property,
-                TodorooCursor<?> cursor) {
+                                  TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
+            if (property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getDouble(column);
         }
 
         public Object visitInteger(Property<Integer> property,
-                TodorooCursor<?> cursor) {
+                                   TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
+            if (property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getInt(column);
         }
 
         public Object visitLong(Property<Long> property, TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
+            if (property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getLong(column);
         }
 
         public Object visitString(Property<String> property,
-                TodorooCursor<?> cursor) {
+                                  TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
+            if (property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column))
                 return null;
             return cursor.getString(column);
         }

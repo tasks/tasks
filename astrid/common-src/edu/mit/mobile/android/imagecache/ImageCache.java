@@ -17,22 +17,22 @@ package edu.mit.mobile.android.imagecache;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.util.SparseArray;
+import android.widget.ImageView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -51,28 +51,29 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpParams;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.util.SparseArray;
-import android.widget.ImageView;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
  * An image download-and-cacher that also knows how to efficiently generate thumbnails of various
  * sizes.
  * </p>
- *
+ * <p/>
  * <p>
  * The cache is shared with the entire process, so make sure you
  * {@link #registerOnImageLoadListener(OnImageLoadListener)} and
@@ -81,7 +82,6 @@ import android.widget.ImageView;
  * </p>
  *
  * @author <a href="mailto:spomeroy@mit.edu">Steve Pomeroy</a>
- *
  */
 public class ImageCache extends DiskCache<String, Bitmap> {
     private static final String TAG = ImageCache.class.getSimpleName();
@@ -98,7 +98,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
 
     private final HashSet<OnImageLoadListener> mImageLoadListeners = new HashSet<ImageCache.OnImageLoadListener>();
 
-    public static final int DEFAULT_CACHE_SIZE = (24 /* MiB */* 1024 * 1024); // in bytes
+    public static final int DEFAULT_CACHE_SIZE = (24 /* MiB */ * 1024 * 1024); // in bytes
 
     private DrawableMemCache<String> mMemCache = new DrawableMemCache<String>(DEFAULT_CACHE_SIZE);
 
@@ -143,12 +143,15 @@ public class ImageCache extends DiskCache<String, Bitmap> {
                     mCache.notifyListeners((LoadResult) msg.obj);
                     break;
             }
-        };
+        }
+
+        ;
     }
 
     private final ImageLoadHandler mHandler = new ImageLoadHandler(this);
 
     // TODO make it so this is customizable on the instance level.
+
     /**
      * Gets an instance of the cache.
      *
@@ -207,8 +210,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
     /**
      * Sets the maximum size of the memory cache. Note, this will clear the memory cache.
      *
-     * @param maxSize
-     *            the maximum size of the memory cache in bytes.
+     * @param maxSize the maximum size of the memory cache in bytes.
      */
     public void setMemCacheMaxSize(int maxSize) {
         mMemCache = new DrawableMemCache<String>(maxSize);
@@ -328,7 +330,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
      * indirectly by {@link #loadImage(int, Uri, int, int)}, any registered listeners will get
      * called.
      * </p>
-     *
+     * <p/>
      * <p>
      * This should probably be called from {@link Activity#onResume()}.
      * </p>
@@ -343,7 +345,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
      * <p>
      * Unregisters the listener with the cache. This will not cancel any pending load requests.
      * </p>
-     *
+     * <p/>
      * <p>
      * This should probably be called from {@link Activity#onPause()}.
      * </p>
@@ -367,8 +369,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
     }
 
     /**
-     * @param uri
-     *            the image uri
+     * @param uri the image uri
      * @return a key unique to the given uri
      */
     public String getKey(Uri uri) {
@@ -378,8 +379,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
     /**
      * Gets the given key as a drawable, retrieving it from memory cache if it's present.
      *
-     * @param key
-     *            a key generated by {@link #getKey(Uri)} or {@link #getKey(Uri, int, int)}
+     * @param key a key generated by {@link #getKey(Uri)} or {@link #getKey(Uri, int, int)}
      * @return the drawable if it's in the memory cache or null.
      */
     public Drawable getDrawable(String key) {
@@ -398,8 +398,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
     /**
      * Puts a drawable into memory cache.
      *
-     * @param key
-     *            a key generated by {@link #getKey(Uri)} or {@link #getKey(Uri, int, int)}
+     * @param key      a key generated by {@link #getKey(Uri)} or {@link #getKey(Uri, int, int)}
      * @param drawable
      */
     public void putDrawable(String key, Drawable drawable) {
@@ -477,12 +476,9 @@ public class ImageCache extends DiskCache<String, Bitmap> {
     /**
      * Returns an opaque cache key representing the given uri, width and height.
      *
-     * @param uri
-     *            an image uri
-     * @param width
-     *            the desired image max width
-     * @param height
-     *            the desired image max height
+     * @param uri    an image uri
+     * @param width  the desired image max width
+     * @param height the desired image max height
      * @return a cache key unique to the given parameters
      */
     public String getKey(Uri uri, int width, int height) {
@@ -568,7 +564,9 @@ public class ImageCache extends DiskCache<String, Bitmap> {
         @Override
         public int compareTo(ImageLoadTask another) {
             return Long.valueOf(another.when).compareTo(when);
-        };
+        }
+
+        ;
     }
 
     private void oomClear() {
@@ -580,19 +578,14 @@ public class ImageCache extends DiskCache<String, Bitmap> {
      * Checks the cache for an image matching the given criteria and returns it. If it isn't
      * immediately available, calls {@link #scheduleLoadImage}.
      *
-     * @param id
-     *            An ID to keep track of image load requests. For one-off loads, this can just be
-     *            the ID of the {@link ImageView}. Otherwise, an unique ID can be acquired using
-     *            {@link #getNewID()}.
-     *
-     * @param image
-     *            the image to be loaded. Can be a local file or a network resource.
-     * @param width
-     *            the maximum width of the resulting image
-     * @param height
-     *            the maximum height of the resulting image
+     * @param id     An ID to keep track of image load requests. For one-off loads, this can just be
+     *               the ID of the {@link ImageView}. Otherwise, an unique ID can be acquired using
+     *               {@link #getNewID()}.
+     * @param image  the image to be loaded. Can be a local file or a network resource.
+     * @param width  the maximum width of the resulting image
+     * @param height the maximum height of the resulting image
      * @return the cached bitmap if it's available immediately or null if it needs to be loaded
-     *         asynchronously.
+     * asynchronously.
      */
     public Drawable loadImage(int id, Uri image, int width, int height) throws IOException {
         if (DEBUG) {
@@ -628,17 +621,12 @@ public class ImageCache extends DiskCache<String, Bitmap> {
      * Schedules a load of the given image. When the image has finished loading and scaling, all
      * registered {@link OnImageLoadListener}s will be called.
      *
-     * @param id
-     *            An ID to keep track of image load requests. For one-off loads, this can just be
-     *            the ID of the {@link ImageView}. Otherwise, an unique ID can be acquired using
-     *            {@link #getNewID()}.
-     *
-     * @param image
-     *            the image to be loaded. Can be a local file or a network resource.
-     * @param width
-     *            the maximum width of the resulting image
-     * @param height
-     *            the maximum height of the resulting image
+     * @param id     An ID to keep track of image load requests. For one-off loads, this can just be
+     *               the ID of the {@link ImageView}. Otherwise, an unique ID can be acquired using
+     *               {@link #getNewID()}.
+     * @param image  the image to be loaded. Can be a local file or a network resource.
+     * @param width  the maximum width of the resulting image
+     * @param height the maximum height of the resulting image
      */
     public void scheduleLoadImage(int id, Uri image, int width, int height) {
         if (DEBUG) {
@@ -665,7 +653,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
 
     /**
      * Cancels all the asynchronous image loads. Note: currently does not function properly.
-     *
      */
     public void cancelLoads() {
         jobs.clear();
@@ -698,12 +685,9 @@ public class ImageCache extends DiskCache<String, Bitmap> {
     /**
      * Blocking call to scale a local file. Scales using preserving aspect ratio
      *
-     * @param localFile
-     *            local image file to be scaled
-     * @param width
-     *            maximum width
-     * @param height
-     *            maximum height
+     * @param localFile local image file to be scaled
+     * @param width     maximum width
+     * @param height    maximum height
      * @return the scaled image
      * @throws ClientProtocolException
      * @throws IOException
@@ -764,11 +748,9 @@ public class ImageCache extends DiskCache<String, Bitmap> {
      * Blocking call to download an image. The image is placed directly into the disk cache at the
      * given key.
      *
-     * @param uri
-     *            the location of the image
+     * @param uri the location of the image
      * @return a decoded bitmap
-     * @throws ClientProtocolException
-     *             if the HTTP response code wasn't 200 or any other HTTP errors
+     * @throws ClientProtocolException if the HTTP response code wasn't 200 or any other HTTP errors
      * @throws IOException
      */
     protected void downloadImage(String key, Uri uri) throws ClientProtocolException, IOException {
@@ -823,19 +805,15 @@ public class ImageCache extends DiskCache<String, Bitmap> {
      * asynchronous image loads have completed.
      *
      * @author <a href="mailto:spomeroy@mit.edu">Steve Pomeroy</a>
-     *
      */
     public interface OnImageLoadListener {
         /**
          * Called when the image has been loaded and scaled.
          *
-         * @param id
-         *            the ID provided by {@link ImageCache#loadImage(int, Uri, int, int)} or
-         *            {@link ImageCache#scheduleLoadImage(int, Uri, int, int)}
-         * @param imageUri
-         *            the uri of the image that was originally requested
-         * @param image
-         *            the loaded and scaled image
+         * @param id       the ID provided by {@link ImageCache#loadImage(int, Uri, int, int)} or
+         *                 {@link ImageCache#scheduleLoadImage(int, Uri, int, int)}
+         * @param imageUri the uri of the image that was originally requested
+         * @param image    the loaded and scaled image
          */
         public void onImageLoaded(int id, Uri imageUri, Drawable image);
     }

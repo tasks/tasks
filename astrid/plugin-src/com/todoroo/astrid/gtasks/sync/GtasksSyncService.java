@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.io.IOException;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.Semaphore;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 import android.util.Log;
@@ -36,15 +32,25 @@ import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
+import java.io.IOException;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
+
 public final class GtasksSyncService {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
-    @Autowired MetadataService metadataService;
-    @Autowired MetadataDao metadataDao;
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired TaskDao taskDao;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    MetadataDao metadataDao;
+    @Autowired
+    GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    TaskDao taskDao;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
     public GtasksSyncService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -66,7 +72,7 @@ public final class GtasksSyncService {
 
         @Override
         public void op(GtasksInvoker invoker) throws IOException {
-            if(DateUtilities.now() - creationDate < 1000)
+            if (DateUtilities.now() - creationDate < 1000)
                 AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - creationDate));
             pushTaskOnSave(model, model.getMergedValues(), invoker, false);
         }
@@ -104,14 +110,14 @@ public final class GtasksSyncService {
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             public void onModelUpdated(final Task model, boolean outstandingEntries) {
-                if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
+                if (model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
                     return;
                 if (actFmPreferenceService.isLoggedIn())
                     return;
                 if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync
                     return;
                 final ContentValues setValues = model.getSetValues();
-                if(setValues == null || !checkForToken())
+                if (setValues == null || !checkForToken())
                     return;
                 if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
                     return;
@@ -159,11 +165,12 @@ public final class GtasksSyncService {
         }
     }
 
-    private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
-            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE, Task.USER_ID };
+    private static final Property<?>[] TASK_PROPERTIES = {Task.ID, Task.TITLE,
+            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE, Task.USER_ID};
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
+     *
      * @param values
      * @param properties
      * @return false if none of the properties we sync were changed, true otherwise

@@ -4,39 +4,57 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
-  <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task description</string>
-    
-  <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
-  <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
-  <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
-  <!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice input</string>
-  <!-- slide 38a: Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
-  <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
-  <!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
-  <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
-  <!-- slide 38b: Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
-  <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
-  <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
-  <!-- slide 38c: Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
-  
-  <!-- slide 32d: Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice input settings</string>
-    
+<resources>
+
+    <!-- Voice Add Prompt Text -->
+    <string name="voice_create_prompt">Speak to create a task</string>
+    <string name="voice_edit_title_prompt">Speak to set task title</string>
+    <string name="voice_edit_note_prompt">Speak to set task description</string>
+
+    <!-- Preference: Task List recognition-service is not installed, but available -->
+    <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the
+        market and install it?
+    </string>
+    <!-- Preference: Task List recognition-service is not available for this system -->
+    <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your
+        system.\nIf possible, please update Android to 2.1 or later.
+    </string>
+    <!-- Preference: Market is not available for this system -->
+    <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your
+        system.\nIf possible, try downloading voice search from another source.
+    </string>
+    <!-- slide 38d:  Preference: Task List Show Voice-button if recognition-service is available -->
+    <string name="EPr_voiceInputEnabled_title">Voice input</string>
+    <!-- slide 38a: Preference: voice button description (true) -->
+    <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task
+        list page
+    </string>
+    <!-- Preference: voice button description (false) -->
+    <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task
+        list page
+    </string>
+    <!-- slide 38e: Preference: Task List Voice-button directly creates tasks -->
+    <string name="EPr_voiceInputCreatesTask_title">Directly create tasks</string>
+    <!-- Preference: Task List Voice-creation description (true) -->
+    <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from
+        voice input
+    </string>
+    <!-- slide 38b: Preference: Task List Voice-creation description (false) -->
+    <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice
+        input finishes
+    </string>
+    <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
+    <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
+    <!-- Preference: Voice reminders description (true) -->
+    <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task
+        reminders
+    </string>
+    <!-- slide 38c: Preference: Voice reminders description (false) -->
+    <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task
+        reminders
+    </string>
+
+    <!-- slide 32d: Preference Category: Voice Title -->
+    <string name="EPr_voice_header">Voice input settings</string>
+
 </resources>

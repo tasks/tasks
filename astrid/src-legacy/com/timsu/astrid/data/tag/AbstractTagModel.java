@@ -5,8 +5,6 @@
  */
 package com.timsu.astrid.data.tag;
 
-import java.util.Date;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,35 +15,41 @@ import android.util.Log;
 import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.LegacyAbstractModel;
 
+import java.util.Date;
 
-/** Abstract model of a task. Subclasses implement the getters and setters
+
+/**
+ * Abstract model of a task. Subclasses implement the getters and setters
  * they are interested in.
  *
  * @author timsu
- *
  */
 @SuppressWarnings("nls")
 public abstract class AbstractTagModel extends LegacyAbstractModel {
 
-    /** Version number of this model */
-    static final int                   VERSION             = 1;
+    /**
+     * Version number of this model
+     */
+    static final int VERSION = 1;
 
     // field names
 
-    static final String                NAME                = "name";
-    static final String                NOTES               = "notes";
+    static final String NAME = "name";
+    static final String NOTES = "notes";
     // reserved fields
-    static final String                ICON                = "icon";
-    static final String                PARENT              = "parent";
-    static final String                FLAGS               = "flags";
-    static final String                LOCATION_LAT        = "locationLat";
-    static final String                LOCATION_LONG       = "locationLong";
-    static final String                NOTIFICATIONS       = "notifications";
+    static final String ICON = "icon";
+    static final String PARENT = "parent";
+    static final String FLAGS = "flags";
+    static final String LOCATION_LAT = "locationLat";
+    static final String LOCATION_LONG = "locationLong";
+    static final String NOTIFICATIONS = "notifications";
     // end reserved fields
-    static final String                CREATION_DATE       = "creationDate";
+    static final String CREATION_DATE = "creationDate";
 
-    /** Default values container */
-    private static final ContentValues defaultValues       = new ContentValues();
+    /**
+     * Default values container
+     */
+    private static final ContentValues defaultValues = new ContentValues();
 
     static {
         defaultValues.put(NAME, "");
@@ -65,7 +69,9 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
 
     // --- database helper
 
-    /** Database Helper manages creating new tables and updating old ones */
+    /**
+     * Database Helper manages creating new tables and updating old ones
+     */
     static class TagModelDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
         Context context;
@@ -79,18 +85,18 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
         @Override
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
-            append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
-                append(NAME).append(" text unique,").
-                append(NOTES).append(" text,").
-                append(ICON).append(" integer,").
-                append(PARENT).append(" integer,").
-                append(FLAGS).append(" integer,").
-                append(LOCATION_LAT).append(" integer,").
-                append(LOCATION_LONG).append(" integer,").
-                append(NOTIFICATIONS).append(" integer,").
-                append(CREATION_DATE).append(" integer").
-            append(");").toString();
+                    append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
+                    append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                    append(NAME).append(" text unique,").
+                    append(NOTES).append(" text,").
+                    append(ICON).append(" integer,").
+                    append(PARENT).append(" integer,").
+                    append(FLAGS).append(" integer,").
+                    append(LOCATION_LAT).append(" integer,").
+                    append(LOCATION_LONG).append(" integer,").
+                    append(NOTIFICATIONS).append(" integer,").
+                    append(CREATION_DATE).append(" integer").
+                    append(");").toString();
             db.execSQL(sql);
         }
 
@@ -99,16 +105,15 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
 
-            switch(oldVersion) {
-            default:
-                // we don't know how to handle it... show an error
-                Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
+            switch (oldVersion) {
+                default:
+                    // we don't know how to handle it... show an error
+                    Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
             }
         }
     }
 
     // --- utility methods
-
 
 
     // --- identifier
@@ -129,7 +134,9 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
         super();
     }
 
-    /** Read identifier from database */
+    /**
+     * Read identifier from database
+     */
     AbstractTagModel(Cursor cursor) {
         super(cursor);
 
@@ -137,7 +144,9 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
         setTagIdentifier(new TagIdentifier(id));
     }
 
-    /** Get identifier from argument */
+    /**
+     * Get identifier from argument
+     */
     AbstractTagModel(TagIdentifier identifier, Cursor cursor) {
         super(cursor);
 
@@ -175,8 +184,8 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
     // --- utility methods
 
     static void putDate(ContentValues cv, String fieldName, Date date) {
-        if(date == null)
-            cv.put(fieldName, (Long)null);
+        if (date == null)
+            cv.put(fieldName, (Long) null);
         else
             cv.put(fieldName, date.getTime());
     }

@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -33,11 +29,14 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 import com.todoroo.astrid.utility.Constants;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
+
 /**
  * Provides operations for working with alerts
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AlarmService {
 
@@ -46,7 +45,7 @@ public class AlarmService {
     private static AlarmService instance = null;
 
     public static synchronized AlarmService getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new AlarmService();
         return instance;
     }
@@ -63,11 +62,12 @@ public class AlarmService {
     public TodorooCursor<Metadata> getAlarms(long taskId) {
         return PluginServices.getMetadataService().query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
-                        taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
+                taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
     }
 
     /**
      * Save the given array of alarms into the database
+     *
      * @param taskId
      * @param tags
      * @return true if data was changed
@@ -76,7 +76,7 @@ public class AlarmService {
         MetadataService service = PluginServices.getMetadataService();
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        for(Long alarm : alarms) {
+        for (Long alarm : alarms) {
             Metadata item = new Metadata();
             item.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);
             item.setValue(AlarmFields.TIME, alarm);
@@ -85,7 +85,7 @@ public class AlarmService {
         }
 
         final Context context = ContextManager.getContext();
-        final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
             @Override
@@ -96,7 +96,7 @@ public class AlarmService {
             }
         }, true);
 
-        if(changed)
+        if (changed)
             scheduleAlarms(taskId);
         return changed;
     }
@@ -105,6 +105,7 @@ public class AlarmService {
 
     /**
      * Gets a listing of all alarms that are active
+     *
      * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
@@ -116,6 +117,7 @@ public class AlarmService {
 
     /**
      * Gets a listing of alarms by task
+     *
      * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
@@ -133,7 +135,7 @@ public class AlarmService {
         TodorooCursor<Metadata> cursor = getActiveAlarms();
         try {
             Metadata alarm = new Metadata();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 alarm.readFromCursor(cursor);
                 scheduleAlarm(alarm);
             }
@@ -148,13 +150,14 @@ public class AlarmService {
 
     /**
      * Schedules alarms for a single task
+     *
      * @param task
      */
     public void scheduleAlarms(long taskId) {
         TodorooCursor<Metadata> cursor = getActiveAlarmsForTask(taskId);
         try {
             Metadata alarm = new Metadata();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 alarm.readFromCursor(cursor);
                 scheduleAlarm(alarm);
             }
@@ -172,34 +175,33 @@ public class AlarmService {
         intent.putExtra(Notifications.ID_KEY, taskId);
         intent.putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_ALARM);
 
-        return PendingIntent.getBroadcast(context, (int)alarm.getId(),
+        return PendingIntent.getBroadcast(context, (int) alarm.getId(),
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     /**
      * Schedules alarms for a single task
      *
-     * @param shouldPerformPropertyCheck
-     *            whether to check if task has requisite properties
+     * @param shouldPerformPropertyCheck whether to check if task has requisite properties
      */
     @SuppressWarnings("nls")
     private void scheduleAlarm(Metadata alarm) {
-        if(alarm == null)
+        if (alarm == null)
             return;
 
         long taskId = alarm.getValue(Metadata.TASK);
 
         Context context = ContextManager.getContext();
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = pendingIntentForAlarm(alarm, taskId);
 
         long time = alarm.getValue(AlarmFields.TIME);
-        if(time == 0 || time == NO_ALARM)
+        if (time == 0 || time == NO_ALARM)
             am.cancel(pendingIntent);
-        else if(time > DateUtilities.now()) {
-            if(Constants.DEBUG)
+        else if (time > DateUtilities.now()) {
+            if (Constants.DEBUG)
                 Log.e("Astrid", "Alarm (" + taskId + ", " + ReminderService.TYPE_ALARM +
-                    ", " + alarm.getId() + ") set for " + new Date(time));
+                        ", " + alarm.getId() + ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
     }

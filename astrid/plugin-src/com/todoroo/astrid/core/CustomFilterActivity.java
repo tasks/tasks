@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -60,11 +53,17 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 /**
  * Activity that allows users to build custom filters
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class CustomFilterActivity extends SherlockFragmentActivity {
 
@@ -85,32 +84,42 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         public static final int TYPE_INTERSECT = 2;
         public static final int TYPE_UNIVERSE = 3;
 
-        /** criteria for this instance */
+        /**
+         * criteria for this instance
+         */
         public CustomFilterCriterion criterion;
 
-        /** which of the entries is selected (MultipleSelect) */
+        /**
+         * which of the entries is selected (MultipleSelect)
+         */
         public int selectedIndex = -1;
 
-        /** text of selection (TextInput) */
+        /**
+         * text of selection (TextInput)
+         */
         public String selectedText = null;
 
-        /** type of join */
+        /**
+         * type of join
+         */
         public int type = TYPE_INTERSECT;
 
-        /** statistics for {@link FilterView} */
+        /**
+         * statistics for {@link FilterView}
+         */
         public int start, end, max;
 
         @SuppressWarnings("nls")
         public String getTitleFromCriterion() {
-            if(criterion instanceof MultipleSelectCriterion) {
-                if(selectedIndex >= 0 && ((MultipleSelectCriterion)criterion).entryTitles != null &&
-                        selectedIndex < ((MultipleSelectCriterion)criterion).entryTitles.length) {
-                    String title = ((MultipleSelectCriterion)criterion).entryTitles[selectedIndex];
+            if (criterion instanceof MultipleSelectCriterion) {
+                if (selectedIndex >= 0 && ((MultipleSelectCriterion) criterion).entryTitles != null &&
+                        selectedIndex < ((MultipleSelectCriterion) criterion).entryTitles.length) {
+                    String title = ((MultipleSelectCriterion) criterion).entryTitles[selectedIndex];
                     return criterion.text.replace("?", title);
                 }
                 return criterion.text;
-            } else if(criterion instanceof TextInputCriterion) {
-                if(selectedText == null)
+            } else if (criterion instanceof TextInputCriterion) {
+                if (selectedText == null)
                     return criterion.text;
                 return criterion.text.replace("?", selectedText);
             }
@@ -118,15 +127,15 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         }
 
         public String getValueFromCriterion() {
-            if(type == TYPE_UNIVERSE)
+            if (type == TYPE_UNIVERSE)
                 return null;
-            if(criterion instanceof MultipleSelectCriterion) {
-                if(selectedIndex >= 0 && ((MultipleSelectCriterion)criterion).entryValues != null &&
-                        selectedIndex < ((MultipleSelectCriterion)criterion).entryValues.length) {
-                    return ((MultipleSelectCriterion)criterion).entryValues[selectedIndex];
+            if (criterion instanceof MultipleSelectCriterion) {
+                if (selectedIndex >= 0 && ((MultipleSelectCriterion) criterion).entryValues != null &&
+                        selectedIndex < ((MultipleSelectCriterion) criterion).entryValues.length) {
+                    return ((MultipleSelectCriterion) criterion).entryValues[selectedIndex];
                 }
                 return criterion.text;
-            } else if(criterion instanceof TextInputCriterion) {
+            } else if (criterion instanceof TextInputCriterion) {
                 return selectedText;
             }
             throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
@@ -138,7 +147,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     private boolean isDialog;
 
     private CustomFilterAdapter adapter;
-    private final Map<String,CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String,CustomFilterCriterion>());
+    private final Map<String, CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String, CustomFilterCriterion>());
 
     private final FilterCriteriaReceiver filterCriteriaReceiver = new FilterCriteriaReceiver();
 
@@ -166,7 +175,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         database.openForReading();
         populateCriteria();
 
-        filterName = (TextView)findViewById(R.id.filterName);
+        filterName = (TextView) findViewById(R.id.filterName);
         List<CriterionInstance> startingCriteria = new ArrayList<CriterionInstance>();
         startingCriteria.add(getStartingUniverse());
         adapter = new CustomFilterAdapter(this, startingCriteria);
@@ -197,7 +206,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
         // built in criteria: due date
         {
-            String[] entryValues = new String[] {
+            String[] entryValues = new String[]{
                     "0",
                     PermaSql.VALUE_EOD_YESTERDAY,
                     PermaSql.VALUE_EOD,
@@ -219,20 +228,20 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
                                             Task.DUE_DATE.gt(0)),
                                     Task.DUE_DATE.lte("?"))).toString(),
                     values, r.getStringArray(R.array.CFC_dueBefore_entries),
-                    entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
+                    entryValues, ((BitmapDrawable) r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
                     getString(R.string.CFC_dueBefore_name));
             criteria.put(IDENTIFIER_DUEDATE, criterion);
         }
 
         // built in criteria: importance
         {
-            String[] entryValues = new String[] {
-                            Integer.toString(Task.IMPORTANCE_DO_OR_DIE),
-                            Integer.toString(Task.IMPORTANCE_MUST_DO),
-                            Integer.toString(Task.IMPORTANCE_SHOULD_DO),
-                            Integer.toString(Task.IMPORTANCE_NONE),
-                    };
-            String[] entries = new String[] {
+            String[] entryValues = new String[]{
+                    Integer.toString(Task.IMPORTANCE_DO_OR_DIE),
+                    Integer.toString(Task.IMPORTANCE_MUST_DO),
+                    Integer.toString(Task.IMPORTANCE_SHOULD_DO),
+                    Integer.toString(Task.IMPORTANCE_NONE),
+            };
+            String[] entries = new String[]{
                     "!!!", "!!", "!", "o"
             };
             ContentValues values = new ContentValues();
@@ -244,7 +253,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
                             Criterion.and(TaskCriteria.activeVisibleMine(),
                                     Task.IMPORTANCE.lte("?"))).toString(),
                     values, entries,
-                    entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
+                    entryValues, ((BitmapDrawable) r.getDrawable(R.drawable.tango_warning)).getBitmap(),
                     getString(R.string.CFC_importance_name));
             criteria.put(IDENTIFIER_IMPORTANCE, criterion);
         }
@@ -259,9 +268,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
                     Query.select(Task.ID).from(Task.TABLE).where(
                             Criterion.and(TaskCriteria.activeVisibleMine(),
                                     Task.TITLE.like("%?%"))).toString(),
-                        null, getString(R.string.CFC_title_contains_name), "",
-                        ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
-                        getString(R.string.CFC_title_contains_name));
+                    null, getString(R.string.CFC_title_contains_name), "",
+                    ((BitmapDrawable) r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
+                    getString(R.string.CFC_title_contains_name));
             criteria.put(IDENTIFIER_TITLE, criterion);
         }
     }
@@ -302,14 +311,14 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     }
 
     private void setUpListeners() {
-        ((Button)findViewById(R.id.add)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.add)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listView.showContextMenu();
             }
         });
 
-        final Button saveAndView = ((Button)findViewById(R.id.saveAndView));
+        final Button saveAndView = ((Button) findViewById(R.id.saveAndView));
         saveAndView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,20 +329,22 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         filterName.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length() == 0) {
+                if (s.length() == 0) {
                     saveAndView.setText(R.string.CFA_button_view);
                 } else {
                     saveAndView.setText(R.string.CFA_button_save);
                 }
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
+                                          int after) {
                 //
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
+                                      int count) {
                 //
             }
         });
@@ -341,8 +352,8 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
-                    ContextMenuInfo menuInfo) {
-                if(menu.hasVisibleItems()) {
+                                            ContextMenuInfo menuInfo) {
+                if (menu.hasVisibleItems()) {
                     /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
                        long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
                        to be invoked before this onCreateContextMenu method was invoked.
@@ -376,11 +387,11 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        if(menu.size() > 0)
+        if (menu.size() > 0)
             menu.clear();
 
         // view holder
-        if(v.getTag() != null) {
+        if (v.getTag() != null) {
             adapter.onCreateContextMenu(menu, v);
         }
     }
@@ -390,44 +401,44 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         StringBuilder sql = new StringBuilder(" WHERE ");
         StringBuilder suggestedTitle = new StringBuilder();
         ContentValues values = new ContentValues();
-        for(int i = 0; i < adapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
-            if(value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
+            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
                 value = "";
 
             String title = instance.getTitleFromCriterion();
 
-            switch(instance.type) {
-            case CriterionInstance.TYPE_ADD:
-                sql.append("OR ");
-                suggestedTitle.append(getString(R.string.CFA_type_add)).append(' ').
-                    append(title).append(' ');
-                break;
-            case CriterionInstance.TYPE_SUBTRACT:
-                sql.append("AND NOT ");
-                suggestedTitle.append(getString(R.string.CFA_type_subtract)).append(' ').
-                    append(title).append(' ');
-                break;
-            case CriterionInstance.TYPE_INTERSECT:
-                sql.append("AND ");
-                suggestedTitle.append(title).append(' ');
-                break;
-            case CriterionInstance.TYPE_UNIVERSE:
+            switch (instance.type) {
+                case CriterionInstance.TYPE_ADD:
+                    sql.append("OR ");
+                    suggestedTitle.append(getString(R.string.CFA_type_add)).append(' ').
+                            append(title).append(' ');
+                    break;
+                case CriterionInstance.TYPE_SUBTRACT:
+                    sql.append("AND NOT ");
+                    suggestedTitle.append(getString(R.string.CFA_type_subtract)).append(' ').
+                            append(title).append(' ');
+                    break;
+                case CriterionInstance.TYPE_INTERSECT:
+                    sql.append("AND ");
+                    suggestedTitle.append(title).append(' ');
+                    break;
+                case CriterionInstance.TYPE_UNIVERSE:
             }
 
 
             // special code for all tasks universe
-            if(instance.criterion.sql == null)
+            if (instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeVisibleMine()).append(' ');
             else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
 
-            if(instance.criterion.valuesForNewTasks != null &&
+            if (instance.criterion.valuesForNewTasks != null &&
                     instance.type == CriterionInstance.TYPE_INTERSECT) {
-                for(Entry<String, Object> entry : instance.criterion.valuesForNewTasks.valueSet()) {
+                for (Entry<String, Object> entry : instance.criterion.valuesForNewTasks.valueSet()) {
                     values.put(entry.getKey().replace("?", value),
                             entry.getValue().toString().replace("?", value));
                 }
@@ -435,7 +446,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         }
 
         String title;
-        if(filterName.getText().length() > 0) {
+        if (filterName.getText().length() > 0) {
             // persist saved filter
             title = filterName.getText().toString().trim();
             SavedFilter.persist(adapter, title, sql.toString(), values);
@@ -458,29 +469,29 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         int max = 0, last = -1;
 
         StringBuilder sql = new StringBuilder(Query.select(new CountProperty()).from(Task.TABLE).toString()).
-            append(" WHERE ");
+                append(" WHERE ");
 
-        for(int i = 0; i < adapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
-            if(value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
+            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
                 value = "";
 
-            switch(instance.type) {
-            case CriterionInstance.TYPE_ADD:
-                sql.append("OR ");
-                break;
-            case CriterionInstance.TYPE_SUBTRACT:
-                sql.append("AND NOT ");
-                break;
-            case CriterionInstance.TYPE_INTERSECT:
-                sql.append("AND ");
-                break;
-            case CriterionInstance.TYPE_UNIVERSE:
+            switch (instance.type) {
+                case CriterionInstance.TYPE_ADD:
+                    sql.append("OR ");
+                    break;
+                case CriterionInstance.TYPE_SUBTRACT:
+                    sql.append("AND NOT ");
+                    break;
+                case CriterionInstance.TYPE_INTERSECT:
+                    sql.append("AND ");
+                    break;
+                case CriterionInstance.TYPE_UNIVERSE:
             }
 
             // special code for all tasks universe
-            if(instance.criterion.sql == null)
+            if (instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeVisibleMine()).append(' ');
             else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
@@ -500,7 +511,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
             }
         }
 
-        for(int i = 0; i < adapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             instance.max = max;
         }
@@ -509,7 +520,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     }
 
     @SuppressWarnings("nls")
-    private <V> V getNth(int index, Map<?,V> map) {
+    private <V> V getNth(int index, Map<?, V> map) {
         int i = 0;
         for (V v : map.values()) {
             if (i == index) return v;
@@ -529,7 +540,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onContextItemSelected(android.view.MenuItem item) {
-        if(item.getGroupId() == MENU_GROUP_FILTER) {
+        if (item.getGroupId() == MENU_GROUP_FILTER) {
             // give an initial value for the row before adding it
             CustomFilterCriterion criterion = getNth(item.getItemId(), criteria);
             final CriterionInstance instance = new CriterionInstance();
@@ -544,14 +555,14 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         }
 
         // item type context item
-        else if(item.getGroupId() == MENU_GROUP_CONTEXT_TYPE) {
+        else if (item.getGroupId() == MENU_GROUP_CONTEXT_TYPE) {
             CriterionInstance instance = adapter.getItem(item.getOrder());
             instance.type = item.getItemId();
             updateList();
         }
 
         // delete context item
-        else if(item.getGroupId() == MENU_GROUP_CONTEXT_DELETE) {
+        else if (item.getGroupId() == MENU_GROUP_CONTEXT_DELETE) {
             CriterionInstance instance = adapter.getItem(item.getOrder());
             adapter.remove(instance);
             updateList();
@@ -565,7 +576,7 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         public void onReceive(Context context, Intent intent) {
             try {
                 final Parcelable[] filters = intent.getExtras().
-                    getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
+                        getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
                 for (Parcelable filter : filters) {
                     CustomFilterCriterion filterCriterion = (CustomFilterCriterion) filter;
                     criteria.put(filterCriterion.identifier, filterCriterion);

@@ -5,20 +5,20 @@
  */
 package com.todoroo.astrid.backup;
 
+import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.test.DatabaseTestCase;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.andlib.utility.Preferences;
 
 public class BackupServiceTests extends DatabaseTestCase {
 
@@ -41,9 +41,9 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         temporaryDirectory = File.createTempFile("backup",
                 Long.toString(System.nanoTime()));
-        if(!(temporaryDirectory.delete()))
+        if (!(temporaryDirectory.delete()))
             throw new IOException("Could not delete temp file: " + temporaryDirectory.getAbsolutePath());
-        if(!(temporaryDirectory.mkdir()))
+        if (!(temporaryDirectory.mkdir()))
             throw new IOException("Could not create temp directory: " + temporaryDirectory.getAbsolutePath());
 
         // make a temporary task
@@ -56,8 +56,8 @@ public class BackupServiceTests extends DatabaseTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
 
-        if(temporaryDirectory != null) {
-            for(File file : temporaryDirectory.listFiles())
+        if (temporaryDirectory != null) {
+            for (File file : temporaryDirectory.listFiles())
                 file.delete();
             temporaryDirectory.delete();
         }
@@ -71,7 +71,9 @@ public class BackupServiceTests extends DatabaseTestCase {
         Preferences.setBoolean(R.string.backup_BPr_auto_key, setting);
     }
 
-    /** Test backup works */
+    /**
+     * Test backup works
+     */
     public void testBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
@@ -100,7 +102,9 @@ public class BackupServiceTests extends DatabaseTestCase {
         }
     }
 
-    /** Test no backup */
+    /**
+     * Test no backup
+     */
     public void testNoBackup() {
         assertEquals(0, temporaryDirectory.list().length);
         System.err.println("test no backup");
@@ -145,7 +149,7 @@ public class BackupServiceTests extends DatabaseTestCase {
             myFile.createNewFile();
 
             // create some backup files
-            for(int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++) {
                 DateFormat df = new SimpleDateFormat("MMdd-HHmm");
                 String name = String.format("auto.%02d%s.xml", i, df.format(new Date()));
                 File tempFile = new File(temporaryDirectory, name);

@@ -16,11 +16,9 @@
 
 package com.zutubi.android.junitreport;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import android.content.Context;
+import android.util.Log;
+import android.util.Xml;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -29,9 +27,11 @@ import junit.framework.TestListener;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.content.Context;
-import android.util.Log;
-import android.util.Xml;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * Custom test listener that outputs test results to a single XML file. The file
@@ -67,7 +67,7 @@ public class JUnitReportListener implements TestListener {
 
     // With thanks to org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.
     // Trimmed some entries, added others for Android.
-    private static final String[] DEFAULT_TRACE_FILTERS = new String[] {
+    private static final String[] DEFAULT_TRACE_FILTERS = new String[]{
             "junit.framework.TestCase", "junit.framework.TestResult",
             "junit.framework.TestSuite",
             "junit.framework.Assert.", // don't filter AssertionFailure
@@ -93,11 +93,11 @@ public class JUnitReportListener implements TestListener {
     /**
      * Creates a new listener.
      *
-     * @param context context of the target application under test
+     * @param context        context of the target application under test
      * @param reportFilePath path of the report file to create (under the
-     *            context using {@link Context#openFileOutput(String, int)}).
-     * @param filterTraces if true, stack traces will have common noise (e.g.
-     *            framework methods) omitted for clarity
+     *                       context using {@link Context#openFileOutput(String, int)}).
+     * @param filterTraces   if true, stack traces will have common noise (e.g.
+     *                       framework methods) omitted for clarity
      */
     public JUnitReportListener(Context context, String reportFilePath, boolean filterTraces) {
         this.mContext = context;
@@ -171,7 +171,7 @@ public class JUnitReportListener implements TestListener {
     }
 
     private void recordTestTime() throws IOException {
-        if(!timeAlreadyWritten) {
+        if (!timeAlreadyWritten) {
             timeAlreadyWritten = true;
             mSerializer.attribute("", ATTRIBUTE_TIME,
                     String.format("%.3f", (System.currentTimeMillis() - testStart) / 1000.));

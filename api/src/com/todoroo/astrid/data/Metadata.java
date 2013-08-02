@@ -21,54 +21,75 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Data Model which represents a piece of metadata associated with a task
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class Metadata extends AbstractModel {
 
     // --- table
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("metadata", Metadata.class);
 
-    /** changes to metadata (specifically tags) are recorded in the task outstanding table */
+    /**
+     * changes to metadata (specifically tags) are recorded in the task outstanding table
+     */
     public static final Class<? extends OutstandingEntry<Task>> OUTSTANDING_MODEL = TaskOutstanding.class;
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Associated Task */
+    /**
+     * Associated Task
+     */
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Metadata Key */
+    /**
+     * Metadata Key
+     */
     public static final StringProperty KEY = new StringProperty(
             TABLE, "key");
 
-    /** Metadata Text Value Column 1 */
+    /**
+     * Metadata Text Value Column 1
+     */
     public static final StringProperty VALUE1 = new StringProperty(
             TABLE, "value");
 
-    /** Metadata Text Value Column 2 */
+    /**
+     * Metadata Text Value Column 2
+     */
     public static final StringProperty VALUE2 = new StringProperty(
             TABLE, "value2");
 
-    /** Metadata Text Value Column 3 */
+    /**
+     * Metadata Text Value Column 3
+     */
     public static final StringProperty VALUE3 = new StringProperty(
             TABLE, "value3");
 
-    /** Metadata Text Value Column 4 */
+    /**
+     * Metadata Text Value Column 4
+     */
     public static final StringProperty VALUE4 = new StringProperty(
             TABLE, "value4");
 
-    /** Metadata Text Value Column 5 */
+    /**
+     * Metadata Text Value Column 5
+     */
     public static final StringProperty VALUE5 = new StringProperty(
             TABLE, "value5");
 
@@ -78,20 +99,28 @@ public class Metadata extends AbstractModel {
     public static final StringProperty VALUE7 = new StringProperty(
             TABLE, "value7");
 
-    /** Unixtime Metadata was created */
+    /**
+     * Unixtime Metadata was created
+     */
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created");
 
-    /** Unixtime metadata was deleted/tombstoned */
+    /**
+     * Unixtime metadata was deleted/tombstoned
+     */
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted");
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(Metadata.class);
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
@@ -121,7 +150,9 @@ public class Metadata extends AbstractModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
+
+    ;
 
     // --- parcelable helpers
 

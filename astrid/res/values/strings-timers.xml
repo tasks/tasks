@@ -4,33 +4,33 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
+<resources>
+
     <!-- Resources for built-in timers plug-in -->
-    
+
     <!-- Task List: Start Timer button -->
-    
+
     <!-- Task List: Stop Timer button -->
-    
+
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers Active for %s!</string>
-    
+
     <!-- Filter Header for Timer plugin -->
-    
+
     <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Tasks Being Timed</string>
-    
+
     <!-- Title for TEA -->
     <string name="TEA_timer_controls">Timer</string>
-    
-    
+
+
     <!-- Edit Notes: create comment for when timer is started -->
     <string name="TEA_timer_comment_started">started this task:</string>
-    
+
     <!-- Edit Notes: create comment for when timer is stopped -->
     <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-    
+
     <!-- Edit Notes: comment to notify how long was spent on task -->
     <string name="TEA_timer_comment_spent">Time spent:</string>
-    
+
 </resources>

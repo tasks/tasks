@@ -1,19 +1,5 @@
 package com.todoroo.astrid.actfm.sync;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.http.entity.mime.MultipartEntity;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -76,6 +62,20 @@ import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 
+import org.apache.http.entity.mime.MultipartEntity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class ActFmSyncThread {
 
     private static final String ERROR_TAG = "actfm-sync-thread"; //$NON-NLS-1$
@@ -133,6 +133,7 @@ public class ActFmSyncThread {
 
     public static interface SyncMessageCallback {
         public void runOnSuccess();
+
         public void runOnErrors(List<JSONArray> errors);
     }
 
@@ -149,7 +150,7 @@ public class ActFmSyncThread {
 
     public static ActFmSyncThread getInstance() {
         if (instance == null) {
-            synchronized(ActFmSyncThread.class) {
+            synchronized (ActFmSyncThread.class) {
                 if (instance == null) {
                     initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao(),
                             PluginServices.getTaskAttachmentDao(), PluginServices.getTaskListMetadataDao(), PluginServices.getWaitingOnMeDao());
@@ -160,9 +161,9 @@ public class ActFmSyncThread {
     }
 
     public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao,
-            TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao, WaitingOnMeDao waitingOnMeDao) {
+                                                           TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao, WaitingOnMeDao waitingOnMeDao) {
         if (instance == null) {
-            synchronized(ActFmSyncThread.class) {
+            synchronized (ActFmSyncThread.class) {
                 if (instance == null) {
                     List<ClientToServerMessage<?>> syncQueue = Collections.synchronizedList(new LinkedList<ClientToServerMessage<?>>());
                     ActFmSyncMonitor monitor = ActFmSyncMonitor.getInstance();
@@ -206,8 +207,8 @@ public class ActFmSyncThread {
     }
 
     public static void clearTablePushedAtValues() {
-        String[] pushedAtPrefs = new String[] { NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS, NameMaps.PUSHED_AT_ACTIVITY,
-                NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA, NameMaps.PUSHED_AT_WAITING_ON_ME };
+        String[] pushedAtPrefs = new String[]{NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS, NameMaps.PUSHED_AT_ACTIVITY,
+                NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA, NameMaps.PUSHED_AT_WAITING_ON_ME};
         for (String key : pushedAtPrefs)
             Preferences.clear(key);
     }
@@ -219,7 +220,7 @@ public class ActFmSyncThread {
             pendingMessages.add(message);
             if (callback != null)
                 pendingCallbacks.put(message, callback);
-            synchronized(monitor) {
+            synchronized (monitor) {
                 monitor.notifyAll();
             }
         }
@@ -249,8 +250,8 @@ public class ActFmSyncThread {
         try {
             int batchSize = 4;
             List<ClientToServerMessage<?>> messageBatch = new ArrayList<ClientToServerMessage<?>>();
-            while(true) {
-                synchronized(monitor) {
+            while (true) {
+                synchronized (monitor) {
                     while ((pendingMessages.isEmpty() && !timeForBackgroundSync()) || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
                         try {
                             if ((pendingMessages.isEmpty() || !actFmPreferenceService.isLoggedIn()) && notificationId >= 0) {
@@ -482,10 +483,10 @@ public class ActFmSyncThread {
         try {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(ContextManager.getContext());
             builder.setContentText(ContextManager.getString(R.string.actfm_sync_ongoing))
-            .setContentTitle(ContextManager.getString(R.string.app_name))
-            .setOngoing(true)
-            .setSmallIcon(android.R.drawable.stat_notify_sync)
-            .setContentIntent(PendingIntent.getActivity(ContextManager.getContext().getApplicationContext(), 0, new Intent(), 0));
+                    .setContentTitle(ContextManager.getString(R.string.app_name))
+                    .setOngoing(true)
+                    .setSmallIcon(android.R.drawable.stat_notify_sync)
+                    .setContentIntent(PendingIntent.getActivity(ContextManager.getContext().getApplicationContext(), 0, new Intent(), 0));
 
 
             notificationManager.notify(0, builder.getNotification());
@@ -498,7 +499,7 @@ public class ActFmSyncThread {
     }
 
     private boolean checkForToken() {
-        if(!actFmPreferenceService.isLoggedIn())
+        if (!actFmPreferenceService.isLoggedIn())
             return false;
         token = actFmPreferenceService.getToken();
         return true;
@@ -512,6 +513,7 @@ public class ActFmSyncThread {
     public static class NetworkStateChangedReceiver extends BroadcastReceiver {
         private static long lastSyncFromNetworkChange = 0;
         private static final String PREF_LAST_SYNC_FROM_NETWORK_CHANGE = "p_last_sync_from_net_change"; //$NON-NLS-1$
+
         @Override
         public void onReceive(Context context, Intent intent) {
             lastSyncFromNetworkChange = Preferences.getLong(PREF_LAST_SYNC_FROM_NETWORK_CHANGE, 0L);

@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -15,6 +13,8 @@ import android.view.View;
 
 import com.timsu.astrid.R;
 import com.viewpagerindicator.TitleProvider;
+
+import java.util.ArrayList;
 
 public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 

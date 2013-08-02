@@ -13,7 +13,6 @@ import android.os.Parcelable;
  * Represents an intent that can be called to perform synchronization
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class SyncAction implements Parcelable {
 
@@ -30,10 +29,8 @@ public class SyncAction implements Parcelable {
     /**
      * Create an EditOperation object
      *
-     * @param label
-     *            label to display
-     * @param intent
-     *            intent to invoke
+     * @param label  label to display
+     * @param intent intent to invoke
      */
     public SyncAction(String label, PendingIntent intent) {
         super();
@@ -61,7 +58,7 @@ public class SyncAction implements Parcelable {
      */
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof SyncAction))
+        if (!(o instanceof SyncAction))
             return false;
         SyncAction other = (SyncAction) o;
         return label.equals(other.label) && intent.getTargetPackage().equals(other.intent.getTargetPackage());
@@ -92,7 +89,7 @@ public class SyncAction implements Parcelable {
          * {@inheritDoc}
          */
         public SyncAction createFromParcel(Parcel source) {
-            return new SyncAction(source.readString(), (PendingIntent)source.readParcelable(
+            return new SyncAction(source.readString(), (PendingIntent) source.readParcelable(
                     PendingIntent.class.getClassLoader()));
         }
 
@@ -101,7 +98,9 @@ public class SyncAction implements Parcelable {
          */
         public SyncAction[] newArray(int size) {
             return new SyncAction[size];
-        };
+        }
+
+        ;
     };
 
 }

@@ -7,21 +7,26 @@ import com.todoroo.astrid.widget.TasksWidget;
 
 public class SyncResultCallbackWrapper implements SyncResultCallback {
     private final SyncResultCallback wrapped;
+
     public SyncResultCallbackWrapper(SyncResultCallback wrap) {
         this.wrapped = wrap;
     }
+
     @Override
     public void incrementMax(int incrementBy) {
         wrapped.incrementMax(incrementBy);
     }
+
     @Override
     public void incrementProgress(int incrementBy) {
         wrapped.incrementProgress(incrementBy);
     }
+
     @Override
     public void started() {
         wrapped.started();
     }
+
     @Override
     public void finished() {
         wrapped.finished();

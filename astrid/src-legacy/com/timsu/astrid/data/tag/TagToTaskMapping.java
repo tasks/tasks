@@ -17,35 +17,43 @@ import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 
-/** A single tag on a task */
+/**
+ * A single tag on a task
+ */
 @SuppressWarnings("nls")
 public class TagToTaskMapping extends LegacyAbstractModel {
 
-    /** Version number of this model */
-    static final int                   VERSION             = 2;
+    /**
+     * Version number of this model
+     */
+    static final int VERSION = 2;
 
     // field names
 
-    public static final String                TASK                = "task";
-    public static final String                TAG                 = "tag";
+    public static final String TASK = "task";
+    public static final String TAG = "tag";
 
-    /** Default values container */
-    private static final ContentValues defaultValues       = new ContentValues();
+    /**
+     * Default values container
+     */
+    private static final ContentValues defaultValues = new ContentValues();
 
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
     }
 
-    static String[] FIELD_LIST = new String[] {
-        LegacyAbstractController.KEY_ROWID,
-        TASK,
-        TAG,
+    static String[] FIELD_LIST = new String[]{
+            LegacyAbstractController.KEY_ROWID,
+            TASK,
+            TAG,
     };
 
     // --- database helper
 
-    /** Database Helper manages creating new tables and updating old ones */
+    /**
+     * Database Helper manages creating new tables and updating old ones
+     */
     static class TagToTaskMappingDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
         Context context;
@@ -59,12 +67,12 @@ public class TagToTaskMapping extends LegacyAbstractModel {
         @Override
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
-            append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
-                append(TASK).append(" integer not null,").
-                append(TAG).append(" integer not null,").
-                append("unique (").append(TASK).append(",").append(TAG).append(")").
-            append(");").toString();
+                    append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
+                    append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                    append(TASK).append(" integer not null,").
+                    append(TAG).append(" integer not null,").
+                    append("unique (").append(TASK).append(",").append(TAG).append(")").
+                    append(");").toString();
             db.execSQL(sql);
         }
 
@@ -73,10 +81,10 @@ public class TagToTaskMapping extends LegacyAbstractModel {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
 
-            switch(oldVersion) {
-            default:
-                // we don't know how to handle it... show an error
-                Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
+            switch (oldVersion) {
+                default:
+                    // we don't know how to handle it... show an error
+                    Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
             }
         }
     }

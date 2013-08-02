@@ -6,9 +6,6 @@
 
 package com.todoroo.astrid.welcome.tutorial;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -35,6 +32,9 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 public class WelcomeWalkthrough extends ActFmLoginActivity {
     private ViewPager mPager;
     private WelcomePagerAdapter mAdapter;
@@ -60,16 +60,17 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         mAdapter.parent = this;
         accounts = mAdapter.accounts;
 
-        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
 
-        mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
+        mIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
         if (mAdapter.getCount() <= 1) {
             mIndicator.setVisibility(View.GONE);
         }
 
     }
+
     @Override
     protected int getContentViewResource() {
         return R.layout.welcome_walkthrough;
@@ -80,8 +81,8 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         return 0;
     }
 
-    public void instantiatePage(int position){
-        if (position == mAdapter.getCount()-1) {
+    public void instantiatePage(int position) {
+        if (position == mAdapter.getCount() - 1) {
             initializeUI();
         }
     }
@@ -119,7 +120,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
             }
 
             private void getAuthToken(final String e,
-                    final ProgressDialog pd) {
+                                      final ProgressDialog pd) {
                 final GoogleAccountManager accountManager = new GoogleAccountManager(WelcomeWalkthrough.this);
                 Account a = accountManager.getAccountByName(e);
                 AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
@@ -148,7 +149,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                                         @Override
                                         public void run() {
                                             int error = e instanceof IOException ? R.string.gtasks_GLA_errorIOAuth :
-                                                R.string.gtasks_GLA_errorAuth;
+                                                    R.string.gtasks_GLA_errorAuth;
                                             Toast.makeText(WelcomeWalkthrough.this,
                                                     error,
                                                     Toast.LENGTH_LONG).show();
@@ -211,8 +212,8 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         findViewById(R.id.next).setVisibility(
                 position == mAdapter.getCount() - 1 ? View.GONE : View.VISIBLE);
 
-        if(currentPage == mAdapter.getCount() - 1) {
-            if(findViewById(R.id.fb_login) != null) {
+        if (currentPage == mAdapter.getCount() - 1) {
+            if (findViewById(R.id.fb_login) != null) {
                 setupLoginLater();
             } else {
                 OnClickListener done = new OnClickListener() {
@@ -229,7 +230,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                     image.setOnClickListener(done);
             }
         }
-        ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
+        ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount() - 1 ? View.GONE : View.VISIBLE);
     }
 
     protected void setupPWLogin() {
@@ -238,7 +239,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     }
 
     protected void setupLoginLater() {
-        TextView loginLater = (TextView)currentView.findViewById(R.id.login_later);
+        TextView loginLater = (TextView) currentView.findViewById(R.id.login_later);
         loginLater.setOnClickListener(loginLaterListener);
         loginLater.setVisibility(View.VISIBLE);
     }

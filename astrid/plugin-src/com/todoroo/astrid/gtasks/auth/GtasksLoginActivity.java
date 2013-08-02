@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.gtasks.auth;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -39,18 +35,23 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 /**
  * This activity allows users to sign in or log in to Google Tasks
  * through the Android account manager
  *
  * @author Sam Bosley
- *
  */
 public class GtasksLoginActivity extends ListActivity {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
 
-    @Autowired private SyncV2Service syncService;
+    @Autowired
+    private SyncV2Service syncService;
 
     // --- ui initialization
 
@@ -132,7 +133,7 @@ public class GtasksLoginActivity extends ListActivity {
                                 @Override
                                 public void run() {
                                     int error = e instanceof IOException ? R.string.gtasks_GLA_errorIOAuth :
-                                        R.string.gtasks_GLA_errorAuth;
+                                            R.string.gtasks_GLA_errorAuth;
                                     Toast.makeText(GtasksLoginActivity.this,
                                             error,
                                             Toast.LENGTH_LONG).show();
@@ -188,7 +189,7 @@ public class GtasksLoginActivity extends ListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK) {
             final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
             pd.show();
             final Account a = accountManager.getAccountByName(accountName);

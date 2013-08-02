@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.xmlpull.v1.XmlSerializer;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,6 +33,12 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class TasksXmlExporter {
 
     // --- public interface
@@ -46,13 +46,13 @@ public class TasksXmlExporter {
     /**
      * Import tasks from the given file
      *
-     * @param context context
-     * @param exportType from service, manual, or on upgrade
-     * @param runAfterExport runnable to run after exporting
+     * @param context                 context
+     * @param exportType              from service, manual, or on upgrade
+     * @param runAfterExport          runnable to run after exporting
      * @param backupDirectoryOverride new backupdirectory, or null to use default
      */
     public static void exportTasks(Context context, ExportType exportType,
-            Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
+                                   Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
         new TasksXmlExporter(context, exportType, runAfterExport,
                 backupDirectoryOverride, versionName);
     }
@@ -90,7 +90,7 @@ public class TasksXmlExporter {
     }
 
     private TasksXmlExporter(final Context context, final ExportType exportType,
-            final Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
+                             final Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
@@ -99,7 +99,7 @@ public class TasksXmlExporter {
 
         handler = new Handler();
         progressDialog = new ProgressDialog(context);
-        if(exportType == ExportType.EXPORT_TYPE_MANUAL) {
+        if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
             progressDialog.setIcon(android.R.drawable.ic_dialog_info);
             progressDialog.setTitle(R.string.export_progress_title);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -107,8 +107,8 @@ public class TasksXmlExporter {
             progressDialog.setCancelable(false);
             progressDialog.setIndeterminate(false);
             progressDialog.show();
-            if(context instanceof Activity)
-                progressDialog.setOwnerActivity((Activity)context);
+            if (context instanceof Activity)
+                progressDialog.setOwnerActivity((Activity) context);
         }
 
         new Thread(new Runnable() {
@@ -119,7 +119,7 @@ public class TasksXmlExporter {
                             exportType);
                     int tasks = taskService.countTasks();
 
-                    if(tasks > 0)
+                    if (tasks > 0)
                         doTasksExport(output);
 
                     Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE,
@@ -129,22 +129,22 @@ public class TasksXmlExporter {
                     if (exportType == ExportType.EXPORT_TYPE_MANUAL)
                         onFinishExport(output);
                 } catch (IOException e) {
-                    switch(exportType) {
-                    case EXPORT_TYPE_MANUAL:
-                        exceptionService.displayAndReportError(context,
-                            context.getString(R.string.backup_TXI_error), e);
-                        break;
-                    case EXPORT_TYPE_SERVICE:
-                        exceptionService.reportError("background-backup", e); //$NON-NLS-1$
-                        Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
-                        break;
-                    case EXPORT_TYPE_ON_UPGRADE:
-                        exceptionService.reportError("background-backup", e); //$NON-NLS-1$
-                        Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
-                        break;
+                    switch (exportType) {
+                        case EXPORT_TYPE_MANUAL:
+                            exceptionService.displayAndReportError(context,
+                                    context.getString(R.string.backup_TXI_error), e);
+                            break;
+                        case EXPORT_TYPE_SERVICE:
+                            exceptionService.reportError("background-backup", e); //$NON-NLS-1$
+                            Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
+                            break;
+                        case EXPORT_TYPE_ON_UPGRADE:
+                            exceptionService.reportError("background-backup", e); //$NON-NLS-1$
+                            Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
+                            break;
                     }
                 } finally {
-                    if(runAfterExport != null)
+                    if (runAfterExport != null)
                         runAfterExport.run();
                 }
             }
@@ -184,7 +184,7 @@ public class TasksXmlExporter {
         try {
             Task task = new Task();
             int length = cursor.getCount();
-            for(int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++) {
                 cursor.moveToNext();
                 task.readFromCursor(cursor);
 
@@ -206,7 +206,7 @@ public class TasksXmlExporter {
                 Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
             Metadata metadata = new Metadata();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 metadata.readFromCursor(cursor);
 
                 xml.startTag(null, BackupConstants.METADATA_TAG);
@@ -220,12 +220,14 @@ public class TasksXmlExporter {
 
     /**
      * Turn a model into xml attributes
+     *
      * @param model
      */
     private void serializeModel(AbstractModel model, Property<?>[] properties, Property<?>... excludes) {
-        outer: for(Property<?> property : properties) {
-            for(Property<?> exclude : excludes)
-                if(property.name.equals(exclude.name))
+        outer:
+        for (Property<?> property : properties) {
+            for (Property<?> exclude : excludes)
+                if (property.name.equals(exclude.name))
                     continue outer;
 
             try {
@@ -233,7 +235,7 @@ public class TasksXmlExporter {
             } catch (Exception e) {
                 Log.e("astrid-exporter", //$NON-NLS-1$
                         "Caught exception while reading " + property.name + //$NON-NLS-1$
-                        " from " + model.getDatabaseValues(), e); //$NON-NLS-1$
+                                " from " + model.getDatabaseValues(), e); //$NON-NLS-1$
             }
         }
     }
@@ -301,7 +303,7 @@ public class TasksXmlExporter {
         public Void visitString(Property<String> property, AbstractModel data) {
             try {
                 String value = data.getValue(property);
-                if(value == null)
+                if (value == null)
                     return null;
                 xml.attribute(null, property.name, value);
             } catch (UnsupportedOperationException e) {
@@ -322,14 +324,14 @@ public class TasksXmlExporter {
             @Override
             public void run() {
 
-                if(exportCount == 0)
+                if (exportCount == 0)
                     Toast.makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG).show();
                 else {
                     CharSequence text = String.format(context.getString(R.string.export_toast),
                             context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
                                     exportCount), outputFile);
                     Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                    if(progressDialog.isShowing() && context instanceof Activity)
+                    if (progressDialog.isShowing() && context instanceof Activity)
                         DialogUtilities.dismissDialog((Activity) context, progressDialog);
                 }
             }
@@ -338,6 +340,7 @@ public class TasksXmlExporter {
 
     /**
      * Creates directories if necessary and returns fully qualified file
+     *
      * @param directory
      * @return output file name
      * @throws IOException
@@ -348,18 +351,18 @@ public class TasksXmlExporter {
             // Check for /sdcard/astrid directory. If it doesn't exist, make it.
             if (astridDir.exists() || astridDir.mkdir()) {
                 String fileName = ""; //$NON-NLS-1$
-                switch(exportType) {
-                case EXPORT_TYPE_SERVICE:
-                    fileName = String.format(BackupConstants.BACKUP_FILE_NAME, BackupDateUtilities.getDateForExport());
-                    break;
-                case EXPORT_TYPE_MANUAL:
-                    fileName = String.format(BackupConstants.EXPORT_FILE_NAME, BackupDateUtilities.getDateForExport());
-                    break;
-                case EXPORT_TYPE_ON_UPGRADE:
-                    fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
-                    break;
-                default:
-                     throw new IllegalArgumentException("Invalid export type"); //$NON-NLS-1$
+                switch (exportType) {
+                    case EXPORT_TYPE_SERVICE:
+                        fileName = String.format(BackupConstants.BACKUP_FILE_NAME, BackupDateUtilities.getDateForExport());
+                        break;
+                    case EXPORT_TYPE_MANUAL:
+                        fileName = String.format(BackupConstants.EXPORT_FILE_NAME, BackupDateUtilities.getDateForExport());
+                        break;
+                    case EXPORT_TYPE_ON_UPGRADE:
+                        fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid export type"); //$NON-NLS-1$
                 }
                 return astridDir.getAbsolutePath() + File.separator + fileName;
             } else {

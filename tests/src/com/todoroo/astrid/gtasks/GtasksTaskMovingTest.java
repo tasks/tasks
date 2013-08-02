@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
@@ -17,12 +14,18 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("nls")
 public class GtasksTaskMovingTest extends DatabaseTestCase {
 
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Autowired
+    private GtasksListService gtasksListService;
+    @Autowired
+    private GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     private Task A, B, C, D, E, F;
     private StoreObject list;
@@ -224,7 +227,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
     // --- helpers
 
-    /** moveTo = null => move to end */
+    /**
+     * moveTo = null => move to end
+     */
     private void whenTriggerMove(Task target, Task moveTo) {
         gtasksTaskListUpdater.moveTo(null, list, target.getId(), moveTo == null ? -1 : moveTo.getId());
         gtasksTaskListUpdater.debugPrint(null, list);
@@ -234,7 +239,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         assertNotNull("metadata was found", metadata);
         assertEquals("order", order, metadata.getValue(GtasksMetadata.ORDER).longValue());
-        assertEquals("indentation", indent, (int)metadata.getValue(GtasksMetadata.INDENT));
+        assertEquals("indentation", indent, (int) metadata.getValue(GtasksMetadata.INDENT));
     }
 
     @Override
@@ -255,20 +260,20 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
     /**
      * A
-     *  B
-     *  C
-     *   D
+     * B
+     * C
+     * D
      * E
      * F
      */
     private Task[] givenTasksABCDEF() {
-        Task[] tasks = new Task[] {
-            A = createTask("A", 0, 0),
-            B = createTask("B", 1, 1),
-            C = createTask("C", 2, 1),
-            D = createTask("D", 3, 2),
-            E = createTask("E", 4, 0),
-            F = createTask("F", 5, 0),
+        Task[] tasks = new Task[]{
+                A = createTask("A", 0, 0),
+                B = createTask("B", 1, 1),
+                C = createTask("C", 2, 1),
+                D = createTask("D", 3, 2),
+                E = createTask("E", 4, 0),
+                F = createTask("F", 5, 0),
         };
         gtasksTaskListUpdater.correctMetadataForList("1");
         return tasks;
@@ -280,9 +285,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
-        if(order != GtasksMetadata.VALUE_UNSET)
+        if (order != GtasksMetadata.VALUE_UNSET)
             metadata.setValue(GtasksMetadata.ORDER, order);
-        if(indent != GtasksMetadata.VALUE_UNSET)
+        if (indent != GtasksMetadata.VALUE_UNSET)
             metadata.setValue(GtasksMetadata.INDENT, indent);
         PluginServices.getMetadataService().save(metadata);
         return task;

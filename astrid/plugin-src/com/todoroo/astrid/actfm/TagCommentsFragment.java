@@ -129,8 +129,7 @@ public class TagCommentsFragment extends CommentsFragment {
         if (!TextUtils.isEmpty(description)) {
             descriptionTitle.setText(description);
             descriptionTitle.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             descriptionTitle.setVisibility(View.GONE);
         }
 
@@ -175,7 +174,7 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected void setLastViewed() {
-        if(tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
+        if (tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
             Activity activity = getActivity();
             if (activity instanceof TaskListActivity)

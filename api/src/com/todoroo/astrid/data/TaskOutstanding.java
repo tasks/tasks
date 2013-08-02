@@ -11,12 +11,16 @@ import com.todoroo.andlib.data.Table;
 @SuppressWarnings("nls")
 public class TaskOutstanding extends OutstandingEntry<Task> {
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("tasks_outstanding", TaskOutstanding.class);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
@@ -40,7 +44,9 @@ public class TaskOutstanding extends OutstandingEntry<Task> {
         defaultValues.put(VALUE_STRING.name, "");
     }
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(TaskOutstanding.class);
 
     @Override

@@ -40,17 +40,17 @@ import com.todoroo.astrid.service.TaskService;
 public final class Eula {
     public static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted"; //$NON-NLS-1$
 
-    @Autowired TaskService taskService;
+    @Autowired
+    TaskService taskService;
 
     /**
      * Displays the EULA if necessary. This method should be called from the
      * onCreate() method of your main Activity.
      *
-     * @param activity
-     *            The Activity to finish if the user rejects the EULA
+     * @param activity The Activity to finish if the user rejects the EULA
      */
     public static void showEula(final Activity activity) {
-        if(!new Eula().shouldShowEula(activity))
+        if (!new Eula().shouldShowEula(activity))
             return;
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -89,21 +89,21 @@ public final class Eula {
     }
 
     private boolean shouldShowEula(Activity activity) {
-        if(Preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
+        if (Preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
             return false;
 
         SharedPreferences p = activity.getSharedPreferences("eula", Activity.MODE_PRIVATE); //$NON-NLS-1$
-        if(p.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
+        if (p.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
             return false;
 
-        if(taskService.countTasks() > 0)
+        if (taskService.countTasks() > 0)
             return false;
         return true;
     }
 
     private static void accept(Activity activity) {
         if (activity instanceof EulaCallback) {
-            ((EulaCallback)activity).eulaAccepted();
+            ((EulaCallback) activity).eulaAccepted();
         }
         Preferences.setBoolean(PREFERENCE_EULA_ACCEPTED, true);
         StatisticsService.reportEvent(StatisticsConstants.EULA_ACCEPTED);
@@ -111,13 +111,14 @@ public final class Eula {
 
     private static void refuse(Activity activity) {
         if (activity instanceof EulaCallback) {
-            ((EulaCallback)activity).eulaRefused();
+            ((EulaCallback) activity).eulaRefused();
         }
         activity.finish();
     }
 
     public static interface EulaCallback {
         public void eulaAccepted();
+
         public void eulaRefused();
     }
 

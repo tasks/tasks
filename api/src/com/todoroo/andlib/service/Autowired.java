@@ -11,11 +11,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Autowired is an annotation that tells the dependency injector to 
+ * Autowired is an annotation that tells the dependency injector to
  * set up the class as appropriate.
- *  
- * @author Tim Su <tim@todoroo.com>
  *
+ * @author Tim Su <tim@todoroo.com>
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

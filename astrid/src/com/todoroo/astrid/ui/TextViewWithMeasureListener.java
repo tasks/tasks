@@ -23,7 +23,7 @@ public class TextViewWithMeasureListener extends TextView {
     }
 
     @Override
-    protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (listener != null) {
             listener.onTextSizeChanged();

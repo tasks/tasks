@@ -27,21 +27,21 @@ public class DialogUtilities {
      * @param okListener
      */
     public static void viewDialog(final Activity activity, final String text,
-            final View view, final DialogInterface.OnClickListener okListener,
-            final DialogInterface.OnClickListener cancelListener) {
-        if(activity.isFinishing())
+                                  final View view, final DialogInterface.OnClickListener okListener,
+                                  final DialogInterface.OnClickListener cancelListener) {
+        if (activity.isFinishing())
             return;
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
-                .setTitle(R.string.DLG_question_title)
-                .setMessage(text)
-                .setView(view)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, okListener)
-                .setNegativeButton(android.R.string.cancel, cancelListener)
-                .show().setOwnerActivity(activity);
+                        .setTitle(R.string.DLG_question_title)
+                        .setMessage(text)
+                        .setView(view)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.ok, okListener)
+                        .setNegativeButton(android.R.string.cancel, cancelListener)
+                        .show().setOwnerActivity(activity);
             }
         });
     }
@@ -60,11 +60,11 @@ public class DialogUtilities {
         webView.setBackgroundColor(0);
 
         new AlertDialog.Builder(context)
-        .setTitle(title)
-        .setView(webView)
-        .setIcon(android.R.drawable.ic_dialog_info)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
+                .setTitle(title)
+                .setView(webView)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
     /**
@@ -75,18 +75,18 @@ public class DialogUtilities {
      * @param okListener
      */
     public static void okDialog(final Activity activity, final String text,
-            final DialogInterface.OnClickListener okListener) {
-        if(activity.isFinishing())
+                                final DialogInterface.OnClickListener okListener) {
+        if (activity.isFinishing())
             return;
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
-                .setTitle(R.string.DLG_information_title)
-                .setMessage(text)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, okListener)
-                .show().setOwnerActivity(activity);
+                        .setTitle(R.string.DLG_information_title)
+                        .setMessage(text)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.ok, okListener)
+                        .show().setOwnerActivity(activity);
             }
         });
     }
@@ -99,19 +99,19 @@ public class DialogUtilities {
      * @param okListener
      */
     public static void okDialog(final Activity activity, final String title,
-            final int icon, final CharSequence text,
-            final DialogInterface.OnClickListener okListener) {
-        if(activity.isFinishing())
+                                final int icon, final CharSequence text,
+                                final DialogInterface.OnClickListener okListener) {
+        if (activity.isFinishing())
             return;
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
-                .setTitle(title)
-                .setMessage(text)
-                .setIcon(icon)
-                .setPositiveButton(android.R.string.ok, okListener)
-                .show().setOwnerActivity(activity);
+                        .setTitle(title)
+                        .setMessage(text)
+                        .setIcon(icon)
+                        .setPositiveButton(android.R.string.ok, okListener)
+                        .show().setOwnerActivity(activity);
             }
         });
     }
@@ -126,8 +126,8 @@ public class DialogUtilities {
      * @param cancelListener
      */
     public static void okCancelDialog(final Activity activity, final String title,
-            final String text, final DialogInterface.OnClickListener okListener,
-            final DialogInterface.OnClickListener cancelListener) {
+                                      final String text, final DialogInterface.OnClickListener okListener,
+                                      final DialogInterface.OnClickListener cancelListener) {
 
         okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
     }
@@ -141,40 +141,42 @@ public class DialogUtilities {
      * @param cancelListener
      */
     public static void okCancelDialog(final Activity activity, final String text,
-            final DialogInterface.OnClickListener okListener,
-            final DialogInterface.OnClickListener cancelListener) {
+                                      final DialogInterface.OnClickListener okListener,
+                                      final DialogInterface.OnClickListener cancelListener) {
 
         okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
 
     }
 
     /**
-    * Displays a dialog box with custom titled OK and cancel button titles
-    */
+     * Displays a dialog box with custom titled OK and cancel button titles
+     */
 
     public static void okCancelCustomDialog(final Activity activity, final String title, final String text,
-            final int okTitleId, final int cancelTitleId,
-            final int icon,
-            final DialogInterface.OnClickListener okListener,
-            final DialogInterface.OnClickListener cancelListener) {
-        if(activity.isFinishing())
+                                            final int okTitleId, final int cancelTitleId,
+                                            final int icon,
+                                            final DialogInterface.OnClickListener okListener,
+                                            final DialogInterface.OnClickListener cancelListener) {
+        if (activity.isFinishing())
             return;
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
-                .setTitle(R.string.DLG_confirm_title)
-                .setMessage(text)
-                .setTitle(title)
-                .setIcon(icon)
-                .setPositiveButton(okTitleId, okListener)
-                .setNegativeButton(cancelTitleId, cancelListener)
-                .show().setOwnerActivity(activity);
+                        .setTitle(R.string.DLG_confirm_title)
+                        .setMessage(text)
+                        .setTitle(title)
+                        .setIcon(icon)
+                        .setPositiveButton(okTitleId, okListener)
+                        .setNegativeButton(cancelTitleId, cancelListener)
+                        .show().setOwnerActivity(activity);
             }
         });
     }
 
-    /** Run runnable with progress dialog */
+    /**
+     * Run runnable with progress dialog
+     */
     public static ProgressDialog runWithProgressDialog(final Activity activity, final Runnable runnable) {
         final ProgressDialog progressdiag = progressDialog(activity, activity.getString(R.string.DLG_wait));
         new Thread(new Runnable() {
@@ -196,6 +198,7 @@ public class DialogUtilities {
 
     /**
      * Displays a progress dialog. Must be run on the UI thread
+     *
      * @param context
      * @param text
      * @return
@@ -217,7 +220,7 @@ public class DialogUtilities {
      * @param dialog
      */
     public static void dismissDialog(Activity activity, final Dialog dialog) {
-        if(dialog == null)
+        if (dialog == null)
             return;
         tryOnUiThread(activity, new Runnable() {
             public void run() {

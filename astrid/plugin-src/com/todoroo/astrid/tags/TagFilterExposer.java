@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -51,22 +48,28 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Exposes filters based on tags
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TagFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     private static final String TAG = "tag"; //$NON-NLS-1$
 
-    @Autowired protected TagDataService tagDataService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    protected TagDataService tagDataService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
     protected boolean addUntaggedFilter = true;
 
-    /** Create filter from new tag object */
+    /**
+     * Create filter from new tag object
+     */
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
         String title = tag.tag;
@@ -81,7 +84,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
                 contentValues);
-        if(!RemoteModel.NO_UUID.equals(tag.uuid)) {
+        if (!RemoteModel.NO_UUID.equals(tag.uuid)) {
             filter.listingTitle += " (" + tag.count + ")";
         }
 
@@ -91,17 +94,17 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         else
             deleteIntentLabel = R.string.tag_cm_delete;
 
-        filter.contextMenuLabels = new String[] {
-            context.getString(R.string.tag_cm_rename),
-            context.getString(deleteIntentLabel)
+        filter.contextMenuLabels = new String[]{
+                context.getString(R.string.tag_cm_rename),
+                context.getString(deleteIntentLabel)
         };
-        filter.contextMenuIntents = new Intent[] {
+        filter.contextMenuIntents = new Intent[]{
                 newTagIntent(context, RenameTagActivity.class, tag, tag.uuid),
                 newTagIntent(context, DeleteTagActivity.class, tag, tag.uuid)
         };
 
         filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
-        if(tag.image != null)
+        if (tag.image != null)
             filter.imageUrl = tag.image;
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
@@ -111,7 +114,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         return filter;
     }
 
-    /** Create a filter from tag data object */
+    /**
+     * Create a filter from tag data object
+     */
     public static FilterWithCustomIntent filterFromTagData(Context context, TagData tagData) {
         Tag tag = new Tag(tagData);
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
@@ -174,12 +179,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                     r.getString(R.string.tag_FEx_untagged),
                     TagService.getInstance().untaggedTemplate(),
                     null);
-            untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
+            untagged.listingIcon = ((BitmapDrawable) r.getDrawable(
                     ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();
             filters.add(untagged);
         }
 
-        for(int i = 0; i < tags.length; i++) {
+        for (int i = 0; i < tags.length; i++) {
             Filter f = constructFilter(context, tags[i]);
             if (f != null)
                 filters.add(f);
@@ -199,9 +204,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         protected String tag;
         protected String uuid;
 
-        @Autowired public TagService tagService;
-        @Autowired public TagDataDao tagDataDao;
-        @Autowired public TagMetadataDao tagMetadataDao;
+        @Autowired
+        public TagService tagService;
+        @Autowired
+        public TagDataDao tagDataDao;
+        @Autowired
+        public TagMetadataDao tagMetadataDao;
 
         static {
             AstridDependencyInjector.initialize();
@@ -214,7 +222,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             tag = getIntent().getStringExtra(TAG);
             uuid = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
 
-            if(tag == null || RemoteModel.isUuidEmpty(uuid)) {
+            if (tag == null || RemoteModel.isUuidEmpty(uuid)) {
                 finish();
                 return;
             }
@@ -261,7 +269,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         private void toastNoChanges() {
             Toast.makeText(this, R.string.TEA_no_tags_modified,
-                        Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show();
         }
 
         protected abstract void showDialog(TagData tagData);
@@ -279,8 +287,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                     string = R.string.actfm_tag_operation_owner_delete;
                 else
                     string = R.string.DLG_leave_this_shared_tag_question;
-            }
-            else
+            } else
                 string = R.string.DLG_delete_this_tag_question;
             DialogUtilities.okCancelDialog(this, getString(string, tag), getOkListener(), getCancelListener());
         }
@@ -304,7 +311,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Override
         protected Intent ok() {
-            if(editor == null)
+            if (editor == null)
                 return null;
 
             String text = editor.getText().toString();

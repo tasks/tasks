@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
 import com.todoroo.astrid.api.AstridApiConstants;
+
+import java.util.List;
 
 public class TaskListContextMenuExtensionLoader {
 
@@ -31,7 +31,7 @@ public class TaskListContextMenuExtensionLoader {
 
         int length = resolveInfoList.size();
         contextMenuItemCache = new ContextMenuItem[length];
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
 
             ContextMenuItem item = new ContextMenuItem();

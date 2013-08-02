@@ -20,13 +20,12 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Non-public-API SQL content provider.
- *
+ * <p/>
  * This provider is dangerous and unsupported, use at your own risk. It allows
  * full SQL queries, which means LIMIT and JOIN in queries. Only SELECT is
  * currently supported.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class SqlContentProvider extends ContentProvider {
@@ -72,10 +71,10 @@ public class SqlContentProvider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         switch (uriMatcher.match(uri)) {
-        case 0:
-            return "vnd.android.cursor.dir/vnd.astrid";
-        default:
-            throw new IllegalArgumentException("Unsupported URI " + uri + " (" + uriMatcher.match(uri) + ")");
+            case 0:
+                return "vnd.android.cursor.dir/vnd.astrid";
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
     }
 
@@ -85,6 +84,7 @@ public class SqlContentProvider extends ContentProvider {
 
     /**
      * Delete from given table
+     *
      * @return number of rows deleted
      */
     @Override
@@ -110,7 +110,7 @@ public class SqlContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+                      String[] selectionArgs) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
@@ -120,14 +120,14 @@ public class SqlContentProvider extends ContentProvider {
 
     /**
      * Query by task.
-     * <p>
+     * <p/>
      * Note that the "sortOrder" field actually can be used to append any
      * sort of clause to your SQL query as long as it is not also the
      * name of a column
      */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+                        String[] selectionArgs, String sortOrder) {
 
         Cursor cursor = database.rawQuery(selection, null);
         return cursor;

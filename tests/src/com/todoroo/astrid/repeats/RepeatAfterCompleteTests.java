@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TimeZone;
-
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -17,6 +12,11 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class RepeatAfterCompleteTests extends TodorooTestCase {
 
@@ -37,15 +37,17 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
     public void testSubDailyFreqs() throws ParseException {
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
 
-        for(Frequency freq : Frequency.values()) {
+        for (Frequency freq : Frequency.values()) {
             long interval = -1;
-            switch(freq) {
-            case MINUTELY:
-                interval = DateUtilities.ONE_MINUTE; break;
-            case HOURLY:
-                interval = DateUtilities.ONE_HOUR; break;
-            default:
-                continue;
+            switch (freq) {
+                case MINUTELY:
+                    interval = DateUtilities.ONE_MINUTE;
+                    break;
+                case HOURLY:
+                    interval = DateUtilities.ONE_HOUR;
+                    break;
+                default:
+                    continue;
             }
 
             buildRRule(1, freq);
@@ -64,20 +66,24 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
                 Task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
                         DateUtilities.now() - DateUtilities.ONE_WEEK));
 
-        for(int interval = 1; interval < 7; interval++) {
-            for(Frequency freq : Frequency.values()) {
+        for (int interval = 1; interval < 7; interval++) {
+            for (Frequency freq : Frequency.values()) {
                 long next = DateUtilities.now();
-                switch(freq) {
-                case DAILY:
-                    next += interval * DateUtilities.ONE_DAY; break;
-                case WEEKLY:
-                    next += interval * DateUtilities.ONE_WEEK; break;
-                case MONTHLY:
-                    next = DateUtilities.addCalendarMonthsToUnixtime(next, interval); break;
-                case YEARLY:
-                    next = DateUtilities.addCalendarMonthsToUnixtime(next, interval * 12); break;
-                default:
-                    continue;
+                switch (freq) {
+                    case DAILY:
+                        next += interval * DateUtilities.ONE_DAY;
+                        break;
+                    case WEEKLY:
+                        next += interval * DateUtilities.ONE_WEEK;
+                        break;
+                    case MONTHLY:
+                        next = DateUtilities.addCalendarMonthsToUnixtime(next, interval);
+                        break;
+                    case YEARLY:
+                        next = DateUtilities.addCalendarMonthsToUnixtime(next, interval * 12);
+                        break;
+                    default:
+                        continue;
                 }
 
                 buildRRule(interval, freq);
@@ -123,7 +129,7 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
 
     private void setRRuleDays(RRule rrule, Weekday... weekdays) {
         ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
-        for(Weekday wd : weekdays)
+        for (Weekday wd : weekdays)
             days.add(new WeekdayNum(0, wd));
         rrule.setByDay(days);
     }

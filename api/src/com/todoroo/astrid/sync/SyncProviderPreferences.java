@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Set;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -29,12 +25,15 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.api.R;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  * Utility class for common synchronization action: displaying synchronization
  * preferences and an action panel so users can initiate actions from the menu.
  *
  * @author Tim Su <tim@todoroo.com
- *
  */
 abstract public class SyncProviderPreferences extends TodorooPreferenceActivity {
 
@@ -87,16 +86,14 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             @Override
             public void onChildViewAdded(View parent, View child) {
                 View view = findViewById(R.id.status);
-                if(view != null)
+                if (view != null)
                     view.setBackgroundColor(statusColor);
             }
         });
     }
 
     /**
-     *
-     * @param resource
-     *            if null, updates all resources
+     * @param resource if null, updates all resources
      */
     @Override
     public void updatePreferences(Preference preference, Object value) {
@@ -123,25 +120,25 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             //String subtitle = ""; //$NON-NLS-1$
 
             // ! logged in - display message, click -> sync
-            if(!loggedIn) {
+            if (!loggedIn) {
                 status = r.getString(R.string.sync_status_loggedout);
                 statusColor = Color.rgb(19, 132, 165);
             }
             // sync is occurring
-            else if(getUtilities().isOngoing()) {
+            else if (getUtilities().isOngoing()) {
                 status = r.getString(R.string.sync_status_ongoing);
                 statusColor = Color.rgb(0, 0, 100);
             }
             // last sync had errors
-            else if(getUtilities().getLastError() != null || getUtilities().getLastAttemptedSyncDate() != 0) {
+            else if (getUtilities().getLastError() != null || getUtilities().getLastAttemptedSyncDate() != 0) {
                 // last sync was failure
-                if(getUtilities().getLastAttemptedSyncDate() != 0) {
+                if (getUtilities().getLastAttemptedSyncDate() != 0) {
                     status = r.getString(R.string.sync_status_failed,
-                        DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                        new Date(getUtilities().getLastAttemptedSyncDate())));
+                            DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
+                                    new Date(getUtilities().getLastAttemptedSyncDate())));
                     statusColor = Color.rgb(100, 0, 0);
 
-                    if(getUtilities().getLastSyncDate() > 0) {
+                    if (getUtilities().getLastSyncDate() > 0) {
 //                        subtitle = r.getString(R.string.sync_status_failed_subtitle,
 //                                DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
 //                                        new Date(getUtilities().getLastSyncDate())));
@@ -154,11 +151,10 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     status = r.getString(R.string.sync_status_errors, dateString);
                     statusColor = Color.rgb(100, 100, 0);
                 }
-            }
-            else if(getUtilities().getLastSyncDate() > 0) {
+            } else if (getUtilities().getLastSyncDate() > 0) {
                 status = r.getString(R.string.sync_status_success,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                        new Date(getUtilities().getLastSyncDate())));
+                                new Date(getUtilities().getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
             } else {
                 status = r.getString(R.string.sync_status_never);
@@ -175,10 +171,9 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             });
 
             View view = findViewById(R.id.status);
-            if(view != null)
+            if (view != null)
                 view.setBackgroundColor(statusColor);
-        }
-        else if (r.getString(R.string.sync_SPr_key_last_error).equals(preference.getKey())) {
+        } else if (r.getString(R.string.sync_SPr_key_last_error).equals(preference.getKey())) {
             if (getUtilities().getLastError() != null) {
                 // Display error
                 final String service = getTitle().toString();
@@ -193,21 +188,21 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     public boolean onPreferenceClick(Preference pref) {
                         // Show last error
                         new AlertDialog.Builder(SyncProviderPreferences.this)
-                            .setTitle(R.string.sync_SPr_last_error)
-                            .setMessage(lastErrorDisplay)
-                            .setPositiveButton(R.string.sync_SPr_send_report, new OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                                    emailIntent.setType("plain/text")
-                                               .putExtra(Intent.EXTRA_EMAIL, new String[] { "android-bugs@astrid.com"} )
-                                               .putExtra(Intent.EXTRA_SUBJECT, service + " Sync Error")
-                                               .putExtra(Intent.EXTRA_TEXT, lastErrorFull);
-                                    startActivity(Intent.createChooser(emailIntent, r.getString(R.string.sync_SPr_send_report)));
-                                }
-                            })
-                            .setNegativeButton(R.string.DLG_close, null)
-                            .create().show();
+                                .setTitle(R.string.sync_SPr_last_error)
+                                .setMessage(lastErrorDisplay)
+                                .setPositiveButton(R.string.sync_SPr_send_report, new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                                        emailIntent.setType("plain/text")
+                                                .putExtra(Intent.EXTRA_EMAIL, new String[]{"android-bugs@astrid.com"})
+                                                .putExtra(Intent.EXTRA_SUBJECT, service + " Sync Error")
+                                                .putExtra(Intent.EXTRA_TEXT, lastErrorFull);
+                                        startActivity(Intent.createChooser(emailIntent, r.getString(R.string.sync_SPr_send_report)));
+                                    }
+                                })
+                                .setNegativeButton(R.string.DLG_close, null)
+                                .create().show();
                         return true;
                     }
                 });
@@ -226,7 +221,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                             r.getString(R.string.sync_forget_confirm), new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog,
-                                int which) {
+                                            int which) {
                             logOut();
                             initializePreference(getPreferenceScreen());
                         }
@@ -234,7 +229,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     return true;
                 }
             });
-            if(!loggedIn) {
+            if (!loggedIn) {
                 PreferenceCategory category = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_key_options));
                 category.removePreference(preference);
             }
@@ -245,7 +240,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
     /**
      * We can define exception strings in this map that we want to replace with more user-friendly
      * messages. As we discover new exception types, we can expand the map.
-     *
+     * <p/>
      * NOTE: All resources are currently required to have a single string format argument
      * for inserting the service name into the error message
      */

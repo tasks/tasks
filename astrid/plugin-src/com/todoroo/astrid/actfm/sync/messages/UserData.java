@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 
 import com.todoroo.andlib.sql.Criterion;
@@ -11,6 +9,8 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagMemberMetadata;
+
+import org.json.JSONObject;
 
 public class UserData extends ServerToClientMessage {
 

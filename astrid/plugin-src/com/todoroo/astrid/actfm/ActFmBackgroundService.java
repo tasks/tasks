@@ -20,11 +20,11 @@ import com.todoroo.astrid.sync.SyncV2Provider;
  * schedules a repeating alarm which handles the synchronization
  *
  * @author Tim Su
- *
  */
 public class ActFmBackgroundService extends SyncV2BackgroundService {
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
     public ActFmBackgroundService() {
         DependencyInjectionService.getInstance().inject(this);

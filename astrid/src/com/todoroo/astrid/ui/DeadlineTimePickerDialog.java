@@ -16,8 +16,6 @@
 
 package com.todoroo.astrid.ui;
 
-import java.util.Calendar;
-
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -35,6 +33,8 @@ import android.widget.TimePicker.OnTimeChangedListener;
 
 import com.timsu.astrid.R;
 
+import java.util.Calendar;
+
 /**
  * A dialog that prompts the user for the time of day using a {@link TimePicker}.
  * This is similar to the Android {@link TimePickerDialog} class
@@ -51,10 +51,10 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
     public interface OnDeadlineTimeSetListener {
 
         /**
-         * @param view The view associated with this listener.
-         * @param hasTime whether time is set
+         * @param view      The view associated with this listener.
+         * @param hasTime   whether time is set
          * @param hourOfDay The hour that was set.
-         * @param minute The minute that was set.
+         * @param minute    The minute that was set.
          */
         void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute);
     }
@@ -74,31 +74,31 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
     boolean mIs24HourView;
 
     /**
-     * @param context Parent.
-     * @param callBack How parent is notified.
-     * @param hourOfDay The initial hour.
-     * @param minute The initial minute.
+     * @param context      Parent.
+     * @param callBack     How parent is notified.
+     * @param hourOfDay    The initial hour.
+     * @param minute       The initial minute.
      * @param is24HourView Whether this is a 24 hour view, or AM/PM.
      */
     public DeadlineTimePickerDialog(Context context,
-            OnDeadlineTimeSetListener callBack,
-            int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
+                                    OnDeadlineTimeSetListener callBack,
+                                    int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
         this(context, android.R.style.Theme_Dialog,
                 callBack, hourOfDay, minute, is24HourView, hasTime);
     }
 
     /**
-     * @param context Parent.
-     * @param theme the theme to apply to this dialog
-     * @param callBack How parent is notified.
-     * @param hourOfDay The initial hour.
-     * @param minute The initial minute.
+     * @param context      Parent.
+     * @param theme        the theme to apply to this dialog
+     * @param callBack     How parent is notified.
+     * @param hourOfDay    The initial hour.
+     * @param minute       The initial minute.
      * @param is24HourView Whether this is a 24 hour view, or AM/PM.
      */
     public DeadlineTimePickerDialog(Context context,
-            int theme,
-            OnDeadlineTimeSetListener callBack,
-            int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
+                                    int theme,
+                                    OnDeadlineTimeSetListener callBack,
+                                    int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
         super(context, theme);
         mCallback = callBack;
         mInitialHourOfDay = hourOfDay;
@@ -121,9 +121,9 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
         OnCheckedChangeListener listener = new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
+                                         boolean isChecked) {
                 mTimePicker.setEnabled(isChecked);
-                if(isChecked)
+                if (isChecked)
                     updateTitle();
                 else
                     setTitle(R.string.TEA_urgency_none);

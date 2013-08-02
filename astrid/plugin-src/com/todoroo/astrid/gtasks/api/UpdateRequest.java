@@ -5,14 +5,14 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
-import java.io.IOException;
-
 import com.google.api.services.tasks.model.Task;
+
+import java.io.IOException;
 
 /**
  * Encapsulates a request to the api to update a task on the remote server
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 public class UpdateRequest extends PushRequest {
 

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -32,6 +30,8 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
+
+import java.util.Date;
 
 @SuppressWarnings("nls")
 public class CalendarReminderActivity extends Activity {
@@ -99,7 +99,8 @@ public class CalendarReminderActivity extends Activity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dismissListener.onClick(v);
                             }
-                        });
+                        }
+                );
             } else {
                 dismissListener.onClick(v);
             }
@@ -136,7 +137,7 @@ public class CalendarReminderActivity extends Activity {
 
     private void setupUi() {
         ((TextView) findViewById(R.id.reminder_title))
-            .setText(getString(R.string.CRA_title));
+                .setText(getString(R.string.CRA_title));
 
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
         String speechText;
@@ -190,31 +191,32 @@ public class CalendarReminderActivity extends Activity {
 
     private void listExists(final TagData tag) {
         DialogUtilities.okCancelCustomDialog(this,
-            getString(R.string.CRA_list_exists_title),
-            getString(R.string.CRA_list_exists_body, tag.getValue(TagData.NAME)),
-            R.string.CRA_create_new,
-            R.string.CRA_use_existing,
-            0,
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    createNewList(tag.getValue(TagData.NAME) + " "
-                            + DateUtilities.getDateStringHideYear(CalendarReminderActivity.this, new Date(startTime)));
-                }
-            },
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(CalendarReminderActivity.this, tag);
+                getString(R.string.CRA_list_exists_title),
+                getString(R.string.CRA_list_exists_body, tag.getValue(TagData.NAME)),
+                R.string.CRA_create_new,
+                R.string.CRA_use_existing,
+                0,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        createNewList(tag.getValue(TagData.NAME) + " "
+                                + DateUtilities.getDateStringHideYear(CalendarReminderActivity.this, new Date(startTime)));
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(CalendarReminderActivity.this, tag);
 
-                    Intent listIntent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
-                    listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-                    listIntent.putExtras(filter.customExtras);
+                        Intent listIntent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
+                        listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+                        listIntent.putExtras(filter.customExtras);
 
-                    startActivity(listIntent);
-                    dismissButton.performClick();
+                        startActivity(listIntent);
+                        dismissButton.performClick();
+                    }
                 }
-            });
+        );
     }
 
     private void createNewList(String name) {

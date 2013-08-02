@@ -5,25 +5,25 @@
  */
 package com.timsu.astrid.data.enums;
 
-import java.util.Date;
-
 import android.content.res.Resources;
+
+import java.util.Date;
 
 public enum RepeatInterval {
 
-	DAYS(0) {
+    DAYS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setDate(input.getDate() + number);
         }
-	},
-	WEEKS(0) {
+    },
+    WEEKS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setDate(input.getDate() + 7 * number);
         }
     },
-	MONTHS(0) {
+    MONTHS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setMonth(input.getMonth() + number);
@@ -34,9 +34,7 @@ public enum RepeatInterval {
         public void offsetDateBy(Date input, int number) {
             input.setHours(input.getHours() + number);
         }
-    },
-
-	;
+    },;
 
     int label;
 
@@ -48,14 +46,14 @@ public enum RepeatInterval {
         return label;
     }
 
-	abstract public void offsetDateBy(Date input, int number);
+    abstract public void offsetDateBy(Date input, int number);
 
-	public static String[] getLabels(Resources r) {
-	    int intervalCount = RepeatInterval.values().length;
-	    String[] result = new String[intervalCount];
+    public static String[] getLabels(Resources r) {
+        int intervalCount = RepeatInterval.values().length;
+        String[] result = new String[intervalCount];
 
-	    for(int i = 0; i < intervalCount; i++)
-	        result[i] = r.getString(RepeatInterval.values()[i].getLabelResource());
-	    return result;
-	}
+        for (int i = 0; i < intervalCount; i++)
+            result[i] = r.getString(RepeatInterval.values()[i].getLabelResource());
+        return result;
+    }
 }

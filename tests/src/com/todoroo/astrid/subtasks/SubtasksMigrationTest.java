@@ -37,7 +37,7 @@ public class SubtasksMigrationTest extends SubtasksTestCase {
         Metadata m = new Metadata();
         m.setValue(Metadata.KEY, SubtasksMetadata.METADATA_KEY);
         m.setValue(Metadata.TASK, taskId);
-        String tagString = (tagData == null ? SubtasksMetadata.LIST_ACTIVE_TASKS : "td:"+tagData.getId());
+        String tagString = (tagData == null ? SubtasksMetadata.LIST_ACTIVE_TASKS : "td:" + tagData.getId());
         m.setValue(SubtasksMetadata.TAG, tagString);
         m.setValue(SubtasksMetadata.ORDER, order);
         m.setValue(SubtasksMetadata.INDENT, indent);

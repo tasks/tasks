@@ -1,9 +1,5 @@
 package com.todoroo.astrid.billing;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -20,11 +16,17 @@ import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.Security.VerifiedPurchase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 @SuppressWarnings("nls")
 public class BillingService extends Service implements ServiceConnection {
     private static final String TAG = "billing-service";
 
-    /** The service connection to the remote MarketBillingService. */
+    /**
+     * The service connection to the remote MarketBillingService.
+     */
     private static IMarketBillingService mService;
 
     /**
@@ -39,7 +41,7 @@ public class BillingService extends Service implements ServiceConnection {
      * request Id that each request receives when it executes.
      */
     private static HashMap<Long, BillingRequest> mSentRequests =
-        new HashMap<Long, BillingRequest>();
+            new HashMap<Long, BillingRequest>();
 
     /**
      * The base class for all requests that use the MarketBillingService.
@@ -63,6 +65,7 @@ public class BillingService extends Service implements ServiceConnection {
 
         /**
          * Run the request, starting the connection if necessary.
+         *
          * @return true if the request was executed or queued; false if there
          * was an error starting the connection
          */
@@ -81,6 +84,7 @@ public class BillingService extends Service implements ServiceConnection {
 
         /**
          * Try running the request directly if the service is already connected.
+         *
          * @return true if the request ran successfully; false if the service
          * is not connected or there was an error when trying to use it
          */
@@ -109,6 +113,7 @@ public class BillingService extends Service implements ServiceConnection {
          * Called when a remote exception occurs while trying to execute the
          * {@link #run()} method.  The derived class can override this to
          * execute exception-handling code.
+         *
          * @param e the exception
          */
         protected void onRemoteException(RemoteException e) {
@@ -118,6 +123,7 @@ public class BillingService extends Service implements ServiceConnection {
 
         /**
          * The derived class must implement this method.
+         *
          * @throws RemoteException
          */
         abstract protected long run() throws RemoteException;
@@ -125,6 +131,7 @@ public class BillingService extends Service implements ServiceConnection {
         /**
          * This is called when Android Market sends a response code for this
          * request.
+         *
          * @param responseCode the response code
          */
         protected void responseCodeReceived(ResponseCode responseCode) {
@@ -150,21 +157,22 @@ public class BillingService extends Service implements ServiceConnection {
 
     /**
      * Wrapper class that checks if in-app billing is supported.
-     *
+     * <p/>
      * Note: Support for subscriptions implies support for one-time purchases. However, the opposite
      * is not true.
-     *
+     * <p/>
      * Developers may want to perform two checks if both one-time and subscription products are
      * available.
      */
     class CheckBillingSupported extends BillingRequest {
         public String mProductType = null;
 
-        /** Constructor
-         *
+        /**
+         * Constructor
+         * <p/>
          * Note: Support for subscriptions implies support for one-time purchases. However, the
          * opposite is not true.
-         *
+         * <p/>
          * Developers may want to perform two checks if both one-time and subscription products are
          * available.
          *
@@ -202,12 +210,13 @@ public class BillingService extends Service implements ServiceConnection {
         public final String mDeveloperPayload;
         public final String mProductType;
 
-        /** Constructor
+        /**
+         * Constructor
          *
-         * @param itemId  The ID of the item to be purchased. Will be assumed to be a one-time
-         *                purchase.
-         * @param itemType  Either BillingConstants.ITEM_TYPE_INAPP or BillingConstants.ITEM_TYPE_SUBSCRIPTION,
-         *                  indicating the type of item type support is being checked for.
+         * @param itemId           The ID of the item to be purchased. Will be assumed to be a one-time
+         *                         purchase.
+         * @param itemType         Either BillingConstants.ITEM_TYPE_INAPP or BillingConstants.ITEM_TYPE_SUBSCRIPTION,
+         *                         indicating the type of item type support is being checked for.
          * @param developerPayload Optional data.
          */
         public RequestPurchase(String itemId, String itemType, String developerPayload) {
@@ -364,7 +373,8 @@ public class BillingService extends Service implements ServiceConnection {
     /**
      * The {@link BillingReceiver} sends messages to this service using intents.
      * Each intent has an action and some extra arguments specific to that action.
-     * @param intent the intent containing one of the supported actions
+     *
+     * @param intent  the intent containing one of the supported actions
      * @param startId an identifier for the invocation instance of this service
      */
     public void handleCommand(Intent intent, int startId) {
@@ -379,7 +389,7 @@ public class BillingService extends Service implements ServiceConnection {
             confirmNotifications(startId, notifyIds);
         } else if (BillingConstants.ACTION_GET_PURCHASE_INFORMATION.equals(action)) {
             String notifyId = intent.getStringExtra(BillingConstants.NOTIFICATION_ID);
-            getPurchaseInformation(startId, new String[] { notifyId });
+            getPurchaseInformation(startId, new String[]{notifyId});
         } else if (BillingConstants.ACTION_PURCHASE_STATE_CHANGED.equals(action)) {
             String signedData = intent.getStringExtra(BillingConstants.INAPP_SIGNED_DATA);
             String signature = intent.getStringExtra(BillingConstants.INAPP_SIGNATURE);
@@ -396,6 +406,7 @@ public class BillingService extends Service implements ServiceConnection {
     /**
      * Binds to the MarketBillingService and returns true if the bind
      * succeeded.
+     *
      * @return true if the bind succeeded; false otherwise
      */
     private boolean bindToMarketBillingService() {
@@ -421,9 +432,10 @@ public class BillingService extends Service implements ServiceConnection {
 
     /**
      * Checks if in-app billing is supported.
-     * @pram itemType Either BillingConstants.ITEM_TYPE_INAPP or BillingConstants.ITEM_TYPE_SUBSCRIPTION, indicating the
-     *                type of item support is being checked for.
+     *
      * @return true if supported; false otherwise
+     * @pram itemType Either BillingConstants.ITEM_TYPE_INAPP or BillingConstants.ITEM_TYPE_SUBSCRIPTION, indicating the
+     * type of item support is being checked for.
      */
     public boolean checkBillingSupported(String itemType) {
         return new CheckBillingSupported(itemType).runRequest();
@@ -434,11 +446,12 @@ public class BillingService extends Service implements ServiceConnection {
      * the purchase succeeds (or is canceled) the {@link BillingReceiver}
      * receives an intent with the action {@link BillingConstants#ACTION_NOTIFY}.
      * Returns false if there was an error trying to connect to Android Market.
-     * @param productId an identifier for the item being offered for purchase
-     * @param itemType  Either BillingConstants.ITEM_TYPE_INAPP or BillingConstants.ITEM_TYPE_SUBSCRIPTION, indicating
-     *                  the type of item type support is being checked for.
+     *
+     * @param productId        an identifier for the item being offered for purchase
+     * @param itemType         Either BillingConstants.ITEM_TYPE_INAPP or BillingConstants.ITEM_TYPE_SUBSCRIPTION, indicating
+     *                         the type of item type support is being checked for.
      * @param developerPayload a payload that is associated with a given
-     * purchase, if null, no payload is sent
+     *                         purchase, if null, no payload is sent
      * @return false if there was an error connecting to Android Market
      */
     public boolean requestPurchase(String productId, String itemType, String developerPayload) {
@@ -449,6 +462,7 @@ public class BillingService extends Service implements ServiceConnection {
      * Requests transaction information for all managed items. Call this only when the
      * application is first installed or after a database wipe. Do NOT call this
      * every time the application starts up.
+     *
      * @return false if there was an error connecting to Android Market
      */
     public boolean restoreTransactions() {
@@ -461,9 +475,10 @@ public class BillingService extends Service implements ServiceConnection {
      * identifiers back to the MarketBillingService, which ACKs them to the
      * server. Returns false if there was an error trying to connect to the
      * MarketBillingService.
-     * @param startId an identifier for the invocation instance of this service
+     *
+     * @param startId   an identifier for the invocation instance of this service
      * @param notifyIds a list of opaque identifiers associated with purchase
-     * state changes.
+     *                  state changes.
      * @return false if there was an error connecting to Market
      */
     private boolean confirmNotifications(int startId, String[] notifyIds) {
@@ -478,9 +493,9 @@ public class BillingService extends Service implements ServiceConnection {
      * in an intent with the action {@link BillingConstants#ACTION_PURCHASE_STATE_CHANGED}.
      * Returns false if there was an error trying to connect to the MarketBillingService.
      *
-     * @param startId an identifier for the invocation instance of this service
+     * @param startId   an identifier for the invocation instance of this service
      * @param notifyIds a list of opaque identifiers associated with purchase
-     * state changes
+     *                  state changes
      * @return false if there was an error connecting to Android Market
      */
     private boolean getPurchaseInformation(int startId, String[] notifyIds) {
@@ -491,9 +506,10 @@ public class BillingService extends Service implements ServiceConnection {
      * Verifies that the data was signed with the given signature, and calls
      * {@link ResponseHandler#purchaseResponse(Context, PurchaseState, String, String, long)}
      * for each verified purchase.
-     * @param startId an identifier for the invocation instance of this service
+     *
+     * @param startId    an identifier for the invocation instance of this service
      * @param signedData the signed JSON string (signed, not encrypted)
-     * @param signature the signature for the data, signed with the private key
+     * @param signature  the signature for the data, signed with the private key
      */
     private void purchaseStateChanged(int startId, String signedData, String signature) {
         ArrayList<Security.VerifiedPurchase> purchases;
@@ -523,10 +539,11 @@ public class BillingService extends Service implements ServiceConnection {
      * for any purchase state changes.  All purchase state changes are received
      * in the {@link BillingReceiver} and passed to this service, where they are
      * handled in {@link #purchaseStateChanged(int, String, String)}.
-     * @param requestId a number that identifies a request, assigned at the
-     * time the request was made to Android Market
+     *
+     * @param requestId    a number that identifies a request, assigned at the
+     *                     time the request was made to Android Market
      * @param responseCode a response code from Android Market to indicate the state
-     * of the request
+     *                     of the request
      */
     private void checkResponseCode(long requestId, ResponseCode responseCode) {
         BillingRequest request = mSentRequests.get(requestId);

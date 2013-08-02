@@ -5,7 +5,9 @@
  */
 package com.timsu.astrid.data;
 
-/** Identifier of a single object. Extend this class to create your own */
+/**
+ * Identifier of a single object. Extend this class to create your own
+ */
 public abstract class Identifier {
     private final long id;
 
@@ -23,15 +25,15 @@ public abstract class Identifier {
 
     @Override
     public int hashCode() {
-        return (int)id;
+        return (int) id;
     }
 
     @Override
     public boolean equals(Object o) {
-        if(o == null || o.getClass() != getClass())
+        if (o == null || o.getClass() != getClass())
             return false;
 
-        return ((Identifier)o).getId() == getId();
+        return ((Identifier) o).getId() == getId();
     }
 
     @Override

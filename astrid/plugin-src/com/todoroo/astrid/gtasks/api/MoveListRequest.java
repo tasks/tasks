@@ -5,13 +5,14 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
+import com.google.api.services.tasks.model.Task;
+
 import java.io.IOException;
 
-import com.google.api.services.tasks.model.Task;
 /**
  * Encapsulates a request to the api to move a task from one list to another
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 public class MoveListRequest extends PushRequest {
 

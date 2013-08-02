@@ -1,12 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +24,13 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CalendarAlarmListCreator extends Activity {
 
@@ -120,9 +120,9 @@ public class CalendarAlarmListCreator extends Activity {
         String title;
         if (!TextUtils.isEmpty(attendeesString)) {
             builder.append(" ") //$NON-NLS-1$
-            .append(attendeesString)
-            .append(" ") //$NON-NLS-1$
-            .append(getString(R.string.CRA_invitation_prompt));
+                    .append(attendeesString)
+                    .append(" ") //$NON-NLS-1$
+                    .append(getString(R.string.CRA_invitation_prompt));
             inviteAll.setBackgroundColor(getResources().getColor(color));
             title = getString(R.string.CRA_share_list_title);
         } else {
@@ -134,7 +134,7 @@ public class CalendarAlarmListCreator extends Activity {
         }
 
         ((TextView) findViewById(R.id.reminder_title))
-            .setText(title);
+                .setText(title);
 
         dialogView.setText(builder.toString());
     }

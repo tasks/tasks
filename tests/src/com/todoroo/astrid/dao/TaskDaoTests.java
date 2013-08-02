@@ -17,10 +17,10 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class TaskDaoTests extends DatabaseTestCase {
 
-    public static Property<?>[] IDS = new Property<?>[] { Task.ID };
+    public static Property<?>[] IDS = new Property<?>[]{Task.ID};
 
-    public static Property<?>[] TITLES = new Property<?>[] { Task.ID,
-            Task.TITLE };
+    public static Property<?>[] TITLES = new Property<?>[]{Task.ID,
+            Task.TITLE};
 
     @Autowired
     TaskDao taskDao;
@@ -69,7 +69,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // check state
         task = taskDao.fetch(happyId, TITLES);
         assertEquals("happy", task.getValue(Task.TITLE));
-        task = taskDao.fetch(sadId,TITLES);
+        task = taskDao.fetch(sadId, TITLES);
         assertEquals("melancholy", task.getValue(Task.TITLE));
     }
 

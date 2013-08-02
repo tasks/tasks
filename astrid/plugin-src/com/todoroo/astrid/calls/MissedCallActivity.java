@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.calls;
 
-import java.io.InputStream;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
@@ -39,6 +37,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 
+import java.io.InputStream;
+
 public class MissedCallActivity extends Activity {
 
     public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
@@ -51,7 +51,8 @@ public class MissedCallActivity extends Activity {
     // Prompt user to ignore all missed calls after this many ignore presses
     private static final int IGNORE_PROMPT_COUNT = 3;
 
-    @Autowired private TaskService taskService;
+    @Autowired
+    private TaskService taskService;
 
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
@@ -86,7 +87,8 @@ public class MissedCallActivity extends Activity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dismissListener.onClick(v);
                             }
-                        });
+                        }
+                );
             } else {
                 dismissListener.onClick(v);
             }
@@ -127,24 +129,24 @@ public class MissedCallActivity extends Activity {
         ignoreSettingsButton = findViewById(R.id.ignore_settings);
         dismissButton = findViewById(R.id.dismiss);
         ((TextView) findViewById(R.id.reminder_title))
-            .setText(getString(R.string.MCA_title,
-                    TextUtils.isEmpty(name) ? number : name, timeString));
+                .setText(getString(R.string.MCA_title,
+                        TextUtils.isEmpty(name) ? number : name, timeString));
 
-       ImageView pictureView = ((ImageView) findViewById(R.id.contact_picture));
-       if (contactId >= 0) {
-           Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
-           InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(), uri);
-           Bitmap b = null;
-           try {
-               b = BitmapFactory.decodeStream(input);
-           } catch (OutOfMemoryError e) {
-               //
-           }
-           if (b != null) {
-               pictureView.setImageBitmap(b);
-               pictureView.setVisibility(View.VISIBLE);
-           }
-       }
+        ImageView pictureView = ((ImageView) findViewById(R.id.contact_picture));
+        if (contactId >= 0) {
+            Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+            InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(), uri);
+            Bitmap b = null;
+            try {
+                b = BitmapFactory.decodeStream(input);
+            } catch (OutOfMemoryError e) {
+                //
+            }
+            if (b != null) {
+                pictureView.setImageBitmap(b);
+                pictureView.setVisibility(View.VISIBLE);
+            }
+        }
 
         Resources r = getResources();
         returnCallButton.setBackgroundColor(r.getColor(color));
@@ -210,11 +212,11 @@ public class MissedCallActivity extends Activity {
                     }
                 });
                 new AlertDialog.Builder(MissedCallActivity.this)
-                    .setTitle(dialogTitle)
-                    .setView(sd)
-                    .setPositiveButton(android.R.string.ok, sd)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show().setOwnerActivity(MissedCallActivity.this);
+                        .setTitle(dialogTitle)
+                        .setView(sd)
+                        .setPositiveButton(android.R.string.ok, sd)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show().setOwnerActivity(MissedCallActivity.this);
             }
         });
     }

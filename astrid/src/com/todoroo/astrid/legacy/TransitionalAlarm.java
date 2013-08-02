@@ -20,7 +20,6 @@ import com.todoroo.astrid.data.Task;
  * Alarms are moved over to metadata
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class TransitionalAlarm extends AbstractModel {
@@ -31,35 +30,51 @@ public class TransitionalAlarm extends AbstractModel {
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Associated Task */
+    /**
+     * Associated Task
+     */
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Alarm Time */
+    /**
+     * Alarm Time
+     */
     public static final LongProperty TIME = new LongProperty(
             TABLE, "time");
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(TransitionalAlarm.class);
 
     // --- constants
 
-    /** this alarm was already triggered */
+    /**
+     * this alarm was already triggered
+     */
     public static final int TYPE_TRIGGERED = 0;
 
-    /** this alarm is single-shot */
+    /**
+     * this alarm is single-shot
+     */
     public static final int TYPE_SINGLE = 1;
 
-    /** this alarm repeats itself until turned off */
+    /**
+     * this alarm repeats itself until turned off
+     */
     public static final int TYPE_REPEATING = 2;
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
@@ -90,7 +105,9 @@ public class TransitionalAlarm extends AbstractModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
+
+    ;
 
     // --- parcelable helpers
 

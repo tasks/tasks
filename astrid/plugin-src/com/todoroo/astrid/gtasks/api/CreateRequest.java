@@ -5,13 +5,14 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
+import com.google.api.services.tasks.model.Task;
+
 import java.io.IOException;
 
-import com.google.api.services.tasks.model.Task;
 /**
  * Encapsulates a request to the api to create a task on the remote server
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 public class CreateRequest extends PushRequest {
 
@@ -21,7 +22,7 @@ public class CreateRequest extends PushRequest {
     public CreateRequest(GtasksInvoker service, String listId, Task toUpdate, String parent, String priorSiblingId) {
         super(service, listId, toUpdate);
         this.parent = parent;
-        this.priorSiblingId  = priorSiblingId;
+        this.priorSiblingId = priorSiblingId;
     }
 
     @Override

@@ -19,9 +19,9 @@ public class NestableViewPager extends ViewPager {
     /**
      * Prevent horizontal scrolling
      */
-     @Override
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-         return false;
+        return false;
     }
 
 }

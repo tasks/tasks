@@ -19,8 +19,8 @@ public class FeaturedListFilterMode implements FilterModeSpec {
     }
 
     private static final int[] FORBIDDEN_MENU_ITEMS = {
-        TaskListFragment.MENU_NEW_FILTER_ID,
-        MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS
+            TaskListFragment.MENU_NEW_FILTER_ID,
+            MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS
     };
 
     @Override

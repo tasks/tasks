@@ -1,13 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -40,6 +32,14 @@ import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 @SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
@@ -340,7 +340,7 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 if (!TextUtils.isEmpty(valueString)) {
                     try {
                         deletedValue = DateUtilities.parseIso8601(valueString);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         //
                     }
                 }
@@ -435,7 +435,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             Preferences.setBoolean(R.string.p_show_friends_view, true);
         }
     }
-
 
 
 }

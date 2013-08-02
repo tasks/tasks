@@ -5,27 +5,28 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.Date;
-
 import android.database.Cursor;
 
 import com.timsu.astrid.data.LegacyAbstractController;
 
+import java.util.Date;
 
 
-/** Fields that you would want to see in the TaskView activity */
+/**
+ * Fields that you would want to see in the TaskView activity
+ */
 public class TaskModelForNotify extends AbstractTaskModel {
 
-    static String[] FIELD_LIST = new String[] {
-        LegacyAbstractController.KEY_ROWID,
-        ESTIMATED_SECONDS,
-        NOTIFICATIONS,
-        NOTIFICATION_FLAGS,
-        LAST_NOTIFIED,
-        HIDDEN_UNTIL,
-        PROGRESS_PERCENTAGE,
-        DEFINITE_DUE_DATE,
-        PREFERRED_DUE_DATE,
+    static String[] FIELD_LIST = new String[]{
+            LegacyAbstractController.KEY_ROWID,
+            ESTIMATED_SECONDS,
+            NOTIFICATIONS,
+            NOTIFICATION_FLAGS,
+            LAST_NOTIFIED,
+            HIDDEN_UNTIL,
+            PROGRESS_PERCENTAGE,
+            DEFINITE_DUE_DATE,
+            PREFERRED_DUE_DATE,
     };
 
     // --- constructors

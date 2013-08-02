@@ -70,7 +70,7 @@ public class AstridApiConstants {
     /**
      * Extras name for old task due date
      */
-    public static final String EXTRAS_OLD_DUE_DATE= "oldDueDate";
+    public static final String EXTRAS_OLD_DUE_DATE = "oldDueDate";
 
     /**
      * Extras name for new task due date
@@ -144,7 +144,7 @@ public class AstridApiConstants {
     /**
      * Action name for broadcast intent requesting details for a task.
      * Extended details are displayed when a user presses on a task.
-     *
+     * <p/>
      * <li> EXTRAS_TASK_ID id of the task
      * <li> EXTRAS_EXTENDED whether request is for standard or extended details
      */

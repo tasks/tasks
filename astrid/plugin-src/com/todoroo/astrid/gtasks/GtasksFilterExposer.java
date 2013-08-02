@@ -43,13 +43,15 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * Exposes filters based on lists
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private GtasksListService gtasksListService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
 
     static {
         AstridDependencyInjector.initialize();
@@ -67,12 +69,12 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
         FilterWithCustomIntent filter = new FilterWithCustomIntent(listName,
                 ContextManager.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                        MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                        TaskCriteria.notDeleted(),
-                        GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
-                                Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))), //$NON-NLS-1$
+                MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
+                TaskCriteria.notDeleted(),
+                GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
+                Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))), //$NON-NLS-1$
                 values);
-        filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
+        filter.listingIcon = ((BitmapDrawable) context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListFragment.class);
         Bundle extras = new Bundle();
         extras.putLong(GtasksListFragment.TOKEN_STORE_ID, list.getId());
@@ -95,17 +97,17 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if(!gtasksPreferenceService.isLoggedIn() || actFmPreferenceService.isLoggedIn())
+        if (!gtasksPreferenceService.isLoggedIn() || actFmPreferenceService.isLoggedIn())
             return null;
 
         lists = gtasksListService.getLists();
 
         // If user does not have any lists, don't show this section at all
-        if(noListsToShow())
+        if (noListsToShow())
             return null;
 
         Filter[] listFilters = new Filter[lists.length];
-        for(int i = 0; i < lists.length; i++)
+        for (int i = 0; i < lists.length; i++)
             listFilters[i] = filterFromList(context, lists[i]);
 
         FilterCategoryWithNewButton listsCategory = new FilterCategoryWithNewButton(context.getString(R.string.gtasks_FEx_header),

@@ -1,10 +1,10 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.json.JSONObject;
-
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.RemoteModel;
+
+import org.json.JSONObject;
 
 public class UserMigrated extends ServerToClientMessage {
 

@@ -20,11 +20,11 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Exposes sync action
- *
  */
 public class GtasksSyncActionExposer extends BroadcastReceiver {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
 
     static {
         AstridDependencyInjector.initialize();
@@ -36,7 +36,7 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose sync action
-        if(!gtasksPreferenceService.isLoggedIn())
+        if (!gtasksPreferenceService.isLoggedIn())
             return;
 
         Intent syncIntent = new Intent(null, null,

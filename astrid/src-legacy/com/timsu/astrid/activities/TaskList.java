@@ -10,8 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 
 /**
  * Legacy task shortcut, takes users to the updated {@link TaskListFragment}.
@@ -19,7 +19,6 @@ import com.todoroo.astrid.activity.TaskListActivity;
  * be able to still launch Astrid.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskList extends Activity {
 
@@ -42,6 +41,7 @@ public class TaskList extends Activity {
 
     /**
      * intent: ignored for now
+     *
      * @param intent
      */
     private void launchTaskList(Intent intent) {

@@ -5,13 +5,14 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
+import com.google.api.services.tasks.model.Task;
+
 import java.io.IOException;
 
-import com.google.api.services.tasks.model.Task;
 /**
  * Encapsulates a request to the api to change the ordering on the given task
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 public class MoveRequest extends PushRequest {
 

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.people;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -43,6 +40,9 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PeopleFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -57,7 +57,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
     private FilterListItem[] prepareFilters(Context context) {
         TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES)
                 .where(Criterion.not(Criterion.or(User.STATUS.eq(User.STATUS_BLOCKED),
-                                User.STATUS.eq(User.STATUS_IGNORED), User.STATUS.eq(User.STATUS_RENOUNCE), User.STATUS.eq(User.STATUS_IGNORE))))
+                        User.STATUS.eq(User.STATUS_IGNORED), User.STATUS.eq(User.STATUS_RENOUNCE), User.STATUS.eq(User.STATUS_IGNORE))))
                 .orderBy(Order.asc(User.FIRST_NAME), Order.asc(User.LAST_NAME), Order.asc(User.NAME)));
         try {
             List<FilterListItem> items = new ArrayList<FilterListItem>();
@@ -77,7 +77,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         }
     }
 
-    @SuppressWarnings({ "nls", "deprecation" })
+    @SuppressWarnings({"nls", "deprecation"})
     private static FilterWithCustomIntent filterFromUserData(User user) {
         String title = user.getDisplayName();
         if (TextUtils.isEmpty(title) || "null".equals(title))
@@ -154,7 +154,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         extras.putBoolean(PersonViewFragment.EXTRA_HIDE_QUICK_ADD, true);
         filter.customExtras = extras;
 
-        filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(
+        filter.listingIcon = ((BitmapDrawable) context.getResources().getDrawable(
                 ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags))).getBitmap();
 
         return filter;

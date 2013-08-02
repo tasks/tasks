@@ -23,68 +23,94 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Data Model which represents a user.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public final class TaskListMetadata extends RemoteModel {
 
     // --- table and uri
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("task_list_metadata", TaskListMetadata.class);
 
-    /** model class for entries in the outstanding table */
+    /**
+     * model class for entries in the outstanding table
+     */
     public static final Class<? extends OutstandingEntry<TaskListMetadata>> OUTSTANDING_MODEL = TaskListMetadataOutstanding.class;
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote id */
+    /**
+     * Remote id
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Pushed at date */
+    /**
+     * Pushed at date
+     */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
-    /** Tag UUID */
+    /**
+     * Tag UUID
+     */
     public static final StringProperty TAG_UUID = new StringProperty(
             TABLE, "tag_uuid");
 
-    /** Filter id (one of below) */
+    /**
+     * Filter id (one of below)
+     */
     public static final StringProperty FILTER = new StringProperty(
             TABLE, "filter");
 
-    /** Tree of task ids (serialized to json array) */
+    /**
+     * Tree of task ids (serialized to json array)
+     */
     public static final StringProperty TASK_IDS = new StringProperty(
             TABLE, "task_ids", Property.PROP_FLAG_JSON);
 
-    /** Sort setting (one of below) */
+    /**
+     * Sort setting (one of below)
+     */
     public static final StringProperty SORT = new StringProperty(
             TABLE, "sort");
 
-    /** Settings hash */
+    /**
+     * Settings hash
+     */
     public static final StringProperty SETTINGS = new StringProperty(
             TABLE, "settings", Property.PROP_FLAG_JSON);
 
-    /** Array of child tags (for folders) */
+    /**
+     * Array of child tags (for folders)
+     */
     public static final StringProperty CHILD_TAG_IDS = new StringProperty(
             TABLE, "child_tags", Property.PROP_FLAG_JSON);
 
-    /** If the folder is collapsed */
+    /**
+     * If the folder is collapsed
+     */
     public static final IntegerProperty IS_COLLAPSED = new IntegerProperty(
             TABLE, "is_collapsed");
 
 
-
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(TaskListMetadata.class);
 
     public static final String FILTER_ID_ALL = "all";
@@ -102,7 +128,9 @@ public final class TaskListMetadata extends RemoteModel {
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     static {

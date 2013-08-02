@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.welcome;
 
-import greendroid.widget.QuickAction;
-import greendroid.widget.QuickActionWidget;
-
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
@@ -21,16 +16,20 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.List;
+
+import greendroid.widget.QuickAction;
+import greendroid.widget.QuickActionWidget;
+
 /**
  * Displays a popover with some help text for first time users.
  *
  * @author Sam Bosley <sam@astrid.com>
- *
  */
 public class HelpInfoPopover extends QuickActionWidget {
 
     public static HelpInfoPopover showPopover(final Activity activity, final View parent,
-            final int textId, OnDismissListener dismissListener) {
+                                              final int textId, OnDismissListener dismissListener) {
         final HelpInfoPopover toShow = new HelpInfoPopover(activity, textId);
         if (dismissListener != null) {
             toShow.setOnDismissListener(dismissListener);
@@ -54,7 +53,7 @@ public class HelpInfoPopover extends QuickActionWidget {
     private HelpInfoPopover(Context context, int textId) {
         super(context);
         setContentView(R.layout.help_popover);
-        TextView message = (TextView)getContentView().findViewById(R.id.gdi_message);
+        TextView message = (TextView) getContentView().findViewById(R.id.gdi_message);
         message.setText(textId);
         setFocusable(false);
         setTouchable(true);

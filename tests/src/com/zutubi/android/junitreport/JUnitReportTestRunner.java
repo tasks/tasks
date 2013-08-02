@@ -67,7 +67,7 @@ public class JUnitReportTestRunner extends InstrumentationTestRunner {
     private static final String DEFAULT_MULTI_REPORT_FILE = "junit-report-" + JUnitReportListener.TOKEN_SUITE + ".xml";
 
     private static final String LOG_TAG = JUnitReportTestRunner.class.getSimpleName();
-    
+
     private JUnitReportListener mListener;
     private String mReportFile;
     private String mReportDir;
@@ -94,8 +94,7 @@ public class JUnitReportTestRunner extends InstrumentationTestRunner {
         super.onCreate(arguments);
     }
 
-    private boolean getBooleanArgument(Bundle arguments, String name, boolean defaultValue)
-    {
+    private boolean getBooleanArgument(Bundle arguments, String name, boolean defaultValue) {
         String value = arguments.getString(name);
         if (value == null) {
             return defaultValue;
@@ -106,7 +105,7 @@ public class JUnitReportTestRunner extends InstrumentationTestRunner {
 
     /**
      * Subclass and override this if you want to use a different TestRunner type.
-     * 
+     *
      * @return the test runner to use
      */
     protected AndroidTestRunner makeAndroidTestRunner() {

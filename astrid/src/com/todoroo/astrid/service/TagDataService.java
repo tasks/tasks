@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.database.Cursor;
 import android.text.TextUtils;
 
@@ -39,17 +36,22 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Service layer for {@link TagData}-centered activities.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TagDataService {
 
-    @Autowired TagDataDao tagDataDao;
-    @Autowired TaskDao taskDao;
-    @Autowired UserActivityDao userActivityDao;
+    @Autowired
+    TagDataDao tagDataDao;
+    @Autowired
+    TaskDao taskDao;
+    @Autowired
+    UserActivityDao userActivityDao;
 
     public TagDataService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -59,6 +61,7 @@ public class TagDataService {
 
     /**
      * Query underlying database
+     *
      * @param query
      * @return
      */
@@ -68,6 +71,7 @@ public class TagDataService {
 
     /**
      * Save a single piece of metadata
+     *
      * @param metadata
      */
     public boolean save(TagData tagData) {
@@ -75,9 +79,8 @@ public class TagDataService {
     }
 
     /**
-     *
      * @param properties
-     * @param id id
+     * @param id         id
      * @return item, or null if it doesn't exist
      */
     public TagData fetchById(long id, Property<?>... properties) {
@@ -86,12 +89,13 @@ public class TagDataService {
 
     /**
      * Find a tag by name
+     *
      * @return null if doesn't exist
      */
     public TagData getTagByName(String name, Property<?>... properties) {
         TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
         try {
-            if(cursor.getCount() == 0)
+            if (cursor.getCount() == 0)
                 return null;
             cursor.moveToFirst();
             return new TagData(cursor);
@@ -102,6 +106,7 @@ public class TagDataService {
 
     /**
      * Fetch tag data
+     *
      * @param queryTemplate
      * @param constraint
      * @param properties
@@ -109,22 +114,22 @@ public class TagDataService {
      */
     @SuppressWarnings("nls")
     public TodorooCursor<TagData> fetchFiltered(String queryTemplate, CharSequence constraint,
-            Property<?>... properties) {
+                                                Property<?>... properties) {
         Criterion whereConstraint = null;
-        if(constraint != null)
+        if (constraint != null)
             whereConstraint = Functions.upper(TagData.NAME).like("%" +
                     constraint.toString().toUpperCase() + "%");
 
-        if(queryTemplate == null) {
-            if(whereConstraint == null)
+        if (queryTemplate == null) {
+            if (whereConstraint == null)
                 return tagDataDao.query(Query.select(properties));
             else
                 return tagDataDao.query(Query.select(properties).where(whereConstraint));
         }
 
         String sql;
-        if(whereConstraint != null) {
-            if(!queryTemplate.toUpperCase().contains("WHERE"))
+        if (whereConstraint != null) {
+            if (!queryTemplate.toUpperCase().contains("WHERE"))
                 sql = queryTemplate + " WHERE " + whereConstraint;
             else
                 sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
@@ -142,10 +147,10 @@ public class TagDataService {
             criteria = UserActivity.DELETED_AT.eq(0);
         else
             criteria = Criterion.and(UserActivity.DELETED_AT.eq(0), Criterion.or(
-                Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
-                Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
-                        UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
-                                .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))));
+                    Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TAG_COMMENT), UserActivity.TARGET_ID.eq(tagData.getUuid())),
+                    Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
+                            UserActivity.TARGET_ID.in(Query.select(TaskToTagMetadata.TASK_UUID)
+                                    .from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(tagData.getUuid())))))));
 
         if (extraCriterion != null)
             criteria = Criterion.and(criteria, extraCriterion);
@@ -165,7 +170,7 @@ public class TagDataService {
         return userActivityDao.query(queryForTagData(tagData, criterion, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)));
     }
 
-    public Cursor getActivityAndHistoryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>...userProperties) {
+    public Cursor getActivityAndHistoryForTagData(TagData tagData, Criterion extraCriterion, String userTableAlias, Property<?>... userProperties) {
         Query activityQuery = queryForTagData(tagData, extraCriterion, userTableAlias, UpdateAdapter.USER_ACTIVITY_PROPERTIES, userProperties)
                 .from(UserActivity.TABLE);
 
@@ -193,7 +198,7 @@ public class TagDataService {
             TagData tagData = new TagData();
             if (!cursor.isAfterLast()) {
                 tagData.readFromCursor(cursor);
-                if(!tagData.getValue(TagData.NAME).equals(featObject.getString("name")))
+                if (!tagData.getValue(TagData.NAME).equals(featObject.getString("name")))
                     TagService.getInstance().rename(tagData.getUuid(), featObject.getString("name"), true);
                 cursor.moveToNext();
             }
@@ -208,16 +213,17 @@ public class TagDataService {
 
     /**
      * Return update
+     *
      * @param tagData
      * @return
      */
     public UserActivity getLatestUpdate(TagData tagData) {
-        if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
+        if (RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
             return null;
 
         TodorooCursor<UserActivity> updates = userActivityDao.query(queryForTagData(tagData, null, null, UserActivity.PROPERTIES, null).orderBy(Order.desc(UserActivity.CREATED_AT)).limit(1));
         try {
-            if(updates.getCount() == 0)
+            if (updates.getCount() == 0)
                 return null;
             updates.moveToFirst();
             return new UserActivity(updates);

@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -74,6 +66,14 @@ import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
 public class EditPeopleControlSet extends PopupControlSet {
 
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
@@ -82,21 +82,29 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private Task task;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmSyncService actFmSyncService;
 
-    @Autowired TaskService taskService;
+    @Autowired
+    TaskService taskService;
 
-    @Autowired UserDao userDao;
+    @Autowired
+    UserDao userDao;
 
-    @Autowired MetadataService metadataService;
+    @Autowired
+    MetadataService metadataService;
 
-    @Autowired ExceptionService exceptionService;
+    @Autowired
+    ExceptionService exceptionService;
 
-    @Autowired TagDataService tagDataService;
+    @Autowired
+    TagDataService tagDataService;
 
-    @Autowired ABChooser abChooser;
+    @Autowired
+    ABChooser abChooser;
 
     private final Fragment fragment;
 
@@ -174,7 +182,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 TodorooCursor<TagData> tags = TagService.getInstance().getTagDataForTask(task.getId(), TagData.NAME, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                 try {
                     TagData tagData = new TagData();
-                    for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
+                    for (tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
                         tagData.readFromCursor(tags);
                         addMembersFromTagData(tagData, sharedPeople);
                     }
@@ -199,7 +207,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 JSONObject user = members.getJSONObject(i);
                 sharedPeople.add(user);
             }
-            if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
+            if (!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
                 JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
                 sharedPeople.add(user);
             }
@@ -256,7 +264,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             coreUsersJson.add(myself);
 
             boolean hasTags = t.getTransitory("tags") != null &&
-                    ((HashSet<String>)t.getTransitory("tags")).size() > 0;
+                    ((HashSet<String>) t.getTransitory("tags")).size() > 0;
             boolean addUnassigned = actFmPreferenceService.isLoggedIn() && hasTags;
             if (addUnassigned) {
                 JSONObject unassigned = new JSONObject();
@@ -265,7 +273,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 coreUsersJson.add(unassigned);
             }
 
-            if(Task.isRealUserId(t.getValue(Task.USER_ID))) {
+            if (Task.isRealUserId(t.getValue(Task.USER_ID))) {
                 try {
                     JSONObject user = new JSONObject(t.getValue(Task.USER));
                     coreUsersJson.add(0, user);
@@ -292,7 +300,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
-                    .put(CONTACT_CHOOSER_USER, true));
+                            .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
             boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true) && contactPickerAvailable();
             if (addContactPicker)
@@ -354,19 +362,19 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     private ArrayList<AssignedToUser> convertJsonUsersToAssignedUsers(ArrayList<JSONObject> jsonUsers,
-            HashSet<String> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
+                                                                      HashSet<String> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
         ArrayList<AssignedToUser> users = new ArrayList<AssignedToUser>();
-        for(int i = 0; i < jsonUsers.size(); i++) {
+        for (int i = 0; i < jsonUsers.size(); i++) {
             JSONObject person = jsonUsers.get(i);
-            if(person == null)
+            if (person == null)
                 continue;
             String id = getLongOrStringId(person, Task.USER_ID_EMAIL);
-            if(ActFmPreferenceService.userId().equals(id) || ((Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id)))
+            if (ActFmPreferenceService.userId().equals(id) || ((Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id)))
                 continue;
             userIds.add(id);
 
             String email = person.optString("email");
-            if(!TextUtils.isEmpty(email) && emails.contains(email))
+            if (!TextUtils.isEmpty(email) && emails.contains(email))
                 continue;
             emails.add(email);
 
@@ -378,16 +386,16 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             AssignedToUser atu = new AssignedToUser(name, person);
             users.add(atu);
-            if(names.containsKey(name)) {
+            if (names.containsKey(name)) {
                 AssignedToUser user = names.get(name);
-                if(user != null && user.user.has("email")) {
+                if (user != null && user.user.has("email")) {
                     user.label += " (" + user.user.optString("email") + ")";
                     names.put(name, null);
                 }
-                if(!TextUtils.isEmpty(email))
+                if (!TextUtils.isEmpty(email))
                     atu.label += " (" + email + ")";
-            } else if(TextUtils.isEmpty(name) || "null".equals(name)) {
-                if(!TextUtils.isEmpty(email))
+            } else if (TextUtils.isEmpty(name) || "null".equals(name)) {
+                if (!TextUtils.isEmpty(email))
                     atu.label = email;
                 else
                     users.remove(atu);
@@ -470,12 +478,11 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
 
-
     private class AssignedUserAdapter extends ArrayAdapter<AssignedToUser> {
 
         private final int positionOffset;
 
-        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people, int positionOffset)  {
+        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people, int positionOffset) {
             super(context, R.layout.assigned_adapter_row, people);
             this.positionOffset = positionOffset;
         }
@@ -483,7 +490,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         @SuppressWarnings("nls")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null)
+            if (convertView == null)
                 convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
@@ -514,7 +521,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         assignedList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-                    long id) {
+                                    long id) {
                 AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(position);
 
                 if (user.user.has(CONTACT_CHOOSER_USER)) {
@@ -597,19 +604,20 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     /**
      * Save sharing settings
+     *
      * @param toast toast to show after saving is finished
      * @return false if login is required & save should be halted
      */
     @SuppressWarnings("nls")
     public boolean saveSharingSettings(String toast) {
-        if(task == null)
+        if (task == null)
             return false;
 
         boolean dirty = false;
         try {
             JSONObject userJson = null;
             TextView assignedView = null;
-            if(!TextUtils.isEmpty(assignedCustom.getText())) {
+            if (!TextUtils.isEmpty(assignedCustom.getText())) {
                 userJson = PeopleContainer.createUserJson(assignedCustom);
                 assignedView = assignedCustom;
             } else {
@@ -631,12 +639,12 @@ public class EditPeopleControlSet extends PopupControlSet {
                             activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
             }
 
-            if(userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
+            if (userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
                 dirty = Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)) ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 task.setValue(Task.USER, "");
                 assignedToMe = true;
-            } else if(Task.USER_ID_UNASSIGNED.equals(getLongOrStringId(userJson, Task.USER_ID_SELF))) {
+            } else if (Task.USER_ID_UNASSIGNED.equals(getLongOrStringId(userJson, Task.USER_ID_SELF))) {
                 dirty = Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)) ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
                 task.setValue(Task.USER, "");
@@ -645,7 +653,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 String taskUserEmail = "";
                 try {
                     @SuppressWarnings("deprecation") // For backwards compatibility
-                    JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
+                            JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
                     taskUserId = getLongOrStringId(taskUser, Task.USER_ID_EMAIL);
                     taskUserEmail = taskUser.optString("email");
                 } catch (JSONException e) {
@@ -668,7 +676,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 task.setValue(Task.USER, "");
             }
 
-            if(dirty && !actFmPreferenceService.isLoggedIn()) {
+            if (dirty && !actFmPreferenceService.isLoggedIn()) {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface d, int which) {
@@ -701,7 +709,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             return true;
         } catch (ParseSharedException e) {
-            if(e.view != null) {
+            if (e.view != null) {
                 e.view.setTextColor(Color.RED);
                 e.view.requestFocus();
             }
@@ -716,6 +724,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     /**
      * Warning - only valid after a call to saveSharingSettings
+     *
      * @return
      */
     public boolean isAssignedToMe() {
@@ -727,7 +736,7 @@ public class EditPeopleControlSet extends PopupControlSet {
      */
     public boolean willBeAssignedToMe() {
         JSONObject userJson = null;
-        if(!TextUtils.isEmpty(assignedCustom.getText())) {
+        if (!TextUtils.isEmpty(assignedCustom.getText())) {
             userJson = PeopleContainer.createUserJson(assignedCustom);
         } else {
             if (!hasLoadedUI() || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
@@ -741,7 +750,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 userJson = item.user;
         }
 
-        if(userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
+        if (userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
             return true;
         }
 
@@ -752,10 +761,13 @@ public class EditPeopleControlSet extends PopupControlSet {
         return assignedDisplay.getText().toString();
     }
 
-    /** Resume save
-     * @param data */
+    /**
+     * Resume save
+     *
+     * @param data
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK) {
+        if (requestCode == loginRequestCode && resultCode == Activity.RESULT_OK) {
             // clear user values & reset them to trigger a save
             task.clearValue(Task.USER_ID);
             task.clearValue(Task.USER);
@@ -764,8 +776,8 @@ public class EditPeopleControlSet extends PopupControlSet {
         } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT && resultCode == Activity.RESULT_OK) {
             Uri contactData = data.getData();
             String contactId = contactData.getLastPathSegment();
-            String[] args = { contactId };
-            String[] projection = { ContactsContract.CommonDataKinds.Email.DATA };
+            String[] args = {contactId};
+            String[] projection = {ContactsContract.CommonDataKinds.Email.DATA};
             String selection = ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?"; //$NON-NLS-1$
             Cursor emailCursor = activity.managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, selection, args, null);
             if (emailCursor.getCount() > 0) {
@@ -773,7 +785,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 int emailIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
                 String email = emailCursor.getString(emailIndex);
                 if (!TextUtils.isEmpty(email)) {
-                    String[] nameProjection = { ContactsContract.Contacts.DISPLAY_NAME };
+                    String[] nameProjection = {ContactsContract.Contacts.DISPLAY_NAME};
                     Cursor nameCursor = activity.managedQuery(contactData, nameProjection, null, null, null);
                     if (nameCursor.getCount() > 0) {
                         nameCursor.moveToFirst();
@@ -851,7 +863,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     protected void additionalDialogSetup() {
         super.additionalDialogSetup();
         dialog.getWindow()
-            .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+                        | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 }

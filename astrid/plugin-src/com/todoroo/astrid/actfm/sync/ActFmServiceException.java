@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import java.io.IOException;
-
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 /**
@@ -15,7 +15,6 @@ import org.json.JSONObject;
  * processing.
  *
  * @author timsu
- *
  */
 public class ActFmServiceException extends IOException {
 

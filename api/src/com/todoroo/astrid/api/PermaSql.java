@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.api;
 
-import java.util.Date;
-
 import com.todoroo.andlib.utility.DateUtilities;
+
+import java.util.Date;
 
 /**
  * PermaSql allows for creating SQL statements that can be saved and used
@@ -15,61 +15,88 @@ import com.todoroo.andlib.utility.DateUtilities;
  * used in
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class PermaSql {
 
     // --- placeholder strings
 
-    /** value to be replaced with the current time as long */
+    /**
+     * value to be replaced with the current time as long
+     */
     public static final String VALUE_NOW = "NOW()"; //$NON-NLS-1$
 
-    /** value to be replaced by end of day as long */
+    /**
+     * value to be replaced by end of day as long
+     */
     public static final String VALUE_EOD = "EOD()"; //$NON-NLS-1$
 
-    /** value to be replaced by noon today as long */
+    /**
+     * value to be replaced by noon today as long
+     */
     public static final String VALUE_NOON = "NOON()"; //$NON-NLS-1$
 
-    /** value to be replaced by end of day yesterday as long */
+    /**
+     * value to be replaced by end of day yesterday as long
+     */
     public static final String VALUE_EOD_YESTERDAY = "EODY()"; //$NON-NLS-1$
 
-    /** value to be replaced by noon yesterday as long */
+    /**
+     * value to be replaced by noon yesterday as long
+     */
     public static final String VALUE_NOON_YESTERDAY = "NOONY()"; //$NON-NLS-1$
 
-    /** value to be replaced by end of day tomorrow as long */
+    /**
+     * value to be replaced by end of day tomorrow as long
+     */
     public static final String VALUE_EOD_TOMORROW = "EODT()"; //$NON-NLS-1$
 
-    /** value to be replaced by noon tomorrow as long */
+    /**
+     * value to be replaced by noon tomorrow as long
+     */
     public static final String VALUE_NOON_TOMORROW = "NOONT()"; //$NON-NLS-1$
 
-    /** value to be replaced by end of day day after tomorrow as long */
+    /**
+     * value to be replaced by end of day day after tomorrow as long
+     */
     public static final String VALUE_EOD_DAY_AFTER = "EODTT()"; //$NON-NLS-1$
 
-    /** value to be replaced by noon day after tomorrow as long */
+    /**
+     * value to be replaced by noon day after tomorrow as long
+     */
     public static final String VALUE_NOON_DAY_AFTER = "NOONTT()"; //$NON-NLS-1$
 
-    /** value to be replaced by end of day next week as long */
+    /**
+     * value to be replaced by end of day next week as long
+     */
     public static final String VALUE_EOD_NEXT_WEEK = "EODW()"; //$NON-NLS-1$
 
-    /** value to be replaced by noon next week as long */
+    /**
+     * value to be replaced by noon next week as long
+     */
     public static final String VALUE_NOON_NEXT_WEEK = "NOONW()"; //$NON-NLS-1$
 
-    /** value to be replaced by approximate end of day next month as long */
+    /**
+     * value to be replaced by approximate end of day next month as long
+     */
     public static final String VALUE_EOD_NEXT_MONTH = "EODM()"; //$NON-NLS-1$
 
-    /** value to be replaced by approximate noon next month as long */
+    /**
+     * value to be replaced by approximate noon next month as long
+     */
     public static final String VALUE_NOON_NEXT_MONTH = "NOONM()"; //$NON-NLS-1$
 
-    /** Replace placeholder strings with actual */
+    /**
+     * Replace placeholder strings with actual
+     */
     public static String replacePlaceholders(String value) {
-        if(value.contains(VALUE_NOW))
+        if (value.contains(VALUE_NOW))
             value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
-        if(value.contains(VALUE_EOD) || value.contains(VALUE_EOD_DAY_AFTER) ||
+        if (value.contains(VALUE_EOD) || value.contains(VALUE_EOD_DAY_AFTER) ||
                 value.contains(VALUE_EOD_NEXT_WEEK) || value.contains(VALUE_EOD_TOMORROW) ||
                 value.contains(VALUE_EOD_YESTERDAY) || value.contains(VALUE_EOD_NEXT_MONTH)) {
             value = replaceEodValues(value);
         }
-        if(value.contains(VALUE_NOON) || value.contains(VALUE_NOON_DAY_AFTER) ||
+        if (value.contains(VALUE_NOON) || value.contains(VALUE_NOON_DAY_AFTER) ||
                 value.contains(VALUE_NOON_NEXT_WEEK) || value.contains(VALUE_NOON_TOMORROW) ||
                 value.contains(VALUE_NOON_YESTERDAY) || value.contains(VALUE_NOON_NEXT_MONTH)) {
             value = replaceNoonValues(value);

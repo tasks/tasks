@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.util.Date;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -26,12 +24,13 @@ import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 
+import java.util.Date;
+
 /**
  * Displays synchronization preferences and an action panel so users can
  * initiate actions from the menu.
  *
  * @author timsu
- *
  */
 public class BackupPreferences extends TodorooPreferenceActivity {
 
@@ -63,7 +62,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             @Override
             public void onChildViewAdded(View parent, View child) {
                 View view = findViewById(R.id.status);
-                if(view != null)
+                if (view != null)
                     view.setBackgroundColor(statusColor);
             }
         });
@@ -93,9 +92,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
     }
 
     /**
-     *
-     * @param resource
-     *            if null, updates all resources
+     * @param resource if null, updates all resources
      */
     @Override
     public void updatePreferences(Preference preference, Object value) {
@@ -104,7 +101,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
         // auto
         if (r.getString(R.string.backup_BPr_auto_key).equals(
                 preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean) value)
                 preference.setSummary(R.string.backup_BPr_auto_disabled);
             else
                 preference.setSummary(R.string.backup_BPr_auto_enabled);
@@ -118,7 +115,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             // last backup was error
             final long last = Preferences.getLong(PREF_BACKUP_LAST_DATE, 0);
             final String error = Preferences.getStringValue(PREF_BACKUP_LAST_ERROR);
-            if(error != null) {
+            if (error != null) {
                 status = r.getString(R.string.backup_status_failed);
                 subtitle = r.getString(R.string.backup_status_failed_subtitle);
                 statusColor = Color.rgb(100, 0, 0);
@@ -128,10 +125,10 @@ public class BackupPreferences extends TodorooPreferenceActivity {
                         return true;
                     }
                 });
-            } else if(last > 0) {
+            } else if (last > 0) {
                 status = r.getString(R.string.backup_status_success,
                         DateUtilities.getDateStringWithTime(BackupPreferences.this,
-                        new Date(last)));
+                                new Date(last)));
                 statusColor = Color.rgb(0, 100, 0);
                 preference.setOnPreferenceClickListener(null);
             } else {
@@ -143,7 +140,7 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             preference.setSummary(subtitle);
 
             View view = findViewById(R.id.status);
-            if(view != null)
+            if (view != null)
                 view.setBackgroundColor(statusColor);
         }
 

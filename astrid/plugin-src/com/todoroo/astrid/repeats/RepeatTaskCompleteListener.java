@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
-
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -40,30 +32,39 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         DependencyInjectionService.getInstance().inject(this);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if (taskId == -1)
             return;
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.PROPERTIES);
-        if(task == null || !task.isCompleted())
+        if (task == null || !task.isCompleted())
             return;
 
         String recurrence = task.sanitizedRecurrence();
         boolean repeatAfterCompletion = task.repeatAfterCompletion();
 
-        if(recurrence != null && recurrence.length() > 0) {
+        if (recurrence != null && recurrence.length() > 0) {
             long newDueDate;
             try {
                 newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion);
-                if(newDueDate == -1)
+                if (newDueDate == -1)
                     return;
             } catch (ParseException e) {
                 PluginServices.getExceptionService().reportError("repeat-parse", e); //$NON-NLS-1$
@@ -101,7 +102,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     public static void rescheduleTask(Task task, long newDueDate) {
         long hideUntil = task.getValue(Task.HIDE_UNTIL);
-        if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
+        if (hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
             hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
         }
 
@@ -115,7 +116,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         PluginServices.getTaskService().save(task);
     }
 
-    /** Compute next due date */
+    /**
+     * Compute next due date
+     */
     public static long computeNextDueDate(Task task, String recurrence, boolean repeatAfterCompletion) throws ParseException {
         RRule rrule = initRRule(recurrence);
 
@@ -123,9 +126,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         Date original = setUpStartDate(task, repeatAfterCompletion, rrule.getFreq());
         DateValue startDateAsDV = setUpStartDateAsDV(task, original);
 
-        if(rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY)
+        if (rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY)
             return handleSubdayRepeat(original, rrule);
-        else if(rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion)
+        else if (rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion)
             return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
         else if (rrule.getFreq() == Frequency.MONTHLY)
             return handleMonthlyRepeat(original, startDateAsDV, task.hasDueTime(), rrule);
@@ -134,7 +137,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original,
-            boolean hasDueTime) {
+                                                        boolean hasDueTime) {
         List<WeekdayNum> byDay = rrule.getByDay();
         long newDate = original.getTime();
         newDate += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
@@ -149,7 +152,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         } while (date.get(Calendar.DAY_OF_WEEK) != next.wday.javaDayNum);
 
         long time = date.getTimeInMillis();
-        if(hasDueTime)
+        if (hasDueTime)
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
         else
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
@@ -183,7 +186,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     };
 
     private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay,
-            Calendar date) {
+                                              Calendar date) {
         WeekdayNum next = byDay.get(0);
         for (int i = 0; i < byDay.size(); i++) {
             WeekdayNum weekday = byDay.get(i);
@@ -195,34 +198,36 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     private static long invokeRecurrence(RRule rrule, Date original,
-            DateValue startDateAsDV) {
+                                         DateValue startDateAsDV) {
         long newDueDate = -1;
         RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(rrule,
                 startDateAsDV, TimeZone.getDefault());
         DateValue nextDate = startDateAsDV;
 
-        for(int i = 0; i < 10; i++) { // ten tries then we give up
-            if(!iterator.hasNext())
+        for (int i = 0; i < 10; i++) { // ten tries then we give up
+            if (!iterator.hasNext())
                 return -1;
             nextDate = iterator.next();
 
-            if(nextDate.compareTo(startDateAsDV) == 0)
+            if (nextDate.compareTo(startDateAsDV) == 0)
                 continue;
 
             newDueDate = buildNewDueDate(original, nextDate);
 
             // detect if we finished
-            if(newDueDate > original.getTime())
+            if (newDueDate > original.getTime())
                 break;
         }
         return newDueDate;
     }
 
-    /** Compute long due date from DateValue */
+    /**
+     * Compute long due date from DateValue
+     */
     private static long buildNewDueDate(Date original, DateValue nextDate) {
         long newDueDate;
-        if(nextDate instanceof DateTimeValueImpl) {
-            DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
+        if (nextDate instanceof DateTimeValueImpl) {
+            DateTimeValueImpl newDateTime = (DateTimeValueImpl) nextDate;
             Date date = new Date(Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
                     newDateTime.day(), newDateTime.hour(),
                     newDateTime.minute(), newDateTime.second()));
@@ -239,30 +244,35 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         return newDueDate;
     }
 
-    /** Initialize RRule instance */
+    /**
+     * Initialize RRule instance
+     */
     private static RRule initRRule(String recurrence) throws ParseException {
         RRule rrule = new RRule(recurrence);
 
         // handle the iCalendar "byDay" field differently depending on if
         // we are weekly or otherwise
-        if(rrule.getFreq() != Frequency.WEEKLY)
+        if (rrule.getFreq() != Frequency.WEEKLY)
             rrule.setByDay(Collections.EMPTY_LIST);
 
         return rrule;
     }
 
-    /** Set up repeat start date
-     * @param frequency */
+    /**
+     * Set up repeat start date
+     *
+     * @param frequency
+     */
     private static Date setUpStartDate(Task task, boolean repeatAfterCompletion, Frequency frequency) {
         Date startDate = new Date();
-        if(task.hasDueDate()) {
+        if (task.hasDueDate()) {
             Date dueDate = new Date(task.getValue(Task.DUE_DATE));
-            if(repeatAfterCompletion)
+            if (repeatAfterCompletion)
                 startDate = new Date(task.getValue(Task.COMPLETION_DATE));
             else
                 startDate = dueDate;
 
-            if(task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
+            if (task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
                 startDate.setHours(dueDate.getHours());
                 startDate.setMinutes(dueDate.getMinutes());
                 startDate.setSeconds(dueDate.getSeconds());
@@ -272,7 +282,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     private static DateValue setUpStartDateAsDV(Task task, Date startDate) {
-        if(task.hasDueTime())
+        if (task.hasDueTime())
             return new DateTimeValueImpl(startDate.getYear() + 1900,
                     startDate.getMonth() + 1, startDate.getDate(),
                     startDate.getHours(), startDate.getMinutes(), startDate.getSeconds());
@@ -283,15 +293,15 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     private static long handleSubdayRepeat(Date startDate, RRule rrule) {
         long millis;
-        switch(rrule.getFreq()) {
-        case HOURLY:
-            millis = DateUtilities.ONE_HOUR;
-            break;
-        case MINUTELY:
-            millis = DateUtilities.ONE_MINUTE;
-            break;
-        default:
-            throw new RuntimeException("Error handing subday repeat: " + rrule.getFreq()); //$NON-NLS-1$
+        switch (rrule.getFreq()) {
+            case HOURLY:
+                millis = DateUtilities.ONE_HOUR;
+                break;
+            case MINUTELY:
+                millis = DateUtilities.ONE_MINUTE;
+                break;
+            default:
+                throw new RuntimeException("Error handing subday repeat: " + rrule.getFreq()); //$NON-NLS-1$
         }
         long newDueDate = startDate.getTime() + millis * rrule.getInterval();
         return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,

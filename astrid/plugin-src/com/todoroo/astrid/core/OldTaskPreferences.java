@@ -39,15 +39,18 @@ import com.todoroo.astrid.utility.AstridPreferences;
  * Displays the preference screen for users to manage their old tasks and events
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class OldTaskPreferences extends TodorooPreferenceActivity {
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
-    @Autowired Database database;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    Database database;
 
-    @Autowired ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmSyncService actFmSyncService;
 
     ProgressDialog pd;
 
@@ -104,7 +107,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        preference= screen.findPreference(getString(R.string.EPr_manage_clear_all));
+        preference = screen.findPreference(getString(R.string.EPr_manage_clear_all));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {
                 showClearDataDialog();
@@ -118,7 +121,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 this,
                 getResources().getString(
                         R.string.EPr_manage_clear_all_message),
-                        new OnClickListener() {
+                new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Editor editor = Preferences.getPrefs(OldTaskPreferences.this).edit();
@@ -150,7 +153,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
         super.onPause();
     }
 
-    /** Show the dialog to delete completed tasks */
+    /**
+     * Show the dialog to delete completed tasks
+     */
     private void showDeleteCompletedDialog() {
         DialogUtilities.okCancelDialog(
                 this,
@@ -167,7 +172,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 try {
                                     Task task = new Task();
                                     int length = cursor.getCount();
-                                    for(int i = 0; i < length; i++) {
+                                    for (int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
                                         GCalHelper.deleteTaskEvent(task);
@@ -189,7 +194,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 }, null);
     }
 
-    /** Show the dialog to purge deleted tasks */
+    /**
+     * Show the dialog to purge deleted tasks
+     */
     private void showPurgeDeletedDialog() {
         DialogUtilities.okCancelDialog(
                 this,
@@ -206,7 +213,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 try {
                                     Task task = new Task();
                                     int length = cursor.getCount();
-                                    for(int i = 0; i < length; i++) {
+                                    for (int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
                                         GCalHelper.deleteTaskEvent(task);
@@ -225,7 +232,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 }, null);
     }
 
-    /** Show the dialog to delete completed events */
+    /**
+     * Show the dialog to delete completed events
+     */
     private void showDeleteCompletedEventsDialog() {
         DialogUtilities.okCancelDialog(
                 this,
@@ -243,7 +252,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 try {
                                     Task task = new Task();
                                     int length = cursor.getCount();
-                                    for(int i = 0; i < length; i++) {
+                                    for (int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
                                         if (GCalHelper.deleteTaskEvent(task))
@@ -266,7 +275,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 }, null);
     }
 
-    /** Show the dialog to delete all events */
+    /**
+     * Show the dialog to delete all events
+     */
     private void showDeleteAllEventsDialog() {
         DialogUtilities.okCancelDialog(
                 this,
@@ -284,7 +295,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 try {
                                     Task task = new Task();
                                     int length = cursor.getCount();
-                                    for(int i = 0; i < length; i++) {
+                                    for (int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
                                         if (GCalHelper.deleteTaskEvent(task))

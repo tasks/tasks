@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,6 +14,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
+
+import java.util.Date;
 
 public final class ReengagementService {
 
@@ -27,7 +27,7 @@ public final class ReengagementService {
     public static final String BROADCAST_SHOW_REENGAGEMENT = Constants.PACKAGE + ".SHOW_REENGAGEMENT"; //$NON-NLS-1$
 
     public static void scheduleReengagementAlarm(Context context) {
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(BROADCAST_SHOW_REENGAGEMENT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         am.cancel(pendingIntent);

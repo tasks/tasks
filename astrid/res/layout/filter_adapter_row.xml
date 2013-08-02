@@ -7,66 +7,71 @@
 <!-- Note that properties like height, background color, and filter name size
      are defined in FilterAdapter.java -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="55dip"
-    android:paddingLeft="7dip"
-    android:orientation="horizontal">
-        
+                android:layout_width="fill_parent"
+                android:layout_height="55dip"
+                android:paddingLeft="7dip"
+                android:orientation="horizontal">
+
     <!-- filter icon -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="25dip"
-        android:layout_height="48dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="8dip"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-        
+    <ImageView
+            android:id="@+id/icon"
+            android:layout_width="25dip"
+            android:layout_height="48dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+
     <!-- filter url image icon -->
-    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/url_image"
-        android:layout_width="30dip"
-        android:layout_height="48dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="6dip"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-            
+    <com.todoroo.astrid.helper.AsyncImageView
+            android:id="@+id/url_image"
+            android:layout_width="30dip"
+            android:layout_height="48dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dip"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+
     <!-- filter name -->
-    <TextView android:id="@+id/name"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="55dp"
-        android:paddingRight="30dp"
-        android:checked="false"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:lines="1"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical" />
-        
+    <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="55dp"
+            android:paddingRight="30dp"
+            android:checked="false"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:lines="1"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"/>
+
     <!-- size -->
-    <TextView android:id="@+id/size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/filter_count"
-        android:layout_marginRight="5dip"
-        android:layout_centerVertical="true"
-        android:paddingLeft="7dip" 
-        android:paddingRight="7dip"
-        android:textColor="#ffffff"
-        android:gravity="center" />
-        
+    <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/filter_count"
+            android:layout_marginRight="5dip"
+            android:layout_centerVertical="true"
+            android:paddingLeft="7dip"
+            android:paddingRight="7dip"
+            android:textColor="#ffffff"
+            android:gravity="center"/>
+
     <!-- selected -->
-    <ImageView android:id="@+id/selected"
-        android:layout_width="24dip"
-        android:layout_height="fill_parent"
-        android:layout_toLeftOf="@id/size"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip" 
-        android:src="?attr/asFilterSelectedIcon"
-        android:scaleType="fitCenter"
-        android:visibility="gone"/>
-                    
+    <ImageView
+            android:id="@+id/selected"
+            android:layout_width="24dip"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@id/size"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:src="?attr/asFilterSelectedIcon"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+
 </RelativeLayout>

@@ -14,15 +14,13 @@ import com.todoroo.astrid.api.FilterListItem;
  * Special filter that triggers the search functionality when accessed.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class SearchFilter extends FilterListItem {
 
     /**
      * Constructor for creating a new SearchFilter
      *
-     * @param listingTitle
-     *            Title of this item as displayed on the lists page, e.g. Inbox
+     * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
      */
     public SearchFilter(String listingTitle) {
         this.listingTitle = listingTitle;

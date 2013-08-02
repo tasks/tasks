@@ -1,7 +1,5 @@
 package com.todoroo.astrid.billing;
 
-import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -35,6 +33,8 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.service.ThemeService;
 
+import java.util.Locale;
+
 public class BillingActivity extends SherlockFragmentActivity implements AstridPurchaseObserver.RestoreTransactionsListener {
 
     private static final int DIALOG_CANNOT_CONNECT_ID = 1;
@@ -50,7 +50,8 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
 
     private ProgressDialog restoreTransactionsDialog;
 
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
 
 
     @Override
@@ -126,11 +127,11 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
             // Prompt to log in, but this shouldn't happen anyways since we hide the entry path to this screen when not logged in
             DialogUtilities.okDialog(this, getString(R.string.premium_login_prompt),
                     new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
         } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
         } else if (ActFmPreferenceService.isPremiumUser()) {
@@ -185,7 +186,7 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
 
     @SuppressWarnings("nls")
     private void setupText() {
-        int[] bullets = new int[] { R.string.premium_description_1, /* R.string.premium_description_2,*/ R.string.premium_description_3,
+        int[] bullets = new int[]{R.string.premium_description_1, /* R.string.premium_description_2,*/ R.string.premium_description_3,
                 R.string.premium_description_4, R.string.premium_description_5, R.string.premium_description_6
         };
 
@@ -250,17 +251,17 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
-        case DIALOG_CANNOT_CONNECT_ID:
-            return createDialog(R.string.cannot_connect_title,
-                    R.string.cannot_connect_message);
-        case DIALOG_BILLING_NOT_SUPPORTED_ID:
-            return createDialog(R.string.billing_not_supported_title,
-                    R.string.billing_not_supported_message);
+            case DIALOG_CANNOT_CONNECT_ID:
+                return createDialog(R.string.cannot_connect_title,
+                        R.string.cannot_connect_message);
+            case DIALOG_BILLING_NOT_SUPPORTED_ID:
+                return createDialog(R.string.billing_not_supported_title,
+                        R.string.billing_not_supported_message);
             case DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID:
                 return createDialog(R.string.subscriptions_not_supported_title,
                         R.string.subscriptions_not_supported_message);
-        default:
-            return null;
+            default:
+                return null;
         }
     }
 
@@ -275,22 +276,22 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(titleId)
-            .setIcon(android.R.drawable.stat_sys_warning)
-            .setMessage(messageId)
-            .setCancelable(false)
-            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            })
-            .setNegativeButton(R.string.subscriptions_learn_more, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, helpUri);
-                    startActivity(intent);
-                }
-            });
+                .setIcon(android.R.drawable.stat_sys_warning)
+                .setMessage(messageId)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.subscriptions_learn_more, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, helpUri);
+                        startActivity(intent);
+                    }
+                });
         return builder.create();
     }
 

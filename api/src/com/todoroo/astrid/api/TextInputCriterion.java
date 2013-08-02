@@ -15,7 +15,6 @@ import android.os.Parcelable;
  * together criteria
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TextInputCriterion extends CustomFilterCriterion implements Parcelable {
 
@@ -43,8 +42,8 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
      * @param name
      */
     public TextInputCriterion(String identifier, String title, String sql,
-            ContentValues valuesForNewTasks, String prompt, String hint,
-            Bitmap icon, String name) {
+                              ContentValues valuesForNewTasks, String prompt, String hint,
+                              Bitmap icon, String name) {
         this.identifier = identifier;
         this.text = title;
         this.sql = sql;

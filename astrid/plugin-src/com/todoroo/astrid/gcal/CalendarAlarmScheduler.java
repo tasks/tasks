@@ -1,7 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.Date;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -15,6 +13,8 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
+
+import java.util.Date;
 
 @SuppressWarnings("nls")
 public class CalendarAlarmScheduler {
@@ -32,11 +32,11 @@ public class CalendarAlarmScheduler {
 
         long now = DateUtilities.now();
 
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Cursor events = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS),
-                new String[] { Calendars.ID_COLUMN_NAME, Calendars.EVENTS_DTSTART_COL },
+                new String[]{Calendars.ID_COLUMN_NAME, Calendars.EVENTS_DTSTART_COL},
                 Calendars.EVENTS_DTSTART_COL + " > ? AND " + Calendars.EVENTS_DTSTART_COL + " < ?",
-                new String[] { Long.toString(now + DateUtilities.ONE_MINUTE * 15), Long.toString(now + DateUtilities.ONE_DAY) },
+                new String[]{Long.toString(now + DateUtilities.ONE_MINUTE * 15), Long.toString(now + DateUtilities.ONE_DAY)},
                 null);
         try {
             if (events != null && events.getCount() > 0) {

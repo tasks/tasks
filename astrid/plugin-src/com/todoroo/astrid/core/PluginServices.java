@@ -41,7 +41,6 @@ import com.todoroo.astrid.service.TaskService;
  * Utility class for getting dependency-injected services from plugins
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class PluginServices {
 
@@ -128,7 +127,7 @@ public final class PluginServices {
     }
 
     private static PluginServices getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized (PluginServices.class) {
                 if (instance == null)
                     instance = new PluginServices();
@@ -244,8 +243,8 @@ public final class PluginServices {
     public static Metadata getMetadataByTaskAndWithKey(long taskId, String metadataKey) {
         TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(taskId, metadataKey)));
-                try {
-            if(cursor.getCount() > 0) {
+        try {
+            if (cursor.getCount() > 0) {
                 cursor.moveToNext();
                 return new Metadata(cursor);
             } else

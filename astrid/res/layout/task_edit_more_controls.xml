@@ -5,9 +5,9 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <com.todoroo.astrid.ui.TaskEditMoreControls xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/more_controls"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+                                            android:id="@+id/more_controls"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical">
 
 </com.todoroo.astrid.ui.TaskEditMoreControls>

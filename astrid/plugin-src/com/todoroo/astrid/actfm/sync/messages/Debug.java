@@ -1,9 +1,9 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 import android.util.Log;
+
+import org.json.JSONObject;
 
 public class Debug extends ServerToClientMessage {
 

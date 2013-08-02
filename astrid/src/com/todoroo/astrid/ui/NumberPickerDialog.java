@@ -20,11 +20,11 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
         void onNumberPicked(NumberPicker view, int number);
     }
 
-    private final NumberPicker           mPicker;
+    private final NumberPicker mPicker;
     private final OnNumberPickedListener mCallback;
 
     public NumberPickerDialog(Context context, OnNumberPickedListener callBack,
-            String title, int initialValue, int incrementBy, int start, int end) {
+                              String title, int initialValue, int incrementBy, int start, int end) {
         super(context);
         mCallback = callBack;
 

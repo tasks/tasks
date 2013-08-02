@@ -59,12 +59,11 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
  * to use.
  *
  * @author Arne
- *
  */
 public class AstridActivity extends SherlockFragmentActivity
-    implements FilterListFragment.OnFilterItemClickedListener,
-    TaskListFragment.OnTaskListItemClickedListener,
-    RecognizerApiListener {
+        implements FilterListFragment.OnFilterItemClickedListener,
+        TaskListFragment.OnTaskListItemClickedListener,
+        RecognizerApiListener {
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -146,7 +145,7 @@ public class AstridActivity extends SherlockFragmentActivity
      * Handles items being clicked from the filterlist-fragment. Return true if item is handled.
      */
     public boolean onFilterItemClicked(FilterListItem item) {
-        if (this instanceof TaskListActivity && (item instanceof Filter) ) {
+        if (this instanceof TaskListActivity && (item instanceof Filter)) {
             ((TaskListActivity) this).setSelectedItem((Filter) item);
         }
         if (item instanceof SearchFilter) {
@@ -157,8 +156,8 @@ public class AstridActivity extends SherlockFragmentActivity
             // If showing both fragments, directly update the tasklist-fragment
             Intent intent = getIntent();
 
-            if(item instanceof Filter) {
-                Filter filter = (Filter)item;
+            if (item instanceof Filter) {
+                Filter filter = (Filter) item;
 
                 Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
                 if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
@@ -170,9 +169,9 @@ public class AstridActivity extends SherlockFragmentActivity
                 AndroidUtilities.callOverridePendingTransition(this, 0, 0);
                 StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
                 return true;
-            } else if(item instanceof IntentFilter) {
+            } else if (item instanceof IntentFilter) {
                 try {
-                    ((IntentFilter)item).intent.send();
+                    ((IntentFilter) item).intent.send();
                 } catch (CanceledException e) {
                     // ignore
                 }
@@ -182,9 +181,9 @@ public class AstridActivity extends SherlockFragmentActivity
     }
 
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
-        if(filter instanceof FilterWithCustomIntent) {
+        if (filter instanceof FilterWithCustomIntent) {
             int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
-            intent = ((FilterWithCustomIntent)filter).getCustomIntent();
+            intent = ((FilterWithCustomIntent) filter).getCustomIntent();
             intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
         } else {
             intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
@@ -275,7 +274,7 @@ public class AstridActivity extends SherlockFragmentActivity
             TaskEditFragment editActivity = getTaskEditFragment();
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
 
-            if(editActivity == null) {
+            if (editActivity == null) {
                 editActivity = new TaskEditFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.add(R.id.taskedit_fragment_container, editActivity, TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
@@ -322,7 +321,7 @@ public class AstridActivity extends SherlockFragmentActivity
     protected void removeFragment(String tag) {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
-        if(fragment != null) {
+        if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.remove(fragment);
             ft.commit();
@@ -332,7 +331,7 @@ public class AstridActivity extends SherlockFragmentActivity
     protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate, boolean replace) {
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
-        if(fragment == null || replace) {
+        if (fragment == null || replace) {
             Fragment oldFragment = fragment;
             try {
                 fragment = cls.newInstance();
@@ -347,8 +346,7 @@ public class AstridActivity extends SherlockFragmentActivity
                 if (oldFragment != null && replace)
                     ft.remove(oldFragment);
                 ft.add(fragment, tag);
-            }
-            else
+            } else
                 ft.replace(container, fragment, tag);
             ft.commit();
             if (createImmediate)
@@ -387,17 +385,17 @@ public class AstridActivity extends SherlockFragmentActivity
         }
 
         int errorStr = 0;
-        switch(error) {
-        case SpeechRecognizer.ERROR_NETWORK:
-        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-            errorStr = R.string.speech_err_network;
-            break;
-        case SpeechRecognizer.ERROR_NO_MATCH:
-            Toast.makeText(this, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
-            break;
-        default:
-            errorStr = R.string.speech_err_default;
-            break;
+        switch (error) {
+            case SpeechRecognizer.ERROR_NETWORK:
+            case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+                errorStr = R.string.speech_err_network;
+                break;
+            case SpeechRecognizer.ERROR_NO_MATCH:
+                Toast.makeText(this, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
+                break;
+            default:
+                errorStr = R.string.speech_err_default;
+                break;
         }
 
         if (errorStr > 0)

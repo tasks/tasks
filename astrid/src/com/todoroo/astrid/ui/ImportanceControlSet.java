@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.Activity;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -21,11 +18,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.service.ThemeService;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Control Set for setting task importance
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class ImportanceControlSet extends TaskEditControlSet {
     private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
@@ -44,8 +43,8 @@ public class ImportanceControlSet extends TaskEditControlSet {
     }
 
     public void setImportance(Integer i) {
-        for(CompoundButton b : buttons) {
-            if(b.getTag() == i) {
+        for (CompoundButton b : buttons) {
+            if (b.getTag() == i) {
                 b.setChecked(true);
                 b.setBackgroundResource(ThemeService.getDarkVsLight(R.drawable.importance_background_selected, R.drawable.importance_background_selected_dark, false));
             } else {
@@ -60,8 +59,8 @@ public class ImportanceControlSet extends TaskEditControlSet {
     }
 
     public Integer getImportance() {
-        for(CompoundButton b : buttons)
-            if(b.isChecked())
+        for (CompoundButton b : buttons)
+            if (b.isChecked())
                 return (Integer) b.getTag();
         return null;
     }
@@ -85,7 +84,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        for(int i = max; i >= min; i--) {
+        for (int i = max; i >= min; i--) {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
 
@@ -96,7 +95,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
             StringBuilder label = new StringBuilder();
             if (i == max)
                 label.append('\u25CB');
-            for(int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--)
+            for (int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--)
                 label.append('!');
 
             button.setTextColor(colors[i]);
@@ -106,7 +105,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    setImportance((Integer)button.getTag());
+                    setImportance((Integer) button.getTag());
                 }
             });
             button.setTag(i);
@@ -138,7 +137,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        if(getImportance() != null)
+        if (getImportance() != null)
             task.setValue(Task.IMPORTANCE, getImportance());
         return null;
     }

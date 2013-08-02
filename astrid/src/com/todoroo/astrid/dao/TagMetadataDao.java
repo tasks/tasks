@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -37,36 +29,49 @@ import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Data Access layer for {@link Metadata}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TagMetadataDao extends DatabaseDao<TagMetadata> {
 
     @Autowired
     private Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
-	public TagMetadataDao() {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
+    public TagMetadataDao() {
         super(TagMetadata.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
     }
 
     public static class TagMetadataCriteria {
-        /** Returns all metadata associated with a given task */
+        /**
+         * Returns all metadata associated with a given task
+         */
         public static Criterion byTag(String tagUuid) {
             return TagMetadata.TAG_UUID.eq(tagUuid);
         }
 
-        /** Returns all metadata associated with a given key */
+        /**
+         * Returns all metadata associated with a given key
+         */
         public static Criterion withKey(String key) {
             return TagMetadata.KEY.eq(key);
         }
 
-        /** Returns all metadata associated with a given key */
+        /**
+         * Returns all metadata associated with a given key
+         */
         public static Criterion byTagAndWithKey(String tagUuid, String key) {
             return Criterion.and(withKey(key), byTag(tagUuid));
         }
@@ -78,8 +83,8 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
         return super.shouldRecordOutstanding(item) && cv != null &&
                 ((cv.containsKey(TagMetadata.KEY.name) &&
                         TagMemberMetadata.KEY.equals(item.getValue(TagMetadata.KEY))) ||
-                (cv.containsKey(TagMetadata.DELETION_DATE.name) &&
-                        item.getValue(TagMetadata.DELETION_DATE) > 0)) &&
+                        (cv.containsKey(TagMetadata.DELETION_DATE.name) &&
+                                item.getValue(TagMetadata.DELETION_DATE) > 0)) &&
                 RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
     }
 

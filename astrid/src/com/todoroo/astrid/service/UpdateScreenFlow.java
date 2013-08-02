@@ -1,11 +1,11 @@
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
+
+import java.util.ArrayList;
 
 public class UpdateScreenFlow extends Activity {
 

@@ -3,9 +3,6 @@
  */
 package com.todoroo.astrid.voice;
 
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +14,11 @@ import android.util.Log;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.voice.VoiceOutputService.VoiceOutputAssistant;
 
+import java.util.HashMap;
+import java.util.Locale;
+
 /**
  * @author Arne Jans
- *
  */
 @SuppressWarnings("nls")
 public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssistant {
@@ -70,7 +69,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
     }
 
     private void initTTS() {
-        mTts = new TextToSpeech(context, (OnInitListener)this);
+        mTts = new TextToSpeech(context, (OnInitListener) this);
     }
 
     public void queueSpeak(String textToSpeak) {
@@ -101,8 +100,8 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
             // Try this someday for some interesting results.
             // int result mTts.setLanguage(Locale.FRANCE);
             if (result == TextToSpeech.LANG_MISSING_DATA ||
-                result == TextToSpeech.LANG_NOT_SUPPORTED) {
-               // Language data is missing or the language is not supported.
+                    result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                // Language data is missing or the language is not supported.
                 Log.e(TAG, "Language is not available.");
             } else {
                 // Check the documentation for other possible result codes.

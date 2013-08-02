@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.service.abtesting;
 
-import java.io.IOException;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
@@ -28,13 +21,20 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Set;
+
 /**
  * Service to manage the reporting of launch events for AB testing.
  * On startup, queries the ABTestEvent database for unreported data
  * points, merges them into the expected JSONArray format, and
  * pushes them to the server.
- * @author Sam
  *
+ * @author Sam
  */
 @SuppressWarnings("nls")
 public final class ABTestEventReportingService {
@@ -88,7 +88,7 @@ public final class ABTestEventReportingService {
     }
 
     private void pushAllUnreportedABTestEvents() {
-        synchronized(ABTestEventReportingService.class) {
+        synchronized (ABTestEventReportingService.class) {
             if (StatisticsService.dontCollectStatistics())
                 return;
             final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)

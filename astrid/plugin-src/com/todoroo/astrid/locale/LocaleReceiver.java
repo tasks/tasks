@@ -31,12 +31,12 @@ import com.todoroo.astrid.utility.Constants;
  * Receiver is activated when Locale conditions are triggered
  *
  * @author timsu
- *
  */
 public class LocaleReceiver extends BroadcastReceiver {
 
     /**
      * Create a preference key for storing / retrieving last interval time
+     *
      * @param filterTitle
      * @param interval
      * @return
@@ -53,7 +53,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 
         try {
             if (com.twofortyfouram.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
-                if(!PluginServices.getAddOnService().hasLocalePlugin())
+                if (!PluginServices.getAddOnService().hasLocalePlugin())
                     return;
 
                 final Bundle forwardedBundle = intent.getBundleExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE);
@@ -61,18 +61,18 @@ public class LocaleReceiver extends BroadcastReceiver {
                 final String title = forwardedBundle.getString(LocaleEditAlerts.KEY_FILTER_TITLE);
                 final String sql = forwardedBundle.getString(LocaleEditAlerts.KEY_SQL);
                 final String values = forwardedBundle.getString(LocaleEditAlerts.KEY_VALUES);
-                final int interval = forwardedBundle.getInt(LocaleEditAlerts.KEY_INTERVAL, 24*3600);
+                final int interval = forwardedBundle.getInt(LocaleEditAlerts.KEY_INTERVAL, 24 * 3600);
 
-                if(TextUtils.isEmpty(title) || TextUtils.isEmpty(sql) ||
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(sql) ||
                         sql.contains("--") || sql.contains(";") || interval == 0)
                     return;
 
                 // check if we've already made a notification recently
                 String preferenceKey = makePreferenceKey(title, interval);
                 long lastNotifyTime = Preferences.getLong(preferenceKey, 0);
-                if(DateUtilities.now() - lastNotifyTime < interval * 1000L) {
+                if (DateUtilities.now() - lastNotifyTime < interval * 1000L) {
                     Log.i("astrid-locale-rx", title + ": Too soon, need " + (interval
-                            - (DateUtilities.now() - lastNotifyTime)/1000) + " more seconds");
+                            - (DateUtilities.now() - lastNotifyTime) / 1000) + " more seconds");
                     return;
                 }
 
@@ -82,10 +82,10 @@ public class LocaleReceiver extends BroadcastReceiver {
                 TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(
                         sql, null, Task.ID);
                 try {
-                    if(cursor.getCount() == 0)
+                    if (cursor.getCount() == 0)
                         return;
 
-                    if(values != null)
+                    if (values != null)
                         filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(values);
 
                     Resources r = context.getResources();

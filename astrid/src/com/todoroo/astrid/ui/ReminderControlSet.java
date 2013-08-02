@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,11 +22,13 @@ import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Control set dealing with reminder settings
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class ReminderControlSet extends PopupControlSet {
     private CheckBox during, after;
@@ -64,9 +63,9 @@ public class ReminderControlSet extends PopupControlSet {
         after.setChecked((flags &
                 Task.NOTIFY_AFTER_DEADLINE) > 0);
 
-        if((flags & Task.NOTIFY_MODE_NONSTOP) > 0)
+        if ((flags & Task.NOTIFY_MODE_NONSTOP) > 0)
             mode.setSelection(2);
-        else if((flags & Task.NOTIFY_MODE_FIVE) > 0)
+        else if ((flags & Task.NOTIFY_MODE_FIVE) > 0)
             mode.setSelection(1);
         else
             mode.setSelection(0);
@@ -74,15 +73,15 @@ public class ReminderControlSet extends PopupControlSet {
 
     public int getValue() {
         int value = 0;
-        if(during.isChecked())
+        if (during.isChecked())
             value |= Task.NOTIFY_AT_DEADLINE;
-        if(after.isChecked())
+        if (after.isChecked())
             value |= Task.NOTIFY_AFTER_DEADLINE;
 
         value &= ~(Task.NOTIFY_MODE_FIVE | Task.NOTIFY_MODE_NONSTOP);
-        if(mode.getSelectedItemPosition() == 2)
+        if (mode.getSelectedItemPosition() == 2)
             value |= Task.NOTIFY_MODE_NONSTOP;
-        else if(mode.getSelectedItemPosition() == 1)
+        else if (mode.getSelectedItemPosition() == 1)
             value |= Task.NOTIFY_MODE_FIVE;
 
         return value;
@@ -112,7 +111,7 @@ public class ReminderControlSet extends PopupControlSet {
             addViewToBody(extraViews.remove(0));
         }
 
-        String[] list = new String[] {
+        String[] list = new String[]{
                 activity.getString(R.string.TEA_reminder_mode_once),
                 activity.getString(R.string.TEA_reminder_mode_five),
                 activity.getString(R.string.TEA_reminder_mode_nonstop),
@@ -124,7 +123,7 @@ public class ReminderControlSet extends PopupControlSet {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                       int position, long id) {
                 modeDisplay.setText(adapter.getItem(position));
             }
 

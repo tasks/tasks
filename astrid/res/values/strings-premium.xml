@@ -4,90 +4,119 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
-    <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
-    <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
-    
+<resources>
+
+    <string name="speech_err_network">Network error! Speech recognition requires a network
+        connection to work.
+    </string>
+    <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.
+    </string>
+    <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try
+        again.
+    </string>
+
     <string name="premium_attach_file">Attach a file</string>
     <string name="premium_record_audio">Record a note</string>
     <string name="premium_no_files">No files attached</string>
     <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
-    
+
     <string name="audio_recording_title">Recording Audio</string>
     <string name="audio_stop_recording">Stop Recording</string>
     <string name="audio_speak_now">Speak Now!</string>
     <string name="audio_encoding">Encoding...</string>
     <string name="audio_err_encoding">Error encoding audio</string>
-    <string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
-    
-    <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
+    <string name="audio_err_playback">Sorry, the system does not support this type of audio file
+    </string>
+
+    <string name="search_market_audio">No player found to handle that audio type. Would you like to
+        download an audio player from the Android Market?
+    </string>
     <string name="search_market_audio_title">No audio player found</string>
 
-    <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
+    <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF
+        reader from the Android Market?
+    </string>
     <string name="search_market_pdf_title">No PDF reader found</string>
 
-    <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
+    <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS
+        Office reader from the Android Market?
+    </string>
     <string name="search_market_ms_title">No MS Office reader found</string>
-    
-    <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
+
+    <string name="file_type_unhandled">Sorry! No application was found to handle this file type.
+    </string>
     <string name="file_type_unhandled_title">No application found</string>
-    
+
     <string name="file_prefix_image">Image</string>
     <string name="file_prefix_voice">Voice</string>
     <string name="file_browser_up">Up</string>
     <string name="file_browser_title">Choose a file</string>
     <string name="dir_browser_title">Choose a directory</string>
-    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
+    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not
+        blocked Astrid from accessing the SD card.
+    </string>
     <string name="file_add_picture">Attach a picture</string>
     <string name="file_add_sdcard">Attach a file from your SD card</string>
     <string name="file_download_title">Download file?</string>
-    <string name="file_download_body">This file has not been downloaded to your SD card. Download now?</string>
+    <string name="file_download_body">This file has not been downloaded to your SD card. Download
+        now?
+    </string>
     <string name="file_download_progress">Downloading...</string>
     <string name="file_err_memory">Image is too large to fit in memory</string>
     <string name="file_err_copy">Error copying file for attachment</string>
     <string name="file_err_download">Error downloading file</string>
-    <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the preferences.</string>
+    <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist.
+        Please choose a directory to save files to in the preferences.
+    </string>
     <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
-    
+
     <string name="file_dir_dialog_ok">Use this directory</string>
     <string name="file_dir_dialog_default">Reset to default</string>
-    
+
     <string name="p_files_dir">Premium downloads directory</string>
     <!-- Description for file download directory preference. %s -> chosen directory -->
     <string name="p_files_dir_desc">Task attachments saved to: %s</string>
     <string name="p_files_dir_desc_default">Default directory</string>
 
-    
+
     <!-- in app billing -->
     <string name="billing_not_supported_title">Can\'t make purchases</string>
     <string name="billing_not_supported_message">The Market billing
-     service is not available at this time.  You can continue to use this app but you
-     won\'t be able to make purchases.</string>
+        service is not available at this time. You can continue to use this app but you
+        won\'t be able to make purchases.
+    </string>
     <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
     <string name="subscriptions_not_supported_message">The Market billing
-     service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
+        service on this device does not support subscriptions at this time. You can subscribe to
+        Astrid Premium at http://astrid.com/premium.
+    </string>
     <string name="cannot_connect_title">Can\'t connect to Market</string>
     <string name="cannot_connect_message">This app cannot connect to Market.
-     Your version of Market may be out of date.
-     You can continue to use this app but you
-     won\'t be able to make purchases.</string>
-    
+        Your version of Market may be out of date.
+        You can continue to use this app but you
+        won\'t be able to make purchases.
+    </string>
+
     <string name="restoring_transactions">Restoring transactions</string>
-    
+
     <string name="subscriptions_learn_more">Learn more</string>
-    
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of
+        Astrid Premium is now unlocked.
+    </string>
     <string name="kii_premium_abort">Special offer aborted</string>
     <string name="kii_premium_declined">Special offer declined</string>
-    <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
-    
+    <string name="kii_premium_error">There was an error processing this offer. Please try again
+        later.
+    </string>
+
     <string name="premium_offers_title">Special Offer</string>
     <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a
+        short video by this sponsor. (They will also require your email address.)
+    </string>
     <string name="premium_offers_start">Get it free!</string>
-    
+
     <string name="premium_billing_title">Astrid Premium</string>
     <string name="premium_buy_month">1 Month</string>
     <string name="premium_buy_year">1 Year</string>
@@ -101,11 +130,21 @@
     <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
     <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
     <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
-    <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
+    <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe
+        to premium. Please log in or sign up.
+    </string>
     <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
-    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-    <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
-    <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
+    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The
+        new features will be unlocked for you on astrid.com soon, and should be available on your
+        phone right away.
+    </string>
+    <string name="premium_verification_error">The premium subscription for this Google Play account
+        is connected to a different user. To link additional emails to your account, visit
+        astrid.com/users/profile
+    </string>
+    <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google
+        Play for purchase history.
+    </string>
     <string name="premium_checking_for_purchases">Checking for purchases...</string>
-    
+
 </resources>

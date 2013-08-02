@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -47,11 +40,17 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Provides operations for working with tags
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public final class TagService {
@@ -63,28 +62,32 @@ public final class TagService {
 
     private static TagService instance = null;
 
-    private static int[] default_tag_images = new int[] {
-        R.drawable.default_list_0,
-        R.drawable.default_list_1,
-        R.drawable.default_list_2,
-        R.drawable.default_list_3
+    private static int[] default_tag_images = new int[]{
+            R.drawable.default_list_0,
+            R.drawable.default_list_1,
+            R.drawable.default_list_2,
+            R.drawable.default_list_3
     };
 
     public static synchronized TagService getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new TagService();
         return instance;
     }
 
     // --- implementation details
 
-    @Autowired MetadataDao metadataDao;
+    @Autowired
+    MetadataDao metadataDao;
 
-    @Autowired TaskService taskService;
+    @Autowired
+    TaskService taskService;
 
-    @Autowired TagDataService tagDataService;
+    @Autowired
+    TagDataService tagDataService;
 
-    @Autowired TagDataDao tagDataDao;
+    @Autowired
+    TagDataDao tagDataDao;
 
     public TagService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -101,7 +104,6 @@ public final class TagService {
      * Helper class for returning a tag/task count pair
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static final class Tag {
         public String tag;
@@ -185,16 +187,16 @@ public final class TagService {
     /**
      * Return all tags ordered by given clause
      *
-     * @param order ordering
+     * @param order        ordering
      * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
     public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
         Criterion criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TaskToTagMetadata.KEY));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID, COUNT).
-            join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            where(criterion).
-            orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
+                join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
+                where(criterion).
+                orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
             ArrayList<Tag> array = new ArrayList<Tag>();
@@ -232,13 +234,14 @@ public final class TagService {
     public void createLink(Task task, String tagName, String tagUuid) {
         Metadata link = TaskToTagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
         if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(task.getId(), TaskToTagMetadata.KEY),
-                    TaskToTagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
+                TaskToTagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
             metadataDao.createNew(link);
         }
     }
 
     /**
      * Creates a link for a nameless tag. We expect the server to fill in the tag name with a MakeChanges message later
+     *
      * @param taskId
      * @param taskUuid
      * @param tagUuid
@@ -271,6 +274,7 @@ public final class TagService {
 
     /**
      * Delete a single task to tag link
+     *
      * @param taskUuid
      * @param tagUuid
      */
@@ -287,6 +291,7 @@ public final class TagService {
 
     /**
      * Delete all links between the specified task and the list of tags
+     *
      * @param taskUuid
      * @param tagUuids
      */
@@ -315,8 +320,8 @@ public final class TagService {
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
         Criterion criterion = Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                    Metadata.DELETION_DATE.eq(0),
-                    MetadataCriteria.byTask(taskId));
+                Metadata.DELETION_DATE.eq(0),
+                MetadataCriteria.byTask(taskId));
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
         return metadataDao.query(query);
     }
@@ -378,7 +383,7 @@ public final class TagService {
         TagData tagData = tagDataDao.fetch(uuid, TagData.ID, TagData.UUID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
         boolean shared = false;
         Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-        if(tagData != null) {
+        if (tagData != null) {
             tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
             PluginServices.getTagDataService().save(tagData);
             tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid());
@@ -393,6 +398,7 @@ public final class TagService {
 
     /**
      * Return all tags (including metadata tags and TagData tags) in an array list
+     *
      * @return
      */
     public ArrayList<Tag> getTagList() {
@@ -401,13 +407,13 @@ public final class TagService {
                 TagData.IS_FOLDER.neq(1)), TagData.NAME.isNotNull())).orderBy(Order.asc(Functions.upper(TagData.NAME))));
         try {
             TagData tagData = new TagData();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 tagData.readFromCursor(cursor);
-                if(tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
+                if (tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
                     continue;
                 }
                 Tag tag = new Tag(tagData);
-                if(TextUtils.isEmpty(tag.tag))
+                if (TextUtils.isEmpty(tag.tag))
                     continue;
                 tagList.add(tag);
             }
@@ -424,13 +430,13 @@ public final class TagService {
                 .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)));
         try {
             TagData tagData = new TagData();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 tagData.readFromCursor(cursor);
                 if (tagData.getValue(TagData.DELETION_DATE) > 0)
                     continue;
                 String tagName = tagData.getValue(TagData.NAME).trim();
                 Tag tag = new Tag(tagData);
-                if(TextUtils.isEmpty(tag.tag))
+                if (TextUtils.isEmpty(tag.tag))
                     continue;
                 tags.put(tagName, tag);
             }
@@ -440,16 +446,17 @@ public final class TagService {
         ArrayList<Tag> tagList = new ArrayList<Tag>(tags.values());
         Collections.sort(tagList,
                 new Comparator<Tag>() {
-            @Override
-            public int compare(Tag object1, Tag object2) {
-                return object1.tag.compareToIgnoreCase(object2.tag);
-            }
-        });
+                    @Override
+                    public int compare(Tag object1, Tag object2) {
+                        return object1.tag.compareToIgnoreCase(object2.tag);
+                    }
+                });
         return tagList;
     }
 
     /**
      * Save the given array of tags into the database
+     *
      * @param taskId
      * @param tags
      */
@@ -490,6 +497,7 @@ public final class TagService {
     /**
      * If a tag already exists in the database that case insensitively matches the
      * given tag, return that. Otherwise, return the argument
+     *
      * @param tag
      * @return
      */
@@ -562,9 +570,9 @@ public final class TagService {
 
     public static int getDefaultImageIDForTag(String nameOrUUID) {
         if (RemoteModel.NO_UUID.equals(nameOrUUID)) {
-            int random = (int)(Math.random()*4);
+            int random = (int) (Math.random() * 4);
             return default_tag_images[random];
         }
-        return default_tag_images[((int)Math.abs(nameOrUUID.hashCode()))%4];
+        return default_tag_images[((int) Math.abs(nameOrUUID.hashCode())) % 4];
     }
 }

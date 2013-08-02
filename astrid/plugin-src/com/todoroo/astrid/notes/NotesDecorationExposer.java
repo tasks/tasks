@@ -20,22 +20,21 @@ import com.todoroo.astrid.data.Task;
  * Exposes {@link TaskDecoration} for timers
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class NotesDecorationExposer implements TaskDecorationExposer {
 
     @Override
     public TaskDecoration expose(Task task) {
-        if(Preferences.getBoolean(R.string.p_showNotes, false))
+        if (Preferences.getBoolean(R.string.p_showNotes, false))
             return null;
-        if(task == null || !NotesPlugin.hasNotes(task))
+        if (task == null || !NotesPlugin.hasNotes(task))
             return null;
 
         Intent intent = new Intent(ContextManager.getContext(), EditNoteActivity.class);
         intent.setAction(EditNoteActivity.class.getName());
         intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, task.getId());
-        PendingIntent pi  = PendingIntent.getActivity(ContextManager.getContext(),
-                (int)task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pi = PendingIntent.getActivity(ContextManager.getContext(),
+                (int) task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         TaskDecoration decoration;
         RemoteViews remoteViews = new RemoteViews(ContextManager.getContext().getPackageName(),

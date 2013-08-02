@@ -5,10 +5,10 @@
  */
 package com.todoroo.astrid.gtasks.api;
 
+import com.google.api.client.util.DateTime;
+
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.google.api.client.util.DateTime;
 
 @SuppressWarnings("nls")
 public class GtasksApiUtilities {
@@ -45,6 +45,7 @@ public class GtasksApiUtilities {
      * and then truncate h:m:s to 0. This can lead to a loss of date information for
      * us, so we adjust here by doing the normalizing/truncating ourselves and
      * then correcting the date we get back in a similar way.
+     *
      * @param time
      * @return
      */

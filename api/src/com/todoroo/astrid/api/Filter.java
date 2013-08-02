@@ -15,20 +15,21 @@ import com.todoroo.andlib.sql.QueryTemplate;
 /**
  * A <code>FilterListFilter</code> allows users to display tasks that have
  * something in common.
- * <p>
+ * <p/>
  * A plug-in can expose new <code>FilterListFilter</code>s to the system by
  * responding to the <code>com.todoroo.astrid.GET_FILTERS</code> broadcast
  * intent.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class Filter extends FilterListItem {
 
     // --- constants
 
-    /** Constant for valuesForNewTasks to indicate the value should be replaced
-     * with the current time as long */
+    /**
+     * Constant for valuesForNewTasks to indicate the value should be replaced
+     * with the current time as long
+     */
     public static final long VALUE_NOW = Long.MIN_VALUE + 1;
 
     // --- instance variables
@@ -36,7 +37,7 @@ public class Filter extends FilterListItem {
     /**
      * Expanded title of this filter. This is displayed at the top
      * of the screen when user is viewing this filter.
-     * <p>
+     * <p/>
      * e.g "Tasks With Notes"
      */
     public String title;
@@ -46,14 +47,14 @@ public class Filter extends FilterListItem {
      * statement after "<code>SELECT fields FROM table %s</code>". It is
      * recommended that you use a {@link QueryTemplate} to construct your
      * query.
-     * <p>
+     * <p/>
      * Examples:
      * <ul>
      * <li><code>"WHERE completionDate = 0"</code>
      * <li><code>"INNER JOIN " +
-     *      Constants.TABLE_METADATA + " ON metadata.task = tasks.id WHERE
-     *      metadata.namespace = " + NAMESPACE + " AND metadata.key = 'a' AND
-     *      metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
+     * Constants.TABLE_METADATA + " ON metadata.task = tasks.id WHERE
+     * metadata.namespace = " + NAMESPACE + " AND metadata.key = 'a' AND
+     * metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
      * </ul>
      */
     protected String sqlQuery;
@@ -74,36 +75,30 @@ public class Filter extends FilterListItem {
 
     /**
      * Utility constructor for creating a Filter object
-     * @param listingTitle
-     *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param title
-     *            Expanded title of this filter when user is viewing this
-     *            filter, e.g. Inbox (20 tasks)
-     * @param sqlQuery
-     *            SQL query for this list (see {@link #sqlQuery} for examples).
-     * @param valuesForNewTasks
-     *            see {@link #sqlForNewTasks}
+     *
+     * @param listingTitle      Title of this item as displayed on the lists page, e.g. Inbox
+     * @param title             Expanded title of this filter when user is viewing this
+     *                          filter, e.g. Inbox (20 tasks)
+     * @param sqlQuery          SQL query for this list (see {@link #sqlQuery} for examples).
+     * @param valuesForNewTasks see {@link #sqlForNewTasks}
      */
     public Filter(String listingTitle, String title,
-            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+                  QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
         this(listingTitle, title, sqlQuery == null ? null : sqlQuery.toString(),
                 valuesForNewTasks);
     }
 
     /**
      * Utility constructor for creating a Filter object
-     * @param listingTitle
-     *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param title
-     *            Expanded title of this filter when user is viewing this
-     *            filter, e.g. Inbox (20 tasks)
-     * @param sqlQuery
-     *            SQL query for this list (see {@link #sqlQuery} for examples).
-     * @param valuesForNewTasks
-     *            see {@link #sqlForNewTasks}
+     *
+     * @param listingTitle      Title of this item as displayed on the lists page, e.g. Inbox
+     * @param title             Expanded title of this filter when user is viewing this
+     *                          filter, e.g. Inbox (20 tasks)
+     * @param sqlQuery          SQL query for this list (see {@link #sqlQuery} for examples).
+     * @param valuesForNewTasks see {@link #sqlForNewTasks}
      */
     public Filter(String listingTitle, String title,
-            String sqlQuery, ContentValues valuesForNewTasks) {
+                  String sqlQuery, ContentValues valuesForNewTasks) {
         this.listingTitle = listingTitle;
         this.title = title;
         this.sqlQuery = sqlQuery;
@@ -128,8 +123,7 @@ public class Filter extends FilterListItem {
     /**
      * Utility constructor
      *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
+     * @param plugin {@link Addon} identifier that encompasses object
      */
     protected Filter() {
         // do nothing

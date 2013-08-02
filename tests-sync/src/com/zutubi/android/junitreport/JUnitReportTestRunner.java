@@ -41,7 +41,7 @@ import android.test.InstrumentationTestRunner;
  * filtered to remove noise such as framework methods (default: true)</li>
  * </ul>
  * These arguments may be specified as follows:
- * 
+ * <p/>
  * <pre>
  * {@code adb shell am instrument -w -e reportFile my-report-file.xml}
  * </pre>

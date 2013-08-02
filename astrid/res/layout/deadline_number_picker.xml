@@ -18,35 +18,38 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/increment"
-        android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        android:src="@drawable/icn_arrow_up"
-        />
-    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-        <EditText android:id="@+id/timepicker_input"
-            android:layout_width="wrap_content"
-            android:layout_height="40dip"
-            android:layout_weight="1"
-            style="?android:attr/textAppearanceLarge"
-            android:gravity="center"
-            android:inputType="phone"
-            android:textSize="30sp"
-            android:textColor="?attr/asThemeTextColor"
-            android:background="@android:color/transparent"
+    <com.todoroo.astrid.ui.NumberPickerButton
+            android:id="@+id/increment"
+            android:layout_width="fill_parent"
+            android:layout_height="38dip"
+            android:src="@drawable/icn_arrow_up"
             />
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <EditText
+                android:id="@+id/timepicker_input"
+                android:layout_width="wrap_content"
+                android:layout_height="40dip"
+                android:layout_weight="1"
+                style="?android:attr/textAppearanceLarge"
+                android:gravity="center"
+                android:inputType="phone"
+                android:textSize="30sp"
+                android:textColor="?attr/asThemeTextColor"
+                android:background="@android:color/transparent"
+                />
     </LinearLayout>
-        
-    <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/decrement"
-        android:layout_width="fill_parent"
-        android:layout_height="38dip"
-        android:src="@drawable/icn_arrow_down"
-        android:paddingTop="15dip"
-        />
-        
+
+    <com.todoroo.astrid.ui.NumberPickerButton
+            android:id="@+id/decrement"
+            android:layout_width="fill_parent"
+            android:layout_height="38dip"
+            android:src="@drawable/icn_arrow_down"
+            android:paddingTop="15dip"
+            />
+
 </merge>

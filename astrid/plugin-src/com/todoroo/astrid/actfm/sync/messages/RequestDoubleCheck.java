@@ -1,11 +1,11 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
+import com.todoroo.astrid.dao.RemoteModelDao;
+import com.todoroo.astrid.data.RemoteModel;
+
 import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.todoroo.astrid.dao.RemoteModelDao;
-import com.todoroo.astrid.data.RemoteModel;
 
 public class RequestDoubleCheck<TYPE extends RemoteModel> extends ClientToServerMessage<TYPE> {
 

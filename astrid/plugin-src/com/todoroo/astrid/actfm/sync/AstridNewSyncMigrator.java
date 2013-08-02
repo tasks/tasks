@@ -1,8 +1,5 @@
 package com.todoroo.astrid.actfm.sync;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -52,21 +49,35 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @SuppressWarnings("nls")
 public class AstridNewSyncMigrator {
 
-    @Autowired private MetadataService metadataService;
-    @Autowired private TagDataService tagDataService;
-    @Autowired private TagDataDao tagDataDao;
-    @Autowired private TaskDao taskDao;
-    @Autowired private UpdateDao updateDao;
-    @Autowired private UserActivityDao userActivityDao;
-    @Autowired private UserDao userDao;
-    @Autowired private TaskAttachmentDao taskAttachmentDao;
-    @Autowired private TaskListMetadataDao taskListMetadataDao;
+    @Autowired
+    private MetadataService metadataService;
+    @Autowired
+    private TagDataService tagDataService;
+    @Autowired
+    private TagDataDao tagDataDao;
+    @Autowired
+    private TaskDao taskDao;
+    @Autowired
+    private UpdateDao updateDao;
+    @Autowired
+    private UserActivityDao userActivityDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private TaskAttachmentDao taskAttachmentDao;
+    @Autowired
+    private TaskListMetadataDao taskListMetadataDao;
 
-    @Autowired private TaskOutstandingDao taskOutstandingDao;
-    @Autowired private TagOutstandingDao tagOutstandingDao;
+    @Autowired
+    private TaskOutstandingDao taskOutstandingDao;
+    @Autowired
+    private TagOutstandingDao tagOutstandingDao;
 
     private static final String LOG_TAG = "sync-migrate";
 
@@ -138,7 +149,7 @@ public class AstridNewSyncMigrator {
                     Crittercism.logHandledException(e);
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             Crittercism.logHandledException(e);
         } finally {
             if (emergentTags != null)
@@ -294,7 +305,6 @@ public class AstridNewSyncMigrator {
         }
 
 
-
         // --------------
         // Drop any entries from the Users table that don't have a UUID
         // --------------
@@ -440,7 +450,8 @@ public class AstridNewSyncMigrator {
                     MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     Criterion.or(TaskToTagMetadata.TASK_UUID.eq(0), TaskToTagMetadata.TASK_UUID.isNull(),
                             TaskToTagMetadata.TAG_UUID.eq(0), TaskToTagMetadata.TAG_UUID.isNull())));
-            incompleteMetadata = metadataService.query(incompleteQuery);;
+            incompleteMetadata = metadataService.query(incompleteQuery);
+            ;
             Metadata m = new Metadata();
             for (incompleteMetadata.moveToFirst(); !incompleteMetadata.isAfterLast(); incompleteMetadata.moveToNext()) {
                 try {
@@ -540,6 +551,7 @@ public class AstridNewSyncMigrator {
 
     private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
         boolean shouldCreateOutstandingEntries(TYPE instance);
+
         void afterSave(TYPE instance, boolean createdOutstanding);
     }
 

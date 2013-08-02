@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -40,11 +37,13 @@ import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class CoreFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
@@ -78,6 +77,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
 
     /**
      * Build inbox filter
+     *
      * @return
      */
     public static Filter buildInboxFilter(Resources r) {
@@ -87,9 +87,9 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
                                         Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                                                 TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
-                                                null);
+                null);
         int themeFlags = ThemeService.getFilterThemeFlags();
-        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
+        inbox.listingIcon = ((BitmapDrawable) r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
         return inbox;
     }
@@ -105,28 +105,29 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                         Criterion.and(TaskCriteria.activeVisibleMine(),
                                 Task.DUE_DATE.gt(0),
                                 Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
-                                todayValues);
-        todayFilter.listingIcon = ((BitmapDrawable)r.getDrawable(
+                todayValues);
+        todayFilter.listingIcon = ((BitmapDrawable) r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
         return todayFilter;
     }
 
     public static Filter getWaitingOnMeFilter(Resources r) {
-         FilterWithCustomIntent waitingOnMe = new FilterWithCustomIntent(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
-                 new QueryTemplate().join(Join.inner(WaitingOnMe.TABLE, Task.UUID.eq(WaitingOnMe.TASK_UUID))).where(
-                         Criterion.and(WaitingOnMe.DELETED_AT.eq(0),
-                                 Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.neq(1))))
-                                 .groupBy(Task.UUID), null);
-         waitingOnMe.customTaskList = new ComponentName(ContextManager.getContext(), WaitingOnMeFragment.class);
-         int themeFlags = ThemeService.getFilterThemeFlags();
-         waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(
-                 ThemeService.getDrawable(R.drawable.waiting_on_me, themeFlags))).getBitmap();
-         return waitingOnMe;
+        FilterWithCustomIntent waitingOnMe = new FilterWithCustomIntent(r.getString(R.string.BFE_waiting_on_me), r.getString(R.string.BFE_waiting_on_me),
+                new QueryTemplate().join(Join.inner(WaitingOnMe.TABLE, Task.UUID.eq(WaitingOnMe.TASK_UUID))).where(
+                        Criterion.and(WaitingOnMe.DELETED_AT.eq(0),
+                                Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.neq(1))))
+                        .groupBy(Task.UUID), null);
+        waitingOnMe.customTaskList = new ComponentName(ContextManager.getContext(), WaitingOnMeFragment.class);
+        int themeFlags = ThemeService.getFilterThemeFlags();
+        waitingOnMe.listingIcon = ((BitmapDrawable) r.getDrawable(
+                ThemeService.getDrawable(R.drawable.waiting_on_me, themeFlags))).getBitmap();
+        return waitingOnMe;
 
     }
 
     /**
      * Is this the inbox?
+     *
      * @param filter
      * @return
      */

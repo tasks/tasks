@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import java.util.Date;
-import java.util.LinkedHashSet;
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +23,13 @@ import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
 
+import java.util.Date;
+import java.util.LinkedHashSet;
+
 /**
  * Control set to manage adding and removing tags
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class AlarmControlSet extends TaskEditControlSet {
 
@@ -48,7 +47,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         alertsContainer.removeAllViews();
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(model.getId());
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
                 addAlarm(new Date(cursor.get(AlarmFields.TIME)));
         } finally {
             cursor.close();
@@ -79,14 +78,14 @@ public final class AlarmControlSet extends TaskEditControlSet {
     @Override
     protected String writeToModelAfterInitialized(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
-        for(int i = 0; i < alertsContainer.getChildCount(); i++) {
+        for (int i = 0; i < alertsContainer.getChildCount(); i++) {
             Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();
-            if(dateValue == null)
+            if (dateValue == null)
                 continue;
             alarms.add(dateValue);
         }
 
-        if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms))
+        if (AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms))
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
 
         return null;
@@ -131,7 +130,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         display.setText(DateAndTimePicker.getDisplayString(activity, alert.getTime()));
 
         ImageButton reminderRemoveButton;
-        reminderRemoveButton = (ImageButton)alertItem.findViewById(R.id.button1);
+        reminderRemoveButton = (ImageButton) alertItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 alertsContainer.removeView(alertItem);

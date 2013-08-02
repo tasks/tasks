@@ -14,7 +14,6 @@ import android.os.Parcelable;
  * Special filter that launches a PendingIntent when accessed.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class IntentFilter extends FilterListItem implements Parcelable {
 
@@ -26,10 +25,8 @@ public final class IntentFilter extends FilterListItem implements Parcelable {
     /**
      * Constructor for creating a new IntentFilter
      *
-     * @param listingTitle
-     *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param intent
-     *            intent to load
+     * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
+     * @param intent       intent to load
      */
     public IntentFilter(String listingTitle, PendingIntent intent) {
         this.listingTitle = listingTitle;

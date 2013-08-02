@@ -38,7 +38,8 @@ import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 public class FeaturedTaskListFragment extends TagViewFragment {
 
-    @Autowired private TagDataService tagDataService;
+    @Autowired
+    private TagDataService tagDataService;
 
     private static final int MENU_CLONE_LIST = R.string.actfm_feat_list_clone;
 
@@ -84,7 +85,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
+                                    ContextMenuInfo menuInfo) {
         // Do nothing
     }
 
@@ -192,7 +193,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     @Override
     protected void refresh() {
         loadTaskListContent(true);
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+        ((TextView) taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
         setUpMembersGallery();
     }
 

@@ -41,6 +41,7 @@ public class TestDependencyInjector extends AbstractDependencyInjector {
 
     /**
      * Remove an installed TestDependencyInjector
+     *
      * @param string
      */
     public static void deinitialize(TestDependencyInjector instance) {

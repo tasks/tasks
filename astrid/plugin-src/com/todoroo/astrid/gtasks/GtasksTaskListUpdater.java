@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -29,23 +24,35 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater;
-import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterator;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObject> {
 
-    /** map of task -> parent task */
+    /**
+     * map of task -> parent task
+     */
     final HashMap<Long, Long> parents = new HashMap<Long, Long>();
 
-    /** map of task -> prior sibling */
+    /**
+     * map of task -> prior sibling
+     */
     final HashMap<Long, Long> siblings = new HashMap<Long, Long>();
 
     final HashMap<Long, String> localToRemoteIdMap =
-        new HashMap<Long, String>();
+            new HashMap<Long, String>();
 
-    @Autowired private GtasksListService gtasksListService;
-    @Autowired private GtasksMetadataService gtasksMetadataService;
-    @Autowired private GtasksSyncService gtasksSyncService;
-    @Autowired private MetadataDao metadataDao;
+    @Autowired
+    private GtasksListService gtasksListService;
+    @Autowired
+    private GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    private GtasksSyncService gtasksSyncService;
+    @Autowired
+    private MetadataDao metadataDao;
 
     public GtasksTaskListUpdater() {
         super();
@@ -72,6 +79,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     protected Metadata getTaskMetadata(StoreObject list, long taskId) {
         return gtasksMetadataService.getTaskMetadata(taskId);
     }
+
     @Override
     protected Metadata createEmptyMetadata(StoreObject list, long taskId) {
         Metadata metadata = GtasksMetadata.createEmptyMetadata(taskId);
@@ -100,18 +108,19 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
      * Create a local tree of tasks to expedite sibling and parent lookups
      */
     public void createParentSiblingMaps() {
-        for(StoreObject list : gtasksListService.getLists()) {
+        for (StoreObject list : gtasksListService.getLists()) {
             updateParentSiblingMapsFor(list);
         }
     }
 
     /**
      * Update order, parent, and indentation fields for all tasks in the given list
+     *
      * @param listId
      */
     public void correctMetadataForList(String listId) {
         StoreObject list = gtasksListService.getList(listId);
-        if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
+        if (list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 
         updateParentSiblingMapsFor(list);
@@ -124,12 +133,12 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
             public void processTask(long taskId, Metadata metadata) {
                 metadata.setValue(GtasksMetadata.ORDER, order.getAndAdd(1));
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
-                if(indent > previousIndent.get() + 1)
+                if (indent > previousIndent.get() + 1)
                     indent = previousIndent.get() + 1;
                 metadata.setValue(GtasksMetadata.INDENT, indent);
 
                 Long parent = parents.get(taskId);
-                if(parent == null || parent < 0)
+                if (parent == null || parent < 0)
                     parent = Task.NO_ID;
                 metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
 
@@ -145,7 +154,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
     }
 
     private void orderAndIndentHelper(String listId, AtomicLong order, long parent, int indentLevel,
-            HashSet<Long> alreadyChecked) {
+                                      HashSet<Long> alreadyChecked) {
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                         GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
@@ -155,7 +164,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 Metadata curr = new Metadata();
                 for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
                     curr.readFromCursor(metadata);
-                    if(alreadyChecked.contains(curr.getValue(Metadata.TASK)))
+                    if (alreadyChecked.contains(curr.getValue(Metadata.TASK)))
                         continue;
 
                     curr.setValue(GtasksMetadata.INDENT, indentLevel);
@@ -182,18 +191,18 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
 
                 try {
                     long parent, sibling;
-                    if(indent > previousIndent.get()) {
+                    if (indent > previousIndent.get()) {
                         parent = previousTask.get();
                         sibling = Task.NO_ID;
-                    } else if(indent == previousIndent.get()) {
+                    } else if (indent == previousIndent.get()) {
                         sibling = previousTask.get();
                         parent = parents.get(sibling);
                     } else {
                         // move up once for each indent
                         sibling = previousTask.get();
-                        for(int i = indent; i < previousIndent.get(); i++)
+                        for (int i = indent; i < previousIndent.get(); i++)
                             sibling = parents.get(sibling);
-                        if(parents.containsKey(sibling))
+                        if (parents.containsKey(sibling))
                             parent = parents.get(sibling);
                         else
                             parent = Task.NO_ID;
@@ -206,7 +215,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
 
                 previousTask.set(taskId);
                 previousIndent.set(indent);
-                if(!TextUtils.isEmpty(metadata.getValue(GtasksMetadata.ID)))
+                if (!TextUtils.isEmpty(metadata.getValue(GtasksMetadata.ID)))
                     localToRemoteIdMap.put(taskId, metadata.getValue(GtasksMetadata.ID));
             }
         });

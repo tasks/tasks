@@ -1,9 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.text.ParseException;
-
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -15,6 +11,10 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+
+import org.json.JSONObject;
+
+import java.text.ParseException;
 
 @SuppressWarnings("nls")
 public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage {

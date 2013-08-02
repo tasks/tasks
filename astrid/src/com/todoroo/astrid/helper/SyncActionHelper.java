@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -38,16 +34,19 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+
 /**
  * SyncActionHelper is a helper class for encapsulating UI actions
  * responsible for performing sync and prompting user to sign up for a new
  * sync service.
- *
+ * <p/>
  * In order to make this work you need to call register() and unregister() in
  * onResume and onPause, respectively.
  *
  * @author Tim Su <tim@astrid.com>
- *
  */
 public class SyncActionHelper {
 
@@ -63,8 +62,10 @@ public class SyncActionHelper {
 
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
-    @Autowired SyncV2Service syncService;
-    @Autowired ExceptionService exceptionService;
+    @Autowired
+    SyncV2Service syncService;
+    @Autowired
+    ExceptionService exceptionService;
 
     // --- boilerplate
 
@@ -75,13 +76,13 @@ public class SyncActionHelper {
         this.fragment = fragment;
         syncResultCallback = new ProgressBarSyncResultCallback(activity, fragment,
                 R.id.progressBar, new Runnable() {
-                    @Override
-                    public void run() {
-                        ContextManager.getContext().sendBroadcast(
-                                new Intent(
-                                        AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                    }
-                });
+            @Override
+            public void run() {
+                ContextManager.getContext().sendBroadcast(
+                        new Intent(
+                                AstridApiConstants.BROADCAST_EVENT_REFRESH));
+            }
+        });
     }
 
     // --- automatic sync logic
@@ -97,7 +98,6 @@ public class SyncActionHelper {
 
     /**
      * Receiver which receives sync provider intents
-     *
      */
     protected class SyncActionReceiver extends BroadcastReceiver {
         @Override
@@ -233,7 +233,7 @@ public class SyncActionHelper {
      * @param listener
      */
     private <TYPE> void showSyncOptionMenu(TYPE[] items,
-            DialogInterface.OnClickListener listener) {
+                                           DialogInterface.OnClickListener listener) {
         if (items.length == 1) {
             listener.onClick(null, 0);
             return;

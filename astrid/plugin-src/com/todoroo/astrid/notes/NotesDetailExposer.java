@@ -26,7 +26,6 @@ import com.todoroo.astrid.data.Task;
  * Exposes Task Detail for notes
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class NotesDetailExposer extends BroadcastReceiver {
 
@@ -36,11 +35,11 @@ public class NotesDetailExposer extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if (taskId == -1)
             return;
 
         String taskDetail = getTaskDetails(taskId);
-        if(taskDetail == null)
+        if (taskDetail == null)
             return;
 
         // transmit
@@ -53,18 +52,18 @@ public class NotesDetailExposer extends BroadcastReceiver {
 
     @SuppressWarnings("nls")
     public String getTaskDetails(long id) {
-        if(!Preferences.getBoolean(R.string.p_showNotes, false))
+        if (!Preferences.getBoolean(R.string.p_showNotes, false))
             return null;
 
         Task task = PluginServices.getTaskService().fetchById(id, Task.ID, Task.NOTES);
-        if(task == null)
+        if (task == null)
             return null;
 
         StringBuilder notesBuilder = new StringBuilder();
 
         String notes = task.getValue(Task.NOTES);
-        if(!TextUtils.isEmpty(notes)) {
-            if(notes.length() > NOTE_MAX) {
+        if (!TextUtils.isEmpty(notes)) {
+            if (notes.length() > NOTE_MAX) {
                 int lastSpace = notes.lastIndexOf(' ', NOTE_MAX);
                 notes = notes.substring(0, Math.max(lastSpace, NOTE_MAX - 20)) + "...";
             }
@@ -77,10 +76,10 @@ public class NotesDetailExposer extends BroadcastReceiver {
                                 NoteMetadata.METADATA_KEY)).orderBy(Order.asc(Metadata.CREATION_DATE)));
         Metadata metadata = new Metadata();
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 metadata.readFromCursor(cursor);
 
-                if(notesBuilder.length() > 0)
+                if (notesBuilder.length() > 0)
                     notesBuilder.append("\n");
                 notesBuilder.append("<b>").append(metadata.getValue(NoteMetadata.TITLE)).append("</b>\n");
                 notesBuilder.append(metadata.getValue(NoteMetadata.BODY));
@@ -89,7 +88,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
             cursor.close();
         }
 
-        if(notesBuilder.length() == 0)
+        if (notesBuilder.length() == 0)
             return null;
 
         return "<img src='silk_note'/> " + notesBuilder; //$NON-NLS-1$

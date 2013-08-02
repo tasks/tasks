@@ -36,11 +36,13 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
             @Override
             public Object getObject() {
                 return applicationName;
-            };
+            }
+
+            ;
         };
 
         DependencyInjectionService.getInstance().inject(helper);
-        assertTrue(((String)helper.getObject()).length() > 0);
+        assertTrue(((String) helper.getObject()).length() > 0);
     }
 
     public void testWithClass() {
@@ -52,7 +54,9 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
             @Override
             public Object getObject() {
                 return taskService;
-            };
+            }
+
+            ;
         };
 
         DependencyInjectionService.getInstance().inject(helper);
@@ -65,7 +69,9 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
             @Override
             public Object getObject() {
                 return taskService;
-            };
+            }
+
+            ;
         };
 
         DependencyInjectionService.getInstance().inject(helper2);

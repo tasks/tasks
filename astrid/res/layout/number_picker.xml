@@ -18,13 +18,15 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/increment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/timepicker_up_btn"
-        />
-        
-        <EditText android:id="@+id/timepicker_input"
+    <com.todoroo.astrid.ui.NumberPickerButton
+            android:id="@+id/increment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timepicker_up_btn"
+            />
+
+    <EditText
+            android:id="@+id/timepicker_input"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             style="?android:attr/textAppearanceLargeInverse"
@@ -34,11 +36,12 @@
             android:textSize="30sp"
             android:background="@drawable/timepicker_input"
             />
-        
-    <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/decrement"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/timepicker_down_btn"
-        />
-        
+
+    <com.todoroo.astrid.ui.NumberPickerButton
+            android:id="@+id/decrement"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/timepicker_down_btn"
+            />
+
 </merge>

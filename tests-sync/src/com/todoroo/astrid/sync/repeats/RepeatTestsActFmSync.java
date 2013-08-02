@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.sync.repeats;
 
-import java.io.IOException;
-import java.util.concurrent.Semaphore;
-
-import org.json.JSONObject;
-
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
@@ -28,11 +23,19 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.concurrent.Semaphore;
+
 public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
-    @Autowired MetadataService metadataService;
-    @Autowired ActFmSyncService actFmSyncService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
     protected static ActFmInvoker invoker = null;
 
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
@@ -98,15 +101,15 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
         AndroidUtilities.sleepDeep(3000L);
         final Semaphore sema = new Semaphore(0);
         new ActFmSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
-        	@Override
-        	public void finished() {
-        		sema.release();
-        	}
-		});
+            @Override
+            public void finished() {
+                sema.release();
+            }
+        });
         try {
-        	sema.acquire();
+            sema.acquire();
         } catch (InterruptedException e) {
-        	fail("Interrupted while waiting for sync to finish");
+            fail("Interrupted while waiting for sync to finish");
         }
         AndroidUtilities.sleepDeep(3000L);
     }
@@ -144,11 +147,11 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
             int interval = 5;
             rrule.setInterval(interval);
         }
-        
+
         String result = rrule.toIcal();
         if (fromCompletion)
             result = result + ";FROM=COMPLETION";
-        
+
         t.setValue(Task.RECURRENCE, rrule.toIcal());
         taskDao.save(t);
 
@@ -166,7 +169,7 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
             cursor.moveToFirst();
             t.readFromCursor(cursor);
 
-            long fromDate = (fromCompletion? completionDate : dueDate);
+            long fromDate = (fromCompletion ? completionDate : dueDate);
             long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
             long newDueDate = t.getValue(Task.DUE_DATE);
 

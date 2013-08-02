@@ -5,15 +5,6 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.text.TextUtils;
 
@@ -62,21 +53,43 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
-    @Autowired MetadataDao metadataDao;
-    @Autowired StoreObjectDao storeObjectDao;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired GtasksSyncService gtasksSyncService;
-    @Autowired GtasksListService gtasksListService;
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Autowired TagService tagService;
-    @Autowired TagDataDao tagDataDao;
-    @Autowired TagMetadataDao tagMetadataDao;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    MetadataDao metadataDao;
+    @Autowired
+    StoreObjectDao storeObjectDao;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    GtasksSyncService gtasksSyncService;
+    @Autowired
+    GtasksListService gtasksListService;
+    @Autowired
+    GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Autowired
+    TagService tagService;
+    @Autowired
+    TagDataDao tagDataDao;
+    @Autowired
+    TagMetadataDao tagMetadataDao;
 
     static {
         AstridDependencyInjector.initialize();
@@ -89,7 +102,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     public synchronized static GtasksSyncV2Provider getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new GtasksSyncV2Provider();
         return instance;
     }
@@ -197,9 +210,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     private synchronized void pushUpdated(GtasksInvoker invoker, SyncResultCallback callback) {
         TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
                 join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
-                        Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
-                                    Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()),
-                                      Metadata.KEY.isNull())));
+                Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
+                        Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()),
+                        Metadata.KEY.isNull())));
         callback.incrementMax(queued.getCount() * 10);
         try {
             Task task = new Task();
@@ -266,7 +279,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
 
     private synchronized void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
-            boolean manual, SyncExceptionHandler errorHandler, SyncResultCallback callback, boolean isImport) {
+                                                    boolean manual, SyncExceptionHandler errorHandler, SyncResultCallback callback, boolean isImport) {
         String listId = list.getValue(GtasksList.REMOTE_ID);
         long lastSyncDate;
         if (!manual && list.containsNonNullValue(GtasksList.LAST_SYNC)) {
@@ -298,7 +311,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 list.setValue(GtasksList.LAST_SYNC, DateUtilities.now());
                 storeObjectDao.persist(list);
 
-                if(lastSyncDate == 0 && !isImport) {
+                if (lastSyncDate == 0 && !isImport) {
                     Long[] localIdArray = localIds.toArray(new Long[localIds.size()]);
                     Criterion delete = Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                             GtasksMetadata.LIST_ID.eq(listId),
@@ -320,8 +333,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }
     }
 
-    /** Create a task container for the given remote task
-     * @throws JSONException */
+    /**
+     * Create a task container for the given remote task
+     *
+     * @throws JSONException
+     */
     private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask, String listId) {
         Task task = new Task();
 
@@ -356,14 +372,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn())
             titleMatchWithActFm(task.task);
 
-        if(task.task.isSaved()) {
+        if (task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             if (local == null) {
                 task.task.clearValue(Task.ID);
                 task.task.clearValue(Task.UUID);
             } else {
                 mergeDates(task.task, local);
-                if(task.task.isCompleted() && !local.isCompleted())
+                if (task.task.isCompleted() && !local.isCompleted())
                     StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
             }
         } else { // Set default importance and reminders for remotely created tasks
@@ -394,7 +410,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     private void mergeDates(Task remote, Task local) {
-        if(remote.hasDueDate() && local.hasDueTime()) {
+        if (remote.hasDueDate() && local.hasDueTime()) {
             Date newDate = new Date(remote.getValue(Task.DUE_DATE));
             Date oldDate = new Date(local.getValue(Task.DUE_DATE));
             newDate.setHours(oldDate.getHours());

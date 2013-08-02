@@ -5,16 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
@@ -55,11 +45,20 @@ import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * A dialog that shows your task reminder
  *
  * @author sbosley
- *
  */
 public class ReminderDialog extends Dialog {
 
@@ -75,7 +74,7 @@ public class ReminderDialog extends Dialog {
     private UserDao userDao;
 
     public ReminderDialog(final AstridActivity activity, final long taskId,
-            String title) {
+                          String title) {
         super(activity, R.style.ReminderDialog);
         DependencyInjectionService.getInstance().inject(this);
         final SnoozeCallback dialogSnooze = new SnoozeCallback() {
@@ -95,7 +94,7 @@ public class ReminderDialog extends Dialog {
                 Date alarmTime = new Date();
                 alarmTime.setHours(hours);
                 alarmTime.setMinutes(minutes);
-                if(alarmTime.getTime() < DateUtilities.now())
+                if (alarmTime.getTime() < DateUtilities.now())
                     alarmTime.setDate(alarmTime.getDate() + 1);
                 dialogSnooze.snoozeForTime(alarmTime.getTime());
             }
@@ -268,8 +267,8 @@ public class ReminderDialog extends Dialog {
                     TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
                             .where(User.UUID.in(
                                     Query.select(TagMemberMetadata.USER_UUID)
-                                    .from(TagMetadata.TABLE)
-                                    .where(TagMetadata.TAG_UUID.eq(td.getUuid())))));
+                                            .from(TagMetadata.TABLE)
+                                            .where(TagMetadata.TAG_UUID.eq(td.getUuid())))));
                     try {
                         User user = new User();
                         for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {

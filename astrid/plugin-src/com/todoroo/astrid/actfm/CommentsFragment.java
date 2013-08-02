@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -58,11 +53,16 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.StatisticsService;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
+
 import edu.mit.mobile.android.imagecache.ImageCache;
 
 public abstract class CommentsFragment extends SherlockListFragment {
 
-//    private TagData tagData;
+    //    private TagData tagData;
     protected UpdateAdapter updateAdapter;
     protected EditText addCommentField;
     protected ViewGroup listHeader;
@@ -84,9 +84,12 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected Resources resources;
 
 
-    @Autowired ActFmSyncService actFmSyncService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-    @Autowired UserActivityDao userActivityDao;
+    @Autowired
+    ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    UserActivityDao userActivityDao;
 
     public CommentsFragment() {
         DependencyInjectionService.getInstance().inject(this);
@@ -95,7 +98,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View v = inflater.inflate(getLayout(), container, false);
@@ -172,7 +175,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL && addCommentField.getText().length() > 0) {
+                if (actionId == EditorInfo.IME_NULL && addCommentField.getText().length() > 0) {
                     addComment();
                     return true;
                 }
@@ -184,10 +187,12 @@ public abstract class CommentsFragment extends SherlockListFragment {
             public void afterTextChanged(Editable s) {
                 commentButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //
@@ -235,7 +240,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
         Cursor cursor = null;
         ListView listView = ((ListView) view.findViewById(android.R.id.list));
-        if(updateAdapter == null) {
+        if (updateAdapter == null) {
             cursor = getCursor();
             activity.startManagingCursor(cursor);
             String source = getSourceIdentifier();
@@ -262,11 +267,10 @@ public abstract class CommentsFragment extends SherlockListFragment {
         View activityContainer = view.findViewById(R.id.no_activity_container);
         if (cursor.getCount() == 0) {
             activityContainer.setVisibility(View.VISIBLE);
-            TextView textView = (TextView)activityContainer.findViewById(R.id.no_activity_message);
-            if(actFmPreferenceService.isLoggedIn()) {
+            TextView textView = (TextView) activityContainer.findViewById(R.id.no_activity_message);
+            if (actFmPreferenceService.isLoggedIn()) {
                 textView.setText(activity.getString(R.string.ENA_no_comments));
-            }
-            else {
+            } else {
                 textView.setText(activity.getString(R.string.UpS_no_activity_log_in));
                 activityContainer.setOnClickListener(new OnClickListener() {
 
@@ -278,8 +282,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 });
             }
             listView.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             activityContainer.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
         }
@@ -351,19 +354,19 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if(menu.size() > 0)
+        if (menu.size() > 0)
             return;
 
         MenuItem item;
         boolean showCommentsRefresh = actFmPreferenceService.isLoggedIn();
         if (showCommentsRefresh) {
-        Activity activity = getActivity();
+            Activity activity = getActivity();
             if (activity instanceof TaskListActivity) {
                 TaskListActivity tla = (TaskListActivity) activity;
                 showCommentsRefresh = tla.getTaskEditFragment() == null;
             }
         }
-        if(showCommentsRefresh) {
+        if (showCommentsRefresh) {
             item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);
@@ -375,13 +378,14 @@ public abstract class CommentsFragment extends SherlockListFragment {
         // handle my own menus
         switch (item.getItemId()) {
 
-        case MENU_REFRESH_ID: {
+            case MENU_REFRESH_ID: {
 
-            refreshActivity(true);
-            return true;
-        }
+                refreshActivity(true);
+                return true;
+            }
 
-        default: return false;
+            default:
+                return false;
         }
     }
 

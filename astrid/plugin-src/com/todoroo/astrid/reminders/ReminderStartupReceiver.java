@@ -16,7 +16,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * Service which handles jobs that need to be run when phone boots
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class ReminderStartupReceiver extends BroadcastReceiver {
 

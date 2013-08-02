@@ -5,36 +5,36 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/EPr_manage_header">
-    
-    <com.todoroo.astrid.ui.MultilinePreference
-        android:title="@string/EPr_reset_sync_state"
-        android:key="@string/EPr_reset_sync_state"
-        android:summary="@string/EPr_reset_sync_state_summary" />
-    
-    <com.todoroo.astrid.ui.MultilinePreference
-        android:title="@string/EPr_manage_delete_completed"
-        android:key="@string/EPr_manage_delete_completed" 
-        android:summary="@string/EPr_manage_delete_completed_summary"/>
-        
-    <com.todoroo.astrid.ui.MultilinePreference
-        android:title="@string/EPr_manage_purge_deleted"
-        android:key="@string/EPr_manage_purge_deleted" 
-        android:summary="@string/EPr_manage_purge_deleted_summary"/>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/EPr_manage_header">
 
     <com.todoroo.astrid.ui.MultilinePreference
-        android:title="@string/EPr_manage_delete_completed_gcal"
-        android:key="@string/EPr_manage_delete_completed_gcal" 
-        android:summary="@string/EPr_manage_delete_completed_gcal_summary"/>
-        
+            android:title="@string/EPr_reset_sync_state"
+            android:key="@string/EPr_reset_sync_state"
+            android:summary="@string/EPr_reset_sync_state_summary"/>
+
     <com.todoroo.astrid.ui.MultilinePreference
-        android:title="@string/EPr_manage_delete_all_gcal"
-        android:key="@string/EPr_manage_delete_all_gcal" 
-        android:summary="@string/EPr_manage_delete_all_gcal_summary"/>
-        
+            android:title="@string/EPr_manage_delete_completed"
+            android:key="@string/EPr_manage_delete_completed"
+            android:summary="@string/EPr_manage_delete_completed_summary"/>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+            android:title="@string/EPr_manage_purge_deleted"
+            android:key="@string/EPr_manage_purge_deleted"
+            android:summary="@string/EPr_manage_purge_deleted_summary"/>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+            android:title="@string/EPr_manage_delete_completed_gcal"
+            android:key="@string/EPr_manage_delete_completed_gcal"
+            android:summary="@string/EPr_manage_delete_completed_gcal_summary"/>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+            android:title="@string/EPr_manage_delete_all_gcal"
+            android:key="@string/EPr_manage_delete_all_gcal"
+            android:summary="@string/EPr_manage_delete_all_gcal_summary"/>
+
     <Preference
-        android:title="@string/EPr_manage_clear_all"
-        android:key="@string/EPr_manage_clear_all" />
+            android:title="@string/EPr_manage_clear_all"
+            android:key="@string/EPr_manage_clear_all"/>
 
 </PreferenceScreen>

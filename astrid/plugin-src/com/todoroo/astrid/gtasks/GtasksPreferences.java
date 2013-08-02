@@ -30,13 +30,15 @@ import com.todoroo.astrid.tags.TagService;
  * initiate actions from the menu.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class GtasksPreferences extends SyncProviderPreferences {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
-    @Autowired private TagService tagService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private TagService tagService;
 
     public GtasksPreferences() {
         super();
@@ -88,7 +90,8 @@ public class GtasksPreferences extends SyncProviderPreferences {
         final ProgressDialog pd = DialogUtilities.progressDialog(this, getString(R.string.gtasks_import_progress));
         pd.setCancelable(false);
 
-        GtasksImportCallback callback = new GtasksImportCallback(new SyncResultCallbackAdapter() {/**/}) {
+        GtasksImportCallback callback = new GtasksImportCallback(new SyncResultCallbackAdapter() {/**/
+        }) {
             @Override
             public void finished() {
                 super.finished();

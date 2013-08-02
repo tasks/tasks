@@ -22,77 +22,110 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Data Model which represents a user.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public final class User extends RemoteModel {
 
     // --- table and uri
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("users", User.class);
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** User Name */
+    /**
+     * User Name
+     */
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
-    /** User first name */
+    /**
+     * User first name
+     */
     public static final StringProperty FIRST_NAME = new StringProperty(
             TABLE, "first_name");
 
-    /** User last name */
+    /**
+     * User last name
+     */
     public static final StringProperty LAST_NAME = new StringProperty(
             TABLE, "last_name");
 
-    /** User Email */
-    @Deprecated public static final StringProperty EMAIL = new StringProperty(
+    /**
+     * User Email
+     */
+    @Deprecated
+    public static final StringProperty EMAIL = new StringProperty(
             TABLE, "email");
 
-    /** User picture */
+    /**
+     * User picture
+     */
     public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture", Property.PROP_FLAG_JSON);
 
-    /** Remote id */
+    /**
+     * Remote id
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Pushed at date */
+    /**
+     * Pushed at date
+     */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
-    /** Pushed at date */
+    /**
+     * Pushed at date
+     */
     public static final LongProperty TASKS_PUSHED_AT = new LongProperty(
             TABLE, "tasks_pushed_at");
 
-    /** Friendship status. One of the STATUS constants below */
+    /**
+     * Friendship status. One of the STATUS constants below
+     */
     public static final StringProperty STATUS = new StringProperty(
             TABLE, "status");
 
-    /** Last autosync */
+    /**
+     * Last autosync
+     */
     public static final LongProperty LAST_AUTOSYNC = new LongProperty(
             TABLE, "lastAutosync");
 
-    /** Friendship tatus that needs to be reported to the server.
-     * One of the PENDING constants below */
-    @Deprecated public static final StringProperty PENDING_STATUS = new StringProperty(
+    /**
+     * Friendship tatus that needs to be reported to the server.
+     * One of the PENDING constants below
+     */
+    @Deprecated
+    public static final StringProperty PENDING_STATUS = new StringProperty(
             TABLE, "pendingStatus");
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(User.class);
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     static {

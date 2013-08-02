@@ -5,14 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteTransactionListener;
@@ -26,6 +18,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.SyncFlags;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -34,7 +33,6 @@ import com.todoroo.astrid.data.SyncFlags;
  * of {@link ContentResolverDao} instead.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class DatabaseDao<TYPE extends AbstractModel> {
 
@@ -54,7 +52,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     public DatabaseDao(Class<TYPE> modelClass) {
         DependencyInjectionService.getInstance().inject(this);
         this.modelClass = modelClass;
-        if(debug == null)
+        if (debug == null)
             debug = false;
     }
 
@@ -63,7 +61,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         setDatabase(database);
     }
 
-    /** Gets table associated with this DAO */
+    /**
+     * Gets table associated with this DAO
+     */
     public Table getTable() {
         return table;
     }
@@ -79,7 +79,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @param database
      */
     public void setDatabase(AbstractDatabase database) {
-        if(database == this.database)
+        if (database == this.database)
             return;
         this.database = database;
         table = database.getTable(modelClass);
@@ -93,7 +93,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     private final ArrayList<ModelUpdateListener<TYPE>> listeners =
-        new ArrayList<ModelUpdateListener<TYPE>>();
+            new ArrayList<ModelUpdateListener<TYPE>>();
 
     public void addListener(ModelUpdateListener<TYPE> listener) {
         listeners.add(listener);
@@ -101,7 +101,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     protected void onModelUpdated(TYPE model, boolean outstandingEntries) {
         TYPE modelCopy = (TYPE) model.clone();
-        for(ModelUpdateListener<TYPE> listener : listeners) {
+        for (ModelUpdateListener<TYPE> listener : listeners) {
             listener.onModelUpdated(modelCopy, outstandingEntries);
         }
     }
@@ -116,7 +116,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
-        if(debug)
+        if (debug)
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         Cursor cursor = database.rawQuery(query.toString(), null);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
@@ -132,7 +132,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> rawQuery(String selection, String[] selectionArgs, Property<?>... properties) {
         String[] fields = new String[properties.length];
-        for(int i = 0; i < properties.length; i++)
+        for (int i = 0; i < properties.length; i++)
             fields[i] = properties[i].name;
         return new TodorooCursor<TYPE>(database.getDatabase().query(table.name,
                 fields, selection, selectionArgs, null, null, null),
@@ -143,12 +143,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Returns object corresponding to the given identifier
      *
      * @param database
-     * @param table
-     *            name of table
-     * @param properties
-     *            properties to read
-     * @param id
-     *            id of item
+     * @param table      name of table
+     * @param properties properties to read
+     * @param id         id of item
      * @return null if no item found
      */
     public TYPE fetch(long id, Property<?>... properties) {
@@ -193,6 +190,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Delete all matching a clause
+     *
      * @param where predicate for deletion
      * @return # of deleted items
      */
@@ -203,14 +201,15 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     /**
      * Update all matching a clause to have the values set on template object.
-     * <p>
+     * <p/>
      * Example (updates "joe" => "bob" in metadata value1):
      * {code}
      * Metadata item = new Metadata();
      * item.setValue(Metadata.VALUE1, "bob");
      * update(item, Metadata.VALUE1.eq("joe"));
      * {code}
-     * @param where sql criteria
+     *
+     * @param where    sql criteria
      * @param template set fields on this object in order to set them in the db.
      * @return # of updated items
      */
@@ -241,8 +240,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                         Log.e(ERROR_TAG, "Error updating rows", new Throwable()); //$NON-NLS-1$
                         result.set(0);
                     }
+
                     @Override
                     public void onCommit() {/**/}
+
                     @Override
                     public void onBegin() {/**/}
                 });
@@ -299,7 +300,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         boolean recordOutstanding = shouldRecordOutstanding(item);
         final AtomicBoolean result = new AtomicBoolean(false);
 
-        synchronized(database) {
+        synchronized (database) {
             if (recordOutstanding) { // begin transaction
                 database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
                     @Override
@@ -307,8 +308,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                         Log.e(ERROR_TAG, "Error inserting or updating rows", new Throwable()); //$NON-NLS-1$
                         result.set(false);
                     }
+
                     @Override
                     public void onCommit() {/**/}
+
                     @Override
                     public void onBegin() {/**/}
                 });
@@ -316,7 +319,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             int numOutstanding = 0;
             try {
                 result.set(op.makeChange());
-                if(result.get()) {
+                if (result.get()) {
                     if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
                         database.getDatabase().setTransactionSuccessful();
                 }
@@ -336,10 +339,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Creates the given item.
      *
      * @param database
-     * @param table
-     *            table name
-     * @param item
-     *            item model
+     * @param table    table name
+     * @param item     item model
      * @return returns true on success.
      */
     public boolean createNew(final TYPE item) {
@@ -363,15 +364,13 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Saves the given item. Will not create a new item!
      *
      * @param database
-     * @param table
-     *            table name
-     * @param item
-     *            item model
+     * @param table    table name
+     * @param item     item model
      * @return returns true on success.
      */
     public boolean saveExisting(final TYPE item) {
         final ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0) // nothing changed
+        if (values == null || values.size() == 0) // nothing changed
             return true;
         DatabaseChangeOp update = new DatabaseChangeOp() {
             @Override
@@ -412,6 +411,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Returns true if an entry in the outstanding table should be recorded for this
      * column. Subclasses can override to return false for insignificant columns
      * (e.g. Task.DETAILS, last modified, etc.)
+     *
      * @param columnName
      * @return
      */
@@ -426,12 +426,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * Returns cursor to object corresponding to the given identifier
      *
      * @param database
-     * @param table
-     *            name of table
-     * @param properties
-     *            properties to read
-     * @param id
-     *            id of item
+     * @param table      name of table
+     * @param properties properties to read
+     * @param id         id of item
      * @return
      */
     protected TodorooCursor<TYPE> fetchItem(long id, Property<?>... properties) {

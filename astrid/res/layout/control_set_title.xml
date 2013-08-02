@@ -5,39 +5,39 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="10dip"
-    android:paddingBottom="10dip"
-    android:paddingLeft="0dip"
-    android:paddingRight="0dip"
-    android:gravity="center_vertical"
-    android:orientation="horizontal" >
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="10dip"
+              android:paddingBottom="10dip"
+              android:paddingLeft="0dip"
+              android:paddingRight="0dip"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
 
     <com.todoroo.astrid.ui.CheckableImageView
-        android:id="@+id/completeBox"
-        android:layout_width="35dip"
-        android:layout_height="wrap_content"
-        android:minHeight="30dip"
-        android:layout_marginRight="5dip"
-        android:layout_marginLeft="4dip"
-        android:scaleType="center"
-        android:src="@drawable/btn_check" />
+            android:id="@+id/completeBox"
+            android:layout_width="35dip"
+            android:layout_height="wrap_content"
+            android:minHeight="30dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginLeft="4dip"
+            android:scaleType="center"
+            android:src="@drawable/btn_check"/>
 
     <com.todoroo.astrid.ui.ErrorCatchingEditText
-        android:id="@+id/title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100"
-        android:autoText="true"
-        android:background="?attr/asEditTextBackground"
-        android:capitalize="sentences"
-        android:freezesText="true"
-        android:hint="@string/TEA_title_hint"
-        android:inputType="textMultiLine"
-        android:scrollbars="vertical"
-        android:imeOptions="flagNoExtractUi"
-        android:text=""
-        android:textColor="?attr/asTextColor" />
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:autoText="true"
+            android:background="?attr/asEditTextBackground"
+            android:capitalize="sentences"
+            android:freezesText="true"
+            android:hint="@string/TEA_title_hint"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:imeOptions="flagNoExtractUi"
+            android:text=""
+            android:textColor="?attr/asTextColor"/>
 
 </LinearLayout>

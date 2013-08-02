@@ -78,6 +78,7 @@ public abstract class TaskEditControlSet {
 
     /**
      * Write data from control set to model
+     *
      * @return text appended to the toast
      */
     public String writeToModel(Task task) {
@@ -89,6 +90,7 @@ public abstract class TaskEditControlSet {
 
     /**
      * Write to model, if initialization logic has been called
+     *
      * @return toast text
      */
     protected abstract String writeToModelAfterInitialized(Task task);
@@ -112,9 +114,9 @@ public abstract class TaskEditControlSet {
         if (ok != null) {
             ok.setBackgroundDrawable(EditDialogOkBackground.getBg(activity.getResources().getColor(themeColor.data)));
             int[][] states = new int[2][];
-            states[0] = new int[] { android.R.attr.state_pressed };
-            states[1] = new int[] { android.R.attr.state_enabled };
-            int[] colors = new int[] { inverseColor.data, activity.getResources().getColor(themeColor.data) };
+            states[0] = new int[]{android.R.attr.state_pressed};
+            states[1] = new int[]{android.R.attr.state_enabled};
+            int[] colors = new int[]{inverseColor.data, activity.getResources().getColor(themeColor.data)};
             ColorStateList csl = new ColorStateList(states, colors);
             ok.setTextColor(csl);
         }

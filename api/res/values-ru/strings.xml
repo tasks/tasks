@@ -4,243 +4,249 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1 год</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d года/лет</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1 месяц</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d месяца/месяцев</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1 неделя</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d недели/недель</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1 день</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d дня/дней</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">1 рабочий день</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d рабочих дня</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1 час</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d часа/часов</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1 минута</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d минуты/минут</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 секунда</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d секунды/секунд</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 час</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d ч</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 мин</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d мин</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 с</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d с</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 задача</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d задач(а/и)</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1 человек</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d человек</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">Сегодня</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">Завтра</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">Вчера</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">Завт</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">Сег</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Подтвердить?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">Вопрос:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">Информация</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">Ошибка!</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">Готово</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">Да</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">Нет</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">Закрыть</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">Готово</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Ой, похоже произошла ошибка!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Пожалуйста, подождите…</string>
+    <!-- ==================================================== Generic Units == -->
 
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Синхронизация задач…</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Синхронизация…</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Синхронизация</string>  
+    <plurals name="DUt_years">
+        <!-- plurals: years -->
+        <item quantity="one">1 год</item>
+        <!-- plurals: years -->
+        <item quantity="other">%d года/лет</item>
+    </plurals>
+    <plurals name="DUt_months">
+        <!-- plurals: months -->
+        <item quantity="one">1 месяц</item>
+        <!-- plurals: months -->
+        <item quantity="other">%d месяца/месяцев</item>
+    </plurals>
+    <plurals name="DUt_weeks">
+        <!-- plurals: days -->
+        <item quantity="one">1 неделя</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d недели/недель</item>
+    </plurals>
+    <plurals name="DUt_days">
+        <!-- plurals: days -->
+        <item quantity="one">1 день</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d дня/дней</item>
+    </plurals>
+    <plurals name="DUt_weekdays">
+        <!-- plurals: days -->
+        <item quantity="one">1 рабочий день</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d рабочих дня</item>
+    </plurals>
+    <plurals name="DUt_hours">
+        <!-- plurals: hours -->
+        <item quantity="one">1 час</item>
+        <!-- plurals: hours -->
+        <item quantity="other">%d часа/часов</item>
+    </plurals>
+    <plurals name="DUt_minutes">
+        <!-- plurals: minutes -->
+        <item quantity="one">1 минута</item>
+        <!-- plurals: minutes -->
+        <item quantity="other">%d минуты/минут</item>
+    </plurals>
+    <plurals name="DUt_seconds">
+        <!-- plurals: seconds -->
+        <item quantity="one">1 секунда</item>
+        <!-- plurals: seconds -->
+        <item quantity="other">%d секунды/секунд</item>
+    </plurals>
+    <plurals name="DUt_hoursShort">
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="one">1 час</item>
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="other">%d ч</item>
+    </plurals>
+    <plurals name="DUt_minutesShort">
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="one">1 мин</item>
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="other">%d мин</item>
+    </plurals>
+    <plurals name="DUt_secondsShort">
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="one">1 с</item>
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="other">%d с</item>
+    </plurals>
+    <plurals name="Ntasks">
+        <!-- plurals: tasks -->
+        <item quantity="one">1 задача</item>
+        <!-- plurals: tasks -->
+        <item quantity="other">%d задач(а/и)</item>
+    </plurals>
+    <plurals name="Npeople">
+        <!-- plurals: people -->
+        <item quantity="one">1 человек</item>
+        <!-- plurals: people -->
+        <item quantity="other">%d человек</item>
+    </plurals>
 
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Синхронизировать</string>  
+    <!-- slide 10a, 12c: today -->
+    <string name="today">Сегодня</string>
 
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Задачи Google, сохраненные данные, локальная резервная копия</string>  
+    <!-- tomorrow -->
+    <string name="tomorrow">Завтра</string>
 
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
+    <!-- yesterday -->
+    <string name="yesterday">Вчера</string>
 
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Состояние</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">Состояние: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Вход не выполнен</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">Процесс синхронизации…</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Последняя синхронизация\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Ошибка: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Последняя успешная синхронизация: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">Синхронизаций не выполнялось!</string>
+    <!-- slide 12c: tomorrow, abbreviated -->
+    <string name="tmrw">Завт</string>
 
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Параметры</string>
+    <!-- slide 12c: yesterday, abbreviated -->
+    <string name="yest">Сег</string>
 
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Только через Wifi</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Фоновая синхронизация происходит только через Wifi</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Фоновая синхронизация происходит всегда</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">Действия</string>
+    <!-- ================================================== Generic Dialogs == -->
 
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Синхронизировать</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Войти и синхронизировать!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">Вы вошли в систему как:</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">Отчёт о состоянии</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Astrid</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">Отправить отчет</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Выйти</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
+    <!-- confirmation dialog title -->
+    <string name="DLG_confirm_title">Подтвердить?</string>
 
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">В процессе последней синхронизации с %s возникли проблемы подключения к сети. Пожалуйста, повторите попытку позже.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>отключить</item>
-      <item>каждые 15 минут</item>
-      <item>каждые 30 минут</item>
-      <item>каждый час</item>
-      <item>каждые 3 часа</item>
-      <item>каждые 6 часов</item>
-      <item>каждые 12 часов</item>
-      <item>каждый день</item>
-      <item>каждые 3 дня</item>
-      <item>каждую неделю</item>
-  </string-array>    
-    
+    <!-- question dialog title -->
+    <string name="DLG_question_title">Вопрос:</string>
+
+    <!-- information dialog title -->
+    <string name="DLG_information_title">Информация</string>
+
+    <!-- error dialog title -->
+    <string name="DLG_error_title">Ошибка!</string>
+
+    <!-- general dialog save-->
+    <string name="DLG_save">Готово</string>
+
+    <!-- general dialog yes-->
+    <string name="DLG_yes">Да</string>
+
+    <!-- general dialog no-->
+    <string name="DLG_no">Нет</string>
+
+    <!-- general dialog close-->
+    <string name="DLG_close">Закрыть</string>
+
+    <!-- general dialog done -->
+    <string name="DLG_done">Готово</string>
+
+    <!-- error dialog (%s => error message)-->
+    <string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
+
+    <!-- error dialog (no message indicated)-->
+    <string name="DLG_error_generic">Ой, похоже произошла ошибка!</string>
+
+    <!-- Progress dialog shown when doing something slow -->
+    <string name="DLG_wait">Пожалуйста, подождите…</string>
+
+    <!-- ====================================================== SyncProvider == -->
+
+    <!-- Sync Notification: message when sync service active -->
+    <string name="SyP_progress">Синхронизация задач…</string>
+
+    <!-- Sync Notification: toast when sync activated from activity -->
+    <string name="SyP_progress_toast">Синхронизация…</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="SyP_label">Синхронизация</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="Sync_now_label">Синхронизировать</string>
+
+    <!-- Sync label subtitle -->
+    <string name="SyP_summary">Astrid.com, Задачи Google, сохраненные данные, локальная резервная
+        копия
+    </string>
+
+    <!-- Error msg when io exception  -->
+    <string name="SyP_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
+
+    <!-- ================================================== SyncPreferences == -->
+
+    <!-- Status Group Label -->
+    <string name="sync_SPr_group_status">Состояние</string>
+
+    <!-- Sync status subtitle, %s-> status message -->
+    <string name="sync_SPr_status_subtitle">Состояние: %s</string>
+    <!-- Sync Status: log in -->
+    <string name="sync_status_loggedout">Вход не выполнен</string>
+    <!-- Status: ongoing -->
+    <string name="sync_status_ongoing">Процесс синхронизации…</string>
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">Последняя синхронизация\n%s</string>
+    <!-- Sync Status: failure status (%s -> last attempted sync date) -->
+    <string name="sync_status_failed">Ошибка: %s</string>
+    <!-- Sync Status: error status (%s -> last sync date) -->
+    <string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
+    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+    <string name="sync_status_failed_subtitle">Последняя успешная синхронизация: %s</string>
+    <!-- Sync Status: never sync\'d -->
+    <string name="sync_status_never">Синхронизаций не выполнялось!</string>
+
+    <!-- Options Group Label -->
+    <string name="sync_SPr_group_options">Параметры</string>
+
+    <!-- Preference: Synchronization Interval Title -->
+    <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
+    <string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
+    <string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
+
+    <!-- Preference: Background Wifi Title -->
+    <string name="sync_SPr_bgwifi_title">Только через Wifi</string>
+    <!-- Preference: Background Wifi Description (enabled) -->
+    <string name="sync_SPr_bgwifi_desc_enabled">Фоновая синхронизация происходит только через Wifi
+    </string>
+    <!-- Preference: Background Wifi Description (disabled) -->
+    <string name="sync_SPr_bgwifi_desc_disabled">Фоновая синхронизация происходит всегда</string>
+
+    <!-- Actions Group Label  -->
+    <string name="sync_SPr_group_actions">Действия</string>
+
+    <!-- Synchronize Now Button -->
+    <string name="sync_SPr_sync">Синхронизировать</string>
+    <!-- Synchronize Now Button if not logged in-->
+    <string name="sync_SPr_sync_log_in">Войти и синхронизировать!</string>
+
+    <!-- Sync: Prefix string before logged in identifier -->
+    <string name="sync_SPr_logged_in_prefix">Вы вошли в систему как:</string>
+
+    <!-- Sync: Last error -->
+    <string name="sync_SPr_last_error">Отчёт о состоянии</string>
+
+    <!-- Sync: last error click for more -->
+    <string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Astrid
+    </string>
+    <!-- Sync: send error report button -->
+    <string name="sync_SPr_send_report">Отправить отчет</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">Выйти</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
+
+    <!-- Sync error: network connectivity problems. %s-> name of sync service-->
+    <string name="sync_error_offline">В процессе последней синхронизации с %s возникли проблемы
+        подключения к сети. Пожалуйста, повторите попытку позже.
+    </string>
+
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+        <item>отключить</item>
+        <item>каждые 15 минут</item>
+        <item>каждые 30 минут</item>
+        <item>каждый час</item>
+        <item>каждые 3 часа</item>
+        <item>каждые 6 часов</item>
+        <item>каждые 12 часов</item>
+        <item>каждый день</item>
+        <item>каждые 3 дня</item>
+        <item>каждую неделю</item>
+    </string-array>
+
 </resources>

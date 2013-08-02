@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -33,18 +31,21 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
 
+import java.util.Date;
+
 /**
  * This activity is launched when a user opens up a notification from the
  * tray. It launches the appropriate activity based on the passed in parameters.
  *
  * @author timsu
- *
  */
 public class NotificationFragment extends TaskListFragment {
 
     // --- constants
 
-    /** task id from notification */
+    /**
+     * task id from notification
+     */
     public static final String TOKEN_ID = "id"; //$NON-NLS-1$
 
     // --- implementation
@@ -117,25 +118,25 @@ public class NotificationFragment extends TaskListFragment {
         public void onClick(DialogInterface dialog, int which) {
             long time = DateUtilities.now();
             int value = snoozeValue.getCurrent();
-            switch(snoozeUnits.getSelectedItemPosition()) {
-            case RepeatControlSet.INTERVAL_DAYS:
-                time += value * DateUtilities.ONE_DAY;
-                break;
-            case RepeatControlSet.INTERVAL_HOURS:
-                time += value * DateUtilities.ONE_HOUR;
-                break;
-            case RepeatControlSet.INTERVAL_MINUTES:
-                time += value * DateUtilities.ONE_MINUTE;
-                break;
-            case RepeatControlSet.INTERVAL_WEEKS:
-                time += value * 7 * DateUtilities.ONE_DAY;
-                break;
-            case RepeatControlSet.INTERVAL_MONTHS:
-                time = DateUtilities.addCalendarMonthsToUnixtime(time, 1);
-                break;
-            case RepeatControlSet.INTERVAL_YEARS:
-                time = DateUtilities.addCalendarMonthsToUnixtime(time, 12);
-                break;
+            switch (snoozeUnits.getSelectedItemPosition()) {
+                case RepeatControlSet.INTERVAL_DAYS:
+                    time += value * DateUtilities.ONE_DAY;
+                    break;
+                case RepeatControlSet.INTERVAL_HOURS:
+                    time += value * DateUtilities.ONE_HOUR;
+                    break;
+                case RepeatControlSet.INTERVAL_MINUTES:
+                    time += value * DateUtilities.ONE_MINUTE;
+                    break;
+                case RepeatControlSet.INTERVAL_WEEKS:
+                    time += value * 7 * DateUtilities.ONE_DAY;
+                    break;
+                case RepeatControlSet.INTERVAL_MONTHS:
+                    time = DateUtilities.addCalendarMonthsToUnixtime(time, 1);
+                    break;
+                case RepeatControlSet.INTERVAL_YEARS:
+                    time = DateUtilities.addCalendarMonthsToUnixtime(time, 12);
+                    break;
             }
 
             snoozeCallback.snoozeForTime(time);
@@ -147,7 +148,7 @@ public class NotificationFragment extends TaskListFragment {
      * Snooze and re-trigger this alarm
      */
     public static void snooze(Activity activity, OnTimeSetListener onTimeSet, SnoozeCallback snoozeCallback) {
-        if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
+        if (Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
             Date now = new Date();
             now.setHours(now.getHours() + 1);
             int hour = now.getHours();
@@ -159,11 +160,11 @@ public class NotificationFragment extends TaskListFragment {
         } else {
             SnoozeDialog sd = new SnoozeDialog(activity, snoozeCallback);
             new AlertDialog.Builder(activity)
-                .setTitle(R.string.rmd_NoA_snooze)
-                .setView(sd)
-                .setPositiveButton(android.R.string.ok, sd)
-                .setNegativeButton(android.R.string.cancel, null)
-                .show().setOwnerActivity(activity);
+                    .setTitle(R.string.rmd_NoA_snooze)
+                    .setView(sd)
+                    .setPositiveButton(android.R.string.ok, sd)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show().setOwnerActivity(activity);
         }
     }
 

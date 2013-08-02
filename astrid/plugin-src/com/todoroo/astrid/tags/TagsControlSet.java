@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,11 +35,14 @@ import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+
 /**
  * Control set to manage adding and removing tags
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class TagsControlSet extends PopupControlSet {
 
@@ -112,21 +111,21 @@ public final class TagsControlSet extends PopupControlSet {
         } else {
             allTagNames.add(tag);
             tagIndices.put(tag, allTagNames.size() - 1);
-            ((ArrayAdapter<String>)selectedTags.getAdapter()).notifyDataSetChanged();
+            ((ArrayAdapter<String>) selectedTags.getAdapter()).notifyDataSetChanged();
         }
     }
 
     private LinkedHashSet<String> getTagSet() {
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
         if (initialized) {
-            for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
+            for (int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
                 if (selectedTags.isItemChecked(i))
                     tags.add(allTagNames.get(i));
             }
 
-            for(int i = 0; i < newTags.getChildCount(); i++) {
+            for (int i = 0; i < newTags.getChildCount(); i++) {
                 TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
-                if(tagName.getText().length() == 0)
+                if (tagName.getText().length() == 0)
                     continue;
 
                 tags.add(tagName.getText().toString());
@@ -139,31 +138,33 @@ public final class TagsControlSet extends PopupControlSet {
         return tags;
     }
 
-    /** Adds a tag to the tag field */
+    /**
+     * Adds a tag to the tag field
+     */
     boolean addTag(String tagName, boolean reuse) {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         // check if already exists
         TextView lastText = null;
-        for(int i = 0; i < newTags.getChildCount(); i++) {
+        for (int i = 0; i < newTags.getChildCount(); i++) {
             View view = newTags.getChildAt(i);
             lastText = (TextView) view.findViewById(R.id.text1);
-            if(lastText.getText().equals(tagName))
+            if (lastText.getText().equals(tagName))
                 return false;
         }
 
         final View tagItem;
-        if(reuse && lastText != null && lastText.getText().length() == 0) {
+        if (reuse && lastText != null && lastText.getText().length() == 0) {
             tagItem = (View) lastText.getParent();
         } else {
             tagItem = inflater.inflate(R.layout.tag_edit_row, null);
             newTags.addView(tagItem);
         }
-        if(tagName == null)
+        if (tagName == null)
             tagName = ""; //$NON-NLS-1$
 
-        final AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
-            findViewById(R.id.text1);
+        final AutoCompleteTextView textView = (AutoCompleteTextView) tagItem.
+                findViewById(R.id.text1);
         textView.setText(tagName);
 
         textView.addTextChangedListener(new TextWatcher() {
@@ -171,15 +172,17 @@ public final class TagsControlSet extends PopupControlSet {
             public void afterTextChanged(Editable s) {
                 //
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
+                                          int after) {
                 //
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                if(count > 0 && newTags.getChildAt(newTags.getChildCount()-1) ==
+                                      int count) {
+                if (count > 0 && newTags.getChildAt(newTags.getChildCount() - 1) ==
                         tagItem)
                     addTag("", false); //$NON-NLS-1$
             }
@@ -188,9 +191,9 @@ public final class TagsControlSet extends PopupControlSet {
         textView.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-                if(actionId != EditorInfo.IME_NULL)
+                if (actionId != EditorInfo.IME_NULL)
                     return false;
-                if(getLastTextView().getText().length() != 0) {
+                if (getLastTextView().getText().length() != 0) {
                     addTag("", false); //$NON-NLS-1$
                 }
                 return true;
@@ -198,14 +201,14 @@ public final class TagsControlSet extends PopupControlSet {
         });
 
         ImageButton reminderRemoveButton;
-        reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
+        reminderRemoveButton = (ImageButton) tagItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView lastView = getLastTextView();
-                if(lastView == textView && textView.getText().length() == 0)
+                if (lastView == textView && textView.getText().length() == 0)
                     return;
 
-                if(newTags.getChildCount() > 1)
+                if (newTags.getChildCount() > 1)
                     newTags.removeView(tagItem);
                 else
                     textView.setText(""); //$NON-NLS-1$
@@ -217,12 +220,13 @@ public final class TagsControlSet extends PopupControlSet {
 
     /**
      * Get tags container last text view. might be null
+     *
      * @return
      */
     private TextView getLastTextView() {
-        if(newTags.getChildCount() == 0)
+        if (newTags.getChildCount() == 0)
             return null;
-        View lastItem = newTags.getChildAt(newTags.getChildCount()-1);
+        View lastItem = newTags.getChildAt(newTags.getChildCount() - 1);
         TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
         return lastText;
     }
@@ -230,11 +234,11 @@ public final class TagsControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
-        if(model.getId() != AbstractModel.NO_ID) {
+        if (model.getId() != AbstractModel.NO_ID) {
             TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
             LinkedHashSet<String> tags = new LinkedHashSet<String>(cursor.getCount());
             try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     String tag = cursor.get(TaskToTagMetadata.TAG_NAME);
                     tags.add(tag);
                 }
@@ -253,7 +257,7 @@ public final class TagsControlSet extends PopupControlSet {
         for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
             selectedTags.setItemChecked(i, false);
         }
-        if(model.getId() != AbstractModel.NO_ID) {
+        if (model.getId() != AbstractModel.NO_ID) {
             selectTagsFromModel();
         }
         addTag("", false); //$NON-NLS-1$
@@ -293,12 +297,12 @@ public final class TagsControlSet extends PopupControlSet {
     @Override
     protected String writeToModelAfterInitialized(Task task) {
         // this is a case where we're asked to save but the UI was not yet populated
-        if(!populated)
+        if (!populated)
             return null;
 
         LinkedHashSet<String> tags = getTagSet();
 
-        if(TagService.getInstance().synchronizeTags(task.getId(), task.getValue(Task.UUID), tags)) {
+        if (TagService.getInstance().synchronizeTags(task.getId(), task.getValue(Task.UUID), tags)) {
             Flags.set(Flags.TAGS_CHANGED);
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }

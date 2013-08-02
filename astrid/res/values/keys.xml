@@ -3,377 +3,378 @@
   This file contains preference keys and preference list values.
   These should not be translated 
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
- 
-  <string name="fb_app_id">183862944961271</string>
-    
-  <!-- ======================================================== REMINDERS == -->
+<resources>
 
-  <!-- whether reminders should appear at all -->
-  <string name="p_rmd_enabled">notif_enabled</string>
-  
-  <!-- hour to start quiet hours (inclusive) -->
-  <string name="p_rmd_quietStart">notif_qstart</string>
-  
-  <!-- hour to end quiet hours (non-inclusive) -->
-  <string name="p_rmd_quietEnd">notif_qend</string>
-  
-  <!-- reminder time when task doesn't have a due time (hour of day) -->
-  <string name="p_rmd_time">reminder_time</string>
-  
-  <!-- whether "clear all notifications" clears astrid notifications -->
-  <string name="p_rmd_persistent">notif_annoy</string>
-  
-  <!-- whether to max out the notification reminder volume if reminder has setting "ring multiple" or "ring continuous" -->
-  <string name="p_rmd_maxvolume">notif_maxvol</string>
-  
-  <!-- whether to vibrate phone when reminder fires -->
-  <string name="p_rmd_vibrate">notif_vibrate</string>
-  
-  <!-- ringtone to use for notifications -->
-  <string name="p_rmd_ringtone">notification_ringtone</string>
-  
-  <!-- if tts is used for notifications -->
-  <string name="p_rmd_voice">notification_voice</string>
-  
-  <!-- icon theme for notifications -->
-  <string name="p_rmd_icon">notif_theme</string>
-  
-  <!-- whether astrid nag messages are used -->
-  <string name="p_rmd_nagging">nagging</string>
-  
-  <!-- if true / unset, hh:mm dialog. otherwise, days / hours -->
-  <string name="p_rmd_snooze_dialog">snooze_dialog</string>
-  
-  <!-- default random reminder setting (in hours) -->
-  <string name="p_rmd_default_random_hours">notif_default_reminder</string>
+    <string name="fb_app_id">183862944961271</string>
 
-  <!-- show faces in reminders (aka social reminders) -->
-  <string name="p_rmd_social">p_rmd_social</string>
+    <!-- ======================================================== REMINDERS == -->
 
-  <!-- field missed calls preference -->
-  <string name="p_field_missed_calls">field_missed_calls</string>
-  
-  <!-- calendar reminders preference -->
-  <string name="p_calendar_reminders">p_calendar_reminder</string>
-  
-  <!-- show friends view preference -->
-  <string name="p_show_friends_view">show_friends_view</string>
+    <!-- whether reminders should appear at all -->
+    <string name="p_rmd_enabled">notif_enabled</string>
 
-  <!-- force tablets to use phone layout -->
-  <string name="p_force_phone_layout">force_phone_layout</string>
-  
-  <!-- account status section key -->
-  <string name="p_account">account</string>
+    <!-- hour to start quiet hours (inclusive) -->
+    <string name="p_rmd_quietStart">notif_qstart</string>
 
-  <!-- list view section key -->
-  <string name="p_list_view">p_list_view</string>
-  
-  <!-- filters to show -->
-  <string name="p_filters_to_show">p_filters_to_show</string>
-  <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
-  <string name="p_show_today_filter">p_show_today_f</string>
-  <string name="p_show_waiting_on_me_filter">p_show_waiting_on_me_f</string>
-  <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
-  <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
-  <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
-  
-  <!-- show quickadd controls -->
-  <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
+    <!-- hour to end quiet hours (non-inclusive) -->
+    <string name="p_rmd_quietEnd">notif_qend</string>
 
-  <!-- show comments in task edit -->
-  <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
-  
-  <!-- show save and cancel buttons in task edit -->
-  <string name="p_save_and_cancel">p_save_and_cancel</string>
-  
-  <!-- menu items to show -->
-  <string name="p_menu_items">p_menu_items</string>
-  <string name="p_show_menu_search">p_show_menu_search</string>
-  <string name="p_show_menu_friends">p_show_menu_friends</string>
-  <string name="p_show_menu_sync">p_show_menu_sync</string>
-  <string name="p_show_menu_sort">p_show_menu_sort</string>
-  
-  <string-array name="TEA_reminder_random_hours">
-    <!-- values (in hours) associated with items above. -->
-    <item>1</item>
-    <item>24</item>
-    <item>168</item>
-    <item>336</item>
-    <item>730</item>
-    <item>1460</item>
-  </string-array>
-  
-  <string-array name="notif_icon_values">
-    <!-- Corresponding to the constants in Preferences.java (do not edit) -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-  </string-array>
-  
-  <string-array name="EPr_reminder_random_hours">
-    <!-- values (in hours) associated with random reminders above. -->
-    <item>0</item>
-    <item>1</item>
-    <item>24</item>
-    <item>168</item>
-    <item>336</item>
-    <item>730</item>
-    <item>1460</item>
-  </string-array>
-  
-  <string-array name="EPr_quiet_hours_start_values">
-    <!-- quiet_hours_start_values: 24-hour representation of quiet_hour_start -->
-    <item></item>
-    <item>20</item>
-    <item>21</item>
-    <item>22</item>
-    <item>23</item>
-    <item>00</item>
-    <item>01</item>
-    <item>02</item>
-    <item>03</item>
-    <item>04</item>
-    <item>05</item>
-    <item>06</item>
-    <item>07</item>
-    <item>08</item>
-    <item>09</item>
-    <item>10</item>
-    <item>11</item>
-    <item>12</item>
-    <item>13</item>
-    <item>14</item>
-    <item>15</item>
-    <item>16</item>
-    <item>17</item>
-    <item>18</item>
-    <item>19</item>
-  </string-array>        
-  
-  <string-array name="EPr_quiet_hours_end_values">
-    <!-- quiet_hours_end_values: 24-hour representation of quiet_hours_end -->
-    <item>09</item>
-    <item>10</item>
-    <item>11</item>
-    <item>12</item>
-    <item>13</item>
-    <item>14</item>
-    <item>15</item>
-    <item>16</item>
-    <item>17</item>
-    <item>18</item>
-    <item>19</item>
-    <item>20</item>
-    <item>21</item>
-    <item>22</item>
-    <item>23</item>
-    <item>00</item>
-    <item>01</item>
-    <item>02</item>
-    <item>03</item>
-    <item>04</item>
-    <item>05</item>
-    <item>06</item>
-    <item>07</item>
-    <item>08</item>
-  </string-array>
-  
-  <string-array name="EPr_rmd_time_values">
-    <!-- rmd_time_values: 24-hour representation of rmd_time_values -->
-    <item>09</item>
-    <item>10</item>
-    <item>11</item>
-    <item>12</item>
-    <item>13</item>
-    <item>14</item>
-    <item>15</item>
-    <item>16</item>
-    <item>17</item>
-    <item>18</item>
-    <item>19</item>
-    <item>20</item>
-    <item>21</item>
-    <item>22</item>
-    <item>23</item>
-    <item>00</item>
-    <item>01</item>
-    <item>02</item>
-    <item>03</item>
-    <item>04</item>
-    <item>05</item>
-    <item>06</item>
-    <item>07</item>
-    <item>08</item>
-  </string-array>
-  
-  <!-- ======================================================= APPEARANCE == -->
+    <!-- reminder time when task doesn't have a due time (hour of day) -->
+    <string name="p_rmd_time">reminder_time</string>
 
-  <string name="p_fontSize">font_size</string>
-  <string name="p_taskRowStyle">p_taskRowStyle</string> <!-- DEPRECATED -->
-  <string name="p_taskRowStyle_v2">p_taskRowStyle_v2</string>
-  <string-array name="EPr_task_row_style_values">
-      <item>0</item>
-      <item>1</item>
-      <item>2</item>
-  </string-array>
-  <string name="p_showNotes">notesVisible</string>
-  <string name="p_beastMode">beastMode</string>
-  <string name="p_transparent_deprecated">transparent</string>
-  <string name="p_theme">theme</string>
-  <string name="p_theme_widget">theme_widget</string>
-  
-  <string name="p_voicePrefSection">voicePrefSection</string>
-  <string name="p_voiceInputEnabled">voiceInputEnabled</string>
-  <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
-  <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
-  
-  <string-array name="EPr_theme_settings">
-    <!-- theme_settings: options for preference menu -->
-    <item>white</item>
-    <item>white-red</item>
-    <item>white-alt</item>
-    <item>black</item>
-    <item>transparent</item>
-    <item>transparent-white</item>
-  </string-array>
-    
-  <string-array name="EPr_theme_widget_settings">
-    <!-- theme_settings: options for preference menu -->
-    <item>same-as-app</item>
-    <item>white</item>
-    <item>white-red</item>
-    <item>white-alt</item>
-    <item>black</item>
-    <item>transparent</item>
-    <item>transparent-white</item>
-    <item>legacy-widget</item>
-  </string-array>
-  
-  <string-array name="EPr_font_size">
-    <!-- font_size: options for preference menu -->
-    <item>10</item>
-    <item>12</item>
-    <item>14</item>
-    <item>16</item>
-    <item>18</item>
-    <item>20</item>
-    <item>22</item>
-    <item>24</item>
-    <item>26</item>
-    <item>28</item>
-    <item>30</item>
-    <item>32</item>
-    <item>36</item>
-    <item>48</item>
-  </string-array>
-  
-  <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
-  
-  <string name="p_taskRowPrefs">taskRowPrefs</string>
-  
-  <string name="p_fullTaskTitle">fullTaskTitle</string>
-  
-  <string name="p_edit_screen">p_edit_screen</string>
-  
-  <string name="p_time_increment">p_time_increment</string>
-  
-  <string name="p_use_date_shortcuts">p_use_date_shortcuts</string>
-  
-  <string name="p_hide_plus_button">p_hide_plus_button</string>
-  
-  <string name="p_show_timer_shortcut">p_show_timer_shortcut</string>
-  
-  <!-- Configurations -->
-  <string name="p_configurations">p_configurations</string>
-  <string name="p_config_default">p_config_default</string>
-  <string name="p_config_lite">p_config_lite</string>
-  
-  <!-- ========================================================= DEFAULTS == -->
-  
-  <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  
-  <string name="p_default_urgency_key">p_def_urg</string>
-      
-  <string-array name="EPr_default_importance_values">
-    <!-- importance: labels that map EPr_default_importance items to task importance values. -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-  </string-array>
-      
-  <string-array name="EPr_default_urgency_values">
-    <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-    <item>4</item>
-    <item>5</item>
-  </string-array>
-      
-  <string-array name="EPr_default_hideUntil_values">
-    <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-  </string-array>
-      
-  <string-array name="EPr_default_reminders_values">
-    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
-    <item>0</item>
-    <item>2</item>
-    <item>4</item>
-    <item>6</item>
-  </string-array>
-  
-  <string-array name="EPr_default_reminders_mode_values">
-    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
-    <item>0</item>
-    <item>16</item>
-    <item>8</item>
-  </string-array>
-  
-  <!-- default importance setting (corresponds to task setting) -->
-  <string name="p_default_importance_key">p_def_imp</string>
-  
-  <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
-  <string name="p_default_hideUntil_key">p_def_hide</string>
-  
-  <!-- default reminders setting (corresponds to reminder flags) -->
-  <string name="p_default_reminders_key">p_def_reminders</string>
-  
-  <!-- default Add To Calendar setting (corresponds to entry in gcal_TEA_addToCalendar) -->
-  <string name="p_default_addtocalendar_key">p_def_addtocalendar</string>
-  
-  <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
-  <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
-  
-  <!-- swipe between lists performance mode setting (DEPRECATED)-->
-  <string name="p_swipe_lists_performance_key">p_swipe_lists_perf</string>
+    <!-- whether "clear all notifications" clears astrid notifications -->
+    <string name="p_rmd_persistent">notif_annoy</string>
 
-  <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
-  
-  <!-- use new contact picker setting -->
-  <string name="p_use_contact_picker">p_use_contact_picker</string>
-  
-  <!-- on calendar end at dealline if true, start at deadline if false -->
-  <string name="p_end_at_deadline">p_end_at_deadline</string>
-  
-  <!-- whether custom filters are enabled -->
-  <string name="p_use_filters">p_use_filters</string>
+    <!-- whether to max out the notification reminder volume if reminder has setting "ring multiple" or "ring continuous" -->
+    <string name="p_rmd_maxvolume">notif_maxvol</string>
 
-  <!-- whether list members header should be shown -->
-  <string name="p_show_list_members">p_show_list_members</string>
-  
-  <string-array name="EPr_default_addtocalendar_values">
-    <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
-    <item>-1</item>
-  </string-array>
-  
-  <!-- ============================================================ SYNC == -->
-  
+    <!-- whether to vibrate phone when reminder fires -->
+    <string name="p_rmd_vibrate">notif_vibrate</string>
+
+    <!-- ringtone to use for notifications -->
+    <string name="p_rmd_ringtone">notification_ringtone</string>
+
+    <!-- if tts is used for notifications -->
+    <string name="p_rmd_voice">notification_voice</string>
+
+    <!-- icon theme for notifications -->
+    <string name="p_rmd_icon">notif_theme</string>
+
+    <!-- whether astrid nag messages are used -->
+    <string name="p_rmd_nagging">nagging</string>
+
+    <!-- if true / unset, hh:mm dialog. otherwise, days / hours -->
+    <string name="p_rmd_snooze_dialog">snooze_dialog</string>
+
+    <!-- default random reminder setting (in hours) -->
+    <string name="p_rmd_default_random_hours">notif_default_reminder</string>
+
+    <!-- show faces in reminders (aka social reminders) -->
+    <string name="p_rmd_social">p_rmd_social</string>
+
+    <!-- field missed calls preference -->
+    <string name="p_field_missed_calls">field_missed_calls</string>
+
+    <!-- calendar reminders preference -->
+    <string name="p_calendar_reminders">p_calendar_reminder</string>
+
+    <!-- show friends view preference -->
+    <string name="p_show_friends_view">show_friends_view</string>
+
+    <!-- force tablets to use phone layout -->
+    <string name="p_force_phone_layout">force_phone_layout</string>
+
+    <!-- account status section key -->
+    <string name="p_account">account</string>
+
+    <!-- list view section key -->
+    <string name="p_list_view">p_list_view</string>
+
+    <!-- filters to show -->
+    <string name="p_filters_to_show">p_filters_to_show</string>
+    <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
+    <string name="p_show_today_filter">p_show_today_f</string>
+    <string name="p_show_waiting_on_me_filter">p_show_waiting_on_me_f</string>
+    <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
+    <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
+    <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
+
+    <!-- show quickadd controls -->
+    <string name="p_show_quickadd_controls">p_show_quickadd_controls</string>
+
+    <!-- show comments in task edit -->
+    <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
+
+    <!-- show save and cancel buttons in task edit -->
+    <string name="p_save_and_cancel">p_save_and_cancel</string>
+
+    <!-- menu items to show -->
+    <string name="p_menu_items">p_menu_items</string>
+    <string name="p_show_menu_search">p_show_menu_search</string>
+    <string name="p_show_menu_friends">p_show_menu_friends</string>
+    <string name="p_show_menu_sync">p_show_menu_sync</string>
+    <string name="p_show_menu_sort">p_show_menu_sort</string>
+
+    <string-array name="TEA_reminder_random_hours">
+        <!-- values (in hours) associated with items above. -->
+        <item>1</item>
+        <item>24</item>
+        <item>168</item>
+        <item>336</item>
+        <item>730</item>
+        <item>1460</item>
+    </string-array>
+
+    <string-array name="notif_icon_values">
+        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="EPr_reminder_random_hours">
+        <!-- values (in hours) associated with random reminders above. -->
+        <item>0</item>
+        <item>1</item>
+        <item>24</item>
+        <item>168</item>
+        <item>336</item>
+        <item>730</item>
+        <item>1460</item>
+    </string-array>
+
+    <string-array name="EPr_quiet_hours_start_values">
+        <!-- quiet_hours_start_values: 24-hour representation of quiet_hour_start -->
+        <item></item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+    </string-array>
+
+    <string-array name="EPr_quiet_hours_end_values">
+        <!-- quiet_hours_end_values: 24-hour representation of quiet_hours_end -->
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+    </string-array>
+
+    <string-array name="EPr_rmd_time_values">
+        <!-- rmd_time_values: 24-hour representation of rmd_time_values -->
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+    </string-array>
+
+    <!-- ======================================================= APPEARANCE == -->
+
+    <string name="p_fontSize">font_size</string>
+    <string name="p_taskRowStyle">p_taskRowStyle</string>
+    <!-- DEPRECATED -->
+    <string name="p_taskRowStyle_v2">p_taskRowStyle_v2</string>
+    <string-array name="EPr_task_row_style_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string name="p_showNotes">notesVisible</string>
+    <string name="p_beastMode">beastMode</string>
+    <string name="p_transparent_deprecated">transparent</string>
+    <string name="p_theme">theme</string>
+    <string name="p_theme_widget">theme_widget</string>
+
+    <string name="p_voicePrefSection">voicePrefSection</string>
+    <string name="p_voiceInputEnabled">voiceInputEnabled</string>
+    <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
+    <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
+
+    <string-array name="EPr_theme_settings">
+        <!-- theme_settings: options for preference menu -->
+        <item>white</item>
+        <item>white-red</item>
+        <item>white-alt</item>
+        <item>black</item>
+        <item>transparent</item>
+        <item>transparent-white</item>
+    </string-array>
+
+    <string-array name="EPr_theme_widget_settings">
+        <!-- theme_settings: options for preference menu -->
+        <item>same-as-app</item>
+        <item>white</item>
+        <item>white-red</item>
+        <item>white-alt</item>
+        <item>black</item>
+        <item>transparent</item>
+        <item>transparent-white</item>
+        <item>legacy-widget</item>
+    </string-array>
+
+    <string-array name="EPr_font_size">
+        <!-- font_size: options for preference menu -->
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>22</item>
+        <item>24</item>
+        <item>26</item>
+        <item>28</item>
+        <item>30</item>
+        <item>32</item>
+        <item>36</item>
+        <item>48</item>
+    </string-array>
+
+    <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
+
+    <string name="p_taskRowPrefs">taskRowPrefs</string>
+
+    <string name="p_fullTaskTitle">fullTaskTitle</string>
+
+    <string name="p_edit_screen">p_edit_screen</string>
+
+    <string name="p_time_increment">p_time_increment</string>
+
+    <string name="p_use_date_shortcuts">p_use_date_shortcuts</string>
+
+    <string name="p_hide_plus_button">p_hide_plus_button</string>
+
+    <string name="p_show_timer_shortcut">p_show_timer_shortcut</string>
+
+    <!-- Configurations -->
+    <string name="p_configurations">p_configurations</string>
+    <string name="p_config_default">p_config_default</string>
+    <string name="p_config_lite">p_config_lite</string>
+
+    <!-- ========================================================= DEFAULTS == -->
+
+    <!-- default urgency setting (corresponds to entry in TEA_urgency) -->
+    <string name="p_default_urgency_key">p_def_urg</string>
+
+    <string-array name="EPr_default_importance_values">
+        <!-- importance: labels that map EPr_default_importance items to task importance values. -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="EPr_default_urgency_values">
+        <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="EPr_default_hideUntil_values">
+        <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="EPr_default_reminders_values">
+        <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
+        <item>0</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="EPr_default_reminders_mode_values">
+        <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
+        <item>0</item>
+        <item>16</item>
+        <item>8</item>
+    </string-array>
+
+    <!-- default importance setting (corresponds to task setting) -->
+    <string name="p_default_importance_key">p_def_imp</string>
+
+    <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
+    <string name="p_default_hideUntil_key">p_def_hide</string>
+
+    <!-- default reminders setting (corresponds to reminder flags) -->
+    <string name="p_default_reminders_key">p_def_reminders</string>
+
+    <!-- default Add To Calendar setting (corresponds to entry in gcal_TEA_addToCalendar) -->
+    <string name="p_default_addtocalendar_key">p_def_addtocalendar</string>
+
+    <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
+    <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
+
+    <!-- swipe between lists performance mode setting (DEPRECATED)-->
+    <string name="p_swipe_lists_performance_key">p_swipe_lists_perf</string>
+
+    <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
+
+    <!-- use new contact picker setting -->
+    <string name="p_use_contact_picker">p_use_contact_picker</string>
+
+    <!-- on calendar end at dealline if true, start at deadline if false -->
+    <string name="p_end_at_deadline">p_end_at_deadline</string>
+
+    <!-- whether custom filters are enabled -->
+    <string name="p_use_filters">p_use_filters</string>
+
+    <!-- whether list members header should be shown -->
+    <string name="p_show_list_members">p_show_list_members</string>
+
+    <string-array name="EPr_default_addtocalendar_values">
+        <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
+        <item>-1</item>
+    </string-array>
+
+    <!-- ============================================================ SYNC == -->
+
     <string-array name="sync_SPr_interval_values">
         <!-- sync_SPr_interval_values: interval in seconds for sync entries (do not edit) -->
         <item>0</item>
@@ -387,8 +388,8 @@
         <item>259200</item>
         <item>604800</item>
     </string-array>
-  
-      <!-- Preference Key (do not translate) -->
+
+    <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_status_key">sync_status</string>
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_bgwifi_key">sync_bgwifi</string>
@@ -400,85 +401,87 @@
     <string name="sync_SPr_key_options">sync_options</string>
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_key_last_error">sync_last_error</string>
-    
-  <!-- ===========================================================ACTFM == -->
-  <string name="actfm_https_key">actfmHttps</string>
-    
-  <!-- =========================================================== GTASKS == -->
-  
+
+    <!-- ===========================================================ACTFM == -->
+    <string name="actfm_https_key">actfmHttps</string>
+
+    <!-- =========================================================== GTASKS == -->
+
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
-    
-  <!-- ========================================================== SHARING == -->
-  
+
+    <!-- ========================================================== SHARING == -->
+
     <string name="actfm_APr_interval_key">actfm_sync_freq</string>
 
-  <!-- ======================================================== POWERPACK == -->
+    <!-- ======================================================== POWERPACK == -->
 
-  <!-- Anonymous usage statistics -->
-  <string name="p_statistics">statistics</string>
-  
-  <!-- ================================================= NEW USER EXPERIENCE -->
-  <!-- Preference Keys (do not translate) -->
-  <string name="p_showed_add_task_help">showed_add_task_help</string>
-  <string name="p_showed_tap_task_help">showed_tap_task_help</string>
-  <string name="p_showed_lists_help">showed_lists_help</string>
-  <string name="p_showed_list_settings_help">showed_list_settings_help</string>
-  <string name="p_showed_collaborators_help">showed_collaborators_help</string>
-  <string name="p_showed_when_shortcut">showed_when_shortcut</string>
-  <string name="p_showed_when_row">showed_when_row</string>
-  <string name="p_tutorial">tutorial</string>
-  
-  <!-- ============================================================ OTHER == -->
-  
+    <!-- Anonymous usage statistics -->
+    <string name="p_statistics">statistics</string>
+
+    <!-- ================================================= NEW USER EXPERIENCE -->
+    <!-- Preference Keys (do not translate) -->
+    <string name="p_showed_add_task_help">showed_add_task_help</string>
+    <string name="p_showed_tap_task_help">showed_tap_task_help</string>
+    <string name="p_showed_lists_help">showed_lists_help</string>
+    <string name="p_showed_list_settings_help">showed_list_settings_help</string>
+    <string name="p_showed_collaborators_help">showed_collaborators_help</string>
+    <string name="p_showed_when_shortcut">showed_when_shortcut</string>
+    <string name="p_showed_when_row">showed_when_row</string>
+    <string name="p_tutorial">tutorial</string>
+
+    <!-- ============================================================ OTHER == -->
+
     <!-- Preference Key (do not translate) -->
     <string name="backup_BPr_status_key">backup_status</string>
     <!-- Preference Key (do not translate) -->
-    <string name="backup_BPr_auto_key">backup</string>  
+    <string name="backup_BPr_auto_key">backup</string>
 
-  <!-- Default Calendar Preference Key (do not translate) -->
-  <string name="gcal_p_default">default_calendar_id</string>
-  
-  <!-- placeholder string for info about translators (i.e. YOU!) -->
-  <string name="about_translators"></string>
-  
-  <string-array name="TEA_control_sets_beast">
-      <item >@string/TEA_control_who</item>
-      <item >@string/TEA_control_when</item>
-      <item >@string/TEA_control_importance</item>
-      <item >@string/TEA_control_lists</item>
-      <item >@string/TEA_control_notes</item>
-      <item >@string/TEA_control_files</item>
-      <item >@string/TEA_control_more_section</item>
-      <item >@string/TEA_control_reminders</item>
-      <item >@string/TEA_control_timer</item>
-      <item >@string/TEA_control_hidden_section</item>
-  </string-array>
-  
-  <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
-  <string name="TEA_ctrl_who_pref">TEA_ctrl_who_pref</string>
-  <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
-  <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
-  <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
-  <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
-  <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
-  <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
-  <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
-  <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
-  <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
-  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string> <!-- Deprecated -->
-      
-  <string-array name="TEA_control_sets_prefs">
-      <item>@string/TEA_ctrl_who_pref</item>
-      <item>@string/TEA_ctrl_when_pref</item>
-      <item>@string/TEA_ctrl_importance_pref</item>
-      <item>@string/TEA_ctrl_lists_pref</item>
-      <item>@string/TEA_ctrl_notes_pref</item>
-      <item>@string/TEA_ctrl_files_pref</item>
-      <item>@string/TEA_ctrl_more_pref</item>
-      <item>@string/TEA_ctrl_reminders_pref</item>
-      <item>@string/TEA_ctrl_timer_pref</item>
-      <item>@string/TEA_ctrl_hide_section_pref</item>
-  </string-array>
-  
-  
+    <!-- Default Calendar Preference Key (do not translate) -->
+    <string name="gcal_p_default">default_calendar_id</string>
+
+    <!-- placeholder string for info about translators (i.e. YOU!) -->
+    <string name="about_translators"></string>
+
+    <string-array name="TEA_control_sets_beast">
+        <item>@string/TEA_control_who</item>
+        <item>@string/TEA_control_when</item>
+        <item>@string/TEA_control_importance</item>
+        <item>@string/TEA_control_lists</item>
+        <item>@string/TEA_control_notes</item>
+        <item>@string/TEA_control_files</item>
+        <item>@string/TEA_control_more_section</item>
+        <item>@string/TEA_control_reminders</item>
+        <item>@string/TEA_control_timer</item>
+        <item>@string/TEA_control_hidden_section</item>
+    </string-array>
+
+    <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string>
+    <!-- Deprecated -->
+    <string name="TEA_ctrl_who_pref">TEA_ctrl_who_pref</string>
+    <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
+    <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
+    <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
+    <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
+    <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
+    <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
+    <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
+    <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
+    <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
+    <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
+    <!-- Deprecated -->
+
+    <string-array name="TEA_control_sets_prefs">
+        <item>@string/TEA_ctrl_who_pref</item>
+        <item>@string/TEA_ctrl_when_pref</item>
+        <item>@string/TEA_ctrl_importance_pref</item>
+        <item>@string/TEA_ctrl_lists_pref</item>
+        <item>@string/TEA_ctrl_notes_pref</item>
+        <item>@string/TEA_ctrl_files_pref</item>
+        <item>@string/TEA_ctrl_more_pref</item>
+        <item>@string/TEA_ctrl_reminders_pref</item>
+        <item>@string/TEA_ctrl_timer_pref</item>
+        <item>@string/TEA_ctrl_hide_section_pref</item>
+    </string-array>
+
+
 </resources>

@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -65,6 +57,14 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public static interface FilterDataSourceChangedListener {
@@ -81,33 +81,51 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     @Autowired
     private TaskService taskService;
 
-    /** parent activity */
+    /**
+     * parent activity
+     */
     protected final Activity activity;
 
     protected final Resources resources;
 
-    /** owner listview */
+    /**
+     * owner listview
+     */
     protected ListView listView;
 
-    /** display metrics for scaling icons */
+    /**
+     * display metrics for scaling icons
+     */
     protected final DisplayMetrics metrics = new DisplayMetrics();
 
-    /** receiver for new filters */
+    /**
+     * receiver for new filters
+     */
     protected final FilterReceiver filterReceiver = new FilterReceiver();
 
-    /** row layout to inflate */
+    /**
+     * row layout to inflate
+     */
     private final int layout;
 
-    /** layout inflater */
+    /**
+     * layout inflater
+     */
     private final LayoutInflater inflater;
 
-    /** whether to skip Filters that launch intents instead of being real filters */
+    /**
+     * whether to skip Filters that launch intents instead of being real filters
+     */
     private final boolean skipIntentFilters;
 
-    /** whether rows are selectable */
+    /**
+     * whether rows are selectable
+     */
     private final boolean selectable;
 
-    /** Pattern for matching filter counts in listing titles */
+    /**
+     * Pattern for matching filter counts in listing titles
+     */
     private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
 
     private final HashMap<Filter, Integer> filterCounts;
@@ -127,12 +145,12 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     private final ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     public FilterAdapter(Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters) {
+                         int rowLayout, boolean skipIntentFilters) {
         this(activity, listView, rowLayout, skipIntentFilters, false);
     }
 
     public FilterAdapter(Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters, boolean selectable) {
+                         int rowLayout, boolean skipIntentFilters, boolean selectable) {
         super(activity, 0);
 
         DependencyInjectionService.getInstance().inject(this);
@@ -157,7 +175,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     }
 
     private void offerFilter(final Filter filter) {
-        if(selectable && selection == null)
+        if (selectable && selection == null)
             setSelection(filter);
         filterExecutor.submit(new Runnable() {
             @Override
@@ -165,7 +183,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 try {
                     int size = -1;
                     Matcher m = countPattern.matcher(filter.listingTitle);
-                    if(m.find()) {
+                    if (m.find()) {
                         String countString = m.group(1);
                         try {
                             size = Integer.parseInt(countString);
@@ -273,20 +291,21 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /**
      * Create or reuse a view
+     *
      * @param convertView
      * @param parent
      * @return
      */
     protected View newView(View convertView, ViewGroup parent) {
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = inflater.inflate(layout, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.view = convertView;
-            viewHolder.icon = (ImageView)convertView.findViewById(R.id.icon);
-            viewHolder.urlImage = (AsyncImageView)convertView.findViewById(R.id.url_image);
-            viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-            viewHolder.selected = (ImageView)convertView.findViewById(R.id.selected);
-            viewHolder.size = (TextView)convertView.findViewById(R.id.size);
+            viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
+            viewHolder.urlImage = (AsyncImageView) convertView.findViewById(R.id.url_image);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.selected = (ImageView) convertView.findViewById(R.id.selected);
+            viewHolder.size = (TextView) convertView.findViewById(R.id.size);
             viewHolder.decoration = null;
             convertView.setTag(viewHolder);
         }
@@ -343,6 +362,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /**
      * Sets the selected item to this one
+     *
      * @param picked
      */
     public void setSelection(FilterListItem picked) {
@@ -354,6 +374,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /**
      * Gets the currently selected item
+     *
      * @return null if no item is to be selected
      */
     public FilterListItem getSelection() {
@@ -372,7 +393,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * Receiver which receives intents to add items to the filter list
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public class FilterReceiver extends BroadcastReceiver {
         private final List<ResolveInfo> filterExposerList;
@@ -421,18 +441,18 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
             for (Parcelable item : filters) {
                 FilterListItem filter = (FilterListItem) item;
-                if(skipIntentFilters && !(filter instanceof Filter ||
-                            filter instanceof FilterListHeader ||
-                            filter instanceof FilterCategory))
+                if (skipIntentFilters && !(filter instanceof Filter ||
+                        filter instanceof FilterListHeader ||
+                        filter instanceof FilterCategory))
                     continue;
-                onReceiveFilter((FilterListItem)item);
+                onReceiveFilter((FilterListItem) item);
 
                 if (filter instanceof FilterCategory) {
                     Filter[] children = ((FilterCategory) filter).children;
                     for (Filter f : children) {
                         addOrLookup(f);
                     }
-                } else if (filter instanceof Filter){
+                } else if (filter instanceof Filter) {
                     addOrLookup((Filter) filter);
                 }
             }
@@ -476,6 +496,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     /**
      * Called when an item comes through. Override if you like
+     *
      * @param item
      */
     public void onReceiveFilter(FilterListItem item) {
@@ -488,17 +509,17 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public void populateView(ViewHolder viewHolder) {
         FilterListItem filter = viewHolder.item;
-        if(filter == null)
+        if (filter == null)
             return;
 
         viewHolder.view.setBackgroundResource(0);
 
-        if(viewHolder.decoration != null) {
-            ((ViewGroup)viewHolder.view).removeView(viewHolder.decoration);
+        if (viewHolder.decoration != null) {
+            ((ViewGroup) viewHolder.view).removeView(viewHolder.decoration);
             viewHolder.decoration = null;
         }
 
-        if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
+        if (viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
             viewHolder.name.setShadowLayer(1, 1, 1, Color.BLACK);
         } else {
@@ -511,14 +532,14 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         viewHolder.urlImage.setVisibility(View.GONE);
         viewHolder.icon.setVisibility(View.GONE);
 
-        if(!nook && filter.listingIcon != null) {
+        if (!nook && filter.listingIcon != null) {
             viewHolder.icon.setVisibility(View.VISIBLE);
             viewHolder.icon.setImageBitmap(filter.listingIcon);
         }
 
         // title / size
         int countInt = -1;
-        if(filterCounts.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
+        if (filterCounts.containsKey(filter) || (!TextUtils.isEmpty(filter.listingTitle) && filter.listingTitle.matches(".* \\(\\d+\\)$"))) { //$NON-NLS-1$
             viewHolder.size.setVisibility(View.VISIBLE);
             String count;
             if (filterCounts.containsKey(filter)) {
@@ -550,11 +571,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             countInt = -1;
         }
 
-        if(countInt == 0 && filter instanceof FilterWithCustomIntent)
+        if (countInt == 0 && filter instanceof FilterWithCustomIntent)
             viewHolder.name.setTextColor(Color.GRAY);
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
-        if(!nook && filter instanceof FilterWithUpdate) {
+        if (!nook && filter instanceof FilterWithUpdate) {
             String defaultImageId = RemoteModel.NO_UUID;
             FilterWithUpdate fwu = (FilterWithUpdate) filter;
             Bundle customExtras = fwu.customExtras;
@@ -565,7 +586,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
             viewHolder.urlImage.setVisibility(View.VISIBLE);
             viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(defaultImageId)));
-            viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
+            viewHolder.urlImage.setUrl(((FilterWithUpdate) filter).imageUrl);
         }
 
         if (nook) {
@@ -577,51 +598,51 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.name.setTextColor(filter.color);
 
         // selection
-        if(selection == viewHolder.item) {
+        if (selection == viewHolder.item) {
             viewHolder.selected.setVisibility(View.VISIBLE);
             viewHolder.view.setBackgroundColor(Color.rgb(128, 230, 0));
         } else
             viewHolder.selected.setVisibility(View.GONE);
 
-        if(filter instanceof FilterCategoryWithNewButton)
+        if (filter instanceof FilterCategoryWithNewButton)
             setupCustomHeader(viewHolder, (FilterCategoryWithNewButton) filter);
     }
 
     private void setupCustomHeader(ViewHolder viewHolder, final FilterCategoryWithNewButton filter) {
         Button add = new Button(activity);
         add.setBackgroundResource(R.drawable.filter_btn_background);
-        add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filter_new,0,0,0);
+        add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filter_new, 0, 0, 0);
         add.setTextColor(Color.WHITE);
         add.setShadowLayer(1, 1, 1, Color.BLACK);
         add.setText(filter.label);
         add.setFocusable(false);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                (int)(32 * metrics.density));
+                (int) (32 * metrics.density));
         lp.rightMargin = (int) (4 * metrics.density);
         lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         add.setLayoutParams(lp);
-        ((ViewGroup)viewHolder.view).addView(add);
+        ((ViewGroup) viewHolder.view).addView(add);
         viewHolder.decoration = add;
 
         add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            filter.intent.send(FilterListFragment.REQUEST_NEW_BUTTON, new PendingIntent.OnFinished() {
-                                @Override
-                                public void onSendFinished(PendingIntent pendingIntent, Intent intent,
-                                        int resultCode, String resultData, Bundle resultExtras) {
-                                    activity.runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            clear();
-                                        }
-                                    });
+            @Override
+            public void onClick(View v) {
+                try {
+                    filter.intent.send(FilterListFragment.REQUEST_NEW_BUTTON, new PendingIntent.OnFinished() {
+                        @Override
+                        public void onSendFinished(PendingIntent pendingIntent, Intent intent,
+                                                   int resultCode, String resultData, Bundle resultExtras) {
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    clear();
                                 }
-                            }, null);
-                        } catch (CanceledException e) {
-                            // do nothing
+                            });
                         }
-                    }
-                });
+                    }, null);
+                } catch (CanceledException e) {
+                    // do nothing
+                }
+            }
+        });
     }
 }

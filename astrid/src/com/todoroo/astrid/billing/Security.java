@@ -2,16 +2,17 @@
 
 package com.todoroo.astrid.billing;
 
+import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
+
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
-
 
 /**
  * This is a stub class
+ *
  * @author Sam
  */
 @SuppressWarnings("nls")
@@ -37,7 +38,7 @@ public class Security {
         public String purchaseToken;
 
         public VerifiedPurchase(PurchaseState purchaseState, String notificationId,
-                String productId, String orderId, long purchaseTime, String developerPayload, String purchaseToken) {
+                                String productId, String orderId, long purchaseTime, String developerPayload, String purchaseToken) {
             this.purchaseState = purchaseState;
             this.notificationId = notificationId;
             this.productId = productId;
@@ -48,7 +49,9 @@ public class Security {
         }
     }
 
-    /** Generates a nonce (a random number used once). */
+    /**
+     * Generates a nonce (a random number used once).
+     */
     public static long generateNonce() {
         long nonce = RANDOM.nextLong();
         sKnownNonces.add(nonce);

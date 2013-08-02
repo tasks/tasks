@@ -52,7 +52,6 @@ import com.todoroo.astrid.utility.Constants;
  * and {@link AbstractDependencyInjector}.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AstridDependencyInjector extends AbstractDependencyInjector {
 
@@ -134,7 +133,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("tagService", TagService.class);
 
         // these make reference to fields defined above
-        injectables.put("errorReporters", new ErrorReporter[] {
+        injectables.put("errorReporters", new ErrorReporter[]{
                 new AndroidLogReporter(),
         });
     }
@@ -143,10 +142,10 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      * Install this service as the default Dependency Injector
      */
     public static void initialize() {
-        if(instance != null)
+        if (instance != null)
             return;
-        synchronized(AstridDependencyInjector.class) {
-            if(instance == null)
+        synchronized (AstridDependencyInjector.class) {
+            if (instance == null)
                 instance = new AstridDependencyInjector();
             DependencyInjectionService.getInstance().addInjector(instance);
         }

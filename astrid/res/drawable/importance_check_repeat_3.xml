@@ -8,9 +8,9 @@
 
     <item android:state_checked="false"
           android:state_enabled="true"
-          android:drawable="@drawable/check_box_repeat_3" />
+          android:drawable="@drawable/check_box_repeat_3"/>
     <item android:state_checked="true"
           android:state_enabled="true"
-          android:drawable="@drawable/check_box_repeat_checked_3" />
+          android:drawable="@drawable/check_box_repeat_checked_3"/>
 
 </selector>

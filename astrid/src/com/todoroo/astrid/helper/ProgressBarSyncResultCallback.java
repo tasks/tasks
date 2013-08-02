@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -15,6 +13,8 @@ import android.widget.ProgressBar;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
 
@@ -25,12 +25,12 @@ public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
     private final AtomicInteger providers = new AtomicInteger(0);
 
     public ProgressBarSyncResultCallback(Activity activity, Fragment fragment,
-            int progressBarId, Runnable onFinished) {
+                                         int progressBarId, Runnable onFinished) {
         this.progressBar = (ProgressBar) fragment.getView().findViewById(progressBarId);
         this.activity = activity;
         this.onFinished = onFinished;
 
-        if(progressBar == null)
+        if (progressBar == null)
             progressBar = new ProgressBar(activity);
 
         progressBar.setProgress(0);
@@ -39,7 +39,7 @@ public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
 
     @Override
     public void finished() {
-        if(providers.decrementAndGet() == 0) {
+        if (providers.decrementAndGet() == 0) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -106,7 +106,7 @@ public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
 
     @Override
     public void started() {
-        if(providers.incrementAndGet() == 1) {
+        if (providers.incrementAndGet() == 1) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

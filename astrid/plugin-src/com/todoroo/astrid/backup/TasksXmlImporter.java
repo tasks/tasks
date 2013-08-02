@@ -5,16 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.StringTokenizer;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -51,6 +41,16 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.StringTokenizer;
 
 public class TasksXmlImporter {
 
@@ -92,6 +92,7 @@ public class TasksXmlImporter {
 
     /**
      * Import tasks.
+     *
      * @param runAfterImport optional runnable after import
      */
     private TasksXmlImporter(final Context context, String input, Runnable runAfterImport) {
@@ -108,8 +109,8 @@ public class TasksXmlImporter {
         progressDialog.setIndeterminate(true);
         try {
             progressDialog.show();
-            if(context instanceof Activity)
-                progressDialog.setOwnerActivity((Activity)context);
+            if (context instanceof Activity)
+                progressDialog.setOwnerActivity((Activity) context);
         } catch (BadTokenException e) {
             // Running from a unit test or some such thing
         }
@@ -147,14 +148,14 @@ public class TasksXmlImporter {
                     // Process <astrid ... >
                     if (tag.equals(BackupConstants.ASTRID_TAG)) {
                         String format = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
-                        if(TextUtils.equals(format, FORMAT1))
+                        if (TextUtils.equals(format, FORMAT1))
                             new Format1TaskImporter(xpp);
-                        else if(TextUtils.equals(format, FORMAT2))
+                        else if (TextUtils.equals(format, FORMAT2))
                             new Format2TaskImporter(xpp);
                         else
                             throw new UnsupportedOperationException(
                                     "Did not know how to import tasks with xml format '" +
-                                    format + "'");
+                                            format + "'");
                     }
                 }
             }
@@ -164,8 +165,8 @@ public class TasksXmlImporter {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(progressDialog.isShowing() && context instanceof Activity)
-                       DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                    if (progressDialog.isShowing() && context instanceof Activity)
+                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
                     showSummary();
                 }
             });
@@ -191,7 +192,7 @@ public class TasksXmlImporter {
                             handler.post(runAfterImport);
                         }
                     }
-        });
+                });
 
         builder.show();
     }
@@ -201,6 +202,7 @@ public class TasksXmlImporter {
     // =============================================================== FORMAT2
 
     private static final String FORMAT2 = "2"; //$NON-NLS-1$
+
     private class Format2TaskImporter {
 
         private int version;
@@ -235,7 +237,7 @@ public class TasksXmlImporter {
                     errorCount++;
                     Log.e("astrid-importer", //$NON-NLS-1$
                             "Caught exception while reading from " + //$NON-NLS-1$
-                            xpp.getText(), e);
+                                    xpp.getText(), e);
                 }
             }
         }
@@ -261,24 +263,24 @@ public class TasksXmlImporter {
             // if the task's name and creation date match an existing task, skip
             long existingTask = 0;
             TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
-                        Task.COMPLETION_DATE, Task.DELETION_DATE).
+                    Task.COMPLETION_DATE, Task.DELETION_DATE).
                     where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created))));
             try {
-                if(cursor.getCount() > 0) {
+                if (cursor.getCount() > 0) {
                     cursor.moveToNext();
 
                     // fix for failed migration in 4.0.6
-                    if(version < UpgradeService.V4_0_6) {
-                        if(!completionDate.equals("0") &&
+                    if (version < UpgradeService.V4_0_6) {
+                        if (!completionDate.equals("0") &&
                                 !completionDate.equals(Long.toString(cursor.get(Task.COMPLETION_DATE))))
                             existingTask = cursor.get(Task.ID);
 
-                        if(!deletionDate.equals("0") &&
+                        if (!deletionDate.equals("0") &&
                                 !deletionDate.equals(Long.toString(cursor.get(Task.DELETION_DATE))))
                             existingTask = cursor.get(Task.ID);
                     }
 
-                    if(existingTask == 0) {
+                    if (existingTask == 0) {
                         skipCount++;
                         return;
                     }
@@ -289,10 +291,10 @@ public class TasksXmlImporter {
 
             // else, make a new task model and add away.
             deserializeModel(currentTask, Task.PROPERTIES);
-            if(version < UpgradeService.V4_0_6)
+            if (version < UpgradeService.V4_0_6)
                 adjustDueDateScheme(currentTask);
 
-            if(existingTask > 0)
+            if (existingTask > 0)
                 currentTask.setId(existingTask);
             else
                 currentTask.setId(Task.NO_ID);
@@ -319,7 +321,7 @@ public class TasksXmlImporter {
         }
 
         private void parseMetadata() {
-            if(!currentTask.isSaved())
+            if (!currentTask.isSaved())
                 return;
             metadata.clear();
             deserializeModel(metadata, Metadata.PROPERTIES);
@@ -330,16 +332,17 @@ public class TasksXmlImporter {
 
         /**
          * Turn a model into xml attributes
+         *
          * @param model
          */
         private void deserializeModel(AbstractModel model, Property<?>[] properties) {
-            for(Property<?> property : properties) {
+            for (Property<?> property : properties) {
                 try {
                     property.accept(xmlReadingVisitor, model);
                 } catch (Exception e) {
                     Log.e("astrid-importer", //$NON-NLS-1$
                             "Caught exception while writing " + property.name + //$NON-NLS-1$
-                            " from " + xpp.getText(), e); //$NON-NLS-1$
+                                    " from " + xpp.getText(), e); //$NON-NLS-1$
                 }
             }
         }
@@ -350,9 +353,9 @@ public class TasksXmlImporter {
 
             @Override
             public Void visitInteger(Property<Integer> property,
-                    AbstractModel data) {
+                                     AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
-                if(value != null)
+                if (value != null)
                     data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
                             null : Integer.parseInt(value));
                 return null;
@@ -361,7 +364,7 @@ public class TasksXmlImporter {
             @Override
             public Void visitLong(Property<Long> property, AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
-                if(value != null)
+                if (value != null)
                     data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
                             null : Long.parseLong(value));
                 return null;
@@ -369,9 +372,9 @@ public class TasksXmlImporter {
 
             @Override
             public Void visitDouble(Property<Double> property,
-                    AbstractModel data) {
+                                    AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
-                if(value != null)
+                if (value != null)
                     data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
                             null : Double.parseDouble(value));
                 return null;
@@ -379,9 +382,9 @@ public class TasksXmlImporter {
 
             @Override
             public Void visitString(Property<String> property,
-                    AbstractModel data) {
+                                    AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
-                if(value != null)
+                if (value != null)
                     data.setValue(property, value);
                 return null;
             }
@@ -392,6 +395,7 @@ public class TasksXmlImporter {
     // =============================================================== FORMAT1
 
     private static final String FORMAT1 = null;
+
     private class Format1TaskImporter {
 
         private final XmlPullParser xpp;
@@ -408,7 +412,7 @@ public class TasksXmlImporter {
                 String tag = xpp.getName();
 
                 try {
-                    if(BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG)
+                    if (BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG)
                         saveTags();
                     else if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
                         continue;
@@ -433,7 +437,7 @@ public class TasksXmlImporter {
                     errorCount++;
                     Log.e("astrid-importer", //$NON-NLS-1$
                             "Caught exception while reading from " + //$NON-NLS-1$
-                            xpp.getText(), e);
+                                    xpp.getText(), e);
                 }
             }
         }
@@ -471,7 +475,7 @@ public class TasksXmlImporter {
         }
 
         private void saveTags() {
-            if(currentTask != null && tags.size() > 0) {
+            if (currentTask != null && tags.size() > 0) {
                 TagService.getInstance().synchronizeTags(currentTask.getId(), currentTask.getValue(Task.UUID), tags);
             }
             tags.clear();
@@ -500,9 +504,9 @@ public class TasksXmlImporter {
             // if the task's name and creation date match an existing task, skip
             TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).
                     where(Criterion.and(Task.TITLE.eq(taskName),
-                            Task.CREATION_DATE.like(creationDate.getTime()/1000L + "%"))));
+                            Task.CREATION_DATE.like(creationDate.getTime() / 1000L + "%"))));
             try {
-                if(cursor.getCount() > 0) {
+                if (cursor.getCount() > 0) {
                     skipCount++;
                     return null;
                 }
@@ -516,14 +520,14 @@ public class TasksXmlImporter {
             for (int i = 0; i < numAttributes; i++) {
                 String fieldName = xpp.getAttributeName(i);
                 String fieldValue = xpp.getAttributeValue(i);
-                if(!setTaskField(task, fieldName, fieldValue)) {
+                if (!setTaskField(task, fieldName, fieldValue)) {
                     Log.i("astrid-xml-import", "Task: " + taskName + ": Unknown field '" +
                             fieldName + "' with value '" + fieldValue + "' disregarded.");
                 }
             }
 
-            if(upgradeNotes != null) {
-                if(task.containsValue(Task.NOTES) && task.getValue(Task.NOTES).length() > 0)
+            if (upgradeNotes != null) {
+                if (task.containsValue(Task.NOTES) && task.getValue(Task.NOTES).length() > 0)
                     task.setValue(Task.NOTES, task.getValue(Task.NOTES) + "\n" + upgradeNotes);
                 else
                     task.setValue(Task.NOTES, upgradeNotes);
@@ -536,37 +540,31 @@ public class TasksXmlImporter {
             return task;
         }
 
-        /** helper method to set field on a task */
+        /**
+         * helper method to set field on a task
+         */
         @SuppressWarnings("nls")
         private final boolean setTaskField(Task task, String field, String value) {
-            if(field.equals(LegacyTaskModel.ID)) {
+            if (field.equals(LegacyTaskModel.ID)) {
                 // ignore
-            }
-            else if(field.equals(LegacyTaskModel.NAME)) {
+            } else if (field.equals(LegacyTaskModel.NAME)) {
                 task.setValue(Task.TITLE, value);
-            }
-            else if(field.equals(LegacyTaskModel.NOTES)) {
+            } else if (field.equals(LegacyTaskModel.NOTES)) {
                 task.setValue(Task.NOTES, value);
-            }
-            else if(field.equals(LegacyTaskModel.PROGRESS_PERCENTAGE)) {
+            } else if (field.equals(LegacyTaskModel.PROGRESS_PERCENTAGE)) {
                 // ignore
-            }
-            else if(field.equals(LegacyTaskModel.IMPORTANCE)) {
+            } else if (field.equals(LegacyTaskModel.IMPORTANCE)) {
                 task.setValue(Task.IMPORTANCE, LegacyImportance.valueOf(value).ordinal());
-            }
-            else if(field.equals(LegacyTaskModel.ESTIMATED_SECONDS)) {
+            } else if (field.equals(LegacyTaskModel.ESTIMATED_SECONDS)) {
                 task.setValue(Task.ESTIMATED_SECONDS, Integer.parseInt(value));
-            }
-            else if(field.equals(LegacyTaskModel.ELAPSED_SECONDS)) {
+            } else if (field.equals(LegacyTaskModel.ELAPSED_SECONDS)) {
                 task.setValue(Task.ELAPSED_SECONDS, Integer.parseInt(value));
-            }
-            else if(field.equals(LegacyTaskModel.TIMER_START)) {
+            } else if (field.equals(LegacyTaskModel.TIMER_START)) {
                 task.setValue(Task.TIMER_START,
                         BackupDateUtilities.getDateFromIso8601String(value).getTime());
-            }
-            else if(field.equals(LegacyTaskModel.DEFINITE_DUE_DATE)) {
+            } else if (field.equals(LegacyTaskModel.DEFINITE_DUE_DATE)) {
                 String preferred = xpp.getAttributeValue(null, LegacyTaskModel.PREFERRED_DUE_DATE);
-                if(preferred != null) {
+                if (preferred != null) {
                     Date preferredDate = BackupDateUtilities.getDateFromIso8601String(value);
                     upgradeNotes = "Project Deadline: " +
                             DateUtilities.getDateString(ContextManager.getContext(),
@@ -574,64 +572,51 @@ public class TasksXmlImporter {
                 }
                 task.setValue(Task.DUE_DATE,
                         BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
-            }
-            else if(field.equals(LegacyTaskModel.PREFERRED_DUE_DATE)) {
+            } else if (field.equals(LegacyTaskModel.PREFERRED_DUE_DATE)) {
                 String definite = xpp.getAttributeValue(null, LegacyTaskModel.DEFINITE_DUE_DATE);
-                if(definite != null)
+                if (definite != null)
                     ; // handled above
                 else
                     task.setValue(Task.DUE_DATE,
                             BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
-            }
-            else if(field.equals(LegacyTaskModel.HIDDEN_UNTIL)) {
+            } else if (field.equals(LegacyTaskModel.HIDDEN_UNTIL)) {
                 task.setValue(Task.HIDE_UNTIL,
                         BackupDateUtilities.getDateFromIso8601String(value).getTime());
-            }
-            else if(field.equals(LegacyTaskModel.BLOCKING_ON)) {
+            } else if (field.equals(LegacyTaskModel.BLOCKING_ON)) {
                 // ignore
-            }
-            else if(field.equals(LegacyTaskModel.POSTPONE_COUNT)) {
+            } else if (field.equals(LegacyTaskModel.POSTPONE_COUNT)) {
                 task.setValue(Task.POSTPONE_COUNT, Integer.parseInt(value));
-            }
-            else if(field.equals(LegacyTaskModel.NOTIFICATIONS)) {
+            } else if (field.equals(LegacyTaskModel.NOTIFICATIONS)) {
                 task.setValue(Task.REMINDER_PERIOD, Integer.parseInt(value) * 1000L);
-            }
-            else if(field.equals(LegacyTaskModel.CREATION_DATE)) {
+            } else if (field.equals(LegacyTaskModel.CREATION_DATE)) {
                 task.setValue(Task.CREATION_DATE,
                         BackupDateUtilities.getDateFromIso8601String(value).getTime());
-            }
-            else if(field.equals(LegacyTaskModel.COMPLETION_DATE)) {
+            } else if (field.equals(LegacyTaskModel.COMPLETION_DATE)) {
                 String completion = xpp.getAttributeValue(null, LegacyTaskModel.PROGRESS_PERCENTAGE);
-                if("100".equals(completion)) {
+                if ("100".equals(completion)) {
                     task.setValue(Task.COMPLETION_DATE,
-                        BackupDateUtilities.getDateFromIso8601String(value).getTime());
+                            BackupDateUtilities.getDateFromIso8601String(value).getTime());
                 }
-            }
-            else if(field.equals(LegacyTaskModel.NOTIFICATION_FLAGS)) {
+            } else if (field.equals(LegacyTaskModel.NOTIFICATION_FLAGS)) {
                 task.setValue(Task.REMINDER_FLAGS, Integer.parseInt(value));
-            }
-            else if(field.equals(LegacyTaskModel.LAST_NOTIFIED)) {
+            } else if (field.equals(LegacyTaskModel.LAST_NOTIFIED)) {
                 task.setValue(Task.REMINDER_LAST,
                         BackupDateUtilities.getDateFromIso8601String(value).getTime());
-            }
-            else if(field.equals("repeat_interval")) {
+            } else if (field.equals("repeat_interval")) {
                 // handled below
-            }
-            else if(field.equals("repeat_value")) {
+            } else if (field.equals("repeat_value")) {
                 int repeatValue = Integer.parseInt(value);
                 String repeatInterval = xpp.getAttributeValue(null, "repeat_interval");
-                if(repeatValue > 0 && repeatInterval != null) {
+                if (repeatValue > 0 && repeatInterval != null) {
                     LegacyRepeatInterval interval = LegacyRepeatInterval.valueOf(repeatInterval);
                     LegacyRepeatInfo repeatInfo = new LegacyRepeatInfo(interval, repeatValue);
                     RRule rrule = repeatInfo.toRRule();
                     task.setValue(Task.RECURRENCE, rrule.toIcal());
                 }
-            }
-            else if(field.equals(LegacyTaskModel.FLAGS)) {
-                if(Integer.parseInt(value) == LegacyTaskModel.FLAG_SYNC_ON_COMPLETE)
+            } else if (field.equals(LegacyTaskModel.FLAGS)) {
+                if (Integer.parseInt(value) == LegacyTaskModel.FLAG_SYNC_ON_COMPLETE)
                     syncOnComplete = true;
-            }
-            else {
+            } else {
                 return false;
             }
 

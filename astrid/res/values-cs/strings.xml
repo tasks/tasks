@@ -1,852 +1,960 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="actfm_person_hint">Kontakt nebo email</string>
-  <string name="actfm_person_or_tag_hint">Kontakt nebo Sdílený list</string>
-  <string name="actfm_tag_operation_owner_delete">Jste vlastníkem tohoto sdíleného seznamu! Pokud ho smažete, smaže se i u všech členů seznamu. Chcete skutečně pokračovat?</string>
-  <string name="actfm_picture_camera">Vyfoť obrázek</string>
-  <string name="actfm_picture_gallery">Vybrat obrázek z galerie</string>
-  <string name="actfm_picture_clear">Odebrat obrázek</string>
-  <string name="actfm_view_task_title">Zobrazit úkol?</string>
-  <string name="actfm_view_task_text">%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní úkoly. Chcete vidět úkoly, které jste delegoval(a)?</string>
-  <string name="actfm_view_task_ok">Delegované</string>
-  <string name="actfm_view_task_cancel">Vlastní</string>
-  <string name="actfm_my_shared_tasks_title">Moje sdílené úkoly</string>
-  <string name="actfm_my_shared_tasks_empty">Žádné sdílené úkoly</string>
-  <string name="actfm_friendship_accept">Potvrdit</string>
-  <string name="TVA_add_comment">Přidej comment...</string>
-  <string-array name="TVA_tabs">
-    <item>Úkoly</item>
-    <item>Činnost</item>
-    <item>Nastavení listu</item>
-  </string-array>
-  <string name="actfm_TVA_menu_refresh">Obnovit</string>
-  <string name="actfm_TVA_tag_label">Název listu:</string>
-  <string name="actfm_TVA_members_label">Spolupracovníci:</string>
-  <string name="actfm_TVA_members_hint">Sdílet s kýmkoli, kdo má email</string>
-  <string name="actfm_TVA_tag_picture">Obrázek listu</string>
-  <string name="actfm_TVA_silence_label">Tichá upozornění</string>
-  <string name="actfm_TVA_tag_description_label">Popis</string>
-  <string name="actfm_TVA_tag_settings_label">Nastavení</string>
-  <string name="actfm_TVA_tag_description_hint">Zde zadejte popis</string>
-  <string name="actfm_TVA_tag_name_hint">Název seznamu</string>
-  <string name="actfm_TVA_login_to_share">Pro sdílení seznamů musíte být přihlášen k Astrid.com! Přihlašte se prosím, nebo tento seznam označte jako soukromý.</string>
-  <string name="actfm_EPA_intro">S pomocí Astrid sdílejte nákupní seznamy, nápady na party nebo týmové projekty a buďte okamžitě v obraze když druzí něco dokončí!</string>
-  <string name="actfm_EPA_assign_label_long">Kdo to má udělat?</string>
-  <string name="actfm_EPA_assign_me">Já</string>
-  <string name="actfm_EPA_unassigned">Nepřiřazené</string>
-  <string name="actfm_EPA_choose_contact">Vyberte kontakt</string>
-  <string name="actfm_EPA_share_with">Přidat spolupracovníky:</string>
-  <string name="actfm_EPA_collaborators_header">Sdílet s přáteli</string>
-  <string name="actfm_EPA_list">Seznam: %s</string>
-  <string name="actfm_EPA_message_text">Uvítací zpráva:</string>
-  <string name="actfm_EPA_message_body">Pomoz mi to dodělat!</string>
-  <string name="actfm_EPA_assign_header_members">Členové seznamu</string>
-  <string name="actfm_EPA_assign_header_friends">Přátelé z Astrid</string>
-  <string name="actfm_EPA_facebook">Facebook</string>
-  <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_invalid_email">Špatný E-mail: %s</string>
-  <string name="actfm_EPA_login_to_share">Pro sdílení úkolů musíte být přihlášen na Astrid.com!</string>
-  <string name="actfm_EPA_login_button">Přihlásit se</string>
-  <string name="actfm_EPA_dont_share_button">Nesdílet</string>
-  <string name="actfm_ALA_title">Vítejte v Astrid.com!</string>
-  <string name="actfm_ALA_body">Díky Astrid.com můžete k úkolům přistupovat online nebo je můžete sdílet s ostatníma.</string>
-  <string name="actfm_ALA_fb_login">Přihlásit Facebookem</string>
-  <string name="actfm_ALA_gg_login">Přihlásit Google účtem</string>
-  <string name="actfm_ALA_firstname_label">Křestní jméno</string>
-  <string name="actfm_ALA_lastname_label">Příjmení</string>
-  <string name="actfm_ALA_email_label">Email</string>
-  <string name="actfm_ALA_password_label">Heslo</string>
-  <string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
-  <string name="actfm_OLA_prompt">Prosím připojte se do Googlu:</string>
-  <string name="actfm_feat_list_clone_success">Povedlo se!</string>
-  <string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
-  <string name="actfm_status_title_logged_in">Stav - přihlášen jako %s</string>
-  <string name="actfm_APr_header">Astrid.com</string>
-  <string name="actfm_https_title">Použít HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS povoleno (pomalejší)</string>
-  <string name="actfm_https_disabled">HTTPS zakázáno (rychlejší)</string>
-  <string name="actfm_dual_sync_warning">Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s oběma službami může v některých případech vést k nečekaným důsledkům. Opravdu si přejete synchronizovat s Astrid.com?</string>
-  <string name="actfm_account_basic">Zakladní</string>
-  <string name="share_with_google">Sdílet na Google+</string>
-  <string name="alarm_ACS_label">Alarmy</string>
-  <string name="alarm_ACS_button">Přidat alarm</string>
-  <string-array name="reminders_alarm">
-    <item>Budík!</item>
-  </string-array>
-  <string name="backup_BPr_header">Zálohy</string>
-  <string name="backup_BPr_group_status">Stav</string>
-  <string name="backup_status_success">Předchozí:\n%s</string>
-  <string name="backup_status_failed">Předchozí zálohování selhalo</string>
-  <string name="backup_status_failed_subtitle">klikněte pro zobrazení chyby</string>
-  <string name="backup_status_never">Nikdy nezálohováno!</string>
-  <string name="backup_BPr_group_options">Možnosti</string>
-  <string name="backup_BPr_auto_title">Automatické zálohování</string>
-  <string name="backup_BPr_auto_disabled">Automatické zálohování je zakázáno</string>
-  <string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
-  <string name="backup_BAc_label">Spravovat zálohy</string>
-  <string name="backup_BAc_title">Spravovat tvé zálohy</string>
-  <string name="backup_BAc_import">Importovat úkoly</string>
-  <string name="backup_BAc_export">Exportovat úkoly</string>
-  <string name="backup_TXI_error">Chyba v importu</string>
-  <string name="export_toast">Zálohovány %1$s do %2$s.</string>
-  <string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
-  <string name="export_progress_title">Exportuji...</string>
-  <string name="import_summary_title">Souhrn obnovy</string>
-  <string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s je chybných\n</string>
-  <string name="import_progress_title">Probíhá import...</string>
-  <string name="import_progress_read">Načítávání úkolu %d...</string>
-  <string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
-  <string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
-  <string name="import_file_prompt">Zvolte soubor k obnově</string>
-  <string name="app_name">Astrid Úkoly</string>
-  <string name="read_permission_label">Astrid Práva</string>
-  <string name="read_permission_desc">zobrazit úkoly, zobrazit filtry úkolů</string>
-  <string name="write_permission_label">Astrid Práva</string>
-  <string name="write_permission_desc">vytvořit nové úkoly, upravit existující úkoly</string>
-  <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
-  <string name="DLG_delete_this_item_question">Smazat tuto položku: %s?</string>
-  <string name="DLG_upgrading">Obnovování vašich úkolů...</string>
-  <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
-  <string name="DLG_please_update">Astrid by měl být aktualizován na poslední verzi z Android market! Prosím udělej to, než budeš pokračovat, nebo chvíli počkej.</string>
-  <string name="DLG_accept">Souhlasím</string>
-  <string name="DLG_decline">Odmítám</string>
-  <string name="DLG_eula_title">Podmínky užívání programu Astrid</string>
-  <string name="DLG_please_wait">Čekejte prosím</string>
-  <string name="DLG_loading">Nahrávám...</string>
-  <string name="DLG_ok">OK</string>
-  <string name="DLG_cancel">Storno</string>
-  <string name="DLG_more">Další</string>
-  <string name="DLG_undo">Vrátit změny</string>
-  <string name="DLG_warning">Výstraha</string>
-  <string name="WID_dateButtonUnset">Klikni pro nastavení</string>
-  <string name="ENA_no_comments">Nic k zobrazení</string>
-  <string name="ENA_no_user">Kdosi</string>
-  <string name="ENA_refresh_comments">Obnovit komentáře</string>
-  <string name="TLA_no_items">Žádné úkoly!</string>
-  <string name="TLA_no_items_person">%s s vámi\nnesdílí žádné úkoly</string>
-  <string name="TLA_menu_sort">Třídit &amp; skryté</string>
-  <string name="TLA_menu_sync">Sychronizovat</string>
-  <string name="TLA_menu_search">Hledat</string>
-  <string name="TLA_menu_lists">Seznamy</string>
-  <string name="TLA_menu_friends">Lidé</string>
-  <string name="TLA_menu_suggestions">Návrhy</string>
-  <string name="TLA_menu_support">Podpora</string>
-  <string name="TLA_custom">Vlastní</string>
-  <string name="TLA_quick_add_hint">Přidat úkol</string>
-  <string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Astrid!</string>
-  <string name="TLA_notification_disabled">Upomínky Astrid jsou vypnuté! Nedostanete žádná upozornění</string>
-  <string-array name="TLA_filters">
-    <item>Aktivní</item>
-    <item>Dnes</item>
-    <item>Brzy</item>
-    <item>Po termínu</item>
-    <item>Hotovo</item>
-    <item>Skryté</item>
-  </string-array>
-  <string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s priorita, do %2$s</string>
-  <string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
-  <string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
-  <string name="TLA_repeat_scheduled_speech_bubble">Připomenu Ti to %s.</string>
-  <string-array name="TLA_priority_strings">
-    <item>nejvyšší důležitost</item>
-    <item>vysoká důležitost</item>
-    <item>střední důležitost</item>
-    <item>nízká důležitost</item>
-  </string-array>
-  <string name="TAd_hiddenFormat">%s [skrytý]</string>
-  <string name="TAd_deletedFormat">%s [smazán]</string>
-  <string name="TAd_completed">Dokončeno\n%s</string>
-  <string name="TAd_actionEditTask">Upravit</string>
-  <string name="TAd_contextEditTask">Upravit úkol</string>
-  <string name="TAd_contextCopyTask">Kopírovat úkol</string>
-  <string name="TAd_contextUndeleteTask">Obnovit úkol</string>
-  <string name="TAd_contextPurgeTask">Smazat úkol</string>
-  <string name="SSD_title">Tříděné a skryté úkoly</string>
-  <string name="SSD_hidden_title">Skryté úkoly</string>
-  <string name="SSD_completed">Ukázat dokončené úkoly</string>
-  <string name="SSD_hidden">Ukázat skryté úkoly</string>
-  <string name="SSD_deleted">Ukázat smazané úkoly</string>
-  <string name="SSD_sort_auto">Astrid-chytré třídění</string>
-  <string name="SSD_sort_alpha">Podle názvu</string>
-  <string name="SSD_sort_due">Podle data ukončení</string>
-  <string name="SSD_sort_importance">Podle důležitosti</string>
-  <string name="SSD_sort_modified">Podle naposled upraveného</string>
-  <string name="SSD_sort_reverse">Obrácené třídění</string>
-  <string name="SSD_save_temp">Pouze jednou</string>
-  <string name="SSD_save_always">Vždy</string>
-  <string name="FSA_label">Seznam nebo filtr Astrid</string>
-  <string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
-  <string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
-  <string name="FLA_shortcut_dialog">Název zástupce:</string>
-  <string name="FLA_search_hint">Hledat úkoly</string>
-  <string name="FLA_search_filter">Souhlasející \'%s\'</string>
-  <string name="FLA_toast_onCreateShortcut">Vytvořen zástupce: %s</string>
-  <string name="FLA_new_filter">Nový Filtr</string>
-  <string name="FLA_new_list">Nový seznam</string>
-  <string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
-  <string name="TEA_when_header_label">Kdy</string>
-  <string name="TEA_title_hint">Souhrn úkolu</string>
-  <string name="TEA_importance_label">Důležitost</string>
-  <string name="TEA_urgency_specific_time">V přesně daný čas?</string>
-  <string name="TEA_urgency_none">Žádný</string>
-  <string name="TEA_hideUntil_label">Zobrazit úkol</string>
-  <string name="TEA_hideUntil_message">Úkol bude skrytý až do %s</string>
-  <string-array name="TEA_loading">
-    <item>Nahrávám...</item>
-  </string-array>
-  <string name="TEA_note_label">Poznámky</string>
-  <string name="TEA_notes_hint">Poznámky k úkolu...</string>
-  <string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
-  <string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
-  <string name="TEA_menu_save">Uložit změny</string>
-  <string name="TEA_menu_discard">Neukládat</string>
-  <string name="TEA_menu_delete">Smazat úkol</string>
-  <string name="TEA_menu_comments">Komentáře</string>
-  <string name="TEA_onTaskSave_due">Úkol uložen: termín je %s</string>
-  <string name="TEA_onTaskSave_notDue">Úkol uložen</string>
-  <string name="TEA_tab_activity">Činnost</string>
-  <string name="TEA_tab_more">Více</string>
-  <string name="TEA_tab_web">Tipy</string>
-  <string-array name="TEA_urgency">
-    <item>Bez termínu</item>
-    <item>Určitý den</item>
-    <item>Dnes</item>
-    <item>Zítra</item>
-    <item>(den po)</item>
-    <item>Příští týden</item>
-    <item>Za dva týdny</item>
-    <item>Příští měsíc</item>
-  </string-array>
-  <string name="TEA_no_time">Bez času</string>
-  <string-array name="TEA_hideUntil">
-    <item>Vždy</item>
-    <item>Do termínu</item>
-    <item>Due time</item>
-    <item>Den před ukončením</item>
-    <item>Týden před ukončením</item>
-    <item>Určitý den/čas</item>
-  </string-array>
-  <string name="TEA_control_who">Kdo</string>
-  <string name="TEA_control_when">Kdy</string>
-  <string name="TEA_control_more_section">----More Section----</string>
-  <string name="TEA_control_importance">Důležitost</string>
-  <string name="TEA_control_lists">Seznamy</string>
-  <string name="TEA_control_notes">Poznámky</string>
-  <string name="TEA_control_files">Soubory</string>
-  <string name="TEA_control_reminders">Upomínky</string>
-  <string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
-  <string name="hide_until_prompt">Zobrazit v mém seznamu</string>
-  <string name="TEA_no_activity">Není co zobrazit</string>
-  <string name="TEA_load_more">Více...</string>
-  <string name="TEA_when_dialog_title">Kdy je termín?</string>
-  <string name="TEA_new_task">Nový úkol</string>
-  <string name="WSV_click_to_load">Klepnutím vyhledáte jak na to!</string>
-  <string name="WSV_not_online">S připojením k internetu by to byla jiná káva. Zkontrolujte prosím spojení.</string>
-  <string name="TEA_contact_error">Mrzí mě to, ale nemohu najít email pro vybraný kontakt.</string>
-  <string name="MCA_title">V %2$s volal\n%1$s</string>
-  <string name="MCA_return_call">Hned zavolat</string>
-  <string name="MCA_add_task">Zavolat později</string>
-  <string name="MCA_ignore">Ignorovat</string>
-  <string name="MCA_ignore_title">Ignorovat všechny zmeškané hovory?</string>
-  <string name="MCA_ignore_body">Ignoroval jste několik zmeškaných hovorů. Má Astrid ignorovat všechny?</string>
-  <string name="MCA_ignore_all">Ignorovat vše</string>
-  <string name="MCA_ignore_this">Ignorovat pouze tento</string>
-  <string name="MCA_missed_calls_pref_desc_enabled">Astrid Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Astrid Vás nebude upozorňovat na zmeškané hovory</string>
-  <string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
-  <string name="MCA_task_title_no_name">Zavolat %s zpět</string>
-  <string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
-  <string-array name="MCA_dialog_speech_options">
-    <item>To musí být super, být tak oblíbený!</item>
-    <item>Lidí Vás mají rádi! Jů!</item>
-    <item>Potěšte je, ozvěte se!</item>
-    <item>Vás by nepotěšilo, kdyby Vám lidé zavolali zpátky?</item>
-    <item>To zvládnete!</item>
-    <item>SMS můžete poslat vždycky...</item>
-  </string-array>
-  <string name="UpS_changelog_title">Co je nového v Astrid?</string>
-  <string name="UpS_updates_title">Poslední \"Astrid\" novinky</string>
-  <string name="EPr_title">Astrid: Vlastnosti</string>
-  <string name="EPr_share_astrid">Řekněte o Astrid ostatním</string>
-  <string name="EPr_appearance_header">Vzhled</string>
-  <string name="EPr_faq_title">FAQ</string>
-  <string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
-  <string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
-  <string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>
-  <string name="EPr_showNotes_title">Zobrazit poznámky v úkolu</string>
-  <string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
-  <string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny v liště rychlého přístupu</string>
-  <string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
-  <string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
-  <string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
-  <string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
-  <string name="EPr_ideaAuto_title">Chování záložky Tipy</string>
-  <string name="EPr_ideaAuto_desc_enabled">Při klepnutí na záložky Tipy se spustí hledání na webu</string>
-  <string name="EPr_theme_title">Barevný motiv</string>
-  <string name="EPr_theme_desc">Aktuální: %s</string>
-  <string name="EPr_theme_desc_unsupported">Nastavení vyžaduje Android 2.0+</string>
-  <string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
-  <string name="EPr_third_party_addons">Zapnout doplňky třetích stran</string>
-  <string name="EPr_third_party_addons_desc_enabled">Doplňky budou povolené</string>
-  <string name="EPr_third_party_addons_desc_disabled">Doplňky budou zakázané</string>
-  <string name="EPr_ideas_tab_description">Nápady, které Vám mohou pomoci dokončit úkoly</string>
-  <string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
-  <string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
-  <string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
-  <string-array name="EPr_swipe_lists_performance_mode">
-    <item>No swipe</item>
-    <item>Šetřit pamětí</item>
-    <item>Normální Výkon</item>
-    <item>Vysoký Výkon</item>
-  </string-array>
-  <string-array name="EPr_swipe_lists_performance_desc">
-    <item>Swipe between lists is disabled</item>
-    <item>Nižší výkon</item>
-    <item>Default setting</item>
-    <item>Více zatěžuje systém</item>
-  </string-array>
-  <string-array name="EPr_themes">
-    <item>Den - Modrá</item>
-    <item>Den - Červená</item>
-    <item>Sky blue</item>
-    <item>Noc</item>
-    <item>Průhledné (Bílý text)</item>
-    <item>Průhledné (Tmavý text)</item>
-  </string-array>
-  <string-array name="EPr_themes_widget">
-    <item>Same as app</item>
-    <item>Den - Modrá</item>
-    <item>Den - Červená</item>
-    <item>Sky blue</item>
-    <item>Noc</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
-    <item>Starý styl</item>
-  </string-array>
-  <string name="EPr_manage_header">Spravovat staré úkoly</string>
-  <string name="EPr_manage_delete_completed">Odstranit dokončené úkoly</string>
-  <string name="EPr_manage_delete_completed_message">Opravdu chcete odstranit všechny dokončené úkoly?</string>
-  <string name="EPr_manage_delete_completed_summary">Odstraněné úkoly mohou být jeden po jednom obnoveny</string>
-  <string name="EPr_manage_delete_completed_status">Odstraněno %d úkolů!</string>
-  <string name="EPr_manage_purge_deleted">Vymazat smazané úkoly</string>
-  <string name="EPr_manage_purge_deleted_message">Opravdu chcete vymazat vaše smazané úkoly?\n\nTyto úkoly budou vymazány navždy!</string>
-  <string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
-  <string name="EPr_manage_purge_deleted_summary">Pozor! Vymazané úkoly nemohou být obnoveny bez souboru zálohy!</string>
-  <string name="EPr_manage_clear_all">Smazat vše</string>
-  <string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení Astrid?\n\nPozor: nelze vzít zpět!</string>
-  <string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
-  <string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
-  <string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
-  <string name="AOA_title">Doplňky</string>
-  <string name="AOA_internal_author">Astrid tým</string>
-  <string name="AOA_tab_installed">Nainstalováno</string>
-  <string name="AOA_tab_available">K dispozici</string>
-  <string name="AOA_free">Zdarma</string>
-  <string name="AOA_no_addons">Prázdný seznam!</string>
-  <string name="TWi_loading">Nahrávám...</string>
-  <string name="WCA_title">Označte úkol pro zobrazení...</string>
-  <string name="p_about">O Astrid</string>
-  <string name="p_about_text">Současná verze: %s\n\n Astrid je open-source a je vytvořena Todoroo, Inc.</string>
-  <string name="p_help">Podpora</string>
-  <string name="p_forums">Diskuzní fóra</string>
-  <string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
-  <string name="task_killer_help_ok">Neukončím Astrid!</string>
-  <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace, lokalizace, widget a další.</string>
-  <string name="DB_corrupted_title">Poškozená databáze</string>
-  <string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
-  <string name="EPr_default_urgency_desc">Aktuální: %s</string>
-  <string name="EPr_default_importance_title">Výchozí důležitost</string>
-  <string name="EPr_default_importance_desc">Aktuální: %s</string>
-  <string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
-  <string name="EPr_default_hideUntil_desc">Aktuální: %s</string>
-  <string name="EPr_default_reminders_title">Výchozí připomenutí</string>
-  <string name="EPr_default_reminders_desc">Aktuální: %s</string>
-  <string name="EPr_default_addtocalendar_desc_disabled">Nový úkol nevytvoří událost v Kalendáři Google</string>
-  <string name="EPr_default_addtocalendar_desc">Nové úkoly se vloží do kalendáře: \"%s\"</string>
-  <string name="EPr_default_reminders_mode_desc">Aktuální: %s</string>
-  <string-array name="EPr_default_importance">
-    <item>!!! (Nejvyšší)</item>
-    <item>!!</item>
-    <item>!</item>
-    <item>o (Nejnižší)</item>
-  </string-array>
-  <string-array name="EPr_default_urgency">
-    <item>Žádný termín</item>
-    <item>Dnes</item>
-    <item>Zítra</item>
-    <item>Pozítří</item>
-    <item>Příští týden</item>
-  </string-array>
-  <string-array name="EPr_default_hideUntil">
-    <item>Neskrývat</item>
-    <item>Nastal termín úkolu</item>
-    <item>Den před ukončením</item>
-    <item>Týden před ukončením</item>
-  </string-array>
-  <string-array name="EPr_default_reminders">
-    <item>Žádné upomínky v termínu</item>
-    <item>V termínu</item>
-    <item>Po termínu</item>
-    <item>V termínu nebo po něm</item>
-  </string-array>
-  <string name="BFE_Active">Aktivní úkoly</string>
-  <string name="BFE_Recent">Nedávno upravené</string>
-  <string name="BFE_Assigned">Přidělil jsem</string>
-  <string name="BFE_Saved_delete">Smazat filtr</string>
-  <string name="CFA_title">Vlastní filtr</string>
-  <string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
-  <string name="CFA_universe_all">Aktivní úkoly</string>
-  <string name="CFA_type_add">nebo</string>
-  <string name="CFA_type_subtract">ne</string>
-  <string name="CFA_type_intersect">také</string>
-  <string name="CFA_context_chain">%s má kritéria</string>
-  <string name="CFA_context_delete">Odstranit řádek</string>
-  <string name="CFA_help">Zde můžete vytvořit vlastní filtry. Tlačítkem níže přidejte kritéria. Krátkým, nebo dlouhým stiskem je upravíte. Poté zvolte \"Zobrazit\"!</string>
-  <string name="CFA_button_add">Přidat podmínku</string>
-  <string name="CFA_button_view">Zobrazit</string>
-  <string name="CFA_button_save">Uložit &amp; Zobrazit</string>
-  <string name="CFC_dueBefore_text">Podle termínu: ?</string>
-  <string name="CFC_dueBefore_name">Podle termínu...</string>
-  <string-array name="CFC_dueBefore_entries">
-    <item>Žádný termín</item>
-    <item>Včera</item>
-    <item>Dnes</item>
-    <item>Zítra</item>
-    <item>Pozítří</item>
-    <item>Příští týden</item>
-    <item>Příští měsíc</item>
-  </string-array>
-  <string name="CFC_importance_text">Alespoň důležitost?</string>
-  <string name="CFC_importance_name">Důležitost...</string>
-  <string name="CFC_tag_text">Seznam: ?</string>
-  <string name="CFC_tag_name">Seznam...</string>
-  <string name="CFC_tag_contains_name">Jméno seznamu obsahuje...</string>
-  <string name="CFC_tag_contains_text">Jméno seznamu obsahuje: ?</string>
-  <string name="CFC_title_contains_name">Název obsahuje...</string>
-  <string name="CFC_title_contains_text">Obsahuje název: ?</string>
-  <string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
-  <string name="gcal_TEA_addToCalendar_label">Vytvořit událost kalendáře</string>
-  <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
-  <string name="gcal_TEA_calendar_updated">Událost kalendáře také aktualizována!</string>
-  <string name="gcal_TEA_nocal">Nepřidávat</string>
-  <string name="gcal_TEA_none_selected">Přidat do kal.</string>
-  <string name="gcal_TEA_has_event">Událost v kal.</string>
-  <string name="gcal_completed_title">%s (dokončeno)</string>
-  <string name="gcal_GCP_default">Výchozí kalendář</string>
-  <string name="gtasks_FEx_header">Google úkoly</string>
-  <string name="gtasks_FEx_title">Google úkoly: %s</string>
-  <string name="gtasks_FEx_creating_list">Vytvářím seznam...</string>
-  <string name="gtasks_FEx_create_list_dialog">Nové jméno seznamu:</string>
-  <string name="gtasks_FEx_create_list_error">Chyba při vytváření nového seznamu</string>
-  <string name="CFC_gtasks_list_text">V seznamu: ?</string>
-  <string name="CFC_gtasks_list_name">V seznamu Google úkolů</string>
-  <string name="gtasks_GTA_clearing">Mažu hotové úkoly...</string>
-  <string name="gtasks_GTA_clear_completed">Smazat hotové</string>
-  <string name="gtasks_GLA_noaccounts">Žádný dostupný účet Google pro synchronizaci</string>
-  <string name="gtasks_GLA_authenticating">Ověřuje se...</string>
-  <string name="gtasks_GLA_errorAuth">Chyba při autentifikaci! Zkontrolujte prosím uživatelské jméno/heslo ve správci hesel svého mobilu</string>
-  <string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Pravděpodobně jste narazili na stránky chráněné Captchou. Zkuste se přihlásit pomocí prohlížeče a poté se vraťte sem a zkuste to znovu:</string>
-  <string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
-  <string name="gtasks_error_backend">V API služby Google Task (které je ve stadiu beta) byla v něm zjištěna chyba. Služba může být nedostupná, zkuste to později znovu.</string>
-  <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
-  <string name="gtasks_error_authRefresh">Nelze se přihlásit ke Google Tasks. Zkontrolujte prosím heslo ke svému účtu, nebo se zkuste znovu přihlásit.</string>
-  <string name="welcome_login_tos_base">Používáním Astrid souhlasíte s</string>
-  <string name="welcome_login_confirm_later_title">Nechcete se přihlásit?</string>
-  <string name="welcome_login_confirm_later_ok">Jasně!</string>
-  <string name="welcome_login_confirm_later_cancel">Ne, díky</string>
-  <string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Astrid více! Zdarma získáte online zálohování, plnou synchronizaci s Astrid.com, možnost přidávat úkoly emailem a dokonce můžete sdílet seznamy úkolů s přáteli!</string>
-  <string name="locale_edit_alerts_title">Astrid Upozornění filtrů</string>
-  <string name="locale_edit_intro">Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:</string>
-  <string name="locale_interval_label">Omezit upozornění na:</string>
-  <string-array name="locale_interval">
-    <item>jednou za hodinu</item>
-    <item>jednou za šest hodin</item>
-    <item>jednou za dvanáct hodin</item>
-    <item>jednou denně</item>
-    <item>jednou za tři dny</item>
-    <item>jednou týdně</item>
-  </string-array>
-  <string name="locale_notification">Máš $NUM se značkou $FILTER</string>
-  <string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Astrid Locale!</string>
-  <string name="opencrx_FEx_header">OpenCRX</string>
-  <string name="opencrx_FEx_dashboard">Pracovní plochy</string>
-  <string name="opencrx_FEx_responsible">Přiřazeno k</string>
-  <string name="opencrx_FEx_responsible_title">Přiřazeno k \'%s\'</string>
-  <string name="opencrx_PDE_task_from">od %s</string>
-  <string name="opencrx_TEA_notes">Přidat komentář</string>
-  <string name="opencrx_creator_input_hint">Autor</string>
-  <string name="opencrx_PPr_header">OpenCRX</string>
-  <string name="opencrx_no_creator">(Nesynchronizovat)</string>
-  <string name="opencrx_group">OpenCRX server</string>
-  <string name="opencrx_host_summary">"Např.: "<i>domena.cz</i></string>
-  <string name="opencrx_segment_title">Segment</string>
-  <string name="opencrx_segment_summary">"Např.: "<i>Standard</i></string>
-  <string name="opencrx_provider_title">Poskytovatel</string>
-  <string name="opencrx_provider_summary">"Např.: "<i>CRX</i></string>
-  <string name="opencrx_provider_default">CRX</string>
-  <string name="opencrx_PLA_signIn">Přihlásit se</string>
-  <string name="opencrx_PLA_password">Heslo</string>
-  <string name="opencrx_notification_title">OpenCRX</string>
-  <string name="opencrx_notification_text">%s úkolů zálohováno /pro více detailů klikněte</string>
-  <string name="opencrx_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
-  <string name="opencrx_MLA_password_empty">Nebylo určeno heslo!</string>
-  <string name="opencrx_TEA_task_assign_label">Přiřadit úkol k této osobě:</string>
-  <string name="opencrx_TEA_task_unassigned">&lt;Nepřiřazeno&gt;</string>
-  <string name="opencrx_TEA_dashboard_default">&lt;Výchozí&gt;</string>
-  <string name="CFC_opencrx_in_workspace_text">Na pracovní ploše: ?</string>
-  <string name="CFC_opencrx_in_workspace_name">Na pracovní ploše...</string>
-  <string name="CFC_opencrx_assigned_to_text">Přiřazeno k: ?</string>
-  <string name="CFC_opencrx_assigned_to_name">Přiřazeno k ...</string>
-  <string name="EPr_statistics_desc_disabled">Nebudou oznámena žádná data o využití</string>
-  <string name="EPr_statistics_desc_enabled">Pomozte nám dělat Astrid lepší, anonymním odesláním dat o používání</string>
-  <string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
-  <string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
-  <string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím znovu.</string>
-  <string name="premium_attach_file">Přiložit soubor</string>
-  <string name="premium_record_audio">Nahrát poznámku</string>
-  <string name="premium_no_files">Žádné přílohy</string>
-  <string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
-  <string name="audio_recording_title">Nahrávám zvuk</string>
-  <string name="audio_stop_recording">Ukončit záznam</string>
-  <string name="audio_speak_now">Hovořte!</string>
-  <string name="search_market_pdf_title">Chybí prohlížeč PDF</string>
-  <string name="search_market_ms">Chybí prohlížeč MS Office. Přejete si ho stáhnout z Android Marketu?</string>
-  <string name="search_market_ms_title">Chybí prohlížeč MS Office</string>
-  <string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
-  <string name="file_type_unhandled_title">Chybí aplikace</string>
-  <string name="file_prefix_voice">Hlas</string>
-  <string name="file_browser_up">O úroveň výš</string>
-  <string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Astrid nezabránil v přístupu k SD kartě.</string>
-  <string name="file_add_picture">Připojit obrázek</string>
-  <string name="file_add_sdcard">Připojit soubor z SD karty</string>
-  <string name="file_download_title">Stáhnout soubor?</string>
-  <string name="file_download_body">Soubor nebyl stažen na SD kartu. Stáhnout nyní?</string>
-  <string name="file_download_progress">Stahuji...</string>
-  <string name="file_err_memory">Obrázek se nevejde do paměti</string>
-  <string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
-  <string name="file_err_download">Chyba při stahování souboru</string>
-  <string name="file_err_show">Je nám líto, ale systém zatím tento typ souboru nepodporuje</string>
-  <string name="TEA_reminders_group_label">Upomínky</string>
-  <string name="TEA_reminder_label">Upozorni mě...</string>
-  <string name="TEA_reminder_due">Při termínu</string>
-  <string name="TEA_reminder_overdue">Úkol po termínu</string>
-  <string name="TEA_reminder_randomly">Jednou náhodně</string>
-  <string name="TEA_reminder_alarm_label">Typ vyzvánění/vybrací:</string>
-  <string name="TEA_reminder_mode_once">Vyzvánět jednou</string>
-  <string name="TEA_reminder_mode_five">Pět zazvonění</string>
-  <string name="TEA_reminder_mode_nonstop">Vyzvánět dokud nezruším Alarm</string>
-  <string-array name="TEA_reminder_random">
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
-  </string-array>
-  <string name="rmd_NoA_filter">Připomínka!</string>
-  <string name="rmd_NoA_done">Dokončeno!</string>
-  <string name="rmd_NoA_snooze">Později...</string>
-  <string name="rmd_NoA_completed_toast">Hotovo! Gratuluji!</string>
-  <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
-    <item>Memo for %s.</item>
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_options">
-    <item>Time to shorten your to-do list!</item>
-    <item>Dear sir or madam, some tasks await your inspection!</item>
-    <item>Hi there, could you take a look at these?</item>
-    <item>I\'ve got some tasks with your name on them!</item>
-    <item>A fresh batch of tasks for you today!</item>
-    <item>You look fabulous! Ready to get started?</item>
-    <item>A lovely day for getting some work done, I think!</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_empty_options">
-    <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
-    <item>You look busy! Let me take some of those tasks off of your plate.</item>
-    <item>I can help you keep track of all of the details in your life.</item>
-    <item>You\'re serious about getting more done? So am I!</item>
-    <item>Pleasure to make your acquaintance!</item>
-  </string-array>
-  <string name="rmd_EPr_alerts_header">Nastavení upozornění</string>
-  <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
-  <string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
-  <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
-  <string name="rmd_EPr_ringtone_title">Zvuk upozornění</string>
-  <string name="rmd_EPr_ringtone_desc_custom">Vlastní vyzvánění bylo nastaveno</string>
-  <string name="rmd_EPr_ringtone_desc_silent">Vyzvánění ztišeno</string>
-  <string name="rmd_EPr_ringtone_desc_default">Bude použito výchozí vyzvánění</string>
-  <string name="rmd_EPr_persistent_title">Trvání upozornění</string>
-  <string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
-  <string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
-  <string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
-  <string name="rmd_EPr_vibrate_desc_true">Astrid bude vibrovat při odesílání upozornění</string>
-  <string name="rmd_EPr_vibrate_desc_false">Astrid nebude vibrovat při odesílání upozornění</string>
-  <string name="rmd_EPr_nagging_desc_true">Astrid bude vypisovat povzbuzující zprávy během upozornění</string>
-  <string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
-  <string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
-  <string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
-  <string-array name="EPr_reminder_random">
-    <item>zakázáno</item>
-    <item>každou hodinu</item>
-    <item>denně</item>
-    <item>týdně</item>
-    <item>každých ctrnáct dní</item>
-    <item>měsíčně</item>
-    <item>každý druhý měsíc</item>
-  </string-array>
-  <string-array name="EPr_quiet_hours_start">
-    <item>zakázáno</item>
-    <item>20:00</item>
-    <item>21:00</item>
-    <item>22:00</item>
-    <item>23:00</item>
-    <item>0:00</item>
-    <item>1:00</item>
-    <item>2:00</item>
-    <item>3:00</item>
-    <item>4:00</item>
-    <item>5:00</item>
-    <item>6:00</item>
-    <item>7:00</item>
-    <item>8:00</item>
-    <item>9:00</item>
-    <item>10:00</item>
-    <item>11:00</item>
-    <item>12:00</item>
-    <item>13:00</item>
-    <item>14:00</item>
-    <item>15:00</item>
-    <item>16:00</item>
-    <item>17:00</item>
-    <item>18:00</item>
-    <item>19:00</item>
-  </string-array>
-  <string-array name="EPr_quiet_hours_end">
-    <item>9:00</item>
-    <item>10:00</item>
-    <item>11:00</item>
-    <item>12:00</item>
-    <item>13:00</item>
-    <item>14:00</item>
-    <item>15:00</item>
-    <item>16:00</item>
-    <item>17:00</item>
-    <item>18:00</item>
-    <item>19:00</item>
-    <item>20:00</item>
-    <item>21:00</item>
-    <item>22:00</item>
-    <item>23:00</item>
-    <item>0:00</item>
-    <item>1:00</item>
-    <item>2:00</item>
-    <item>3:00</item>
-    <item>4:00</item>
-    <item>5:00</item>
-    <item>6:00</item>
-    <item>7:00</item>
-    <item>8:00</item>
-  </string-array>
-  <string-array name="EPr_rmd_time">
-    <item>9:00</item>
-    <item>10:00</item>
-    <item>11:00</item>
-    <item>12:00</item>
-    <item>13:00</item>
-    <item>14:00</item>
-    <item>15:00</item>
-    <item>16:00</item>
-    <item>17:00</item>
-    <item>18:00</item>
-    <item>19:00</item>
-    <item>20:00</item>
-    <item>21:00</item>
-    <item>22:00</item>
-    <item>23:00</item>
-    <item>0:00</item>
-    <item>1:00</item>
-    <item>2:00</item>
-    <item>3:00</item>
-    <item>4:00</item>
-    <item>5:00</item>
-    <item>6:00</item>
-    <item>7:00</item>
-    <item>8:00</item>
-  </string-array>
-  <string-array name="reminders">
-    <item>Ahoj! Máš chvíli?</item>
-    <item>Můžu Tě na chvíli vidět?</item>
-    <item>Máš pár minut?</item>
-    <item>Zapomněl jsi?</item>
-    <item>Omlouvám se!</item>
-    <item>Když máš čas:</item>
-    <item>Ve Tvém programu:</item>
-    <item>Máš chvíli čas?</item>
-    <item>Tady je Astrid!</item>
-    <item>Ahoj! Můžu Tě vyrušit?</item>
-    <item>Minuta Tvého času?</item>
-    <item>Je skvělý den na</item>
-  </string-array>
-  <string-array name="reminders_due">
-    <item>Čas na práci!</item>
-    <item>Čas dokončení úkolu je zde!</item>
-    <item>Připraven/a začít?</item>
-    <item>Řekl jsi, že uděláš:</item>
-    <item>Chtěl jsi začít:</item>
-    <item>Čas začít:</item>
-    <item>Je čas!</item>
-    <item>Omlouvám se! Čas na</item>
-    <item>Jsi volný? Čas na</item>
-  </string-array>
-  <string-array name="reminders_snooze">
-    <item>Nebuď ted líná/ý</item>
-    <item>Čas spaní vypršel!</item>
-    <item>Už zádné spaní!</item>
-    <item>Jsi teď připraven(a)?</item>
-    <item>Už žádné odkládání!</item>
-  </string-array>
-  <string-array name="reminder_responses">
-    <item>Mám pro Tebe něco!</item>
-    <item>Ready to put this in the past?</item>
-    <item>Proč tohle nedokončís?</item>
-    <item>Tak co borče? Jdeme do toho?</item>
-    <item>Jsi připraven(a) tohle udělat?</item>
-    <item>Můžes tohle zvládnout?</item>
-    <item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
-    <item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
-    <item>Neuděláš tohle dnes?</item>
-    <item>Tak to konečně dodělej. Už mě to unavuje!</item>
-    <item>Můžes tohle dokončit?</item>
-    <item>Plánuješ tohle vůbec někdy udělat?</item>
-    <item>Měj ze sebe radost! Jdeme na to!</item>
-    <item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
-    <item>A little snack after you finish this?</item>
-    <item>Jen tenhle úkol? Prosím?</item>
-    <item>Je čas zkrátit Tvůj seznam úkolů!</item>
-    <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-    <item>Have I mentioned you are awesome recently? Keep it up!</item>
-    <item>A task a day keeps the clutter away... Goodbye clutter!</item>
-    <item>How do you do it? Wow, I\'m impressed!</item>
-    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-    <item>Lovely weather for a job like this, isn\'t it?</item>
-    <item>A spot of tea while you work on this?</item>
-    <item>If only you had already done this, then you could go outside and play.</item>
-    <item>It\'s time. You can\'t put off the inevitable.</item>
-    <item>I die a little every time you ignore me.</item>
-  </string-array>
-  <string-array name="postpone_nags">
-    <item>Prosím řekni mi, že není pravda, že jsi prokrastinátor!</item>
-    <item>Doesn\'t being lazy get old sometimes?</item>
-    <item>Někdo někde čeká až tohle dokončíš!</item>
-    <item>Když jsi řekl odložit, ve skutečnosti jsi myslel \'Já to udělám\', že?</item>
-    <item>Tohle je naposledy co to odkládáš, že?</item>
-    <item>Jen to dodělej, nikomu to neřeknu!</item>
-    <item>Proč odkládat, když můžes hmm... neodkládat!</item>
-    <item>Nakonec to doděláš, že?</item>
-    <item>Myslím, že jsi opravdu úžasný. Co takhle tohle neodkládat?</item>
-    <item>Will you be able to achieve your goals if you do that?</item>
-    <item>Odkládat, odkládat, odkládat. Kdy se změníš!</item>
-    <item>Mám dost tvých omluv! Jen to dodělej!</item>
-    <item>Nepoužil jsi stejnou omluvu i posledně?</item>
-    <item>Nemůžu Ti pomoci organizovat tvůj život, když tohle děláš...</item>
-  </string-array>
-  <string name="repeat_plugin">Opakování úkolů</string>
-  <string name="repeat_plugin_desc">Povolit opakování úkolů</string>
-  <string name="repeat_enabled">Opakování</string>
-  <string name="repeat_every">Každý %d</string>
-  <string name="repeat_interval_prompt">Opakovací interval</string>
-  <string-array name="repeat_interval_short">
-    <item>d</item>
-    <item>wk</item>
-    <item>mo</item>
-    <item>hr</item>
-    <item>min</item>
-    <item>yr</item>
-  </string-array>
-  <string-array name="repeat_interval">
-    <item>Dnů</item>
-    <item>Týdnů</item>
-    <item>Měsíců</item>
-    <item>Hodin</item>
-    <item>Minute(s)</item>
-    <item>Year(s)</item>
-  </string-array>
-  <string-array name="repeat_until_shortcuts">
-    <item>Forever</item>
-    <item>Specific Day</item>
-    <item>Today</item>
-    <item>Tomorrow</item>
-    <item>(day after)</item>
-    <item>Next Week</item>
-    <item>In Two Weeks</item>
-    <item>Next Month</item>
-  </string-array>
-  <string-array name="repeat_type">
-    <item>od data splnění</item>
-    <item>od data dokončení</item>
-  </string-array>
-  <string name="repeat_detail_byday">$I na $D</string>
-  <string name="repeat_detail_duedate">Každý %s</string>
-  <string name="repeat_detail_completion">%s po dokončení</string>
-  <string-array name="repeat_encouragement">
-    <item>Good job!</item>
-    <item>Wow… I\'m so proud of you!</item>
-    <item>I love when you\'re productive!</item>
-    <item>Doesn\'t it feel good to check something off?</item>
-  </string-array>
-  <string-array name="repeat_encouragement_last_time">
-    <item>Good job!</item>
-    <item>I\'m so proud of you!</item>
-    <item>I love when you\'re productive!</item>
-  </string-array>
-  <string name="TEA_tags_label">Seznamy</string>
-  <string name="tag_FEx_header">Seznamy</string>
-  <string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
-  <string name="tag_settings_title">Settings:</string>
-  <string name="TPl_notification">Aktivní časovače pro %s!</string>
-  <string name="TFE_workingOn">Úkol je časován</string>
-  <string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
-  <string name="welcome_title_1">Vítej v Astrid!</string>
-  <string name="welcome_body_5">and much more!</string>
-  <string name="PPW_configure_title">Konfigurovat widget</string>
-  <string name="PPW_color">Barva widgetu</string>
-  <string name="PPW_enable_calendar">Zobrazit události v kalendáři</string>
-  <string name="PPW_disable_encouragements">Skrýt povzbuzování</string>
-  <string name="PPW_filter">Vybrat filtr</string>
-  <string name="PPW_due">Termín:</string>
-  <string name="PPW_old_astrid_notice">K používání tohoto widgetu potřebujete Astrid ve verzi 3.6 a vyšší!</string>
-  <string-array name="PPW_encouragements">
-    <item>Nazdar!</item>
-    <item>Máš čas něco dokončit?</item>
-    <item>Gosh, you are looking suave today!</item>
-    <item>Udělej dnes něco velkého</item>
-    <item>Ať jsem na Tebe dneska hrdý!</item>
-    <item>Jak se dneska máš?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>Dobré ráno!</item>
-    <item>Krásné odpoledne!</item>
-    <item>Dobrý večer!</item>
-    <item>Pozdě v noci?</item>
-    <item>Ještě je brzo, tak něco rychle udělej!</item>
-    <item>Že by čas na polední čaj?</item>
-    <item>Užij si večer!</item>
-    <item>Spánek je pro Tobe dobrý, víš to?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>Už jsi dokončil %d úkolů!</item>
-    <item>Životní skóre: %d úkolů dokončeno!</item>
-    <item>Usměj se! Už jsi dokončil %d úkolů!</item>
-  </string-array>
-  <string name="PPW_encouragements_none_completed">Ještě jsi nedokončil žádný úkol! Začneme?</string>
-  <string-array name="PPW_colors">
-    <item>Černá</item>
-    <item>Bílá</item>
-    <item>Modrá</item>
-    <item>Průhledný</item>
-  </string-array>
+    <string name="actfm_person_hint">Kontakt nebo email</string>
+    <string name="actfm_person_or_tag_hint">Kontakt nebo Sdílený list</string>
+    <string name="actfm_tag_operation_owner_delete">Jste vlastníkem tohoto sdíleného seznamu! Pokud
+        ho smažete, smaže se i u všech členů seznamu. Chcete skutečně pokračovat?
+    </string>
+    <string name="actfm_picture_camera">Vyfoť obrázek</string>
+    <string name="actfm_picture_gallery">Vybrat obrázek z galerie</string>
+    <string name="actfm_picture_clear">Odebrat obrázek</string>
+    <string name="actfm_view_task_title">Zobrazit úkol?</string>
+    <string name="actfm_view_task_text">%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní
+        úkoly. Chcete vidět úkoly, které jste delegoval(a)?
+    </string>
+    <string name="actfm_view_task_ok">Delegované</string>
+    <string name="actfm_view_task_cancel">Vlastní</string>
+    <string name="actfm_my_shared_tasks_title">Moje sdílené úkoly</string>
+    <string name="actfm_my_shared_tasks_empty">Žádné sdílené úkoly</string>
+    <string name="actfm_friendship_accept">Potvrdit</string>
+    <string name="TVA_add_comment">Přidej comment...</string>
+    <string-array name="TVA_tabs">
+        <item>Úkoly</item>
+        <item>Činnost</item>
+        <item>Nastavení listu</item>
+    </string-array>
+    <string name="actfm_TVA_menu_refresh">Obnovit</string>
+    <string name="actfm_TVA_tag_label">Název listu:</string>
+    <string name="actfm_TVA_members_label">Spolupracovníci:</string>
+    <string name="actfm_TVA_members_hint">Sdílet s kýmkoli, kdo má email</string>
+    <string name="actfm_TVA_tag_picture">Obrázek listu</string>
+    <string name="actfm_TVA_silence_label">Tichá upozornění</string>
+    <string name="actfm_TVA_tag_description_label">Popis</string>
+    <string name="actfm_TVA_tag_settings_label">Nastavení</string>
+    <string name="actfm_TVA_tag_description_hint">Zde zadejte popis</string>
+    <string name="actfm_TVA_tag_name_hint">Název seznamu</string>
+    <string name="actfm_TVA_login_to_share">Pro sdílení seznamů musíte být přihlášen k Astrid.com!
+        Přihlašte se prosím, nebo tento seznam označte jako soukromý.
+    </string>
+    <string name="actfm_EPA_intro">S pomocí Astrid sdílejte nákupní seznamy, nápady na party nebo
+        týmové projekty a buďte okamžitě v obraze když druzí něco dokončí!
+    </string>
+    <string name="actfm_EPA_assign_label_long">Kdo to má udělat?</string>
+    <string name="actfm_EPA_assign_me">Já</string>
+    <string name="actfm_EPA_unassigned">Nepřiřazené</string>
+    <string name="actfm_EPA_choose_contact">Vyberte kontakt</string>
+    <string name="actfm_EPA_share_with">Přidat spolupracovníky:</string>
+    <string name="actfm_EPA_collaborators_header">Sdílet s přáteli</string>
+    <string name="actfm_EPA_list">Seznam: %s</string>
+    <string name="actfm_EPA_message_text">Uvítací zpráva:</string>
+    <string name="actfm_EPA_message_body">Pomoz mi to dodělat!</string>
+    <string name="actfm_EPA_assign_header_members">Členové seznamu</string>
+    <string name="actfm_EPA_assign_header_friends">Přátelé z Astrid</string>
+    <string name="actfm_EPA_facebook">Facebook</string>
+    <string name="actfm_EPA_twitter">Twitter</string>
+    <string name="actfm_EPA_invalid_email">Špatný E-mail: %s</string>
+    <string name="actfm_EPA_login_to_share">Pro sdílení úkolů musíte být přihlášen na Astrid.com!
+    </string>
+    <string name="actfm_EPA_login_button">Přihlásit se</string>
+    <string name="actfm_EPA_dont_share_button">Nesdílet</string>
+    <string name="actfm_ALA_title">Vítejte v Astrid.com!</string>
+    <string name="actfm_ALA_body">Díky Astrid.com můžete k úkolům přistupovat online nebo je můžete
+        sdílet s ostatníma.
+    </string>
+    <string name="actfm_ALA_fb_login">Přihlásit Facebookem</string>
+    <string name="actfm_ALA_gg_login">Přihlásit Google účtem</string>
+    <string name="actfm_ALA_firstname_label">Křestní jméno</string>
+    <string name="actfm_ALA_lastname_label">Příjmení</string>
+    <string name="actfm_ALA_email_label">Email</string>
+    <string name="actfm_ALA_password_label">Heslo</string>
+    <string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
+    <string name="actfm_OLA_prompt">Prosím připojte se do Googlu:</string>
+    <string name="actfm_feat_list_clone_success">Povedlo se!</string>
+    <string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
+    <string name="actfm_status_title_logged_in">Stav - přihlášen jako %s</string>
+    <string name="actfm_APr_header">Astrid.com</string>
+    <string name="actfm_https_title">Použít HTTPS</string>
+    <string name="actfm_https_enabled">HTTPS povoleno (pomalejší)</string>
+    <string name="actfm_https_disabled">HTTPS zakázáno (rychlejší)</string>
+    <string name="actfm_dual_sync_warning">Synchronizujete úkoly s Google Tasks. Berte na vědomí, že
+        synchronizace s oběma službami může v některých případech vést k nečekaným důsledkům.
+        Opravdu si přejete synchronizovat s Astrid.com?
+    </string>
+    <string name="actfm_account_basic">Zakladní</string>
+    <string name="share_with_google">Sdílet na Google+</string>
+    <string name="alarm_ACS_label">Alarmy</string>
+    <string name="alarm_ACS_button">Přidat alarm</string>
+    <string-array name="reminders_alarm">
+        <item>Budík!</item>
+    </string-array>
+    <string name="backup_BPr_header">Zálohy</string>
+    <string name="backup_BPr_group_status">Stav</string>
+    <string name="backup_status_success">Předchozí:\n%s</string>
+    <string name="backup_status_failed">Předchozí zálohování selhalo</string>
+    <string name="backup_status_failed_subtitle">klikněte pro zobrazení chyby</string>
+    <string name="backup_status_never">Nikdy nezálohováno!</string>
+    <string name="backup_BPr_group_options">Možnosti</string>
+    <string name="backup_BPr_auto_title">Automatické zálohování</string>
+    <string name="backup_BPr_auto_disabled">Automatické zálohování je zakázáno</string>
+    <string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
+    <string name="backup_BAc_label">Spravovat zálohy</string>
+    <string name="backup_BAc_title">Spravovat tvé zálohy</string>
+    <string name="backup_BAc_import">Importovat úkoly</string>
+    <string name="backup_BAc_export">Exportovat úkoly</string>
+    <string name="backup_TXI_error">Chyba v importu</string>
+    <string name="export_toast">Zálohovány %1$s do %2$s.</string>
+    <string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
+    <string name="export_progress_title">Exportuji...</string>
+    <string name="import_summary_title">Souhrn obnovy</string>
+    <string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s
+        již existuje\n %5$s je chybných\n
+    </string>
+    <string name="import_progress_title">Probíhá import...</string>
+    <string name="import_progress_read">Načítávání úkolu %d...</string>
+    <string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
+    <string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
+    <string name="import_file_prompt">Zvolte soubor k obnově</string>
+    <string name="app_name">Astrid Úkoly</string>
+    <string name="read_permission_label">Astrid Práva</string>
+    <string name="read_permission_desc">zobrazit úkoly, zobrazit filtry úkolů</string>
+    <string name="write_permission_label">Astrid Práva</string>
+    <string name="write_permission_desc">vytvořit nové úkoly, upravit existující úkoly</string>
+    <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
+    <string name="DLG_delete_this_item_question">Smazat tuto položku: %s?</string>
+    <string name="DLG_upgrading">Obnovování vašich úkolů...</string>
+    <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
+    <string name="DLG_please_update">Astrid by měl být aktualizován na poslední verzi z Android
+        market! Prosím udělej to, než budeš pokračovat, nebo chvíli počkej.
+    </string>
+    <string name="DLG_accept">Souhlasím</string>
+    <string name="DLG_decline">Odmítám</string>
+    <string name="DLG_eula_title">Podmínky užívání programu Astrid</string>
+    <string name="DLG_please_wait">Čekejte prosím</string>
+    <string name="DLG_loading">Nahrávám...</string>
+    <string name="DLG_ok">OK</string>
+    <string name="DLG_cancel">Storno</string>
+    <string name="DLG_more">Další</string>
+    <string name="DLG_undo">Vrátit změny</string>
+    <string name="DLG_warning">Výstraha</string>
+    <string name="WID_dateButtonUnset">Klikni pro nastavení</string>
+    <string name="ENA_no_comments">Nic k zobrazení</string>
+    <string name="ENA_no_user">Kdosi</string>
+    <string name="ENA_refresh_comments">Obnovit komentáře</string>
+    <string name="TLA_no_items">Žádné úkoly!</string>
+    <string name="TLA_no_items_person">%s s vámi\nnesdílí žádné úkoly</string>
+    <string name="TLA_menu_sort">Třídit &amp; skryté</string>
+    <string name="TLA_menu_sync">Sychronizovat</string>
+    <string name="TLA_menu_search">Hledat</string>
+    <string name="TLA_menu_lists">Seznamy</string>
+    <string name="TLA_menu_friends">Lidé</string>
+    <string name="TLA_menu_suggestions">Návrhy</string>
+    <string name="TLA_menu_support">Podpora</string>
+    <string name="TLA_custom">Vlastní</string>
+    <string name="TLA_quick_add_hint">Přidat úkol</string>
+    <string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Astrid!</string>
+    <string name="TLA_notification_disabled">Upomínky Astrid jsou vypnuté! Nedostanete žádná
+        upozornění
+    </string>
+    <string-array name="TLA_filters">
+        <item>Aktivní</item>
+        <item>Dnes</item>
+        <item>Brzy</item>
+        <item>Po termínu</item>
+        <item>Hotovo</item>
+        <item>Skryté</item>
+    </string-array>
+    <string name="TLA_quickadd_confirm_speech_bubble">Vytvořila jsem úkol s názvem \"%1$s\", %3$s
+        priorita, do %2$s
+    </string>
+    <string name="TLA_quickadd_confirm_hide_helpers">Nezobrazovat budoucí potvrzení</string>
+    <string name="TLA_repeat_scheduled_title">Nový opakující se úkol %s</string>
+    <string name="TLA_repeat_scheduled_speech_bubble">Připomenu Ti to %s.</string>
+    <string-array name="TLA_priority_strings">
+        <item>nejvyšší důležitost</item>
+        <item>vysoká důležitost</item>
+        <item>střední důležitost</item>
+        <item>nízká důležitost</item>
+    </string-array>
+    <string name="TAd_hiddenFormat">%s [skrytý]</string>
+    <string name="TAd_deletedFormat">%s [smazán]</string>
+    <string name="TAd_completed">Dokončeno\n%s</string>
+    <string name="TAd_actionEditTask">Upravit</string>
+    <string name="TAd_contextEditTask">Upravit úkol</string>
+    <string name="TAd_contextCopyTask">Kopírovat úkol</string>
+    <string name="TAd_contextUndeleteTask">Obnovit úkol</string>
+    <string name="TAd_contextPurgeTask">Smazat úkol</string>
+    <string name="SSD_title">Tříděné a skryté úkoly</string>
+    <string name="SSD_hidden_title">Skryté úkoly</string>
+    <string name="SSD_completed">Ukázat dokončené úkoly</string>
+    <string name="SSD_hidden">Ukázat skryté úkoly</string>
+    <string name="SSD_deleted">Ukázat smazané úkoly</string>
+    <string name="SSD_sort_auto">Astrid-chytré třídění</string>
+    <string name="SSD_sort_alpha">Podle názvu</string>
+    <string name="SSD_sort_due">Podle data ukončení</string>
+    <string name="SSD_sort_importance">Podle důležitosti</string>
+    <string name="SSD_sort_modified">Podle naposled upraveného</string>
+    <string name="SSD_sort_reverse">Obrácené třídění</string>
+    <string name="SSD_save_temp">Pouze jednou</string>
+    <string name="SSD_save_always">Vždy</string>
+    <string name="FSA_label">Seznam nebo filtr Astrid</string>
+    <string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
+    <string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
+    <string name="FLA_shortcut_dialog">Název zástupce:</string>
+    <string name="FLA_search_hint">Hledat úkoly</string>
+    <string name="FLA_search_filter">Souhlasející \'%s\'</string>
+    <string name="FLA_toast_onCreateShortcut">Vytvořen zástupce: %s</string>
+    <string name="FLA_new_filter">Nový Filtr</string>
+    <string name="FLA_new_list">Nový seznam</string>
+    <string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo
+        seznam.
+    </string>
+    <string name="TEA_when_header_label">Kdy</string>
+    <string name="TEA_title_hint">Souhrn úkolu</string>
+    <string name="TEA_importance_label">Důležitost</string>
+    <string name="TEA_urgency_specific_time">V přesně daný čas?</string>
+    <string name="TEA_urgency_none">Žádný</string>
+    <string name="TEA_hideUntil_label">Zobrazit úkol</string>
+    <string name="TEA_hideUntil_message">Úkol bude skrytý až do %s</string>
+    <string-array name="TEA_loading">
+        <item>Nahrávám...</item>
+    </string-array>
+    <string name="TEA_note_label">Poznámky</string>
+    <string name="TEA_notes_hint">Poznámky k úkolu...</string>
+    <string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
+    <string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
+    <string name="TEA_menu_save">Uložit změny</string>
+    <string name="TEA_menu_discard">Neukládat</string>
+    <string name="TEA_menu_delete">Smazat úkol</string>
+    <string name="TEA_menu_comments">Komentáře</string>
+    <string name="TEA_onTaskSave_due">Úkol uložen: termín je %s</string>
+    <string name="TEA_onTaskSave_notDue">Úkol uložen</string>
+    <string name="TEA_tab_activity">Činnost</string>
+    <string name="TEA_tab_more">Více</string>
+    <string name="TEA_tab_web">Tipy</string>
+    <string-array name="TEA_urgency">
+        <item>Bez termínu</item>
+        <item>Určitý den</item>
+        <item>Dnes</item>
+        <item>Zítra</item>
+        <item>(den po)</item>
+        <item>Příští týden</item>
+        <item>Za dva týdny</item>
+        <item>Příští měsíc</item>
+    </string-array>
+    <string name="TEA_no_time">Bez času</string>
+    <string-array name="TEA_hideUntil">
+        <item>Vždy</item>
+        <item>Do termínu</item>
+        <item>Due time</item>
+        <item>Den před ukončením</item>
+        <item>Týden před ukončením</item>
+        <item>Určitý den/čas</item>
+    </string-array>
+    <string name="TEA_control_who">Kdo</string>
+    <string name="TEA_control_when">Kdy</string>
+    <string name="TEA_control_more_section">----More Section----</string>
+    <string name="TEA_control_importance">Důležitost</string>
+    <string name="TEA_control_lists">Seznamy</string>
+    <string name="TEA_control_notes">Poznámky</string>
+    <string name="TEA_control_files">Soubory</string>
+    <string name="TEA_control_reminders">Upomínky</string>
+    <string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
+    <string name="hide_until_prompt">Zobrazit v mém seznamu</string>
+    <string name="TEA_no_activity">Není co zobrazit</string>
+    <string name="TEA_load_more">Více...</string>
+    <string name="TEA_when_dialog_title">Kdy je termín?</string>
+    <string name="TEA_new_task">Nový úkol</string>
+    <string name="WSV_click_to_load">Klepnutím vyhledáte jak na to!</string>
+    <string name="WSV_not_online">S připojením k internetu by to byla jiná káva. Zkontrolujte prosím
+        spojení.
+    </string>
+    <string name="TEA_contact_error">Mrzí mě to, ale nemohu najít email pro vybraný kontakt.
+    </string>
+    <string name="MCA_title">V %2$s volal\n%1$s</string>
+    <string name="MCA_return_call">Hned zavolat</string>
+    <string name="MCA_add_task">Zavolat později</string>
+    <string name="MCA_ignore">Ignorovat</string>
+    <string name="MCA_ignore_title">Ignorovat všechny zmeškané hovory?</string>
+    <string name="MCA_ignore_body">Ignoroval jste několik zmeškaných hovorů. Má Astrid ignorovat
+        všechny?
+    </string>
+    <string name="MCA_ignore_all">Ignorovat vše</string>
+    <string name="MCA_ignore_this">Ignorovat pouze tento</string>
+    <string name="MCA_missed_calls_pref_desc_enabled">Astrid Vás upozorní na zmeškané hovory a
+        připomene Vám, abyste zavolal zpět
+    </string>
+    <string name="MCA_missed_calls_pref_desc_disabled">Astrid Vás nebude upozorňovat na zmeškané
+        hovory
+    </string>
+    <string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
+    <string name="MCA_task_title_no_name">Zavolat %s zpět</string>
+    <string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
+    <string-array name="MCA_dialog_speech_options">
+        <item>To musí být super, být tak oblíbený!</item>
+        <item>Lidí Vás mají rádi! Jů!</item>
+        <item>Potěšte je, ozvěte se!</item>
+        <item>Vás by nepotěšilo, kdyby Vám lidé zavolali zpátky?</item>
+        <item>To zvládnete!</item>
+        <item>SMS můžete poslat vždycky...</item>
+    </string-array>
+    <string name="UpS_changelog_title">Co je nového v Astrid?</string>
+    <string name="UpS_updates_title">Poslední \"Astrid\" novinky</string>
+    <string name="EPr_title">Astrid: Vlastnosti</string>
+    <string name="EPr_share_astrid">Řekněte o Astrid ostatním</string>
+    <string name="EPr_appearance_header">Vzhled</string>
+    <string name="EPr_faq_title">FAQ</string>
+    <string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
+    <string name="EPr_showSmartConfirmation_title">Zobrazovat potvrzení chytrých upomínek</string>
+    <string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>
+    <string name="EPr_showNotes_title">Zobrazit poznámky v úkolu</string>
+    <string name="EPr_beastMode_reset">Obnovit výchozí hodnoty</string>
+    <string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny v liště rychlého přístupu
+    </string>
+    <string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
+    <string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
+    <string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
+    <string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
+    <string name="EPr_ideaAuto_title">Chování záložky Tipy</string>
+    <string name="EPr_ideaAuto_desc_enabled">Při klepnutí na záložky Tipy se spustí hledání na
+        webu
+    </string>
+    <string name="EPr_theme_title">Barevný motiv</string>
+    <string name="EPr_theme_desc">Aktuální: %s</string>
+    <string name="EPr_theme_desc_unsupported">Nastavení vyžaduje Android 2.0+</string>
+    <string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
+    <string name="EPr_third_party_addons">Zapnout doplňky třetích stran</string>
+    <string name="EPr_third_party_addons_desc_enabled">Doplňky budou povolené</string>
+    <string name="EPr_third_party_addons_desc_disabled">Doplňky budou zakázané</string>
+    <string name="EPr_ideas_tab_description">Nápady, které Vám mohou pomoci dokončit úkoly</string>
+    <string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
+    <string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
+    <string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
+    <string-array name="EPr_swipe_lists_performance_mode">
+        <item>No swipe</item>
+        <item>Šetřit pamětí</item>
+        <item>Normální Výkon</item>
+        <item>Vysoký Výkon</item>
+    </string-array>
+    <string-array name="EPr_swipe_lists_performance_desc">
+        <item>Swipe between lists is disabled</item>
+        <item>Nižší výkon</item>
+        <item>Default setting</item>
+        <item>Více zatěžuje systém</item>
+    </string-array>
+    <string-array name="EPr_themes">
+        <item>Den - Modrá</item>
+        <item>Den - Červená</item>
+        <item>Sky blue</item>
+        <item>Noc</item>
+        <item>Průhledné (Bílý text)</item>
+        <item>Průhledné (Tmavý text)</item>
+    </string-array>
+    <string-array name="EPr_themes_widget">
+        <item>Same as app</item>
+        <item>Den - Modrá</item>
+        <item>Den - Červená</item>
+        <item>Sky blue</item>
+        <item>Noc</item>
+        <item>Transparent (White Text)</item>
+        <item>Transparent (Black Text)</item>
+        <item>Starý styl</item>
+    </string-array>
+    <string name="EPr_manage_header">Spravovat staré úkoly</string>
+    <string name="EPr_manage_delete_completed">Odstranit dokončené úkoly</string>
+    <string name="EPr_manage_delete_completed_message">Opravdu chcete odstranit všechny dokončené
+        úkoly?
+    </string>
+    <string name="EPr_manage_delete_completed_summary">Odstraněné úkoly mohou být jeden po jednom
+        obnoveny
+    </string>
+    <string name="EPr_manage_delete_completed_status">Odstraněno %d úkolů!</string>
+    <string name="EPr_manage_purge_deleted">Vymazat smazané úkoly</string>
+    <string name="EPr_manage_purge_deleted_message">Opravdu chcete vymazat vaše smazané
+        úkoly?\n\nTyto úkoly budou vymazány navždy!
+    </string>
+    <string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
+    <string name="EPr_manage_purge_deleted_summary">Pozor! Vymazané úkoly nemohou být obnoveny bez
+        souboru zálohy!
+    </string>
+    <string name="EPr_manage_clear_all">Smazat vše</string>
+    <string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení Astrid?\n\nPozor:
+        nelze vzít zpět!
+    </string>
+    <string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly
+    </string>
+    <string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události
+        pro dokončené úkoly?
+    </string>
+    <string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
+    <string name="AOA_title">Doplňky</string>
+    <string name="AOA_internal_author">Astrid tým</string>
+    <string name="AOA_tab_installed">Nainstalováno</string>
+    <string name="AOA_tab_available">K dispozici</string>
+    <string name="AOA_free">Zdarma</string>
+    <string name="AOA_no_addons">Prázdný seznam!</string>
+    <string name="TWi_loading">Nahrávám...</string>
+    <string name="WCA_title">Označte úkol pro zobrazení...</string>
+    <string name="p_about">O Astrid</string>
+    <string name="p_about_text">Současná verze: %s\n\n Astrid je open-source a je vytvořena Todoroo,
+        Inc.
+    </string>
+    <string name="p_help">Podpora</string>
+    <string name="p_forums">Diskuzní fóra</string>
+    <string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)!
+        Pokud můžete, přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás
+        nebude upozorňovat na úkoly.\n
+    </string>
+    <string name="task_killer_help_ok">Neukončím Astrid!</string>
+    <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník,
+        jednoduše ovladatelný a přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše
+        hotovo. Značky, připomenutí, synchronizace, lokalizace, widget a další.
+    </string>
+    <string name="DB_corrupted_title">Poškozená databáze</string>
+    <string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
+    <string name="EPr_default_urgency_desc">Aktuální: %s</string>
+    <string name="EPr_default_importance_title">Výchozí důležitost</string>
+    <string name="EPr_default_importance_desc">Aktuální: %s</string>
+    <string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
+    <string name="EPr_default_hideUntil_desc">Aktuální: %s</string>
+    <string name="EPr_default_reminders_title">Výchozí připomenutí</string>
+    <string name="EPr_default_reminders_desc">Aktuální: %s</string>
+    <string name="EPr_default_addtocalendar_desc_disabled">Nový úkol nevytvoří událost v Kalendáři
+        Google
+    </string>
+    <string name="EPr_default_addtocalendar_desc">Nové úkoly se vloží do kalendáře: \"%s\"</string>
+    <string name="EPr_default_reminders_mode_desc">Aktuální: %s</string>
+    <string-array name="EPr_default_importance">
+        <item>!!! (Nejvyšší)</item>
+        <item>!!</item>
+        <item>!</item>
+        <item>o (Nejnižší)</item>
+    </string-array>
+    <string-array name="EPr_default_urgency">
+        <item>Žádný termín</item>
+        <item>Dnes</item>
+        <item>Zítra</item>
+        <item>Pozítří</item>
+        <item>Příští týden</item>
+    </string-array>
+    <string-array name="EPr_default_hideUntil">
+        <item>Neskrývat</item>
+        <item>Nastal termín úkolu</item>
+        <item>Den před ukončením</item>
+        <item>Týden před ukončením</item>
+    </string-array>
+    <string-array name="EPr_default_reminders">
+        <item>Žádné upomínky v termínu</item>
+        <item>V termínu</item>
+        <item>Po termínu</item>
+        <item>V termínu nebo po něm</item>
+    </string-array>
+    <string name="BFE_Active">Aktivní úkoly</string>
+    <string name="BFE_Recent">Nedávno upravené</string>
+    <string name="BFE_Assigned">Přidělil jsem</string>
+    <string name="BFE_Saved_delete">Smazat filtr</string>
+    <string name="CFA_title">Vlastní filtr</string>
+    <string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
+    <string name="CFA_universe_all">Aktivní úkoly</string>
+    <string name="CFA_type_add">nebo</string>
+    <string name="CFA_type_subtract">ne</string>
+    <string name="CFA_type_intersect">také</string>
+    <string name="CFA_context_chain">%s má kritéria</string>
+    <string name="CFA_context_delete">Odstranit řádek</string>
+    <string name="CFA_help">Zde můžete vytvořit vlastní filtry. Tlačítkem níže přidejte kritéria.
+        Krátkým, nebo dlouhým stiskem je upravíte. Poté zvolte \"Zobrazit\"!
+    </string>
+    <string name="CFA_button_add">Přidat podmínku</string>
+    <string name="CFA_button_view">Zobrazit</string>
+    <string name="CFA_button_save">Uložit &amp; Zobrazit</string>
+    <string name="CFC_dueBefore_text">Podle termínu: ?</string>
+    <string name="CFC_dueBefore_name">Podle termínu...</string>
+    <string-array name="CFC_dueBefore_entries">
+        <item>Žádný termín</item>
+        <item>Včera</item>
+        <item>Dnes</item>
+        <item>Zítra</item>
+        <item>Pozítří</item>
+        <item>Příští týden</item>
+        <item>Příští měsíc</item>
+    </string-array>
+    <string name="CFC_importance_text">Alespoň důležitost?</string>
+    <string name="CFC_importance_name">Důležitost...</string>
+    <string name="CFC_tag_text">Seznam: ?</string>
+    <string name="CFC_tag_name">Seznam...</string>
+    <string name="CFC_tag_contains_name">Jméno seznamu obsahuje...</string>
+    <string name="CFC_tag_contains_text">Jméno seznamu obsahuje: ?</string>
+    <string name="CFC_title_contains_name">Název obsahuje...</string>
+    <string name="CFC_title_contains_text">Obsahuje název: ?</string>
+    <string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
+    <string name="gcal_TEA_addToCalendar_label">Vytvořit událost kalendáře</string>
+    <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
+    <string name="gcal_TEA_calendar_updated">Událost kalendáře také aktualizována!</string>
+    <string name="gcal_TEA_nocal">Nepřidávat</string>
+    <string name="gcal_TEA_none_selected">Přidat do kal.</string>
+    <string name="gcal_TEA_has_event">Událost v kal.</string>
+    <string name="gcal_completed_title">%s (dokončeno)</string>
+    <string name="gcal_GCP_default">Výchozí kalendář</string>
+    <string name="gtasks_FEx_header">Google úkoly</string>
+    <string name="gtasks_FEx_title">Google úkoly: %s</string>
+    <string name="gtasks_FEx_creating_list">Vytvářím seznam...</string>
+    <string name="gtasks_FEx_create_list_dialog">Nové jméno seznamu:</string>
+    <string name="gtasks_FEx_create_list_error">Chyba při vytváření nového seznamu</string>
+    <string name="CFC_gtasks_list_text">V seznamu: ?</string>
+    <string name="CFC_gtasks_list_name">V seznamu Google úkolů</string>
+    <string name="gtasks_GTA_clearing">Mažu hotové úkoly...</string>
+    <string name="gtasks_GTA_clear_completed">Smazat hotové</string>
+    <string name="gtasks_GLA_noaccounts">Žádný dostupný účet Google pro synchronizaci</string>
+    <string name="gtasks_GLA_authenticating">Ověřuje se...</string>
+    <string name="gtasks_GLA_errorAuth">Chyba při autentifikaci! Zkontrolujte prosím uživatelské
+        jméno/heslo ve správci hesel svého mobilu
+    </string>
+    <string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste
+        to prosím později.
+    </string>
+    <string name="gtasks_GLA_errorAuth_captcha">Pravděpodobně jste narazili na stránky chráněné
+        Captchou. Zkuste se přihlásit pomocí prohlížeče a poté se vraťte sem a zkuste to znovu:
+    </string>
+    <string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
+    <string name="gtasks_error_backend">V API služby Google Task (které je ve stadiu beta) byla v
+        něm zjištěna chyba. Služba může být nedostupná, zkuste to později znovu.
+    </string>
+    <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks
+        se odhlašte a znovu přihlaste.
+    </string>
+    <string name="gtasks_error_authRefresh">Nelze se přihlásit ke Google Tasks. Zkontrolujte prosím
+        heslo ke svému účtu, nebo se zkuste znovu přihlásit.
+    </string>
+    <string name="welcome_login_tos_base">Používáním Astrid souhlasíte s</string>
+    <string name="welcome_login_confirm_later_title">Nechcete se přihlásit?</string>
+    <string name="welcome_login_confirm_later_ok">Jasně!</string>
+    <string name="welcome_login_confirm_later_cancel">Ne, díky</string>
+    <string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Astrid více! Zdarma
+        získáte online zálohování, plnou synchronizaci s Astrid.com, možnost přidávat úkoly emailem
+        a dokonce můžete sdílet seznamy úkolů s přáteli!
+    </string>
+    <string name="locale_edit_alerts_title">Astrid Upozornění filtrů</string>
+    <string name="locale_edit_intro">Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím
+        filtru:
+    </string>
+    <string name="locale_interval_label">Omezit upozornění na:</string>
+    <string-array name="locale_interval">
+        <item>jednou za hodinu</item>
+        <item>jednou za šest hodin</item>
+        <item>jednou za dvanáct hodin</item>
+        <item>jednou denně</item>
+        <item>jednou za tři dny</item>
+        <item>jednou týdně</item>
+    </string-array>
+    <string name="locale_notification">Máš $NUM se značkou $FILTER</string>
+    <string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Astrid Locale!</string>
+    <string name="opencrx_FEx_header">OpenCRX</string>
+    <string name="opencrx_FEx_dashboard">Pracovní plochy</string>
+    <string name="opencrx_FEx_responsible">Přiřazeno k</string>
+    <string name="opencrx_FEx_responsible_title">Přiřazeno k \'%s\'</string>
+    <string name="opencrx_PDE_task_from">od %s</string>
+    <string name="opencrx_TEA_notes">Přidat komentář</string>
+    <string name="opencrx_creator_input_hint">Autor</string>
+    <string name="opencrx_PPr_header">OpenCRX</string>
+    <string name="opencrx_no_creator">(Nesynchronizovat)</string>
+    <string name="opencrx_group">OpenCRX server</string>
+    <string name="opencrx_host_summary">"Např.: "
+        <i>domena.cz</i>
+    </string>
+    <string name="opencrx_segment_title">Segment</string>
+    <string name="opencrx_segment_summary">"Např.: "
+        <i>Standard</i>
+    </string>
+    <string name="opencrx_provider_title">Poskytovatel</string>
+    <string name="opencrx_provider_summary">"Např.: "
+        <i>CRX</i>
+    </string>
+    <string name="opencrx_provider_default">CRX</string>
+    <string name="opencrx_PLA_signIn">Přihlásit se</string>
+    <string name="opencrx_PLA_password">Heslo</string>
+    <string name="opencrx_notification_title">OpenCRX</string>
+    <string name="opencrx_notification_text">%s úkolů zálohováno /pro více detailů klikněte</string>
+    <string name="opencrx_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.
+    </string>
+    <string name="opencrx_MLA_password_empty">Nebylo určeno heslo!</string>
+    <string name="opencrx_TEA_task_assign_label">Přiřadit úkol k této osobě:</string>
+    <string name="opencrx_TEA_task_unassigned">&lt;Nepřiřazeno&gt;</string>
+    <string name="opencrx_TEA_dashboard_default">&lt;Výchozí&gt;</string>
+    <string name="CFC_opencrx_in_workspace_text">Na pracovní ploše: ?</string>
+    <string name="CFC_opencrx_in_workspace_name">Na pracovní ploše...</string>
+    <string name="CFC_opencrx_assigned_to_text">Přiřazeno k: ?</string>
+    <string name="CFC_opencrx_assigned_to_name">Přiřazeno k ...</string>
+    <string name="EPr_statistics_desc_disabled">Nebudou oznámena žádná data o využití</string>
+    <string name="EPr_statistics_desc_enabled">Pomozte nám dělat Astrid lepší, anonymním odesláním
+        dat o používání
+    </string>
+    <string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové
+        připojení.
+    </string>
+    <string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
+    <string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím
+        znovu.
+    </string>
+    <string name="premium_attach_file">Přiložit soubor</string>
+    <string name="premium_record_audio">Nahrát poznámku</string>
+    <string name="premium_no_files">Žádné přílohy</string>
+    <string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
+    <string name="audio_recording_title">Nahrávám zvuk</string>
+    <string name="audio_stop_recording">Ukončit záznam</string>
+    <string name="audio_speak_now">Hovořte!</string>
+    <string name="search_market_pdf_title">Chybí prohlížeč PDF</string>
+    <string name="search_market_ms">Chybí prohlížeč MS Office. Přejete si ho stáhnout z Android
+        Marketu?
+    </string>
+    <string name="search_market_ms_title">Chybí prohlížeč MS Office</string>
+    <string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.
+    </string>
+    <string name="file_type_unhandled_title">Chybí aplikace</string>
+    <string name="file_prefix_voice">Hlas</string>
+    <string name="file_browser_up">O úroveň výš</string>
+    <string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Astrid
+        nezabránil v přístupu k SD kartě.
+    </string>
+    <string name="file_add_picture">Připojit obrázek</string>
+    <string name="file_add_sdcard">Připojit soubor z SD karty</string>
+    <string name="file_download_title">Stáhnout soubor?</string>
+    <string name="file_download_body">Soubor nebyl stažen na SD kartu. Stáhnout nyní?</string>
+    <string name="file_download_progress">Stahuji...</string>
+    <string name="file_err_memory">Obrázek se nevejde do paměti</string>
+    <string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
+    <string name="file_err_download">Chyba při stahování souboru</string>
+    <string name="file_err_show">Je nám líto, ale systém zatím tento typ souboru nepodporuje
+    </string>
+    <string name="TEA_reminders_group_label">Upomínky</string>
+    <string name="TEA_reminder_label">Upozorni mě...</string>
+    <string name="TEA_reminder_due">Při termínu</string>
+    <string name="TEA_reminder_overdue">Úkol po termínu</string>
+    <string name="TEA_reminder_randomly">Jednou náhodně</string>
+    <string name="TEA_reminder_alarm_label">Typ vyzvánění/vybrací:</string>
+    <string name="TEA_reminder_mode_once">Vyzvánět jednou</string>
+    <string name="TEA_reminder_mode_five">Pět zazvonění</string>
+    <string name="TEA_reminder_mode_nonstop">Vyzvánět dokud nezruším Alarm</string>
+    <string-array name="TEA_reminder_random">
+        <item>an hour</item>
+        <item>a day</item>
+        <item>a week</item>
+        <item>in two weeks</item>
+        <item>a month</item>
+        <item>in two months</item>
+    </string-array>
+    <string name="rmd_NoA_filter">Připomínka!</string>
+    <string name="rmd_NoA_done">Dokončeno!</string>
+    <string name="rmd_NoA_snooze">Později...</string>
+    <string name="rmd_NoA_completed_toast">Hotovo! Gratuluji!</string>
+    <string-array name="rmd_reengage_notif_titles">
+        <item>A note from Astrid</item>
+        <item>Memo for %s.</item>
+        <item>Your Astrid digest</item>
+        <item>Reminders from Astrid</item>
+    </string-array>
+    <string-array name="rmd_reengage_dialog_options">
+        <item>Time to shorten your to-do list!</item>
+        <item>Dear sir or madam, some tasks await your inspection!</item>
+        <item>Hi there, could you take a look at these?</item>
+        <item>I\'ve got some tasks with your name on them!</item>
+        <item>A fresh batch of tasks for you today!</item>
+        <item>You look fabulous! Ready to get started?</item>
+        <item>A lovely day for getting some work done, I think!</item>
+    </string-array>
+    <string-array name="rmd_reengage_dialog_empty_options">
+        <item>Don\'t you want to get organized?</item>
+        <item>I\'m Astrid! I\'m here to help you do more!</item>
+        <item>You look busy! Let me take some of those tasks off of your plate.</item>
+        <item>I can help you keep track of all of the details in your life.</item>
+        <item>You\'re serious about getting more done? So am I!</item>
+        <item>Pleasure to make your acquaintance!</item>
+    </string-array>
+    <string name="rmd_EPr_alerts_header">Nastavení upozornění</string>
+    <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
+    <string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
+    <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
+    <string name="rmd_EPr_ringtone_title">Zvuk upozornění</string>
+    <string name="rmd_EPr_ringtone_desc_custom">Vlastní vyzvánění bylo nastaveno</string>
+    <string name="rmd_EPr_ringtone_desc_silent">Vyzvánění ztišeno</string>
+    <string name="rmd_EPr_ringtone_desc_default">Bude použito výchozí vyzvánění</string>
+    <string name="rmd_EPr_persistent_title">Trvání upozornění</string>
+    <string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé
+        zvlášť
+    </string>
+    <string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat
+        vše\"
+    </string>
+    <string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
+    <string name="rmd_EPr_vibrate_desc_true">Astrid bude vibrovat při odesílání upozornění</string>
+    <string name="rmd_EPr_vibrate_desc_false">Astrid nebude vibrovat při odesílání upozornění
+    </string>
+    <string name="rmd_EPr_nagging_desc_true">Astrid bude vypisovat povzbuzující zprávy během
+        upozornění
+    </string>
+    <string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
+    <string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění
+    </string>
+    <string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
+    <string-array name="EPr_reminder_random">
+        <item>zakázáno</item>
+        <item>každou hodinu</item>
+        <item>denně</item>
+        <item>týdně</item>
+        <item>každých ctrnáct dní</item>
+        <item>měsíčně</item>
+        <item>každý druhý měsíc</item>
+    </string-array>
+    <string-array name="EPr_quiet_hours_start">
+        <item>zakázáno</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>0:00</item>
+        <item>1:00</item>
+        <item>2:00</item>
+        <item>3:00</item>
+        <item>4:00</item>
+        <item>5:00</item>
+        <item>6:00</item>
+        <item>7:00</item>
+        <item>8:00</item>
+        <item>9:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+    </string-array>
+    <string-array name="EPr_quiet_hours_end">
+        <item>9:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>0:00</item>
+        <item>1:00</item>
+        <item>2:00</item>
+        <item>3:00</item>
+        <item>4:00</item>
+        <item>5:00</item>
+        <item>6:00</item>
+        <item>7:00</item>
+        <item>8:00</item>
+    </string-array>
+    <string-array name="EPr_rmd_time">
+        <item>9:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>0:00</item>
+        <item>1:00</item>
+        <item>2:00</item>
+        <item>3:00</item>
+        <item>4:00</item>
+        <item>5:00</item>
+        <item>6:00</item>
+        <item>7:00</item>
+        <item>8:00</item>
+    </string-array>
+    <string-array name="reminders">
+        <item>Ahoj! Máš chvíli?</item>
+        <item>Můžu Tě na chvíli vidět?</item>
+        <item>Máš pár minut?</item>
+        <item>Zapomněl jsi?</item>
+        <item>Omlouvám se!</item>
+        <item>Když máš čas:</item>
+        <item>Ve Tvém programu:</item>
+        <item>Máš chvíli čas?</item>
+        <item>Tady je Astrid!</item>
+        <item>Ahoj! Můžu Tě vyrušit?</item>
+        <item>Minuta Tvého času?</item>
+        <item>Je skvělý den na</item>
+    </string-array>
+    <string-array name="reminders_due">
+        <item>Čas na práci!</item>
+        <item>Čas dokončení úkolu je zde!</item>
+        <item>Připraven/a začít?</item>
+        <item>Řekl jsi, že uděláš:</item>
+        <item>Chtěl jsi začít:</item>
+        <item>Čas začít:</item>
+        <item>Je čas!</item>
+        <item>Omlouvám se! Čas na</item>
+        <item>Jsi volný? Čas na</item>
+    </string-array>
+    <string-array name="reminders_snooze">
+        <item>Nebuď ted líná/ý</item>
+        <item>Čas spaní vypršel!</item>
+        <item>Už zádné spaní!</item>
+        <item>Jsi teď připraven(a)?</item>
+        <item>Už žádné odkládání!</item>
+    </string-array>
+    <string-array name="reminder_responses">
+        <item>Mám pro Tebe něco!</item>
+        <item>Ready to put this in the past?</item>
+        <item>Proč tohle nedokončís?</item>
+        <item>Tak co borče? Jdeme do toho?</item>
+        <item>Jsi připraven(a) tohle udělat?</item>
+        <item>Můžes tohle zvládnout?</item>
+        <item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
+        <item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
+        <item>Neuděláš tohle dnes?</item>
+        <item>Tak to konečně dodělej. Už mě to unavuje!</item>
+        <item>Můžes tohle dokončit?</item>
+        <item>Plánuješ tohle vůbec někdy udělat?</item>
+        <item>Měj ze sebe radost! Jdeme na to!</item>
+        <item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
+        <item>A little snack after you finish this?</item>
+        <item>Jen tenhle úkol? Prosím?</item>
+        <item>Je čas zkrátit Tvůj seznam úkolů!</item>
+        <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
+        <item>Have I mentioned you are awesome recently? Keep it up!</item>
+        <item>A task a day keeps the clutter away... Goodbye clutter!</item>
+        <item>How do you do it? Wow, I\'m impressed!</item>
+        <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+        <item>Lovely weather for a job like this, isn\'t it?</item>
+        <item>A spot of tea while you work on this?</item>
+        <item>If only you had already done this, then you could go outside and play.</item>
+        <item>It\'s time. You can\'t put off the inevitable.</item>
+        <item>I die a little every time you ignore me.</item>
+    </string-array>
+    <string-array name="postpone_nags">
+        <item>Prosím řekni mi, že není pravda, že jsi prokrastinátor!</item>
+        <item>Doesn\'t being lazy get old sometimes?</item>
+        <item>Někdo někde čeká až tohle dokončíš!</item>
+        <item>Když jsi řekl odložit, ve skutečnosti jsi myslel \'Já to udělám\', že?</item>
+        <item>Tohle je naposledy co to odkládáš, že?</item>
+        <item>Jen to dodělej, nikomu to neřeknu!</item>
+        <item>Proč odkládat, když můžes hmm... neodkládat!</item>
+        <item>Nakonec to doděláš, že?</item>
+        <item>Myslím, že jsi opravdu úžasný. Co takhle tohle neodkládat?</item>
+        <item>Will you be able to achieve your goals if you do that?</item>
+        <item>Odkládat, odkládat, odkládat. Kdy se změníš!</item>
+        <item>Mám dost tvých omluv! Jen to dodělej!</item>
+        <item>Nepoužil jsi stejnou omluvu i posledně?</item>
+        <item>Nemůžu Ti pomoci organizovat tvůj život, když tohle děláš...</item>
+    </string-array>
+    <string name="repeat_plugin">Opakování úkolů</string>
+    <string name="repeat_plugin_desc">Povolit opakování úkolů</string>
+    <string name="repeat_enabled">Opakování</string>
+    <string name="repeat_every">Každý %d</string>
+    <string name="repeat_interval_prompt">Opakovací interval</string>
+    <string-array name="repeat_interval_short">
+        <item>d</item>
+        <item>wk</item>
+        <item>mo</item>
+        <item>hr</item>
+        <item>min</item>
+        <item>yr</item>
+    </string-array>
+    <string-array name="repeat_interval">
+        <item>Dnů</item>
+        <item>Týdnů</item>
+        <item>Měsíců</item>
+        <item>Hodin</item>
+        <item>Minute(s)</item>
+        <item>Year(s)</item>
+    </string-array>
+    <string-array name="repeat_until_shortcuts">
+        <item>Forever</item>
+        <item>Specific Day</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>(day after)</item>
+        <item>Next Week</item>
+        <item>In Two Weeks</item>
+        <item>Next Month</item>
+    </string-array>
+    <string-array name="repeat_type">
+        <item>od data splnění</item>
+        <item>od data dokončení</item>
+    </string-array>
+    <string name="repeat_detail_byday">$I na $D</string>
+    <string name="repeat_detail_duedate">Každý %s</string>
+    <string name="repeat_detail_completion">%s po dokončení</string>
+    <string-array name="repeat_encouragement">
+        <item>Good job!</item>
+        <item>Wow… I\'m so proud of you!</item>
+        <item>I love when you\'re productive!</item>
+        <item>Doesn\'t it feel good to check something off?</item>
+    </string-array>
+    <string-array name="repeat_encouragement_last_time">
+        <item>Good job!</item>
+        <item>I\'m so proud of you!</item>
+        <item>I love when you\'re productive!</item>
+    </string-array>
+    <string name="TEA_tags_label">Seznamy</string>
+    <string name="tag_FEx_header">Seznamy</string>
+    <string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
+    <string name="tag_settings_title">Settings:</string>
+    <string name="TPl_notification">Aktivní časovače pro %s!</string>
+    <string name="TFE_workingOn">Úkol je časován</string>
+    <string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
+    <string name="welcome_title_1">Vítej v Astrid!</string>
+    <string name="welcome_body_5">and much more!</string>
+    <string name="PPW_configure_title">Konfigurovat widget</string>
+    <string name="PPW_color">Barva widgetu</string>
+    <string name="PPW_enable_calendar">Zobrazit události v kalendáři</string>
+    <string name="PPW_disable_encouragements">Skrýt povzbuzování</string>
+    <string name="PPW_filter">Vybrat filtr</string>
+    <string name="PPW_due">Termín:</string>
+    <string name="PPW_old_astrid_notice">K používání tohoto widgetu potřebujete Astrid ve verzi 3.6
+        a vyšší!
+    </string>
+    <string-array name="PPW_encouragements">
+        <item>Nazdar!</item>
+        <item>Máš čas něco dokončit?</item>
+        <item>Gosh, you are looking suave today!</item>
+        <item>Udělej dnes něco velkého</item>
+        <item>Ať jsem na Tebe dneska hrdý!</item>
+        <item>Jak se dneska máš?</item>
+    </string-array>
+    <string-array name="PPW_encouragements_tod">
+        <item>Dobré ráno!</item>
+        <item>Krásné odpoledne!</item>
+        <item>Dobrý večer!</item>
+        <item>Pozdě v noci?</item>
+        <item>Ještě je brzo, tak něco rychle udělej!</item>
+        <item>Že by čas na polední čaj?</item>
+        <item>Užij si večer!</item>
+        <item>Spánek je pro Tobe dobrý, víš to?</item>
+    </string-array>
+    <string-array name="PPW_encouragements_completed">
+        <item>Už jsi dokončil %d úkolů!</item>
+        <item>Životní skóre: %d úkolů dokončeno!</item>
+        <item>Usměj se! Už jsi dokončil %d úkolů!</item>
+    </string-array>
+    <string name="PPW_encouragements_none_completed">Ještě jsi nedokončil žádný úkol! Začneme?
+    </string>
+    <string-array name="PPW_colors">
+        <item>Černá</item>
+        <item>Bílá</item>
+        <item>Modrá</item>
+        <item>Průhledný</item>
+    </string-array>
 </resources>

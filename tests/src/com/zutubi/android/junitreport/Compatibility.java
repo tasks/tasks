@@ -1,11 +1,11 @@
 package com.zutubi.android.junitreport;
 
-import java.io.File;
-import java.lang.reflect.Method;
-
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+
+import java.io.File;
+import java.lang.reflect.Method;
 
 /**
  * Utilities for backwards-compatibility with early Android versions.
@@ -14,6 +14,7 @@ public final class Compatibility {
     private static final String LOG_TAG = Compatibility.class.getSimpleName();
 
     private static final Method METHOD_GET_EXTERNAL_FILES_DIR;
+
     static {
         Method method = null;
         try {
@@ -34,11 +35,11 @@ public final class Compatibility {
      * A backwards-compatible version of {@link Context#getExternalFilesDir(String)}
      * which falls back to using {@link Environment#getExternalStorageDirectory()}
      * on API 7 and below.
-     * 
+     *
      * @param context context to get the external files directory for
-     * @param type the type of files directory to return (may be null)
+     * @param type    the type of files directory to return (may be null)
      * @return the path of the directory holding application files on external
-     *         storage, or null if external storage cannot be accessed
+     * storage, or null if external storage cannot be accessed
      */
     public static File getExternalFilesDir(final Context context, final String type) {
         if (METHOD_GET_EXTERNAL_FILES_DIR == null) {

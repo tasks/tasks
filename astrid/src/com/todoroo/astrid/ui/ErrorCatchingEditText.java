@@ -12,7 +12,7 @@ import android.widget.EditText;
 public class ErrorCatchingEditText extends EditText {
 
     public ErrorCatchingEditText(Context context, AttributeSet attrs,
-            int defStyle) {
+                                 int defStyle) {
         super(context, attrs, defStyle);
 
     }
@@ -27,22 +27,22 @@ public class ErrorCatchingEditText extends EditText {
 
     }
 
-	@Override
-	public int getExtendedPaddingTop() {
-	    try {
+    @Override
+    public int getExtendedPaddingTop() {
+        try {
             return super.getExtendedPaddingTop();
         } catch (Exception e) {
             return 0;
         }
-	}
+    }
 
-	@Override
-	public int getExtendedPaddingBottom() {
-	    try {
+    @Override
+    public int getExtendedPaddingBottom() {
+        try {
             return super.getExtendedPaddingBottom();
         } catch (Exception e) {
             return 0;
         }
-	}
+    }
 
 }

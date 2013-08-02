@@ -15,7 +15,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TagDetailExposer extends BroadcastReceiver {
 
@@ -23,11 +22,11 @@ public class TagDetailExposer extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if (taskId == -1)
             return;
 
         String taskDetail = getTaskDetails(taskId);
-        if(taskDetail == null)
+        if (taskDetail == null)
             return;
 
         // transmit
@@ -40,7 +39,7 @@ public class TagDetailExposer extends BroadcastReceiver {
 
     public String getTaskDetails(long id) {
         String tagList = TagService.getInstance().getTagsAsString(id);
-        if(tagList.length() == 0)
+        if (tagList.length() == 0)
             return null;
 
         return /*"<img src='silk_tag_pink'/> " +*/ tagList;

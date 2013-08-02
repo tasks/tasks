@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.voice;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +25,9 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
+
+import java.io.IOException;
+import java.util.List;
 
 @TargetApi(8)
 public class VoiceRecognizer {
@@ -63,7 +63,7 @@ public class VoiceRecognizer {
     private static VoiceRecognizer instance = null;
 
     public static VoiceRecognizer instantiateVoiceRecognizer(Context context, RecognizerApiListener listener, ImageButton voiceAddButton) {
-        synchronized(VoiceRecognizer.class) {
+        synchronized (VoiceRecognizer.class) {
             if (instance == null)
                 instance = new VoiceRecognizer();
         }

@@ -37,7 +37,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
                 R.layout.task_list_body_tag, root, false);
 
         taskListView =
-            getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
+                getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
         parent.addView(taskListView);
 
         return parent;

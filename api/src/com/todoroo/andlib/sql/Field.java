@@ -23,14 +23,14 @@ public class Field extends DBObject<Field> {
     }
 
     public Criterion eq(Object value) {
-        if(value == null)
+        if (value == null)
             return UnaryCriterion.isNull(this);
         return UnaryCriterion.eq(this, value);
     }
 
     /**
      * Adds the criterion that the field must be equal to the given string, ignoring case.
-     *
+     * <p/>
      * Thanks to a sqlite bug, this will only work for ASCII values.
      *
      * @param value string which field must equal
@@ -38,14 +38,14 @@ public class Field extends DBObject<Field> {
      */
     @SuppressWarnings("nls")
     public Criterion eqCaseInsensitive(String value) {
-    	if(value == null)
+        if (value == null)
             return UnaryCriterion.isNull(this);
         String escaped = value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
         return UnaryCriterion.like(this, escaped, "\\");
     }
 
     public Criterion neq(Object value) {
-        if(value == null)
+        if (value == null)
             return UnaryCriterion.isNotNull(this);
         return UnaryCriterion.neq(this, value);
     }

@@ -20,7 +20,6 @@ import com.todoroo.astrid.utility.Flags;
  * specific activity
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class GlobalEventReceiver extends BroadcastReceiver {
 
@@ -33,12 +32,12 @@ public final class GlobalEventReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent == null)
+        if (intent == null)
             return;
 
         DependencyInjectionService.getInstance().inject(this);
 
-        if(AstridApiConstants.BROADCAST_EVENT_FLUSH_DETAILS.equals(intent.getAction())) {
+        if (AstridApiConstants.BROADCAST_EVENT_FLUSH_DETAILS.equals(intent.getAction())) {
             taskService.clearDetails(Criterion.all);
             Flags.set(Flags.REFRESH);
         }

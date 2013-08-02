@@ -1,7 +1,5 @@
 package com.todoroo.astrid.gtasks.api;
 
-import java.io.IOException;
-
 import android.content.Context;
 
 import com.google.api.client.extensions.android2.AndroidHttp;
@@ -24,11 +22,13 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
+import java.io.IOException;
+
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case
  * of an exception, each request is tried twice in case of a timeout.
- * @author Sam Bosley
  *
+ * @author Sam Bosley
  */
 @SuppressWarnings("nls")
 public class GtasksInvoker {
@@ -37,7 +37,8 @@ public class GtasksInvoker {
     private String token;
     private JsonFactory jsonFactory;
 
-    @Autowired ExceptionService exceptionService;
+    @Autowired
+    ExceptionService exceptionService;
 
     private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; // non-production API key
 
@@ -61,7 +62,7 @@ public class GtasksInvoker {
     //If we get a 401 or 403, try revalidating the auth token before bailing
     private synchronized void handleException(IOException e) throws IOException {
         if (e instanceof HttpResponseException) {
-            HttpResponseException h = (HttpResponseException)e;
+            HttpResponseException h = (HttpResponseException) e;
             int statusCode = h.getResponse().getStatusCode();
             if (statusCode == 401 || statusCode == 403) {
                 System.err.println("Encountered " + statusCode + " error");
@@ -91,6 +92,7 @@ public class GtasksInvoker {
      * A simple service query that will throw an exception if anything goes wrong.
      * Useful for checking if token needs revalidating or if there are network problems--
      * no exception means all is well
+     *
      * @throws IOException
      */
     public void ping() throws IOException {

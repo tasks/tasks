@@ -48,6 +48,7 @@ public abstract class MarketStrategy {
     /**
      * Most market strategies don't support billing at this time,
      * so we'll make the default false
+     *
      * @return
      */
     public boolean billingSupported() {
@@ -57,6 +58,7 @@ public abstract class MarketStrategy {
     /**
      * Return true if the preference to use the phone layout should be
      * turned on by default (only true for Nook)
+     *
      * @return
      */
     public boolean defaultPhoneLayout() {
@@ -115,16 +117,16 @@ public abstract class MarketStrategy {
          */
         public static boolean isKindleFire() {
             return android.os.Build.MANUFACTURER.equals("Amazon") && //$NON-NLS-1$
-                android.os.Build.MODEL.contains("Kindle"); //$NON-NLS-1$
+                    android.os.Build.MODEL.contains("Kindle"); //$NON-NLS-1$
         }
 
         @Override
         public int[] excludedSettings() {
-            return new int[] {
-                R.string.p_theme_widget,
-                R.string.p_voicePrefSection,
-                R.string.p_end_at_deadline,
-                R.string.p_field_missed_calls
+            return new int[]{
+                    R.string.p_theme_widget,
+                    R.string.p_voicePrefSection,
+                    R.string.p_end_at_deadline,
+                    R.string.p_field_missed_calls
             };
         }
 
@@ -156,17 +158,17 @@ public abstract class MarketStrategy {
 
         @Override
         public int[] excludedSettings() {
-            return new int[] {
-                R.string.p_theme_widget,
-                R.string.p_voicePrefSection,
-                R.string.p_end_at_deadline,
-                R.string.p_field_missed_calls,
-                R.string.p_rmd_vibrate,
-                R.string.gcal_p_default,
-                R.string.p_theme_widget,
-                R.string.p_voiceInputEnabled,
-                R.string.p_voiceInputCreatesTask,
-                R.string.p_use_contact_picker
+            return new int[]{
+                    R.string.p_theme_widget,
+                    R.string.p_voicePrefSection,
+                    R.string.p_end_at_deadline,
+                    R.string.p_field_missed_calls,
+                    R.string.p_rmd_vibrate,
+                    R.string.gcal_p_default,
+                    R.string.p_theme_widget,
+                    R.string.p_voiceInputEnabled,
+                    R.string.p_voiceInputCreatesTask,
+                    R.string.p_use_contact_picker
             };
         }
 

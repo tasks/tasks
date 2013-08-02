@@ -5,119 +5,122 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/asTaskRowSelector"
-    android:orientation="horizontal">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/asTaskRowSelector"
+        android:orientation="horizontal">
 
-	<RelativeLayout 
-	    android:id="@+id/rowBody"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="5dip"
-	    android:layout_marginBottom="5dip"
-	    android:minHeight="45dip">
-	
-	    <ImageView
-	        android:id="@+id/pictureBorder"
-	        android:layout_width="39dip"
-	        android:layout_height="39dip"
-	        android:layout_marginLeft="8dip"
-	        android:layout_centerVertical="true"
-	        android:background="@drawable/icn_default_person_image"
-	        android:scaleType="center"
-	        android:visibility="gone" >
-	    </ImageView>
-	    <com.todoroo.astrid.helper.AsyncImageView
-	        android:id="@+id/picture"
-	        android:layout_width="39dip"
-	        android:layout_height="39dip"
-	        android:padding="2dip"
-	        android:layout_marginLeft="8dip"
-	        android:layout_centerVertical="true"
-	        astrid:defaultSrc="@drawable/icn_default_person_image"
-	        android:scaleType="fitCenter"
-	        android:visibility="gone" />
-	    
-	    <com.todoroo.astrid.ui.CheckableImageView
-	        android:id="@+id/completeBox"
-	        android:layout_width="45dip"
-	        android:layout_marginLeft="4dip"
-	        android:layout_height="wrap_content"
-	        android:minHeight="45dip"
-	        android:scaleType="center"
-	        android:gravity="center"
-	        android:layout_centerVertical="true" />
-	
-	    <LinearLayout
-	        android:id="@+id/task_row"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="52dip"
-	        android:layout_centerVertical="true"
-	        android:orientation="horizontal"
-	        android:gravity="center_vertical"
-	        android:paddingLeft="4dip" >
-	
-	        <!-- task name -->
-	
-	        <TextView
-	            android:id="@+id/title"
-	            style="@style/TextAppearance.TAd_ItemTitle"
-	            android:layout_width="0dip"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="100"
-	            android:gravity="center_vertical"
-	            android:maxLines="2" />
-	
-	        <!-- due date -->
-	
-	        <LinearLayout
-	            android:id="@+id/taskActionContainer"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginRight="10dip"
-	            android:orientation="vertical"
-	            android:gravity="right|center_vertical">
-		        <TextView
-		            android:id="@+id/dueDate"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:gravity="center_vertical|right" />
-		        <ImageView
-		            android:id="@+id/taskActionIcon"
-		            android:layout_width="20dip"
-		            android:layout_height="20dip"
-		            android:scaleType="fitCenter"
-		            android:visibility="gone"/>
-	        </LinearLayout>
-	    </LinearLayout>
-	
-	    <!-- details line 1 -->
-	
-	    <TextView
-	        android:id="@+id/details1"
-	        style="@style/TextAppearance.TAd_ItemDetails"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@id/task_row"
-	        android:layout_below="@id/task_row"
-	        android:visibility="gone" />
-	
-	    <!-- details line 2 -->
-	
-	    <TextView
-	        android:id="@+id/details2"
-	        style="@style/TextAppearance.TAd_ItemDetails"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@id/task_row"
-	        android:layout_below="@id/details1"
-	        android:layout_marginLeft="5dip"
-	        android:visibility="gone" />
-	
-	</RelativeLayout>
+    <RelativeLayout
+            android:id="@+id/rowBody"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            android:minHeight="45dip">
+
+        <ImageView
+                android:id="@+id/pictureBorder"
+                android:layout_width="39dip"
+                android:layout_height="39dip"
+                android:layout_marginLeft="8dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icn_default_person_image"
+                android:scaleType="center"
+                android:visibility="gone">
+        </ImageView>
+
+        <com.todoroo.astrid.helper.AsyncImageView
+                android:id="@+id/picture"
+                android:layout_width="39dip"
+                android:layout_height="39dip"
+                android:padding="2dip"
+                android:layout_marginLeft="8dip"
+                android:layout_centerVertical="true"
+                astrid:defaultSrc="@drawable/icn_default_person_image"
+                android:scaleType="fitCenter"
+                android:visibility="gone"/>
+
+        <com.todoroo.astrid.ui.CheckableImageView
+                android:id="@+id/completeBox"
+                android:layout_width="45dip"
+                android:layout_marginLeft="4dip"
+                android:layout_height="wrap_content"
+                android:minHeight="45dip"
+                android:scaleType="center"
+                android:gravity="center"
+                android:layout_centerVertical="true"/>
+
+        <LinearLayout
+                android:id="@+id/task_row"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="52dip"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="4dip">
+
+            <!-- task name -->
+
+            <TextView
+                    android:id="@+id/title"
+                    style="@style/TextAppearance.TAd_ItemTitle"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"/>
+
+            <!-- due date -->
+
+            <LinearLayout
+                    android:id="@+id/taskActionContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:orientation="vertical"
+                    android:gravity="right|center_vertical">
+
+                <TextView
+                        android:id="@+id/dueDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|right"/>
+
+                <ImageView
+                        android:id="@+id/taskActionIcon"
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- details line 1 -->
+
+        <TextView
+                android:id="@+id/details1"
+                style="@style/TextAppearance.TAd_ItemDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/task_row"
+                android:layout_below="@id/task_row"
+                android:visibility="gone"/>
+
+        <!-- details line 2 -->
+
+        <TextView
+                android:id="@+id/details2"
+                style="@style/TextAppearance.TAd_ItemDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/task_row"
+                android:layout_below="@id/details1"
+                android:layout_marginLeft="5dip"
+                android:visibility="gone"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

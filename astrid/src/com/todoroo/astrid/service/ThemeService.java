@@ -64,11 +64,11 @@ public class ThemeService {
     }
 
     private static int getStyleForSetting(String setting) {
-        if(THEME_BLACK.equals(setting))
+        if (THEME_BLACK.equals(setting))
             return R.style.Theme;
-        else if(THEME_TRANSPARENT.equals(setting))
+        else if (THEME_TRANSPARENT.equals(setting))
             return R.style.Theme_Transparent;
-        else if(THEME_TRANSPARENT_WHITE.equals(setting))
+        else if (THEME_TRANSPARENT_WHITE.equals(setting))
             return R.style.Theme_TransparentWhite;
         else if (THEME_WHITE_RED.equals(setting))
             return R.style.Theme_White;
@@ -80,16 +80,16 @@ public class ThemeService {
 
     public static int getThemeColor() {
         int theme = getTheme();
-        switch(theme) {
-        case R.style.Theme:
-        case R.style.Theme_Transparent:
-            return R.color.blue_theme_color;
-        case R.style.Theme_White:
-        case R.style.Theme_TransparentWhite:
-            return R.color.red_theme_color;
-        case R.style.Theme_White_Blue:
-        default:
-            return R.color.dark_blue_theme_color;
+        switch (theme) {
+            case R.style.Theme:
+            case R.style.Theme_Transparent:
+                return R.color.blue_theme_color;
+            case R.style.Theme_White:
+            case R.style.Theme_TransparentWhite:
+                return R.color.red_theme_color;
+            case R.style.Theme_White_Blue:
+            default:
+                return R.color.dark_blue_theme_color;
         }
     }
 
@@ -147,6 +147,7 @@ public class ThemeService {
 
     /**
      * Only widget config activities should call this (see note on the flag above)
+     *
      * @param forceInvert
      */
     public static void setForceFilterInvert(boolean forceInvert) {
@@ -164,18 +165,18 @@ public class ThemeService {
     public static int getDrawable(int lightDrawable, int alter) {
         int theme = getTheme();
         boolean darkTheme = theme == R.style.Theme || theme == R.style.Theme_Transparent;
-        switch(alter) {
-        case FLAG_FORCE_DARK:
-            darkTheme = true;
-            break;
-        case FLAG_FORCE_LIGHT:
-            darkTheme = false;
-            break;
-        case FLAG_INVERT:
-            darkTheme = !darkTheme;
-            break;
-        default:
-            break;
+        switch (alter) {
+            case FLAG_FORCE_DARK:
+                darkTheme = true;
+                break;
+            case FLAG_FORCE_LIGHT:
+                darkTheme = false;
+                break;
+            case FLAG_INVERT:
+                darkTheme = !darkTheme;
+                break;
+            default:
+                break;
         }
 
         if (lightDrawable == R.drawable.icn_menu_refresh &&
@@ -183,71 +184,71 @@ public class ThemeService {
             return R.drawable.icn_menu_refresh_tablet;
 
         if (theme == R.style.Theme_White_Alt) {
-            switch(lightDrawable) {
-            case R.drawable.ic_menu_save:
-                return R.drawable.ic_menu_save_blue_alt;
-            case R.drawable.ic_menu_close:
-                return R.drawable.ic_menu_close_blue_alt;
-            case R.drawable.ic_menu_mic:
-                return R.drawable.ic_menu_mic_blue_alt;
-            case R.drawable.ic_menu_attach:
-                return R.drawable.ic_menu_attach_blue_alt;
-            case R.drawable.list_settings:
-                return R.drawable.list_settings_white;
+            switch (lightDrawable) {
+                case R.drawable.ic_menu_save:
+                    return R.drawable.ic_menu_save_blue_alt;
+                case R.drawable.ic_menu_close:
+                    return R.drawable.ic_menu_close_blue_alt;
+                case R.drawable.ic_menu_mic:
+                    return R.drawable.ic_menu_mic_blue_alt;
+                case R.drawable.ic_menu_attach:
+                    return R.drawable.ic_menu_attach_blue_alt;
+                case R.drawable.list_settings:
+                    return R.drawable.list_settings_white;
             }
         }
 
-        if(!darkTheme)
+        if (!darkTheme)
             return lightDrawable;
 
 
-        switch(lightDrawable) {
-        case R.drawable.ic_menu_save:
-            return R.drawable.ic_menu_save;
-        case R.drawable.ic_menu_close:
-            return R.drawable.ic_menu_close;
-        case R.drawable.ic_menu_mic:
-            return R.drawable.ic_menu_mic;
-        case R.drawable.ic_menu_attach:
-            return R.drawable.ic_menu_attach;
-        case R.drawable.list_settings:
-            return R.drawable.list_settings;
-        case R.drawable.icn_menu_refresh:
-            return R.drawable.icn_menu_refresh_dark;
-        case R.drawable.icn_menu_filters:
-            return R.drawable.icn_menu_filters_dark;
-        case R.drawable.icn_featured_lists:
-            return R.drawable.icn_featured_lists_dark;
-        case R.drawable.icn_menu_sort_by_size:
-            return R.drawable.icn_menu_sort_by_size_dark;
-        case R.drawable.icn_menu_search:
-            return R.drawable.icn_menu_search_dark;
-        case R.drawable.icn_menu_friends:
-            return R.drawable.icn_menu_friends_dark;
-        case R.drawable.icn_menu_lists:
-            return R.drawable.icn_menu_lists_dark;
-        case R.drawable.icn_menu_plugins:
-            return R.drawable.icn_menu_plugins_dark;
-        case R.drawable.icn_menu_settings:
-            return R.drawable.icn_menu_settings_dark;
-        case R.drawable.icn_menu_support:
-            return R.drawable.icn_menu_support_dark;
-        case R.drawable.icn_menu_tutorial:
-            return R.drawable.icn_menu_tutorial_dark;
-        case R.drawable.filter_assigned:
-            return R.drawable.filter_assigned_dark;
-        case R.drawable.filter_calendar:
-            return R.drawable.filter_calendar_dark;
-        case R.drawable.filter_inbox:
-            return R.drawable.filter_inbox_dark;
-        case R.drawable.waiting_on_me:
-            return R.drawable.waiting_on_me_dark;
-        case R.drawable.filter_pencil:
-            return R.drawable.filter_pencil_dark;
-        case R.drawable.filter_sliders:
-            return R.drawable.filter_sliders_dark;
-        case R.drawable.gl_lists:
-            return R.drawable.gl_lists_dark;
+        switch (lightDrawable) {
+            case R.drawable.ic_menu_save:
+                return R.drawable.ic_menu_save;
+            case R.drawable.ic_menu_close:
+                return R.drawable.ic_menu_close;
+            case R.drawable.ic_menu_mic:
+                return R.drawable.ic_menu_mic;
+            case R.drawable.ic_menu_attach:
+                return R.drawable.ic_menu_attach;
+            case R.drawable.list_settings:
+                return R.drawable.list_settings;
+            case R.drawable.icn_menu_refresh:
+                return R.drawable.icn_menu_refresh_dark;
+            case R.drawable.icn_menu_filters:
+                return R.drawable.icn_menu_filters_dark;
+            case R.drawable.icn_featured_lists:
+                return R.drawable.icn_featured_lists_dark;
+            case R.drawable.icn_menu_sort_by_size:
+                return R.drawable.icn_menu_sort_by_size_dark;
+            case R.drawable.icn_menu_search:
+                return R.drawable.icn_menu_search_dark;
+            case R.drawable.icn_menu_friends:
+                return R.drawable.icn_menu_friends_dark;
+            case R.drawable.icn_menu_lists:
+                return R.drawable.icn_menu_lists_dark;
+            case R.drawable.icn_menu_plugins:
+                return R.drawable.icn_menu_plugins_dark;
+            case R.drawable.icn_menu_settings:
+                return R.drawable.icn_menu_settings_dark;
+            case R.drawable.icn_menu_support:
+                return R.drawable.icn_menu_support_dark;
+            case R.drawable.icn_menu_tutorial:
+                return R.drawable.icn_menu_tutorial_dark;
+            case R.drawable.filter_assigned:
+                return R.drawable.filter_assigned_dark;
+            case R.drawable.filter_calendar:
+                return R.drawable.filter_calendar_dark;
+            case R.drawable.filter_inbox:
+                return R.drawable.filter_inbox_dark;
+            case R.drawable.waiting_on_me:
+                return R.drawable.waiting_on_me_dark;
+            case R.drawable.filter_pencil:
+                return R.drawable.filter_pencil_dark;
+            case R.drawable.filter_sliders:
+                return R.drawable.filter_sliders_dark;
+            case R.drawable.gl_lists:
+                return R.drawable.gl_lists_dark;
         }
 
         throw new RuntimeException("No theme drawable found for " +
@@ -262,6 +263,7 @@ public class ThemeService {
             return resForWhite;
         }
     }
+
     public static int getTaskEditDrawable(int regularDrawable, int lightBlueDrawable) {
         return getDarkVsLight(regularDrawable, lightBlueDrawable, true);
     }

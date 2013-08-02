@@ -5,13 +5,13 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.io.IOException;
-
 import android.app.Activity;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+
+import java.io.IOException;
 
 
 abstract public class SyncV2Provider {
@@ -22,12 +22,12 @@ abstract public class SyncV2Provider {
             getUtilities().setLastError(e.toString(), type);
 
             // occurs when application was closed
-            if(e instanceof IllegalStateException) {
+            if (e instanceof IllegalStateException) {
                 exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
             }
 
             // occurs when network error
-            else if(e instanceof IOException) {
+            else if (e instanceof IOException) {
                 exceptionService.reportError(tag + "-io", e); //$NON-NLS-1$
             }
 
@@ -60,15 +60,17 @@ abstract public class SyncV2Provider {
 
     /**
      * Synchronize all of user's active tasks
-     * @param manual whether manually triggered
+     *
+     * @param manual   whether manually triggered
      * @param callback callback object
      */
     abstract public void synchronizeActiveTasks(boolean manual, SyncResultCallback callback);
 
     /**
      * Synchronize a single list
-     * @param list object representing list (TaskListActivity-dependent)
-     * @param manual whether was manually triggered
+     *
+     * @param list     object representing list (TaskListActivity-dependent)
+     * @param manual   whether was manually triggered
      * @param callback callback object
      */
     abstract public void synchronizeList(Object list, boolean manual, SyncResultCallback callback);

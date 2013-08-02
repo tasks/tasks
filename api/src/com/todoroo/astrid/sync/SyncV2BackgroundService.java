@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.sync;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -23,23 +21,27 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Performs synchronization service logic in background service to avoid
  * ANR (application not responding) messages.
- * <p>
+ * <p/>
  * Starting this service
- *  schedules a repeating alarm which handles
+ * schedules a repeating alarm which handles
  * synchronization with your serv
  *
  * @author Tim Su
- *
  */
 abstract public class SyncV2BackgroundService extends Service {
 
-	/** Minimum time before an auto-sync */
-	private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
+    /**
+     * Minimum time before an auto-sync
+     */
+    private static final long AUTO_SYNC_MIN_OFFSET = 5 * 60 * 1000L;
 
-    @Autowired private ExceptionService exceptionService;
+    @Autowired
+    private ExceptionService exceptionService;
 
     // --- abstract methods
 
@@ -55,11 +57,13 @@ abstract public class SyncV2BackgroundService extends Service {
 
     private final AtomicBoolean started = new AtomicBoolean(false);
 
-    /** Receive the alarm - start the synchronize service! */
+    /**
+     * Receive the alarm - start the synchronize service!
+     */
     @Override
     public void onStart(Intent intent, int startId) {
         try {
-            if(intent != null && !started.getAndSet(true)) {
+            if (intent != null && !started.getAndSet(true)) {
                 startSynchronization(this);
             }
         } catch (Exception e) {
@@ -67,14 +71,16 @@ abstract public class SyncV2BackgroundService extends Service {
         }
     }
 
-    /** Start the actual synchronization */
+    /**
+     * Start the actual synchronization
+     */
     private void startSynchronization(final Context context) {
-        if(context == null || context.getResources() == null)
+        if (context == null || context.getResources() == null)
             return;
 
         ContextManager.setContext(context);
 
-        if(!getSyncUtilities().isLoggedIn())
+        if (!getSyncUtilities().isLoggedIn())
             return;
 
         SyncV2Provider provider = getSyncProvider();
@@ -108,16 +114,16 @@ abstract public class SyncV2BackgroundService extends Service {
         try {
             syncFrequencySeconds = Preferences.getIntegerFromString(
                     getSyncUtilities().getSyncIntervalKey(), -1);
-        } catch(ClassCastException e) {
+        } catch (ClassCastException e) {
             Preferences.setStringFromInteger(getSyncUtilities().getSyncIntervalKey(), 0);
         }
         Context context = ContextManager.getContext();
-        if(syncFrequencySeconds <= 0) {
-    	    unscheduleService(context);
-    	    return;
-    	}
+        if (syncFrequencySeconds <= 0) {
+            unscheduleService(context);
+            return;
+        }
 
-    	// figure out synchronization frequency
+        // figure out synchronization frequency
         long interval = 1000L * syncFrequencySeconds;
         long offset = computeNextSyncOffset(interval);
 
@@ -129,7 +135,7 @@ abstract public class SyncV2BackgroundService extends Service {
                 createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
 
         Log.i("Astrid", "Autosync set for " + offset / 1000 //$NON-NLS-1$ //$NON-NLS-2$
-            + " seconds repeating every " + syncFrequencySeconds); //$NON-NLS-1$
+                + " seconds repeating every " + syncFrequencySeconds); //$NON-NLS-1$
 
         // cancel all existing
         am.cancel(pendingIntent);
@@ -144,13 +150,15 @@ abstract public class SyncV2BackgroundService extends Service {
      * Removes repeating alarm for auto-synchronization
      */
     private void unscheduleService(Context context) {
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(context, getSyncUtilities().getSyncIntervalKey(),
                 createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
     }
 
-    /** Create the alarm intent */
+    /**
+     * Create the alarm intent
+     */
     private Intent createAlarmIntent(Context context) {
         Intent intent = new Intent(context, getClass());
         return intent;
@@ -163,7 +171,7 @@ abstract public class SyncV2BackgroundService extends Service {
         long lastSyncDate = getSyncUtilities().getLastSyncDate();
 
         // if user never synchronized, give them a full offset period before bg sync
-        if(lastSyncDate != 0)
+        if (lastSyncDate != 0)
             return Math.max(0, lastSyncDate + interval - DateUtilities.now());
         else
             return interval;

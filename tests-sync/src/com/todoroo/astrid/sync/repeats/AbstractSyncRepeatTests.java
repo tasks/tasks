@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.sync.repeats;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
 import android.content.Intent;
 
 import com.google.ical.values.Frequency;
@@ -30,7 +25,11 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.Flags;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
@@ -49,7 +48,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     private void saveAndTriggerRepeatListener(Task task) {
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-        if(task.isSaved())
+        if (task.isSaved())
             taskDao.saveExisting(task);
         else
             taskDao.createNew(task);
@@ -84,7 +83,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
      * @param remoteModel
      */
     protected long setCompletionDate(boolean completeBefore, Task t,
-            REMOTE_MODEL remoteModel, long dueDate) {
+                                     REMOTE_MODEL remoteModel, long dueDate) {
         long completionDate = DateUtilities.now();
         t.setValue(Task.COMPLETION_DATE, completionDate);
         saveAndTriggerRepeatListener(t);
@@ -93,7 +92,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
 
     protected void assertTimesMatch(long expectedTime, long newDueDate) {
         assertTrue(String.format("Expected %s, was %s", new Date(expectedTime), new Date(newDueDate)),
-                Math.abs(expectedTime - newDueDate) <= 600000); 
+                Math.abs(expectedTime - newDueDate) <= 600000);
         // Allow a few minutes of variance to account for timing issues in tests
     }
 
@@ -118,7 +117,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     }
 
     protected void testRepeating(boolean completeBefore, boolean fromCompletion,
-            RRule rrule, Frequency frequency, String title) {
+                                 RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + ((completeBefore ? -1 : 1) * DateUtilities.ONE_DAY * 3);
@@ -129,14 +128,14 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         if (rrule == null) {
             rrule = new RRule();
             rrule.setFreq(frequency);
-            int interval = frequency.equals(Frequency.MINUTELY) ? 100: 2;
+            int interval = frequency.equals(Frequency.MINUTELY) ? 100 : 2;
             rrule.setInterval(interval);
         }
-        
+
         String result = rrule.toIcal();
         if (fromCompletion)
             result = result + ";FROM=COMPLETION";
-        
+
         t.setValue(Task.RECURRENCE, rrule.toIcal());
         taskDao.save(t);
 
@@ -164,7 +163,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
             long newDueDate = t.getValue(Task.DUE_DATE);
             assertTrue(t.hasDueTime());
 
-            long fromDate = (fromCompletion? completionDate : dueDate);
+            long fromDate = (fromCompletion ? completionDate : dueDate);
             long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
 
             assertTaskExistsRemotely(t, expectedTime);
@@ -228,7 +227,9 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     }
 
 
-    /** Advanced weekly repeating tests */
+    /**
+     * Advanced weekly repeating tests
+     */
     protected long computeNextDueDateFromDate(long fromDate, RRule rrule, boolean fromCompletion) {
         long expectedTime = fromDate;
         Frequency frequency = rrule.getFreq();
@@ -258,7 +259,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
             originalCompleteDate.setYear(originalCompleteDate.getYear() + interval);
             expectedTime = originalCompleteDate.getTime();
         }
-        
+
         return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, expectedTime);
     }
 
@@ -271,7 +272,9 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     }
 
 
-    /** Tests for repeating from due date */
+    /**
+     * Tests for repeating from due date
+     */
 
     public void testRepeatMinutelyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.MINUTELY, "minutely-before");
@@ -322,7 +325,9 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     }
 
 
-    /** Tests for repeating from completionDate */
+    /**
+     * Tests for repeating from completionDate
+     */
 
     public void testRepeatMinutelyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.MINUTELY, "minutely-before");
@@ -384,7 +389,6 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         rrule.setByDay(weekdays);
         testRepeating(completeBefore, fromCompletion, rrule, Frequency.WEEKLY, title);
     }
-
 
 
     // disabled until test can be fixed

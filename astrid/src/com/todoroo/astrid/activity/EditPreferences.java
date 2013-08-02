@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -72,11 +66,16 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
 /**
  * Displays the preference screen for users to edit their preferences
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class EditPreferences extends TodorooPreferenceActivity {
 
@@ -92,9 +91,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     // --- instance variables
 
-    @Autowired private TaskService taskService;
-    @Autowired private AddOnService addOnService;
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private AddOnService addOnService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
     private Database database;
@@ -107,6 +109,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private class SetResultOnPreferenceChangeListener implements OnPreferenceChangeListener {
         private final int resultCode;
+
         public SetResultOnPreferenceChangeListener(int resultCode) {
             this.resultCode = resultCode;
         }
@@ -123,6 +126,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         private final AstridPreferenceSpec spec;
         private final int nameId;
         private final String statistic;
+
         public SetDefaultsClickListener(AstridPreferenceSpec spec, int nameId, String statistic) {
             this.spec = spec;
             this.nameId = nameId;
@@ -133,14 +137,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
         public boolean onPreferenceClick(Preference preference) {
             DialogUtilities.okCancelDialog(EditPreferences.this, getString(R.string.EPr_config_dialog_title),
                     getString(R.string.EPr_config_dialog_text, getString(nameId)), new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            spec.resetDefaults();
-                            StatisticsService.reportEvent(statistic);
-                            setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
-                            finish();
-                        }
-                    }, null);
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    spec.resetDefaults();
+                    StatisticsService.reportEvent(statistic);
+                    setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
+                    finish();
+                }
+            }, null);
             return true;
         }
     }
@@ -289,8 +293,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_statistics)).setEnabled(hasPowerPack);
     }
 
-    /** Show about dialog */
-    private void showAbout () {
+    /**
+     * Show about dialog
+     */
+    private void showAbout() {
         String version = "unknown"; //$NON-NLS-1$
         try {
             version = getPackageManager().getPackageInfo(Constants.PACKAGE, 0).versionName;
@@ -328,6 +334,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
+
     static {
         PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
     }
@@ -339,11 +346,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 PackageManager.GET_META_DATA);
         int length = resolveInfoList.size();
         LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
-            new LinkedHashMap<String, ArrayList<Preference>>();
+                new LinkedHashMap<String, ArrayList<Preference>>();
 
         // Loop through a list of all packages (including plugins, addons)
         // that have a settings action
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
             final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
             intent.setClassName(resolveInfo.activityInfo.packageName,
@@ -383,15 +390,15 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
 
-            if(!categoryPreferences.containsKey(category))
+            if (!categoryPreferences.containsKey(category))
                 categoryPreferences.put(category, new ArrayList<Preference>());
             ArrayList<Preference> arrayList = categoryPreferences.get(category);
             arrayList.add(preference);
         }
 
-        for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
+        for (Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
             if (entry.getKey().equals(getString(R.string.app_name))) {
-                for(Preference preference : entry.getValue())
+                for (Preference preference : entry.getValue())
                     screen.addPreference(preference);
             } else {
                 PreferenceManager manager = getPreferenceManager();
@@ -401,7 +408,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     header.setSummary(R.string.SyP_summary);
                 screen.addPreference(header);
 
-                for(Preference preference : entry.getValue())
+                for (Preference preference : entry.getValue())
                     header.addPreference(preference);
             }
 
@@ -411,7 +418,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @SuppressWarnings("nls")
     private void addDebugPreferences() {
-        if(!Constants.DEBUG)
+        if (!Constants.DEBUG)
             return;
 
         PreferenceCategory group = new PreferenceCategory(this);
@@ -436,7 +443,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
                 Task task = new Task();
-                for(int i = 0; i < 100; i++) {
+                for (int i = 0; i < 100; i++) {
                     task.clear();
                     task.setValue(Task.TITLE, Integer.toString(i));
                     taskService.save(task);
@@ -515,44 +522,46 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         e.printStackTrace();
                     }
                     return super.onPreferenceChange(p, newValue);
-                };
+                }
+
+                ;
             });
 
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean) value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
             else
                 preference.setSummary(R.string.EPr_showNotes_desc_enabled);
-            if((Boolean)value != Preferences.getBoolean(preference.getKey(), false)) {
+            if ((Boolean) value != Preferences.getBoolean(preference.getKey(), false)) {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
-        } else if(r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
+        } else if (r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
             if (value != null && (Boolean) value)
                 preference.setSummary(R.string.EPr_fullTask_desc_enabled);
             else
                 preference.setSummary(R.string.EPr_fullTask_desc_disabled);
         } else if (r.getString(R.string.p_theme).equals(preference.getKey())) {
-            if(AndroidUtilities.getSdkVersion() < 5) {
+            if (AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
                 int index = 0;
-                if(value instanceof String && !TextUtils.isEmpty((String)value))
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String)value);
+                if (value instanceof String && !TextUtils.isEmpty((String) value))
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String) value);
                 if (index < 0)
                     index = 0;
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
         } else if (r.getString(R.string.p_theme_widget).equals(preference.getKey())) {
-            if(AndroidUtilities.getSdkVersion() < 5) {
+            if (AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
                 int index = 0;
-                if(value instanceof String && !TextUtils.isEmpty((String)value))
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String)value);
+                if (value instanceof String && !TextUtils.isEmpty((String) value))
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String) value);
                 if (index < 0)
                     index = 0;
                 preference.setSummary(getString(R.string.EPr_theme_desc,
@@ -568,17 +577,19 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 dir = r.getString(R.string.p_files_dir_desc_default);
             }
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
-        }
-        else if (booleanPreference(preference, value, R.string.p_statistics,
-                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled));
+        } else if (booleanPreference(preference, value, R.string.p_statistics,
+                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled)) ;
         else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
-                    R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled));
+                R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled))
+            ;
         else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
-                    R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled));
+                R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled))
+            ;
         else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
-                    R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled));
+                R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled))
+            ;
         else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
-                    R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time));
+                R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) ;
         else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
@@ -588,36 +599,34 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
             });
-        }
-        else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
-             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                 @Override
+        } else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
+                @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
                     Preference swipe = findPreference(getString(R.string.p_swipe_lists_enabled));
                     swipe.setEnabled((Boolean) newValue);
                     return super.onPreferenceChange(p, newValue);
                 }
-             });
-        }
-        else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            });
+        } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+            if (value != null && !(Boolean) value)
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
             else
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
-            onVoiceInputStatusChanged(preference, (Boolean)value);
+            onVoiceInputStatusChanged(preference, (Boolean) value);
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean) value)
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
             else
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
-            onVoiceReminderStatusChanged(preference, (Boolean)value);
+            onVoiceReminderStatusChanged(preference, (Boolean) value);
         }
     }
 
     protected boolean booleanPreference(Preference preference, Object value,
-            int key, int disabledString, int enabledString) {
-        if(getString(key).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+                                        int key, int disabledString, int enabledString) {
+        if (getString(key).equals(preference.getKey())) {
+            if (value != null && !(Boolean) value)
                 preference.setSummary(disabledString);
             else
                 preference.setSummary(enabledString);
@@ -660,7 +669,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_config_lite)).setOnPreferenceClickListener(
                 new SetDefaultsClickListener(new AstridLitePreferenceSpec(), R.string.EPr_config_lite, StatisticsConstants.PREFS_RESET_LITE));
 
-        int[] menuPrefs = { R.string.p_show_menu_search, R.string.p_show_menu_friends,
+        int[] menuPrefs = {R.string.p_show_menu_search, R.string.p_show_menu_friends,
                 R.string.p_show_menu_sync, R.string.p_show_menu_sort,
         };
         for (int key : menuPrefs) {
@@ -728,7 +737,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private void onVoiceReminderStatusChanged(final Preference preference, boolean newValue) {
         try {
             VoiceOutputService.getVoiceOutputInstance();
-            if(newValue)
+            if (newValue)
                 VoiceOutputService.getVoiceOutputInstance().checkIsTTSInstalled();
         } catch (VerifyError e) {
             // doesn't work :(
@@ -738,7 +747,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     private void onVoiceInputStatusChanged(final Preference preference, boolean newValue) {
-        if(!newValue)
+        if (!newValue)
             return;
         int[] excludedSettings = Constants.MARKET_STRATEGY.excludedSettings();
         if (excludedSettings != null && AndroidUtilities.indexOf(excludedSettings, R.string.p_voiceInputEnabled) >= 0)
@@ -752,12 +761,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {
+                                                int which) {
                                 voiceInputAssistant.showVoiceInputMarketSearch(new OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog1,
-                                            int which1) {
-                                        ((CheckBoxPreference)preference).setChecked(false);
+                                                        int which1) {
+                                        ((CheckBoxPreference) preference).setChecked(false);
                                     }
                                 });
                             }
@@ -765,18 +774,19 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {
-                                ((CheckBoxPreference)preference).setChecked(false);
+                                                int which) {
+                                ((CheckBoxPreference) preference).setChecked(false);
                             }
-                        });
+                        }
+                );
             } else {
                 DialogUtilities.okDialog(this,
                         r.getString(R.string.EPr_voiceInputUnavailable_dlg),
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog1,
-                                    int which1) {
-                                ((CheckBoxPreference)preference).setChecked(false);
+                                                int which1) {
+                                ((CheckBoxPreference) preference).setChecked(false);
                             }
                         });
             }

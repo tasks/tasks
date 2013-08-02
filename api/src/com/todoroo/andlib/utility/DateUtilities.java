@@ -5,18 +5,18 @@
  */
 package com.todoroo.andlib.utility;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+
+import com.todoroo.astrid.api.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import android.content.Context;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
-
-import com.todoroo.astrid.api.R;
 
 
 public class DateUtilities {
@@ -25,16 +25,20 @@ public class DateUtilities {
      * ============================================================ long time
      * ====================================================================== */
 
-    /** Convert unixtime into date */
+    /**
+     * Convert unixtime into date
+     */
     public static final Date unixtimeToDate(long millis) {
-        if(millis == 0)
+        if (millis == 0)
             return null;
         return new Date(millis);
     }
 
-    /** Convert date into unixtime */
+    /**
+     * Convert date into unixtime
+     */
     public static final long dateToUnixtime(Date date) {
-        if(date == null)
+        if (date == null)
             return 0;
         return date.getTime();
     }
@@ -43,7 +47,7 @@ public class DateUtilities {
      * Add the specified amount of months to the given time.<br/>
      * The day of month will stay the same.<br/>
      *
-     * @param time the base-time (in milliseconds) to which the amount of months is added
+     * @param time     the base-time (in milliseconds) to which the amount of months is added
      * @param interval the amount of months to be added
      * @return the calculated time in milliseconds
      */
@@ -54,28 +58,40 @@ public class DateUtilities {
         return c.getTimeInMillis();
     }
 
-    /** Returns unixtime for current time */
+    /**
+     * Returns unixtime for current time
+     */
     public static final long now() {
         return System.currentTimeMillis();
     }
 
-    /** Returns unixtime one month from now */
+    /**
+     * Returns unixtime one month from now
+     */
     public static final long oneMonthFromNow() {
         Date date = new Date();
         date.setMonth(date.getMonth() + 1);
         return date.getTime();
     }
 
-    /** Represents a single hour */
+    /**
+     * Represents a single hour
+     */
     public static final long ONE_HOUR = 3600000L;
 
-    /** Represents a single day */
+    /**
+     * Represents a single day
+     */
     public static final long ONE_DAY = 24 * ONE_HOUR;
 
-    /** Represents a single week */
+    /**
+     * Represents a single week
+     */
     public static final long ONE_WEEK = 7 * ONE_DAY;
 
-    /** Represents a single minute */
+    /**
+     * Represents a single minute
+     */
     public static final long ONE_MINUTE = 60000L;
 
     /* ======================================================================
@@ -85,7 +101,7 @@ public class DateUtilities {
     static Boolean is24HourOverride = null;
 
     public static boolean is24HourFormat(Context context) {
-        if(is24HourOverride != null)
+        if (is24HourOverride != null)
             return is24HourOverride;
 
         return DateFormat.is24HourFormat(context);
@@ -93,7 +109,7 @@ public class DateUtilities {
 
     /**
      * @param context android context
-     * @param date time to format
+     * @param date    time to format
      * @return time, with hours and minutes
      */
     @SuppressWarnings("nls")
@@ -101,10 +117,9 @@ public class DateUtilities {
         String value;
         if (is24HourFormat(context)) {
             value = "H:mm";
-        } else if (date.getMinutes() == 0 && excludeZeroMinutes){
+        } else if (date.getMinutes() == 0 && excludeZeroMinutes) {
             value = "h a";
-        }
-        else {
+        } else {
             value = "h:mm a";
         }
         return new SimpleDateFormat(value).format(date);
@@ -122,7 +137,7 @@ public class DateUtilities {
 
     /**
      * @param context android context
-     * @param date date to format
+     * @param date    date to format
      * @return date, with month, day, and year
      */
     @SuppressWarnings("nls")
@@ -134,20 +149,21 @@ public class DateUtilities {
         // united states, you are special
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
-                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
+                || arrayBinaryContains(locale.getCountry(), "BZ", "CA", "KE", "MN", "US"))
             value = "'#' d'$'";
         else
             value = "d'$' '#'";
         if (includeYear)
             value += ", yyyy";
-        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) {
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
-        }else if ("ko".equals(Locale.getDefault().getLanguage())){
+        } else if ("ko".equals(Locale.getDefault().getLanguage())) {
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\uC77C"); //$NON-NLS-1$
-        }else{
+        } else {
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "");
         }
-        return standardDate;}
+        return standardDate;
+    }
 
     public static String getDateString(Context context, Date date) {
         return getDateString(context, date, true);
@@ -155,7 +171,7 @@ public class DateUtilities {
 
     /**
      * @param context android context
-     * @param date date to format
+     * @param date    date to format
      * @return date, with month, day, and year
      */
     @SuppressWarnings("nls")
@@ -166,12 +182,12 @@ public class DateUtilities {
         Locale locale = Locale.getDefault();
         // united states, you are special
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
-                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
+                || arrayBinaryContains(locale.getCountry(), "BZ", "CA", "KE", "MN", "US"))
             value = "'#' d";
         else
             value = "d '#'";
 
-        if (date.getYear() !=  (new Date()).getYear()) {
+        if (date.getYear() != (new Date()).getYear()) {
             value = value + "\nyyyy";
         }
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
@@ -231,16 +247,16 @@ public class DateUtilities {
         long today = clearTime(new Date());
         long input = clearTime(new Date(date));
 
-        if(today == input)
+        if (today == input)
             return context.getString(R.string.today).toLowerCase();
 
-        if(today + ONE_DAY == input)
+        if (today + ONE_DAY == input)
             return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow).toLowerCase();
 
-        if(today == input + ONE_DAY)
+        if (today == input + ONE_DAY)
             return context.getString(abbreviated ? R.string.yest : R.string.yesterday).toLowerCase();
 
-        if(today + DateUtilities.ONE_WEEK >= input &&
+        if (today + DateUtilities.ONE_WEEK >= input &&
                 today - DateUtilities.ONE_WEEK <= input)
             return abbreviated ? DateUtilities.getWeekdayShort(new Date(date)) : DateUtilities.getWeekday(new Date(date));
 
@@ -270,6 +286,7 @@ public class DateUtilities {
     }
 
     private static final Calendar calendar = Calendar.getInstance();
+
     public static long getStartOfDay(long time) {
         calendar.setTimeInMillis(time);
         calendar.set(Calendar.HOUR, 0);

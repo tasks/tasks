@@ -6,8 +6,6 @@
 package com.todoroo.astrid.activity;
 
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,15 +29,18 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.Constants;
 
+import java.util.ArrayList;
+
 /**
  * TODO: fix deprecation or get rid of me
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AddOnActivity extends SherlockFragmentActivity {
 
-    /** boolean: whether to start on available page */
+    /**
+     * boolean: whether to start on available page
+     */
     public static final String TOKEN_START_WITH_AVAILABLE = "av"; //$NON-NLS-1$
 
     private View installedView;
@@ -69,12 +70,12 @@ public class AddOnActivity extends SherlockFragmentActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         ActionBar.Tab installedTab = ab.newTab().setText("  " + getString(R.string.AOA_tab_installed)) //$NON-NLS-1$
-                                      .setIcon(R.drawable.gl_pencil)
-                                      .setTabListener(new AddOnTabListener(installedView));
+                .setIcon(R.drawable.gl_pencil)
+                .setTabListener(new AddOnTabListener(installedView));
 
         ActionBar.Tab availableTab = ab.newTab().setText("  " + getString(R.string.AOA_tab_available)) //$NON-NLS-1$
-                                                .setIcon(R.drawable.gl_more)
-                                                .setTabListener(new AddOnTabListener(availableView));
+                .setIcon(R.drawable.gl_more)
+                .setTabListener(new AddOnTabListener(availableView));
 
         ab.addTab(availableTab);
         ab.addTab(installedTab);
@@ -120,20 +121,20 @@ public class AddOnActivity extends SherlockFragmentActivity {
 
     private void populate() {
         AddOn[] list = addOnService.getAddOns();
-        if(list == null)
+        if (list == null)
             return;
 
         ArrayList<AddOn> installed = new ArrayList<AddOn>();
         ArrayList<AddOn> available = new ArrayList<AddOn>();
 
-        for(AddOn addOn : list) {
+        for (AddOn addOn : list) {
             if (AddOnService.POWER_PACK_PACKAGE.equals(addOn.getPackageName())) {
                 if (addOnService.hasPowerPack())
                     installed.add(addOn);
                 else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
                     available.add(addOn);
             } else {
-                if(addOnService.isInstalled(addOn))
+                if (addOnService.isInstalled(addOn))
                     installed.add(addOn);
                 else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
                     available.add(addOn);
@@ -143,23 +144,24 @@ public class AddOnActivity extends SherlockFragmentActivity {
 
         ListView installedList = (ListView) installedView.findViewById(R.id.list);
         installedList.setAdapter(new AddOnAdapter(this, true, installed));
-        if(installed.size() > 0)
+        if (installed.size() > 0)
             installedView.findViewById(R.id.empty).setVisibility(View.GONE);
 
         ListView availableList = (ListView) availableView.findViewById(R.id.list);
         availableList.setAdapter(new AddOnAdapter(this, false, available));
-        if(available.size() > 0)
+        if (available.size() > 0)
             availableView.findViewById(R.id.empty).setVisibility(View.GONE);
     }
 
     /**
      * Creates an on click listener
+     *
      * @param activity
-     * @param finish whether to finish activity
+     * @param finish   whether to finish activity
      * @return
      */
     public static DialogInterface.OnClickListener createAddOnClicker(final Activity activity,
-            final boolean finish) {
+                                                                     final boolean finish) {
         return new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -167,7 +169,7 @@ public class AddOnActivity extends SherlockFragmentActivity {
                         AddOnActivity.class);
                 intent.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
                 activity.startActivity(intent);
-                if(finish)
+                if (finish)
                     activity.finish();
             }
         };

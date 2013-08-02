@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.json.JSONObject;
-
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -10,6 +8,8 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.WaitingOnMe;
+
+import org.json.JSONObject;
 
 @SuppressWarnings("nls")
 public abstract class ServerToClientMessage {

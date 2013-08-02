@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -38,20 +35,29 @@ import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  * Helper class that creates a dialog to confirm the results of a quick add markup
- * @author Sam
  *
+ * @author Sam
  */
 public class DateChangedAlerts {
 
-    /** Preference key for how many of these helper dialogs we've shown */
+    /**
+     * Preference key for how many of these helper dialogs we've shown
+     */
     public static final String PREF_NUM_HELPERS_SHOWN = "pref_num_date_helpers"; //$NON-NLS-1$
 
-    /** Preference key for whether or not we should show such dialogs */
+    /**
+     * Preference key for whether or not we should show such dialogs
+     */
     public static final int PREF_SHOW_HELPERS = R.string.p_showSmartConfirmation_key;
 
-    /** Start showing the option to hide future notifs after this many confirmation dialogs */
+    /**
+     * Start showing the option to hide future notifs after this many confirmation dialogs
+     */
     public static final int HIDE_CHECKBOX_AFTER_SHOWS = 3;
 
 
@@ -118,7 +124,7 @@ public class DateChangedAlerts {
 
 
     public static final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
-            new Property<?>[] {
+            new Property<?>[]{
                     Task.ID,
                     Task.TITLE,
                     Task.DUE_DATE,
@@ -127,7 +133,7 @@ public class DateChangedAlerts {
             };
 
     public static void showRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task,
-            final long oldDueDate, final long newDueDate, final boolean lastTime) {
+                                                       final long oldDueDate, final long newDueDate, final boolean lastTime) {
         if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
             return;
 
@@ -180,7 +186,7 @@ public class DateChangedAlerts {
 
         int encouragementResource = lastTime ? R.array.repeat_encouragement_last_time : R.array.repeat_encouragement;
         String[] encouragements = activity.getResources().getStringArray(encouragementResource);
-        String encouragement = encouragements[(int) (Math.random()*encouragements.length)];
+        String encouragement = encouragements[(int) (Math.random() * encouragements.length)];
 
         String speechBubbleText;
         if (lastTime)
@@ -264,7 +270,7 @@ public class DateChangedAlerts {
     @SuppressWarnings("nls")
     private static Spanned constructSpeechBubbleTextForQuickAdd(Context context, Task task) {
         String[] priorityStrings = context.getResources().getStringArray(R.array.TLA_priority_strings);
-        int[] colorsArray = new int[] { R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4 };
+        int[] colorsArray = new int[]{R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4};
 
         String title = task.getValue(Task.TITLE);
         long date = task.getValue(Task.DUE_DATE);
@@ -300,7 +306,7 @@ public class DateChangedAlerts {
     @SuppressWarnings("nls")
     private static String getRelativeDateAndTimeString(Context context, long date) {
         String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
-        if(Task.hasDueTime(date))
+        if (Task.hasDueTime(date))
             dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
                     DateUtilities.getTimeString(context, new Date(date)));
         return dueString;
@@ -315,24 +321,24 @@ public class DateChangedAlerts {
                     R.array.repeat_interval);
             String frequency = "";
             Frequency freq = rrule.getFreq();
-            switch(freq) {
-            case DAILY:
-                frequency = dateAbbrev[0].toLowerCase();
-                break;
-            case WEEKLY:
-                frequency = dateAbbrev[1].toLowerCase();
-                break;
-            case MONTHLY:
-                frequency = dateAbbrev[2].toLowerCase();
-                break;
-            case HOURLY:
-                frequency = dateAbbrev[3].toLowerCase();
-                break;
-            case MINUTELY:
-                frequency = dateAbbrev[4].toLowerCase();
-                break;
-            case YEARLY:
-                frequency = dateAbbrev[5].toLowerCase();
+            switch (freq) {
+                case DAILY:
+                    frequency = dateAbbrev[0].toLowerCase();
+                    break;
+                case WEEKLY:
+                    frequency = dateAbbrev[1].toLowerCase();
+                    break;
+                case MONTHLY:
+                    frequency = dateAbbrev[2].toLowerCase();
+                    break;
+                case HOURLY:
+                    frequency = dateAbbrev[3].toLowerCase();
+                    break;
+                case MINUTELY:
+                    frequency = dateAbbrev[4].toLowerCase();
+                    break;
+                case YEARLY:
+                    frequency = dateAbbrev[5].toLowerCase();
             }
 
             if (!TextUtils.isEmpty(frequency)) {

@@ -12,12 +12,12 @@ import android.os.Parcelable;
  * Section Header for Filter List
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class FilterListHeader extends FilterListItem {
 
     /**
      * Constructor for creating a new FilterListHeader
+     *
      * @param listingTitle
      * @param listingIconResource
      * @param priority
@@ -29,8 +29,7 @@ public class FilterListHeader extends FilterListItem {
     /**
      * Constructor for creating a new FilterListHeader
      *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
+     * @param plugin {@link Addon} identifier that encompasses object
      */
     protected FilterListHeader() {
         //

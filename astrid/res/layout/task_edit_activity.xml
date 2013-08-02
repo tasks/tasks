@@ -5,237 +5,238 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/taskEditParent"
-    style="@style/Content"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    
+              android:id="@+id/taskEditParent"
+              style="@style/Content"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+
     <com.todoroo.astrid.ui.NestableScrollView
-        android:id="@+id/edit_scroll"
-        style="@style/Content_EditScroll"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="100" >
+            android:id="@+id/edit_scroll"
+            style="@style/Content_EditScroll"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="100">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="600dip"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:padding="10dip" >
-            
-            <RelativeLayout 
-		        android:id="@+id/waiting_on_me"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-                android:layout_margin="3dip"
-		        android:layout_marginBottom="10dip"
-		        android:padding="10dip"
-		        android:visibility="gone"
-		        android:background="?attr/asWomEditRowBackground">
-		        <ImageView 
-		            android:id="@+id/wom_icon"
-	                android:layout_marginRight="10dip"
-    	            android:layout_width="20dip"
-	                android:layout_height="20dip"
-	                android:scaleType="fitCenter"/>
-		        
-		        <TextView 
-		            android:id="@+id/wom_message"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:layout_marginBottom="10dip"
-		            android:textStyle="bold"
-		            android:layout_toRightOf="@id/wom_icon"/>
-		        
-		        <TextView 
-		            android:id="@+id/wom_acknowledge"
-		            android:layout_width="wrap_content"
-		            android:layout_height="fill_parent" 
-		            android:layout_below="@id/wom_message"
-		            android:layout_marginRight="10dip"
-		            android:layout_alignLeft="@id/wom_message"
-		            android:padding="6dip"
-		            android:textColor="@android:color/white"
-		            android:text="@string/wom_acknowledge"/>
-		        
-		        <TextView 
-		            android:id="@+id/wom_dismiss"
-		            android:layout_width="wrap_content"
-		            android:layout_height="fill_parent" 
-		            android:layout_marginRight="5dip"
-		            android:layout_toRightOf="@id/wom_acknowledge"
-		            android:layout_below="@id/wom_message"
-		            android:padding="6dip"
-		            android:textColor="@android:color/white"
-		            android:text="@string/wom_dismiss"/>
-		        
-		    </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/title_controls"
-                style="@style/EditRow"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dip"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingRight="6dip" >
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/basic_controls"
-                style="@style/EditRow"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="3dip"
-                android:layout_marginTop="10dip"
-                android:orientation="vertical" >
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/more_container"
-                style="@style/EditRow"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dip"
-                android:layout_marginBottom="0dip"
+                android:layout_height="600dip"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:gravity="center_horizontal"
+                android:padding="10dip">
+
+            <RelativeLayout
+                    android:id="@+id/waiting_on_me"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dip"
+                    android:layout_marginBottom="10dip"
+                    android:padding="10dip"
+                    android:visibility="gone"
+                    android:background="?attr/asWomEditRowBackground">
+
+                <ImageView
+                        android:id="@+id/wom_icon"
+                        android:layout_marginRight="10dip"
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:scaleType="fitCenter"/>
+
+                <TextView
+                        android:id="@+id/wom_message"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@id/wom_icon"/>
+
+                <TextView
+                        android:id="@+id/wom_acknowledge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@id/wom_message"
+                        android:layout_marginRight="10dip"
+                        android:layout_alignLeft="@id/wom_message"
+                        android:padding="6dip"
+                        android:textColor="@android:color/white"
+                        android:text="@string/wom_acknowledge"/>
+
+                <TextView
+                        android:id="@+id/wom_dismiss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginRight="5dip"
+                        android:layout_toRightOf="@id/wom_acknowledge"
+                        android:layout_below="@id/wom_message"
+                        android:padding="6dip"
+                        android:textColor="@android:color/white"
+                        android:text="@string/wom_dismiss"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:id="@+id/title_controls"
+                    style="@style/EditRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingRight="6dip">
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/basic_controls"
+                    style="@style/EditRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="3dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="vertical">
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:id="@+id/more_container"
+                    style="@style/EditRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dip"
+                    android:layout_marginBottom="0dip"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                 <com.viewpagerindicator.TabPageIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                        android:id="@+id/indicator"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"/>
 
                 <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="5dip"
-                    android:layout_weight="1"
-                    android:visibility="gone" />
+                        android:id="@+id/progressBar"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="5dip"
+                        android:layout_weight="1"
+                        android:visibility="gone"/>
 
                 <com.todoroo.astrid.ui.NestableViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                        android:id="@+id/pager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
-            
+
             <TextView
-                android:id="@+id/edit_beast_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="17dip"
-                android:paddingBottom="17dip"
-                android:text="@string/EPr_beastMode_shortcut"
-                android:textColor="?attr/asTextColor"/>
-            
+                    android:id="@+id/edit_beast_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="17dip"
+                    android:paddingBottom="17dip"
+                    android:text="@string/EPr_beastMode_shortcut"
+                    android:textColor="?attr/asTextColor"/>
+
             <ImageView
-                android:id="@+id/delete_task"
-                android:layout_width="20dip"
-                android:layout_height="20dip"
-                android:layout_marginBottom="10dip"
-                android:src="@drawable/trashcan"
-                android:scaleType="fitCenter"/>
-            
+                    android:id="@+id/delete_task"
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:layout_marginBottom="10dip"
+                    android:src="@drawable/trashcan"
+                    android:scaleType="fitCenter"/>
+
         </LinearLayout>
     </com.todoroo.astrid.ui.NestableScrollView>
 
     <!-- Footer -->
 
     <LinearLayout
-        android:id="@+id/updatesFooter"
-        style="@style/Content"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:minHeight="50dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="?attr/asAbBackgroundColor"
-        android:padding="3dip" 
-        android:visibility="gone"
-        android:paddingBottom="0dip">
+            android:id="@+id/updatesFooter"
+            style="@style/Content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="50dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="?attr/asAbBackgroundColor"
+            android:padding="3dip"
+            android:visibility="gone"
+            android:paddingBottom="0dip">
 
         <!-- Voice Add Button -->
 
         <ImageButton
-            android:id="@+id/picture"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_marginRight="3dip"
-            android:layout_weight="1"
-            android:paddingBottom="2dip"
-            android:scaleType="centerInside"
-            android:background="@android:color/transparent"
-            android:src="@drawable/camera_button" />
+                android:id="@+id/picture"
+                android:layout_width="39dip"
+                android:layout_height="39dip"
+                android:layout_marginRight="3dip"
+                android:layout_weight="1"
+                android:paddingBottom="2dip"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                android:src="@drawable/camera_button"/>
 
         <!-- Quick Add Task -->
 
         <EditText
-            android:id="@+id/commentField"
-            android:layout_width="wrap_content"
-            android:layout_height="39dip"
-            android:layout_marginLeft="1dip"
-            android:layout_marginRight="1dip"
-            android:layout_marginBottom="2dip"
-            android:layout_marginTop="2dip"
-            android:layout_weight="100"
-            android:autoText="true"
-            android:background="?attr/asEditTextBackground"
-            android:capitalize="sentences"
-            android:imeOptions="flagNoExtractUi"
-            android:hint="@string/TVA_add_comment"
-            android:textColor="?attr/asTextColor"
-            android:paddingLeft="10dip"
-            android:textSize="16sp" />
+                android:id="@+id/commentField"
+                android:layout_width="wrap_content"
+                android:layout_height="39dip"
+                android:layout_marginLeft="1dip"
+                android:layout_marginRight="1dip"
+                android:layout_marginBottom="2dip"
+                android:layout_marginTop="2dip"
+                android:layout_weight="100"
+                android:autoText="true"
+                android:background="?attr/asEditTextBackground"
+                android:capitalize="sentences"
+                android:imeOptions="flagNoExtractUi"
+                android:hint="@string/TVA_add_comment"
+                android:textColor="?attr/asTextColor"
+                android:paddingLeft="10dip"
+                android:textSize="16sp"/>
 
         <!-- Extended Add Button -->
 
         <LinearLayout
-            android:id="@+id/timer_container"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_marginLeft="2dip"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+                android:id="@+id/timer_container"
+                android:layout_width="39dip"
+                android:layout_height="39dip"
+                android:layout_marginLeft="2dip"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/timer_button"
-                android:layout_width="fill_parent"
-                android:layout_height="25dip"
-                android:layout_weight="1"
-                android:background="#00000000"
-                android:gravity="center_vertical|center_horizontal"
-                android:paddingRight="5dip"
-                android:paddingLeft="5dip"
-                android:scaleType="centerInside" />
+                    android:id="@+id/timer_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="25dip"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingRight="5dip"
+                    android:paddingLeft="5dip"
+                    android:scaleType="centerInside"/>
 
             <Chronometer
-                android:id="@+id/timer"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:textColor="?attr/asThemeTextColor"
-                android:textSize="10sp"
-                android:visibility="visible" />
+                    android:id="@+id/timer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:textColor="?attr/asThemeTextColor"
+                    android:textSize="10sp"
+                    android:visibility="visible"/>
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/commentButton"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_marginLeft="3dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="?attr/asAddButtonImg"
-            android:scaleType="center"
-            android:visibility="gone" />
+                android:id="@+id/commentButton"
+                android:layout_width="39dip"
+                android:layout_height="39dip"
+                android:layout_marginLeft="3dip"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:src="?attr/asAddButtonImg"
+                android:scaleType="center"
+                android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

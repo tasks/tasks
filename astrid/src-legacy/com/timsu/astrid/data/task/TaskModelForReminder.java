@@ -5,24 +5,25 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.Date;
-
 import android.database.Cursor;
 
 import com.timsu.astrid.data.LegacyAbstractController;
 
+import java.util.Date;
 
 
-/** Fields that you would want to see in the TaskView activity */
+/**
+ * Fields that you would want to see in the TaskView activity
+ */
 public class TaskModelForReminder extends AbstractTaskModel {
 
-    static String[] FIELD_LIST = new String[] {
-        LegacyAbstractController.KEY_ROWID,
-        NAME,
-        NOTIFICATION_FLAGS,
-        HIDDEN_UNTIL,
-        TIMER_START,
-        PROGRESS_PERCENTAGE,
+    static String[] FIELD_LIST = new String[]{
+            LegacyAbstractController.KEY_ROWID,
+            NAME,
+            NOTIFICATION_FLAGS,
+            HIDDEN_UNTIL,
+            TIMER_START,
+            PROGRESS_PERCENTAGE,
     };
 
     // --- constructors

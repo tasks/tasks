@@ -5,17 +5,6 @@
  */
 package com.timsu.astrid.utilities;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.xmlpull.v1.XmlSerializer;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
@@ -34,6 +23,17 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForXml;
 import com.todoroo.astrid.backup.BackupDateUtilities;
+
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 @SuppressWarnings({"nls", "deprecation"})
 public class LegacyTasksXmlExporter {
@@ -66,7 +66,9 @@ public class LegacyTasksXmlExporter {
     public static final int FILENAME_DATE_BEGIN_INDEX = 5;
     public static final int FILENAME_DATE_END_INDEX = 11;
 
-    /** last version before 3.0, used for XML header */
+    /**
+     * last version before 3.0, used for XML header
+     */
     private static final int LEGACY_VERSION = 137;
 
     public LegacyTasksXmlExporter(boolean isService) {
@@ -82,7 +84,7 @@ public class LegacyTasksXmlExporter {
             throws IOException {
         LinkedList<TagIdentifier> tags = tagController.getTaskTags(task);
         for (TagIdentifier tag : tags) {
-            if(!tagMap.containsKey(tag) || tagMap.get(tag) == null)
+            if (!tagMap.containsKey(tag) || tagMap.get(tag) == null)
                 continue;
             xml.startTag(null, TAG_TAG);
             xml.attribute(null, TAG_ATTR_NAME, tagMap.get(tag).toString());
@@ -115,7 +117,7 @@ public class LegacyTasksXmlExporter {
     private void serializeTasks()
             throws IOException {
         Cursor c = taskController.getBackupTaskListCursor();
-        if (! c.moveToFirst()) {
+        if (!c.moveToFirst()) {
             return; // No tasks.
         }
         do {
@@ -244,7 +246,7 @@ public class LegacyTasksXmlExporter {
     }
 
     private void setOutput(String file) {
-       this.output = file;
+        this.output = file;
     }
 
 //    private final Runnable doBackgroundExport = new Runnable() {

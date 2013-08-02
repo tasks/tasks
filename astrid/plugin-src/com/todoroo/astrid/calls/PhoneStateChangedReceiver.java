@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.calls;
 
-import java.util.Date;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +20,8 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+
+import java.util.Date;
 
 @SuppressWarnings("nls")
 public class PhoneStateChangedReceiver extends BroadcastReceiver {
@@ -60,22 +60,22 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     Cursor calls;
                     try {
                         calls = context.getContentResolver().query(
-                            Calls.CONTENT_URI,
-                            new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
-                            Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
-                            new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
-                            Calls.DATE + " DESC"
-                            );
+                                Calls.CONTENT_URI,
+                                new String[]{Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME},
+                                Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+                                new String[]{Integer.toString(Calls.MISSED_TYPE), "1"},
+                                Calls.DATE + " DESC"
+                        );
                     } catch (Exception e) { // Sometimes database is locked, retry once
                         AndroidUtilities.sleepDeep(300L);
                         try {
                             calls = context.getContentResolver().query(
                                     Calls.CONTENT_URI,
-                                    new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
+                                    new String[]{Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME},
                                     Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
-                                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
+                                    new String[]{Integer.toString(Calls.MISSED_TYPE), "1"},
                                     Calls.DATE + " DESC"
-                                    );
+                            );
                         } catch (Exception e2) {
                             calls = null;
                         }
@@ -143,7 +143,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
     private long getContactIdFromNumber(Context context, String number) {
         Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-        Cursor c = context.getContentResolver().query(contactUri, new String[] { ContactsContract.PhoneLookup._ID }, null, null, null);
+        Cursor c = context.getContentResolver().query(contactUri, new String[]{ContactsContract.PhoneLookup._ID}, null, null, null);
 
         try {
             if (c.moveToFirst()) {

@@ -35,25 +35,32 @@ import com.twofortyfouram.SharedResources;
  * Activity to edit alerts from Locale
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class LocaleEditAlerts extends ListActivity {
 
     // --- locale constants
 
-    /** key name for filter title in bundle */
+    /**
+     * key name for filter title in bundle
+     */
     @SuppressWarnings("nls")
     public static final String KEY_FILTER_TITLE = "title";
 
-    /** key name for filter SQL in bundle */
+    /**
+     * key name for filter SQL in bundle
+     */
     @SuppressWarnings("nls")
     public static final String KEY_SQL = "sql";
 
-    /** key name for filter content-values in bundle */
+    /**
+     * key name for filter content-values in bundle
+     */
     @SuppressWarnings("nls")
     public static final String KEY_VALUES = "val";
 
-    /** key name for interval (integer, # of seconds) */
+    /**
+     * key name for interval (integer, # of seconds)
+     */
     @SuppressWarnings("nls")
     public static final String KEY_INTERVAL = "interval";
 
@@ -72,8 +79,8 @@ public final class LocaleEditAlerts extends ListActivity {
     /**
      * Intervals in seconds
      */
-    public static final int[] INTERVALS = new int[] {
-        3600, 6 * 3600, 12 * 3600, 24 * 3600, 3 * 24 * 3600, 7 * 24 * 3600
+    public static final int[] INTERVALS = new int[]{
+            3600, 6 * 3600, 12 * 3600, 24 * 3600, 3 * 24 * 3600, 7 * 24 * 3600
     };
 
     /**
@@ -94,13 +101,15 @@ public final class LocaleEditAlerts extends ListActivity {
     /**
      * Flag boolean that can only be set to true via the "Don't Save" menu item in {@link #onMenuItemSelected(int, MenuItem)}. If
      * true, then this {@code Activity} should return {@link Activity#RESULT_CANCELED} in {@link #finish()}.
-     * <p>
+     * <p/>
      * There is no need to save/restore this field's state when the {@code Activity} is paused.
      */
     private boolean isCancelled = false;
     private boolean isRemoved = false;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme);
@@ -135,18 +144,16 @@ public final class LocaleEditAlerts extends ListActivity {
              * if savedInstanceState == null, then we are entering the Activity directly from Locale and we need to check whether the
              * Intent has forwarded a Bundle extra (e.g. whether we editing an old setting or creating a new one)
              */
-            if (savedInstanceState == null)
-            {
+            if (savedInstanceState == null) {
                 final Bundle forwardedBundle = getIntent().getBundleExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE);
 
                 /*
                  * the forwardedBundle would be null if this was a new setting
                  */
-                if (forwardedBundle != null)
-                {
+                if (forwardedBundle != null) {
                     final int intervalValue = forwardedBundle.getInt(KEY_INTERVAL, INTERVALS[interval.getSelectedItemPosition()]);
-                    for(int i = 0; i < INTERVALS.length; i++) {
-                        if(intervalValue == INTERVALS[i]) {
+                    for (int i = 0; i < INTERVALS.length; i++) {
+                        if (intervalValue == INTERVALS[i]) {
                             interval.setSelection(i);
                             break;
                         }
@@ -164,17 +171,17 @@ public final class LocaleEditAlerts extends ListActivity {
         adapter = new FilterAdapter(this, getListView(), R.layout.filter_adapter_row, true) {
             @Override
             public void onReceiveFilter(FilterListItem item) {
-                if(adapter.getSelection() != null || finalSelection == null)
+                if (adapter.getSelection() != null || finalSelection == null)
                     return;
-                if(item instanceof Filter) {
-                    if(finalSelection.equals(((Filter)item).getSqlQuery()))
+                if (item instanceof Filter) {
+                    if (finalSelection.equals(((Filter) item).getSqlQuery()))
                         adapter.setSelection(item);
-                } else if(item instanceof FilterCategory) {
-                    Filter[] filters = ((FilterCategory)item).children;
-                    if(filters == null)
+                } else if (item instanceof FilterCategory) {
+                    Filter[] filters = ((FilterCategory) item).children;
+                    if (filters == null)
                         return;
-                    for(Filter filter : filters)
-                        if(finalSelection.equals(filter.getSqlQuery())) {
+                    for (Filter filter : filters)
+                        if (finalSelection.equals(filter.getSqlQuery())) {
                             adapter.setSelection(filter);
                             break;
                         }
@@ -186,15 +193,15 @@ public final class LocaleEditAlerts extends ListActivity {
         setListAdapter(adapter);
 
         // check for plugin
-        if(!PluginServices.getAddOnService().hasLocalePlugin()) {
+        if (!PluginServices.getAddOnService().hasLocalePlugin()) {
             isRemoved = true;
             new AlertDialog.Builder(this)
-            .setTitle(R.string.DLG_information_title)
-            .setMessage(R.string.locale_plugin_required)
-            .setCancelable(false)
-            .setPositiveButton(android.R.string.ok,
-                    AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
-            .show();
+                    .setTitle(R.string.DLG_information_title)
+                    .setMessage(R.string.locale_plugin_required)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok,
+                            AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
+                    .show();
             StatisticsService.reportEvent(StatisticsConstants.LOCALE_EDIT_ALERTS_NO_PLUGIN);
         } else {
             StatisticsService.reportEvent(StatisticsConstants.LOCALE_EDIT_ALERTS);
@@ -212,26 +219,21 @@ public final class LocaleEditAlerts extends ListActivity {
      * sort of result should be returned to <i>Locale</i>.
      */
     @Override
-    public void finish()
-    {
-        if(isRemoved)
+    public void finish() {
+        if (isRemoved)
             setResult(com.twofortyfouram.Intent.RESULT_REMOVE);
         else if (isCancelled)
             setResult(RESULT_CANCELED);
-        else
-        {
+        else {
             final FilterListItem selected = adapter.getSelection();
             final int intervalIndex = interval.getSelectedItemPosition();
 
-            if (selected == null)
-            {
+            if (selected == null) {
                 /*
                  * If nothing is selected, return as if user had canceled
                  */
                 setResult(RESULT_CANCELED);
-            }
-            else
-            {
+            } else {
                 /*
                  * This is the return Intent, into which we'll put all the required extras
                  */
@@ -248,7 +250,7 @@ public final class LocaleEditAlerts extends ListActivity {
                 Filter filterItem = (Filter) selected;
                 storeAndForwardExtras.putString(KEY_FILTER_TITLE, filterItem.title);
                 storeAndForwardExtras.putString(KEY_SQL, filterItem.getSqlQuery());
-                if(filterItem.valuesForNewTasks != null)
+                if (filterItem.valuesForNewTasks != null)
                     storeAndForwardExtras.putString(KEY_VALUES, AndroidUtilities.contentValuesToSerializedString(filterItem.valuesForNewTasks));
                 storeAndForwardExtras.putInt(KEY_INTERVAL, INTERVALS[intervalIndex]);
 
@@ -300,8 +302,7 @@ public final class LocaleEditAlerts extends ListActivity {
      * {@inheritDoc}
      */
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu)
-    {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu);
 
         final PackageManager manager = getPackageManager();
@@ -310,10 +311,10 @@ public final class LocaleEditAlerts extends ListActivity {
          * We are dynamically loading resources from Locale's APK. This will only work if Locale is actually installed
          */
         menu.add(0, MENU_DONT_SAVE, 0, SharedResources.getTextResource(manager, SharedResources.STRING_MENU_DONTSAVE))
-            .setIcon(SharedResources.getDrawableResource(manager, SharedResources.DRAWABLE_MENU_DONTSAVE)).getItemId();
+                .setIcon(SharedResources.getDrawableResource(manager, SharedResources.DRAWABLE_MENU_DONTSAVE)).getItemId();
 
         menu.add(0, MENU_SAVE, 0, SharedResources.getTextResource(manager, SharedResources.STRING_MENU_SAVE))
-            .setIcon(SharedResources.getDrawableResource(manager, SharedResources.DRAWABLE_MENU_SAVE)).getItemId();
+                .setIcon(SharedResources.getDrawableResource(manager, SharedResources.DRAWABLE_MENU_SAVE)).getItemId();
 
         return true;
     }
@@ -322,17 +323,13 @@ public final class LocaleEditAlerts extends ListActivity {
      * {@inheritDoc}
      */
     @Override
-    public boolean onMenuItemSelected(final int featureId, final MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case MENU_SAVE:
-            {
+    public boolean onMenuItemSelected(final int featureId, final MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_SAVE: {
                 finish();
                 return true;
             }
-            case MENU_DONT_SAVE:
-            {
+            case MENU_DONT_SAVE: {
                 isCancelled = true;
                 finish();
                 return true;

@@ -41,8 +41,8 @@ public class EditDialogOkBackground {
         ColorDrawable color = new ColorDrawable(colorValue);
 
         StateListDrawable stld = new StateListDrawable();
-        stld.addState(new int[] { android.R.attr.state_pressed }, color);
-        stld.addState(new int[] { android.R.attr.state_enabled }, d);
+        stld.addState(new int[]{android.R.attr.state_pressed}, color);
+        stld.addState(new int[]{android.R.attr.state_enabled}, d);
         return stld;
     }
 

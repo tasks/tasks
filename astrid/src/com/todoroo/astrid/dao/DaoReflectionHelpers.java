@@ -1,10 +1,10 @@
 package com.todoroo.astrid.dao;
 
-import java.lang.reflect.Field;
-
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.data.RemoteModel;
+
+import java.lang.reflect.Field;
 
 @SuppressWarnings("nls")
 public class DaoReflectionHelpers {

@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.files;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -51,6 +44,13 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class FilesControlSet extends PopupControlSet {
 
@@ -99,8 +99,8 @@ public class FilesControlSet extends PopupControlSet {
         if (model != null) {
             TodorooCursor<TaskAttachment> cursor = taskAttachmentDao.query(
                     Query.select(TaskAttachment.PROPERTIES)
-                    .where(Criterion.and(TaskAttachment.TASK_UUID.eq(model.getUuid()),
-                            TaskAttachment.DELETED_AT.eq(0))));
+                            .where(Criterion.and(TaskAttachment.TASK_UUID.eq(model.getUuid()),
+                                    TaskAttachment.DELETED_AT.eq(0))));
             try {
                 files.clear();
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -170,24 +170,24 @@ public class FilesControlSet extends PopupControlSet {
                     public void onClick(View v) {
                         DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
                                 new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface d, int which) {
-                                if (RemoteModel.isValidUuid(m.getValue(TaskAttachment.UUID))) {
-                                    m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
-                                    taskAttachmentDao.saveExisting(m);
-                                } else {
-                                    taskAttachmentDao.delete(m.getId());
-                                }
+                                    @Override
+                                    public void onClick(DialogInterface d, int which) {
+                                        if (RemoteModel.isValidUuid(m.getValue(TaskAttachment.UUID))) {
+                                            m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
+                                            taskAttachmentDao.saveExisting(m);
+                                        } else {
+                                            taskAttachmentDao.delete(m.getId());
+                                        }
 
-                                if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                                    File f = new File(m.getValue(TaskAttachment.FILE_PATH));
-                                    f.delete();
-                                }
-                                files.remove(m);
-                                refreshDisplayView();
-                                finalList.removeView(fileRow);
-                            }
-                        }, null);
+                                        if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                                            File f = new File(m.getValue(TaskAttachment.FILE_PATH));
+                                            f.delete();
+                                        }
+                                        files.remove(m);
+                                        refreshDisplayView();
+                                        finalList.removeView(fileRow);
+                                    }
+                                }, null);
                     }
                 });
             }
@@ -335,8 +335,8 @@ public class FilesControlSet extends PopupControlSet {
                 }
 
                 filePathBuilder.append(directory.toString())
-                    .append(File.separator)
-                    .append(name);
+                        .append(File.separator)
+                        .append(name);
 
                 File file = new File(filePathBuilder.toString());
                 if (file.exists()) {
@@ -373,7 +373,7 @@ public class FilesControlSet extends PopupControlSet {
                         fileOutput.write(buffer, 0, bufferLength);
                         downloadedSize += bufferLength;
 
-                        int progress = (int) (downloadedSize*100/totalSize);
+                        int progress = (int) (downloadedSize * 100 / totalSize);
                         pd.setProgress(progress);
                     }
 

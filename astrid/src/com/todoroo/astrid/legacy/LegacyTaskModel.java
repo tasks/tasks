@@ -5,7 +5,9 @@
  */
 package com.todoroo.astrid.legacy;
 
-/** Legacy task class */
+/**
+ * Legacy task class
+ */
 @SuppressWarnings("nls")
 abstract public class LegacyTaskModel {
 
@@ -33,11 +35,11 @@ abstract public class LegacyTaskModel {
 
     // notification flags
     public static final int NOTIFY_BEFORE_DEADLINE = 1 << 0;
-    public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
-    public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
-    public static final int NOTIFY_NONSTOP         = 1 << 3;
+    public static final int NOTIFY_AT_DEADLINE = 1 << 1;
+    public static final int NOTIFY_AFTER_DEADLINE = 1 << 2;
+    public static final int NOTIFY_NONSTOP = 1 << 3;
 
     // other flags
-    public static final int FLAG_SYNC_ON_COMPLETE  = 1 << 0;
+    public static final int FLAG_SYNC_ON_COMPLETE = 1 << 0;
 
 }

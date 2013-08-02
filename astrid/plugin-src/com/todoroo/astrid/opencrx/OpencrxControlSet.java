@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.opencrx;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
@@ -34,28 +32,34 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.ui.PopupControlSet;
 
+import java.util.ArrayList;
+
 /**
  * Control Set for managing contact/creator assignments in OpenCRX
  *
  * @author Andrey Marchenko <igendou@gmail.com>
- *
  */
 public class OpencrxControlSet extends PopupControlSet {
 
     /**
      * Class that represents OpenCRX ActivityCreator. Duplicates some functionality of OpenCRX plugin.
-     *
      */
     @SuppressWarnings("unused")
     private static class OpencrxActivityCreator {
-        /** type*/
+        /**
+         * type
+         */
         public static final String TYPE = "opencrx-creator"; //$NON-NLS-1$
 
-        /** hashed creator id in opencrx */
+        /**
+         * hashed creator id in opencrx
+         */
         public static final LongProperty REMOTE_ID = new LongProperty(StoreObject.TABLE,
                 StoreObject.ITEM.name);
 
-        /** creator name */
+        /**
+         * creator name
+         */
         public static final StringProperty NAME = new StringProperty(StoreObject.TABLE,
                 StoreObject.VALUE1.name);
 
@@ -71,9 +75,9 @@ public class OpencrxControlSet extends PopupControlSet {
 
         private final String crxId;
 
-        public OpencrxActivityCreator (StoreObject creatorData) {
-            this(creatorData.getValue(REMOTE_ID),creatorData.getValue(NAME),
-                   creatorData.containsValue(CRX_ID) ? creatorData.getValue(CRX_ID) : ""); //$NON-NLS-1$
+        public OpencrxActivityCreator(StoreObject creatorData) {
+            this(creatorData.getValue(REMOTE_ID), creatorData.getValue(NAME),
+                    creatorData.containsValue(CRX_ID) ? creatorData.getValue(CRX_ID) : ""); //$NON-NLS-1$
         }
 
         public OpencrxActivityCreator(long id, String name, String crxId) {
@@ -81,6 +85,7 @@ public class OpencrxControlSet extends PopupControlSet {
             this.name = name;
             this.crxId = crxId;
         }
+
         public long getId() {
             return id;
         }
@@ -101,25 +106,32 @@ public class OpencrxControlSet extends PopupControlSet {
 
     /**
      * Class that represents OpenCRX Contact. Duplicates some functionality of OpenCRX plugin.
-     *
      */
     @SuppressWarnings("unused")
     private static class OpencrxContact {
         public static final String TYPE = "opencrx-contacts"; //$NON-NLS-1$
 
-        /** hash contact id in opencrx */
+        /**
+         * hash contact id in opencrx
+         */
         public static final LongProperty REMOTE_ID = new LongProperty(StoreObject.TABLE,
                 StoreObject.ITEM.name);
 
-        /** contact first name */
+        /**
+         * contact first name
+         */
         public static final StringProperty FIRST_NAME = new StringProperty(StoreObject.TABLE,
                 StoreObject.VALUE1.name);
 
-        /** contact last name */
+        /**
+         * contact last name
+         */
         public static final StringProperty LAST_NAME = new StringProperty(StoreObject.TABLE,
                 StoreObject.VALUE2.name);
 
-        /** id in OpenCRX as string */
+        /**
+         * id in OpenCRX as string
+         */
         public static final StringProperty CRX_ID = new StringProperty(StoreObject.TABLE,
                 StoreObject.VALUE3.name);
 
@@ -134,7 +146,7 @@ public class OpencrxControlSet extends PopupControlSet {
         private final String crxId;
 
         public OpencrxContact(long id, String email, String firstname,
-                String lastname, String crxId) {
+                              String lastname, String crxId) {
             this.id = id;
             this.email = email;
             this.firstname = firstname;
@@ -142,22 +154,26 @@ public class OpencrxControlSet extends PopupControlSet {
             this.crxId = crxId;
         }
 
-        public OpencrxContact(StoreObject userData){
-            this(userData.getValue(REMOTE_ID), "", userData.getValue(FIRST_NAME), userData.getValue(LAST_NAME), userData.getValue(CRX_ID) ); //$NON-NLS-1$
+        public OpencrxContact(StoreObject userData) {
+            this(userData.getValue(REMOTE_ID), "", userData.getValue(FIRST_NAME), userData.getValue(LAST_NAME), userData.getValue(CRX_ID)); //$NON-NLS-1$
         }
 
         public String getEmail() {
             return email;
         }
+
         public String getFirstname() {
             return firstname;
         }
+
         public String getLastname() {
             return lastname;
         }
+
         public String getCrxId() {
             return crxId;
         }
+
         public long getId() {
             return id;
         }
@@ -210,7 +226,7 @@ public class OpencrxControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-      //View view = LayoutInflater.from(activity).inflate(R.layout.opencrx_control, parent, true);
+        //View view = LayoutInflater.from(activity).inflate(R.layout.opencrx_control, parent, true);
 
         this.assignedToSelector = (Spinner) getView().findViewById(R.id.opencrx_TEA_task_assign);
         TextView emptyView = new TextView(activity);
@@ -228,22 +244,22 @@ public class OpencrxControlSet extends PopupControlSet {
 
 
         Metadata metadata = getTaskMetadata(model.getId());
-        if(metadata == null)
+        if (metadata == null)
             metadata = OpencrxCoreUtils.INSTANCE.newMetadata(model.getId());
 
         // Fill the dashboard-spinner and set the current dashboard
         long dashboardId = OpencrxCoreUtils.INSTANCE.getDefaultCreator();
-        if(metadata.containsNonNullValue(OpencrxCoreUtils.ACTIVITY_CREATOR_ID))
+        if (metadata.containsNonNullValue(OpencrxCoreUtils.ACTIVITY_CREATOR_ID))
             dashboardId = metadata.getValue(OpencrxCoreUtils.ACTIVITY_CREATOR_ID);
 
         StoreObject[] dashboardsData = readStoreObjects(OpencrxActivityCreator.TYPE);
         dashboards = new ArrayList<OpencrxActivityCreator>(dashboardsData.length);
         int dashboardSpinnerIndex = -1;
 
-        for (int i=0;i<dashboardsData.length;i++) {
+        for (int i = 0; i < dashboardsData.length; i++) {
             OpencrxActivityCreator dashboard = new OpencrxActivityCreator(dashboardsData[i]);
             dashboards.add(dashboard);
-            if(dashboard.getId() == dashboardId) {
+            if (dashboard.getId() == dashboardId) {
                 dashboardSpinnerIndex = i;
             }
         }
@@ -255,7 +271,7 @@ public class OpencrxControlSet extends PopupControlSet {
                 android.R.layout.simple_spinner_item, dashboards);
         dashAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         creatorSelector.setAdapter(dashAdapter);
-        creatorSelector.setSelection(dashboardSpinnerIndex+1);
+        creatorSelector.setSelection(dashboardSpinnerIndex + 1);
 
         ArrayAdapter<OpencrxActivityCreator> creatorAdapterTextInput = new ArrayAdapter<OpencrxActivityCreator>(activity,
                 android.R.layout.simple_spinner_item, dashboards);
@@ -264,16 +280,16 @@ public class OpencrxControlSet extends PopupControlSet {
 
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position,
-                    long id) {
+                                    long id) {
                 OpencrxActivityCreator creatorInput = (OpencrxActivityCreator) adapter.getItemAtPosition(position);
 
                 if (creatorInput == null) return;
 
                 int selectedIndex = creatorSelector.getSelectedItemPosition();
 
-                for (int i = 0; i < creatorSelector.getAdapter().getCount(); ++i){
+                for (int i = 0; i < creatorSelector.getAdapter().getCount(); ++i) {
                     OpencrxActivityCreator current = (OpencrxActivityCreator) creatorSelector.getAdapter().getItem(i);
-                    if (current != null && current.getId() == creatorInput.getId()){
+                    if (current != null && current.getId() == creatorInput.getId()) {
                         selectedIndex = i;
                         break;
                     }
@@ -285,13 +301,13 @@ public class OpencrxControlSet extends PopupControlSet {
 
         // Assigned user
         long responsibleId = OpencrxCoreUtils.INSTANCE.getDefaultAssignedUser();
-        if (metadata.containsNonNullValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID)){
+        if (metadata.containsNonNullValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID)) {
             responsibleId = metadata.getValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID);
         }
 
         StoreObject[] usersData = readStoreObjects(OpencrxContact.TYPE);
         this.users = new ArrayList<OpencrxContact>();
-        for (StoreObject user : usersData){
+        for (StoreObject user : usersData) {
             this.users.add(new OpencrxContact(user));
         }
 
@@ -302,8 +318,8 @@ public class OpencrxControlSet extends PopupControlSet {
 
         int responsibleSpinnerIndex = 0;
 
-        for (int i = 0; i < this.users.size() ; i++) {
-            if (this.users.get(i).getId() == responsibleId ) {
+        for (int i = 0; i < this.users.size(); i++) {
+            if (this.users.get(i).getId() == responsibleId) {
                 responsibleSpinnerIndex = i;
                 break;
             }
@@ -318,7 +334,7 @@ public class OpencrxControlSet extends PopupControlSet {
 
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position,
-                    long id) {
+                                    long id) {
 
                 OpencrxContact userInput = (OpencrxContact) adapter.getItemAtPosition(position);
 
@@ -326,9 +342,9 @@ public class OpencrxControlSet extends PopupControlSet {
 
                 int selectedIndex = assignedToSelector.getSelectedItemPosition();
 
-                for (int i = 0; i < assignedToSelector.getAdapter().getCount(); ++i){
+                for (int i = 0; i < assignedToSelector.getAdapter().getCount(); ++i) {
                     OpencrxContact current = (OpencrxContact) assignedToSelector.getAdapter().getItem(i);
-                    if (current != null && current.getId() == userInput.getId()){
+                    if (current != null && current.getId() == userInput.getId()) {
                         selectedIndex = i;
                         break;
                     }
@@ -353,12 +369,12 @@ public class OpencrxControlSet extends PopupControlSet {
 
             OpencrxContact responsibleUser = (OpencrxContact) assignedToSelector.getSelectedItem();
 
-            if(responsibleUser == null)
+            if (responsibleUser == null)
                 metadata.setValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID, 0L);
             else
                 metadata.setValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID, responsibleUser.getId());
 
-            if(metadata.getSetValues().size() > 0) {
+            if (metadata.getSetValues().size() > 0) {
                 metadataService.save(metadata);
                 task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             }
@@ -370,14 +386,15 @@ public class OpencrxControlSet extends PopupControlSet {
 
     /**
      * Reads metadata out of a task
+     *
      * @return null if no metadata found
      */
     private Metadata getTaskMetadata(long taskId) {
         TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).where(
-                                                                MetadataCriteria.byTaskAndwithKey(taskId, OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY))
-                                                         );
+                MetadataCriteria.byTaskAndwithKey(taskId, OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY))
+        );
         try {
-            if(cursor.getCount() == 0)
+            if (cursor.getCount() == 0)
                 return null;
             cursor.moveToFirst();
             return new Metadata(cursor);
@@ -392,7 +409,7 @@ public class OpencrxControlSet extends PopupControlSet {
                 where(StoreObjectCriteria.byType(type)));
         try {
             ret = new StoreObject[cursor.getCount()];
-            for(int i = 0; i < ret.length; i++) {
+            for (int i = 0; i < ret.length; i++) {
                 cursor.moveToNext();
                 StoreObject dashboard = new StoreObject(cursor);
                 ret[i] = dashboard;

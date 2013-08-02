@@ -13,7 +13,6 @@ import android.os.Parcelable;
  * which affect all other extension points that share the same identifier.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class Addon implements Parcelable {
 
@@ -89,7 +88,9 @@ public class Addon implements Parcelable {
          */
         public Addon[] newArray(int size) {
             return new Addon[size];
-        };
+        }
+
+        ;
     };
 
 }

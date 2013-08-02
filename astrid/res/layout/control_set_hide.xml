@@ -5,12 +5,13 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="0dip"
-  android:layout_height="0dip">
-  <com.todoroo.astrid.ui.ErrorCatchingSpinner
-    android:id="@+id/hideUntil"
-    android:layout_width="0dip"
-    android:layout_height="0dip" />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="0dip"
+        android:layout_height="0dip">
+
+    <com.todoroo.astrid.ui.ErrorCatchingSpinner
+            android:id="@+id/hideUntil"
+            android:layout_width="0dip"
+            android:layout_height="0dip"/>
 </LinearLayout>

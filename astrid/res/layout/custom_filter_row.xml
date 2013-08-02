@@ -5,47 +5,51 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="55dip"
-    android:background="@android:drawable/list_selector_background"
-    android:paddingLeft="4dip"
-    android:paddingRight="6dip"
-    android:orientation="horizontal">
-        
+              android:layout_width="fill_parent"
+              android:layout_height="55dip"
+              android:background="@android:drawable/list_selector_background"
+              android:paddingLeft="4dip"
+              android:paddingRight="6dip"
+              android:orientation="horizontal">
+
     <!-- filter intersection type icon -->
-    <ImageView android:id="@+id/type"
-        android:layout_width="32dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip" 
-        android:scaleType="center"/>
-        
+    <ImageView
+            android:id="@+id/type"
+            android:layout_width="32dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:scaleType="center"/>
+
     <!-- filter icon -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="32dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip"
-        android:visibility="gone"/>
-            
+    <ImageView
+            android:id="@+id/icon"
+            android:layout_width="32dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:visibility="gone"/>
+
     <!-- filter text -->
-    <TextView android:id="@+id/name"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="100"
-        android:paddingLeft="5dip"
-        android:textSize="18sp" 
-        android:gravity="center_vertical"
-        style="@style/TextAppearance"/>
-        
+    <TextView
+            android:id="@+id/name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="100"
+            android:paddingLeft="5dip"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            style="@style/TextAppearance"/>
+
     <!-- filter graphic -->
-    <com.todoroo.astrid.core.FilterView android:id="@+id/filter"
-        android:layout_width="64px"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip"/>
-                    
+    <com.todoroo.astrid.core.FilterView
+            android:id="@+id/filter"
+            android:layout_width="64px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"/>
+
 </LinearLayout>

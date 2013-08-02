@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
 import android.content.Intent;
 
 import com.google.ical.values.Frequency;
@@ -31,6 +26,11 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     @Autowired
@@ -47,7 +47,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     private void saveAndTriggerRepeatListener(Task task) {
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-        if(task.isSaved())
+        if (task.isSaved())
             taskDao.saveExisting(task);
         else
             taskDao.createNew(task);
@@ -83,7 +83,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
      * @param remoteModel
      */
     protected long setCompletionDate(boolean completeBefore, Task t,
-            REMOTE_MODEL remoteModel, long dueDate) {
+                                     REMOTE_MODEL remoteModel, long dueDate) {
         long completionDate;
         if (completeBefore)
             completionDate = dueDate - DateUtilities.ONE_DAY;
@@ -125,7 +125,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
     protected void testRepeating(boolean completeBefore, boolean fromCompletion,
-            RRule rrule, Frequency frequency, String title) {
+                                 RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
@@ -174,7 +174,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
             long newDueDate = t.getValue(Task.DUE_DATE);
             assertTrue(t.hasDueTime());
 
-            long fromDate = (fromCompletion? completionDate : dueDate);
+            long fromDate = (fromCompletion ? completionDate : dueDate);
             long expectedTime = computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
 
             assertTaskExistsRemotely(t, expectedTime);
@@ -240,7 +240,9 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
 
-    /** Advanced weekly repeating tests */
+    /**
+     * Advanced weekly repeating tests
+     */
     protected long computeNextDueDateFromDate(long fromDate, RRule rrule, boolean fromCompletion) {
         long expectedTime = fromDate;
         Frequency frequency = rrule.getFreq();
@@ -282,7 +284,9 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
 
-    /** Tests for repeating from due date */
+    /**
+     * Tests for repeating from due date
+     */
 
     public void testRepeatMinutelyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.MINUTELY, "minutely-before");
@@ -333,7 +337,9 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
 
-    /** Tests for repeating from completionDate */
+    /**
+     * Tests for repeating from completionDate
+     */
 
     public void testRepeatMinutelyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.MINUTELY, "minutely-before");
@@ -408,7 +414,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         rrule.setByDay(weekdays);
         testRepeating(completeBefore, true, rrule, Frequency.WEEKLY, title);
     }
-
 
 
     // disabled until test can be fixed

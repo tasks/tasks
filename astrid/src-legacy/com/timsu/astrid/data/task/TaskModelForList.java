@@ -5,83 +5,86 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.Date;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.database.Cursor;
 
 import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.enums.Importance;
 
+import java.util.Date;
+import java.util.HashMap;
 
 
-/** Fields that you would want to edit in the TaskModel */
+/**
+ * Fields that you would want to edit in the TaskModel
+ */
 public class TaskModelForList extends AbstractTaskModel {
 
-    static String[] FIELD_LIST = new String[] {
-        LegacyAbstractController.KEY_ROWID,
-        NAME,
-        IMPORTANCE,
-        ELAPSED_SECONDS,
-        ESTIMATED_SECONDS,
-        TIMER_START,
-        DEFINITE_DUE_DATE,
-        PREFERRED_DUE_DATE,
-        NOTIFICATIONS,
-        PROGRESS_PERCENTAGE,
-        COMPLETION_DATE,
-        CREATION_DATE,
-        HIDDEN_UNTIL,
-        NOTES,
-        REPEAT,
-        FLAGS,
+    static String[] FIELD_LIST = new String[]{
+            LegacyAbstractController.KEY_ROWID,
+            NAME,
+            IMPORTANCE,
+            ELAPSED_SECONDS,
+            ESTIMATED_SECONDS,
+            TIMER_START,
+            DEFINITE_DUE_DATE,
+            PREFERRED_DUE_DATE,
+            NOTIFICATIONS,
+            PROGRESS_PERCENTAGE,
+            COMPLETION_DATE,
+            CREATION_DATE,
+            HIDDEN_UNTIL,
+            NOTES,
+            REPEAT,
+            FLAGS,
     };
 
     // pre-load the cache for our column keys
     static {
         HashMap<String, Integer> indexCache = new HashMap<String, Integer>();
         columnIndexCache.put(TaskModelForList.class, indexCache);
-        for(int i = 0; i < FIELD_LIST.length; i++)
+        for (int i = 0; i < FIELD_LIST.length; i++)
             indexCache.put(FIELD_LIST[i], i);
     }
 
-    /** Get the weighted score for this task. Smaller is more important */
+    /**
+     * Get the weighted score for this task. Smaller is more important
+     */
     public int getTaskWeight() {
         int weight = 0;
 
         // bubble tasks with timers to the top
-        if(getTimerStart() != null)
+        if (getTimerStart() != null)
             weight -= 10000;
 
         // importance
         weight += getImportance().ordinal() * 80;
 
         // looming absolute deadline
-        if(getDefiniteDueDate() != null) {
+        if (getDefiniteDueDate() != null) {
             int hoursLeft = (int) ((getDefiniteDueDate().getTime() -
-                    System.currentTimeMillis())/1000/3600);
-            if(hoursLeft < 5*24)
-                weight += (hoursLeft - 5*24);
+                    System.currentTimeMillis()) / 1000 / 3600);
+            if (hoursLeft < 5 * 24)
+                weight += (hoursLeft - 5 * 24);
             weight -= 20;
         }
 
         // looming preferred deadline
-        if(getPreferredDueDate() != null) {
+        if (getPreferredDueDate() != null) {
             int hoursLeft = (int) ((getPreferredDueDate().getTime() -
-                    System.currentTimeMillis())/1000/3600);
-            if(hoursLeft < 5*24)
-                weight += (hoursLeft - 5*24)/2;
+                    System.currentTimeMillis()) / 1000 / 3600);
+            if (hoursLeft < 5 * 24)
+                weight += (hoursLeft - 5 * 24) / 2;
             weight -= 10;
         }
 
         // bubble completed tasks to the bottom
-        if(isTaskCompleted()) {
-            if(getCompletionDate() == null)
+        if (isTaskCompleted()) {
+            if (getCompletionDate() == null)
                 weight += 1e6;
             else
-                weight = (int)Math.max(10000 + (System.currentTimeMillis() -
-                    getCompletionDate().getTime()) / 1000, 10000);
+                weight = (int) Math.max(10000 + (System.currentTimeMillis() -
+                        getCompletionDate().getTime()) / 1000, 10000);
             return weight;
         }
 
@@ -93,15 +96,19 @@ public class TaskModelForList extends AbstractTaskModel {
         return super.isHidden();
     }
 
-    /** map of cached display labels */
+    /**
+     * map of cached display labels
+     */
     private final HashMap<Integer, String> displayLabels = new HashMap<Integer, String>();
 
     public String getCachedLabel(int key) {
         return displayLabels.get(key);
     }
+
     public void putCachedLabel(int key, String value) {
         displayLabels.put(key, value);
     }
+
     public void clearCache() {
         displayLabels.clear();
     }
@@ -186,24 +193,24 @@ public class TaskModelForList extends AbstractTaskModel {
     }
 
     @Override
-	public Integer getNotificationIntervalSeconds() {
-		return super.getNotificationIntervalSeconds();
-	}
+    public Integer getNotificationIntervalSeconds() {
+        return super.getNotificationIntervalSeconds();
+    }
 
-	@Override
+    @Override
     public RepeatInfo getRepeat() {
         return super.getRepeat();
     }
 
-	@Override
-	public Date getCreationDate() {
-	    return super.getCreationDate();
-	}
+    @Override
+    public Date getCreationDate() {
+        return super.getCreationDate();
+    }
 
-	@Override
-	public int getFlags() {
-		return super.getFlags();
-	}
+    @Override
+    public int getFlags() {
+        return super.getFlags();
+    }
 
     // --- setters
 
@@ -238,7 +245,7 @@ public class TaskModelForList extends AbstractTaskModel {
 
     @Override
     public void setImportance(Importance importance) {
-    	super.setImportance(importance);
+        super.setImportance(importance);
     }
 
     @Override

@@ -16,13 +16,9 @@
 
 package com.zutubi.android.junitreport;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Locale;
+import android.content.Context;
+import android.util.Log;
+import android.util.Xml;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -31,31 +27,35 @@ import junit.framework.TestListener;
 
 import org.xmlpull.v1.XmlSerializer;
 
-import android.content.Context;
-import android.util.Log;
-import android.util.Xml;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Locale;
 
 /**
  * Custom test listener that outputs test results to XML files. The files
  * use a similar format to the Ant JUnit task XML formatter, with a few of
  * caveats:
  * <ul>
- *   <li>
- *     By default, multiple suites are all placed in a single file under a root
- *     &lt;testsuites&gt; element.  In multiFile mode a separate file is
- *     created for each suite, which may be more compatible with existing
- *     tools.
- *   </li>
- *   <li>
- *     Redundant information about the number of nested cases within a suite is
- *     omitted.
- *   </li>
- *   <li>
- *     Durations are omitted from suites.
- *   </li>
- *   <li>
- *     Neither standard output nor system properties are included.
- *   </li>
+ * <li>
+ * By default, multiple suites are all placed in a single file under a root
+ * &lt;testsuites&gt; element.  In multiFile mode a separate file is
+ * created for each suite, which may be more compatible with existing
+ * tools.
+ * </li>
+ * <li>
+ * Redundant information about the number of nested cases within a suite is
+ * omitted.
+ * </li>
+ * <li>
+ * Durations are omitted from suites.
+ * </li>
+ * <li>
+ * Neither standard output nor system properties are included.
+ * </li>
  * </ul>
  * The differences mainly revolve around making this reporting as lightweight as
  * possible. The report is streamed as the tests run, making it impossible to,
@@ -83,7 +83,7 @@ public class JUnitReportListener implements TestListener {
 
     // With thanks to org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.
     // Trimmed some entries, added others for Android.
-    private static final String[] DEFAULT_TRACE_FILTERS = new String[] {
+    private static final String[] DEFAULT_TRACE_FILTERS = new String[]{
             "junit.framework.TestCase", "junit.framework.TestResult",
             "junit.framework.TestSuite",
             "junit.framework.Assert.", // don't filter AssertionFailure
@@ -111,15 +111,15 @@ public class JUnitReportListener implements TestListener {
     /**
      * Creates a new listener.
      *
-     * @param context context of the test application
+     * @param context       context of the test application
      * @param targetContext context of the application under test
-     * @param reportFile name of the report file(s) to create
-     * @param reportDir  path of the directory under which to write files
-     *                  (may be null in which case files are written under
-     *                  the context using {@link Context#openFileOutput(String, int)}).
-     * @param filterTraces if true, stack traces will have common noise (e.g.
-     *            framework methods) omitted for clarity
-     * @param multiFile if true, use a separate file for each test suite
+     * @param reportFile    name of the report file(s) to create
+     * @param reportDir     path of the directory under which to write files
+     *                      (may be null in which case files are written under
+     *                      the context using {@link Context#openFileOutput(String, int)}).
+     * @param filterTraces  if true, stack traces will have common noise (e.g.
+     *                      framework methods) omitted for clarity
+     * @param multiFile     if true, use a separate file for each test suite
      */
     public JUnitReportListener(Context context, Context targetContext, String reportFile, String reportDir, boolean filterTraces, boolean multiFile) {
         Log.i(LOG_TAG, "Listener created with arguments:\n" +

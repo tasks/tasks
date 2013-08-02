@@ -29,12 +29,12 @@ public class FilterWithUpdate extends FilterWithCustomIntent {
     }
 
     public FilterWithUpdate(String listingTitle, String title,
-            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+                            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
         super(listingTitle, title, sqlQuery, valuesForNewTasks);
     }
 
     public FilterWithUpdate(String listingTitle, String title,
-            String sqlQuery, ContentValues valuesForNewTasks) {
+                            String sqlQuery, ContentValues valuesForNewTasks) {
         super(listingTitle, title, sqlQuery, valuesForNewTasks);
     }
 

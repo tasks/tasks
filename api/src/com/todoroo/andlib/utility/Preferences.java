@@ -17,7 +17,6 @@ import com.todoroo.andlib.service.ContextManager;
  * Helper class for reading and writing SharedPreferences
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class Preferences {
 
@@ -33,12 +32,13 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
         String key = r.getString(keyResource);
-        if(!prefs.contains(key))
+        if (!prefs.contains(key))
             editor.putString(key, Integer.toString(value));
     }
 
     /**
      * Helper to write to editor if key specified is null
+     *
      * @param prefs
      * @param editor
      * @param r
@@ -47,12 +47,13 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
         String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean))
+        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean))
             editor.putBoolean(key, value);
     }
 
     /**
      * Helper to write to editor if key specified is null
+     *
      * @param prefs
      * @param editor
      * @param r
@@ -61,7 +62,7 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
         String key = r.getString(keyResource);
-        if(!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String))
+        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String))
             editor.putString(key, value);
     }
 
@@ -71,9 +72,11 @@ public class Preferences {
 
     private static SharedPreferences preferences = null;
 
-    /** Get preferences object from the context */
+    /**
+     * Get preferences object from the context
+     */
     public static SharedPreferences getPrefs(Context context) {
-        if(preferences != null)
+        if (preferences != null)
             return preferences;
 
         context = context.getApplicationContext();
@@ -91,7 +94,9 @@ public class Preferences {
         return preferences;
     }
 
-    /** @return true if given preference is set */
+    /**
+     * @return true if given preference is set
+     */
     public static boolean isSet(String key) {
         Context context = ContextManager.getContext();
         return getPrefs(context).contains(key);
@@ -99,7 +104,8 @@ public class Preferences {
 
     // --- preference fetching (string)
 
-    /** Gets an string value from a string preference. Returns null
+    /**
+     * Gets an string value from a string preference. Returns null
      * if the value is not set
      *
      * @param context
@@ -111,7 +117,8 @@ public class Preferences {
         return getPrefs(context).getString(key, null);
     }
 
-    /** Gets an string value from a string preference. Returns null
+    /**
+     * Gets an string value from a string preference. Returns null
      * if the value is not set
      *
      * @param context
@@ -123,7 +130,8 @@ public class Preferences {
         return getPrefs(context).getString(context.getResources().getString(keyResource), null);
     }
 
-    /** Gets an integer value from a string preference. Returns null
+    /**
+     * Gets an integer value from a string preference. Returns null
      * if the value is not set or not an integer.
      *
      * @param keyResource resource from string.xml
@@ -133,7 +141,7 @@ public class Preferences {
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(keyResource), null);
-        if(value == null)
+        if (value == null)
             return defaultValue;
 
         try {
@@ -143,7 +151,8 @@ public class Preferences {
         }
     }
 
-    /** Gets an float value from a string preference. Returns null
+    /**
+     * Gets an float value from a string preference. Returns null
      * if the value is not set or not an flat.
      *
      * @param keyResource resource from string.xml
@@ -191,7 +200,8 @@ public class Preferences {
 
     // --- preference fetching (boolean)
 
-    /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
+    /**
+     * Gets a boolean preference (e.g. a CheckBoxPreference setting)
      *
      * @param key
      * @param defValue
@@ -206,7 +216,8 @@ public class Preferences {
         }
     }
 
-    /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
+    /**
+     * Gets a boolean preference (e.g. a CheckBoxPreference setting)
      *
      * @param keyResource
      * @param defValue
@@ -218,6 +229,7 @@ public class Preferences {
 
     /**
      * Sets boolean preference
+     *
      * @param key
      * @param value
      */
@@ -227,6 +239,7 @@ public class Preferences {
 
     /**
      * Sets boolean preference
+     *
      * @param key
      * @param value
      */
@@ -239,7 +252,8 @@ public class Preferences {
 
     // --- preference fetching (int)
 
-    /** Gets a int preference
+    /**
+     * Gets a int preference
      *
      * @param key
      * @param defValue
@@ -252,6 +266,7 @@ public class Preferences {
 
     /**
      * Sets int preference
+     *
      * @param key
      * @param value
      */
@@ -264,7 +279,8 @@ public class Preferences {
 
     // --- preference fetching (long)
 
-    /** Gets a long preference
+    /**
+     * Gets a long preference
      *
      * @param key
      * @param defValue
@@ -277,6 +293,7 @@ public class Preferences {
 
     /**
      * Sets long preference
+     *
      * @param key
      * @param value
      */
@@ -289,6 +306,7 @@ public class Preferences {
 
     /**
      * Clears a preference
+     *
      * @param key
      */
     public static void clear(String key) {

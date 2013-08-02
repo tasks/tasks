@@ -1,8 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -15,6 +12,9 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Task;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 @SuppressWarnings("nls")
@@ -61,7 +61,7 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
                     if (Task.DUE_DATE.equals(property)) {
                         value = Task.createDueDate(DateUtilities.isoStringHasTime(valueString) ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY, value);
                     }
-                } catch (Exception e){
+                } catch (Exception e) {
                     value = 0;
                 }
             }

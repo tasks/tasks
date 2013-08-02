@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import java.util.HashSet;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -65,11 +62,13 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
+import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * Quick Add Bar lets you add tasks.
  *
  * @author Tim Su <tim@astrid.com>
- *
  */
 public class QuickAddBar extends LinearLayout {
 
@@ -87,10 +86,14 @@ public class QuickAddBar extends LinearLayout {
 
     private String currentVoiceFile = null;
 
-    @Autowired AddOnService addOnService;
-    @Autowired ExceptionService exceptionService;
-    @Autowired MetadataService metadataService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    AddOnService addOnService;
+    @Autowired
+    ExceptionService exceptionService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
 
@@ -112,7 +115,7 @@ public class QuickAddBar extends LinearLayout {
     }
 
     public void initialize(AstridActivity myActivity, TaskListFragment myFragment,
-            final OnTaskListItemClickedListener mListener) {
+                           final OnTaskListItemClickedListener mListener) {
         activity = myActivity;
         fragment = myFragment;
 
@@ -130,7 +133,7 @@ public class QuickAddBar extends LinearLayout {
              */
             @Override
             public boolean onEditorAction(TextView view, int actionId,
-                    KeyEvent event) {
+                                          KeyEvent event) {
                 if (actionId == EditorInfo.IME_NULL
                         && !TextUtils.isEmpty(quickAddBox.getText().toString().trim())) {
                     quickAddTask(quickAddBox.getText().toString(), true);
@@ -286,7 +289,7 @@ public class QuickAddBar extends LinearLayout {
     @SuppressWarnings("nls")
     public Task quickAddTask(String title, boolean selectNewTask) {
         TagData tagData = fragment.getActiveTagData();
-        if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
+        if (tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
                 tagData.getValue(TagData.NAME).length() == 0)) {
             DialogUtilities.okDialog(activity, activity.getString(R.string.tag_no_title_error), null);
             return null;
@@ -348,7 +351,7 @@ public class QuickAddBar extends LinearLayout {
 
             addToCalendar(task, title);
 
-            if(!TextUtils.isEmpty(title))
+            if (!TextUtils.isEmpty(title))
                 fragment.showTaskEditHelpPopover();
 
             if (activity instanceof TaskListActivity && !assignedToMe)
@@ -406,6 +409,7 @@ public class QuickAddBar extends LinearLayout {
     /**
      * Static method to quickly add tasks without all the control set nonsense.
      * Used from the share link activity.
+     *
      * @param title
      * @return
      */
@@ -473,6 +477,7 @@ public class QuickAddBar extends LinearLayout {
     public VoiceRecognizer getVoiceRecognizer() {
         return voiceRecognizer;
     }
+
     public void startVoiceRecognition() {
         if (VoiceRecognizer.speechRecordingAvailable(activity) && currentVoiceFile == null) {
             currentVoiceFile = Long.toString(DateUtilities.now());
@@ -487,7 +492,6 @@ public class QuickAddBar extends LinearLayout {
     public void destroyRecognizerApi() {
         voiceRecognizer.destroyRecognizerApi();
     }
-
 
 
     public void hideKeyboard() {

@@ -32,22 +32,22 @@ public class SyncUpgradePrompt {
                     // Logged into google but not astrid
                     d = getDialog(activity, R.string.sync_upgr_gtasks_only_title, R.string.sync_upgr_gtasks_only_body,
                             R.string.sync_upgr_gtasks_only_btn1, new Runnable() {
-                                @Override
-                                public void run() {
-                                    activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
-                                }
-                            },
+                        @Override
+                        public void run() {
+                            activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
+                        }
+                    },
                             R.string.sync_upgr_gtasks_only_btn2,
                             null);
                 } else {
                     // Logged into neither
                     d = getDialog(activity, R.string.sync_upgr_neither_title, R.string.sync_upgr_neither_body,
                             R.string.sync_upgr_neither_btn1, new Runnable() {
-                                @Override
-                                public void run() {
-                                    activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
-                                }
-                            });
+                        @Override
+                        public void run() {
+                            activity.startActivity(new Intent(activity, ActFmLoginActivity.class));
+                        }
+                    });
                 }
                 setLastPromptDate(DateUtilities.now());
             } else if (PluginServices.getGtasksPreferenceService().isLoggedIn()) {
@@ -56,12 +56,12 @@ public class SyncUpgradePrompt {
                         R.string.sync_upgr_both_btn1,
                         null,
                         R.string.sync_upgr_both_btn2, new Runnable() {
-                            @Override
-                            public void run() {
-                                new ActFmSyncV2Provider().signOut(activity);
-                                Toast.makeText(activity, R.string.sync_upgr_logged_out, Toast.LENGTH_LONG).show();
-                            }
-                        });
+                    @Override
+                    public void run() {
+                        new ActFmSyncV2Provider().signOut(activity);
+                        Toast.makeText(activity, R.string.sync_upgr_logged_out, Toast.LENGTH_LONG).show();
+                    }
+                });
                 setLastPromptDate(Long.MAX_VALUE);
             } else {
                 // Logged into just astrid--don't need to show prompts anymore

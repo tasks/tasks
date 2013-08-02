@@ -5,15 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
-
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -115,11 +106,19 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksHelper.TreeRemapHelper;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Random;
+import java.util.Set;
+
 /**
  * This activity allows users to sign in or log in to Astrid.com
  *
  * @author Tim Su <tim@astrid.com>
- *
  */
 public class ActFmLoginActivity extends SherlockFragmentActivity {
 
@@ -160,7 +159,8 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     private TagMetadataDao tagMetadataDao;
 
 
-    @Autowired protected SyncV2Service syncService;
+    @Autowired
+    protected SyncV2Service syncService;
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
     private Random rand;
 
@@ -196,7 +196,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         ContextManager.setContext(this);
 
         setContentView(getContentViewResource());
-        if(getTitleResource() != 0)
+        if (getTitleResource() != 0)
             setTitle(getTitleResource());
 
         if (getSupportActionBar() != null)
@@ -275,14 +275,15 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
 
     protected SpannableString getLinkStringWithCustomInterval(String base, String linkComponent,
-                                                            int start, int endOffset, final OnClickListener listener) {
-        SpannableString link = new SpannableString (String.format("%s %s", //$NON-NLS-1$
+                                                              int start, int endOffset, final OnClickListener listener) {
+        SpannableString link = new SpannableString(String.format("%s %s", //$NON-NLS-1$
                 base, linkComponent));
         ClickableSpan linkSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 listener.onClick(widget);
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setUnderlineText(true);
@@ -297,13 +298,13 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     protected void initializeUI() {
         errors = (TextView) findViewById(R.id.error);
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
-        if(loginButton == null)
+        if (loginButton == null)
             return;
 
         loginButton.setReadPermissions(Arrays.asList("email", "offline_access"));
 
         View googleLogin = findViewById(R.id.gg_login);
-        if(AmazonMarketStrategy.isKindleFire())
+        if (AmazonMarketStrategy.isKindleFire())
             googleLogin.setVisibility(View.GONE);
         googleLogin.setOnClickListener(googleListener);
 
@@ -382,22 +383,22 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     bodyScroll).setIcon(R.drawable.icon_32).setTitle(
                     R.string.actfm_ALA_signup_title).setPositiveButton(
                     android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dlg, int which) {
-                            String firstName = firstNameField.getText().toString();
-                            String lastName =lastNameField.getText().toString();
+                @Override
+                public void onClick(DialogInterface dlg, int which) {
+                    String firstName = firstNameField.getText().toString();
+                    String lastName = lastNameField.getText().toString();
 
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
-                            authenticate(email.getText().toString(),
-                                    firstName, lastName, ActFmInvoker.PROVIDER_PASSWORD, generateRandomPassword());
-                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_SIGNUP_PW);
-                        }
-                    }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dlg, int which) {
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
-                        }
-                    }).show();
+                    AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
+                    authenticate(email.getText().toString(),
+                            firstName, lastName, ActFmInvoker.PROVIDER_PASSWORD, generateRandomPassword());
+                    StatisticsService.reportEvent(StatisticsConstants.ACTFM_SIGNUP_PW);
+                }
+            }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dlg, int which) {
+                    AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
+                }
+            }).show();
         }
     };
 
@@ -449,20 +450,20 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     bodyScroll).setIcon(R.drawable.icon_32).setTitle(
                     R.string.actfm_ALA_login_title).setPositiveButton(
                     android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dlg, int which) {
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, email, password);
-                            authenticate(email.getText().toString(),
-                                    "", "", ActFmInvoker.PROVIDER_PASSWORD,  //$NON-NLS-1$//$NON-NLS-2$
-                                    password.getText().toString());
-                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_PW);
-                        }
-                    }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dlg, int which) {
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, email, password);
-                        }
-                    }).show();
+                @Override
+                public void onClick(DialogInterface dlg, int which) {
+                    AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, email, password);
+                    authenticate(email.getText().toString(),
+                            "", "", ActFmInvoker.PROVIDER_PASSWORD,  //$NON-NLS-1$//$NON-NLS-2$
+                            password.getText().toString());
+                    StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_PW);
+                }
+            }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dlg, int which) {
+                    AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, email, password);
+                }
+            }).show();
         }
     };
 
@@ -507,9 +508,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         String oSimilar = "oO0";
         String puncSimilar = ".,";
 
-        boolean match =  (iSimilar.indexOf(last) > 0 && iSimilar.indexOf(check) > 0)
-                        || (oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0)
-                        || (puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0);
+        boolean match = (iSimilar.indexOf(last) > 0 && iSimilar.indexOf(check) > 0)
+                || (oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0)
+                || (puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0);
 
         if (match)
             return false;
@@ -541,18 +542,18 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     private void facebookSuccess(Session session) {
         progressDialog = DialogUtilities.progressDialog(this,
                 getString(R.string.DLG_please_wait));
-          Request request = Request.newMeRequest(session, new GraphUserCallback() {
-              @Override
-              public void onCompleted(GraphUser user, Response response) {
-                  try {
-                      String email = user.getInnerJSONObject().optString("email"); //$NON-NLS-1$
-                      authenticate(email, user.getFirstName(), user.getLastName(), ActFmInvoker.PROVIDER_FACEBOOK, Session.getActiveSession().getAccessToken());
-                  } catch (Exception e) {
-                      handleError(e);
-                  }
-              }
-          });
-          request.executeAsync();
+        Request request = Request.newMeRequest(session, new GraphUserCallback() {
+            @Override
+            public void onCompleted(GraphUser user, Response response) {
+                try {
+                    String email = user.getInnerJSONObject().optString("email"); //$NON-NLS-1$
+                    authenticate(email, user.getFirstName(), user.getLastName(), ActFmInvoker.PROVIDER_FACEBOOK, Session.getActiveSession().getAccessToken());
+                } catch (Exception e) {
+                    handleError(e);
+                }
+            }
+        });
+        request.executeAsync();
     }
 
     private UiLifecycleHelper uiHelper;
@@ -570,7 +571,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     @SuppressWarnings("nls")
     public void authenticate(final String email, final String firstName, final String lastName, final String provider,
-            final String secret) {
+                             final String secret) {
         if (progressDialog == null)
             progressDialog = DialogUtilities.progressDialog(this,
                     getString(R.string.DLG_please_wait));
@@ -663,7 +664,8 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                                     }
                                 }).start();
                             }
-                        });
+                        }
+                );
             } else {
                 finishSignIn(result, token, false);
             }

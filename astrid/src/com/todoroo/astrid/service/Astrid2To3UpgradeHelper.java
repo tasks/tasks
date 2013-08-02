@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -46,6 +42,10 @@ import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Astrid2To3UpgradeHelper {
 
@@ -92,7 +92,7 @@ public class Astrid2To3UpgradeHelper {
     private static class Astrid2UpgradeHelper extends SQLiteOpenHelper {
 
         public Astrid2UpgradeHelper(Context context, String name,
-                CursorFactory factory, int version) {
+                                    CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
 
@@ -112,12 +112,13 @@ public class Astrid2To3UpgradeHelper {
 
     /**
      * Perform the upgrade from Astrid 3 to 3.1
+     *
      * @param context
      * @param upgradeService
      * @param from
      */
     public void upgrade3To3_1(final Context context, final int from) {
-        if(!checkIfDatabaseExists(context, alertsTable))
+        if (!checkIfDatabaseExists(context, alertsTable))
             return;
 
         database.openForWriting();
@@ -128,21 +129,22 @@ public class Astrid2To3UpgradeHelper {
 
     /**
      * Perform the upgrade from Astrid 2 to Astrid 3
+     *
      * @param context2
      */
     @SuppressWarnings("deprecation")
     public void upgrade2To3(final Context context, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)
-        if(from < 1 && checkIfDatabaseExists(context, database.getName()))
+        if (from < 1 && checkIfDatabaseExists(context, database.getName()))
             return;
 
         // if you don't have a legacy task table, skip this step
-        if(!checkIfDatabaseExists(context, tasksTable))
+        if (!checkIfDatabaseExists(context, tasksTable))
             return;
 
         // else, if there's already a database table, clear it out (!!!)
-        if(checkIfDatabaseExists(context, database.getName()))
+        if (checkIfDatabaseExists(context, database.getName()))
             context.deleteDatabase(database.getName());
         database.openForWriting();
 
@@ -153,7 +155,7 @@ public class Astrid2To3UpgradeHelper {
 
             // --- upgrade tasks table
             HashMap<String, Property<?>> propertyMap =
-                new HashMap<String, Property<?>>();
+                    new HashMap<String, Property<?>>();
             propertyMap.put("_id", Task.ID); //$NON-NLS-1$
             propertyMap.put(LegacyTaskModel.NAME, Task.TITLE);
             propertyMap.put(LegacyTaskModel.NOTES, Task.NOTES);
@@ -197,14 +199,14 @@ public class Astrid2To3UpgradeHelper {
             SharedPreferences prefs = Preferences.getPrefs(context);
             Editor editor = prefs.edit();
             int random = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, -1);
-            if(random != -1) {
+            if (random != -1) {
                 // convert days => hours
                 editor.putString(context.getString(R.string.p_rmd_default_random_hours),
                         Integer.toString(random * 24));
             }
         } catch (Exception e) {
             exceptionService.reportError("backup-error", e); //$NON-NLS-1$
-            if(backupFile != null) {
+            if (backupFile != null) {
                 // try to restore the latest XML
                 TasksXmlImporter.importTasks(context, backupFile, null);
             }
@@ -236,8 +238,8 @@ public class Astrid2To3UpgradeHelper {
 
     /**
      * Visitor that reads from a visitor container and writes to the model
-     * @author Tim Su <tim@todoroo.com>
      *
+     * @author Tim Su <tim@todoroo.com>
      */
     @SuppressWarnings("nls")
     protected static final class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer<?>> {
@@ -262,26 +264,26 @@ public class Astrid2To3UpgradeHelper {
             long value = data.cursor.getLong(data.columnIndex);
 
             // special handling for due date
-            if(property == Task.DUE_DATE) {
+            if (property == Task.DUE_DATE) {
                 long preferredDueDate = data.cursor.getLong(data.cursor.getColumnIndex(LegacyTaskModel.PREFERRED_DUE_DATE));
-                if(value == 0)
+                if (value == 0)
                     value = preferredDueDate;
-                else if(preferredDueDate != 0) {
+                else if (preferredDueDate != 0) {
                     // had both absolute and preferred due dates. write
                     // preferred due date into notes field
-                    if(data.upgradeNotes == null)
+                    if (data.upgradeNotes == null)
                         data.upgradeNotes = new StringBuilder();
                     data.upgradeNotes.append("Goal Deadline: " +
                             DateUtilities.getDateString(ContextManager.getContext(),
                                     new Date(preferredDueDate)));
                 }
-            } else if(property == Task.REMINDER_PERIOD) {
+            } else if (property == Task.REMINDER_PERIOD) {
                 // old period was stored in seconds
                 value *= 1000L;
-            } else if(property == Task.COMPLETION_DATE) {
+            } else if (property == Task.COMPLETION_DATE) {
                 // check if the task was actually completed
                 int progress = data.cursor.getInt(data.cursor.getColumnIndex(LegacyTaskModel.PROGRESS_PERCENTAGE));
-                if(progress < 100)
+                if (progress < 100)
                     value = 0;
             }
 
@@ -294,9 +296,9 @@ public class Astrid2To3UpgradeHelper {
         public Void visitString(Property<String> property, UpgradeVisitorContainer<?> data) {
             String value = data.cursor.getString(data.columnIndex);
 
-            if(property == Task.RECURRENCE) {
+            if (property == Task.RECURRENCE) {
                 LegacyRepeatInfo repeatInfo = LegacyRepeatInfo.fromSingleField(data.cursor.getInt(data.columnIndex));
-                if(repeatInfo == null)
+                if (repeatInfo == null)
                     data.model.setValue(property, "");
                 else {
                     RRule rrule = repeatInfo.toRRule();
@@ -323,10 +325,10 @@ public class Astrid2To3UpgradeHelper {
      */
     @SuppressWarnings("nls")
     private static final <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
-            HashMap<String, Property<?>> propertyMap, TYPE model,
-            DatabaseDao<TYPE> dao) {
+                                                                        HashMap<String, Property<?>> propertyMap, TYPE model,
+                                                                        DatabaseDao<TYPE> dao) {
 
-        if(!checkIfDatabaseExists(context, legacyTable))
+        if (!checkIfDatabaseExists(context, legacyTable))
             return;
 
         SQLiteDatabase upgradeDb = new Astrid2UpgradeHelper(context, legacyTable,
@@ -337,21 +339,21 @@ public class Astrid2To3UpgradeHelper {
         container.cursor = cursor;
         container.model = model;
         ColumnUpgradeVisitor visitor = new ColumnUpgradeVisitor();
-        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             model.clear();
-            for(Entry<String, Property<?>> entry : propertyMap.entrySet()) {
+            for (Entry<String, Property<?>> entry : propertyMap.entrySet()) {
                 container.columnIndex = cursor.getColumnIndex(entry.getKey());
                 entry.getValue().accept(visitor, container);
             }
 
             // special tweak for adding upgrade notes to tasks
-            if(container.upgradeNotes != null) {
-                if(container.model.getValue(Task.NOTES).length() == 0)
+            if (container.upgradeNotes != null) {
+                if (container.model.getValue(Task.NOTES).length() == 0)
                     container.model.setValue(Task.NOTES, container.upgradeNotes.toString());
                 else {
                     container.model.setValue(Task.NOTES,
                             container.model.getValue(Task.NOTES) + "\n\n" +
-                            container.upgradeNotes);
+                                    container.upgradeNotes);
                 }
                 container.upgradeNotes = null;
             }
@@ -376,7 +378,7 @@ public class Astrid2To3UpgradeHelper {
     private void migrateTagsToMetadata() {
         Context context = ContextManager.getContext();
 
-        if(!checkIfDatabaseExists(context, tagsTable) ||
+        if (!checkIfDatabaseExists(context, tagsTable) ||
                 !checkIfDatabaseExists(context, tagTaskTable))
             return;
 
@@ -390,25 +392,25 @@ public class Astrid2To3UpgradeHelper {
         Cursor mapCursor = null;
         try {
             mapCursor = tagTaskDb.rawQuery("SELECT tag, task FROM " + tagTaskTable +
-                " ORDER BY tag ASC", null);
-            if(tagCursor.getCount() == 0)
+                    " ORDER BY tag ASC", null);
+            if (tagCursor.getCount() == 0)
                 return;
 
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
             long tagId = -1;
             String tag = null;
-            for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
+            for (mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
                 long mapTagId = mapCursor.getLong(0);
 
-                while(mapTagId > tagId && !tagCursor.isLast()) {
+                while (mapTagId > tagId && !tagCursor.isLast()) {
                     tagCursor.moveToNext();
                     tagId = tagCursor.getLong(0);
                     tag = null;
                 }
 
-                if(mapTagId == tagId) {
-                    if(tag == null)
+                if (mapTagId == tagId) {
+                    if (tag == null)
                         tag = tagCursor.getString(1);
                     long task = mapCursor.getLong(1);
                     metadata.setValue(Metadata.TASK, task);
@@ -420,7 +422,7 @@ public class Astrid2To3UpgradeHelper {
             }
         } finally {
             tagCursor.close();
-            if(mapCursor != null)
+            if (mapCursor != null)
                 mapCursor.close();
             tagsDb.close();
             tagTaskDb.close();
@@ -433,7 +435,7 @@ public class Astrid2To3UpgradeHelper {
     private void migrateAlarmsToMetadata() {
         Context context = ContextManager.getContext();
 
-        if(!checkIfDatabaseExists(context, AlarmDatabase.NAME))
+        if (!checkIfDatabaseExists(context, AlarmDatabase.NAME))
             return;
 
         AlarmDatabase alarmsDatabase = new AlarmDatabase();
@@ -442,12 +444,12 @@ public class Astrid2To3UpgradeHelper {
 
         TodorooCursor<TransitionalAlarm> cursor = dao.query(Query.select(TransitionalAlarm.PROPERTIES));
         try {
-            if(cursor.getCount() == 0)
+            if (cursor.getCount() == 0)
                 return;
 
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long task = cursor.get(TransitionalAlarm.TASK);
                 long time = cursor.get(TransitionalAlarm.TIME);
 

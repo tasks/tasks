@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,6 +21,10 @@ import android.widget.ArrayAdapter;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ActFmCameraModule {
 
@@ -44,7 +44,7 @@ public class ActFmCameraModule {
         PackageManager pm = activity.getPackageManager();
 
         final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
-        if(cameraAvailable)
+        if (cameraAvailable)
             options.add(activity.getString(R.string.actfm_picture_camera));
         options.add(activity.getString(R.string.actfm_picture_gallery));
 
@@ -58,7 +58,7 @@ public class ActFmCameraModule {
             @SuppressWarnings("nls")
             @Override
             public void onClick(DialogInterface d, int which) {
-                if(which == 0 && cameraAvailable) {
+                if (which == 0 && cameraAvailable) {
                     lastTempFile = getTempFile(activity);
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (lastTempFile != null) {
@@ -79,8 +79,8 @@ public class ActFmCameraModule {
 
         // show a menu of available options
         new AlertDialog.Builder(activity)
-        .setAdapter(adapter, listener)
-        .show().setOwnerActivity(activity);
+                .setAdapter(adapter, listener)
+                .show().setOwnerActivity(activity);
     }
 
 
@@ -90,7 +90,7 @@ public class ActFmCameraModule {
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         PackageManager pm = fragment.getActivity().getPackageManager();
         final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
-        if(cameraAvailable)
+        if (cameraAvailable)
             options.add(fragment.getString(R.string.actfm_picture_camera));
 
         options.add(fragment.getString(R.string.actfm_picture_gallery));
@@ -105,7 +105,7 @@ public class ActFmCameraModule {
             @SuppressWarnings("nls")
             @Override
             public void onClick(DialogInterface d, int which) {
-                if(which == 0 && cameraAvailable) {
+                if (which == 0 && cameraAvailable) {
                     lastTempFile = getTempFile(fragment.getActivity());
                     if (lastTempFile != null)
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
@@ -124,15 +124,15 @@ public class ActFmCameraModule {
 
         // show a menu of available options
         new AlertDialog.Builder(fragment.getActivity())
-        .setAdapter(adapter, listener)
-        .show().setOwnerActivity(fragment.getActivity());
+                .setAdapter(adapter, listener)
+                .show().setOwnerActivity(fragment.getActivity());
     }
 
     @SuppressWarnings("nls")
     private static File getTempFile(Activity activity) {
         try {
             String storageState = Environment.getExternalStorageState();
-            if(storageState.equals(Environment.MEDIA_MOUNTED)) {
+            if (storageState.equals(Environment.MEDIA_MOUNTED)) {
                 String path = Environment.getExternalStorageDirectory().getName() + File.separatorChar + "Android/data/" + activity.getPackageName() + "/files/";
                 File photoFile = File.createTempFile("comment_pic_" + DateUtilities.now(), ".jpg", new File(path));
                 return photoFile;
@@ -148,11 +148,11 @@ public class ActFmCameraModule {
     }
 
     private static Bitmap bitmapFromUri(Activity activity, Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = activity.managedQuery(uri, projection, null, null, null);
         String path;
 
-        if(cursor != null) {
+        if (cursor != null) {
             int column_index = cursor
                     .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
@@ -165,28 +165,27 @@ public class ActFmCameraModule {
     }
 
     public static boolean activityResult(Activity activity, int requestCode, int resultCode, Intent data,
-            CameraResultCallback cameraResult) {
-        if(requestCode == ActFmCameraModule.REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
+                                         CameraResultCallback cameraResult) {
+        if (requestCode == ActFmCameraModule.REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
             Bitmap bitmap;
             if (data == null) { // large from camera
                 if (lastTempFile != null) {
                     bitmap = bitmapFromUri(activity, Uri.fromFile(lastTempFile));
                     lastTempFile.deleteOnExit();
                     lastTempFile = null;
-                }
-                else
+                } else
                     bitmap = null;
             } else
                 bitmap = data.getParcelableExtra("data"); //$NON-NLS-1$
-            if(bitmap != null) {
+            if (bitmap != null) {
                 activity.setResult(Activity.RESULT_OK);
                 cameraResult.handleCameraResult(bitmap);
             }
             return true;
-        } else if(requestCode == ActFmCameraModule.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == ActFmCameraModule.REQUEST_CODE_PICTURE && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             Bitmap bitmap = bitmapFromUri(activity, uri);
-            if(bitmap != null) {
+            if (bitmap != null) {
                 activity.setResult(Activity.RESULT_OK);
                 cameraResult.handleCameraResult(bitmap);
             }

@@ -11,6 +11,7 @@ public class SyncDatabaseListener<MTYPE extends AbstractModel> implements ModelU
 
     private final ModelType modelType;
     protected final ActFmSyncThread actFmSyncThread;
+
     public SyncDatabaseListener(ActFmSyncThread actFmSyncThread, ModelType modelType) {
         this.actFmSyncThread = actFmSyncThread;
         this.modelType = modelType;

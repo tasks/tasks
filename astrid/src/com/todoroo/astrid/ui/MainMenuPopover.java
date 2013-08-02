@@ -36,6 +36,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     public interface MainMenuListener {
         public boolean shouldAddMenuItem(int itemId);
+
         public void mainMenuItemSelected(int item, Intent customIntent);
     }
 

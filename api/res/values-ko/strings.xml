@@ -4,243 +4,243 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1년</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d년</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1개월</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d개월</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1주</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d주</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1일</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d일</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">주중 1일</item>
-    <!-- plurals: days -->
-    <item quantity="other">주중 %d일</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1시간</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d시간</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1분</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d분</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1초</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d초</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1시간</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d시간</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1분</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d분</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1초</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d초</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 일정</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d 일정</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1 사람</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d 사람</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">오늘</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">내일</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">어제</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">내일</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">어제</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">확인?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">질문:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">정보</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">에러!</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">저장</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">예</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">아니요</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">닫기</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">마침</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">에러가 발생한 것 같습니다!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">잠시 기다리세요...</string>
+    <!-- ==================================================== Generic Units == -->
 
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">일정을 동기화 중입니다...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">동기화하는 중...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">동기화 &amp; 백업</string>  
+    <plurals name="DUt_years">
+        <!-- plurals: years -->
+        <item quantity="one">1년</item>
+        <!-- plurals: years -->
+        <item quantity="other">%d년</item>
+    </plurals>
+    <plurals name="DUt_months">
+        <!-- plurals: months -->
+        <item quantity="one">1개월</item>
+        <!-- plurals: months -->
+        <item quantity="other">%d개월</item>
+    </plurals>
+    <plurals name="DUt_weeks">
+        <!-- plurals: days -->
+        <item quantity="one">1주</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d주</item>
+    </plurals>
+    <plurals name="DUt_days">
+        <!-- plurals: days -->
+        <item quantity="one">1일</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d일</item>
+    </plurals>
+    <plurals name="DUt_weekdays">
+        <!-- plurals: days -->
+        <item quantity="one">주중 1일</item>
+        <!-- plurals: days -->
+        <item quantity="other">주중 %d일</item>
+    </plurals>
+    <plurals name="DUt_hours">
+        <!-- plurals: hours -->
+        <item quantity="one">1시간</item>
+        <!-- plurals: hours -->
+        <item quantity="other">%d시간</item>
+    </plurals>
+    <plurals name="DUt_minutes">
+        <!-- plurals: minutes -->
+        <item quantity="one">1분</item>
+        <!-- plurals: minutes -->
+        <item quantity="other">%d분</item>
+    </plurals>
+    <plurals name="DUt_seconds">
+        <!-- plurals: seconds -->
+        <item quantity="one">1초</item>
+        <!-- plurals: seconds -->
+        <item quantity="other">%d초</item>
+    </plurals>
+    <plurals name="DUt_hoursShort">
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="one">1시간</item>
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="other">%d시간</item>
+    </plurals>
+    <plurals name="DUt_minutesShort">
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="one">1분</item>
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="other">%d분</item>
+    </plurals>
+    <plurals name="DUt_secondsShort">
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="one">1초</item>
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="other">%d초</item>
+    </plurals>
+    <plurals name="Ntasks">
+        <!-- plurals: tasks -->
+        <item quantity="one">1 일정</item>
+        <!-- plurals: tasks -->
+        <item quantity="other">%d 일정</item>
+    </plurals>
+    <plurals name="Npeople">
+        <!-- plurals: people -->
+        <item quantity="one">1 사람</item>
+        <!-- plurals: people -->
+        <item quantity="other">%d 사람</item>
+    </plurals>
 
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">지금 동기화하기</string>  
+    <!-- slide 10a, 12c: today -->
+    <string name="today">오늘</string>
 
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, 구글 일정, 저장한 자료, 로컬 백업</string>  
+    <!-- tomorrow -->
+    <string name="tomorrow">내일</string>
 
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>
+    <!-- yesterday -->
+    <string name="yesterday">어제</string>
 
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">상태</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">상태: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">로그인 안 됨</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">동기화 진행 중...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">마지막 동기화: \n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">실패: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">동기화 중 에러: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">마지막 동기화 성공시간: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">동기화 한 적이 없습니다!</string>
+    <!-- slide 12c: tomorrow, abbreviated -->
+    <string name="tmrw">내일</string>
 
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">설정</string>
+    <!-- slide 12c: yesterday, abbreviated -->
+    <string name="yest">어제</string>
 
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">백그라운드 동기화</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">현재 설정: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">WiFi 설정</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">백그라운드 동기화는 WiFi 지역에서만 작동합니다.</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">백그라운드 동기화는 항상 작동합니다.</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">동작</string>
+    <!-- ================================================== Generic Dialogs == -->
 
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">지금 동기화하기</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">로그인 &amp; 동기화!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">로그인하기:</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">상태 보고</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">보고서 보내기</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">로그아웃</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
+    <!-- confirmation dialog title -->
+    <string name="DLG_confirm_title">확인?</string>
 
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다.나중에 다시 시도해 주세요.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>사용안함</item>
-      <item>15분마다</item>
-      <item>30분마다</item>
-      <item>매시간</item>
-      <item>3시간마다</item>
-      <item>6시간마다</item>
-      <item>12시간마다</item>
-      <item>매일</item>
-      <item>3일마다</item>
-      <item>일주일마다</item>
-  </string-array>    
-    
+    <!-- question dialog title -->
+    <string name="DLG_question_title">질문:</string>
+
+    <!-- information dialog title -->
+    <string name="DLG_information_title">정보</string>
+
+    <!-- error dialog title -->
+    <string name="DLG_error_title">에러!</string>
+
+    <!-- general dialog save-->
+    <string name="DLG_save">저장</string>
+
+    <!-- general dialog yes-->
+    <string name="DLG_yes">예</string>
+
+    <!-- general dialog no-->
+    <string name="DLG_no">아니요</string>
+
+    <!-- general dialog close-->
+    <string name="DLG_close">닫기</string>
+
+    <!-- general dialog done -->
+    <string name="DLG_done">마침</string>
+
+    <!-- error dialog (%s => error message)-->
+    <string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
+
+    <!-- error dialog (no message indicated)-->
+    <string name="DLG_error_generic">에러가 발생한 것 같습니다!</string>
+
+    <!-- Progress dialog shown when doing something slow -->
+    <string name="DLG_wait">잠시 기다리세요...</string>
+
+    <!-- ====================================================== SyncProvider == -->
+
+    <!-- Sync Notification: message when sync service active -->
+    <string name="SyP_progress">일정을 동기화 중입니다...</string>
+
+    <!-- Sync Notification: toast when sync activated from activity -->
+    <string name="SyP_progress_toast">동기화하는 중...</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="SyP_label">동기화 &amp; 백업</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="Sync_now_label">지금 동기화하기</string>
+
+    <!-- Sync label subtitle -->
+    <string name="SyP_summary">Astrid.com, 구글 일정, 저장한 자료, 로컬 백업</string>
+
+    <!-- Error msg when io exception  -->
+    <string name="SyP_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>
+
+    <!-- ================================================== SyncPreferences == -->
+
+    <!-- Status Group Label -->
+    <string name="sync_SPr_group_status">상태</string>
+
+    <!-- Sync status subtitle, %s-> status message -->
+    <string name="sync_SPr_status_subtitle">상태: %s</string>
+    <!-- Sync Status: log in -->
+    <string name="sync_status_loggedout">로그인 안 됨</string>
+    <!-- Status: ongoing -->
+    <string name="sync_status_ongoing">동기화 진행 중...</string>
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">마지막 동기화: \n%s</string>
+    <!-- Sync Status: failure status (%s -> last attempted sync date) -->
+    <string name="sync_status_failed">실패: %s</string>
+    <!-- Sync Status: error status (%s -> last sync date) -->
+    <string name="sync_status_errors">동기화 중 에러: %s</string>
+    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+    <string name="sync_status_failed_subtitle">마지막 동기화 성공시간: %s</string>
+    <!-- Sync Status: never sync\'d -->
+    <string name="sync_status_never">동기화 한 적이 없습니다!</string>
+
+    <!-- Options Group Label -->
+    <string name="sync_SPr_group_options">설정</string>
+
+    <!-- Preference: Synchronization Interval Title -->
+    <string name="sync_SPr_interval_title">백그라운드 동기화</string>
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
+    <string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
+    <string name="sync_SPr_interval_desc">현재 설정: %s</string>
+
+    <!-- Preference: Background Wifi Title -->
+    <string name="sync_SPr_bgwifi_title">WiFi 설정</string>
+    <!-- Preference: Background Wifi Description (enabled) -->
+    <string name="sync_SPr_bgwifi_desc_enabled">백그라운드 동기화는 WiFi 지역에서만 작동합니다.</string>
+    <!-- Preference: Background Wifi Description (disabled) -->
+    <string name="sync_SPr_bgwifi_desc_disabled">백그라운드 동기화는 항상 작동합니다.</string>
+
+    <!-- Actions Group Label  -->
+    <string name="sync_SPr_group_actions">동작</string>
+
+    <!-- Synchronize Now Button -->
+    <string name="sync_SPr_sync">지금 동기화하기</string>
+    <!-- Synchronize Now Button if not logged in-->
+    <string name="sync_SPr_sync_log_in">로그인 &amp; 동기화!</string>
+
+    <!-- Sync: Prefix string before logged in identifier -->
+    <string name="sync_SPr_logged_in_prefix">로그인하기:</string>
+
+    <!-- Sync: Last error -->
+    <string name="sync_SPr_last_error">상태 보고</string>
+
+    <!-- Sync: last error click for more -->
+    <string name="sync_SPr_last_error_subtitle">아스트리드 팀에게 보고서를 보내려면 클릭하세요</string>
+    <!-- Sync: send error report button -->
+    <string name="sync_SPr_send_report">보고서 보내기</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">로그아웃</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
+
+    <!-- Sync error: network connectivity problems. %s-> name of sync service-->
+    <string name="sync_error_offline">%s 과 마지막 동기화 중에 네트워크 연결 문제가 있었습니다.나중에 다시 시도해 주세요.</string>
+
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+        <item>사용안함</item>
+        <item>15분마다</item>
+        <item>30분마다</item>
+        <item>매시간</item>
+        <item>3시간마다</item>
+        <item>6시간마다</item>
+        <item>12시간마다</item>
+        <item>매일</item>
+        <item>3일마다</item>
+        <item>일주일마다</item>
+    </string-array>
+
 </resources>

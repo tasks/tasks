@@ -18,9 +18,9 @@
 
     <item android:state_checked="false"
           android:state_enabled="true"
-          android:drawable="@drawable/icn_check_off" />
+          android:drawable="@drawable/icn_check_off"/>
     <item android:state_checked="true"
           android:state_enabled="true"
-          android:drawable="@drawable/icn_check_on" />
+          android:drawable="@drawable/icn_check_on"/>
 
 </selector>

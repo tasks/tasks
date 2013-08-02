@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-
 import android.app.Notification;
 import android.content.Intent;
 
@@ -18,6 +16,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+
+import java.util.Date;
 
 public class NotificationTests extends DatabaseTestCase {
 
@@ -39,7 +39,9 @@ public class NotificationTests extends DatabaseTestCase {
         Notifications.setNotificationManager(null);
     }
 
-    /** test that a normal task gets a notification */
+    /**
+     * test that a normal task gets a notification
+     */
     public void testAlarmToNotification() {
         final Task task = new Task();
         task.setValue(Task.TITLE, "rubberduck");
@@ -63,7 +65,9 @@ public class NotificationTests extends DatabaseTestCase {
         assertTrue(triggered.value);
     }
 
-    /** test that a deleted task doesn't get a notification */
+    /**
+     * test that a deleted task doesn't get a notification
+     */
     public void testDeletedTask() {
         final Task task = new Task();
         task.setValue(Task.TITLE, "gooeyduck");
@@ -92,7 +96,9 @@ public class NotificationTests extends DatabaseTestCase {
         new Notifications().onReceive(getContext(), intent);
     }
 
-    /** test that a completed task doesn't get a notification */
+    /**
+     * test that a completed task doesn't get a notification
+     */
     public void testCompletedTask() {
         final Task task = new Task();
         task.setValue(Task.TITLE, "rubberduck");
@@ -121,7 +127,9 @@ public class NotificationTests extends DatabaseTestCase {
         new Notifications().onReceive(getContext(), intent);
     }
 
-    /** test of quiet hours */
+    /**
+     * test of quiet hours
+     */
     public void testQuietHours() {
         final Task task = new Task();
         task.setValue(Task.TITLE, "rubberduck");
@@ -188,6 +196,7 @@ public class NotificationTests extends DatabaseTestCase {
         public void cancel(int id) {
             fail("wtf cance?");
         }
+
         public void cancelAll() {
             fail("wtf cancel all?");
         }

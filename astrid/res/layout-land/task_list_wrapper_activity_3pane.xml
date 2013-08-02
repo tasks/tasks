@@ -5,43 +5,43 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/Content"
-    android:orientation="horizontal">
-  
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Content"
+        android:orientation="horizontal">
+
     <!-- Filter List -->
     <FrameLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_weight="40"
-	    android:background="@android:color/white"
-	    android:id="@+id/filterlist_fragment_container" />
-  
-	<View 
-        android:layout_width="1px"
-        android:layout_height="match_parent"
-        android:background="?attr/asSeparatorBackground"/>
-  
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:background="@android:color/white"
+            android:id="@+id/filterlist_fragment_container"/>
+
+    <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="?attr/asSeparatorBackground"/>
+
     <!-- Task List -->
-	<FrameLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-        android:layout_weight="30"
-        android:id="@+id/tasklist_fragment_container" />
-  
-	<View 
-        android:layout_width="1px"
-        android:layout_height="match_parent"
-        android:background="?attr/asSeparatorBackground"/>
-  
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:id="@+id/tasklist_fragment_container"/>
+
+    <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="?attr/asSeparatorBackground"/>
+
     <!-- Task Edit -->
-	<FrameLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-        android:layout_weight="35"
-        android:id="@+id/taskedit_fragment_container"
-        android:visibility="invisible" />
-  
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="35"
+            android:id="@+id/taskedit_fragment_container"
+            android:visibility="invisible"/>
+
 </LinearLayout>

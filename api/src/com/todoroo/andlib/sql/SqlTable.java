@@ -20,6 +20,6 @@ public class SqlTable extends DBObject<SqlTable> {
         if (hasAlias()) {
             return alias + "." + fieldName;
         }
-        return expression+"."+fieldName;
+        return expression + "." + fieldName;
     }
 }

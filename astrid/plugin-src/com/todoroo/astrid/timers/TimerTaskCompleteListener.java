@@ -20,12 +20,12 @@ public class TimerTaskCompleteListener extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if (taskId == -1)
             return;
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.ELAPSED_SECONDS,
                 Task.TIMER_START);
-        if(task == null || task.getValue(Task.TIMER_START) == 0)
+        if (task == null || task.getValue(Task.TIMER_START) == 0)
             return;
 
         TimerPlugin.updateTimer(context, task, false);

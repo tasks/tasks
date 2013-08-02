@@ -74,7 +74,7 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
                 instance.readPropertiesFromCursor(outstanding);
                 if (instance.getValue(OutstandingEntry.ENTITY_ID_PROPERTY) != id)
                     break;
-                count ++;
+                count++;
                 String column = instance.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
                 Property<?> property = NameMaps.localColumnNameToProperty(table, column);
                 // set values to model

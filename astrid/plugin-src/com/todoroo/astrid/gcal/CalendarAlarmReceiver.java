@@ -1,9 +1,5 @@
 package com.todoroo.astrid.gcal;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
@@ -22,6 +18,10 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 @SuppressWarnings("nls")
 public class CalendarAlarmReceiver extends BroadcastReceiver {
 
@@ -29,14 +29,14 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
     public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
 
     private static final String[] EVENTS_PROJECTION = {
-        Calendars.EVENTS_DTSTART_COL,
-        Calendars.EVENTS_DTEND_COL,
-        Calendars.EVENTS_NAME_COL,
+            Calendars.EVENTS_DTSTART_COL,
+            Calendars.EVENTS_DTEND_COL,
+            Calendars.EVENTS_NAME_COL,
     };
 
     private static final String[] ATTENDEES_PROJECTION = {
-        Calendars.ATTENDEES_NAME_COL,
-        Calendars.ATTENDEES_EMAIL_COL,
+            Calendars.ATTENDEES_NAME_COL,
+            Calendars.ATTENDEES_EMAIL_COL,
     };
 
     @Override
@@ -64,14 +64,14 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
     }
 
     private void showCalReminder(Context context,
-            long eventId, boolean fromPostpone) {
+                                 long eventId, boolean fromPostpone) {
         ContentResolver cr = context.getContentResolver();
         Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
         if (AndroidUtilities.getSdkVersion() <= 7)
             return;
 
-        String[] eventArg = new String[] { Long.toString(eventId) };
+        String[] eventArg = new String[]{Long.toString(eventId)};
         Cursor event = cr.query(eventUri,
                 EVENTS_PROJECTION,
                 Calendars.ID_COLUMN_NAME + " = ?",

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.tags.reusable;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
@@ -20,17 +18,19 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class ReusableTaskAdapter extends TaskAdapter {
 
     public ReusableTaskAdapter(TaskListFragment fragment, int resource,
-            Cursor c, AtomicReference<String> query, boolean autoRequery,
-            OnCompletedTaskListener onCompletedTaskListener) {
+                               Cursor c, AtomicReference<String> query, boolean autoRequery,
+                               OnCompletedTaskListener onCompletedTaskListener) {
         super(fragment, resource, c, query, autoRequery, onCompletedTaskListener);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        ViewGroup view = (ViewGroup)inflater.inflate(resource, parent, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(resource, parent, false);
 
         ReusableTaskViewHolder viewHolder = new ReusableTaskViewHolder();
         viewHolder.task = new Task();
@@ -43,7 +43,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
         }
 
         view.setTag(viewHolder);
-        for(int i = 0; i < view.getChildCount(); i++)
+        for (int i = 0; i < view.getChildCount(); i++)
             view.getChildAt(i).setTag(viewHolder);
 
         viewHolder.clone.setOnClickListener(new OnClickListener() {
@@ -61,7 +61,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor c) {
-        TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
+        TodorooCursor<Task> cursor = (TodorooCursor<Task>) c;
         ReusableTaskViewHolder viewHolder = (ReusableTaskViewHolder) view.getTag();
 
         Task task = viewHolder.task;

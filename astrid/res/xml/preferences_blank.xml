@@ -5,6 +5,6 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/EPr_title">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/EPr_title">
 </PreferenceScreen>

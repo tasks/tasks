@@ -4,6 +4,7 @@
  * See the file "LICENSE" for the full license governing this code.
  */
 package com.todoroo.astrid.ui;
+
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -35,9 +36,9 @@ public class CustomBorderDrawable extends ShapeDrawable {
 
         Matrix matrix = new Matrix();
         matrix.setRectToRect(new RectF(0, 0, canvas.getClipBounds().right,
-                    canvas.getClipBounds().bottom),
-                new RectF(strokeWidth/2, strokeWidth/2, canvas.getClipBounds().right - strokeWidth/2,
-                        canvas.getClipBounds().bottom - strokeWidth/2),
+                canvas.getClipBounds().bottom),
+                new RectF(strokeWidth / 2, strokeWidth / 2, canvas.getClipBounds().right - strokeWidth / 2,
+                        canvas.getClipBounds().bottom - strokeWidth / 2),
                 Matrix.ScaleToFit.FILL);
         canvas.concat(matrix);
 
@@ -46,14 +47,14 @@ public class CustomBorderDrawable extends ShapeDrawable {
     }
 
     public static StateListDrawable customButton(int tl, int tr, int br, int bl, int onColor, int offColor, int borderColor, int strokeWidth) {
-        Shape shape = new RoundRectShape(new float[] { tl, tl, tr, tr, br, br, bl, bl}, null, null);
+        Shape shape = new RoundRectShape(new float[]{tl, tl, tr, tr, br, br, bl, bl}, null, null);
         ShapeDrawable sdOn = new CustomBorderDrawable(shape, onColor, borderColor, strokeWidth);
         ShapeDrawable sdOff = new CustomBorderDrawable(shape, offColor, borderColor, strokeWidth);
 
         StateListDrawable stld = new StateListDrawable();
-        stld.addState(new int[] { android.R.attr.state_pressed }, sdOn);
-        stld.addState(new int[] { android.R.attr.state_checked }, sdOn);
-        stld.addState(new int[] { android.R.attr.state_enabled }, sdOff);
+        stld.addState(new int[]{android.R.attr.state_pressed}, sdOn);
+        stld.addState(new int[]{android.R.attr.state_checked}, sdOn);
+        stld.addState(new int[]{android.R.attr.state_enabled}, sdOff);
         return stld;
     }
 }

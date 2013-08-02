@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.gcal;
 
-import java.util.TimeZone;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -24,8 +22,12 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 
+import java.util.TimeZone;
+
 public class GCalHelper {
-    /** If task has no estimated time, how early to set a task in calendar (seconds)*/
+    /**
+     * If task has no estimated time, how early to set a task in calendar (seconds)
+     */
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
     public static final String CALENDAR_ID_COLUMN = "calendar_id"; //$NON-NLS-1$
@@ -36,7 +38,7 @@ public class GCalHelper {
             uri = task.getValue(Task.CALENDAR_URI);
         else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
-            if(task == null)
+            if (task == null)
                 return null;
             uri = task.getValue(Task.CALENDAR_URI);
         }
@@ -52,7 +54,7 @@ public class GCalHelper {
 
     private static void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-            && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
+                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
         if (gcalCreateEventEnabled) {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
             Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
@@ -69,11 +71,11 @@ public class GCalHelper {
     public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
         String eventuri = getTaskEventUri(task);
 
-        if(!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
+        if (!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
             deleteTaskEvent(task);
         }
 
-        try{
+        try {
             Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
             values.put("title", task.getValue(Task.TITLE));
             values.put("description", task.getValue(Task.NOTES));
@@ -126,13 +128,13 @@ public class GCalHelper {
     }
 
     private static String getCalendarId(Uri uri, ContentResolver cr) {
-        Cursor calendar = cr.query(uri, new String[] { CALENDAR_ID_COLUMN }, null, null, null);
+        Cursor calendar = cr.query(uri, new String[]{CALENDAR_ID_COLUMN}, null, null, null);
         try {
             calendar.moveToFirst();
             return calendar.getString(0);
         } catch (CursorIndexOutOfBoundsException e) {
             return null;
-        } finally  {
+        } finally {
             calendar.close();
         }
     }
@@ -141,22 +143,22 @@ public class GCalHelper {
     public static boolean deleteTaskEvent(Task task) {
         boolean eventDeleted = false;
         String uri;
-        if(task.containsNonNullValue(Task.CALENDAR_URI))
+        if (task.containsNonNullValue(Task.CALENDAR_URI))
             uri = task.getValue(Task.CALENDAR_URI);
         else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
-            if(task == null)
+            if (task == null)
                 return false;
             uri = task.getValue(Task.CALENDAR_URI);
         }
 
-        if(!TextUtils.isEmpty(uri)) {
+        if (!TextUtils.isEmpty(uri)) {
             try {
                 Uri calendarUri = Uri.parse(uri);
 
                 // try to load calendar
                 ContentResolver cr = ContextManager.getContext().getContentResolver();
-                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
+                Cursor cursor = cr.query(calendarUri, new String[]{"dtstart"}, null, null, null); //$NON-NLS-1$
                 try {
                     boolean alreadydeleted = cursor.getCount() == 0;
 
@@ -168,7 +170,7 @@ public class GCalHelper {
                     cursor.close();
                 }
 
-                task.setValue(Task.CALENDAR_URI,"");
+                task.setValue(Task.CALENDAR_URI, "");
             } catch (Exception e) {
                 Log.e("astrid-gcal", "error-deleting-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
@@ -183,15 +185,15 @@ public class GCalHelper {
         long tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate);
         long tzCorrectedDueDateNow = DateUtilities.now() + TimeZone.getDefault().getOffset(DateUtilities.now());
         // FIXME: doesnt respect timezones, see story 17443653
-        if(task.hasDueDate()) {
-            if(task.hasDueTime()) {
-                long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS)  * 1000;
-                if(estimatedTime <= 0)
+        if (task.hasDueDate()) {
+            if (task.hasDueTime()) {
+                long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS) * 1000;
+                if (estimatedTime <= 0)
                     estimatedTime = DEFAULT_CAL_TIME;
                 if (Preferences.getBoolean(R.string.p_end_at_deadline, true)) {
                     values.put("dtstart", dueDate);
                     values.put("dtend", dueDate + estimatedTime);
-                }else{
+                } else {
                     values.put("dtstart", dueDate - estimatedTime);
                     values.put("dtend", dueDate);
                 }

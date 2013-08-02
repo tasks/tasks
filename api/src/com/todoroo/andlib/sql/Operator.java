@@ -5,10 +5,10 @@
  */
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 @SuppressWarnings("nls")
 public final class Operator {
@@ -47,7 +47,7 @@ public final class Operator {
     }
 
     public Operator getContrary() {
-        if(!contraryRegistry.containsKey(this)){
+        if (!contraryRegistry.containsKey(this)) {
             Operator opposite = new Operator(not.toString() + SPACE + this.toString());
             contraryRegistry.put(this, opposite);
             contraryRegistry.put(opposite, this);

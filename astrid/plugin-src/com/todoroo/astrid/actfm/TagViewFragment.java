@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -90,6 +83,13 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class TagViewFragment extends TaskListFragment {
 
     public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.API_PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
@@ -112,25 +112,35 @@ public class TagViewFragment extends TaskListFragment {
 
     protected TagData tagData;
 
-    @Autowired TagDataService tagDataService;
+    @Autowired
+    TagDataService tagDataService;
 
-    @Autowired TagService tagService;
+    @Autowired
+    TagService tagService;
 
-    @Autowired TagDataDao tagDataDao;
+    @Autowired
+    TagDataDao tagDataDao;
 
-    @Autowired ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmSyncService actFmSyncService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired SyncV2Service syncService;
+    @Autowired
+    SyncV2Service syncService;
 
-    @Autowired UserDao userDao;
+    @Autowired
+    UserDao userDao;
 
-    @Autowired MetadataDao metadataDao;
+    @Autowired
+    MetadataDao metadataDao;
 
-    @Autowired TagMetadataDao tagMetadataDao;
+    @Autowired
+    TagMetadataDao tagMetadataDao;
 
-    @Autowired TaskListMetadataDao taskListMetadataDao;
+    @Autowired
+    TaskListMetadataDao taskListMetadataDao;
 
     protected View taskListView;
 
@@ -216,7 +226,7 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
-        if(actFmPreferenceService.isLoggedIn()) {
+        if (actFmPreferenceService.isLoggedIn()) {
             addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
                     ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
         } else {
@@ -238,8 +248,8 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void initializeData() {
-        synchronized(this) {
-            if(dataLoaded)
+        synchronized (this) {
+            if (dataLoaded)
                 return;
             dataLoaded = true;
         }
@@ -253,7 +263,7 @@ public class TagViewFragment extends TaskListFragment {
             uuid = Long.toString(extras.getLong(EXTRA_TAG_REMOTE_ID));
 
 
-        if(tag == null && RemoteModel.NO_UUID.equals(uuid))
+        if (tag == null && RemoteModel.NO_UUID.equals(uuid))
             return;
 
         TodorooCursor<TagData> cursor;
@@ -265,7 +275,7 @@ public class TagViewFragment extends TaskListFragment {
 
         try {
             tagData = new TagData();
-            if(cursor.getCount() == 0) {
+            if (cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, tag);
                 tagData.setValue(TagData.UUID, uuid);
                 tagDataService.save(tagData);
@@ -295,12 +305,12 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void loadTaskListContent(boolean requery) {
         super.loadTaskListContent(requery);
-        if(taskAdapter == null || taskAdapter.getCursor() == null)
+        if (taskAdapter == null || taskAdapter.getCursor() == null)
             return;
 
         int count = taskAdapter.getCursor().getCount();
 
-        if(tagData != null && sortFlags <= SortHelper.FLAG_REVERSE_SORT &&
+        if (tagData != null && sortFlags <= SortHelper.FLAG_REVERSE_SORT &&
                 count != tagData.getValue(TagData.TASK_COUNT)) {
             tagData.setValue(TagData.TASK_COUNT, count);
             tagDataService.save(tagData);
@@ -340,7 +350,7 @@ public class TagViewFragment extends TaskListFragment {
             return;
         if (tagData != null) {
             long lastAutosync = tagData.getValue(TagData.LAST_AUTOSYNC);
-            if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
+            if (DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
                 tagData.setValue(TagData.LAST_AUTOSYNC, DateUtilities.now());
                 tagDataDao.saveExisting(tagData);
                 refreshData();
@@ -348,15 +358,17 @@ public class TagViewFragment extends TaskListFragment {
         }
     }
 
-    /** refresh the list with latest data from the web */
+    /**
+     * refresh the list with latest data from the web
+     */
     private void refreshData() {
         if (actFmPreferenceService.isLoggedIn() && tagData != null && !RemoteModel.isUuidEmpty(tagData.getUuid())) {
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+            ((TextView) taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
             SyncMessageCallback callback = new SyncMessageCallback() {
                 @Override
                 public void runOnSuccess() {
-                    synchronized(this) {
+                    synchronized (this) {
                         Activity activity = getActivity();
                         if (activity != null) {
                             activity.runOnUiThread(new Runnable() {
@@ -365,7 +377,7 @@ public class TagViewFragment extends TaskListFragment {
                                     try {
                                         reloadTagData(false);
                                         refresh();
-                                        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                                        ((TextView) taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
                                     } catch (Exception e) {
                                         // Can happen when swipe between lists is on
                                     }
@@ -374,6 +386,7 @@ public class TagViewFragment extends TaskListFragment {
                         }
                     }
                 }
+
                 @Override
                 public void runOnErrors(List<JSONArray> errors) {
                     Activity activity = getActivity();
@@ -443,7 +456,8 @@ public class TagViewFragment extends TaskListFragment {
                                                     tagMetadataDao.deleteWhere(TagMetadata.TAG_UUID.eq(uuid));
                                                     tla.switchToActiveTasks();
                                                 }
-                                            });
+                                            }
+                                    );
                                 }
                             });
                         }
@@ -466,7 +480,7 @@ public class TagViewFragment extends TaskListFragment {
         }
         if (tagData == null)
             return;
-        LinearLayout membersView = (LinearLayout)getView().findViewById(R.id.shared_with);
+        LinearLayout membersView = (LinearLayout) getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
         boolean addedMembers = false;
         try {
@@ -535,9 +549,9 @@ public class TagViewFragment extends TaskListFragment {
 
         if (addedMembers) {
             try {
-            // Handle creator
+                // Handle creator
                 JSONObject owner;
-                if(!Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
+                if (!Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
                     String userString = tagData.getValue(TagData.USER);
                     if (!TextUtils.isEmpty(userString)) {
                         owner = new JSONObject(tagData.getValue(TagData.USER));
@@ -585,8 +599,8 @@ public class TagViewFragment extends TaskListFragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         AsyncImageView image = new AsyncImageView(getActivity());
-        image.setLayoutParams(new LinearLayout.LayoutParams((int)(43 * displayMetrics.density),
-                (int)(43 * displayMetrics.density)));
+        image.setLayoutParams(new LinearLayout.LayoutParams((int) (43 * displayMetrics.density),
+                (int) (43 * displayMetrics.density)));
 
 
         image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
@@ -616,6 +630,7 @@ public class TagViewFragment extends TaskListFragment {
     private OnClickListener listenerForImage(final JSONObject member, final String id, final String displayName) {
         return new OnClickListener() {
             final String email = member.optString("email"); //$NON-NLS-1$
+
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
@@ -688,9 +703,9 @@ public class TagViewFragment extends TaskListFragment {
         @SuppressWarnings("nls")
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(!intent.hasExtra("tag_id"))
+            if (!intent.hasExtra("tag_id"))
                 return;
-            if(tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id")))
+            if (tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id")))
                 return;
 
             getActivity().runOnUiThread(new Runnable() {
@@ -783,12 +798,12 @@ public class TagViewFragment extends TaskListFragment {
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
         // handle my own menus
         switch (id) {
-        case MENU_REFRESH_ID:
-            refreshData();
-            return true;
-        case MENU_LIST_SETTINGS_ID:
-            settingsListener.onClick(null);
-            return true;
+            case MENU_REFRESH_ID:
+                refreshData();
+                return true;
+            case MENU_LIST_SETTINGS_ID:
+                settingsListener.onClick(null);
+                return true;
         }
 
         return super.handleOptionsMenuItemSelected(id, intent);
@@ -803,7 +818,7 @@ public class TagViewFragment extends TaskListFragment {
     protected void toggleDragDrop(boolean newState) {
         Class<?> customComponent;
 
-        if(newState)
+        if (newState)
             customComponent = SubtasksTagListFragment.class;
         else {
             filter.setFilterQueryOverride(null);
@@ -813,7 +828,7 @@ public class TagViewFragment extends TaskListFragment {
         ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(getActivity(), customComponent);
 
         extras.putParcelable(TOKEN_FILTER, filter);
-        ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+        ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                 extras, customComponent);
     }
 
@@ -821,7 +836,7 @@ public class TagViewFragment extends TaskListFragment {
     protected void refresh() {
         setUpMembersGallery();
         loadTaskListContent(true);
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+        ((TextView) taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
     }
 
 }

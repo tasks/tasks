@@ -5,6 +5,8 @@
  */
 package com.todoroo.andlib.sql;
 
+import java.util.ArrayList;
+
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
 import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
@@ -13,14 +15,11 @@ import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
-
 /**
  * Query Template returns a bunch of criteria that allows a query to be
  * constructed
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class QueryTemplate {
 
@@ -58,7 +57,7 @@ public final class QueryTemplate {
         visitWhereClause(sql);
         visitGroupByClause(sql);
         visitOrderByClause(sql);
-        if(limit != null)
+        if (limit != null)
             sql.append(LIMIT).append(SPACE).append(limit);
         return sql.toString();
     }

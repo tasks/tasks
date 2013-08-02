@@ -1,9 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.apache.http.entity.mime.MultipartEntity;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
@@ -11,6 +7,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
+
+import org.apache.http.entity.mime.MultipartEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @SuppressWarnings("nls")
 public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
@@ -116,5 +116,6 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
     }
 
     protected abstract boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException;
+
     protected abstract String getTypeString();
 }

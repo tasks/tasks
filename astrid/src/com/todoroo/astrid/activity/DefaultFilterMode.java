@@ -12,7 +12,7 @@ public class DefaultFilterMode implements FilterModeSpec {
 
     @Override
     public int[] getForbiddenMenuItems() {
-        return new int[] { MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS };
+        return new int[]{MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS};
     }
 
     @Override

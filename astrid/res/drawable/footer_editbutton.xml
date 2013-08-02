@@ -17,7 +17,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true"
-          android:drawable="@drawable/footer_editbutton_pressed" />
-    <item android:drawable="@drawable/footer_editbutton_normal" />
+          android:drawable="@drawable/footer_editbutton_pressed"/>
+    <item android:drawable="@drawable/footer_editbutton_normal"/>
 
 </selector>

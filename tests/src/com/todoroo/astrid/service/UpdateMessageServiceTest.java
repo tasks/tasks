@@ -5,12 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.io.IOException;
-
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.json.JSONArray;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -19,10 +13,18 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Constants;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.json.JSONArray;
+
+import java.io.IOException;
+
 public class UpdateMessageServiceTest extends DatabaseTestCase {
 
-    @Autowired private StoreObjectDao storeObjectDao;
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private StoreObjectDao storeObjectDao;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
 
     public void testNoUpdates() {
         clearLatestUpdates();
@@ -288,7 +290,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         storeObjectDao.deleteWhere(StoreObjectCriteria.byType(UpdateMessageService.UpdateMessage.TYPE));
     }
 
-    /** helper test class */
+    /**
+     * helper test class
+     */
     abstract public class TestUpdateMessageService extends UpdateMessageService {
 
         public TestUpdateMessageService() {
@@ -316,7 +320,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         @Override
         protected MessageTuple buildUpdateMessage(JSONArray updates) {
             MessageTuple message = super.buildUpdateMessage(updates);
-            if(message == null || message.message.length() == 0)
+            if (message == null || message.message.length() == 0)
                 onEmptyMessage();
             return message;
         }

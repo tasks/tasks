@@ -14,7 +14,7 @@ import android.content.pm.ResolveInfo;
 public class MetadataHelper {
     private static final String CATEGORY_KEY = "category"; //$NON-NLS-1$
 
-    public static String resolveActivityCategoryName (ResolveInfo resolveInfo, PackageManager pm) {
+    public static String resolveActivityCategoryName(ResolveInfo resolveInfo, PackageManager pm) {
         // category - either from metadata, or the application name
         String category = null;
         if (resolveInfo.activityInfo.metaData != null && resolveInfo.activityInfo.metaData.containsKey(CATEGORY_KEY)) {

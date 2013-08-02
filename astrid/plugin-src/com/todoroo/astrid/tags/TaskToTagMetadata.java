@@ -5,17 +5,25 @@ import com.todoroo.astrid.data.Metadata;
 
 public class TaskToTagMetadata {
 
-    /** Metadata key for tag data */
+    /**
+     * Metadata key for tag data
+     */
     public static final String KEY = "tags-tag"; //$NON-NLS-1$
 
-    /** Property for reading tag values */
+    /**
+     * Property for reading tag values
+     */
     public static final StringProperty TAG_NAME = Metadata.VALUE1;
 
-    /** Tag uuid */
+    /**
+     * Tag uuid
+     */
     public static final StringProperty TAG_UUID = new StringProperty(
             Metadata.TABLE, Metadata.VALUE2.name);
 
-    /** Task uuid */
+    /**
+     * Task uuid
+     */
     public static final StringProperty TASK_UUID = new StringProperty(
             Metadata.TABLE, Metadata.VALUE3.name);
 
@@ -26,6 +34,7 @@ public class TaskToTagMetadata {
      * New metadata object for linking a task to the specified tag. The task
      * object should be saved and have the uuid property. All parameters
      * are manditory
+     *
      * @param taskId
      * @param tagName
      * @param taskUuid

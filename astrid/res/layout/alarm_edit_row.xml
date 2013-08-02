@@ -15,38 +15,41 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip">
-	<LinearLayout 
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical">
-	    
-	    <TextView
-	        android:id="@+id/alarm_string"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="100"
-	        android:paddingTop="15dip"
-	        android:paddingBottom="15dip"
-	        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"/>
-	        
-	    <ImageButton android:id="@+id/button1"
-	        android:background="@drawable/btn_dismiss"
-	        android:layout_width="32dip"
-	        android:layout_height="32dip"
-	        android:layout_gravity="center"
-	        android:layout_margin="4dip"
-	        android:layout_weight="1"
-	    />
-	</LinearLayout>
-	<View
-	      	  android:id="@+id/TEA_Separator"
-		      android:layout_width="fill_parent"
-		      android:layout_height="1px"
-		      style="@style/TEA_Separator" />
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingLeft="5dip"
+              android:paddingRight="5dip">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+        <TextView
+                android:id="@+id/alarm_string"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                android:paddingTop="15dip"
+                android:paddingBottom="15dip"
+                style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"/>
+
+        <ImageButton
+                android:id="@+id/button1"
+                android:background="@drawable/btn_dismiss"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_gravity="center"
+                android:layout_margin="4dip"
+                android:layout_weight="1"
+                />
+    </LinearLayout>
+
+    <View
+            android:id="@+id/TEA_Separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            style="@style/TEA_Separator"/>
 </LinearLayout>

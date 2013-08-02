@@ -5,9 +5,8 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <com.todoroo.astrid.ui.DateAndTimePicker
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
-  android:id="@+id/date_and_time"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:orientation="vertical"/>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/date_and_time"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"/>

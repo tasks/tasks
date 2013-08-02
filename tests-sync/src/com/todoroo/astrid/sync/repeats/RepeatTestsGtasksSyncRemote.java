@@ -5,14 +5,11 @@
  */
 package com.todoroo.astrid.sync.repeats;
 
-import java.io.IOException;
-import java.util.Date;
-
-import com.google.ical.values.Frequency;
-import com.google.ical.values.RRule;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
+
+import java.io.IOException;
 
 public class RepeatTestsGtasksSyncRemote extends RepeatTestsGtasksSync {
 
@@ -20,7 +17,7 @@ public class RepeatTestsGtasksSyncRemote extends RepeatTestsGtasksSync {
 
     @Override
     protected long setCompletionDate(boolean completeBefore, Task t,
-            com.google.api.services.tasks.model.Task remoteModel, long dueDate) {
+                                     com.google.api.services.tasks.model.Task remoteModel, long dueDate) {
         long completionDate;
         if (completeBefore)
             completionDate = dueDate - DateUtilities.ONE_DAY;

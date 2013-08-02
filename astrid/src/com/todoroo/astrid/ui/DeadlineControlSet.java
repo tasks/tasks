@@ -34,7 +34,7 @@ public class DeadlineControlSet extends PopupControlSet {
     private final ImageView image;
 
     public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout,
-            RepeatControlSet repeatControlSet, View...extraViews) {
+                              RepeatControlSet repeatControlSet, View... extraViews) {
         super(activity, viewLayout, displayViewLayout, 0);
         this.extraViews = extraViews;
         this.repeatControlSet = repeatControlSet;

@@ -19,31 +19,39 @@ import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
  * Model for data points used for tracking user retention in AB tests
- * @author Sam
  *
+ * @author Sam
  */
 @SuppressWarnings("nls")
 public class ABTestEvent extends AbstractModel {
 
-    public static final int[] TIME_INTERVALS = { 0, 1, 3, 7, 14, 21 };
+    public static final int[] TIME_INTERVALS = {0, 1, 3, 7, 14, 21};
 
     // --- table and uri
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("abtestevent", ABTestEvent.class);
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Name of the test -- one of the constant test keys defined in ABOptions */
+    /**
+     * Name of the test -- one of the constant test keys defined in ABOptions
+     */
     public static final StringProperty TEST_NAME = new StringProperty(
             TABLE, "testName");
 
@@ -79,17 +87,22 @@ public class ABTestEvent extends AbstractModel {
     public static final IntegerProperty TIME_INTERVAL = new IntegerProperty(
             TABLE, "timeInterval"); // one of the constants defined above
 
-    /** The actual date on which this data point was recorded. */
+    /**
+     * The actual date on which this data point was recorded.
+     */
     public static final LongProperty DATE_RECORDED = new LongProperty(
             TABLE, "dateRecorded");
 
-    /** Whether or not this data point has been reported to the server */
+    /**
+     * Whether or not this data point has been reported to the server
+     */
     public static final IntegerProperty REPORTED = new IntegerProperty(
             TABLE, "reported"); // 0 if not yet reported, 1 if reported successfully
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(ABTestEvent.class);
-
 
 
     private static final ContentValues defaultValues = new ContentValues();

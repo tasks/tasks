@@ -14,7 +14,6 @@ import android.widget.RemoteViews.RemoteView;
  * Represents a line of text displayed in the Task List
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class TaskDecoration implements Parcelable {
 
@@ -45,10 +44,9 @@ public final class TaskDecoration implements Parcelable {
 
     /**
      * Creates a TaskDetail object
-     * @param text
-     *            text to display
-     * @param color
-     *            color to use for text. Use <code>0</code> for default color
+     *
+     * @param text  text to display
+     * @param color color to use for text. Use <code>0</code> for default color
      */
     public TaskDecoration(RemoteViews decoration, int position, int color) {
         this.decoration = decoration;
@@ -82,7 +80,7 @@ public final class TaskDecoration implements Parcelable {
          * {@inheritDoc}
          */
         public TaskDecoration createFromParcel(Parcel source) {
-            return new TaskDecoration((RemoteViews)source.readParcelable(
+            return new TaskDecoration((RemoteViews) source.readParcelable(
                     RemoteViews.class.getClassLoader()),
                     source.readInt(), source.readInt());
         }
@@ -92,7 +90,9 @@ public final class TaskDecoration implements Parcelable {
          */
         public TaskDecoration[] newArray(int size) {
             return new TaskDecoration[size];
-        };
+        }
+
+        ;
     };
 
 }

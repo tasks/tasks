@@ -15,7 +15,6 @@ import com.todoroo.andlib.sql.Criterion;
  * StoreObject is an arbitrary piece of data stored inside of Astrid.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class StoreObjectApiDao extends ContentResolverDao<StoreObject> {
 
@@ -30,12 +29,16 @@ public class StoreObjectApiDao extends ContentResolverDao<StoreObject> {
      */
     public static class StoreObjectCriteria {
 
-        /** Returns all store objects with given type */
+        /**
+         * Returns all store objects with given type
+         */
         public static Criterion byType(String type) {
             return StoreObject.TYPE.eq(type);
         }
 
-        /** Returns store object with type and key */
+        /**
+         * Returns store object with type and key
+         */
         public static Criterion byTypeAndItem(String type, String item) {
             return Criterion.and(byType(type), StoreObject.ITEM.eq(item));
         }

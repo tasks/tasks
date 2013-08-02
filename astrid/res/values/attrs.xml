@@ -4,55 +4,55 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-  <!-- theme attributes -->
-  <attr name="asContentBackground" format="color"/>
-  <attr name="asEditBackground" format="color"/>
-  <attr name="asEditRowBackground" format="reference"/>
-  <attr name="asWomEditRowBackground" format="reference"/>
-  <attr name="asEditTabBackground" format="reference"/>
-  <attr name="asHeaderBackground" format="reference"/>
-  <attr name="asHeaderButtonBackground" format="reference"/>
-  <attr name="asTextColor" format="color"/>
-  <attr name="asTextColorInverse" format="color"/>
-  <attr name="asDetailsColor" format="color"/>
-  <attr name="asDueDateColor" format="color"/>
-  <attr name="asDueDateOverdueColor" format="color"/>
-  <attr name="asDueDateCompletedColor" format="color"/>
-  <attr name="asFilterHeaderColor" format="color"/>
-  <attr name="asFilterHeaderBackground" format="reference"/>
-  <attr name="asFilterCountColor" format="color"/>
-  <attr name="asMembersHeaderBackground" format="color"/>
-  <attr name="asSeparatorBackground" format="color"/>
-  <attr name="asListDividerColor" format="color"/>
-  
-  <attr name="asThemeTextColor" format="color"/>
-  <attr name="asHeaderTextColor" format="color"/>
-  <attr name="asHeaderTextColorInverse" format="color"/>
-  <attr name="asEditTextBackground" format="reference"/>
-  <attr name="asReadonlyTaskBackground" format="color" />
-  <attr name="asListsDisclosure" format="reference"/>
-  <attr name="asAddButtonImg" format="reference" />
-  <attr name="asMicButtonImg" format="reference" />
-  <attr name="asCommentButtonImg" format="reference" />
-  <attr name="asFilledCommentButtonImg" format="reference" />
-  <attr name="asMainMenu" format="reference" />
-  <attr name="asPeopleMenu" format="reference" />
-  <attr name="asAbBackgroundColor" format="color"/>
-  <attr name="asQuickaddBackgroundColor" format="color" />
-  <attr name="asListPopoverBg" format="reference"/>
-  <attr name="asListArrowUp" format="reference"/>
-  <attr name="asFilterSelectedIcon" format="reference"/>
-  <attr name="asTaskRowSelector" format="reference" />
+    <!-- theme attributes -->
+    <attr name="asContentBackground" format="color"/>
+    <attr name="asEditBackground" format="color"/>
+    <attr name="asEditRowBackground" format="reference"/>
+    <attr name="asWomEditRowBackground" format="reference"/>
+    <attr name="asEditTabBackground" format="reference"/>
+    <attr name="asHeaderBackground" format="reference"/>
+    <attr name="asHeaderButtonBackground" format="reference"/>
+    <attr name="asTextColor" format="color"/>
+    <attr name="asTextColorInverse" format="color"/>
+    <attr name="asDetailsColor" format="color"/>
+    <attr name="asDueDateColor" format="color"/>
+    <attr name="asDueDateOverdueColor" format="color"/>
+    <attr name="asDueDateCompletedColor" format="color"/>
+    <attr name="asFilterHeaderColor" format="color"/>
+    <attr name="asFilterHeaderBackground" format="reference"/>
+    <attr name="asFilterCountColor" format="color"/>
+    <attr name="asMembersHeaderBackground" format="color"/>
+    <attr name="asSeparatorBackground" format="color"/>
+    <attr name="asListDividerColor" format="color"/>
 
-  <declare-styleable name="ContactsAutoComplete">
-    <attr name="allowMultiple" format="boolean"/>
-    <attr name="completeTags" format="boolean"/>
-  </declare-styleable>
-  
-  <declare-styleable name="DateAndTimePicker">
-      <attr name="shortcutLabels" format="reference"/>
-  </declare-styleable>
-    
+    <attr name="asThemeTextColor" format="color"/>
+    <attr name="asHeaderTextColor" format="color"/>
+    <attr name="asHeaderTextColorInverse" format="color"/>
+    <attr name="asEditTextBackground" format="reference"/>
+    <attr name="asReadonlyTaskBackground" format="color"/>
+    <attr name="asListsDisclosure" format="reference"/>
+    <attr name="asAddButtonImg" format="reference"/>
+    <attr name="asMicButtonImg" format="reference"/>
+    <attr name="asCommentButtonImg" format="reference"/>
+    <attr name="asFilledCommentButtonImg" format="reference"/>
+    <attr name="asMainMenu" format="reference"/>
+    <attr name="asPeopleMenu" format="reference"/>
+    <attr name="asAbBackgroundColor" format="color"/>
+    <attr name="asQuickaddBackgroundColor" format="color"/>
+    <attr name="asListPopoverBg" format="reference"/>
+    <attr name="asListArrowUp" format="reference"/>
+    <attr name="asFilterSelectedIcon" format="reference"/>
+    <attr name="asTaskRowSelector" format="reference"/>
+
+    <declare-styleable name="ContactsAutoComplete">
+        <attr name="allowMultiple" format="boolean"/>
+        <attr name="completeTags" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="DateAndTimePicker">
+        <attr name="shortcutLabels" format="reference"/>
+    </declare-styleable>
+
 </resources>

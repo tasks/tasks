@@ -33,8 +33,8 @@ import java.io.Writer;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @author Pete Gieser
- * @since 2.0
  * @version $Id: StringEscapeUtils.java 2696 2007-06-20 13:24:53Z damencho $
+ * @since 2.0
  */
 @SuppressWarnings({"nls"})
 public class StringEscapeUtils {
@@ -42,31 +42,32 @@ public class StringEscapeUtils {
     /**
      * <p><code>StringEscapeUtils</code> instances should NOT be constructed in
      * standard programming.</p>
-     *
+     * <p/>
      * <p>Instead, the class should be used as:
      * <pre>StringEscapeUtils.escapeJava("foo");</pre></p>
-     *
+     * <p/>
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
      */
     public StringEscapeUtils() {
-      super();
+        super();
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * <p>Unescapes a string containing entity escapes to a string
      * containing the actual Unicode characters corresponding to the
      * escapes. Supports HTML 4.0 entities.</p>
-     *
+     * <p/>
      * <p>For example, the string "&amp;lt;Fran&amp;ccedil;ais&amp;gt;"
      * will become "&lt;Fran&ccedil;ais&gt;"</p>
-     *
+     * <p/>
      * <p>If an entity is unrecognized, it is left alone, and inserted
      * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
      * become "&gt;&amp;zzzz;x".</p>
      *
-     * @param str  the <code>String</code> to unescape, may be null
+     * @param str the <code>String</code> to unescape, may be null
      * @return a new unescaped <code>String</code>, <code>null</code> if null string input
      * @see #escapeHtml(Writer, String)
      */
@@ -75,7 +76,7 @@ public class StringEscapeUtils {
             return null;
         }
         try {
-            StringWriter writer = new StringWriter ((int)(str.length() * 1.5));
+            StringWriter writer = new StringWriter((int) (str.length() * 1.5));
             unescapeHtml(writer, str);
             return writer.toString();
         } catch (IOException e) {
@@ -90,23 +91,23 @@ public class StringEscapeUtils {
      * <p>Unescapes a string containing entity escapes to a string
      * containing the actual Unicode characters corresponding to the
      * escapes. Supports HTML 4.0 entities.</p>
-     *
+     * <p/>
      * <p>For example, the string "&amp;lt;Fran&amp;ccedil;ais&amp;gt;"
      * will become "&lt;Fran&ccedil;ais&gt;"</p>
-     *
+     * <p/>
      * <p>If an entity is unrecognized, it is left alone, and inserted
      * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
      * become "&gt;&amp;zzzz;x".</p>
      *
-     * @param writer  the writer receiving the unescaped string, not null
-     * @param string  the <code>String</code> to unescape, may be null
+     * @param writer the writer receiving the unescaped string, not null
+     * @param string the <code>String</code> to unescape, may be null
      * @throws IllegalArgumentException if the writer is null
-     * @throws IOException if an IOException occurs
+     * @throws IOException              if an IOException occurs
      * @see #escapeHtml(String)
      */
     public static void unescapeHtml(Writer writer, String string) throws IOException {
-        if (writer == null ) {
-            throw new IllegalArgumentException ("The Writer must not be null.");
+        if (writer == null) {
+            throw new IllegalArgumentException("The Writer must not be null.");
         }
         if (string == null) {
             return;

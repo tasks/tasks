@@ -34,7 +34,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         F = createTask("F", "5"); // Local id 6
     }
 
-    private static final String[] EXPECTED_ORDER = { "-1", "1", "2", "3", "4", "5", "6" };
+    private static final String[] EXPECTED_ORDER = {"-1", "1", "2", "3", "4", "5", "6"};
 
     public void testOrderedIdArray() {
         String[] ids = SubtasksHelper.getStringIdArray(DEFAULT_SERIALIZED_TREE);
@@ -47,6 +47,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     // Default order: "[-1, [1, 2, [3, 4]], 5, 6]"
 
     private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
+
     public void testLocalToRemoteIdMapping() {
         String mapped = SubtasksHelper.convertTreeToRemoteIds(DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);

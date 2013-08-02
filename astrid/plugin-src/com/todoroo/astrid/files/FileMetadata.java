@@ -11,13 +11,15 @@ import com.todoroo.astrid.data.Metadata;
 
 /**
  * This class was deprecated with SyncV2. Use TaskAttachment instead.
- * @author Sam
  *
+ * @author Sam
  */
 @Deprecated
 public class FileMetadata {
 
-    /** metadata key */
+    /**
+     * metadata key
+     */
     public static final String METADATA_KEY = "file"; //$NON-NLS-1$
 
     public static final StringProperty FILE_PATH = new StringProperty(Metadata.TABLE,

@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -72,6 +68,10 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import edu.mit.mobile.android.imagecache.ImageCache;
 
 public class TagSettingsActivity extends SherlockFragmentActivity {
@@ -92,19 +92,26 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     private TagData tagData;
     private Filter filter; // Used for creating shortcuts, only initialized if necessary
 
-    @Autowired TagService tagService;
+    @Autowired
+    TagService tagService;
 
-    @Autowired TagDataService tagDataService;
+    @Autowired
+    TagDataService tagDataService;
 
-    @Autowired ActFmSyncService actFmSyncService;
+    @Autowired
+    ActFmSyncService actFmSyncService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired ExceptionService exceptionService;
+    @Autowired
+    ExceptionService exceptionService;
 
-    @Autowired UserDao userDao;
+    @Autowired
+    UserDao userDao;
 
-    @Autowired TagMetadataDao tagMetadataDao;
+    @Autowired
+    TagMetadataDao tagMetadataDao;
 
     private PeopleContainer tagMembers;
     private AsyncImageView picture;
@@ -158,7 +165,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         setUpSettingsPage();
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
             final String members = savedInstanceState.getString(MEMBERS_IN_PROGRESS);
             new Thread(new Runnable() {
                 @Override
@@ -239,11 +246,10 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         });
         if (isNewTag) {
             leaveListButton.setVisibility(View.GONE);
-        }
-        else if (tagData.getValue(TagData.MEMBER_COUNT) > 0) {
+        } else if (tagData.getValue(TagData.MEMBER_COUNT) > 0) {
             leaveListButton.setText(getString(R.string.tag_leave_button));
         }
-        if(actFmPreferenceService.isLoggedIn()) {
+        if (actFmPreferenceService.isLoggedIn()) {
             findViewById(R.id.tag_silenced_container).setVisibility(View.VISIBLE);
         }
 
@@ -329,7 +335,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             exceptionService.displayAndReportError(this, "save-people", e);
             return;
         } catch (ParseSharedException e) {
-            if(e.view != null) {
+            if (e.view != null) {
                 e.view.setTextColor(Color.RED);
                 e.view.requestFocus();
             }
@@ -339,8 +345,8 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         if (members == null)
             members = new JSONArray();
 
-        if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
-            if(newName.length() > 0 && oldName.length() == 0) {
+        if (members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
+            if (newName.length() > 0 && oldName.length() == 0) {
                 tagDataService.save(tagData);
             }
 
@@ -376,7 +382,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
         tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
 
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         tagDataService.save(tagData);
@@ -399,8 +405,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             String tagPicture = RemoteModel.PictureHelper.getPictureHash(tagData);
             imageCache.put(tagPicture, bitmap);
             tagData.setValue(TagData.PICTURE, tagPicture);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -537,7 +542,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(tagMembers.getChildCount() > 1) {
+        if (tagMembers.getChildCount() > 1) {
             JSONArray members = tagMembers.toJSONArray();
             outState.putString(MEMBERS_IN_PROGRESS, members.toString());
         }
@@ -555,7 +560,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         };
         if (ActFmCameraModule.activityResult(this, requestCode, resultCode, data, callback)) {
             // Handled
-        } else if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
             saveSettings();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -590,24 +595,24 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-        case MENU_DISCARD_ID:
-            finish();
-            break;
-        case MENU_SAVE_ID:
-            saveSettings();
-            break;
-        case android.R.id.home:
-            saveSettings();
-            if (!isFinishing())
+        switch (item.getItemId()) {
+            case MENU_DISCARD_ID:
                 finish();
-            break;
+                break;
+            case MENU_SAVE_ID:
+                saveSettings();
+                break;
+            case android.R.id.home:
+                saveSettings();
+                if (!isFinishing())
+                    finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void showDeleteDialog(TagData td) {
-        if(td == null)
+        if (td == null)
             return;
 
         int string;
@@ -620,11 +625,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         DialogUtilities.okCancelDialog(this, getString(string, td.getValue(TagData.NAME)),
                 new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                deleteTag();
-            }
-        }, null );
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteTag();
+                    }
+                }, null);
     }
 
     protected void deleteTag() {

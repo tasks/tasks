@@ -1,14 +1,14 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import org.apache.http.entity.mime.MultipartEntity;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.util.Log;
 
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
+
+import org.apache.http.entity.mime.MultipartEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYPE> {
 
@@ -30,7 +30,7 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
 
     private final Object[] extraParameters;
 
-    public BriefMe(Class<TYPE> modelClass, String uuid, long pushedAt, Object...extraParameters) {
+    public BriefMe(Class<TYPE> modelClass, String uuid, long pushedAt, Object... extraParameters) {
         super(modelClass, uuid, pushedAt);
         this.extraParameters = extraParameters;
     }
@@ -38,7 +38,7 @@ public class BriefMe<TYPE extends RemoteModel> extends ClientToServerMessage<TYP
     @Override
     protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         if (extraParameters != null && extraParameters.length > 0) {
-            for (int i = 0; i < extraParameters.length - 1; i+=2) {
+            for (int i = 0; i < extraParameters.length - 1; i += 2) {
                 try {
                     String key = (String) extraParameters[i];
                     Object value = extraParameters[i + 1];

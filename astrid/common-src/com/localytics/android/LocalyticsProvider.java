@@ -5,14 +5,6 @@
  */
 package com.localytics.android;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,17 +15,24 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Implements the storage mechanism for the Localytics library. The interface and implementation are similar to a ContentProvider
  * but modified to be better suited to a library. The interface is table-oriented, rather than Uri-oriented.
- * <p>
+ * <p/>
  * This is not a public API.
  */
-/* package */final class LocalyticsProvider
-{
+/* package */final class LocalyticsProvider {
     /**
      * Name of the Localytics database, stored in the host application's {@link Context#getDatabasePath(String)}.
-     * <p>
+     * <p/>
      * This is not a public API.
      */
     /*
@@ -44,7 +43,7 @@ import android.util.Log;
 
     /**
      * Version of the database.
-     * <p>
+     * <p/>
      * Version history:
      * <ol>
      * <li>1: Initial version</li>
@@ -79,26 +78,23 @@ import android.util.Log;
     /**
      * Obtains an instance of the Localytics Provider. Since the provider is a singleton object, only a single instance will be
      * returned.
-     * <p>
+     * <p/>
      * Note: if {@code context} is an instance of {@link android.test.RenamingDelegatingContext}, then a new object will be
      * returned every time. This is not a "public" API, but is documented here as it aids unit testing.
      *
      * @param context Application context. Cannot be null.
-     * @param apiKey TODO
+     * @param apiKey  TODO
      * @return An instance of {@link LocalyticsProvider}.
      * @throws IllegalArgumentException if {@code context} is null
      */
-    public static LocalyticsProvider getInstance(final Context context, final String apiKey)
-    {
+    public static LocalyticsProvider getInstance(final Context context, final String apiKey) {
         /*
          * Note: Don't call getApplicationContext() on the context, as that would return a different context and defeat useful
          * contexts such as RenamingDelegatingContext.
          */
 
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (null == context)
-            {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (null == context) {
                 throw new IllegalArgumentException("context cannot be null"); //$NON-NLS-1$
             }
         }
@@ -112,12 +108,10 @@ import android.util.Log;
             return new LocalyticsProvider(context, apiKey);
         }
 
-        synchronized (sLocalyticsProviderIntrinsicLock)
-        {
+        synchronized (sLocalyticsProviderIntrinsicLock) {
             LocalyticsProvider provider = sLocalyticsProviderMap.get(apiKey);
 
-            if (null == provider)
-            {
+            if (null == provider) {
                 provider = new LocalyticsProvider(context, apiKey);
                 sLocalyticsProviderMap.put(apiKey, provider);
             }
@@ -128,13 +122,12 @@ import android.util.Log;
 
     /**
      * Constructs a new Localytics Provider.
-     * <p>
+     * <p/>
      * Note: this method may perform disk operations.
      *
      * @param context application context. Cannot be null.
      */
-    private LocalyticsProvider(final Context context, final String apiKey)
-    {
+    private LocalyticsProvider(final Context context, final String apiKey) {
         /*
          * Rather than use the API key directly in the file name, it is put through SHA-256. The main reason for doing that is to
          * decouple the requirements of the Android file system from the possible values of the API key string. There is a very,
@@ -147,39 +140,33 @@ import android.util.Log;
 
     /**
      * Inserts a new record.
-     * <p>
+     * <p/>
      * Note: this method may perform disk operations.
      *
      * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
-     * @param values ContentValues to insert. Cannot be null.
+     * @param values    ContentValues to insert. Cannot be null.
      * @return the {@link BaseColumns#_ID} of the inserted row or -1 if an error occurred.
      * @throws IllegalArgumentException if tableName is null or not a valid table name.
      * @throws IllegalArgumentException if values are null.
      */
-    public long insert(final String tableName, final ContentValues values)
-    {
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (!isValidTable(tableName))
-            {
+    public long insert(final String tableName, final ContentValues values) {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (!isValidTable(tableName)) {
                 throw new IllegalArgumentException(String.format("tableName %s is invalid", tableName)); //$NON-NLS-1$
             }
 
-            if (null == values)
-            {
+            if (null == values) {
                 throw new IllegalArgumentException("values cannot be null"); //$NON-NLS-1$
             }
         }
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, String.format("Insert table: %s, values: %s", tableName, values.toString())); //$NON-NLS-1$
         }
 
         final long result = mDb.insertOrThrow(tableName, null, values);
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, String.format("Inserted row with new id %d", Long.valueOf(result))); //$NON-NLS-1$
         }
 
@@ -188,30 +175,26 @@ import android.util.Log;
 
     /**
      * Performs a query.
-     * <p>
+     * <p/>
      * Note: this method may perform disk operations.
      *
-     * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
-     * @param projection The list of columns to include. If null, then all columns are included by default.
-     * @param selection A filter to apply to all rows, like the SQLite WHERE clause. Passing null will query all rows. This param
-     *            may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
+     * @param tableName     name of the table operate on. Must be one of the recognized tables. Cannot be null.
+     * @param projection    The list of columns to include. If null, then all columns are included by default.
+     * @param selection     A filter to apply to all rows, like the SQLite WHERE clause. Passing null will query all rows. This param
+     *                      may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
      * @param selectionArgs An optional string array of replacements for ? symbols in {@code selection}. May be null.
-     * @param sortOrder How the rows in the cursor should be sorted. If null, then the sort order is undefined.
+     * @param sortOrder     How the rows in the cursor should be sorted. If null, then the sort order is undefined.
      * @return Cursor for the query. To the receiver: Don't forget to call .close() on the cursor when finished with it.
      * @throws IllegalArgumentException if tableName is null or not a valid table name.
      */
-    public Cursor query(final String tableName, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder)
-    {
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (!isValidTable(tableName))
-            {
+    public Cursor query(final String tableName, final String[] projection, final String selection, final String[] selectionArgs, final String sortOrder) {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (!isValidTable(tableName)) {
                 throw new IllegalArgumentException(String.format("tableName %s is invalid", tableName)); //$NON-NLS-1$
             }
         }
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, String.format("Query table: %s, projection: %s, selection: %s, selectionArgs: %s", tableName, Arrays.toString(projection), selection, Arrays.toString(selectionArgs))); //$NON-NLS-1$
         }
 
@@ -220,8 +203,7 @@ import android.util.Log;
 
         final Cursor result = qb.query(mDb, projection, selection, selectionArgs, null, null, sortOrder);
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, "Query result is: " + DatabaseUtils.dumpCursorToString(result)); //$NON-NLS-1$
         }
 
@@ -230,30 +212,26 @@ import android.util.Log;
 
     /**
      * Updates row(s).
-     * <p>
+     * <p/>
      * Note: this method may perform disk operations.
      *
-     * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
-     * @param values A ContentValues mapping from column names (see the associated BaseColumns class for the table) to new column
-     *            values.
-     * @param selection A filter to limit which rows are updated, like the SQLite WHERE clause. Passing null implies all rows.
-     *            This param may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
+     * @param tableName     name of the table operate on. Must be one of the recognized tables. Cannot be null.
+     * @param values        A ContentValues mapping from column names (see the associated BaseColumns class for the table) to new column
+     *                      values.
+     * @param selection     A filter to limit which rows are updated, like the SQLite WHERE clause. Passing null implies all rows.
+     *                      This param may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
      * @param selectionArgs An optional string array of replacements for ? symbols in {@code selection}. May be null.
      * @return int representing the number of rows modified, which is in the range from 0 to the number of items in the table.
      * @throws IllegalArgumentException if tableName is null or not a valid table name.
      */
-    public int update(final String tableName, final ContentValues values, final String selection, final String[] selectionArgs)
-    {
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (!isValidTable(tableName))
-            {
+    public int update(final String tableName, final ContentValues values, final String selection, final String[] selectionArgs) {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (!isValidTable(tableName)) {
                 throw new IllegalArgumentException(String.format("tableName %s is invalid", tableName)); //$NON-NLS-1$
             }
         }
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, String.format("Update table: %s, values: %s, selection: %s, selectionArgs: %s", tableName, values.toString(), selection, Arrays.toString(selectionArgs))); //$NON-NLS-1$
         }
 
@@ -262,43 +240,35 @@ import android.util.Log;
 
     /**
      * Deletes row(s).
-     * <p>
+     * <p/>
      * Note: this method may perform disk operations.
      *
-     * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
-     * @param selection A filter to limit which rows are deleted, like the SQLite WHERE clause. Passing null implies all rows.
-     *            This param may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
+     * @param tableName     name of the table operate on. Must be one of the recognized tables. Cannot be null.
+     * @param selection     A filter to limit which rows are deleted, like the SQLite WHERE clause. Passing null implies all rows.
+     *                      This param may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
      * @param selectionArgs An optional string array of replacements for ? symbols in {@code selection}. May be null.
      * @return The number of rows affected, which is in the range from 0 to the number of items in the table.
      * @throws IllegalArgumentException if tableName is null or not a valid table name.
      */
-    public int delete(final String tableName, final String selection, final String[] selectionArgs)
-    {
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (!isValidTable(tableName))
-            {
+    public int delete(final String tableName, final String selection, final String[] selectionArgs) {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (!isValidTable(tableName)) {
                 throw new IllegalArgumentException(String.format("tableName %s is invalid", tableName)); //$NON-NLS-1$
             }
         }
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, String.format("Delete table: %s, selection: %s, selectionArgs: %s", tableName, selection, Arrays.toString(selectionArgs))); //$NON-NLS-1$
         }
 
         final int count;
-        if (null == selection)
-        {
+        if (null == selection) {
             count = mDb.delete(tableName, "1", null); //$NON-NLS-1$
-        }
-        else
-        {
+        } else {
             count = mDb.delete(tableName, selection, selectionArgs);
         }
 
-        if (Constants.IS_LOGGABLE)
-        {
+        if (Constants.IS_LOGGABLE) {
             Log.v(Constants.LOG_TAG, String.format("Deleted %d rows", Integer.valueOf(count))); //$NON-NLS-1$
         }
 
@@ -318,25 +288,19 @@ import android.util.Log;
      * An alternative implementation would have been to expose the begin/end transaction methods on the Provider object. While
      * that would work, it makes it harder to transition to a ContentProviderOperation model in the future.
      */
-    public void runBatchTransaction(final Runnable runnable)
-    {
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (null == runnable)
-            {
+    public void runBatchTransaction(final Runnable runnable) {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (null == runnable) {
                 throw new IllegalArgumentException("runnable cannot be null"); //$NON-NLS-1$
             }
         }
 
         mDb.beginTransaction();
-        try
-        {
+        try {
             runnable.run();
 
             mDb.setTransactionSuccessful();
-        }
-        finally
-        {
+        } finally {
             mDb.endTransaction();
         }
     }
@@ -347,15 +311,12 @@ import android.util.Log;
      * @param table name of a table to check. This param may be null.
      * @return true if the table is valid, false if the table is invalid. If {@code table} is null, returns false.
      */
-    private static boolean isValidTable(final String table)
-    {
-        if (null == table)
-        {
+    private static boolean isValidTable(final String table) {
+        if (null == table) {
             return false;
         }
 
-        if (!sValidTables.contains(table))
-        {
+        if (!sValidTables.contains(table)) {
             return false;
         }
 
@@ -367,8 +328,7 @@ import android.util.Log;
      *
      * @return returns a set of the valid tables.
      */
-    private static Set<String> getValidTables()
-    {
+    private static Set<String> getValidTables() {
         final HashSet<String> tables = new HashSet<String>();
 
         tables.add(ApiKeysDbColumns.TABLE_NAME);
@@ -384,18 +344,16 @@ import android.util.Log;
 
     /**
      * Private helper that deletes files from older versions of the Localytics library.
-     * <p>
+     * <p/>
      * Note: This is a private method that is only made package-accessible for unit testing.
      *
      * @param context application context
      * @throws IllegalArgumentException if {@code context} is null
      */
-    /* package */static void deleteOldFiles(final Context context)
-    {
-        if (Constants.ENABLE_PARAMETER_CHECKING)
-        {
-            if (null == context)
-            {
+    /* package */
+    static void deleteOldFiles(final Context context) {
+        if (Constants.ENABLE_PARAMETER_CHECKING) {
+            if (null == context) {
                 throw new IllegalArgumentException("context cannot be null"); //$NON-NLS-1$
             }
         }
@@ -409,15 +367,11 @@ import android.util.Log;
      * @param directory Directory or file to delete. Cannot be null.
      * @return true if deletion was successful. False if deletion failed.
      */
-    private static boolean deleteDirectory(final File directory)
-    {
-        if (directory.exists() && directory.isDirectory())
-        {
-            for (final String child : directory.list())
-            {
+    private static boolean deleteDirectory(final File directory) {
+        if (directory.exists() && directory.isDirectory()) {
+            for (final String child : directory.list()) {
                 final boolean success = deleteDirectory(new File(directory, child));
-                if (!success)
-                {
+                if (!success) {
                     return false;
                 }
             }
@@ -430,8 +384,7 @@ import android.util.Log;
     /**
      * A private helper class to open and create the Localytics SQLite database.
      */
-    private static final class DatabaseHelper extends SQLiteOpenHelper
-    {
+    private static final class DatabaseHelper extends SQLiteOpenHelper {
         /**
          * Constant representing the SQLite value for true
          */
@@ -444,18 +397,17 @@ import android.util.Log;
 
         /**
          * @param context Application context. Cannot be null.
-         * @param name File name of the database. Cannot be null or empty. A database with this name will be opened in
-         *            {@link Context#getDatabasePath(String)}.
+         * @param name    File name of the database. Cannot be null or empty. A database with this name will be opened in
+         *                {@link Context#getDatabasePath(String)}.
          * @param version version of the database.
          */
-        public DatabaseHelper(final Context context, final String name, final int version)
-        {
+        public DatabaseHelper(final Context context, final String name, final int version) {
             super(context, name, null, version);
         }
 
         /**
          * Initializes the tables of the database.
-         * <p>
+         * <p/>
          * If an error occurs during initialization and an exception is thrown, {@link SQLiteDatabase#close()} will not be called
          * by this method. That responsibility is left to the caller.
          *
@@ -463,10 +415,8 @@ import android.util.Log;
          * @throws IllegalArgumentException if db is null
          */
         @Override
-        public void onCreate(final SQLiteDatabase db)
-        {
-            if (null == db)
-            {
+        public void onCreate(final SQLiteDatabase db) {
+            if (null == db) {
                 throw new IllegalArgumentException("db cannot be null"); //$NON-NLS-1$
             }
 
@@ -498,17 +448,14 @@ import android.util.Log;
         }
 
         @Override
-        public void onOpen(final SQLiteDatabase db)
-        {
+        public void onOpen(final SQLiteDatabase db) {
             super.onOpen(db);
 
-            if (Constants.IS_LOGGABLE)
-            {
+            if (Constants.IS_LOGGABLE) {
                 Log.v(Constants.LOG_TAG, String.format("SQLite library version is: %s", DatabaseUtils.stringForQuery(db, "select sqlite_version()", null))); //$NON-NLS-1$//$NON-NLS-2$
             }
 
-            if (!db.isReadOnly())
-            {
+            if (!db.isReadOnly()) {
                 /*
                  * Enable foreign key support
                  */
@@ -530,46 +477,34 @@ import android.util.Log;
         }
 
         @Override
-        public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion)
-        {
-            if (1 == oldVersion)
-            {
+        public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+            if (1 == oldVersion) {
                 // delete stranded sessions that don't have any events
                 Cursor sessionsCursor = null;
-                try
-                {
+                try {
                     sessionsCursor = db.query(SessionsDbColumns.TABLE_NAME, new String[]
-                        { SessionsDbColumns._ID }, null, null, null, null, null);
+                            {SessionsDbColumns._ID}, null, null, null, null, null);
 
-                    while (sessionsCursor.moveToNext())
-                    {
+                    while (sessionsCursor.moveToNext()) {
                         Cursor eventsCursor = null;
-                        try
-                        {
+                        try {
                             String sessionId = Long.toString(sessionsCursor.getLong(sessionsCursor.getColumnIndexOrThrow(SessionsDbColumns._ID)));
                             eventsCursor = db.query(EventsDbColumns.TABLE_NAME, new String[]
-                                { EventsDbColumns._ID }, String.format("%s = ?", EventsDbColumns.SESSION_KEY_REF), new String[] //$NON-NLS-1$
-                                { sessionId }, null, null, null);
+                                    {EventsDbColumns._ID}, String.format("%s = ?", EventsDbColumns.SESSION_KEY_REF), new String[] //$NON-NLS-1$
+                                    {sessionId}, null, null, null);
 
-                            if (eventsCursor.getCount() == 0)
-                            {
-                                db.delete(SessionsDbColumns.TABLE_NAME, String.format("%s = ?", SessionsDbColumns._ID), new String[] { sessionId }); //$NON-NLS-1$
+                            if (eventsCursor.getCount() == 0) {
+                                db.delete(SessionsDbColumns.TABLE_NAME, String.format("%s = ?", SessionsDbColumns._ID), new String[]{sessionId}); //$NON-NLS-1$
                             }
-                        }
-                        finally
-                        {
-                            if (null != eventsCursor)
-                            {
+                        } finally {
+                            if (null != eventsCursor) {
                                 eventsCursor.close();
                                 eventsCursor = null;
                             }
                         }
                     }
-                }
-                finally
-                {
-                    if (null != sessionsCursor)
-                    {
+                } finally {
+                    if (null != sessionsCursor) {
                         sessionsCursor.close();
                         sessionsCursor = null;
                     }
@@ -585,18 +520,16 @@ import android.util.Log;
 
     /**
      * Table for the API keys used and the opt-out preferences for each API key.
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class ApiKeysDbColumns implements BaseColumns
-    {
+    public static final class ApiKeysDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private ApiKeysDbColumns()
-        {
+        private ApiKeysDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -607,37 +540,37 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * The Localytics API key.
-         * <p>
+         * <p/>
          * Constraints: This column is unique and cannot be null.
          */
         public static final String API_KEY = "api_key"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * A UUID for the installation.
-         * <p>
+         * <p/>
          * Constraints: This column is unique and cannot be null.
          */
         public static final String UUID = "uuid"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code boolean}
-         * <p>
+         * <p/>
          * A flag indicating whether the user has opted out of data collection.
-         * <p>
+         * <p/>
          * Constraints: This column must be in the set {0, 1} and cannot be null.
          */
         public static final String OPT_OUT = "opt_out"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A long representing the {@link System#currentTimeMillis()} when the row was created. Once created, this row will not be
          * modified.
-         * <p>
+         * <p/>
          * Constraints: This column must be >=0. This column cannot be null.
          */
         public static final String CREATED_TIME = "created_time"; //$NON-NLS-1$
@@ -646,18 +579,16 @@ import android.util.Log;
     /**
      * Database table for the session attributes. There is a one-to-many relationship between one event in the
      * {@link EventsDbColumns} table and the many attributes associated with that event.
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class AttributesDbColumns implements BaseColumns
-    {
+    public static final class AttributesDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private AttributesDbColumns()
-        {
+        private AttributesDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -668,27 +599,27 @@ import android.util.Log;
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A one-to-many relationship with {@link EventsDbColumns#_ID}.
-         * <p>
+         * <p/>
          * Constraints: This is a foreign key with the {@link EventsDbColumns#_ID} column. This cannot be null.
          */
         public static final String EVENTS_KEY_REF = "events_key_ref"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the key name of the attribute.
-         * <p>
+         * <p/>
          * Constraints: This cannot be null.
          */
         public static final String ATTRIBUTE_KEY = "attribute_key"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the value of the attribute.
-         * <p>
+         * <p/>
          * Constraints: This cannot be null.
          */
         public static final String ATTRIBUTE_VALUE = "attribute_value"; //$NON-NLS-1$
@@ -698,18 +629,16 @@ import android.util.Log;
     /**
      * Database table for the session events. There is a one-to-many relationship between one session data entry in the
      * {@link SessionsDbColumns} table and the many events associated with that session.
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class EventsDbColumns implements BaseColumns
-    {
+    public static final class EventsDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private EventsDbColumns()
-        {
+        private EventsDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -720,45 +649,45 @@ import android.util.Log;
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A one-to-many relationship with {@link SessionsDbColumns#_ID}.
-         * <p>
+         * <p/>
          * Constraints: This is a foreign key with the {@link SessionsDbColumns#_ID} column. This cannot be null.
          */
         public static final String SESSION_KEY_REF = "session_key_ref"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Unique ID of the event, as generated from {@link java.util.UUID}.
-         * <p>
+         * <p/>
          * Constraints: This is unique and cannot be null.
          */
         public static final String UUID = "uuid"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the name of the event.
-         * <p>
+         * <p/>
          * Constraints: This cannot be null.
          */
         public static final String EVENT_NAME = "event_name"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A long representing the {@link android.os.SystemClock#elapsedRealtime()} when the event occurred.
-         * <p>
+         * <p/>
          * Constraints: This column must be >=0. This column cannot be null.
          */
         public static final String REAL_TIME = "real_time"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A long representing the {@link System#currentTimeMillis()} when the event occurred.
-         * <p>
+         * <p/>
          * Constraints: This column must be >=0. This column cannot be null.
          */
         public static final String WALL_TIME = "wall_time"; //$NON-NLS-1$
@@ -768,18 +697,16 @@ import android.util.Log;
     /**
      * Database table for tracking the history of events and screens. There is a one-to-many relationship between one session data
      * entry in the {@link SessionsDbColumns} table and the many historical events associated with that session.
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class EventHistoryDbColumns implements BaseColumns
-    {
+    public static final class EventHistoryDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private EventHistoryDbColumns()
-        {
+        private EventHistoryDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -790,34 +717,34 @@ import android.util.Log;
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A one-to-many relationship with {@link SessionsDbColumns#_ID}.
-         * <p>
+         * <p/>
          * Constraints: This is a foreign key with the {@link SessionsDbColumns#_ID} column. This cannot be null.
          */
         public static final String SESSION_KEY_REF = "session_key_ref"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Unique ID of the event, as generated from {@link java.util.UUID}.
-         * <p>
+         * <p/>
          * Constraints: This is unique and cannot be null.
          */
         public static final String TYPE = "type"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the name of the screen or event.
-         * <p>
+         * <p/>
          * Constraints: This cannot be null.
          */
         public static final String NAME = "name"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code boolean}
-         * <p>
+         * <p/>
          * Foreign key to the upload blob that this event was processed in. May be null indicating that this event wasn't
          * processed yet.
          */
@@ -837,18 +764,16 @@ import android.util.Log;
     /**
      * Database table for the session data. There is a one-to-many relationship between one API key entry in the
      * {@link ApiKeysDbColumns} table and many sessions for that API key.
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class SessionsDbColumns implements BaseColumns
-    {
+    public static final class SessionsDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private SessionsDbColumns()
-        {
+        private SessionsDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -859,27 +784,27 @@ import android.util.Log;
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A one-to-one relationship with {@link ApiKeysDbColumns#_ID}.
-         * <p>
+         * <p/>
          * Constraints: This is a foreign key with the {@link ApiKeysDbColumns#_ID} column. This cannot be null.
          */
         public static final String API_KEY_REF = "api_key_ref"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Unique ID of the event, as generated from {@link java.util.UUID}.
-         * <p>
+         * <p/>
          * Constraints: This is unique and cannot be null.
          */
         public static final String UUID = "uuid"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * The wall time when the session started.
-         * <p>
+         * <p/>
          * Constraints: This column must be >=0. This column cannot be null.
          */
         /*
@@ -890,7 +815,7 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Version of the Localytics client library.
          *
          * @see Constants#LOCALYTICS_CLIENT_LIBRARY_VERSION
@@ -899,38 +824,38 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the app's versionName
-         * <p>
+         * <p/>
          * Constraints: This cannot be null.
          */
         public static final String APP_VERSION = "app_version"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the version of Android
-         * <p>
+         * <p/>
          * Constraints: This cannot be null.
          */
         public static final String ANDROID_VERSION = "android_version"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code int}
-         * <p>
+         * <p/>
          * Integer the Android SDK
-         * <p>
+         * <p/>
          * Constraints: Must be an integer and cannot be null.
-         * 
+         *
          * @see android.os.Build.VERSION#SDK
          */
         public static final String ANDROID_SDK = "android_sdk"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the device model
-         * <p>
+         * <p/>
          * Constraints: None
          *
          * @see android.os.Build#MODEL
@@ -939,9 +864,9 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the device manufacturer
-         * <p>
+         * <p/>
          * Constraints: None
          *
          * @see android.os.Build#MANUFACTURER
@@ -950,9 +875,9 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing a hash of the device Android ID
-         * <p>
+         * <p/>
          * Constraints: None
          *
          * @see android.provider.Settings.Secure#ANDROID_ID
@@ -961,10 +886,10 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing the telephony ID of the device. May be null for non-telephony devices. May also be null if the
          * parent application doesn't have {@link android.Manifest.permission#READ_PHONE_STATE}.
-         * <p>
+         * <p/>
          * Constraints: None
          *
          * @see android.telephony.TelephonyManager#getDeviceId()
@@ -973,10 +898,10 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing a hash of the telephony ID of the device. May be null for non-telephony devices. May also be null
          * if the parent application doesn't have {@link android.Manifest.permission#READ_PHONE_STATE}.
-         * <p>
+         * <p/>
          * Constraints: None
          *
          * @see android.telephony.TelephonyManager#getDeviceId()
@@ -985,64 +910,64 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * String representing a hash of the the serial number of the device. May be null for some telephony devices.
-         * <p>
+         * <p/>
          * Constraints: None
          */
         public static final String DEVICE_SERIAL_NUMBER_HASH = "device_serial_number_hash"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Represents the locale language of the device.
-         * <p>
+         * <p/>
          * Constraints: Cannot be null.
          */
         public static final String LOCALE_LANGUAGE = "locale_language"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Represents the locale country of the device.
-         * <p>
+         * <p/>
          * Constraints: Cannot be null.
          */
         public static final String LOCALE_COUNTRY = "locale_country"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Represents the locale country of the device, according to the SIM card.
-         * <p>
+         * <p/>
          * Constraints: Cannot be null.
          */
         public static final String DEVICE_COUNTRY = "device_country"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Represents the network carrier of the device. May be null for non-telephony devices.
-         * <p>
+         * <p/>
          * Constraints: None
          */
         public static final String NETWORK_CARRIER = "network_carrier"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Represents the network country of the device. May be null for non-telephony devices.
-         * <p>
+         * <p/>
          * Constraints: None
          */
         public static final String NETWORK_COUNTRY = "network_country"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Represents the primary network connection type for the device. This could be any type, including Wi-Fi, various cell
          * networks, Ethernet, etc.
-         * <p>
+         * <p/>
          * Constraints: None
          *
          * @see android.telephony.TelephonyManager
@@ -1051,18 +976,18 @@ import android.util.Log;
 
         /**
          * TYPE: {@code double}
-         * <p>
+         * <p/>
          * Represents the latitude of the device. May be null if no longitude is known.
-         * <p>
+         * <p/>
          * Constraints: None
          */
         public static final String LATITUDE = "latitude"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code double}
-         * <p>
+         * <p/>
          * Represents the longitude of the device. May be null if no longitude is known.
-         * <p>
+         * <p/>
          * Constraints: None
          */
         public static final String LONGITUDE = "longitude"; //$NON-NLS-1$
@@ -1073,18 +998,16 @@ import android.util.Log;
      * Database table for the events associated with a given upload blob. There is a one-to-many relationship between one upload
      * blob in the {@link UploadBlobsDbColumns} table and the blob events. There is a one-to-one relationship between each blob
      * event entry and the actual events in the {@link EventsDbColumns} table. *
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class UploadBlobEventsDbColumns implements BaseColumns
-    {
+    public static final class UploadBlobEventsDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private UploadBlobEventsDbColumns()
-        {
+        private UploadBlobEventsDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -1095,18 +1018,18 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * A one-to-many relationship with {@link UploadBlobsDbColumns#_ID}.
-         * <p>
+         * <p/>
          * Constraints: This is a foreign key with the {@link UploadBlobsDbColumns#_ID} column. This cannot be null.
          */
         public static final String UPLOAD_BLOBS_KEY_REF = "upload_blobs_key_ref"; //$NON-NLS-1$
 
         /**
          * TYPE: {@code long}
-         * <p>
+         * <p/>
          * A one-to-one relationship with {@link EventsDbColumns#_ID}.
-         * <p>
+         * <p/>
          * Constraints: This is a foreign key with the {@link EventsDbColumns#_ID} column. This cannot be null.
          */
         public static final String EVENTS_KEY_REF = "events_key_ref"; //$NON-NLS-1$
@@ -1116,18 +1039,16 @@ import android.util.Log;
      * Database table for the upload blobs. Logically, a blob owns many events. In terms of the implementation, some indirection
      * is introduced by a blob having a one-to-many relationship with {@link UploadBlobsDbColumns} and
      * {@link UploadBlobsDbColumns} having a one-to-one relationship with {@link EventsDbColumns}
-     * <p>
+     * <p/>
      * This is not a public API.
      */
-    public static final class UploadBlobsDbColumns implements BaseColumns
-    {
+    public static final class UploadBlobsDbColumns implements BaseColumns {
         /**
          * Private constructor prevents instantiation
          *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
-        private UploadBlobsDbColumns()
-        {
+        private UploadBlobsDbColumns() {
             throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
         }
 
@@ -1138,9 +1059,9 @@ import android.util.Log;
 
         /**
          * TYPE: {@code String}
-         * <p>
+         * <p/>
          * Unique ID of the upload blob, as generated from {@link java.util.UUID}.
-         * <p>
+         * <p/>
          * Constraints: This is unique and cannot be null.
          */
         public static final String UUID = "uuid"; //$NON-NLS-1$

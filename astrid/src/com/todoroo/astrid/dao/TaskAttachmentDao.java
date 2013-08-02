@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -23,18 +20,21 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskAttachmentOutstanding;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Data Access layer for {@link TagData}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
 
-    @Autowired Database database;
+    @Autowired
+    Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
-	public TaskAttachmentDao() {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
+    public TaskAttachmentDao() {
         super(TaskAttachment.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
@@ -76,8 +76,8 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
 
     public boolean taskHasAttachments(String taskUuid) {
         TodorooCursor<TaskAttachment> files = query(Query.select(TaskAttachment.TASK_UUID).where(
-                        Criterion.and(TaskAttachment.TASK_UUID.eq(taskUuid),
-                                TaskAttachment.DELETED_AT.eq(0))).limit(1));
+                Criterion.and(TaskAttachment.TASK_UUID.eq(taskUuid),
+                        TaskAttachment.DELETED_AT.eq(0))).limit(1));
         try {
             return files.getCount() > 0;
         } finally {

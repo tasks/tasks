@@ -14,8 +14,8 @@ import com.todoroo.astrid.ui.QuickAddBar;
 
 /**
  * @author joshuagross
- *
- * Create a new task based on incoming links from the "share" menu
+ *         <p/>
+ *         Create a new task based on incoming links from the "share" menu
  */
 public final class ShareLinkActivity extends TaskListActivity {
 
@@ -26,7 +26,7 @@ public final class ShareLinkActivity extends TaskListActivity {
 
     private static final String TOKEN_LINK_HANDLED = "linkHandled"; //$NON-NLS-1$
 
-    public ShareLinkActivity () {
+    public ShareLinkActivity() {
         super();
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -38,7 +38,7 @@ public final class ShareLinkActivity extends TaskListActivity {
         Intent callerIntent = getIntent();
 
         subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
-        if(subject == null)
+        if (subject == null)
             subject = ""; //$NON-NLS-1$
     }
 

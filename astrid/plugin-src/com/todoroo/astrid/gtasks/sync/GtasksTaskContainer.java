@@ -5,19 +5,18 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.sync.SyncContainer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * RTM Task Container
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class GtasksTaskContainer extends SyncContainer {
 
@@ -31,7 +30,7 @@ public class GtasksTaskContainer extends SyncContainer {
         this.task = task;
         this.metadata = metadata;
         this.gtaskMetadata = gtaskMetadata;
-        if(this.gtaskMetadata == null) {
+        if (this.gtaskMetadata == null) {
             this.gtaskMetadata = GtasksMetadata.createEmptyMetadata(task.getId());
         }
     }
@@ -40,15 +39,15 @@ public class GtasksTaskContainer extends SyncContainer {
         this.task = task;
         this.metadata = metadata;
 
-        for(Iterator<Metadata> iterator = metadata.iterator(); iterator.hasNext(); ) {
+        for (Iterator<Metadata> iterator = metadata.iterator(); iterator.hasNext(); ) {
             Metadata item = iterator.next();
-            if(GtasksMetadata.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
+            if (GtasksMetadata.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
                 gtaskMetadata = item;
                 iterator.remove();
                 // don't break, could be multiple
             }
         }
-        if(this.gtaskMetadata == null) {
+        if (this.gtaskMetadata == null) {
             this.gtaskMetadata = GtasksMetadata.createEmptyMetadata(task.getId());
         }
     }

@@ -5,10 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import static com.todoroo.andlib.sql.SqlConstants.COMMA;
-import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
-import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.sql.Criterion;
@@ -16,40 +12,59 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Operator;
 import com.todoroo.andlib.sql.UnaryCriterion;
 
+import static com.todoroo.andlib.sql.SqlConstants.COMMA;
+import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
+
 /**
  * Property represents a typed column in a database.
- *
+ * <p/>
  * Within a given database row, the parameter may not exist, in which case the
  * value is null, it may be of an incorrect type, in which case an exception is
  * thrown, or the correct type, in which case the value is returned.
  *
+ * @param <TYPE> a database supported type, such as String or Integer
  * @author Tim Su <tim@todoroo.com>
- *
- * @param <TYPE>
- *            a database supported type, such as String or Integer
  */
 @SuppressWarnings("nls")
 public abstract class Property<TYPE> extends Field implements Cloneable {
 
     // --- implementation
 
-    /** The database table name this property */
+    /**
+     * The database table name this property
+     */
     public final Table table;
 
-    /** The database column name for this property */
+    /**
+     * The database column name for this property
+     */
     public final String name;
 
-    /** Can this field be null? */
+    /**
+     * Can this field be null?
+     */
     public static final int PROP_FLAG_NULLABLE = 1 << 0;
-    /** Is this field a date? */
+    /**
+     * Is this field a date?
+     */
     public static final int PROP_FLAG_DATE = 1 << 1;
-    /** Is this field a user id? */
+    /**
+     * Is this field a user id?
+     */
     public static final int PROP_FLAG_USER_ID = 1 << 2;
-    /** Is this field a boolean? */
+    /**
+     * Is this field a boolean?
+     */
     public static final int PROP_FLAG_BOOLEAN = 1 << 3;
-    /** Is this field a serialized JSON object? */
+    /**
+     * Is this field a serialized JSON object?
+     */
     public static final int PROP_FLAG_JSON = 1 << 4;
-    /** Is this field for pictures? (usually as a json object containing "path" key or urls) */
+    /**
+     * Is this field for pictures? (usually as a json object containing "path" key or urls)
+     */
     public static final int PROP_FLAG_PICTURE = 1 << 5;
 
     public int flags = 0;
@@ -109,7 +124,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         try {
             Property<TYPE> newInstance = this.getClass().getConstructor(Table.class, String.class).newInstance(aliasedTable, this.name);
-            if(!TextUtils.isEmpty(columnAlias))
+            if (!TextUtils.isEmpty(columnAlias))
                 return (Property<TYPE>) newInstance.as(columnAlias);
             return newInstance;
         } catch (Exception e) {
@@ -123,7 +138,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Visitor interface for property classes
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public interface PropertyVisitor<RETURN, PARAMETER> {
         public RETURN visitInteger(Property<Integer> property, PARAMETER data);
@@ -141,7 +155,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Integer property type. See {@link Property}
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class IntegerProperty extends Property<Integer> {
 
@@ -178,7 +191,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * String property type. See {@link Property}
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class StringProperty extends Property<String> {
 
@@ -230,7 +242,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Double property type. See {@link Property}
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class DoubleProperty extends Property<Double> {
 
@@ -263,7 +274,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Long property type. See {@link Property}
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class LongProperty extends Property<Long> {
 
@@ -308,7 +318,9 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
     // --- pseudo-properties
 
-    /** Runs a SQL function and returns the result as a string */
+    /**
+     * Runs a SQL function and returns the result as a string
+     */
     public static class StringFunctionProperty extends StringProperty {
         public StringFunctionProperty(String function, String columnName) {
             super(null, columnName, function);
@@ -316,7 +328,9 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
     }
 
-    /** Runs a SQL function and returns the result as a string */
+    /**
+     * Runs a SQL function and returns the result as a string
+     */
     public static class IntegerFunctionProperty extends IntegerProperty {
         public IntegerFunctionProperty(String function, String columnName) {
             super(null, columnName, function);
@@ -324,7 +338,9 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
     }
 
-    /** Counting in aggregated tables. Returns the result of COUNT(1) */
+    /**
+     * Counting in aggregated tables. Returns the result of COUNT(1)
+     */
     public static final class CountProperty extends IntegerFunctionProperty {
         public CountProperty() {
             super("COUNT(1)", "count");

@@ -6,13 +6,12 @@
 package com.todoroo.astrid.test;
 
 
-
-import java.util.Locale;
-
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.test.TranslationTests;
+
+import java.util.Locale;
 
 public class AstridTranslationTests extends TranslationTests {
 
@@ -28,21 +27,22 @@ public class AstridTranslationTests extends TranslationTests {
 
     @Override
     public int[] getDateFormatStrings() {
-        return new int[] {
+        return new int[]{
                 //
         };
     }
 
     /**
      * check if string contains contains substrings
+     *
      * @param string
      * @param contains
      * @return
      */
     public void contains(Resources r, int resource, StringBuilder failures, String... contains) {
         String string = r.getString(resource);
-        for(String contain : contains)
-            if(!string.contains(contain)) {
+        for (String contain : contains)
+            if (!string.contains(contain)) {
                 Locale locale = r.getConfiguration().locale;
                 String name = r.getResourceName(resource);
                 failures.append(String.format("%s: %s did not contain: %s\n",

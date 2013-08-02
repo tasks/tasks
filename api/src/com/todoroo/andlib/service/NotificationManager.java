@@ -12,7 +12,6 @@ import android.content.Context;
  * Notification Manager stub
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public interface NotificationManager {
 
@@ -27,13 +26,13 @@ public interface NotificationManager {
      * Android's notification manager
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class AndroidNotificationManager implements NotificationManager {
         private final android.app.NotificationManager nm;
+
         public AndroidNotificationManager(Context context) {
             nm = (android.app.NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
         public void cancel(int id) {

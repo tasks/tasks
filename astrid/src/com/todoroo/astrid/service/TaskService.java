@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -52,12 +48,15 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+
 
 /**
  * Service layer for {@link Task}-centered activities.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskService {
 
@@ -97,6 +96,7 @@ public class TaskService {
 
     /**
      * Query underlying database
+     *
      * @param query
      * @return
      */
@@ -105,9 +105,8 @@ public class TaskService {
     }
 
     /**
-     *
      * @param properties
-     * @param id id
+     * @param id         id
      * @return item, or null if it doesn't exist
      */
     public Task fetchById(long id, Property<?>... properties) {
@@ -115,7 +114,6 @@ public class TaskService {
     }
 
     /**
-     *
      * @param uuid
      * @param properties
      * @return item, or null if it doesn't exist
@@ -139,7 +137,7 @@ public class TaskService {
      * @param item
      */
     public void setComplete(Task item, boolean completed) {
-        if(completed) {
+        if (completed) {
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
 
             long reminderLast = item.getValue(Task.REMINDER_LAST);
@@ -167,9 +165,8 @@ public class TaskService {
      * Create or save the given action item
      *
      * @param item
-     * @param skipHooks
-     *            Whether pre and post hooks should run. This should be set
-     *            to true if tasks are created as part of synchronization
+     * @param skipHooks Whether pre and post hooks should run. This should be set
+     *                  to true if tasks are created as part of synchronization
      */
     public boolean save(Task item) {
         return taskDao.save(item);
@@ -183,27 +180,27 @@ public class TaskService {
      */
     public Task clone(Task task) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
-        if(newTask == null)
+        if (newTask == null)
             return new Task();
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
-            if(cursor.getCount() > 0) {
+            if (cursor.getCount() > 0) {
                 Metadata metadata = new Metadata();
                 newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskDao.save(newTask);
                 long newId = newTask.getId();
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
 
-                    if(!metadata.containsNonNullValue(Metadata.KEY))
+                    if (!metadata.containsNonNullValue(Metadata.KEY))
                         continue;
 
-                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                    if (GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                    if (OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(OpencrxCoreUtils.ACTIVITY_ID, 0L);
 
                     metadata.setValue(Metadata.TASK, newId);
@@ -243,9 +240,9 @@ public class TaskService {
      * @param model
      */
     public void delete(Task item) {
-        if(!item.isSaved())
+        if (!item.isSaved())
             return;
-        else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+        else if (item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
             taskOutstandingDao.deleteWhere(TaskOutstanding.ENTITY_ID_PROPERTY.eq(item.getId()));
             item.setId(Task.NO_ID);
@@ -275,10 +272,10 @@ public class TaskService {
         TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(Task.ID).where(TaskCriteria.hasNoTitle()));
         try {
-            if(cursor.getCount() == 0)
+            if (cursor.getCount() == 0)
                 return;
 
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
                 taskDao.delete(id);
             }
@@ -289,6 +286,7 @@ public class TaskService {
 
     /**
      * Fetch tasks for the given filter
+     *
      * @param properties
      * @param constraint text constraint, or null
      * @param filter
@@ -296,22 +294,22 @@ public class TaskService {
      */
     @SuppressWarnings("nls")
     public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
-            Property<?>... properties) {
+                                             Property<?>... properties) {
         Criterion whereConstraint = null;
-        if(constraint != null)
+        if (constraint != null)
             whereConstraint = Functions.upper(Task.TITLE).like("%" +
                     constraint.toString().toUpperCase() + "%");
 
-        if(queryTemplate == null) {
-            if(whereConstraint == null)
+        if (queryTemplate == null) {
+            if (whereConstraint == null)
                 return taskDao.query(Query.selectDistinct(properties));
             else
                 return taskDao.query(Query.selectDistinct(properties).where(whereConstraint));
         }
 
         String sql;
-        if(whereConstraint != null) {
-            if(!queryTemplate.toUpperCase().contains("WHERE"))
+        if (whereConstraint != null) {
+            if (!queryTemplate.toUpperCase().contains("WHERE"))
                 sql = queryTemplate + " WHERE " + whereConstraint;
             else
                 sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
@@ -358,8 +356,8 @@ public class TaskService {
     /**
      * Clear details cache. Useful if user performs some operation that
      * affects details
-     * @param criterion
      *
+     * @param criterion
      * @return # of affected rows
      */
     public int clearDetails(Criterion criterion) {
@@ -370,16 +368,17 @@ public class TaskService {
 
     /**
      * Update database based on selection and values
+     *
      * @param selection
      * @param selectionArgs
      * @param setValues
      * @return
      */
     public int updateBySelection(String selection, String[] selectionArgs,
-            Task taskValues) {
+                                 Task taskValues) {
         TodorooCursor<Task> cursor = taskDao.rawQuery(selection, selectionArgs, Task.ID);
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 taskValues.setValue(Task.ID, cursor.get(Task.ID));
                 taskDao.save(taskValues);
             }
@@ -391,14 +390,15 @@ public class TaskService {
 
     /**
      * Update all matching a clause to have the values set on template object.
-     * <p>
+     * <p/>
      * Example (updates "joe" => "bob" in metadata value1):
      * {code}
      * Metadata item = new Metadata();
      * item.setValue(Metadata.VALUE1, "bob");
      * update(item, Metadata.VALUE1.eq("joe"));
      * {code}
-     * @param where sql criteria
+     *
+     * @param where    sql criteria
      * @param template set fields on this object in order to set them in the db.
      * @return # of updated items
      */
@@ -408,6 +408,7 @@ public class TaskService {
 
     /**
      * Count tasks overall
+     *
      * @param filter
      * @return
      */
@@ -420,7 +421,9 @@ public class TaskService {
         }
     }
 
-    /** count tasks in a given filter */
+    /**
+     * count tasks in a given filter
+     */
     public int countTasks(Filter filter) {
         String queryTemplate = PermaSql.replacePlaceholders(filter.getSqlQuery());
         TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(
@@ -434,6 +437,7 @@ public class TaskService {
 
     /**
      * Delete all tasks matching a given criterion
+     *
      * @param all
      */
     public int deleteWhere(Criterion criteria) {
@@ -449,13 +453,14 @@ public class TaskService {
      */
     private void quickAdd(Task task, List<String> tags) {
         save(task);
-        for(String tag : tags) {
+        for (String tag : tags) {
             TagService.getInstance().createLink(task, tag);
         }
     }
 
     /**
      * Parse quick add markup for the given task
+     *
      * @param task
      * @param tags an empty array to apply tags to
      * @return
@@ -466,6 +471,7 @@ public class TaskService {
 
     /**
      * Create an uncompleted copy of this task and edit it
+     *
      * @param itemId
      * @return cloned item id
      */
@@ -504,7 +510,7 @@ public class TaskService {
     /**
      * Create task from the given content values, saving it.
      *
-     * @param task base task to start with
+     * @param task            base task to start with
      * @param values
      * @param title
      * @param taskService
@@ -527,7 +533,8 @@ public class TaskService {
         if (values != null && values.size() > 0) {
             ContentValues forTask = new ContentValues();
             forMetadata = new ContentValues();
-            outer: for (Entry<String, Object> item : values.valueSet()) {
+            outer:
+            for (Entry<String, Object> item : values.valueSet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
                 if (value instanceof String)

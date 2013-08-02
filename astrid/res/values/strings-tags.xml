@@ -4,103 +4,109 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <!-- Resources for built-in tag plug-in -->
 
-  <!-- =============================================== Task Edit Controls == -->
+    <!-- =============================================== Task Edit Controls == -->
 
-  <!-- Tags label -->
-  <string name="TEA_tags_label">Lists</string>
-  
-  <!-- Tags label long version -->
-  <string name="TEA_tags_label_long">Add to lists</string>
- 
-  <!-- Tags hint -->
-  <string name="TEA_tag_hint">New list</string>
-  
-  <!-- Tags dropdown -->
-    
-  <!-- =============================================== Task List Controls == -->
-  
-  <!-- menu item for tags -->
-  
-  <!-- ========================================================== Extras == -->
-  
-  <!-- Context Item: show tag -->
-  
-  <!-- slide 25a: Dialog: new list -->
-  <string name="tag_new_list">New List</string>
-  
-  <!-- Dialog: list saved -->
-  
-  <!-- Dialog: task created without title -->
-  <string name="tag_no_title_error">Please enter a name for this list first!</string>
-  
-  <!-- ========================================================== Filters == -->
-  
-  <!-- filter button to add tag -->
-  <string name="tag_FEx_add_new">New</string>
-  
-  <!-- filter header for tags -->
-  <string name="tag_FEx_header">Lists</string>
-  
-  <!-- filter header for tags user created -->
-  
-  <!-- filter header for tags, shared with user -->
-  
-  <!-- filter header for tags which have no active tasks -->
-  
-  <!-- slide 10d: filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Uncategorized</string>
-  
-  <!-- slide 27a: %s => tag name -->
+    <!-- Tags label -->
+    <string name="TEA_tags_label">Lists</string>
 
-  <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename List</string>
+    <!-- Tags label long version -->
+    <string name="TEA_tags_label_long">Add to lists</string>
 
-  <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Delete List</string>
-  
-  <!-- context menu option to leave a shared list -->
-  <string name="tag_cm_leave">Leave List</string>
+    <!-- Tags hint -->
+    <string name="TEA_tag_hint">New list</string>
 
-  <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
-  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
-  
-  <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
-  <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
+    <!-- Tags dropdown -->
 
-  <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
+    <!-- =============================================== Task List Controls == -->
 
-  <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+    <!-- menu item for tags -->
 
-  <!-- Toast notification that a tag has been deleted (%1$s - list name, %2$d - # tasks) -->
-  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-  
-  <!-- Toast notification that a shared tag has been left (%1$s - list name, %2$d - # tasks) -->
-  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
+    <!-- ========================================================== Extras == -->
 
-  <!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
-  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-  
-  <!-- Tag case migration -->
-  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to 
-  be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you
-  can simply delete the new combined list!</string>
-  
-  <!-- Header for tag settings -->
-  <string name="tag_settings_title">List Settings</string>
-  
-  <!-- Header for tag activity -->
-  <string name="tag_updates_title">Activity: %s</string>
-  
-  <!-- Delete button for tag settings -->
-  <string name="tag_delete_button">Delete list</string>
-  
-  <!-- slide 28d: Leave button for tag settings -->
-  <string name="tag_leave_button">Leave this list</string>
+    <!-- Context Item: show tag -->
+
+    <!-- slide 25a: Dialog: new list -->
+    <string name="tag_new_list">New List</string>
+
+    <!-- Dialog: list saved -->
+
+    <!-- Dialog: task created without title -->
+    <string name="tag_no_title_error">Please enter a name for this list first!</string>
+
+    <!-- ========================================================== Filters == -->
+
+    <!-- filter button to add tag -->
+    <string name="tag_FEx_add_new">New</string>
+
+    <!-- filter header for tags -->
+    <string name="tag_FEx_header">Lists</string>
+
+    <!-- filter header for tags user created -->
+
+    <!-- filter header for tags, shared with user -->
+
+    <!-- filter header for tags which have no active tasks -->
+
+    <!-- slide 10d: filter for untagged tasks -->
+    <string name="tag_FEx_untagged">Uncategorized</string>
+
+    <!-- slide 27a: %s => tag name -->
+
+    <!-- context menu option to rename a tag -->
+    <string name="tag_cm_rename">Rename List</string>
+
+    <!-- context menu option to delete a tag -->
+    <string name="tag_cm_delete">Delete List</string>
+
+    <!-- context menu option to leave a shared list -->
+    <string name="tag_cm_leave">Leave List</string>
+
+    <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
+    <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)
+    </string>
+
+    <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
+    <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be
+        deleted.)
+    </string>
+
+    <!-- Dialog to rename tag -->
+    <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
+
+    <!-- Toast notification that no changes have been made -->
+    <string name="TEA_no_tags_modified">No changes made</string>
+
+    <!-- Toast notification that a tag has been deleted (%1$s - list name, %2$d - # tasks) -->
+    <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
+
+    <!-- Toast notification that a shared tag has been left (%1$s - list name, %2$d - # tasks) -->
+    <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
+
+    <!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
+    <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
+
+    <!-- Tag case migration -->
+    <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the
+        same name with different capitalizations. We think you may have intended them to
+        be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists
+        are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you
+        can simply delete the new combined list!
+    </string>
+
+    <!-- Header for tag settings -->
+    <string name="tag_settings_title">List Settings</string>
+
+    <!-- Header for tag activity -->
+    <string name="tag_updates_title">Activity: %s</string>
+
+    <!-- Delete button for tag settings -->
+    <string name="tag_delete_button">Delete list</string>
+
+    <!-- slide 28d: Leave button for tag settings -->
+    <string name="tag_leave_button">Leave this list</string>
 
 </resources>

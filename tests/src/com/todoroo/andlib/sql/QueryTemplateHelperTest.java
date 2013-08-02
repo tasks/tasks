@@ -83,7 +83,7 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
     public void testRealQueryTemplate() {
         QueryTemplateHelper.queryForContentResolver(
                 new QueryTemplate().where(TaskCriteria.completed()).
-                orderBy(Order.asc(Task.DUE_DATE)).toString(),
+                        orderBy(Order.asc(Task.DUE_DATE)).toString(),
                 selection, order, groupBy);
         assertEquals(TaskCriteria.completed().toString(), selection.toString());
         assertEquals(Order.asc(Task.DUE_DATE).toString(), order.toString());
@@ -93,13 +93,12 @@ public class QueryTemplateHelperTest extends AndroidTestCase {
     public void testRealQueryTemplateTwo() {
         QueryTemplateHelper.queryForContentResolver(
                 new QueryTemplate().where(TaskCriteria.isActive()).
-                orderBy(Order.asc(Task.ELAPSED_SECONDS)).groupBy(Task.NOTES).toString(),
+                        orderBy(Order.asc(Task.ELAPSED_SECONDS)).groupBy(Task.NOTES).toString(),
                 selection, order, groupBy);
         assertEquals(TaskCriteria.isActive().toString(), selection.toString());
         assertEquals(Order.asc(Task.ELAPSED_SECONDS).toString(), order.toString());
         assertEquals(Task.NOTES.toString(), groupBy.toString());
     }
-
 
 
 }

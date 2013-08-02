@@ -20,7 +20,7 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
     private boolean completeTags = false;
 
     public ContactsAutoComplete(final Context context, final AttributeSet attrs,
-            final int defStyle) {
+                                final int defStyle) {
         super(context, attrs, defStyle);
         this.setThreshold(0);
         this.setUpContacts();
@@ -56,7 +56,7 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
     @Override
     protected void performFiltering(final CharSequence text, final int keyCode) {
         String filterText = text.toString().trim();
-        if(allowMultiple) {
+        if (allowMultiple) {
             previous = filterText.substring(0,
                     filterText.lastIndexOf(getSeperator()) + 1);
             filterText = filterText.substring(filterText.lastIndexOf(getSeperator()) + 1);
@@ -71,7 +71,7 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
      */
     @Override
     protected void replaceText(final CharSequence text) {
-        if(allowMultiple)
+        if (allowMultiple)
             super.replaceText(previous + text + getSeperator());
         else
             super.replaceText(text);

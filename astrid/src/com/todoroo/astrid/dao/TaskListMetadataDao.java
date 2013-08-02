@@ -20,14 +20,14 @@ import com.todoroo.astrid.data.TaskListMetadata;
  * Data Access layer for {@link TagData}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
 
-    @Autowired Database database;
+    @Autowired
+    Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
-	public TaskListMetadataDao() {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
+    public TaskListMetadataDao() {
         super(TaskListMetadata.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
@@ -44,7 +44,7 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASK_LIST_METADATA, columnName);
     }
 
-    public TaskListMetadata fetchByTagId(String tagUuid, Property<?>...properties) {
+    public TaskListMetadata fetchByTagId(String tagUuid, Property<?>... properties) {
         TodorooCursor<TaskListMetadata> taskListMetadata = query(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
                 TaskListMetadata.FILTER.eq(tagUuid))));
         taskListMetadata.moveToFirst();

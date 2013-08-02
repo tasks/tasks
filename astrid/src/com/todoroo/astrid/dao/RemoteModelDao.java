@@ -14,9 +14,9 @@ import com.todoroo.astrid.helper.UUIDHelper;
  * require UUID generation (i.e., most RemoteModels). The createNew
  * method takes care of automatically generating a new UUID for each newly
  * created model if one doesn't already exist.
- * @author Sam
  *
  * @param <RTYPE>
+ * @author Sam
  */
 public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE> {
 
@@ -66,6 +66,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
 
     /**
      * Fetch a model object by UUID
+     *
      * @param uuid
      * @param properties
      * @return
@@ -79,12 +80,9 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
      * Returns cursor to object corresponding to the given identifier
      *
      * @param database
-     * @param table
-     *            name of table
-     * @param properties
-     *            properties to read
-     * @param id
-     *            id of item
+     * @param table      name of table
+     * @param properties properties to read
+     * @param id         id of item
      * @return
      */
     protected TodorooCursor<RTYPE> fetchItem(String uuid, Property<?>... properties) {
@@ -96,6 +94,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
 
     /**
      * Get the local id
+     *
      * @param uuid
      * @return
      */

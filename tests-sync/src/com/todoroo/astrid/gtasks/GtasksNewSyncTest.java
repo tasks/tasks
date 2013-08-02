@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Semaphore;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
@@ -36,6 +32,10 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Semaphore;
+
 @SuppressWarnings("nls")
 public class GtasksNewSyncTest extends DatabaseTestCase {
 
@@ -47,16 +47,20 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
     private static final long TIME_BETWEEN_SYNCS = 3000l;
 
-    @Autowired TaskService taskService;
-    @Autowired MetadataService metadataService;
-    @Autowired GtasksMetadataService gtasksMetadataService;
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    TaskService taskService;
+    @Autowired
+    MetadataService metadataService;
+    @Autowired
+    GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
     /*
      * Basic creation tests
      */
     public void testTaskCreatedLocally() {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "Astrid task 1";
         Task localTask = createNewLocalTask(title);
 
@@ -66,7 +70,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testTaskCreatedRemotely() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "Gtasks task 1";
         com.google.api.services.tasks.model.Task remoteTask = new com.google.api.services.tasks.model.Task();
         remoteTask.setTitle(title);
@@ -81,7 +85,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
      * Title editing tests
      */
     public void testTitleChangedLocally() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "Astrid task 2";
         Task localTask = createNewLocalTask(title);
 
@@ -105,7 +109,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testTitleChangedRemotely() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "Astrid task 3";
         Task localTask = createNewLocalTask(title);
 
@@ -129,7 +133,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testDateChangedLocally() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" locally");
         String title = localTask.getValue(Task.TITLE);
         long startDate = localTask.getValue(Task.DUE_DATE);
@@ -161,7 +165,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testDateChangedRemotely() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" remotely");
         String title = localTask.getValue(Task.TITLE);
         long startDate = localTask.getValue(Task.DUE_DATE);
@@ -195,7 +199,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testDateChangedBoth_ChooseLocal() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" remotely");
         String title = localTask.getValue(Task.TITLE);
         long startDate = localTask.getValue(Task.DUE_DATE);
@@ -234,7 +238,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void DISABLED_testDateChangedBoth_ChooseRemote() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForDateTests(" remotely");
         String title = localTask.getValue(Task.TITLE);
         long startDate = localTask.getValue(Task.DUE_DATE);
@@ -286,7 +290,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testNoteEditedLocally() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForNoteTests(" locally");
         String title = localTask.getValue(Task.TITLE);
         String originalNote = localTask.getValue(Task.NOTES);
@@ -312,7 +316,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testNoteEditedRemotely() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForNoteTests(" remotely");
         String title = localTask.getValue(Task.TITLE);
         String originalNote = localTask.getValue(Task.NOTES);
@@ -338,7 +342,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void DISABLED_testNoteEditedBoth() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task localTask = createLocalTaskForNoteTests(" remotely");
         String title = localTask.getValue(Task.TITLE);
         String originalNote = localTask.getValue(Task.NOTES);
@@ -384,7 +388,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
      */
 
     public void testTaskCompletedLocally() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "Will complete locally";
         Task localTask = createNewLocalTask(title);
 
@@ -407,7 +411,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     public void testTaskCompletedRemotely() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "Will complete remotely";
         Task localTask = createNewLocalTask(title);
 
@@ -486,7 +490,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
 
-  //Create a new Astrid task and save it to the database
+    //Create a new Astrid task and save it to the database
     private Task createNewLocalTask(String title) {
         Task task = new Task();
         task.setValue(Task.TITLE, title);
@@ -496,17 +500,17 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
     //Perform a synchronization
     private void whenInvokeSync() {
-    	final Semaphore sema = new Semaphore(0);
+        final Semaphore sema = new Semaphore(0);
         GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
-        	@Override
-        	public void finished() {
-        		sema.release();
-        	}
-		});
+            @Override
+            public void finished() {
+                sema.release();
+            }
+        });
         try {
-        	sema.acquire();
+            sema.acquire();
         } catch (InterruptedException e) {
-        	fail("Interrupted while waiting for sync to finish");
+            fail("Interrupted while waiting for sync to finish");
         }
     }
 

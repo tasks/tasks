@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.model;
 
-import java.util.ArrayList;
-import java.util.TreeSet;
-
 import android.content.ContentValues;
 
 import com.todoroo.andlib.service.Autowired;
@@ -17,12 +14,17 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.ArrayList;
+import java.util.TreeSet;
+
 public class TaskTests extends DatabaseTestCase {
 
     @Autowired
     TaskService taskService;
 
-    /** Sanity-check the constants */
+    /**
+     * Sanity-check the constants
+     */
     public void testSanity() {
         assertTrue(Task.IMPORTANCE_DO_OR_DIE < Task.IMPORTANCE_MUST_DO);
         assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);
@@ -38,7 +40,9 @@ public class TaskTests extends DatabaseTestCase {
                 reminderFlags.size());
     }
 
-    /** Check defaults */
+    /**
+     * Check defaults
+     */
     public void checkDefaults() {
         AstridPreferences.setPreferenceDefaults();
         ContentValues defaults = new Task().getDefaultValues();
@@ -49,7 +53,9 @@ public class TaskTests extends DatabaseTestCase {
         assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
     }
 
-    /** Check task gets a creation date at some point */
+    /**
+     * Check task gets a creation date at some point
+     */
     public void checkCreationDate() {
         Task task = new Task();
         taskService.save(task);

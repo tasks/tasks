@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.voice;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-
-import junit.framework.Assert;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -28,12 +24,17 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
+import junit.framework.Assert;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+
 /**
  * This class handles taking voice-input and appends the text to the registered EditText-instance.
  * You can have multiple VoiceInputAssistants per Fragment, just use the additional constructor
  * to specify unique requestCodes for the RecognizerIntent (e.g. VoiceInputAssistant.VOICE_RECOGNITION_REQUEST_CODE+i).
  * If you have only one VoiceInputAssitant on an Fragment, just use the normal constructor.
- * <p>
+ * <p/>
  * You can query voiceinput-capabilities by calling isVoiceInputAvailable() for external checking,
  * but the visibility for the microphone-button specified by the constructor is handled in configureMicrophoneButton(int).
  *
@@ -42,7 +43,9 @@ import com.todoroo.astrid.utility.Constants;
 @SuppressWarnings("nls")
 public class VoiceInputAssistant {
 
-    /** requestcode for activityresult from voicerecognizer-intent */
+    /**
+     * requestcode for activityresult from voicerecognizer-intent
+     */
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
     /**
@@ -71,7 +74,9 @@ public class VoiceInputAssistant {
         return languageModel;
     }
 
-    /** Sets whether voice input will append into field */
+    /**
+     * Sets whether voice input will append into field
+     */
     public void setAppend(boolean append) {
         this.append = append;
     }
@@ -99,9 +104,9 @@ public class VoiceInputAssistant {
      * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
      * If you need more than one microphone-button on a given fragment, use the other constructor.
      *
-     * @param fragment the fragment which holds the microphone-buttone and the textField to insert recognized test
+     * @param fragment    the fragment which holds the microphone-buttone and the textField to insert recognized test
      * @param voiceButton the microphone-Button
-     * @param textField the textfield that should get the resulttext
+     * @param textField   the textfield that should get the resulttext
      */
     public VoiceInputAssistant(ImageButton voiceButton) {
         Assert.assertNotNull("A VoiceInputAssistant without a voiceButton makes no sense!", voiceButton);
@@ -116,12 +121,11 @@ public class VoiceInputAssistant {
      * If you only use one microphone-button on a fragment,
      * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      *
-     *
      * @param fragment
      * @param voiceButton
      * @param textField
      * @param requestCode has to be unique in a single fragment-context,
-     *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
+     *                    dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
     public VoiceInputAssistant(ImageButton voiceButton, int requestCode) {
         this(voiceButton);
@@ -134,9 +138,9 @@ public class VoiceInputAssistant {
      * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
      * If you need more than one microphone-button on a given fragment, use the other constructor.
      *
-     * @param activity the activity which holds the microphone-buttone and the textField to insert recognized test
+     * @param activity    the activity which holds the microphone-buttone and the textField to insert recognized test
      * @param voiceButton the microphone-Button
-     * @param textField the textfield that should get the resulttext
+     * @param textField   the textfield that should get the resulttext
      */
     public VoiceInputAssistant(Activity activity, ImageButton voiceButton) {
         Assert.assertNotNull("Each VoiceInputAssistant must be bound to a activity!", activity);
@@ -153,12 +157,11 @@ public class VoiceInputAssistant {
      * If you only use one microphone-button on a activity,
      * you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      *
-     *
      * @param activity
      * @param voiceButton
      * @param textField
      * @param requestCode has to be unique in a single fragment-context,
-     *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
+     *                    dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
     public VoiceInputAssistant(Activity activity, ImageButton voiceButton, int requestCode) {
         this(activity, voiceButton);
@@ -193,7 +196,7 @@ public class VoiceInputAssistant {
      * You can check in your fragment if it was really a RecognizerIntent that was handled here,
      * if so, this method returns true. In this case, you should call super.onActivityResult in your
      * fragment.onActivityResult.
-     * <p>
+     * <p/>
      * If this method returns false, then it wasnt a request with a RecognizerIntent, so you can handle
      * these other requests as you need.
      *
@@ -218,9 +221,9 @@ public class VoiceInputAssistant {
                 if (match != null && match.size() > 0 && match.get(0).length() > 0) {
                     String recognizedSpeech = match.get(0);
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                        recognizedSpeech.substring(1).toLowerCase();
+                            recognizedSpeech.substring(1).toLowerCase();
 
-                    if(append)
+                    if (append)
                         textField.setText((textField.getText() + " " + recognizedSpeech).trim());
                     else
                         textField.setText(recognizedSpeech);
@@ -235,6 +238,7 @@ public class VoiceInputAssistant {
      * Can also be called from Fragment.onActivityResult to simply get the string result
      * of the speech to text, or null if it couldn't be processed. Convenient when you
      * don't have a bunch of UI elements to hook into.
+     *
      * @param activityRequestCode
      * @param resultCode
      * @param data
@@ -250,7 +254,7 @@ public class VoiceInputAssistant {
                 if (match != null && match.size() > 0 && match.get(0).length() > 0) {
                     String recognizedSpeech = match.get(0);
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                        recognizedSpeech.substring(1).toLowerCase();
+                            recognizedSpeech.substring(1).toLowerCase();
                     return recognizedSpeech;
                 }
             }
@@ -274,7 +278,7 @@ public class VoiceInputAssistant {
 
     public void showVoiceInputMarketSearch(DialogInterface.OnClickListener onFail) {
         String packageName;
-        if(AndroidUtilities.getSdkVersion() <= 7)
+        if (AndroidUtilities.getSdkVersion() <= 7)
             packageName = "com.google.android.voicesearch.x";
         else
             packageName = "com.google.android.voicesearch";

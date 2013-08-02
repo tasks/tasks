@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -117,16 +109,23 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 import com.viewpagerindicator.TabPageIndicator;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * This activity is responsible for creating new tasks and editing existing
  * ones. It saves a task when it is paused (screen rotated, back button pressed)
  * as long as the task has a title.
  *
  * @author timsu
- *
  */
 public final class TaskEditFragment extends SherlockFragment implements
-ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
+        ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
 
@@ -245,16 +244,24 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // --- other instance variables
 
-    /** true if editing started with a new task */
+    /**
+     * true if editing started with a new task
+     */
     private boolean isNewTask = false;
 
-    /** task model */
+    /**
+     * task model
+     */
     Task model = null;
 
-    /** whether task should be saved when this activity exits */
+    /**
+     * whether task should be saved when this activity exits
+     */
     private boolean shouldSaveState = true;
 
-    /** voice assistant for notes-creation */
+    /**
+     * voice assistant for notes-creation
+     */
     private VoiceInputAssistant voiceNoteAssistant;
 
     private EditText notesEditText;
@@ -329,7 +336,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View v = inflater.inflate(R.layout.task_edit_activity, container, false);
@@ -436,14 +443,16 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void setCurrentTab(int position) {
-        if(mIndicator == null)
+        if (mIndicator == null)
             return;
 
         mIndicator.setCurrentItem(position);
         mPager.setCurrentItem(position);
     }
 
-    /** Initialize UI components */
+    /**
+     * Initialize UI components
+     */
     private void setUpUIComponents() {
 
         LinearLayout basicControls = (LinearLayout) getView().findViewById(
@@ -692,7 +701,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * Initialize task edit page in the background
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     private class TaskEditBackgroundLoader extends Thread {
 
@@ -887,7 +895,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
     }
 
-    /** Convenience method to populate fields after setting model to null */
+    /**
+     * Convenience method to populate fields after setting model to null
+     */
     public void repopulateFromScratch(Intent intent) {
         model = null;
         uuid = RemoteModel.NO_UUID;
@@ -895,7 +905,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         loadMoreContainer();
     }
 
-    /** Populate UI component values from the model */
+    /**
+     * Populate UI component values from the model
+     */
     public void populateFields(Intent intent) {
         loadItem(intent);
 
@@ -915,12 +927,16 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         filesControlSet.readFromTask(model);
     }
 
-    /** Populate UI component values from the model */
+    /**
+     * Populate UI component values from the model
+     */
     private void populateFields() {
         populateFields(getActivity().getIntent());
     }
 
-    /** Save task model from values in UI components */
+    /**
+     * Save task model from values in UI components
+     */
     public void save(boolean onPause) {
         if (title == null)
             return;
@@ -955,7 +971,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         String processedToast = addDueTimeToToast(toast.toString());
         boolean cancelFinish = peopleControlSet != null
-        && !peopleControlSet.saveSharingSettings(processedToast) && !onPause;
+                && !peopleControlSet.saveSharingSettings(processedToast) && !onPause;
 
         boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
         model.putTransitory(TaskService.TRANS_EDIT_SAVE, true);
@@ -980,8 +996,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     data.putExtra(TOKEN_ASSIGNED_TO_DISPLAY, assignedTo);
                     if (!TextUtils.isEmpty(assignedEmail))
                         data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
-                    if (Task.isRealUserId(assignedId));
-                        data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
+                    if (Task.isRealUserId(assignedId)) ;
+                    data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
                 }
                 if (showRepeatAlert) {
                     data.putExtra(TOKEN_NEW_REPEATING_TASK, model);
@@ -1044,6 +1060,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     /**
      * Helper to remove task edit specific info from activity intent
+     *
      * @param intent
      */
     public static void removeExtrasFromIntent(Intent intent) {
@@ -1110,26 +1127,26 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     protected void deleteButtonClick() {
         new AlertDialog.Builder(getActivity()).setTitle(
                 R.string.DLG_confirm_title).setMessage(
-                        R.string.DLG_delete_this_task_question).setIcon(
-                                android.R.drawable.ic_dialog_alert).setPositiveButton(
-                                        android.R.string.ok, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                TimerPlugin.updateTimer(getActivity(), model, false);
-                                                taskService.delete(model);
-                                                shouldSaveState = false;
+                R.string.DLG_delete_this_task_question).setIcon(
+                android.R.drawable.ic_dialog_alert).setPositiveButton(
+                android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                TimerPlugin.updateTimer(getActivity(), model, false);
+                taskService.delete(model);
+                shouldSaveState = false;
 
-                                                Activity a = getActivity();
-                                                if (a instanceof TaskEditActivity) {
-                                                    getActivity().setResult(Activity.RESULT_OK);
-                                                    getActivity().onBackPressed();
-                                                } else if (a instanceof TaskListActivity) {
-                                                    discardButtonClick();
-                                                    TaskListFragment tlf = ((TaskListActivity) a).getTaskListFragment();
-                                                    if (tlf != null)
-                                                        tlf.refresh();
-                                                }
-                                            }
-                                        }).setNegativeButton(android.R.string.cancel, null).show();
+                Activity a = getActivity();
+                if (a instanceof TaskEditActivity) {
+                    getActivity().setResult(Activity.RESULT_OK);
+                    getActivity().onBackPressed();
+                } else if (a instanceof TaskListActivity) {
+                    discardButtonClick();
+                    TaskListFragment tlf = ((TaskListActivity) a).getTaskListFragment();
+                    if (tlf != null)
+                        tlf.refresh();
+                }
+            }
+        }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
     private void startAttachFile() {
@@ -1143,7 +1160,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface d, int which) {
-                if(which == 0) {
+                if (which == 0) {
                     ActFmCameraModule.showPictureLauncher(TaskEditFragment.this, null);
                 } else if (which == 1) {
                     Intent attachFile = new Intent(getActivity(), FileExplore.class);
@@ -1154,8 +1171,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // show a menu of available options
         new AlertDialog.Builder(getActivity())
-        .setAdapter(adapter, listener)
-        .show().setOwnerActivity(getActivity());
+                .setAdapter(adapter, listener)
+                .show().setOwnerActivity(getActivity());
     }
 
     private void startRecordingAudio() {
@@ -1225,36 +1242,36 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case MENU_SAVE_ID:
-            saveButtonClick();
-            return true;
-        case MENU_DISCARD_ID:
-            discardButtonClick();
-            return true;
-        case MENU_ATTACH_ID:
-            startAttachFile();
-            return true;
-        case MENU_RECORD_ID:
-            startRecordingAudio();
-            return true;
-        case MENU_COMMENTS_REFRESH_ID: {
-            if (editNotes != null)
-                editNotes.refreshData();
-            return true;
-        }
-        case MENU_SHOW_COMMENTS_ID: {
-            Intent intent = new Intent(getActivity(), CommentsActivity.class);
-            intent.putExtra(TaskCommentsFragment.EXTRA_TASK, model.getId());
-            startActivity(intent);
-            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-            return true;
-        }
-        case android.R.id.home:
-            if (title.getText().length() == 0)
-                discardButtonClick();
-            else
+            case MENU_SAVE_ID:
                 saveButtonClick();
-            return true;
+                return true;
+            case MENU_DISCARD_ID:
+                discardButtonClick();
+                return true;
+            case MENU_ATTACH_ID:
+                startAttachFile();
+                return true;
+            case MENU_RECORD_ID:
+                startRecordingAudio();
+                return true;
+            case MENU_COMMENTS_REFRESH_ID: {
+                if (editNotes != null)
+                    editNotes.refreshData();
+                return true;
+            }
+            case MENU_SHOW_COMMENTS_ID: {
+                Intent intent = new Intent(getActivity(), CommentsActivity.class);
+                intent.putExtra(TaskCommentsFragment.EXTRA_TASK, model.getId());
+                startActivity(intent);
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+                return true;
+            }
+            case android.R.id.home:
+                if (title.getText().length() == 0)
+                    discardButtonClick();
+                else
+                    saveButtonClick();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -1292,7 +1309,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
-        if(wouldShowComments && showEditComments) {
+        if (wouldShowComments && showEditComments) {
             item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);
@@ -1395,11 +1412,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public int getTabForPosition(int position) {
         int tab = TaskEditViewPager.getPageForPosition(position, tabStyle);
-        switch(tab) {
-        case TaskEditViewPager.TAB_SHOW_ACTIVITY:
-            return TAB_VIEW_UPDATES;
-        case TaskEditViewPager.TAB_SHOW_MORE:
-            return TAB_VIEW_MORE;
+        switch (tab) {
+            case TaskEditViewPager.TAB_SHOW_ACTIVITY:
+                return TAB_VIEW_UPDATES;
+            case TaskEditViewPager.TAB_SHOW_MORE:
+                return TAB_VIEW_MORE;
         }
 
         // error experienced
@@ -1409,16 +1426,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /**
      * Returns the correct view for TaskEditViewPager
      *
-     * @param position
-     *            in the horizontal scroll view
+     * @param position in the horizontal scroll view
      */
 
     public View getPageView(int position) {
-        switch(getTabForPosition(position)) {
-        case TAB_VIEW_MORE:
-            return moreControls;
-        case TAB_VIEW_UPDATES:
-            return editNotes;
+        switch (getTabForPosition(position)) {
+            case TAB_VIEW_MORE:
+                return moreControls;
+            case TAB_VIEW_UPDATES:
+                return editNotes;
         }
         return null;
     }
@@ -1427,13 +1443,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         int height = 0;
 
         View view = null;
-        switch(getTabForPosition(position)) {
-        case TAB_VIEW_MORE:
-            view = moreControls;
-            break;
-        case TAB_VIEW_UPDATES:
-            view = editNotes;
-            break;
+        switch (getTabForPosition(position)) {
+            case TAB_VIEW_MORE:
+                view = moreControls;
+                break;
+            case TAB_VIEW_UPDATES:
+                view = editNotes;
+                break;
         }
 
         if (view == null || mPager == null) return;
@@ -1441,7 +1457,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
                 MeasureSpec.AT_MOST);
         view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-        height = Math.max(view.getMeasuredHeight(), height);;
+        height = Math.max(view.getMeasuredHeight(), height);
+        ;
         LayoutParams pagerParams = mPager.getLayoutParams();
         if (height > 0 && height != pagerParams.height) {
             pagerParams.height = height;
@@ -1461,7 +1478,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         ViewGroup.LayoutParams params = view.getLayoutParams();
-        if(params == null)
+        if (params == null)
             return;
 
         params.height = totalHeight;
@@ -1472,14 +1489,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // Tab Page listener when page/tab changes
     @Override
     public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) {
+                               int positionOffsetPixels) {
         return;
     }
 
     @Override
     public void onPageSelected(final int position) {
         setPagerHeightForPosition(position);
-        NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
+        NestableScrollView scrollView = (NestableScrollView) getView().findViewById(R.id.edit_scroll);
         scrollView.setScrollabelViews(null);
     }
 
@@ -1490,7 +1507,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // EditNoteActivity Listener when there are new updates/comments
     @Override
-    public void updatesChanged()  {
+    public void updatesChanged() {
         if (mPager != null && mPager.getCurrentItem() == TAB_VIEW_UPDATES)
             setPagerHeightForPosition(TAB_VIEW_UPDATES);
     }
@@ -1508,13 +1525,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         View child = v;
         ScrollView scrollView = (ScrollView) getView().findViewById(R.id.edit_scroll);
         int top = v.getTop();
-        while (!child.equals(scrollView) ) {
+        while (!child.equals(scrollView)) {
             top += child.getTop();
             ViewParent parentView = child.getParent();
             if (parentView != null && View.class.isInstance(parentView)) {
                 child = (View) parentView;
-            }
-            else {
+            } else {
                 break;
             }
         }

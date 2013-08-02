@@ -18,11 +18,12 @@ import com.todoroo.astrid.alarms.AlarmService;
  * Schedules reminders in the background to prevent ANR's
  *
  * @author Tim Su
- *
  */
 public class ReminderSchedulingService extends Service {
 
-    /** Receive the alarm - start the synchronize service! */
+    /**
+     * Receive the alarm - start the synchronize service!
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         ContextManager.setContext(ReminderSchedulingService.this);
@@ -49,6 +50,7 @@ public class ReminderSchedulingService extends Service {
             Log.e("reminder-scheduling", "reminder-startup", e);
         }
     }
+
     private void delaySchedulingToPreventANRs() {
         AndroidUtilities.sleepDeep(5000L);
     }

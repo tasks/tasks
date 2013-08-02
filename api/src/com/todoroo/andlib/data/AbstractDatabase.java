@@ -5,9 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -24,25 +21,27 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
 /**
  * AbstractDatabase is a database abstraction which wraps a SQLite database.
- * <p>
+ * <p/>
  * Users of this class are in charge of the database's lifecycle - ensuring that
  * the database is open when needed and closed when usage is finished. Within an
  * activity, this is typically accomplished through the onResume and onPause
  * methods, though if the database is not needed for the activity's entire
  * lifecycle, it can be closed earlier.
- * <p>
+ * <p/>
  * Direct querying is not recommended for type safety reasons. Instead, use one
  * of the service classes to issue the request and return a {@link TodorooCursor}.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 abstract public class AbstractDatabase {
 
-	// --- abstract methods
+    // --- abstract methods
 
     /**
      * @return database name
@@ -67,6 +66,7 @@ abstract public class AbstractDatabase {
 
     /**
      * Upgrades an open database from one version to the next
+     *
      * @param oldVersion
      * @param newVersion
      * @return true if upgrade was handled, false otherwise
@@ -105,12 +105,12 @@ abstract public class AbstractDatabase {
     }
 
     protected void onDatabaseUpdated() {
-        for(DatabaseUpdateListener listener : listeners) {
+        for (DatabaseUpdateListener listener : listeners) {
             listener.onDatabaseUpdated();
         }
     }
 
-	// --- internal implementation
+    // --- internal implementation
 
     @Autowired
     private ExceptionService exceptionService;
@@ -121,12 +121,13 @@ abstract public class AbstractDatabase {
 
     /**
      * Return the name of the table containing these models
+     *
      * @param modelType
      * @return
      */
     public final Table getTable(Class<? extends AbstractModel> modelType) {
-        for(Table table : getTables()) {
-            if(table.modelClass.equals(modelType))
+        for (Table table : getTables()) {
+            if (table.modelClass.equals(modelType))
                 return table;
         }
         throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
@@ -149,8 +150,8 @@ abstract public class AbstractDatabase {
     }
 
     protected synchronized final void initializeHelper() {
-        if(helper == null) {
-            if(ContextManager.getContext() == null)
+        if (helper == null) {
+            if (ContextManager.getContext() == null)
                 throw new NullPointerException("Null context creating database helper");
             helper = new DatabaseHelper(ContextManager.getContext(),
                     getName(), null, getVersion());
@@ -164,7 +165,7 @@ abstract public class AbstractDatabase {
     public synchronized final void openForWriting() {
         initializeHelper();
 
-        if(database != null && !database.isReadOnly() && database.isOpen())
+        if (database != null && !database.isReadOnly() && database.isOpen())
             return;
 
         try {
@@ -192,7 +193,7 @@ abstract public class AbstractDatabase {
      */
     public synchronized final void openForReading() {
         initializeHelper();
-        if(database != null && database.isOpen())
+        if (database != null && database.isOpen())
             return;
         database = helper.getReadableDatabase();
     }
@@ -201,7 +202,7 @@ abstract public class AbstractDatabase {
      * Close the database if it has been opened previously
      */
     public synchronized final void close() {
-        if(database != null) {
+        if (database != null) {
             database.close();
         }
         database = null;
@@ -220,7 +221,7 @@ abstract public class AbstractDatabase {
      * @return sql database. opens database if not yet open
      */
     public synchronized final SQLiteDatabase getDatabase() {
-        if(database == null) {
+        if (database == null) {
             AndroidUtilities.sleepDeep(300L);
             openForWriting();
         }
@@ -273,7 +274,7 @@ abstract public class AbstractDatabase {
     /*
      * @see android.database.sqlite.SQLiteDatabase#update(String  table, ContentValues  values, String  whereClause, String[] whereArgs)
      */
-    public synchronized int update(String  table, ContentValues  values, String  whereClause, String[] whereArgs) {
+    public synchronized int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
         int result = getDatabase().update(table, values, whereClause, whereArgs);
         onDatabaseUpdated();
         return result;
@@ -287,7 +288,7 @@ abstract public class AbstractDatabase {
     private class DatabaseHelper extends SQLiteOpenHelper {
 
         public DatabaseHelper(Context context, String name,
-                CursorFactory factory, int version) {
+                              CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
 
@@ -300,11 +301,11 @@ abstract public class AbstractDatabase {
             SqlConstructorVisitor sqlVisitor = new SqlConstructorVisitor();
 
             // create tables
-            for(Table table : getTables()) {
+            for (Table table : getTables()) {
                 sql.append("CREATE TABLE IF NOT EXISTS ").append(table.name).append('(').
-                append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
-                for(Property<?> property : table.getProperties()) {
-                    if(AbstractModel.ID_PROPERTY.name.equals(property.name))
+                        append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
+                for (Property<?> property : table.getProperties()) {
+                    if (AbstractModel.ID_PROPERTY.name.equals(property.name))
                         continue;
                     sql.append(',').append(property.accept(sqlVisitor, null));
                 }
@@ -328,7 +329,7 @@ abstract public class AbstractDatabase {
 
             database = db;
             try {
-                if(!AbstractDatabase.this.onUpgrade(oldVersion, newVersion)) {
+                if (!AbstractDatabase.this.onUpgrade(oldVersion, newVersion)) {
                     // We don't know how to handle this case because someone forgot to
                     // implement the upgrade. We can't drop tables, we can only
                     // throw a nasty exception at this time
@@ -347,7 +348,6 @@ abstract public class AbstractDatabase {
      * Visitor that returns SQL constructor for this property
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     public static class SqlConstructorVisitor implements PropertyVisitor<String, Void> {
 

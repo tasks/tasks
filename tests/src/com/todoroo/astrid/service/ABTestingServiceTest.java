@@ -19,9 +19,12 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class ABTestingServiceTest extends DatabaseTestCase {
 
-    @Autowired ABTestEventDao abTestEventDao;
-    @Autowired ABChooser abChooser;
-    @Autowired ABTests abTests;
+    @Autowired
+    ABTestEventDao abTestEventDao;
+    @Autowired
+    ABChooser abChooser;
+    @Autowired
+    ABTests abTests;
 
     public void testReportInitialEventNewUser() {
         testInitialEvents(true, false);
@@ -65,8 +68,8 @@ public class ABTestingServiceTest extends DatabaseTestCase {
 
         TodorooCursor<ABTestEvent> events = abTestEventDao.query(
                 Query.select(ABTestEvent.PROPERTIES)
-                .where(ABTestEvent.TEST_NAME.eq(TEST_NAME))
-                .orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
+                        .where(ABTestEvent.TEST_NAME.eq(TEST_NAME))
+                        .orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
         try {
             int maxIntervalIndex = AndroidUtilities.indexOf(ABTestEvent.TIME_INTERVALS, testInterval);
             assertEquals(maxIntervalIndex + 1, events.getCount());
@@ -91,10 +94,10 @@ public class ABTestingServiceTest extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        abTests.addTest(TEST_NAME, new int[] { 9, 1 } , new int[] { 1, 9 }, TEST_OPTIONS, true);
+        abTests.addTest(TEST_NAME, new int[]{9, 1}, new int[]{1, 9}, TEST_OPTIONS, true);
         Preferences.clear(TEST_NAME);
     }
 
     private static final String TEST_NAME = "test_experiment";
-    private static final String[] TEST_OPTIONS = new String[] { "opt-1", "opt-2" };
+    private static final String[] TEST_OPTIONS = new String[]{"opt-1", "opt-2"};
 }

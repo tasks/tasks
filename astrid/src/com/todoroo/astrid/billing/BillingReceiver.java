@@ -45,9 +45,10 @@ public class BillingReceiver extends BroadcastReceiver {
      * change. The signedData parameter is a plaintext JSON string that is
      * signed by the server with the developer's private key. The signature
      * for the signed data is passed in the signature parameter.
-     * @param context the context
+     *
+     * @param context    the context
      * @param signedData the (unencrypted) JSON string
-     * @param signature the signature for the signedData
+     * @param signature  the signature for the signedData
      */
     private void purchaseStateChanged(Context context, String signedData, String signature) {
         Intent intent = new Intent(BillingConstants.ACTION_PURCHASE_STATE_CHANGED);
@@ -65,7 +66,7 @@ public class BillingReceiver extends BroadcastReceiver {
      * MarketBillingService directly so it starts the {@link BillingService}, which does the
      * actual work of sending the message.
      *
-     * @param context the context
+     * @param context  the context
      * @param notifyId the notification ID
      */
     private void notify(Context context, String notifyId) {
@@ -79,8 +80,8 @@ public class BillingReceiver extends BroadcastReceiver {
      * This is called when Android Market sends a server response code. The BillingService can
      * then report the status of the response if desired.
      *
-     * @param context the context
-     * @param requestId the request ID that corresponds to a previous request
+     * @param context           the context
+     * @param requestId         the request ID that corresponds to a previous request
      * @param responseCodeIndex the ResponseCode ordinal value for the request
      */
     private void checkResponseCode(Context context, long requestId, int responseCodeIndex) {

@@ -15,11 +15,12 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
  * Methods for working with GTasks preferences
  *
  * @author timsu
- *
  */
 public class GtasksPreferenceService extends SyncProviderUtilities {
 
-    /** add-on identifier */
+    /**
+     * add-on identifier
+     */
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
 
     @Override
@@ -36,19 +37,29 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
         return Preferences.getBoolean(PREF_MIGRATION_HAS_OCCURRED, false);
     }
 
-    /** GTasks user's default list id */
+    /**
+     * GTasks user's default list id
+     */
     public static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
 
-    /** GTasks user name */
+    /**
+     * GTasks user name
+     */
     public static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
-    /** GTasks is apps for domain boolean */
+    /**
+     * GTasks is apps for domain boolean
+     */
     public static final String PREF_IS_DOMAIN = IDENTIFIER + "_domain"; //$NON-NLS-1$
 
-    /** GTasks whether we have shown list help boolean */
+    /**
+     * GTasks whether we have shown list help boolean
+     */
     public static final String PREF_SHOWN_LIST_HELP = IDENTIFIER + "_list_help"; //$NON-NLS-1$
 
-    /** Pref that is set once migration to new GTasks API has occurred */
+    /**
+     * Pref that is set once migration to new GTasks API has occurred
+     */
     public static final String PREF_MIGRATION_HAS_OCCURRED = IDENTIFIER + "_migrated"; //$NON-NLS-1$
 
     @Override

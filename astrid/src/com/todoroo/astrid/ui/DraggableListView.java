@@ -59,18 +59,18 @@ public class DraggableListView extends ListView {
     private Point mCoordOffset;  // the difference between screen coordinates and coordinates in this view
 
     // --- drag drawing
-	private ImageView mDragView;
-	private WindowManager mWindowManager;
-	private WindowManager.LayoutParams mWindowParams;
-	private int mUpperBound;
-	private int mLowerBound;
-	private int mHeight;
-	private final Rect mTempRect = new Rect();
-	private Bitmap mDragBitmap;
-	private final int mTouchSlop;
-	private int dragndropBackgroundColor = 0x00000000;
+    private ImageView mDragView;
+    private WindowManager mWindowManager;
+    private WindowManager.LayoutParams mWindowParams;
+    private int mUpperBound;
+    private int mLowerBound;
+    private int mHeight;
+    private final Rect mTempRect = new Rect();
+    private Bitmap mDragBitmap;
+    private final int mTouchSlop;
+    private int dragndropBackgroundColor = 0x00000000;
 
-	// --- listeners
+    // --- listeners
     private DragListener mDragListener;
     private DropListener mDropListener;
     private SwipeListener mSwipeListener;
@@ -83,9 +83,9 @@ public class DraggableListView extends ListView {
 
     // --- constructors
 
-	public DraggableListView(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
+    public DraggableListView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
     public DraggableListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -158,7 +158,7 @@ public class DraggableListView extends ListView {
      * Restore size and visibility for all list items
      */
     private void unExpandViews(boolean deletion) {
-        for (int i = 0;; i++) {
+        for (int i = 0; ; i++) {
             View v = getChildAt(i);
             if (v == null) {
                 if (deletion) {
@@ -203,7 +203,7 @@ public class DraggableListView extends ListView {
 
         View first = getChildAt(mFirstDragPos - getFirstVisiblePosition());
 
-        for (int i = 0;; i++) {
+        for (int i = 0; ; i++) {
             View vv = getChildAt(i);
             if (vv == null) {
                 break;
@@ -251,58 +251,56 @@ public class DraggableListView extends ListView {
 
         int action = ev.getAction();
         switch (action) {
-        case MotionEvent.ACTION_UP:
-        case MotionEvent.ACTION_CANCEL:
-            if(mDragging) {
-                stopDragging();
-            } else {
-                if (dragThread != null && mClickListener != null) {
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if (mDragging) {
+                    stopDragging();
+                } else {
+                    if (dragThread != null && mClickListener != null) {
+                        dragThread.interrupt();
+                        dragThread = null;
+                        if (action == MotionEvent.ACTION_UP)
+                            mClickListener.onClick(viewAtPosition());
+                    } else if (mSwipeListener != null &&
+                            Math.abs(mTouchCurrentY - mTouchStartY) < MOVEMENT_THRESHOLD) {
+                        int dragPos = pointToPosition((int) mTouchCurrentX, (int) mTouchCurrentY);
+                        if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
+                            mSwipeListener.swipeRight(dragPos);
+                        else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
+                            mSwipeListener.swipeLeft(dragPos);
+                    }
+                }
+
+                if (dragThread != null) {
                     dragThread.interrupt();
                     dragThread = null;
-                    if (action == MotionEvent.ACTION_UP)
-                        mClickListener.onClick(viewAtPosition());
                 }
 
-                else if (mSwipeListener != null &&
-                            Math.abs(mTouchCurrentY - mTouchStartY) < MOVEMENT_THRESHOLD) {
-                    int dragPos = pointToPosition((int)mTouchCurrentX, (int)mTouchCurrentY);
-                    if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
-                        mSwipeListener.swipeRight(dragPos);
-                    else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
-                        mSwipeListener.swipeLeft(dragPos);
+                break;
+
+            case MotionEvent.ACTION_DOWN:
+                dragThread = new Thread(new DragRunnable(ev));
+                dragThread.start();
+                stopDragging();
+
+                mTouchStartX = ev.getX();
+                mTouchStartY = ev.getY();
+
+            case MotionEvent.ACTION_MOVE:
+                if (mDragging)
+                    dragView(ev);
+
+                // detect scrolling
+                if (dragThread != null && (Math.abs(mTouchCurrentX - mTouchStartX) > MOVEMENT_THRESHOLD ||
+                        Math.abs(mTouchCurrentY - mTouchStartY) > MOVEMENT_THRESHOLD)) {
+                    dragThread.interrupt();
+                    dragThread = null;
                 }
-            }
 
-            if(dragThread != null) {
-                dragThread.interrupt();
-                dragThread = null;
-            }
-
-            break;
-
-        case MotionEvent.ACTION_DOWN:
-            dragThread = new Thread(new DragRunnable(ev));
-            dragThread.start();
-            stopDragging();
-
-            mTouchStartX = ev.getX();
-            mTouchStartY = ev.getY();
-
-        case MotionEvent.ACTION_MOVE:
-            if(mDragging)
-                dragView(ev);
-
-            // detect scrolling
-            if(dragThread != null && (Math.abs(mTouchCurrentX - mTouchStartX) > MOVEMENT_THRESHOLD ||
-                    Math.abs(mTouchCurrentY - mTouchStartY) > MOVEMENT_THRESHOLD)) {
-                dragThread.interrupt();
-                dragThread = null;
-            }
-
-            break;
+                break;
         }
 
-        if(mDragging)
+        if (mDragging)
             return true;
 
         return super.onTouchEvent(ev);
@@ -355,7 +353,9 @@ public class DraggableListView extends ListView {
                 // bye!
             }
         }
-    };
+    }
+
+    ;
 
     /**
      * @return true if drag was initiated
@@ -370,11 +370,11 @@ public class DraggableListView extends ListView {
 
         View item = (View) getChildAt(itemNum - getFirstVisiblePosition());
 
-        if(!isDraggableRow(item))
+        if (!isDraggableRow(item))
             return false;
 
         mDragPoint = new Point(x - item.getLeft(), y - item.getTop());
-        mCoordOffset = new Point((int)ev.getRawX() - x, (int)ev.getRawY() - y);
+        mCoordOffset = new Point((int) ev.getRawX() - x, (int) ev.getRawY() - y);
 
         item.setDrawingCacheEnabled(true);
 
@@ -496,15 +496,15 @@ public class DraggableListView extends ListView {
             mDragView = null;
         }
 
-        if(mDragging) {
+        if (mDragging) {
             if (mSwipeListener != null && mDragPos == mFirstDragPos) {
                 if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
                     mSwipeListener.swipeRight(mFirstDragPos);
                 else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
                     mSwipeListener.swipeLeft(mFirstDragPos);
-            } else if(mDropListener != null && mDragPos != mFirstDragPos &&
+            } else if (mDropListener != null && mDragPos != mFirstDragPos &&
                     mDragPos >= 0 && mDragPos < getCount()) {
-                if(mFirstDragPos < mDragPos)
+                if (mFirstDragPos < mDragPos)
                     mDragPos++;
                 mDropListener.drop(mFirstDragPos, mDragPos);
             }

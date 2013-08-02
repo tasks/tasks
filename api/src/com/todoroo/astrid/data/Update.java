@@ -17,12 +17,10 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 
-
 /**
  * Data Model which represents an update (e.g. a comment or data update event)
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 @Deprecated
@@ -30,80 +28,118 @@ public class Update extends RemoteModel {
 
     // --- table
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("updates", Update.class);
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote ID */
+    /**
+     * Remote ID
+     */
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Associated Task remote-id (if any) */
+    /**
+     * Associated Task remote-id (if any)
+     */
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Associated Task local-id (if any) */
+    /**
+     * Associated Task local-id (if any)
+     */
     public static final LongProperty TASK_LOCAL = new LongProperty(
             TABLE, "taskLocal");
 
-    /** Associated Tag remote-ids (comma separated list with leading and trailing commas) */
+    /**
+     * Associated Tag remote-ids (comma separated list with leading and trailing commas)
+     */
     public static final StringProperty TAGS = new StringProperty(
             TABLE, "tag");
 
-    /** Associated Tag local-ids (comma separated list with leading and trailing commas) */
+    /**
+     * Associated Tag local-ids (comma separated list with leading and trailing commas)
+     */
     public static final StringProperty TAGS_LOCAL = new StringProperty(
             TABLE, "tagsLocal");
 
-    /** From user id */
+    /**
+     * From user id
+     */
     public static final LongProperty USER_ID = new LongProperty(
             TABLE, USER_ID_PROPERTY_NAME);
 
-    /** From User Object (JSON) */
+    /**
+     * From User Object (JSON)
+     */
     public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
-    /** Other user id */
+    /**
+     * Other user id
+     */
     public static final LongProperty OTHER_USER_ID = new LongProperty(
             TABLE, "other_user_id");
 
-    /** Other User Object (JSON) */
+    /**
+     * Other User Object (JSON)
+     */
     public static final StringProperty OTHER_USER = new StringProperty(
             TABLE, "other_user");
 
-    /** Action text */
+    /**
+     * Action text
+     */
     public static final StringProperty ACTION = new StringProperty(
             TABLE, "action");
 
-    /** Action code */
+    /**
+     * Action code
+     */
     public static final StringProperty ACTION_CODE = new StringProperty(
             TABLE, "actionCode");
 
-    /** Message */
+    /**
+     * Message
+     */
     public static final StringProperty MESSAGE = new StringProperty(
             TABLE, "message");
 
-    /** Target Object Name */
+    /**
+     * Target Object Name
+     */
     public static final StringProperty TARGET_NAME = new StringProperty(
             TABLE, "targetName");
 
-    /** From User Object (JSON) */
+    /**
+     * From User Object (JSON)
+     */
     public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture");
 
-    /** Unixtime Metadata was created */
+    /**
+     * Unixtime Metadata was created
+     */
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created");
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
 
     // --- constants
@@ -112,7 +148,9 @@ public class Update extends RemoteModel {
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     @Override
@@ -155,7 +193,9 @@ public class Update extends RemoteModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
+
+    ;
 
     @Override
     public String getUuid() {

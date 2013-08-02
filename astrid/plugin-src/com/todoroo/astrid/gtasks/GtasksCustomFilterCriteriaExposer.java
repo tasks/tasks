@@ -31,8 +31,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private GtasksListService gtasksListService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private GtasksListService gtasksListService;
 
     private static final String IDENTIFIER = "gtaskslist"; //$NON-NLS-1$
 
@@ -47,7 +49,7 @@ public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose sync action
-        if(!gtasksPreferenceService.isLoggedIn())
+        if (!gtasksPreferenceService.isLoggedIn())
             return;
 
         Resources r = context.getResources();
@@ -81,7 +83,7 @@ public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
                 values,
                 listNames,
                 listIds,
-                ((BitmapDrawable)r.getDrawable(R.drawable.gtasks_icon)).getBitmap(),
+                ((BitmapDrawable) r.getDrawable(R.drawable.gtasks_icon)).getBitmap(),
                 context.getString(R.string.CFC_gtasks_list_name));
         result[0] = criterion;
 

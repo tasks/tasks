@@ -5,8 +5,8 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/comments_fragment_container">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/comments_fragment_container">
 </FrameLayout>

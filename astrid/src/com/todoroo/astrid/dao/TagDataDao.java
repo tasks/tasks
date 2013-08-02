@@ -15,14 +15,14 @@ import com.todoroo.astrid.data.TagData;
  * Data Access layer for {@link TagData}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TagDataDao extends RemoteModelDao<TagData> {
 
-    @Autowired Database database;
+    @Autowired
+    Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
-	public TagDataDao() {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
+    public TagDataDao() {
         super(TagData.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
@@ -40,10 +40,12 @@ public class TagDataDao extends RemoteModelDao<TagData> {
      */
     public static class TagDataCriteria {
 
-    	/** @returns tasks by id */
-    	public static Criterion byId(long id) {
-    	    return TagData.ID.eq(id);
-    	}
+        /**
+         * @returns tasks by id
+         */
+        public static Criterion byId(long id) {
+            return TagData.ID.eq(id);
+        }
 
         public static Criterion isTeam() {
             return TagData.IS_TEAM.eq(1);

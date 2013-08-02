@@ -23,79 +23,112 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Data Model which represents a user.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public final class TaskAttachment extends RemoteModel {
 
     // --- table and uri
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("task_attachments", TaskAttachment.class);
 
-    /** model class for entries in the outstanding table */
+    /**
+     * model class for entries in the outstanding table
+     */
     public static final Class<? extends OutstandingEntry<TaskAttachment>> OUTSTANDING_MODEL = TaskAttachmentOutstanding.class;
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote id */
+    /**
+     * Remote id
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Pushed at date */
+    /**
+     * Pushed at date
+     */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
-    /** Creator user id */
+    /**
+     * Creator user id
+     */
     public static final StringProperty USER_UUID = new StringProperty(
             TABLE, "user_id");
 
-    /** Task uuid */
+    /**
+     * Task uuid
+     */
     public static final StringProperty TASK_UUID = new StringProperty(
             TABLE, "task_id");
 
-    /** File name */
+    /**
+     * File name
+     */
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
-    /** File url (for downloading) */
+    /**
+     * File url (for downloading)
+     */
     public static final StringProperty URL = new StringProperty(
             TABLE, "url");
 
-    /** File path (on local storage) */
+    /**
+     * File path (on local storage)
+     */
     public static final StringProperty FILE_PATH = new StringProperty(
             TABLE, "path");
 
-    /** File size (in bytes) */
+    /**
+     * File size (in bytes)
+     */
     public static final IntegerProperty SIZE = new IntegerProperty(
             TABLE, "size");
 
-    /** File mimetype */
+    /**
+     * File mimetype
+     */
     public static final StringProperty CONTENT_TYPE = new StringProperty(
             TABLE, "content_type");
 
-    /** Attachment creation date */
+    /**
+     * Attachment creation date
+     */
     public static final LongProperty CREATED_AT = new LongProperty(
             TABLE, "created_at", Property.PROP_FLAG_DATE);
 
-    /** Attachment deletion date */
+    /**
+     * Attachment deletion date
+     */
     public static final LongProperty DELETED_AT = new LongProperty(
             TABLE, "deleted_at", Property.PROP_FLAG_DATE);
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(TaskAttachment.class);
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
@@ -118,13 +151,19 @@ public final class TaskAttachment extends RemoteModel {
     }
 
     // -- Constants
-    /** default directory for files on external storage */
+    /**
+     * default directory for files on external storage
+     */
     public static final String FILES_DIRECTORY_DEFAULT = "attachments"; //$NON-NLS-1$
 
-    /** preference key for some other download directory */
+    /**
+     * preference key for some other download directory
+     */
     public static final String FILES_DIRECTORY_PREF = "custom_files_dir"; //$NON-NLS-1$
 
-    /** Constants for file types */
+    /**
+     * Constants for file types
+     */
     public static final String FILE_TYPE_AUDIO = "audio/"; //$NON-NLS-1$
     public static final String FILE_TYPE_IMAGE = "image/"; //$NON-NLS-1$
     public static final String FILE_TYPE_PDF = "application/pdf"; //$NON-NLS-1$
@@ -137,9 +176,9 @@ public final class TaskAttachment extends RemoteModel {
     public static final String FILE_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; //$NON-NLS-1$
 
     public static final String[] MS_FILETYPES = {
-        FILE_TYPE_DOC, FILE_TYPE_DOCX,
-        FILE_TYPE_XLS, FILE_TYPE_XLSX,
-        FILE_TYPE_PPT, FILE_TYPE_PPTX,
+            FILE_TYPE_DOC, FILE_TYPE_DOCX,
+            FILE_TYPE_XLS, FILE_TYPE_XLSX,
+            FILE_TYPE_PPT, FILE_TYPE_PPTX,
     };
 
     public static final String FILE_TYPE_OTHER = "application/octet-stream";  //$NON-NLS-1$

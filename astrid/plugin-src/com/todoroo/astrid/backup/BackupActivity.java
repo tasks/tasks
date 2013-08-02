@@ -24,14 +24,14 @@ public class BackupActivity extends Activity {
         setContentView(R.layout.backup_activity);
         setTitle(R.string.backup_BAc_title);
 
-        ((Button)findViewById(R.id.importButton)).setOnClickListener(new OnClickListener() {
+        ((Button) findViewById(R.id.importButton)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 importTasks();
             }
         });
 
-        ((Button)findViewById(R.id.exportButton)).setOnClickListener(new OnClickListener() {
+        ((Button) findViewById(R.id.exportButton)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 exportTasks();
@@ -45,13 +45,13 @@ public class BackupActivity extends Activity {
             public void onFilePicked(String filePath) {
                 TasksXmlImporter.importTasks(BackupActivity.this, filePath,
                         new Runnable() {
-                    @Override
-                    public void run() {
-                        setResult(RESULT_OK);
-                        finish();
-                        Flags.set(Flags.REFRESH);
-                    }
-                });
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                                Flags.set(Flags.REFRESH);
+                            }
+                        });
             }
         };
         new FilePickerBuilder(this,

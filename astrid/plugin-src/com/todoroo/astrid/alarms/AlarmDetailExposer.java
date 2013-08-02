@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.alarms;
 
-import java.util.Date;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +16,12 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
+import java.util.Date;
+
 /**
  * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AlarmDetailExposer extends BroadcastReceiver {
 
@@ -31,11 +30,11 @@ public class AlarmDetailExposer extends BroadcastReceiver {
         ContextManager.setContext(context);
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if (taskId == -1)
             return;
 
         String taskDetail = getTaskDetails(context, taskId);
-        if(taskDetail == null)
+        if (taskDetail == null)
             return;
 
         // transmit
@@ -50,25 +49,25 @@ public class AlarmDetailExposer extends BroadcastReceiver {
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(id);
         long nextTime = -1;
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long time = cursor.get(AlarmFields.TIME);
-                if(time > DateUtilities.now()) {
+                if (time > DateUtilities.now()) {
                     nextTime = time;
                     break;
                 }
             }
 
-            if(nextTime == -1)
+            if (nextTime == -1)
                 return null;
             int flags = DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME;
             Date today = new Date();
             Date alarm = new Date(nextTime);
-            if(today.getYear() == alarm.getYear())
+            if (today.getYear() == alarm.getYear())
                 flags |= DateUtils.FORMAT_NO_YEAR;
-            if(alarm.getTime() - today.getTime() > DateUtilities.ONE_DAY)
+            if (alarm.getTime() - today.getTime() > DateUtilities.ONE_DAY)
                 flags |= DateUtils.FORMAT_SHOW_DATE;
             CharSequence durationString = DateUtils.formatDateTime(context, nextTime,
-                     flags);
+                    flags);
             return "<img src='silk_clock'/> " + durationString; //$NON-NLS-1$
         } finally {
             cursor.close();

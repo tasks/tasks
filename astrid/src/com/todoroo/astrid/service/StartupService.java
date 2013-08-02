@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.io.File;
-import java.util.List;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -75,11 +72,13 @@ import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
 
+import java.io.File;
+import java.util.List;
+
 /**
  * Service which handles jobs that need to be run when Astrid starts up.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class StartupService {
 
@@ -94,39 +93,56 @@ public class StartupService {
 
     // --- application startup
 
-    @Autowired ExceptionService exceptionService;
+    @Autowired
+    ExceptionService exceptionService;
 
-    @Autowired UpgradeService upgradeService;
+    @Autowired
+    UpgradeService upgradeService;
 
-    @Autowired TaskService taskService;
+    @Autowired
+    TaskService taskService;
 
-    @Autowired TaskDao taskDao;
+    @Autowired
+    TaskDao taskDao;
 
-    @Autowired TagDataDao tagDataDao;
+    @Autowired
+    TagDataDao tagDataDao;
 
-    @Autowired UserActivityDao userActivityDao;
+    @Autowired
+    UserActivityDao userActivityDao;
 
-    @Autowired TaskAttachmentDao taskAttachmentDao;
+    @Autowired
+    TaskAttachmentDao taskAttachmentDao;
 
-    @Autowired TaskListMetadataDao taskListMetadataDao;
+    @Autowired
+    TaskListMetadataDao taskListMetadataDao;
 
-    @Autowired WaitingOnMeDao waitingOnMeDao;
+    @Autowired
+    WaitingOnMeDao waitingOnMeDao;
 
-    @Autowired MetadataService metadataService;
+    @Autowired
+    MetadataService metadataService;
 
-    @Autowired Database database;
+    @Autowired
+    Database database;
 
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired GtasksSyncService gtasksSyncService;
+    @Autowired
+    GtasksSyncService gtasksSyncService;
 
-    @Autowired ABChooser abChooser;
+    @Autowired
+    ABChooser abChooser;
 
-    @Autowired ABTests abTests;
+    @Autowired
+    ABTests abTests;
 
-    @Autowired ABTestInvoker abTestInvoker;
+    @Autowired
+    ABTestInvoker abTestInvoker;
 
     /**
      * bit to prevent multiple initializations
@@ -140,15 +156,17 @@ public class StartupService {
         hasStartedUp = true;
     }
 
-    /** Called when this application is started up */
+    /**
+     * Called when this application is started up
+     */
     public synchronized void onStartupApplication(final Activity context) {
-        if(hasStartedUp || context == null)
+        if (hasStartedUp || context == null)
             return;
 
         // sets up context manager
         ContextManager.setContext(context);
 
-        if(!StatisticsService.dontCollectStatistics()) {
+        if (!StatisticsService.dontCollectStatistics()) {
             Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID);
         }
 
@@ -161,12 +179,12 @@ public class StartupService {
         }
 
         // show notification if reminders are silenced
-        if(context instanceof Activity) {
-            AudioManager audioManager = (AudioManager)context.getSystemService(
-                Context.AUDIO_SERVICE);
-            if(!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+        if (context instanceof Activity) {
+            AudioManager audioManager = (AudioManager) context.getSystemService(
+                    Context.AUDIO_SERVICE);
+            if (!Preferences.getBoolean(R.string.p_rmd_enabled, true))
                 Toast.makeText(context, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
-            else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
+            else if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
                 Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
         }
 
@@ -204,8 +222,8 @@ public class StartupService {
 
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
-        if(justUpgraded && version > 0) {
-            if(latestSetVersion > 0) {
+        if (justUpgraded && version > 0) {
+            if (latestSetVersion > 0) {
                 upgradeService.performUpgrade(context, latestSetVersion);
             } else {
                 Preferences.setBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, true); // New installs should have this flag set up front
@@ -231,7 +249,7 @@ public class StartupService {
         new Thread(new Runnable() {
             public void run() {
                 // start widget updating alarm
-                AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+                AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 Intent intent = new Intent(context, WidgetUpdateService.class);
                 PendingIntent pendingIntent = PendingIntent.getService(context,
                         0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -269,7 +287,7 @@ public class StartupService {
         CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
         // check for task killers
-        if(!Constants.OEM)
+        if (!Constants.OEM)
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
@@ -296,7 +314,7 @@ public class StartupService {
 
     /**
      * @param context
-     * @param e error that was raised
+     * @param e       error that was raised
      */
     public static void handleSQLiteError(Context context, final SQLiteException e) {
         if (context instanceof Activity) {
@@ -329,15 +347,15 @@ public class StartupService {
      */
     private void databaseRestoreIfEmpty(Context context) {
         try {
-            if(AstridPreferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
+            if (AstridPreferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
                     !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
                 File directory = BackupConstants.defaultExportDirectory();
-                if(!directory.exists())
+                if (!directory.exists())
                     return;
                 File[] children = directory.listFiles();
                 AndroidUtilities.sortFilesByDateDesc(children);
-                if(children.length > 0) {
+                if (children.length > 0) {
                     StatisticsService.sessionStart(context);
                     TasksXmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
                     StatisticsService.reportEvent(StatisticsConstants.LOST_TASKS_RESTORED);
@@ -403,20 +421,22 @@ public class StartupService {
 
     /**
      * Show task killer helper
+     *
      * @param context
      */
     private static void showTaskKillerHelp(final Context context) {
-        if(!Preferences.getBoolean(P_TASK_KILLER_HELP, false))
+        if (!Preferences.getBoolean(P_TASK_KILLER_HELP, false))
             return;
 
         // search for task killers. if they exist, show the help!
         PackageManager pm = context.getPackageManager();
         List<PackageInfo> apps = pm
                 .getInstalledPackages(PackageManager.GET_PERMISSIONS);
-        outer: for (PackageInfo app : apps) {
-            if(app == null || app.requestedPermissions == null)
+        outer:
+        for (PackageInfo app : apps) {
+            if (app == null || app.requestedPermissions == null)
                 continue;
-            if(app.packageName.startsWith("com.android")) //$NON-NLS-1$
+            if (app.packageName.startsWith("com.android")) //$NON-NLS-1$
                 continue;
             for (String permission : app.requestedPermissions) {
                 if (Manifest.permission.RESTART_PACKAGES.equals(permission)) {
@@ -424,18 +444,18 @@ public class StartupService {
                     OnClickListener listener = new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0,
-                                int arg1) {
+                                            int arg1) {
                             Preferences.setBoolean(P_TASK_KILLER_HELP, true);
                         }
                     };
 
                     new AlertDialog.Builder(context)
-                    .setTitle(R.string.DLG_information_title)
-                    .setMessage(context.getString(R.string.task_killer_help,
-                            appName))
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(R.string.task_killer_help_ok, listener)
-                    .show();
+                            .setTitle(R.string.DLG_information_title)
+                            .setMessage(context.getString(R.string.task_killer_help,
+                                    appName))
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(R.string.task_killer_help_ok, listener)
+                            .show();
 
                     break outer;
                 }

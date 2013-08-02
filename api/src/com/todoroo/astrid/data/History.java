@@ -14,61 +14,89 @@ import com.todoroo.astrid.api.AstridApiConstants;
 @SuppressWarnings("nls")
 public class History extends AbstractModel {
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("history", History.class);
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote ID */
+    /**
+     * Remote ID
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, RemoteModel.UUID_PROPERTY_NAME);
 
-    /** Created at */
+    /**
+     * Created at
+     */
     public static final LongProperty CREATED_AT = new LongProperty(
             TABLE, "created_at", Property.PROP_FLAG_DATE);
 
-    /** User id */
+    /**
+     * User id
+     */
     public static final StringProperty USER_UUID = new StringProperty(
             TABLE, "user_id", Property.PROP_FLAG_USER_ID);
 
-    /** Column name */
+    /**
+     * Column name
+     */
     public static final StringProperty COLUMN = new StringProperty(
             TABLE, "columnString");
 
-    /** Old value */
+    /**
+     * Old value
+     */
     public static final StringProperty OLD_VALUE = new StringProperty(
             TABLE, "old_value", Property.PROP_FLAG_NULLABLE);
 
-    /** New value */
+    /**
+     * New value
+     */
     public static final StringProperty NEW_VALUE = new StringProperty(
             TABLE, "new_value", Property.PROP_FLAG_NULLABLE);
 
-    /** Table identifier */
+    /**
+     * Table identifier
+     */
     public static final StringProperty TABLE_ID = new StringProperty(
             TABLE, "table_id");
 
-    /** Target identifier */
+    /**
+     * Target identifier
+     */
     public static final StringProperty TARGET_ID = new StringProperty(
             TABLE, "target_id");
 
-    /** Task name and id (JSONArray) */
+    /**
+     * Task name and id (JSONArray)
+     */
     public static final StringProperty TASK = new StringProperty(
             TABLE, "task");
 
-    /** Associated tag id */
+    /**
+     * Associated tag id
+     */
     public static final StringProperty TAG_ID = new StringProperty(
             TABLE, "tag_id");
 
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     @Override
@@ -104,7 +132,9 @@ public class History extends AbstractModel {
         super.readPropertiesFromCursor(cursor);
     }
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(History.class);
 
     private static final Creator<History> CREATOR = new ModelCreator<History>(History.class);

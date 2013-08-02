@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
@@ -21,15 +18,19 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Methods for working with GTasks preferences
  *
  * @author timsu
- *
  */
 public class ActFmPreferenceService extends SyncProviderUtilities {
 
-    /** add-on identifier */
+    /**
+     * add-on identifier
+     */
     public static final String IDENTIFIER = "actfm"; //$NON-NLS-1$
 
     @Override
@@ -50,7 +51,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     @Override
     public boolean shouldShowToast() {
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true))
+        if (Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true))
             return false;
         return super.shouldShowToast();
     }
@@ -87,31 +88,49 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         }
     }
 
-    /** Act.fm current user id */
+    /**
+     * Act.fm current user id
+     */
     public static final String PREF_USER_ID = IDENTIFIER + "_user"; //$NON-NLS-1$
 
-    /** Act.fm current user name */
+    /**
+     * Act.fm current user name
+     */
     public static final String PREF_NAME = IDENTIFIER + "_name"; //$NON-NLS-1$
 
-    /** Act.fm current user first name */
+    /**
+     * Act.fm current user first name
+     */
     public static final String PREF_FIRST_NAME = IDENTIFIER + "_first_name"; //$NON-NLS-1$
 
-    /** Act.fm current user last name */
+    /**
+     * Act.fm current user last name
+     */
     public static final String PREF_LAST_NAME = IDENTIFIER + "_last_name"; //$NON-NLS-1$
 
-    /** Act.fm current user premium status */
+    /**
+     * Act.fm current user premium status
+     */
     public static final String PREF_PREMIUM = IDENTIFIER + "_premium"; //$NON-NLS-1$
 
-    /** Local knowledge of current premium status */
+    /**
+     * Local knowledge of current premium status
+     */
     public static final String PREF_LOCAL_PREMIUM = IDENTIFIER + "_local_premium"; //$NON-NLS-1$
 
-    /** Act.fm current user picture */
+    /**
+     * Act.fm current user picture
+     */
     public static final String PREF_PICTURE = IDENTIFIER + "_picture"; //$NON-NLS-1$
 
-    /** Act.fm current user email */
+    /**
+     * Act.fm current user email
+     */
     public static final String PREF_EMAIL = IDENTIFIER + "_email"; //$NON-NLS-1$
 
-    /** Act.fm last sync server time */
+    /**
+     * Act.fm last sync server time
+     */
     public static final String PREF_SERVER_TIME = IDENTIFIER + "_time"; //$NON-NLS-1$
 
     private static JSONObject user = null;
@@ -122,7 +141,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     public synchronized static JSONObject thisUser() {
-        if(user == null) {
+        if (user == null) {
             user = new JSONObject();
             populateUser();
         }

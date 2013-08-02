@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import org.json.JSONObject;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -37,11 +35,15 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
+import org.json.JSONObject;
+
 public class ReengagementReceiver extends BroadcastReceiver {
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired TaskService taskService;
+    @Autowired
+    TaskService taskService;
 
     private static final int TASK_LIMIT = 3;
 
@@ -112,9 +114,9 @@ public class ReengagementReceiver extends BroadcastReceiver {
                 pendingIntent);
 
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        if(Preferences.getBoolean(R.string.p_rmd_persistent, true)) {
+        if (Preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR |
-                Notification.FLAG_SHOW_LIGHTS;
+                    Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
             notification.ledOnMS = 700;
             notification.ledARGB = Color.YELLOW;

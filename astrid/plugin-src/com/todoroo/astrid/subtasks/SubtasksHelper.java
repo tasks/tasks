@@ -1,8 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,13 +24,16 @@ import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class SubtasksHelper {
 
     public static boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || CoreFilterExposer.isInbox(filter) || CoreFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
+        if (filter == null || CoreFilterExposer.isInbox(filter) || CoreFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            if(SortHelper.isManualSort(sortFlags))
+            if (SortHelper.isManualSort(sortFlags))
                 return true;
         }
         return false;
@@ -125,6 +125,7 @@ public class SubtasksHelper {
 
     /**
      * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
+     *
      * @param localTree
      * @return
      */

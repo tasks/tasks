@@ -5,12 +5,13 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
-    <WebView android:id="@+id/browser"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
-        
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <WebView
+            android:id="@+id/browser"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
 </LinearLayout>

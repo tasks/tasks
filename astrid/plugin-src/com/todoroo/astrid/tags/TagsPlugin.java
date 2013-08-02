@@ -33,6 +33,7 @@ public class TagsPlugin extends BroadcastReceiver {
 
     /**
      * Create new tag data
+     *
      * @param activity
      */
     public static Intent newTagDialog(Context context) {

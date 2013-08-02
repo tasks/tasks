@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
@@ -76,16 +72,24 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
 
-    /** token for indicating source of TLA launch */
+    /**
+     * token for indicating source of TLA launch
+     */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
     public static final String TOKEN_SWITCH_TO_FILTER = "newListCreated"; //$NON-NLS-1$
 
-    /** For indicating the new list screen should be launched at fragment setup time */
+    /**
+     * For indicating the new list screen should be launched at fragment setup time
+     */
     public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
     public static final String TOKEN_CREATE_NEW_LIST_MEMBERS = "newListMembers"; //$NON-NLS-1$
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
@@ -100,9 +104,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public static final int REQUEST_CODE_RESTART = 10;
 
-    @Autowired private ABTestEventReportingService abTestEventReportingService;
+    @Autowired
+    private ABTestEventReportingService abTestEventReportingService;
 
-    @Autowired private TagMetadataDao tagMetadataDao;
+    @Autowired
+    private TagMetadataDao tagMetadataDao;
 
     private View listsNav;
     private ImageView listsNavDisclosure;
@@ -298,14 +304,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent,
-            Filter filter) {
+                                                        Filter filter) {
         Bundle extras = super.configureIntentAndExtrasWithFilter(intent, filter);
         getIntent().putExtra(FILTER_MODE, filterMode);
         return extras;
     }
 
     /**
-     *
      * @param actionBar
      */
     protected void initializeFragments(ActionBar actionBar) {
@@ -319,7 +324,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
             listsNav.setOnClickListener(null);
 
-            if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
+            if (editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
                 fragmentLayout = LAYOUT_TRIPLE;
                 actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
             } else {
@@ -446,7 +451,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private void setListsDropdownSelected(boolean selected) {
         int oldTextColor = lists.getTextColors().getDefaultColor();
         int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
-            R.style.TextAppearance_ActionBar_ListsHeader);
+                R.style.TextAppearance_ActionBar_ListsHeader);
 
         TypedValue listDisclosure = new TypedValue();
         getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
@@ -563,7 +568,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) { /* Nothing */ }
+                               int positionOffsetPixels) { /* Nothing */ }
 
     @Override
     public void onPageScrollStateChanged(int state) { /* Nothing */ }
@@ -589,8 +594,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void onBackPressed() {
         // manage task edit visibility
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
-        if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
-            if(fragmentLayout == LAYOUT_DOUBLE) {
+        if (taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
+            if (fragmentLayout == LAYOUT_DOUBLE) {
                 if (!commentsVisible)
                     findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
             }
@@ -615,7 +620,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if ((requestCode == FilterListFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
                 resultCode == Activity.RESULT_OK) {
-            if(data == null)
+            if (data == null)
                 return;
 
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
@@ -821,23 +826,23 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void trackActivitySource() {
         switch (getIntent().getIntExtra(TOKEN_SOURCE,
                 Constants.SOURCE_DEFAULT)) {
-        case Constants.SOURCE_NOTIFICATION:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
-            break;
-        case Constants.SOURCE_OTHER:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
-            break;
-        case Constants.SOURCE_PPWIDGET:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
-            break;
-        case Constants.SOURCE_WIDGET:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
-            break;
-        case Constants.SOURCE_C2DM:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
-            break;
-        case Constants.SOURCE_REENGAGEMENT:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_REENGAGEMENT);
+            case Constants.SOURCE_NOTIFICATION:
+                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
+                break;
+            case Constants.SOURCE_OTHER:
+                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
+                break;
+            case Constants.SOURCE_PPWIDGET:
+                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
+                break;
+            case Constants.SOURCE_WIDGET:
+                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
+                break;
+            case Constants.SOURCE_C2DM:
+                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
+                break;
+            case Constants.SOURCE_REENGAGEMENT:
+                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_REENGAGEMENT);
         }
         getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }
@@ -851,28 +856,28 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void mainMenuItemSelected(int item, Intent customIntent) {
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
-        case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            if (filterMode == FILTER_MODE_NORMAL)
-                listsNav.performClick();
-            else
-                setFilterMode(FILTER_MODE_NORMAL);
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
-            onSearchRequested();
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
-            setFilterMode(FILTER_MODE_FEATURED);
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-            setFilterMode(FILTER_MODE_PEOPLE);
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
-            // Doesn't exist yet
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
-            if (tlf != null)
-                tlf.showSettings();
-            return;
+            case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
+                if (filterMode == FILTER_MODE_NORMAL)
+                    listsNav.performClick();
+                else
+                    setFilterMode(FILTER_MODE_NORMAL);
+                return;
+            case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
+                onSearchRequested();
+                return;
+            case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
+                setFilterMode(FILTER_MODE_FEATURED);
+                return;
+            case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
+                setFilterMode(FILTER_MODE_PEOPLE);
+                return;
+            case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
+                // Doesn't exist yet
+                return;
+            case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
+                if (tlf != null)
+                    tlf.showSettings();
+                return;
         }
         tlf.handleOptionsMenuItemSelected(item, customIntent);
     }
@@ -919,16 +924,16 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     private void updateFilterModeSpec(int mode) {
-        switch(mode) {
-        case FILTER_MODE_PEOPLE:
-            filterModeSpec = new PeopleFilterMode();
-            break;
-        case FILTER_MODE_FEATURED:
-            filterModeSpec = new FeaturedListFilterMode();
-            break;
-        case FILTER_MODE_NORMAL:
-        default:
-            filterModeSpec = new DefaultFilterMode();
+        switch (mode) {
+            case FILTER_MODE_PEOPLE:
+                filterModeSpec = new PeopleFilterMode();
+                break;
+            case FILTER_MODE_FEATURED:
+                filterModeSpec = new FeaturedListFilterMode();
+                break;
+            case FILTER_MODE_NORMAL:
+            default:
+                filterModeSpec = new DefaultFilterMode();
         }
     }
 
@@ -940,7 +945,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         if (tlf == null)
             return;
-        InputMethodManager imm = (InputMethodManager)getSystemService(
+        InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         QuickAddBar qab = tlf.quickAddBar;
         if (qab != null)

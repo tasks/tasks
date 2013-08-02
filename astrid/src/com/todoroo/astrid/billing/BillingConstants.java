@@ -7,7 +7,9 @@ import com.todoroo.astrid.utility.Constants;
 @SuppressWarnings("nls")
 public class BillingConstants {
 
-    /** This is the action we use to bind to the MarketBillingService. */
+    /**
+     * This is the action we use to bind to the MarketBillingService.
+     */
     public static final String MARKET_BILLING_SERVICE_ACTION = "com.android.vending.billing.MarketBillingService.BIND";
 
     // Intent actions that we send from the BillingReceiver to the

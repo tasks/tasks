@@ -15,7 +15,7 @@ public class FeaturedListFilterAdapter extends FilterAdapter {
     public static final String BROADCAST_SEND_FEATURED_LISTS = Constants.PACKAGE + ".SEND_FEATURED_LISTS"; //$NON-NLS-1$
 
     public FeaturedListFilterAdapter(Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters) {
+                                     int rowLayout, boolean skipIntentFilters) {
         super(activity, listView, rowLayout, skipIntentFilters);
     }
 

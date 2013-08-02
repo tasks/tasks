@@ -1,8 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.text.TextUtils;
 
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -10,6 +7,9 @@ import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class TaskListMetadataChangesHappened extends ChangesHappened<TaskListMetadata, TaskListMetadataOutstanding> {
 

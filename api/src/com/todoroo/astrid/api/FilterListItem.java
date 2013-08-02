@@ -14,7 +14,6 @@ import android.os.Parcelable;
  * Represents an item displayed by Astrid's FilterListActivity
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 abstract public class FilterListItem implements Parcelable {
 

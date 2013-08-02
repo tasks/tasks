@@ -21,26 +21,35 @@ import com.todoroo.astrid.data.StoreObject;
  * {@link StoreObject} entries for a saved custom filter
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class SavedFilter {
 
-    /** type */
+    /**
+     * type
+     */
     public static final String TYPE = "filter"; //$NON-NLS-1$
 
-    /** saved filter name */
+    /**
+     * saved filter name
+     */
     public static final StringProperty NAME = new StringProperty(StoreObject.TABLE,
             StoreObject.ITEM.name);
 
-    /** perma-sql */
+    /**
+     * perma-sql
+     */
     public static final StringProperty SQL = new StringProperty(StoreObject.TABLE,
             StoreObject.VALUE1.name);
 
-    /** serialized new task content values */
+    /**
+     * serialized new task content values
+     */
     public static final StringProperty VALUES = new StringProperty(StoreObject.TABLE,
             StoreObject.VALUE2.name);
 
-    /** serialized list of filters applied */
+    /**
+     * serialized list of filters applied
+     */
     public static final StringProperty FILTERS = new StringProperty(StoreObject.TABLE,
             StoreObject.VALUE3.name);
 
@@ -55,9 +64,9 @@ public class SavedFilter {
      * @param values2
      */
     public static void persist(CustomFilterAdapter adapter, String title,
-            String sql, ContentValues values) {
+                               String sql, ContentValues values) {
 
-        if(title == null || title.length() == 0)
+        if (title == null || title.length() == 0)
             return;
 
         // if filter of this name exists, edit it
@@ -65,7 +74,7 @@ public class SavedFilter {
         StoreObject storeObject = new StoreObject();
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.ID).where(NAME.eq(title)));
         try {
-            if(!cursor.isAfterLast()) {
+            if (!cursor.isAfterLast()) {
                 cursor.moveToNext();
                 storeObject.readFromCursor(cursor);
             }
@@ -78,7 +87,7 @@ public class SavedFilter {
         storeObject.setValue(NAME, title);
         storeObject.setValue(SQL, sql);
 
-        if(values == null)
+        if (values == null)
             storeObject.setValue(VALUES, ""); //$NON-NLS-1$
         else
             storeObject.setValue(VALUES, AndroidUtilities.contentValuesToSerializedString(values));
@@ -91,12 +100,13 @@ public class SavedFilter {
 
     /**
      * Turn a series of CriterionInstance objects into a string
+     *
      * @param adapter
      * @return
      */
     private static String serializeFilters(CustomFilterAdapter adapter) {
         StringBuilder values = new StringBuilder();
-        for(int i = 0; i < adapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance item = adapter.getItem(i);
 
             // criterion|entry|text|type|sql
@@ -104,7 +114,7 @@ public class SavedFilter {
             values.append(escape(item.getValueFromCriterion())).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
             values.append(escape(item.criterion.text)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
             values.append(item.type).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-            if(item.criterion.sql != null)
+            if (item.criterion.sql != null)
                 values.append(item.criterion.sql);
             values.append('\n');
         }
@@ -113,7 +123,7 @@ public class SavedFilter {
     }
 
     private static String escape(String item) {
-        if(item == null)
+        if (item == null)
             return ""; //$NON-NLS-1$
         return item.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
                 AndroidUtilities.SEPARATOR_ESCAPE);
@@ -121,6 +131,7 @@ public class SavedFilter {
 
     /**
      * Read filter from store
+     *
      * @param savedFilter
      * @return
      */
@@ -130,7 +141,7 @@ public class SavedFilter {
         String values = savedFilter.getValue(VALUES);
 
         ContentValues contentValues = null;
-        if(!TextUtils.isEmpty(values))
+        if (!TextUtils.isEmpty(values))
             contentValues = AndroidUtilities.contentValuesFromSerializedString(values);
 
         return new Filter(title, title, sql, contentValues);

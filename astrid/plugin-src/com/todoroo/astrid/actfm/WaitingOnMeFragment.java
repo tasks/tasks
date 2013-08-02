@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.text.TextUtils;
@@ -21,6 +19,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.WaitingOnMeDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.WaitingOnMe;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class WaitingOnMeFragment extends TaskListFragment {
 
@@ -51,8 +51,8 @@ public class WaitingOnMeFragment extends TaskListFragment {
     private static class WaitingOnMeTaskAdapter extends TaskAdapter {
 
         public WaitingOnMeTaskAdapter(TaskListFragment fragment, int resource,
-                Cursor c, AtomicReference<String> query, boolean autoRequery,
-                OnCompletedTaskListener onCompletedTaskListener) {
+                                      Cursor c, AtomicReference<String> query, boolean autoRequery,
+                                      OnCompletedTaskListener onCompletedTaskListener) {
             super(fragment, resource, c, query, autoRequery, onCompletedTaskListener);
         }
 

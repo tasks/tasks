@@ -49,10 +49,10 @@ public class CommentsActivity extends AstridActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            break;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

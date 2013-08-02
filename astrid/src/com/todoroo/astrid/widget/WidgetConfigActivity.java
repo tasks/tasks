@@ -80,7 +80,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
         adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
         setListAdapter(adapter);
 
-        Button button = (Button)findViewById(R.id.ok);
+        Button button = (Button) findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
 
         StatisticsService.reportEvent(StatisticsConstants.WIDGET_CONFIG);
@@ -100,7 +100,6 @@ abstract public class WidgetConfigActivity extends ListActivity {
             finish();
         }
     };
-
 
 
     @Override
@@ -136,29 +135,29 @@ abstract public class WidgetConfigActivity extends ListActivity {
         ThemeService.setForceFilterInvert(false);
     }
 
-    private void saveConfiguration(FilterListItem filterListItem){
+    private void saveConfiguration(FilterListItem filterListItem) {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         String sql = null, contentValuesString = null, title = null;
 
-        if(filterListItem != null && filterListItem instanceof Filter) {
-            sql = ((Filter)filterListItem).getSqlQuery();
-            ContentValues values = ((Filter)filterListItem).valuesForNewTasks;
-            if(values != null)
+        if (filterListItem != null && filterListItem instanceof Filter) {
+            sql = ((Filter) filterListItem).getSqlQuery();
+            ContentValues values = ((Filter) filterListItem).valuesForNewTasks;
+            if (values != null)
                 contentValuesString = AndroidUtilities.contentValuesToSerializedString(values);
-            title = ((Filter)filterListItem).title;
+            title = ((Filter) filterListItem).title;
         }
 
         Preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
         Preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
         Preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
 
-        if(filterListItem instanceof FilterWithCustomIntent) {
-            String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();
+        if (filterListItem instanceof FilterWithCustomIntent) {
+            String flattenedName = ((FilterWithCustomIntent) filterListItem).customTaskList.flattenToString();
             Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
                     flattenedName);
-            String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
+            String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filterListItem).customExtras);
             if (flattenedExtras != null)
                 Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
                         flattenedExtras);

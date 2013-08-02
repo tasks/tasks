@@ -21,27 +21,28 @@ public class FeedbackPromptDialogs {
         final String url = positive ? "https://play.google.com/store/apps/details?id=com.timsu.astrid&write_review=true" : "http://weloveastrid.com/problem_astrid_android.html";
 
         d.setAstridTitle(titleRes)
-        .setAstridText(bodyRes)
-        .setButtonText(buttonRes, 0)
-        .setButtonText(R.string.feedback_not_now, 1)
-        .setButtonListeners(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(url));
-                try {
-                    activity.startActivity(intent);
-                } catch (Exception e) {
-                    Toast.makeText(activity, R.string.feedback_activity_error, Toast.LENGTH_LONG).show();
-                }
-                d.dismiss();
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
+                .setAstridText(bodyRes)
+                .setButtonText(buttonRes, 0)
+                .setButtonText(R.string.feedback_not_now, 1)
+                .setButtonListeners(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                                    Uri.parse(url));
+                                            try {
+                                                activity.startActivity(intent);
+                                            } catch (Exception e) {
+                                                Toast.makeText(activity, R.string.feedback_activity_error, Toast.LENGTH_LONG).show();
+                                            }
+                                            d.dismiss();
+                                        }
+                                    }, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            d.dismiss();
+                                        }
+                                    }
+                );
 
         d.show();
     }

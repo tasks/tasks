@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import java.io.IOException;
-
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 
@@ -26,9 +22,12 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 /**
  * Exposes sync action
- *
  */
 public class ActFmSyncV2Provider extends SyncV2Provider {
 
@@ -94,7 +93,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     @Override
     public void synchronizeActiveTasks(final boolean manual,
-            final SyncResultCallback callback) {
+                                       final SyncResultCallback callback) {
 
         new Thread(new Runnable() {
             public void run() {
@@ -106,7 +105,9 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         }).start();
     }
 
-    /** fetch user status hash*/
+    /**
+     * fetch user status hash
+     */
     @SuppressWarnings("nls")
     public void updateUserStatus() {
         if (Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION) != null) {
@@ -145,7 +146,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     // --- synchronize list
     @Override
     public void synchronizeList(Object list, final boolean manual,
-            final SyncResultCallback callback) {
+                                final SyncResultCallback callback) {
         // Nothing to do
     }
 }

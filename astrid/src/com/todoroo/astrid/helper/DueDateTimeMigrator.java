@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.Date;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -18,9 +16,12 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 
+import java.util.Date;
+
 public class DueDateTimeMigrator {
 
-    @Autowired TaskDao taskDao;
+    @Autowired
+    TaskDao taskDao;
 
     private static final String PREF_MIGRATED_DUE_TIMES = "migrated_due_times";  //$NON-NLS-1$
     private static final String STRFTIME_FORMAT = "%H:%M:%S"; //$NON-NLS-1$

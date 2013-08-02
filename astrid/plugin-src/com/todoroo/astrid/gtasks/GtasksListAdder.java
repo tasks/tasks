@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -24,10 +22,14 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
+import java.io.IOException;
+
 public class GtasksListAdder extends Activity {
 
-    @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired GtasksListService gtasksListService;
+    @Autowired
+    GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    GtasksListService gtasksListService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class GtasksListAdder extends Activity {
         DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (gtasksPreferenceService.isLoggedIn() && ! gtasksPreferenceService.isOngoing()) {
+                if (gtasksPreferenceService.isLoggedIn() && !gtasksPreferenceService.isOngoing()) {
                     final ProgressDialog pd = DialogUtilities.progressDialog(GtasksListAdder.this,
                             GtasksListAdder.this.getString(R.string.gtasks_FEx_creating_list));
                     pd.show();

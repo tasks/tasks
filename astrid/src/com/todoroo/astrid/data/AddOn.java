@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
  * An add-on installable by Astrid
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AddOn {
 
@@ -24,7 +23,7 @@ public class AddOn {
     private final Bitmap icon;
 
     public AddOn(boolean free, boolean internal, String title, String author, String description,
-            String packageName, Bitmap icon) {
+                 String packageName, Bitmap icon) {
         this.free = free;
         this.internal = internal;
         this.title = title;

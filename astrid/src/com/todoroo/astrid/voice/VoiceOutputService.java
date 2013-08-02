@@ -11,12 +11,10 @@ import android.content.Intent;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
 
-
-
 /**
  * All API versions-friendly voice input / output.
- * @author Tim Su <tim@todoroo.com>
  *
+ * @author Tim Su <tim@todoroo.com>
  */
 public class VoiceOutputService {
 
@@ -44,7 +42,7 @@ public class VoiceOutputService {
 
         @Override
         public boolean handleActivityResult(int requestCode, int resultCode,
-                Intent data) {
+                                            Intent data) {
             return false;
         }
 
@@ -61,11 +59,11 @@ public class VoiceOutputService {
     }
 
     public static VoiceOutputAssistant getVoiceOutputInstance() {
-        if(AndroidUtilities.getSdkVersion() >= MIN_TTS_VERSION) {
+        if (AndroidUtilities.getSdkVersion() >= MIN_TTS_VERSION) {
             if (outputAssistant == null)
                 outputAssistant = new Api6VoiceOutputAssistant();
         } else {
-            if(outputAssistant == null)
+            if (outputAssistant == null)
                 outputAssistant = new NullVoiceOutputAssistant();
         }
 

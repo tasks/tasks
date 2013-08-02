@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,11 +26,12 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.data.AddOn;
 
+import java.util.List;
+
 /**
  * Adapter for {@link AddOn}s
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
@@ -52,9 +51,9 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         @Override
         public void onClick(View v) {
             ViewHolder viewHolder = (ViewHolder) v.getTag();
-            if(viewHolder == null)
+            if (viewHolder == null)
                 return;
-            if(viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
+            if (viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
                 return;
 
             showOptionsFor(viewHolder.item, new Runnable() {
@@ -70,13 +69,13 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     public void onCreateContextMenu(ContextMenu menu, View v) {
         // view holder
         ViewHolder viewHolder = (ViewHolder) v.getTag();
-        if(viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
+        if (viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
             return;
 
         int index = getPosition(viewHolder.item);
 
         menu.setHeaderTitle(viewHolder.name.getText());
-        if(viewHolder.icon.getVisibility() == View.VISIBLE)
+        if (viewHolder.icon.getVisibility() == View.VISIBLE)
             menu.setHeaderIcon(viewHolder.icon.getDrawable());
 
 
@@ -101,13 +100,14 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     /**
      * Show options menu for the given criterioninstance
+     *
      * @param item
      */
     public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
-            setTitle(item.criterion.name);
+                setTitle(item.criterion.name);
 
-        if(item.criterion instanceof MultipleSelectCriterion) {
+        if (item.criterion instanceof MultipleSelectCriterion) {
             MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;
             final String[] titles = multiSelectCriterion.entryTitles;
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
@@ -116,12 +116,12 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                 @Override
                 public void onClick(DialogInterface click, int which) {
                     item.selectedIndex = which;
-                    if(onComplete != null)
+                    if (onComplete != null)
                         onComplete.run();
                 }
             };
             dialog.setAdapter(adapter, listener);
-        } else if(item.criterion instanceof TextInputCriterion) {
+        } else if (item.criterion instanceof TextInputCriterion) {
             TextInputCriterion textInCriterion = (TextInputCriterion) item.criterion;
             FrameLayout frameLayout = new FrameLayout(activity);
             frameLayout.setPadding(10, 0, 10, 0);
@@ -132,14 +132,14 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                     FrameLayout.LayoutParams.FILL_PARENT,
                     FrameLayout.LayoutParams.WRAP_CONTENT));
             dialog.setMessage(textInCriterion.prompt).setView(frameLayout).
-                setPositiveButton(android.R.string.ok, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        item.selectedText = editText.getText().toString();
-                        if(onComplete != null)
-                            onComplete.run();
-                    }
-                });
+                    setPositiveButton(android.R.string.ok, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            item.selectedText = editText.getText().toString();
+                            if (onComplete != null)
+                                onComplete.run();
+                        }
+                    });
         }
 
         dialog.show().setOwnerActivity(activity);
@@ -149,17 +149,17 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.custom_filter_row, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.type = (ImageView) convertView.findViewById(R.id.type);
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
-            viewHolder.name= (TextView) convertView.findViewById(R.id.name);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.filterView = (FilterView) convertView.findViewById(R.id.filter);
             convertView.setTag(viewHolder);
         }
 
-        ViewHolder viewHolder = (ViewHolder)convertView.getTag();
+        ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = getItem(position);
         initializeView(convertView);
 
@@ -187,23 +187,23 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
         viewHolder.type.setVisibility(item.type == CriterionInstance.TYPE_UNIVERSE ?
                 View.GONE : View.VISIBLE);
-        switch(item.type) {
-        case CriterionInstance.TYPE_ADD:
-            viewHolder.type.setImageResource(R.drawable.arrow_join);
-            title = activity.getString(R.string.CFA_type_add) + " " + title;
-            break;
-        case CriterionInstance.TYPE_SUBTRACT:
-            viewHolder.type.setImageResource(R.drawable.arrow_branch);
-            title = activity.getString(R.string.CFA_type_subtract) + " " + title;
-            break;
-        case CriterionInstance.TYPE_INTERSECT:
-            viewHolder.type.setImageResource(R.drawable.arrow_down);
-            break;
+        switch (item.type) {
+            case CriterionInstance.TYPE_ADD:
+                viewHolder.type.setImageResource(R.drawable.arrow_join);
+                title = activity.getString(R.string.CFA_type_add) + " " + title;
+                break;
+            case CriterionInstance.TYPE_SUBTRACT:
+                viewHolder.type.setImageResource(R.drawable.arrow_branch);
+                title = activity.getString(R.string.CFA_type_subtract) + " " + title;
+                break;
+            case CriterionInstance.TYPE_INTERSECT:
+                viewHolder.type.setImageResource(R.drawable.arrow_down);
+                break;
         }
 
         viewHolder.icon.setVisibility(item.criterion.icon == null ? View.GONE :
-            View.VISIBLE);
-        if(item.criterion.icon != null)
+                View.VISIBLE);
+        if (item.criterion.icon != null)
             viewHolder.icon.setImageBitmap(item.criterion.icon);
 
         viewHolder.name.setText(title);

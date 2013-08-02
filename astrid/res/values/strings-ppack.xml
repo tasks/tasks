@@ -4,19 +4,23 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-  <!-- ================================================== EditPreferences == -->
-    
-  <!-- slide 32j: Preference Category: Power Pack -->
-  <string name="EPr_powerpack_header">Advanced settings</string>
-  <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
-  
-  <!-- slide 32e: Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous usage stats</string>
-  <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
-  <!-- slide 32f: Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
-      
+    <!-- ================================================== EditPreferences == -->
+
+    <!-- slide 32j: Preference Category: Power Pack -->
+    <string name="EPr_powerpack_header">Advanced settings</string>
+    <string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous
+        settings
+    </string>
+
+    <!-- slide 32e: Preference: Anonymous User Statistics -->
+    <string name="EPr_statistics_title">Anonymous usage stats</string>
+    <!-- Preference: User Statistics (disabled) -->
+    <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>
+    <!-- slide 32f: Preference: User Statistics (enabled) -->
+    <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage
+        data
+    </string>
+
 </resources>

@@ -27,15 +27,15 @@ public class GCalTaskCompleteListener extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if (taskId == -1)
             return;
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
-        if(task == null)
+        if (task == null)
             return;
 
         String calendarUri = task.getValue(Task.CALENDAR_URI);
-        if(!TextUtils.isEmpty(calendarUri)) {
+        if (!TextUtils.isEmpty(calendarUri)) {
             try {
                 // change title of calendar event
                 ContentResolver cr = context.getContentResolver();

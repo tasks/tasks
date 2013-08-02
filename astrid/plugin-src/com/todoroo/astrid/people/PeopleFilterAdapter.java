@@ -19,7 +19,7 @@ public class PeopleFilterAdapter extends FilterAdapter {
     public static final String BROADCAST_SEND_PEOPLE_FILTERS = Constants.PACKAGE + ".SEND_PEOPLE_FILTERS"; //$NON-NLS-1$
 
     public PeopleFilterAdapter(Activity activity, ListView listView,
-            int rowLayout, boolean skipIntentFilters) {
+                               int rowLayout, boolean skipIntentFilters) {
         super(activity, listView, rowLayout, skipIntentFilters);
     }
 

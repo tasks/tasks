@@ -5,9 +5,9 @@
  */
 package com.todoroo.andlib.service;
 
-import java.lang.reflect.Field;
-
 import android.test.AndroidTestCase;
+
+import java.lang.reflect.Field;
 
 public class DependencyInjectionTests extends AndroidTestCase {
 
@@ -25,7 +25,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
                     @Override
                     public Object getInjection(Object object, Field field) {
-                        if(field.getName().equals("foo"))
+                        if (field.getName().equals("foo"))
                             return "bar";
                         return null;
                     }
@@ -91,7 +91,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
             }
         };
         service.inject(test);
-        assertNull( test.toString());
+        assertNull(test.toString());
     }
 
     public void testHierarchicalStringInjectionAutowire() {
@@ -110,7 +110,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
                     @Override
                     public Object getInjection(Object object, Field field) {
-                        if(field.getName().equals("foo"))
+                        if (field.getName().equals("foo"))
                             return "bar";
                         return null;
                     }
@@ -148,7 +148,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
                     @Override
                     public Object getInjection(Object object, Field field) {
-                        if(field.getName().equals("wozzle"))
+                        if (field.getName().equals("wozzle"))
                             return "bar";
                         return null;
                     }
@@ -182,7 +182,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
                     @Override
                     public Object getInjection(Object object, Field field) {
-                        if(field.getName().equals("foo"))
+                        if (field.getName().equals("foo"))
                             return "bar";
                         return null;
                     }
@@ -230,9 +230,9 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
                     @Override
                     public Object getInjection(Object object, Field field) {
-                        if(field.getName().equals("foo"))
+                        if (field.getName().equals("foo"))
                             return "gotfoo";
-                        else if(field.getName().equals("bar"))
+                        else if (field.getName().equals("bar"))
                             return "hasbar";
                         return null;
                     }

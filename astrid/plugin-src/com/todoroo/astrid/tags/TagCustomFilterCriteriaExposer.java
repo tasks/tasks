@@ -41,9 +41,9 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
         // built in criteria: tags
         {
             TagService.Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-                            TaskDao.TaskCriteria.activeAndVisible());
+                    TaskDao.TaskCriteria.activeAndVisible());
             String[] tagNames = new String[tags.length];
-            for(int i = 0; i < tags.length; i++)
+            for (int i = 0; i < tags.length; i++)
                 tagNames[i] = tags[i].tag;
             ContentValues values = new ContentValues();
             values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
@@ -52,12 +52,12 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                     IDENTIFIER_TAG_IS,
                     context.getString(R.string.CFC_tag_text),
                     Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                                Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                            Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
                             TaskDao.TaskCriteria.activeAndVisible(),
                             MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                             TaskToTagMetadata.TAG_NAME.eq("?"), Metadata.DELETION_DATE.eq(0))).toString(),
                     values, tagNames, tagNames,
-                    ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
+                    ((BitmapDrawable) r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                     context.getString(R.string.CFC_tag_name));
             ret[j++] = criterion;
         }
@@ -65,16 +65,16 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
         // built in criteria: tags containing X
         {
             CustomFilterCriterion criterion = new TextInputCriterion(
-                            IDENTIFIER_TAG_CONTAINS,
-                            context.getString(R.string.CFC_tag_contains_text),
-                            Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                                    Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
-                                            TaskDao.TaskCriteria.activeAndVisible(),
-                                            MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                                            TaskToTagMetadata.TAG_NAME.like("%?%"), Metadata.DELETION_DATE.eq(0))).toString(),
-                                            null, context.getString(R.string.CFC_tag_contains_name), "",
-                                            ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
-                                            context.getString(R.string.CFC_tag_contains_name));
+                    IDENTIFIER_TAG_CONTAINS,
+                    context.getString(R.string.CFC_tag_contains_text),
+                    Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
+                            Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                            TaskDao.TaskCriteria.activeAndVisible(),
+                            MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                            TaskToTagMetadata.TAG_NAME.like("%?%"), Metadata.DELETION_DATE.eq(0))).toString(),
+                    null, context.getString(R.string.CFC_tag_contains_name), "",
+                    ((BitmapDrawable) r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
+                    context.getString(R.string.CFC_tag_contains_name));
             ret[j++] = criterion;
         }
 

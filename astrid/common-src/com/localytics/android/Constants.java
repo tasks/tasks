@@ -9,11 +9,10 @@ import android.text.format.DateUtils;
 
 /**
  * Build constants for the Localytics library.
- * <p>
+ * <p/>
  * This is not a public API.
  */
-/* package */final class Constants
-{
+/* package */final class Constants {
 
     /**
      * Version number of this library. This number is primarily important in terms of changes to the upload format.
@@ -53,7 +52,7 @@ import android.text.format.DateUtils;
 
     /**
      * Milliseconds after which a session is considered closed and cannot be reattached to.
-     * <p>
+     * <p/>
      * For example, if the user opens an app, presses home, and opens the app again in less than {@link #SESSION_EXPIRATION}
      * milliseconds, that will count as one session rather than two sessions.
      */
@@ -66,7 +65,7 @@ import android.text.format.DateUtils;
 
     /**
      * Boolean indicating whether logcat messages are enabled.
-     * <p>
+     * <p/>
      * Before releasing a production version of an app, this should be set to false for privacy and performance reasons. When
      * logging is enabled, sensitive information such as the device ID may be printed to the log.
      */
@@ -79,7 +78,7 @@ import android.text.format.DateUtils;
 
     /**
      * Cached copy of the current Android API level
-     * 
+     *
      * @see DatapointHelper#getApiLevel()
      */
     /*package*/ static final int CURRENT_API_LEVEL = DatapointHelper.getApiLevel();
@@ -89,8 +88,7 @@ import android.text.format.DateUtils;
      *
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
-    private Constants()
-    {
+    private Constants() {
         throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
     }
 }

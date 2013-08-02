@@ -15,7 +15,6 @@ import android.os.Parcelable;
  * together criteria
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class MultipleSelectCriterion extends CustomFilterCriterion implements Parcelable {
 
@@ -42,8 +41,8 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
      * @param name
      */
     public MultipleSelectCriterion(String identifier, String title, String sql,
-            ContentValues valuesForNewTasks, String[] entryTitles,
-            String[] entryValues, Bitmap icon, String name) {
+                                   ContentValues valuesForNewTasks, String[] entryTitles,
+                                   String[] entryValues, Bitmap icon, String name) {
         this.identifier = identifier;
         this.text = title;
         this.sql = sql;

@@ -33,7 +33,6 @@ import com.todoroo.astrid.reminders.ReminderService;
  * Data Access layer for {@link Task}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskDao extends RemoteModelDao<Task> {
 
@@ -43,8 +42,8 @@ public class TaskDao extends RemoteModelDao<Task> {
     @Autowired
     private Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
-	public TaskDao() {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "UR_UNINIT_READ")
+    public TaskDao() {
         super(Task.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
@@ -57,93 +56,125 @@ public class TaskDao extends RemoteModelDao<Task> {
      */
     public static class TaskCriteria {
 
-    	/** @returns tasks by id */
-    	public static Criterion byId(long id) {
-    	    return Task.ID.eq(id);
-    	}
-
-    	/** @return tasks that were deleted */
-    	public static Criterion isDeleted() {
-    	    return Task.DELETION_DATE.neq(0);
-    	}
-
-    	/** @return tasks that were not deleted */
-    	public static Criterion notDeleted() {
-    	    return Task.DELETION_DATE.eq(0);
-    	}
-
-    	/** @return tasks that have not yet been completed or deleted */
-    	public static Criterion activeAndVisible() {
-    	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
-    	            Task.DELETION_DATE.eq(0),
-    	            Task.HIDE_UNTIL.lt(Functions.now()));
-    	}
-
-    	/** @return tasks that have not yet been completed or deleted and are assigned to me */
-    	public static Criterion activeVisibleMine() {
-    	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
-    	            Task.DELETION_DATE.eq(0),
-    	            Task.HIDE_UNTIL.lt(Functions.now()),
-    	            Task.IS_READONLY.eq(0),
-    	            Task.USER_ID.eq(0));
-    	}
-
-    	/** @return tasks that have not yet been completed or deleted */
-    	public static Criterion isActive() {
-    	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
-    	            Task.DELETION_DATE.eq(0));
-    	}
-
-    	/** @return tasks that are due within the next 24 hours */
-    	public static Criterion dueToday() {
-    	    return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(DateUtilities.ONE_DAY)));
-    	}
-
-    	/** @return tasks that are due within the next 72 hours */
-    	public static Criterion dueSoon() {
-    	    return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(3 * DateUtilities.ONE_DAY)));
-    	}
-
-    	/** @return tasks that are not hidden at current time */
-    	public static Criterion isVisible() {
-    	    return Task.HIDE_UNTIL.lt(Functions.now());
+        /**
+         * @returns tasks by id
+         */
+        public static Criterion byId(long id) {
+            return Task.ID.eq(id);
         }
 
-    	/** @return tasks that are hidden at the current time */
-    	public static Criterion isHidden() {
-    	    return Task.HIDE_UNTIL.gt(Functions.now());
-    	}
+        /**
+         * @return tasks that were deleted
+         */
+        public static Criterion isDeleted() {
+            return Task.DELETION_DATE.neq(0);
+        }
 
-    	/** @return tasks that have a due date */
-    	public static Criterion hasDeadlines() {
-    	    return Task.DUE_DATE.neq(0);
-    	}
+        /**
+         * @return tasks that were not deleted
+         */
+        public static Criterion notDeleted() {
+            return Task.DELETION_DATE.eq(0);
+        }
 
-        /** @return tasks that are due before a certain unixtime */
+        /**
+         * @return tasks that have not yet been completed or deleted
+         */
+        public static Criterion activeAndVisible() {
+            return Criterion.and(Task.COMPLETION_DATE.eq(0),
+                    Task.DELETION_DATE.eq(0),
+                    Task.HIDE_UNTIL.lt(Functions.now()));
+        }
+
+        /**
+         * @return tasks that have not yet been completed or deleted and are assigned to me
+         */
+        public static Criterion activeVisibleMine() {
+            return Criterion.and(Task.COMPLETION_DATE.eq(0),
+                    Task.DELETION_DATE.eq(0),
+                    Task.HIDE_UNTIL.lt(Functions.now()),
+                    Task.IS_READONLY.eq(0),
+                    Task.USER_ID.eq(0));
+        }
+
+        /**
+         * @return tasks that have not yet been completed or deleted
+         */
+        public static Criterion isActive() {
+            return Criterion.and(Task.COMPLETION_DATE.eq(0),
+                    Task.DELETION_DATE.eq(0));
+        }
+
+        /**
+         * @return tasks that are due within the next 24 hours
+         */
+        public static Criterion dueToday() {
+            return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(DateUtilities.ONE_DAY)));
+        }
+
+        /**
+         * @return tasks that are due within the next 72 hours
+         */
+        public static Criterion dueSoon() {
+            return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(3 * DateUtilities.ONE_DAY)));
+        }
+
+        /**
+         * @return tasks that are not hidden at current time
+         */
+        public static Criterion isVisible() {
+            return Task.HIDE_UNTIL.lt(Functions.now());
+        }
+
+        /**
+         * @return tasks that are hidden at the current time
+         */
+        public static Criterion isHidden() {
+            return Task.HIDE_UNTIL.gt(Functions.now());
+        }
+
+        /**
+         * @return tasks that have a due date
+         */
+        public static Criterion hasDeadlines() {
+            return Task.DUE_DATE.neq(0);
+        }
+
+        /**
+         * @return tasks that are due before a certain unixtime
+         */
         public static Criterion dueBeforeNow() {
             return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.now()));
         }
 
-        /** @return tasks that are due after a certain unixtime */
+        /**
+         * @return tasks that are due after a certain unixtime
+         */
         public static Criterion dueAfterNow() {
             return Task.DUE_DATE.gt(Functions.now());
         }
 
-    	/** @return tasks completed before a given unixtime */
-    	public static Criterion completed() {
-    	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(Functions.now()));
-    	}
+        /**
+         * @return tasks completed before a given unixtime
+         */
+        public static Criterion completed() {
+            return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(Functions.now()));
+        }
 
-    	/** @return tasks that have a blank or null title */
-    	@SuppressWarnings("nls")
+        /**
+         * @return tasks that have a blank or null title
+         */
+        @SuppressWarnings("nls")
         public static Criterion hasNoTitle() {
-    	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
-    	}
+            return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
+        }
 
-    	/** Check if a given task belongs to someone else & is read-only */
+        /**
+         * Check if a given task belongs to someone else & is read-only
+         */
         public static Criterion ownedByMe() {
-             return Criterion.and(Task.IS_READONLY.eq(0),
-                     Task.USER_ID.eq(0));
+            return Criterion.and(Task.IS_READONLY.eq(0),
+                    Task.USER_ID.eq(0));
         }
 
     }
@@ -163,7 +194,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     @Override
     public boolean delete(long id) {
         boolean result = super.delete(id);
-        if(!result)
+        if (!result)
             return false;
 
         // delete all metadata
@@ -211,15 +242,15 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     @Override
     public boolean createNew(Task item) {
-        if(!item.containsValue(Task.CREATION_DATE))
+        if (!item.containsValue(Task.CREATION_DATE))
             item.setValue(Task.CREATION_DATE, DateUtilities.now());
         item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
 
         // set up task defaults
-        if(!item.containsValue(Task.IMPORTANCE))
+        if (!item.containsValue(Task.IMPORTANCE))
             item.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
-        if(!item.containsValue(Task.DUE_DATE)) {
+        if (!item.containsValue(Task.DUE_DATE)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key,
                     Task.URGENCY_NONE);
             item.setValue(Task.DUE_DATE, Task.createDueDate(setting, 0));
@@ -230,7 +261,7 @@ public class TaskDao extends RemoteModelDao<Task> {
 
         ContentValues values = item.getSetValues();
         boolean result = super.createNew(item);
-        if(result) {
+        if (result) {
             afterSave(item, values);
         }
 
@@ -238,7 +269,7 @@ public class TaskDao extends RemoteModelDao<Task> {
     }
 
     public static void createDefaultHideUntil(Task item) {
-        if(!item.containsValue(Task.HIDE_UNTIL)) {
+        if (!item.containsValue(Task.HIDE_UNTIL)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                     Task.HIDE_UNTIL_NONE);
             item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
@@ -247,15 +278,16 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     /**
      * Sets default reminders for the given task if reminders are not set
+     *
      * @param item
      */
     public static void setDefaultReminders(Task item) {
-        if(!item.containsValue(Task.REMINDER_PERIOD)) {
+        if (!item.containsValue(Task.REMINDER_PERIOD)) {
             item.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR *
                     Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
                             0));
         }
-        if(!item.containsValue(Task.REMINDER_FLAGS)) {
+        if (!item.containsValue(Task.REMINDER_FLAGS)) {
             int reminder_flags = Preferences.getIntegerFromString(R.string.p_default_reminders_key,
                     Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE) |
                     Preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
@@ -266,30 +298,30 @@ public class TaskDao extends RemoteModelDao<Task> {
     @Override
     public boolean saveExisting(Task item) {
         ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0)
+        if (values == null || values.size() == 0)
             return false;
-        if(!TaskApiDao.insignificantChange(values)) {
+        if (!TaskApiDao.insignificantChange(values)) {
             item.setValue(Task.DETAILS, null);
-            if(!values.containsKey(Task.MODIFICATION_DATE.name))
+            if (!values.containsKey(Task.MODIFICATION_DATE.name))
                 item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }
         boolean result = super.saveExisting(item);
-        if(result)
+        if (result)
             afterSave(item, values);
         return result;
     }
 
-    private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {
-        Task.ID,
-        Task.UUID,
-        Task.TITLE,
-        Task.IMPORTANCE,
-        Task.DUE_DATE,
-        Task.CREATION_DATE,
-        Task.DELETION_DATE,
-        Task.NOTES,
-        Task.HIDE_UNTIL,
-        Task.RECURRENCE
+    private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[]{
+            Task.ID,
+            Task.UUID,
+            Task.TITLE,
+            Task.IMPORTANCE,
+            Task.DUE_DATE,
+            Task.CREATION_DATE,
+            Task.DELETION_DATE,
+            Task.NOTES,
+            Task.HIDE_UNTIL,
+            Task.RECURRENCE
     };
 
     @Override
@@ -309,7 +341,7 @@ public class TaskDao extends RemoteModelDao<Task> {
                 if (tasksWithUUID.getCount() > 0) {
                     Task curr = new Task();
                     for (tasksWithUUID.moveToFirst();
-                            !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
+                         !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
                         curr.readFromCursor(tasksWithUUID);
                         if (curr.getId() == item.getId())
                             continue;
@@ -335,7 +367,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         for (Property<?> p : SQL_CONSTRAINT_MERGE_PROPERTIES) {
             if (p.equals(Task.ID))
                 continue;
-            if(existing.containsNonNullValue(p) != newConflict.containsNonNullValue(p))
+            if (existing.containsNonNullValue(p) != newConflict.containsNonNullValue(p))
                 match = false;
             else if (existing.containsNonNullValue(p) &&
                     !existing.getValue(p).equals(newConflict.getValue(p)))
@@ -357,14 +389,14 @@ public class TaskDao extends RemoteModelDao<Task> {
      * Astrid. Order matters here!
      */
     public static void afterSave(Task task, ContentValues values) {
-        if(values == null)
+        if (values == null)
             return;
 
         task.markSaved();
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
+        if (values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
             afterComplete(task, values);
         else {
-            if(values.containsKey(Task.DUE_DATE.name) ||
+            if (values.containsKey(Task.DUE_DATE.name) ||
                     values.containsKey(Task.REMINDER_FLAGS.name) ||
                     values.containsKey(Task.REMINDER_PERIOD.name) ||
                     values.containsKey(Task.REMINDER_LAST.name) ||
@@ -378,16 +410,17 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     /**
      * Send broadcasts on task change (triggers things like task repeats)
-     * @param task task that was saved
+     *
+     * @param task   task that was saved
      * @param values values that were updated
      */
     public static void broadcastTaskSave(Task task, ContentValues values) {
-        if(TaskApiDao.insignificantChange(values))
+        if (TaskApiDao.insignificantChange(values))
             return;
 
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
+        if (values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
             Context context = ContextManager.getContext();
-            if(context != null) {
+            if (context != null) {
                 Intent broadcastIntent;
                 broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
                 broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
@@ -403,7 +436,7 @@ public class TaskDao extends RemoteModelDao<Task> {
      */
     public static void broadcastTaskChanged() {
         Context context = ContextManager.getContext();
-        if(context != null) {
+        if (context != null) {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED);
             context.sendOrderedBroadcast(broadcastIntent, null);
         }

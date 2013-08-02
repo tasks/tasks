@@ -1,14 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -18,6 +9,15 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public abstract class AstridOrderedListUpdater<LIST> {
 
@@ -51,7 +51,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
     private final HashMap<String, Node> idToNode;
 
     protected abstract String getSerializedTree(LIST list, Filter filter);
+
     protected abstract void writeSerialization(LIST list, String serialized, boolean shouldQueueSync);
+
     protected abstract void applyToFilter(Filter filter);
 
     public int getIndentForTask(String targetTaskId) {

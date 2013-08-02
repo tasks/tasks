@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.files;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -17,6 +12,11 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.TaskAttachment;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FileUtilities {
 
@@ -32,8 +32,7 @@ public class FileUtilities {
         String value;
         if (DateUtilities.is24HourFormat(context)) {
             value = "HH.mm";
-        }
-        else {
+        } else {
             value = "hh.mma";
         }
         return new SimpleDateFormat(value).format(date);

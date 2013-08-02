@@ -8,10 +8,9 @@ package com.todoroo.andlib.utility;
 /**
  * Pair utility class
  *
- * @author Tim Su <tim@todoroo.com>
- *
  * @param <L>
  * @param <R>
+ * @author Tim Su <tim@todoroo.com>
  */
 public class Pair<L, R> {
 

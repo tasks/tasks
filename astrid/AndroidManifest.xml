@@ -8,656 +8,746 @@
           package="com.timsu.astrid"
           android:versionName="4.6.5"
           android:versionCode="306">
-          
-  <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
-  <!--    android:installLocation="internalOnly"> -->
-       
-      
-  <!-- ================================================== Used Permissions = -->
 
-  <!-- for notifications -->
-  <uses-permission android:name="android.permission.VIBRATE"/>
-  <!-- for synchronization -->
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <!-- for google calendar integration -->
-  <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-  <uses-permission android:name="android.permission.READ_CALENDAR" />
-  <!-- for creating shortcuts -->
-  <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-  <!-- for backup -->
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    
-  <!-- for analytics -->
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-  <!-- for google tasks -->
-  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-  <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-  <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
-  <!-- for task sharing -->
-  <uses-permission android:name="android.permission.READ_CONTACTS" />  
-  <!-- for push notifications -->
-  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-  <!-- for missed call reminders -->
-  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-  <!-- required for ics -->
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-  <uses-permission android:name="android.permission.RECORD_AUDIO" />
-  
-  <!-- required for in-app billing of premium subscriptions -->
-  <uses-permission android:name="com.android.vending.BILLING"/>
-  
-  <!-- Required for GCM - keeps the processor from sleeping when a message is received. -->
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  
-  <!-- Used to initiate sync when device comes back online -->
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
+    <!--    android:installLocation="internalOnly"> -->
 
-  <!-- ============================================== Exported Permissions = -->
 
-  <!-- for v2 tasks provider -->
-  <permission android:name="com.timsu.astrid.permission.READ_TASKS"
-              android:permissionGroup="android.permission-group.MESSAGES"
-              android:protectionLevel="normal"
-              android:label="@string/read_permission_label"
-              android:description="@string/read_permission_desc"/>
-  <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
-  
-  <!-- for reading data from add-ons or astrid via v3 content provider -->
-  <permission android:name="com.todoroo.astrid.READ"
-              android:description="@string/read_permission_desc"
-              android:protectionLevel="normal"
-              android:label="@string/read_permission_label" />
-  <uses-permission android:name="com.todoroo.astrid.READ" />
-  
-  <!-- for writing data to add-ons or astrid via v3 content provider -->
-  <permission android:name="com.todoroo.astrid.WRITE"
-              android:description="@string/write_permission_desc"
-              android:protectionLevel="normal"
-              android:label="@string/write_permission_label" />
-  <uses-permission android:name="com.todoroo.astrid.WRITE" />
-  <!-- for receiving C2D messages-->
-  <permission android:name="com.timsu.astrid.permission.C2D_MESSAGE" 
-              android:protectionLevel="signature" />
-  <uses-permission android:name="com.timsu.astrid.permission.C2D_MESSAGE" />
-  
-  <!-- ========================================================== Metadata = -->
+    <!-- ================================================== Used Permissions = -->
 
-  <uses-sdk android:targetSdkVersion="10"
+    <!-- for notifications -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!-- for synchronization -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- for google calendar integration -->
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <!-- for creating shortcuts -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <!-- for backup -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- for analytics -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- for google tasks -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
+    <!-- for task sharing -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- for push notifications -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <!-- for missed call reminders -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- required for ics -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <!-- required for in-app billing of premium subscriptions -->
+    <uses-permission android:name="com.android.vending.BILLING"/>
+
+    <!-- Required for GCM - keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- Used to initiate sync when device comes back online -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- ============================================== Exported Permissions = -->
+
+    <!-- for v2 tasks provider -->
+    <permission
+            android:name="com.timsu.astrid.permission.READ_TASKS"
+            android:permissionGroup="android.permission-group.MESSAGES"
+            android:protectionLevel="normal"
+            android:label="@string/read_permission_label"
+            android:description="@string/read_permission_desc"/>
+    <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
+
+    <!-- for reading data from add-ons or astrid via v3 content provider -->
+    <permission
+            android:name="com.todoroo.astrid.READ"
+            android:description="@string/read_permission_desc"
+            android:protectionLevel="normal"
+            android:label="@string/read_permission_label"/>
+    <uses-permission android:name="com.todoroo.astrid.READ"/>
+
+    <!-- for writing data to add-ons or astrid via v3 content provider -->
+    <permission
+            android:name="com.todoroo.astrid.WRITE"
+            android:description="@string/write_permission_desc"
+            android:protectionLevel="normal"
+            android:label="@string/write_permission_label"/>
+    <uses-permission android:name="com.todoroo.astrid.WRITE"/>
+    <!-- for receiving C2D messages-->
+    <permission
+            android:name="com.timsu.astrid.permission.C2D_MESSAGE"
+            android:protectionLevel="signature"/>
+    <uses-permission android:name="com.timsu.astrid.permission.C2D_MESSAGE"/>
+
+    <!-- ========================================================== Metadata = -->
+
+    <uses-sdk
+            android:targetSdkVersion="10"
             android:minSdkVersion="7"/>
-  <supports-screens android:xlargeScreens="true" android:largeScreens="true"/>
-  
-  <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
-  
-  <application android:icon="@drawable/icon" 
-               android:label="@string/app_name"
-               android:theme="@style/Theme"
-               android:name="greendroid.app.GDApplication" 
-               android:hardwareAccelerated="false" 
-               android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
-  
-	<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/fb_app_id"/>
-    <!-- ====================================================== Activities = -->
-        
-    <!-- Activity that displays task list -->
-    <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
-              android:windowSoftInputMode="stateHidden|adjustResize">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.SEARCH" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-      <meta-data android:name="android.app.searchable" 
-                 android:resource="@xml/filter_list_searchable" />
-    </activity>
-    <!-- Activity launched from shortcut -->
-    <activity android:name="com.todoroo.astrid.activity.ShortcutActivity"
-              android:clearTaskOnLaunch="true">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <!-- Activity for selecting Android shortcut -->
-    <activity android:name="com.todoroo.astrid.activity.FilterShortcutActivity"
-              android:label="@string/FSA_label">
-      <intent-filter>
-        <action android:name="android.intent.action.CREATE_SHORTCUT" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <!-- Activity launched from ShareLink menu item -->
-    <activity android:name="com.todoroo.astrid.activity.ShareLinkActivity"
-    	android:clearTaskOnLaunch="true">
-        <intent-filter>
-            <action android:name="android.intent.action.SEND" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <data android:mimeType="text/plain" />
-        </intent-filter>
-    </activity>
-    <!-- Legacy Task List shortcut activity -->
-    <activity android:name=".activities.TaskList">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-        </intent-filter>
-    </activity>
-    <!-- Activity that creates or edits tasks -->
-    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
-              android:windowSoftInputMode="stateHidden">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>      
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <data android:mimeType="vnd.android.cursor.item/task" />
-      </intent-filter>      
-    </activity>
-    <!-- Activity that selects and installs add-ons -->
-    <activity android:name="com.todoroo.astrid.activity.AddOnActivity"
-              android:windowSoftInputMode="stateHidden" />
-    <!-- Activity for preferences -->
-    <activity android:name="com.todoroo.astrid.activity.EditPreferences" 
-        android:theme="@android:style/Theme" />
-    <!-- Activity that configures widget -->
-    <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity">
-	    <intent-filter>
-	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-	    </intent-filter>
-    </activity>
+    <supports-screens
+            android:xlargeScreens="true"
+            android:largeScreens="true"/>
 
-    <activity android:name="com.todoroo.astrid.activity.ShareActivity"/>
-    
-    
-    <activity android:name="com.todoroo.astrid.service.UpdateScreenFlow"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Dialog"/>
-    
-    <activity android:name="com.todoroo.astrid.service.UpdateMessagePreference"
-        android:theme="@android:style/Theme" />
+    <uses-feature
+            android:name="android.hardware.touchscreen"
+            android:required="false"/>
 
-    <activity android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
-        android:screenOrientation="portrait"/>
+    <application
+            android:icon="@drawable/icon"
+            android:label="@string/app_name"
+            android:theme="@style/Theme"
+            android:name="greendroid.app.GDApplication"
+            android:hardwareAccelerated="false"
+            android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
-    
-    <activity android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme" />
-    
-    <!-- Start of Crittercism.com Code -->
-    <activity android:name="com.crittercism.NotificationActivity"/>
-    <!-- End of Crittercism.com Code -->
-    
-        
-    <!-- ======================================================= Receivers = -->
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/fb_app_id"/>
+        <!-- ====================================================== Activities = -->
 
-    <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
-    
-    <receiver android:name="com.todoroo.astrid.reminders.Notifications$ShowNotificationReceiver">
-      <intent-filter> 
-        <action android:name="com.timsu.astrid.IN_APP_NOTIFY"/>
-      </intent-filter>
-    </receiver>
-    
-    <!-- widgets -->
-    <receiver android:name="com.todoroo.astrid.widget.TasksWidget"
-        android:label="@string/widget_mini">
-      <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-      </intent-filter>
-      <meta-data android:name="android.appwidget.provider"
-                 android:resource="@xml/widget_provider_info" />
-    </receiver>
+        <!-- Activity that displays task list -->
+        <activity
+                android:name="com.todoroo.astrid.activity.TaskListActivity"
+                android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
 
-    <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.FLUSH_DETAILS" />
-      </intent-filter>
-    </receiver>
-    
-    <receiver android:name="com.todoroo.astrid.calls.PhoneStateChangedReceiver">
-        <intent-filter>
-            <action android:name="android.intent.action.PHONE_STATE"/>
-        </intent-filter>
-    </receiver>
-    
-    <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
-        <intent-filter>
-            <action android:name="com.timsu.astrid.SHOW_REENGAGEMENT"/> 
-        </intent-filter>
-    </receiver>
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/filter_list_searchable"/>
+        </activity>
+        <!-- Activity launched from shortcut -->
+        <activity
+                android:name="com.todoroo.astrid.activity.ShortcutActivity"
+                android:clearTaskOnLaunch="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <!-- Activity for selecting Android shortcut -->
+        <activity
+                android:name="com.todoroo.astrid.activity.FilterShortcutActivity"
+                android:label="@string/FSA_label">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <!-- Activity launched from ShareLink menu item -->
+        <activity
+                android:name="com.todoroo.astrid.activity.ShareLinkActivity"
+                android:clearTaskOnLaunch="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
+        <!-- Legacy Task List shortcut activity -->
+        <activity android:name=".activities.TaskList">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <!-- Activity that creates or edits tasks -->
+        <activity
+                android:name="com.todoroo.astrid.activity.TaskEditActivity"
+                android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="vnd.android.cursor.item/task"/>
+            </intent-filter>
+        </activity>
+        <!-- Activity that selects and installs add-ons -->
+        <activity
+                android:name="com.todoroo.astrid.activity.AddOnActivity"
+                android:windowSoftInputMode="stateHidden"/>
+        <!-- Activity for preferences -->
+        <activity
+                android:name="com.todoroo.astrid.activity.EditPreferences"
+                android:theme="@android:style/Theme"/>
+        <!-- Activity that configures widget -->
+        <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
 
-    <!-- ======================================================== Services = -->
+        <activity android:name="com.todoroo.astrid.activity.ShareActivity"/>
 
-    <service android:name="com.todoroo.astrid.widget.TasksWidget$WidgetUpdateService" />
 
-    <!-- ======================================================= Providers = -->
+        <activity
+                android:name="com.todoroo.astrid.service.UpdateScreenFlow"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Dialog"/>
 
-    <provider android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
-              android:authorities="com.timsu.astrid.tasksprovider"
-              android:multiprocess="true"
-              android:grantUriPermissions="true"
-              android:readPermission="com.timsu.astrid.permission.READ_TASKS"/>
+        <activity
+                android:name="com.todoroo.astrid.service.UpdateMessagePreference"
+                android:theme="@android:style/Theme"/>
 
-    <provider android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
-              android:authorities="com.todoroo.astrid"
-              android:multiprocess="true"
-              android:grantUriPermissions="true"
-              android:readPermission="com.todoroo.astrid.READ"
-              android:writePermission="com.todoroo.astrid.WRITE"/>
+        <activity
+                android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
+                android:screenOrientation="portrait"/>
 
-    <provider android:name="com.todoroo.astrid.provider.SqlContentProvider"
-              android:authorities="com.todoroo.astrid.private"
-              android:multiprocess="true"
-              android:grantUriPermissions="true"
-              android:readPermission="com.todoroo.astrid.READ"
-              android:writePermission="com.todoroo.astrid.WRITE"/>
 
-    <!-- ========================================================= Plugins = -->
-        
-    <!-- core -->
-    <receiver android:name="com.todoroo.astrid.core.CorePlugin">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.core.CoreFilterExposer">
-      <intent-filter android:priority="9000">
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.core.DefaultsPreferences"
-              android:theme="@android:style/Theme" 
-              android:label="@string/EPr_defaults_header">
-      <meta-data android:name="summary"
-                 android:resource="@string/EPr_defaults_summary" />
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <activity android:name="com.todoroo.astrid.activity.BeastModePreferences"
-              android:theme="@android:style/Theme">
-    </activity>
-    
-    <activity android:name="com.todoroo.astrid.calls.MissedCallActivity"
-              android:theme="@android:style/Theme.Translucent.NoTitleBar">
-    </activity>
-    
-    <!-- tags -->
-    <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.tags.TagFilterExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.tags.TagDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver> 
-    
-    <!-- custom filters -->
-    <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
-      <intent-filter android:priority="9000">
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" android:theme="@style/Theme.Dialog" />
-    <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" android:theme="@style/Theme.FullTransparent" />
-    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity" android:theme="@style/Theme.FullTransparent" />
-    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity" android:theme="@style/Theme.FullTransparent" />
+        <activity
+                android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme"/>
 
-    <!-- People view -->
-    <receiver android:name="com.todoroo.astrid.people.PeopleFilterExposer">
-        <intent-filter>
-            <action android:name="com.timsu.astrid.REQUEST_PEOPLE_FILTERS"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-        </intent-filter>
-    </receiver>
-    
-    
-    <!-- Featured lists -->
-    <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
-        <intent-filter>
-            <action android:name="com.timsu.astrid.REQUEST_FEATURED_LISTS"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-        </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.tags.reusable.FeaturedListActivity"
-              android:windowSoftInputMode="stateHidden|adjustResize"/>
-    
-    <!-- alarms -->
-    <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.TASK_REPEATED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.alarms.AlarmDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-            
-    <!-- actfm -->
-    <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity"
-              android:configChanges="keyboardHidden"/>
-    <activity android:name="com.facebook.LoginActivity" />
-    <activity android:name="com.todoroo.astrid.actfm.ActFmPreferences"
-              android:theme="@android:style/Theme"
-              android:label="@string/actfm_APr_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <meta-data android:name="syncAction"
-                 android:value="true" />
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <activity android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity" 
-              android:theme="@style/Theme" android:configChanges="orientation|keyboardHidden"/>
-    <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.actfm.SYNC" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </service>
-    <activity android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
-              android:windowSoftInputMode="stateHidden|adjustResize"
-              android:theme="@style/Theme">
-        <intent-filter>
-          <action android:name="android.intent.action.VIEW" />
-          <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <activity android:name="com.todoroo.astrid.actfm.TagCreateActivity"
-              android:theme="@android:style/Theme.Dialog"/>
-    <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
-              android:windowSoftInputMode="stateHidden"/>
-    <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme.Dialog"/>
-    <activity android:name="com.todoroo.astrid.actfm.CommentsActivity"
-              android:windowSoftInputMode="stateHidden"/>            
+        <!-- Start of Crittercism.com Code -->
+        <activity android:name="com.crittercism.NotificationActivity"/>
+        <!-- End of Crittercism.com Code -->
 
-    <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
-	  <intent-filter>
-	    <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-	    <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-	    <category android:name="com.timsu.astrid" />
-	  </intent-filter>
-	</receiver>
-	
-    <service android:name=".GCMIntentService" />
-    
-    <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread$NetworkStateChangedReceiver">
-        <intent-filter>
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-       </intent-filter>
-    </receiver>
-    
-    <!-- gtasks -->
-    <activity android:name="com.todoroo.astrid.gtasks.GtasksListFragment"
-              android:windowSoftInputMode="stateHidden|adjustResize"
-              android:theme="@style/Theme">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksAuthTokenProvider"/>
-    <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity" 
-              android:theme="@style/Theme" android:configChanges="orientation|keyboardHidden"/>
-    <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.gtasks.GtasksListAdder"
-              android:theme="@android:style/Theme.Dialog"/>
-    <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
-              android:theme="@android:style/Theme"
-              android:label="@string/gtasks_GPr_header"
-              android:screenOrientation="portrait">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <meta-data android:name="syncAction"
-                 android:value="true" />
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.gtasks.SYNC" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </service>        
-    <receiver android:name="com.todoroo.astrid.gtasks.GtasksStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    
-    <!-- repeats -->
-    <receiver android:name="com.todoroo.astrid.repeats.RepeatsPlugin">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
-      <intent-filter android:priority="1">
-        <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.repeats.RepeatDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    
-    <!-- calendar -->
-    <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
-      <intent-filter android:priority="2">
-        <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    
-    <receiver android:name="com.todoroo.astrid.gcal.CalendarStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-      <intent-filter>
-          <action android:name="com.todoroo.astrid.SCHEDULE_CAL_REMINDERS"/>
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    
-    <activity android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
-              android:theme="@android:style/Theme.Translucent.NoTitleBar">
-    </activity>
 
-    <activity android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
-              android:theme="@android:style/Theme.Translucent.NoTitleBar">
-    </activity>
-    
-    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
-    
-    <!-- old tasks -->
-    <activity android:name="com.todoroo.astrid.core.OldTaskPreferences"
-              android:theme="@android:style/Theme" 
-              android:label="@string/EPr_manage_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    
-    <!-- backup -->
-    <service android:name="com.todoroo.astrid.backup.BackupService"/>
-    <activity android:name="com.todoroo.astrid.backup.BackupActivity"
-              android:theme="@style/Theme.Dialog" />
-    <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
-              android:theme="@android:style/Theme" 
-              android:label="@string/backup_BPr_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <receiver android:name="com.todoroo.astrid.backup.BackupStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    
-    <!-- premium -->
-    <service android:name="com.todoroo.astrid.billing.BillingService" />
+        <!-- ======================================================= Receivers = -->
 
-    <receiver android:name="com.todoroo.astrid.billing.BillingReceiver">
-      <intent-filter>
-        <action android:name="com.android.vending.billing.IN_APP_NOTIFY" />
-        <action android:name="com.android.vending.billing.RESPONSE_CODE" />
-        <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" />
-      </intent-filter>
-    </receiver>
-    
-    <activity android:name="com.todoroo.astrid.billing.BillingActivity"
-        android:screenOrientation="portrait"/>
-    
-    <activity android:name="com.todoroo.astrid.files.AACRecordingActivity"
-        android:configChanges="orientation|screenSize"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-    
-    <activity android:name="com.todoroo.astrid.files.FileExplore"/>
-        
-    <!-- locale -->
-    <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
-              android:label="@string/locale_edit_alerts_title"
-              android:icon="@drawable/icon_32"
-              android:exported="true">
-      <intent-filter>
-        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-      </intent-filter>
-    </activity>
-    <receiver android:name="com.todoroo.astrid.locale.LocaleReceiver">
-      <intent-filter>
-        <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
-      </intent-filter>
-    </receiver>
-    
-    <!-- notes -->
-    <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
+        <receiver android:name="com.todoroo.astrid.reminders.Notifications"/>
 
-    <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
-      <intent-filter android:priority="10000">
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-              
-    <!-- reminders -->        
-    <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences"
-              android:theme="@android:style/Theme" 
-              android:label="@string/rmd_EPr_alerts_header">
-      <meta-data android:name="summary"
-                 android:resource="@string/rmd_EPr_alerts_summary" />
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.reminders.NotificationWrapperActivity"
-              android:launchMode="singleTask"
-              android:finishOnTaskLaunch="true"
-              android:clearTaskOnLaunch="true">
-    </activity>
-    <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService"/>
+        <receiver android:name="com.todoroo.astrid.reminders.Notifications$ShowNotificationReceiver">
+            <intent-filter>
+                <action android:name="com.timsu.astrid.IN_APP_NOTIFY"/>
+            </intent-filter>
+        </receiver>
 
-    <!-- other task actions -->
-    <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    
-    <activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
-              android:windowSoftInputMode="stateHidden"
-              android:screenOrientation="portrait"></activity>
-    
-    <!-- Uses Library -->      
-    <uses-library android:name="com.google.android.maps" android:required="false" />   
-  
-  </application>
+        <!-- widgets -->
+        <receiver
+                android:name="com.todoroo.astrid.widget.TasksWidget"
+                android:label="@string/widget_mini">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider_info"/>
+        </receiver>
+
+        <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.FLUSH_DETAILS"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.todoroo.astrid.calls.PhoneStateChangedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
+            <intent-filter>
+                <action android:name="com.timsu.astrid.SHOW_REENGAGEMENT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- ======================================================== Services = -->
+
+        <service android:name="com.todoroo.astrid.widget.TasksWidget$WidgetUpdateService"/>
+
+        <!-- ======================================================= Providers = -->
+
+        <provider
+                android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
+                android:authorities="com.timsu.astrid.tasksprovider"
+                android:multiprocess="true"
+                android:grantUriPermissions="true"
+                android:readPermission="com.timsu.astrid.permission.READ_TASKS"/>
+
+        <provider
+                android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
+                android:authorities="com.todoroo.astrid"
+                android:multiprocess="true"
+                android:grantUriPermissions="true"
+                android:readPermission="com.todoroo.astrid.READ"
+                android:writePermission="com.todoroo.astrid.WRITE"/>
+
+        <provider
+                android:name="com.todoroo.astrid.provider.SqlContentProvider"
+                android:authorities="com.todoroo.astrid.private"
+                android:multiprocess="true"
+                android:grantUriPermissions="true"
+                android:readPermission="com.todoroo.astrid.READ"
+                android:writePermission="com.todoroo.astrid.WRITE"/>
+
+        <!-- ========================================================= Plugins = -->
+
+        <!-- core -->
+        <receiver android:name="com.todoroo.astrid.core.CorePlugin">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_ADDONS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.core.CoreFilterExposer">
+            <intent-filter android:priority="9000">
+                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.todoroo.astrid.core.DefaultsPreferences"
+                android:theme="@android:style/Theme"
+                android:label="@string/EPr_defaults_header">
+            <meta-data
+                    android:name="summary"
+                    android:resource="@string/EPr_defaults_summary"/>
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.todoroo.astrid.activity.BeastModePreferences"
+                android:theme="@android:style/Theme">
+        </activity>
+
+        <activity
+                android:name="com.todoroo.astrid.calls.MissedCallActivity"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+
+        <!-- tags -->
+        <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_ADDONS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.tags.TagFilterExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.tags.TagDetailExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- custom filters -->
+        <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
+            <intent-filter android:priority="9000">
+                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.todoroo.astrid.core.CustomFilterActivity"
+                android:theme="@style/Theme.Dialog"/>
+        <activity
+                android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity"
+                android:theme="@style/Theme.FullTransparent"/>
+        <activity
+                android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity"
+                android:theme="@style/Theme.FullTransparent"/>
+        <activity
+                android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity"
+                android:theme="@style/Theme.FullTransparent"/>
+
+        <!-- People view -->
+        <receiver android:name="com.todoroo.astrid.people.PeopleFilterExposer">
+            <intent-filter>
+                <action android:name="com.timsu.astrid.REQUEST_PEOPLE_FILTERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+
+        <!-- Featured lists -->
+        <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
+            <intent-filter>
+                <action android:name="com.timsu.astrid.REQUEST_FEATURED_LISTS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <activity
+                android:name="com.todoroo.astrid.tags.reusable.FeaturedListActivity"
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <!-- alarms -->
+        <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.TASK_REPEATED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.alarms.AlarmDetailExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- actfm -->
+        <activity
+                android:name="com.todoroo.astrid.actfm.ActFmLoginActivity"
+                android:configChanges="keyboardHidden"/>
+        <activity android:name="com.facebook.LoginActivity"/>
+        <activity
+                android:name="com.todoroo.astrid.actfm.ActFmPreferences"
+                android:theme="@android:style/Theme"
+                android:label="@string/actfm_APr_header">
+            <meta-data
+                    android:name="category"
+                    android:resource="@string/SyP_label"/>
+            <meta-data
+                    android:name="syncAction"
+                    android:value="true"/>
+
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity"
+                android:theme="@style/Theme"
+                android:configChanges="orientation|keyboardHidden"/>
+
+        <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.actfm.SYNC"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+
+        <activity
+                android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
+                android:windowSoftInputMode="stateHidden|adjustResize"
+                android:theme="@style/Theme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.todoroo.astrid.actfm.TagCreateActivity"
+                android:theme="@android:style/Theme.Dialog"/>
+        <activity
+                android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
+                android:windowSoftInputMode="stateHidden"/>
+        <activity
+                android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
+                android:windowSoftInputMode="stateHidden"
+                android:theme="@style/Theme.Dialog"/>
+        <activity
+                android:name="com.todoroo.astrid.actfm.CommentsActivity"
+                android:windowSoftInputMode="stateHidden"/>
+
+        <receiver
+                android:name="com.google.android.gcm.GCMBroadcastReceiver"
+                android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+
+                <category android:name="com.timsu.astrid"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GCMIntentService"/>
+
+        <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread$NetworkStateChangedReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- gtasks -->
+        <activity
+                android:name="com.todoroo.astrid.gtasks.GtasksListFragment"
+                android:windowSoftInputMode="stateHidden|adjustResize"
+                android:theme="@style/Theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksAuthTokenProvider"/>
+        <activity
+                android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
+                android:theme="@style/Theme"
+                android:configChanges="orientation|keyboardHidden"/>
+
+        <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.todoroo.astrid.gtasks.GtasksListAdder"
+                android:theme="@android:style/Theme.Dialog"/>
+        <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <activity
+                android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
+                android:theme="@android:style/Theme"
+                android:label="@string/gtasks_GPr_header"
+                android:screenOrientation="portrait">
+            <meta-data
+                    android:name="category"
+                    android:resource="@string/SyP_label"/>
+            <meta-data
+                    android:name="syncAction"
+                    android:value="true"/>
+
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.gtasks.SYNC"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+        <receiver android:name="com.todoroo.astrid.gtasks.GtasksStartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- repeats -->
+        <receiver android:name="com.todoroo.astrid.repeats.RepeatsPlugin">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_ADDONS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
+            <intent-filter android:priority="1">
+                <action android:name="com.todoroo.astrid.TASK_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.repeats.RepeatDetailExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- calendar -->
+        <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
+            <intent-filter android:priority="2">
+                <action android:name="com.todoroo.astrid.TASK_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.todoroo.astrid.gcal.CalendarStartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SCHEDULE_CAL_REMINDERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+
+        <activity
+                android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+
+        <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver"/>
+
+        <!-- old tasks -->
+        <activity
+                android:name="com.todoroo.astrid.core.OldTaskPreferences"
+                android:theme="@android:style/Theme"
+                android:label="@string/EPr_manage_header">
+            <meta-data
+                    android:name="category"
+                    android:resource="@string/SyP_label"/>
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!-- backup -->
+        <service android:name="com.todoroo.astrid.backup.BackupService"/>
+
+        <activity
+                android:name="com.todoroo.astrid.backup.BackupActivity"
+                android:theme="@style/Theme.Dialog"/>
+        <activity
+                android:name="com.todoroo.astrid.backup.BackupPreferences"
+                android:theme="@android:style/Theme"
+                android:label="@string/backup_BPr_header">
+            <meta-data
+                    android:name="category"
+                    android:resource="@string/SyP_label"/>
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.todoroo.astrid.backup.BackupStartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- premium -->
+        <service android:name="com.todoroo.astrid.billing.BillingService"/>
+
+        <receiver android:name="com.todoroo.astrid.billing.BillingReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.billing.IN_APP_NOTIFY"/>
+                <action android:name="com.android.vending.billing.RESPONSE_CODE"/>
+                <action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.todoroo.astrid.billing.BillingActivity"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name="com.todoroo.astrid.files.AACRecordingActivity"
+                android:configChanges="orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity android:name="com.todoroo.astrid.files.FileExplore"/>
+
+        <!-- locale -->
+        <activity
+                android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
+                android:label="@string/locale_edit_alerts_title"
+                android:icon="@drawable/icon_32"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.todoroo.astrid.locale.LocaleReceiver">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- notes -->
+        <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
+            <intent-filter android:priority="10000">
+                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.TASK_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- reminders -->
+        <activity
+                android:name="com.todoroo.astrid.reminders.ReminderPreferences"
+                android:theme="@android:style/Theme"
+                android:label="@string/rmd_EPr_alerts_header">
+            <meta-data
+                    android:name="summary"
+                    android:resource="@string/rmd_EPr_alerts_summary"/>
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <activity
+                android:name="com.todoroo.astrid.reminders.NotificationWrapperActivity"
+                android:launchMode="singleTask"
+                android:finishOnTaskLaunch="true"
+                android:clearTaskOnLaunch="true">
+        </activity>
+        <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService"/>
+
+        <!-- other task actions -->
+        <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">
+            <intent-filter>
+                <action android:name="com.todoroo.astrid.REQUEST_ACTIONS"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
+                android:windowSoftInputMode="stateHidden"
+                android:screenOrientation="portrait"></activity>
+
+        <!-- Uses Library -->
+        <uses-library
+                android:name="com.google.android.maps"
+                android:required="false"/>
+
+    </application>
 
 </manifest>

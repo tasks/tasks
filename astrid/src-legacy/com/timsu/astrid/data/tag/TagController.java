@@ -5,10 +5,6 @@
  */
 package com.timsu.astrid.data.tag;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,7 +18,13 @@ import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
-/** Controller for Tag-related operations */
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+
+/**
+ * Controller for Tag-related operations
+ */
 @SuppressWarnings("nls")
 @Deprecated
 public class TagController extends LegacyAbstractController {
@@ -31,22 +33,24 @@ public class TagController extends LegacyAbstractController {
 
     // --- tag batch operations
 
-    /** Get a list of all tags */
+    /**
+     * Get a list of all tags
+     */
     public LinkedList<TagModelForView> getAllTags()
             throws SQLException {
         LinkedList<TagModelForView> list = new LinkedList<TagModelForView>();
         Cursor cursor = tagDatabase.query(tagsTable,
-            TagModelForView.FIELD_LIST, null, null, null, null, null, null);
+                TagModelForView.FIELD_LIST, null, null, null, null, null, null);
 
         try {
-	        if(cursor.getCount() == 0)
-	            return list;
-	        do {
-	            cursor.moveToNext();
-	            list.add(new TagModelForView(cursor));
-	        } while(!cursor.isLast());
+            if (cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new TagModelForView(cursor));
+            } while (!cursor.isLast());
         } finally {
-        	cursor.close();
+            cursor.close();
         }
 
         return list;
@@ -54,114 +58,121 @@ public class TagController extends LegacyAbstractController {
 
     // --- tag to task map batch operations
 
-    /** Get a list of all tags as an id => tag map */
+    /**
+     * Get a list of all tags as an id => tag map
+     */
     public HashMap<TagIdentifier, TagModelForView> getAllTagsAsMap() throws SQLException {
         HashMap<TagIdentifier, TagModelForView> map = new HashMap<TagIdentifier, TagModelForView>();
-        for(TagModelForView tag : getAllTags())
+        for (TagModelForView tag : getAllTags())
             map.put(tag.getTagIdentifier(), tag);
         return map;
     }
 
-    /** Get a list of tag identifiers for the given task */
+    /**
+     * Get a list of tag identifiers for the given task
+     */
     public LinkedList<TagIdentifier> getTaskTags(TaskIdentifier
-            taskId) throws SQLException {
+                                                         taskId) throws SQLException {
         LinkedList<TagIdentifier> list = new LinkedList<TagIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(tagTaskTable,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TASK + " = ?",
-                new String[] { taskId.idAsString() }, null, null, null);
+                new String[]{taskId.idAsString()}, null, null, null);
 
         try {
-	        if(cursor.getCount() == 0)
-	            return list;
-	        do {
-	            cursor.moveToNext();
-	            list.add(new TagToTaskMapping(cursor).getTag());
-	        } while(!cursor.isLast());
+            if (cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new TagToTaskMapping(cursor).getTag());
+            } while (!cursor.isLast());
         } finally {
-        	cursor.close();
+            cursor.close();
         }
 
         return list;
     }
 
-    /** Get a list of task identifiers for the given tag.
+    /**
+     * Get a list of task identifiers for the given tag.
      * This searches for TAGGED tasks only.
-     * Use getUntaggedTasks() to get a list of UNTAGGED tasks **/
+     * Use getUntaggedTasks() to get a list of UNTAGGED tasks *
+     */
     public LinkedList<TaskIdentifier> getTaggedTasks(TagIdentifier tagId)
-    		throws SQLException {
+            throws SQLException {
         LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(tagTaskTable,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TAG + " = ?",
-                new String[] { tagId.idAsString() }, null, null, null);
+                new String[]{tagId.idAsString()}, null, null, null);
 
         try {
-	        if(cursor.getCount() == 0)
-	            return list;
-	        do {
-	            cursor.moveToNext();
-	            list.add(new TagToTaskMapping(cursor).getTask());
-	        } while(!cursor.isLast());
+            if (cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new TagToTaskMapping(cursor).getTask());
+            } while (!cursor.isLast());
         } finally {
-        	cursor.close();
+            cursor.close();
         }
 
         return list;
     }
 
-    /** Returns a list of task identifiers in the provided set that are UNtagged.
-     *
+    /**
+     * Returns a list of task identifiers in the provided set that are UNtagged.
+     * <p/>
      * The calling SubActivity must provide the set of tasks, since
      * TagController cannot access the appropriate instance of TaskController.
-     *
+     * <p/>
      * The current implementation is not very efficient, because queries
      * the TagToTask map once for each active task.
-     **/
+     */
     public LinkedList<TaskIdentifier> getUntaggedTasks() throws SQLException {
-    	HashSet<Long> ids = new HashSet<Long>();
+        HashSet<Long> ids = new HashSet<Long>();
 
-    	String[] tagMapColumns = new String[] { TagToTaskMapping.TASK };
-    	Cursor tagMapCursor = tagToTaskMapDatabase.query(tagTaskTable,
-    			tagMapColumns, null, null, TagToTaskMapping.TASK, null,
-    			TagToTaskMapping.TASK + " ASC");
+        String[] tagMapColumns = new String[]{TagToTaskMapping.TASK};
+        Cursor tagMapCursor = tagToTaskMapDatabase.query(tagTaskTable,
+                tagMapColumns, null, null, TagToTaskMapping.TASK, null,
+                TagToTaskMapping.TASK + " ASC");
 
-    	SQLiteDatabase taskDatabase = new TaskModelDatabaseHelper(context,
-    			tasksTable, tasksTable).getReadableDatabase();
-    	String[] taskColumns = new String[] { KEY_ROWID };
-    	Cursor taskCursor = taskDatabase.query(tasksTable, taskColumns,
-    			null, null, null, null, KEY_ROWID + " ASC");
+        SQLiteDatabase taskDatabase = new TaskModelDatabaseHelper(context,
+                tasksTable, tasksTable).getReadableDatabase();
+        String[] taskColumns = new String[]{KEY_ROWID};
+        Cursor taskCursor = taskDatabase.query(tasksTable, taskColumns,
+                null, null, null, null, KEY_ROWID + " ASC");
 
-    	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
+        LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         try {
-        	if(taskCursor.getCount() == 0)
-        		return list;
+            if (taskCursor.getCount() == 0)
+                return list;
 
-        	do {
-        		taskCursor.moveToNext();
+            do {
+                taskCursor.moveToNext();
                 ids.add(taskCursor.getLong(0));
-            } while(!taskCursor.isLast());
+            } while (!taskCursor.isLast());
 
-        	if(tagMapCursor.getCount() > 0) {
-        		do {
-        			tagMapCursor.moveToNext();
+            if (tagMapCursor.getCount() > 0) {
+                do {
+                    tagMapCursor.moveToNext();
                     ids.remove(tagMapCursor.getLong(0));
-                } while(!tagMapCursor.isLast());
-        	}
+                } while (!tagMapCursor.isLast());
+            }
         } finally {
-        	taskCursor.close();
-        	tagMapCursor.close();
-        	taskDatabase.close();
+            taskCursor.close();
+            tagMapCursor.close();
+            taskDatabase.close();
         }
 
-        for(Long id : ids)
-        	list.add(new TaskIdentifier(id));
-    	return list;
+        for (Long id : ids)
+            list.add(new TaskIdentifier(id));
+        return list;
     }
 
 
     // --- single tag operations
 
     public TagIdentifier createTag(String name) throws SQLException {
-        if(name == null)
+        if (name == null)
             throw new NullPointerException("Name can't be null");
 
         TagModelForView newTag = new TagModelForView(name);
@@ -170,11 +181,13 @@ public class TagController extends LegacyAbstractController {
         return new TagIdentifier(row);
     }
 
-    /** Creates or saves the given tag */
+    /**
+     * Creates or saves the given tag
+     */
     public boolean saveTag(AbstractTagModel tag) throws SQLException {
         boolean saveSucessful;
 
-        if(tag.getTagIdentifier() == null) {
+        if (tag.getTagIdentifier() == null) {
             long newRow = tagDatabase.insert(tagsTable, AbstractTagModel.NAME,
                     tag.getMergedValues());
             tag.setTagIdentifier(new TagIdentifier(newRow));
@@ -189,11 +202,13 @@ public class TagController extends LegacyAbstractController {
         return saveSucessful;
     }
 
-    /** Returns a TaskModelForView corresponding to the given Tag Name */
+    /**
+     * Returns a TaskModelForView corresponding to the given Tag Name
+     */
     public TagModelForView fetchTagFromName(String name) throws SQLException {
         Cursor cursor = tagDatabase.query(true, tagsTable,
                 TagModelForView.FIELD_LIST,
-                AbstractTagModel.NAME + " = ?", new String[] {name}, null, null, null, null);
+                AbstractTagModel.NAME + " = ?", new String[]{name}, null, null, null, null);
 
         try {
             if (cursor != null && cursor.getCount() > 0) {
@@ -203,12 +218,14 @@ public class TagController extends LegacyAbstractController {
             }
             return null;
         } finally {
-            if(cursor != null)
+            if (cursor != null)
                 cursor.close();
         }
     }
 
-    /** Returns a TaskModelForView corresponding to the given TagIdentifier */
+    /**
+     * Returns a TaskModelForView corresponding to the given TagIdentifier
+     */
     public TagModelForView fetchTagForView(TagIdentifier tagId) throws SQLException {
         long id = tagId.getId();
         Cursor cursor = tagDatabase.query(true, tagsTable,
@@ -224,15 +241,17 @@ public class TagController extends LegacyAbstractController {
 
             throw new SQLException("Returned empty set!");
         } finally {
-            if(cursor != null)
+            if (cursor != null)
                 cursor.close();
         }
     }
 
-    /** Deletes the tag and removes tag/task mappings */
-    public boolean deleteTag( TagIdentifier tagId)
-            throws SQLException{
-        if(tagToTaskMapDatabase.delete(tagTaskTable,
+    /**
+     * Deletes the tag and removes tag/task mappings
+     */
+    public boolean deleteTag(TagIdentifier tagId)
+            throws SQLException {
+        if (tagToTaskMapDatabase.delete(tagTaskTable,
                 TagToTaskMapping.TAG + " = " + tagId.idAsString(), null) < 0)
             return false;
 
@@ -247,22 +266,26 @@ public class TagController extends LegacyAbstractController {
 
     // --- single tag to task operations
 
-    /** Remove the given tag from the task */
+    /**
+     * Remove the given tag from the task
+     */
     public boolean removeTag(TaskIdentifier taskId, TagIdentifier tagId)
-            throws SQLException{
+            throws SQLException {
 
-    	int res = tagToTaskMapDatabase.delete(tagTaskTable,
+        int res = tagToTaskMapDatabase.delete(tagTaskTable,
                 String.format("%s = ? AND %s = ?",
                         TagToTaskMapping.TAG, TagToTaskMapping.TASK),
-                new String[] { tagId.idAsString(), taskId.idAsString() });
+                new String[]{tagId.idAsString(), taskId.idAsString()});
 
         // notify modification
         Astrid2TaskProvider.notifyDatabaseModification();
 
-    	return res > 0;
+        return res > 0;
     }
 
-    /** Add the given tag to the task */
+    /**
+     * Add the given tag to the task
+     */
     public boolean addTag(TaskIdentifier taskId, TagIdentifier tagId)
             throws SQLException {
         ContentValues values = new ContentValues();
@@ -294,7 +317,7 @@ public class TagController extends LegacyAbstractController {
      * signal the failure
      *
      * @return this (self reference, allowing this to be chained in an
-     *         initialization call)
+     * initialization call)
      * @throws SQLException if the database could be neither opened or created
      */
     @Override
@@ -305,12 +328,14 @@ public class TagController extends LegacyAbstractController {
                 tagsTable, tagsTable).getWritableDatabase();
     }
 
-    /** Closes database resource */
+    /**
+     * Closes database resource
+     */
     @Override
     public void close() {
-        if(tagDatabase != null)
+        if (tagDatabase != null)
             tagDatabase.close();
-        if(tagToTaskMapDatabase != null)
+        if (tagToTaskMapDatabase != null)
             tagToTaskMapDatabase.close();
     }
 }

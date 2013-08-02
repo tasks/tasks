@@ -38,25 +38,30 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
 
-    @Autowired private StoreObjectDao storeObjectDao;
+    @Autowired
+    private StoreObjectDao storeObjectDao;
 
-    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
+    @Autowired
+    private GtasksTaskListUpdater gtasksTaskListUpdater;
 
-    @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired
+    private GtasksMetadataService gtasksMetadataService;
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
 
-    @Autowired private SyncV2Service syncService;
+    @Autowired
+    private SyncV2Service syncService;
 
     private StoreObject list;
 
-    private static final Property<?>[] LIST_PROPERTIES = new Property<?>[] {
-        StoreObject.ID,
-        StoreObject.TYPE,
-        GtasksList.REMOTE_ID,
-        GtasksList.ORDER,
-        GtasksList.NAME,
-        GtasksList.LAST_SYNC
+    private static final Property<?>[] LIST_PROPERTIES = new Property<?>[]{
+            StoreObject.ID,
+            StoreObject.TYPE,
+            GtasksList.REMOTE_ID,
+            GtasksList.ORDER,
+            GtasksList.NAME,
+            GtasksList.LAST_SYNC
     };
 
     @Override
@@ -75,7 +80,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
         long storeObjectId = extras.getLong(TOKEN_STORE_ID, 0);
         list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
-        ((OrderedMetadataListFragmentHelper<StoreObject>)helper).setList(list);
+        ((OrderedMetadataListFragmentHelper<StoreObject>) helper).setList(list);
     }
 
     @Override
@@ -88,7 +93,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     private void refreshData(final boolean manual) {
-        ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+        ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
         syncService.synchronizeList(list, manual, new ProgressBarSyncResultCallback(getActivity(), this,
                 R.id.progressBar, new Runnable() {
@@ -98,7 +103,7 @@ public class GtasksListFragment extends SubtasksListFragment {
                     ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 else
                     refresh();
-                ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
             }
         }));
     }
@@ -116,14 +121,14 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
-     // handle my own menus
+        // handle my own menus
         switch (id) {
-        case MENU_REFRESH_ID:
-            refreshData(true);
-            return true;
-        case MENU_CLEAR_COMPLETED_ID:
-            clearCompletedTasks();
-            return true;
+            case MENU_REFRESH_ID:
+                refreshData(true);
+                return true;
+            case MENU_CLEAR_COMPLETED_ID:
+                clearCompletedTasks();
+                return true;
         }
 
         return super.handleOptionsMenuItemSelected(id, intent);
@@ -178,7 +183,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
-        if(gtasksPreferenceService.isLoggedIn()) {
+        if (gtasksPreferenceService.isLoggedIn()) {
             addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
                     ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
         } else {

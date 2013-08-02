@@ -22,156 +22,229 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Data Model which represents a collaboration space for users / tasks.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public final class TagData extends RemoteModel {
 
     // --- table and uri
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("tagdata", TagData.class);
 
-    /** model class for entries in the outstanding table */
+    /**
+     * model class for entries in the outstanding table
+     */
     public static final Class<? extends OutstandingEntry<TagData>> OUTSTANDING_MODEL = TagOutstanding.class;
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** User id */
+    /**
+     * User id
+     */
     public static final StringProperty USER_ID = new StringProperty(
             TABLE, USER_ID_PROPERTY_NAME, Property.PROP_FLAG_USER_ID);
 
-    /** User Object (JSON) */
-    @Deprecated public static final StringProperty USER = new StringProperty(
+    /**
+     * User Object (JSON)
+     */
+    @Deprecated
+    public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
-    /** Remote goal id */
+    /**
+     * Remote goal id
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Name of Tag */
+    /**
+     * Name of Tag
+     */
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
-    /** Project picture */
+    /**
+     * Project picture
+     */
     public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture", Property.PROP_FLAG_JSON | Property.PROP_FLAG_PICTURE);
 
-    /** Tag team array (JSON) */
-    @Deprecated public static final StringProperty MEMBERS = new StringProperty(
+    /**
+     * Tag team array (JSON)
+     */
+    @Deprecated
+    public static final StringProperty MEMBERS = new StringProperty(
             TABLE, "members");
 
-    /** Tag member count */
+    /**
+     * Tag member count
+     */
     public static final IntegerProperty MEMBER_COUNT = new IntegerProperty(
             TABLE, "memberCount");
 
-    /** Flags */
+    /**
+     * Flags
+     */
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
 
-    /** Unixtime Project was created */
+    /**
+     * Unixtime Project was created
+     */
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created", Property.PROP_FLAG_DATE);
 
-    /** Unixtime Project was last touched */
+    /**
+     * Unixtime Project was last touched
+     */
     public static final LongProperty MODIFICATION_DATE = new LongProperty(
             TABLE, "modified", Property.PROP_FLAG_DATE);
 
-    /** Unixtime Project was completed. 0 means active */
+    /**
+     * Unixtime Project was completed. 0 means active
+     */
     public static final LongProperty COMPLETION_DATE = new LongProperty(
             TABLE, "completed", Property.PROP_FLAG_DATE);
 
-    /** Unixtime Project was deleted. 0 means not deleted */
+    /**
+     * Unixtime Project was deleted. 0 means not deleted
+     */
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted", Property.PROP_FLAG_DATE);
 
-    /** Project picture thumbnail */
+    /**
+     * Project picture thumbnail
+     */
     public static final StringProperty THUMB = new StringProperty(
             TABLE, "thumb");
 
-    /** Project last activity date */
+    /**
+     * Project last activity date
+     */
     public static final LongProperty LAST_ACTIVITY_DATE = new LongProperty(
             TABLE, "lastActivityDate", Property.PROP_FLAG_DATE);
 
-    /** Whether user is part of Tag team */
+    /**
+     * Whether user is part of Tag team
+     */
     public static final IntegerProperty IS_TEAM = new IntegerProperty(
             TABLE, "isTeam");
 
-    /** Whether Tag has unread activity */
+    /**
+     * Whether Tag has unread activity
+     */
     public static final IntegerProperty IS_UNREAD = new IntegerProperty(
             TABLE, "isUnread");
 
-    /** Whether tag is a folder */
+    /**
+     * Whether tag is a folder
+     */
     public static final IntegerProperty IS_FOLDER = new IntegerProperty(
             TABLE, "isFolder", Property.PROP_FLAG_BOOLEAN);
 
-    /** Task count */
+    /**
+     * Task count
+     */
     public static final IntegerProperty TASK_COUNT = new IntegerProperty(
             TABLE, "taskCount");
 
-    /** Tag Desription */
+    /**
+     * Tag Desription
+     */
     public static final StringProperty TAG_DESCRIPTION = new StringProperty(
             TABLE, "tagDescription");
 
-    /** Pushed at date */
+    /**
+     * Pushed at date
+     */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
-    /** Tasks pushed at date */
+    /**
+     * Tasks pushed at date
+     */
     public static final LongProperty TASKS_PUSHED_AT = new LongProperty(
             TABLE, "tasks_pushed_at", Property.PROP_FLAG_DATE);
 
-    /** Metadata pushed at date */
+    /**
+     * Metadata pushed at date
+     */
     public static final LongProperty METADATA_PUSHED_AT = new LongProperty(
             TABLE, "metadata_pushed_at", Property.PROP_FLAG_DATE);
 
-    /** User activities pushed at date */
+    /**
+     * User activities pushed at date
+     */
     public static final LongProperty USER_ACTIVITIES_PUSHED_AT = new LongProperty(
             TABLE, "activities_pushed_at", Property.PROP_FLAG_DATE);
 
-    /** Tag ordering */
+    /**
+     * Tag ordering
+     */
     @Deprecated
     public static final StringProperty TAG_ORDERING = new StringProperty(
             TABLE, "tagOrdering");
 
-    /** History fetch date */
+    /**
+     * History fetch date
+     */
     public static final LongProperty HISTORY_FETCH_DATE = new LongProperty(
             TABLE, "historyFetch");
 
-    /** History has more*/
+    /**
+     * History has more
+     */
     public static final IntegerProperty HISTORY_HAS_MORE = new IntegerProperty(
             TABLE, "historyHasMore");
 
-    /** Last autosync */
+    /**
+     * Last autosync
+     */
     public static final LongProperty LAST_AUTOSYNC = new LongProperty(
             TABLE, "lastAutosync");
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 
     // --- flags
 
-    /** whether user should not be notified of tag activity */
+    /**
+     * whether user should not be notified of tag activity
+     */
     public static final int FLAG_SILENT = 1 << 1;
 
-    /** whether tag is emergent */
+    /**
+     * whether tag is emergent
+     */
     @Deprecated
     public static final int FLAG_EMERGENT = 1 << 2;
 
-    /** whether tag represents a featured list */
+    /**
+     * whether tag represents a featured list
+     */
     public static final int FLAG_FEATURED = 1 << 3;
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     static {
@@ -244,15 +317,19 @@ public final class TagData extends RemoteModel {
 
     // --- data access methods
 
-    /** Checks whether task is done. Requires COMPLETION_DATE */
+    /**
+     * Checks whether task is done. Requires COMPLETION_DATE
+     */
     public boolean isCompleted() {
         return getValue(COMPLETION_DATE) > 0;
     }
 
-    /** Checks whether task is deleted. Will return false if DELETION_DATE not read */
+    /**
+     * Checks whether task is deleted. Will return false if DELETION_DATE not read
+     */
     public boolean isDeleted() {
         // assume false if we didn't load deletion date
-        if(!containsValue(DELETION_DATE))
+        if (!containsValue(DELETION_DATE))
             return false;
         else
             return getValue(DELETION_DATE) > 0;

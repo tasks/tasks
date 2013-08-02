@@ -20,7 +20,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class Astrid3ProviderTests extends DatabaseTestCase {
 
-    String[] PROJECTION = new String[] {
+    String[] PROJECTION = new String[]{
             Task.ID.name,
             Task.TITLE.name,
     };
@@ -34,7 +34,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
 
     }
 
-    /** Test CRUD over tasks with the ALL ITEMS cursor */
+    /**
+     * Test CRUD over tasks with the ALL ITEMS cursor
+     */
     public void testAllItemsCrud() {
         ContentResolver resolver = getContext().getContentResolver();
 
@@ -75,7 +77,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
     }
 
-    /** Test selecting data */
+    /**
+     * Test selecting data
+     */
     public void testSelection() {
         ContentResolver resolver = getContext().getContentResolver();
         Uri uri = Task.CONTENT_URI;
@@ -120,7 +124,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
     }
 
-    /** Test updating */
+    /**
+     * Test updating
+     */
     public void testUpdating() {
         ContentResolver resolver = getContext().getContentResolver();
 
@@ -136,7 +142,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_MUST_DO);
         resolver.insert(Task.CONTENT_URI, values);
 
-        String[] projection = new String[] {
+        String[] projection = new String[]{
                 Task.ID.name,
                 Task.TITLE.name,
                 Task.IMPORTANCE.name,
@@ -183,7 +189,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         }
     }
 
-    /** Test deleting */
+    /**
+     * Test deleting
+     */
     public void testDeleting() {
         ContentResolver resolver = getContext().getContentResolver();
         Uri allItemsUri = Task.CONTENT_URI;
@@ -242,7 +250,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         }
     }
 
-    /** Test CRUD over SINGLE ITEM uri */
+    /**
+     * Test CRUD over SINGLE ITEM uri
+     */
     public void testSingleItemCrud() {
         ContentResolver resolver = getContext().getContentResolver();
 
@@ -257,7 +267,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         Uri secondUri = resolver.insert(uri, values);
         assertNotSame(firstUri, secondUri);
 
-        String[] storeProjection = new String[] {
+        String[] storeProjection = new String[]{
                 StoreObject.ITEM.name,
         };
 
@@ -287,7 +297,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
     }
 
-    /** Test GROUP BY uri */
+    /**
+     * Test GROUP BY uri
+     */
     public void testGroupByCrud() {
         ContentResolver resolver = getContext().getContentResolver();
         Uri uri = Task.CONTENT_URI;
@@ -338,7 +350,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         values.put(size.name, "small");
         resolver.insert(uri, values);
 
-        String[] metadataProjection = new String[] { "AVG(" + age + ")" };
+        String[] metadataProjection = new String[]{"AVG(" + age + ")"};
 
         Uri groupBySizeUri = Uri.withAppendedPath(Metadata.CONTENT_URI,
                 AstridApiConstants.GROUP_BY_URI + size.name);

@@ -4,19 +4,19 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <color name="task_list_overdue">#FFFB6666</color>
     <color name="task_list_normal">#FFFFFFFF</color>
     <color name="task_list_done">#ff777777</color>
-    
+
     <!-- font colors when colored by importance  -->
     <color name="task_list_importance_1">#ffffffff</color>
     <color name="task_list_importance_2">#ffcfcfcf</color>
     <color name="task_list_importance_3">#ffb8b8b8</color>
     <color name="task_list_importance_4">#ffa0a0a0</color>
-    
+
     <color name="task_edit_deadline_gray">#888888</color>
-    
+
     <color name="blue_theme_color">#33b5e5</color>
     <color name="red_theme_color">#d90000</color>
     <color name="dark_blue_theme_color">#1f78b4</color>
@@ -24,7 +24,7 @@
     <color name="tablet_list_selected">#000000</color>
     <color name="reminder_background">#262626</color>
     <color name="task_edit_selected">#385487</color>
-    
+
     <color name="widget_text_color_light">#535353</color>
     <color name="widget_text_color_dark">#ffffff</color>
     <color name="widget_header_light">#dde0e0e0</color>
@@ -36,6 +36,6 @@
     <color name="widget_body_legacy">#fc1c1c1c</color>
     <color name="task_row_bg_dark_pressed">#303030</color>
     <color name="task_row_bg_white_pressed">#dde1eb</color>
-        
+
 </resources>
 

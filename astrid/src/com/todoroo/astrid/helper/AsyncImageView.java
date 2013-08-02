@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -16,12 +14,14 @@ import android.util.AttributeSet;
 
 import com.todoroo.andlib.service.ContextManager;
 
+import java.io.IOException;
+
 import edu.mit.mobile.android.imagecache.ImageCache;
 
 /**
  * Subclass of greendroid.widget.AsyncImageView, so that we can cache the image
  * locally when user is offline
- *
+ * <p/>
  * IMPORTANT: cannot load a cached image by setting the url in an xml file.
  * ImageDiskCache object is created after object is loaded from xml
  */
@@ -30,18 +30,22 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
     private final ImageCache imageDiskCache;
     private Bitmap cacheImage;
     private String cacheURL = ""; //$NON-NLS-1$
+
     public AsyncImageView(Context context) {
         super(context);
         imageDiskCache = getImageCache();
     }
+
     public AsyncImageView(Context context, AttributeSet set) {
         super(context, set);
         imageDiskCache = getImageCache();
     }
+
     public AsyncImageView(Context context, AttributeSet set, int defStyle) {
         super(context, set, defStyle);
         imageDiskCache = getImageCache();
     }
+
     @Override
     public void setUrl(String url) {
         if (cacheImage != null && cacheURL.equals(url) && !TextUtils.isEmpty(url)) {
@@ -82,7 +86,7 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
 
     public static ImageCache getImageCache() {
         if (imageCacheInstance == null) {
-            synchronized(AsyncImageView.class) {
+            synchronized (AsyncImageView.class) {
                 if (imageCacheInstance == null) {
                     try {
                         if (Looper.myLooper() == null)

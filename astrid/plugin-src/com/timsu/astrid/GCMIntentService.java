@@ -1,7 +1,5 @@
 package com.timsu.astrid;
 
-import java.io.IOException;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -50,6 +48,8 @@ import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
 
+import java.io.IOException;
+
 @SuppressWarnings("nls")
 public class GCMIntentService extends GCMBaseIntentService {
 
@@ -62,13 +62,14 @@ public class GCMIntentService extends GCMBaseIntentService {
     public static final String PREF_C2DM_REGISTRATION = "c2dm_key";
 
     public static String getDeviceID() {
-        String id = Secure.getString(ContextManager.getContext().getContentResolver(), Secure.ANDROID_ID);;
-        if(AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
+        String id = Secure.getString(ContextManager.getContext().getContentResolver(), Secure.ANDROID_ID);
+        ;
+        if (AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
             //the following uses relection to get android.os.Build.SERIAL to avoid having to build with Gingerbread
             try {
-                if(!Build.UNKNOWN.equals(Build.SERIAL))
+                if (!Build.UNKNOWN.equals(Build.SERIAL))
                     id = Build.SERIAL;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 // Ah well
             }
         }
@@ -119,7 +120,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     protected void onMessage(Context context, Intent intent) {
         if (actFmPreferenceService.isLoggedIn()) {
-            if(intent.hasExtra("web_update"))
+            if (intent.hasExtra("web_update"))
                 if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing())
                     new ActFmSyncV2Provider().synchronizeActiveTasks(false, refreshOnlyCallback);
                 else
@@ -129,9 +130,11 @@ public class GCMIntentService extends GCMBaseIntentService {
         }
     }
 
-    /** Handle web task or list changed */
+    /**
+     * Handle web task or list changed
+     */
     protected void handleWebUpdate(Intent intent) {
-        if(intent.hasExtra("tag_id")) {
+        if (intent.hasExtra("tag_id")) {
             String uuid = intent.getStringExtra("tag_id");
             TodorooCursor<TagData> cursor = tagDataService.query(
                     Query.select(TagData.PUSHED_AT).where(TagData.UUID.eq(
@@ -139,7 +142,7 @@ public class GCMIntentService extends GCMBaseIntentService {
             long pushedAt = 0;
             try {
                 TagData tagData = new TagData();
-                if(cursor.getCount() > 0) {
+                if (cursor.getCount() > 0) {
                     cursor.moveToNext();
                     tagData.readFromCursor(cursor);
                     pushedAt = tagData.getValue(TagData.PUSHED_AT);
@@ -148,7 +151,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                 cursor.close();
             }
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);
-        } else if(intent.hasExtra("task_id")) {
+        } else if (intent.hasExtra("task_id")) {
             String uuid = intent.getStringExtra("task_id");
             TodorooCursor<Task> cursor = taskService.query(
                     Query.select(Task.PROPERTIES).where(Task.UUID.eq(
@@ -156,7 +159,7 @@ public class GCMIntentService extends GCMBaseIntentService {
             long pushedAt = 0;
             try {
                 final Task task = new Task();
-                if(cursor.getCount() > 0) {
+                if (cursor.getCount() > 0) {
                     cursor.moveToNext();
                     task.readFromCursor(cursor);
                     pushedAt = task.getValue(Task.PUSHED_AT);
@@ -170,15 +173,17 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     // --- message handling
 
-    /** Handle message. Run on separate thread. */
+    /**
+     * Handle message. Run on separate thread.
+     */
     private void handleMessage(Intent intent) {
         String message = intent.getStringExtra("alert");
         Context context = ContextManager.getContext();
-        if(TextUtils.isEmpty(message))
+        if (TextUtils.isEmpty(message))
             return;
 
         long lastNotification = Preferences.getLong(PREF_LAST_GCM, 0);
-        if(DateUtilities.now() - lastNotification < 5000L)
+        if (DateUtilities.now() - lastNotification < 5000L)
             return;
         Preferences.setLong(PREF_LAST_GCM, DateUtilities.now());
         Intent notifyIntent = null;
@@ -203,10 +208,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 
         // fetch data
-        if(intent.hasExtra("tag_id")) {
+        if (intent.hasExtra("tag_id")) {
             notifyIntent = createTagIntent(context, intent);
             notifId = intent.getStringExtra("tag_id").hashCode();
-        } else if(intent.hasExtra("task_id")) {
+        } else if (intent.hasExtra("task_id")) {
             notifyIntent = createTaskIntent(intent);
             notifId = intent.getStringExtra("task_id").hashCode();
         } else {
@@ -228,7 +233,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         Notification notification = new Notification(icon,
                 message, System.currentTimeMillis());
         String title;
-        if(intent.hasExtra("title"))
+        if (intent.hasExtra("title"))
             title = "Astrid: " + intent.getStringExtra("title");
         else
             title = ContextManager.getString(R.string.app_name);
@@ -238,13 +243,13 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         boolean sounds = !"false".equals(intent.getStringExtra("sound"));
         notification.defaults = 0;
-        if(sounds && !Notifications.isQuietHours()) {
+        if (sounds && !Notifications.isQuietHours()) {
             notification.defaults |= Notification.DEFAULT_SOUND;
             notification.defaults |= Notification.DEFAULT_VIBRATE;
         }
         nm.notify(notifId, notification);
 
-        if(intent.hasExtra("tag_id")) {
+        if (intent.hasExtra("tag_id")) {
             Intent broadcastIntent = new Intent(TagViewFragment.BROADCAST_TAG_ACTIVITY);
             broadcastIntent.putExtras(intent);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
@@ -252,21 +257,21 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private int calculateIcon(Intent intent) {
-        if(intent.hasExtra("type")) {
+        if (intent.hasExtra("type")) {
             String type = intent.getStringExtra("type");
-            if("f".equals(type))
+            if ("f".equals(type))
                 return R.drawable.notif_c2dm_done;
-            if("s".equals(type))
+            if ("s".equals(type))
                 return R.drawable.notif_c2dm_assign;
-            if("l".equals(type))
+            if ("l".equals(type))
                 return R.drawable.notif_c2dm_assign;
         } else {
             String message = intent.getStringExtra("alert");
-            if(message.contains(" finished "))
+            if (message.contains(" finished "))
                 return R.drawable.notif_c2dm_done;
-            if(message.contains(" invited you to "))
+            if (message.contains(" invited you to "))
                 return R.drawable.notif_c2dm_assign;
-            if(message.contains(" sent you "))
+            if (message.contains(" sent you "))
                 return R.drawable.notif_c2dm_assign;
         }
         return R.drawable.notif_c2dm_msg;
@@ -280,7 +285,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         long pushedAt = 0;
         try {
             final Task task = new Task();
-            if(cursor.getCount() == 0) {
+            if (cursor.getCount() == 0) {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
                 task.setValue(Task.UUID, intent.getStringExtra("task_id"));
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
@@ -312,7 +317,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         long pushedAt = 0;
         try {
             final TagData tagData = new TagData();
-            if(cursor.getCount() == 0) {
+            if (cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, intent.getStringExtra("title"));
                 tagData.setValue(TagData.UUID, intent.getStringExtra("tag_id"));
                 tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -324,9 +329,9 @@ public class GCMIntentService extends GCMBaseIntentService {
             }
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<TagData>(TagData.class, uuid, pushedAt), null);
 
-            FilterWithCustomIntent filter = (FilterWithCustomIntent)TagFilterExposer.filterFromTagData(context, tagData);
+            FilterWithCustomIntent filter = (FilterWithCustomIntent) TagFilterExposer.filterFromTagData(context, tagData);
 
-            if(intent.hasExtra("activity_id")) {
+            if (intent.hasExtra("activity_id")) {
                 UserActivity update = new UserActivity();
                 update.setValue(UserActivity.UUID, intent.getStringExtra("activity_id"));
                 update.setValue(UserActivity.USER_UUID, intent.getStringExtra("user_id"));
@@ -334,7 +339,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                 update.setValue(UserActivity.ACTION, "tag_comment");
                 update.setValue(UserActivity.TARGET_NAME, intent.getStringExtra("title"));
                 String message = intent.getStringExtra("alert");
-                if(message.contains(":"))
+                if (message.contains(":"))
                     message = message.substring(message.indexOf(':') + 2);
                 update.setValue(UserActivity.MESSAGE, message);
                 update.setValue(UserActivity.CREATED_AT, DateUtilities.now());
@@ -359,16 +364,16 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private boolean shouldLaunchActivity(Intent intent) {
-        if(intent.hasExtra("type")) {
+        if (intent.hasExtra("type")) {
             String type = intent.getStringExtra("type");
-            if("f".equals(type)) return true;
-            if("s".equals(type)) return false;
-            if("l".equals(type)) return false;
+            if ("f".equals(type)) return true;
+            if ("s".equals(type)) return false;
+            if ("l".equals(type)) return false;
         } else {
             String message = intent.getStringExtra("alert");
-            if(message.contains(" finished ")) return true;
-            if(message.contains(" invited you to ")) return false;
-            if(message.contains(" sent you ")) return false;
+            if (message.contains(" finished ")) return true;
+            if (message.contains(" invited you to ")) return false;
+            if (message.contains(" sent you ")) return false;
         }
         return true;
     }

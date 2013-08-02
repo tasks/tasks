@@ -5,10 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Set;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,23 +18,32 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
+
 
 /**
  * DAO for reading and writing values from an Android ContentResolver
  *
- * @author Tim Su <tim@todoroo.com>
- *
  * @param <TYPE> model type
+ * @author Tim Su <tim@todoroo.com>
  */
 public class ContentResolverDao<TYPE extends AbstractModel> {
 
-    /** class of model */
+    /**
+     * class of model
+     */
     private final Class<TYPE> modelClass;
 
-    /** base content uri */
+    /**
+     * base content uri
+     */
     private final Uri baseUri;
 
-    /** content resolver */
+    /**
+     * content resolver
+     */
     private final ContentResolver cr;
 
     @Autowired
@@ -47,7 +52,7 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
     public ContentResolverDao(Class<TYPE> modelClass, Context context, Uri baseUri) {
         DependencyInjectionService.getInstance().inject(this);
         this.modelClass = modelClass;
-        if(debug == null)
+        if (debug == null)
             debug = false;
         this.baseUri = baseUri;
 
@@ -56,6 +61,7 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Returns a URI for a single id
+     *
      * @param id
      * @return
      */
@@ -65,6 +71,7 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Delete specific item from the given table
+     *
      * @param id
      * @return number of rows affected
      */
@@ -74,6 +81,7 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Delete by criteria
+     *
      * @param where
      * @return number of rows affected
      */
@@ -83,11 +91,12 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Query content provider
+     *
      * @param query
      * @return
      */
     public TodorooCursor<TYPE> query(Query query) {
-        if(debug)
+        if (debug)
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         Cursor cursor = query.queryContentResolver(cr, baseUri);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
@@ -95,15 +104,16 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
 
     /**
      * Create new or save existing model
+     *
      * @param model
      * @return true if data was written to the db, false otherwise
      */
     public boolean save(TYPE model) {
         writeTransitoriesToModelContentValues(model);
-        if(model.isSaved()) {
-            if(model.getSetValues() == null)
+        if (model.isSaved()) {
+            if (model.getSetValues() == null)
                 return false;
-            if(cr.update(uriWithId(model.getId()), model.getSetValues(), null, null) != 0)
+            if (cr.update(uriWithId(model.getId()), model.getSetValues(), null, null) != 0)
                 return true;
         }
         Uri uri = cr.insert(baseUri, model.getMergedValues());
@@ -130,12 +140,9 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
      * Returns object corresponding to the given identifier
      *
      * @param database
-     * @param table
-     *            name of table
-     * @param properties
-     *            properties to read
-     * @param id
-     *            id of item
+     * @param table      name of table
+     * @param properties properties to read
+     * @param id         id of item
      * @return null if no item found
      */
     public TYPE fetch(long id, Property<?>... properties) {

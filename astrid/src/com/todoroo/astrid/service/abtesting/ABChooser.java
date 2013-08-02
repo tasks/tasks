@@ -5,19 +5,19 @@
  */
 package com.todoroo.astrid.service.abtesting;
 
-import java.util.Random;
-import java.util.Set;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.ABTestEventDao;
 
+import java.util.Random;
+import java.util.Set;
+
 /**
  * Helper class to facilitate A/B testing by randomly choosing an option
  * based on probabilities that can be supplied from local defaults
- * @author Sam Bosley <sam@astrid.com>
  *
+ * @author Sam Bosley <sam@astrid.com>
  */
 public class ABChooser {
 
@@ -72,6 +72,7 @@ public class ABChooser {
 
     /**
      * Returns the chosen option if set or NO_OPTION if unset
+     *
      * @param testKey
      * @return
      */
@@ -82,6 +83,7 @@ public class ABChooser {
     /**
      * Changes the choice of an A/B feature in the preferences. Useful for
      * the feature flipper (can manually override previous choice)
+     *
      * @param testKey
      * @param choiceIndex
      */

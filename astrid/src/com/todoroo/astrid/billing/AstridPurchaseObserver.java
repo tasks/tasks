@@ -70,7 +70,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
 
     @Override
     public void onPurchaseStateChange(PurchaseState purchaseState, final String itemId,
-            int quantity, long purchaseTime, String developerPayload, final String purchaseToken) {
+                                      int quantity, long purchaseTime, String developerPayload, final String purchaseToken) {
         if (BillingConstants.DEBUG) {
             Log.i(TAG, "onPurchaseStateChange() itemId: " + itemId + " " + purchaseState);
         }
@@ -85,50 +85,51 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                     Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, true);
                     if (actFmPreferenceService.isLoggedIn()) {
                         actFmSyncService.updateUserSubscriptionStatus(new Runnable() {
-                            @Override
-                            public void run() { // On Success
-                                Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
-                                                0, mActivity.getString(R.string.premium_success), new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        mActivity.finish();
-                                                    }
-                                                });
-                                    }
-                                });
-                            }
-                        }, new Runnable() { // On Recoverable error
-                            @Override
-                            public void run() {
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
-                                                0, mActivity.getString(R.string.premium_success_with_server_error), new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        mActivity.finish();
-                                                    }
-                                                });
-                                    }
-                                });
-                            }
-                        }, new Runnable() { // On invalid token
-                            @Override
-                            public void run() {
-                                DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
-                                        0, mActivity.getString(R.string.premium_verification_error), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mActivity.finish();
-                                    }
-                                });
-                            }
-                        });
+                                                                          @Override
+                                                                          public void run() { // On Success
+                                                                              Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
+                                                                              mActivity.runOnUiThread(new Runnable() {
+                                                                                  @Override
+                                                                                  public void run() {
+                                                                                      DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
+                                                                                              0, mActivity.getString(R.string.premium_success), new DialogInterface.OnClickListener() {
+                                                                                          @Override
+                                                                                          public void onClick(DialogInterface dialog, int which) {
+                                                                                              mActivity.finish();
+                                                                                          }
+                                                                                      });
+                                                                                  }
+                                                                              });
+                                                                          }
+                                                                      }, new Runnable() { // On Recoverable error
+                                                                          @Override
+                                                                          public void run() {
+                                                                              mActivity.runOnUiThread(new Runnable() {
+                                                                                  @Override
+                                                                                  public void run() {
+                                                                                      DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
+                                                                                              0, mActivity.getString(R.string.premium_success_with_server_error), new DialogInterface.OnClickListener() {
+                                                                                          @Override
+                                                                                          public void onClick(DialogInterface dialog, int which) {
+                                                                                              mActivity.finish();
+                                                                                          }
+                                                                                      });
+                                                                                  }
+                                                                              });
+                                                                          }
+                                                                      }, new Runnable() { // On invalid token
+                                                                          @Override
+                                                                          public void run() {
+                                                                              DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
+                                                                                      0, mActivity.getString(R.string.premium_verification_error), new DialogInterface.OnClickListener() {
+                                                                                  @Override
+                                                                                  public void onClick(DialogInterface dialog, int which) {
+                                                                                      mActivity.finish();
+                                                                                  }
+                                                                              });
+                                                                          }
+                                                                      }
+                        );
                     } else {
                         Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
                     }
@@ -148,7 +149,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
 
     @Override
     public void onRequestPurchaseResponse(RequestPurchase request,
-            ResponseCode responseCode) {
+                                          ResponseCode responseCode) {
         if (BillingConstants.DEBUG) {
             Log.d(TAG, request.mProductId + ": " + responseCode);
         }
@@ -169,7 +170,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
 
     @Override
     public void onRestoreTransactionsResponse(RestoreTransactions request,
-            ResponseCode responseCode) {
+                                              ResponseCode responseCode) {
         if (responseCode == ResponseCode.RESULT_OK) {
             if (BillingConstants.DEBUG) {
                 Log.d(TAG, "completed RestoreTransactions request");

@@ -1,77 +1,77 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 วัน</item>
-    <item quantity="other">%d วัน</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 ชั่วโมง</item>
-    <item quantity="other">%d ชั่วโมง</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 นาที</item>
-    <item quantity="other">%d นาที</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 วินาที</item>
-    <item quantity="other">%d วินาที</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 ช.ม.</item>
-    <item quantity="other">%d ช.ม.</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 นาที</item>
-    <item quantity="other">%d นาที</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 วิ.</item>
-    <item quantity="other">%d วิ.</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">วันนี้</string>
-  <string name="tomorrow">พรุ่งนี้</string>
-  <string name="yesterday">เมื่อวาน</string>
-  <string name="DLG_information_title">ข้อมูล</string>
-  <string name="DLG_save">บันทึก</string>
-  <string name="DLG_done">เสร็จแล้ว</string>
-  <string name="SyP_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
-  <string name="sync_SPr_group_status">สถานะ</string>
-  <string name="sync_SPr_group_options">ตัวเลือก</string>
-  <string name="sync_SPr_group_actions">การดำเนินการ</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>disable</item>
-    <item>every fifteen minutes</item>
-    <item>every thirty minutes</item>
-    <item>every hour</item>
-    <item>every three hours</item>
-    <item>every six hours</item>
-    <item>every twelve hours</item>
-    <item>every day</item>
-    <item>every three days</item>
-    <item>every week</item>
-  </string-array>
+    <plurals name="DUt_years">
+        <item quantity="one">1 Year</item>
+        <item quantity="other">%d Years</item>
+    </plurals>
+    <plurals name="DUt_months">
+        <item quantity="one">1 Month</item>
+        <item quantity="other">%d Months</item>
+    </plurals>
+    <plurals name="DUt_weeks">
+        <item quantity="one">1 Week</item>
+        <item quantity="other">%d Weeks</item>
+    </plurals>
+    <plurals name="DUt_days">
+        <item quantity="one">1 วัน</item>
+        <item quantity="other">%d วัน</item>
+    </plurals>
+    <plurals name="DUt_weekdays">
+        <item quantity="one">1 Weekday</item>
+        <item quantity="other">%d Weekdays</item>
+    </plurals>
+    <plurals name="DUt_hours">
+        <item quantity="one">1 ชั่วโมง</item>
+        <item quantity="other">%d ชั่วโมง</item>
+    </plurals>
+    <plurals name="DUt_minutes">
+        <item quantity="one">1 นาที</item>
+        <item quantity="other">%d นาที</item>
+    </plurals>
+    <plurals name="DUt_seconds">
+        <item quantity="one">1 วินาที</item>
+        <item quantity="other">%d วินาที</item>
+    </plurals>
+    <plurals name="DUt_hoursShort">
+        <item quantity="one">1 ช.ม.</item>
+        <item quantity="other">%d ช.ม.</item>
+    </plurals>
+    <plurals name="DUt_minutesShort">
+        <item quantity="one">1 นาที</item>
+        <item quantity="other">%d นาที</item>
+    </plurals>
+    <plurals name="DUt_secondsShort">
+        <item quantity="one">1 วิ.</item>
+        <item quantity="other">%d วิ.</item>
+    </plurals>
+    <plurals name="Ntasks">
+        <item quantity="one">1 task</item>
+        <item quantity="other">%d tasks</item>
+    </plurals>
+    <plurals name="Npeople">
+        <item quantity="one">1 person</item>
+        <item quantity="other">%d people</item>
+    </plurals>
+    <string name="today">วันนี้</string>
+    <string name="tomorrow">พรุ่งนี้</string>
+    <string name="yesterday">เมื่อวาน</string>
+    <string name="DLG_information_title">ข้อมูล</string>
+    <string name="DLG_save">บันทึก</string>
+    <string name="DLG_done">เสร็จแล้ว</string>
+    <string name="SyP_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
+    <string name="sync_SPr_group_status">สถานะ</string>
+    <string name="sync_SPr_group_options">ตัวเลือก</string>
+    <string name="sync_SPr_group_actions">การดำเนินการ</string>
+    <string-array name="sync_SPr_interval_entries">
+        <item>disable</item>
+        <item>every fifteen minutes</item>
+        <item>every thirty minutes</item>
+        <item>every hour</item>
+        <item>every three hours</item>
+        <item>every six hours</item>
+        <item>every twelve hours</item>
+        <item>every day</item>
+        <item>every three days</item>
+        <item>every week</item>
+    </string-array>
 </resources>

@@ -21,7 +21,7 @@ public class NumberPickerButton extends ImageButton {
     private NumberPicker mNumberPicker;
 
     public NumberPickerButton(Context context, AttributeSet attrs,
-            int defStyle) {
+                              int defStyle) {
         super(context, attrs, defStyle);
     }
 

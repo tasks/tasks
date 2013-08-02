@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import java.util.Date;
-import java.util.Random;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -32,39 +29,51 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
 
+import java.util.Date;
+import java.util.Random;
+
 
 /**
  * Data service for reminders
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
-public final class ReminderService  {
+public final class ReminderService {
 
     // --- constants
 
-    public static final Property<?>[] NOTIFICATION_PROPERTIES = new Property<?>[] {
-        Task.ID,
-        Task.CREATION_DATE,
-        Task.COMPLETION_DATE,
-        Task.DELETION_DATE,
-        Task.DUE_DATE,
-        Task.REMINDER_FLAGS,
-        Task.REMINDER_PERIOD,
-        Task.REMINDER_LAST,
-        Task.REMINDER_SNOOZE,
-        Task.IMPORTANCE
+    public static final Property<?>[] NOTIFICATION_PROPERTIES = new Property<?>[]{
+            Task.ID,
+            Task.CREATION_DATE,
+            Task.COMPLETION_DATE,
+            Task.DELETION_DATE,
+            Task.DUE_DATE,
+            Task.REMINDER_FLAGS,
+            Task.REMINDER_PERIOD,
+            Task.REMINDER_LAST,
+            Task.REMINDER_SNOOZE,
+            Task.IMPORTANCE
     };
 
-    /** flag for due date reminder */
+    /**
+     * flag for due date reminder
+     */
     public static final int TYPE_DUE = 0;
-    /** flag for overdue reminder */
+    /**
+     * flag for overdue reminder
+     */
     public static final int TYPE_OVERDUE = 1;
-    /** flag for random reminder */
+    /**
+     * flag for random reminder
+     */
     public static final int TYPE_RANDOM = 2;
-    /** flag for a snoozed reminder */
+    /**
+     * flag for a snoozed reminder
+     */
     public static final int TYPE_SNOOZE = 3;
-    /** flag for an alarm reminder */
+    /**
+     * flag for an alarm reminder
+     */
     public static final int TYPE_ALARM = 4;
 
     static final Random random = new Random();
@@ -88,7 +97,7 @@ public final class ReminderService  {
     private static ReminderService instance = null;
 
     public static synchronized ReminderService getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new ReminderService();
         return instance;
     }
@@ -97,9 +106,11 @@ public final class ReminderService  {
 
     private static boolean preferencesInitialized = false;
 
-    /** Set preference defaults, if unset. called at startup */
+    /**
+     * Set preference defaults, if unset. called at startup
+     */
     public void setPreferenceDefaults() {
-        if(preferencesInitialized)
+        if (preferencesInitialized)
             return;
 
         Context context = ContextManager.getContext();
@@ -128,7 +139,7 @@ public final class ReminderService  {
         try {
             Task task = new Task();
             now = DateUtilities.now(); // Before mass scheduling, initialize now variable
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 task.readFromCursor(cursor);
                 scheduleAlarm(task, false);
             }
@@ -149,6 +160,7 @@ public final class ReminderService  {
 
     /**
      * Schedules alarms for a single task
+     *
      * @param task
      */
     public void scheduleAlarm(Task task) {
@@ -169,19 +181,18 @@ public final class ReminderService  {
     /**
      * Schedules alarms for a single task
      *
-     * @param shouldPerformPropertyCheck
-     *            whether to check if task has requisite properties
+     * @param shouldPerformPropertyCheck whether to check if task has requisite properties
      */
     private void scheduleAlarm(Task task, boolean shouldPerformPropertyCheck) {
-        if(task == null || !task.isSaved())
+        if (task == null || !task.isSaved())
             return;
 
         // read data if necessary
-        if(shouldPerformPropertyCheck) {
-            for(Property<?> property : NOTIFICATION_PROPERTIES) {
-                if(!task.containsValue(property)) {
+        if (shouldPerformPropertyCheck) {
+            for (Property<?> property : NOTIFICATION_PROPERTIES) {
+                if (!task.containsValue(property)) {
                     task = taskDao.fetch(task.getId(), NOTIFICATION_PROPERTIES);
-                    if(task == null)
+                    if (task == null)
                         return;
                     break;
                 }
@@ -191,7 +202,7 @@ public final class ReminderService  {
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
         clearAllAlarms(task);
-        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
+        if (task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
             return;
         }
 
@@ -216,30 +227,26 @@ public final class ReminderService  {
         }
 
         // if random reminders are too close to due date, favor due date
-        if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
+        if (whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
             whenRandom = NO_ALARM;
 
         // snooze trumps all
-        if(whenSnooze != NO_ALARM) {
+        if (whenSnooze != NO_ALARM) {
             scheduler.createAlarm(task, whenSnooze, TYPE_SNOOZE);
-        }
-        else if(whenRandom < whenDueDate && whenRandom < whenOverdue) {
+        } else if (whenRandom < whenDueDate && whenRandom < whenOverdue) {
             scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
-        }
-        else if(whenDueDate < whenOverdue) {
+        } else if (whenDueDate < whenOverdue) {
             scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
-        }
-        else if(whenOverdue != NO_ALARM) {
+        } else if (whenOverdue != NO_ALARM) {
             scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
-        }
-        else {
+        } else {
             scheduler.createAlarm(task, 0, 0);
         }
     }
 
     /**
      * Calculate the next alarm time for snooze.
-     * <p>
+     * <p/>
      * Pretty simple - if a snooze time is in the future, we use that. If it
      * has already passed, we do nothing.
      *
@@ -247,14 +254,14 @@ public final class ReminderService  {
      * @return
      */
     private long calculateNextSnoozeReminder(Task task) {
-        if(task.getValue(Task.REMINDER_SNOOZE) > DateUtilities.now())
+        if (task.getValue(Task.REMINDER_SNOOZE) > DateUtilities.now())
             return task.getValue(Task.REMINDER_SNOOZE);
         return NO_ALARM;
     }
 
     /**
      * Calculate the next alarm time for overdue reminders.
-     * <p>
+     * <p/>
      * We schedule an alarm for after the due date (which could be in the past),
      * with the exception that if a reminder was recently issued, we move
      * the alarm time to the near future.
@@ -263,8 +270,8 @@ public final class ReminderService  {
      * @return
      */
     private long calculateNextOverdueReminder(Task task) {
-     // Uses getNowValue() instead of DateUtilities.now()
-        if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
+        // Uses getNowValue() instead of DateUtilities.now()
+        if (task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
             Date due = new Date(task.getValue(Task.DUE_DATE));
             if (!task.hasDueTime()) {
                 due.setHours(23);
@@ -274,14 +281,14 @@ public final class ReminderService  {
             long dueDateForOverdue = due.getTime();
             long lastReminder = task.getValue(Task.REMINDER_LAST);
 
-            if(dueDateForOverdue > getNowValue())
-                return dueDateForOverdue + (long)((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
+            if (dueDateForOverdue > getNowValue())
+                return dueDateForOverdue + (long) ((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
 
-            if(lastReminder < dueDateForOverdue)
+            if (lastReminder < dueDateForOverdue)
                 return getNowValue();
 
-            if(getNowValue() - lastReminder < 6 * DateUtilities.ONE_HOUR)
-                return getNowValue() + (long)((2.0f +
+            if (getNowValue() - lastReminder < 6 * DateUtilities.ONE_HOUR)
+                return getNowValue() + (long) ((2.0f +
                         task.getValue(Task.IMPORTANCE) +
                         6f * random.nextFloat()) * DateUtilities.ONE_HOUR);
 
@@ -292,11 +299,11 @@ public final class ReminderService  {
 
     /**
      * Calculate the next alarm time for due date reminders.
-     * <p>
+     * <p/>
      * This alarm always returns the due date, and is triggered if
      * the last reminder time occurred before the due date. This means it is
      * possible to return due dates in the past.
-     * <p>
+     * <p/>
      * If the date was indicated to not have a due time, we read from
      * preferences and assign a time.
      *
@@ -305,13 +312,13 @@ public final class ReminderService  {
      */
     private long calculateNextDueDateReminder(Task task) {
         // Uses getNowValue() instead of DateUtilities.now()
-        if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE)) {
+        if (task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE)) {
             long dueDate = task.getValue(Task.DUE_DATE);
             long lastReminder = task.getValue(Task.REMINDER_LAST);
 
             long dueDateAlarm = NO_ALARM;
 
-            if(task.hasDueTime())
+            if (task.hasDueTime())
                 // return due date straight up
                 dueDateAlarm = dueDate;
             else if (DateUtilities.now() > lastReminder + DateUtilities.ONE_DAY) {
@@ -344,10 +351,10 @@ public final class ReminderService  {
                     //
                     int periodDivFactor = 4;
 
-                    if(quietHoursStart != -1 && quietHoursEnd != -1) {
+                    if (quietHoursStart != -1 && quietHoursEnd != -1) {
                         int hour = new Date().getHours();
-                        if(quietHoursStart <= quietHoursEnd) {
-                            if(hour >= quietHoursStart && hour < quietHoursEnd) {
+                        if (quietHoursStart <= quietHoursEnd) {
+                            if (hour >= quietHoursStart && hour < quietHoursEnd) {
                                 // its quiet now, quietHoursEnd is 23 max,
                                 // so put the default reminder to the end of the quiethours
                                 date.setHours(quietHoursEnd);
@@ -358,16 +365,16 @@ public final class ReminderService  {
                                 long millisAfterQuiet = dueDate - quietHoursEndDate.getTime();
 
                                 // if there is more time after quiethours today, select quiethours-end for reminder
-                                if (millisAfterQuiet > (millisToQuiet / ((float)(1-(1/periodDivFactor))) ))
+                                if (millisAfterQuiet > (millisToQuiet / ((float) (1 - (1 / periodDivFactor)))))
                                     dueDateAlarm = quietHoursEndDate.getTime();
                                 else
-                                    dueDateAlarm = getNowValue() + (long)(millisToQuiet / periodDivFactor);
+                                    dueDateAlarm = getNowValue() + (long) (millisToQuiet / periodDivFactor);
                             } else {
                                 // after quietHours, reuse dueDate for end of day
-                                dueDateAlarm = getNowValue() + (long)(millisToEndOfDay / periodDivFactor);
+                                dueDateAlarm = getNowValue() + (long) (millisToEndOfDay / periodDivFactor);
                             }
                         } else { // wrap across 24/hour boundary
-                            if(hour >= quietHoursStart) {
+                            if (hour >= quietHoursStart) {
                                 // do nothing for the end of day, dont let it even vibrate
                                 dueDateAlarm = NO_ALARM;
                             } else if (hour < quietHoursEnd) {
@@ -376,20 +383,20 @@ public final class ReminderService  {
                             } else {
                                 // quietHours didnt start yet
                                 millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
-                                dueDateAlarm = getNowValue() + (long)(millisToQuiet / periodDivFactor);
+                                dueDateAlarm = getNowValue() + (long) (millisToQuiet / periodDivFactor);
                             }
                         }
                     } else {
                         // Quiet hours not activated, simply schedule the reminder on 1/periodDivFactor towards the end of day
-                        dueDateAlarm = getNowValue() + (long)(millisToEndOfDay / periodDivFactor);
+                        dueDateAlarm = getNowValue() + (long) (millisToEndOfDay / periodDivFactor);
                     }
 
-                    if(dueDate > getNowValue() && dueDateAlarm < getNowValue())
+                    if (dueDate > getNowValue() && dueDateAlarm < getNowValue())
                         dueDateAlarm = dueDate;
                 }
             }
 
-            if(lastReminder > dueDateAlarm)
+            if (lastReminder > dueDateAlarm)
                 return NO_ALARM;
 
             return dueDateAlarm;
@@ -399,7 +406,7 @@ public final class ReminderService  {
 
     /**
      * Calculate the next alarm time for random reminders.
-     * <p>
+     * <p/>
      * We take the last reminder time and add approximately the reminder
      * period. If it's still in the past, we set it to some time in the near
      * future.
@@ -409,16 +416,16 @@ public final class ReminderService  {
      */
     private long calculateNextRandomReminder(Task task) {
         long reminderPeriod = task.getValue(Task.REMINDER_PERIOD);
-        if((reminderPeriod) > 0) {
+        if ((reminderPeriod) > 0) {
             long when = task.getValue(Task.REMINDER_LAST);
 
-            if(when == 0)
+            if (when == 0)
                 when = task.getValue(Task.CREATION_DATE);
 
-            when += (long)(reminderPeriod * (0.85f + 0.3f * random.nextFloat()));
+            when += (long) (reminderPeriod * (0.85f + 0.3f * random.nextFloat()));
 
-            if(when < DateUtilities.now()) {
-                when = DateUtilities.now() + (long)((0.5f +
+            if (when < DateUtilities.now()) {
+                when = DateUtilities.now() + (long) ((0.5f +
                         6 * random.nextFloat()) * DateUtilities.ONE_HOUR);
             }
 
@@ -455,7 +462,7 @@ public final class ReminderService  {
          */
         @SuppressWarnings("nls")
         public void createAlarm(Task task, long time, int type) {
-            if(task.getId() == Task.NO_ID)
+            if (task.getId() == Task.NO_ID)
                 return;
             Context context = ContextManager.getContext();
             Intent intent = new Intent(context, Notifications.class);
@@ -473,18 +480,18 @@ public final class ReminderService  {
             } catch (Exception e) {
                 requestCode = type;
             }
-            AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                     intent, 0);
 
             if (time == 0 || time == NO_ALARM)
                 am.cancel(pendingIntent);
             else {
-                if(time < DateUtilities.now())
+                if (time < DateUtilities.now())
                     time = DateUtilities.now() + 5000L;
 
-               if(Constants.DEBUG)
-                    Log.e("Astrid", "Reminder set for " + new Date(time)+" for (\""+task.getValue(Task.TITLE)+"\" (" + task.getId() + "), " + type +")");
+                if (Constants.DEBUG)
+                    Log.e("Astrid", "Reminder set for " + new Date(time) + " for (\"" + task.getValue(Task.TITLE) + "\" (" + task.getId() + "), " + type + ")");
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }
         }
@@ -494,6 +501,7 @@ public final class ReminderService  {
 
     /**
      * Gets a listing of all tasks that are active &
+     *
      * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */

@@ -1,9 +1,9 @@
 package com.todoroo.astrid.subtasks;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.TaskListMetadata;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SubtasksTagUpdater extends SubtasksFilterUpdater {
 

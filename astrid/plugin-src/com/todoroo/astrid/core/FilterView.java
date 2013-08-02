@@ -17,7 +17,6 @@ import android.view.View;
  * Draws filters
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class FilterView extends View {
 

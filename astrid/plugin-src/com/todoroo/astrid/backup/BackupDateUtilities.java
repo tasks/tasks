@@ -5,18 +5,17 @@
  */
 package com.todoroo.astrid.backup;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.util.Log;
-
 /**
  * Date Utility functions for backups
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class BackupDateUtilities {
@@ -25,6 +24,7 @@ public class BackupDateUtilities {
 
     /**
      * Format a Date into ISO 8601 Complaint format.
+     *
      * @return date string, or empty string if input was null
      */
     public static String getIso8601String(Date d) {

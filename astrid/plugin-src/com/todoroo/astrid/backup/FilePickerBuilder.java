@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.backup;
 
-import java.io.File;
-import java.io.FilenameFilter;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +12,9 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 @SuppressWarnings("nls")
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
@@ -54,7 +54,7 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
             AndroidUtilities.sortFilesByDateDesc(filesAsFile);
 
             files = new String[filesAsFile.length];
-            for(int i = 0; i < files.length; i++)
+            for (int i = 0; i < files.length; i++)
                 files[i] = filesAsFile[i].getName();
 
             setItems(files, this);

@@ -13,7 +13,6 @@ import android.os.Parcelable;
  * A <code>FilterCategoryWithNewButton</code> has a button for new filter creation
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class FilterCategoryWithNewButton extends FilterCategory {
 
@@ -29,10 +28,9 @@ public class FilterCategoryWithNewButton extends FilterCategory {
 
     /**
      * Constructor for creating a new FilterCategory
-     * @param listingTitle
-     *            Title of this item as displayed on the lists page, e.g. Inbox
-     * @param children
-     *            filters belonging to this category
+     *
+     * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
+     * @param children     filters belonging to this category
      */
     public FilterCategoryWithNewButton(String listingTitle, Filter[] children) {
         this.listingTitle = listingTitle;
@@ -42,8 +40,7 @@ public class FilterCategoryWithNewButton extends FilterCategory {
     /**
      * Constructor for creating a new FilterCategory
      *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
+     * @param plugin {@link Addon} identifier that encompasses object
      */
     protected FilterCategoryWithNewButton() {
         //
@@ -85,8 +82,8 @@ public class FilterCategoryWithNewButton extends FilterCategory {
             Parcelable[] parcelableChildren = source.readParcelableArray(
                     FilterCategoryWithNewButton.class.getClassLoader());
             item.children = new Filter[parcelableChildren.length];
-            for(int i = 0; i < item.children.length; i++) {
-                if(parcelableChildren[i] instanceof FilterListItem)
+            for (int i = 0; i < item.children.length; i++) {
+                if (parcelableChildren[i] instanceof FilterListItem)
                     item.children[i] = (Filter) parcelableChildren[i];
                 else
                     item.children[i] = null;

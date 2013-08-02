@@ -5,199 +5,224 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/EPr_title">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/EPr_title">
 
-    <PreferenceScreen android:title="@string/EPr_account_title" 
-        android:key="@string/p_account"
-        android:summary="@string/actfm_account_info_summary"/>
-    
-    <PreferenceScreen android:title="@string/p_help" android:summary="@string/EPr_support_summary">
-	    <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />
-	    <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
-	    <PreferenceScreen android:title="@string/EPr_faq_title" android:key="@string/p_help"/>
-    </PreferenceScreen>
-    
-    <PreferenceScreen android:title="@string/EPr_share_astrid"
-        android:key="@string/EPr_share_astrid"
-        android:summary="@string/EPr_share_astrid_summary"/>
-    
-    <PreferenceCategory android:title="@string/EPr_title"/>
-    
     <PreferenceScreen
-        android:title="@string/EPr_appearance_header"
-        android:summary="@string/EPr_appearance_summary">
-        
+            android:title="@string/EPr_account_title"
+            android:key="@string/p_account"
+            android:summary="@string/actfm_account_info_summary"/>
+
+    <PreferenceScreen
+            android:title="@string/p_help"
+            android:summary="@string/EPr_support_summary">
+        <PreferenceScreen
+                android:title="@string/p_about"
+                android:key="@string/p_about"/>
+        <PreferenceScreen
+                android:title="@string/welcome_setting"
+                android:key="@string/p_tutorial"/>
+        <PreferenceScreen
+                android:title="@string/EPr_faq_title"
+                android:key="@string/p_help"/>
+    </PreferenceScreen>
+
+    <PreferenceScreen
+            android:title="@string/EPr_share_astrid"
+            android:key="@string/EPr_share_astrid"
+            android:summary="@string/EPr_share_astrid_summary"/>
+
+    <PreferenceCategory android:title="@string/EPr_title"/>
+
+    <PreferenceScreen
+            android:title="@string/EPr_appearance_header"
+            android:summary="@string/EPr_appearance_summary">
+
         <com.todoroo.astrid.ui.MultilineListPreference
-            android:key="@string/p_theme"
-            android:entries="@array/EPr_themes"
-            android:entryValues="@array/EPr_theme_settings"
-            android:title="@string/EPr_theme_title" />
-        
+                android:key="@string/p_theme"
+                android:entries="@array/EPr_themes"
+                android:entryValues="@array/EPr_theme_settings"
+                android:title="@string/EPr_theme_title"/>
+
         <com.todoroo.astrid.ui.MultilineListPreference
-            android:key="@string/p_theme_widget"
-            android:entries="@array/EPr_themes_widget"
-            android:entryValues="@array/EPr_theme_widget_settings"
-            android:title="@string/EPr_theme_widget_title" />
-        
-        <PreferenceScreen android:title="@string/EPr_taskRowPrefs_title" android:key="@string/p_taskRowPrefs">
-        
-	        <com.todoroo.astrid.ui.MultilineListPreference
-	            android:key="@string/p_fontSize"
-	            android:entries="@array/EPr_font_size"
-	            android:entryValues="@array/EPr_font_size"
-	            android:title="@string/EPr_fontSize_title"
-	            android:summary="@string/EPr_fontSize_desc" />
-	        
-	        <com.todoroo.astrid.ui.MultilineListPreference
-	            android:key="@string/p_taskRowStyle_v2"
-	            android:entries="@array/EPr_task_row_styles"
-	            android:entryValues="@array/EPr_task_row_style_values" />
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_fullTaskTitle"
-	            android:title="@string/EPr_fullTask_title"
-	            android:defaultValue="false" />
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_showNotes"
-	            android:title="@string/EPr_showNotes_title"
-	            android:defaultValue="false" />
-        
+                android:key="@string/p_theme_widget"
+                android:entries="@array/EPr_themes_widget"
+                android:entryValues="@array/EPr_theme_widget_settings"
+                android:title="@string/EPr_theme_widget_title"/>
+
+        <PreferenceScreen
+                android:title="@string/EPr_taskRowPrefs_title"
+                android:key="@string/p_taskRowPrefs">
+
+            <com.todoroo.astrid.ui.MultilineListPreference
+                    android:key="@string/p_fontSize"
+                    android:entries="@array/EPr_font_size"
+                    android:entryValues="@array/EPr_font_size"
+                    android:title="@string/EPr_fontSize_title"
+                    android:summary="@string/EPr_fontSize_desc"/>
+
+            <com.todoroo.astrid.ui.MultilineListPreference
+                    android:key="@string/p_taskRowStyle_v2"
+                    android:entries="@array/EPr_task_row_styles"
+                    android:entryValues="@array/EPr_task_row_style_values"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_fullTaskTitle"
+                    android:title="@string/EPr_fullTask_title"
+                    android:defaultValue="false"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_showNotes"
+                    android:title="@string/EPr_showNotes_title"
+                    android:defaultValue="false"/>
+
         </PreferenceScreen>
-        
-        <PreferenceScreen android:title="@string/EPr_edit_screen_options" 
+
+        <PreferenceScreen
+                android:title="@string/EPr_edit_screen_options"
                 android:key="@string/p_edit_screen">
-	        
-	        <PreferenceScreen android:title="@string/EPr_beastMode_title" 
-	            android:key="@string/p_beastMode"/>
-	            
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_show_task_edit_comments"
-	            android:title="@string/EPr_show_task_edit_comments"
-	            android:defaultValue="true"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_save_and_cancel"
-	            android:title="@string/EPr_show_save_and_cancel"
-	            android:defaultValue="false"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_use_date_shortcuts"
-	            android:title="@string/EPr_use_date_shortcuts"
-	            android:defaultValue="true"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-                android:key="@string/p_time_increment"
-                android:title="@string/EPr_time_increment"
-                android:defaultValue="true"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_show_timer_shortcut"
-	            android:title="@string/EPr_show_timer_shortcut"
-	            android:defaultValue="false"/>
-            
+
+            <PreferenceScreen
+                    android:title="@string/EPr_beastMode_title"
+                    android:key="@string/p_beastMode"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_show_task_edit_comments"
+                    android:title="@string/EPr_show_task_edit_comments"
+                    android:defaultValue="true"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_save_and_cancel"
+                    android:title="@string/EPr_show_save_and_cancel"
+                    android:defaultValue="false"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_use_date_shortcuts"
+                    android:title="@string/EPr_use_date_shortcuts"
+                    android:defaultValue="true"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_time_increment"
+                    android:title="@string/EPr_time_increment"
+                    android:defaultValue="true"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_show_timer_shortcut"
+                    android:title="@string/EPr_show_timer_shortcut"
+                    android:defaultValue="false"/>
+
         </PreferenceScreen>
-        
-        <PreferenceScreen android:title="@string/EPr_list_view" android:key="@string/p_list_view">
-            <PreferenceScreen android:title="@string/EPr_menu_items" android:key="@string/p_menu_items">
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_search"
-	                android:title="@string/TLA_menu_search"
-	                android:defaultValue="true" />
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_friends"
-	                android:title="@string/TLA_menu_friends"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_sync"
-	                android:title="@string/TLA_menu_sync"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_sort"
-	                android:title="@string/TLA_menu_sort"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-		            android:key="@string/p_use_filters"
-		            android:title="@string/EPr_use_filters_title"
-		            android:summary="@string/EPr_use_filters_subtitle"
-		            android:defaultValue="true"/>
+
+        <PreferenceScreen
+                android:title="@string/EPr_list_view"
+                android:key="@string/p_list_view">
+            <PreferenceScreen
+                    android:title="@string/EPr_menu_items"
+                    android:key="@string/p_menu_items">
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_menu_search"
+                        android:title="@string/TLA_menu_search"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_menu_friends"
+                        android:title="@string/TLA_menu_friends"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_menu_sync"
+                        android:title="@string/TLA_menu_sync"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_menu_sort"
+                        android:title="@string/TLA_menu_sort"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_use_filters"
+                        android:title="@string/EPr_use_filters_title"
+                        android:summary="@string/EPr_use_filters_subtitle"
+                        android:defaultValue="true"/>
             </PreferenceScreen>
-        
-	        <PreferenceScreen android:title="@string/EPr_filters_to_show_title" android:key="@string/p_filters_to_show">
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_my_tasks_filter"
-	                android:title="@string/BFE_Active"
-	                android:defaultValue="true"
-	                android:enabled="false" />
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_today_filter"
-	                android:title="@string/today"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_waiting_on_me_filter"
-	                android:title="@string/BFE_waiting_on_me"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_recently_modified_filter"
-	                android:title="@string/BFE_Recent"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_ive_assigned_filter"
-	                android:title="@string/BFE_Assigned"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_not_in_list_filter"
-	                android:title="@string/tag_FEx_untagged"
-	                android:defaultValue="true"/>
-	        </PreferenceScreen>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_show_quickadd_controls"
-	            android:title="@string/EPr_show_quickadd_controls"
-	            android:defaultValue="true" />
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_hide_plus_button"
-	                android:title="@string/EPr_hide_plus_button"
-	                android:defaultValue="false"/>
-	        
-	        <CheckBoxPreference
-	            android:key="@string/p_swipe_lists_enabled"
-	            android:title="@string/EPr_swipe_lists_performance_title" 
-	            android:defaultValue="false"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_show_list_members"
-	            android:title="@string/EPr_show_list_members_title"
-	            android:defaultValue="true"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_voiceInputEnabled"
-	            android:title="@string/EPr_voiceInputEnabled_title"
-	            android:defaultValue="true" />
+
+            <PreferenceScreen
+                    android:title="@string/EPr_filters_to_show_title"
+                    android:key="@string/p_filters_to_show">
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_my_tasks_filter"
+                        android:title="@string/BFE_Active"
+                        android:defaultValue="true"
+                        android:enabled="false"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_today_filter"
+                        android:title="@string/today"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_waiting_on_me_filter"
+                        android:title="@string/BFE_waiting_on_me"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_recently_modified_filter"
+                        android:title="@string/BFE_Recent"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_ive_assigned_filter"
+                        android:title="@string/BFE_Assigned"
+                        android:defaultValue="true"/>
+                <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                        android:key="@string/p_show_not_in_list_filter"
+                        android:title="@string/tag_FEx_untagged"
+                        android:defaultValue="true"/>
+            </PreferenceScreen>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_show_quickadd_controls"
+                    android:title="@string/EPr_show_quickadd_controls"
+                    android:defaultValue="true"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_hide_plus_button"
+                    android:title="@string/EPr_hide_plus_button"
+                    android:defaultValue="false"/>
+
+            <CheckBoxPreference
+                    android:key="@string/p_swipe_lists_enabled"
+                    android:title="@string/EPr_swipe_lists_performance_title"
+                    android:defaultValue="false"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_show_list_members"
+                    android:title="@string/EPr_show_list_members_title"
+                    android:defaultValue="true"/>
+
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                    android:key="@string/p_voiceInputEnabled"
+                    android:title="@string/EPr_voiceInputEnabled_title"
+                    android:defaultValue="true"/>
         </PreferenceScreen>
-        
+
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_showSmartConfirmation_key"
-            android:title="@string/EPr_showSmartConfirmation_title"
-            android:defaultValue="true"/>
-        
+                android:key="@string/p_showSmartConfirmation_key"
+                android:title="@string/EPr_showSmartConfirmation_title"
+                android:defaultValue="true"/>
+
         <CheckBoxPreference
-	        android:title="@string/EPr_force_phone_layout"
-	        android:key="@string/p_force_phone_layout"
-	        android:defaultValue="false"/>
-        
+                android:title="@string/EPr_force_phone_layout"
+                android:key="@string/p_force_phone_layout"
+                android:defaultValue="false"/>
+
         <CheckBoxPreference
-	        android:key="@string/p_use_contact_picker"
-	        android:title="@string/EPr_use_contact_picker"/>
-        
-        <PreferenceScreen android:key="@string/p_configurations" 
-                          android:title="@string/EPr_configurations_title">
-            <PreferenceScreen android:title="@string/EPr_config_default" android:key="@string/p_config_default" />
-            <PreferenceScreen android:title="@string/EPr_config_lite" android:key="@string/p_config_lite"/>    
+                android:key="@string/p_use_contact_picker"
+                android:title="@string/EPr_use_contact_picker"/>
+
+        <PreferenceScreen
+                android:key="@string/p_configurations"
+                android:title="@string/EPr_configurations_title">
+            <PreferenceScreen
+                    android:title="@string/EPr_config_default"
+                    android:key="@string/p_config_default"/>
+            <PreferenceScreen
+                    android:title="@string/EPr_config_lite"
+                    android:key="@string/p_config_lite"/>
         </PreferenceScreen>
-             
+
     </PreferenceScreen>
 
 </PreferenceScreen>

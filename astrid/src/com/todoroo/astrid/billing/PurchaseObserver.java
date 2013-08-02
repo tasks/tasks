@@ -2,8 +2,6 @@
 
 package com.todoroo.astrid.billing;
 
-import java.lang.reflect.Method;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -17,6 +15,8 @@ import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.BillingService.RequestPurchase;
 import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
+
+import java.lang.reflect.Method;
 
 /**
  * An interface for observing changes related to purchases. The main application
@@ -32,8 +32,8 @@ public abstract class PurchaseObserver {
     private final Handler mHandler;
     private Method mStartIntentSender;
     private final Object[] mStartIntentSenderArgs = new Object[5];
-    private static final Class<?>[] START_INTENT_SENDER_SIG = new Class[] {
-        IntentSender.class, Intent.class, int.class, int.class, int.class
+    private static final Class<?>[] START_INTENT_SENDER_SIG = new Class[]{
+            IntentSender.class, Intent.class, int.class, int.class, int.class
     };
 
     public PurchaseObserver(Activity activity, Handler handler) {
@@ -45,6 +45,7 @@ public abstract class PurchaseObserver {
     /**
      * This is the callback that is invoked when Android Market responds to the
      * {@link BillingService#checkBillingSupported()} request.
+     *
      * @param supported true if in-app billing is supported.
      */
     public abstract void onBillingSupported(boolean supported, String type);
@@ -59,14 +60,15 @@ public abstract class PurchaseObserver {
      * update.  The database update is handled in
      * {@link ResponseHandler#purchaseResponse(Context, PurchaseState,
      * String, String, long)}.
+     *
      * @param purchaseState the purchase state of the item
-     * @param itemId a string identifying the item (the "SKU")
-     * @param quantity the current quantity of this item after the purchase
-     * @param purchaseTime the time the product was purchased, in
-     * milliseconds since the epoch (Jan 1, 1970)
+     * @param itemId        a string identifying the item (the "SKU")
+     * @param quantity      the current quantity of this item after the purchase
+     * @param purchaseTime  the time the product was purchased, in
+     *                      milliseconds since the epoch (Jan 1, 1970)
      */
     public abstract void onPurchaseStateChange(PurchaseState purchaseState,
-            String itemId, int quantity, long purchaseTime, String developerPayload, String purchaseToken);
+                                               String itemId, int quantity, long purchaseTime, String developerPayload, String purchaseToken);
 
     /**
      * This is called when we receive a response code from Market for a
@@ -75,23 +77,23 @@ public abstract class PurchaseObserver {
      * {@link #onPurchaseStateChange(PurchaseState, String, int, long)}.
      * This is used for reporting various errors, or if the user backed out
      * and didn't purchase the item.  The possible response codes are:
-     *   RESULT_OK means that the order was sent successfully to the server.
-     *       The onPurchaseStateChange() will be invoked later (with a
-     *       purchase state of PURCHASED or CANCELED) when the order is
-     *       charged or canceled.  This response code can also happen if an
-     *       order for a Market-managed item was already sent to the server.
-     *   RESULT_USER_CANCELED means that the user didn't buy the item.
-     *   RESULT_SERVICE_UNAVAILABLE means that we couldn't connect to the
-     *       Android Market server (for example if the data connection is down).
-     *   RESULT_BILLING_UNAVAILABLE means that in-app billing is not
-     *       supported yet.
-     *   RESULT_ITEM_UNAVAILABLE means that the item this app offered for
-     *       sale does not exist (or is not published) in the server-side
-     *       catalog.
-     *   RESULT_ERROR is used for any other errors (such as a server error).
+     * RESULT_OK means that the order was sent successfully to the server.
+     * The onPurchaseStateChange() will be invoked later (with a
+     * purchase state of PURCHASED or CANCELED) when the order is
+     * charged or canceled.  This response code can also happen if an
+     * order for a Market-managed item was already sent to the server.
+     * RESULT_USER_CANCELED means that the user didn't buy the item.
+     * RESULT_SERVICE_UNAVAILABLE means that we couldn't connect to the
+     * Android Market server (for example if the data connection is down).
+     * RESULT_BILLING_UNAVAILABLE means that in-app billing is not
+     * supported yet.
+     * RESULT_ITEM_UNAVAILABLE means that the item this app offered for
+     * sale does not exist (or is not published) in the server-side
+     * catalog.
+     * RESULT_ERROR is used for any other errors (such as a server error).
      */
     public abstract void onRequestPurchaseResponse(RequestPurchase request,
-            ResponseCode responseCode);
+                                                   ResponseCode responseCode);
 
     /**
      * This is called when we receive a response code from Android Market for a
@@ -99,7 +101,7 @@ public abstract class PurchaseObserver {
      * RESULT_OK means that the request was successfully sent to the server.
      */
     public abstract void onRestoreTransactionsResponse(RestoreTransactions request,
-            ResponseCode responseCode);
+                                                       ResponseCode responseCode);
 
     private void initCompatibilityLayer() {
         try {
@@ -145,12 +147,13 @@ public abstract class PurchaseObserver {
      * Updates the UI after the database has been updated.  This method runs
      * in a background thread so it has to post a Runnable to run on the UI
      * thread.
+     *
      * @param purchaseState the purchase state of the item
-     * @param itemId a string identifying the item
-     * @param quantity the quantity of items in this purchase
+     * @param itemId        a string identifying the item
+     * @param quantity      the quantity of items in this purchase
      */
     void postPurchaseStateChange(final PurchaseState purchaseState, final String itemId,
-            final int quantity, final long purchaseTime, final String developerPayload, final String purchaseToken) {
+                                 final int quantity, final long purchaseTime, final String developerPayload, final String purchaseToken) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {

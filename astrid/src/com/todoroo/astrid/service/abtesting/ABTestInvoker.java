@@ -5,10 +5,11 @@
  */
 package com.todoroo.astrid.service.abtesting;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.service.StatisticsService;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
@@ -20,21 +21,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StatisticsService;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Invoker for communicating with the Astrid Analytics server
- * @author Sam
  *
+ * @author Sam
  */
 @SuppressWarnings("nls")
 public class ABTestInvoker {
 
-    /** NOTE: these values are development values and will not work on production */
+    /**
+     * NOTE: these values are development values and will not work on production
+     */
     private static final String URL = "http://analytics.astrid.com/api/2/";
     public static final String AB_RETENTION_METHOD = "ab_retention";
     public static final String AB_ACTIVATION_METHOD = "ab_activation";
@@ -44,7 +46,8 @@ public class ABTestInvoker {
 
     private static final String PREF_REPORTED_ACQUISITION = "p_reported_acq";
 
-    @Autowired private RestClient restClient;
+    @Autowired
+    private RestClient restClient;
 
     public ABTestInvoker() {
         DependencyInjectionService.getInstance().inject(this);
@@ -70,14 +73,15 @@ public class ABTestInvoker {
 
     /**
      * Posts the payload to the analytics server
+     *
      * @param payload - JSONArray of data points. Created by the
-     * helper method in ABTestReportingService
+     *                helper method in ABTestReportingService
      * @return
      * @throws IOException
      */
     public JSONObject post(String method, JSONArray payload) throws IOException {
         try {
-            HttpEntity postData  = createPostData(payload);
+            HttpEntity postData = createPostData(payload);
             String response = restClient.post(URL + method, postData);
             JSONObject object = new JSONObject(response);
             if (object.getString("status").equals("error")) {
@@ -94,6 +98,7 @@ public class ABTestInvoker {
     /**
      * Converts the JSONArray payload into an HTTPEntity suitable for
      * POSTing.
+     *
      * @param payload
      * @return
      */
@@ -105,8 +110,8 @@ public class ABTestInvoker {
             params.add(new BasicNameValuePair("payload", payload.toString()));
 
         StringBuilder sigBuilder = new StringBuilder();
-        for(NameValuePair entry : params) {
-            if(entry.getValue() == null)
+        for (NameValuePair entry : params) {
+            if (entry.getValue() == null)
                 continue;
 
             String key = entry.getName();

@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import java.util.Date;
-import java.util.List;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
@@ -29,6 +26,9 @@ import com.todoroo.astrid.gtasks.api.MoveListRequest;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import java.util.Date;
+import java.util.List;
+
 @SuppressWarnings("nls")
 public class GtasksApiTest extends DatabaseTestCase {
 
@@ -39,7 +39,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     private boolean bypassTests = false;
 
     public void testCreateTask() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask = new Task();
         String title = "New task";
         newTask.setTitle(title);
@@ -49,7 +49,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testUpdateTaskProperties() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask = new Task();
         String title = "This title will change";
         newTask.setTitle(title);
@@ -65,7 +65,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testTaskDateFormatting2() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask = new Task();
         String title = "Due date will change";
         newTask.setTitle(title);
@@ -81,16 +81,16 @@ public class GtasksApiTest extends DatabaseTestCase {
         newTask = service.updateGtask(DEFAULT_LIST, newTask);
         System.err.println("Newtask C: " + newTask.getDue());
 
-       long complete = now + DateUtilities.ONE_DAY;
-       newTask.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(complete));
-       System.err.println("Newtask D: " + newTask.getCompleted());
-       newTask.setStatus("completed");
-       newTask = service.updateGtask(DEFAULT_LIST, newTask);
-       System.err.println("Newtask E: " + newTask.getCompleted());
+        long complete = now + DateUtilities.ONE_DAY;
+        newTask.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(complete));
+        System.err.println("Newtask D: " + newTask.getCompleted());
+        newTask.setStatus("completed");
+        newTask = service.updateGtask(DEFAULT_LIST, newTask);
+        System.err.println("Newtask E: " + newTask.getCompleted());
     }
 
     public void testTaskDateFormatting() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask = new Task();
         String title = "Due date will change";
         newTask.setTitle(title);
@@ -115,7 +115,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testTaskDeleted() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask = new Task();
         String title = "This task will be deleted";
         newTask.setTitle(title);
@@ -128,7 +128,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testTaskMoved() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask1 = new Task();
         String title1 = "Task 1";
         newTask1.setTitle(title1);
@@ -161,7 +161,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testMoveBetweenLists() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         Task newTask = new Task();
         String title = "This task will move lists";
         newTask.setTitle(title);
@@ -208,7 +208,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testCreateList() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title1 = "My new list!";
         service.createGtaskList(title1);
         assertNotNull(listWithTitle(title1));
@@ -220,7 +220,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testDeleteList() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title = "This list will be deleted";
         TaskList t = service.createGtaskList(title);
         assertNotNull(listWithTitle(title));
@@ -230,7 +230,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testUpdateListProperties() throws Exception {
-        if(bypassTests) return;
+        if (bypassTests) return;
         String title1 = "This title will change";
         TaskList t = service.createGtaskList(title1);
         assertNotNull(listWithTitle(title1));

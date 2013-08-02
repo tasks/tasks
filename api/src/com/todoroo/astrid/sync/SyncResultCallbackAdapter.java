@@ -6,14 +6,12 @@
 package com.todoroo.astrid.sync;
 
 
-
-
 /**
  * Convenience class for implementing sync result callbacks--if we need a sync
  * result callback that only implements a subset of the callback methods, it
  * can extend this empty implementation
- * @author Sam
  *
+ * @author Sam
  */
 public abstract class SyncResultCallbackAdapter implements SyncResultCallback {
 

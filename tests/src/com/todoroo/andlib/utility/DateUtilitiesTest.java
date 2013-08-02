@@ -5,12 +5,12 @@
  */
 package com.todoroo.andlib.utility;
 
+import com.todoroo.andlib.test.TodorooTestCase;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.todoroo.andlib.test.TodorooTestCase;
 
 public class DateUtilitiesTest extends TodorooTestCase {
 
@@ -24,13 +24,13 @@ public class DateUtilitiesTest extends TodorooTestCase {
                 Date d = new Date();
 
                 set24Hour(false);
-                for(int i = 0; i < 24; i++) {
+                for (int i = 0; i < 24; i++) {
                     d.setHours(i);
                     DateUtilities.getTimeString(getContext(), d);
                 }
 
                 set24Hour(true);
-                for(int i = 0; i < 24; i++) {
+                for (int i = 0; i < 24; i++) {
                     d.setHours(i);
                     DateUtilities.getTimeString(getContext(), d);
                 }
@@ -43,7 +43,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
             public void run() {
                 Date d = new Date();
 
-                for(int i = 0; i < 12; i++) {
+                for (int i = 0; i < 12; i++) {
                     d.setMonth(i);
                     DateUtilities.getDateString(getContext(), d);
                 }
@@ -57,7 +57,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
             public void run() {
                 Date d = new Date();
 
-                for(int i = 0; i < 7; i++) {
+                for (int i = 0; i < 7; i++) {
                     d.setDate(i);
                     DateUtilities.getDateStringWithWeekday(getContext(), d);
                 }

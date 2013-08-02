@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,6 +22,9 @@ import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BeastModePreferences extends ListActivity {
 
@@ -44,6 +44,7 @@ public class BeastModePreferences extends ListActivity {
     /**
      * Migration for existing users to assert that the "hide always" section divider exists in the preferences.
      * Knowing that this section will always be in the constructed list of controls simplifies the logic a bit.
+     *
      * @param c
      */
     public static void assertHideUntilSectionExists(Context c, long latestSetVersion) {

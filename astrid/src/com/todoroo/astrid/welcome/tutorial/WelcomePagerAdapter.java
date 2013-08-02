@@ -26,43 +26,42 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 import com.viewpagerindicator.TitleProvider;
 
-public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
-{
-    private int[] images = new int[] {
-        R.drawable.welcome_walkthrough_1,
-        R.drawable.welcome_walkthrough_2,
-        R.drawable.welcome_walkthrough_3,
-        R.drawable.welcome_walkthrough_4,
-        R.drawable.welcome_walkthrough_5,
-        R.drawable.welcome_walkthrough_6,
-        0
+public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider {
+    private int[] images = new int[]{
+            R.drawable.welcome_walkthrough_1,
+            R.drawable.welcome_walkthrough_2,
+            R.drawable.welcome_walkthrough_3,
+            R.drawable.welcome_walkthrough_4,
+            R.drawable.welcome_walkthrough_5,
+            R.drawable.welcome_walkthrough_6,
+            0
     };
-    private int[] title = new int[] {
-        R.string.welcome_title_1,
-        R.string.welcome_title_2,
-        R.string.welcome_title_3,
-        R.string.welcome_title_4,
-        R.string.welcome_title_5,
-        R.string.welcome_title_6,
-        R.string.welcome_title_7,
+    private int[] title = new int[]{
+            R.string.welcome_title_1,
+            R.string.welcome_title_2,
+            R.string.welcome_title_3,
+            R.string.welcome_title_4,
+            R.string.welcome_title_5,
+            R.string.welcome_title_6,
+            R.string.welcome_title_7,
     };
-    private int[] body = new int[] {
-        R.string.welcome_body_1,
-        R.string.welcome_body_2,
-        R.string.welcome_body_3,
-        R.string.welcome_body_4,
-        R.string.welcome_body_5,
-        R.string.welcome_body_6,
-        R.string.welcome_body_7,
+    private int[] body = new int[]{
+            R.string.welcome_body_1,
+            R.string.welcome_body_2,
+            R.string.welcome_body_3,
+            R.string.welcome_body_4,
+            R.string.welcome_body_5,
+            R.string.welcome_body_6,
+            R.string.welcome_body_7,
     };
-    public int[] layouts = new int[] {
-        R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_page,
-        R.layout.welcome_walkthrough_page,
-        R.layout.actfm_login_activity,
+    public int[] layouts = new int[]{
+            R.layout.welcome_walkthrough_page,
+            R.layout.welcome_walkthrough_page,
+            R.layout.welcome_walkthrough_page,
+            R.layout.welcome_walkthrough_page,
+            R.layout.welcome_walkthrough_page,
+            R.layout.welcome_walkthrough_page,
+            R.layout.actfm_login_activity,
     };
 
     public int fallbackLoginPage;
@@ -70,7 +69,8 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
     private final Context context;
     public Account[] accounts;
     public WelcomeWalkthrough parent;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
     public WelcomePagerAdapter(Context context, boolean manual) {
         this.context = context;
@@ -107,10 +107,10 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
     }
 
     private void adjustResourcesForLite() {
-        images = new int[] { 0 };
-        title = new int[] { R.string.welcome_title_7 };
-        body = new int[] { R.string.welcome_body_7 };
-        layouts = new int[] { R.layout.actfm_login_activity };
+        images = new int[]{0};
+        title = new int[]{R.string.welcome_title_7};
+        body = new int[]{R.string.welcome_body_7};
+        layouts = new int[]{R.layout.actfm_login_activity};
     }
 
     @Override

@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/edit_dlg_ok"
-	    android:layout_width="fill_parent"
-	    android:layout_height="45dip"
-	    android:layout_marginTop="5dip"
-	    android:layout_marginBottom="5dip"
-	    android:layout_gravity="center_horizontal"
-	    android:background="@null"
-	    android:textStyle="bold"
-	    android:textColor="@android:color/black"
-	    android:layout_alignParentBottom="true"
-	    android:text="@string/DLG_ok"/>
+        android:id="@+id/edit_dlg_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_alignParentBottom="true"
+        android:text="@string/DLG_ok"/>

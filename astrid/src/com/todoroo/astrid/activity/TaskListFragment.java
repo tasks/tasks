@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -116,12 +111,16 @@ import com.todoroo.astrid.welcome.HelpInfoPopover;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
  * and a user's coaches.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class TaskListFragment extends SherlockListFragment implements OnSortSelectedListener {
 
@@ -161,7 +160,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     // --- constants
 
-    /** token for passing a {@link Filter} object through extras */
+    /**
+     * token for passing a {@link Filter} object through extras
+     */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
     private static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
@@ -174,21 +175,28 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     @Autowired
     protected TaskService taskService;
 
-    @Autowired MetadataService metadataService;
+    @Autowired
+    MetadataService metadataService;
 
-    @Autowired Database database;
+    @Autowired
+    Database database;
 
-    @Autowired AddOnService addOnService;
+    @Autowired
+    AddOnService addOnService;
 
-    @Autowired UpgradeService upgradeService;
+    @Autowired
+    UpgradeService upgradeService;
 
-    @Autowired TagDataService tagDataService;
+    @Autowired
+    TagDataService tagDataService;
 
-    @Autowired TaskListMetadataDao taskListMetadataDao;
+    @Autowired
+    TaskListMetadataDao taskListMetadataDao;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
-    private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
+    private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[]{
             new ReminderDebugContextActions.MakeNotification(),
             new ReminderDebugContextActions.WhenReminder(),
     };
@@ -229,12 +237,13 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     /**
      * Instantiates and returns an instance of TaskListFragment (or some subclass). Custom types of
      * TaskListFragment can be created, with the following precedence:
-     *
+     * <p/>
      * --If the filter is of type {@link FilterWithCustomIntent}, the task list type it specifies will be used
      * --Otherwise, the specified customComponent will be used
-     *
+     * <p/>
      * See also: instantiateWithFilterAndExtras(Filter, Bundle) which uses TaskListFragment as the default
      * custom component.
+     *
      * @param filter
      * @param extras
      * @param customComponent
@@ -272,6 +281,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     /**
      * Convenience method for calling instantiateWithFilterAndExtras(Filter, Bundle, Class<?>) with
      * TaskListFragment as the default component
+     *
      * @param filter
      * @param extras
      * @return
@@ -286,6 +296,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      */
     public interface OnTaskListItemClickedListener {
         public void onTaskListItemClicked(long taskId);
+
         public void onTaskListItemClicked(long taskId, boolean editable);
     }
 
@@ -304,15 +315,17 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     /**
      * @return view to attach to the body of the task list. must contain two
-     *         elements, a view with id android:id/empty and a list view with id
-     *         android:id/list. It should NOT be attached to root
+     * elements, a view with id android:id/empty and a list view with id
+     * android:id/list. It should NOT be attached to root
      */
     protected View getListBody(ViewGroup root) {
         return getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_body_standard, root, false);
     }
 
-    /** Called when loading up the activity */
+    /**
+     * Called when loading up the activity
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
@@ -331,7 +344,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_activity, container, false);
         parent.addView(getListBody(parent), 0);
@@ -368,11 +381,11 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         getListView().setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                    int position, long id) {
                 if (taskAdapter != null) {
-                    TodorooCursor<Task> cursor = (TodorooCursor<Task>)taskAdapter.getItem(position);
+                    TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
                     Task task = new Task(cursor);
-                    if(task.isDeleted())
+                    if (task.isDeleted())
                         return;
 
                     onTaskListItemClicked(id, task.isEditable());
@@ -513,13 +526,13 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         // --- sort
         if (allowResorting() && Preferences.getBoolean(R.string.p_show_menu_sort, true)) {
             addMenuItem(menu, R.string.TLA_menu_sort,
-                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_SORT_ID, false);
+                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_SORT_ID, false);
         }
 
         // --- new filter
         if (Preferences.getBoolean(R.string.p_use_filters, true))
             addMenuItem(menu, R.string.FLA_new_filter,
-                    ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_NEW_FILTER_ID, false);
+                    ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_NEW_FILTER_ID, false);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(
@@ -807,7 +820,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * Receiver which receives refresh intents
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
@@ -845,7 +857,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * Receiver which receives detail or decoration intents
      *
      * @author Tim Su <tim@todoroo.com>
-     *
      */
     protected class DetailReceiver extends BroadcastReceiver {
         @Override
@@ -873,7 +884,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(quickAddBar.onActivityResult(requestCode, resultCode, data))
+        if (quickAddBar.onActivityResult(requestCode, resultCode, data))
             return;
 
         if (requestCode == ACTIVITY_SETTINGS) {
@@ -890,7 +901,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         super.onActivityResult(requestCode, resultCode, data);
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            if(!AstridPreferences.canShowPopover())
+            if (!AstridPreferences.canShowPopover())
                 return;
             quickAddBar.getQuickAddBox().postDelayed(new Runnable() {
                 @Override
@@ -907,7 +918,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
+                         int visibleItemCount, int totalItemCount) {
         // do nothing
     }
 
@@ -949,14 +960,14 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public static int getTaskRowResource() {
         int rowStyle = Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0);
-        switch(rowStyle) {
-        case 1:
-            return R.layout.task_adapter_row_simple;
-        case 2:
-            return R.layout.task_adapter_row_title_only;
-        case 0:
-        default:
-            return R.layout.task_adapter_row;
+        switch (rowStyle) {
+            case 1:
+                return R.layout.task_adapter_row_simple;
+            case 2:
+                return R.layout.task_adapter_row_title_only;
+            case 0:
+            default:
+                return R.layout.task_adapter_row;
         }
     }
 
@@ -977,14 +988,13 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public static final String USER_IMAGE_JOIN = "for_images"; // //$NON-NLS-1$
 
-    public  static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
+    public static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
 
 
     /**
      * Fill in the Task List with current items
      *
-     * @param withCustomId
-     *            force task with given custom id to be part of list
+     * @param withCustomId force task with given custom id to be part of list
      */
     public void setUpTaskList() {
         if (filter == null)
@@ -1031,10 +1041,10 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         String joinedQuery =
                 Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
                         tagsJoinCriterion).toString() //$NON-NLS-1$
-                + Join.left(User.TABLE.as(USER_IMAGE_JOIN),
+                        + Join.left(User.TABLE.as(USER_IMAGE_JOIN),
                         Task.USER_ID.eq(Field.field(USER_IMAGE_JOIN + "." + User.UUID.name))).toString()
-                + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + "." + TaskAttachment.TASK_UUID.name)))
-                + filter.getSqlQuery();
+                        + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + "." + TaskAttachment.TASK_UUID.name)))
+                        + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
                 joinedQuery, sortFlags, sortSort));
@@ -1051,7 +1061,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         // Peform query
         try {
             return taskService.fetchFiltered(
-                sqlQueryTemplate.get(), null, taskProperties());
+                    sqlQueryTemplate.get(), null, taskProperties());
         } catch (SQLiteException e) {
             // We don't show this error anymore--seems like this can get triggered
             // by a strange bug, but there seems to not be any negative side effect.
@@ -1087,17 +1097,17 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     private void showTaskCreateHelpPopover() {
-        if(!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover())
             return;
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
             HelpInfoPopover.showPopover(getActivity(), quickAddBar.getQuickAddBox(),
-                            R.string.help_popover_add_task, null);
+                    R.string.help_popover_add_task, null);
         }
     }
 
     public void showTaskEditHelpPopover() {
-        if(!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover())
             return;
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             quickAddBar.hideKeyboard();
@@ -1126,7 +1136,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     private void showListsHelp() {
-        if(!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover())
             return;
         if (!Preferences.getBoolean(
                 R.string.p_showed_lists_help, false)) {
@@ -1158,8 +1168,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     /**
      * A task was completed from the task adapter
      *
-     * @param item
-     *            task that was completed
+     * @param item task that was completed
      */
     protected void onTaskCompleted(Task item) {
         if (isInbox)
@@ -1187,7 +1196,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
+                                    ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
         Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
         if (task.getValue(Task.IS_READONLY) > 0)
@@ -1238,19 +1247,21 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         return isInbox;
     }
 
-    /** Show a dialog box and delete the task specified */
+    /**
+     * Show a dialog box and delete the task specified
+     */
     private void deleteTask(final Task task) {
         new AlertDialog.Builder(getActivity()).setTitle(
                 R.string.DLG_confirm_title).setMessage(
                 R.string.DLG_delete_this_task_question).setIcon(
                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                 android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        onTaskDelete(task);
-                        taskService.delete(task);
-                        loadTaskListContent(true);
-                    }
-                }).setNegativeButton(android.R.string.cancel, null).show();
+            public void onClick(DialogInterface dialog, int which) {
+                onTaskDelete(task);
+                taskService.delete(task);
+                loadTaskListContent(true);
+            }
+        }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
     public void onTaskCreated(Task task) {
@@ -1304,30 +1315,30 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
         Activity activity = getActivity();
-        switch(id) {
-        case MENU_SORT_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-            if (activity != null) {
-                AlertDialog dialog = SortSelectionActivity.createDialog(
-                        getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
-                dialog.show();
-            }
-            return true;
-        case MENU_SYNC_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
-            syncActionHelper.performSyncAction();
-            return true;
-        case MENU_ADDON_INTENT_ID:
-            if (activity != null)
-                AndroidUtilities.startExternalIntent(activity, intent,
-                        ACTIVITY_MENU_EXTERNAL);
-            return true;
-        case MENU_NEW_FILTER_ID:
-            if (activity != null) {
-                intent = new Intent(activity, CustomFilterActivity.class);
-                activity.startActivityForResult(intent, ACTIVITY_REQUEST_NEW_FILTER);
+        switch (id) {
+            case MENU_SORT_ID:
+                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
+                if (activity != null) {
+                    AlertDialog dialog = SortSelectionActivity.createDialog(
+                            getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
+                    dialog.show();
+                }
                 return true;
-            }
+            case MENU_SYNC_ID:
+                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
+                syncActionHelper.performSyncAction();
+                return true;
+            case MENU_ADDON_INTENT_ID:
+                if (activity != null)
+                    AndroidUtilities.startExternalIntent(activity, intent,
+                            ACTIVITY_MENU_EXTERNAL);
+                return true;
+            case MENU_NEW_FILTER_ID:
+                if (activity != null) {
+                    intent = new Intent(activity, CustomFilterActivity.class);
+                    activity.startActivityForResult(intent, ACTIVITY_REQUEST_NEW_FILTER);
+                    return true;
+                }
         }
         return false;
     }
@@ -1345,60 +1356,60 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             return true;
 
         switch (item.getItemId()) {
-        // --- context menu items
+            // --- context menu items
 
-        case CONTEXT_MENU_BROADCAST_INTENT_ID: {
-            intent = item.getIntent();
-            getActivity().sendBroadcast(intent);
-            return true;
-        }
-        case CONTEXT_MENU_EDIT_TASK_ID: {
-            itemId = item.getGroupId();
-            mListener.onTaskListItemClicked(itemId);
-            return true;
-        }
-        case CONTEXT_MENU_COPY_TASK_ID: {
-            itemId = item.getGroupId();
-            duplicateTask(itemId);
-            return true;
-        }
-        case CONTEXT_MENU_DELETE_TASK_ID: {
-            itemId = item.getGroupId();
-            Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
-            if (task != null)
-                deleteTask(task);
-            return true;
-        }
-        case CONTEXT_MENU_UNDELETE_TASK_ID: {
-            itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
-            task.setValue(Task.DELETION_DATE, 0L);
-            taskService.save(task);
-            loadTaskListContent(true);
-            return true;
-        }
-        case CONTEXT_MENU_PURGE_TASK_ID: {
-            itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
-            TimerPlugin.updateTimer(getActivity(), task, false);
-            taskService.purge(itemId);
-            loadTaskListContent(true);
-            return true;
-        }
-        default: {
-            if (item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST)
-                return false;
-            if (item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST >= contextItemExposers.length)
-                return false;
+            case CONTEXT_MENU_BROADCAST_INTENT_ID: {
+                intent = item.getIntent();
+                getActivity().sendBroadcast(intent);
+                return true;
+            }
+            case CONTEXT_MENU_EDIT_TASK_ID: {
+                itemId = item.getGroupId();
+                mListener.onTaskListItemClicked(itemId);
+                return true;
+            }
+            case CONTEXT_MENU_COPY_TASK_ID: {
+                itemId = item.getGroupId();
+                duplicateTask(itemId);
+                return true;
+            }
+            case CONTEXT_MENU_DELETE_TASK_ID: {
+                itemId = item.getGroupId();
+                Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
+                if (task != null)
+                    deleteTask(task);
+                return true;
+            }
+            case CONTEXT_MENU_UNDELETE_TASK_ID: {
+                itemId = item.getGroupId();
+                Task task = new Task();
+                task.setId(itemId);
+                task.setValue(Task.DELETION_DATE, 0L);
+                taskService.save(task);
+                loadTaskListContent(true);
+                return true;
+            }
+            case CONTEXT_MENU_PURGE_TASK_ID: {
+                itemId = item.getGroupId();
+                Task task = new Task();
+                task.setId(itemId);
+                TimerPlugin.updateTimer(getActivity(), task, false);
+                taskService.purge(itemId);
+                loadTaskListContent(true);
+                return true;
+            }
+            default: {
+                if (item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST)
+                    return false;
+                if (item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST >= contextItemExposers.length)
+                    return false;
 
-            AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-            Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-            contextItemExposers[item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST].invoke(task);
+                AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+                Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
+                contextItemExposers[item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST].invoke(task);
 
-            return true;
-        }
+                return true;
+            }
         }
     }
 
@@ -1428,12 +1439,12 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     protected void toggleDragDrop(boolean newState) {
         extras.putParcelable(TOKEN_FILTER, filter);
-        if(newState)
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+        if (newState)
+            ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                     extras, SubtasksListFragment.class);
         else {
             filter.setFilterQueryOverride(null);
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+            ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                     extras, TaskListFragment.class);
         }
     }
@@ -1449,7 +1460,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     @Override
     public void onSortSelected(boolean always, int flags, int sort) {
         boolean manualSettingChanged = SortHelper.isManualSort(sortFlags) !=
-            SortHelper.isManualSort(flags);
+                SortHelper.isManualSort(flags);
 
         sortFlags = flags;
         sortSort = sort;
@@ -1468,7 +1479,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
 
         try {
-            if(manualSettingChanged)
+            if (manualSettingChanged)
                 toggleDragDrop(SortHelper.isManualSort(sortFlags));
             else
                 setUpTaskList();

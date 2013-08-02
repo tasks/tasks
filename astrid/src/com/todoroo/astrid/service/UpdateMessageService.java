@@ -5,15 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -49,11 +40,19 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * Notifies users when there are server updates
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class UpdateMessageService {
@@ -62,11 +61,16 @@ public class UpdateMessageService {
 
     private static final String PLUGIN_GTASKS = "gtasks";
 
-    @Autowired protected RestClient restClient;
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
-    @Autowired private AddOnService addOnService;
-    @Autowired private StoreObjectDao storeObjectDao;
+    @Autowired
+    protected RestClient restClient;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+    @Autowired
+    private AddOnService addOnService;
+    @Autowired
+    private StoreObjectDao storeObjectDao;
 
     private final Activity activity;
 
@@ -78,11 +82,11 @@ public class UpdateMessageService {
     public void processUpdates() {
         JSONArray updates = checkForUpdates();
 
-        if(updates == null || updates.length() == 0)
+        if (updates == null || updates.length() == 0)
             return;
 
         MessageTuple message = buildUpdateMessage(updates);
-        if(message == null || message.message.length() == 0)
+        if (message == null || message.message.length() == 0)
             return;
 
         displayUpdateDialog(message);
@@ -114,7 +118,7 @@ public class UpdateMessageService {
     }
 
     protected void displayUpdateDialog(final MessageTuple message) {
-        if(activity == null)
+        if (activity == null)
             return;
 
         if (message.linkText.size() > 0) {
@@ -183,7 +187,7 @@ public class UpdateMessageService {
     }
 
     protected MessageTuple buildUpdateMessage(JSONArray updates) {
-        for(int i = 0; i < updates.length(); i++) {
+        for (int i = 0; i < updates.length(); i++) {
             JSONObject update;
             try {
                 update = updates.getJSONObject(i);
@@ -196,14 +200,14 @@ public class UpdateMessageService {
             String plugin = update.optString("plugin", null);
             String notPlugin = update.optString("notplugin", null);
 
-            if(message == null)
+            if (message == null)
                 continue;
-            if(plugin != null) {
-                if(!pluginConditionMatches(plugin))
+            if (plugin != null) {
+                if (!pluginConditionMatches(plugin))
                     continue;
             }
-            if(notPlugin != null) {
-                if(pluginConditionMatches(notPlugin))
+            if (notPlugin != null) {
+                if (pluginConditionMatches(notPlugin))
                     continue;
             }
 
@@ -243,7 +247,7 @@ public class UpdateMessageService {
                 }
             }
 
-            if(messageAlreadySeen(date, message))
+            if (messageAlreadySeen(date, message))
                 continue;
             return toReturn;
         }
@@ -300,21 +304,21 @@ public class UpdateMessageService {
 
     private boolean pluginConditionMatches(String plugin) {
         // handle internal plugin specially
-        if(PLUGIN_GTASKS.equals(plugin))
+        if (PLUGIN_GTASKS.equals(plugin))
             return gtasksPreferenceService.isLoggedIn();
         else
             return addOnService.isInstalled(plugin);
     }
 
     private boolean messageAlreadySeen(String date, String message) {
-        if(date != null)
+        if (date != null)
             message = date + message;
         String hash = AndroidUtilities.md5(message);
 
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.ID).
                 where(StoreObjectCriteria.byTypeAndItem(UpdateMessage.TYPE, hash)));
         try {
-            if(cursor.getCount() > 0)
+            if (cursor.getCount() > 0)
                 return true;
         } finally {
             cursor.close();
@@ -338,7 +342,7 @@ public class UpdateMessageService {
                     "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0") + "&" +
                     "premium=" + (ActFmPreferenceService.isPremiumUser() ? "1" : "0");
             String result = restClient.get(url); //$NON-NLS-1$
-            if(TextUtils.isEmpty(result))
+            if (TextUtils.isEmpty(result))
                 return null;
 
             return new JSONArray(result);
@@ -351,17 +355,23 @@ public class UpdateMessageService {
         }
     }
 
-    /** store object for messages a user has seen */
+    /**
+     * store object for messages a user has seen
+     */
     static class UpdateMessage {
 
-        /** type*/
+        /**
+         * type
+         */
         public static final String TYPE = "update-message"; //$NON-NLS-1$
 
-        /** message contents */
+        /**
+         * message contents
+         */
         public static final StringProperty HASH = new StringProperty(StoreObject.TABLE,
                 StoreObject.ITEM.name);
 
-   }
+    }
 
 
 }

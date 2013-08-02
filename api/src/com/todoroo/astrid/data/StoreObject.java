@@ -21,60 +21,83 @@ import com.todoroo.astrid.api.AstridApiConstants;
  * Data Model which represents a piece of data unrelated to a task
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class StoreObject extends AbstractModel {
 
     // --- table
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("store", StoreObject.class);
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Store Type Key */
+    /**
+     * Store Type Key
+     */
     public static final StringProperty TYPE = new StringProperty(
             TABLE, "type");
 
-    /** Store Item Key */
-    public static final StringProperty ITEM= new StringProperty(
+    /**
+     * Store Item Key
+     */
+    public static final StringProperty ITEM = new StringProperty(
             TABLE, "item");
 
-    /** Store Value Column 1 */
+    /**
+     * Store Value Column 1
+     */
     public static final StringProperty VALUE1 = new StringProperty(
             TABLE, "value");
 
-    /** Store Value Column 2 */
+    /**
+     * Store Value Column 2
+     */
     public static final StringProperty VALUE2 = new StringProperty(
             TABLE, "value2");
 
-    /** Store Value Column 3 */
+    /**
+     * Store Value Column 3
+     */
     public static final StringProperty VALUE3 = new StringProperty(
             TABLE, "value3");
 
-    /** Store Value Column 4 */
+    /**
+     * Store Value Column 4
+     */
     public static final StringProperty VALUE4 = new StringProperty(
             TABLE, "value4");
 
-    /** Store Value Column 5 */
+    /**
+     * Store Value Column 5
+     */
     public static final StringProperty VALUE5 = new StringProperty(
             TABLE, "value5");
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(StoreObject.class);
 
     // --- defaults
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     @Override
@@ -100,7 +123,9 @@ public class StoreObject extends AbstractModel {
     @Override
     public long getId() {
         return getIdHelper(ID);
-    };
+    }
+
+    ;
 
     // --- parcelable helpers
 

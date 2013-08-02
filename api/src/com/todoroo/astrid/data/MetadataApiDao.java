@@ -16,7 +16,6 @@ import com.todoroo.andlib.sql.Criterion;
  * note. It operates in a one-to-many relation with tasks.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class MetadataApiDao extends ContentResolverDao<Metadata> {
 
@@ -29,17 +28,23 @@ public class MetadataApiDao extends ContentResolverDao<Metadata> {
      */
     public static class MetadataCriteria {
 
-        /** Returns all metadata associated with a given task */
+        /**
+         * Returns all metadata associated with a given task
+         */
         public static Criterion byTask(long taskId) {
             return Metadata.TASK.eq(taskId);
         }
 
-        /** Returns all metadata associated with a given key */
+        /**
+         * Returns all metadata associated with a given key
+         */
         public static Criterion withKey(String key) {
             return Metadata.KEY.eq(key);
         }
 
-        /** Returns all metadata associated with a given key */
+        /**
+         * Returns all metadata associated with a given key
+         */
         public static Criterion byTaskAndwithKey(long taskId, String key) {
             return Criterion.and(withKey(key), byTask(taskId));
         }

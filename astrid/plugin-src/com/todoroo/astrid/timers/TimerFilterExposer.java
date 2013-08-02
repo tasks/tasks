@@ -28,7 +28,6 @@ import com.todoroo.astrid.data.Task;
  * Exposes "working on" filter to the {@link FilterListFragment}
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class TimerFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
@@ -43,7 +42,7 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
     }
 
     private FilterListItem[] prepareFilters(Context context) {
-        if(PluginServices.getTaskService().count(Query.select(Task.ID).
+        if (PluginServices.getTaskService().count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0))) == 0)
             return null;
 
@@ -63,7 +62,7 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
                 r.getString(R.string.TFE_workingOn),
                 new QueryTemplate().where(Task.TIMER_START.gt(0)),
                 values);
-        workingOn.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clock)).getBitmap();
+        workingOn.listingIcon = ((BitmapDrawable) r.getDrawable(R.drawable.tango_clock)).getBitmap();
         return workingOn;
     }
 

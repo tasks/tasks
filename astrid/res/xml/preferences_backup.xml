@@ -4,40 +4,40 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<PreferenceScreen  
-    xmlns:android="http://schemas.android.com/apk/res/android">  
-       
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
     <PreferenceCategory
-        android:title="@string/backup_BPr_group_status">
-    
+            android:title="@string/backup_BPr_group_status">
+
         <com.todoroo.astrid.ui.MultilinePreference
-            android:layout="@layout/status_preference"
-            android:key="@string/backup_BPr_status_key"  
-            android:textSize="24sp"
-            android:gravity="center"/>
-        
+                android:layout="@layout/status_preference"
+                android:key="@string/backup_BPr_status_key"
+                android:textSize="24sp"
+                android:gravity="center"/>
+
     </PreferenceCategory>
-            
+
     <PreferenceCategory
-        android:title="@string/backup_BPr_group_options">
-    
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference  
-            android:key="@string/backup_BPr_auto_key"   
-            android:title="@string/backup_BPr_auto_title" 
-            android:defaultValue="true" />
-            
+            android:title="@string/backup_BPr_group_options">
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+                android:key="@string/backup_BPr_auto_key"
+                android:title="@string/backup_BPr_auto_title"
+                android:defaultValue="true"/>
+
     </PreferenceCategory>
-    
+
     <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/backup_BAc_label" 
-            android:title="@string/backup_BAc_label" 
+            android:key="@string/backup_BAc_label"
+            android:title="@string/backup_BAc_label"
             android:textSize="24sp"
             android:gravity="center"/>
-    
+
     <com.todoroo.astrid.ui.MultilinePreference
-        android:key="@string/backup_BAc_cloud"
-        android:title="@string/backup_BAc_cloud"
-        android:textSize="24sp"
-        android:gravity="center" />
-            
+            android:key="@string/backup_BAc_cloud"
+            android:title="@string/backup_BAc_cloud"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
 </PreferenceScreen>  

@@ -5,34 +5,6 @@
  */
 package com.todoroo.andlib.utility;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.math.BigInteger;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -60,11 +32,38 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.service.ExceptionService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigInteger;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  * Android Utility Classes
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AndroidUtilities {
 
@@ -73,7 +72,9 @@ public class AndroidUtilities {
 
     // --- utility methods
 
-    /** Suppress virtual keyboard until user's first tap */
+    /**
+     * Suppress virtual keyboard until user's first tap
+     */
     public static void suppressVirtualKeyboard(final TextView editor) {
         final int inputType = editor.getInputType();
         editor.setInputType(InputType.TYPE_NULL);
@@ -91,7 +92,7 @@ public class AndroidUtilities {
      */
     public static boolean isConnected(Context context) {
         ConnectivityManager manager = (ConnectivityManager)
-            context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
         if (info == null)
             return false;
@@ -100,7 +101,9 @@ public class AndroidUtilities {
         return true;
     }
 
-    /** Fetch the image specified by the given url */
+    /**
+     * Fetch the image specified by the given url
+     */
     public static Bitmap fetchImage(URL url) throws IOException {
         InputStream is = null;
         try {
@@ -115,20 +118,23 @@ public class AndroidUtilities {
                 bis.close();
             }
         } finally {
-            if(is != null)
+            if (is != null)
                 is.close();
         }
     }
 
-    /** Read a bitmap from the specified file, scaling if necessary
-     *  Returns null if scaling failed after several tries */
-    private static final int[] SAMPLE_SIZES = { 1, 2, 4, 6, 8, 10 };
+    /**
+     * Read a bitmap from the specified file, scaling if necessary
+     * Returns null if scaling failed after several tries
+     */
+    private static final int[] SAMPLE_SIZES = {1, 2, 4, 6, 8, 10};
     private static final int MAX_DIM = 1024;
+
     public static Bitmap readScaledBitmap(String file) {
         Bitmap bitmap = null;
         int tries = 0;
         BitmapFactory.Options opts = new BitmapFactory.Options();
-        while((bitmap == null || (bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM)) && tries < SAMPLE_SIZES.length) {
+        while ((bitmap == null || (bitmap.getWidth() > MAX_DIM || bitmap.getHeight() > MAX_DIM)) && tries < SAMPLE_SIZES.length) {
             opts.inSampleSize = SAMPLE_SIZES[tries];
             try {
                 bitmap = BitmapFactory.decodeFile(file, opts);
@@ -151,8 +157,8 @@ public class AndroidUtilities {
      */
     public static void startExternalIntent(Context context, Intent intent, int request) {
         try {
-            if(request > -1 && context instanceof Activity)
-                ((Activity)context).startActivityForResult(intent, request);
+            if (request > -1 && context instanceof Activity)
+                ((Activity) context).startActivityForResult(intent, request);
             else
                 context.startActivity(intent);
         } catch (Exception e) {
@@ -182,6 +188,7 @@ public class AndroidUtilities {
 
     /**
      * Put an arbitrary object into a {@link ContentValues}
+     *
      * @param target
      * @param key
      * @param value
@@ -210,6 +217,7 @@ public class AndroidUtilities {
 
     /**
      * Put an arbitrary object into a {@link ContentValues}
+     *
      * @param target
      * @param key
      * @param value
@@ -244,7 +252,7 @@ public class AndroidUtilities {
     public static String[][] contentValuesToStringArrays(ContentValues source) {
         String[][] result = new String[2][source.size()];
         int i = 0;
-        for(Entry<String, Object> entry : source.valueSet()) {
+        for (Entry<String, Object> entry : source.valueSet()) {
             result[0][i] = entry.getKey();
             result[1][i++] = entry.getValue().toString();
         }
@@ -253,19 +261,21 @@ public class AndroidUtilities {
 
     /**
      * Return index of value in array
+     *
      * @param array array to search
      * @param value value to look for
      * @return
      */
     public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
-        for(int i = 0; i < array.length; i++)
-            if(array[i].equals(value))
+        for (int i = 0; i < array.length; i++)
+            if (array[i].equals(value))
                 return i;
         return -1;
     }
 
     /**
      * Return index of value in integer array
+     *
      * @param array array to search
      * @param value value to look for
      * @return
@@ -282,24 +292,26 @@ public class AndroidUtilities {
      */
     public static String contentValuesToSerializedString(ContentValues source) {
         StringBuilder result = new StringBuilder();
-        for(Entry<String, Object> entry : source.valueSet()) {
+        for (Entry<String, Object> entry : source.valueSet()) {
             addSerialized(result, entry.getKey(), entry.getValue());
         }
         return result.toString();
     }
 
-    /** add serialized helper */
+    /**
+     * add serialized helper
+     */
     private static void addSerialized(StringBuilder result,
-            String key, Object value) {
+                                      String key, Object value) {
         result.append(key.replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE)).append(
                 SERIALIZATION_SEPARATOR);
-        if(value instanceof Integer)
+        if (value instanceof Integer)
             result.append('i').append(value);
-        else if(value instanceof Double)
+        else if (value instanceof Double)
             result.append('d').append(value);
-        else if(value instanceof Long)
+        else if (value instanceof Long)
             result.append('l').append(value);
-        else if(value instanceof String)
+        else if (value instanceof String)
             result.append('s').append(value.toString().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE));
         else if (value instanceof Boolean)
             result.append('b').append(value);
@@ -316,7 +328,7 @@ public class AndroidUtilities {
         if (source == null)
             return null;
 
-        for(String key : source.keySet()) {
+        for (String key : source.keySet()) {
             addSerialized(result, key, source.get(key));
         }
         return result.toString();
@@ -324,32 +336,33 @@ public class AndroidUtilities {
 
     /**
      * Turn ContentValues into a string
+     *
      * @param string
      * @return
      */
     public static ContentValues contentValuesFromSerializedString(String string) {
-        if(string == null)
+        if (string == null)
             return new ContentValues();
 
         ContentValues result = new ContentValues();
         fromSerialized(string, result, new SerializedPut<ContentValues>() {
             public void put(ContentValues object, String key, char type, String value) throws NumberFormatException {
-                switch(type) {
-                case 'i':
-                    object.put(key, Integer.parseInt(value));
-                    break;
-                case 'd':
-                    object.put(key, Double.parseDouble(value));
-                    break;
-                case 'l':
-                    object.put(key, Long.parseLong(value));
-                    break;
-                case 's':
-                    object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                    break;
-                case 'b':
-                    object.put(key, Boolean.parseBoolean(value));
-                    break;
+                switch (type) {
+                    case 'i':
+                        object.put(key, Integer.parseInt(value));
+                        break;
+                    case 'd':
+                        object.put(key, Double.parseDouble(value));
+                        break;
+                    case 'l':
+                        object.put(key, Long.parseLong(value));
+                        break;
+                    case 's':
+                        object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                        break;
+                    case 'b':
+                        object.put(key, Boolean.parseBoolean(value));
+                        break;
                 }
             }
         });
@@ -358,32 +371,33 @@ public class AndroidUtilities {
 
     /**
      * Turn {@link android.os.Bundle} into a string
+     *
      * @param string
      * @return
      */
     public static Bundle bundleFromSerializedString(String string) {
-        if(string == null)
+        if (string == null)
             return new Bundle();
 
         Bundle result = new Bundle();
         fromSerialized(string, result, new SerializedPut<Bundle>() {
             public void put(Bundle object, String key, char type, String value) throws NumberFormatException {
-                switch(type) {
-                case 'i':
-                    object.putInt(key, Integer.parseInt(value));
-                    break;
-                case 'd':
-                    object.putDouble(key, Double.parseDouble(value));
-                    break;
-                case 'l':
-                    object.putLong(key, Long.parseLong(value));
-                    break;
-                case 's':
-                    object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                    break;
-                case 'b':
-                    object.putBoolean(key, Boolean.parseBoolean(value));
-                    break;
+                switch (type) {
+                    case 'i':
+                        object.putInt(key, Integer.parseInt(value));
+                        break;
+                    case 'd':
+                        object.putDouble(key, Double.parseDouble(value));
+                        break;
+                    case 'l':
+                        object.putLong(key, Long.parseLong(value));
+                        break;
+                    case 's':
+                        object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                        break;
+                    case 'b':
+                        object.putBoolean(key, Boolean.parseBoolean(value));
+                        break;
                 }
             }
         });
@@ -397,12 +411,12 @@ public class AndroidUtilities {
     @SuppressWarnings("nls")
     private static <T> void fromSerialized(String string, T object, SerializedPut<T> putter) {
         String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
-        for(int i = 0; i < pairs.length; i += 2) {
+        for (int i = 0; i < pairs.length; i += 2) {
             try {
                 String key = pairs[i].replaceAll(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR);
-                String value = pairs[i+1].substring(1);
+                String value = pairs[i + 1].substring(1);
                 try {
-                    putter.put(object, key, pairs[i+1].charAt(0), value);
+                    putter.put(object, key, pairs[i + 1].charAt(0), value);
                 } catch (NumberFormatException e) {
                     // failed parse to number
                     putter.put(object, key, 's', value);
@@ -414,31 +428,30 @@ public class AndroidUtilities {
     }
 
 
-
-
     /**
      * Turn ContentValues into a string
+     *
      * @param string
      * @return
      */
     @SuppressWarnings("nls")
     public static ContentValues contentValuesFromString(String string) {
-        if(string == null)
+        if (string == null)
             return null;
 
         String[] pairs = string.split("=");
         ContentValues result = new ContentValues();
         String key = null;
-        for(int i = 0; i < pairs.length; i++) {
+        for (int i = 0; i < pairs.length; i++) {
             String newKey = null;
             int lastSpace = pairs[i].lastIndexOf(' ');
-            if(lastSpace != -1) {
+            if (lastSpace != -1) {
                 newKey = pairs[i].substring(lastSpace + 1);
                 pairs[i] = pairs[i].substring(0, lastSpace);
             } else {
-                newKey =  pairs[i];
+                newKey = pairs[i];
             }
-            if(key != null)
+            if (key != null)
                 result.put(key.trim(), pairs[i].trim());
             key = newKey;
         }
@@ -447,14 +460,15 @@ public class AndroidUtilities {
 
     /**
      * Returns true if a and b or null or a.equals(b)
+     *
      * @param a
      * @param b
      * @return
      */
     public static boolean equals(Object a, Object b) {
-        if(a == null && b == null)
+        if (a == null && b == null)
             return true;
-        if(a == null)
+        if (a == null)
             return false;
         return a.equals(b);
     }
@@ -481,6 +495,7 @@ public class AndroidUtilities {
 
     /**
      * Copy stream from source to destination
+     *
      * @param source
      * @param dest
      * @throws IOException
@@ -507,20 +522,21 @@ public class AndroidUtilities {
 
     /**
      * Find a child view of a certain type
+     *
      * @param view
      * @param type
      * @return first view (by DFS) if found, or null if none
      */
     public static <TYPE> TYPE findViewByType(View view, Class<TYPE> type) {
-        if(view == null)
+        if (view == null)
             return null;
-        if(type.isInstance(view))
+        if (type.isInstance(view))
             return (TYPE) view;
-        if(view instanceof ViewGroup) {
+        if (view instanceof ViewGroup) {
             ViewGroup group = (ViewGroup) view;
-            for(int i = 0; i < group.getChildCount(); i++) {
+            for (int i = 0; i < group.getChildCount(); i++) {
                 TYPE v = findViewByType(group.getChildAt(i), type);
-                if(v != null)
+                if (v != null)
                     return v;
             }
         }
@@ -536,13 +552,14 @@ public class AndroidUtilities {
 
     /**
      * Copy databases to a given folder. Useful for debugging
+     *
      * @param folder
      */
     public static void copyDatabases(Context context, String folder) {
         File folderFile = new File(folder);
-        if(!folderFile.exists())
+        if (!folderFile.exists())
             folderFile.mkdir();
-        for(String db : context.databaseList()) {
+        for (String db : context.databaseList()) {
             File dbFile = context.getDatabasePath(db);
             try {
                 copyFile(dbFile, new File(folderFile.getAbsolutePath() +
@@ -555,6 +572,7 @@ public class AndroidUtilities {
 
     /**
      * Sort files by date so the newest file is on top
+     *
      * @param files
      */
     public static void sortFilesByDateDesc(File[] files) {
@@ -567,13 +585,14 @@ public class AndroidUtilities {
 
     /**
      * Search for the given value in the map, returning key if found
+     *
      * @param map
      * @param value
      * @return null if not found, otherwise key
      */
-    public static <KEY, VALUE> KEY findKeyInMap(Map<KEY, VALUE> map, VALUE value){
-        for (Entry<KEY, VALUE> entry: map.entrySet()) {
-            if(entry.getValue().equals(value))
+    public static <KEY, VALUE> KEY findKeyInMap(Map<KEY, VALUE> map, VALUE value) {
+        for (Entry<KEY, VALUE> entry : map.entrySet()) {
+            if (entry.getValue().equals(value))
                 return entry.getKey();
         }
         return null;
@@ -597,30 +616,31 @@ public class AndroidUtilities {
      * If you want to set a transition, please use this method rather than <code>callApiMethod</code> to ensure
      * you really pass an Activity-instance.
      *
-     * @param activity the activity-instance for which to set the finish-transition
+     * @param activity  the activity-instance for which to set the finish-transition
      * @param enterAnim the incoming-transition of the next activity
-     * @param exitAnim the outgoing-transition of this activity
+     * @param exitAnim  the outgoing-transition of this activity
      */
     public static void callOverridePendingTransition(Activity activity, int enterAnim, int exitAnim) {
         callApiMethod(5,
                 activity,
                 "overridePendingTransition", //$NON-NLS-1$
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                new Class<?>[]{Integer.TYPE, Integer.TYPE},
                 enterAnim, exitAnim);
     }
 
     /**
      * Call a method via reflection if API level is at least minSdk
-     * @param minSdk minimum sdk number (i.e. 8)
-     * @param receiver object to call method on
+     *
+     * @param minSdk     minimum sdk number (i.e. 8)
+     * @param receiver   object to call method on
      * @param methodName method name to call
-     * @param params method parameter types
-     * @param args arguments
+     * @param params     method parameter types
+     * @param args       arguments
      * @return method return value, or null if nothing was called or exception
      */
     public static Object callApiMethod(int minSdk, Object receiver,
-            String methodName, Class<?>[] params, Object... args) {
-        if(getSdkVersion() < minSdk)
+                                       String methodName, Class<?>[] params, Object... args) {
+        if (getSdkVersion() < minSdk)
             return null;
 
         return AndroidUtilities.callMethod(receiver.getClass(),
@@ -629,17 +649,18 @@ public class AndroidUtilities {
 
     /**
      * Call a static method via reflection if API level is at least minSdk
-     * @param minSdk minimum sdk number (i.e. 8)
-     * @param className fully qualified class to call method on
+     *
+     * @param minSdk     minimum sdk number (i.e. 8)
+     * @param className  fully qualified class to call method on
      * @param methodName method name to call
-     * @param params method parameter types
-     * @param args arguments
+     * @param params     method parameter types
+     * @param args       arguments
      * @return method return value, or null if nothing was called or exception
      */
     @SuppressWarnings("nls")
     public static Object callApiStaticMethod(int minSdk, String className,
-            String methodName, Class<?>[] params, Object... args) {
-        if(getSdkVersion() < minSdk)
+                                             String methodName, Class<?>[] params, Object... args) {
+        if (getSdkVersion() < minSdk)
             return null;
 
         try {
@@ -653,16 +674,17 @@ public class AndroidUtilities {
 
     /**
      * Call a method via reflection
-     * @param class class to call method on
-     * @param receiver object to call method on (can be null)
+     *
+     * @param class      class to call method on
+     * @param receiver   object to call method on (can be null)
      * @param methodName method name to call
-     * @param params method parameter types
-     * @param args arguments
+     * @param params     method parameter types
+     * @param args       arguments
      * @return method return value, or null if nothing was called or exception
      */
     @SuppressWarnings("nls")
     public static Object callMethod(Class<?> cls, Object receiver,
-            String methodName, Class<?>[] params, Object... args) {
+                                    String methodName, Class<?>[] params, Object... args) {
         try {
             Method method = cls.getMethod(methodName, params);
             Object result = method.invoke(receiver, args);
@@ -685,6 +707,7 @@ public class AndroidUtilities {
     /**
      * From Android MyTracks project (http://mytracks.googlecode.com/).
      * Licensed under the Apache Public License v2
+     *
      * @param activity
      * @param id
      * @return
@@ -738,6 +761,7 @@ public class AndroidUtilities {
 
     /**
      * Performs an md5 hash on the input string
+     *
      * @param input
      * @return
      */
@@ -747,9 +771,9 @@ public class AndroidUtilities {
             byte[] bytesOfMessage = input.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] digest = md.digest(bytesOfMessage);
-            BigInteger bigInt = new BigInteger(1,digest);
+            BigInteger bigInt = new BigInteger(1, digest);
             String hashtext = bigInt.toString(16);
-            while(hashtext.length() < 32 ){
+            while (hashtext.length() < 32) {
                 hashtext = "0" + hashtext;
             }
             return hashtext;
@@ -760,6 +784,7 @@ public class AndroidUtilities {
 
     /**
      * Create an intent to a remote activity
+     *
      * @param appPackage
      * @param activityClass
      * @return
@@ -772,6 +797,7 @@ public class AndroidUtilities {
 
     /**
      * Gets application signature
+     *
      * @return application signature, or null if an error was encountered
      */
     public static String getSignature(Context context, String packageName) {
@@ -786,6 +812,7 @@ public class AndroidUtilities {
 
     /**
      * Join items to a list
+     *
      * @param <TYPE>
      * @param list
      * @param newList
@@ -804,11 +831,11 @@ public class AndroidUtilities {
 
         T[] newList = (T[]) Array.newInstance(type, length);
         if (list != null) {
-            for(int i = 0; i < list.length; i++)
+            for (int i = 0; i < list.length; i++)
                 newList[i] = list[i];
         }
         if (newItems != null) {
-            for(int i = 0; i < newItems.length; i++)
+            for (int i = 0; i < newItems.length; i++)
                 newList[originalListLength + i] = newItems[i];
         }
         return newList;
@@ -819,9 +846,9 @@ public class AndroidUtilities {
     private static ExceptionService exceptionService = null;
 
     private static ExceptionService getExceptionService() {
-        if(exceptionService == null)
-            synchronized(AndroidUtilities.class) {
-                if(exceptionService == null)
+        if (exceptionService == null)
+            synchronized (AndroidUtilities.class) {
+                if (exceptionService == null)
                     exceptionService = new ExceptionService();
             }
         return exceptionService;
@@ -829,16 +856,17 @@ public class AndroidUtilities {
 
     /**
      * Concatenate additional stuff to the end of the array
+     *
      * @param params
      * @param additional
      * @return
      */
     public static <TYPE> TYPE[] concat(TYPE[] dest, TYPE[] source, TYPE... additional) {
         int i = 0;
-        for(; i < Math.min(dest.length, source.length); i++)
+        for (; i < Math.min(dest.length, source.length); i++)
             dest[i] = source[i];
         int base = i;
-        for(; i < dest.length; i++)
+        for (; i < dest.length; i++)
             dest[i] = additional[i - base];
         return dest;
     }
@@ -847,6 +875,7 @@ public class AndroidUtilities {
      * Returns a map where the keys are the values of the map argument
      * and the values are the corresponding keys. Use at your own
      * risk if your map is not 1-to-1!
+     *
      * @param map
      * @return
      */
@@ -862,6 +891,7 @@ public class AndroidUtilities {
 
     /**
      * Capitalize the first character
+     *
      * @param string
      * @return
      */
@@ -871,11 +901,12 @@ public class AndroidUtilities {
 
     /**
      * Dismiss the keyboard if it is displayed by any of the listed views
+     *
      * @param context
-     * @param views - a list of views that might potentially be displaying the keyboard
+     * @param views   - a list of views that might potentially be displaying the keyboard
      */
-    public static void hideSoftInputForViews(Context context, View...views) {
-        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    public static void hideSoftInputForViews(Context context, View... views) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         for (View v : views) {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
@@ -883,6 +914,7 @@ public class AndroidUtilities {
 
     /**
      * Returns true if the screen is large or xtra large
+     *
      * @param context
      * @return
      */
@@ -914,6 +946,7 @@ public class AndroidUtilities {
     /**
      * Wraps a call to Activity.unregisterReceiver in a try/catch block to prevent
      * exceptions being thrown if receiver was never registered with that activity
+     *
      * @param activity
      * @param receiver
      */
@@ -965,6 +998,7 @@ public class AndroidUtilities {
 
     /**
      * Returns the final word characters after the last '.'
+     *
      * @param file
      * @return
      */

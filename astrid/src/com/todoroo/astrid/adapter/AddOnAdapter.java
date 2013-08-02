@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -28,11 +26,12 @@ import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Constants;
 
+import java.util.List;
+
 /**
  * Adapter for {@link AddOn}s
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class AddOnAdapter extends ArrayAdapter<AddOn> {
 
@@ -56,7 +55,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         @Override
         public void onClick(View v) {
             ButtonTag buttonTag = (ButtonTag) v.getTag();
-            if(buttonTag != null) {
+            if (buttonTag != null) {
                 try {
                     activity.startActivity(buttonTag.intent);
                     StatisticsService.reportEvent("addon-" + buttonTag.event); //$NON-NLS-1$
@@ -69,7 +68,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.addon_adapter_row, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
@@ -83,7 +82,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             viewHolder.market.setOnClickListener(intentClickListener);
 
         }
-        ((ViewHolder)convertView.getTag()).item = getItem(position);
+        ((ViewHolder) convertView.getTag()).item = getItem(position);
         initializeView(convertView);
 
         return convertView;
@@ -102,6 +101,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
     private class ButtonTag {
         String event;
         Intent intent;
+
         public ButtonTag(String message, Intent intent) {
             this.event = message;
             this.intent = intent;
@@ -119,7 +119,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
 
         // populate buttons
 
-        if(installed) {
+        if (installed) {
             viewHolder.market.setVisibility(View.GONE);
             viewHolder.installedIcon.setVisibility(View.VISIBLE);
         } else {
@@ -133,7 +133,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
                 viewHolder.market.setTag(new ButtonTag("market-" + item.getPackageName(), //$NON-NLS-1$
                         marketIntent));
                 Drawable icon = getIntentIcon(marketIntent);
-                if(icon == null)
+                if (icon == null)
                     viewHolder.market.setImageResource(
                             android.R.drawable.stat_sys_download);
                 else
@@ -147,7 +147,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
 
         // if options > 1, display open with...
-        if(resolveInfoList.size() > 0) {
+        if (resolveInfoList.size() > 0) {
             return resolveInfoList.get(0).activityInfo.loadIcon(pm);
         }
 

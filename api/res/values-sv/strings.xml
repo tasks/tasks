@@ -4,244 +4,250 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1 år</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d år</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1 månad</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d månader</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1 vecka</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d veckor</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1 dag</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d dagar</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">1 Veckodag</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d Veckodagar</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1 timme</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d timmar</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1 minut</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d minuter</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 sekund</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d sekunder</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 tim</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d tim</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 min</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 sek</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d sek</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 uppgift</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d uppgifter</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1 person</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d personer</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">Today</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">Tomorrow</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">Igår</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">imorn</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">Igår</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Bekräfta?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">Fråga:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">Information</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">Fel!</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">Spara</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">Ja</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">Nej</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">Stäng</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">Klar</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oj, det uppstod ett fel!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Var god vänta...</string>
+    <!-- ==================================================== Generic Units == -->
 
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synkroniserar dina uppgifter...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synkroniserar...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Synkronisering</string>  
+    <plurals name="DUt_years">
+        <!-- plurals: years -->
+        <item quantity="one">1 år</item>
+        <!-- plurals: years -->
+        <item quantity="other">%d år</item>
+    </plurals>
+    <plurals name="DUt_months">
+        <!-- plurals: months -->
+        <item quantity="one">1 månad</item>
+        <!-- plurals: months -->
+        <item quantity="other">%d månader</item>
+    </plurals>
+    <plurals name="DUt_weeks">
+        <!-- plurals: days -->
+        <item quantity="one">1 vecka</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d veckor</item>
+    </plurals>
+    <plurals name="DUt_days">
+        <!-- plurals: days -->
+        <item quantity="one">1 dag</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d dagar</item>
+    </plurals>
+    <plurals name="DUt_weekdays">
+        <!-- plurals: days -->
+        <item quantity="one">1 Veckodag</item>
+        <!-- plurals: days -->
+        <item quantity="other">%d Veckodagar</item>
+    </plurals>
+    <plurals name="DUt_hours">
+        <!-- plurals: hours -->
+        <item quantity="one">1 timme</item>
+        <!-- plurals: hours -->
+        <item quantity="other">%d timmar</item>
+    </plurals>
+    <plurals name="DUt_minutes">
+        <!-- plurals: minutes -->
+        <item quantity="one">1 minut</item>
+        <!-- plurals: minutes -->
+        <item quantity="other">%d minuter</item>
+    </plurals>
+    <plurals name="DUt_seconds">
+        <!-- plurals: seconds -->
+        <item quantity="one">1 sekund</item>
+        <!-- plurals: seconds -->
+        <item quantity="other">%d sekunder</item>
+    </plurals>
+    <plurals name="DUt_hoursShort">
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="one">1 tim</item>
+        <!-- plurals: hours (abbreviated) -->
+        <item quantity="other">%d tim</item>
+    </plurals>
+    <plurals name="DUt_minutesShort">
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="one">1 min</item>
+        <!-- plurals: minutes (abbreviated) -->
+        <item quantity="other">%d min</item>
+    </plurals>
+    <plurals name="DUt_secondsShort">
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="one">1 sek</item>
+        <!-- plurals: seconds (abbreviated) -->
+        <item quantity="other">%d sek</item>
+    </plurals>
+    <plurals name="Ntasks">
+        <!-- plurals: tasks -->
+        <item quantity="one">1 uppgift</item>
+        <!-- plurals: tasks -->
+        <item quantity="other">%d uppgifter</item>
+    </plurals>
+    <plurals name="Npeople">
+        <!-- plurals: people -->
+        <item quantity="one">1 person</item>
+        <!-- plurals: people -->
+        <item quantity="other">%d personer</item>
+    </plurals>
 
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Sync now</string>  
+    <!-- slide 10a, 12c: today -->
+    <string name="today">Today</string>
 
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Google Aktiviteter, sparad data, lokal backup</string>  
+    <!-- tomorrow -->
+    <string name="tomorrow">Tomorrow</string>
 
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.</string>
+    <!-- yesterday -->
+    <string name="yesterday">Igår</string>
 
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Status</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Ej inloggad</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">Synkronisering pågår...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Synkroniserades senast:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Misslyckades: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Synkade med fel: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Synkronisering lyckades senast: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">Aldrig synkroniserad!</string>
+    <!-- slide 12c: tomorrow, abbreviated -->
+    <string name="tmrw">imorn</string>
 
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Alternativ</string>
+    <!-- slide 12c: yesterday, abbreviated -->
+    <string name="yest">Igår</string>
 
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Bakgrundssynkronisering är inaktiverad</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Aktuell inställning: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Endast Wi-Fi Inställning</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Bakgrundssynkronisering sker endast när du är ansluten till Wi-Fi</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Bakgrundssynkronisering sker alltid</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">Åtgärder</string>
+    <!-- ================================================== Generic Dialogs == -->
 
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Synkronisera nu</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Logga in &amp; synkronisera!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">Inloggad som:</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">Status rapport</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Klicka för att skicka en rapport till Astrid-teamet</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">Skicka rapport</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Logga ut</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
+    <!-- confirmation dialog title -->
+    <string name="DLG_confirm_title">Bekräfta?</string>
 
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">Ett nätverksproblem uppstod 
-vid senaste synkroniseringen med %s. Vänligen försök igen.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>inaktivera</item>
-      <item>varje kvartstimme</item>
-      <item>varje halvtimme</item>
-      <item>varje timme</item>
-      <item>var tredje timme</item>
-      <item>var sjätte timme</item>
-      <item>var tolfte timme</item>
-      <item>varje dag</item>
-      <item>var tredje dag</item>
-      <item>varje vecka</item>
-  </string-array>    
-    
+    <!-- question dialog title -->
+    <string name="DLG_question_title">Fråga:</string>
+
+    <!-- information dialog title -->
+    <string name="DLG_information_title">Information</string>
+
+    <!-- error dialog title -->
+    <string name="DLG_error_title">Fel!</string>
+
+    <!-- general dialog save-->
+    <string name="DLG_save">Spara</string>
+
+    <!-- general dialog yes-->
+    <string name="DLG_yes">Ja</string>
+
+    <!-- general dialog no-->
+    <string name="DLG_no">Nej</string>
+
+    <!-- general dialog close-->
+    <string name="DLG_close">Stäng</string>
+
+    <!-- general dialog done -->
+    <string name="DLG_done">Klar</string>
+
+    <!-- error dialog (%s => error message)-->
+    <string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
+
+    <!-- error dialog (no message indicated)-->
+    <string name="DLG_error_generic">Oj, det uppstod ett fel!</string>
+
+    <!-- Progress dialog shown when doing something slow -->
+    <string name="DLG_wait">Var god vänta...</string>
+
+    <!-- ====================================================== SyncProvider == -->
+
+    <!-- Sync Notification: message when sync service active -->
+    <string name="SyP_progress">Synkroniserar dina uppgifter...</string>
+
+    <!-- Sync Notification: toast when sync activated from activity -->
+    <string name="SyP_progress_toast">Synkroniserar...</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="SyP_label">Synkronisering</string>
+
+    <!-- Sync Label: used in menu to denote synchronization -->
+    <string name="Sync_now_label">Sync now</string>
+
+    <!-- Sync label subtitle -->
+    <string name="SyP_summary">Astrid.com, Google Aktiviteter, sparad data, lokal backup</string>
+
+    <!-- Error msg when io exception  -->
+    <string name="SyP_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.
+    </string>
+
+    <!-- ================================================== SyncPreferences == -->
+
+    <!-- Status Group Label -->
+    <string name="sync_SPr_group_status">Status</string>
+
+    <!-- Sync status subtitle, %s-> status message -->
+    <string name="sync_SPr_status_subtitle">Status: %s</string>
+    <!-- Sync Status: log in -->
+    <string name="sync_status_loggedout">Ej inloggad</string>
+    <!-- Status: ongoing -->
+    <string name="sync_status_ongoing">Synkronisering pågår...</string>
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+    <string name="sync_status_success">Synkroniserades senast:\n%s</string>
+    <!-- Sync Status: failure status (%s -> last attempted sync date) -->
+    <string name="sync_status_failed">Misslyckades: %s</string>
+    <!-- Sync Status: error status (%s -> last sync date) -->
+    <string name="sync_status_errors">Synkade med fel: %s</string>
+    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+    <string name="sync_status_failed_subtitle">Synkronisering lyckades senast: %s</string>
+    <!-- Sync Status: never sync\'d -->
+    <string name="sync_status_never">Aldrig synkroniserad!</string>
+
+    <!-- Options Group Label -->
+    <string name="sync_SPr_group_options">Alternativ</string>
+
+    <!-- Preference: Synchronization Interval Title -->
+    <string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
+    <string name="sync_SPr_interval_desc_disabled">Bakgrundssynkronisering är inaktiverad</string>
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
+    <string name="sync_SPr_interval_desc">Aktuell inställning: %s</string>
+
+    <!-- Preference: Background Wifi Title -->
+    <string name="sync_SPr_bgwifi_title">Endast Wi-Fi Inställning</string>
+    <!-- Preference: Background Wifi Description (enabled) -->
+    <string name="sync_SPr_bgwifi_desc_enabled">Bakgrundssynkronisering sker endast när du är
+        ansluten till Wi-Fi
+    </string>
+    <!-- Preference: Background Wifi Description (disabled) -->
+    <string name="sync_SPr_bgwifi_desc_disabled">Bakgrundssynkronisering sker alltid</string>
+
+    <!-- Actions Group Label  -->
+    <string name="sync_SPr_group_actions">Åtgärder</string>
+
+    <!-- Synchronize Now Button -->
+    <string name="sync_SPr_sync">Synkronisera nu</string>
+    <!-- Synchronize Now Button if not logged in-->
+    <string name="sync_SPr_sync_log_in">Logga in &amp; synkronisera!</string>
+
+    <!-- Sync: Prefix string before logged in identifier -->
+    <string name="sync_SPr_logged_in_prefix">Inloggad som:</string>
+
+    <!-- Sync: Last error -->
+    <string name="sync_SPr_last_error">Status rapport</string>
+
+    <!-- Sync: last error click for more -->
+    <string name="sync_SPr_last_error_subtitle">Klicka för att skicka en rapport till
+        Astrid-teamet
+    </string>
+    <!-- Sync: send error report button -->
+    <string name="sync_SPr_send_report">Skicka rapport</string>
+
+    <!-- Sync: Clear Data Title -->
+    <string name="sync_SPr_forget">Logga ut</string>
+    <!-- Sync: Clear Data Description -->
+    <string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
+
+    <!-- Sync error: network connectivity problems. %s-> name of sync service-->
+    <string name="sync_error_offline">Ett nätverksproblem uppstod
+        vid senaste synkroniseringen med %s. Vänligen försök igen.
+    </string>
+
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+        <item>inaktivera</item>
+        <item>varje kvartstimme</item>
+        <item>varje halvtimme</item>
+        <item>varje timme</item>
+        <item>var tredje timme</item>
+        <item>var sjätte timme</item>
+        <item>var tolfte timme</item>
+        <item>varje dag</item>
+        <item>var tredje dag</item>
+        <item>varje vecka</item>
+    </string-array>
+
 </resources>

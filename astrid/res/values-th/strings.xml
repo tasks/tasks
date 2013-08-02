@@ -1,512 +1,513 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="actfm_picture_camera">ถ่ายภาพ</string>
-  <string name="actfm_picture_gallery">เลือกจากคลังภาพ</string>
-  <string name="actfm_picture_clear">ล้างภาพ</string>
-  <string-array name="TVA_tabs">
-    <item>Tasks</item>
-    <item>Activity</item>
-    <item>List Settings</item>
-  </string-array>
-  <string name="actfm_ALA_password_label">รหัสผ่าน</string>
-  <string-array name="reminders_alarm">
-    <item>แจ้งเตือน!</item>
-  </string-array>
-  <string name="backup_BPr_header">สำรองข้อมูล</string>
-  <string name="backup_BPr_group_status">สถานะ</string>
-  <string name="backup_status_failed_subtitle">(แตะเพื่อแสดงข้อผิดพลาด)</string>
-  <string name="backup_BPr_group_options">ตัวเลือก</string>
-  <string name="backup_BPr_auto_enabled">จะทำการสำรองข้อมูลทุกวัน</string>
-  <string name="export_progress_title">กำลังส่งออก...</string>
-  <string name="import_progress_title">กำลังนำเข้า...</string>
-  <string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>
-  <string name="DLG_error_sdcard">ไม่สามารถเข้าถึงแฟ้ม: %s</string>
-  <string name="DLG_error_sdcard_general">ไม่สามารถเข้าถึง SD Card ได้!</string>
-  <string name="read_permission_desc">อ่านแผนงาน, แสดงตัวกรองแผนงาน</string>
-  <string name="write_permission_desc">สร้างแผนงานใหม่, แก้ไขแผนงานเดิม</string>
-  <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
-  <string name="DLG_delete_this_item_question">ลบรายการนี้: %s?</string>
-  <string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
-  <string name="DLG_accept">ฉันยอมรับ</string>
-  <string name="DLG_decline">ฉันปฏิเสธ</string>
-  <string name="DLG_eula_title">เงื่อนไขการใช้งาน Astrid</string>
-  <string name="DLG_loading">กำลังโหลด...</string>
-  <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
-  <string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
-  <string name="TLA_custom">ปรับแต่ง</string>
-  <string-array name="TLA_filters">
-    <item>Active</item>
-    <item>วันนี้</item>
-    <item>Soon</item>
-    <item>Late</item>
-    <item>เสร็จแล้ว</item>
-    <item>Hidden</item>
-  </string-array>
-  <string-array name="TLA_priority_strings">
-    <item>highest priority</item>
-    <item>high priority</item>
-    <item>medium priority</item>
-    <item>low priority</item>
-  </string-array>
-  <string name="TAd_actionEditTask">แก้ไข</string>
-  <string name="TAd_contextEditTask">แก้ไขงาน</string>
-  <string name="TAd_contextUndeleteTask">แผนงานที่ลบไม่ได้</string>
-  <string name="SSD_title">จัดเรียง และซ่อนแผนงาน</string>
-  <string name="SSD_completed">แสดงแผนงานที่เสร็จแล้ว</string>
-  <string name="SSD_hidden">แสดงแผนงานที่ซ่อนไว้</string>
-  <string name="SSD_deleted">แสดงแผนงานที่ถูกลบ</string>
-  <string name="SSD_sort_auto">จัดเรียงด้วย Astrid Smart</string>
-  <string name="SSD_sort_alpha">ตามชื่อ</string>
-  <string name="SSD_sort_importance">ตามความสำคัญ</string>
-  <string name="SSD_sort_modified">ตามวันที่แก้ไขล่าสุด</string>
-  <string name="SSD_sort_reverse">จัดเรียงย้อนหลัง</string>
-  <string name="SSD_save_temp">ชั่วคราว</string>
-  <string name="SSD_save_always">ตลอดไป</string>
-  <string name="FLA_shortcut_dialog_title">สร้างทางลัด</string>
-  <string name="FLA_shortcut_dialog">ชื่อทางลัด:</string>
-  <string name="FLA_search_hint">ค้นหาแผนงาน</string>
-  <string name="FLA_toast_onCreateShortcut">สร้างทางลัดแล้ว: %s</string>
-  <string name="TEA_title_hint">สรุปแผนงาน</string>
-  <string name="TEA_importance_label">ความสำคัญ</string>
-  <string name="TEA_urgency_specific_time">ณ.เวลาที่ระบุ?</string>
-  <string-array name="TEA_loading">
-    <item>กำลังโหลด...</item>
-  </string-array>
-  <string name="TEA_note_label">บันทึกย่อ</string>
-  <string name="TEA_menu_save">บันทึกการเปลี่ยนแปลง</string>
-  <string name="TEA_menu_discard">ไม่บันทึก</string>
-  <string name="TEA_menu_delete">ลบงาน</string>
-  <string name="TEA_onTaskSave_notDue">งานที่บันทึกไว้</string>
-  <string name="TEA_tab_more">เพิ่มเติม</string>
-  <string-array name="TEA_urgency">
-    <item>ไม่มีเส้นตาย</item>
-    <item>Specific day</item>
-    <item>วันนี้</item>
-    <item>พรุ่งนี้</item>
-    <item>(วันให้หลัง)</item>
-    <item>Next week</item>
-    <item>In two weeks</item>
-    <item>Next month</item>
-  </string-array>
-  <string-array name="TEA_hideUntil">
-    <item>ตลอดไป</item>
-    <item>Due date</item>
-    <item>Due time</item>
-    <item>วันก่อนถึงกำหนด</item>
-    <item>สัปดาห์ก่อนถึงกำหนด</item>
-    <item>ระบุ วัน/เวลา</item>
-  </string-array>
-  <string name="TEA_control_more_section">----More Section----</string>
-  <string name="TEA_control_importance">ความสำคัญ</string>
-  <string name="TEA_control_notes">บันทึกย่อ</string>
-  <string-array name="MCA_dialog_speech_options">
-    <item>It must be nice to be so popular!</item>
-    <item>Yay! People like you!</item>
-    <item>Make their day, give \'em a call!</item>
-    <item>Wouldn\'t you be happy if people called you back?</item>
-    <item>You can do it!</item>
-    <item>You can always send a text...</item>
-  </string-array>
-  <string name="UpS_changelog_title">มีอะไรใหม่ใน Astrid?</string>
-  <string name="UpS_updates_title">ข่าวล่าสุดของ Astrid</string>
-  <string name="EPr_appearance_header">รูปโฉม</string>
-  <string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
-  <string name="EPr_showNotes_desc_enabled">บันทึกจะแสดงให้เห็นตลอดเวลา</string>
-  <string-array name="EPr_swipe_lists_performance_mode">
-    <item>No swipe</item>
-    <item>Conserve Memory</item>
-    <item>Normal Performance</item>
-    <item>High Performance</item>
-  </string-array>
-  <string-array name="EPr_swipe_lists_performance_desc">
-    <item>Swipe between lists is disabled</item>
-    <item>Slower performance</item>
-    <item>Default setting</item>
-    <item>Uses more system resources</item>
-  </string-array>
-  <string-array name="EPr_themes">
-    <item>Day - Blue</item>
-    <item>Day - Red</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
-  </string-array>
-  <string-array name="EPr_themes_widget">
-    <item>Same as app</item>
-    <item>Day - Blue</item>
-    <item>Day - Red</item>
-    <item>Sky blue</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
-    <item>Old Style</item>
-  </string-array>
-  <string name="AOA_internal_author">ทีมงาน Astrid</string>
-  <string name="AOA_tab_installed">ติดตั้งแล้ว</string>
-  <string name="AOA_tab_available">พร้อมใช้</string>
-  <string name="AOA_free">ฟรี</string>
-  <string name="TWi_loading">กำลังโหลด...</string>
-  <string name="WCA_title">เลือกแผนงานเพื่อดู...</string>
-  <string-array name="EPr_default_importance">
-    <item>!!! (Highest)</item>
-    <item>!!</item>
-    <item>!</item>
-    <item>o (Lowest)</item>
-  </string-array>
-  <string-array name="EPr_default_urgency">
-    <item>No deadline</item>
-    <item>วันนี้</item>
-    <item>พรุ่งนี้</item>
-    <item>Day after tomorrow</item>
-    <item>Next week</item>
-  </string-array>
-  <string-array name="EPr_default_hideUntil">
-    <item>ไม่ต้องซ่อน</item>
-    <item>ถึงกำหนดแผนงาน</item>
-    <item>วันก่อนถึงกำหนด</item>
-    <item>สัปดาห์ก่อนถึงกำหนด</item>
-  </string-array>
-  <string-array name="EPr_default_reminders">
-    <item>No deadline reminders</item>
-    <item>ถึงเส้นตาย</item>
-    <item>เมื่อพ้นกำหนด</item>
-    <item>เมื่อถึงเส้นตาย หรือพ้นกำหนด</item>
-  </string-array>
-  <string name="BFE_Active">แผนงานตอนนี้</string>
-  <string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
-  <string name="BFE_Saved_delete">ลบตัวกรอง</string>
-  <string name="CFA_title">ตัวกรองที่กำหนดค่าเอง</string>
-  <string name="CFA_filterName_hint">ตั้งชื่อตัวกรองเพื่อบันทึก...</string>
-  <string name="CFA_universe_all">แผนงานตอนนี้</string>
-  <string name="CFA_type_add">หรือ</string>
-  <string name="CFA_type_subtract">ไม่ใช่</string>
-  <string name="CFA_type_intersect">รวมถึง</string>
-  <string name="CFA_context_delete">ลบแถว</string>
-  <string name="CFA_button_add">เพิ่มข้อกำหนด</string>
-  <string name="CFA_button_view">เปิดดู</string>
-  <string name="CFA_button_save">บันทึก &amp; เปิดดู</string>
-  <string-array name="CFC_dueBefore_entries">
-    <item>ไม่กำหนดวัน</item>
-    <item>เมื่อวาน</item>
-    <item>วันนี้</item>
-    <item>พรุ่งนี้</item>
-    <item>วันมะรืนนี้</item>
-    <item>สัปดาห์หน้า</item>
-    <item>เดือนถัดไป</item>
-  </string-array>
-  <string name="CFC_importance_text">มีความสำคัญอย่างน้อย ?</string>
-  <string name="CFC_importance_name">ความสำคัญ...</string>
-  <string name="CFC_title_contains_name">ชื่อที่มีคำว่า...</string>
-  <string name="CFC_title_contains_text">ชื่อที่มีคำว่า: ?</string>
-  <string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
-  <string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
-  <string name="gcal_GCP_default">ปฏิธินตั้งต้น</string>
-  <string name="locale_edit_alerts_title">คำเตือนตัวกรอง Astrid</string>
-  <string name="locale_edit_intro">Astrid จะช่วยเตือนความจำ เมื่อมีแผนงานอยู่เขตตัวกรองดังนี้:</string>
-  <string name="locale_interval_label">จำกัดการแจ้งเตือนไว้ที่:</string>
-  <string-array name="locale_interval">
-    <item>ชั่วโมงละครั้ง</item>
-    <item>ทุกๆ 6 ชั่วโมง</item>
-    <item>ทุกๆ 12 ชั่วโมง</item>
-    <item>วันละครั้ง</item>
-    <item>ทุกๆ 3 วัน</item>
-    <item>สัปดาห์ละครั้ง</item>
-  </string-array>
-  <string name="locale_plugin_required">กรุณาติดตั้ง Astrid Locale plugin!</string>
-  <string name="opencrx_FEx_dashboard">พื้นที่ทำงาน</string>
-  <string name="opencrx_FEx_responsible">มอบหมายให้กับ</string>
-  <string name="opencrx_FEx_responsible_title">มอบหมายให้กับ \'%s\'</string>
-  <string name="opencrx_PDE_task_from">จาก %s</string>
-  <string name="opencrx_TEA_notes">เพิ่มความคิดเห็น</string>
-  <string name="opencrx_PLA_signIn">เข้าสู่ระบบ</string>
-  <string name="opencrx_PLA_password">รหัสผ่าน</string>
-  <string name="opencrx_notification_text">%s แผนงานอัปเดทแล้ว / คลิกเพื่อดูรายละเอียด</string>
-  <string name="opencrx_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
-  <string name="opencrx_MLA_password_empty">ยังไม่ได้ระบุ รหัสผ่าน</string>
-  <string name="opencrx_TEA_task_assign_label">มอบหมายแผนงานนี้ให้กับบุคคลนี้:</string>
-  <string name="opencrx_TEA_task_unassigned">&lt;ยังไม่ถูกมอบหมาย&gt;</string>
-  <string name="opencrx_TEA_dashboard_default">&lt;ค่าตั้งต้น&gt;</string>
-  <string name="CFC_opencrx_in_workspace_text">ในพื้นที่ทำงาน: ?</string>
-  <string name="CFC_opencrx_in_workspace_name">ในพื้นที่ทำงาน...</string>
-  <string name="CFC_opencrx_assigned_to_text">มอบหมายให้: ?</string>
-  <string name="CFC_opencrx_assigned_to_name">มอบหมายให้...</string>
-  <string name="EPr_statistics_desc_disabled">ไม่มีข้อมูลการใช้งานที่จะรายงาน</string>
-  <string-array name="TEA_reminder_random">
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
-  </string-array>
-  <string name="rmd_NoA_filter">เตือนความจำ!</string>
-  <string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
-  <string name="rmd_NoA_snooze">หลับ..</string>
-  <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
-    <item>Memo for %s.</item>
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_options">
-    <item>Time to shorten your to-do list!</item>
-    <item>Dear sir or madam, some tasks await your inspection!</item>
-    <item>Hi there, could you take a look at these?</item>
-    <item>I\'ve got some tasks with your name on them!</item>
-    <item>A fresh batch of tasks for you today!</item>
-    <item>You look fabulous! Ready to get started?</item>
-    <item>A lovely day for getting some work done, I think!</item>
-  </string-array>
-  <string-array name="rmd_reengage_dialog_empty_options">
-    <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
-    <item>You look busy! Let me take some of those tasks off of your plate.</item>
-    <item>I can help you keep track of all of the details in your life.</item>
-    <item>You\'re serious about getting more done? So am I!</item>
-    <item>Pleasure to make your acquaintance!</item>
-  </string-array>
-  <string name="rmd_EPr_ringtone_desc_custom">เสียงเตือนถูกตั้งค่าเองแล้ว</string>
-  <string name="rmd_EPr_ringtone_desc_silent">เสียงเตือนเปลี่ยนเป็นเงียบ</string>
-  <string name="rmd_EPr_ringtone_desc_default">เสียงเตือนตั้งต้นจะถูกใช้</string>
-  <string-array name="EPr_reminder_random">
-    <item>disabled</item>
-    <item>hourly</item>
-    <item>daily</item>
-    <item>weekly</item>
-    <item>bi-weekly</item>
-    <item>monthly</item>
-    <item>bi-monthly</item>
-  </string-array>
-  <string-array name="EPr_quiet_hours_start">
-    <item>disabled</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-  </string-array>
-  <string-array name="EPr_quiet_hours_end">
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-  </string-array>
-  <string-array name="EPr_rmd_time">
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-  </string-array>
-  <string-array name="reminders">
-    <item>Hi there! Have a sec?</item>
-    <item>Can I see you for a sec?</item>
-    <item>Have a few minutes?</item>
-    <item>Did you forget?</item>
-    <item>Excuse me!</item>
-    <item>When you have a minute:</item>
-    <item>On your agenda:</item>
-    <item>Free for a moment?</item>
-    <item>Astrid here!</item>
-    <item>Hi! Can I bug you?</item>
-    <item>A minute of your time?</item>
-    <item>It\'s a great day to</item>
-  </string-array>
-  <string-array name="reminders_due">
-    <item>Time to work!</item>
-    <item>Due date is here!</item>
-    <item>Ready to start?</item>
-    <item>You said you would do:</item>
-    <item>You\'re supposed to start:</item>
-    <item>Time to start:</item>
-    <item>It\'s time!</item>
-    <item>Excuse me! Time for</item>
-    <item>You free? Time to</item>
-  </string-array>
-  <string-array name="reminders_snooze">
-    <item>Don\'t be lazy now!</item>
-    <item>Snooze time is up!</item>
-    <item>No more snoozing!</item>
-    <item>Now are you ready?</item>
-    <item>No more postponing!</item>
-  </string-array>
-  <string-array name="reminder_responses">
-    <item>I\'ve got something for you!</item>
-    <item>Ready to put this in the past?</item>
-    <item>Why don\'t you get this done?</item>
-    <item>How about it? Ready tiger?</item>
-    <item>Ready to do this?</item>
-    <item>Can you handle this?</item>
-    <item>You can be happy! Just finish this!</item>
-    <item>I promise you\'ll feel better if you finish this!</item>
-    <item>Won\'t you do this today?</item>
-    <item>Please finish this, I\'m sick of it!</item>
-    <item>Can you finish this? Yes you can!</item>
-    <item>Are you ever going to do this?</item>
-    <item>Feel good about yourself! Let\'s go!</item>
-    <item>I\'m so proud of you! Lets get it done!</item>
-    <item>A little snack after you finish this?</item>
-    <item>Just this one task? Please?</item>
-    <item>Time to shorten your todo list!</item>
-    <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-    <item>Have I mentioned you are awesome recently? Keep it up!</item>
-    <item>A task a day keeps the clutter away... Goodbye clutter!</item>
-    <item>How do you do it? Wow, I\'m impressed!</item>
-    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-    <item>Lovely weather for a job like this, isn\'t it?</item>
-    <item>A spot of tea while you work on this?</item>
-    <item>If only you had already done this, then you could go outside and play.</item>
-    <item>It\'s time. You can\'t put off the inevitable.</item>
-    <item>I die a little every time you ignore me.</item>
-  </string-array>
-  <string-array name="postpone_nags">
-    <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-    <item>Doesn\'t being lazy get old sometimes?</item>
-    <item>Somewhere, someone is depending on you to finish this!</item>
-    <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-    <item>This is the last time you postpone this, right?</item>
-    <item>Just finish this today, I won\'t tell anyone!</item>
-    <item>Why postpone when you can um... not postpone!</item>
-    <item>You\'ll finish this eventually, I presume?</item>
-    <item>I think you\'re really great! How about not putting this off?</item>
-    <item>Will you be able to achieve your goals if you do that?</item>
-    <item>Postpone, postpone, postpone. When will you change!</item>
-    <item>I\'ve had enough with your excuses! Just do it already!</item>
-    <item>Didn\'t you make that excuse last time?</item>
-    <item>I can\'t help you organize your life if you do that...</item>
-  </string-array>
-  <string name="repeat_enabled">การเกิดซ้ำ</string>
-  <string-array name="repeat_interval_short">
-    <item>d</item>
-    <item>wk</item>
-    <item>mo</item>
-    <item>hr</item>
-    <item>min</item>
-    <item>yr</item>
-  </string-array>
-  <string-array name="repeat_interval">
-    <item>วัน</item>
-    <item>สัปดาห์</item>
-    <item>เดือน</item>
-    <item>ชั่วโมง</item>
-    <item>Minute(s)</item>
-    <item>Year(s)</item>
-  </string-array>
-  <string-array name="repeat_until_shortcuts">
-    <item>Forever</item>
-    <item>Specific Day</item>
-    <item>Today</item>
-    <item>Tomorrow</item>
-    <item>(day after)</item>
-    <item>Next Week</item>
-    <item>In Two Weeks</item>
-    <item>Next Month</item>
-  </string-array>
-  <string-array name="repeat_type">
-    <item>from due date</item>
-    <item>from completion date</item>
-  </string-array>
-  <string-array name="repeat_encouragement">
-    <item>Good job!</item>
-    <item>Wow… I\'m so proud of you!</item>
-    <item>I love when you\'re productive!</item>
-    <item>Doesn\'t it feel good to check something off?</item>
-  </string-array>
-  <string-array name="repeat_encouragement_last_time">
-    <item>Good job!</item>
-    <item>I\'m so proud of you!</item>
-    <item>I love when you\'re productive!</item>
-  </string-array>
-  <string name="tag_settings_title">Settings:</string>
-  <string name="welcome_title_1">ยินดีต้อนรับสู่ Astrid!</string>
-  <string name="welcome_body_5">and much more!</string>
-  <string-array name="PPW_encouragements">
-    <item>Hi there!</item>
-    <item>Have time to finish something?</item>
-    <item>Gosh, you are looking suave today!</item>
-    <item>Do something great today!</item>
-    <item>Make me proud today!</item>
-    <item>How are you doing today?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>Good morning!</item>
-    <item>Good afternoon!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>It\'s early, get something done!</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
-    <item>Sleep is good for you, you know!</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>You\'ve already completed %d tasks!</item>
-    <item>Score in life: %d tasks completed</item>
-    <item>Smile! You\'ve already finished %d tasks!</item>
-  </string-array>
-  <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>White</item>
-    <item>Blue</item>
-    <item>Translucent</item>
-  </string-array>
+    <string name="actfm_picture_camera">ถ่ายภาพ</string>
+    <string name="actfm_picture_gallery">เลือกจากคลังภาพ</string>
+    <string name="actfm_picture_clear">ล้างภาพ</string>
+    <string-array name="TVA_tabs">
+        <item>Tasks</item>
+        <item>Activity</item>
+        <item>List Settings</item>
+    </string-array>
+    <string name="actfm_ALA_password_label">รหัสผ่าน</string>
+    <string-array name="reminders_alarm">
+        <item>แจ้งเตือน!</item>
+    </string-array>
+    <string name="backup_BPr_header">สำรองข้อมูล</string>
+    <string name="backup_BPr_group_status">สถานะ</string>
+    <string name="backup_status_failed_subtitle">(แตะเพื่อแสดงข้อผิดพลาด)</string>
+    <string name="backup_BPr_group_options">ตัวเลือก</string>
+    <string name="backup_BPr_auto_enabled">จะทำการสำรองข้อมูลทุกวัน</string>
+    <string name="export_progress_title">กำลังส่งออก...</string>
+    <string name="import_progress_title">กำลังนำเข้า...</string>
+    <string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>
+    <string name="DLG_error_sdcard">ไม่สามารถเข้าถึงแฟ้ม: %s</string>
+    <string name="DLG_error_sdcard_general">ไม่สามารถเข้าถึง SD Card ได้!</string>
+    <string name="read_permission_desc">อ่านแผนงาน, แสดงตัวกรองแผนงาน</string>
+    <string name="write_permission_desc">สร้างแผนงานใหม่, แก้ไขแผนงานเดิม</string>
+    <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
+    <string name="DLG_delete_this_item_question">ลบรายการนี้: %s?</string>
+    <string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
+    <string name="DLG_accept">ฉันยอมรับ</string>
+    <string name="DLG_decline">ฉันปฏิเสธ</string>
+    <string name="DLG_eula_title">เงื่อนไขการใช้งาน Astrid</string>
+    <string name="DLG_loading">กำลังโหลด...</string>
+    <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
+    <string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
+    <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+    <string name="TLA_custom">ปรับแต่ง</string>
+    <string-array name="TLA_filters">
+        <item>Active</item>
+        <item>วันนี้</item>
+        <item>Soon</item>
+        <item>Late</item>
+        <item>เสร็จแล้ว</item>
+        <item>Hidden</item>
+    </string-array>
+    <string-array name="TLA_priority_strings">
+        <item>highest priority</item>
+        <item>high priority</item>
+        <item>medium priority</item>
+        <item>low priority</item>
+    </string-array>
+    <string name="TAd_actionEditTask">แก้ไข</string>
+    <string name="TAd_contextEditTask">แก้ไขงาน</string>
+    <string name="TAd_contextUndeleteTask">แผนงานที่ลบไม่ได้</string>
+    <string name="SSD_title">จัดเรียง และซ่อนแผนงาน</string>
+    <string name="SSD_completed">แสดงแผนงานที่เสร็จแล้ว</string>
+    <string name="SSD_hidden">แสดงแผนงานที่ซ่อนไว้</string>
+    <string name="SSD_deleted">แสดงแผนงานที่ถูกลบ</string>
+    <string name="SSD_sort_auto">จัดเรียงด้วย Astrid Smart</string>
+    <string name="SSD_sort_alpha">ตามชื่อ</string>
+    <string name="SSD_sort_importance">ตามความสำคัญ</string>
+    <string name="SSD_sort_modified">ตามวันที่แก้ไขล่าสุด</string>
+    <string name="SSD_sort_reverse">จัดเรียงย้อนหลัง</string>
+    <string name="SSD_save_temp">ชั่วคราว</string>
+    <string name="SSD_save_always">ตลอดไป</string>
+    <string name="FLA_shortcut_dialog_title">สร้างทางลัด</string>
+    <string name="FLA_shortcut_dialog">ชื่อทางลัด:</string>
+    <string name="FLA_search_hint">ค้นหาแผนงาน</string>
+    <string name="FLA_toast_onCreateShortcut">สร้างทางลัดแล้ว: %s</string>
+    <string name="TEA_title_hint">สรุปแผนงาน</string>
+    <string name="TEA_importance_label">ความสำคัญ</string>
+    <string name="TEA_urgency_specific_time">ณ.เวลาที่ระบุ?</string>
+    <string-array name="TEA_loading">
+        <item>กำลังโหลด...</item>
+    </string-array>
+    <string name="TEA_note_label">บันทึกย่อ</string>
+    <string name="TEA_menu_save">บันทึกการเปลี่ยนแปลง</string>
+    <string name="TEA_menu_discard">ไม่บันทึก</string>
+    <string name="TEA_menu_delete">ลบงาน</string>
+    <string name="TEA_onTaskSave_notDue">งานที่บันทึกไว้</string>
+    <string name="TEA_tab_more">เพิ่มเติม</string>
+    <string-array name="TEA_urgency">
+        <item>ไม่มีเส้นตาย</item>
+        <item>Specific day</item>
+        <item>วันนี้</item>
+        <item>พรุ่งนี้</item>
+        <item>(วันให้หลัง)</item>
+        <item>Next week</item>
+        <item>In two weeks</item>
+        <item>Next month</item>
+    </string-array>
+    <string-array name="TEA_hideUntil">
+        <item>ตลอดไป</item>
+        <item>Due date</item>
+        <item>Due time</item>
+        <item>วันก่อนถึงกำหนด</item>
+        <item>สัปดาห์ก่อนถึงกำหนด</item>
+        <item>ระบุ วัน/เวลา</item>
+    </string-array>
+    <string name="TEA_control_more_section">----More Section----</string>
+    <string name="TEA_control_importance">ความสำคัญ</string>
+    <string name="TEA_control_notes">บันทึกย่อ</string>
+    <string-array name="MCA_dialog_speech_options">
+        <item>It must be nice to be so popular!</item>
+        <item>Yay! People like you!</item>
+        <item>Make their day, give \'em a call!</item>
+        <item>Wouldn\'t you be happy if people called you back?</item>
+        <item>You can do it!</item>
+        <item>You can always send a text...</item>
+    </string-array>
+    <string name="UpS_changelog_title">มีอะไรใหม่ใน Astrid?</string>
+    <string name="UpS_updates_title">ข่าวล่าสุดของ Astrid</string>
+    <string name="EPr_appearance_header">รูปโฉม</string>
+    <string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
+    <string name="EPr_showNotes_desc_enabled">บันทึกจะแสดงให้เห็นตลอดเวลา</string>
+    <string-array name="EPr_swipe_lists_performance_mode">
+        <item>No swipe</item>
+        <item>Conserve Memory</item>
+        <item>Normal Performance</item>
+        <item>High Performance</item>
+    </string-array>
+    <string-array name="EPr_swipe_lists_performance_desc">
+        <item>Swipe between lists is disabled</item>
+        <item>Slower performance</item>
+        <item>Default setting</item>
+        <item>Uses more system resources</item>
+    </string-array>
+    <string-array name="EPr_themes">
+        <item>Day - Blue</item>
+        <item>Day - Red</item>
+        <item>Sky blue</item>
+        <item>Night</item>
+        <item>Transparent (White Text)</item>
+        <item>Transparent (Black Text)</item>
+    </string-array>
+    <string-array name="EPr_themes_widget">
+        <item>Same as app</item>
+        <item>Day - Blue</item>
+        <item>Day - Red</item>
+        <item>Sky blue</item>
+        <item>Night</item>
+        <item>Transparent (White Text)</item>
+        <item>Transparent (Black Text)</item>
+        <item>Old Style</item>
+    </string-array>
+    <string name="AOA_internal_author">ทีมงาน Astrid</string>
+    <string name="AOA_tab_installed">ติดตั้งแล้ว</string>
+    <string name="AOA_tab_available">พร้อมใช้</string>
+    <string name="AOA_free">ฟรี</string>
+    <string name="TWi_loading">กำลังโหลด...</string>
+    <string name="WCA_title">เลือกแผนงานเพื่อดู...</string>
+    <string-array name="EPr_default_importance">
+        <item>!!! (Highest)</item>
+        <item>!!</item>
+        <item>!</item>
+        <item>o (Lowest)</item>
+    </string-array>
+    <string-array name="EPr_default_urgency">
+        <item>No deadline</item>
+        <item>วันนี้</item>
+        <item>พรุ่งนี้</item>
+        <item>Day after tomorrow</item>
+        <item>Next week</item>
+    </string-array>
+    <string-array name="EPr_default_hideUntil">
+        <item>ไม่ต้องซ่อน</item>
+        <item>ถึงกำหนดแผนงาน</item>
+        <item>วันก่อนถึงกำหนด</item>
+        <item>สัปดาห์ก่อนถึงกำหนด</item>
+    </string-array>
+    <string-array name="EPr_default_reminders">
+        <item>No deadline reminders</item>
+        <item>ถึงเส้นตาย</item>
+        <item>เมื่อพ้นกำหนด</item>
+        <item>เมื่อถึงเส้นตาย หรือพ้นกำหนด</item>
+    </string-array>
+    <string name="BFE_Active">แผนงานตอนนี้</string>
+    <string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
+    <string name="BFE_Saved_delete">ลบตัวกรอง</string>
+    <string name="CFA_title">ตัวกรองที่กำหนดค่าเอง</string>
+    <string name="CFA_filterName_hint">ตั้งชื่อตัวกรองเพื่อบันทึก...</string>
+    <string name="CFA_universe_all">แผนงานตอนนี้</string>
+    <string name="CFA_type_add">หรือ</string>
+    <string name="CFA_type_subtract">ไม่ใช่</string>
+    <string name="CFA_type_intersect">รวมถึง</string>
+    <string name="CFA_context_delete">ลบแถว</string>
+    <string name="CFA_button_add">เพิ่มข้อกำหนด</string>
+    <string name="CFA_button_view">เปิดดู</string>
+    <string name="CFA_button_save">บันทึก &amp; เปิดดู</string>
+    <string-array name="CFC_dueBefore_entries">
+        <item>ไม่กำหนดวัน</item>
+        <item>เมื่อวาน</item>
+        <item>วันนี้</item>
+        <item>พรุ่งนี้</item>
+        <item>วันมะรืนนี้</item>
+        <item>สัปดาห์หน้า</item>
+        <item>เดือนถัดไป</item>
+    </string-array>
+    <string name="CFC_importance_text">มีความสำคัญอย่างน้อย ?</string>
+    <string name="CFC_importance_name">ความสำคัญ...</string>
+    <string name="CFC_title_contains_name">ชื่อที่มีคำว่า...</string>
+    <string name="CFC_title_contains_text">ชื่อที่มีคำว่า: ?</string>
+    <string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
+    <string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
+    <string name="gcal_GCP_default">ปฏิธินตั้งต้น</string>
+    <string name="locale_edit_alerts_title">คำเตือนตัวกรอง Astrid</string>
+    <string name="locale_edit_intro">Astrid จะช่วยเตือนความจำ เมื่อมีแผนงานอยู่เขตตัวกรองดังนี้:
+    </string>
+    <string name="locale_interval_label">จำกัดการแจ้งเตือนไว้ที่:</string>
+    <string-array name="locale_interval">
+        <item>ชั่วโมงละครั้ง</item>
+        <item>ทุกๆ 6 ชั่วโมง</item>
+        <item>ทุกๆ 12 ชั่วโมง</item>
+        <item>วันละครั้ง</item>
+        <item>ทุกๆ 3 วัน</item>
+        <item>สัปดาห์ละครั้ง</item>
+    </string-array>
+    <string name="locale_plugin_required">กรุณาติดตั้ง Astrid Locale plugin!</string>
+    <string name="opencrx_FEx_dashboard">พื้นที่ทำงาน</string>
+    <string name="opencrx_FEx_responsible">มอบหมายให้กับ</string>
+    <string name="opencrx_FEx_responsible_title">มอบหมายให้กับ \'%s\'</string>
+    <string name="opencrx_PDE_task_from">จาก %s</string>
+    <string name="opencrx_TEA_notes">เพิ่มความคิดเห็น</string>
+    <string name="opencrx_PLA_signIn">เข้าสู่ระบบ</string>
+    <string name="opencrx_PLA_password">รหัสผ่าน</string>
+    <string name="opencrx_notification_text">%s แผนงานอัปเดทแล้ว / คลิกเพื่อดูรายละเอียด</string>
+    <string name="opencrx_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
+    <string name="opencrx_MLA_password_empty">ยังไม่ได้ระบุ รหัสผ่าน</string>
+    <string name="opencrx_TEA_task_assign_label">มอบหมายแผนงานนี้ให้กับบุคคลนี้:</string>
+    <string name="opencrx_TEA_task_unassigned">&lt;ยังไม่ถูกมอบหมาย&gt;</string>
+    <string name="opencrx_TEA_dashboard_default">&lt;ค่าตั้งต้น&gt;</string>
+    <string name="CFC_opencrx_in_workspace_text">ในพื้นที่ทำงาน: ?</string>
+    <string name="CFC_opencrx_in_workspace_name">ในพื้นที่ทำงาน...</string>
+    <string name="CFC_opencrx_assigned_to_text">มอบหมายให้: ?</string>
+    <string name="CFC_opencrx_assigned_to_name">มอบหมายให้...</string>
+    <string name="EPr_statistics_desc_disabled">ไม่มีข้อมูลการใช้งานที่จะรายงาน</string>
+    <string-array name="TEA_reminder_random">
+        <item>an hour</item>
+        <item>a day</item>
+        <item>a week</item>
+        <item>in two weeks</item>
+        <item>a month</item>
+        <item>in two months</item>
+    </string-array>
+    <string name="rmd_NoA_filter">เตือนความจำ!</string>
+    <string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
+    <string name="rmd_NoA_snooze">หลับ..</string>
+    <string-array name="rmd_reengage_notif_titles">
+        <item>A note from Astrid</item>
+        <item>Memo for %s.</item>
+        <item>Your Astrid digest</item>
+        <item>Reminders from Astrid</item>
+    </string-array>
+    <string-array name="rmd_reengage_dialog_options">
+        <item>Time to shorten your to-do list!</item>
+        <item>Dear sir or madam, some tasks await your inspection!</item>
+        <item>Hi there, could you take a look at these?</item>
+        <item>I\'ve got some tasks with your name on them!</item>
+        <item>A fresh batch of tasks for you today!</item>
+        <item>You look fabulous! Ready to get started?</item>
+        <item>A lovely day for getting some work done, I think!</item>
+    </string-array>
+    <string-array name="rmd_reengage_dialog_empty_options">
+        <item>Don\'t you want to get organized?</item>
+        <item>I\'m Astrid! I\'m here to help you do more!</item>
+        <item>You look busy! Let me take some of those tasks off of your plate.</item>
+        <item>I can help you keep track of all of the details in your life.</item>
+        <item>You\'re serious about getting more done? So am I!</item>
+        <item>Pleasure to make your acquaintance!</item>
+    </string-array>
+    <string name="rmd_EPr_ringtone_desc_custom">เสียงเตือนถูกตั้งค่าเองแล้ว</string>
+    <string name="rmd_EPr_ringtone_desc_silent">เสียงเตือนเปลี่ยนเป็นเงียบ</string>
+    <string name="rmd_EPr_ringtone_desc_default">เสียงเตือนตั้งต้นจะถูกใช้</string>
+    <string-array name="EPr_reminder_random">
+        <item>disabled</item>
+        <item>hourly</item>
+        <item>daily</item>
+        <item>weekly</item>
+        <item>bi-weekly</item>
+        <item>monthly</item>
+        <item>bi-monthly</item>
+    </string-array>
+    <string-array name="EPr_quiet_hours_start">
+        <item>disabled</item>
+        <item>8 PM</item>
+        <item>9 PM</item>
+        <item>10 PM</item>
+        <item>11 PM</item>
+        <item>12 AM</item>
+        <item>1 AM</item>
+        <item>2 AM</item>
+        <item>3 AM</item>
+        <item>4 AM</item>
+        <item>5 AM</item>
+        <item>6 AM</item>
+        <item>7 AM</item>
+        <item>8 AM</item>
+        <item>9 AM</item>
+        <item>10 AM</item>
+        <item>11 AM</item>
+        <item>12 PM</item>
+        <item>1 PM</item>
+        <item>2 PM</item>
+        <item>3 PM</item>
+        <item>4 PM</item>
+        <item>5 PM</item>
+        <item>6 PM</item>
+        <item>7 PM</item>
+    </string-array>
+    <string-array name="EPr_quiet_hours_end">
+        <item>9 AM</item>
+        <item>10 AM</item>
+        <item>11 AM</item>
+        <item>12 PM</item>
+        <item>1 PM</item>
+        <item>2 PM</item>
+        <item>3 PM</item>
+        <item>4 PM</item>
+        <item>5 PM</item>
+        <item>6 PM</item>
+        <item>7 PM</item>
+        <item>8 PM</item>
+        <item>9 PM</item>
+        <item>10 PM</item>
+        <item>11 PM</item>
+        <item>12 AM</item>
+        <item>1 AM</item>
+        <item>2 AM</item>
+        <item>3 AM</item>
+        <item>4 AM</item>
+        <item>5 AM</item>
+        <item>6 AM</item>
+        <item>7 AM</item>
+        <item>8 AM</item>
+    </string-array>
+    <string-array name="EPr_rmd_time">
+        <item>9 AM</item>
+        <item>10 AM</item>
+        <item>11 AM</item>
+        <item>12 PM</item>
+        <item>1 PM</item>
+        <item>2 PM</item>
+        <item>3 PM</item>
+        <item>4 PM</item>
+        <item>5 PM</item>
+        <item>6 PM</item>
+        <item>7 PM</item>
+        <item>8 PM</item>
+        <item>9 PM</item>
+        <item>10 PM</item>
+        <item>11 PM</item>
+        <item>12 AM</item>
+        <item>1 AM</item>
+        <item>2 AM</item>
+        <item>3 AM</item>
+        <item>4 AM</item>
+        <item>5 AM</item>
+        <item>6 AM</item>
+        <item>7 AM</item>
+        <item>8 AM</item>
+    </string-array>
+    <string-array name="reminders">
+        <item>Hi there! Have a sec?</item>
+        <item>Can I see you for a sec?</item>
+        <item>Have a few minutes?</item>
+        <item>Did you forget?</item>
+        <item>Excuse me!</item>
+        <item>When you have a minute:</item>
+        <item>On your agenda:</item>
+        <item>Free for a moment?</item>
+        <item>Astrid here!</item>
+        <item>Hi! Can I bug you?</item>
+        <item>A minute of your time?</item>
+        <item>It\'s a great day to</item>
+    </string-array>
+    <string-array name="reminders_due">
+        <item>Time to work!</item>
+        <item>Due date is here!</item>
+        <item>Ready to start?</item>
+        <item>You said you would do:</item>
+        <item>You\'re supposed to start:</item>
+        <item>Time to start:</item>
+        <item>It\'s time!</item>
+        <item>Excuse me! Time for</item>
+        <item>You free? Time to</item>
+    </string-array>
+    <string-array name="reminders_snooze">
+        <item>Don\'t be lazy now!</item>
+        <item>Snooze time is up!</item>
+        <item>No more snoozing!</item>
+        <item>Now are you ready?</item>
+        <item>No more postponing!</item>
+    </string-array>
+    <string-array name="reminder_responses">
+        <item>I\'ve got something for you!</item>
+        <item>Ready to put this in the past?</item>
+        <item>Why don\'t you get this done?</item>
+        <item>How about it? Ready tiger?</item>
+        <item>Ready to do this?</item>
+        <item>Can you handle this?</item>
+        <item>You can be happy! Just finish this!</item>
+        <item>I promise you\'ll feel better if you finish this!</item>
+        <item>Won\'t you do this today?</item>
+        <item>Please finish this, I\'m sick of it!</item>
+        <item>Can you finish this? Yes you can!</item>
+        <item>Are you ever going to do this?</item>
+        <item>Feel good about yourself! Let\'s go!</item>
+        <item>I\'m so proud of you! Lets get it done!</item>
+        <item>A little snack after you finish this?</item>
+        <item>Just this one task? Please?</item>
+        <item>Time to shorten your todo list!</item>
+        <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
+        <item>Have I mentioned you are awesome recently? Keep it up!</item>
+        <item>A task a day keeps the clutter away... Goodbye clutter!</item>
+        <item>How do you do it? Wow, I\'m impressed!</item>
+        <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+        <item>Lovely weather for a job like this, isn\'t it?</item>
+        <item>A spot of tea while you work on this?</item>
+        <item>If only you had already done this, then you could go outside and play.</item>
+        <item>It\'s time. You can\'t put off the inevitable.</item>
+        <item>I die a little every time you ignore me.</item>
+    </string-array>
+    <string-array name="postpone_nags">
+        <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
+        <item>Doesn\'t being lazy get old sometimes?</item>
+        <item>Somewhere, someone is depending on you to finish this!</item>
+        <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
+        <item>This is the last time you postpone this, right?</item>
+        <item>Just finish this today, I won\'t tell anyone!</item>
+        <item>Why postpone when you can um... not postpone!</item>
+        <item>You\'ll finish this eventually, I presume?</item>
+        <item>I think you\'re really great! How about not putting this off?</item>
+        <item>Will you be able to achieve your goals if you do that?</item>
+        <item>Postpone, postpone, postpone. When will you change!</item>
+        <item>I\'ve had enough with your excuses! Just do it already!</item>
+        <item>Didn\'t you make that excuse last time?</item>
+        <item>I can\'t help you organize your life if you do that...</item>
+    </string-array>
+    <string name="repeat_enabled">การเกิดซ้ำ</string>
+    <string-array name="repeat_interval_short">
+        <item>d</item>
+        <item>wk</item>
+        <item>mo</item>
+        <item>hr</item>
+        <item>min</item>
+        <item>yr</item>
+    </string-array>
+    <string-array name="repeat_interval">
+        <item>วัน</item>
+        <item>สัปดาห์</item>
+        <item>เดือน</item>
+        <item>ชั่วโมง</item>
+        <item>Minute(s)</item>
+        <item>Year(s)</item>
+    </string-array>
+    <string-array name="repeat_until_shortcuts">
+        <item>Forever</item>
+        <item>Specific Day</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>(day after)</item>
+        <item>Next Week</item>
+        <item>In Two Weeks</item>
+        <item>Next Month</item>
+    </string-array>
+    <string-array name="repeat_type">
+        <item>from due date</item>
+        <item>from completion date</item>
+    </string-array>
+    <string-array name="repeat_encouragement">
+        <item>Good job!</item>
+        <item>Wow… I\'m so proud of you!</item>
+        <item>I love when you\'re productive!</item>
+        <item>Doesn\'t it feel good to check something off?</item>
+    </string-array>
+    <string-array name="repeat_encouragement_last_time">
+        <item>Good job!</item>
+        <item>I\'m so proud of you!</item>
+        <item>I love when you\'re productive!</item>
+    </string-array>
+    <string name="tag_settings_title">Settings:</string>
+    <string name="welcome_title_1">ยินดีต้อนรับสู่ Astrid!</string>
+    <string name="welcome_body_5">and much more!</string>
+    <string-array name="PPW_encouragements">
+        <item>Hi there!</item>
+        <item>Have time to finish something?</item>
+        <item>Gosh, you are looking suave today!</item>
+        <item>Do something great today!</item>
+        <item>Make me proud today!</item>
+        <item>How are you doing today?</item>
+    </string-array>
+    <string-array name="PPW_encouragements_tod">
+        <item>Good morning!</item>
+        <item>Good afternoon!</item>
+        <item>Good evening!</item>
+        <item>Late night?</item>
+        <item>It\'s early, get something done!</item>
+        <item>Afternoon tea, perhaps?</item>
+        <item>Enjoy the evening!</item>
+        <item>Sleep is good for you, you know!</item>
+    </string-array>
+    <string-array name="PPW_encouragements_completed">
+        <item>You\'ve already completed %d tasks!</item>
+        <item>Score in life: %d tasks completed</item>
+        <item>Smile! You\'ve already finished %d tasks!</item>
+    </string-array>
+    <string-array name="PPW_colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Translucent</item>
+    </string-array>
 </resources>

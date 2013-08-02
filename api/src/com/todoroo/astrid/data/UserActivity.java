@@ -14,61 +14,89 @@ import com.todoroo.astrid.api.AstridApiConstants;
 @SuppressWarnings("nls")
 public class UserActivity extends RemoteModel {
 
- // --- table
+    // --- table
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("userActivity", UserActivity.class);
 
-    /** model class for entries in the outstanding table */
+    /**
+     * model class for entries in the outstanding table
+     */
     public static final Class<? extends OutstandingEntry<UserActivity>> OUTSTANDING_MODEL = UserActivityOutstanding.class;
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
     // --- properties
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote ID */
+    /**
+     * Remote ID
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
-    /** Pushed at */
+    /**
+     * Pushed at
+     */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME, Property.PROP_FLAG_DATE);
 
-    /** User ID (activity initiator) */
+    /**
+     * User ID (activity initiator)
+     */
     public static final StringProperty USER_UUID = new StringProperty(
             TABLE, "user_uuid", Property.PROP_FLAG_USER_ID);
 
-    /** Action */
+    /**
+     * Action
+     */
     public static final StringProperty ACTION = new StringProperty(
             TABLE, "action");
 
-    /** Message */
+    /**
+     * Message
+     */
     public static final StringProperty MESSAGE = new StringProperty(
             TABLE, "message");
 
-    /** Picture */
+    /**
+     * Picture
+     */
     public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture", Property.PROP_FLAG_JSON | Property.PROP_FLAG_PICTURE);
 
-    /** Target id */
+    /**
+     * Target id
+     */
     public static final StringProperty TARGET_ID = new StringProperty(
             TABLE, "target_id");
 
-    /** Target name */
+    /**
+     * Target name
+     */
     public static final StringProperty TARGET_NAME = new StringProperty(
             TABLE, "target_name");
 
-    /** Created at */
+    /**
+     * Created at
+     */
     public static final LongProperty CREATED_AT = new LongProperty(
             TABLE, "created_at", Property.PROP_FLAG_DATE);
 
-    /** Deleted at */
+    /**
+     * Deleted at
+     */
     public static final LongProperty DELETED_AT = new LongProperty(
             TABLE, "deleted_at", Property.PROP_FLAG_DATE);
 
@@ -99,7 +127,9 @@ public class UserActivity extends RemoteModel {
         return getUuidHelper(UUID);
     }
 
-    /** Default values container */
+    /**
+     * Default values container
+     */
     private static final ContentValues defaultValues = new ContentValues();
 
     @Override
@@ -119,7 +149,9 @@ public class UserActivity extends RemoteModel {
         defaultValues.put(DELETED_AT.name, 0L);
     }
 
-    /** List of all properties for this model */
+    /**
+     * List of all properties for this model
+     */
     public static final Property<?>[] PROPERTIES = generateProperties(UserActivity.class);
 
     @Override

@@ -15,13 +15,12 @@ import android.os.Parcelable;
  * together criteria
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 abstract public class CustomFilterCriterion implements Parcelable {
 
     /**
      * Criteria Identifier. This identifier allows saved filters to be reloaded.
-     * <p>
+     * <p/>
      * e.g "duedate"
      */
     public String identifier;
@@ -29,7 +28,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
     /**
      * Criteria Title. If the title contains ?, this is replaced by the entry
      * label string selected.
-     * <p>
+     * <p/>
      * e.g "Due: ?"
      */
     public String text;
@@ -37,7 +36,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
     /**
      * Criterion SQL. This query should return task id's. If this contains
      * ?, it will be replaced by the entry value
-     * <p>
+     * <p/>
      * Examples:
      * <ul>
      * <li><code>SELECT _id FROM tasks WHERE dueDate <= ?</code>
@@ -86,8 +85,8 @@ abstract public class CustomFilterCriterion implements Parcelable {
         identifier = source.readString();
         text = source.readString();
         sql = source.readString();
-        valuesForNewTasks = (ContentValues)source.readParcelable(ContentValues.class.getClassLoader());
-        icon = (Bitmap)source.readParcelable(Bitmap.class.getClassLoader());
+        valuesForNewTasks = (ContentValues) source.readParcelable(ContentValues.class.getClassLoader());
+        icon = (Bitmap) source.readParcelable(Bitmap.class.getClassLoader());
         name = source.readString();
     }
 }

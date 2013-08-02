@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import greendroid.widget.QuickAction;
-import greendroid.widget.QuickActionWidget;
-
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
@@ -20,6 +15,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 import com.timsu.astrid.R;
+
+import java.util.List;
+
+import greendroid.widget.QuickAction;
+import greendroid.widget.QuickActionWidget;
 
 
 public class FragmentPopover extends QuickActionWidget {

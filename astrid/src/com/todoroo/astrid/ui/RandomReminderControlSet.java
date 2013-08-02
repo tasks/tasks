@@ -24,10 +24,11 @@ import com.todoroo.astrid.service.StatisticsService;
  * Control set dealing with random reminder settings
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class RandomReminderControlSet extends TaskEditControlSet {
-    /** default interval for spinner if date is unselected */
+    /**
+     * default interval for spinner if date is unselected
+     */
     private final long DEFAULT_INTERVAL = DateUtilities.ONE_WEEK * 2;
 
     private final CheckBox settingCheckbox;
@@ -43,8 +44,8 @@ public class RandomReminderControlSet extends TaskEditControlSet {
         periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
-                    int arg2, long arg3) {
-                if(periodSpinnerInitialized)
+                                       int arg2, long arg3) {
+                if (periodSpinnerInitialized)
                     settingCheckbox.setChecked(true);
                 periodSpinnerInitialized = true;
             }
@@ -65,7 +66,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
         // create hour array
         String[] hourStrings = activity.getResources().getStringArray(R.array.TEA_reminder_random_hours);
         hours = new int[hourStrings.length];
-        for(int i = 0; i < hours.length; i++)
+        for (int i = 0; i < hours.length; i++)
             hours[i] = Integer.parseInt(hourStrings[i]);
     }
 
@@ -79,13 +80,13 @@ public class RandomReminderControlSet extends TaskEditControlSet {
         long time = model.getValue(Task.REMINDER_PERIOD);
 
         boolean enabled = time > 0;
-        if(time <= 0) {
+        if (time <= 0) {
             time = DEFAULT_INTERVAL;
         }
 
         int i;
-        for(i = 0; i < hours.length - 1; i++)
-            if(hours[i] * DateUtilities.ONE_HOUR >= time)
+        for (i = 0; i < hours.length - 1; i++)
+            if (hours[i] * DateUtilities.ONE_HOUR >= time)
                 break;
         periodSpinner.setSelection(i);
         settingCheckbox.setChecked(enabled);
@@ -93,7 +94,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
 
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        if(settingCheckbox.isChecked()) {
+        if (settingCheckbox.isChecked()) {
             int hourValue = hours[periodSpinner.getSelectedItemPosition()];
             task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
             if (task.getSetValues().containsKey(Task.REMINDER_PERIOD.name))

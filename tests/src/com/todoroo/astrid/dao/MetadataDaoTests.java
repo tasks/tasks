@@ -22,8 +22,8 @@ public class MetadataDaoTests extends DatabaseTestCase {
     @Autowired
     TaskDao taskDao;
 
-    public static Property<?>[] KEYS = new Property<?>[] { Metadata.ID,
-            Metadata.KEY };
+    public static Property<?>[] KEYS = new Property<?>[]{Metadata.ID,
+            Metadata.KEY};
 
     /**
      * Test basic creation, fetch, and save

@@ -29,7 +29,6 @@ import com.todoroo.andlib.service.ContextManager;
  * updatePreferences to update the summary with preference values.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 abstract public class TodorooPreferenceActivity extends PreferenceActivity {
 
@@ -39,8 +38,9 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
 
     /**
      * Update preferences for the given preference
+     *
      * @param preference
-     * @param value setting. may be null.
+     * @param value      setting. may be null.
      */
     public abstract void updatePreferences(Preference preference, Object value);
 
@@ -60,21 +60,21 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
     }
 
     protected void initializePreference(Preference preference) {
-        if(preference instanceof PreferenceGroup) {
-            PreferenceGroup group = (PreferenceGroup)preference;
-            for(int i = 0; i < group.getPreferenceCount(); i++) {
+        if (preference instanceof PreferenceGroup) {
+            PreferenceGroup group = (PreferenceGroup) preference;
+            for (int i = 0; i < group.getPreferenceCount(); i++) {
                 initializePreference(group.getPreference(i));
             }
             updatePreferences(group, null);
         } else {
             Object value = null;
-            if(preference instanceof ListPreference)
-                value = ((ListPreference)preference).getValue();
-            else if(preference instanceof CheckBoxPreference)
-                value = ((CheckBoxPreference)preference).isChecked();
-            else if(preference instanceof EditTextPreference)
-                value = ((EditTextPreference)preference).getText();
-            else if(preference instanceof RingtonePreference)
+            if (preference instanceof ListPreference)
+                value = ((ListPreference) preference).getValue();
+            else if (preference instanceof CheckBoxPreference)
+                value = ((CheckBoxPreference) preference).isChecked();
+            else if (preference instanceof EditTextPreference)
+                value = ((EditTextPreference) preference).getText();
+            else if (preference instanceof RingtonePreference)
                 value = getPreferenceManager().getSharedPreferences().getString(preference.getKey(), null);
 
             updatePreferences(preference, value);
@@ -93,7 +93,7 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus) {
+        if (hasFocus) {
             initializePreference(getPreferenceScreen());
         }
     }

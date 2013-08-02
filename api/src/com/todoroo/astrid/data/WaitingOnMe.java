@@ -15,21 +15,31 @@ import com.todoroo.astrid.api.AstridApiConstants;
 @SuppressWarnings("nls")
 public class WaitingOnMe extends RemoteModel {
 
-    /** table for this model */
+    /**
+     * table for this model
+     */
     public static final Table TABLE = new Table("waitingOnMe", WaitingOnMe.class);
 
-    /** model class for entries in the outstanding table */
+    /**
+     * model class for entries in the outstanding table
+     */
     public static final Class<? extends OutstandingEntry<WaitingOnMe>> OUTSTANDING_MODEL = WaitingOnMeOutstanding.class;
 
-    /** content uri for this model */
+    /**
+     * content uri for this model
+     */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.API_PACKAGE + "/" +
             TABLE.name);
 
-    /** ID */
+    /**
+     * ID
+     */
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Remote ID */
+    /**
+     * Remote ID
+     */
     public static final StringProperty UUID = new StringProperty(
             TABLE, RemoteModel.UUID_PROPERTY_NAME);
 

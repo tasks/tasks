@@ -5,10 +5,6 @@
  */
 package com.todoroo.astrid.provider;
 
-import java.util.HashSet;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -40,32 +36,35 @@ import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  * Astrid 3 Content Provider. There are two ways to use this content provider:
  * <ul>
  * <li>access it directly just like any other content provider
  * <li>use the DAO classes from the Astrid API library
  * </ul>
- * <p>
+ * <p/>
  * The following base URI's are supported:
  * <ul>
  * <li>content://com.todoroo.astrid/tasks - task data ({@link Task})
  * <li>content://com.todoroo.astrid/metadata - task metadata ({@link Metadata})
  * <li>content://com.todoroo.astrid/store - non-task store data ({@link StoreObject})
  * </ul>
- * <p>
+ * <p/>
  * Each URI supports the following components:
  * <ul>
  * <li>/ - operate on all items (insert, delete, update, query)
  * <li>/123 - operate on item id #123 (delete, update, query)
  * <li>/groupby/title - query with SQL "group by" (query)
  * </ul>
- * <p>
+ * <p/>
  * If you are writing a third-party application to access this data, you may
  * also consider using one of the Api DAO objects like {@link TaskApiDao}.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 @SuppressWarnings("nls")
 public class Astrid3ContentProvider extends ContentProvider {
@@ -74,13 +73,19 @@ public class Astrid3ContentProvider extends ContentProvider {
         AstridDependencyInjector.initialize();
     }
 
-    /** URI for making a request over all items */
+    /**
+     * URI for making a request over all items
+     */
     private static final int URI_DIR = 1;
 
-    /** URI for making a request over a single item by id */
+    /**
+     * URI for making a request over a single item by id
+     */
     private static final int URI_ITEM = 2;
 
-    /** URI for making a request over all items grouped by some field */
+    /**
+     * URI for making a request over all items grouped by some field
+     */
     private static final int URI_GROUP = 3;
 
     private static final UriMatcher uriMatcher;
@@ -122,7 +127,7 @@ public class Astrid3ContentProvider extends ContentProvider {
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI, UserActivity.CONTENT_URI }) {
+        for (Uri uri : new Uri[]{Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI, UserActivity.CONTENT_URI}) {
             String authority = AstridApiConstants.API_PACKAGE;
 
             String table = uri.toString();
@@ -145,13 +150,13 @@ public class Astrid3ContentProvider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         switch (uriMatcher.match(uri)) {
-        case URI_DIR:
-        case URI_GROUP:
-            return "vnd.android.cursor.dir/vnd.astrid";
-        case URI_ITEM:
-            return "vnd.android.cursor/vnd.astrid.item";
-        default:
-            throw new IllegalArgumentException("Unsupported URI " + uri + " (" + uriMatcher.match(uri) + ")");
+            case URI_DIR:
+            case URI_GROUP:
+                return "vnd.android.cursor.dir/vnd.astrid";
+            case URI_ITEM:
+                return "vnd.android.cursor/vnd.astrid.item";
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
     }
 
@@ -161,18 +166,26 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     private class UriHelper<TYPE extends AbstractModel> {
 
-        /** empty model. used for insert */
+        /**
+         * empty model. used for insert
+         */
         public TYPE model;
 
-        /** dao */
+        /**
+         * dao
+         */
         public DatabaseDao<TYPE> dao;
 
-        /** creates from given model */
+        /**
+         * creates from given model
+         */
         public boolean create() {
             return dao.createNew(model);
         }
 
-        /** updates from given model */
+        /**
+         * updates from given model
+         */
         public void update() {
             dao.saveExisting(model);
         }
@@ -180,25 +193,25 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private UriHelper<?> generateHelper(Uri uri, boolean populateModel) {
-        if(uri.toString().startsWith(Task.CONTENT_URI.toString())) {
+        if (uri.toString().startsWith(Task.CONTENT_URI.toString())) {
             UriHelper<Task> helper = new UriHelper<Task>();
             helper.model = populateModel ? new Task() : null;
             helper.dao = taskDao;
             helper.dao.setDatabase(getDatabase());
             return helper;
-        } else if(uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
+        } else if (uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
             UriHelper<Metadata> helper = new UriHelper<Metadata>();
             helper.model = populateModel ? new Metadata() : null;
             helper.dao = metadataDao;
             helper.dao.setDatabase(getDatabase());
             return helper;
-        } else if(uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
+        } else if (uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
             UriHelper<StoreObject> helper = new UriHelper<StoreObject>();
             helper.model = populateModel ? new StoreObject() : null;
             helper.dao = storeObjectDao;
             helper.dao.setDatabase(getDatabase());
             return helper;
-        } else if(uri.toString().startsWith(UserActivity.CONTENT_URI.toString())) {
+        } else if (uri.toString().startsWith(UserActivity.CONTENT_URI.toString())) {
             UriHelper<UserActivity> helper = new UriHelper<UserActivity>();
             helper.model = populateModel ? new UserActivity() : null;
             helper.dao = userActivityDao;
@@ -214,7 +227,7 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private AbstractDatabase getDatabase() {
-        if(databaseOverride != null)
+        if (databaseOverride != null)
             return databaseOverride;
         return database;
     }
@@ -225,6 +238,7 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     /**
      * Delete from given table
+     *
      * @return number of rows deleted
      */
     @Override
@@ -232,29 +246,29 @@ public class Astrid3ContentProvider extends ContentProvider {
         UriHelper<?> helper = generateHelper(uri, false);
         switch (uriMatcher.match(uri)) {
 
-        // illegal operations
+            // illegal operations
 
-        case URI_GROUP:
-            throw new IllegalArgumentException("Only the / or /# URI is valid"
-                    + " for deletion.");
+            case URI_GROUP:
+                throw new IllegalArgumentException("Only the / or /# URI is valid"
+                        + " for deletion.");
 
-        // valid operations
+                // valid operations
 
-        case URI_ITEM: {
-            String itemSelector = String.format("%s = '%s'",
-                    AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
-            if(TextUtils.isEmpty(selection))
-                selection = itemSelector;
-            else
-                selection = itemSelector + " AND " + selection;
+            case URI_ITEM: {
+                String itemSelector = String.format("%s = '%s'",
+                        AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
+                if (TextUtils.isEmpty(selection))
+                    selection = itemSelector;
+                else
+                    selection = itemSelector + " AND " + selection;
 
-        }
+            }
 
-        case URI_DIR:
-            break;
+            case URI_DIR:
+                break;
 
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
 
         return getDatabase().delete(helper.dao.getTable().name, selection, selectionArgs);
@@ -272,28 +286,28 @@ public class Astrid3ContentProvider extends ContentProvider {
         UriHelper<?> helper = generateHelper(uri, true);
         switch (uriMatcher.match(uri)) {
 
-        // illegal operations
+            // illegal operations
 
-        case URI_ITEM:
-        case URI_GROUP:
-            throw new IllegalArgumentException("Only the / URI is valid"
-                    + " for insertion.");
+            case URI_ITEM:
+            case URI_GROUP:
+                throw new IllegalArgumentException("Only the / URI is valid"
+                        + " for insertion.");
 
-        // valid operations
+                // valid operations
 
-        case URI_DIR: {
-            helper.model.mergeWith(values);
-            readTransitoriesFromModelContentValues(helper.model);
-            if(!helper.create())
-                throw new SQLException("Could not insert row into database (constraint failed?)");
+            case URI_DIR: {
+                helper.model.mergeWith(values);
+                readTransitoriesFromModelContentValues(helper.model);
+                if (!helper.create())
+                    throw new SQLException("Could not insert row into database (constraint failed?)");
 
-            Uri newUri = ContentUris.withAppendedId(uri, helper.model.getId());
-            getContext().getContentResolver().notifyChange(newUri, null);
-            return newUri;
-        }
+                Uri newUri = ContentUris.withAppendedId(uri, helper.model.getId());
+                getContext().getContentResolver().notifyChange(newUri, null);
+                return newUri;
+            }
 
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri);
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri);
         }
     }
 
@@ -303,40 +317,40 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+                      String[] selectionArgs) {
         UriHelper<?> helper = generateHelper(uri, true);
 
         switch (uriMatcher.match(uri)) {
 
-        // illegal operations
+            // illegal operations
 
-        case URI_GROUP:
-            throw new IllegalArgumentException("Only the / or /# URI is valid"
-                    + " for update.");
+            case URI_GROUP:
+                throw new IllegalArgumentException("Only the / or /# URI is valid"
+                        + " for update.");
 
-        // valid operations
+                // valid operations
 
-        case URI_ITEM: {
-            String itemSelector = String.format("%s = '%s'",
-                    AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
-            if(TextUtils.isEmpty(selection))
-                selection = itemSelector;
-            else
-                selection = itemSelector + " AND " + selection;
+            case URI_ITEM: {
+                String itemSelector = String.format("%s = '%s'",
+                        AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
+                if (TextUtils.isEmpty(selection))
+                    selection = itemSelector;
+                else
+                    selection = itemSelector + " AND " + selection;
 
+            }
+
+            case URI_DIR:
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
 
-        case URI_DIR:
-            break;
-
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
-        }
-
-        Cursor cursor = query(uri, new String[] { AbstractModel.ID_PROPERTY.name },
+        Cursor cursor = query(uri, new String[]{AbstractModel.ID_PROPERTY.name},
                 selection, selectionArgs, null);
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
                 helper.model.mergeWith(values);
                 readTransitoriesFromModelContentValues(helper.model);
@@ -357,7 +371,7 @@ public class Astrid3ContentProvider extends ContentProvider {
         if (setValues != null) {
             Set<Entry<String, Object>> entries = setValues.valueSet();
             Set<String> keysToRemove = new HashSet<String>();
-            for (Entry<String, Object> entry: entries) {
+            for (Entry<String, Object> entry : entries) {
                 String key = entry.getKey();
                 if (key.startsWith(AbstractModel.RETAIN_TRANSITORY_PREFIX)) {
                     String newKey = key.substring(AbstractModel.RETAIN_TRANSITORY_PREFIX.length());
@@ -379,14 +393,14 @@ public class Astrid3ContentProvider extends ContentProvider {
 
     /**
      * Query by task.
-     * <p>
+     * <p/>
      * Note that the "sortOrder" field actually can be used to append any
      * sort of clause to your SQL query as long as it is not also the
      * name of a column
      */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+                        String[] selectionArgs, String sortOrder) {
 
         String groupBy = null;
 
@@ -395,17 +409,17 @@ public class Astrid3ContentProvider extends ContentProvider {
         builder.setTables(helper.dao.getTable().name);
 
         switch (uriMatcher.match(uri)) {
-        case URI_GROUP:
-            groupBy = uri.getPathSegments().get(2);
-        case URI_DIR:
-            break;
-        case URI_ITEM:
-            String itemSelector = String.format("%s = '%s'",
-                    AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
-            builder.appendWhere(itemSelector);
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
+            case URI_GROUP:
+                groupBy = uri.getPathSegments().get(2);
+            case URI_DIR:
+                break;
+            case URI_ITEM:
+                String itemSelector = String.format("%s = '%s'",
+                        AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
+                builder.appendWhere(itemSelector);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
 
         Cursor cursor = builder.query(getDatabase().getDatabase(), projection, selection, selectionArgs, groupBy, null, sortOrder);

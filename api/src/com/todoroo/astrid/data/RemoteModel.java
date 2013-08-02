@@ -5,15 +5,6 @@
  */
 package com.todoroo.astrid.data;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,39 +17,66 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
 /**
  * A model that is synchronized to a remote server and has a remote id
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 abstract public class RemoteModel extends AbstractModel {
 
-    /** remote id property common to all remote models */
+    /**
+     * remote id property common to all remote models
+     */
     public static final String UUID_PROPERTY_NAME = "remoteId"; //$NON-NLS-1$
 
-    /** remote id property */
+    /**
+     * remote id property
+     */
     public static final StringProperty UUID_PROPERTY = new StringProperty(null, UUID_PROPERTY_NAME);
 
-    /** user id property common to all remote models */
+    /**
+     * user id property common to all remote models
+     */
     protected static final String USER_ID_PROPERTY_NAME = "userId"; //$NON-NLS-1$
 
-    /** user id property */
+    /**
+     * user id property
+     */
     public static final StringProperty USER_ID_PROPERTY = new StringProperty(null, USER_ID_PROPERTY_NAME);
 
-    /** user json property common to all remote models */
+    /**
+     * user json property common to all remote models
+     */
     protected static final String USER_JSON_PROPERTY_NAME = "user"; //$NON-NLS-1$
 
-    /** user json property */
-    @Deprecated public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
+    /**
+     * user json property
+     */
+    @Deprecated
+    public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
 
-    /** pushed at date property name */
+    /**
+     * pushed at date property name
+     */
     public static final String PUSHED_AT_PROPERTY_NAME = "pushedAt"; //$NON-NLS-1$
 
-    /** pushed at date property name */
+    /**
+     * pushed at date property name
+     */
     public static final LongProperty PUSHED_AT_PROPERTY = new LongProperty(null, PUSHED_AT_PROPERTY_NAME);
 
-    /** constant value for no uuid */
+    /**
+     * constant value for no uuid
+     */
     public static final String NO_UUID = "0"; //$NON-NLS-1$
 
     public static final boolean isValidUuid(String uuid) {
@@ -78,9 +96,9 @@ abstract public class RemoteModel extends AbstractModel {
     abstract public String getUuid();
 
     protected String getUuidHelper(StringProperty uuid) {
-        if(setValues != null && setValues.containsKey(uuid.name))
+        if (setValues != null && setValues.containsKey(uuid.name))
             return setValues.getAsString(uuid.name);
-        else if(values != null && values.containsKey(uuid.name))
+        else if (values != null && values.containsKey(uuid.name))
             return values.getAsString(uuid.name);
         else
             return NO_UUID;
@@ -90,7 +108,7 @@ abstract public class RemoteModel extends AbstractModel {
         if (setValues == null)
             setValues = new ContentValues();
 
-        if(NO_UUID.equals(uuid))
+        if (NO_UUID.equals(uuid))
             clearValue(UUID_PROPERTY);
         else
             setValues.put(UUID_PROPERTY_NAME, uuid);

@@ -4,86 +4,95 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
+<resources>
+
     <string name="widget_mini">- Astrid Mini -</string>
-    
+
     <!-- Resources for power pack widget -->
-    
+
     <string name="PPW_widget_42_label">Old Astrid 4x2</string>
     <string name="PPW_widget_43_label">Old Astrid 4x3</string>
     <string name="PPW_widget_44_label">Old Astrid 4x4</string>
     <string name="PPW_widget_v11_label">- Astrid -</string>
     <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
     <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
-    
+
     <string name="PPW_configure_title">Configure Widget</string>
-    
+
     <string name="PPW_color">Widget color</string>
     <string name="PPW_enable_calendar">Show calendar events</string>
     <string name="PPW_disable_encouragements">Hide encouragements</string>
     <string name="PPW_show_dates">Show due dates</string>
     <string name="PPW_filter">Select Filter</string>
-    
+
     <string name="PPW_due">Due:</string>
     <string name="PPW_past_due">Past Due:</string>
-    
-    <string name="PPW_old_astrid_notice">You need at least version 3.6 of 
-    Astrid in order to use this widget. Sorry!</string>
-    
+
+    <string name="PPW_old_astrid_notice">You need at least version 3.6 of
+        Astrid in order to use this widget. Sorry!
+    </string>
+
     <string-array name="PPW_encouragements">
         <!-- general encouragements -->
-    	<item>Hi there!</item>
-    	<item>Have time to finish something?</item>
-    	<item>Gosh, you are looking suave today!</item>
-    	<item>Do something great today!</item>
-    	<item>Make me proud today!</item>
-    	<item>How are you doing today?</item>
+        <item>Hi there!</item>
+        <item>Have time to finish something?</item>
+        <item>Gosh, you are looking suave today!</item>
+        <item>Do something great today!</item>
+        <item>Make me proud today!</item>
+        <item>How are you doing today?</item>
     </string-array>
-    
+
     <string-array name="PPW_encouragements_tod">
         <!-- encouragements based on time of day -->
-    	<item>Good morning!</item>
-    	<item>Good afternoon!</item>
-    	<item>Good evening!</item>
-    	<item>Late night?</item>
-    	<item>It\'s early, get something done!</item>
-    	<item>Afternoon tea, perhaps?</item>
-    	<item>Enjoy the evening!</item>
-    	<item>Sleep is good for you, you know!</item>
+        <item>Good morning!</item>
+        <item>Good afternoon!</item>
+        <item>Good evening!</item>
+        <item>Late night?</item>
+        <item>It\'s early, get something done!</item>
+        <item>Afternoon tea, perhaps?</item>
+        <item>Enjoy the evening!</item>
+        <item>Sleep is good for you, you know!</item>
     </string-array>
-    
+
     <string-array name="PPW_encouragements_completed">
         <!-- encouragements based on tasks completed (%d => completed) -->
-    	<item>You\'ve already completed %d tasks!</item>
-    	<item>Score in life: %d tasks completed</item>
-    	<item>Smile! You\'ve already finished %d tasks!</item>
+        <item>You\'ve already completed %d tasks!</item>
+        <item>Score in life: %d tasks completed</item>
+        <item>Smile! You\'ve already finished %d tasks!</item>
     </string-array>
-  	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
-        
+    <string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet!
+        Shall we?
+    </string>
+
     <string-array name="PPW_colors">
         <item>Black</item>
         <item>White</item>
         <item>Blue</item>
         <item>Translucent</item>
     </string-array>
-    
-    <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
+
+    <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!
+    </string>
     <string name="PPW_widget_dlg_ok">Preview</string>
-    
+
     <string name="PPW_demo_title1">Items on %s will go here</string>
     <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
     <string name="PPW_demo_title3">...voice add and good feelings!</string>
     <string name="PPW_demo_title4">Tap to learn more!</string>
-    
+
     <string name="PPW_info_title">Free Power Pack!</string>
     <string name="PPW_info_signin">Sign in!</string>
     <string name="PPW_info_later">Later</string>
-    <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
+    <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3
+        friends sign up with Astrid.
+    </string>
     <string name="PPW_check_button">Get the Power Pack for free!</string>
     <string name="PPW_check_share_lists">Share lists!</string>
-    <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-    
+    <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.
+    </string>
+
     <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
-    <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
+    <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change
+        to take effect.
+    </string>
 </resources>

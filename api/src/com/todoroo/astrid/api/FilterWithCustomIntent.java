@@ -33,12 +33,12 @@ public class FilterWithCustomIntent extends Filter {
     }
 
     public FilterWithCustomIntent(String listingTitle, String title,
-            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+                                  QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
         super(listingTitle, title, sqlQuery, valuesForNewTasks);
     }
 
     public FilterWithCustomIntent(String listingTitle, String title,
-            String sqlQuery, ContentValues valuesForNewTasks) {
+                                  String sqlQuery, ContentValues valuesForNewTasks) {
         super(listingTitle, title, sqlQuery, valuesForNewTasks);
     }
 
@@ -46,7 +46,7 @@ public class FilterWithCustomIntent extends Filter {
         Intent intent = new Intent();
         intent.putExtra("filter", this); //$NON-NLS-1$
         intent.setComponent(new ComponentName(AstridApiConstants.ASTRID_PACKAGE, "com.todoroo.astrid.activity.TaskListActivity")); //$NON-NLS-1$
-        if(customExtras != null)
+        if (customExtras != null)
             intent.putExtras(customExtras);
 
         return intent;

@@ -4,97 +4,98 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
-  <!-- Resources for built-in backup plug-in -->
-  
-  <!-- ================================================= BackupPreferences == -->
+<resources>
 
-    <!-- slide 33c/48d: Backup Preferences Title -->    
+    <!-- Resources for built-in backup plug-in -->
+
+    <!-- ================================================= BackupPreferences == -->
+
+    <!-- slide 33c/48d: Backup Preferences Title -->
     <string name="backup_BPr_header">Backups</string>
 
-    <!-- slide 48e/50c: Backup: Status Header -->    
+    <!-- slide 48e/50c: Backup: Status Header -->
     <string name="backup_BPr_group_status">Status</string>
-    
-    <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
+
+    <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->
     <string name="backup_status_success">Latest backup:\n%s</string>
-    <!-- Backup Status: last error failed. Keep it short! -->    
+    <!-- Backup Status: last error failed. Keep it short! -->
     <string name="backup_status_failed">Last backup failed</string>
-    <!-- Backup Status: error subtitle -->    
+    <!-- Backup Status: error subtitle -->
     <string name="backup_status_failed_subtitle">(tap to show error)</string>
-    <!-- slide 48a: Backup Status: never backed up -->    
+    <!-- slide 48a: Backup Status: never backed up -->
     <string name="backup_status_never">Never backed up!</string>
 
-    <!-- slide 48f/ 50e: Backup Options Group Label -->    
+    <!-- slide 48f/ 50e: Backup Options Group Label -->
     <string name="backup_BPr_group_options">Options</string>
 
-    <!-- slide 48b: Preference: Automatic Backup Title -->    
+    <!-- slide 48b: Preference: Automatic Backup Title -->
     <string name="backup_BPr_auto_title">Automatic backups</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatic backups disabled</string>    
+    <string name="backup_BPr_auto_disabled">Automatic backups disabled</string>
     <!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
-    
+
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    
-    <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
-  
-  <!-- ================================================= BackupActivity == -->
 
-  <!-- slide 48c: backup activity label -->
-  <string name="backup_BAc_label">Manage backups</string>
+    <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!
+    </string>
 
-  <!-- backup activity title -->
-  <string name="backup_BAc_title">Manage your backups</string>
+    <!-- ================================================= BackupActivity == -->
 
-  <!-- backup activity import button -->
-  <string name="backup_BAc_import">Import tasks</string>
+    <!-- slide 48c: backup activity label -->
+    <string name="backup_BAc_label">Manage backups</string>
 
-  <!-- backup activity export button -->
-  <string name="backup_BAc_export">Export tasks</string>
-  
-  <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
-    
-  <!-- ============================================== Importer / Exporter == -->
-  
-  <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import error</string>
-    
-  <string name="export_toast">Backed up %1$s to %2$s.</string>
-    
-  <string name="export_toast_no_tasks">No tasks to export.</string>
-  
-  <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exporting...</string>
-  
-  <!-- Backup: Title of Import Summary Dialog -->
-  <string name="import_summary_title">Restore summary</string>
-    
-  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">
-File %1$s contained %2$s.\n\n
-%3$s imported,\n
-%4$s already exist\n
-%5$s had errors\n
-  </string>
-  
-  <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importing...</string>
-  
-  <!-- Progress Dialog text for import reading task (%d -> task number)-->    
-  <string name="import_progress_read">Reading task %d...</string>
-  
-  <!-- Backup: Dialog when unable to open a file -->  
-  
-  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
-  
-  <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
-    
-  <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">Select a file to restore</string>    
-        
+    <!-- backup activity title -->
+    <string name="backup_BAc_title">Manage your backups</string>
+
+    <!-- backup activity import button -->
+    <string name="backup_BAc_import">Import tasks</string>
+
+    <!-- backup activity export button -->
+    <string name="backup_BAc_export">Export tasks</string>
+
+    <!-- backup activity cloud (Astrid.com) option -->
+    <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
+
+    <!-- ============================================== Importer / Exporter == -->
+
+    <!-- Message displayed when error occurs -->
+    <string name="backup_TXI_error">Import error</string>
+
+    <string name="export_toast">Backed up %1$s to %2$s.</string>
+
+    <string name="export_toast_no_tasks">No tasks to export.</string>
+
+    <!-- Progress Dialog Title for exporting -->
+    <string name="export_progress_title">Exporting...</string>
+
+    <!-- Backup: Title of Import Summary Dialog -->
+    <string name="import_summary_title">Restore summary</string>
+
+    <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
+    <string name="import_summary_message">
+        File %1$s contained %2$s.\n\n
+        %3$s imported,\n
+        %4$s already exist\n
+        %5$s had errors\n
+    </string>
+
+    <!-- Progress Dialog Title for importing -->
+    <string name="import_progress_title">Importing...</string>
+
+    <!-- Progress Dialog text for import reading task (%d -> task number)-->
+    <string name="import_progress_read">Reading task %d...</string>
+
+    <!-- Backup: Dialog when unable to open a file -->
+
+    <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
+    <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+
+    <!-- Backup: Dialog when unable to open SD card in general -->
+    <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+
+    <!-- Backup: File Selector dialog for import -->
+    <string name="import_file_prompt">Select a file to restore</string>
+
 </resources>

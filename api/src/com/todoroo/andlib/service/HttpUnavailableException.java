@@ -11,7 +11,6 @@ import java.io.IOException;
  * Exception displayed when a 500 error is received on an HTTP invocation
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public class HttpUnavailableException extends IOException {
 

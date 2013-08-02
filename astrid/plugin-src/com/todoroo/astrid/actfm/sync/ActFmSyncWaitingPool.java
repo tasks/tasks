@@ -1,13 +1,13 @@
 package com.todoroo.astrid.actfm.sync;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 
 public class ActFmSyncWaitingPool {
 
@@ -15,7 +15,7 @@ public class ActFmSyncWaitingPool {
 
     public static ActFmSyncWaitingPool getInstance() {
         if (instance == null) {
-            synchronized(ActFmSyncWaitingPool.class) {
+            synchronized (ActFmSyncWaitingPool.class) {
                 if (instance == null) {
                     instance = new ActFmSyncWaitingPool();
                 }

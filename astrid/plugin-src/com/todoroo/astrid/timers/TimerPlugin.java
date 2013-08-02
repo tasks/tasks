@@ -46,6 +46,7 @@ public class TimerPlugin extends BroadcastReceiver {
 
     /**
      * toggles timer and updates elapsed time.
+     *
      * @param task
      * @param start if true, start timer. else, stop it
      */
@@ -57,14 +58,14 @@ public class TimerPlugin extends BroadcastReceiver {
         if (task == null)
             return;
 
-        if(start) {
-            if(task.getValue(Task.TIMER_START) == 0) {
+        if (start) {
+            if (task.getValue(Task.TIMER_START) == 0) {
                 task.setValue(Task.TIMER_START, DateUtilities.now());
                 StatisticsService.reportEvent(StatisticsConstants.TIMER_START);
             }
         } else {
-            if(task.getValue(Task.TIMER_START) > 0) {
-                int newElapsed = (int)((DateUtilities.now() - task.getValue(Task.TIMER_START)) / 1000L);
+            if (task.getValue(Task.TIMER_START) > 0) {
+                int newElapsed = (int) ((DateUtilities.now() - task.getValue(Task.TIMER_START)) / 1000L);
                 task.setValue(Task.TIMER_START, 0L);
                 task.setValue(Task.ELAPSED_SECONDS,
                         task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
@@ -83,7 +84,7 @@ public class TimerPlugin extends BroadcastReceiver {
 
         int count = PluginServices.getTaskService().count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0)));
-        if(count == 0) {
+        if (count == 0) {
             nm.cancel(Constants.NOTIFICATION_TIMER);
         } else {
             Filter filter = TimerFilterExposer.createFilter(context);

@@ -6,26 +6,26 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <!-- Resources for built-in locale plug-in -->
-     
-  <style name="TextAppearance.Locale_Label">                                                                                                                                                                       
-      <item name="android:textSize">16sp</item>                                                                                                                                                                    
-      <item name="android:textColor">@android:color/black</item>                                                                                                                                                   
-  </style>   
-  
-  <!-- Locale filter list styles -->
-  <style name="TextAppearance.LEA_Filter">
-      <item name="android:textSize">14sp</item>
-      <item name="android:textColor">@android:color/white</item>
-  </style>
-  
-  <style name="TextAppearance.LEA_Header" parent="TextAppearance.LEA_Filter">
-      <item name="android:textSize">13sp</item>
-      <item name="android:textColor">#ffdddddd</item>
-  </style>
-  
-  <style name="TextAppearance.LEA_Category" parent="TextAppearance.LEA_Filter">
-      <item name="android:textSize">13sp</item>
-      <item name="android:textStyle">bold|italic</item>
-  </style>
+    <!-- Resources for built-in locale plug-in -->
+
+    <style name="TextAppearance.Locale_Label">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- Locale filter list styles -->
+    <style name="TextAppearance.LEA_Filter">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextAppearance.LEA_Header" parent="TextAppearance.LEA_Filter">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#ffdddddd</item>
+    </style>
+
+    <style name="TextAppearance.LEA_Category" parent="TextAppearance.LEA_Filter">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
 </resources>

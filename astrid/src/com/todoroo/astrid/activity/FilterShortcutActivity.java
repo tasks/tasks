@@ -42,7 +42,7 @@ public class FilterShortcutActivity extends ListActivity {
         adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
         setListAdapter(adapter);
 
-        Button button = (Button)findViewById(R.id.ok);
+        Button button = (Button) findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
     }
 
@@ -66,7 +66,7 @@ public class FilterShortcutActivity extends ListActivity {
             setResult(RESULT_OK, intent);
             finish();
         }
-   };
+    };
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {

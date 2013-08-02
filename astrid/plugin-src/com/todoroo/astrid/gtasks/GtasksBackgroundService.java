@@ -15,7 +15,8 @@ import com.todoroo.astrid.sync.SyncV2Provider;
 
 public class GtasksBackgroundService extends SyncV2BackgroundService {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired
+    private GtasksPreferenceService gtasksPreferenceService;
 
     @Override
     protected SyncV2Provider getSyncProvider() {
@@ -24,7 +25,7 @@ public class GtasksBackgroundService extends SyncV2BackgroundService {
 
     @Override
     protected SyncProviderUtilities getSyncUtilities() {
-        if(gtasksPreferenceService == null)
+        if (gtasksPreferenceService == null)
             DependencyInjectionService.getInstance().inject(this);
         return gtasksPreferenceService;
     }
