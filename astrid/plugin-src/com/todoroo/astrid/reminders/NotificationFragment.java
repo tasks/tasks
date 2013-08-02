@@ -50,8 +50,6 @@ public class NotificationFragment extends TaskListFragment {
 
     // --- implementation
 
-    private long taskId;
-
     /* (non-Javadoc)
      * @see com.todoroo.astrid.activity.TaskListActivity#onActivityCreated(android.os.Bundle)
      */
@@ -80,7 +78,7 @@ public class NotificationFragment extends TaskListFragment {
         getView().findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
         String title = extras.getString(Notifications.EXTRAS_TEXT);
-        taskId = extras.getLong(TOKEN_ID);
+        long taskId = extras.getLong(TOKEN_ID);
         new ReminderDialog((AstridActivity) getActivity(), taskId, title).show();
     }
 

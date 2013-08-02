@@ -225,11 +225,6 @@ public final class LocalyticsSession {
     private final Context mContext;
 
     /**
-     * Localytics application key
-     */
-    private final String mLocalyticsKey;
-
-    /**
      * Keeps track of which Localytics clients are currently uploading, in order to allow only one upload for a given key at a
      * time.
      * <p/>
@@ -268,9 +263,9 @@ public final class LocalyticsSession {
          * and earlier. See <http://code.google.com/p/android/issues/detail?id=4469> for details.
          */
         mContext = !(context.getClass().getName().equals("android.test.RenamingDelegatingContext")) && Constants.CURRENT_API_LEVEL >= 8 ? context.getApplicationContext() : context; //$NON-NLS-1$
-        mLocalyticsKey = key;
+        String localyticsKey = key;
 
-        mSessionHandler = new SessionHandler(mContext, mLocalyticsKey, sSessionHandlerThread.getLooper());
+        mSessionHandler = new SessionHandler(mContext, localyticsKey, sSessionHandlerThread.getLooper());
 
         /*
          * Complete Handler initialization on a background thread. Note that this is not generally a good best practice, as the

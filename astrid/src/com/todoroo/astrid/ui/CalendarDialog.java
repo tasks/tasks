@@ -23,8 +23,6 @@ public class CalendarDialog extends Dialog implements OnClickListener, OnSelecte
     private final Button cancelButton;
     private Date calendarDate;
 
-    private final CalendarView calendarView;
-
     public CalendarDialog(Context context, Date calendarDate) {
         super(context);
         this.calendarDate = calendarDate;
@@ -40,7 +38,7 @@ public class CalendarDialog extends Dialog implements OnClickListener, OnSelecte
 
         cancelButton = (Button) findViewById(R.id.CancelButton);
 
-        calendarView = (CalendarView) findViewById(R.id.CalendarView);
+        CalendarView calendarView = (CalendarView) findViewById(R.id.CalendarView);
         calendarView.setCalendarDate(calendarDate);
         calendarView.setOnSelectedDateListener(this);
 

@@ -217,7 +217,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     protected final int resource;
     protected final LayoutInflater inflater;
-    private DetailLoaderThread detailLoader;
     private int fontSize;
     protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
@@ -319,7 +318,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private void startDetailThread() {
         if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout && !titleOnlyLayout) {
-            detailLoader = new DetailLoaderThread();
+            DetailLoaderThread detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
     }

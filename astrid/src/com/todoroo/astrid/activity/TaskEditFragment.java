@@ -225,12 +225,8 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     // --- UI components
 
-    private ImageButton voiceAddNoteButton;
-
     private EditPeopleControlSet peopleControlSet = null;
     private EditNotesControlSet notesControlSet = null;
-    private HideUntilControlSet hideUntilControls = null;
-    private TagsControlSet tagsControlSet = null;
     private FilesControlSet filesControlSet = null;
     private TimerActionControlSet timerAction;
     private EditText title;
@@ -486,7 +482,7 @@ public final class TaskEditFragment extends SherlockFragment implements
                 getActivity(), getView());
         controls.add(timerAction);
 
-        tagsControlSet = new TagsControlSet(getActivity(),
+        TagsControlSet tagsControlSet = new TagsControlSet(getActivity(),
                 R.layout.control_set_tags,
                 R.layout.control_set_default_display, R.string.TEA_tags_label_long);
         controls.add(tagsControlSet);
@@ -551,7 +547,7 @@ public final class TaskEditFragment extends SherlockFragment implements
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);
 
-        hideUntilControls = new HideUntilControlSet(getActivity(),
+        HideUntilControlSet hideUntilControls = new HideUntilControlSet(getActivity(),
                 R.layout.control_set_hide,
                 R.layout.control_set_default_display,
                 R.string.hide_until_prompt);
@@ -717,7 +713,7 @@ public final class TaskEditFragment extends SherlockFragment implements
             // prepare and set listener for voice-button
             if (getActivity() != null) {
                 if (VoiceRecognizer.voiceInputAvailable(getActivity())) {
-                    voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
+                    ImageButton voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
                             R.id.voiceAddNoteButton);
                     voiceAddNoteButton.setVisibility(View.VISIBLE);
                     int prompt = R.string.voice_edit_note_prompt;

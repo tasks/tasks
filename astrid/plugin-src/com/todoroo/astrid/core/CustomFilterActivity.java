@@ -146,7 +146,6 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
     private ListView listView;
     private TextView filterName;
-    private boolean isDialog;
 
     private CustomFilterAdapter adapter;
     private final Map<String, CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String, CustomFilterCriterion>());
@@ -189,8 +188,8 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AstridPreferences.useTabletLayout(this);
-        if (isDialog) {
+        boolean dialog = AstridPreferences.useTabletLayout(this);
+        if (dialog) {
             setTheme(ThemeService.getDialogTheme());
         } else {
             ThemeService.applyTheme(this);

@@ -81,9 +81,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
     };
 
-    private final LayoutInflater mInflater;
     private final EditText mText;
-    private final InputFilter mInputFilter;
     private final InputFilter mNumberInputFilter;
 
     private final Animation mSlideUpOutAnimation;
@@ -126,10 +124,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     public NumberPicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
         setOrientation(VERTICAL);
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mInflater.inflate(getLayout(), this, true);
         mHandler = new Handler();
-        mInputFilter = new NumberPickerInputFilter();
+        InputFilter mInputFilter = new NumberPickerInputFilter();
         mNumberInputFilter = new NumberRangeKeyListener();
         mIncrementButton = (NumberPickerButton) findViewById(R.id.increment);
         mIncrementButton.setOnClickListener(this);

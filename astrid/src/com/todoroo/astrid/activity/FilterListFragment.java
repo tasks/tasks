@@ -94,8 +94,6 @@ public class FilterListFragment extends SherlockListFragment {
 
     private OnFilterItemClickedListener mListener;
 
-    private View newListButton;
-
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -159,7 +157,7 @@ public class FilterListFragment extends SherlockListFragment {
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        newListButton = getView().findViewById(R.id.new_list_button);
+        View newListButton = getView().findViewById(R.id.new_list_button);
 
         if (newListButton != null) {
             newListButton.setOnClickListener(new OnClickListener() {

@@ -28,7 +28,6 @@ import java.util.HashMap;
 
 public class BeastModePreferences extends ListActivity {
 
-    private TouchListView touchList;
     private ArrayAdapter<String> adapter;
 
     private ArrayList<String> items;
@@ -145,7 +144,7 @@ public class BeastModePreferences extends ListActivity {
         prefsToDescriptions = new HashMap<String, String>();
         buildDescriptionMap(getResources());
 
-        touchList = (TouchListView) getListView();
+        TouchListView touchList = (TouchListView) getListView();
         items = constructOrderedControlList(this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {

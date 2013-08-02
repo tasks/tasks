@@ -214,9 +214,6 @@ public class OpencrxControlSet extends PopupControlSet {
     private AutoCompleteTextView assignedToTextInput;
     private AutoCompleteTextView creatorTextInput;
 
-    private ArrayList<OpencrxContact> users = null;
-    private ArrayList<OpencrxActivityCreator> dashboards = null;
-
     @Autowired
     private MetadataService metadataService;
 
@@ -259,7 +256,7 @@ public class OpencrxControlSet extends PopupControlSet {
         }
 
         StoreObject[] dashboardsData = readStoreObjects(OpencrxActivityCreator.TYPE);
-        dashboards = new ArrayList<OpencrxActivityCreator>(dashboardsData.length);
+        ArrayList<OpencrxActivityCreator> dashboards = new ArrayList<OpencrxActivityCreator>(dashboardsData.length);
         int dashboardSpinnerIndex = -1;
 
         for (int i = 0; i < dashboardsData.length; i++) {
@@ -314,20 +311,20 @@ public class OpencrxControlSet extends PopupControlSet {
         }
 
         StoreObject[] usersData = readStoreObjects(OpencrxContact.TYPE);
-        this.users = new ArrayList<OpencrxContact>();
+        ArrayList<OpencrxContact> users = new ArrayList<OpencrxContact>();
         for (StoreObject user : usersData) {
-            this.users.add(new OpencrxContact(user));
+            users.add(new OpencrxContact(user));
         }
 
         ArrayAdapter<OpencrxContact> usersAdapter = new ArrayAdapter<OpencrxContact>(activity,
-                android.R.layout.simple_spinner_item, this.users);
+                android.R.layout.simple_spinner_item, users);
         usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assignedToSelector.setAdapter(usersAdapter);
 
         int responsibleSpinnerIndex = 0;
 
-        for (int i = 0; i < this.users.size(); i++) {
-            if (this.users.get(i).getId() == responsibleId) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId() == responsibleId) {
                 responsibleSpinnerIndex = i;
                 break;
             }
@@ -335,7 +332,7 @@ public class OpencrxControlSet extends PopupControlSet {
         assignedToSelector.setSelection(responsibleSpinnerIndex);
 
         ArrayAdapter<OpencrxContact> contactAdapterTextInput = new ArrayAdapter<OpencrxContact>(activity,
-                android.R.layout.simple_spinner_item, this.users);
+                android.R.layout.simple_spinner_item, users);
 
         assignedToTextInput.setAdapter(contactAdapterTextInput);
         assignedToTextInput.setOnItemClickListener(new OnItemClickListener() {

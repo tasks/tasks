@@ -43,16 +43,13 @@ public class CalendarView extends View {
     private float deltaX;
     private boolean ignoreNextTouch;
 
-    private Paint borderPaint;
     private Paint calendarNumberRightAlignPaint;
     private Paint calendarSelectedNumberRightAlignPaint;
     private Paint backgroundColorPaint;
     private Paint monthCenterAlignLargePaint;
-    private Paint centerAlignPaint;
     private Paint rightAlignPaint;
     private Paint todayCalendarPaint;
     private Paint selectedCalendarPaint;
-    private Paint dayPaint;
     private float density;
 
     private int leftArrowHeight;
@@ -110,7 +107,7 @@ public class CalendarView extends View {
 
         Resources r = context.getResources();
 
-        borderPaint = new Paint();
+        Paint borderPaint = new Paint();
         borderPaint.setAntiAlias(true);
         borderPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
         borderPaint.setStyle(Style.STROKE);
@@ -127,7 +124,7 @@ public class CalendarView extends View {
         calendarSelectedNumberRightAlignPaint.setTextSize(TEXT_SIZE * density);
         calendarSelectedNumberRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
 
-        dayPaint = new Paint();
+        Paint dayPaint = new Paint();
         dayPaint.setAntiAlias(true);
         dayPaint.setColor(Color.rgb(137, 135, 132));
 
@@ -137,7 +134,7 @@ public class CalendarView extends View {
         monthCenterAlignLargePaint.setTextAlign(Paint.Align.CENTER);
         monthCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * density);
 
-        centerAlignPaint = new Paint();
+        Paint centerAlignPaint = new Paint();
         centerAlignPaint.setAntiAlias(true);
         centerAlignPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
         centerAlignPaint.setTextAlign(Paint.Align.CENTER);

@@ -35,8 +35,6 @@ public class DateAndTimePicker extends LinearLayout {
 
     private static final int SHORTCUT_PADDING = 8;
 
-    private ArrayList<UrgencyValue> urgencyValues;
-
     private class UrgencyValue {
         public String label;
         public int setting;
@@ -158,7 +156,7 @@ public class DateAndTimePicker extends LinearLayout {
         }
 
         String[] labels = context.getResources().getStringArray(arrayResource);
-        urgencyValues = new ArrayList<UrgencyValue>();
+        ArrayList<UrgencyValue> urgencyValues = new ArrayList<UrgencyValue>();
         todayUrgency = new UrgencyValue(labels[2],
                 Task.URGENCY_TODAY);
         if (useShortcuts) {

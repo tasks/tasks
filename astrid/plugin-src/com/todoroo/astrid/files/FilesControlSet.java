@@ -59,7 +59,6 @@ public class FilesControlSet extends PopupControlSet {
 
     private final ArrayList<TaskAttachment> files = new ArrayList<TaskAttachment>();
     private final LinearLayout fileDisplayList;
-    private LinearLayout fileList;
     private final LayoutInflater inflater;
     private final ImageView image;
 
@@ -151,7 +150,7 @@ public class FilesControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        fileList = (LinearLayout) getView().findViewById(R.id.files_list);
+        LinearLayout fileList = (LinearLayout) getView().findViewById(R.id.files_list);
         final LinearLayout finalList = fileList;
         fileList.removeAllViews();
         LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);

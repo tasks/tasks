@@ -27,14 +27,34 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     private final ImageView timerButton;
     private final Chronometer chronometer;
-    private final LinearLayout timerContainer;
     private boolean timerActive;
     private final List<TimerActionListener> listeners = new LinkedList<TimerActionListener>();
 
     public TimerActionControlSet(Activity activity, View parent) {
         super(activity, -1);
-        timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
+        LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
         timerButton = (ImageView) parent.findViewById(R.id.timer_button);
+        OnClickListener timerListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (timerActive) {
+                    TimerPlugin.updateTimer(activity, model, false);
+
+                    for (TimerActionListener listener : listeners) {
+                        listener.timerStopped(model);
+                    }
+                    chronometer.stop();
+                } else {
+                    TimerPlugin.updateTimer(activity, model, true);
+                    for (TimerActionListener listener : listeners) {
+                        listener.timerStarted(model);
+                    }
+                    chronometer.start();
+                }
+                timerActive = !timerActive;
+                updateDisplay();
+            }
+        };
         timerContainer.setOnClickListener(timerListener);
         chronometer = (Chronometer) parent.findViewById(R.id.timer);
     }
@@ -60,28 +80,6 @@ public class TimerActionControlSet extends TaskEditControlSet {
         // Nothing to do here
         return null;
     }
-
-    private final OnClickListener timerListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (timerActive) {
-                TimerPlugin.updateTimer(activity, model, false);
-
-                for (TimerActionListener listener : listeners) {
-                    listener.timerStopped(model);
-                }
-                chronometer.stop();
-            } else {
-                TimerPlugin.updateTimer(activity, model, true);
-                for (TimerActionListener listener : listeners) {
-                    listener.timerStarted(model);
-                }
-                chronometer.start();
-            }
-            timerActive = !timerActive;
-            updateDisplay();
-        }
-    };
 
     private void updateDisplay() {
         final int drawable;

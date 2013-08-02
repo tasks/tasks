@@ -41,7 +41,6 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     private Account[] accounts;
     private CirclePageIndicator mIndicator;
     private View currentView;
-    private int currentPage;
 
     private String authToken;
     private boolean onSuccess = false;
@@ -210,7 +209,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     }
 
     public void onPageChanged(View view, int position) {
-        currentPage = position;
+        int currentPage = position;
         currentView = view;
         findViewById(R.id.next).setVisibility(
                 position == mAdapter.getCount() - 1 ? View.GONE : View.VISIBLE);

@@ -41,7 +41,6 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
     private static final int DIALOG_BILLING_NOT_SUPPORTED_ID = 2;
     private static final int DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID = 3;
 
-    private Handler handler;
     private BillingService billingService;
     private AstridPurchaseObserver purchaseObserver;
     private Button buyMonth;
@@ -67,7 +66,7 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
 
         setupText();
 
-        handler = new Handler();
+        Handler handler = new Handler();
         billingService = new BillingService();
         billingService.setContext(this);
         purchaseObserver = new AstridPurchaseObserver(this, handler) {
