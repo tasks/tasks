@@ -54,8 +54,9 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
             AndroidUtilities.sortFilesByDateDesc(filesAsFile);
 
             files = new String[filesAsFile.length];
-            for (int i = 0; i < files.length; i++)
+            for (int i = 0; i < files.length; i++) {
                 files[i] = filesAsFile[i].getName();
+            }
 
             setItems(files, this);
         } else {

@@ -41,18 +41,22 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true))
+        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true)) {
             return;
+        }
         try {
             Uri data = intent.getData();
-            if (data == null)
+            if (data == null) {
                 return;
+            }
 
             String uriString = data.toString();
             int pathIndex = uriString.indexOf("://");
-            if (pathIndex > 0)
+            if (pathIndex > 0) {
                 pathIndex += 3;
-            else return;
+            } else {
+                return;
+            }
             long eventId = Long.parseLong(uriString.substring(pathIndex));
             boolean fromPostpone = CalendarAlarmScheduler.URI_PREFIX_POSTPONE.equals(data.getScheme());
             if (eventId > 0) {
@@ -68,8 +72,9 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
         ContentResolver cr = context.getContentResolver();
         Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
-        if (AndroidUtilities.getSdkVersion() <= 7)
+        if (AndroidUtilities.getSdkVersion() <= 7) {
             return;
+        }
 
         String[] eventArg = new String[]{Long.toString(eventId)};
         Cursor event = cr.query(eventUri,
@@ -118,8 +123,9 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                         }
 
                         String astridUser = ActFmPreferenceService.thisUser().optString("email");
-                        if (!TextUtils.isEmpty(astridUser))
+                        if (!TextUtils.isEmpty(astridUser)) {
                             phoneAccounts.add(astridUser);
+                        }
 
                         boolean includesMe = false;
                         for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
@@ -130,8 +136,9 @@ public class CalendarAlarmReceiver extends BroadcastReceiver {
                                     includesMe = true;
                                     continue;
                                 }
-                                if (Constants.DEBUG)
+                                if (Constants.DEBUG) {
                                     Log.w(CalendarAlarmScheduler.TAG, "Attendee: " + name + ", email: " + email);
+                                }
                                 names.add(name);
                                 emails.add(email);
                             }

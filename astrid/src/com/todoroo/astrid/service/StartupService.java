@@ -160,8 +160,9 @@ public class StartupService {
      * Called when this application is started up
      */
     public synchronized void onStartupApplication(final Activity context) {
-        if (hasStartedUp || context == null)
+        if (hasStartedUp || context == null) {
             return;
+        }
 
         // sets up context manager
         ContextManager.setContext(context);
@@ -182,10 +183,11 @@ public class StartupService {
         if (context instanceof Activity) {
             AudioManager audioManager = (AudioManager) context.getSystemService(
                     Context.AUDIO_SERVICE);
-            if (!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+            if (!Preferences.getBoolean(R.string.p_rmd_enabled, true)) {
                 Toast.makeText(context, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
-            else if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
+            } else if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
                 Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
+            }
         }
 
         // read current version
@@ -271,8 +273,9 @@ public class StartupService {
                 gtasksSyncService.initialize();
 
                 // get and display update messages
-                if (finalLatestVersion != 0)
+                if (finalLatestVersion != 0) {
                     new UpdateMessageService(context).processUpdates();
+                }
 
                 new PremiumUnlockService().checkForPremium();
 
@@ -287,8 +290,9 @@ public class StartupService {
         CalendarStartupReceiver.scheduleCalendarAlarms(context, false); // This needs to be after set preference defaults for the purposes of ab testing
 
         // check for task killers
-        if (!Constants.OEM)
+        if (!Constants.OEM) {
             showTaskKillerHelp(context);
+        }
 
         hasStartedUp = true;
     }
@@ -351,8 +355,9 @@ public class StartupService {
                     !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
                 File directory = BackupConstants.defaultExportDirectory();
-                if (!directory.exists())
+                if (!directory.exists()) {
                     return;
+                }
                 File[] children = directory.listFiles();
                 AndroidUtilities.sortFilesByDateDesc(children);
                 if (children.length > 0) {
@@ -409,8 +414,9 @@ public class StartupService {
     private void checkMetadataStat(Criterion criterion, String statistic) {
         TodorooCursor<Metadata> sort = metadataService.query(Query.select(Metadata.ID).where(criterion).limit(1));
         try {
-            if (sort.getCount() > 0)
+            if (sort.getCount() > 0) {
                 StatisticsService.reportEvent(statistic);
+            }
         } finally {
             sort.close();
         }
@@ -425,8 +431,9 @@ public class StartupService {
      * @param context
      */
     private static void showTaskKillerHelp(final Context context) {
-        if (!Preferences.getBoolean(P_TASK_KILLER_HELP, false))
+        if (!Preferences.getBoolean(P_TASK_KILLER_HELP, false)) {
             return;
+        }
 
         // search for task killers. if they exist, show the help!
         PackageManager pm = context.getPackageManager();
@@ -434,10 +441,13 @@ public class StartupService {
                 .getInstalledPackages(PackageManager.GET_PERMISSIONS);
         outer:
         for (PackageInfo app : apps) {
-            if (app == null || app.requestedPermissions == null)
+            if (app == null || app.requestedPermissions == null) {
                 continue;
+            }
             if (app.packageName.startsWith("com.android")) //$NON-NLS-1$
+            {
                 continue;
+            }
             for (String permission : app.requestedPermissions) {
                 if (Manifest.permission.RESTART_PACKAGES.equals(permission)) {
                     CharSequence appName = app.applicationInfo.loadLabel(pm);

@@ -50,8 +50,9 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
         // request details
         draw(viewHolder, taskId, get(taskId));
         Intent broadcastIntent = createBroadcastIntent(viewHolder.task);
-        if (broadcastIntent != null)
+        if (broadcastIntent != null) {
             fragment.getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        }
         return true;
     }
 
@@ -74,21 +75,23 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
      * on receive an intent
      */
     public void addNew(long taskId, String addOn, TYPE item, ViewHolder thisViewHolder) {
-        if (item == null)
+        if (item == null) {
             return;
+        }
 
         Collection<TYPE> cacheList = addIfNotExists(taskId, addOn, item);
         if (cacheList != null) {
-            if (thisViewHolder != null)
+            if (thisViewHolder != null) {
                 draw(thisViewHolder, taskId, cacheList);
-            else {
+            } else {
                 ListView listView = fragment.getListView();
                 // update view if it is visible
                 int length = listView.getChildCount();
                 for (int i = 0; i < length; i++) {
                     ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
-                    if (viewHolder == null || viewHolder.task.getId() != taskId)
+                    if (viewHolder == null || viewHolder.task.getId() != taskId) {
                         continue;
+                    }
                     draw(viewHolder, taskId, cacheList);
                     break;
                 }
@@ -120,8 +123,9 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
      * @return list if there was already one
      */
     protected synchronized Collection<TYPE> initialize(long taskId) {
-        if (cache.containsKey(taskId) && cache.get(taskId) != null)
+        if (cache.containsKey(taskId) && cache.get(taskId) != null) {
             return get(taskId);
+        }
         cache.put(taskId, new LinkedHashMap<String, TYPE>(0));
         return null;
     }
@@ -136,10 +140,12 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
                                                            TYPE item) {
         LinkedHashMap<String, TYPE> list = cache.get(taskId);
-        if (list == null)
+        if (list == null) {
             return null;
-        if (list.containsValue(item))
+        }
+        if (list.containsValue(item)) {
             return null;
+        }
         list.put(addOn, item);
         return get(taskId);
     }
@@ -151,8 +157,9 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
      * @return
      */
     protected Collection<TYPE> get(long taskId) {
-        if (cache.get(taskId) == null)
+        if (cache.get(taskId) == null) {
             return null;
+        }
         return cache.get(taskId).values();
     }
 

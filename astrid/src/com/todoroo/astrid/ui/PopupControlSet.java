@@ -49,10 +49,11 @@ public abstract class PopupControlSet extends TaskEditControlSet {
 
     public PopupControlSet(Activity activity, int viewLayout, int displayViewLayout, final int title) {
         super(activity, viewLayout);
-        if (displayViewLayout != -1)
+        if (displayViewLayout != -1) {
             this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
-        else
+        } else {
             this.displayView = null;
+        }
 
         titleString = (title > 0) ? activity.getString(title) : ""; //$NON-NLS-1$
 
@@ -69,10 +70,11 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     protected Dialog buildDialog(String title, final PopupDialogClickListener okClickListener, DialogInterface.OnCancelListener cancelClickListener) {
         int theme = ThemeService.getEditDialogTheme();
         dialog = new Dialog(activity, theme);
-        if (title.length() == 0)
+        if (title.length() == 0) {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        else
+        } else {
             dialog.setTitle(title);
+        }
 
         View v = getView();
 
@@ -82,8 +84,9 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             dismiss.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (okClickListener.onClick(dialog, 0))
+                    if (okClickListener.onClick(dialog, 0)) {
                         DialogUtilities.dismissDialog(activity, dialog);
+                    }
                 }
             });
         }
@@ -94,10 +97,11 @@ public abstract class PopupControlSet extends TaskEditControlSet {
 
         if (AndroidUtilities.isTabletSized(activity)) {
             DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT)
+            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT) {
                 params.width = (3 * metrics.widthPixels) / 5;
-            else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH)
+            } else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH) {
                 params.width = (4 * metrics.widthPixels) / 5;
+            }
         }
 
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
@@ -144,8 +148,9 @@ public abstract class PopupControlSet extends TaskEditControlSet {
 
     @Override
     public String writeToModel(Task task) {
-        if (initialized && dialog != null)
+        if (initialized && dialog != null) {
             dialog.dismiss();
+        }
         return super.writeToModel(task);
     }
 

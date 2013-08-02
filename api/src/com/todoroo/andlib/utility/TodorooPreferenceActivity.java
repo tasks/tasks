@@ -68,14 +68,15 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
             updatePreferences(group, null);
         } else {
             Object value = null;
-            if (preference instanceof ListPreference)
+            if (preference instanceof ListPreference) {
                 value = ((ListPreference) preference).getValue();
-            else if (preference instanceof CheckBoxPreference)
+            } else if (preference instanceof CheckBoxPreference) {
                 value = ((CheckBoxPreference) preference).isChecked();
-            else if (preference instanceof EditTextPreference)
+            } else if (preference instanceof EditTextPreference) {
                 value = ((EditTextPreference) preference).getText();
-            else if (preference instanceof RingtonePreference)
+            } else if (preference instanceof RingtonePreference) {
                 value = getPreferenceManager().getSharedPreferences().getString(preference.getKey(), null);
+            }
 
             updatePreferences(preference, value);
 

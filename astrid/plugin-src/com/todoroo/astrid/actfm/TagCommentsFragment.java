@@ -66,8 +66,9 @@ public class TagCommentsFragment extends CommentsFragment {
     protected void loadModelFromIntent(Intent intent) {
         if (tagData == null) {
             long id = intent.getLongExtra(TagViewFragment.EXTRA_TAG_DATA, 0);
-            if (id > 0)
+            if (id > 0) {
                 tagData = tagDataService.fetchById(id, TagData.PROPERTIES);
+            }
         }
     }
 
@@ -120,7 +121,9 @@ public class TagCommentsFragment extends CommentsFragment {
 
     @Override
     protected void populateListHeader(ViewGroup header) {
-        if (header == null) return;
+        if (header == null) {
+            return;
+        }
         TextView tagTitle = (TextView) header.findViewById(R.id.tag_title);
         String tagName = tagData.getValue(TagData.NAME);
         tagTitle.setText(tagName);
@@ -138,12 +141,14 @@ public class TagCommentsFragment extends CommentsFragment {
         imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(getResources(), TagService.getDefaultImageIDForTag(tagData.getUuid())));
         String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
         Bitmap imageBitmap = null;
-        if (TextUtils.isEmpty(imageUrl))
+        if (TextUtils.isEmpty(imageUrl)) {
             imageBitmap = tagData.getPictureBitmap(TagData.PICTURE);
-        if (imageBitmap != null)
+        }
+        if (imageBitmap != null) {
             imageView.setImageBitmap(imageBitmap);
-        else
+        } else {
             imageView.setUrl(imageUrl);
+        }
     }
 
     @Override
@@ -177,8 +182,9 @@ public class TagCommentsFragment extends CommentsFragment {
         if (tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
             Activity activity = getActivity();
-            if (activity instanceof TaskListActivity)
+            if (activity instanceof TaskListActivity) {
                 ((TaskListActivity) activity).setCommentsCount(0);
+            }
         }
     }
 

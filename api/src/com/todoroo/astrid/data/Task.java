@@ -301,8 +301,9 @@ public final class Task extends RemoteModel {
     public static final String USER_ID_SELF = "0";
 
     public static boolean isRealUserId(String userId) {
-        if (userId == null)
+        if (userId == null) {
             return false;
+        }
         return !(Task.USER_ID_SELF.equals(userId) ||
                 Task.USER_ID_UNASSIGNED.equals(userId) ||
                 Task.USER_ID_EMAIL.equals(userId) ||
@@ -310,8 +311,9 @@ public final class Task extends RemoteModel {
     }
 
     public static boolean userIdIsEmail(String userId) {
-        if (userId == null)
+        if (userId == null) {
             return false;
+        }
         return userId.indexOf('@') >= 0;
     }
 
@@ -469,10 +471,11 @@ public final class Task extends RemoteModel {
      */
     public boolean isDeleted() {
         // assume false if we didn't load deletion date
-        if (!containsValue(DELETION_DATE))
+        if (!containsValue(DELETION_DATE)) {
             return false;
-        else
+        } else {
             return getValue(DELETION_DATE) > 0;
+        }
     }
 
     /**
@@ -555,8 +558,9 @@ public final class Task extends RemoteModel {
                 throw new IllegalArgumentException("Unknown setting " + setting);
         }
 
-        if (date <= 0)
+        if (date <= 0) {
             return date;
+        }
 
         Date dueDate = new Date(date / 1000L * 1000L); // get rid of millis
         if (setting != URGENCY_SPECIFIC_DAY_TIME) {
@@ -600,8 +604,9 @@ public final class Task extends RemoteModel {
                 throw new IllegalArgumentException("Unknown setting " + setting);
         }
 
-        if (date <= 0)
+        if (date <= 0) {
             return date;
+        }
 
         Date hideUntil = new Date(date / 1000L * 1000L); // get rid of millis
         if (setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && setting != HIDE_UNTIL_DUE_TIME) {
@@ -618,8 +623,9 @@ public final class Task extends RemoteModel {
      * Checks whether this due date has a due time or only a date
      */
     public boolean hasDueTime() {
-        if (!hasDueDate())
+        if (!hasDueDate()) {
             return false;
+        }
         return hasDueTime(getValue(Task.DUE_DATE));
     }
 

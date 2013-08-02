@@ -40,8 +40,9 @@ public class GtasksTokenValidator {
     public static synchronized String validateAuthToken(Context c, String token) throws GoogleTasksException {
         GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
 
-        if (testToken(token))
+        if (testToken(token)) {
             return token;
+        }
 
         // If fail, token may have expired -- get a new one and return that
         String accountName = Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
@@ -57,10 +58,11 @@ public class GtasksTokenValidator {
             AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
             token = getTokenFromFuture(c, future);
 
-            if (TOKEN_INTENT_RECEIVED.equals(token))
+            if (TOKEN_INTENT_RECEIVED.equals(token)) {
                 return null;
-            else if (token != null && testToken(token))
+            } else if (token != null && testToken(token)) {
                 return token;
+            }
         }
 
 
@@ -82,8 +84,9 @@ public class GtasksTokenValidator {
         Bundle result;
         try {
             result = future.getResult();
-            if (result == null)
+            if (result == null) {
                 throw new NullPointerException("Future result was null."); //$NON-NLS-1$
+            }
         } catch (Exception e) {
             throw new GoogleTasksException(e.getLocalizedMessage(), "future-error");
         }
@@ -94,10 +97,11 @@ public class GtasksTokenValidator {
             token = result.getString(AccountManager.KEY_AUTHTOKEN);
         } else if (result.containsKey(AccountManager.KEY_INTENT)) {
             Intent intent = (Intent) result.get(AccountManager.KEY_INTENT);
-            if (c instanceof Activity)
+            if (c instanceof Activity) {
                 c.startActivity(intent);
-            else
+            } else {
                 throw new GoogleTasksException(c.getString(R.string.gtasks_error_background_sync_auth), "background-auth-error");
+            }
             return TOKEN_INTENT_RECEIVED;
         } else {
             throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager), "account-manager-error");

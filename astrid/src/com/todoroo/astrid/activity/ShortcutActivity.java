@@ -104,8 +104,9 @@ public class ShortcutActivity extends Activity {
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
 
-        if (extras != null && extras.containsKey(TaskListActivity.TOKEN_SOURCE))
+        if (extras != null && extras.containsKey(TaskListActivity.TOKEN_SOURCE)) {
             taskListIntent.putExtra(TaskListActivity.TOKEN_SOURCE, extras.getInt(TaskListActivity.TOKEN_SOURCE));
+        }
 
         if (extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
             taskListIntent.putExtras(intent.getExtras());
@@ -116,28 +117,30 @@ public class ShortcutActivity extends Activity {
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
             ContentValues values = null;
-            if (extras.containsKey(TOKEN_FILTER_VALUES))
+            if (extras.containsKey(TOKEN_FILTER_VALUES)) {
                 values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
-            else {
+            } else {
                 values = new ContentValues();
                 for (String key : extras.keySet()) {
-                    if (!key.startsWith(TOKEN_FILTER_VALUES_ITEM))
+                    if (!key.startsWith(TOKEN_FILTER_VALUES_ITEM)) {
                         continue;
+                    }
 
                     Object value = extras.get(key);
                     key = key.substring(TOKEN_FILTER_VALUES_ITEM.length());
 
                     // assume one of the big 4...
-                    if (value instanceof String)
+                    if (value instanceof String) {
                         values.put(key, (String) value);
-                    else if (value instanceof Integer)
+                    } else if (value instanceof Integer) {
                         values.put(key, (Integer) value);
-                    else if (value instanceof Double)
+                    } else if (value instanceof Double) {
                         values.put(key, (Double) value);
-                    else if (value instanceof Long)
+                    } else if (value instanceof Long) {
                         values.put(key, (Long) value);
-                    else
+                    } else {
                         throw new IllegalStateException("Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+                    }
                 }
             }
 
@@ -146,14 +149,16 @@ public class ShortcutActivity extends Activity {
                 if (extras.containsKey(TOKEN_IMAGE_URL)) {
                     filter = new FilterWithUpdate(title, title, sql, values);
                     ((FilterWithUpdate) filter).imageUrl = extras.getString(TOKEN_IMAGE_URL);
-                } else
+                } else {
                     filter = new FilterWithCustomIntent(title, title, sql, values);
+                }
 
                 Bundle customExtras = new Bundle();
                 Set<String> keys = extras.keySet();
                 for (String key : keys) {
-                    if (AndroidUtilities.indexOf(CUSTOM_EXTRAS, key) < 0)
+                    if (AndroidUtilities.indexOf(CUSTOM_EXTRAS, key) < 0) {
                         AndroidUtilities.putInto(customExtras, key, extras.get(key), false);
+                    }
                 }
 
                 ((FilterWithCustomIntent) filter).customExtras = customExtras; // Something
@@ -182,13 +187,15 @@ public class ShortcutActivity extends Activity {
 
         if (filter instanceof FilterWithCustomIntent) {
             FilterWithCustomIntent customFilter = ((FilterWithCustomIntent) filter);
-            if (customFilter.customExtras != null)
+            if (customFilter.customExtras != null) {
                 shortcutIntent.putExtras(customFilter.customExtras);
+            }
             shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
             if (filter instanceof FilterWithUpdate) {
                 FilterWithUpdate filterWithUpdate = (FilterWithUpdate) filter;
-                if (filterWithUpdate.imageUrl != null)
+                if (filterWithUpdate.imageUrl != null) {
                     shortcutIntent.putExtra(TOKEN_IMAGE_URL, filterWithUpdate.imageUrl);
+                }
             }
         }
 
@@ -209,16 +216,17 @@ public class ShortcutActivity extends Activity {
 
     private static void putExtra(Intent intent, String key, Object value) {
         // assume one of the big 4...
-        if (value instanceof String)
+        if (value instanceof String) {
             intent.putExtra(key, (String) value);
-        else if (value instanceof Integer)
+        } else if (value instanceof Integer) {
             intent.putExtra(key, (Integer) value);
-        else if (value instanceof Double)
+        } else if (value instanceof Double) {
             intent.putExtra(key, (Double) value);
-        else if (value instanceof Long)
+        } else if (value instanceof Long) {
             intent.putExtra(key, (Long) value);
-        else
+        } else {
             throw new IllegalStateException(
                     "Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+        }
     }
 }

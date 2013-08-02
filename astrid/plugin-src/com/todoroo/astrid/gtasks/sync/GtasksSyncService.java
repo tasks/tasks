@@ -72,8 +72,9 @@ public final class GtasksSyncService {
 
         @Override
         public void op(GtasksInvoker invoker) throws IOException {
-            if (DateUtilities.now() - creationDate < 1000)
+            if (DateUtilities.now() - creationDate < 1000) {
                 AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - creationDate));
+            }
             pushTaskOnSave(model, model.getMergedValues(), invoker, false);
         }
     }
@@ -110,17 +111,24 @@ public final class GtasksSyncService {
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             public void onModelUpdated(final Task model, boolean outstandingEntries) {
-                if (model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
+                if (model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
                     return;
-                if (actFmPreferenceService.isLoggedIn())
+                }
+                if (actFmPreferenceService.isLoggedIn()) {
                     return;
+                }
                 if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync
+                {
                     return;
+                }
                 final ContentValues setValues = model.getSetValues();
-                if (setValues == null || !checkForToken())
+                if (setValues == null || !checkForToken()) {
                     return;
+                }
                 if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
+                {
                     return;
+                }
 
                 Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
                 operationQueue.offer(new TaskPushOp(toPush));
@@ -177,26 +185,35 @@ public final class GtasksSyncService {
      */
     private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {
         for (Property<?> property : properties) {
-            if (property != Task.ID && values.containsKey(property.name))
+            if (property != Task.ID && values.containsKey(property.name)) {
                 return true;
+            }
         }
         return false;
     }
 
 
     public void triggerMoveForMetadata(final Metadata metadata) {
-        if (metadata == null)
+        if (metadata == null) {
             return;
-        if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
+        }
+        if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
             return;
-        if (actFmPreferenceService.isLoggedIn())
+        }
+        if (actFmPreferenceService.isLoggedIn()) {
             return;
+        }
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
+        {
             return;
+        }
         if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
+        {
             return;
-        if (!checkForToken())
+        }
+        if (!checkForToken()) {
             return;
+        }
 
         operationQueue.offer(new MoveOp(metadata));
     }
@@ -205,11 +222,13 @@ public final class GtasksSyncService {
      * Synchronize with server when data changes
      */
     public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker, boolean sleep) throws IOException {
-        if (actFmPreferenceService.isLoggedIn())
+        if (actFmPreferenceService.isLoggedIn()) {
             return;
+        }
 
-        if (sleep)
+        if (sleep) {
             AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
+        }
 
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
         com.google.api.services.tasks.model.Task remoteModel = null;
@@ -302,7 +321,9 @@ public final class GtasksSyncService {
                 //Update the metadata for the newly created task
                 gtasksMetadata.setValue(GtasksMetadata.ID, created.getId());
                 gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
-            } else return;
+            } else {
+                return;
+            }
         }
 
         task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
@@ -313,8 +334,9 @@ public final class GtasksSyncService {
     }
 
     public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
-        if (actFmPreferenceService.isLoggedIn())
+        if (actFmPreferenceService.isLoggedIn()) {
             return;
+        }
         AndroidUtilities.sleepDeep(1000L);
 
         String taskId = model.getValue(GtasksMetadata.ID);
@@ -333,8 +355,9 @@ public final class GtasksSyncService {
     }
 
     private boolean checkForToken() {
-        if (!gtasksPreferenceService.isLoggedIn())
+        if (!gtasksPreferenceService.isLoggedIn()) {
             return false;
+        }
         return true;
     }
 }

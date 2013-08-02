@@ -196,10 +196,11 @@ public class CalendarAlarmListCreator extends Activity {
             String displayName2 = getDisplayName(1);
 
             int extras = emails.size() - 2;
-            if (extras > 0)
+            if (extras > 0) {
                 return getString(R.string.CRA_many_attendees, displayName1, displayName2, extras);
-            else
+            } else {
                 return getString(R.string.CRA_two_attendees, displayName1, displayName2);
+            }
 
         }
     }
@@ -220,14 +221,16 @@ public class CalendarAlarmListCreator extends Activity {
 
     private String getDisplayName(int index) {
         String name = names.get(index);
-        if (!TextUtils.isEmpty(name))
+        if (!TextUtils.isEmpty(name)) {
             return name;
+        }
         String email = emails.get(index);
         if (emailsToUsers.containsKey(email)) {
             User u = emailsToUsers.get(email);
             String userName = u.getDisplayName();
-            if (!TextUtils.isEmpty(userName))
+            if (!TextUtils.isEmpty(userName)) {
                 return userName;
+            }
         }
         return email;
     }

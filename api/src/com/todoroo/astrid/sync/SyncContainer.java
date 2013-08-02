@@ -30,8 +30,9 @@ public class SyncContainer {
      */
     public Metadata findMetadata(String key) {
         for (Metadata item : metadata) {
-            if (AndroidUtilities.equals(key, item.getValue(Metadata.KEY)))
+            if (AndroidUtilities.equals(key, item.getValue(Metadata.KEY))) {
                 return item;
+            }
         }
         return null;
     }

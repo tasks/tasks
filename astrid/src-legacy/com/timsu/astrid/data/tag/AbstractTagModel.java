@@ -184,9 +184,10 @@ public abstract class AbstractTagModel extends LegacyAbstractModel {
     // --- utility methods
 
     static void putDate(ContentValues cv, String fieldName, Date date) {
-        if (date == null)
+        if (date == null) {
             cv.put(fieldName, (Long) null);
-        else
+        } else {
             cv.put(fieldName, date.getTime());
+        }
     }
 }

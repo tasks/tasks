@@ -65,11 +65,13 @@ public class PeopleFilterExposer extends BroadcastReceiver {
             User user = new User();
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                 user.readFromCursor(users);
-                if (ActFmPreferenceService.userId().equals(user.getValue(User.UUID)))
+                if (ActFmPreferenceService.userId().equals(user.getValue(User.UUID))) {
                     continue;
+                }
                 Filter currFilter = filterFromUserData(user);
-                if (currFilter != null)
+                if (currFilter != null) {
                     items.add(currFilter);
+                }
             }
             return items.toArray(new FilterListItem[items.size()]);
         } finally {
@@ -80,16 +82,18 @@ public class PeopleFilterExposer extends BroadcastReceiver {
     @SuppressWarnings({"nls", "deprecation"})
     private static FilterWithCustomIntent filterFromUserData(User user) {
         String title = user.getDisplayName();
-        if (TextUtils.isEmpty(title) || "null".equals(title))
+        if (TextUtils.isEmpty(title) || "null".equals(title)) {
             return null;
+        }
 
         String email = user.getValue(User.EMAIL);
         Criterion criterion;
-        if (TextUtils.isEmpty(email) || "null".equals(email))
+        if (TextUtils.isEmpty(email) || "null".equals(email)) {
             criterion = Task.USER_ID.eq(user.getValue(User.UUID));
-        else
+        } else {
             criterion = Criterion.or(Task.USER_ID.eq(user.getValue(User.UUID)),
                     Task.USER.like("%" + email + "%")); // Deprecated field OK for backwards compatibility
+        }
 
         criterion = Criterion.and(TaskCriteria.activeAndVisible(), criterion);
 

@@ -21,16 +21,18 @@ public class UserActivityDao extends RemoteModelDao<UserActivity> {
 
     @Override
     public boolean createNew(UserActivity item) {
-        if (!item.containsValue(UserActivity.CREATED_AT))
+        if (!item.containsValue(UserActivity.CREATED_AT)) {
             item.setValue(UserActivity.CREATED_AT, DateUtilities.now());
+        }
         return super.createNew(item);
     }
 
     @Override
     public boolean saveExisting(UserActivity item) {
         ContentValues values = item.getSetValues();
-        if (values == null || values.size() == 0)
+        if (values == null || values.size() == 0) {
             return false;
+        }
         return super.saveExisting(item);
     }
 

@@ -259,8 +259,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 // Invalid
             }
         }
-        if (component == null)
+        if (component == null) {
             component = TaskListFragment.class;
+        }
 
         TaskListFragment newFragment;
         try {
@@ -331,8 +332,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         extras = getArguments() != null ? getArguments().getBundle(TOKEN_EXTRAS) : null;
-        if (extras == null)
+        if (extras == null) {
             extras = new Bundle(); // Just need an empty one to prevent potential null pointers
+        }
     }
 
     /*
@@ -374,9 +376,10 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             getListView().setItemsCanFocus(false);
         }
 
-        if (Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
+        if (Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1) {
             upgradeService.showChangeLog(getActivity(),
                     Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
+        }
 
         getListView().setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -385,8 +388,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 if (taskAdapter != null) {
                     TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
                     Task task = new Task(cursor);
-                    if (task.isDeleted())
+                    if (task.isDeleted()) {
                         return;
+                    }
 
                     onTaskListItemClicked(id, task.isEditable());
                 }
@@ -415,8 +419,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         filter.setFilterQueryOverride(null);
         isInbox = CoreFilterExposer.isInbox(filter);
         isTodayFilter = false;
-        if (!isInbox)
+        if (!isInbox) {
             isTodayFilter = CoreFilterExposer.isTodayFilter(filter);
+        }
 
         initializeTaskListMetadata();
 
@@ -443,8 +448,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
                 if (taskListMetadata == null) {
                     String defaultOrder = Preferences.getStringValue(prefId);
-                    if (TextUtils.isEmpty(defaultOrder))
+                    if (TextUtils.isEmpty(defaultOrder)) {
                         defaultOrder = "[]"; //$NON-NLS-1$
+                    }
                     defaultOrder = SubtasksHelper.convertTreeToRemoteIds(defaultOrder);
                     taskListMetadata = new TaskListMetadata();
                     taskListMetadata.setValue(TaskListMetadata.FILTER, filterId);
@@ -478,8 +484,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         if ((activity.getFragmentLayout() != AstridActivity.LAYOUT_SINGLE && showAsAction) || !(activity instanceof TaskListActivity)) {
             MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
             item.setIcon(imageRes);
-            if (activity instanceof TaskListActivity)
+            if (activity instanceof TaskListActivity) {
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
         } else {
             ((TaskListActivity) activity).getMainMenuPopover().addMenuItem(title, imageRes, id);
         }
@@ -504,10 +511,12 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     @Override
     public void onCreateOptionsMenu(Menu menu, com.actionbarsherlock.view.MenuInflater inflater) {
         Activity activity = getActivity();
-        if (activity == null)
+        if (activity == null) {
             return;
-        if (!isCurrentTaskListFragment())
+        }
+        if (!isCurrentTaskListFragment()) {
             return;
+        }
 
         addMenuItems(menu, activity);
     }
@@ -520,8 +529,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             tla.getMainMenuPopover().clear();
         }
         // --- sync
-        if (tla == null || tla.getTaskEditFragment() == null && Preferences.getBoolean(R.string.p_show_menu_sync, true))
+        if (tla == null || tla.getTaskEditFragment() == null && Preferences.getBoolean(R.string.p_show_menu_sync, true)) {
             addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
+        }
 
         // --- sort
         if (allowResorting() && Preferences.getBoolean(R.string.p_show_menu_sort, true)) {
@@ -530,9 +540,10 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
 
         // --- new filter
-        if (Preferences.getBoolean(R.string.p_use_filters, true))
+        if (Preferences.getBoolean(R.string.p_use_filters, true)) {
             addMenuItem(menu, R.string.FLA_new_filter,
                     ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_NEW_FILTER_ID, false);
+        }
 
         // ask about plug-ins
         Intent queryIntent = new Intent(
@@ -560,8 +571,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         getListView().setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
-                if (event.getAction() != KeyEvent.ACTION_UP || view == null)
+                if (event.getAction() != KeyEvent.ACTION_UP || view == null) {
                     return false;
+                }
 
                 boolean filterOn = getListView().isTextFilterEnabled();
                 View selected = getListView().getSelectedView();
@@ -767,8 +779,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public final void initiateAutomaticSync() {
         final AstridActivity activity = (AstridActivity) getActivity();
-        if (activity == null)
+        if (activity == null) {
             return;
+        }
         if (activity.fragmentLayout != AstridActivity.LAYOUT_SINGLE) {
             initiateAutomaticSyncImpl();
         } else {
@@ -794,15 +807,17 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * the above method takes care of calling it in the correct way
      */
     protected void initiateAutomaticSyncImpl() {
-        if (isCurrentTaskListFragment() && isInbox)
+        if (isCurrentTaskListFragment() && isInbox) {
             syncActionHelper.initiateAutomaticSync();
+        }
     }
 
     // Subclasses should override this
     public void requestCommentCountUpdate() {
         TaskListActivity activity = (TaskListActivity) getActivity();
-        if (activity != null)
+        if (activity != null) {
             activity.setCommentsCount(0);
+        }
     }
 
     @Override
@@ -825,8 +840,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent == null
-                    || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
+                    || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction())) {
                 return;
+            }
 
             final Activity activity = getActivity();
             if (activity != null) {
@@ -834,8 +850,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                     @Override
                     public void run() {
                         refresh();
-                        if (activity instanceof TaskListActivity)
+                        if (activity instanceof TaskListActivity) {
                             ((TaskListActivity) activity).refreshMainMenu();
+                        }
                     }
                 });
             }
@@ -847,8 +864,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * broadcast. Subclasses should override this.
      */
     protected void refresh() {
-        if (taskAdapter != null)
+        if (taskAdapter != null) {
             taskAdapter.flushCaches();
+        }
         taskService.cleanup();
         loadTaskListContent(true);
     }
@@ -884,8 +902,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (quickAddBar.onActivityResult(requestCode, resultCode, data))
+        if (quickAddBar.onActivityResult(requestCode, resultCode, data)) {
             return;
+        }
 
         if (requestCode == ACTIVITY_SETTINGS) {
             if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED || resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
@@ -901,8 +920,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         super.onActivityResult(requestCode, resultCode, data);
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            if (!AstridPreferences.canShowPopover())
+            if (!AstridPreferences.canShowPopover()) {
                 return;
+            }
             quickAddBar.getQuickAddBox().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -950,8 +970,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         if (getView() != null) { // This was happening sometimes
             int oldListItemSelected = getListView().getSelectedItemPosition();
             if (oldListItemSelected != ListView.INVALID_POSITION
-                    && oldListItemSelected < taskCursor.getCount())
+                    && oldListItemSelected < taskCursor.getCount()) {
                 getListView().setSelection(oldListItemSelected);
+            }
         }
 
         // also load sync actions
@@ -978,8 +999,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 new OnCompletedTaskListener() {
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {
-                        if (newState == true)
+                        if (newState == true) {
                             onTaskCompleted(item);
+                        }
                     }
                 });
     }
@@ -997,12 +1019,14 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * @param withCustomId force task with given custom id to be part of list
      */
     public void setUpTaskList() {
-        if (filter == null)
+        if (filter == null) {
             return;
+        }
 
         TodorooCursor<Task> currentCursor = constructCursor();
-        if (currentCursor == null)
+        if (currentCursor == null) {
             return;
+        }
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
@@ -1014,8 +1038,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     public Property<?>[] taskProperties() {
-        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2)
+        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
             return TaskAdapter.BASIC_PROPERTIES;
+        }
         return TaskAdapter.PROPERTIES;
     }
 
@@ -1026,15 +1051,17 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     @SuppressWarnings("nls")
     private TodorooCursor<Task> constructCursor() {
         String tagName = null;
-        if (getActiveTagData() != null)
+        if (getActiveTagData() != null) {
             tagName = getActiveTagData().getValue(TagData.NAME);
+        }
 
         Criterion tagsJoinCriterion = Criterion.and(
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY), //$NON-NLS-1$
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.DELETION_DATE.name).eq(0),
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
-        if (tagName != null)
+        if (tagName != null) {
             tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name).neq(tagName));
+        }
 
         // TODO: For now, we'll modify the query to join and include the things like tag data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
@@ -1050,12 +1077,14 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 joinedQuery, sortFlags, sortSort));
 
         String groupedQuery;
-        if (sqlQueryTemplate.get().contains("GROUP BY"))
+        if (sqlQueryTemplate.get().contains("GROUP BY")) {
             groupedQuery = sqlQueryTemplate.get();
-        else if (sqlQueryTemplate.get().contains("ORDER BY")) //$NON-NLS-1$
+        } else if (sqlQueryTemplate.get().contains("ORDER BY")) //$NON-NLS-1$
+        {
             groupedQuery = sqlQueryTemplate.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
-        else
+        } else {
             groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;
+        }
         sqlQueryTemplate.set(groupedQuery);
 
         // Peform query
@@ -1073,8 +1102,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public void reconstructCursor() {
         TodorooCursor<Task> cursor = constructCursor();
-        if (cursor == null || taskAdapter == null)
+        if (cursor == null || taskAdapter == null) {
             return;
+        }
         taskAdapter.changeCursor(cursor);
     }
 
@@ -1097,8 +1127,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     private void showTaskCreateHelpPopover() {
-        if (!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover()) {
             return;
+        }
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
             HelpInfoPopover.showPopover(getActivity(), quickAddBar.getQuickAddBox(),
@@ -1107,8 +1138,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     public void showTaskEditHelpPopover() {
-        if (!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover()) {
             return;
+        }
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             quickAddBar.hideKeyboard();
             getListView().postDelayed(new Runnable() {
@@ -1136,16 +1168,18 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     private void showListsHelp() {
-        if (!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover()) {
             return;
+        }
         if (!Preferences.getBoolean(
                 R.string.p_showed_lists_help, false)) {
             AstridActivity activity = (AstridActivity) getActivity();
             if (activity != null) {
                 if (AstridPreferences.useTabletLayout(activity)) {
                     FilterListFragment flf = activity.getFilterListFragment();
-                    if (flf != null)
+                    if (flf != null) {
                         flf.showAddListPopover();
+                    }
                 } else {
                     ActionBar ab = activity.getSupportActionBar();
                     View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
@@ -1171,10 +1205,11 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * @param item task that was completed
      */
     protected void onTaskCompleted(Task item) {
-        if (isInbox)
+        if (isInbox) {
             StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_INBOX);
-        else
+        } else {
             StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_FILTER);
+        }
     }
 
     /**
@@ -1186,8 +1221,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             Intent intent = new Intent(activity, CommentsActivity.class);
             long id = 0;
             TagData td = getActiveTagData();
-            if (td != null)
+            if (td != null) {
                 id = td.getId();
+            }
             intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, id);
             startActivity(intent);
             AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
@@ -1199,8 +1235,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                                     ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
         Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-        if (task.getValue(Task.IS_READONLY) > 0)
+        if (task.getValue(Task.IS_READONLY) > 0) {
             return;
+        }
 
         int id = (int) task.getId();
         menu.setHeaderTitle(task.getValue(Task.TITLE));
@@ -1220,12 +1257,13 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             for (int i = 0; i < contextItemExposers.length; i++) {
                 Object label = contextItemExposers[i].getLabel(task);
                 if (label != null) {
-                    if (label instanceof Integer)
+                    if (label instanceof Integer) {
                         menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i,
                                 Menu.NONE, (Integer) label);
-                    else
+                    } else {
                         menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i,
                                 Menu.NONE, (String) label);
+                    }
                 }
             }
 
@@ -1276,8 +1314,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             AstridActivity activity = (AstridActivity) a;
             TaskEditFragment tef = activity.getTaskEditFragment();
             if (tef != null) {
-                if (task.getId() == tef.model.getId())
+                if (task.getId() == tef.model.getId()) {
                     tef.discardButtonClick();
+                }
             }
         }
         TimerPlugin.updateTimer(ContextManager.getContext(), task, false);
@@ -1304,8 +1343,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if (mDualFragments)
+        if (mDualFragments) {
             setSelection(position);
+        }
     }
 
     @Override
@@ -1329,9 +1369,10 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 syncActionHelper.performSyncAction();
                 return true;
             case MENU_ADDON_INTENT_ID:
-                if (activity != null)
+                if (activity != null) {
                     AndroidUtilities.startExternalIntent(activity, intent,
                             ACTIVITY_MENU_EXTERNAL);
+                }
                 return true;
             case MENU_NEW_FILTER_ID:
                 if (activity != null) {
@@ -1348,12 +1389,14 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         Intent intent;
         long itemId;
 
-        if (!isCurrentTaskListFragment())
+        if (!isCurrentTaskListFragment()) {
             return false;
+        }
 
         // handle my own menus
-        if (handleOptionsMenuItemSelected(item.getItemId(), item.getIntent()))
+        if (handleOptionsMenuItemSelected(item.getItemId(), item.getIntent())) {
             return true;
+        }
 
         switch (item.getItemId()) {
             // --- context menu items
@@ -1376,8 +1419,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             case CONTEXT_MENU_DELETE_TASK_ID: {
                 itemId = item.getGroupId();
                 Task task = taskService.fetchById(itemId, Task.ID, Task.UUID);
-                if (task != null)
+                if (task != null) {
                     deleteTask(task);
+                }
                 return true;
             }
             case CONTEXT_MENU_UNDELETE_TASK_ID: {
@@ -1399,10 +1443,12 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 return true;
             }
             default: {
-                if (item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST)
+                if (item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST) {
                     return false;
-                if (item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST >= contextItemExposers.length)
+                }
+                if (item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST >= contextItemExposers.length) {
                     return false;
+                }
 
                 AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) item.getMenuInfo();
                 Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
@@ -1425,8 +1471,9 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     public void showSettings() {
         Activity activity = getActivity();
-        if (activity == null)
+        if (activity == null) {
             return;
+        }
 
         StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
         Intent intent = new Intent(activity, EditPreferences.class);
@@ -1439,10 +1486,10 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     protected void toggleDragDrop(boolean newState) {
         extras.putParcelable(TOKEN_FILTER, filter);
-        if (newState)
+        if (newState) {
             ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                     extras, SubtasksListFragment.class);
-        else {
+        } else {
             filter.setFilterQueryOverride(null);
             ((AstridActivity) getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                     extras, TaskListFragment.class);
@@ -1479,10 +1526,11 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
 
         try {
-            if (manualSettingChanged)
+            if (manualSettingChanged) {
                 toggleDragDrop(SortHelper.isManualSort(sortFlags));
-            else
+            } else {
                 setUpTaskList();
+            }
         } catch (IllegalStateException e) {
             // TODO: Fragment got detached somehow (rare)
         }

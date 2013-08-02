@@ -90,8 +90,9 @@ abstract public class SyncV2Provider {
         utilities.recordSuccessfulSync();
         utilities.reportLastError();
         utilities.stopOngoing();
-        if (callback != null)
+        if (callback != null) {
             callback.finished();
+        }
     }
 
     @Override

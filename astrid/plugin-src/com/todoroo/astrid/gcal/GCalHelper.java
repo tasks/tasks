@@ -34,12 +34,13 @@ public class GCalHelper {
 
     public static String getTaskEventUri(Task task) {
         String uri;
-        if (!TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI)))
+        if (!TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
             uri = task.getValue(Task.CALENDAR_URI);
-        else {
+        } else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
-            if (task == null)
+            if (task == null) {
                 return null;
+            }
             uri = task.getValue(Task.CALENDAR_URI);
         }
 
@@ -47,8 +48,9 @@ public class GCalHelper {
     }
 
     public static void createTaskEventIfEnabled(Task t) {
-        if (!t.hasDueDate())
+        if (!t.hasDueDate()) {
             return;
+        }
         createTaskEventIfEnabled(t, true);
     }
 
@@ -58,8 +60,9 @@ public class GCalHelper {
         if (gcalCreateEventEnabled) {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
             Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
-            if (calendarUri != null)
+            if (calendarUri != null) {
                 t.setValue(Task.CALENDAR_URI, calendarUri.toString());
+            }
         }
     }
 
@@ -111,8 +114,9 @@ public class GCalHelper {
 
     public static void rescheduleRepeatingTask(Task task, ContentResolver cr) {
         String taskUri = getTaskEventUri(task);
-        if (TextUtils.isEmpty(taskUri))
+        if (TextUtils.isEmpty(taskUri)) {
             return;
+        }
 
         Uri eventUri = Uri.parse(taskUri);
         String calendarId = getCalendarId(eventUri, cr);
@@ -143,12 +147,13 @@ public class GCalHelper {
     public static boolean deleteTaskEvent(Task task) {
         boolean eventDeleted = false;
         String uri;
-        if (task.containsNonNullValue(Task.CALENDAR_URI))
+        if (task.containsNonNullValue(Task.CALENDAR_URI)) {
             uri = task.getValue(Task.CALENDAR_URI);
-        else {
+        } else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
-            if (task == null)
+            if (task == null) {
                 return false;
+            }
             uri = task.getValue(Task.CALENDAR_URI);
         }
 
@@ -188,8 +193,9 @@ public class GCalHelper {
         if (task.hasDueDate()) {
             if (task.hasDueTime()) {
                 long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS) * 1000;
-                if (estimatedTime <= 0)
+                if (estimatedTime <= 0) {
                     estimatedTime = DEFAULT_CAL_TIME;
+                }
                 if (Preferences.getBoolean(R.string.p_end_at_deadline, true)) {
                     values.put("dtstart", dueDate);
                     values.put("dtend", dueDate + estimatedTime);

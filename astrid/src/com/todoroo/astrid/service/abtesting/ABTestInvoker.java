@@ -106,13 +106,15 @@ public class ABTestInvoker {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("apikey", API_KEY));
 
-        if (payload != null)
+        if (payload != null) {
             params.add(new BasicNameValuePair("payload", payload.toString()));
+        }
 
         StringBuilder sigBuilder = new StringBuilder();
         for (NameValuePair entry : params) {
-            if (entry.getValue() == null)
+            if (entry.getValue() == null) {
                 continue;
+            }
 
             String key = entry.getName();
             String value = entry.getValue();

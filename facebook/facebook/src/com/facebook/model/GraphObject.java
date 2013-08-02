@@ -656,8 +656,9 @@ public interface GraphObject {
 
             @Override
             public boolean equals(Object obj) {
-                if (this == obj)
+                if (this == obj) {
                     return true;
+                }
                 if (getClass() != obj.getClass()) {
                     return false;
                 }

@@ -49,20 +49,24 @@ public class TaskModelForHandlers extends AbstractTaskModel {
                              RepeatInfo repeatInfo) {
 
         // move dates back
-        if (getDefiniteDueDate() != null)
+        if (getDefiniteDueDate() != null) {
             setDefiniteDueDate(repeatInfo.shiftDate(getDefiniteDueDate()));
-        if (getHiddenUntil() != null)
+        }
+        if (getHiddenUntil() != null) {
             setHiddenUntil(repeatInfo.shiftDate(getHiddenUntil()));
-        if (getPreferredDueDate() != null)
+        }
+        if (getPreferredDueDate() != null) {
             setPreferredDueDate(repeatInfo.shiftDate(getPreferredDueDate()));
+        }
         setProgressPercentage(0);
 
         // set elapsed time to 0... yes, we're losing data
         setElapsedSeconds(0);
 
         // if no deadlines set, create one (so users don't get confused)
-        if (getDefiniteDueDate() == null && getPreferredDueDate() == null)
+        if (getDefiniteDueDate() == null && getPreferredDueDate() == null) {
             setPreferredDueDate(repeatInfo.shiftDate(new Date()));
+        }
 
         // shift fixed alerts
         AlertController alertController = new AlertController(context);

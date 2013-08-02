@@ -67,13 +67,15 @@ public final class ActFmSyncService {
 
     // --- data fetch methods
     public int fetchFeaturedLists(int serverTime) throws JSONException, IOException {
-        if (!checkForToken())
+        if (!checkForToken()) {
             return 0;
+        }
         JSONObject result = actFmInvoker.invoke("featured_lists",
                 "token", token, "modified_after", serverTime);
         JSONArray featuredLists = result.getJSONArray("list");
-        if (featuredLists.length() > 0)
+        if (featuredLists.length() > 0) {
             Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, true);
+        }
 
         for (int i = 0; i < featuredLists.length(); i++) {
             JSONObject featObject = featuredLists.getJSONObject(i);
@@ -87,8 +89,9 @@ public final class ActFmSyncService {
         String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
         String productId = Preferences.getStringValue(BillingConstants.PREF_PRODUCT_ID);
         try {
-            if (!checkForToken())
+            if (!checkForToken()) {
                 throw new ActFmServiceException("Not logged in", null);
+            }
 
             ArrayList<Object> params = new ArrayList<Object>();
             params.add("purchase_token");
@@ -101,8 +104,9 @@ public final class ActFmSyncService {
 
             actFmInvoker.invoke("premium_update_android", params.toArray(new Object[params.size()]));
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
-            if (onSuccess != null)
+            if (onSuccess != null) {
                 onSuccess.run();
+            }
         } catch (Exception e) {
             if (e instanceof ActFmServiceException) {
                 ActFmServiceException ae = (ActFmServiceException) e;
@@ -110,15 +114,17 @@ public final class ActFmSyncService {
                     if (ae.result.optString("code").equals("invalid_purchase_token")) { // Not a valid purchase--expired or duolicate
                         Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, false);
                         Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
-                        if (onInvalidToken != null)
+                        if (onInvalidToken != null) {
                             onInvalidToken.run();
+                        }
                         return;
                     }
                 }
             }
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
-            if (onRecoverableError != null)
+            if (onRecoverableError != null) {
                 onRecoverableError.run();
+            }
         }
     }
 
@@ -158,13 +164,15 @@ public final class ActFmSyncService {
      */
     public JSONObject invoke(String method, Object... getParameters) throws IOException,
             ActFmServiceException {
-        if (!checkForToken())
+        if (!checkForToken()) {
             throw new ActFmServiceException("not logged in", null);
+        }
         Object[] parameters = new Object[getParameters.length + 2];
         parameters[0] = "token";
         parameters[1] = token;
-        for (int i = 0; i < getParameters.length; i++)
+        for (int i = 0; i < getParameters.length; i++) {
             parameters[i + 2] = getParameters[i];
+        }
         return actFmInvoker.invoke(method, parameters);
     }
 
@@ -173,8 +181,9 @@ public final class ActFmSyncService {
     }
 
     private boolean checkForToken() {
-        if (!actFmPreferenceService.isLoggedIn())
+        if (!actFmPreferenceService.isLoggedIn()) {
             return false;
+        }
         token = actFmPreferenceService.getToken();
         return true;
     }
@@ -207,19 +216,24 @@ public final class ActFmSyncService {
             model.setValue(TagData.UUID, Long.toString(json.getLong("id")));
             model.setValue(TagData.NAME, json.getString("name"));
 
-            if (featuredList)
+            if (featuredList) {
                 model.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
+            }
 
-            if (json.has("picture"))
+            if (json.has("picture")) {
                 model.setValue(TagData.PICTURE, json.optString("picture", ""));
-            if (json.has("thumb"))
+            }
+            if (json.has("thumb")) {
                 model.setValue(TagData.THUMB, json.optString("thumb", ""));
+            }
 
-            if (json.has("is_silent"))
+            if (json.has("is_silent")) {
                 model.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, json.getBoolean("is_silent"));
+            }
 
-            if (!json.isNull("description"))
+            if (!json.isNull("description")) {
                 model.setValue(TagData.TAG_DESCRIPTION, json.getString("description"));
+            }
 
             if (json.has("members")) {
                 JSONArray members = json.getJSONArray("members");
@@ -227,11 +241,13 @@ public final class ActFmSyncService {
                 model.setValue(TagData.MEMBER_COUNT, members.length());
             }
 
-            if (json.has("deleted_at"))
+            if (json.has("deleted_at")) {
                 model.setValue(TagData.DELETION_DATE, readDate(json, "deleted_at"));
+            }
 
-            if (json.has("tasks"))
+            if (json.has("tasks")) {
                 model.setValue(TagData.TASK_COUNT, json.getInt("tasks"));
+            }
         }
     }
 

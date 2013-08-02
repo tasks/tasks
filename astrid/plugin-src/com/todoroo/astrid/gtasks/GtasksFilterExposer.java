@@ -97,18 +97,21 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if (!gtasksPreferenceService.isLoggedIn() || actFmPreferenceService.isLoggedIn())
+        if (!gtasksPreferenceService.isLoggedIn() || actFmPreferenceService.isLoggedIn()) {
             return null;
+        }
 
         lists = gtasksListService.getLists();
 
         // If user does not have any lists, don't show this section at all
-        if (noListsToShow())
+        if (noListsToShow()) {
             return null;
+        }
 
         Filter[] listFilters = new Filter[lists.length];
-        for (int i = 0; i < lists.length; i++)
+        for (int i = 0; i < lists.length; i++) {
             listFilters[i] = filterFromList(context, lists[i]);
+        }
 
         FilterCategoryWithNewButton listsCategory = new FilterCategoryWithNewButton(context.getString(R.string.gtasks_FEx_header),
                 listFilters);
@@ -127,8 +130,9 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
 
     @Override
     public FilterListItem[] getFilters() {
-        if (ContextManager.getContext() == null)
+        if (ContextManager.getContext() == null) {
             return null;
+        }
 
         return prepareFilters(ContextManager.getContext());
     }

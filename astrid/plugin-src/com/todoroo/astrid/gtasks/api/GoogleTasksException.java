@@ -30,8 +30,9 @@ public class GoogleTasksException extends IOException {
     }
 
     public String getType() {
-        if (!TextUtils.isEmpty(type))
+        if (!TextUtils.isEmpty(type)) {
             return type;
+        }
         return getMessage();
     }
 }

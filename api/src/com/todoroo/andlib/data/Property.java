@@ -119,13 +119,15 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      */
     public Property<TYPE> cloneAs(String tableAlias, String columnAlias) {
         Table aliasedTable = this.table;
-        if (!TextUtils.isEmpty(tableAlias))
+        if (!TextUtils.isEmpty(tableAlias)) {
             aliasedTable = table.as(tableAlias);
+        }
 
         try {
             Property<TYPE> newInstance = this.getClass().getConstructor(Table.class, String.class).newInstance(aliasedTable, this.name);
-            if (!TextUtils.isEmpty(columnAlias))
+            if (!TextUtils.isEmpty(columnAlias)) {
                 return (Property<TYPE>) newInstance.as(columnAlias);
+            }
             return newInstance;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -311,8 +313,9 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     }
 
     public String getColumnName() {
-        if (hasAlias())
+        if (hasAlias()) {
             return alias;
+        }
         return name;
     }
 

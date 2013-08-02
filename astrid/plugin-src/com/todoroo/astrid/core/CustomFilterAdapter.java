@@ -51,10 +51,12 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         @Override
         public void onClick(View v) {
             ViewHolder viewHolder = (ViewHolder) v.getTag();
-            if (viewHolder == null)
+            if (viewHolder == null) {
                 return;
-            if (viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
+            }
+            if (viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE) {
                 return;
+            }
 
             showOptionsFor(viewHolder.item, new Runnable() {
                 @Override
@@ -69,14 +71,16 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     public void onCreateContextMenu(ContextMenu menu, View v) {
         // view holder
         ViewHolder viewHolder = (ViewHolder) v.getTag();
-        if (viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
+        if (viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE) {
             return;
+        }
 
         int index = getPosition(viewHolder.item);
 
         menu.setHeaderTitle(viewHolder.name.getText());
-        if (viewHolder.icon.getVisibility() == View.VISIBLE)
+        if (viewHolder.icon.getVisibility() == View.VISIBLE) {
             menu.setHeaderIcon(viewHolder.icon.getDrawable());
+        }
 
 
         MenuItem item = menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, CriterionInstance.TYPE_INTERSECT, index,
@@ -116,8 +120,9 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                 @Override
                 public void onClick(DialogInterface click, int which) {
                     item.selectedIndex = which;
-                    if (onComplete != null)
+                    if (onComplete != null) {
                         onComplete.run();
+                    }
                 }
             };
             dialog.setAdapter(adapter, listener);
@@ -136,8 +141,9 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int which) {
                             item.selectedText = editText.getText().toString();
-                            if (onComplete != null)
+                            if (onComplete != null) {
                                 onComplete.run();
+                            }
                         }
                     });
         }
@@ -203,8 +209,9 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
         viewHolder.icon.setVisibility(item.criterion.icon == null ? View.GONE :
                 View.VISIBLE);
-        if (item.criterion.icon != null)
+        if (item.criterion.icon != null) {
             viewHolder.icon.setImageBitmap(item.criterion.icon);
+        }
 
         viewHolder.name.setText(title);
 

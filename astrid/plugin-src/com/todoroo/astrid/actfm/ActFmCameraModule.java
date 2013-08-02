@@ -44,12 +44,14 @@ public class ActFmCameraModule {
         PackageManager pm = activity.getPackageManager();
 
         final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
-        if (cameraAvailable)
+        if (cameraAvailable) {
             options.add(activity.getString(R.string.actfm_picture_camera));
+        }
         options.add(activity.getString(R.string.actfm_picture_gallery));
 
-        if (clearImageOption != null)
+        if (clearImageOption != null) {
             options.add(activity.getString(R.string.actfm_picture_clear));
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
@@ -71,8 +73,9 @@ public class ActFmCameraModule {
                     activity.startActivityForResult(Intent.createChooser(intent,
                             activity.getString(R.string.actfm_TVA_tag_picture)), REQUEST_CODE_PICTURE);
                 } else {
-                    if (clearImageOption != null)
+                    if (clearImageOption != null) {
                         clearImageOption.clearImage();
+                    }
                 }
             }
         };
@@ -90,13 +93,15 @@ public class ActFmCameraModule {
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         PackageManager pm = fragment.getActivity().getPackageManager();
         final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
-        if (cameraAvailable)
+        if (cameraAvailable) {
             options.add(fragment.getString(R.string.actfm_picture_camera));
+        }
 
         options.add(fragment.getString(R.string.actfm_picture_gallery));
 
-        if (clearImageOption != null)
+        if (clearImageOption != null) {
             options.add(fragment.getString(R.string.actfm_picture_clear));
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragment.getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
@@ -107,8 +112,9 @@ public class ActFmCameraModule {
             public void onClick(DialogInterface d, int which) {
                 if (which == 0 && cameraAvailable) {
                     lastTempFile = getTempFile(fragment.getActivity());
-                    if (lastTempFile != null)
+                    if (lastTempFile != null) {
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
+                    }
                     fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
                 } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -116,8 +122,9 @@ public class ActFmCameraModule {
                     fragment.startActivityForResult(Intent.createChooser(intent,
                             fragment.getString(R.string.actfm_TVA_tag_picture)), REQUEST_CODE_PICTURE);
                 } else {
-                    if (clearImageOption != null)
+                    if (clearImageOption != null) {
                         clearImageOption.clearImage();
+                    }
                 }
             }
         };
@@ -173,10 +180,12 @@ public class ActFmCameraModule {
                     bitmap = bitmapFromUri(activity, Uri.fromFile(lastTempFile));
                     lastTempFile.deleteOnExit();
                     lastTempFile = null;
-                } else
+                } else {
                     bitmap = null;
-            } else
+                }
+            } else {
                 bitmap = data.getParcelableExtra("data"); //$NON-NLS-1$
+            }
             if (bitmap != null) {
                 activity.setResult(Activity.RESULT_OK);
                 cameraResult.handleCameraResult(bitmap);

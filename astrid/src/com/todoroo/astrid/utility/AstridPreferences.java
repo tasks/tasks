@@ -46,10 +46,11 @@ public class AstridPreferences {
      */
     public static void setPreferenceDefaults() {
         AstridPreferenceSpec spec;
-        if (Constants.ASTRID_LITE)
+        if (Constants.ASTRID_LITE) {
             spec = new AstridLitePreferenceSpec();
-        else
+        } else {
             spec = new AstridDefaultPreferenceSpec();
+        }
 
         spec.setIfUnset();
 
@@ -61,10 +62,11 @@ public class AstridPreferences {
 
     public static void resetToDefaults() {
         AstridPreferenceSpec spec;
-        if (Constants.ASTRID_LITE)
+        if (Constants.ASTRID_LITE) {
             spec = new AstridLitePreferenceSpec();
-        else
+        } else {
             spec = new AstridDefaultPreferenceSpec();
+        }
 
         spec.resetDefaults();
     }
@@ -133,8 +135,9 @@ public class AstridPreferences {
      */
     public static String getCurrentVersionName() {
         String versionName = Preferences.getStringValue(P_CURRENT_VERSION_NAME);
-        if (versionName == null)
+        if (versionName == null) {
             versionName = "0"; //$NON-NLS-1$
+        }
         return versionName;
     }
 
@@ -147,8 +150,9 @@ public class AstridPreferences {
      */
     public static boolean canShowPopover() {
         long last = Preferences.getLong(P_LAST_POPOVER, 0);
-        if (System.currentTimeMillis() - last < MIN_POPOVER_TIME)
+        if (System.currentTimeMillis() - last < MIN_POPOVER_TIME) {
             return false;
+        }
         Preferences.setLong(P_LAST_POPOVER, System.currentTimeMillis());
         return true;
     }

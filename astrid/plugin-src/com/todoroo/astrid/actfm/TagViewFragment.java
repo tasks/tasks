@@ -174,8 +174,9 @@ public class TagViewFragment extends TaskListFragment {
         ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
 
         View membersEdit = getView().findViewById(R.id.members_edit);
-        if (membersEdit != null)
+        if (membersEdit != null) {
             membersEdit.setOnClickListener(settingsListener);
+        }
 
         originalFilter = filter;
     }
@@ -213,14 +214,16 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     private void showListSettingsPopover() {
-        if (!AstridPreferences.canShowPopover())
+        if (!AstridPreferences.canShowPopover()) {
             return;
+        }
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
             View tabView = getView().findViewById(R.id.members_edit);
-            if (tabView != null)
+            if (tabView != null) {
                 HelpInfoPopover.showPopover(getActivity(), tabView,
                         R.string.help_popover_list_settings, null);
+            }
         }
     }
 
@@ -249,22 +252,26 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     protected void initializeData() {
         synchronized (this) {
-            if (dataLoaded)
+            if (dataLoaded) {
                 return;
+            }
             dataLoaded = true;
         }
 
         TaskListActivity activity = (TaskListActivity) getActivity();
         String tag = extras.getString(EXTRA_TAG_NAME);
         String uuid = RemoteModel.NO_UUID;
-        if (extras.containsKey(EXTRA_TAG_UUID))
+        if (extras.containsKey(EXTRA_TAG_UUID)) {
             uuid = extras.getString(EXTRA_TAG_UUID);
-        else if (extras.containsKey(EXTRA_TAG_REMOTE_ID)) // For legacy support with shortcuts, widgets, etc.
+        } else if (extras.containsKey(EXTRA_TAG_REMOTE_ID)) // For legacy support with shortcuts, widgets, etc.
+        {
             uuid = Long.toString(extras.getLong(EXTRA_TAG_REMOTE_ID));
+        }
 
 
-        if (tag == null && RemoteModel.NO_UUID.equals(uuid))
+        if (tag == null && RemoteModel.NO_UUID.equals(uuid)) {
             return;
+        }
 
         TodorooCursor<TagData> cursor;
         if (!RemoteModel.isUuidEmpty(uuid)) {
@@ -305,8 +312,9 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void loadTaskListContent(boolean requery) {
         super.loadTaskListContent(requery);
-        if (taskAdapter == null || taskAdapter.getCursor() == null)
+        if (taskAdapter == null || taskAdapter.getCursor() == null) {
             return;
+        }
 
         int count = taskAdapter.getCursor().getCount();
 
@@ -336,8 +344,9 @@ public class TagViewFragment extends TaskListFragment {
             }
 
             TaskListActivity tla = (TaskListActivity) getActivity();
-            if (tla != null)
+            if (tla != null) {
                 tla.setCommentsCount(unreadCount);
+            }
         }
     }
 
@@ -346,8 +355,9 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void initiateAutomaticSyncImpl() {
-        if (!isCurrentTaskListFragment())
+        if (!isCurrentTaskListFragment()) {
             return;
+        }
         if (tagData != null) {
             long lastAutosync = tagData.getValue(TagData.LAST_AUTOSYNC);
             if (DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
@@ -478,8 +488,9 @@ public class TagViewFragment extends TaskListFragment {
             getView().findViewById(R.id.members_header).setVisibility(View.GONE);
             return;
         }
-        if (tagData == null)
+        if (tagData == null) {
             return;
+        }
         LinearLayout membersView = (LinearLayout) getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
         boolean addedMembers = false;
@@ -567,8 +578,9 @@ public class TagViewFragment extends TaskListFragment {
                 } else {
                     owner = ActFmPreferenceService.thisUser();
                 }
-                if (owner != null)
+                if (owner != null) {
                     addImageForMember(membersView, owner);
+                }
 
                 JSONObject unassigned = new JSONObject();
                 unassigned.put("id", Task.USER_ID_UNASSIGNED); //$NON-NLS-1$
@@ -585,13 +597,14 @@ public class TagViewFragment extends TaskListFragment {
         }
 
         View filterAssigned = getView().findViewById(R.id.filter_assigned);
-        if (filterAssigned != null)
+        if (filterAssigned != null) {
             filterAssigned.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     resetAssignedFilter();
                 }
             });
+        }
     }
 
     @SuppressWarnings("nls")
@@ -604,14 +617,16 @@ public class TagViewFragment extends TaskListFragment {
 
 
         image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
-        if (Task.USER_ID_UNASSIGNED.equals(Long.toString(member.optLong("id", 0))))
+        if (Task.USER_ID_UNASSIGNED.equals(Long.toString(member.optLong("id", 0)))) {
             image.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone));
+        }
 
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
         try {
             final String id = Long.toString(member.optLong("id", -2));
-            if (ActFmPreferenceService.userId().equals(id))
+            if (ActFmPreferenceService.userId().equals(id)) {
                 member = ActFmPreferenceService.thisUser();
+            }
             final JSONObject memberToUse = member;
 
             final String memberName = displayName(memberToUse);
@@ -641,21 +656,23 @@ public class TagViewFragment extends TaskListFragment {
                     // New filter
                     currentId = id;
                     Criterion assignedCriterion;
-                    if (ActFmPreferenceService.userId().equals(currentId))
+                    if (ActFmPreferenceService.userId().equals(currentId)) {
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
-                    else if (Task.userIdIsEmail(currentId) && !TextUtils.isEmpty(email))
+                    } else if (Task.userIdIsEmail(currentId) && !TextUtils.isEmpty(email)) {
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(email), Task.USER.like("%" + email + "%")); //$NON-NLS-1$ //$NON-NLS-2$ // Deprecated field OK for backwards compatibility
-                    else
+                    } else {
                         assignedCriterion = Task.USER_ID.eq(id);
+                    }
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
                     filter = TagFilterExposer.filterFromTag(getActivity(), new Tag(tagData), assigned);
                     TextView filterByAssigned = (TextView) getView().findViewById(R.id.filter_assigned);
                     if (filterByAssigned != null) {
                         filterByAssigned.setVisibility(View.VISIBLE);
-                        if (id == Task.USER_ID_UNASSIGNED)
+                        if (id == Task.USER_ID_UNASSIGNED) {
                             filterByAssigned.setText(getString(R.string.actfm_TVA_filter_by_unassigned));
-                        else
+                        } else {
                             filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
+                        }
                     }
                     isBeingFiltered.set(true);
                     setUpTaskList();
@@ -669,8 +686,9 @@ public class TagViewFragment extends TaskListFragment {
         isBeingFiltered.set(false);
         filter = originalFilter;
         View filterAssigned = getView().findViewById(R.id.filter_assigned);
-        if (filterAssigned != null)
+        if (filterAssigned != null) {
             filterAssigned.setVisibility(View.GONE);
+        }
         setUpTaskList();
     }
 
@@ -703,10 +721,12 @@ public class TagViewFragment extends TaskListFragment {
         @SuppressWarnings("nls")
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!intent.hasExtra("tag_id"))
+            if (!intent.hasExtra("tag_id")) {
                 return;
-            if (tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id")))
+            }
+            if (tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id"))) {
                 return;
+            }
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -775,10 +795,11 @@ public class TagViewFragment extends TaskListFragment {
             ((TaskListActivity) activity).setListsTitle(filter.title);
             FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
             if (flf != null) {
-                if (!onActivityResult)
+                if (!onActivityResult) {
                     flf.refresh();
-                else
+                } else {
                     flf.clear();
+                }
             }
         }
         taskAdapter = null;
@@ -818,9 +839,9 @@ public class TagViewFragment extends TaskListFragment {
     protected void toggleDragDrop(boolean newState) {
         Class<?> customComponent;
 
-        if (newState)
+        if (newState) {
             customComponent = SubtasksTagListFragment.class;
-        else {
+        } else {
             filter.setFilterQueryOverride(null);
             customComponent = TagViewFragment.class;
         }

@@ -85,8 +85,9 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected void initiateAutomaticSyncImpl() {
-        if (!isCurrentTaskListFragment())
+        if (!isCurrentTaskListFragment()) {
             return;
+        }
         if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_MINUTE * 10) {
             refreshData(false);
         }
@@ -99,10 +100,11 @@ public class GtasksListFragment extends SubtasksListFragment {
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
-                if (manual)
+                if (manual) {
                     ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                else
+                } else {
                     refresh();
+                }
                 ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
             }
         }));

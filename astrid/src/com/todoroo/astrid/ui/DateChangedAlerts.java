@@ -62,8 +62,9 @@ public class DateChangedAlerts {
 
 
     public static void showQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
-        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
+        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
+        }
 
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         final long taskId = task.getId();
@@ -97,8 +98,9 @@ public class DateChangedAlerts {
     }
 
     public static void showRepeatChangedDialog(final AstridActivity activity, Task task) {
-        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
+        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
+        }
 
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         d.setContentView(R.layout.astrid_reminder_view);
@@ -134,8 +136,9 @@ public class DateChangedAlerts {
 
     public static void showRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task,
                                                        final long oldDueDate, final long newDueDate, final boolean lastTime) {
-        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
+        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true)) {
             return;
+        }
 
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
 
@@ -189,12 +192,13 @@ public class DateChangedAlerts {
         String encouragement = encouragements[(int) (Math.random() * encouragements.length)];
 
         String speechBubbleText;
-        if (lastTime)
+        if (lastTime) {
             speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble_last_time, repeatUntilDateString, encouragement);
-        else if (!TextUtils.isEmpty(oldDueDateString))
+        } else if (!TextUtils.isEmpty(oldDueDateString)) {
             speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble, encouragement, oldDueDateString, newDueDateString);
-        else
+        } else {
             speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble_no_date, encouragement, newDueDateString);
+        }
 
         ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText);
 
@@ -208,8 +212,9 @@ public class DateChangedAlerts {
                 task.setValue(Task.DUE_DATE, oldDueDate);
                 task.setValue(Task.COMPLETION_DATE, 0L);
                 long hideUntil = task.getValue(Task.HIDE_UNTIL);
-                if (hideUntil > 0)
+                if (hideUntil > 0) {
                     task.setValue(Task.HIDE_UNTIL, hideUntil - (newDueDate - oldDueDate));
+                }
                 PluginServices.getTaskService().save(task);
                 Flags.set(Flags.REFRESH);
             }
@@ -284,12 +289,14 @@ public class DateChangedAlerts {
             dueString = getRelativeDateAndTimeString(context, date);
         }
 
-        if (!TextUtils.isEmpty(dueString))
+        if (!TextUtils.isEmpty(dueString)) {
             dueString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble_date, dueString);
+        }
 
         int priority = task.getValue(Task.IMPORTANCE);
-        if (priority >= priorityStrings.length)
+        if (priority >= priorityStrings.length) {
             priority = priorityStrings.length - 1;
+        }
         String priorityString = priorityStrings[priority];
         int color = context.getResources().getColor(colorsArray[priority]) - 0xff000000;
         priorityString = String.format("<font color=\"#%s\">%s</font>", Integer.toHexString(color), priorityString);
@@ -306,9 +313,10 @@ public class DateChangedAlerts {
     @SuppressWarnings("nls")
     private static String getRelativeDateAndTimeString(Context context, long date) {
         String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
-        if (Task.hasDueTime(date))
+        if (Task.hasDueTime(date)) {
             dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
                     DateUtilities.getTimeString(context, new Date(date)));
+        }
         return dueString;
     }
 

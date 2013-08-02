@@ -72,14 +72,16 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
             for (; !outstanding.isAfterLast(); outstanding.moveToNext()) {
                 instance.clear();
                 instance.readPropertiesFromCursor(outstanding);
-                if (instance.getValue(OutstandingEntry.ENTITY_ID_PROPERTY) != id)
+                if (instance.getValue(OutstandingEntry.ENTITY_ID_PROPERTY) != id) {
                     break;
+                }
                 count++;
                 String column = instance.getValue(OutstandingEntry.COLUMN_STRING_PROPERTY);
                 Property<?> property = NameMaps.localColumnNameToProperty(table, column);
                 // set values to model
-                if (property != null)
+                if (property != null) {
                     property.accept(visitor, instance);
+                }
             }
 
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -110,24 +112,27 @@ public class ReplayOutstandingEntries<T extends RemoteModel, OE extends Outstand
         @Override
         public Void visitInteger(Property<Integer> property, OE data) {
             Integer i = data.getMergedValues().getAsInteger(OutstandingEntry.VALUE_STRING_PROPERTY.name);
-            if (i != null)
+            if (i != null) {
                 model.setValue(property, i);
+            }
             return null;
         }
 
         @Override
         public Void visitLong(Property<Long> property, OE data) {
             Long l = data.getMergedValues().getAsLong(OutstandingEntry.VALUE_STRING_PROPERTY.name);
-            if (l != null)
+            if (l != null) {
                 model.setValue(property, l);
+            }
             return null;
         }
 
         @Override
         public Void visitDouble(Property<Double> property, OE data) {
             Double d = data.getMergedValues().getAsDouble(OutstandingEntry.VALUE_STRING_PROPERTY.name);
-            if (d != null)
+            if (d != null) {
                 model.setValue(property, d);
+            }
             return null;
         }
 

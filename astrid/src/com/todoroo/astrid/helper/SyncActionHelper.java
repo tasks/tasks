@@ -103,8 +103,9 @@ public class SyncActionHelper {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent == null
-                    || !AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS.equals(intent.getAction()))
+                    || !AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS.equals(intent.getAction())) {
                 return;
+            }
 
             try {
                 Bundle extras = intent.getExtras();
@@ -140,8 +141,9 @@ public class SyncActionHelper {
 
     protected void performSyncServiceV2Sync(boolean manual) {
         boolean syncOccurred = syncService.synchronizeActiveTasks(manual, syncResultCallback);
-        if (syncOccurred)
+        if (syncOccurred) {
             Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+        }
     }
 
     /**
@@ -191,13 +193,16 @@ public class SyncActionHelper {
                         resolveInfo, pm);
 
                 if (GtasksPreferences.class.getName().equals(
-                        resolveInfo.activityInfo.name))
+                        resolveInfo.activityInfo.name)) {
                     continue;
+                }
 
                 if (resolveInfo.activityInfo.metaData != null) {
                     Bundle metadata = resolveInfo.activityInfo.metaData;
                     if (!metadata.getBoolean("syncAction")) //$NON-NLS-1$
+                    {
                         continue;
+                    }
                 }
 
                 if (category.equals(desiredCategory)) {

@@ -55,7 +55,9 @@ public class ABChooser {
      */
     private void makeChoiceForTest(String testKey, boolean newUser, boolean activatedUser) {
         int pref = readChoiceForTest(testKey);
-        if (pref > NO_OPTION) return;
+        if (pref > NO_OPTION) {
+            return;
+        }
 
         int chosen = NO_OPTION;
         if (abTests.isValidTestKey(testKey)) {
@@ -88,8 +90,9 @@ public class ABChooser {
      * @param choiceIndex
      */
     public void setChoiceForTest(String testKey, int choiceIndex) {
-        if (abTests.isValidTestKey(testKey))
+        if (abTests.isValidTestKey(testKey)) {
             Preferences.setInt(testKey, choiceIndex);
+        }
     }
 
     /*
@@ -99,13 +102,17 @@ public class ABChooser {
     private int chooseOption(int[] optionProbs) {
         int sum = 0;
         for (int opt : optionProbs) // Compute sum
+        {
             sum += opt;
+        }
 
         double rand = random.nextDouble() * sum; // Get uniformly distributed double between [0, sum)
         sum = 0;
         for (int i = 0; i < optionProbs.length; i++) {
             sum += optionProbs[i];
-            if (rand <= sum) return i;
+            if (rand <= sum) {
+                return i;
+            }
         }
         return optionProbs.length - 1;
     }

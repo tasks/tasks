@@ -44,8 +44,9 @@ public class DependencyInjectionService {
         Class<?> cls = caller.getClass();
         while (cls != null) {
             String packageName = cls.getPackage().getName();
-            if (!isQualifiedPackage(packageName))
+            if (!isQualifiedPackage(packageName)) {
                 break;
+            }
 
             for (Field field : cls.getDeclaredFields()) {
                 if (field.getAnnotation(Autowired.class) != null) {
@@ -71,12 +72,15 @@ public class DependencyInjectionService {
 
     @SuppressWarnings("nls")
     private boolean isQualifiedPackage(String packageName) {
-        if (packageName.startsWith("com.todoroo"))
+        if (packageName.startsWith("com.todoroo")) {
             return true;
-        if (packageName.startsWith("com.timsu"))
+        }
+        if (packageName.startsWith("com.timsu")) {
             return true;
-        if (packageName.startsWith("org.weloveastrid"))
+        }
+        if (packageName.startsWith("org.weloveastrid")) {
             return true;
+        }
         return false;
     }
 
@@ -92,10 +96,11 @@ public class DependencyInjectionService {
             throws IllegalStateException, IllegalArgumentException,
             IllegalAccessException {
 
-        if (field.getType().isPrimitive())
+        if (field.getType().isPrimitive()) {
             throw new IllegalStateException(String.format(
                     "Tried to dependency-inject primative field '%s' of type '%s'",
                     field.getName(), field.getType()));
+        }
 
         // field has already been processed, ignore
         if (field.get(caller) != null) {
@@ -146,8 +151,9 @@ public class DependencyInjectionService {
      * @return
      */
     public synchronized static DependencyInjectionService getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new DependencyInjectionService();
+        }
         return instance;
     }
 

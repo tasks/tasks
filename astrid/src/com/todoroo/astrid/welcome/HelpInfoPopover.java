@@ -68,18 +68,21 @@ public class HelpInfoPopover extends QuickActionWidget {
 
     @Override
     protected int getArrowLeftMargin(View arrow) {
-        if (measuredWidth > 0)
+        if (measuredWidth > 0) {
             return (measuredWidth - arrow.getMeasuredWidth()) / 2;
+        }
 
-        if (tablet)
+        if (tablet) {
             return mRect.width() / 4;
+        }
         return mRect.width() / 2;
     }
 
     @Override
     protected int getShowAtX() {
-        if (measuredWidth > 0)
+        if (measuredWidth > 0) {
             return mRect.left + (mRect.width() - measuredWidth) / 2;
+        }
         return mRect.left;
     }
 

@@ -192,17 +192,20 @@ public class AstridActivity extends SherlockFragmentActivity
         setIntent(intent);
 
         Bundle extras = intent.getExtras();
-        if (extras != null)
+        if (extras != null) {
             extras = (Bundle) extras.clone();
+        }
         return extras;
     }
 
     public void setupActivityFragment(TagData tagData) {
-        if (fragmentLayout == LAYOUT_SINGLE)
+        if (fragmentLayout == LAYOUT_SINGLE) {
             return;
+        }
 
-        if (fragmentLayout == LAYOUT_TRIPLE)
+        if (fragmentLayout == LAYOUT_TRIPLE) {
             findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
+        }
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
@@ -214,8 +217,9 @@ public class AstridActivity extends SherlockFragmentActivity
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = null;
 
-        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter))
+        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
+        }
 
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
@@ -244,14 +248,16 @@ public class AstridActivity extends SherlockFragmentActivity
     @Override
     public void onTaskListItemClicked(long taskId) {
         Task task = taskDao.fetch(taskId, Task.IS_READONLY, Task.IS_PUBLIC, Task.USER_ID);
-        if (task != null)
+        if (task != null) {
             onTaskListItemClicked(taskId, task.isEditable());
+        }
     }
 
     public void onTaskListItemClicked(String uuid) {
         Task task = taskDao.fetch(uuid, Task.ID, Task.IS_READONLY, Task.IS_PUBLIC, Task.USER_ID);
-        if (task != null)
+        if (task != null) {
             onTaskListItemClicked(task.getId(), task.isEditable());
+        }
     }
 
     @Override
@@ -267,8 +273,9 @@ public class AstridActivity extends SherlockFragmentActivity
         Intent intent = new Intent(this, TaskEditActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, taskId);
         getIntent().putExtra(TaskEditFragment.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity
-        if (getIntent().hasExtra(TaskListFragment.TOKEN_FILTER))
+        if (getIntent().hasExtra(TaskListFragment.TOKEN_FILTER)) {
             intent.putExtra(TaskListFragment.TOKEN_FILTER, getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER));
+        }
 
         if (fragmentLayout != LAYOUT_SINGLE) {
             TaskEditFragment editActivity = getTaskEditFragment();
@@ -293,8 +300,9 @@ public class AstridActivity extends SherlockFragmentActivity
             }
 
             TaskListFragment tlf = getTaskListFragment();
-            if (tlf != null)
+            if (tlf != null) {
                 tlf.loadTaskListContent(true);
+            }
 
         } else {
             startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
@@ -311,8 +319,9 @@ public class AstridActivity extends SherlockFragmentActivity
 
     @Override
     public void onBackPressed() {
-        if (isFinishing())
+        if (isFinishing()) {
             return;
+        }
         super.onBackPressed();
     }
 
@@ -343,19 +352,22 @@ public class AstridActivity extends SherlockFragmentActivity
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             if (container == 0) {
-                if (oldFragment != null && replace)
+                if (oldFragment != null && replace) {
                     ft.remove(oldFragment);
+                }
                 ft.add(fragment, tag);
-            } else
+            } else {
                 ft.replace(container, fragment, tag);
+            }
             ft.commit();
-            if (createImmediate)
+            if (createImmediate) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         fm.executePendingTransactions();
                     }
                 });
+            }
         }
         return fragment;
     }
@@ -366,8 +378,9 @@ public class AstridActivity extends SherlockFragmentActivity
         TaskListFragment tlf = getTaskListFragment();
         if (tlf != null) {
             EditText box = tlf.quickAddBar.getQuickAddBox();
-            if (box != null)
+            if (box != null) {
                 box.setText(result);
+            }
         }
 
     }
@@ -379,8 +392,9 @@ public class AstridActivity extends SherlockFragmentActivity
             QuickAddBar quickAdd = tlf.quickAddBar;
             if (quickAdd != null) {
                 VoiceRecognizer vr = quickAdd.getVoiceRecognizer();
-                if (vr != null)
+                if (vr != null) {
                     vr.cancel();
+                }
             }
         }
 
@@ -398,8 +412,9 @@ public class AstridActivity extends SherlockFragmentActivity
                 break;
         }
 
-        if (errorStr > 0)
+        if (errorStr > 0) {
             DialogUtilities.okDialog(this, getString(errorStr), null);
+        }
     }
 
     public void switchToActiveTasks() {

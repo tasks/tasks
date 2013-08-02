@@ -38,10 +38,11 @@ public class DateAndTimeDialog extends Dialog {
     public DateAndTimeDialog(Context context, long startDate, int contentView, int title) {
         super(context, ThemeService.getEditDialogTheme());
 
-        if (title == 0)
+        if (title == 0) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
-        else
+        } else {
             setTitle(title);
+        }
         /** Design the dialog in main.xml file */
         setContentView(contentView);
 
@@ -60,8 +61,9 @@ public class DateAndTimeDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 dismiss();
-                if (listener != null)
+                if (listener != null) {
                     listener.onDateAndTimeSelected(dateAndTimePicker.constructDueDate());
+                }
             }
         });
 
@@ -70,8 +72,9 @@ public class DateAndTimeDialog extends Dialog {
             public void onClick(View v) {
                 cancelled = true;
                 cancel();
-                if (listener != null)
+                if (listener != null) {
                     listener.onDateAndTimeCancelled();
+                }
             }
         });
 
@@ -79,8 +82,9 @@ public class DateAndTimeDialog extends Dialog {
             @Override
             public void onCancel(DialogInterface dialog) {
                 if (!cancelled) { // i.e. if back button pressed, which we treat as an "OK"
-                    if (listener != null)
+                    if (listener != null) {
                         listener.onDateAndTimeSelected(dateAndTimePicker.constructDueDate());
+                    }
                 } else {
                     cancelled = false; // reset
                 }

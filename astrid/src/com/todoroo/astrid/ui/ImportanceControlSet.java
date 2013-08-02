@@ -59,9 +59,11 @@ public class ImportanceControlSet extends TaskEditControlSet {
     }
 
     public Integer getImportance() {
-        for (CompoundButton b : buttons)
-            if (b.isChecked())
+        for (CompoundButton b : buttons) {
+            if (b.isChecked()) {
                 return (Integer) b.getTag();
+            }
+        }
         return null;
     }
 
@@ -70,8 +72,9 @@ public class ImportanceControlSet extends TaskEditControlSet {
     }
 
     public void removeListener(ImportanceChangedListener listener) {
-        if (listeners.contains(listener))
+        if (listeners.contains(listener)) {
             listeners.remove(listener);
+        }
     }
 
     @Override
@@ -93,10 +96,12 @@ public class ImportanceControlSet extends TaskEditControlSet {
             button.setLayoutParams(params);
 
             StringBuilder label = new StringBuilder();
-            if (i == max)
+            if (i == max) {
                 label.append('\u25CB');
-            for (int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--)
+            }
+            for (int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--) {
                 label.append('!');
+            }
 
             button.setTextColor(colors[i]);
             button.setTextOff(label);
@@ -137,8 +142,9 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        if (getImportance() != null)
+        if (getImportance() != null) {
             task.setValue(Task.IMPORTANCE, getImportance());
+        }
         return null;
     }
 }

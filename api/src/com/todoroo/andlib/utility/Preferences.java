@@ -32,8 +32,9 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
         String key = r.getString(keyResource);
-        if (!prefs.contains(key))
+        if (!prefs.contains(key)) {
             editor.putString(key, Integer.toString(value));
+        }
     }
 
     /**
@@ -47,8 +48,9 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
         String key = r.getString(keyResource);
-        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean))
+        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof Boolean)) {
             editor.putBoolean(key, value);
+        }
     }
 
     /**
@@ -62,8 +64,9 @@ public class Preferences {
      */
     public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, String value) {
         String key = r.getString(keyResource);
-        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String))
+        if (!prefs.contains(key) || !(prefs.getAll().get(key) instanceof String)) {
             editor.putString(key, value);
+        }
     }
 
     /* ======================================================================
@@ -76,8 +79,9 @@ public class Preferences {
      * Get preferences object from the context
      */
     public static SharedPreferences getPrefs(Context context) {
-        if (preferences != null)
+        if (preferences != null) {
             return preferences;
+        }
 
         context = context.getApplicationContext();
         try {
@@ -141,8 +145,9 @@ public class Preferences {
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(keyResource), null);
-        if (value == null)
+        if (value == null) {
             return defaultValue;
+        }
 
         try {
             return Integer.parseInt(value);

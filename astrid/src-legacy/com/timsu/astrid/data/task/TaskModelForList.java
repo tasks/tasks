@@ -43,8 +43,9 @@ public class TaskModelForList extends AbstractTaskModel {
     static {
         HashMap<String, Integer> indexCache = new HashMap<String, Integer>();
         columnIndexCache.put(TaskModelForList.class, indexCache);
-        for (int i = 0; i < FIELD_LIST.length; i++)
+        for (int i = 0; i < FIELD_LIST.length; i++) {
             indexCache.put(FIELD_LIST[i], i);
+        }
     }
 
     /**
@@ -54,8 +55,9 @@ public class TaskModelForList extends AbstractTaskModel {
         int weight = 0;
 
         // bubble tasks with timers to the top
-        if (getTimerStart() != null)
+        if (getTimerStart() != null) {
             weight -= 10000;
+        }
 
         // importance
         weight += getImportance().ordinal() * 80;
@@ -64,8 +66,9 @@ public class TaskModelForList extends AbstractTaskModel {
         if (getDefiniteDueDate() != null) {
             int hoursLeft = (int) ((getDefiniteDueDate().getTime() -
                     System.currentTimeMillis()) / 1000 / 3600);
-            if (hoursLeft < 5 * 24)
+            if (hoursLeft < 5 * 24) {
                 weight += (hoursLeft - 5 * 24);
+            }
             weight -= 20;
         }
 
@@ -73,18 +76,20 @@ public class TaskModelForList extends AbstractTaskModel {
         if (getPreferredDueDate() != null) {
             int hoursLeft = (int) ((getPreferredDueDate().getTime() -
                     System.currentTimeMillis()) / 1000 / 3600);
-            if (hoursLeft < 5 * 24)
+            if (hoursLeft < 5 * 24) {
                 weight += (hoursLeft - 5 * 24) / 2;
+            }
             weight -= 10;
         }
 
         // bubble completed tasks to the bottom
         if (isTaskCompleted()) {
-            if (getCompletionDate() == null)
+            if (getCompletionDate() == null) {
                 weight += 1e6;
-            else
+            } else {
                 weight = (int) Math.max(10000 + (System.currentTimeMillis() -
                         getCompletionDate().getTime()) / 1000, 10000);
+            }
             return weight;
         }
 

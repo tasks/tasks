@@ -33,8 +33,9 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
     @Override
     public TaskDecoration expose(Task task) {
         if (task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
-                task.getValue(Task.TIMER_START) == 0))
+                task.getValue(Task.TIMER_START) == 0)) {
             return null;
+        }
 
         TaskDecoration decoration;
         RemoteViews remoteViews = new RemoteViews(ContextManager.getContext().getPackageName(),
@@ -65,8 +66,9 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
 
     public void updateDecoration(Context context, Task task) {
         TaskDecoration decoration = expose(task);
-        if (decoration == null)
+        if (decoration == null) {
             return;
+        }
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DECORATIONS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TimerPlugin.IDENTIFIER);

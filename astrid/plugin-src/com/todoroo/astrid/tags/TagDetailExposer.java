@@ -22,12 +22,14 @@ public class TagDetailExposer extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if (taskId == -1)
+        if (taskId == -1) {
             return;
+        }
 
         String taskDetail = getTaskDetails(taskId);
-        if (taskDetail == null)
+        if (taskDetail == null) {
             return;
+        }
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
@@ -39,8 +41,9 @@ public class TagDetailExposer extends BroadcastReceiver {
 
     public String getTaskDetails(long id) {
         String tagList = TagService.getInstance().getTagsAsString(id);
-        if (tagList.length() == 0)
+        if (tagList.length() == 0) {
             return null;
+        }
 
         return /*"<img src='silk_tag_pink'/> " +*/ tagList;
     }

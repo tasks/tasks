@@ -80,7 +80,9 @@ public class TagCaseMigrator {
     }
 
     private void markForRenaming(String tag, long remoteId) {
-        if (renameMap.containsKey(tag)) return;
+        if (renameMap.containsKey(tag)) {
+            return;
+        }
 
         String targetName = targetNameForTag(tag);
 
@@ -162,10 +164,11 @@ public class TagCaseMigrator {
         Metadata metadata = new Metadata();
         metadata.setValue(TaskToTagMetadata.TAG_NAME, newTag);
         int ret;
-        if (caseSensitive)
+        if (caseSensitive) {
             ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
-        else
+        } else {
             ret = metadataService.update(TagService.tagEqIgnoreCase(oldTag, Criterion.all), metadata);
+        }
         invalidateTaskCache(newTag);
         return ret;
     }

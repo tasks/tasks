@@ -329,10 +329,11 @@ public final class TagData extends RemoteModel {
      */
     public boolean isDeleted() {
         // assume false if we didn't load deletion date
-        if (!containsValue(DELETION_DATE))
+        if (!containsValue(DELETION_DATE)) {
             return false;
-        else
+        } else {
             return getValue(DELETION_DATE) > 0;
+        }
     }
 
 }

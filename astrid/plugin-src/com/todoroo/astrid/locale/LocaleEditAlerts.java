@@ -123,9 +123,10 @@ public final class LocaleEditAlerts extends ListActivity {
          * robust and re-usable
          */
         final String breadcrumbString = getIntent().getStringExtra(com.twofortyfouram.Intent.EXTRA_STRING_BREADCRUMB);
-        if (breadcrumbString != null)
+        if (breadcrumbString != null) {
             setTitle(String.format("%s%s%s", breadcrumbString, com.twofortyfouram.Intent.BREADCRUMB_SEPARATOR, //$NON-NLS-1$
                     getString(R.string.locale_edit_alerts_title)));
+        }
 
         /*
          * Load the Locale background frame from Locale
@@ -171,20 +172,24 @@ public final class LocaleEditAlerts extends ListActivity {
         adapter = new FilterAdapter(this, getListView(), R.layout.filter_adapter_row, true) {
             @Override
             public void onReceiveFilter(FilterListItem item) {
-                if (adapter.getSelection() != null || finalSelection == null)
+                if (adapter.getSelection() != null || finalSelection == null) {
                     return;
+                }
                 if (item instanceof Filter) {
-                    if (finalSelection.equals(((Filter) item).getSqlQuery()))
+                    if (finalSelection.equals(((Filter) item).getSqlQuery())) {
                         adapter.setSelection(item);
+                    }
                 } else if (item instanceof FilterCategory) {
                     Filter[] filters = ((FilterCategory) item).children;
-                    if (filters == null)
+                    if (filters == null) {
                         return;
-                    for (Filter filter : filters)
+                    }
+                    for (Filter filter : filters) {
                         if (finalSelection.equals(filter.getSqlQuery())) {
                             adapter.setSelection(filter);
                             break;
                         }
+                    }
                 }
             }
         };
@@ -220,11 +225,11 @@ public final class LocaleEditAlerts extends ListActivity {
      */
     @Override
     public void finish() {
-        if (isRemoved)
+        if (isRemoved) {
             setResult(com.twofortyfouram.Intent.RESULT_REMOVE);
-        else if (isCancelled)
+        } else if (isCancelled) {
             setResult(RESULT_CANCELED);
-        else {
+        } else {
             final FilterListItem selected = adapter.getSelection();
             final int intervalIndex = interval.getSelectedItemPosition();
 
@@ -250,8 +255,9 @@ public final class LocaleEditAlerts extends ListActivity {
                 Filter filterItem = (Filter) selected;
                 storeAndForwardExtras.putString(KEY_FILTER_TITLE, filterItem.title);
                 storeAndForwardExtras.putString(KEY_SQL, filterItem.getSqlQuery());
-                if (filterItem.valuesForNewTasks != null)
+                if (filterItem.valuesForNewTasks != null) {
                     storeAndForwardExtras.putString(KEY_VALUES, AndroidUtilities.contentValuesToSerializedString(filterItem.valuesForNewTasks));
+                }
                 storeAndForwardExtras.putInt(KEY_INTERVAL, INTERVALS[intervalIndex]);
 
                 returnIntent.putExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE, storeAndForwardExtras);
@@ -259,10 +265,11 @@ public final class LocaleEditAlerts extends ListActivity {
                 /*
                  * This is the blurb concisely describing what your setting's state is. This is simply used for display in the UI.
                  */
-                if (filterItem.title != null && filterItem.title.length() > com.twofortyfouram.Intent.MAXIMUM_BLURB_LENGTH)
+                if (filterItem.title != null && filterItem.title.length() > com.twofortyfouram.Intent.MAXIMUM_BLURB_LENGTH) {
                     returnIntent.putExtra(com.twofortyfouram.Intent.EXTRA_STRING_BLURB, filterItem.title.substring(0, com.twofortyfouram.Intent.MAXIMUM_BLURB_LENGTH));
-                else
+                } else {
                     returnIntent.putExtra(com.twofortyfouram.Intent.EXTRA_STRING_BLURB, filterItem.title);
+                }
 
                 setResult(RESULT_OK, returnIntent);
             }

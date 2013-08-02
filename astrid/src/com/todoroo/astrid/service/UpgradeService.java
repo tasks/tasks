@@ -175,14 +175,16 @@ public final class UpgradeService {
      * @param to
      */
     public void performUpgrade(final Activity context, final int from) {
-        if (from == 135)
+        if (from == 135) {
             AddOnService.recordOem();
+        }
 
         if (from > 0 && from < V3_8_2) {
-            if (Preferences.getBoolean(R.string.p_transparent_deprecated, false))
+            if (Preferences.getBoolean(R.string.p_transparent_deprecated, false)) {
                 Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$
-            else
+            } else {
                 Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
+            }
         }
 
         if (from <= V3_9_1_1) {
@@ -227,31 +229,38 @@ public final class UpgradeService {
                     @Override
                     public void run() {
                         try {
-                            if (from < V3_0_0)
+                            if (from < V3_0_0) {
                                 new Astrid2To3UpgradeHelper().upgrade2To3(UpgradeActivity.this, from);
+                            }
 
-                            if (from < V3_1_0)
+                            if (from < V3_1_0) {
                                 new Astrid2To3UpgradeHelper().upgrade3To3_1(UpgradeActivity.this, from);
+                            }
 
-                            if (from < V3_8_3_1)
+                            if (from < V3_8_3_1) {
                                 new TagCaseMigrator().performTagCaseMigration(UpgradeActivity.this);
+                            }
 
-                            if (from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
+                            if (from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false)) {
                                 taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+                            }
 
-                            if (from < V4_0_6)
+                            if (from < V4_0_6) {
                                 new DueDateTimeMigrator().migrateDueTimes();
+                            }
 
-                            if (from < V4_4_2)
+                            if (from < V4_4_2) {
                                 new SubtasksMetadataMigration().performMigration();
+                            }
 
                             if (from < V4_6_0_BETA) {
                                 if (Preferences.getBoolean(R.string.p_use_filters, false)) {
                                     TodorooCursor<StoreObject> cursor = PluginServices.getStoreObjectDao().query(Query.select(StoreObject.PROPERTIES).where(
                                             StoreObject.TYPE.eq(SavedFilter.TYPE)).limit(1));
                                     try {
-                                        if (cursor.getCount() == 0)
+                                        if (cursor.getCount() == 0) {
                                             Preferences.setBoolean(R.string.p_use_filters, false);
+                                        }
                                     } finally {
                                         cursor.close();
                                     }
@@ -288,8 +297,9 @@ public final class UpgradeService {
         @Override
         public void onBackPressed() {
             // Don't allow the back button to finish this activity before things are done
-            if (finished)
+            if (finished) {
                 super.onBackPressed();
+            }
         }
     }
 
@@ -308,8 +318,9 @@ public final class UpgradeService {
         }
 
         if (from < V4_6_3) {
-            if (ActFmPreferenceService.isPremiumUser())
+            if (ActFmPreferenceService.isPremiumUser()) {
                 Preferences.clear(NameMaps.PUSHED_AT_TAGS);
+            }
             Preferences.setLong(TaskListFragment.PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
         }
     }
@@ -324,8 +335,9 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     public void showChangeLog(Context context, int from) {
-        if (!(context instanceof Activity) || from == 0)
+        if (!(context instanceof Activity) || from == 0) {
             return;
+        }
 
         Preferences.clear(TagCaseMigrator.PREF_SHOW_MIGRATION_ALERT);
 
@@ -716,8 +728,9 @@ public final class UpgradeService {
                     "Fixed bug with custom filters & tasks being hidden.",
             });
             upgrade3To3_7();
-            if (gtasksPreferenceService.isLoggedIn())
+            if (gtasksPreferenceService.isLoggedIn()) {
                 taskService.clearDetails(Criterion.all);
+            }
             Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
         }
         if (from >= V3_0_0 && from < V3_6_0) {
@@ -731,12 +744,13 @@ public final class UpgradeService {
             });
             upgrade3To3_6(context);
         }
-        if (from >= V3_0_0 && from < V3_5_0)
+        if (from >= V3_0_0 && from < V3_5_0) {
             newVersionString(changeLog, "3.5.0 (10/25/10)", new String[]{
                     "Google Tasks Sync (beta!)",
                     "Bug fix with RMilk & new tasks not getting synced",
                     "Fixed Force Closes and other bugs",
             });
+        }
         if (from >= V3_0_0 && from < V3_4_0) {
             newVersionString(changeLog, "3.4.0 (10/08/10)", new String[]{
                     "End User License Agreement",
@@ -744,7 +758,7 @@ public final class UpgradeService {
                     "Bug fixes with Producteev",
             });
         }
-        if (from >= V3_0_0 && from < V3_3_0)
+        if (from >= V3_0_0 && from < V3_3_0) {
             newVersionString(changeLog, "3.3.0 (9/17/10)", new String[]{
                     "Fixed some RTM duplicated tasks issues",
                     "UI updates based on your feedback",
@@ -752,7 +766,8 @@ public final class UpgradeService {
                     "Added preference option for selecting snooze style",
                     "Hide until: now allows you to pick a specific time",
             });
-        if (from >= V3_0_0 && from < V3_2_0)
+        }
+        if (from >= V3_0_0 && from < V3_2_0) {
             newVersionString(changeLog, "3.2.0 (8/16/10)", new String[]{
                     "Build your own custom filters from the Filter page",
                     "Easy task sorting (in the task list menu)",
@@ -761,7 +776,8 @@ public final class UpgradeService {
                     "Select tags by drop-down box",
                     "Cosmetic improvements, calendar & sync bug fixes",
             });
-        if (from >= V3_0_0 && from < V3_1_0)
+        }
+        if (from >= V3_0_0 && from < V3_1_0) {
             newVersionString(changeLog, "3.1.0 (8/9/10)", new String[]{
                     "Linkify phone numbers, e-mails, and web pages",
                     "Swipe L => R to go from tasks to filters",
@@ -771,9 +787,11 @@ public final class UpgradeService {
                     "FROYO: disabled moving app to SD card, it would break alarms and widget",
                     "Also gone: a couple force closes, bugs with repeating tasks",
             });
+        }
 
-        if (changeLog.length() == 0)
+        if (changeLog.length() == 0) {
             return;
+        }
 
         changeLog.append("Enjoy!</body></html>");
         String color = ThemeService.getDialogTextColorString();
@@ -792,11 +810,13 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
-        if (Constants.ASTRID_LITE)
+        if (Constants.ASTRID_LITE) {
             version = "0" + version.substring(1);
+        }
         changeLog.append("<font style='text-align: center; color=#ffaa00'><b>Version ").append(version).append(":</b></font><br><ul>");
-        for (String change : changes)
+        for (String change : changes) {
             changeLog.append("<li>").append(change).append("</li>\n");
+        }
         changeLog.append("</ul>");
     }
 

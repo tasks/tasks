@@ -84,8 +84,9 @@ public class LegacyTasksXmlExporter {
             throws IOException {
         LinkedList<TagIdentifier> tags = tagController.getTaskTags(task);
         for (TagIdentifier tag : tags) {
-            if (!tagMap.containsKey(tag) || tagMap.get(tag) == null)
+            if (!tagMap.containsKey(tag) || tagMap.get(tag) == null) {
                 continue;
+            }
             xml.startTag(null, TAG_TAG);
             xml.attribute(null, TAG_ATTR_NAME, tagMap.get(tag).toString());
             xml.endTag(null, TAG_TAG);

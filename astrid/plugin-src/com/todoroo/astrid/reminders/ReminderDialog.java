@@ -94,8 +94,9 @@ public class ReminderDialog extends Dialog {
                 Date alarmTime = new Date();
                 alarmTime.setHours(hours);
                 alarmTime.setMinutes(minutes);
-                if (alarmTime.getTime() < DateUtilities.now())
+                if (alarmTime.getTime() < DateUtilities.now()) {
                     alarmTime.setDate(alarmTime.getDate() + 1);
+                }
                 dialogSnooze.snoozeForTime(alarmTime.getTime());
             }
         };
@@ -129,8 +130,9 @@ public class ReminderDialog extends Dialog {
             @Override
             public void onClick(View arg0) {
                 Task task = taskService.fetchById(taskId, Task.ID, Task.REMINDER_LAST, Task.SOCIAL_REMINDER);
-                if (task != null)
+                if (task != null) {
                     taskService.setComplete(task, true);
+                }
                 activity.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 Toast.makeText(activity,
                         R.string.rmd_NoA_completed_toast,
@@ -170,8 +172,9 @@ public class ReminderDialog extends Dialog {
     }
 
     private void addFacesToReminder(Activity activity, Task task) {
-        if (task == null)
+        if (task == null) {
             return;
+        }
         Resources resources = activity.getResources();
         LinkedHashSet<String> pictureUrls = new LinkedHashSet<String>();
         List<String> names = new ArrayList<String>();
@@ -200,8 +203,9 @@ public class ReminderDialog extends Dialog {
                 lp.setMargins(padding, padding, 0, padding);
                 image.setLayoutParams(lp);
                 layout.addView(image);
-                if (++count >= MAX_FACES)
+                if (++count >= MAX_FACES) {
                     break;
+                }
             }
 
             LinearLayout container = (LinearLayout) findViewById(R.id.speech_bubble_content);
@@ -209,21 +213,23 @@ public class ReminderDialog extends Dialog {
             container.addView(layout, 0);
 
             String text;
-            if (names.size() == 0)
+            if (names.size() == 0) {
                 text = activity.getString(R.string.reminders_social);
-            else if (names.size() == 1)
+            } else if (names.size() == 1) {
                 text = activity.getString(R.string.reminders_social_one, names.get(0));
-            else
+            } else {
                 text = activity.getString(R.string.reminders_social_multiple, names.get(0), names.get(1));
+            }
 
             ((TextView) findViewById(R.id.reminder_message)).setText(text);
 
             task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_FACES);
         } else {
-            if (isSharedTask.get())
+            if (isSharedTask.get()) {
                 task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_NO_FACES);
-            else
+            } else {
                 task.setValue(Task.SOCIAL_REMINDER, Task.REMINDER_SOCIAL_PRIVATE);
+            }
         }
     }
 
@@ -232,7 +238,9 @@ public class ReminderDialog extends Dialog {
             JSONObject person = array.getJSONObject(i);
             if (person.has("picture")) { //$NON-NLS-1$
                 if (ActFmPreferenceService.userId().equals(Long.toString(person.optLong("id")))) //$NON-NLS-1$
+                {
                     continue;
+                }
                 isSharedTask.set(true);
                 String pictureUrl = person.getString("picture"); //$NON-NLS-1$
                 if (!TextUtils.isEmpty(pictureUrl)) {
@@ -240,12 +248,13 @@ public class ReminderDialog extends Dialog {
                 }
 
                 String name = person.optString("first_name"); //$NON-NLS-1$
-                if (!TextUtils.isEmpty(name))
+                if (!TextUtils.isEmpty(name)) {
                     names.add(name);
-                else {
+                } else {
                     name = person.optString("name"); //$NON-NLS-1$
-                    if (!TextUtils.isEmpty(name))
+                    if (!TextUtils.isEmpty(name)) {
                         names.add(name);
+                    }
                 }
 
 

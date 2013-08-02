@@ -65,19 +65,21 @@ public class Calendars {
             return getIcsUri(table);
         }
 
-        if (AndroidUtilities.getSdkVersion() >= 8)
+        if (AndroidUtilities.getSdkVersion() >= 8) {
             return Uri.parse("content://com.android.calendar/" + table);
-        else
+        } else {
             return Uri.parse("content://calendar/" + table);
+        }
     }
 
     private static Uri getIcsUri(String table) {
-        if (CALENDAR_CONTENT_CALENDARS.equals(table))
+        if (CALENDAR_CONTENT_CALENDARS.equals(table)) {
             return CalendarContract.Calendars.CONTENT_URI;
-        else if (CALENDAR_CONTENT_EVENTS.equals(table))
+        } else if (CALENDAR_CONTENT_EVENTS.equals(table)) {
             return CalendarContract.Events.CONTENT_URI;
-        else if (CALENDAR_CONTENT_ATTENDEES.equals(table))
+        } else if (CALENDAR_CONTENT_ATTENDEES.equals(table)) {
             return CalendarContract.Attendees.CONTENT_URI;
+        }
         return null;
     }
 
@@ -85,10 +87,11 @@ public class Calendars {
      * Return calendar package name
      */
     public static String getCalendarPackage() {
-        if (AndroidUtilities.getSdkVersion() >= 8)
+        if (AndroidUtilities.getSdkVersion() >= 8) {
             return "com.google.android.calendar";
-        else
+        } else {
             return "com.android.calendar";
+        }
     }
 
     // --- helper data structure
@@ -172,8 +175,9 @@ public class Calendars {
 
             return result;
         } finally {
-            if (c != null)
+            if (c != null) {
                 c.close();
+            }
         }
     }
 

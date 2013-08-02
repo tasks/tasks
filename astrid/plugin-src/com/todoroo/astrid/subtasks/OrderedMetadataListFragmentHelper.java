@@ -95,8 +95,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         getTouchListView().setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        if (Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0)
+        if (Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0) {
             showSubtasksHelp();
+        }
     }
 
     @SuppressWarnings("nls")
@@ -123,8 +124,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     public Property<?>[] taskProperties() {
         Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
-        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2)
+        if (Preferences.getIntegerFromString(R.string.p_taskRowStyle_v2, 0) == 2) {
             baseProperties = TaskAdapter.BASIC_PROPERTIES;
+        }
 
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(baseProperties));
         properties.add(updater.indentProperty());
@@ -137,15 +139,17 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         @Override
         public void drop(int from, int to) {
             long targetTaskId = taskAdapter.getItemId(from);
-            if (targetTaskId <= 0)
+            if (targetTaskId <= 0) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            }
             long destinationTaskId = taskAdapter.getItemId(to);
 
             try {
-                if (to >= getListView().getCount())
+                if (to >= getListView().getCount()) {
                     updater.moveTo(getFilter(), list, targetTaskId, -1);
-                else
+                } else {
                     updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
+                }
             } catch (Exception e) {
                 Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
@@ -167,8 +171,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
         protected void indent(int which, int delta) {
             long targetTaskId = taskAdapter.getItemId(which);
-            if (targetTaskId <= 0)
+            if (targetTaskId <= 0) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            }
             try {
                 updater.indent(getFilter(), list, targetTaskId, delta);
             } catch (Exception e) {
@@ -181,8 +186,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private final GrabberClickListener rowClickListener = new GrabberClickListener() {
         @Override
         public void onLongClick(final View v) {
-            if (v == null)
+            if (v == null) {
                 return;
+            }
 
             fragment.registerForContextMenu(getListView());
             getListView().showContextMenuForChild(v);
@@ -191,8 +197,9 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
         @Override
         public void onClick(View v) {
-            if (v == null)
+            if (v == null) {
                 return;
+            }
             ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
         }
     };

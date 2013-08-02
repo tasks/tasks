@@ -36,8 +36,9 @@ public abstract class TaskEditControlSet {
     public TaskEditControlSet(Activity activity, int viewLayout) {
         this.activity = activity;
         this.viewLayout = viewLayout;
-        if (viewLayout == -1)
+        if (viewLayout == -1) {
             initialized = true;
+        }
 
         themeColor = activity.getResources().getColor(ThemeService.getTaskEditThemeColor());
         unsetColor = activity.getResources().getColor(R.color.task_edit_deadline_gray);
@@ -50,8 +51,9 @@ public abstract class TaskEditControlSet {
                 afterInflate();
                 setupOkButton(view);
             }
-            if (model != null)
+            if (model != null) {
                 readFromTaskOnInitialize();
+            }
             this.initialized = true;
         }
         return view;
@@ -66,8 +68,9 @@ public abstract class TaskEditControlSet {
      */
     public void readFromTask(Task task) {
         this.model = task;
-        if (initialized)
+        if (initialized) {
             readFromTaskOnInitialize();
+        }
     }
 
 

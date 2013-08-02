@@ -86,15 +86,18 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         this.changes = new ArrayList<OE>();
 
         if (!foundEntity) // Stop sending changes for entities that don't exist anymore
+        {
             outstandingDao.deleteWhere(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id));
+        }
     }
 
     @Override
     protected boolean serializeExtrasToJSON(JSONObject serializeTo, MultipartEntity entity) throws JSONException {
         // Process changes list and serialize to JSON
         JSONArray changesJson = changesToJSON(entity);
-        if (changesJson == null || changesJson.length() == 0)
+        if (changesJson == null || changesJson.length() == 0) {
             return false;
+        }
         serializeTo.put(CHANGES_KEY, changesJson);
         return true;
     }
@@ -109,8 +112,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     }
 
     private JSONArray changesToJSON(MultipartEntity entity) {
-        if (!RemoteModel.NO_UUID.equals(uuid))
+        if (!RemoteModel.NO_UUID.equals(uuid)) {
             populateChanges();
+        }
 
         JSONArray array = new JSONArray();
         AtomicInteger uploadCounter = new AtomicInteger();
@@ -145,25 +149,29 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                     changeJson.put("value", name);
                 } else {
                     Property<?> localProperty = NameMaps.localColumnNameToProperty(table, localColumn);
-                    if (localProperty == null)
+                    if (localProperty == null) {
                         throw new RuntimeException("No local property found for local column " + localColumn + " in table " + table);
+                    }
 
                     serverColumn = NameMaps.localColumnNameToServerColumnName(table, localColumn);
-                    if (serverColumn == null)
+                    if (serverColumn == null) {
                         throw new RuntimeException("No server column found for local column " + localColumn + " in table " + table);
+                    }
 
                     Object value = localProperty.accept(visitor, change);
-                    if (!validateValue(localProperty, value))
+                    if (!validateValue(localProperty, value)) {
                         return null;
+                    }
 
-                    if (value == null)
+                    if (value == null) {
                         changeJson.put("value", JSONObject.NULL);
-                    else {
+                    } else {
                         if (localProperty.checkFlag(Property.PROP_FLAG_PICTURE) && value instanceof JSONObject) {
                             JSONObject json = (JSONObject) value;
                             String name = addToEntityFromFileJson(entity, json, uploadCounter);
-                            if (name != null)
+                            if (name != null) {
                                 changeJson.put("value", name);
+                            }
                         } else {
                             changeJson.put("value", value);
                         }
@@ -223,8 +231,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     // (e.g. empty task title, etc.)
     private boolean validateValue(Property<?> property, Object value) {
         if (Task.TITLE.equals(property)) {
-            if (!(value instanceof String) || TextUtils.isEmpty((String) value))
+            if (!(value instanceof String) || TextUtils.isEmpty((String) value)) {
                 return false;
+            }
         }
         return true;
     }
@@ -233,11 +242,13 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         try {
             JSONObject obj = new JSONObject(value);
             String path = obj.optString("path");
-            if (TextUtils.isEmpty(path))
+            if (TextUtils.isEmpty(path)) {
                 return null;
+            }
             File f = new File(path);
-            if (!f.exists())
+            if (!f.exists()) {
                 return null;
+            }
 
             return obj;
         } catch (JSONException e) {
@@ -255,8 +266,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         public Object visitInteger(Property<Integer> property, OE data) {
             Integer i = data.getMergedValues().getAsInteger(OutstandingEntry.VALUE_STRING_PROPERTY.name);
             if (i != null) {
-                if (property.checkFlag(Property.PROP_FLAG_BOOLEAN))
+                if (property.checkFlag(Property.PROP_FLAG_BOOLEAN)) {
                     return i > 0;
+                }
                 return i;
             } else {
                 return getAsString(data);
@@ -269,8 +281,9 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             if (l != null) {
                 if (property.checkFlag(Property.PROP_FLAG_DATE)) {
                     boolean includeTime = true;
-                    if (Task.DUE_DATE.equals(property) && !Task.hasDueTime(l))
+                    if (Task.DUE_DATE.equals(property) && !Task.hasDueTime(l)) {
                         includeTime = false;
+                    }
                     return DateUtilities.timeToIso8601(l, includeTime);
                 }
                 return l;
@@ -292,16 +305,19 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         @Override
         public Object visitString(Property<String> property, OE data) {
             String value = getAsString(data);
-            if (RemoteModel.NO_UUID.equals(value) && property.checkFlag(Property.PROP_FLAG_USER_ID))
+            if (RemoteModel.NO_UUID.equals(value) && property.checkFlag(Property.PROP_FLAG_USER_ID)) {
                 return ActFmPreferenceService.userId();
+            }
             if (property.checkFlag(Property.PROP_FLAG_JSON)) {
-                if (TextUtils.isEmpty(value))
+                if (TextUtils.isEmpty(value)) {
                     return null;
+                }
                 try {
-                    if (value != null && value.startsWith("["))
+                    if (value != null && value.startsWith("[")) {
                         return new JSONArray(value);
-                    else
+                    } else {
                         return new JSONObject(value);
+                    }
                 } catch (JSONException e) {
                     return null;
                 }

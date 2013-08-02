@@ -52,26 +52,31 @@ public class SortHelper {
     @SuppressWarnings("nls")
     public static String adjustQueryForFlagsAndSort(String originalSql, int flags, int sort) {
         // sort
-        if (originalSql == null)
+        if (originalSql == null) {
             originalSql = "";
+        }
         if (!originalSql.toUpperCase().contains("ORDER BY")) {
             Order order = orderForSortType(sort);
 
-            if ((flags & FLAG_REVERSE_SORT) > 0)
+            if ((flags & FLAG_REVERSE_SORT) > 0) {
                 order = order.reverse();
+            }
             originalSql += " ORDER BY " + order;
         }
 
         // flags
-        if ((flags & FLAG_SHOW_COMPLETED) > 0)
+        if ((flags & FLAG_SHOW_COMPLETED) > 0) {
             originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
                     Criterion.all.toString());
-        if ((flags & FLAG_SHOW_HIDDEN) > 0)
+        }
+        if ((flags & FLAG_SHOW_HIDDEN) > 0) {
             originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
-        if ((flags & FLAG_SHOW_DELETED) > 0)
+        }
+        if ((flags & FLAG_SHOW_DELETED) > 0) {
             originalSql = originalSql.replace(Task.DELETION_DATE.eq(0).toString(),
                     Criterion.all.toString());
+        }
 
         return originalSql;
     }
@@ -82,8 +87,9 @@ public class SortHelper {
 
     public static int setManualSort(int flags, boolean status) {
         flags = (flags & ~FLAG_DRAG_DROP);
-        if (status)
+        if (status) {
             flags |= FLAG_DRAG_DROP;
+        }
         return flags;
     }
 
@@ -111,8 +117,9 @@ public class SortHelper {
             default:
                 order = defaultTaskOrder();
         }
-        if (sortType != SORT_ALPHA)
+        if (sortType != SORT_ALPHA) {
             order.addSecondaryExpression(Order.asc(Task.TITLE));
+        }
 
         return order;
     }

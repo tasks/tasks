@@ -128,13 +128,15 @@ public class BackupService extends Service {
             }
         };
         File astridDir = backupDirectorySetting.getBackupDirectory();
-        if (astridDir == null)
+        if (astridDir == null) {
             return;
+        }
 
         // grab all backup files, sort by modified date, delete old ones
         File[] files = astridDir.listFiles(backupFileFilter);
-        if (files == null)
+        if (files == null) {
             return;
+        }
 
         Arrays.sort(files, new Comparator<File>() {
             @Override
@@ -143,8 +145,9 @@ public class BackupService extends Service {
             }
         });
         for (int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
-            if (!files[i].delete())
+            if (!files[i].delete()) {
                 Log.i("astrid-backups", "Unable to delete: " + files[i]); //$NON-NLS-1$ //$NON-NLS-2$
+            }
         }
     }
 

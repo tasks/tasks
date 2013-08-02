@@ -172,9 +172,10 @@ public class Database extends AbstractDatabase {
             }
             case 2: {
                 for (Property<?> property : new Property<?>[]{Metadata.VALUE2,
-                        Metadata.VALUE3, Metadata.VALUE4, Metadata.VALUE5})
+                        Metadata.VALUE3, Metadata.VALUE4, Metadata.VALUE5}) {
                     database.execSQL("ALTER TABLE " + Metadata.TABLE.name + " ADD " +
                             property.accept(visitor, null));
+                }
             }
             case 3: {
                 database.execSQL(createTableSql(visitor, StoreObject.TABLE.name, StoreObject.PROPERTIES));
@@ -285,9 +286,10 @@ public class Database extends AbstractDatabase {
                 }
             case 19:
                 try {
-                    for (Property<?> property : new Property<?>[]{Update.TASK_LOCAL, Update.TAGS_LOCAL})
+                    for (Property<?> property : new Property<?>[]{Update.TASK_LOCAL, Update.TAGS_LOCAL}) {
                         database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
                                 property.accept(visitor, null));
+                    }
                     database.execSQL("CREATE INDEX IF NOT EXISTS up_tid ON " +
                             Update.TABLE + "(" + Update.TASK_LOCAL.name + ")");
                     database.execSQL("CREATE INDEX IF NOT EXISTS up_tid ON " +
@@ -318,9 +320,10 @@ public class Database extends AbstractDatabase {
                 }
             case 21:
                 try {
-                    for (Property<?> property : new Property<?>[]{Update.OTHER_USER_ID, Update.OTHER_USER})
+                    for (Property<?> property : new Property<?>[]{Update.OTHER_USER_ID, Update.OTHER_USER}) {
                         database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
                                 property.accept(visitor, null));
+                    }
 
                 } catch (SQLiteException e) {
                     Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
@@ -451,8 +454,9 @@ public class Database extends AbstractDatabase {
             SqlConstructorVisitor visitor = new SqlConstructorVisitor();
             String sql = "ALTER TABLE " + table.name + " ADD " +  //$NON-NLS-1$//$NON-NLS-2$
                     column.accept(visitor, null);
-            if (!TextUtils.isEmpty(defaultValue))
+            if (!TextUtils.isEmpty(defaultValue)) {
                 sql += " DEFAULT " + defaultValue;
+            }
             database.execSQL(sql);
         } catch (SQLiteException e) {
             // ignored, column already exists
@@ -473,8 +477,9 @@ public class Database extends AbstractDatabase {
         sql.append("CREATE TABLE IF NOT EXISTS ").append(tableName).append('(').
                 append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
         for (Property<?> property : properties) {
-            if (AbstractModel.ID_PROPERTY.name.equals(property.name))
+            if (AbstractModel.ID_PROPERTY.name.equals(property.name)) {
                 continue;
+            }
             sql.append(',').append(property.accept(visitor, null));
         }
         sql.append(')');

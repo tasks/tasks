@@ -73,8 +73,9 @@ public class SyncDataController extends LegacyAbstractController {
                 null, null, null, null);
 
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return list;
+            }
             do {
                 cursor.moveToNext();
                 list.add(new SyncMapping(cursor));
@@ -99,8 +100,9 @@ public class SyncDataController extends LegacyAbstractController {
                 null, null, null);
 
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return list;
+            }
             do {
                 cursor.moveToNext();
                 list.add(new SyncMapping(cursor));
@@ -125,8 +127,9 @@ public class SyncDataController extends LegacyAbstractController {
                 null, null, null);
 
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return null;
+            }
             cursor.moveToNext();
             return new SyncMapping(cursor);
         } finally {
@@ -151,8 +154,9 @@ public class SyncDataController extends LegacyAbstractController {
      */
     public boolean deleteSyncMapping(SyncMapping mapping) {
         // was never saved
-        if (mapping.getId() == 0)
+        if (mapping.getId() == 0) {
             return false;
+        }
 
         return syncDatabase.delete(syncTable, KEY_ROWID + "=" +
                 mapping.getId(), null) > 0;
@@ -197,7 +201,8 @@ public class SyncDataController extends LegacyAbstractController {
      */
     @Override
     public void close() {
-        if (syncDatabase != null)
+        if (syncDatabase != null) {
             syncDatabase.close();
+        }
     }
 }

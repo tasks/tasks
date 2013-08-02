@@ -21,9 +21,10 @@ public class PeopleListFragment extends FilterListFragment {
 
     @Override
     protected int getLayout(Activity activity) {
-        if (AstridPreferences.useTabletLayout(activity))
+        if (AstridPreferences.useTabletLayout(activity)) {
             return R.layout.filter_list_fragment_alternative_3pane;
-        else
+        } else {
             return R.layout.filter_list_fragment_alternative;
+        }
     }
 }

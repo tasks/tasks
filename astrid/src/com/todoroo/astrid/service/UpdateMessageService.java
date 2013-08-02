@@ -82,12 +82,14 @@ public class UpdateMessageService {
     public void processUpdates() {
         JSONArray updates = checkForUpdates();
 
-        if (updates == null || updates.length() == 0)
+        if (updates == null || updates.length() == 0) {
             return;
+        }
 
         MessageTuple message = buildUpdateMessage(updates);
-        if (message == null || message.message.length() == 0)
+        if (message == null || message.message.length() == 0) {
             return;
+        }
 
         displayUpdateDialog(message);
     }
@@ -118,8 +120,9 @@ public class UpdateMessageService {
     }
 
     protected void displayUpdateDialog(final MessageTuple message) {
-        if (activity == null)
+        if (activity == null) {
             return;
+        }
 
         if (message.linkText.size() > 0) {
             final DialogShower ds = new DialogShower() {
@@ -200,15 +203,18 @@ public class UpdateMessageService {
             String plugin = update.optString("plugin", null);
             String notPlugin = update.optString("notplugin", null);
 
-            if (message == null)
+            if (message == null) {
                 continue;
+            }
             if (plugin != null) {
-                if (!pluginConditionMatches(plugin))
+                if (!pluginConditionMatches(plugin)) {
                     continue;
+                }
             }
             if (notPlugin != null) {
-                if (pluginConditionMatches(notPlugin))
+                if (pluginConditionMatches(notPlugin)) {
                     continue;
+                }
             }
 
             MessageTuple toReturn = new MessageTuple();
@@ -217,8 +223,9 @@ public class UpdateMessageService {
             if ("screen".equals(type) || "pref".equals(type)) {
                 String linkText = update.optString("link");
                 OnClickListener click = getClickListenerForUpdate(update, type);
-                if (click == null)
+                if (click == null) {
                     continue;
+                }
                 toReturn.linkText.add(linkText);
                 toReturn.click.add(click);
             } else {
@@ -226,11 +233,13 @@ public class UpdateMessageService {
                 if (links != null) {
                     for (int j = 0; j < links.length(); j++) {
                         JSONObject link = links.optJSONObject(j);
-                        if (link == null)
+                        if (link == null) {
                             continue;
+                        }
                         String linkText = link.optString("title");
-                        if (TextUtils.isEmpty(linkText))
+                        if (TextUtils.isEmpty(linkText)) {
                             continue;
+                        }
 
                         final String url = link.optString("url");
                         OnClickListener click = new OnClickListener() {
@@ -247,8 +256,9 @@ public class UpdateMessageService {
                 }
             }
 
-            if (messageAlreadySeen(date, message))
+            if (messageAlreadySeen(date, message)) {
                 continue;
+            }
             return toReturn;
         }
         return null;
@@ -257,11 +267,13 @@ public class UpdateMessageService {
     private OnClickListener getClickListenerForUpdate(JSONObject update, String type) {
         if ("pref".equals(type)) {
             try {
-                if (!update.has("action_list"))
+                if (!update.has("action_list")) {
                     return null;
+                }
                 JSONArray prefSpec = update.getJSONArray("action_list");
-                if (prefSpec.length() == 0)
+                if (prefSpec.length() == 0) {
                     return null;
+                }
                 final String prefArray = prefSpec.toString();
                 return new View.OnClickListener() {
                     @Override
@@ -276,16 +288,19 @@ public class UpdateMessageService {
             }
         } else if ("screen".equals(type)) {
             try {
-                if (!update.has("action_list"))
+                if (!update.has("action_list")) {
                     return null;
+                }
                 JSONArray screens = update.getJSONArray("action_list");
-                if (screens.length() == 0)
+                if (screens.length() == 0) {
                     return null;
+                }
                 final ArrayList<String> screenList = new ArrayList<String>();
                 for (int i = 0; i < screens.length(); i++) {
                     String screen = screens.getString(i).trim();
-                    if (!TextUtils.isEmpty(screen))
+                    if (!TextUtils.isEmpty(screen)) {
                         screenList.add(screen);
+                    }
                 }
                 return new View.OnClickListener() {
                     @Override
@@ -304,22 +319,25 @@ public class UpdateMessageService {
 
     private boolean pluginConditionMatches(String plugin) {
         // handle internal plugin specially
-        if (PLUGIN_GTASKS.equals(plugin))
+        if (PLUGIN_GTASKS.equals(plugin)) {
             return gtasksPreferenceService.isLoggedIn();
-        else
+        } else {
             return addOnService.isInstalled(plugin);
+        }
     }
 
     private boolean messageAlreadySeen(String date, String message) {
-        if (date != null)
+        if (date != null) {
             message = date + message;
+        }
         String hash = AndroidUtilities.md5(message);
 
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.ID).
                 where(StoreObjectCriteria.byTypeAndItem(UpdateMessage.TYPE, hash)));
         try {
-            if (cursor.getCount() > 0)
+            if (cursor.getCount() > 0) {
                 return true;
+            }
         } finally {
             cursor.close();
         }
@@ -342,8 +360,9 @@ public class UpdateMessageService {
                     "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0") + "&" +
                     "premium=" + (ActFmPreferenceService.isPremiumUser() ? "1" : "0");
             String result = restClient.get(url); //$NON-NLS-1$
-            if (TextUtils.isEmpty(result))
+            if (TextUtils.isEmpty(result)) {
                 return null;
+            }
 
             return new JSONArray(result);
         } catch (IOException e) {

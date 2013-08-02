@@ -30,8 +30,9 @@ public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
         this.activity = activity;
         this.onFinished = onFinished;
 
-        if (progressBar == null)
+        if (progressBar == null) {
             progressBar = new ProgressBar(activity);
+        }
 
         progressBar.setProgress(0);
         progressBar.setMax(0);

@@ -74,10 +74,11 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
             json.put(UUID_KEY, uuid);
             String dateValue = DateUtilities.timeToIso8601(pushedAt, true);
             json.put(PUSHED_AT_KEY, dateValue != null ? dateValue : 0);
-            if (serializeExtrasToJSON(json, entity))
+            if (serializeExtrasToJSON(json, entity)) {
                 return json;
-            else
+            } else {
                 return null;
+            }
         } catch (JSONException e) {
             Crittercism.logHandledException(e);
             return null;
@@ -95,23 +96,30 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ClientToServerMessage<?> other = (ClientToServerMessage<?>) obj;
         if (table == null) {
-            if (other.table != null)
+            if (other.table != null) {
                 return false;
-        } else if (!table.equals(other.table))
+            }
+        } else if (!table.equals(other.table)) {
             return false;
+        }
         if (uuid == null) {
-            if (other.uuid != null)
+            if (other.uuid != null) {
                 return false;
-        } else if (!uuid.equals(other.uuid))
+            }
+        } else if (!uuid.equals(other.uuid)) {
             return false;
+        }
         return true;
     }
 

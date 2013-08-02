@@ -339,15 +339,17 @@ public class CalendarView extends View {
         int today = -1;
         Calendar todayCalendar = Calendar.getInstance();
         if (calendar.get(Calendar.MONTH) == todayCalendar.get(Calendar.MONTH) &&
-                calendar.get(Calendar.YEAR) == todayCalendar.get(Calendar.YEAR))
+                calendar.get(Calendar.YEAR) == todayCalendar.get(Calendar.YEAR)) {
             today = todayCalendar.get(Calendar.DATE);
+        }
         int lastDateOfThisMonth = calendar.getActualMaximum(Calendar.DATE);
 
         calendar.set(Calendar.DATE, 1);
         // offset for day of week
         int firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - firstDayOfWeek + Calendar.SUNDAY;
-        if (firstDayOfMonth == 0)
+        if (firstDayOfMonth == 0) {
             firstDayOfMonth = 7;
+        }
         boolean firstTime = true;
         int dayOfMonth = 1;
         Paint colorPaint;
@@ -427,8 +429,9 @@ public class CalendarView extends View {
             currentHighlightDay = calendar.get(Calendar.DATE);
             this.invalidate();
 
-            if (onSelectedDateListener != null)
+            if (onSelectedDateListener != null) {
                 onSelectedDateListener.onSelectedDate(calendarDate);
+            }
         } else if ((x > rightArrowX - rightArrowWidth && x < (rightArrowX + rightArrowWidth))
                 && (y > rightArrowY - rightArrowHeight / 2 && y < (rightArrowY + 3 * rightArrowHeight / 2))) {
             Calendar calendar = Calendar.getInstance();
@@ -442,8 +445,9 @@ public class CalendarView extends View {
             currentHighlightDay = calendar.get(Calendar.DATE);
             this.invalidate();
 
-            if (onSelectedDateListener != null)
+            if (onSelectedDateListener != null) {
                 onSelectedDateListener.onSelectedDate(calendarDate);
+            }
             // Handle left-right arrow click -- end
         } else if (dayLeftArr != null) {
             // Check if clicked on date
@@ -462,8 +466,9 @@ public class CalendarView extends View {
                     calendarDate = calendar.getTime();
                     this.invalidate();
 
-                    if (onSelectedDateListener != null)
+                    if (onSelectedDateListener != null) {
                         onSelectedDateListener.onSelectedDate(calendarDate);
+                    }
                 }
             }
         }

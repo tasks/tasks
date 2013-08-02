@@ -63,13 +63,15 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
         List<FilterListItem> filters = new ArrayList<FilterListItem>(3);
 
         filters.add(buildInboxFilter(r));
-        if (Preferences.getBoolean(R.string.p_show_today_filter, true))
+        if (Preferences.getBoolean(R.string.p_show_today_filter, true)) {
             filters.add(getTodayFilter(r));
+        }
 
         if (Preferences.getBoolean(R.string.p_show_waiting_on_me_filter, true) &&
                 PluginServices.getWaitingOnMeDao().count(Query.select(WaitingOnMe.ID).where(Criterion.and(WaitingOnMe.DELETED_AT.eq(0),
-                        Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.neq(1))))) > 0)
+                        Criterion.or(WaitingOnMe.ACKNOWLEDGED.isNull(), WaitingOnMe.ACKNOWLEDGED.neq(1))))) > 0) {
             filters.add(getWaitingOnMeFilter(r));
+        }
 
         // transmit filter list
         return filters.toArray(new FilterListItem[filters.size()]);
@@ -141,8 +143,9 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
 
     @Override
     public FilterListItem[] getFilters() {
-        if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null)
+        if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null) {
             return null;
+        }
 
         Resources r = ContextManager.getContext().getResources();
         return prepareFilters(r);

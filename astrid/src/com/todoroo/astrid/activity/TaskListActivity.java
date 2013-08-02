@@ -151,15 +151,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         public void onClick(View v) {
             if (fragmentLayout == LAYOUT_DOUBLE) {
                 View container = findViewById(R.id.taskedit_fragment_container);
-                if (getTaskEditFragment() != null)
+                if (getTaskEditFragment() != null) {
                     return;
+                }
                 container.setVisibility(container.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 commentsVisible = container.getVisibility() == View.VISIBLE;
             } else {
                 // In this case we should be in LAYOUT_SINGLE--delegate to the task list fragment
                 TaskListFragment tlf = getTaskListFragment();
-                if (tlf != null)
+                if (tlf != null) {
                     tlf.handleCommentsButtonClicked();
+                }
             }
         }
     };
@@ -168,8 +170,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         @Override
         public void onClick(View v) {
             TaskListFragment tlf = getTaskListFragment();
-            if (tlf == null || !(tlf instanceof PersonViewFragment))
+            if (tlf == null || !(tlf instanceof PersonViewFragment)) {
                 return;
+            }
             ((PersonViewFragment) tlf).handleStatusButtonClicked();
         }
     };
@@ -184,8 +187,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         DependencyInjectionService.getInstance().inject(this);
 
         int contentView = getContentView();
-        if (contentView == R.layout.task_list_wrapper_activity)
+        if (contentView == R.layout.task_list_wrapper_activity) {
             swipeEnabled = true;
+        }
         setContentView(contentView);
 
         ActionBar actionBar = getSupportActionBar();
@@ -199,8 +203,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
         personStatus = (TextView) actionBar.getCustomView().findViewById(R.id.person_image);
         commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
-        if (ThemeService.getTheme() == R.style.Theme_White_Alt)
+        if (ThemeService.getTheme() == R.style.Theme_White_Alt) {
             commentsButton.setTextColor(getResources().getColor(R.color.blue_theme_color));
+        }
 
         initializeFragments(actionBar);
         createMainMenuPopover();
@@ -209,11 +214,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         personStatus.setOnClickListener(friendStatusClickListener);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null)
+        if (extras != null) {
             extras = (Bundle) extras.clone();
+        }
 
-        if (extras == null)
+        if (extras == null) {
             extras = new Bundle();
+        }
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
@@ -239,8 +246,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
         setupTasklistFragmentWithFilter(savedFilter, extras);
 
-        if (savedFilter != null)
+        if (savedFilter != null) {
             setListsTitle(savedFilter.title);
+        }
 
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
@@ -253,8 +261,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void setupPagerAdapter() {
         FilterListFragment flf = getFilterListFragment();
-        if (flf == null)
+        if (flf == null) {
             throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
+        }
         FilterAdapter adapter = flf.adapter;
         tlfPager = (TaskListFragmentPager) findViewById(R.id.pager);
         tlfPagerAdapter = new TaskListFragmentPagerAdapter(getSupportFragmentManager(), adapter);
@@ -267,12 +276,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     protected int getContentView() {
-        if (AstridPreferences.useTabletLayout(this))
+        if (AstridPreferences.useTabletLayout(this)) {
             return R.layout.task_list_wrapper_activity_3pane;
-        else if (!Preferences.getBoolean(R.string.p_swipe_lists_enabled, false))
+        } else if (!Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)) {
             return R.layout.task_list_wrapper_activity_no_swipe;
-        else
+        } else {
             return R.layout.task_list_wrapper_activity;
+        }
     }
 
     protected Filter getDefaultFilter() {
@@ -369,12 +379,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private void createMainMenuPopover() {
         int layout;
         boolean isTabletLayout = AstridPreferences.useTabletLayout(this);
-        if (isTabletLayout)
+        if (isTabletLayout) {
             layout = R.layout.main_menu_popover_tablet;
-        else if (AndroidUtilities.isTabletSized(this))
+        } else if (AndroidUtilities.isTabletSized(this)) {
             layout = R.layout.main_menu_popover_tablet_phone_layout;
-        else
+        } else {
             layout = R.layout.main_menu_popover;
+        }
 
         mainMenuPopover = new MainMenuPopover(this, layout, (fragmentLayout != LAYOUT_SINGLE), this);
         mainMenuPopover.setOnDismissListener(new OnDismissListener() {
@@ -384,8 +395,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             }
         });
 
-        if (isTabletLayout)
+        if (isTabletLayout) {
             mainMenuPopover.refreshFixedItems();
+        }
     }
 
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
@@ -393,12 +405,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             View view = frag.getView();
             if (view != null) {
                 FrameLayout parent = (FrameLayout) view.getParent();
-                if (parent != null)
+                if (parent != null) {
                     parent.removeView(view);
-                if (params == null)
+                }
+                if (params == null) {
                     popover.setContent(view);
-                else
+                } else {
                     popover.setContent(view, params);
+                }
             }
         }
     }
@@ -409,8 +423,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public boolean onFilterItemClicked(FilterListItem item) {
-        if (listsPopover != null)
+        if (listsPopover != null) {
             listsPopover.dismiss();
+        }
         setCommentsCount(0);
 
         if (swipeIsEnabled()) {
@@ -421,8 +436,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
         TaskEditFragment.removeExtrasFromIntent(getIntent());
         TaskEditFragment tef = getTaskEditFragment();
-        if (tef != null)
+        if (tef != null) {
             onBackPressed();
+        }
 
         boolean result = super.onFilterItemClicked(item);
         filterModeSpec.onFilterItemClickedCallback(item);
@@ -439,8 +455,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             commentsButton.setVisibility(visibility);
         } else {
             View container = findViewById(R.id.taskedit_fragment_container);
-            if (container != null)
+            if (container != null) {
                 container.setVisibility(visibility);
+            }
         }
     }
 
@@ -466,8 +483,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
         if (!Flags.checkAndClear(Flags.TLA_DISMISSED_FROM_TASK_EDIT)) {
             TaskEditFragment tea = getTaskEditFragment();
-            if (tea != null)
+            if (tea != null) {
                 onBackPressed();
+            }
         }
 
         if (getIntent().hasExtra(TOKEN_SWITCH_TO_FILTER)) {
@@ -484,12 +502,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
                     Task result = tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
-                    if (result != null)
+                    if (result != null) {
                         onTaskListItemClicked(result.getId(), true);
+                    }
                 }
             }
-            if (fragmentLayout == LAYOUT_SINGLE)
+            if (fragmentLayout == LAYOUT_SINGLE) {
                 getIntent().removeExtra(OPEN_TASK);
+            }
         }
 
         if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
@@ -509,11 +529,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onTaskListItemClicked(long taskId, boolean editable) {
-        if (fragmentLayout != LAYOUT_SINGLE && editable)
+        if (fragmentLayout != LAYOUT_SINGLE && editable) {
             getIntent().putExtra(OPEN_TASK, taskId);
+        }
         CommentsFragment tuf = getTagUpdatesFragment();
-        if (tuf != null)
+        if (tuf != null) {
             tuf.getView().setVisibility(View.INVISIBLE);
+        }
 
         super.onTaskListItemClicked(taskId, editable);
     }
@@ -526,8 +548,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onResume() {
         super.onResume();
 
-        if (Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false))
+        if (Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false)) {
             SyncUpgradePrompt.showSyncUpgradePrompt(this);
+        }
     }
 
     @Override
@@ -561,8 +584,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 fragment.initiateAutomaticSync();
                 fragment.requestCommentCountUpdate();
             }
-            if (position != 0)
+            if (position != 0) {
                 Preferences.setBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, true);
+            }
         }
     }
 
@@ -596,15 +620,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if (taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             if (fragmentLayout == LAYOUT_DOUBLE) {
-                if (!commentsVisible)
+                if (!commentsVisible) {
                     findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
+                }
             }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
 
             CommentsFragment tuf = getTagUpdatesFragment();
-            if (tuf != null)
+            if (tuf != null) {
                 tuf.getView().setVisibility(View.VISIBLE);
+            }
         }
         super.onBackPressed();
     }
@@ -620,15 +646,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if ((requestCode == FilterListFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
                 resultCode == Activity.RESULT_OK) {
-            if (data == null)
+            if (data == null) {
                 return;
+            }
 
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
                 getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, newList); // Handle in onPostResume()
                 FilterListFragment fla = getFilterListFragment();
-                if (fla != null && !swipeIsEnabled())
+                if (fla != null && !swipeIsEnabled()) {
                     fla.clear();
+                }
             }
         } else if (requestCode == TaskListFragment.ACTIVITY_EDIT_TASK && resultCode != Activity.RESULT_CANCELED) {
             // Handle switch to assigned filter when it comes from TaskEditActivity finishing
@@ -645,8 +673,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                         Task repeating = data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK);
                         DateChangedAlerts.showRepeatChangedDialog(this, repeating);
                     }
-                    if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false))
+                    if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false)) {
                         tagsChanged(true);
+                    }
                 }
                 tlf.refresh();
             }
@@ -661,8 +690,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 if (tlf != null) {
                     TagData tagData = tlf.getActiveTagData();
                     String activeUuid = RemoteModel.NO_UUID;
-                    if (tagData != null)
+                    if (tagData != null) {
                         activeUuid = tagData.getUuid();
+                    }
 
                     if (activeUuid.equals(uuid)) {
                         getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, CoreFilterExposer.buildInboxFilter(getResources())); // Handle in onPostResume()
@@ -672,8 +702,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     }
                 }
 
-                if (fl != null)
+                if (fl != null) {
                     fl.refresh();
+                }
             } else if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
@@ -690,8 +721,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 }
 
                 FilterListFragment flf = getFilterListFragment();
-                if (flf != null)
+                if (flf != null) {
                     flf.refresh();
+                }
             }
         }
 
@@ -705,17 +737,19 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private void tagsChanged(boolean onActivityResult) {
         FilterListFragment flf = getFilterListFragment();
         if (flf != null) {
-            if (onActivityResult)
+            if (onActivityResult) {
                 flf.clear();
-            else
+            } else {
                 flf.refresh();
+            }
         }
     }
 
     protected void refreshTaskList() {
         TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null)
+        if (tlf != null) {
             tlf.refresh();
+        }
     }
 
     public void taskAssignedTo(final String assignedDisplay, String assignedEmail, final String assignedId) {
@@ -744,16 +778,18 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             String members = td.getValue(TagData.MEMBERS);
 
             boolean memberFound = false;
-            if (TextUtils.isEmpty(members))
+            if (TextUtils.isEmpty(members)) {
                 memberFound = td.getValue(TagData.USER_ID).equals(assignedId) || tagMetadataDao.memberOfTagData(assignedEmail, td.getUuid(), assignedId);
-            else {
+            } else {
                 JSONObject user = new JSONObject();
                 JSONArray membersArray = null;
                 try {
-                    if (!TextUtils.isEmpty(assignedEmail))
+                    if (!TextUtils.isEmpty(assignedEmail)) {
                         user.put("email", assignedEmail); //$NON-NLS-1$
-                    if (Task.isRealUserId(assignedId))
+                    }
+                    if (Task.isRealUserId(assignedId)) {
                         user.put("id", assignedId); //$NON-NLS-1$
+                    }
                     membersArray = new JSONArray(members);
 
                     for (int i = 0; i < membersArray.length(); i++) {
@@ -770,8 +806,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                         if (!TextUtils.isEmpty(ownerString)) {
                             JSONObject owner = new JSONObject(ownerString);
                             String ownerId = Long.toString(owner.optLong("id", -3)); //$NON-NLS-1$
-                            if (Task.isRealUserId(ownerId) && assignedId.equals(ownerId))
+                            if (Task.isRealUserId(ownerId) && assignedId.equals(ownerId)) {
                                 memberFound = true;
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -779,8 +816,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 }
             }
 
-            if (memberFound)
+            if (memberFound) {
                 return;
+            }
 
             DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                 @Override
@@ -857,10 +895,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
             case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-                if (filterMode == FILTER_MODE_NORMAL)
+                if (filterMode == FILTER_MODE_NORMAL) {
                     listsNav.performClick();
-                else
+                } else {
                     setFilterMode(FILTER_MODE_NORMAL);
+                }
                 return;
             case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
                 onSearchRequested();
@@ -875,8 +914,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 // Doesn't exist yet
                 return;
             case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
-                if (tlf != null)
+                if (tlf != null) {
                     tlf.showSettings();
+                }
                 return;
         }
         tlf.handleOptionsMenuItemSelected(item, customIntent);
@@ -910,10 +950,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
 
         onFilterItemClicked(getDefaultFilter());
-        if (swipeIsEnabled())
+        if (swipeIsEnabled()) {
             setListsTitle(tlfPagerAdapter.getPageTitle(0).toString());
-        if (fragmentLayout == LAYOUT_SINGLE)
+        }
+        if (fragmentLayout == LAYOUT_SINGLE) {
             listsNav.performClick();
+        }
     }
 
     public void refreshMainMenu() {
@@ -943,13 +985,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void hideKeyboard() {
         TaskListFragment tlf = getTaskListFragment();
-        if (tlf == null)
+        if (tlf == null) {
             return;
+        }
         InputMethodManager imm = (InputMethodManager) getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         QuickAddBar qab = tlf.quickAddBar;
-        if (qab != null)
+        if (qab != null) {
             imm.hideSoftInputFromWindow(qab.getQuickAddBox().getWindowToken(), 0);
+        }
     }
 
     @Override
@@ -960,8 +1004,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_BACK) {
             TaskEditFragment tef = getTaskEditFragment();
-            if (tef != null && tef.onKeyDown(keyCode))
+            if (tef != null && tef.onKeyDown(keyCode)) {
                 return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

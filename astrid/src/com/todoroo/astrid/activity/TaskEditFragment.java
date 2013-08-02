@@ -360,13 +360,15 @@ public final class TaskEditFragment extends SherlockFragment implements
 
         overrideFinishAnim = false;
         if (activity != null) {
-            if (activity.getIntent() != null)
+            if (activity.getIntent() != null) {
                 overrideFinishAnim = activity.getIntent().getBooleanExtra(
                         OVERRIDE_FINISH_ANIM, true);
+            }
         }
 
-        if (activity instanceof TaskListActivity)
+        if (activity instanceof TaskListActivity) {
             ((TaskListActivity) activity).setCommentsButtonVisibility(false);
+        }
     }
 
     private void instantiateEditNotes() {
@@ -389,11 +391,13 @@ public final class TaskEditFragment extends SherlockFragment implements
 
         tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
 
-        if (!showEditComments)
+        if (!showEditComments) {
             tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
+        }
 
-        if (moreSectionHasControls)
+        if (moreSectionHasControls) {
             tabStyle |= TaskEditViewPager.TAB_SHOW_MORE;
+        }
 
         if (editNotes == null) {
             instantiateEditNotes();
@@ -406,8 +410,9 @@ public final class TaskEditFragment extends SherlockFragment implements
             timerAction.addListener(editNotes);
         }
 
-        if (editNotes != null)
+        if (editNotes != null) {
             editNotes.addListener(this);
+        }
 
         if (tabStyle == 0) {
             return;
@@ -428,8 +433,9 @@ public final class TaskEditFragment extends SherlockFragment implements
             ((ViewGroup) moreControls.getParent()).removeView(moreControls);
         }
 
-        if (showEditComments)
+        if (showEditComments) {
             commentsBar.setVisibility(View.VISIBLE);
+        }
         moreTab.setVisibility(View.VISIBLE);
         setCurrentTab(TAB_VIEW_UPDATES);
         setPagerHeightForPosition(TAB_VIEW_UPDATES);
@@ -443,8 +449,9 @@ public final class TaskEditFragment extends SherlockFragment implements
     }
 
     private void setCurrentTab(int position) {
-        if (mIndicator == null)
+        if (mIndicator == null) {
             return;
+        }
 
         mIndicator.setCurrentItem(position);
         mPager.setCurrentItem(position);
@@ -647,16 +654,18 @@ public final class TaskEditFragment extends SherlockFragment implements
                 View controlSet = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
 
-                if (curr != null)
+                if (curr != null) {
                     controlSet = (LinearLayout) curr.getDisplayView();
+                }
 
                 if (controlSet != null) {
                     if ((i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger))) {
                         removeTeaSeparator(controlSet);
                     }
                     section.addView(controlSet);
-                    if (section == moreControls)
+                    if (section == moreControls) {
                         moreSectionHasControls = true;
+                    }
                 }
 
                 if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
@@ -726,8 +735,9 @@ public final class TaskEditFragment extends SherlockFragment implements
             AndroidUtilities.sleepDeep(500L);
 
             Activity activity = getActivity();
-            if (activity == null)
+            if (activity == null) {
                 return;
+            }
 
             activity.runOnUiThread(new Runnable() {
                 public void run() {
@@ -762,8 +772,9 @@ public final class TaskEditFragment extends SherlockFragment implements
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
 
-            if (model != null && model.containsNonNullValue(Task.UUID))
+            if (model != null && model.containsNonNullValue(Task.UUID)) {
                 uuid = model.getValue(Task.UUID);
+            }
         }
 
         // not found by id or was never passed an id
@@ -771,8 +782,9 @@ public final class TaskEditFragment extends SherlockFragment implements
             String valuesAsString = intent.getStringExtra(TOKEN_VALUES);
             ContentValues values = null;
             try {
-                if (valuesAsString != null)
+                if (valuesAsString != null) {
                     values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
+                }
             } catch (Exception e) {
                 // oops, can't serialize
             }
@@ -858,32 +870,36 @@ public final class TaskEditFragment extends SherlockFragment implements
     private String getWomText(WaitingOnMe wom) {
         int resource;
         String type = wom.getValue(WaitingOnMe.WAIT_TYPE);
-        if (WaitingOnMe.WAIT_TYPE_ASSIGNED.equals(type))
+        if (WaitingOnMe.WAIT_TYPE_ASSIGNED.equals(type)) {
             resource = R.string.wom_assigned;
-        else if (WaitingOnMe.WAIT_TYPE_CHANGED_DUE.equals(type))
+        } else if (WaitingOnMe.WAIT_TYPE_CHANGED_DUE.equals(type)) {
             resource = R.string.wom_changed_due;
-        else if (WaitingOnMe.WAIT_TYPE_COMMENTED.equals(type))
+        } else if (WaitingOnMe.WAIT_TYPE_COMMENTED.equals(type)) {
             resource = R.string.wom_commented;
-        else if (WaitingOnMe.WAIT_TYPE_MENTIONED.equals(type))
+        } else if (WaitingOnMe.WAIT_TYPE_MENTIONED.equals(type)) {
             resource = R.string.wom_mentioned;
-        else if (WaitingOnMe.WAIT_TYPE_RAISED_PRI.equals(type))
+        } else if (WaitingOnMe.WAIT_TYPE_RAISED_PRI.equals(type)) {
             resource = R.string.wom_raised_pri;
-        else
+        } else {
             resource = R.string.wom_default;
+        }
 
         String userString = null;
         User user = userDao.fetch(wom.getValue(WaitingOnMe.WAITING_USER_ID), User.PROPERTIES);
-        if (user != null)
+        if (user != null) {
             userString = user.getDisplayName();
-        if (TextUtils.isEmpty(userString))
+        }
+        if (TextUtils.isEmpty(userString)) {
             userString = getString(R.string.ENA_no_user);
+        }
 
         return getString(resource, userString);
     }
 
     public long getTaskIdInProgress() {
-        if (model != null && model.getId() > 0)
+        if (model != null && model.getId() > 0) {
             return model.getId();
+        }
         return getActivity().getIntent().getLongExtra(TOKEN_ID, -1);
     }
 
@@ -915,8 +931,9 @@ public final class TaskEditFragment extends SherlockFragment implements
             if (!taskAttachmentDao.taskHasAttachments(model.getUuid())) {
                 filesControlSet.getDisplayView().setVisibility(View.GONE);
             }
-            for (TaskEditControlSet controlSet : controls)
+            for (TaskEditControlSet controlSet : controls) {
                 controlSet.readFromTask(model);
+            }
         }
 
     }
@@ -938,14 +955,17 @@ public final class TaskEditFragment extends SherlockFragment implements
      * Save task model from values in UI components
      */
     public void save(boolean onPause) {
-        if (title == null)
+        if (title == null) {
             return;
+        }
 
-        if (title.getText().length() > 0)
+        if (title.getText().length() > 0) {
             model.setValue(Task.DELETION_DATE, 0L);
+        }
 
-        if (title.getText().length() == 0)
+        if (title.getText().length() == 0) {
             return;
+        }
 
         if (isNewTask) {
             taskOutstandingDao.deleteWhere(Criterion.and(TaskOutstanding.TASK_ID.eq(model.getId()),
@@ -964,8 +984,9 @@ public final class TaskEditFragment extends SherlockFragment implements
                     }
                 }
                 String toastText = controlSet.writeToModel(model);
-                if (toastText != null)
+                if (toastText != null) {
                     toast.append('\n').append(toastText);
+                }
             }
         }
 
@@ -994,9 +1015,12 @@ public final class TaskEditFragment extends SherlockFragment implements
                 if (!isAssignedToMe) {
                     data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
                     data.putExtra(TOKEN_ASSIGNED_TO_DISPLAY, assignedTo);
-                    if (!TextUtils.isEmpty(assignedEmail))
+                    if (!TextUtils.isEmpty(assignedEmail)) {
                         data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
-                    if (Task.isRealUserId(assignedId)) ;
+                    }
+                    if (Task.isRealUserId(assignedId)) {
+                        ;
+                    }
                     data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
                 }
                 if (showRepeatAlert) {
@@ -1009,13 +1033,15 @@ public final class TaskEditFragment extends SherlockFragment implements
                 // Notify task list fragment in multi-column case
                 // since the activity isn't actually finishing
                 TaskListActivity tla = (TaskListActivity) getActivity();
-                if (!isAssignedToMe)
+                if (!isAssignedToMe) {
                     tla.taskAssignedTo(assignedTo, assignedEmail, assignedId);
-                else if (showRepeatAlert)
+                } else if (showRepeatAlert) {
                     DateChangedAlerts.showRepeatChangedDialog(tla, model);
+                }
 
-                if (tagsChanged)
+                if (tagsChanged) {
                     tla.tagsChanged();
+                }
                 tla.refreshTaskList();
             }
 
@@ -1028,10 +1054,11 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (title.getText().length() == 0 || !peopleControlSet.hasLoadedUI())
+            if (title.getText().length() == 0 || !peopleControlSet.hasLoadedUI()) {
                 discardButtonClick();
-            else
+            } else {
                 saveButtonClick();
+            }
             return true;
         }
         return false;
@@ -1142,8 +1169,9 @@ public final class TaskEditFragment extends SherlockFragment implements
                 } else if (a instanceof TaskListActivity) {
                     discardButtonClick();
                     TaskListFragment tlf = ((TaskListActivity) a).getTaskListFragment();
-                    if (tlf != null)
+                    if (tlf != null) {
                         tlf.refresh();
+                    }
                 }
             }
         }).setNegativeButton(android.R.string.cancel, null).show();
@@ -1204,8 +1232,9 @@ public final class TaskEditFragment extends SherlockFragment implements
         if (!TextUtils.isEmpty(extension)) {
             MimeTypeMap map = MimeTypeMap.getSingleton();
             String guessedType = map.getMimeTypeFromExtension(extension);
-            if (!TextUtils.isEmpty(guessedType))
+            if (!TextUtils.isEmpty(guessedType)) {
                 type = guessedType;
+            }
         }
 
         createNewFileAttachment(path, name, type);
@@ -1230,8 +1259,9 @@ public final class TaskEditFragment extends SherlockFragment implements
     }
 
     private void createNewFileAttachment(String path, String fileName, String fileType) {
-        if (!ActFmPreferenceService.isPremiumUser())
+        if (!ActFmPreferenceService.isPremiumUser()) {
             return;
+        }
 
         TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
         taskAttachmentDao.createNew(attachment);
@@ -1255,8 +1285,9 @@ public final class TaskEditFragment extends SherlockFragment implements
                 startRecordingAudio();
                 return true;
             case MENU_COMMENTS_REFRESH_ID: {
-                if (editNotes != null)
+                if (editNotes != null) {
                     editNotes.refreshData();
+                }
                 return true;
             }
             case MENU_SHOW_COMMENTS_ID: {
@@ -1267,10 +1298,11 @@ public final class TaskEditFragment extends SherlockFragment implements
                 return true;
             }
             case android.R.id.home:
-                if (title.getText().length() == 0)
+                if (title.getText().length() == 0) {
                     discardButtonClick();
-                else
+                } else {
                     saveButtonClick();
+                }
                 return true;
         }
 
@@ -1325,8 +1357,9 @@ public final class TaskEditFragment extends SherlockFragment implements
         super.onPause();
         StatisticsService.sessionPause();
 
-        if (shouldSaveState)
+        if (shouldSaveState) {
             save(true);
+        }
     }
 
     @Override
@@ -1338,8 +1371,9 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (editNotes == null)
+        if (editNotes == null) {
             instantiateEditNotes();
+        }
 
         if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
@@ -1400,8 +1434,9 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     private void adjustInfoPopovers() {
         Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
-        if (!Preferences.isSet(getString(R.string.p_showed_lists_help)))
+        if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
             Preferences.setBoolean(R.string.p_showed_lists_help, false);
+        }
     }
 
     /*
@@ -1452,7 +1487,9 @@ public final class TaskEditFragment extends SherlockFragment implements
                 break;
         }
 
-        if (view == null || mPager == null) return;
+        if (view == null || mPager == null) {
+            return;
+        }
 
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
                 MeasureSpec.AT_MOST);
@@ -1478,8 +1515,9 @@ public final class TaskEditFragment extends SherlockFragment implements
         }
 
         ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params == null)
+        if (params == null) {
             return;
+        }
 
         params.height = totalHeight;
         view.setLayoutParams(params);
@@ -1508,8 +1546,9 @@ public final class TaskEditFragment extends SherlockFragment implements
     // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged() {
-        if (mPager != null && mPager.getCurrentItem() == TAB_VIEW_UPDATES)
+        if (mPager != null && mPager.getCurrentItem() == TAB_VIEW_UPDATES) {
             setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        }
     }
 
     // EditNoteActivity Lisener when there are new updates/comments

@@ -50,12 +50,14 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         ContextManager.setContext(context);
         DependencyInjectionService.getInstance().inject(this);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if (taskId == -1)
+        if (taskId == -1) {
             return;
+        }
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.PROPERTIES);
-        if (task == null || !task.isCompleted())
+        if (task == null || !task.isCompleted()) {
             return;
+        }
 
         String recurrence = task.sanitizedRecurrence();
         boolean repeatAfterCompletion = task.repeatAfterCompletion();
@@ -64,8 +66,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             long newDueDate;
             try {
                 newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion);
-                if (newDueDate == -1)
+                if (newDueDate == -1) {
                     return;
+                }
             } catch (ParseException e) {
                 PluginServices.getExceptionService().reportError("repeat-parse", e); //$NON-NLS-1$
                 return;
@@ -126,14 +129,15 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         Date original = setUpStartDate(task, repeatAfterCompletion, rrule.getFreq());
         DateValue startDateAsDV = setUpStartDateAsDV(task, original);
 
-        if (rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY)
+        if (rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY) {
             return handleSubdayRepeat(original, rrule);
-        else if (rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion)
+        } else if (rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion) {
             return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
-        else if (rrule.getFreq() == Frequency.MONTHLY)
+        } else if (rrule.getFreq() == Frequency.MONTHLY) {
             return handleMonthlyRepeat(original, startDateAsDV, task.hasDueTime(), rrule);
-        else
+        } else {
             return invokeRecurrence(rrule, original, startDateAsDV);
+        }
     }
 
     private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original,
@@ -152,10 +156,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         } while (date.get(Calendar.DAY_OF_WEEK) != next.wday.javaDayNum);
 
         long time = date.getTimeInMillis();
-        if (hasDueTime)
+        if (hasDueTime) {
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
-        else
+        } else {
             return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
+        }
     }
 
     private static long handleMonthlyRepeat(Date original, DateValue startDateAsDV, boolean hasDueTime, RRule rrule) {
@@ -168,10 +173,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             cal.add(Calendar.MONTH, interval);
             cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
             long time = cal.getTimeInMillis();
-            if (hasDueTime)
+            if (hasDueTime) {
                 return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
-            else
+            } else {
                 return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
+            }
         } else {
             return invokeRecurrence(rrule, original, startDateAsDV);
         }
@@ -205,18 +211,21 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         DateValue nextDate = startDateAsDV;
 
         for (int i = 0; i < 10; i++) { // ten tries then we give up
-            if (!iterator.hasNext())
+            if (!iterator.hasNext()) {
                 return -1;
+            }
             nextDate = iterator.next();
 
-            if (nextDate.compareTo(startDateAsDV) == 0)
+            if (nextDate.compareTo(startDateAsDV) == 0) {
                 continue;
+            }
 
             newDueDate = buildNewDueDate(original, nextDate);
 
             // detect if we finished
-            if (newDueDate > original.getTime())
+            if (newDueDate > original.getTime()) {
                 break;
+            }
         }
         return newDueDate;
     }
@@ -252,8 +261,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         // handle the iCalendar "byDay" field differently depending on if
         // we are weekly or otherwise
-        if (rrule.getFreq() != Frequency.WEEKLY)
+        if (rrule.getFreq() != Frequency.WEEKLY) {
             rrule.setByDay(Collections.EMPTY_LIST);
+        }
 
         return rrule;
     }
@@ -267,10 +277,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         Date startDate = new Date();
         if (task.hasDueDate()) {
             Date dueDate = new Date(task.getValue(Task.DUE_DATE));
-            if (repeatAfterCompletion)
+            if (repeatAfterCompletion) {
                 startDate = new Date(task.getValue(Task.COMPLETION_DATE));
-            else
+            } else {
                 startDate = dueDate;
+            }
 
             if (task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
                 startDate.setHours(dueDate.getHours());
@@ -282,13 +293,14 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     private static DateValue setUpStartDateAsDV(Task task, Date startDate) {
-        if (task.hasDueTime())
+        if (task.hasDueTime()) {
             return new DateTimeValueImpl(startDate.getYear() + 1900,
                     startDate.getMonth() + 1, startDate.getDate(),
                     startDate.getHours(), startDate.getMinutes(), startDate.getSeconds());
-        else
+        } else {
             return new DateValueImpl(startDate.getYear() + 1900,
                     startDate.getMonth() + 1, startDate.getDate());
+        }
     }
 
     private static long handleSubdayRepeat(Date startDate, RRule rrule) {

@@ -24,8 +24,9 @@ public class UpdateMessagePreference extends PreferenceActivity {
         String prefsArray = getIntent().getStringExtra(TOKEN_PREFS_ARRAY);
         try {
             JSONArray array = new JSONArray(prefsArray);
-            if (array.length() == 0)
+            if (array.length() == 0) {
                 finish();
+            }
 
             for (int i = 0; i < array.length(); i++) {
                 try {
@@ -45,8 +46,9 @@ public class UpdateMessagePreference extends PreferenceActivity {
         String type = obj.optString("type", null);
         String key = obj.optString("key", null);
         String title = obj.optString("title", null);
-        if (type == null || key == null || title == null)
+        if (type == null || key == null || title == null) {
             return;
+        }
 
         Preference pref = null;
         if ("bool".equals(type)) { // We can add other types we want to support and handle the preference construction here
@@ -56,8 +58,9 @@ public class UpdateMessagePreference extends PreferenceActivity {
             pref.setDefaultValue(Preferences.getBoolean(key, false));
         }
 
-        if (pref == null)
+        if (pref == null) {
             return;
+        }
 
         if (obj.optBoolean("restart")) {
             pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

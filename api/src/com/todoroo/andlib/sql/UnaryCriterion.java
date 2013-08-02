@@ -38,12 +38,13 @@ public class UnaryCriterion extends Criterion {
 
     @SuppressWarnings("nls")
     protected void afterPopulateOperator(StringBuilder sb) {
-        if (value == null)
+        if (value == null) {
             return;
-        else if (value instanceof String)
+        } else if (value instanceof String) {
             sb.append("'").append(sanitize((String) value)).append("'");
-        else
+        } else {
             sb.append(value);
+        }
     }
 
     /**

@@ -72,8 +72,9 @@ public class SubtasksMetadataMigration {
         if (td == null && !SubtasksMetadata.LIST_ACTIVE_TASKS.equals(tag)) {
             for (; !subtasksMetadata.isAfterLast(); subtasksMetadata.moveToNext()) {
                 item.readFromCursor(subtasksMetadata);
-                if (!item.getValue(SubtasksMetadata.TAG).equals(tag))
+                if (!item.getValue(SubtasksMetadata.TAG).equals(tag)) {
                     break;
+                }
             }
         } else {
             String newTree = buildTreeModelFromMetadata(tag, subtasksMetadata);
@@ -94,14 +95,16 @@ public class SubtasksMetadataMigration {
         for (; !cursor.isAfterLast(); cursor.moveToNext()) {
             item.clear();
             item.readFromCursor(cursor);
-            if (!item.getValue(SubtasksMetadata.TAG).equals(tag))
+            if (!item.getValue(SubtasksMetadata.TAG).equals(tag)) {
                 break;
+            }
 
             int indent = 0;
             if (item.containsNonNullValue(SubtasksMetadata.INDENT)) {
                 Integer i = item.getValue(SubtasksMetadata.INDENT);
-                if (i != null)
+                if (i != null) {
                     indent = i.intValue();
+                }
             }
             Node parent = findNextParentForIndent(root, indent);
             Node newNode = new Node(item.getValue(Metadata.TASK).toString(), parent, parent.indent + 1);
@@ -111,12 +114,14 @@ public class SubtasksMetadataMigration {
     }
 
     private Node findNextParentForIndent(Node root, int indent) {
-        if (indent <= 0)
+        if (indent <= 0) {
             return root;
+        }
 
         ArrayList<Node> children = root.children;
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return root;
+        }
 
         return findNextParentForIndent(children.get(children.size() - 1), indent - 1);
     }

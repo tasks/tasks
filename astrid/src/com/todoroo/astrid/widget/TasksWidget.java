@@ -86,8 +86,9 @@ public class TasksWidget extends AppWidgetProvider {
      * @param id
      */
     public static void updateWidgets(Context context) {
-        if (suppressUpdateFlag > 0 && DateUtilities.now() - suppressUpdateFlag < SUPPRESS_TIME)
+        if (suppressUpdateFlag > 0 && DateUtilities.now() - suppressUpdateFlag < SUPPRESS_TIME) {
             return;
+        }
         suppressUpdateFlag = 0;
         context.startService(new Intent(context,
                 TasksWidget.WidgetUpdateService.class));
@@ -142,8 +143,9 @@ public class TasksWidget extends AppWidgetProvider {
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
             int extrasId = AppWidgetManager.INVALID_APPWIDGET_ID;
-            if (intent != null)
+            if (intent != null) {
                 extrasId = intent.getIntExtra(EXTRA_WIDGET_ID, extrasId);
+            }
             if (extrasId == AppWidgetManager.INVALID_APPWIDGET_ID) {
                 int[] ids;
                 try {
@@ -181,8 +183,9 @@ public class TasksWidget extends AppWidgetProvider {
             Filter filter = null;
             try {
                 filter = getFilter(context, widgetId);
-                if (SubtasksHelper.isTagFilter(filter))
+                if (SubtasksHelper.isTagFilter(filter)) {
                     ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(context, TagViewFragment.class); // In case legacy widget was created with subtasks fragment
+                }
                 views.setTextViewText(R.id.widget_title, filter.title);
                 views.removeAllViews(R.id.taskbody);
 
@@ -207,15 +210,17 @@ public class TasksWidget extends AppWidgetProvider {
                     Resources r = context.getResources();
                     int textColor = r
                             .getColor(isDarkTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
-                    if (isLegacyTheme())
+                    if (isLegacyTheme()) {
                         textColor = r.getColor(android.R.color.white);
+                    }
 
                     textContent = task.getValue(Task.TITLE);
 
-                    if (task.isCompleted())
+                    if (task.isCompleted()) {
                         textColor = r.getColor(R.color.task_list_done);
-                    else if (task.hasDueDate() && task.isOverdue())
+                    } else if (task.hasDueDate() && task.isOverdue()) {
                         textColor = r.getColor(R.color.task_list_overdue);
+                    }
 
                     RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
 
@@ -226,8 +231,9 @@ public class TasksWidget extends AppWidgetProvider {
 
                     RemoteViews separator = new RemoteViews(Constants.PACKAGE, R.layout.widget_separator);
                     boolean isLastRow = (i == cursor.getCount() - 1) || (i == numberOfTasks - 1);
-                    if (!isLastRow)
+                    if (!isLastRow) {
                         views.addView(R.id.taskbody, separator);
+                    }
                 }
                 for (; i < numberOfTasks; i++) {
                     RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
@@ -239,8 +245,9 @@ public class TasksWidget extends AppWidgetProvider {
                 // can happen if database is not ready
                 Log.e("WIDGET-UPDATE", "Error updating widget", e);
             } finally {
-                if (cursor != null)
+                if (cursor != null) {
                     cursor.close();
+                }
             }
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
@@ -266,8 +273,9 @@ public class TasksWidget extends AppWidgetProvider {
 
             PendingIntent pListIntent = PendingIntent.getActivity(context, widgetId,
                     listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            if (pListIntent != null)
+            if (pListIntent != null) {
                 views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
+            }
 
 
             Intent editIntent;
@@ -275,8 +283,9 @@ public class TasksWidget extends AppWidgetProvider {
             if (tablet) {
                 editIntent = new Intent(context, TaskListActivity.class);
                 editIntent.putExtra(TaskListActivity.OPEN_TASK, 0L);
-            } else
+            } else {
                 editIntent = new Intent(context, TaskEditActivity.class);
+            }
 
             editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             editIntent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
@@ -376,10 +385,11 @@ public class TasksWidget extends AppWidgetProvider {
             DisplayMetrics metrics = new DisplayMetrics();
             display.getMetrics(metrics);
 
-            if (metrics.density <= 0.75)
+            if (metrics.density <= 0.75) {
                 return 4;
-            else
+            } else {
                 return 5;
+            }
         }
 
         private Filter getFilter(Context context, int widgetId) {
@@ -387,14 +397,17 @@ public class TasksWidget extends AppWidgetProvider {
             // base our filter off the inbox filter, replace stuff if we have it
             Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
             String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
-            if (sql != null)
+            if (sql != null) {
                 filter.setSqlQuery(sql);
+            }
             String title = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-            if (title != null)
+            if (title != null) {
                 filter.title = title;
+            }
             String contentValues = Preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
-            if (contentValues != null)
+            if (contentValues != null) {
                 filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
+            }
 
             String customComponent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                     + widgetId);
@@ -419,20 +432,23 @@ public class TasksWidget extends AppWidgetProvider {
                     Preferences.setString(WidgetConfigActivity.PREF_TITLE + widgetId, filter.title);
                     ContentValues newTaskValues = filter.valuesForNewTasks;
                     String contentValuesString = null;
-                    if (newTaskValues != null)
+                    if (newTaskValues != null) {
                         contentValuesString = AndroidUtilities.contentValuesToSerializedString(newTaskValues);
+                    }
                     Preferences.setString(WidgetConfigActivity.PREF_VALUES + widgetId, contentValuesString);
                     if (filter instanceof FilterWithCustomIntent) {
                         String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filter).customExtras);
-                        if (flattenedExtras != null)
+                        if (flattenedExtras != null) {
                             Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,
                                     flattenedExtras);
+                        }
                     }
                 }
             } else {
                 tagData = tagDataService.getTagByName(filter.title, TagData.ID);
-                if (tagData != null)
+                if (tagData != null) {
                     Preferences.setLong(WidgetConfigActivity.PREF_TAG_ID + widgetId, tagData.getId());
+                }
             }
 
             return filter;

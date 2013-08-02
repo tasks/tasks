@@ -50,25 +50,30 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
             if (TextUtils.isEmpty(uuid)) {
                 if (!TextUtils.isEmpty(taskId)) {
                     Task template = new Task();
-                    if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table))
+                    if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table)) {
                         template.setValue(Task.ATTACHMENTS_PUSHED_AT, pushedAt);
-                    else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
+                    } else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table)) {
                         template.setValue(Task.USER_ACTIVITIES_PUSHED_AT, pushedAt);
+                    }
 
-                    if (template.getSetValues() != null)
+                    if (template.getSetValues() != null) {
                         PluginServices.getTaskDao().update(Task.UUID.eq(taskId), template);
+                    }
 
                 } else if (!TextUtils.isEmpty(tagId)) {
                     TagData template = new TagData();
-                    if (NameMaps.TABLE_ID_TASKS.equals(table))
+                    if (NameMaps.TABLE_ID_TASKS.equals(table)) {
                         template.setValue(TagData.TASKS_PUSHED_AT, pushedAt);
-                    if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
+                    }
+                    if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
                         template.setValue(TagData.METADATA_PUSHED_AT, pushedAt);
-                    else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
+                    } else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table)) {
                         template.setValue(TagData.USER_ACTIVITIES_PUSHED_AT, pushedAt);
+                    }
 
-                    if (template.getSetValues() != null)
+                    if (template.getSetValues() != null) {
                         PluginServices.getTagDataDao().update(TagData.UUID.eq(tagId), template);
+                    }
 
                 } else if (!TextUtils.isEmpty(userId)) {
                     if (NameMaps.TABLE_ID_TASKS.equals(table)) {
@@ -78,21 +83,23 @@ public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage 
                     }
                 } else {
                     String pushedAtKey = null;
-                    if (NameMaps.TABLE_ID_TASKS.equals(table))
+                    if (NameMaps.TABLE_ID_TASKS.equals(table)) {
                         pushedAtKey = NameMaps.PUSHED_AT_TASKS;
-                    else if (NameMaps.TABLE_ID_TAGS.equals(table))
+                    } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
                         pushedAtKey = NameMaps.PUSHED_AT_TAGS;
-                    else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
+                    } else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table)) {
                         pushedAtKey = NameMaps.PUSHED_AT_ACTIVITY;
-                    else if (NameMaps.TABLE_ID_USERS.equals(table))
+                    } else if (NameMaps.TABLE_ID_USERS.equals(table)) {
                         pushedAtKey = NameMaps.PUSHED_AT_USERS;
-                    else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
+                    } else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
                         pushedAtKey = NameMaps.PUSHED_AT_TASK_LIST_METADATA;
-                    else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table))
+                    } else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table)) {
                         pushedAtKey = NameMaps.PUSHED_AT_WAITING_ON_ME;
+                    }
 
-                    if (pushedAtKey != null)
+                    if (pushedAtKey != null) {
                         Preferences.setLong(pushedAtKey, pushedAt);
+                    }
                 }
 
             } else {

@@ -47,16 +47,19 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         ContextManager.setContext(context);
 
         // if we aren't logged in, don't expose features
-        if (!gtasksPreferenceService.isLoggedIn())
+        if (!gtasksPreferenceService.isLoggedIn()) {
             return;
+        }
 
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if (taskId == -1)
+        if (taskId == -1) {
             return;
+        }
 
         String taskDetail = getTaskDetails(taskId);
-        if (taskDetail == null)
+        if (taskDetail == null) {
             return;
+        }
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
@@ -67,17 +70,20 @@ public class GtasksDetailExposer extends BroadcastReceiver {
 
     public String getTaskDetails(long id) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(id);
-        if (metadata == null)
+        if (metadata == null) {
             return null;
+        }
 
         StringBuilder builder = new StringBuilder();
 
         String listId = metadata.getValue(GtasksMetadata.LIST_ID);
-        if (listId == null || listId.equals(Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST)))
+        if (listId == null || listId.equals(Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST))) {
             return null;
+        }
         String listName = gtasksListService.getListName(listId);
-        if (listName == GtasksListService.LIST_NOT_FOUND)
+        if (listName == GtasksListService.LIST_NOT_FOUND) {
             return null;
+        }
 
         builder.append("<img src='gtasks_detail'/> ").append(listName); //$NON-NLS-1$
 

@@ -50,10 +50,11 @@ public class AddOnService {
      * Checks whether power pack should be enabled
      */
     public boolean hasPowerPack() {
-        if (Preferences.getBoolean(PREF_OEM, false))
+        if (Preferences.getBoolean(PREF_OEM, false)) {
             return true;
-        else if (isInstalled(POWER_PACK_PACKAGE, true))
+        } else if (isInstalled(POWER_PACK_PACKAGE, true)) {
             return true;
+        }
         return false;
     }
 
@@ -61,10 +62,11 @@ public class AddOnService {
      * Checks whether locale plugin should be enabled
      */
     public boolean hasLocalePlugin() {
-        if (Preferences.getBoolean(PREF_OEM, false))
+        if (Preferences.getBoolean(PREF_OEM, false)) {
             return true;
-        else if (isInstalled(LOCALE_PACKAGE, true))
+        } else if (isInstalled(LOCALE_PACKAGE, true)) {
             return true;
+        }
         return false;
     }
 
@@ -83,8 +85,9 @@ public class AddOnService {
      */
     public boolean isInstalled(AddOn addOn) {
         // it isnt installed if it is null...
-        if (addOn == null)
+        if (addOn == null) {
             return false;
+        }
         return isInstalled(addOn.getPackageName(), addOn.isInternal());
     }
 
@@ -106,16 +109,19 @@ public class AddOnService {
      * @return
      */
     private boolean isInstalled(String packageName, boolean internal) {
-        if (Constants.PACKAGE.equals(packageName))
+        if (Constants.PACKAGE.equals(packageName)) {
             return true;
+        }
 
         Context context = ContextManager.getContext();
 
         String packageSignature = AndroidUtilities.getSignature(context, packageName);
-        if (packageSignature == null)
+        if (packageSignature == null) {
             return false;
-        if (!internal)
+        }
+        if (!internal) {
             return true;
+        }
 
         String astridSignature = AndroidUtilities.getSignature(context, Constants.PACKAGE);
         return packageSignature.equals(astridSignature);
@@ -129,8 +135,9 @@ public class AddOnService {
      * @return the addon-descriptor, if it is available (registered here in getAddOns), otherwise null
      */
     public AddOn getAddOn(String packageName, String title) {
-        if (title == null || packageName == null)
+        if (title == null || packageName == null) {
             return null;
+        }
 
         AddOn addon = null;
         AddOn[] addons = getAddOns();
@@ -152,17 +159,19 @@ public class AddOnService {
 
         // temporary temporary
         ArrayList<AddOn> list = new ArrayList<AddOn>(3);
-        if (Constants.MARKET_STRATEGY.includesPowerPack())
+        if (Constants.MARKET_STRATEGY.includesPowerPack()) {
             list.add(new AddOn(false, true, r.getString(R.string.AOA_ppack_title), null,
                     r.getString(R.string.AOA_ppack_description),
                     POWER_PACK_PACKAGE,
                     ((BitmapDrawable) r.getDrawable(R.drawable.icon_pp)).getBitmap()));
+        }
 
-        if (Constants.MARKET_STRATEGY.includesLocalePlugin())
+        if (Constants.MARKET_STRATEGY.includesLocalePlugin()) {
             list.add(new AddOn(false, true, r.getString(R.string.AOA_locale_title), null,
                     r.getString(R.string.AOA_locale_description),
                     LOCALE_PACKAGE,
                     ((BitmapDrawable) r.getDrawable(R.drawable.icon_locale)).getBitmap()));
+        }
 
         return list.toArray(new AddOn[list.size()]);
     }

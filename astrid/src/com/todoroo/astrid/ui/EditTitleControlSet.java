@@ -119,8 +119,9 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
         int[] resourceArray = isRepeating ? (checked ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES)
                 : (checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES);
         int valueToUse = importanceValue;
-        if (valueToUse >= resourceArray.length)
+        if (valueToUse >= resourceArray.length) {
             valueToUse = resourceArray.length - 1;
+        }
         if (valueToUse < resourceArray.length) {
             if (isRepeating) {
                 completeBox.setImageResource(resourceArray[valueToUse]);
@@ -129,10 +130,11 @@ public class EditTitleControlSet extends TaskEditControlSet implements Importanc
             }
         }
 
-        if (checked)
+        if (checked) {
             editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        else
+        } else {
             editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        }
     }
 
 }

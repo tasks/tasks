@@ -52,8 +52,9 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
     public ContentResolverDao(Class<TYPE> modelClass, Context context, Uri baseUri) {
         DependencyInjectionService.getInstance().inject(this);
         this.modelClass = modelClass;
-        if (debug == null)
+        if (debug == null) {
             debug = false;
+        }
         this.baseUri = baseUri;
 
         cr = context.getContentResolver();
@@ -96,8 +97,9 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
      * @return
      */
     public TodorooCursor<TYPE> query(Query query) {
-        if (debug)
+        if (debug) {
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
+        }
         Cursor cursor = query.queryContentResolver(cr, baseUri);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
     }
@@ -111,10 +113,12 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
     public boolean save(TYPE model) {
         writeTransitoriesToModelContentValues(model);
         if (model.isSaved()) {
-            if (model.getSetValues() == null)
+            if (model.getSetValues() == null) {
                 return false;
-            if (cr.update(uriWithId(model.getId()), model.getSetValues(), null, null) != 0)
+            }
+            if (cr.update(uriWithId(model.getId()), model.getSetValues(), null, null) != 0) {
                 return true;
+            }
         }
         Uri uri = cr.insert(baseUri, model.getMergedValues());
         long id = Long.parseLong(uri.getLastPathSegment());
@@ -149,8 +153,9 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
         TodorooCursor<TYPE> cursor = query(
                 Query.select(properties).where(AbstractModel.ID_PROPERTY.eq(id)));
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return null;
+            }
             cursor.moveToFirst();
             Constructor<TYPE> constructor = modelClass.getConstructor(TodorooCursor.class);
             return constructor.newInstance(cursor);

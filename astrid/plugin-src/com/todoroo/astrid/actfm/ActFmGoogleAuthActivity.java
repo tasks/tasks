@@ -72,8 +72,9 @@ public class ActFmGoogleAuthActivity extends ListActivity {
         accountManager = new GoogleAccountManager(this);
         Account[] accounts = accountManager.getAccounts();
         ArrayList<String> accountNames = new ArrayList<String>();
-        for (Account a : accounts)
+        for (Account a : accounts) {
             accountNames.add(a.name);
+        }
 
         nameArray = accountNames.toArray(new String[accountNames.size()]);
         setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameArray));
@@ -132,8 +133,9 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                                 }
                             });
                         } finally {
-                            if (dismissDialog)
+                            if (dismissDialog) {
                                 DialogUtilities.dismissDialog(ActFmGoogleAuthActivity.this, pd);
+                            }
                         }
                     }
                 }.start();

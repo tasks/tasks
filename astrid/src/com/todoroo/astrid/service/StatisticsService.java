@@ -26,8 +26,9 @@ public class StatisticsService {
      * @param context
      */
     public static void sessionStart(Context context) {
-        if (dontCollectStatistics())
+        if (dontCollectStatistics()) {
             return;
+        }
 
         if (localyticsSession != null) {
             localyticsSession.open(); // Multiple calls to open are ok, we just need to make sure it gets reopened after pause
@@ -38,8 +39,9 @@ public class StatisticsService {
             localyticsSession.upload();
         }
 
-        if (context instanceof Activity)
+        if (context instanceof Activity) {
             localyticsSession.tagScreen(context.getClass().getSimpleName());
+        }
     }
 
     /**
@@ -48,19 +50,22 @@ public class StatisticsService {
      * @param context
      */
     public static void sessionStop(Context context) {
-        if (dontCollectStatistics())
+        if (dontCollectStatistics()) {
             return;
+        }
 
-        if (localyticsSession != null)
+        if (localyticsSession != null) {
             localyticsSession.upload();
+        }
     }
 
     /**
      * Indicate session was paused
      */
     public static void sessionPause() {
-        if (dontCollectStatistics())
+        if (dontCollectStatistics()) {
             return;
+        }
 
         if (localyticsSession != null) {
             localyticsSession.close();
@@ -84,19 +89,22 @@ public class StatisticsService {
      * @param event
      */
     public static void reportEvent(String event, String... attributes) {
-        if (dontCollectStatistics())
+        if (dontCollectStatistics()) {
             return;
+        }
 
         if (localyticsSession != null) {
             if (attributes.length > 0) {
                 HashMap<String, String> attrMap = new HashMap<String, String>();
                 for (int i = 1; i < attributes.length; i += 2) {
-                    if (attributes[i] != null)
+                    if (attributes[i] != null) {
                         attrMap.put(attributes[i - 1], attributes[i]);
+                    }
                 }
                 localyticsSession.tagEvent(event, attrMap);
-            } else
+            } else {
                 localyticsSession.tagEvent(event);
+            }
         }
     }
 

@@ -80,9 +80,10 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         boolean useCustomFilters = Preferences.getBoolean(R.string.p_use_filters, true);
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
         TodorooCursor<StoreObject> cursor = null;
-        if (useCustomFilters)
+        if (useCustomFilters) {
             cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                     StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
+        }
         try {
             ArrayList<Filter> list = new ArrayList<Filter>();
 
@@ -100,8 +101,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 list.add(recent);
             }
 
-            if (Preferences.getBoolean(R.string.p_show_ive_assigned_filter, true))
+            if (Preferences.getBoolean(R.string.p_show_ive_assigned_filter, true)) {
                 list.add(getAssignedByMeFilter(r));
+            }
 
             if (useCustomFilters && cursor != null) {
                 StoreObject savedFilter = new StoreObject();
@@ -122,8 +124,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
 
             return list.toArray(new Filter[list.size()]);
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
     }
 
@@ -184,8 +187,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
 
     @Override
     public FilterListItem[] getFilters() {
-        if (ContextManager.getContext() == null)
+        if (ContextManager.getContext() == null) {
             return null;
+        }
 
         return prepareFilters(ContextManager.getContext());
     }

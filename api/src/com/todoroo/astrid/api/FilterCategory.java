@@ -75,10 +75,11 @@ public class FilterCategory extends FilterListItem {
                     FilterCategory.class.getClassLoader());
             item.children = new Filter[parcelableChildren.length];
             for (int i = 0; i < item.children.length; i++) {
-                if (parcelableChildren[i] instanceof FilterListItem)
+                if (parcelableChildren[i] instanceof FilterListItem) {
                     item.children[i] = (Filter) parcelableChildren[i];
-                else
+                } else {
                     item.children[i] = null;
+                }
             }
 
             return item;

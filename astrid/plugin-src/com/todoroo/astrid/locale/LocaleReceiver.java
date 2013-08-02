@@ -53,8 +53,9 @@ public class LocaleReceiver extends BroadcastReceiver {
 
         try {
             if (com.twofortyfouram.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
-                if (!PluginServices.getAddOnService().hasLocalePlugin())
+                if (!PluginServices.getAddOnService().hasLocalePlugin()) {
                     return;
+                }
 
                 final Bundle forwardedBundle = intent.getBundleExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE);
 
@@ -64,8 +65,9 @@ public class LocaleReceiver extends BroadcastReceiver {
                 final int interval = forwardedBundle.getInt(LocaleEditAlerts.KEY_INTERVAL, 24 * 3600);
 
                 if (TextUtils.isEmpty(title) || TextUtils.isEmpty(sql) ||
-                        sql.contains("--") || sql.contains(";") || interval == 0)
+                        sql.contains("--") || sql.contains(";") || interval == 0) {
                     return;
+                }
 
                 // check if we've already made a notification recently
                 String preferenceKey = makePreferenceKey(title, interval);
@@ -82,11 +84,13 @@ public class LocaleReceiver extends BroadcastReceiver {
                 TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(
                         sql, null, Task.ID);
                 try {
-                    if (cursor.getCount() == 0)
+                    if (cursor.getCount() == 0) {
                         return;
+                    }
 
-                    if (values != null)
+                    if (values != null) {
                         filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(values);
+                    }
 
                     Resources r = context.getResources();
                     String reminder = r.getString(R.string.locale_notification).

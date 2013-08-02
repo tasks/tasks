@@ -67,8 +67,9 @@ public class EmptyTitleOutstandingEntryMigration {
         } catch (Exception e) {
             Log.e(ERROR_TAG, "Unhandled exception", e); //$NON-NLS-1$
         } finally {
-            if (outstandingWithTitle != null)
+            if (outstandingWithTitle != null) {
                 outstandingWithTitle.close();
+            }
         }
     }
 

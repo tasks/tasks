@@ -168,8 +168,9 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                 ((Activity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (showSyncToast)
+                        if (showSyncToast) {
                             makeSyncToast(context);
+                        }
                     }
                 });
             }
@@ -221,8 +222,9 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         length = data.remoteUpdated.size();
         for (int i = 0; i < length; i++) {
             TYPE remote = data.remoteUpdated.get(i);
-            if (remote.task.getId() != Task.NO_ID)
+            if (remote.task.getId() != Task.NO_ID) {
                 continue;
+            }
             remoteNewTaskNameMap.put(remote.task.getValue(Task.TITLE), i);
         }
 
@@ -239,10 +241,11 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     @SuppressWarnings("nls")
     protected String getFinalSyncStatus() {
         if (getUtilities().getLastError() != null || getUtilities().getLastAttemptedSyncDate() != 0) {
-            if (getUtilities().getLastAttemptedSyncDate() == 0)
+            if (getUtilities().getLastAttemptedSyncDate() == 0) {
                 return "errors";
-            else
+            } else {
                 return "failed";
+            }
         } else {
             return "success";
         }
@@ -261,22 +264,25 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
             private final int check(TYPE o1, TYPE o2, LongProperty property) {
                 long o1Property = o1.task.getValue(property);
                 long o2Property = o2.task.getValue(property);
-                if (o1Property != 0 && o2Property != 0)
+                if (o1Property != 0 && o2Property != 0) {
                     return 0;
-                else if (o1Property != 0)
+                } else if (o1Property != 0) {
                     return -1;
-                else if (o2Property != 0)
+                } else if (o2Property != 0) {
                     return 1;
+                }
                 return SENTINEL;
             }
 
             public int compare(TYPE o1, TYPE o2) {
                 int comparison = check(o1, o2, Task.DELETION_DATE);
-                if (comparison != SENTINEL)
+                if (comparison != SENTINEL) {
                     return comparison;
+                }
                 comparison = check(o1, o2, Task.COMPLETION_DATE);
-                if (comparison != SENTINEL)
+                if (comparison != SENTINEL) {
                     return comparison;
+                }
                 return 0;
             }
         });
@@ -286,8 +292,9 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
             TYPE remote = data.remoteUpdated.get(i);
 
             // don't synchronize new & deleted tasks
-            if (!remote.task.isSaved() && (remote.task.isDeleted()))
+            if (!remote.task.isSaved() && (remote.task.isDeleted())) {
                 continue;
+            }
 
             try {
                 write(remote);
@@ -304,8 +311,9 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
             data.localUpdated.moveToNext();
             TYPE local = read(data.localUpdated);
             try {
-                if (local.task == null)
+                if (local.task == null) {
                     continue;
+                }
 
                 // if there is a conflict, merge
                 int remoteIndex = matchTask((ArrayList<TYPE>) data.remoteUpdated, local);

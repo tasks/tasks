@@ -60,8 +60,9 @@ public class FileUtilities {
         filePathBuilder.append(dir)
                 .append(File.separator)
                 .append(name);
-        if (nameReference != null)
+        if (nameReference != null) {
             nameReference.set(name);
+        }
 
         return filePathBuilder.toString();
     }
@@ -69,11 +70,13 @@ public class FileUtilities {
     public static File getAttachmentsDirectory(Context context) {
         File directory = null;
         String customDir = Preferences.getStringValue(TaskAttachment.FILES_DIRECTORY_PREF);
-        if (!TextUtils.isEmpty(customDir))
+        if (!TextUtils.isEmpty(customDir)) {
             directory = new File(customDir);
+        }
 
-        if (directory == null || !directory.exists())
+        if (directory == null || !directory.exists()) {
             directory = context.getExternalFilesDir(TaskAttachment.FILES_DIRECTORY_DEFAULT);
+        }
 
         return directory;
     }

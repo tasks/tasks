@@ -129,8 +129,9 @@ public class VoiceInputAssistant {
      */
     public VoiceInputAssistant(ImageButton voiceButton, int requestCode) {
         this(voiceButton);
-        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
+        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
             throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
+        }
         this.requestCode = requestCode;
     }
 
@@ -165,8 +166,9 @@ public class VoiceInputAssistant {
      */
     public VoiceInputAssistant(Activity activity, ImageButton voiceButton, int requestCode) {
         this(activity, voiceButton);
-        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
+        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
             throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
+        }
         this.requestCode = requestCode;
     }
 
@@ -182,12 +184,13 @@ public class VoiceInputAssistant {
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, ContextManager.getContext().getString(prompt));
         String detailMessage = "Error! No Fragment or Activity was registered to handle this voiceinput-request!";
-        if (activity != null)
+        if (activity != null) {
             activity.startActivityForResult(intent, requestCode);
-        else if (fragment != null)
+        } else if (fragment != null) {
             fragment.startActivityForResult(intent, requestCode);
-        else
+        } else {
             Log.e("Astrid VoiceInputAssistant", detailMessage, new IllegalStateException(detailMessage));
+        }
     }
 
     /**
@@ -223,10 +226,11 @@ public class VoiceInputAssistant {
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
                             recognizedSpeech.substring(1).toLowerCase();
 
-                    if (append)
+                    if (append) {
                         textField.setText((textField.getText() + " " + recognizedSpeech).trim());
-                    else
+                    } else {
                         textField.setText(recognizedSpeech);
+                    }
                 }
             }
         }
@@ -278,17 +282,19 @@ public class VoiceInputAssistant {
 
     public void showVoiceInputMarketSearch(DialogInterface.OnClickListener onFail) {
         String packageName;
-        if (AndroidUtilities.getSdkVersion() <= 7)
+        if (AndroidUtilities.getSdkVersion() <= 7) {
             packageName = "com.google.android.voicesearch.x";
-        else
+        } else {
             packageName = "com.google.android.voicesearch";
+        }
 
         // User wants to install voice search, take them to the market
         Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
         if (activity != null) {
             try {
-                if (marketIntent == null)
+                if (marketIntent == null) {
                     throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
+                }
                 activity.startActivity(marketIntent);
             } catch (ActivityNotFoundException ane) {
                 DialogUtilities.okDialog(activity,

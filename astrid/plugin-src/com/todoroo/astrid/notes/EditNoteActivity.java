@@ -136,11 +136,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (task == null)
+                            if (task == null) {
                                 return;
+                            }
                             fetchTask(task.getId());
-                            if (task == null)
+                            if (task == null) {
                                 return;
+                            }
                             setUpListAdapter();
                             loadingText.setText(R.string.ENA_no_comments);
                             loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
@@ -219,8 +221,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 refreshData();
             } else {
                 loadingText.setText(R.string.ENA_no_comments);
-                if (items.size() == 0)
+                if (items.size() == 0) {
                     loadingText.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -257,9 +260,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             public void afterTextChanged(Editable s) {
                 commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
                         : View.GONE);
-                if (showTimerShortcut)
+                if (showTimerShortcut) {
                     timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
                             : View.VISIBLE);
+                }
             }
 
             @Override
@@ -301,10 +305,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         pictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pendingCommentPicture != null)
+                if (pendingCommentPicture != null) {
                     ActFmCameraModule.showPictureLauncher(fragment, clearImage);
-                else
+                } else {
                     ActFmCameraModule.showPictureLauncher(fragment, null);
+                }
                 respondToPicture = true;
             }
         });
@@ -374,8 +379,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     noa = NoteOrUpdate.fromUpdateOrHistory(activity, null, history, user, linkColor);
                     historyCount++;
                 }
-                if (noa != null)
+                if (noa != null) {
                     items.add(noa);
+                }
             }
         } finally {
             updates.close();
@@ -384,12 +390,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
             @Override
             public int compare(NoteOrUpdate a, NoteOrUpdate b) {
-                if (a.createdAt < b.createdAt)
+                if (a.createdAt < b.createdAt) {
                     return 1;
-                else if (a.createdAt == b.createdAt)
+                } else if (a.createdAt == b.createdAt) {
                     return 0;
-                else
+                } else {
                     return -1;
+                }
             }
         });
 
@@ -408,9 +415,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     // Perform action on click
                     commentItems += 10;
                     setUpListAdapter();
-                    if (task.getValue(Task.HISTORY_HAS_MORE) > 0)
+                    if (task.getValue(Task.HISTORY_HAS_MORE) > 0) {
                         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
                                 task.getUuid(), task.getValue(Task.TITLE), 0, historyCount, callback).execute();
+                    }
                 }
             });
             this.addView(loadMore);
@@ -456,10 +464,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         final TextView nameView = (TextView) view.findViewById(R.id.title);
         {
             nameView.setText(item.title);
-            if (NameMaps.TABLE_ID_HISTORY.equals(item.type))
+            if (NameMaps.TABLE_ID_HISTORY.equals(item.type)) {
                 nameView.setTextColor(grayColor);
-            else
+            } else {
                 nameView.setTextColor(color);
+            }
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 
@@ -528,21 +537,25 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         userActivity.setValue(UserActivity.CREATED_AT, DateUtilities.now());
         if (usePicture && pendingCommentPicture != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(activity, pendingCommentPicture);
-            if (pictureJson != null)
+            if (pictureJson != null) {
                 userActivity.setValue(UserActivity.PICTURE, pictureJson.toString());
+            }
         }
 
         userActivityDao.createNew(userActivity);
-        if (commentField != null)
+        if (commentField != null) {
             commentField.setText(""); //$NON-NLS-1$
+        }
 
         pendingCommentPicture = usePicture ? null : pendingCommentPicture;
         if (usePicture) {
-            if (activity != null)
+            if (activity != null) {
                 activity.getIntent().removeExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
+            }
         }
-        if (pictureButton != null)
+        if (pictureButton != null) {
             pictureButton.setImageResource(cameraButton);
+        }
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
         setUpListAdapter();
@@ -576,10 +589,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         public static NoteOrUpdate fromMetadata(Metadata m) {
-            if (!m.containsNonNullValue(NoteMetadata.THUMBNAIL))
+            if (!m.containsNonNullValue(NoteMetadata.THUMBNAIL)) {
                 m.setValue(NoteMetadata.THUMBNAIL, ""); //$NON-NLS-1$
-            if (!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE))
+            }
+            if (!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE)) {
                 m.setValue(NoteMetadata.COMMENT_PICTURE, ""); //$NON-NLS-1$
+            }
             Spanned title = Html.fromHtml(String.format("%s\n%s", m.getValue(NoteMetadata.TITLE), m.getValue(NoteMetadata.BODY))); //$NON-NLS-1$
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     title,
@@ -601,17 +616,20 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             if (u != null) {
                 pictureThumb = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
                 pictureFull = u.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
-                if (TextUtils.isEmpty(pictureThumb))
+                if (TextUtils.isEmpty(pictureThumb)) {
                     commentBitmap = u.getPictureBitmap(UserActivity.PICTURE);
+                }
                 title = UpdateAdapter.getUpdateComment(context, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
                 userImage = ""; //$NON-NLS-1$
-                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
+                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
                     userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+                }
                 createdAt = u.getValue(UserActivity.CREATED_AT);
                 type = NameMaps.TABLE_ID_USER_ACTIVITY;
             } else {
-                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE))
+                if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
                     userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
+                }
                 title = new SpannableString(UpdateAdapter.getHistoryComment(context, history, user, linkColor, UpdateAdapter.FROM_TASK_VIEW));
                 createdAt = history.getValue(History.CREATED_AT);
                 type = NameMaps.TABLE_ID_HISTORY;
@@ -633,8 +651,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     public void removeListener(UpdatesChangedListener listener) {
-        if (listeners.contains(listener))
+        if (listeners.contains(listener)) {
             listeners.remove(listener);
+        }
     }
 
     @Override

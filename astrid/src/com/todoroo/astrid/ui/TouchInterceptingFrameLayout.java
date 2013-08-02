@@ -26,8 +26,9 @@ public class TouchInterceptingFrameLayout extends FrameLayout {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (mListener != null && mListener.didInterceptTouch(event))
+        if (mListener != null && mListener.didInterceptTouch(event)) {
             return true;
+        }
         return super.dispatchKeyEvent(event);
     }
 

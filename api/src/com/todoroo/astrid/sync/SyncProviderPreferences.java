@@ -86,8 +86,9 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             @Override
             public void onChildViewAdded(View parent, View child) {
                 View view = findViewById(R.id.status);
-                if (view != null)
+                if (view != null) {
                     view.setBackgroundColor(statusColor);
+                }
             }
         });
     }
@@ -105,12 +106,13 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             int index = AndroidUtilities.indexOf(
                     r.getStringArray(R.array.sync_SPr_interval_values),
                     (String) value);
-            if (index <= 0)
+            if (index <= 0) {
                 preference.setSummary(R.string.sync_SPr_interval_desc_disabled);
-            else
+            } else {
                 preference.setSummary(r.getString(
                         R.string.sync_SPr_interval_desc,
                         r.getStringArray(R.array.sync_SPr_interval_entries)[index]));
+            }
         }
 
         // status
@@ -171,8 +173,9 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             });
 
             View view = findViewById(R.id.status);
-            if (view != null)
+            if (view != null) {
                 view.setBackgroundColor(statusColor);
+            }
         } else if (r.getString(R.string.sync_SPr_key_last_error).equals(preference.getKey())) {
             if (getUtilities().getLastError() != null) {
                 // Display error
@@ -266,8 +269,9 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                 break;
             }
         }
-        if (resource == null)
+        if (resource == null) {
             return lastError;
+        }
         return r.getString(resource.intValue(), service);
     }
 

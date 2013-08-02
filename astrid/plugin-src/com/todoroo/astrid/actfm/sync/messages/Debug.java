@@ -15,8 +15,9 @@ public class Debug extends ServerToClientMessage {
     @SuppressWarnings("nls")
     public void processMessage(String serverTime) {
         String message = json.optString("message");
-        if (!TextUtils.isEmpty(message))
+        if (!TextUtils.isEmpty(message)) {
             Log.w("actfm-debug-message", message);
+        }
     }
 
 }

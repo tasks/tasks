@@ -188,24 +188,29 @@ public class TaskApiDao extends ContentResolverDao<Task> {
      * @return true if task change shouldn't be broadcast
      */
     public static boolean insignificantChange(ContentValues values) {
-        if (values == null || values.size() == 0)
+        if (values == null || values.size() == 0) {
             return true;
+        }
 
         if (values.containsKey(Task.DETAILS_DATE.name) &&
-                values.size() <= 3)
+                values.size() <= 3) {
             return true;
+        }
 
         if (values.containsKey(Task.REMINDER_LAST.name) &&
-                values.size() <= 2)
+                values.size() <= 2) {
             return true;
+        }
 
         if (values.containsKey(Task.REMINDER_SNOOZE.name) &&
-                values.size() <= 2)
+                values.size() <= 2) {
             return true;
+        }
 
         if (values.containsKey(Task.TIMER_START.name) &&
-                values.size() <= 2)
+                values.size() <= 2) {
             return true;
+        }
 
         return false;
     }

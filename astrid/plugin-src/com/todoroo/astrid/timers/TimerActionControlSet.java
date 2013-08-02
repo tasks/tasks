@@ -41,10 +41,11 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     @Override
     protected void readFromTaskOnInitialize() {
-        if (model.getValue(Task.TIMER_START) == 0)
+        if (model.getValue(Task.TIMER_START) == 0) {
             timerActive = false;
-        else
+        } else {
             timerActive = true;
+        }
 
         updateDisplay();
     }
@@ -66,13 +67,15 @@ public class TimerActionControlSet extends TaskEditControlSet {
             if (timerActive) {
                 TimerPlugin.updateTimer(activity, model, false);
 
-                for (TimerActionListener listener : listeners)
+                for (TimerActionListener listener : listeners) {
                     listener.timerStopped(model);
+                }
                 chronometer.stop();
             } else {
                 TimerPlugin.updateTimer(activity, model, true);
-                for (TimerActionListener listener : listeners)
+                for (TimerActionListener listener : listeners) {
                     listener.timerStarted(model);
+                }
                 chronometer.start();
             }
             timerActive = !timerActive;
@@ -122,7 +125,8 @@ public class TimerActionControlSet extends TaskEditControlSet {
     }
 
     public void removeListener(TimerActionListener listener) {
-        if (listeners.contains(listener))
+        if (listeners.contains(listener)) {
             listeners.remove(listener);
+        }
     }
 }

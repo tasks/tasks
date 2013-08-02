@@ -61,7 +61,9 @@ public class GtasksListAdder extends Activity {
                                 GtasksInvoker service = new GtasksInvoker(token);
                                 String title = editText.getText().toString();
                                 if (TextUtils.isEmpty(title)) //Don't create a list without a title
+                                {
                                     return;
+                                }
                                 StoreObject newList = gtasksListService.addNewList(service.createGtaskList(title));
                                 if (newList != null) {
                                     FilterWithCustomIntent listFilter = (FilterWithCustomIntent) GtasksFilterExposer.filterFromList(activity, newList);

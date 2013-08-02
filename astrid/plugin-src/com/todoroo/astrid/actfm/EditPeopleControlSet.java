@@ -164,8 +164,9 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task sourceTask) {
         setTask(sourceTask);
-        if (!dontClearAssignedCustom)
+        if (!dontClearAssignedCustom) {
             assignedCustom.setText(""); //$NON-NLS-1$
+        }
         dontClearAssignedCustom = false;
         setUpData(task, null);
     }
@@ -303,8 +304,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                             .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
             boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true) && contactPickerAvailable();
-            if (addContactPicker)
+            if (addContactPicker) {
                 coreUsers.add(contactsIndex, contactPickerUser);
+            }
 
             if (assignedIndex == 0) {
                 assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);
@@ -354,8 +356,9 @@ public class EditPeopleControlSet extends PopupControlSet {
             return Long.toString(value);
         } catch (JSONException e) {
             String value = obj.optString("id"); //$NON-NLS-1$
-            if (TextUtils.isEmpty(value))
+            if (TextUtils.isEmpty(value)) {
                 value = defaultValue;
+            }
             return value;
         }
     }
@@ -366,23 +369,28 @@ public class EditPeopleControlSet extends PopupControlSet {
         ArrayList<AssignedToUser> users = new ArrayList<AssignedToUser>();
         for (int i = 0; i < jsonUsers.size(); i++) {
             JSONObject person = jsonUsers.get(i);
-            if (person == null)
+            if (person == null) {
                 continue;
+            }
             String id = getLongOrStringId(person, Task.USER_ID_EMAIL);
-            if (ActFmPreferenceService.userId().equals(id) || ((Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id)))
+            if (ActFmPreferenceService.userId().equals(id) || ((Task.USER_ID_UNASSIGNED.equals(id) || Task.isRealUserId(id)) && userIds.contains(id))) {
                 continue;
+            }
             userIds.add(id);
 
             String email = person.optString("email");
-            if (!TextUtils.isEmpty(email) && emails.contains(email))
+            if (!TextUtils.isEmpty(email) && emails.contains(email)) {
                 continue;
+            }
             emails.add(email);
 
             String name = person.optString("name");
-            if (Task.USER_ID_SELF.equals(id))
+            if (Task.USER_ID_SELF.equals(id)) {
                 name = activity.getString(R.string.actfm_EPA_assign_me);
-            if (Task.USER_ID_UNASSIGNED.equals(id))
+            }
+            if (Task.USER_ID_UNASSIGNED.equals(id)) {
                 name = activity.getString(R.string.actfm_EPA_unassigned);
+            }
 
             AssignedToUser atu = new AssignedToUser(name, person);
             users.add(atu);
@@ -392,15 +400,18 @@ public class EditPeopleControlSet extends PopupControlSet {
                     user.label += " (" + user.user.optString("email") + ")";
                     names.put(name, null);
                 }
-                if (!TextUtils.isEmpty(email))
+                if (!TextUtils.isEmpty(email)) {
                     atu.label += " (" + email + ")";
+                }
             } else if (TextUtils.isEmpty(name) || "null".equals(name)) {
-                if (!TextUtils.isEmpty(email))
+                if (!TextUtils.isEmpty(email)) {
                     atu.label = email;
-                else
+                } else {
                     users.remove(atu);
-            } else
+                }
+            } else {
                 names.put(name, atu);
+            }
         }
         return users;
     }
@@ -445,8 +456,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                     }
                     if (getLongOrStringId(user, Task.USER_ID_EMAIL).equals(assignedId) ||
                             (user.optString("email").equals(assignedEmail) &&
-                                    !(TextUtils.isEmpty(assignedEmail))))
+                                    !(TextUtils.isEmpty(assignedEmail)))) {
                         return index;
+                    }
                 }
                 index++;
             }
@@ -490,8 +502,9 @@ public class EditPeopleControlSet extends PopupControlSet {
         @SuppressWarnings("nls")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null)
+            if (convertView == null) {
                 convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
+            }
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
             if (assignedList.getCheckedItemPosition() == position + positionOffset) {
@@ -581,8 +594,9 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @Override
     public String writeToModel(Task t) {
-        if (initialized && dialog != null)
+        if (initialized && dialog != null) {
             dialog.dismiss();
+        }
         // do nothing else, we use a separate method
         return null;
     }
@@ -610,8 +624,9 @@ public class EditPeopleControlSet extends PopupControlSet {
      */
     @SuppressWarnings("nls")
     public boolean saveSharingSettings(String toast) {
-        if (task == null)
+        if (task == null) {
             return false;
+        }
 
         boolean dirty = false;
         try {
@@ -621,8 +636,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                 userJson = PeopleContainer.createUserJson(assignedCustom);
                 assignedView = assignedCustom;
             } else {
-                if (!loadedUI || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION)
+                if (!loadedUI || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
                     return true;
+                }
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
                     if (item.equals(contactPickerUser)) { //don't want to ever set the user as the fake contact picker user
@@ -634,9 +650,10 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             if (userJson != null) {
                 String email = userJson.optString("email");
-                if (!TextUtils.isEmpty(email) && email.indexOf('@') == -1)
+                if (!TextUtils.isEmpty(email) && email.indexOf('@') == -1) {
                     throw new ParseSharedException(assignedView,
                             activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
+                }
             }
 
             if (userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
@@ -659,8 +676,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                 } catch (JSONException e) {
                     // sad times
                     taskUserId = task.getValue(Task.USER_ID);
-                    if (Task.userIdIsEmail(taskUserId))
+                    if (Task.userIdIsEmail(taskUserId)) {
                         taskUserEmail = taskUserId;
+                    }
                 }
                 String userId = getLongOrStringId(userJson, Task.USER_ID_EMAIL);
                 String userEmail = userJson.optString("email");
@@ -671,8 +689,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                 dirty = match ? dirty : true;
                 String willAssignToId = getLongOrStringId(userJson, Task.USER_ID_EMAIL);
                 task.setValue(Task.USER_ID, willAssignToId);
-                if (Task.USER_ID_EMAIL.equals(task.getValue(Task.USER_ID)))
+                if (Task.USER_ID_EMAIL.equals(task.getValue(Task.USER_ID))) {
                     task.setValue(Task.USER_ID, userEmail);
+                }
                 task.setValue(Task.USER, "");
             }
 
@@ -702,10 +721,11 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             task.putTransitory(TaskService.TRANS_ASSIGNED, true);
 
-            if (assignedView == assignedCustom)
+            if (assignedView == assignedCustom) {
                 StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_EMAIL);
-            else if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+            } else if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF) {
                 StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_PICKER);
+            }
 
             return true;
         } catch (ParseSharedException e) {
@@ -740,14 +760,16 @@ public class EditPeopleControlSet extends PopupControlSet {
             userJson = PeopleContainer.createUserJson(assignedCustom);
         } else {
             if (!hasLoadedUI() || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
-                if (task != null)
+                if (task != null) {
                     return task.getValue(Task.USER_ID) == Task.USER_ID_SELF;
-                else
+                } else {
                     return true;
+                }
             }
             AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
-            if (item != null)
+            if (item != null) {
                 userJson = item.user;
+            }
         }
 
         if (userJson == null || Task.USER_ID_SELF.equals(getLongOrStringId(userJson, Task.USER_ID_EMAIL))) {
@@ -800,8 +822,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                     assignedCustom.setText(email);
                     dontClearAssignedCustom = true;
                     refreshDisplayView();
-                    if (dialog != null)
+                    if (dialog != null) {
                         dialog.dismiss();
+                    }
                 } else {
                     DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
                 }
@@ -819,8 +842,9 @@ public class EditPeopleControlSet extends PopupControlSet {
             displayString = activity.getString(R.string.TEA_assigned_to, assignedCustom.getText());
         } else {
             AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
-            if (user == null)
+            if (user == null) {
                 user = (AssignedToUser) assignedList.getAdapter().getItem(0);
+            }
 
             String id = getLongOrStringId(user.user, Task.USER_ID_IGNORE);
             if (Task.USER_ID_UNASSIGNED.equals(id)) {
@@ -828,8 +852,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                 displayString = activity.getString(R.string.actfm_EPA_unassigned);
             } else {
                 String userString = user.toString();
-                if (Task.USER_ID_SELF.equals(id))
+                if (Task.USER_ID_SELF.equals(id)) {
                     userString = userString.toLowerCase();
+                }
                 displayString = activity.getString(R.string.TEA_assigned_to, userString);
             }
 
@@ -838,10 +863,11 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         assignedDisplay.setTextColor(unassigned ? unsetColor : themeColor);
         assignedDisplay.setText(displayString);
-        if (unassigned)
+        if (unassigned) {
             image.setImageResource(R.drawable.tea_icn_assign_gray);
-        else
+        } else {
             image.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_assign, R.drawable.tea_icn_assign_lightblue));
+        }
     }
 
     @Override

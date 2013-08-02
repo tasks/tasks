@@ -51,8 +51,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     @Override
     public boolean shouldShowToast() {
-        if (Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true))
+        if (Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true)) {
             return false;
+        }
         return super.shouldShowToast();
     }
 
@@ -61,10 +62,11 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     @Override
     public void setToken(String setting) {
         super.setToken(setting);
-        if (TextUtils.isEmpty(setting))
+        if (TextUtils.isEmpty(setting)) {
             RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_FLAG_UNINITIALIZED);
-        else
+        } else {
             RemoteModelDao.setOutstandingEntryFlags(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES | RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
+        }
     }
 
     /**
@@ -80,8 +82,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     public static String userId() {
         try {
             String value = Preferences.getStringValue(PREF_USER_ID);
-            if (value == null)
+            if (value == null) {
                 return Long.toString(Preferences.getLong(PREF_USER_ID, -2L));
+            }
             return value;
         } catch (Exception e) {
             return Long.toString(Preferences.getLong(PREF_USER_ID, -2L));
@@ -149,8 +152,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     public synchronized static void reloadThisUser() {
-        if (user == null)
+        if (user == null) {
             return;
+        }
         populateUser();
     }
 
@@ -170,8 +174,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     public static boolean isPremiumUser() {
-        if (Preferences.getBoolean(PremiumUnlockService.PREF_KILL_SWITCH, false))
+        if (Preferences.getBoolean(PremiumUnlockService.PREF_KILL_SWITCH, false)) {
             return true;
+        }
 
         if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
             return Preferences.getBoolean(PREF_LOCAL_PREMIUM, false);
@@ -190,18 +195,21 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         String name = Preferences.getStringValue(PREF_NAME);
         if (TextUtils.isEmpty(name)) {
             String firstName = Preferences.getStringValue(PREF_FIRST_NAME);
-            if (!TextUtils.isEmpty(firstName))
+            if (!TextUtils.isEmpty(firstName)) {
                 name = firstName;
+            }
 
             String lastName = Preferences.getStringValue(PREF_FIRST_NAME);
             if (!TextUtils.isEmpty(lastName)) {
-                if (!TextUtils.isEmpty(name))
+                if (!TextUtils.isEmpty(name)) {
                     name += " "; //$NON-NLS-1$
+                }
                 name += lastName;
             }
 
-            if (name == null)
+            if (name == null) {
                 name = ""; //$NON-NLS-1$
+            }
         }
         return name;
     }
@@ -211,19 +219,23 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         JSONObject thisUser = thisUser();
 
         String name = thisUser.optString("name");
-        if (!(TextUtils.isEmpty(name) || "null".equals(name)))
+        if (!(TextUtils.isEmpty(name) || "null".equals(name))) {
             return name;
+        }
         String firstName = thisUser.optString("first_name");
         boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
         String lastName = thisUser.optString("last_name");
         boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
-        if (firstNameEmpty && lastNameEmpty)
+        if (firstNameEmpty && lastNameEmpty) {
             return thisUser.optString("email");
+        }
         StringBuilder nameBuilder = new StringBuilder();
-        if (!firstNameEmpty)
+        if (!firstNameEmpty) {
             nameBuilder.append(firstName).append(" ");
-        if (!lastNameEmpty)
+        }
+        if (!lastNameEmpty) {
             nameBuilder.append(lastName);
+        }
         return nameBuilder.toString().trim();
     }
 

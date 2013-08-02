@@ -36,8 +36,9 @@ public class ActFmSyncActionExposer extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose sync action
-        if (!actFmPreferenceService.isLoggedIn())
+        if (!actFmPreferenceService.isLoggedIn()) {
             return;
+        }
 
         SyncAction syncAction = new SyncAction(context.getString(R.string.actfm_APr_header),
                 null);

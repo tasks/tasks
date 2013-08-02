@@ -227,8 +227,9 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private AbstractDatabase getDatabase() {
-        if (databaseOverride != null)
+        if (databaseOverride != null) {
             return databaseOverride;
+        }
         return database;
     }
 
@@ -257,10 +258,11 @@ public class Astrid3ContentProvider extends ContentProvider {
             case URI_ITEM: {
                 String itemSelector = String.format("%s = '%s'",
                         AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
-                if (TextUtils.isEmpty(selection))
+                if (TextUtils.isEmpty(selection)) {
                     selection = itemSelector;
-                else
+                } else {
                     selection = itemSelector + " AND " + selection;
+                }
 
             }
 
@@ -298,8 +300,9 @@ public class Astrid3ContentProvider extends ContentProvider {
             case URI_DIR: {
                 helper.model.mergeWith(values);
                 readTransitoriesFromModelContentValues(helper.model);
-                if (!helper.create())
+                if (!helper.create()) {
                     throw new SQLException("Could not insert row into database (constraint failed?)");
+                }
 
                 Uri newUri = ContentUris.withAppendedId(uri, helper.model.getId());
                 getContext().getContentResolver().notifyChange(newUri, null);
@@ -333,10 +336,11 @@ public class Astrid3ContentProvider extends ContentProvider {
             case URI_ITEM: {
                 String itemSelector = String.format("%s = '%s'",
                         AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
-                if (TextUtils.isEmpty(selection))
+                if (TextUtils.isEmpty(selection)) {
                     selection = itemSelector;
-                else
+                } else {
                     selection = itemSelector + " AND " + selection;
+                }
 
             }
 

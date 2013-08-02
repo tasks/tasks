@@ -45,10 +45,11 @@ public class ABTests {
     public synchronized int[] getProbsForTestKey(String key, boolean newUser) {
         if (bundles.containsKey(key)) {
             ABTestBundle bundle = bundles.get(key);
-            if (newUser)
+            if (newUser) {
                 return bundle.newUserProbs;
-            else
+            } else {
                 return bundle.existingUserProbs;
+            }
         } else {
             return null;
         }

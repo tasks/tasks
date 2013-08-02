@@ -187,16 +187,20 @@ public class OpencrxControlSet extends PopupControlSet {
                 displayString += firstname;
                 hasFirstname = true;
             }
-            if (lastname != null && lastname.length() > 0)
+            if (lastname != null && lastname.length() > 0) {
                 hasLastname = true;
-            if (hasFirstname && hasLastname)
+            }
+            if (hasFirstname && hasLastname) {
                 displayString += " "; //$NON-NLS-1$
-            if (hasLastname)
+            }
+            if (hasLastname) {
                 displayString += lastname;
+            }
 
             if (!hasFirstname && !hasLastname && email != null
-                    && email.length() > 0)
+                    && email.length() > 0) {
                 displayString += email;
+            }
             return displayString;
         }
     }
@@ -244,13 +248,15 @@ public class OpencrxControlSet extends PopupControlSet {
 
 
         Metadata metadata = getTaskMetadata(model.getId());
-        if (metadata == null)
+        if (metadata == null) {
             metadata = OpencrxCoreUtils.INSTANCE.newMetadata(model.getId());
+        }
 
         // Fill the dashboard-spinner and set the current dashboard
         long dashboardId = OpencrxCoreUtils.INSTANCE.getDefaultCreator();
-        if (metadata.containsNonNullValue(OpencrxCoreUtils.ACTIVITY_CREATOR_ID))
+        if (metadata.containsNonNullValue(OpencrxCoreUtils.ACTIVITY_CREATOR_ID)) {
             dashboardId = metadata.getValue(OpencrxCoreUtils.ACTIVITY_CREATOR_ID);
+        }
 
         StoreObject[] dashboardsData = readStoreObjects(OpencrxActivityCreator.TYPE);
         dashboards = new ArrayList<OpencrxActivityCreator>(dashboardsData.length);
@@ -283,7 +289,9 @@ public class OpencrxControlSet extends PopupControlSet {
                                     long id) {
                 OpencrxActivityCreator creatorInput = (OpencrxActivityCreator) adapter.getItemAtPosition(position);
 
-                if (creatorInput == null) return;
+                if (creatorInput == null) {
+                    return;
+                }
 
                 int selectedIndex = creatorSelector.getSelectedItemPosition();
 
@@ -338,7 +346,9 @@ public class OpencrxControlSet extends PopupControlSet {
 
                 OpencrxContact userInput = (OpencrxContact) adapter.getItemAtPosition(position);
 
-                if (userInput == null) return;
+                if (userInput == null) {
+                    return;
+                }
 
                 int selectedIndex = assignedToSelector.getSelectedItemPosition();
 
@@ -369,10 +379,11 @@ public class OpencrxControlSet extends PopupControlSet {
 
             OpencrxContact responsibleUser = (OpencrxContact) assignedToSelector.getSelectedItem();
 
-            if (responsibleUser == null)
+            if (responsibleUser == null) {
                 metadata.setValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID, 0L);
-            else
+            } else {
                 metadata.setValue(OpencrxCoreUtils.ACTIVITY_ASSIGNED_TO_ID, responsibleUser.getId());
+            }
 
             if (metadata.getSetValues().size() > 0) {
                 metadataService.save(metadata);
@@ -394,8 +405,9 @@ public class OpencrxControlSet extends PopupControlSet {
                 MetadataCriteria.byTaskAndwithKey(taskId, OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY))
         );
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return null;
+            }
             cursor.moveToFirst();
             return new Metadata(cursor);
         } finally {

@@ -80,10 +80,11 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
             if (separators != null && separators[i] != null) {
                 TextView text = new TextView(context);
                 text.setText(separators[i]);
-                if (separators[i].length() < 3)
+                if (separators[i].length() < 3) {
                     text.setTextSize(48);
-                else
+                } else {
                     text.setTextSize(20);
+                }
                 text.setGravity(Gravity.CENTER);
                 text.setLayoutParams(sepLayout);
                 container.addView(text);
@@ -96,8 +97,9 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
     }
 
     public void setInitialValues(int[] values) {
-        for (int i = 0; i < pickers.size(); i++)
+        for (int i = 0; i < pickers.size(); i++) {
             pickers.get(i).setCurrent(values[i]);
+        }
     }
 
     public void onClick(DialogInterface dialog, int which) {

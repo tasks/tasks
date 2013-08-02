@@ -55,7 +55,9 @@ public final class Util {
      */
     @Deprecated
     public static String encodePostBody(Bundle parameters, String boundary) {
-        if (parameters == null) return "";
+        if (parameters == null) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
 
         for (String key : parameters.keySet()) {
@@ -86,7 +88,11 @@ public final class Util {
                 continue;
             }
 
-            if (first) first = false; else sb.append("&");
+            if (first) {
+                first = false;
+            } else {
+                sb.append("&");
+            }
             sb.append(URLEncoder.encode(key) + "=" +
                       URLEncoder.encode(parameters.getString(key)));
         }

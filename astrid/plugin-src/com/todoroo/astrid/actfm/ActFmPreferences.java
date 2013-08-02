@@ -78,9 +78,9 @@ public class ActFmPreferences extends SyncProviderPreferences {
 
         PreferenceScreen screen = getPreferenceScreen();
         Preference inAppBilling = findPreference(getString(R.string.actfm_inapp_billing));
-        if (Constants.ASTRID_LITE || Preferences.getBoolean(PremiumUnlockService.PREF_KILL_SWITCH, false))
+        if (Constants.ASTRID_LITE || Preferences.getBoolean(PremiumUnlockService.PREF_KILL_SWITCH, false)) {
             screen.removePreference(inAppBilling);
-        else
+        } else {
             inAppBilling.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -88,6 +88,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
                     return true;
                 }
             });
+        }
 
         findPreference(getString(R.string.actfm_account_type)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
@@ -141,19 +142,22 @@ public class ActFmPreferences extends SyncProviderPreferences {
             String title = actFmPreferenceService.getLoggedInUserName();
             String email = Preferences.getStringValue(ActFmPreferenceService.PREF_EMAIL);
             if (!TextUtils.isEmpty(email)) {
-                if (!TextUtils.isEmpty(title))
+                if (!TextUtils.isEmpty(title)) {
                     title += "\n"; //$NON-NLS-1$
+                }
                 title += email;
             }
             status.setTitle(getString(R.string.actfm_status_title_logged_in, title));
-        } else
+        } else {
             status.setTitle(R.string.sync_SPr_group_status);
+        }
 
         if (r.getString(R.string.actfm_https_key).equals(preference.getKey())) {
-            if ((Boolean) value)
+            if ((Boolean) value) {
                 preference.setSummary(R.string.actfm_https_enabled);
-            else
+            } else {
                 preference.setSummary(R.string.actfm_https_disabled);
+            }
         } else if (r.getString(R.string.actfm_account_type).equals(preference.getKey())) {
             if (ActFmPreferenceService.isPremiumUser()) {
                 // Premium user

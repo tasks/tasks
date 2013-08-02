@@ -102,8 +102,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     public synchronized static GtasksSyncV2Provider getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new GtasksSyncV2Provider();
+        }
         return instance;
     }
 
@@ -156,8 +157,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
         // TODO: Improve this logic. Should only be able to import from settings or something.
         final boolean isImport = actFmPreferenceService.isLoggedIn();
-        if (isImport && !manual)
+        if (isImport && !manual) {
             return;
+        }
 
         callback.started();
         callback.incrementMax(100);
@@ -193,10 +195,11 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             synchronizeListHelper(list, invoker, manual, handler, callback, isImport);
                             callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
-                                if (!isImport)
+                                if (!isImport) {
                                     pushUpdated(invoker, callback);
-                                else
+                                } else {
                                     finishImport(callback);
+                                }
                                 finishSync(callback);
                             }
                         }
@@ -236,11 +239,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Override
     public void synchronizeList(Object list, final boolean manual, final SyncResultCallback callback) {
-        if (!(list instanceof StoreObject))
+        if (!(list instanceof StoreObject)) {
             return;
+        }
         final StoreObject gtasksList = (StoreObject) list;
-        if (!GtasksList.TYPE.equals(gtasksList.getValue(StoreObject.TYPE)))
+        if (!GtasksList.TYPE.equals(gtasksList.getValue(StoreObject.TYPE))) {
             return;
+        }
 
         final boolean isImport = actFmPreferenceService.isLoggedIn();
 
@@ -269,8 +274,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         String authToken = gtasksPreferenceService.getToken();
         try {
             authToken = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), authToken);
-            if (authToken != null)
+            if (authToken != null) {
                 gtasksPreferenceService.setToken(authToken);
+            }
         } catch (GoogleTasksException e) {
             authToken = null;
         }
@@ -325,11 +331,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
         } catch (GoogleTasksException e) {
-            if (errorHandler != null)
+            if (errorHandler != null) {
                 errorHandler.handleException("gtasks-sync-io", e, e.getType()); //$NON-NLS-1$
+            }
         } catch (IOException e) {
-            if (errorHandler != null)
+            if (errorHandler != null) {
                 errorHandler.handleException("gtasks-sync-io", e, e.toString()); //$NON-NLS-1$
+            }
         }
     }
 
@@ -346,12 +354,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         task.setValue(Task.TITLE, remoteTask.getTitle());
         task.setValue(Task.CREATION_DATE, DateUtilities.now());
         task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted(), 0));
-        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted().booleanValue())
+        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted().booleanValue()) {
             task.setValue(Task.DELETION_DATE, 0L);
-        else if (remoteTask.getDeleted().booleanValue())
+        } else if (remoteTask.getDeleted().booleanValue()) {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
-        if (remoteTask.getHidden() != null && remoteTask.getHidden().booleanValue())
+        }
+        if (remoteTask.getHidden() != null && remoteTask.getHidden().booleanValue()) {
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
+        }
 
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
@@ -369,8 +379,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void write(GtasksTaskContainer task) throws IOException {
         //  merge astrid dates with google dates
-        if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn())
+        if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn()) {
             titleMatchWithActFm(task.task);
+        }
 
         if (task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
@@ -379,8 +390,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 task.task.clearValue(Task.UUID);
             } else {
                 mergeDates(task.task, local);
-                if (task.task.isCompleted() && !local.isCompleted())
+                if (task.task.isCompleted() && !local.isCompleted()) {
                     StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
+                }
             }
         } else { // Set default importance and reminders for remotely created tasks
             task.task.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
@@ -429,8 +441,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 .where(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY)));
 
         GtasksImportCallback gtCallback = null;
-        if (callback instanceof GtasksImportCallback)
+        if (callback instanceof GtasksImportCallback) {
             gtCallback = (GtasksImportCallback) callback;
+        }
 
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
@@ -453,8 +466,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                                 tuple.tagUuid = tagUuid;
                                 tuple.tagName = listName;
 
-                                if (gtCallback != null)
+                                if (gtCallback != null) {
                                     gtCallback.addImportConflict(tuple);
+                                }
 
                                 continue;
                             } else if (taskIsInTag) {

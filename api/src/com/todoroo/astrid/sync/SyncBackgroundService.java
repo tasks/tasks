@@ -74,13 +74,15 @@ abstract public class SyncBackgroundService extends Service {
      * Start the actual synchronization
      */
     private void startSynchronization(Context context) {
-        if (context == null || context.getResources() == null)
+        if (context == null || context.getResources() == null) {
             return;
+        }
 
         ContextManager.setContext(context);
 
-        if (!getSyncUtilities().isLoggedIn())
+        if (!getSyncUtilities().isLoggedIn()) {
             return;
+        }
 
         getSyncProvider().synchronize(context);
     }
@@ -162,10 +164,11 @@ abstract public class SyncBackgroundService extends Service {
         long lastSyncDate = getSyncUtilities().getLastSyncDate();
 
         // if user never synchronized, give them a full offset period before bg sync
-        if (lastSyncDate != 0)
+        if (lastSyncDate != 0) {
             return Math.max(0, lastSyncDate + interval - DateUtilities.now());
-        else
+        } else {
             return interval;
+        }
     }
 
 

@@ -31,10 +31,11 @@ public class FeaturedListFilterMode implements FilterModeSpec {
     @Override
     public Filter getDefaultFilter(Context context) {
         Filter defaultFilter = FeaturedListFilterExposer.getDefaultFilter();
-        if (defaultFilter == null)
+        if (defaultFilter == null) {
             return CoreFilterExposer.buildInboxFilter(context.getResources());
-        else
+        } else {
             return defaultFilter;
+        }
     }
 
     @Override

@@ -91,8 +91,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         getTouchListView().setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        if (Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0)
+        if (Preferences.getInt(AstridPreferences.P_SUBTASKS_HELP, 0) == 0) {
             showSubtasksHelp();
+        }
     }
 
     @SuppressWarnings("nls")
@@ -121,15 +122,17 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         @Override
         public void drop(int from, int to) {
             String targetTaskId = taskAdapter.getItemUuid(from);
-            if (!RemoteModel.isValidUuid(targetTaskId))
+            if (!RemoteModel.isValidUuid(targetTaskId)) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            }
             String destinationTaskId = taskAdapter.getItemUuid(to);
 
             try {
-                if (to >= getListView().getCount())
+                if (to >= getListView().getCount()) {
                     updater.moveTo(list, getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
-                else
+                } else {
                     updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
+                }
             } catch (Exception e) {
                 Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
@@ -152,8 +155,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         protected void indent(int which, int delta) {
             String targetTaskId = taskAdapter.getItemUuid(which);
-            if (!RemoteModel.isValidUuid(targetTaskId))
+            if (!RemoteModel.isValidUuid(targetTaskId)) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            }
             try {
                 updater.indent(list, getFilter(), targetTaskId, delta);
             } catch (Exception e) {
@@ -168,8 +172,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final GrabberClickListener rowClickListener = new GrabberClickListener() {
         @Override
         public void onLongClick(final View v) {
-            if (v == null)
+            if (v == null) {
                 return;
+            }
 
             fragment.registerForContextMenu(getListView());
             getListView().showContextMenuForChild(v);
@@ -178,8 +183,9 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
         @Override
         public void onClick(View v) {
-            if (v == null)
+            if (v == null) {
                 return;
+            }
             ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
         }
     };

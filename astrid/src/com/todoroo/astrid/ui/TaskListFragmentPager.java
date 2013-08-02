@@ -36,8 +36,9 @@ public class TaskListFragmentPager extends ViewPager {
 
     @Override
     public void setAdapter(PagerAdapter adapter) {
-        if (!(adapter instanceof TaskListFragmentPagerAdapter))
+        if (!(adapter instanceof TaskListFragmentPagerAdapter)) {
             throw new ClassCastException("TaskListFragmentPager requires an adapter of type TaskListFragmentPagerAdapter"); //$NON-NLS-1$
+        }
         super.setAdapter(adapter);
     }
 
@@ -80,11 +81,13 @@ public class TaskListFragmentPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (checkForPeopleHeaderScroll(ev))
+        if (checkForPeopleHeaderScroll(ev)) {
             return false;
+        }
 
-        if (Flags.check(Flags.TLFP_NO_INTERCEPT_TOUCH))
+        if (Flags.check(Flags.TLFP_NO_INTERCEPT_TOUCH)) {
             return false;
+        }
 
         return super.onInterceptTouchEvent(ev);
     }
@@ -98,8 +101,9 @@ public class TaskListFragmentPager extends ViewPager {
                 if (peopleView != null) {
                     Rect rect = new Rect();
                     peopleView.getHitRect(rect);
-                    if (rect.contains((int) ev.getX(), (int) ev.getY()))
+                    if (rect.contains((int) ev.getX(), (int) ev.getY())) {
                         return true;
+                    }
                 }
             }
         }

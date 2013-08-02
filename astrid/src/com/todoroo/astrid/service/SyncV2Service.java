@@ -41,15 +41,18 @@ public class SyncV2Service {
     public List<SyncV2Provider> activeProviders() {
         ArrayList<SyncV2Provider> actives = new ArrayList<SyncV2Provider>();
         for (SyncV2Provider provider : providers) {
-            if (provider.isActive())
+            if (provider.isActive()) {
                 actives.add(provider);
+            }
         }
         return Collections.unmodifiableList(actives);
     }
 
     public boolean hasActiveProvider() {
         for (SyncV2Provider provider : providers) {
-            if (provider.isActive()) return true;
+            if (provider.isActive()) {
+                return true;
+            }
         }
         return false;
     }
@@ -64,8 +67,9 @@ public class SyncV2Service {
     public boolean synchronizeActiveTasks(final boolean manual, SyncResultCallback callback) {
         final List<SyncV2Provider> active = activeProviders();
 
-        if (active.size() == 0)
+        if (active.size() == 0) {
             return false;
+        }
 
         if (active.size() > 1) { // This should never happen anymore--they can't be active at the same time, but if for some reason they both are, just use ActFm
             active.get(1).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(callback));
@@ -85,8 +89,9 @@ public class SyncV2Service {
      */
     public void synchronizeList(Object list, boolean manual, SyncResultCallback callback) {
         for (SyncV2Provider provider : providers) {
-            if (provider.isActive())
+            if (provider.isActive()) {
                 provider.synchronizeList(list, manual, new WidgetUpdatingCallbackWrapper(callback));
+            }
         }
     }
 

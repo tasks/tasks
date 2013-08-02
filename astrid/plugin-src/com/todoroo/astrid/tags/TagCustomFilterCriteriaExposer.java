@@ -43,8 +43,9 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
             TagService.Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
                     TaskDao.TaskCriteria.activeAndVisible());
             String[] tagNames = new String[tags.length];
-            for (int i = 0; i < tags.length; i++)
+            for (int i = 0; i < tags.length; i++) {
                 tagNames[i] = tags[i].tag;
+            }
             ContentValues values = new ContentValues();
             values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
             values.put(TaskToTagMetadata.TAG_NAME.name, "?");

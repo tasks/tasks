@@ -94,10 +94,12 @@ public class AndroidUtilities {
         ConnectivityManager manager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
-        if (info == null)
+        if (info == null) {
             return false;
-        if (info.getState() != State.CONNECTED)
+        }
+        if (info.getState() != State.CONNECTED) {
             return false;
+        }
         return true;
     }
 
@@ -118,8 +120,9 @@ public class AndroidUtilities {
                 bis.close();
             }
         } finally {
-            if (is != null)
+            if (is != null) {
                 is.close();
+            }
         }
     }
 
@@ -157,10 +160,11 @@ public class AndroidUtilities {
      */
     public static void startExternalIntent(Context context, Intent intent, int request) {
         try {
-            if (request > -1 && context instanceof Activity)
+            if (request > -1 && context instanceof Activity) {
                 ((Activity) context).startActivityForResult(intent, request);
-            else
+            } else {
                 context.startActivity(intent);
+            }
         } catch (Exception e) {
             getExceptionService().displayAndReportError(context,
                     "start-external-intent-" + intent.toString(), //$NON-NLS-1$
@@ -194,25 +198,26 @@ public class AndroidUtilities {
      * @param value
      */
     public static void putInto(ContentValues target, String key, Object value, boolean errorOnFail) {
-        if (value instanceof Boolean)
+        if (value instanceof Boolean) {
             target.put(key, (Boolean) value);
-        else if (value instanceof Byte)
+        } else if (value instanceof Byte) {
             target.put(key, (Byte) value);
-        else if (value instanceof Double)
+        } else if (value instanceof Double) {
             target.put(key, (Double) value);
-        else if (value instanceof Float)
+        } else if (value instanceof Float) {
             target.put(key, (Float) value);
-        else if (value instanceof Integer)
+        } else if (value instanceof Integer) {
             target.put(key, (Integer) value);
-        else if (value instanceof Long)
+        } else if (value instanceof Long) {
             target.put(key, (Long) value);
-        else if (value instanceof Short)
+        } else if (value instanceof Short) {
             target.put(key, (Short) value);
-        else if (value instanceof String)
+        } else if (value instanceof String) {
             target.put(key, (String) value);
-        else if (errorOnFail)
+        } else if (errorOnFail) {
             throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
                     value.getClass());
+        }
     }
 
     /**
@@ -223,25 +228,26 @@ public class AndroidUtilities {
      * @param value
      */
     public static void putInto(Bundle target, String key, Object value, boolean errorOnFail) {
-        if (value instanceof Boolean)
+        if (value instanceof Boolean) {
             target.putBoolean(key, (Boolean) value);
-        else if (value instanceof Byte)
+        } else if (value instanceof Byte) {
             target.putByte(key, (Byte) value);
-        else if (value instanceof Double)
+        } else if (value instanceof Double) {
             target.putDouble(key, (Double) value);
-        else if (value instanceof Float)
+        } else if (value instanceof Float) {
             target.putFloat(key, (Float) value);
-        else if (value instanceof Integer)
+        } else if (value instanceof Integer) {
             target.putInt(key, (Integer) value);
-        else if (value instanceof Long)
+        } else if (value instanceof Long) {
             target.putLong(key, (Long) value);
-        else if (value instanceof Short)
+        } else if (value instanceof Short) {
             target.putShort(key, (Short) value);
-        else if (value instanceof String)
+        } else if (value instanceof String) {
             target.putString(key, (String) value);
-        else if (errorOnFail)
+        } else if (errorOnFail) {
             throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
                     value.getClass());
+        }
     }
 
     // --- serialization
@@ -267,9 +273,11 @@ public class AndroidUtilities {
      * @return
      */
     public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
-        for (int i = 0; i < array.length; i++)
-            if (array[i].equals(value))
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(value)) {
                 return i;
+            }
+        }
         return -1;
     }
 
@@ -281,9 +289,11 @@ public class AndroidUtilities {
      * @return
      */
     public static int indexOf(int[] array, int value) {
-        for (int i = 0; i < array.length; i++)
-            if (array[i] == value)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
                 return i;
+            }
+        }
         return -1;
     }
 
@@ -305,18 +315,19 @@ public class AndroidUtilities {
                                       String key, Object value) {
         result.append(key.replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE)).append(
                 SERIALIZATION_SEPARATOR);
-        if (value instanceof Integer)
+        if (value instanceof Integer) {
             result.append('i').append(value);
-        else if (value instanceof Double)
+        } else if (value instanceof Double) {
             result.append('d').append(value);
-        else if (value instanceof Long)
+        } else if (value instanceof Long) {
             result.append('l').append(value);
-        else if (value instanceof String)
+        } else if (value instanceof String) {
             result.append('s').append(value.toString().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE));
-        else if (value instanceof Boolean)
+        } else if (value instanceof Boolean) {
             result.append('b').append(value);
-        else
+        } else {
             throw new UnsupportedOperationException(value.getClass().toString());
+        }
         result.append(SERIALIZATION_SEPARATOR);
     }
 
@@ -325,8 +336,9 @@ public class AndroidUtilities {
      */
     public static String bundleToSerializedString(Bundle source) {
         StringBuilder result = new StringBuilder();
-        if (source == null)
+        if (source == null) {
             return null;
+        }
 
         for (String key : source.keySet()) {
             addSerialized(result, key, source.get(key));
@@ -341,8 +353,9 @@ public class AndroidUtilities {
      * @return
      */
     public static ContentValues contentValuesFromSerializedString(String string) {
-        if (string == null)
+        if (string == null) {
             return new ContentValues();
+        }
 
         ContentValues result = new ContentValues();
         fromSerialized(string, result, new SerializedPut<ContentValues>() {
@@ -376,8 +389,9 @@ public class AndroidUtilities {
      * @return
      */
     public static Bundle bundleFromSerializedString(String string) {
-        if (string == null)
+        if (string == null) {
             return new Bundle();
+        }
 
         Bundle result = new Bundle();
         fromSerialized(string, result, new SerializedPut<Bundle>() {
@@ -436,8 +450,9 @@ public class AndroidUtilities {
      */
     @SuppressWarnings("nls")
     public static ContentValues contentValuesFromString(String string) {
-        if (string == null)
+        if (string == null) {
             return null;
+        }
 
         String[] pairs = string.split("=");
         ContentValues result = new ContentValues();
@@ -451,8 +466,9 @@ public class AndroidUtilities {
             } else {
                 newKey = pairs[i];
             }
-            if (key != null)
+            if (key != null) {
                 result.put(key.trim(), pairs[i].trim());
+            }
             key = newKey;
         }
         return result;
@@ -466,10 +482,12 @@ public class AndroidUtilities {
      * @return
      */
     public static boolean equals(Object a, Object b) {
-        if (a == null && b == null)
+        if (a == null && b == null) {
             return true;
-        if (a == null)
+        }
+        if (a == null) {
             return false;
+        }
         return a.equals(b);
     }
 
@@ -508,8 +526,9 @@ public class AndroidUtilities {
         while ((bytes = source.read(buffer)) != -1) {
             if (bytes == 0) {
                 bytes = source.read();
-                if (bytes < 0)
+                if (bytes < 0) {
                     break;
+                }
                 dest.write(bytes);
                 dest.flush();
                 continue;
@@ -528,16 +547,19 @@ public class AndroidUtilities {
      * @return first view (by DFS) if found, or null if none
      */
     public static <TYPE> TYPE findViewByType(View view, Class<TYPE> type) {
-        if (view == null)
+        if (view == null) {
             return null;
-        if (type.isInstance(view))
+        }
+        if (type.isInstance(view)) {
             return (TYPE) view;
+        }
         if (view instanceof ViewGroup) {
             ViewGroup group = (ViewGroup) view;
             for (int i = 0; i < group.getChildCount(); i++) {
                 TYPE v = findViewByType(group.getChildAt(i), type);
-                if (v != null)
+                if (v != null) {
                     return v;
+                }
             }
         }
         return null;
@@ -557,8 +579,9 @@ public class AndroidUtilities {
      */
     public static void copyDatabases(Context context, String folder) {
         File folderFile = new File(folder);
-        if (!folderFile.exists())
+        if (!folderFile.exists()) {
             folderFile.mkdir();
+        }
         for (String db : context.databaseList()) {
             File dbFile = context.getDatabasePath(db);
             try {
@@ -592,8 +615,9 @@ public class AndroidUtilities {
      */
     public static <KEY, VALUE> KEY findKeyInMap(Map<KEY, VALUE> map, VALUE value) {
         for (Entry<KEY, VALUE> entry : map.entrySet()) {
-            if (entry.getValue().equals(value))
+            if (entry.getValue().equals(value)) {
                 return entry.getKey();
+            }
         }
         return null;
     }
@@ -640,8 +664,9 @@ public class AndroidUtilities {
      */
     public static Object callApiMethod(int minSdk, Object receiver,
                                        String methodName, Class<?>[] params, Object... args) {
-        if (getSdkVersion() < minSdk)
+        if (getSdkVersion() < minSdk) {
             return null;
+        }
 
         return AndroidUtilities.callMethod(receiver.getClass(),
                 receiver, methodName, params, args);
@@ -660,8 +685,9 @@ public class AndroidUtilities {
     @SuppressWarnings("nls")
     public static Object callApiStaticMethod(int minSdk, String className,
                                              String methodName, Class<?>[] params, Object... args) {
-        if (getSdkVersion() < minSdk)
+        if (getSdkVersion() < minSdk) {
             return null;
+        }
 
         try {
             return AndroidUtilities.callMethod(Class.forName(className),
@@ -826,17 +852,20 @@ public class AndroidUtilities {
             originalListLength = list.length;
             length += list.length;
         }
-        if (newItems != null)
+        if (newItems != null) {
             length += newItems.length;
+        }
 
         T[] newList = (T[]) Array.newInstance(type, length);
         if (list != null) {
-            for (int i = 0; i < list.length; i++)
+            for (int i = 0; i < list.length; i++) {
                 newList[i] = list[i];
+            }
         }
         if (newItems != null) {
-            for (int i = 0; i < newItems.length; i++)
+            for (int i = 0; i < newItems.length; i++) {
                 newList[originalListLength + i] = newItems[i];
+            }
         }
         return newList;
     }
@@ -846,11 +875,13 @@ public class AndroidUtilities {
     private static ExceptionService exceptionService = null;
 
     private static ExceptionService getExceptionService() {
-        if (exceptionService == null)
+        if (exceptionService == null) {
             synchronized (AndroidUtilities.class) {
-                if (exceptionService == null)
+                if (exceptionService == null) {
                     exceptionService = new ExceptionService();
+                }
             }
+        }
         return exceptionService;
     }
 
@@ -863,11 +894,13 @@ public class AndroidUtilities {
      */
     public static <TYPE> TYPE[] concat(TYPE[] dest, TYPE[] source, TYPE... additional) {
         int i = 0;
-        for (; i < Math.min(dest.length, source.length); i++)
+        for (; i < Math.min(dest.length, source.length); i++) {
             dest[i] = source[i];
+        }
         int base = i;
-        for (; i < dest.length; i++)
+        for (; i < dest.length; i++) {
             dest[i] = additional[i - base];
+        }
         return dest;
     }
 
@@ -920,7 +953,9 @@ public class AndroidUtilities {
      */
     public static boolean isTabletSized(Context context) {
         if (context.getPackageManager().hasSystemFeature("com.google.android.tv")) //$NON-NLS-1$
+        {
             return true;
+        }
         int size = context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK;
 
@@ -965,8 +1000,9 @@ public class AndroidUtilities {
      * @param popup
      */
     public static void tryDismissPopup(Activity activity, final PopupWindow popup) {
-        if (popup == null)
+        if (popup == null) {
             return;
+        }
         try {
             popup.dismiss();
         } catch (Exception e) {
@@ -1008,8 +1044,9 @@ public class AndroidUtilities {
         String extension = "";
         if (index > 0) {
             extension = file.substring(index + 1);
-            if (!extension.matches("\\w+"))
+            if (!extension.matches("\\w+")) {
                 extension = "";
+            }
         }
         return extension;
     }

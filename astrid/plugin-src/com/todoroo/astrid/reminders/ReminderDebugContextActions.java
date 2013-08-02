@@ -22,8 +22,9 @@ public class ReminderDebugContextActions {
 
         @Override
         public Object getLabel(Task task) {
-            if (Constants.DEBUG)
+            if (Constants.DEBUG) {
                 return "when alarm?";
+            }
             return null;
         }
 
@@ -32,8 +33,9 @@ public class ReminderDebugContextActions {
             ReminderService.getInstance().setScheduler(new AlarmScheduler() {
                 @Override
                 public void createAlarm(Task theTask, long time, int type) {
-                    if (time == 0 || time == Long.MAX_VALUE)
+                    if (time == 0 || time == Long.MAX_VALUE) {
                         return;
+                    }
 
                     Toast.makeText(ContextManager.getContext(), "Scheduled Alarm: " +
                             new Date(time), Toast.LENGTH_LONG).show();
@@ -41,8 +43,9 @@ public class ReminderDebugContextActions {
                 }
             });
             ReminderService.getInstance().scheduleAlarm(task);
-            if (ReminderService.getInstance().getScheduler() != null)
+            if (ReminderService.getInstance().getScheduler() != null) {
                 Toast.makeText(ContextManager.getContext(), "No alarms", Toast.LENGTH_LONG).show();
+            }
             ReminderService.getInstance().setScheduler(original);
         }
     }
@@ -50,8 +53,9 @@ public class ReminderDebugContextActions {
     public static class MakeNotification implements TaskContextActionExposer {
 
         public Object getLabel(Task task) {
-            if (Constants.DEBUG)
+            if (Constants.DEBUG) {
                 return "when alarm?"; //$NON-NLS-1$
+            }
             return null;
         }
 

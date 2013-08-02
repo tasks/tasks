@@ -153,8 +153,9 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
         buyYear.setEnabled(false);
         restorePurchases.setEnabled(false);
 
-        if (!Preferences.getBoolean(BillingConstants.PREF_TRANSACTIONS_INITIALIZED, false))
+        if (!Preferences.getBoolean(BillingConstants.PREF_TRANSACTIONS_INITIALIZED, false)) {
             restorePurchases.setVisibility(View.GONE);
+        }
 
         buyMonth.setOnClickListener(new OnClickListener() {
             @Override
@@ -194,8 +195,9 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
 
         for (int i = 0; i < bullets.length; i++) {
             String curr = getString(bullets[i]);
-            if (curr.contains("\n"))
+            if (curr.contains("\n")) {
                 curr = curr.replace("\n", "<br>");
+            }
             builder.append("<li><font style='color=#404040; font-size: 18px'>").append(curr);
 
             builder.append("</font></li>\n");

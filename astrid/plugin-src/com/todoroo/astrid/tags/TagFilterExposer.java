@@ -73,8 +73,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
         String title = tag.tag;
-        if (TextUtils.isEmpty(title))
+        if (TextUtils.isEmpty(title)) {
             return null;
+        }
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
@@ -89,10 +90,11 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
 
         int deleteIntentLabel;
-        if (tag.memberCount > 0 && !Task.USER_ID_SELF.equals(tag.userId))
+        if (tag.memberCount > 0 && !Task.USER_ID_SELF.equals(tag.userId)) {
             deleteIntentLabel = R.string.tag_cm_leave;
-        else
+        } else {
             deleteIntentLabel = R.string.tag_cm_delete;
+        }
 
         filter.contextMenuLabels = new String[]{
                 context.getString(R.string.tag_cm_rename),
@@ -104,8 +106,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         };
 
         filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
-        if (tag.image != null)
+        if (tag.image != null) {
             filter.imageUrl = tag.image;
+        }
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
         extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid.toString());
@@ -186,8 +189,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         for (int i = 0; i < tags.length; i++) {
             Filter f = constructFilter(context, tags[i]);
-            if (f != null)
+            if (f != null) {
                 filters.add(f);
+            }
         }
         FilterCategory filter = new FilterCategory(context.getString(name), filters.toArray(new Filter[filters.size()]));
         return filter;
@@ -283,12 +287,14 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         protected void showDialog(TagData tagData) {
             int string;
             if (tagData != null && (tagMetadataDao.tagHasMembers(uuid) || tagData.getValue(TagData.MEMBER_COUNT) > 0)) {
-                if (Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID)))
+                if (Task.USER_ID_SELF.equals(tagData.getValue(TagData.USER_ID))) {
                     string = R.string.actfm_tag_operation_owner_delete;
-                else
+                } else {
                     string = R.string.DLG_leave_this_shared_tag_question;
-            } else
+                }
+            } else {
                 string = R.string.DLG_delete_this_tag_question;
+            }
             DialogUtilities.okCancelDialog(this, getString(string, tag), getOkListener(), getCancelListener());
         }
 
@@ -311,8 +317,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Override
         protected Intent ok() {
-            if (editor == null)
+            if (editor == null) {
                 return null;
+            }
 
             String text = editor.getText().toString();
             if (text == null || text.length() == 0) {
@@ -335,8 +342,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     @Override
     public FilterListItem[] getFilters() {
-        if (ContextManager.getContext() == null)
+        if (ContextManager.getContext() == null) {
             return null;
+        }
 
         return prepareFilters(ContextManager.getContext());
     }

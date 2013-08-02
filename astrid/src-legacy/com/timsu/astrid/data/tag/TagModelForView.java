@@ -88,9 +88,10 @@ public class TagModelForView extends AbstractTagModel {
     }
 
     public void toggleHideFromMainList() {
-        if (shouldHideFromMainList())
+        if (shouldHideFromMainList()) {
             setName(getName().substring(HIDDEN_FROM_MAIN_LIST_PREFIX.length()));
-        else
+        } else {
             setName(HIDDEN_FROM_MAIN_LIST_PREFIX + getName());
+        }
     }
 }

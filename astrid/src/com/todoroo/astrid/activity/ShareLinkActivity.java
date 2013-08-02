@@ -38,8 +38,9 @@ public final class ShareLinkActivity extends TaskListActivity {
         Intent callerIntent = getIntent();
 
         subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
-        if (subject == null)
+        if (subject == null) {
             subject = ""; //$NON-NLS-1$
+        }
     }
 
     @Override

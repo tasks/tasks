@@ -15,10 +15,11 @@ public class TaskListMetadataSyncDatabaseListener extends SyncDatabaseListener<T
 
     @Override
     protected void enqueueMessage(TaskListMetadata model, ClientToServerMessage<?> message) {
-        if (model.getSetValues().containsKey(TaskListMetadata.TASK_IDS.name))
+        if (model.getSetValues().containsKey(TaskListMetadata.TASK_IDS.name)) {
             waitingPool.enqueueMessage(message);
-        else
+        } else {
             actFmSyncThread.enqueueMessage(message, ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);
+        }
     }
 
 }

@@ -70,8 +70,9 @@ public final class TagService {
     };
 
     public static synchronized TagService getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new TagService();
+        }
         return instance;
     }
 
@@ -203,8 +204,9 @@ public final class TagService {
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
                 Tag tag = Tag.tagFromUUID(cursor.get(TaskToTagMetadata.TAG_UUID));
-                if (tag != null)
+                if (tag != null) {
                     array.add(tag);
+                }
             }
             return array.toArray(new Tag[array.size()]);
         } finally {
@@ -258,12 +260,14 @@ public final class TagService {
             }
 
             Metadata link = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, name, tagUuid);
-            if (suppressOutstanding)
+            if (suppressOutstanding) {
                 link.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+            }
             if (metadataDao.update(Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, TaskToTagMetadata.KEY),
                     TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
-                if (suppressOutstanding)
+                if (suppressOutstanding) {
                     link.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                }
                 metadataDao.createNew(link);
             }
 
@@ -280,8 +284,9 @@ public final class TagService {
      */
     public void deleteLink(long taskId, String taskUuid, String tagUuid, boolean suppressOutstanding) {
         Metadata deleteTemplate = new Metadata();
-        if (suppressOutstanding)
+        if (suppressOutstanding) {
             deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+        }
         deleteTemplate.setValue(Metadata.TASK, taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, tagUuid); // Need this for recording changes in outstanding table
         deleteTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
@@ -304,8 +309,9 @@ public final class TagService {
                 // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
                 // the outstanding entry correctly. If possible, this should be improved to a single query
                 deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
-                if (suppressOutstanding)
+                if (suppressOutstanding) {
                     deleteTemplate.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                }
                 metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
                         TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
             }
@@ -369,8 +375,9 @@ public final class TagService {
                 tags.moveToNext();
                 metadata.readFromCursor(tags);
                 tagBuilder.append(metadata.getValue(TaskToTagMetadata.TAG_NAME));
-                if (i < length - 1)
+                if (i < length - 1) {
                     tagBuilder.append(separator);
+                }
             }
         } finally {
             tags.close();
@@ -413,8 +420,9 @@ public final class TagService {
                     continue;
                 }
                 Tag tag = new Tag(tagData);
-                if (TextUtils.isEmpty(tag.tag))
+                if (TextUtils.isEmpty(tag.tag)) {
                     continue;
+                }
                 tagList.add(tag);
             }
         } finally {
@@ -432,12 +440,14 @@ public final class TagService {
             TagData tagData = new TagData();
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 tagData.readFromCursor(cursor);
-                if (tagData.getValue(TagData.DELETION_DATE) > 0)
+                if (tagData.getValue(TagData.DELETION_DATE) > 0) {
                     continue;
+                }
                 String tagName = tagData.getValue(TagData.NAME).trim();
                 Tag tag = new Tag(tagData);
-                if (TextUtils.isEmpty(tag.tag))
+                if (TextUtils.isEmpty(tag.tag)) {
                     continue;
+                }
                 tags.put(tagName, tag);
             }
         } finally {
@@ -554,8 +564,9 @@ public final class TagService {
     public int rename(String uuid, String newName, boolean suppressSync) {
         TagData template = new TagData();
         template.setValue(TagData.NAME, newName);
-        if (suppressSync)
+        if (suppressSync) {
             template.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+        }
         int result = tagDataDao.update(TagData.UUID.eq(uuid), template);
 
         boolean tagRenamed = result > 0;

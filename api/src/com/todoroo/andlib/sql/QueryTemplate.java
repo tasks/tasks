@@ -57,8 +57,9 @@ public final class QueryTemplate {
         visitWhereClause(sql);
         visitGroupByClause(sql);
         visitOrderByClause(sql);
-        if (limit != null)
+        if (limit != null) {
             sql.append(LIMIT).append(SPACE).append(limit);
+        }
         return sql.toString();
     }
 

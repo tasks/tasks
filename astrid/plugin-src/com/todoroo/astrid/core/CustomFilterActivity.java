@@ -119,16 +119,18 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
                 }
                 return criterion.text;
             } else if (criterion instanceof TextInputCriterion) {
-                if (selectedText == null)
+                if (selectedText == null) {
                     return criterion.text;
+                }
                 return criterion.text.replace("?", selectedText);
             }
             throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
         }
 
         public String getValueFromCriterion() {
-            if (type == TYPE_UNIVERSE)
+            if (type == TYPE_UNIVERSE) {
                 return null;
+            }
             if (criterion instanceof MultipleSelectCriterion) {
                 if (selectedIndex >= 0 && ((MultipleSelectCriterion) criterion).entryValues != null &&
                         selectedIndex < ((MultipleSelectCriterion) criterion).entryValues.length) {
@@ -163,8 +165,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         ContextManager.setContext(this);
 
         ActionBar ab = getSupportActionBar();
-        if (ab != null)
+        if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
+        }
 
         setContentView(R.layout.custom_filter_activity);
         setTitle(R.string.FLA_new_filter);
@@ -187,10 +190,11 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
     private void setupForDialogOrFullscreen() {
         isDialog = AstridPreferences.useTabletLayout(this);
-        if (isDialog)
+        if (isDialog) {
             setTheme(ThemeService.getDialogTheme());
-        else
+        } else {
             ThemeService.applyTheme(this);
+        }
     }
 
     /**
@@ -378,8 +382,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     @Override
     public void finish() {
         super.finish();
-        if (!AstridPreferences.useTabletLayout(this))
+        if (!AstridPreferences.useTabletLayout(this)) {
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
+        }
     }
 
 
@@ -387,8 +392,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        if (menu.size() > 0)
+        if (menu.size() > 0) {
             menu.clear();
+        }
 
         // view holder
         if (v.getTag() != null) {
@@ -404,8 +410,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         for (int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
-            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
+            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
                 value = "";
+            }
 
             String title = instance.getTitleFromCriterion();
 
@@ -429,9 +436,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
 
 
             // special code for all tasks universe
-            if (instance.criterion.sql == null)
+            if (instance.criterion.sql == null) {
                 sql.append(TaskCriteria.activeVisibleMine()).append(' ');
-            else {
+            } else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
@@ -474,8 +481,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         for (int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
-            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
+            if (value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?")) {
                 value = "";
+            }
 
             switch (instance.type) {
                 case CriterionInstance.TYPE_ADD:
@@ -491,9 +499,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
             }
 
             // special code for all tasks universe
-            if (instance.criterion.sql == null)
+            if (instance.criterion.sql == null) {
                 sql.append(TaskCriteria.activeVisibleMine()).append(' ');
-            else {
+            } else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 subSql = PermaSql.replacePlaceholders(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
@@ -523,7 +531,9 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     private <V> V getNth(int index, Map<?, V> map) {
         int i = 0;
         for (V v : map.values()) {
-            if (i == index) return v;
+            if (i == index) {
+                return v;
+            }
             i++;
         }
         throw new IllegalArgumentException("out of bounds");

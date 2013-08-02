@@ -72,9 +72,9 @@ public class DateAndTimePicker extends LinearLayout {
         calendarView = (CalendarView) findViewById(R.id.calendar);
         timePicker = (AstridTimePicker) findViewById(R.id.time_picker);
 
-        if (useShortcuts)
+        if (useShortcuts) {
             dateShortcuts = (LinearLayout) findViewById(R.id.date_shortcuts);
-        else {
+        } else {
             findViewById(R.id.date_shortcuts).setVisibility(View.GONE);
             dateShortcuts = (LinearLayout) timePicker.findViewById(R.id.date_shortcuts);
         }
@@ -87,10 +87,11 @@ public class DateAndTimePicker extends LinearLayout {
     public void initializeWithDate(long dateValue) {
         Date date = new Date(dateValue);
         Date forCalendar;
-        if (dateValue > 0)
+        if (dateValue > 0) {
             forCalendar = getDateForCalendar(date);
-        else
+        } else {
             forCalendar = date;
+        }
         calendarView.setCalendarDate(forCalendar);
         if (Task.hasDueTime(dateValue)) {
             timePicker.setHours(date.getHours());
@@ -137,8 +138,9 @@ public class DateAndTimePicker extends LinearLayout {
             Date date = new Date(todayUrgency.dueDate);
             calendarView.setCalendarDate(date);
             calendarView.invalidate();
-            if (todayUrgency.setting == Task.URGENCY_NONE)
+            if (todayUrgency.setting == Task.URGENCY_NONE) {
                 timePicker.forceNoTime();
+            }
             updateShortcutView(date);
             otherCallbacks();
         }
@@ -192,10 +194,11 @@ public class DateAndTimePicker extends LinearLayout {
             tb.setTextOn(label);
             tb.setTag(uv);
             if (i == 0) {
-                if (useShortcuts)
+                if (useShortcuts) {
                     tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
-                else
+                } else {
                     tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
+                }
             } else if (i == urgencyValues.size() - 2) {
                 lp.topMargin = (int) (-1 * metrics.density);
                 tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
@@ -220,8 +223,9 @@ public class DateAndTimePicker extends LinearLayout {
                     Date date = new Date(value.dueDate);
                     calendarView.setCalendarDate(date);
                     calendarView.invalidate();
-                    if (value.setting == Task.URGENCY_NONE)
+                    if (value.setting == Task.URGENCY_NONE) {
                         timePicker.forceNoTime();
+                    }
                     updateShortcutView(date);
                     otherCallbacks();
                 }
@@ -248,8 +252,9 @@ public class DateAndTimePicker extends LinearLayout {
     }
 
     private void otherCallbacks() {
-        if (listener != null)
+        if (listener != null) {
             listener.onDateChanged();
+        }
     }
 
     public long constructDueDate() {
@@ -290,10 +295,11 @@ public class DateAndTimePicker extends LinearLayout {
         StringBuilder displayString = new StringBuilder();
         Date d = new Date(forDate);
         if (d.getTime() > 0) {
-            if (hideYear)
+            if (hideYear) {
                 displayString.append(DateUtilities.getDateStringHideYear(context, d));
-            else
+            } else {
                 displayString.append(DateUtilities.getDateString(context, d));
+            }
             if (Task.hasDueTime(forDate) && !hideTime) {
                 displayString.append(useNewline ? "\n" : ", "); //$NON-NLS-1$ //$NON-NLS-2$
                 displayString.append(DateUtilities.getTimeString(context, d));

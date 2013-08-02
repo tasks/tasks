@@ -95,8 +95,9 @@ public final class TagsControlSet extends PopupControlSet {
 
         LinkedHashSet<String> tags = getTagSet();
         for (String tag : tags) {
-            if (builder.length() != 0)
+            if (builder.length() != 0) {
                 builder.append(", "); //$NON-NLS-1$
+            }
             builder.append(tag);
         }
 
@@ -119,14 +120,16 @@ public final class TagsControlSet extends PopupControlSet {
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
         if (initialized) {
             for (int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
-                if (selectedTags.isItemChecked(i))
+                if (selectedTags.isItemChecked(i)) {
                     tags.add(allTagNames.get(i));
+                }
             }
 
             for (int i = 0; i < newTags.getChildCount(); i++) {
                 TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
-                if (tagName.getText().length() == 0)
+                if (tagName.getText().length() == 0) {
                     continue;
+                }
 
                 tags.add(tagName.getText().toString());
             }
@@ -149,8 +152,9 @@ public final class TagsControlSet extends PopupControlSet {
         for (int i = 0; i < newTags.getChildCount(); i++) {
             View view = newTags.getChildAt(i);
             lastText = (TextView) view.findViewById(R.id.text1);
-            if (lastText.getText().equals(tagName))
+            if (lastText.getText().equals(tagName)) {
                 return false;
+            }
         }
 
         final View tagItem;
@@ -160,8 +164,9 @@ public final class TagsControlSet extends PopupControlSet {
             tagItem = inflater.inflate(R.layout.tag_edit_row, null);
             newTags.addView(tagItem);
         }
-        if (tagName == null)
+        if (tagName == null) {
             tagName = ""; //$NON-NLS-1$
+        }
 
         final AutoCompleteTextView textView = (AutoCompleteTextView) tagItem.
                 findViewById(R.id.text1);
@@ -183,16 +188,18 @@ public final class TagsControlSet extends PopupControlSet {
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
                 if (count > 0 && newTags.getChildAt(newTags.getChildCount() - 1) ==
-                        tagItem)
+                        tagItem) {
                     addTag("", false); //$NON-NLS-1$
+                }
             }
         });
 
         textView.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-                if (actionId != EditorInfo.IME_NULL)
+                if (actionId != EditorInfo.IME_NULL) {
                     return false;
+                }
                 if (getLastTextView().getText().length() != 0) {
                     addTag("", false); //$NON-NLS-1$
                 }
@@ -205,13 +212,15 @@ public final class TagsControlSet extends PopupControlSet {
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView lastView = getLastTextView();
-                if (lastView == textView && textView.getText().length() == 0)
+                if (lastView == textView && textView.getText().length() == 0) {
                     return;
+                }
 
-                if (newTags.getChildCount() > 1)
+                if (newTags.getChildCount() > 1) {
                     newTags.removeView(tagItem);
-                else
+                } else {
                     textView.setText(""); //$NON-NLS-1$
+                }
             }
         });
 
@@ -224,8 +233,9 @@ public final class TagsControlSet extends PopupControlSet {
      * @return
      */
     private TextView getLastTextView() {
-        if (newTags.getChildCount() == 0)
+        if (newTags.getChildCount() == 0) {
             return null;
+        }
         View lastItem = newTags.getChildAt(newTags.getChildCount() - 1);
         TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
         return lastText;
@@ -297,8 +307,9 @@ public final class TagsControlSet extends PopupControlSet {
     @Override
     protected String writeToModelAfterInitialized(Task task) {
         // this is a case where we're asked to save but the UI was not yet populated
-        if (!populated)
+        if (!populated) {
             return null;
+        }
 
         LinkedHashSet<String> tags = getTagSet();
 

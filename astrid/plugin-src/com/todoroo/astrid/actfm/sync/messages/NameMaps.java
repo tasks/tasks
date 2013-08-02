@@ -78,31 +78,34 @@ public class NameMaps {
         propertyMap.put(property, serverName);
         localNameMap.put(property.name, property);
         serverNameMap.put(property.name, serverName);
-        if (!writeable && excludedFromOutstandingSet != null)
+        if (!writeable && excludedFromOutstandingSet != null) {
             excludedFromOutstandingSet.add(property.name);
+        }
     }
 
     public static Property<?>[] syncableProperties(String table) {
-        if (TABLE_ID_TASKS.equals(table))
+        if (TABLE_ID_TASKS.equals(table)) {
             return computeSyncableProperties(TASK_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_PROPERTIES_EXCLUDED);
-        else if (TABLE_ID_TAGS.equals(table))
+        } else if (TABLE_ID_TAGS.equals(table)) {
             return computeSyncableProperties(TAG_DATA_PROPERTIES_LOCAL_TO_SERVER.keySet(), TAG_PROPERTIES_EXCLUDED);
-        else if (TABLE_ID_USER_ACTIVITY.equals(table))
+        } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
             return computeSyncableProperties(USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER.keySet(), USER_ACTIVITY_PROPERTIES_EXCLUDED);
-        else if (TABLE_ID_ATTACHMENTS.equals(table))
+        } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
             return computeSyncableProperties(TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_ATTACHMENT_PROPERTIES_EXCLUDED);
-        else if (TABLE_ID_TASK_LIST_METADATA.equals(table))
+        } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             return computeSyncableProperties(TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_LIST_METADATA_PROPERTIES_EXCLUDED);
-        else if (TABLE_ID_WAITING_ON_ME.equals(table))
+        } else if (TABLE_ID_WAITING_ON_ME.equals(table)) {
             return computeSyncableProperties(WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER.keySet(), WAITING_ON_ME_PROPERTIES_EXCLUDED);
+        }
         return null;
     }
 
     private static Property<?>[] computeSyncableProperties(Set<Property<?>> baseSet, Set<String> excluded) {
         Set<Property<?>> result = new HashSet<Property<?>>();
         for (Property<?> elem : baseSet) {
-            if (!excluded.contains(elem.name))
+            if (!excluded.contains(elem.name)) {
                 result.add(elem);
+            }
         }
         return result.toArray(new Property<?>[result.size()]);
     }
@@ -371,49 +374,58 @@ public class NameMaps {
     private static <A, B> B mapColumnName(String table, A col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap,
                                           Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap, Map<A, B> waitingOnMeMap) {
         Map<A, B> map = null;
-        if (TABLE_ID_TASKS.equals(table))
+        if (TABLE_ID_TASKS.equals(table)) {
             map = taskMap;
-        else if (TABLE_ID_TAGS.equals(table))
+        } else if (TABLE_ID_TAGS.equals(table)) {
             map = tagMap;
-        else if (TABLE_ID_USERS.equals(table))
+        } else if (TABLE_ID_USERS.equals(table)) {
             map = userMap;
-        else if (TABLE_ID_USER_ACTIVITY.equals(table))
+        } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
             map = userActivityMap;
-        else if (TABLE_ID_ATTACHMENTS.equals(table))
+        } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
             map = taskAttachmentMap;
-        else if (TABLE_ID_TASK_LIST_METADATA.equals(table))
+        } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             map = taskListMetadataMap;
-        else if (TABLE_ID_WAITING_ON_ME.equals(table))
+        } else if (TABLE_ID_WAITING_ON_ME.equals(table)) {
             map = waitingOnMeMap;
+        }
 
-        if (map == null)
+        if (map == null) {
             return null;
+        }
 
         return map.get(col);
     }
 
     public static boolean shouldRecordOutstandingColumnForTable(String table, String column) {
         if (TABLE_ID_TASKS.equals(table)) {
-            if (TASK_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (TASK_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !TASK_PROPERTIES_EXCLUDED.contains(column);
+            }
         } else if (TABLE_ID_TAGS.equals(table)) {
-            if (TAG_DATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (TAG_DATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !TAG_PROPERTIES_EXCLUDED.contains(column);
+            }
         } else if (TABLE_ID_USER_ACTIVITY.equals(table)) {
-            if (USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !USER_ACTIVITY_PROPERTIES_EXCLUDED.contains(column);
+            }
         } else if (TABLE_ID_USERS.equals(table)) {
-            if (USER_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (USER_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !USER_PROPERTIES_EXCLUDED.contains(column);
+            }
         } else if (TABLE_ID_ATTACHMENTS.equals(table)) {
-            if (TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !TASK_ATTACHMENT_PROPERTIES_EXCLUDED.contains(column);
+            }
         } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
-            if (TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !TASK_LIST_METADATA_PROPERTIES_EXCLUDED.contains(column);
+            }
         } else if (TABLE_ID_WAITING_ON_ME.equals(table)) {
-            if (WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES.containsKey(column))
+            if (WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !WAITING_ON_ME_PROPERTIES_EXCLUDED.contains(column);
+            }
         }
         return false;
     }

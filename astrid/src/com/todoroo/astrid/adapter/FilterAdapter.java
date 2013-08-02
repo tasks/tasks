@@ -165,8 +165,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
         this.nook = (Constants.MARKET_STRATEGY instanceof NookMarketStrategy);
 
-        if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
+        if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE) {
             filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
+        }
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -175,8 +176,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     }
 
     private void offerFilter(final Filter filter) {
-        if (selectable && selection == null)
+        if (selectable && selection == null) {
             setSelection(filter);
+        }
         filterExecutor.submit(new Runnable() {
             @Override
             public void run() {
@@ -239,10 +241,11 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     // Helper function: if a filter was created from serialized extras, it may not
     // have the same image data we can get from the in-app broadcast
     private void transferImageReferences(Filter from, Filter to) {
-        if (from instanceof FilterWithUpdate && to instanceof FilterWithUpdate)
+        if (from instanceof FilterWithUpdate && to instanceof FilterWithUpdate) {
             ((FilterWithUpdate) to).imageUrl = ((FilterWithUpdate) from).imageUrl;
-        else
+        } else {
             to.listingIcon = from.listingIcon;
+        }
     }
 
     public int adjustFilterCount(Filter filter, int delta) {
@@ -436,15 +439,17 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         protected void populateFiltersToAdapter(final Parcelable[] filters) {
-            if (filters == null)
+            if (filters == null) {
                 return;
+            }
 
             for (Parcelable item : filters) {
                 FilterListItem filter = (FilterListItem) item;
                 if (skipIntentFilters && !(filter instanceof Filter ||
                         filter instanceof FilterListHeader ||
-                        filter instanceof FilterCategory))
+                        filter instanceof FilterCategory)) {
                     continue;
+                }
                 onReceiveFilter((FilterListItem) item);
 
                 if (filter instanceof FilterCategory) {
@@ -464,8 +469,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        if (listener != null)
+        if (listener != null) {
             listener.filterDataSourceChanged();
+        }
     }
 
     /**
@@ -509,8 +515,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public void populateView(ViewHolder viewHolder) {
         FilterListItem filter = viewHolder.item;
-        if (filter == null)
+        if (filter == null) {
             return;
+        }
 
         viewHolder.view.setBackgroundResource(0);
 
@@ -571,18 +578,20 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             countInt = -1;
         }
 
-        if (countInt == 0 && filter instanceof FilterWithCustomIntent)
+        if (countInt == 0 && filter instanceof FilterWithCustomIntent) {
             viewHolder.name.setTextColor(Color.GRAY);
+        }
 
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
         if (!nook && filter instanceof FilterWithUpdate) {
             String defaultImageId = RemoteModel.NO_UUID;
             FilterWithUpdate fwu = (FilterWithUpdate) filter;
             Bundle customExtras = fwu.customExtras;
-            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID))
+            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID)) {
                 defaultImageId = customExtras.getString(TagViewFragment.EXTRA_TAG_UUID);
-            else
+            } else {
                 defaultImageId = viewHolder.name.getText().toString();
+            }
 
             viewHolder.urlImage.setVisibility(View.VISIBLE);
             viewHolder.urlImage.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, TagService.getDefaultImageIDForTag(defaultImageId)));
@@ -594,18 +603,21 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             params.setMargins((int) (8 * metrics.density), 0, 0, 0);
         }
 
-        if (filter.color != 0)
+        if (filter.color != 0) {
             viewHolder.name.setTextColor(filter.color);
+        }
 
         // selection
         if (selection == viewHolder.item) {
             viewHolder.selected.setVisibility(View.VISIBLE);
             viewHolder.view.setBackgroundColor(Color.rgb(128, 230, 0));
-        } else
+        } else {
             viewHolder.selected.setVisibility(View.GONE);
+        }
 
-        if (filter instanceof FilterCategoryWithNewButton)
+        if (filter instanceof FilterCategoryWithNewButton) {
             setupCustomHeader(viewHolder, (FilterCategoryWithNewButton) filter);
+        }
     }
 
     private void setupCustomHeader(ViewHolder viewHolder, final FilterCategoryWithNewButton filter) {

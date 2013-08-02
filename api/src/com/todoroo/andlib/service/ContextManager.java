@@ -28,10 +28,12 @@ public final class ContextManager {
      * @param context
      */
     public static void setContext(Context context) {
-        if (context == null || context.getApplicationContext() == null)
+        if (context == null || context.getApplicationContext() == null) {
             return;
-        if (ContextManager.context != null && !(context instanceof Activity))
+        }
+        if (ContextManager.context != null && !(context instanceof Activity)) {
             return;
+        }
         ContextManager.context = context;
     }
 

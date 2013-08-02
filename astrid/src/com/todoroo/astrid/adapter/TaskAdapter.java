@@ -391,10 +391,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
 
         view.setTag(viewHolder);
-        for (int i = 0; i < view.getChildCount(); i++)
+        for (int i = 0; i < view.getChildCount(); i++) {
             view.getChildAt(i).setTag(viewHolder);
-        if (viewHolder.details1 != null)
+        }
+        if (viewHolder.details1 != null) {
             viewHolder.details1.setTag(viewHolder);
+        }
 
         // add UI component listeners
         addListeners(view);
@@ -479,10 +481,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.completeBox.setMinimumHeight(minRowHeight);
         }
 
-        if (task.isEditable())
+        if (task.isEditable()) {
             viewHolder.view.setBackgroundColor(resources.getColor(android.R.color.transparent));
-        else
+        } else {
             viewHolder.view.setBackgroundColor(readonlyBackground);
+        }
 
         // name
         final TextView nameView = viewHolder.nameView;
@@ -490,10 +493,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             String nameValue = task.getValue(Task.TITLE);
 
             long hiddenUntil = task.getValue(Task.HIDE_UNTIL);
-            if (task.getValue(Task.DELETION_DATE) > 0)
+            if (task.getValue(Task.DELETION_DATE) > 0) {
                 nameValue = resources.getString(R.string.TAd_deletedFormat, nameValue);
-            if (hiddenUntil > DateUtilities.now())
+            }
+            if (hiddenUntil > DateUtilities.now()) {
                 nameValue = resources.getString(R.string.TAd_hiddenFormat, nameValue);
+            }
             nameView.setText(nameValue);
         }
 
@@ -505,10 +510,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         String details;
         if (viewHolder.details1 != null) {
-            if (taskDetailLoader.containsKey(task.getId()))
+            if (taskDetailLoader.containsKey(task.getId())) {
                 details = taskDetailLoader.get(task.getId()).toString();
-            else
+            } else {
                 details = task.getValue(Task.DETAILS);
+            }
             if (TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
                 viewHolder.details1.setVisibility(View.GONE);
                 viewHolder.details2.setVisibility(View.GONE);
@@ -517,8 +523,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if (details.startsWith(DETAIL_SEPARATOR)) {
                     StringBuffer buffer = new StringBuffer(details);
                     int length = DETAIL_SEPARATOR.length();
-                    while (buffer.lastIndexOf(DETAIL_SEPARATOR, length) == 0)
+                    while (buffer.lastIndexOf(DETAIL_SEPARATOR, length) == 0) {
                         buffer.delete(0, length);
+                    }
                     details = buffer.toString(); //details.substring(DETAIL_SEPARATOR.length());
                 }
                 drawDetails(viewHolder, details, dueDateTextWidth);
@@ -539,14 +546,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         }
 
-        if (Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
+        if (Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L) {
             mostRecentlyMade = task.getId();
+        }
 
     }
 
     private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {
-        if (titleOnlyLayout || task.isCompleted() || !task.isEditable())
+        if (titleOnlyLayout || task.isCompleted() || !task.isEditable()) {
             return null;
+        }
         if (taskActionLoader.containsKey(task.getId())) {
             return taskActionLoader.get(task.getId());
         } else {
@@ -576,8 +585,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details1.setText(prospective);
             viewHolder.details1.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 
-            if (rightWidth > 0 && viewHolder.details1.getMeasuredWidth() > availableWidth)
+            if (rightWidth > 0 && viewHolder.details1.getMeasuredWidth() > availableWidth) {
                 break;
+            }
 
             actual.insert(actual.length(), spanned);
         }
@@ -591,8 +601,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details2.setVisibility(View.VISIBLE);
         }
 
-        for (; i < splitDetails.length; i++)
+        for (; i < splitDetails.length; i++) {
             actual.insert(actual.length(), convertToHtml(splitDetails[i] + "  ", detailImageGetter, null));
+        }
         viewHolder.details2.setText(actual);
     }
 
@@ -652,10 +663,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private void showEditNotesDialog(final Task task) {
         String notes = null;
         Task t = taskService.fetchById(task.getId(), Task.NOTES);
-        if (t != null)
+        if (t != null) {
             notes = t.getValue(Task.NOTES);
-        if (TextUtils.isEmpty(notes))
+        }
+        if (TextUtils.isEmpty(notes)) {
             return;
+        }
 
         int theme = ThemeService.getEditDialogTheme();
         final Dialog dialog = new Dialog(fragment.getActivity(), theme);
@@ -718,14 +731,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     @SuppressWarnings("nls")
     private String formatDate(long date) {
-        if (dateCache.containsKey(date))
+        if (dateCache.containsKey(date)) {
             return dateCache.get(date);
+        }
 
         String formatString = "%s" + (simpleLayout ? " " : "\n") + "%s";
         String string = DateUtilities.getRelativeDay(fragment.getActivity(), date);
-        if (Task.hasDueTime(date))
+        if (Task.hasDueTime(date)) {
             string = String.format(formatString, string, //$NON-NLS-1$
                     DateUtilities.getTimeString(fragment.getActivity(), new Date(date)));
+        }
 
         dateCache.put(date, string);
         return string;
@@ -752,8 +767,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 for (fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
-                    if (task.isCompleted())
+                    if (task.isCompleted()) {
                         continue;
+                    }
 
                     if (detailsAreRecentAndUpToDate(task)) {
                         // even if we are up to date, randomly load a fraction
@@ -761,8 +777,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             taskDetailLoader.put(task.getId(),
                                     new StringBuilder(task.getValue(Task.DETAILS)));
                             requestNewDetails(task);
-                            if (Constants.DEBUG)
+                            if (Constants.DEBUG) {
                                 System.err.println("Refreshing details: " + task.getId()); //$NON-NLS-1$
+                            }
                         }
                         continue;
                     } else if (Constants.DEBUG) {
@@ -810,8 +827,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             Activity activity = fragment.getActivity();
-            if (activity != null)
+            if (activity != null) {
                 activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            }
         }
     }
 
@@ -823,13 +841,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public void addDetails(long id, String detail) {
         final StringBuilder details = taskDetailLoader.get(id);
-        if (details == null)
+        if (details == null) {
             return;
+        }
         synchronized (details) {
-            if (details.toString().contains(detail))
+            if (details.toString().contains(detail)) {
                 return;
-            if (details.length() > 0)
+            }
+            if (details.length() > 0) {
                 details.append(DETAIL_SEPARATOR);
+            }
             details.append(detail);
             Task task = new Task();
             task.setId(id);
@@ -856,26 +877,30 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         @SuppressWarnings("nls")
         public Drawable getDrawable(String source) {
             int drawable = 0;
-            if (source.equals("silk_clock"))
+            if (source.equals("silk_clock")) {
                 drawable = R.drawable.details_alarm;
-            else if (source.equals("silk_tag_pink"))
+            } else if (source.equals("silk_tag_pink")) {
                 drawable = R.drawable.details_tag;
-            else if (source.equals("silk_date"))
+            } else if (source.equals("silk_date")) {
                 drawable = R.drawable.details_repeat;
-            else if (source.equals("silk_note"))
+            } else if (source.equals("silk_note")) {
                 drawable = R.drawable.details_note;
+            }
 
-            if (drawable == 0)
+            if (drawable == 0) {
                 drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
-            if (drawable == 0)
+            }
+            if (drawable == 0) {
                 return null;
+            }
             Drawable d;
             if (!cache.containsKey(drawable)) {
                 d = resources.getDrawable(drawable);
                 d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
                 cache.put(drawable, d);
-            } else
+            } else {
                 d = cache.get(drawable);
+            }
             return d;
         }
     };
@@ -944,18 +969,21 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         protected void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
-            if (decorations == null || viewHolder.task.getId() != taskId)
+            if (decorations == null || viewHolder.task.getId() != taskId) {
                 return;
+            }
 
             reset(viewHolder, taskId);
-            if (decorations.size() == 0)
+            if (decorations.size() == 0) {
                 return;
+            }
 
 
             int i = 0;
             boolean colorSet = false;
-            if (viewHolder.decorations == null || viewHolder.decorations.length != decorations.size())
+            if (viewHolder.decorations == null || viewHolder.decorations.length != decorations.size()) {
                 viewHolder.decorations = new View[decorations.size()];
+            }
             for (TaskDecoration decoration : decorations) {
                 if (decoration.color != 0 && !colorSet) {
                     colorSet = true;
@@ -990,10 +1018,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
                 viewHolder.decorations = null;
             }
-            if (viewHolder.task.getId() == mostRecentlyMade)
+            if (viewHolder.task.getId() == mostRecentlyMade) {
                 viewHolder.view.setBackgroundColor(Color.argb(30, 150, 150, 150));
-            else
+            } else {
                 viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
+            }
         }
 
         @Override
@@ -1030,8 +1059,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             // set check box to actual action item state
             setTaskAppearance(viewHolder, task);
-            if (viewHolder.completeBox.getVisibility() == View.VISIBLE)
+            if (viewHolder.completeBox.getVisibility() == View.VISIBLE) {
                 viewHolder.completeBox.startAnimation(scaleAnimation);
+            }
         }
     };
 
@@ -1044,8 +1074,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public void onClick(View v) {
             // expand view (unless deleted)
             final ViewHolder viewHolder = (ViewHolder) v.getTag();
-            if (viewHolder.task.isDeleted())
+            if (viewHolder.task.isDeleted()) {
                 return;
+            }
 
             long taskId = viewHolder.task.getId();
             fragment.onTaskListItemClicked(taskId, viewHolder.task.isEditable());
@@ -1056,8 +1087,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * Call me when the parent presses trackpad
      */
     public void onTrackpadPressed(View container) {
-        if (container == null)
+        if (container == null) {
             return;
+        }
 
         final CheckBox completeBox = ((CheckBox) container.findViewById(R.id.completeBox));
         completeBox.performClick();
@@ -1073,12 +1105,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     protected void setTaskAppearance(ViewHolder viewHolder, Task task) {
         Activity activity = fragment.getActivity();
-        if (activity == null)
+        if (activity == null) {
             return;
+        }
         // show item as completed if it was recently checked
         Boolean value = completedItems.get(task.getUuid());
-        if (value == null)
+        if (value == null) {
             value = completedItems.get(task.getId());
+        }
         if (value != null) {
             task.setValue(Task.COMPLETION_DATE,
                     value ? DateUtilities.now() : 0);
@@ -1099,19 +1133,23 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             setupDueDateAndTags(viewHolder, task);
 
             float detailTextSize = Math.max(10, fontSize * 14 / 20);
-            if (viewHolder.details1 != null)
+            if (viewHolder.details1 != null) {
                 viewHolder.details1.setTextSize(detailTextSize);
-            if (viewHolder.details2 != null)
+            }
+            if (viewHolder.details2 != null) {
                 viewHolder.details2.setTextSize(detailTextSize);
+            }
             if (viewHolder.dueDate != null) {
                 viewHolder.dueDate.setTextSize(detailTextSize);
-                if (simpleLayout)
+                if (simpleLayout) {
                     viewHolder.dueDate.setTypeface(null, 0);
+                }
             }
             if (viewHolder.tagsView != null) {
                 viewHolder.tagsView.setTextSize(detailTextSize);
-                if (simpleLayout)
+                if (simpleLayout) {
                     viewHolder.tagsView.setTypeface(null, 0);
+                }
             }
             paint.setTextSize(detailTextSize);
 
@@ -1121,16 +1159,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if (pictureView != null) {
                     if (Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
                         pictureView.setVisibility(View.GONE);
-                        if (viewHolder.pictureBorder != null)
+                        if (viewHolder.pictureBorder != null) {
                             viewHolder.pictureBorder.setVisibility(View.GONE);
+                        }
                     } else {
                         pictureView.setVisibility(View.VISIBLE);
-                        if (viewHolder.pictureBorder != null)
+                        if (viewHolder.pictureBorder != null) {
                             viewHolder.pictureBorder.setVisibility(View.VISIBLE);
+                        }
                         pictureView.setUrl(null);
-                        if (Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID)))
+                        if (Task.USER_ID_UNASSIGNED.equals(task.getValue(Task.USER_ID))) {
                             pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_anyone_transparent));
-                        else {
+                        } else {
                             pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
                             if (!TextUtils.isEmpty(viewHolder.imageUrl)) {
                                 pictureView.setUrl(viewHolder.imageUrl);
@@ -1164,8 +1204,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             checkBoxView.setEnabled(viewHolder.task.isEditable());
 
             int value = task.getValue(Task.IMPORTANCE);
-            if (value >= IMPORTANCE_RESOURCES.length)
+            if (value >= IMPORTANCE_RESOURCES.length) {
                 value = IMPORTANCE_RESOURCES.length - 1;
+            }
             Drawable[] boxes = IMPORTANCE_DRAWABLES;
             if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 boxes = completed ? IMPORTANCE_REPEAT_DRAWABLES_CHECKED : IMPORTANCE_REPEAT_DRAWABLES;
@@ -1173,20 +1214,24 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 boxes = completed ? IMPORTANCE_DRAWABLES_CHECKED : IMPORTANCE_DRAWABLES;
             }
             checkBoxView.setImageDrawable(boxes[value]);
-            if (titleOnlyLayout)
+            if (titleOnlyLayout) {
                 return;
+            }
 
             if (checkBoxView.isChecked()) {
-                if (pictureView != null)
+                if (pictureView != null) {
                     pictureView.setVisibility(View.GONE);
-                if (viewHolder.pictureBorder != null)
+                }
+                if (viewHolder.pictureBorder != null) {
                     viewHolder.pictureBorder.setVisibility(View.GONE);
+                }
             }
 
             if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
-                if (viewHolder.pictureBorder != null)
+                if (viewHolder.pictureBorder != null) {
                     viewHolder.pictureBorder.setBackgroundDrawable(IMPORTANCE_DRAWABLES_LARGE[value]);
+                }
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
@@ -1203,10 +1248,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (activity != null) {
                 if (!task.isCompleted() && task.hasDueDate()) {
                     long dueDate = task.getValue(Task.DUE_DATE);
-                    if (task.isOverdue())
+                    if (task.isOverdue()) {
                         dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
-                    else
+                    } else {
                         dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate);
+                    }
                     String dateValue = formatDate(dueDate);
                     dueDateView.setText(dateValue);
                     dueDateTextWidth = paint.measureText(dateValue);
@@ -1223,8 +1269,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
                 if (viewHolder.tagsView != null) {
                     String tags = viewHolder.tagsString;
-                    if (tags != null && task.hasDueDate())
+                    if (tags != null && task.hasDueDate()) {
                         tags = "  |  " + tags; //$NON-NLS-1$
+                    }
                     if (!task.isCompleted()) {
                         viewHolder.tagsView.setText(tags);
                         viewHolder.tagsView.setVisibility(TextUtils.isEmpty(tags) ? View.GONE : View.VISIBLE);
@@ -1247,12 +1294,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param completeBox the box that was clicked. can be null
      */
     protected void completeTask(final Task task, final boolean newState) {
-        if (task == null)
+        if (task == null) {
             return;
+        }
 
         if (newState != task.isCompleted()) {
-            if (onCompletedTaskListener != null)
+            if (onCompletedTaskListener != null) {
                 onCompletedTaskListener.onCompletedTask(task, newState);
+            }
 
             completedItems.put(task.getUuid(), newState);
             taskService.setComplete(task, newState);
@@ -1265,9 +1314,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param newListener
      */
     public void addOnCompletedTaskListener(final OnCompletedTaskListener newListener) {
-        if (this.onCompletedTaskListener == null)
+        if (this.onCompletedTaskListener == null) {
             this.onCompletedTaskListener = newListener;
-        else {
+        } else {
             final OnCompletedTaskListener old = this.onCompletedTaskListener;
             this.onCompletedTaskListener = new OnCompletedTaskListener() {
                 @Override

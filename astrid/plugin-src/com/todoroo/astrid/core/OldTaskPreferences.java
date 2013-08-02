@@ -255,8 +255,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     for (int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        if (GCalHelper.deleteTaskEvent(task))
+                                        if (GCalHelper.deleteTaskEvent(task)) {
                                             deletedEventCount++;
+                                        }
                                     }
                                 } finally {
                                     cursor.close();
@@ -298,8 +299,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     for (int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        if (GCalHelper.deleteTaskEvent(task))
+                                        if (GCalHelper.deleteTaskEvent(task)) {
                                             deletedEventCount++;
+                                        }
                                     }
                                 } finally {
                                     cursor.close();

@@ -100,8 +100,9 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
             e.printStackTrace();
             Toast.makeText(this, R.string.audio_err_encoding, Toast.LENGTH_LONG).show();
         }
-        if (pd != null)
+        if (pd != null) {
             pd.dismiss();
+        }
     }
 
 }

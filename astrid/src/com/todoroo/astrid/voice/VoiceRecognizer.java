@@ -64,13 +64,15 @@ public class VoiceRecognizer {
 
     public static VoiceRecognizer instantiateVoiceRecognizer(Context context, RecognizerApiListener listener, ImageButton voiceAddButton) {
         synchronized (VoiceRecognizer.class) {
-            if (instance == null)
+            if (instance == null) {
                 instance = new VoiceRecognizer();
+            }
         }
 
         if (speechRecordingAvailable(context)) {
-            if (instance.recognizerApi != null)
+            if (instance.recognizerApi != null) {
                 instance.recognizerApi.destroy();
+            }
 
             instance.recognizerApi = new RecognizerApi(context);
             instance.recognizerApi.setListener(listener);
@@ -88,15 +90,17 @@ public class VoiceRecognizer {
                     context.getString(R.string.audio_encoding));
         } else {
             int prompt = R.string.voice_edit_title_prompt;
-            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
+            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
                 prompt = R.string.voice_create_prompt;
+            }
             voiceInputAssistant.startVoiceRecognitionActivity(fragment, prompt);
         }
     }
 
     public boolean handleActivityResult(int requestCode, int resultCode, Intent data, EditText textField) {
-        if (instance != null && instance.voiceInputAssistant != null)
+        if (instance != null && instance.voiceInputAssistant != null) {
             return instance.voiceInputAssistant.handleActivityResult(requestCode, resultCode, data, textField);
+        }
         return false;
     }
 
@@ -108,8 +112,9 @@ public class VoiceRecognizer {
     }
 
     public void cancel() {
-        if (instance != null && instance.recognizerApi != null)
+        if (instance != null && instance.recognizerApi != null) {
             instance.recognizerApi.cancel();
+        }
     }
 
     public void convert(String filePath) {

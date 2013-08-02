@@ -62,8 +62,9 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
             filterText = filterText.substring(filterText.lastIndexOf(getSeperator()) + 1);
         }
 
-        if (!TextUtils.isEmpty(filterText))
+        if (!TextUtils.isEmpty(filterText)) {
             super.performFiltering(filterText, keyCode);
+        }
     }
 
     /**
@@ -71,10 +72,11 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
      */
     @Override
     protected void replaceText(final CharSequence text) {
-        if (allowMultiple)
+        if (allowMultiple) {
             super.replaceText(previous + text + getSeperator());
-        else
+        } else {
             super.replaceText(text);
+        }
     }
 
     // --- cursor stuff
@@ -101,8 +103,9 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
 
     public void setCompleteSharedTags(boolean value) {
         completeTags = value;
-        if (adapter != null)
+        if (adapter != null) {
             adapter.setCompleteSharedTags(value);
+        }
     }
 
     public void setAllowMultiple(boolean allowMultiple) {

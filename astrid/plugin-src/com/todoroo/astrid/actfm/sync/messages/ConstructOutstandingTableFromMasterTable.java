@@ -46,18 +46,20 @@ public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, 
             OE oe = outstandingDao.getModelClass().newInstance();
             for (items.moveToFirst(); !items.isAfterLast(); items.moveToNext()) {
                 long createdAt;
-                if (createdAtProperty != null)
+                if (createdAtProperty != null) {
                     createdAt = items.get(createdAtProperty);
-                else
+                } else {
                     createdAt = DateUtilities.now();
+                }
                 long itemId = items.get(AbstractModel.ID_PROPERTY);
                 for (Property<?> p : syncableProperties) {
                     oe.clear();
                     oe.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, itemId);
                     oe.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, p.name);
                     Object value = items.get(p);
-                    if (value == null)
+                    if (value == null) {
                         continue;
+                    }
 
                     oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, value.toString());
                     oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, createdAt);

@@ -59,8 +59,9 @@ public class AstridDialog extends Dialog {
         for (View.OnClickListener l : listeners) {
             buttons[index].setOnClickListener(l);
             index++;
-            if (index >= buttons.length)
+            if (index >= buttons.length) {
                 break;
+            }
         }
         return this;
     }
