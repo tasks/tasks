@@ -145,7 +145,7 @@ public final class Query {
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }
 
-    @SuppressWarnings("nls")
+
     private void visitGroupByClause(StringBuilder sql) {
         if (groupBies.isEmpty()) {
             return;
@@ -310,7 +310,7 @@ public final class Query {
         /**
          * build a content resolver query
          */
-        @SuppressWarnings("nls")
+
         public static void queryForContentResolver(String queryTemplate,
                                                    StringBuilder selectionClause, StringBuilder orderClause,
                                                    StringBuilder groupByClause) {

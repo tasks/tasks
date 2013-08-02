@@ -25,7 +25,7 @@ import android.support.v4.util.LruCache;
 
 public class DrawableMemCache<T> extends LruCache<T, Drawable> {
 
-    @SuppressWarnings("unused")
+
     private static final String TAG = DrawableMemCache.class.getSimpleName();
 
     public DrawableMemCache(int maxSize) {

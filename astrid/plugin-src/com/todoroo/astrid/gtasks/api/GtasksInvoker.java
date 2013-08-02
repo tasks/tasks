@@ -30,7 +30,7 @@ import java.io.IOException;
  *
  * @author Sam Bosley
  */
-@SuppressWarnings("nls")
+
 public class GtasksInvoker {
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;

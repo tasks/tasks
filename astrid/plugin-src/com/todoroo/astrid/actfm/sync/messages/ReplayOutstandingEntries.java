@@ -15,7 +15,7 @@ import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 
-@SuppressWarnings("nls")
+
 public class ReplayOutstandingEntries<T extends RemoteModel, OE extends OutstandingEntry<T>> {
 
     private static final String ERROR_TAG = "actfm-replay-outstanding";

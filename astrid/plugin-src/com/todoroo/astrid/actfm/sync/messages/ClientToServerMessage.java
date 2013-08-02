@@ -11,7 +11,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@SuppressWarnings("nls")
+
 public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
 
     protected final Class<TYPE> modelClass;

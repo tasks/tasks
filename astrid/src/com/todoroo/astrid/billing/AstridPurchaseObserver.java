@@ -17,7 +17,7 @@ import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.BillingService.RequestPurchase;
 import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
 
-@SuppressWarnings("nls")
+
 public abstract class AstridPurchaseObserver extends PurchaseObserver {
 
     @Autowired

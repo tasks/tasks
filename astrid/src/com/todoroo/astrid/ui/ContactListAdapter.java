@@ -39,7 +39,7 @@ import com.todoroo.astrid.service.TagDataService;
 
 import java.io.InputStream;
 
-@SuppressWarnings({"nls", "deprecation"})
+
 public class ContactListAdapter extends CursorAdapter {
 
     @Autowired

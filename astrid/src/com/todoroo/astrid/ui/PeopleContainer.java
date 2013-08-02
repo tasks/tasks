@@ -150,7 +150,7 @@ public class PeopleContainer extends LinearLayout {
                 //
             }
 
-            @SuppressWarnings("nls")
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
@@ -172,7 +172,7 @@ public class PeopleContainer extends LinearLayout {
         });
 
         textView.setOnEditorActionListener(new OnEditorActionListener() {
-            @SuppressWarnings("nls")
+
             @Override
             public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
                 if (actionId != EditorInfo.IME_NULL) {
@@ -227,7 +227,7 @@ public class PeopleContainer extends LinearLayout {
         return people;
     }
 
-    @SuppressWarnings("nls")
+
     public JSONObject parseSharedWithAndTags(Activity activity, boolean peopleAsJSON) throws
             JSONException, ParseSharedException {
         JSONObject sharedWith = new JSONObject();
@@ -295,7 +295,7 @@ public class PeopleContainer extends LinearLayout {
      *
      * @param people
      */
-    @SuppressWarnings("nls")
+
     public void fromJSONArray(JSONArray people) throws JSONException {
         for (int i = 0; i < people.length(); i++) {
             JSONObject person = people.getJSONObject(i);
@@ -333,7 +333,7 @@ public class PeopleContainer extends LinearLayout {
      * @param textView
      * @return
      */
-    @SuppressWarnings("nls")
+
     public static JSONObject createUserJson(TextView textView) {
         if (textView.isEnabled() == false) {
             return (JSONObject) textView.getTag();

@@ -24,7 +24,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.ThemeService;
 
-@SuppressWarnings("nls")
+
 abstract public class WidgetConfigActivity extends ListActivity {
 
     static final String PREF_TITLE = "widget-title-";

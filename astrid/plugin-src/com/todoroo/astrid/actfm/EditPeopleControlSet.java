@@ -243,7 +243,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
     }
 
-    @SuppressWarnings("nls")
+
     private void buildAssignedToSpinner(Task t, ArrayList<JSONObject> sharedWith) {
         HashSet<String> userIds = new HashSet<String>();
         HashSet<String> emails = new HashSet<String>();
@@ -360,7 +360,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
     }
 
-    @SuppressWarnings("nls")
+
     private ArrayList<AssignedToUser> convertJsonUsersToAssignedUsers(ArrayList<JSONObject> jsonUsers,
                                                                       HashSet<String> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
         ArrayList<AssignedToUser> users = new ArrayList<AssignedToUser>();
@@ -412,7 +412,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         return users;
     }
 
-    @SuppressWarnings("nls")
+
     private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) {
         String assignedStr = t.getValue(Task.USER);
         String assignedId = Task.USER_ID_IGNORE;
@@ -495,7 +495,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             this.positionOffset = positionOffset;
         }
 
-        @SuppressWarnings("nls")
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
@@ -618,7 +618,7 @@ public class EditPeopleControlSet extends PopupControlSet {
      * @param toast toast to show after saving is finished
      * @return false if login is required & save should be halted
      */
-    @SuppressWarnings("nls")
+
     public boolean saveSharingSettings(String toast) {
         if (task == null) {
             return false;
@@ -665,7 +665,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 String taskUserId = Task.USER_ID_EMAIL;
                 String taskUserEmail = "";
                 try {
-                    @SuppressWarnings("deprecation") // For backwards compatibility
+                     // For backwards compatibility
                             JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
                     taskUserId = getLongOrStringId(taskUser, Task.USER_ID_EMAIL);
                     taskUserEmail = taskUser.optString("email");

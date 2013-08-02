@@ -11,7 +11,7 @@ import com.todoroo.astrid.data.WaitingOnMe;
 
 import org.json.JSONObject;
 
-@SuppressWarnings("nls")
+
 public abstract class ServerToClientMessage {
 
     public abstract void processMessage(String serverTime);

@@ -96,7 +96,7 @@ public class ModernAuthManager implements AuthManager {
      *                 {@link #getAuthToken()}
      */
     @Override
-    @SuppressWarnings("nls")
+
     public void doLogin(final Runnable runnable, Object o) {
         this.whenFinished = runnable;
         if (!(o instanceof Account)) {
@@ -156,7 +156,7 @@ public class ModernAuthManager implements AuthManager {
      * canceled
      */
     @Override
-    @SuppressWarnings("nls")
+
     public boolean authResult(int resultCode, Intent results) {
         if (results != null) {
             authToken = results.getStringExtra(

@@ -31,7 +31,7 @@ public class TimerPlugin extends BroadcastReceiver {
     static final String IDENTIFIER = "timer"; //$NON-NLS-1$
 
     @Override
-    @SuppressWarnings("nls")
+
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         Addon plugin = new Addon(IDENTIFIER, "Timer", "Todoroo",

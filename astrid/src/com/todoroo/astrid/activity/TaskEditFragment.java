@@ -754,7 +754,7 @@ public final class TaskEditFragment extends SherlockFragment implements
      *
      * @param intent
      */
-    @SuppressWarnings("nls")
+
     protected void loadItem(Intent intent) {
         if (model != null) {
             // came from bundle
@@ -1231,7 +1231,7 @@ public final class TaskEditFragment extends SherlockFragment implements
         createNewFileAttachment(path, name, type);
     }
 
-    @SuppressWarnings("nls")
+
     private void attachImage(Bitmap bitmap) {
 
         AtomicReference<String> nameRef = new AtomicReference<String>();

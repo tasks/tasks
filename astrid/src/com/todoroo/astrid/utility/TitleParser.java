@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("nls")
+
 public class TitleParser {
 
     public static boolean parse(Task task, ArrayList<String> tags) {

@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
-@SuppressWarnings("nls")
+
 public final class Operator {
 
     private final String operator;

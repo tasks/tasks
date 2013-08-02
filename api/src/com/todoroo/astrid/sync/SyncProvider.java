@@ -239,7 +239,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         readRemotelyUpdated(data);
     }
 
-    @SuppressWarnings("nls")
+
     protected String getFinalSyncStatus() {
         if (getUtilities().getLastError() != null || getUtilities().getLastAttemptedSyncDate() != 0) {
             if (getUtilities().getLastAttemptedSyncDate() == 0) {

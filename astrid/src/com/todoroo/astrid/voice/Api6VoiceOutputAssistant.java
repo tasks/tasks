@@ -20,7 +20,7 @@ import java.util.Locale;
 /**
  * @author Arne Jans
  */
-@SuppressWarnings("nls")
+
 public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssistant {
 
     private static final int MY_DATA_CHECK_CODE = 2534;

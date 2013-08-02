@@ -33,7 +33,7 @@ import java.util.List;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public final class ActFmSyncService {
 
     // --- instance variables

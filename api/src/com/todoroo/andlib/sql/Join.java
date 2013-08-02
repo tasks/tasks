@@ -38,7 +38,7 @@ public class Join {
     }
 
     @Override
-    @SuppressWarnings("nls")
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(joinType).append(SPACE).append(JOIN).append(SPACE).append(joinTable).append(SPACE).append(ON).append(SPACE).append("(");

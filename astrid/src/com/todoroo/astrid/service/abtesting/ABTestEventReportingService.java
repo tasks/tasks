@@ -35,7 +35,7 @@ import java.util.Set;
  *
  * @author Sam
  */
-@SuppressWarnings("nls")
+
 public final class ABTestEventReportingService {
 
     private static final String KEY_TEST = "test";

@@ -21,7 +21,7 @@ import com.todoroo.astrid.data.Task;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public class TransitionalAlarm extends AbstractModel {
 
     // --- table

@@ -110,7 +110,7 @@ public class TaskListFragmentPager extends ViewPager {
         return false;
     }
 
-    @SuppressWarnings("nls")
+
     public static void showSwipeBetweenHelper(Activity activity) {
         if (!Preferences.getBoolean(PREF_SHOWED_SWIPE_HELPER, false)) {
             String body = String.format("<h3>%s</h3><img src='%s'><br><br>%s",

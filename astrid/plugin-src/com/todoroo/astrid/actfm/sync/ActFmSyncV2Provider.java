@@ -104,7 +104,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /**
      * fetch user status hash
      */
-    @SuppressWarnings("nls")
+
     public void updateUserStatus() {
         if (Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION) != null) {
             actFmSyncService.setGCMRegistration(Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION));

@@ -24,7 +24,7 @@ import java.util.Date;
  *
  * @author timsu
  */
-@SuppressWarnings("nls")
+
 public abstract class AbstractTagModel extends LegacyAbstractModel {
 
     /**

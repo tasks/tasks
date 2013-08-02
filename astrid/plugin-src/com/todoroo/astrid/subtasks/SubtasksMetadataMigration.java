@@ -20,7 +20,7 @@ import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("deprecation") // Subtasks metadata is deprecated
+ // Subtasks metadata is deprecated
 public class SubtasksMetadataMigration {
 
     @Autowired
@@ -55,7 +55,7 @@ public class SubtasksMetadataMigration {
         }
     }
 
-    @SuppressWarnings("nls")
+
     private void processTag(String tag, TodorooCursor<Metadata> subtasksMetadata) {
         Metadata item = new Metadata();
         TagData td = null;

@@ -188,7 +188,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
 
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
-                    @SuppressWarnings("nls")
+
                     public boolean onPreferenceClick(Preference pref) {
                         // Show last error
                         new AlertDialog.Builder(SyncProviderPreferences.this)
@@ -251,7 +251,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
      */
     private static HashMap<String, Integer> exceptionsToDisplayMessages;
 
-    @SuppressWarnings("nls")
+
     private static HashMap<String, Integer> getExceptionMap() {
         if (exceptionsToDisplayMessages == null) {
             exceptionsToDisplayMessages = new HashMap<String, Integer>();

@@ -70,7 +70,7 @@ public class GCalHelper {
         return createTaskEvent(task, cr, values, true);
     }
 
-    @SuppressWarnings("nls")
+
     public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
         String eventuri = getTaskEventUri(task);
 
@@ -143,7 +143,7 @@ public class GCalHelper {
         }
     }
 
-    @SuppressWarnings("nls")
+
     public static boolean deleteTaskEvent(Task task) {
         boolean eventDeleted = false;
         String uri;
@@ -184,7 +184,7 @@ public class GCalHelper {
         return eventDeleted;
     }
 
-    @SuppressWarnings("nls")
+
     static void createStartAndEndDate(Task task, ContentValues values) {
         long dueDate = task.getValue(Task.DUE_DATE);
         long tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate);
@@ -219,7 +219,7 @@ public class GCalHelper {
         adjustDateForIcs(values);
     }
 
-    @SuppressWarnings("nls")
+
     private static void adjustDateForIcs(ContentValues values) {
         if (AndroidUtilities.getSdkVersion() >= 14) {
             if ("1".equals(values.get("allDay"))) {

@@ -314,7 +314,7 @@ public class FilesControlSet extends PopupControlSet {
         }, null);
     }
 
-    @SuppressWarnings("nls")
+
     private void downloadFile(final TaskAttachment m) {
         final ProgressDialog pd = new ProgressDialog(activity);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -434,7 +434,7 @@ public class FilesControlSet extends PopupControlSet {
         return name.substring(0, extension);
     }
 
-    @SuppressWarnings("nls")
+
     private String getTypeString(String name) {
         int extension = name.lastIndexOf('.');
         if (extension < 0 || extension + 1 >= name.length()) {

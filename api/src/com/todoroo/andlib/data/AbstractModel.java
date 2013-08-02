@@ -166,7 +166,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     }
 
     @Override
-    @SuppressWarnings("nls")
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(getClass().getSimpleName()).append("\n")

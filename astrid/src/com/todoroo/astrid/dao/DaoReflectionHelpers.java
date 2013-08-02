@@ -6,7 +6,7 @@ import com.todoroo.astrid.data.RemoteModel;
 
 import java.lang.reflect.Field;
 
-@SuppressWarnings("nls")
+
 public class DaoReflectionHelpers {
 
     public static <T> T getStaticFieldByReflection(Class<?> cls, Class<T> cast, String fieldName) {

@@ -15,7 +15,7 @@ import java.util.HashSet;
  *
  * @author Sam
  */
-@SuppressWarnings("nls")
+
 public class Security {
     private static final String TAG = "Security";
 

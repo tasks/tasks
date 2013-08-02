@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-@SuppressWarnings("nls")
+
 public class BillingService extends Service implements ServiceConnection {
     private static final String TAG = "billing-service";
 

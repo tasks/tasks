@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-@SuppressWarnings({"nls", "unused"})
+
 public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
 

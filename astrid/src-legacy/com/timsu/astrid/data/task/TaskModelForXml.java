@@ -15,7 +15,7 @@ import com.todoroo.astrid.backup.BackupDateUtilities;
 import java.util.Date;
 import java.util.HashMap;
 
-@SuppressWarnings("nls")
+
 public class TaskModelForXml extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[]{

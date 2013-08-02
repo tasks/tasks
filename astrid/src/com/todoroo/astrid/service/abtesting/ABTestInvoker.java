@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Sam
  */
-@SuppressWarnings("nls")
+
 public class ABTestInvoker {
 
     /**

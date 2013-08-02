@@ -49,7 +49,7 @@ public class SortHelper {
      * @param sort
      * @return
      */
-    @SuppressWarnings("nls")
+
     public static String adjustQueryForFlagsAndSort(String originalSql, int flags, int sort) {
         // sort
         if (originalSql == null) {
@@ -93,7 +93,7 @@ public class SortHelper {
         return flags;
     }
 
-    @SuppressWarnings("nls")
+
     public static Order orderForSortType(int sortType) {
         Order order;
         switch (sortType) {
@@ -129,7 +129,7 @@ public class SortHelper {
      *
      * @return
      */
-    @SuppressWarnings("nls")
+
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 Functions.now() + "*2",
@@ -137,7 +137,7 @@ public class SortHelper {
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
 
-    @SuppressWarnings("nls")
+
     private static String adjustedDueDateFunction() {
         return new StringBuilder("(CASE WHEN (").append(Task.DUE_DATE.name).append(" / 1000) % 60 > 0")
                 .append(" THEN ").append(Task.DUE_DATE.name).append(" ELSE ").append("(").append(Task.DUE_DATE.name)

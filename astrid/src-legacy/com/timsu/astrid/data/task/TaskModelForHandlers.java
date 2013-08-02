@@ -44,7 +44,7 @@ public class TaskModelForHandlers extends AbstractTaskModel {
      * @param taskController
      * @param repeatInfo
      */
-    @SuppressWarnings("deprecation")
+
     public void repeatTaskBy(Context context, TaskController taskController,
                              RepeatInfo repeatInfo) {
 

@@ -16,7 +16,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import java.io.File;
 import java.io.FilenameFilter;
 
-@SuppressWarnings("nls")
+
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
 
     public interface OnFilePickedListener {

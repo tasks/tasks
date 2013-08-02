@@ -135,7 +135,7 @@ public class GCalControlSet extends PopupControlSet {
         }
     }
 
-    @SuppressWarnings("nls")
+
     @Override
     protected String writeToModelAfterInitialized(Task task) {
         if (!task.hasDueDate()) {
@@ -200,7 +200,7 @@ public class GCalControlSet extends PopupControlSet {
         return null;
     }
 
-    @SuppressWarnings("nls")
+
     private void viewCalendarEvent() {
         if (calendarUri == null) {
             return;

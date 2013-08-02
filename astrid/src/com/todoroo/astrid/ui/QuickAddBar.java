@@ -285,7 +285,7 @@ public class QuickAddBar extends LinearLayout {
      * @param title
      * @return
      */
-    @SuppressWarnings("nls")
+
     public Task quickAddTask(String title, boolean selectNewTask) {
         TagData tagData = fragment.getActiveTagData();
         if (tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||

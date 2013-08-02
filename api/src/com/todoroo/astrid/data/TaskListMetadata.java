@@ -24,7 +24,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public final class TaskListMetadata extends RemoteModel {
 
     // --- table and uri

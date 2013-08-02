@@ -186,7 +186,7 @@ public class AlarmService {
      *
      * @param shouldPerformPropertyCheck whether to check if task has requisite properties
      */
-    @SuppressWarnings("nls")
+
     private void scheduleAlarm(Metadata alarm) {
         if (alarm == null) {
             return;

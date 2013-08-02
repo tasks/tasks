@@ -15,7 +15,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import java.util.Date;
 
-@SuppressWarnings("nls")
+
 public class ReminderDebugContextActions {
 
     public static class WhenReminder implements TaskContextActionExposer {

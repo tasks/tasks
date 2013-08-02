@@ -19,7 +19,7 @@ public class TagsPlugin extends BroadcastReceiver {
 
     static final String IDENTIFIER = "tags"; //$NON-NLS-1$
 
-    @SuppressWarnings("nls")
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Addon plugin = new Addon(IDENTIFIER, "Tags", "Todoroo",

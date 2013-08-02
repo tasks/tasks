@@ -66,7 +66,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      * (i.e. {@link ErrorReporter}.
      */
     @Override
-    @SuppressWarnings("nls")
+
     protected void addInjectables() {
         injectables.put("debug", Constants.DEBUG);
 

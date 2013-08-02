@@ -42,7 +42,7 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public class Astrid2TaskProvider extends ContentProvider {
 
     static {

@@ -141,7 +141,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         iterateThroughList(listId, iterator, 0, false);
     }
 
-    @SuppressWarnings("nls")
+
     public void iterateThroughList(String listId, OrderedListIterator iterator, long startAtOrder, boolean reverse) {
         Field orderField = Functions.cast(GtasksMetadata.ORDER, "LONG");
         Order order = reverse ? Order.desc(orderField) : Order.asc(orderField);

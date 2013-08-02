@@ -608,7 +608,7 @@ public class TagViewFragment extends TaskListFragment {
         }
     }
 
-    @SuppressWarnings("nls")
+
     private void addImageForMember(LinearLayout membersView, JSONObject member) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -647,7 +647,7 @@ public class TagViewFragment extends TaskListFragment {
         return new OnClickListener() {
             final String email = member.optString("email"); //$NON-NLS-1$
 
-            @SuppressWarnings("deprecation")
+
             @Override
             public void onClick(View v) {
                 if (currentId.equals(id)) {
@@ -693,7 +693,7 @@ public class TagViewFragment extends TaskListFragment {
         setUpTaskList();
     }
 
-    @SuppressWarnings("nls")
+
     private String displayName(JSONObject user) {
         String name = user.optString("name");
         if (!TextUtils.isEmpty(name) && !"null".equals(name)) {
@@ -719,7 +719,7 @@ public class TagViewFragment extends TaskListFragment {
     // --- receivers
 
     private final BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
-        @SuppressWarnings("nls")
+
         @Override
         public void onReceive(Context context, Intent intent) {
             if (!intent.hasExtra("tag_id")) {

@@ -40,7 +40,7 @@ import java.util.ArrayList;
  *
  * @author Arne Jans
  */
-@SuppressWarnings("nls")
+
 public class VoiceInputAssistant {
 
     /**

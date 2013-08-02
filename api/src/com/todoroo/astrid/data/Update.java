@@ -22,7 +22,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 @Deprecated
 public class Update extends RemoteModel {
 

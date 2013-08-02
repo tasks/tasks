@@ -184,7 +184,7 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
         });
     }
 
-    @SuppressWarnings("nls")
+
     private void setupText() {
         int[] bullets = new int[]{R.string.premium_description_1, /* R.string.premium_description_2,*/ R.string.premium_description_3,
                 R.string.premium_description_4, R.string.premium_description_5, R.string.premium_description_6
@@ -238,7 +238,7 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
      * @param str the string to replace the language/country within
      * @return a string containing the local language and region codes
      */
-    @SuppressWarnings("nls")
+
     private String replaceLanguageAndRegion(String str) {
         // Substitute language and or region if present in string
         if (str.contains("%lang%") || str.contains("%region%")) {
@@ -266,7 +266,7 @@ public class BillingActivity extends SherlockFragmentActivity implements AstridP
         }
     }
 
-    @SuppressWarnings("nls")
+
     private Dialog createDialog(int titleId, int messageId) {
         String helpUrl = "http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%";
         helpUrl = replaceLanguageAndRegion(helpUrl);

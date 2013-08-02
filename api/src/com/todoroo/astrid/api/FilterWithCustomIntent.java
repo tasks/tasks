@@ -86,7 +86,7 @@ public class FilterWithCustomIntent extends Filter {
     /**
      * Parcelable Creator Object
      */
-    @SuppressWarnings("hiding")
+
     public static final Parcelable.Creator<FilterWithCustomIntent> CREATOR = new Parcelable.Creator<FilterWithCustomIntent>() {
 
         /**

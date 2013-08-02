@@ -27,7 +27,7 @@ import static com.todoroo.andlib.sql.SqlConstants.SPACE;
  * @param <TYPE> a database supported type, such as String or Integer
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public abstract class Property<TYPE> extends Field {
 
     // --- implementation

@@ -17,7 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-@SuppressWarnings("nls")
+
 public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String> {
 
     private static final String ERROR_TAG = "actfm-make-changes";

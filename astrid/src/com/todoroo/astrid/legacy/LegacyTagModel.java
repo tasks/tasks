@@ -10,7 +10,7 @@ import com.timsu.astrid.data.LegacyAbstractModel;
 /**
  * Legacy tag model
  */
-@SuppressWarnings("nls")
+
 abstract public class LegacyTagModel extends LegacyAbstractModel {
 
     public static final String NAME = "name";

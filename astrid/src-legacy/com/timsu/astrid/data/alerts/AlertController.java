@@ -24,7 +24,7 @@ import java.util.Set;
 /**
  * Controller for Tag-related operations
  */
-@SuppressWarnings("nls")
+
 public class AlertController extends LegacyAbstractController {
 
     private SQLiteDatabase alertDatabase;

@@ -51,7 +51,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("nls")
+
 public class AstridNewSyncMigrator {
 
     @Autowired
@@ -86,7 +86,7 @@ public class AstridNewSyncMigrator {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    @SuppressWarnings("deprecation")
+
     public void performMigration() {
         if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false)) {
             return;

@@ -19,7 +19,7 @@ public class NotesAction extends TaskAction {
 //    /**
 //     * Parcelable creator
 //     */
-//    @SuppressWarnings("hiding")
+//
 //    public static final Parcelable.Creator<NotesAction> CREATOR = new Parcelable.Creator<NotesAction>() {
 //        /**
 //         * {@inheritDoc}

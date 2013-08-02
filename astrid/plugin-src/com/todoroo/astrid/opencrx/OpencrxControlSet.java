@@ -44,7 +44,7 @@ public class OpencrxControlSet extends PopupControlSet {
     /**
      * Class that represents OpenCRX ActivityCreator. Duplicates some functionality of OpenCRX plugin.
      */
-    @SuppressWarnings("unused")
+
     private static class OpencrxActivityCreator {
         /**
          * type
@@ -107,7 +107,7 @@ public class OpencrxControlSet extends PopupControlSet {
     /**
      * Class that represents OpenCRX Contact. Duplicates some functionality of OpenCRX plugin.
      */
-    @SuppressWarnings("unused")
+
     private static class OpencrxContact {
         public static final String TYPE = "opencrx-contacts"; //$NON-NLS-1$
 

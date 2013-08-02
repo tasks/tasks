@@ -15,7 +15,7 @@ public class SqlTable extends DBObject<SqlTable> {
         return new SqlTable(table);
     }
 
-    @SuppressWarnings("nls")
+
     protected String fieldExpression(String fieldName) {
         if (hasAlias()) {
             return alias + "." + fieldName;

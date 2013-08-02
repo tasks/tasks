@@ -18,7 +18,7 @@ import java.util.Iterator;
 /**
  * Abstract controller class. Mostly contains some static fields
  */
-@SuppressWarnings("nls")
+
 abstract public class LegacyAbstractController {
 
     protected Context context;

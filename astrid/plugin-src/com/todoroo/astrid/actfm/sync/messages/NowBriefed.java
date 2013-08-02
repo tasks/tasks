@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 
-@SuppressWarnings("nls")
+
 public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage {
 
     private static final String ERROR_TAG = "actfm-now-briefed";

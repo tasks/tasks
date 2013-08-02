@@ -23,7 +23,7 @@ import java.util.HashSet;
 /**
  * Controller for Tag-related operations
  */
-@SuppressWarnings("nls")
+
 public class SyncDataController extends LegacyAbstractController {
 
     private SQLiteDatabase syncDatabase;

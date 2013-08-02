@@ -79,7 +79,7 @@ public class LinkActionExposer {
         return null;
     }
 
-    @SuppressWarnings("nls")
+
     private static TaskAction createLinkAction(Context context, long id, String url, String text, PackageManager pm) {
         Intent itemIntent = new Intent(Intent.ACTION_VIEW);
         itemIntent.setData(Uri.parse(url));

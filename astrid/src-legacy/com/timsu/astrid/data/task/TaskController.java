@@ -36,7 +36,7 @@ import java.util.List;
  * @author timsu
  */
 @Deprecated
-@SuppressWarnings("nls")
+
 public class TaskController extends LegacyAbstractController {
 
     private SQLiteDatabase database;

@@ -27,7 +27,7 @@ public class FileUtilities {
         return DateUtilities.getDateStringHideYear(context, date) + ", " + getTimeStringForFilename(context, date); //$NON-NLS-1$
     }
 
-    @SuppressWarnings("nls")
+
     private static String getTimeStringForFilename(Context context, Date date) {
         String value;
         if (DateUtilities.is24HourFormat(context)) {

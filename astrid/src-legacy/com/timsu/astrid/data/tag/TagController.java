@@ -25,7 +25,7 @@ import java.util.LinkedList;
 /**
  * Controller for Tag-related operations
  */
-@SuppressWarnings("nls")
+
 @Deprecated
 public class TagController extends LegacyAbstractController {
 

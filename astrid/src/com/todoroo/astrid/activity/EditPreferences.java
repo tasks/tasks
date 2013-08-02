@@ -330,7 +330,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         }
     }
 
-    @SuppressWarnings("nls")
+
     private void addDebugPreferences() {
         if (!Constants.DEBUG) {
             return;

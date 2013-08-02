@@ -74,7 +74,7 @@ public final class QueryTemplate {
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }
 
-    @SuppressWarnings("nls")
+
     private void visitGroupByClause(StringBuilder sql) {
         if (groupBies.isEmpty()) {
             return;

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings("nls")
+
 public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;

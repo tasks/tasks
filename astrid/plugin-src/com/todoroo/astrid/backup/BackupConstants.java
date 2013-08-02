@@ -14,7 +14,7 @@ import java.io.File;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public class BackupConstants {
 
     // Do NOT edit the constants in this file! You will break compatibility with old backups

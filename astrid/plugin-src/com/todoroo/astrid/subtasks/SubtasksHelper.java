@@ -59,7 +59,7 @@ public class SubtasksHelper {
         return false;
     }
 
-    @SuppressWarnings("nls")
+
     public static String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
         if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             // care for manual ordering
@@ -102,7 +102,7 @@ public class SubtasksHelper {
         return AstridOrderedListUpdater.buildOrderString(getStringIdArray(serialized));
     }
 
-    @SuppressWarnings("nls")
+
     @Deprecated
     private static Long[] getIdArray(String serializedTree) {
         ArrayList<Long> ids = new ArrayList<Long>();
@@ -119,7 +119,7 @@ public class SubtasksHelper {
         return ids.toArray(new Long[ids.size()]);
     }
 
-    @SuppressWarnings("nls")
+
     public static String[] getStringIdArray(String serializedTree) {
         ArrayList<String> ids = new ArrayList<String>();
         String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars

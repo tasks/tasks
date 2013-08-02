@@ -39,7 +39,7 @@ import java.util.TreeMap;
  * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
  * @since 2.0
  */
-@SuppressWarnings({"nls", "rawtypes", "unused"})
+
 class Entities {
 
     private static final String[][] BASIC_ARRAY = {{"quot", "34"}, // " - double-quote

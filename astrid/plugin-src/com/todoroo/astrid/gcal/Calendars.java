@@ -22,7 +22,7 @@ import com.todoroo.andlib.utility.Preferences;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-@SuppressWarnings("nls")
+
 public class Calendars {
 
     public static final String CALENDAR_CONTENT_CALENDARS = "calendars";

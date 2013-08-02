@@ -184,7 +184,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         public FilterView filterView;
     }
 
-    @SuppressWarnings("nls")
+
     private void initializeView(View convertView) {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         CriterionInstance item = viewHolder.item;

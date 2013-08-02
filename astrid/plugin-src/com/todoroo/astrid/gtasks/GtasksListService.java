@@ -90,7 +90,7 @@ public class GtasksListService {
      *
      * @param remoteLists remote information about your lists
      */
-    @SuppressWarnings("nls")
+
     public synchronized void updateLists(TaskLists remoteLists) {
         readLists();
 

@@ -36,7 +36,7 @@ public class UnaryCriterion extends Criterion {
         sb.append(operator);
     }
 
-    @SuppressWarnings("nls")
+
     protected void afterPopulateOperator(StringBuilder sb) {
         if (value == null) {
             return;
@@ -53,7 +53,7 @@ public class UnaryCriterion extends Criterion {
      * @param input
      * @return
      */
-    @SuppressWarnings("nls")
+
     public static String sanitize(String input) {
         return input.replace("'", "''");
     }
@@ -112,7 +112,7 @@ public class UnaryCriterion extends Criterion {
                 sb.append(SPACE).append(operator).append(SPACE);
             }
 
-            @SuppressWarnings("nls")
+
             @Override
             protected void afterPopulateOperator(StringBuilder sb) {
                 super.afterPopulateOperator(sb);

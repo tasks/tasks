@@ -66,7 +66,7 @@ import java.util.Set;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public class Astrid3ContentProvider extends ContentProvider {
 
     static {

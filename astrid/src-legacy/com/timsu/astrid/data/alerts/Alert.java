@@ -22,7 +22,7 @@ import java.util.Date;
 /**
  * A single alert on a task
  */
-@SuppressWarnings("nls")
+
 public class Alert extends LegacyAbstractModel {
 
     /**

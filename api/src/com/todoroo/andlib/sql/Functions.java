@@ -10,7 +10,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 
 
-@SuppressWarnings("nls")
+
 public final class Functions {
 
     public static String caseStatement(Criterion when, Object ifTrue, Object ifFalse) {

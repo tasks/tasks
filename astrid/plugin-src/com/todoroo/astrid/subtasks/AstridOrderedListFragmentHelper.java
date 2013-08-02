@@ -97,7 +97,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
     }
 
-    @SuppressWarnings("nls")
+
     private void showSubtasksHelp() {
         String body = String.format("<h3>%s</h3><img src='%s'>" +
                 "<br>%s<br><br><br><img src='%s'><br>%s",

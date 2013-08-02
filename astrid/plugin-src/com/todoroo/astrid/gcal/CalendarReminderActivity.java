@@ -33,7 +33,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import java.util.Date;
 
-@SuppressWarnings("nls")
+
 public class CalendarReminderActivity extends Activity {
 
     public static final String TOKEN_NAMES = "names";

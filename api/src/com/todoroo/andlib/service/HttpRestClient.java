@@ -60,7 +60,7 @@ public class HttpRestClient implements RestClient {
 
     private int timeout = TIMEOUT_MILLIS;
 
-    @SuppressWarnings("nls")
+
     public HttpRestClient() {
         DependencyInjectionService.getInstance().inject(this);
 
@@ -99,7 +99,7 @@ public class HttpRestClient implements RestClient {
         return httpClient.get();
     }
 
-    @SuppressWarnings("nls")
+
     protected void actsAsGzippable(DefaultHttpClient client) {
         client.addRequestInterceptor(new HttpRequestInterceptor() {
             @Override

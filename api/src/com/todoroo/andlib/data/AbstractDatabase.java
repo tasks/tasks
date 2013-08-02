@@ -38,7 +38,7 @@ import java.util.ArrayList;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 abstract public class AbstractDatabase {
 
     // --- abstract methods

@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * A data object backed by a database
  */
-@SuppressWarnings("nls")
+
 public abstract class LegacyAbstractModel {
 
     /* Data Source Ordering:

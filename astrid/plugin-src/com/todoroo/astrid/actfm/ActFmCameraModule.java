@@ -57,7 +57,7 @@ public class ActFmCameraModule {
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @SuppressWarnings("nls")
+
             @Override
             public void onClick(DialogInterface d, int which) {
                 if (which == 0 && cameraAvailable) {
@@ -107,7 +107,7 @@ public class ActFmCameraModule {
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
 
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @SuppressWarnings("nls")
+
             @Override
             public void onClick(DialogInterface d, int which) {
                 if (which == 0 && cameraAvailable) {
@@ -135,7 +135,7 @@ public class ActFmCameraModule {
                 .show().setOwnerActivity(fragment.getActivity());
     }
 
-    @SuppressWarnings("nls")
+
     private static File getTempFile(Activity activity) {
         try {
             String storageState = Environment.getExternalStorageState();

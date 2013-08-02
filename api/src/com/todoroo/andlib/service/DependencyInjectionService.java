@@ -35,7 +35,7 @@ public class DependencyInjectionService {
      *
      * @param caller object to perform DI on
      */
-    @SuppressWarnings("nls")
+
     public void inject(Object caller) {
         // Traverse through class and all parent classes, looking for
         // fields declared with the @Autowired annotation and using
@@ -70,7 +70,7 @@ public class DependencyInjectionService {
         }
     }
 
-    @SuppressWarnings("nls")
+
     private boolean isQualifiedPackage(String packageName) {
         if (packageName.startsWith("com.todoroo")) {
             return true;
@@ -91,7 +91,7 @@ public class DependencyInjectionService {
      * @param caller calling object
      * @param field  field to inject
      */
-    @SuppressWarnings("nls")
+
     private synchronized void handleField(Object caller, Field field)
             throws IllegalStateException, IllegalArgumentException,
             IllegalAccessException {
@@ -125,7 +125,7 @@ public class DependencyInjectionService {
     // --- default dependency injector
 
     private class DefaultDependencyInjector extends AbstractDependencyInjector {
-        @SuppressWarnings("nls")
+
         @Override
         protected void addInjectables() {
             injectables.put("debug", false);

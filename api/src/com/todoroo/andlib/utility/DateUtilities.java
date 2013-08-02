@@ -115,7 +115,7 @@ public class DateUtilities {
      * @param date    time to format
      * @return time, with hours and minutes
      */
-    @SuppressWarnings("nls")
+
     public static String getTimeString(Context context, Date date, boolean excludeZeroMinutes) {
         String value;
         if (is24HourFormat(context)) {
@@ -143,7 +143,7 @@ public class DateUtilities {
      * @param date    date to format
      * @return date, with month, day, and year
      */
-    @SuppressWarnings("nls")
+
     public static String getDateString(Context context, Date date, boolean includeYear) {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
@@ -179,7 +179,7 @@ public class DateUtilities {
      * @param date    date to format
      * @return date, with month, day, and year
      */
-    @SuppressWarnings("nls")
+
     public static String getDateStringHideYear(Context context, Date date) {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
@@ -210,7 +210,7 @@ public class DateUtilities {
     /**
      * @return date format as getDateFormat with weekday
      */
-    @SuppressWarnings("nls")
+
     public static String getDateStringWithWeekday(Context context, Date date) {
         String weekday = getWeekday(date);
         return weekday + ", " + getDateString(context, date);
@@ -236,7 +236,7 @@ public class DateUtilities {
     /**
      * @return date format as getDateFormat with weekday
      */
-    @SuppressWarnings("nls")
+
     public static String getDateStringWithTimeAndWeekday(Context context, Date date) {
         return getDateStringWithWeekday(context, date) + " " + getTimeString(context, date);
     }
@@ -244,7 +244,7 @@ public class DateUtilities {
     /**
      * @return date with time at the end
      */
-    @SuppressWarnings("nls")
+
     public static String getDateStringWithTime(Context context, Date date) {
         return getDateString(context, date) + " " + getTimeString(context, date);
     }

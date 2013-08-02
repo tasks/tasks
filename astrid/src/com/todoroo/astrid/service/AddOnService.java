@@ -23,7 +23,7 @@ import java.util.ArrayList;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
+
 public class AddOnService {
 
     /**

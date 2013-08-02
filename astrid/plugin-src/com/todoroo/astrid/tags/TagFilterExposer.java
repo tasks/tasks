@@ -70,7 +70,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     /**
      * Create filter from new tag object
      */
-    @SuppressWarnings("nls")
+
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
         String title = tag.tag;
         if (TextUtils.isEmpty(title)) {

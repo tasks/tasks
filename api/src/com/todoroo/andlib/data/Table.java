@@ -34,7 +34,7 @@ public final class Table extends SqlTable {
      *
      * @return property array
      */
-    @SuppressWarnings("nls")
+
     public Property<?>[] getProperties() {
         try {
             return (Property<?>[]) modelClass.getField("PROPERTIES").get(null);
@@ -65,7 +65,7 @@ public final class Table extends SqlTable {
      * @param property
      * @return
      */
-    @SuppressWarnings("nls")
+
     public Field field(Property<?> property) {
         if (alias != null) {
             return Field.field(alias + "." + property.name);

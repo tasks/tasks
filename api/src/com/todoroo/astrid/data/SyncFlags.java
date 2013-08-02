@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.data;
 
-@SuppressWarnings("nls")
+
 public class SyncFlags {
 
     public static final String GTASKS_SUPPRESS_SYNC = "gtasks_suppress_sync";

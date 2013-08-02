@@ -133,7 +133,7 @@ public class Astrid2To3UpgradeHelper {
      *
      * @param context2
      */
-    @SuppressWarnings("deprecation")
+
     public void upgrade2To3(final Context context, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)
@@ -245,7 +245,7 @@ public class Astrid2To3UpgradeHelper {
      *
      * @author Tim Su <tim@todoroo.com>
      */
-    @SuppressWarnings("nls")
+
     protected static final class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer<?>> {
         @Override
         public Void visitDouble(Property<Double> property, UpgradeVisitorContainer<?> data) {
@@ -329,7 +329,7 @@ public class Astrid2To3UpgradeHelper {
      * @param model
      * @param dao
      */
-    @SuppressWarnings("nls")
+
     private static <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
                                                                         HashMap<String, Property<?>> propertyMap, TYPE model,
                                                                         DatabaseDao<TYPE> dao) {
@@ -381,7 +381,7 @@ public class Astrid2To3UpgradeHelper {
      * both and adding to the Metadata table. This way, we are able to
      * do everything in one pass without loading too much into memory
      */
-    @SuppressWarnings("nls")
+
     private void migrateTagsToMetadata() {
         Context context = ContextManager.getContext();
 

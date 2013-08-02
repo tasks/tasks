@@ -35,7 +35,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-@SuppressWarnings({"nls", "deprecation"})
+
 public class LegacyTasksXmlExporter {
 
     private TaskController taskController;

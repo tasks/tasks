@@ -50,7 +50,7 @@ import com.todoroo.astrid.utility.Constants;
 
 import java.io.IOException;
 
-@SuppressWarnings("nls")
+
 public class GCMIntentService extends GCMBaseIntentService {
 
     public static final String SENDER_ID = "1003855277730"; //$NON-NLS-1$

@@ -244,7 +244,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * @param customComponent
      * @return
      */
-    @SuppressWarnings("nls")
+
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
         Class<?> component = customComponent;
         if (filter instanceof FilterWithCustomIntent && component == null) {
@@ -1031,7 +1031,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         return filter;
     }
 
-    @SuppressWarnings("nls")
+
     private TodorooCursor<Task> constructCursor() {
         String tagName = null;
         if (getActiveTagData() != null) {

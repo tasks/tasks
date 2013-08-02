@@ -15,7 +15,7 @@ import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 
-@SuppressWarnings("nls")
+
 public class ConstructOutstandingTableFromMasterTable<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> {
 
     protected final String table;

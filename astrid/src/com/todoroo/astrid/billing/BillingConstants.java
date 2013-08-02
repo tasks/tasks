@@ -4,7 +4,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
 
-@SuppressWarnings("nls")
+
 public class BillingConstants {
 
     /**

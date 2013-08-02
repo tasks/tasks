@@ -12,7 +12,7 @@ public class Debug extends ServerToClientMessage {
     }
 
     @Override
-    @SuppressWarnings("nls")
+
     public void processMessage(String serverTime) {
         String message = json.optString("message");
         if (!TextUtils.isEmpty(message)) {
