@@ -1,21 +1,17 @@
+.idea/workspace.xml
+out/
 *~
-.DS_Store
 .metadata
 *.class
-org.eclipse.ltk.core.refactoring.prefs
 gen
 local.properties
 /release
 /dev
 lp-translations/
 translations/strings.xml
-.idea
-*.iml
 
 coverage.em
 astrid/src-combined
-antbuild
-greendroid/GDCatalog/.project
 
 api/bin
 astrid/bin

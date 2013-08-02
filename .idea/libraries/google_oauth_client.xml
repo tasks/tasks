@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="google-oauth-client">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/astrid/libs/google-oauth-client-1.6.0-beta.jar!/" />
+      <root url="jar://$PROJECT_DIR$/astrid/libs/google-oauth-client-extensions-1.6.0-beta.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

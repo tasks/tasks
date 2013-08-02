@@ -1,7 +1,0 @@
-Filter Samples
-
-This project shows you how to create a filter plugin. It involves three files:
-
-  FilterAddon.java - returns your addon, which allows users to turn it on or off
-  FilterExposer.java - returns your filters
-  AndroidManifest.xml - receives Astrid's requests and sends appropriate stuff
