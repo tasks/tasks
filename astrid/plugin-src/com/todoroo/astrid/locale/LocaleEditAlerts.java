@@ -21,7 +21,6 @@ import android.widget.Spinner;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.AddOnActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -194,18 +193,6 @@ public final class LocaleEditAlerts extends ListActivity {
         adapter.filterStyle = R.style.TextAppearance_LEA_Filter;
         adapter.headerStyle = R.style.TextAppearance_LEA_Header;
         setListAdapter(adapter);
-
-        // check for plugin
-        if (!PluginServices.getAddOnService().hasLocalePlugin()) {
-            isRemoved = true;
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.DLG_information_title)
-                    .setMessage(R.string.locale_plugin_required)
-                    .setCancelable(false)
-                    .setPositiveButton(android.R.string.ok,
-                            AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
-                    .show();
-        }
     }
 
     @Override

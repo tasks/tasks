@@ -86,7 +86,6 @@ import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
-import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -175,9 +174,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
     @Autowired
     Database database;
-
-    @Autowired
-    AddOnService addOnService;
 
     @Autowired
     UpgradeService upgradeService;

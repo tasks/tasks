@@ -53,10 +53,6 @@ public class LocaleReceiver extends BroadcastReceiver {
 
         try {
             if (com.twofortyfouram.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
-                if (!PluginServices.getAddOnService().hasLocalePlugin()) {
-                    return;
-                }
-
                 final Bundle forwardedBundle = intent.getBundleExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE);
 
                 final String title = forwardedBundle.getString(LocaleEditAlerts.KEY_FILTER_TITLE);

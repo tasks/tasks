@@ -37,7 +37,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.core.PluginServices;
@@ -51,7 +50,6 @@ import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
@@ -79,8 +77,6 @@ public class QuickAddBar extends LinearLayout {
 
     private String currentVoiceFile = null;
 
-    @Autowired
-    AddOnService addOnService;
     @Autowired
     ExceptionService exceptionService;
     @Autowired

@@ -68,8 +68,6 @@ public class UpdateMessageService {
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
     @Autowired
-    private AddOnService addOnService;
-    @Autowired
     private StoreObjectDao storeObjectDao;
 
     private final Activity activity;
@@ -321,9 +319,8 @@ public class UpdateMessageService {
         // handle internal plugin specially
         if (PLUGIN_GTASKS.equals(plugin)) {
             return gtasksPreferenceService.isLoggedIn();
-        } else {
-            return addOnService.isInstalled(plugin);
         }
+        return true;
     }
 
     private boolean messageAlreadySeen(String date, String message) {

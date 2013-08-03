@@ -153,9 +153,6 @@ public final class UpgradeService {
     GtasksPreferenceService gtasksPreferenceService;
 
     @Autowired
-    AddOnService addOnService;
-
-    @Autowired
     ActFmPreferenceService actFmPreferenceService;
 
     public UpgradeService() {
@@ -171,10 +168,6 @@ public final class UpgradeService {
      * @param to
      */
     public void performUpgrade(final Activity context, final int from) {
-        if (from == 135) {
-            AddOnService.recordOem();
-        }
-
         if (from > 0 && from < V3_8_2) {
             if (Preferences.getBoolean(R.string.p_transparent_deprecated, false)) {
                 Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$

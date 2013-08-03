@@ -41,7 +41,6 @@ import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
-import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -83,8 +82,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Autowired
     private TaskService taskService;
-    @Autowired
-    private AddOnService addOnService;
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
 
@@ -230,9 +227,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     private void disablePremiumPrefs() {
-        boolean hasPowerPack = addOnService.hasPowerPack();
-        findPreference(getString(R.string.p_files_dir)).setEnabled(ActFmPreferenceService.isPremiumUser());
-        findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
+        findPreference(getString(R.string.p_files_dir)).setEnabled(true);
+        findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(true);
     }
 
     private void showBeastMode() {

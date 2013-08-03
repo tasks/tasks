@@ -836,6 +836,7 @@ public class AndroidUtilities {
                     PackageManager.GET_SIGNATURES);
             return packageInfo.signatures[0].toCharsString();
         } catch (Exception e) {
+            Log.e("AndroidUtilities", packageName + " is not installed");
             return null;
         }
     }

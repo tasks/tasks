@@ -31,7 +31,6 @@ import com.todoroo.astrid.dao.WaitingOnMeDao;
 import com.todoroo.astrid.dao.WaitingOnMeOutstandingDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -61,9 +60,6 @@ public final class PluginServices {
 
     @Autowired
     TagMetadataDao tagMetadataDao;
-
-    @Autowired
-    AddOnService addOnService;
 
     @Autowired
     TagDataService tagDataService;
@@ -186,10 +182,6 @@ public final class PluginServices {
     public static MetadataService getMetadataService() {
         getInstance().database.openForWriting();
         return getInstance().metadataService;
-    }
-
-    public static AddOnService getAddOnService() {
-        return getInstance().addOnService;
     }
 
     public static StoreObjectDao getStoreObjectDao() {
