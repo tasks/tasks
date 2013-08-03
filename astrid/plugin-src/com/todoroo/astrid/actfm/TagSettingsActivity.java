@@ -62,7 +62,6 @@ import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
-import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 import org.json.JSONArray;
 import org.json.JSONException;
