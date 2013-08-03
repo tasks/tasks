@@ -28,7 +28,6 @@ import com.todoroo.astrid.utility.AstridPreferences;
 public class MainMenuPopover extends FragmentPopover implements InterceptTouchListener {
 
     public static final int MAIN_MENU_ITEM_LISTS = R.string.TLA_menu_lists;
-    public static final int MAIN_MENU_ITEM_FRIENDS = R.string.TLA_menu_friends;
     public static final int MAIN_MENU_ITEM_FEATURED_LISTS = R.string.TLA_menu_featured_lists;
     public static final int MAIN_MENU_ITEM_SEARCH = R.string.TLA_menu_search;
     public static final int MAIN_MENU_ITEM_SUGGESTIONS = R.string.TLA_menu_suggestions;
@@ -119,12 +118,6 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         addMenuItem(R.string.TLA_menu_lists,
                 ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
                 MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
-
-        if (Preferences.getBoolean(R.string.p_show_friends_view, false) && Preferences.getBoolean(R.string.p_show_menu_friends, true)) {
-            addMenuItem(R.string.TLA_menu_friends,
-                    ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
-                    MAIN_MENU_ITEM_FRIENDS, null, topFixed);
-        }
 
         addMenuItem(R.string.TLA_menu_settings,
                 ThemeService.getDrawable(R.drawable.icn_menu_settings, themeFlags),

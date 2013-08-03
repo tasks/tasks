@@ -361,15 +361,6 @@
                 android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity"
                 android:theme="@style/Theme.FullTransparent"/>
 
-        <!-- People view -->
-        <receiver android:name="com.todoroo.astrid.people.PeopleFilterExposer">
-            <intent-filter>
-                <action android:name="com.timsu.astrid.REQUEST_PEOPLE_FILTERS"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
-
-
         <!-- Featured lists -->
         <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
             <intent-filter>

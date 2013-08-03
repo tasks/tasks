@@ -50,8 +50,6 @@ import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.people.PeopleFilterMode;
-import com.todoroo.astrid.people.PersonViewFragment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagsPlugin;
@@ -93,7 +91,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
 
     public static final int FILTER_MODE_NORMAL = 0;
-    public static final int FILTER_MODE_PEOPLE = 1;
     public static final int FILTER_MODE_FEATURED = 2;
 
     public static final int REQUEST_CODE_RESTART = 10;
@@ -139,11 +136,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private final OnClickListener friendStatusClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            TaskListFragment tlf = getTaskListFragment();
-            if (tlf == null || !(tlf instanceof PersonViewFragment)) {
-                return;
-            }
-            ((PersonViewFragment) tlf).handleStatusButtonClicked();
+            getTaskListFragment();
         }
     };
 
@@ -839,9 +832,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
                 setFilterMode(FILTER_MODE_FEATURED);
                 return;
-            case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-                setFilterMode(FILTER_MODE_PEOPLE);
-                return;
             case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
                 // Doesn't exist yet
                 return;
@@ -864,11 +854,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
                     filterModeSpec.getFilterListClass(), true, true));
-            if (mode == FILTER_MODE_PEOPLE) {
-                personStatus.setVisibility(View.VISIBLE);
-            } else {
-                personStatus.setVisibility(View.GONE);
-            }
+            personStatus.setVisibility(View.GONE);
 
             if (swipeIsEnabled()) {
                 setupPagerAdapter();
@@ -897,9 +883,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void updateFilterModeSpec(int mode) {
         switch (mode) {
-            case FILTER_MODE_PEOPLE:
-                filterModeSpec = new PeopleFilterMode();
-                break;
             case FILTER_MODE_FEATURED:
                 filterModeSpec = new FeaturedListFilterMode();
                 break;

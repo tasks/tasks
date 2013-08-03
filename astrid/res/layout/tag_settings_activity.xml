@@ -103,31 +103,6 @@
             </RelativeLayout>
 
             <TextView
-                    style="@style/TextAppearance"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dip"
-                    android:layout_marginTop="10dip"
-                    android:paddingBottom="5dip"
-                    android:text="@string/actfm_TVA_members_label"/>
-
-            <com.todoroo.astrid.ui.PeopleContainer
-                    android:id="@+id/members_container"
-                    style="@style/EditRow"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
-
-            <TextView
-                    style="@style/TextAppearance"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dip"
-                    android:paddingBottom="5dip"
-                    android:textSize="14sp"
-                    android:text="@string/actfm_TVA_members_hint"/>
-
-            <TextView
                     android:id="@+id/description_label"
                     style="@style/TextAppearance"
                     android:layout_width="wrap_content"

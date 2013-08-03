@@ -34,7 +34,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -77,8 +76,6 @@ public class QuickAddBar extends LinearLayout {
     private DeadlineControlSet deadlineControl;
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
-    private EditPeopleControlSet peopleControl;
-    private boolean usePeopleControl = true;
 
     private String currentVoiceFile = null;
 
@@ -217,11 +214,6 @@ public class QuickAddBar extends LinearLayout {
         setUpQuickAddControlSets();
     }
 
-    public void setUsePeopleControl(boolean usePeopleControl) {
-        this.usePeopleControl = usePeopleControl;
-        peopleControl.getDisplayView().setVisibility(usePeopleControl ? View.VISIBLE : View.GONE);
-    }
-
     private void setUpQuickAddControlSets() {
 
         repeatControl = new RepeatControlSet(activity,
@@ -238,23 +230,13 @@ public class QuickAddBar extends LinearLayout {
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
         deadlineControl.setIsQuickadd(true);
 
-        peopleControl = new EditPeopleControlSet(activity, fragment,
-                R.layout.control_set_assigned,
-                R.layout.control_set_default_display,
-                R.string.actfm_EPA_assign_label_long,
-                TaskEditFragment.REQUEST_LOG_IN);
-
         resetControlSets();
 
         LayoutParams lp = new LinearLayout.LayoutParams(
                 LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
-        View peopleDisplay = peopleControl.getDisplayView();
         View deadlineDisplay = deadlineControl.getDisplayView();
-        quickAddControls.addView(peopleDisplay, 0, lp);
-        quickAddControls.addView(deadlineDisplay, 2, lp);
+        quickAddControls.addView(deadlineDisplay, 0, lp);
         TextView tv = (TextView) deadlineDisplay.findViewById(R.id.display_row_edit);
-        tv.setGravity(Gravity.LEFT);
-        tv = (TextView) peopleDisplay.findViewById(R.id.display_row_edit);
         tv.setGravity(Gravity.LEFT);
     }
 
@@ -270,9 +252,6 @@ public class QuickAddBar extends LinearLayout {
         gcalControl.readFromTask(empty);
         gcalControl.resetCalendarSelector();
         deadlineControl.readFromTask(empty);
-        peopleControl.setUpData(empty, fragment.getActiveTagData());
-        peopleControl.assignToMe();
-        peopleControl.setTask(null);
     }
 
 
@@ -297,12 +276,7 @@ public class QuickAddBar extends LinearLayout {
             if (title != null) {
                 title = title.trim();
             }
-            boolean assignedToMe = usePeopleControl ? peopleControl.willBeAssignedToMe() : true;
-            if (!assignedToMe && !actFmPreferenceService.isLoggedIn()) {
-                // Reset people control
-                peopleControl.assignToMe();
-                return null;
-            }
+            boolean assignedToMe = true;
 
             Task task = new Task();
             if (title != null) {
@@ -318,19 +292,8 @@ public class QuickAddBar extends LinearLayout {
                 TaskDao.createDefaultHideUntil(task);
             }
             gcalControl.writeToModel(task);
-            if (!assignedToMe) {
-                peopleControl.setTask(task);
-                peopleControl.saveSharingSettings(null);
-            }
 
             TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
-
-            String assignedTo = peopleControl.getAssignedToString();
-            String assignedEmail = "";
-            String assignedId = task.getValue(Task.USER_ID);
-            if (Task.userIdIsEmail(task.getValue(Task.USER_ID))) {
-                assignedEmail = task.getValue(Task.USER_ID);
-            }
 
             resetControlSets();
 
@@ -338,10 +301,6 @@ public class QuickAddBar extends LinearLayout {
 
             if (!TextUtils.isEmpty(title)) {
                 fragment.showTaskEditHelpPopover();
-            }
-
-            if (activity instanceof TaskListActivity && !assignedToMe) {
-                ((TaskListActivity) activity).taskAssignedTo(assignedTo, assignedEmail, assignedId);
             }
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
@@ -450,9 +409,7 @@ public class QuickAddBar extends LinearLayout {
             return true;
         } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT) {
             if (resultCode == Activity.RESULT_OK) {
-                peopleControl.onActivityResult(requestCode, resultCode, data);
             } else {
-                peopleControl.assignToMe();
             }
             return true;
         }

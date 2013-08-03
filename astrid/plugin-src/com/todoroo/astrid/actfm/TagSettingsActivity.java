@@ -60,8 +60,6 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.ui.PeopleContainer;
-import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
@@ -111,7 +109,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     @Autowired
     TagMetadataDao tagMetadataDao;
 
-    private PeopleContainer tagMembers;
     private AsyncImageView picture;
     private EditText tagName;
     private EditText tagDescription;
@@ -179,8 +176,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 }
             }).start();
         }
-        showCollaboratorsPopover();
-
     }
 
     private void setupForDialogOrFullscreen() {
@@ -205,14 +200,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         }
     }
 
-    private void showCollaboratorsPopover() {
-        if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
-            View members = findViewById(R.id.members_container);
-            HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators, null);
-            Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
-        }
-    }
-
     protected void setUpSettingsPage() {
         if (isDialog) {
             findViewById(R.id.save_and_cancel).setVisibility(View.VISIBLE);
@@ -230,7 +217,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             });
         }
 
-        tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
         tagDescription = (EditText) findViewById(R.id.tag_description);
         picture = (AsyncImageView) findViewById(R.id.picture);
@@ -330,30 +316,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             }
         }
 
-        JSONArray members;
-        try {
-            members = tagMembers.parseSharedWithAndTags(this, true).optJSONArray("p");
-        } catch (JSONException e) {
-            exceptionService.displayAndReportError(this, "save-people", e);
-            return;
-        } catch (ParseSharedException e) {
-            if (e.view != null) {
-                e.view.setTextColor(Color.RED);
-                e.view.requestFocus();
-            }
-            DialogUtilities.okDialog(this, e.message, null);
-            return;
-        }
-        if (members == null) {
-            members = new JSONArray();
-        }
-
+        JSONArray members = new JSONArray();
         if (members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
             if (newName.length() > 0 && oldName.length() == 0) {
                 tagDataService.save(tagData);
             }
-            tagMembers.removeAllViews();
-            tagMembers.addPerson("", "", false); //$NON-NLS-1$
             return;
 
         }
@@ -450,7 +417,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
 
     private void updateMembers(String peopleJson, String tagUuid) {
-        tagMembers.removeAllViews();
         JSONArray people = null;
         try {
             people = new JSONArray(peopleJson);
@@ -512,25 +478,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 }
             }
 
-        }
-
-        if (people != null) {
-            try {
-                tagMembers.fromJSONArray(people);
-            } catch (JSONException e) {
-                Log.e("tag-settings", "Error parsing tag members: " + people, e);
-            }
-        }
-
-        tagMembers.addPerson("", "", false); //$NON-NLS-1$
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (tagMembers.getChildCount() > 1) {
-            JSONArray members = tagMembers.toJSONArray();
-            outState.putString(MEMBERS_IN_PROGRESS, members.toString());
         }
     }
 

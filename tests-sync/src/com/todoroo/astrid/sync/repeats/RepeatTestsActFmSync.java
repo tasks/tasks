@@ -61,16 +61,6 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     }
 
     private void clearTasks() throws Exception {
-//        JSONObject result = invoker.invoke("task_list", "active", 1);
-//
-//        JSONArray taskList = result.getJSONArray("list");
-//        for(int i = 0; i < taskList.length(); i++) {
-//            Task remote = new Task();
-//            ActFmSyncService.JsonHelper.taskFromJson(taskList.getJSONObject(i), remote, new ArrayList<Metadata>());
-//
-//            remote.setValue(Task.DELETION_DATE, DateUtilities.now());
-//            actFmSyncService.pushTaskOnSave(remote, remote.getSetValues());
-//        }
     }
 
     private void authenticate(String email, String firstName, String lastName, String provider, String secret) {
@@ -120,15 +110,6 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
      */
     @Override
     protected Task assertTaskExistsRemotely(Task t, long expectedDueDate) {
-//        Task remote = new Task();
-//        try {
-//            ActFmSyncService.JsonHelper.taskFromJson(invoker.invoke("task_show", "id", t.getValue(Task.UUID)), remote,
-//                    new ArrayList<Metadata>());
-//            assertTimesMatch(expectedDueDate, remote.getValue(Task.DUE_DATE).longValue());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            fail("Error in ActFm invoker");
-//        }
         return null; //remote;
     }
 
