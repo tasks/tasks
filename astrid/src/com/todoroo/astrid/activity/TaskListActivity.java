@@ -22,7 +22,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
@@ -107,7 +106,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private TextView lists;
     private ImageView mainMenu;
     private TextView personStatus;
-    private Button commentsButton;
     private int filterMode;
     private FilterModeSpec filterModeSpec;
 
@@ -135,26 +133,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             setListsDropdownSelected(true);
             listsPopover.show(v);
             hideKeyboard();
-        }
-    };
-
-    private final OnClickListener commentsButtonClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (fragmentLayout == LAYOUT_DOUBLE) {
-                View container = findViewById(R.id.taskedit_fragment_container);
-                if (getTaskEditFragment() != null) {
-                    return;
-                }
-                container.setVisibility(container.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                commentsVisible = container.getVisibility() == View.VISIBLE;
-            } else {
-                // In this case we should be in LAYOUT_SINGLE--delegate to the task list fragment
-                TaskListFragment tlf = getTaskListFragment();
-                if (tlf != null) {
-                    tlf.handleCommentsButtonClicked();
-                }
-            }
         }
     };
 
@@ -194,15 +172,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
         personStatus = (TextView) actionBar.getCustomView().findViewById(R.id.person_image);
-        commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
-        if (ThemeService.getTheme() == R.style.Theme_White_Alt) {
-            commentsButton.setTextColor(getResources().getColor(R.color.blue_theme_color));
-        }
 
         initializeFragments(actionBar);
         createMainMenuPopover();
         mainMenu.setOnClickListener(mainMenuClickListener);
-        commentsButton.setOnClickListener(commentsButtonClickListener);
         personStatus.setOnClickListener(friendStatusClickListener);
 
         Bundle extras = getIntent().getExtras();
@@ -324,7 +297,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
             if (editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
                 fragmentLayout = LAYOUT_TRIPLE;
-                actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
             } else {
                 fragmentLayout = LAYOUT_DOUBLE;
                 if (AndroidUtilities.getSdkVersion() >= 11) {
@@ -439,18 +411,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
         int visibility = filterModeSpec.showComments() ? View.VISIBLE : View.GONE;
 
-        if (fragmentLayout != LAYOUT_TRIPLE) {
-            commentsButton.setVisibility(visibility);
-        } else {
+        if (fragmentLayout == LAYOUT_TRIPLE) {
             View container = findViewById(R.id.taskedit_fragment_container);
             if (container != null) {
                 container.setVisibility(visibility);
             }
         }
-    }
-
-    public void setCommentsButtonVisibility(boolean visible) {
-        commentsButton.setVisibility(visible && filterModeSpec.showComments() && fragmentLayout != LAYOUT_TRIPLE ? View.VISIBLE : View.GONE);
     }
 
     private void setListsDropdownSelected(boolean selected) {
@@ -580,17 +546,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TypedValue tv = new TypedValue();
 
         if (count > 0) {
-            commentsButton.setText(Integer.toString(count));
             getTheme().resolveAttribute(R.attr.asFilledCommentButtonImg, tv, false);
         } else {
-            commentsButton.setText(""); //$NON-NLS-1$
             getTheme().resolveAttribute(R.attr.asCommentButtonImg, tv, false);
         }
-        commentsButton.setBackgroundResource(tv.data);
-    }
-
-    public void showComments() {
-        commentsButton.performClick();
     }
 
     @Override
@@ -907,10 +866,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     filterModeSpec.getFilterListClass(), true, true));
             if (mode == FILTER_MODE_PEOPLE) {
                 personStatus.setVisibility(View.VISIBLE);
-                commentsButton.setVisibility(View.GONE);
             } else {
                 personStatus.setVisibility(View.GONE);
-                commentsButton.setVisibility(View.VISIBLE);
             }
 
             if (swipeIsEnabled()) {

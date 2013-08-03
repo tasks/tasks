@@ -299,7 +299,6 @@ public class TagViewFragment extends TaskListFragment {
 
         if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
             extras.remove(TOKEN_START_ACTIVITY);
-            activity.showComments();
         }
     }
 

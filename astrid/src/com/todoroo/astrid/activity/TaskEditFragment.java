@@ -359,10 +359,6 @@ public final class TaskEditFragment extends SherlockFragment implements
                         OVERRIDE_FINISH_ANIM, true);
             }
         }
-
-        if (activity instanceof TaskListActivity) {
-            ((TaskListActivity) activity).setCommentsButtonVisibility(false);
-        }
     }
 
     private void instantiateEditNotes() {
@@ -1067,11 +1063,9 @@ public final class TaskEditFragment extends SherlockFragment implements
         }
 
         if (activity instanceof TaskListActivity) {
-            if (title.getText().length() == 0 && isNewTask
-                    && model != null && model.isSaved()) {
+            if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
                 taskService.delete(model);
             }
-            ((TaskListActivity) activity).setCommentsButtonVisibility(true);
         }
     }
 
