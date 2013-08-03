@@ -91,21 +91,15 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 
         setPreference(prefs, editor, r, R.string.p_use_filters, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_show_list_members, false, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_rmd_social, true, ifUnset);
-
         setPreference(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE_ALT, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_force_phone_layout, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_today_filter, true, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_show_waiting_on_me_filter, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_recently_modified_filter, false, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_show_ive_assigned_filter, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_not_in_list_filter, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_menu_search, false, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_show_menu_friends, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sync, false, ifUnset);
         setPreference(prefs, editor, r, R.string.p_show_menu_sort, true, ifUnset);
 

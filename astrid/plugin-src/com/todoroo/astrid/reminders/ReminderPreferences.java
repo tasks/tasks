@@ -105,12 +105,6 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
             } else {
                 preference.setSummary(R.string.rmd_EPr_enabled_desc_false);
             }
-        } else if (r.getString(R.string.p_rmd_social).equals(preference.getKey())) {
-            if ((Boolean) value) {
-                preference.setSummary(R.string.rmd_EPr_social_summary_enabled);
-            } else {
-                preference.setSummary(R.string.rmd_EPr_social_summary_disabled);
-            }
         }
 
     }

@@ -101,10 +101,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 list.add(recent);
             }
 
-            if (Preferences.getBoolean(R.string.p_show_ive_assigned_filter, true)) {
-                list.add(getAssignedByMeFilter(r));
-            }
-
             if (useCustomFilters && cursor != null) {
                 StoreObject savedFilter = new StoreObject();
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -128,19 +124,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 cursor.close();
             }
         }
-    }
-
-    public static Filter getAssignedByMeFilter(Resources r) {
-        int themeFlags = ThemeService.getFilterThemeFlags();
-        Filter f = new Filter(r.getString(R.string.BFE_Assigned),
-                r.getString(R.string.BFE_Assigned),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
-                        Task.USER_ID.neq(0))),
-                null);
-        f.listingIcon = ((BitmapDrawable) r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_assigned, themeFlags))).getBitmap();
-        return f;
     }
 
     /**

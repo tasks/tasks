@@ -46,9 +46,6 @@
     <!-- default random reminder setting (in hours) -->
     <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
-    <!-- show faces in reminders (aka social reminders) -->
-    <string name="p_rmd_social">p_rmd_social</string>
-
     <!-- field missed calls preference -->
     <string name="p_field_missed_calls">field_missed_calls</string>
 
@@ -71,9 +68,7 @@
     <string name="p_filters_to_show">p_filters_to_show</string>
     <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
     <string name="p_show_today_filter">p_show_today_f</string>
-    <string name="p_show_waiting_on_me_filter">p_show_waiting_on_me_f</string>
     <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
-    <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
     <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
 
     <!-- show quickadd controls -->
@@ -88,7 +83,6 @@
     <!-- menu items to show -->
     <string name="p_menu_items">p_menu_items</string>
     <string name="p_show_menu_search">p_show_menu_search</string>
-    <string name="p_show_menu_friends">p_show_menu_friends</string>
     <string name="p_show_menu_sync">p_show_menu_sync</string>
     <string name="p_show_menu_sort">p_show_menu_sort</string>
 
@@ -106,7 +100,7 @@
         <!-- Corresponding to the constants in Preferences.java (do not edit) -->
         <item>0</item>
         <item>1</item>
-        <item>2</item>
+        <item>2</item>\
     </string-array>
 
     <string-array name="EPr_reminder_random_hours">
@@ -363,9 +357,6 @@
     <!-- whether custom filters are enabled -->
     <string name="p_use_filters">p_use_filters</string>
 
-    <!-- whether list members header should be shown -->
-    <string name="p_show_list_members">p_show_list_members</string>
-
     <string-array name="EPr_default_addtocalendar_values">
         <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
         <item>-1</item>
@@ -441,7 +432,6 @@
     <string name="about_translators"></string>
 
     <string-array name="TEA_control_sets_beast">
-        <item>@string/TEA_control_who</item>
         <item>@string/TEA_control_when</item>
         <item>@string/TEA_control_importance</item>
         <item>@string/TEA_control_lists</item>
@@ -455,7 +445,6 @@
 
     <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string>
     <!-- Deprecated -->
-    <string name="TEA_ctrl_who_pref">TEA_ctrl_who_pref</string>
     <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
     <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
     <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
@@ -469,7 +458,6 @@
     <!-- Deprecated -->
 
     <string-array name="TEA_control_sets_prefs">
-        <item>@string/TEA_ctrl_who_pref</item>
         <item>@string/TEA_ctrl_when_pref</item>
         <item>@string/TEA_ctrl_importance_pref</item>
         <item>@string/TEA_ctrl_lists_pref</item>

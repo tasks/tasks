@@ -30,8 +30,6 @@ import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.UserActivityOutstanding;
-import com.todoroo.astrid.data.WaitingOnMe;
-import com.todoroo.astrid.data.WaitingOnMeOutstanding;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -73,14 +71,11 @@ public class Database extends AbstractDatabase {
             History.TABLE,
             TaskAttachment.TABLE,
             TaskListMetadata.TABLE,
-            WaitingOnMe.TABLE,
-
             TaskOutstanding.TABLE,
             TagOutstanding.TABLE,
             UserActivityOutstanding.TABLE,
             TaskAttachmentOutstanding.TABLE,
-            TaskListMetadataOutstanding.TABLE,
-            WaitingOnMeOutstanding.TABLE
+            TaskListMetadataOutstanding.TABLE
     };
 
     // --- listeners
@@ -394,9 +389,6 @@ public class Database extends AbstractDatabase {
                 tryExecSQL(addColumnSql(User.TABLE, User.LAST_NAME, visitor, null));
 
             case 30:
-                tryExecSQL(createTableSql(visitor, WaitingOnMe.TABLE.name, WaitingOnMe.PROPERTIES));
-                tryExecSQL(createTableSql(visitor, WaitingOnMeOutstanding.TABLE.name, WaitingOnMeOutstanding.PROPERTIES));
-
             case 31:
                 tryExecSQL(addColumnSql(Task.TABLE, Task.HISTORY_HAS_MORE, visitor, null));
                 tryExecSQL(addColumnSql(TagData.TABLE, TagData.HISTORY_HAS_MORE, visitor, null));

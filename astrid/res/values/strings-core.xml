@@ -430,9 +430,6 @@
 
     <!-- Task edit control set descriptors -->
 
-    <!-- slide 9b/35i -->
-    <string name="TEA_control_who">Who</string>
-
     <!-- slide 9c/ 35a -->
     <string name="TEA_control_when">When</string>
     <!-- slide 35b -->

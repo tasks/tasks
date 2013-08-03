@@ -24,11 +24,6 @@
             android:entryValues="@array/EPr_rmd_time_values"
             android:title="@string/rmd_EPr_rmd_time_title"/>
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_rmd_social"
-            android:title="@string/rmd_EPr_social_title"
-            android:summary="@string/rmd_EPr_social_summary_enabled"
-            android:defaultValue="true"/>
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_rmd_persistent"
             android:title="@string/rmd_EPr_persistent_title"/>
     <com.todoroo.astrid.ui.MultilineCheckboxPreference

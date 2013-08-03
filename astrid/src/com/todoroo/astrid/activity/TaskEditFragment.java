@@ -65,13 +65,11 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
-import com.todoroo.astrid.dao.WaitingOnMeDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileUtilities;
@@ -213,9 +211,6 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
-
-    @Autowired
-    private WaitingOnMeDao waitingOnMeDao;
 
     @Autowired
     private UserDao userDao;
@@ -742,7 +737,6 @@ public final class TaskEditFragment extends SherlockFragment implements
         if (model != null) {
             // came from bundle
             setIsNewTask(model.getValue(Task.TITLE).length() == 0);
-            setupWaitingOnMe();
             return;
         }
 
@@ -776,7 +770,6 @@ public final class TaskEditFragment extends SherlockFragment implements
         }
 
         setIsNewTask(model.getValue(Task.TITLE).length() == 0);
-        setupWaitingOnMe();
 
         if (model == null) {
             exceptionService.reportError("task-edit-no-task",
@@ -788,86 +781,6 @@ public final class TaskEditFragment extends SherlockFragment implements
         // clear notification
         Notifications.cancelNotifications(model.getId());
 
-    }
-
-    private void setupWaitingOnMe() {
-        if (!isNewTask) {
-            WaitingOnMe wom = waitingOnMeDao.findByTask(model.getUuid());
-            if (wom != null) {
-                final View waitingOnMe = getView().findViewById(R.id.waiting_on_me);
-                waitingOnMe.setVisibility(View.VISIBLE);
-
-                int themeColor = getResources().getColor(ThemeService.getTaskEditThemeColor());
-
-                TextView dismiss = (TextView) waitingOnMe.findViewById(R.id.wom_dismiss);
-                dismiss.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        WaitingOnMe template = new WaitingOnMe();
-                        template.setValue(WaitingOnMe.DELETED_AT, DateUtilities.now());
-                        waitingOnMeDao.update(WaitingOnMe.TASK_UUID.eq(model.getUuid()), template);
-                        waitingOnMe.setVisibility(View.GONE);
-                    }
-                });
-                dismiss.setTextColor(getResources().getColor(R.color.task_edit_deadline_gray));
-                GradientDrawable gd = new GradientDrawable();
-                gd.setColor(ThemeService.getDarkVsLight(Color.rgb(0xee, 0xee, 0xee), Color.rgb(0x22, 0x22, 0x22), false));
-                gd.setCornerRadius(4.0f);
-                dismiss.setBackgroundDrawable(gd);
-
-                TextView ack = (TextView) waitingOnMe.findViewById(R.id.wom_acknowledge);
-                ack.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        WaitingOnMe template = new WaitingOnMe();
-                        template.setValue(WaitingOnMe.ACKNOWLEDGED, 1);
-                        waitingOnMeDao.update(WaitingOnMe.TASK_UUID.eq(model.getUuid()), template);
-                        waitingOnMe.setVisibility(View.GONE);
-                    }
-                });
-                ack.setTextColor(themeColor);
-                gd = new GradientDrawable();
-                gd.setColor(ThemeService.getDarkVsLight(Color.WHITE, Color.rgb(0x22, 0x22, 0x22), false));
-                gd.setCornerRadius(4.0f);
-                ack.setBackgroundDrawable(gd);
-
-                TextView womText = (TextView) waitingOnMe.findViewById(R.id.wom_message);
-                womText.setText(getWomText(wom));
-                womText.setTextColor(themeColor);
-
-                ImageView womIcon = (ImageView) waitingOnMe.findViewById(R.id.wom_icon);
-                womIcon.setImageResource(ThemeService.getTaskEditDrawable(R.drawable.tea_icn_waiting, R.drawable.tea_icn_waiting_lightblue));
-            }
-        }
-    }
-
-    private String getWomText(WaitingOnMe wom) {
-        int resource;
-        String type = wom.getValue(WaitingOnMe.WAIT_TYPE);
-        if (WaitingOnMe.WAIT_TYPE_ASSIGNED.equals(type)) {
-            resource = R.string.wom_assigned;
-        } else if (WaitingOnMe.WAIT_TYPE_CHANGED_DUE.equals(type)) {
-            resource = R.string.wom_changed_due;
-        } else if (WaitingOnMe.WAIT_TYPE_COMMENTED.equals(type)) {
-            resource = R.string.wom_commented;
-        } else if (WaitingOnMe.WAIT_TYPE_MENTIONED.equals(type)) {
-            resource = R.string.wom_mentioned;
-        } else if (WaitingOnMe.WAIT_TYPE_RAISED_PRI.equals(type)) {
-            resource = R.string.wom_raised_pri;
-        } else {
-            resource = R.string.wom_default;
-        }
-
-        String userString = null;
-        User user = userDao.fetch(wom.getValue(WaitingOnMe.WAITING_USER_ID), User.PROPERTIES);
-        if (user != null) {
-            userString = user.getDisplayName();
-        }
-        if (TextUtils.isEmpty(userString)) {
-            userString = getString(R.string.ENA_no_user);
-        }
-
-        return getString(resource, userString);
     }
 
     public long getTaskIdInProgress() {

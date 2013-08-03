@@ -44,8 +44,6 @@ import com.todoroo.astrid.dao.TaskListMetadataOutstandingDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
-import com.todoroo.astrid.dao.WaitingOnMeDao;
-import com.todoroo.astrid.dao.WaitingOnMeOutstandingDao;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -57,7 +55,6 @@ import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 
@@ -114,12 +111,6 @@ public class ActFmSyncThread {
     @Autowired
     private TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
 
-    @Autowired
-    private WaitingOnMeDao waitingOnMeDao;
-
-    @Autowired
-    private WaitingOnMeOutstandingDao waitingOnMeOutstandingDao;
-
     private String token;
 
     private boolean syncMigration = false;
@@ -141,8 +132,7 @@ public class ActFmSyncThread {
         TYPE_TAG,
         TYPE_ACTIVITY,
         TYPE_ATTACHMENT,
-        TYPE_TASK_LIST_METADATA,
-        TYPE_WAITING_ON_ME
+        TYPE_TASK_LIST_METADATA
     }
 
     private static volatile ActFmSyncThread instance;
@@ -152,7 +142,7 @@ public class ActFmSyncThread {
             synchronized (ActFmSyncThread.class) {
                 if (instance == null) {
                     initializeSyncComponents(PluginServices.getTaskDao(), PluginServices.getTagDataDao(), PluginServices.getUserActivityDao(),
-                            PluginServices.getTaskAttachmentDao(), PluginServices.getTaskListMetadataDao(), PluginServices.getWaitingOnMeDao());
+                            PluginServices.getTaskAttachmentDao(), PluginServices.getTaskListMetadataDao());
                 }
             }
         }
@@ -160,7 +150,7 @@ public class ActFmSyncThread {
     }
 
     public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao,
-                                                           TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao, WaitingOnMeDao waitingOnMeDao) {
+                                                           TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao) {
         if (instance == null) {
             synchronized (ActFmSyncThread.class) {
                 if (instance == null) {
@@ -175,7 +165,6 @@ public class ActFmSyncThread {
                     userActivityDao.addListener(new SyncDatabaseListener<UserActivity>(instance, ModelType.TYPE_ACTIVITY));
                     taskAttachmentDao.addListener(new SyncDatabaseListener<TaskAttachment>(instance, ModelType.TYPE_ATTACHMENT));
                     taskListMetadataDao.addListener(new TaskListMetadataSyncDatabaseListener(instance, waitingPool, ModelType.TYPE_TASK_LIST_METADATA));
-                    waitingOnMeDao.addListener(new SyncDatabaseListener<WaitingOnMe>(instance, ModelType.TYPE_WAITING_ON_ME));
 
                     instance.startSyncThread();
                 }
@@ -207,7 +196,7 @@ public class ActFmSyncThread {
 
     public static void clearTablePushedAtValues() {
         String[] pushedAtPrefs = new String[]{NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS, NameMaps.PUSHED_AT_ACTIVITY,
-                NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA, NameMaps.PUSHED_AT_WAITING_ON_ME};
+                NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA};
         for (String key : pushedAtPrefs) {
             Preferences.clear(key);
         }
@@ -280,7 +269,6 @@ public class ActFmSyncThread {
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), DEFAULT_REFRESH_RUNNABLE);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), DEFAULT_REFRESH_RUNNABLE);
                     enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), DEFAULT_REFRESH_RUNNABLE);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(WaitingOnMe.class, NameMaps.PUSHED_AT_WAITING_ON_ME), DEFAULT_REFRESH_RUNNABLE);
                     setTimeForBackgroundSync(false);
                 }
 
@@ -457,7 +445,6 @@ public class ActFmSyncThread {
         constructChangesHappenedFromOutstandingTable(Task.class, taskDao, taskOutstandingDao);
         constructChangesHappenedFromOutstandingTable(TagData.class, tagDataDao, tagOutstandingDao);
         constructChangesHappenedFromOutstandingTable(UserActivity.class, userActivityDao, userActivityOutstandingDao);
-        constructChangesHappenedFromOutstandingTable(WaitingOnMe.class, waitingOnMeDao, waitingOnMeOutstandingDao);
         constructChangesHappenedForTaskListMetadata(taskListMetadataDao, taskListMetadataOutstandingDao);
     }
 
