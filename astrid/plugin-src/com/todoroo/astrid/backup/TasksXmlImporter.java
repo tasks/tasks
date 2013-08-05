@@ -583,8 +583,7 @@ public class TasksXmlImporter {
                 if (preferred != null) {
                     Date preferredDate = BackupDateUtilities.getDateFromIso8601String(value);
                     upgradeNotes = "Project Deadline: " +
-                            DateUtilities.getDateString(ContextManager.getContext(),
-                                    preferredDate);
+                            DateUtilities.getDateString(preferredDate);
                 }
                 task.setValue(Task.DUE_DATE,
                         BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());

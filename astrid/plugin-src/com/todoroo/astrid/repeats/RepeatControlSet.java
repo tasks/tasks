@@ -36,7 +36,6 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
-import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
@@ -126,8 +125,7 @@ public class RepeatControlSet extends PopupControlSet {
 
         new NumberPickerDialog(activity, new OnNumberPickedListener() {
             @Override
-            public void onNumberPicked(NumberPicker view,
-                                       int number) {
+            public void onNumberPicked(int number) {
                 setRepeatValue(number);
             }
         }, activity.getResources().getString(R.string.repeat_interval_prompt),

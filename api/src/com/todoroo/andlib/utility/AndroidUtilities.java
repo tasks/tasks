@@ -1004,7 +1004,7 @@ public class AndroidUtilities {
      * @param activity
      * @param popup
      */
-    public static void tryDismissPopup(Activity activity, final PopupWindow popup) {
+    public static void tryDismissPopup(final PopupWindow popup) {
         if (popup == null) {
             return;
         }

@@ -34,7 +34,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
     private static final int TEXT_SIZE = 18;
 
     public interface ImportanceChangedListener {
-        public void importanceChanged(int i, int color);
+        public void importanceChanged(int i);
     }
 
     public ImportanceControlSet(Activity activity, int layout) {
@@ -54,7 +54,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
         }
 
         for (ImportanceChangedListener l : listeners) {
-            l.importanceChanged(i, colors[i]);
+            l.importanceChanged(i);
         }
     }
 

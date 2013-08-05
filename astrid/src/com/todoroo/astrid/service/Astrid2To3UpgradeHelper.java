@@ -117,7 +117,7 @@ public class Astrid2To3UpgradeHelper {
      * @param upgradeService
      * @param from
      */
-    public void upgrade3To3_1(final Context context, final int from) {
+    public void upgrade3To3_1(final Context context) {
         if (!checkIfDatabaseExists(context, alertsTable)) {
             return;
         }
@@ -279,8 +279,7 @@ public class Astrid2To3UpgradeHelper {
                         data.upgradeNotes = new StringBuilder();
                     }
                     data.upgradeNotes.append("Goal Deadline: " +
-                            DateUtilities.getDateString(ContextManager.getContext(),
-                                    new Date(preferredDueDate)));
+                            DateUtilities.getDateString(new Date(preferredDueDate)));
                 }
             } else if (property == Task.REMINDER_PERIOD) {
                 // old period was stored in seconds

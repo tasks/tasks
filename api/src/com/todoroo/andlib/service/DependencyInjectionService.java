@@ -108,7 +108,7 @@ public class DependencyInjectionService {
         }
 
         for (AbstractDependencyInjector injector : injectors) {
-            Object injection = injector.getInjection(caller, field);
+            Object injection = injector.getInjection(field);
             if (injection != null) {
                 field.set(caller, injection);
                 return;

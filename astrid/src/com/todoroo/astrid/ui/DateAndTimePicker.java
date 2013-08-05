@@ -294,9 +294,9 @@ public class DateAndTimePicker extends LinearLayout {
         Date d = new Date(forDate);
         if (d.getTime() > 0) {
             if (hideYear) {
-                displayString.append(DateUtilities.getDateStringHideYear(context, d));
+                displayString.append(DateUtilities.getDateStringHideYear(d));
             } else {
-                displayString.append(DateUtilities.getDateString(context, d));
+                displayString.append(DateUtilities.getDateString(d));
             }
             if (Task.hasDueTime(forDate) && !hideTime) {
                 displayString.append(useNewline ? "\n" : ", "); //$NON-NLS-1$ //$NON-NLS-2$

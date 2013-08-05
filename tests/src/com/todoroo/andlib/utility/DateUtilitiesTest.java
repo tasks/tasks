@@ -45,7 +45,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
 
                 for (int i = 0; i < 12; i++) {
                     d.setMonth(i);
-                    DateUtilities.getDateString(getContext(), d);
+                    DateUtilities.getDateString(d);
                 }
             }
         });
@@ -59,7 +59,7 @@ public class DateUtilitiesTest extends TodorooTestCase {
 
                 for (int i = 0; i < 7; i++) {
                     d.setDate(i);
-                    DateUtilities.getDateStringWithWeekday(getContext(), d);
+                    DateUtilities.getDateStringWithWeekday(d);
                 }
             }
         });

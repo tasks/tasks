@@ -231,8 +231,8 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
      * moveTo = null => move to end
      */
     private void whenTriggerMove(Task target, Task moveTo) {
-        gtasksTaskListUpdater.moveTo(null, list, target.getId(), moveTo == null ? -1 : moveTo.getId());
-        gtasksTaskListUpdater.debugPrint(null, list);
+        gtasksTaskListUpdater.moveTo(list, target.getId(), moveTo == null ? -1 : moveTo.getId());
+        gtasksTaskListUpdater.debugPrint(list);
     }
 
     private void thenExpectMetadataOrderAndIndent(Task task, long order, int indent) {

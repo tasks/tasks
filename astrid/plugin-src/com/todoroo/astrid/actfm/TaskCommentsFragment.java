@@ -96,7 +96,7 @@ public class TaskCommentsFragment extends CommentsFragment {
     }
 
     @Override
-    protected void performFetch(boolean manual, SyncMessageCallback done) {
+    protected void performFetch(SyncMessageCallback done) {
         if (task != null) {
             ActFmSyncThread.getInstance().enqueueMessage(new BriefMe<UserActivity>(UserActivity.class, null, task.getValue(Task.USER_ACTIVITIES_PUSHED_AT), BriefMe.TASK_ID_KEY, task.getUuid()), done);
             new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,

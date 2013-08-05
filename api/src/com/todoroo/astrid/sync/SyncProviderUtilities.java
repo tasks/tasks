@@ -164,11 +164,11 @@ abstract public class SyncProviderUtilities {
         String lastError = getLastError();
         if (!TextUtils.isEmpty(lastError)) {
             String type = getLastErrorType();
-            reportLastErrorImpl(lastError, type);
+            reportLastErrorImpl();
         }
     }
 
-    protected void reportLastErrorImpl(String lastError, String type) {
+    protected void reportLastErrorImpl() {
         // Subclasses can override if necessary
     }
 

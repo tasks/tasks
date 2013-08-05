@@ -34,14 +34,12 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -903,11 +901,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
     }
 
-    public void onScroll(AbsListView view, int firstVisibleItem,
-                         int visibleItemCount, int totalItemCount) {
-        // do nothing
-    }
-
     /*
      * ======================================================================
      * =================================================== managing list view
@@ -966,7 +959,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {
                         if (newState == true) {
-                            onTaskCompleted(item);
+                            onTaskCompleted();
                         }
                     }
                 });
@@ -1103,7 +1096,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      *
      * @param item task that was completed
      */
-    protected void onTaskCompleted(Task item) {
+    protected void onTaskCompleted() {
     }
 
     /**
@@ -1149,7 +1142,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                     R.string.TAd_contextCopyTask);
 
             for (int i = 0; i < contextItemExposers.length; i++) {
-                Object label = contextItemExposers[i].getLabel(task);
+                Object label = contextItemExposers[i].getLabel();
                 if (label != null) {
                     if (label instanceof Integer) {
                         menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i,

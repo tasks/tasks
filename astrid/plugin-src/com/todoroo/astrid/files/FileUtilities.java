@@ -24,7 +24,7 @@ public class FileUtilities {
      * @return Date string for use with file attachment names
      */
     public static String getDateStringForFilename(Context context, Date date) {
-        return DateUtilities.getDateStringHideYear(context, date) + ", " + getTimeStringForFilename(context, date); //$NON-NLS-1$
+        return DateUtilities.getDateStringHideYear(date) + ", " + getTimeStringForFilename(context, date); //$NON-NLS-1$
     }
 
 

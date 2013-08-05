@@ -357,7 +357,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         final TextView nameView = (TextView) view.findViewById(R.id.title);
         {
-            nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, user, linkColor, fromView));
+            nameView.setText(getHistoryComment((AstridActivity) fragment.getActivity(), history, user, fromView));
             nameView.setTextColor(grayColor);
         }
 
@@ -503,7 +503,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
 
-    public static String getHistoryComment(final AstridActivity context, History history, User user, String linkColor, String fromView) {
+    public static String getHistoryComment(final AstridActivity context, History history, User user, String fromView) {
         boolean hasTask = false;
         JSONArray taskAttrs = null;
         if (!TextUtils.isEmpty(history.getValue(History.TASK))) {
@@ -721,7 +721,7 @@ public class UpdateAdapter extends CursorAdapter {
         try {
             time = DateUtilities.parseIso8601(value);
             Date date = new Date(time);
-            String result = DateUtilities.getDateString(context, date, includeYear);
+            String result = DateUtilities.getDateString(date, includeYear);
             if (hasTime) {
                 result += ", " + DateUtilities.getTimeString(context, date, false); //$NON-NLS-1$
             }

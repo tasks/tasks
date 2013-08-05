@@ -21,7 +21,7 @@ public class ReminderDebugContextActions {
     public static class WhenReminder implements TaskContextActionExposer {
 
         @Override
-        public Object getLabel(Task task) {
+        public Object getLabel() {
             if (Constants.DEBUG) {
                 return "when alarm?";
             }
@@ -54,7 +54,7 @@ public class ReminderDebugContextActions {
     public static class MakeNotification implements TaskContextActionExposer {
 
         @Override
-        public Object getLabel(Task task) {
+        public Object getLabel() {
             if (Constants.DEBUG) {
                 return "when alarm?"; //$NON-NLS-1$
             }

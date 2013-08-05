@@ -3,7 +3,6 @@ package com.todoroo.astrid.activity;
 import android.content.Context;
 
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 
 
 public interface FilterModeSpec {
@@ -16,7 +15,7 @@ public interface FilterModeSpec {
 
     public int getMainMenuIconAttr();
 
-    public void onFilterItemClickedCallback(FilterListItem item);
+    public void onFilterItemClickedCallback();
 
     public boolean showComments();
 

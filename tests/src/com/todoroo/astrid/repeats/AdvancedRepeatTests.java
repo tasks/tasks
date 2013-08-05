@@ -247,8 +247,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     }
 
     private void assertDateEquals(long actual, long expected) {
-        assertEquals("Due Date is '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(actual))
-                + "', expected '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(expected)) + "'",
+        assertEquals("Due Date is '" + DateUtilities.getDateStringWithWeekday(new Date(actual))
+                + "', expected '" + DateUtilities.getDateStringWithWeekday(new Date(expected)) + "'",
                 expected, actual);
     }
 

@@ -41,12 +41,10 @@ public class TaskModelForHandlers extends AbstractTaskModel {
      * back the due dates and updates other task properties accordingly.
      *
      * @param context
-     * @param taskController
      * @param repeatInfo
      */
 
-    public void repeatTaskBy(Context context, TaskController taskController,
-                             RepeatInfo repeatInfo) {
+    public void repeatTaskBy(Context context, RepeatInfo repeatInfo) {
 
         // move dates back
         if (getDefiniteDueDate() != null) {

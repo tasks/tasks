@@ -99,16 +99,16 @@ public class UpdateMessageService {
     }
 
     private static interface DialogShower {
-        void showDialog(Activity activity);
+        void showDialog();
     }
 
     private void tryShowDialog(DialogShower ds) {
         try {
-            ds.showDialog(activity);
+            ds.showDialog();
         } catch (BadTokenException bt) {
             try {
                 Activity current = (Activity) ContextManager.getContext();
-                ds.showDialog(current);
+                ds.showDialog();
             } catch (ClassCastException c) {
                 // Oh well, context wasn't an activity
             } catch (BadTokenException bt2) {
@@ -125,7 +125,7 @@ public class UpdateMessageService {
         if (message.linkText.size() > 0) {
             final DialogShower ds = new DialogShower() {
                 @Override
-                public void showDialog(Activity a) {
+                public void showDialog() {
                     try {
                         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
                         d.setContentView(R.layout.update_message_view);

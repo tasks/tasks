@@ -627,7 +627,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 if (user.containsNonNullValue(UpdateAdapter.USER_PICTURE)) {
                     userImage = user.getPictureUrl(UpdateAdapter.USER_PICTURE, RemoteModel.PICTURE_THUMB);
                 }
-                title = new SpannableString(UpdateAdapter.getHistoryComment(context, history, user, linkColor, UpdateAdapter.FROM_TASK_VIEW));
+                title = new SpannableString(UpdateAdapter.getHistoryComment(context, history, user, UpdateAdapter.FROM_TASK_VIEW));
                 createdAt = history.getValue(History.CREATED_AT);
                 type = NameMaps.TABLE_ID_HISTORY;
             }

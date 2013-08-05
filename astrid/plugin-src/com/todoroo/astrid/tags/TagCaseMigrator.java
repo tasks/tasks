@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import android.content.Context;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -46,7 +44,7 @@ public class TagCaseMigrator {
     private final HashMap<String, Long> nameToRemoteId = new HashMap<String, Long>();
     private final HashMap<String, Integer> nameCountMap = new HashMap<String, Integer>();
 
-    public void performTagCaseMigration( Context context) {
+    public void performTagCaseMigration() {
         if (!Preferences.getBoolean(PREF_CASE_MIGRATION_PERFORMED, false)) {
             TagService.Tag[] allTagData = TagService.getInstance().getGroupedTags(
                     TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);

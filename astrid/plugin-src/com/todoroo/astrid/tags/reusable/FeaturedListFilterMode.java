@@ -7,7 +7,6 @@ import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.FilterModeSpec;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.ui.MainMenuPopover;
 
@@ -44,7 +43,7 @@ public class FeaturedListFilterMode implements FilterModeSpec {
     }
 
     @Override
-    public void onFilterItemClickedCallback(FilterListItem item) {
+    public void onFilterItemClickedCallback() {
         //
     }
 

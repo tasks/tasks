@@ -53,7 +53,7 @@ public interface AuthManager {
      * the auth token, or False if there was an error or the request was
      * canceled
      */
-    public abstract boolean authResult(int resultCode, Intent results);
+    public abstract boolean authResult(Intent results);
 
     /**
      * Returns the current auth token. Response may be null if no valid auth

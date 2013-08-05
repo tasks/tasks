@@ -564,7 +564,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             return;
         }
         try {
-            VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode, data);
+            VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode);
         } catch (VerifyError e) {
             // unavailable
         }

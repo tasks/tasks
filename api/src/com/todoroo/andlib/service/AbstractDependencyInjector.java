@@ -57,7 +57,7 @@ abstract public class AbstractDependencyInjector {
      * @param field  field tagged with {link Autowired} annotation
      * @return object to assign to this field, or null
      */
-    public Object getInjection(Object object, Field field) {
+    public Object getInjection(Field field) {
         if (injectables.containsKey(field.getName())) {
             Object injection = injectables.get(field.getName());
 

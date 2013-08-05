@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.data.Task;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -49,7 +48,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
 
         // request details
         draw(viewHolder, taskId, get(taskId));
-        Intent broadcastIntent = createBroadcastIntent(viewHolder.task);
+        Intent broadcastIntent = createBroadcastIntent();
         if (broadcastIntent != null) {
             fragment.getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
@@ -59,7 +58,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     /**
      * creates a broadcast intent for requesting
      */
-    abstract protected Intent createBroadcastIntent(Task task);
+    abstract protected Intent createBroadcastIntent();
 
     /**
      * updates the given view
@@ -69,7 +68,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     /**
      * resets the view as if there was nothing
      */
-    abstract protected void reset(ViewHolder viewHolder, long taskId);
+    abstract protected void reset(ViewHolder viewHolder);
 
     /**
      * on receive an intent

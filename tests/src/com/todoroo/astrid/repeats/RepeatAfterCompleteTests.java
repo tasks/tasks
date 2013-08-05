@@ -122,8 +122,8 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
     private void assertDateEquals(String message, long expected, long actual) {
         expected = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, expected);
         actual = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, actual);
-        assertEquals(message + ": Due Date is '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(actual))
-                + "', expected '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(expected)) + "'",
+        assertEquals(message + ": Due Date is '" + DateUtilities.getDateStringWithWeekday(new Date(actual))
+                + "', expected '" + DateUtilities.getDateStringWithWeekday(new Date(expected)) + "'",
                 expected, actual);
     }
 

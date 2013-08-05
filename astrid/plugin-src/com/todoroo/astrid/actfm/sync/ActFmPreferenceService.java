@@ -134,10 +134,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     private static JSONObject user = null;
 
-    @Override
-    protected void reportLastErrorImpl(String lastError, String type) {
-    }
-
     public synchronized static JSONObject thisUser() {
         if (user == null) {
             user = new JSONObject();

@@ -6,7 +6,6 @@
 package com.todoroo.astrid.locale;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,7 +24,6 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.PluginServices;
 import com.twofortyfouram.SharedResources;
 
 /**

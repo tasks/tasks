@@ -29,22 +29,17 @@ public class TaskList extends Activity {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
-        launchTaskList(getIntent());
+        launchTaskList();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        launchTaskList(intent);
+        launchTaskList();
     }
 
-    /**
-     * intent: ignored for now
-     *
-     * @param intent
-     */
-    private void launchTaskList(Intent intent) {
+    private void launchTaskList() {
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
         startActivity(taskListIntent);
         finish();

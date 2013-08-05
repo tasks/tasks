@@ -64,9 +64,4 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     public String getLoggedInUserName() {
         return Preferences.getStringValue(PREF_USER_NAME);
     }
-
-    @Override
-    protected void reportLastErrorImpl(String lastError, String type) {
-    }
-
 }

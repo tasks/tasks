@@ -9,12 +9,10 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,7 +31,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -44,7 +41,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TagMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -63,10 +59,6 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
@@ -394,7 +386,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
 
         boolean result = super.onFilterItemClicked(item);
-        filterModeSpec.onFilterItemClickedCallback(item);
+        filterModeSpec.onFilterItemClickedCallback();
         return result;
     }
 
@@ -494,8 +486,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onPause() {
         super.onPause();
-        AndroidUtilities.tryDismissPopup(this, listsPopover);
-        AndroidUtilities.tryDismissPopup(this, mainMenuPopover);
+        AndroidUtilities.tryDismissPopup(listsPopover);
+        AndroidUtilities.tryDismissPopup(mainMenuPopover);
     }
 
     @Override
@@ -505,10 +497,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void setSelectedItem(Filter item) {
         lists.setText(item.title);
-    }
-
-    public TaskListFragmentPagerAdapter getFragmentPagerAdapter() {
-        return tlfPagerAdapter;
     }
 
     @Override

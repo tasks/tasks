@@ -283,7 +283,7 @@ public class TaskController extends LegacyAbstractController {
                 return true;
             }
 
-            onTaskSave(task, values, duringSync);
+            onTaskSave(task, values);
 
             saveSucessful = database.update(tasksTable, values,
                     KEY_ROWID + "=" + id, null) > 0;
@@ -317,7 +317,7 @@ public class TaskController extends LegacyAbstractController {
      * @param values
      * @param duringSync
      */
-    private void onTaskSave(AbstractTaskModel task, ContentValues values, boolean duringSync) {
+    private void onTaskSave(AbstractTaskModel task, ContentValues values) {
         // save task completed date
         if (values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                 values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
@@ -388,7 +388,7 @@ public class TaskController extends LegacyAbstractController {
         // handle repeat
         RepeatInfo repeatInfo = model.getRepeat();
         if (repeatInfo != null) {
-            model.repeatTaskBy(context, this, repeatInfo);
+            model.repeatTaskBy(context, repeatInfo);
             database.update(tasksTable, values, KEY_ROWID + "=" +
                     task.getTaskIdentifier().getId(), null);
         }
@@ -629,12 +629,7 @@ public class TaskController extends LegacyAbstractController {
         }
     }
 
-    /**
-     * Updates the alarm for the task identified by the given id
-     *
-     * @param taskId
-     */
-    public void updateAlarmForTask(TaskIdentifier taskId) throws SQLException {
+    public void updateAlarmForTask() throws SQLException {
 //        TaskModelForNotify task = fetchTaskForNotify(taskId);
         AlertController alertController = new AlertController(context);
         alertController.open();

@@ -122,7 +122,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected abstract UserActivity createUpdate();
 
-    protected abstract void performFetch(boolean manual, SyncMessageCallback done);
+    protected abstract void performFetch(SyncMessageCallback done);
 
     protected abstract boolean canLoadMoreHistory();
 
@@ -222,7 +222,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         });
 
         refreshUpdatesList();
-        refreshActivity(false); // start a pull in the background
+        refreshActivity(); // start a pull in the background
     }
 
     protected void resetPictureButton() {
@@ -336,10 +336,10 @@ public abstract class CommentsFragment extends SherlockListFragment {
         public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
-    protected void refreshActivity(boolean manual) {
+    protected void refreshActivity() {
         if (actFmPreferenceService.isLoggedIn()) {
             if (hasModel()) {
-                performFetch(manual, doneRunnable);
+                performFetch(doneRunnable);
             } else {
                 doneRunnable.runOnSuccess();
             }
@@ -375,7 +375,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
             case MENU_REFRESH_ID: {
 
-                refreshActivity(true);
+                refreshActivity();
                 return true;
             }
 

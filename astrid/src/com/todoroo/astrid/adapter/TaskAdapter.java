@@ -972,7 +972,7 @@ public class TaskAdapter extends CursorAdapter {
                 return;
             }
 
-            reset(viewHolder, taskId);
+            reset(viewHolder);
             if (decorations.size() == 0) {
                 return;
             }
@@ -1009,7 +1009,7 @@ public class TaskAdapter extends CursorAdapter {
         }
 
         @Override
-        protected void reset(ViewHolder viewHolder, long taskId) {
+        protected void reset(ViewHolder viewHolder) {
             if (viewHolder.decorations != null) {
                 for (View view : viewHolder.decorations) {
                     viewHolder.rowBody.removeView(view);
@@ -1025,7 +1025,7 @@ public class TaskAdapter extends CursorAdapter {
         }
 
         @Override
-        protected Intent createBroadcastIntent(Task task) {
+        protected Intent createBroadcastIntent() {
             return null;
         }
     }

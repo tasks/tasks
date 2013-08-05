@@ -42,7 +42,7 @@ public class ExpandableListFragment extends Fragment
             = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            onListItemClick((ListView) parent, v, position, id);
+            onListItemClick();
         }
     };
 
@@ -116,13 +116,8 @@ public class ExpandableListFragment extends Fragment
      * Subclasses should override. Subclasses can call
      * getListView().getItemAtPosition(position) if they need to access the
      * data associated with the selected item.
-     *
-     * @param l        The ListView where the click happened
-     * @param v        The view that was clicked within the ListView
-     * @param position The position of the view in the list
-     * @param id       The row id of the item that was clicked
      */
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick() {
         // override me
     }
 

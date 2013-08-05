@@ -111,7 +111,7 @@ public class DraggableListView extends ListView {
         this.mItemHeightNormal = itemHeightNormal;
     }
 
-    protected boolean isDraggableRow( View view) {
+    protected boolean isDraggableRow() {
         return true;
     }
 
@@ -176,7 +176,7 @@ public class DraggableListView extends ListView {
                 }
             }
 
-            if (isDraggableRow(v)) {
+            if (isDraggableRow()) {
                 ViewGroup.LayoutParams params = v.getLayoutParams();
                 params.height = LayoutParams.WRAP_CONTENT;
                 v.setLayoutParams(params);
@@ -227,7 +227,7 @@ public class DraggableListView extends ListView {
                 }
             }
 
-            if (isDraggableRow(vv)) {
+            if (isDraggableRow()) {
                 ViewGroup.LayoutParams params = vv.getLayoutParams();
                 params.height = height;
                 vv.setLayoutParams(params);
@@ -377,7 +377,7 @@ public class DraggableListView extends ListView {
 
         View item = getChildAt(itemNum - getFirstVisiblePosition());
 
-        if (!isDraggableRow(item)) {
+        if (!isDraggableRow()) {
             return false;
         }
 

@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -44,7 +43,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     private GtasksPreferenceService gtasksPreferenceService;
 
     public GtasksMetadataService() {
-        super(ContextManager.getContext());
         DependencyInjectionService.getInstance().inject(this);
     }
 

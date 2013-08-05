@@ -79,8 +79,7 @@ public class ModernAuthManager implements AuthManager {
      * @param requireGoogle True if the account must be a Google account
      * @param service       The name of the service to authenticate as
      */
-    public ModernAuthManager(Activity activity, int code, Bundle extras,
-                             boolean requireGoogle, String service) {
+    public ModernAuthManager(Activity activity, String service) {
         this.activity = activity;
         this.service = service;
         this.accountManager = AccountManager.get(activity);
@@ -156,8 +155,7 @@ public class ModernAuthManager implements AuthManager {
      * canceled
      */
     @Override
-
-    public boolean authResult(int resultCode, Intent results) {
+    public boolean authResult(Intent results) {
         if (results != null) {
             authToken = results.getStringExtra(
                     AccountManager.KEY_AUTHTOKEN);

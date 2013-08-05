@@ -223,11 +223,11 @@ public final class UpgradeService {
                             }
 
                             if (from < V3_1_0) {
-                                new Astrid2To3UpgradeHelper().upgrade3To3_1(UpgradeActivity.this, from);
+                                new Astrid2To3UpgradeHelper().upgrade3To3_1(UpgradeActivity.this);
                             }
 
                             if (from < V3_8_3_1) {
-                                new TagCaseMigrator().performTagCaseMigration(UpgradeActivity.this);
+                                new TagCaseMigrator().performTagCaseMigration();
                             }
 
                             if (from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false)) {

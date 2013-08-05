@@ -9,11 +9,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -37,17 +34,14 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagMetadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
-import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagMemberMetadata;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -100,7 +94,7 @@ public class ReminderDialog extends Dialog {
 
         if (Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
             setContentView(R.layout.astrid_reminder_view);
-            setupSpeechBubble(activity, taskId);
+            setupSpeechBubble(activity);
         } else {
             setContentView(R.layout.astrid_reminder_view_portrait);
             title = activity.getString(R.string.rmd_NoA_dlg_title) + " " + title; //$NON-NLS-1$
@@ -157,7 +151,7 @@ public class ReminderDialog extends Dialog {
         container.setVisibility(View.GONE);
     }
 
-    private void setupSpeechBubble(Activity activity, long taskId) {
+    private void setupSpeechBubble(Activity activity) {
         ((TextView) findViewById(R.id.reminder_message)).setText(
                 Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
     }
