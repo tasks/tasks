@@ -153,8 +153,7 @@ abstract public class SyncBackgroundService extends Service {
      * Create the alarm intent
      */
     private Intent createAlarmIntent(Context context) {
-        Intent intent = new Intent(context, getClass());
-        return intent;
+        return new Intent(context, getClass());
     }
 
     // --- utility methods

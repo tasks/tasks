@@ -220,8 +220,7 @@ public class TagController extends LegacyAbstractController {
         try {
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
-                TagModelForView model = new TagModelForView(cursor);
-                return model;
+                return new TagModelForView(cursor);
             }
             return null;
         } finally {
@@ -243,8 +242,7 @@ public class TagController extends LegacyAbstractController {
         try {
             if (cursor != null) {
                 cursor.moveToFirst();
-                TagModelForView model = new TagModelForView(cursor);
-                return model;
+                return new TagModelForView(cursor);
             }
 
             throw new SQLException("Returned empty set!");

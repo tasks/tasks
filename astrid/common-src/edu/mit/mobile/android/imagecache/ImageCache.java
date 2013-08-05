@@ -251,8 +251,7 @@ public class ImageCache extends DiskCache<String, Bitmap> {
             Log.d(TAG, "disk cache hit for key " + key);
         }
         try {
-            final Bitmap image = BitmapFactory.decodeStream(in);
-            return image;
+            return BitmapFactory.decodeStream(in);
 
         } catch (final OutOfMemoryError oom) {
             oomClear();

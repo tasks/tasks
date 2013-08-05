@@ -162,8 +162,7 @@ public class ShortcutActivity extends Activity {
                 }
 
                 ((FilterWithCustomIntent) filter).customExtras = customExtras; // Something
-                ComponentName customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
-                ((FilterWithCustomIntent) filter).customTaskList = customTaskList;
+                ((FilterWithCustomIntent) filter).customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
             } else {
                 filter = new Filter(title, title, sql, values);
             }

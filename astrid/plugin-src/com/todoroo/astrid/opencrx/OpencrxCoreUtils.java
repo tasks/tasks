@@ -100,9 +100,8 @@ public class OpencrxCoreUtils extends SyncProviderUtilities {
     protected static SharedPreferences getPrefs() {
         try {
             Context crxContext = ContextManager.getContext().createPackageContext(OPENCRX_PACKAGE, 0);
-            SharedPreferences sharedPreferences = crxContext.getSharedPreferences(PREFS_FILE,
+            return crxContext.getSharedPreferences(PREFS_FILE,
                     Context.MODE_WORLD_READABLE + Context.MODE_WORLD_WRITEABLE);
-            return sharedPreferences;
         } catch (NameNotFoundException e) {
             return null;
         }

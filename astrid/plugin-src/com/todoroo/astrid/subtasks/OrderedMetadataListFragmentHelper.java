@@ -82,8 +82,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     }
 
     public DraggableListView getTouchListView() {
-        DraggableListView tlv = (DraggableListView) fragment.getListView();
-        return tlv;
+        return (DraggableListView) fragment.getListView();
     }
 
     @Override

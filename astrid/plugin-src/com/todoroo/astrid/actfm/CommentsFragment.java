@@ -99,9 +99,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(getLayout(), container, false);
-
-        return v;
+        return inflater.inflate(getLayout(), container, false);
     }
 
     protected abstract int getLayout();

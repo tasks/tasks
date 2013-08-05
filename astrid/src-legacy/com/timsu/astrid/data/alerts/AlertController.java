@@ -33,10 +33,9 @@ public class AlertController extends LegacyAbstractController {
      * Get a cursor to tag identifiers
      */
     public Cursor getTaskAlertsCursor(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = alertDatabase.query(alertsTable,
+        return alertDatabase.query(alertsTable,
                 Alert.FIELD_LIST, Alert.TASK + " = ?",
                 new String[]{taskId.idAsString()}, null, null, null);
-        return cursor;
     }
 
     /**

@@ -80,8 +80,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
             /*
       default interval for spinner if date is unselected
      */
-            long DEFAULT_INTERVAL = DateUtilities.ONE_WEEK * 2;
-            time = DEFAULT_INTERVAL;
+            time = DateUtilities.ONE_WEEK * 2;
         }
 
         int i;

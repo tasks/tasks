@@ -151,8 +151,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         addTags(list);
 
         // transmit filter list
-        FilterListItem[] listAsArray = list.toArray(new FilterListItem[list.size()]);
-        return listAsArray;
+        return list.toArray(new FilterListItem[list.size()]);
     }
 
     private void addTags(ArrayList<FilterListItem> list) {
@@ -193,8 +192,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 filters.add(f);
             }
         }
-        FilterCategory filter = new FilterCategory(context.getString(name), filters.toArray(new Filter[filters.size()]));
-        return filter;
+        return new FilterCategory(context.getString(name), filters.toArray(new Filter[filters.size()]));
     }
 
     protected Filter constructFilter(Context context, Tag tag) {

@@ -77,31 +77,27 @@ public class AstridActivity extends SherlockFragmentActivity
     private TaskDao taskDao;
 
     public FilterListFragment getFilterListFragment() {
-        FilterListFragment frag = (FilterListFragment) getSupportFragmentManager()
-                .findFragmentByTag(FilterListFragment.TAG_FILTERLIST_FRAGMENT);
 
-        return frag;
+        return (FilterListFragment) getSupportFragmentManager()
+                .findFragmentByTag(FilterListFragment.TAG_FILTERLIST_FRAGMENT);
     }
 
     public TaskListFragment getTaskListFragment() {
-        TaskListFragment frag = (TaskListFragment) getSupportFragmentManager()
-                .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
 
-        return frag;
+        return (TaskListFragment) getSupportFragmentManager()
+                .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
     }
 
     public TaskEditFragment getTaskEditFragment() {
-        TaskEditFragment frag = (TaskEditFragment) getSupportFragmentManager()
-                .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
 
-        return frag;
+        return (TaskEditFragment) getSupportFragmentManager()
+                .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
     }
 
     public CommentsFragment getTagUpdatesFragment() {
-        CommentsFragment frag = (CommentsFragment) getSupportFragmentManager()
-                .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
 
-        return frag;
+        return (CommentsFragment) getSupportFragmentManager()
+                .findFragmentByTag(CommentsFragment.TAG_UPDATES_FRAGMENT);
     }
 
 

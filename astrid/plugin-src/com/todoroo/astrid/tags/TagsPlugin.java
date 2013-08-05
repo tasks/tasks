@@ -38,8 +38,7 @@ public class TagsPlugin extends BroadcastReceiver {
      */
     public static Intent newTagDialog(Context context) {
         Class<?> settingsComponent = AstridPreferences.useTabletLayout(context) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
-        Intent intent = new Intent(context, settingsComponent);
-        return intent;
+        return new Intent(context, settingsComponent);
     }
 
 }

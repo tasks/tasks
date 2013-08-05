@@ -333,9 +333,8 @@ public class TaskAdapter extends CursorAdapter {
         }
 
         // perform query
-        TodorooCursor<Task> newCursor = taskService.fetchFiltered(
+        return taskService.fetchFiltered(
                 query.get(), constraint, fragment.taskProperties());
-        return newCursor;
     }
 
     public String getQuery() {

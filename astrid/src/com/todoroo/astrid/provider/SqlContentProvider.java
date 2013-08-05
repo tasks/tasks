@@ -129,8 +129,7 @@ public class SqlContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
-        Cursor cursor = database.rawQuery(selection, null);
-        return cursor;
+        return database.rawQuery(selection, null);
     }
 
 }

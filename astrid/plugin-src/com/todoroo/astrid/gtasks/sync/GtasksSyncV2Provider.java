@@ -372,9 +372,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 
-        GtasksTaskContainer container = new GtasksTaskContainer(task, metadata,
+        return new GtasksTaskContainer(task, metadata,
                 gtasksMetadata);
-        return container;
     }
 
     private void write(GtasksTaskContainer task) throws IOException {

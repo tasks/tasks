@@ -213,10 +213,9 @@ public class LegacyTasksXmlExporter {
     }
 
     private boolean setupFile(File directory) {
-        File astridDir = directory;
-        if (astridDir != null) {
+        if (directory != null) {
             // Check for /sdcard/astrid directory. If it doesn't exist, make it.
-            if (astridDir.exists() || astridDir.mkdir()) {
+            if (directory.exists() || directory.mkdir()) {
                 String fileName;
                 if (isService) {
                     fileName = BACKUP_FILE_NAME;
@@ -224,11 +223,11 @@ public class LegacyTasksXmlExporter {
                     fileName = EXPORT_FILE_NAME;
                 }
                 fileName = String.format(fileName, BackupDateUtilities.getDateForExport());
-                setOutput(astridDir.getAbsolutePath() + "/" + fileName);
+                setOutput(directory.getAbsolutePath() + "/" + fileName);
                 return true;
             } else {
                 // Unable to make the /sdcard/astrid directory.
-                String error = ctx.getString(R.string.DLG_error_sdcard, astridDir.getAbsolutePath());
+                String error = ctx.getString(R.string.DLG_error_sdcard, directory.getAbsolutePath());
                 Log.e("TasksXmlExporter", error);
                 if (!isService) {
                     displayErrorToast(error);

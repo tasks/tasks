@@ -78,8 +78,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     }
 
     public DraggableListView getTouchListView() {
-        DraggableListView tlv = (DraggableListView) fragment.getListView();
-        return tlv;
+        return (DraggableListView) fragment.getListView();
     }
 
     @Override

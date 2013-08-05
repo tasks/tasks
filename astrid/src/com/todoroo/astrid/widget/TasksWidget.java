@@ -158,9 +158,8 @@ public class TasksWidget extends AppWidgetProvider {
                     // "System server dead" was sometimes thrown here by the OS. Abort if that happens
                 }
             } else {
-                int id = extrasId;
-                RemoteViews updateViews = buildUpdate(this, id);
-                manager.updateAppWidget(id, updateViews);
+                RemoteViews updateViews = buildUpdate(this, extrasId);
+                manager.updateAppWidget(extrasId, updateViews);
             }
 
             stopSelf();
@@ -417,8 +416,7 @@ public class TasksWidget extends AppWidgetProvider {
                 ((FilterWithCustomIntent) filter).customTaskList = component;
                 String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
                         + widgetId);
-                Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
-                ((FilterWithCustomIntent) filter).customExtras = extras;
+                ((FilterWithCustomIntent) filter).customExtras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
             }
 
             // Validate tagData

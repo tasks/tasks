@@ -314,8 +314,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                     new QueryTemplate().where(Task.ID.eq(task.getId())),
                     null);
 
-            Intent launchIntent = ShortcutActivity.createIntent(filter);
-            return launchIntent;
+            return ShortcutActivity.createIntent(filter);
         } finally {
             cursor.close();
         }

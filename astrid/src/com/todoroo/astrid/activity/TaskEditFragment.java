@@ -322,9 +322,7 @@ public final class TaskEditFragment extends SherlockFragment implements
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.task_edit_activity, container, false);
-
-        return v;
+        return inflater.inflate(R.layout.task_edit_activity, container, false);
     }
 
     @Override

@@ -68,8 +68,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         DependencyInjectionService.getInstance().inject(this);
         Resources r = context.getResources();
 
-        Filter[] savedFilters = buildSavedFilters(context, r);
-        return savedFilters;
+        return buildSavedFilters(context, r);
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {

@@ -238,8 +238,7 @@ public final class TagsControlSet extends PopupControlSet {
             return null;
         }
         View lastItem = newTags.getChildAt(newTags.getChildCount() - 1);
-        TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
-        return lastText;
+        return (TextView) lastItem.findViewById(R.id.text1);
     }
 
     @Override

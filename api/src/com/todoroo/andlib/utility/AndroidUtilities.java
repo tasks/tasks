@@ -115,8 +115,7 @@ public class AndroidUtilities {
             is = conn.getInputStream();
             BufferedInputStream bis = new BufferedInputStream(is, 16384);
             try {
-                Bitmap bitmap = BitmapFactory.decodeStream(bis);
-                return bitmap;
+                return BitmapFactory.decodeStream(bis);
             } finally {
                 bis.close();
             }
@@ -717,8 +716,7 @@ public class AndroidUtilities {
                                     String methodName, Class<?>[] params, Object... args) {
         try {
             Method method = cls.getMethod(methodName, params);
-            Object result = method.invoke(receiver, args);
-            return result;
+            return method.invoke(receiver, args);
         } catch (SecurityException e) {
             getExceptionService().reportError("call-method", e);
         } catch (NoSuchMethodException e) {

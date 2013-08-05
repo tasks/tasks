@@ -469,8 +469,7 @@ public class TaskController extends LegacyAbstractController {
             return null;
         }
         activity.startManagingCursor(cursor);
-        TaskModelForEdit model = new TaskModelForEdit(taskId, cursor);
-        return model;
+        return new TaskModelForEdit(taskId, cursor);
     }
 
     /**
@@ -550,8 +549,7 @@ public class TaskController extends LegacyAbstractController {
                 return null;
             }
             cursor.moveToFirst();
-            TaskModelForSync model = new TaskModelForSync(cursor);
-            return model;
+            return new TaskModelForSync(cursor);
         } finally {
             if (cursor != null) {
                 cursor.close();

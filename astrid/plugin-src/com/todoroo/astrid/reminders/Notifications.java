@@ -150,8 +150,7 @@ public class Notifications extends BroadcastReceiver {
      */
     public static String getRandomReminder(String[] reminders) {
         int next = ReminderService.random.nextInt(reminders.length);
-        String reminder = reminders[next];
-        return reminder;
+        return reminders[next];
     }
 
     /**
@@ -388,8 +387,7 @@ public class Notifications extends BroadcastReceiver {
                 voiceReminder = false;
             } else if (notificationPreference != null) {
                 if (notificationPreference.length() > 0 && soundIntervalOk) {
-                    Uri notificationSound = Uri.parse(notificationPreference);
-                    notification.sound = notificationSound;
+                    notification.sound = Uri.parse(notificationPreference);
                 } else {
                     notification.sound = null;
                 }
