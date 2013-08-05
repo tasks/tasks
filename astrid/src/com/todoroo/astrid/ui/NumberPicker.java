@@ -84,11 +84,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final EditText mText;
     private final InputFilter mNumberInputFilter;
 
-    private final Animation mSlideUpOutAnimation;
-    private final Animation mSlideUpInAnimation;
-    private final Animation mSlideDownOutAnimation;
-    private final Animation mSlideDownInAnimation;
-
     private String[] mDisplayedValues;
     private int mStart;
     private int mEnd;
@@ -141,19 +136,19 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         // disable keyboard until user requests it
         AndroidUtilities.suppressVirtualKeyboard(mText);
 
-        mSlideUpOutAnimation = new TranslateAnimation(
+        Animation mSlideUpOutAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -100);
         mSlideUpOutAnimation.setDuration(200);
-        mSlideUpInAnimation = new TranslateAnimation(
+        Animation mSlideUpInAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 100, Animation.RELATIVE_TO_SELF, 0);
         mSlideUpInAnimation.setDuration(200);
-        mSlideDownOutAnimation = new TranslateAnimation(
+        Animation mSlideDownOutAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 100);
         mSlideDownOutAnimation.setDuration(200);
-        mSlideDownInAnimation = new TranslateAnimation(
+        Animation mSlideDownInAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, -100, Animation.RELATIVE_TO_SELF, 0);
         mSlideDownInAnimation.setDuration(200);

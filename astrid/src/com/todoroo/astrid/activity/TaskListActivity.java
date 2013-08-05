@@ -103,7 +103,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private FragmentPopover listsPopover;
     private MainMenuPopover mainMenuPopover;
-    private boolean commentsVisible = false;
 
     private boolean swipeEnabled = false;
 
@@ -539,9 +538,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if (taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             if (fragmentLayout == LAYOUT_DOUBLE) {
-                if (!commentsVisible) {
-                    findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
-                }
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
             }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();

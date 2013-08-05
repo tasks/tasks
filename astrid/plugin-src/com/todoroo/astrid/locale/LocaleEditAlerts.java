@@ -100,7 +100,6 @@ public final class LocaleEditAlerts extends ListActivity {
      * There is no need to save/restore this field's state when the {@code Activity} is paused.
      */
     private boolean isCancelled = false;
-    private boolean isRemoved = false;
 
     /**
      * Called when the activity is first created.
@@ -205,9 +204,7 @@ public final class LocaleEditAlerts extends ListActivity {
      */
     @Override
     public void finish() {
-        if (isRemoved) {
-            setResult(com.twofortyfouram.Intent.RESULT_REMOVE);
-        } else if (isCancelled) {
+        if (isCancelled) {
             setResult(RESULT_CANCELED);
         } else {
             final FilterListItem selected = adapter.getSelection();

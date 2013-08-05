@@ -135,8 +135,6 @@ public class TagViewFragment extends TaskListFragment {
 
     protected AtomicBoolean isBeingFiltered = new AtomicBoolean(false);
 
-    private Filter originalFilter;
-
     protected boolean justDeleted = false;
 
     // --- UI initialization
@@ -162,8 +160,6 @@ public class TagViewFragment extends TaskListFragment {
         if (membersEdit != null) {
             membersEdit.setOnClickListener(settingsListener);
         }
-
-        originalFilter = filter;
     }
 
     private final OnClickListener settingsListener = new OnClickListener() {
