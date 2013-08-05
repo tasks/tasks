@@ -461,7 +461,7 @@ public class TagViewFragment extends TaskListFragment {
             if (!intent.hasExtra("tag_id")) {
                 return;
             }
-            if (tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id"))) {
+            if (tagData == null || !tagData.getValue(TagData.UUID).equals(intent.getStringExtra("tag_id"))) {
                 return;
             }
 

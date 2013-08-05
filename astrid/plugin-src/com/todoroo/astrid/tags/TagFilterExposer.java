@@ -111,7 +111,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
-        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid.toString());
+        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid);
         filter.customExtras = extras;
 
         return filter;

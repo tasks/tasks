@@ -249,7 +249,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
-    public int adjustFilterCount(Filter filter, int delta) {
+    public void adjustFilterCount(Filter filter, int delta) {
         int filterCount = 0;
         if (filterCounts.containsKey(filter)) {
             filterCount = filterCounts.get(filter);
@@ -257,7 +257,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         int newCount = Math.max(filterCount + delta, 0);
         filterCounts.put(filter, newCount);
         notifyDataSetChanged();
-        return newCount;
     }
 
     public void incrementFilterCount(Filter filter) {

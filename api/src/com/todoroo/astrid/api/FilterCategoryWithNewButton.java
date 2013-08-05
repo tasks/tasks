@@ -52,14 +52,6 @@ public class FilterCategoryWithNewButton extends FilterCategory {
      * {@inheritDoc}
      */
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeParcelable(intent, 0);

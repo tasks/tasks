@@ -57,6 +57,6 @@ public final class Operator {
 
     @Override
     public String toString() {
-        return this.operator.toString();
+        return this.operator;
     }
 }

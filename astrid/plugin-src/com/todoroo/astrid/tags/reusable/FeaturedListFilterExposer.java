@@ -50,7 +50,7 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
         contentValues.put(TaskToTagMetadata.TAG_NAME.name, tag.tag);
-        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid.toString());
+        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tag.uuid);
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
@@ -64,7 +64,7 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
 
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
-        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid.toString());
+        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid);
         filter.customExtras = extras;
 
         return filter;

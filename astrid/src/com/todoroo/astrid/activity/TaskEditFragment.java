@@ -1271,7 +1271,7 @@ public final class TaskEditFragment extends SherlockFragment implements
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
-        outState.putString(TASK_UUID, uuid.toString());
+        outState.putString(TASK_UUID, uuid);
     }
 
     private void adjustInfoPopovers() {

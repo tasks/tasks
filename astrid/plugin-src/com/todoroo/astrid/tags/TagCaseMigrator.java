@@ -151,7 +151,7 @@ public class TagCaseMigrator {
     }
 
     @Deprecated
-    private int renameHelper(String oldTag, String newTag, boolean caseSensitive) {
+    private void renameHelper(String oldTag, String newTag, boolean caseSensitive) {
         // First remove newTag from all tasks that have both oldTag and newTag.
         metadataService.deleteWhere(
                 Criterion.and(
@@ -168,7 +168,6 @@ public class TagCaseMigrator {
             ret = metadataService.update(TagService.tagEqIgnoreCase(oldTag, Criterion.all), metadata);
         }
         invalidateTaskCache(newTag);
-        return ret;
     }
 
 

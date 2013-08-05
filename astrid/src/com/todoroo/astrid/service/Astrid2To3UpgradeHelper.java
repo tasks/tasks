@@ -278,8 +278,7 @@ public class Astrid2To3UpgradeHelper {
                     if (data.upgradeNotes == null) {
                         data.upgradeNotes = new StringBuilder();
                     }
-                    data.upgradeNotes.append("Goal Deadline: " +
-                            DateUtilities.getDateString(new Date(preferredDueDate)));
+                    data.upgradeNotes.append("Goal Deadline: ").append(DateUtilities.getDateString(new Date(preferredDueDate)));
                 }
             } else if (property == Task.REMINDER_PERIOD) {
                 // old period was stored in seconds
