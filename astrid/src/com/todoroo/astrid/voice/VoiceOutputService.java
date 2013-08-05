@@ -24,7 +24,7 @@ public class VoiceOutputService {
     public interface VoiceOutputAssistant {
         public void checkIsTTSInstalled();
 
-        public boolean handleActivityResult(int requestCode, int resultCode);
+        public void handleActivityResult(int requestCode, int resultCode);
 
         public void queueSpeak(String textToSpeak);
 
@@ -39,8 +39,7 @@ public class VoiceOutputService {
         }
 
         @Override
-        public boolean handleActivityResult(int requestCode, int resultCode) {
-            return false;
+        public void handleActivityResult(int requestCode, int resultCode) {
         }
 
         @Override

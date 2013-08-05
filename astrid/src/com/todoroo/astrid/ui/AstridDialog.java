@@ -54,7 +54,7 @@ public class AstridDialog extends Dialog {
         return this;
     }
 
-    public AstridDialog setButtonListeners(View.OnClickListener... listeners) {
+    public void setButtonListeners(View.OnClickListener... listeners) {
         int index = 0;
         for (View.OnClickListener l : listeners) {
             buttons[index].setOnClickListener(l);
@@ -63,7 +63,6 @@ public class AstridDialog extends Dialog {
                 break;
             }
         }
-        return this;
     }
 
     public AstridDialog setAstridText(int resId) {

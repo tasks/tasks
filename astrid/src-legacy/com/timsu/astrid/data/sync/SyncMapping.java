@@ -137,8 +137,8 @@ public class SyncMapping extends LegacyAbstractModel {
         }
     }
 
-    public TaskIdentifier getTask() {
-        return new TaskIdentifier(retrieveLong(TASK));
+    public void getTask() {
+        new TaskIdentifier(retrieveLong(TASK));
     }
 
     public int getSyncServiceId() {
@@ -149,8 +149,8 @@ public class SyncMapping extends LegacyAbstractModel {
         return retrieveString(REMOTE_ID);
     }
 
-    public boolean isUpdated() {
-        return retrieveInteger(UPDATED) == 1;
+    public void isUpdated() {
+        retrieveInteger(UPDATED);
     }
 
     private void setTask(TaskIdentifier task) {

@@ -363,22 +363,19 @@ public class DraggableListView extends ListView {
         }
     }
 
-    /**
-     * @return true if drag was initiated
-     */
-    protected boolean initiateDrag(MotionEvent ev) {
+    protected void initiateDrag(MotionEvent ev) {
         int x = (int) mTouchCurrentX;
         int y = (int) mTouchCurrentY;
         int itemNum = pointToPosition(x, y);
 
         if (itemNum == AdapterView.INVALID_POSITION) {
-            return false;
+            return;
         }
 
         View item = getChildAt(itemNum - getFirstVisiblePosition());
 
         if (!isDraggableRow()) {
-            return false;
+            return;
         }
 
         mDragPoint = new Point(x - item.getLeft(), y - item.getTop());
@@ -406,8 +403,6 @@ public class DraggableListView extends ListView {
 
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(50);
-
-        return true;
     }
 
     private void startDragging(Bitmap bm, int x, int y) {

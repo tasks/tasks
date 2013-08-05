@@ -260,12 +260,12 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         return newCount;
     }
 
-    public int incrementFilterCount(Filter filter) {
-        return adjustFilterCount(filter, 1);
+    public void incrementFilterCount(Filter filter) {
+        adjustFilterCount(filter, 1);
     }
 
-    public int decrementFilterCount(Filter filter) {
-        return adjustFilterCount(filter, -1);
+    public void decrementFilterCount(Filter filter) {
+        adjustFilterCount(filter, -1);
     }
 
     public void refreshFilterCount(final Filter filter) {

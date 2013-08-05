@@ -91,24 +91,20 @@ public class AlertController extends LegacyAbstractController {
     /**
      * Remove all alerts from the task
      */
-    public boolean removeAlerts(TaskIdentifier taskId)
-            throws SQLException {
-        return alertDatabase.delete(alertsTable,
-                String.format("%s = ?",
-                        Alert.TASK),
-                new String[]{taskId.idAsString()}) > 0;
+    public void removeAlerts(TaskIdentifier taskId) throws SQLException {
+        alertDatabase.delete(alertsTable,
+                String.format("%s = ?", Alert.TASK),
+                new String[]{taskId.idAsString()});
     }
 
     /**
      * Add the given tag to the task
      */
-    public boolean addAlert(TaskIdentifier taskId, Date date)
-            throws SQLException {
+    public void addAlert(TaskIdentifier taskId, Date date) throws SQLException {
         ContentValues values = new ContentValues();
         values.put(Alert.DATE, date.getTime());
         values.put(Alert.TASK, taskId.getId());
-        return alertDatabase.insert(alertsTable, Alert.TASK,
-                values) >= 0;
+        alertDatabase.insert(alertsTable, Alert.TASK, values);
     }
 
     // --- boilerplate

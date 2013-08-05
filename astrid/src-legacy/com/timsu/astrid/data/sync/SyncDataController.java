@@ -44,11 +44,10 @@ public class SyncDataController extends LegacyAbstractController {
     /**
      * Indicate that this task's properties were updated
      */
-    public boolean addToUpdatedList(TaskIdentifier taskId) throws SQLException {
+    public void addToUpdatedList(TaskIdentifier taskId) throws SQLException {
         ContentValues values = new ContentValues();
         values.put(SyncMapping.UPDATED, 1);
-        return syncDatabase.update(syncTable, values,
-                SyncMapping.TASK + " = " + taskId.getId(), null) > 0;
+        syncDatabase.update(syncTable, values, SyncMapping.TASK + " = " + taskId.getId(), null);
     }
 
     public static void taskUpdated(Context context, AbstractTaskModel task) {

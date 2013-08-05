@@ -76,8 +76,8 @@ public class MetadataService {
      *
      * @param where
      */
-    public int deleteWhere(Criterion where) {
-        return metadataDao.deleteWhere(where);
+    public void deleteWhere(Criterion where) {
+        metadataDao.deleteWhere(where);
     }
 
     /**

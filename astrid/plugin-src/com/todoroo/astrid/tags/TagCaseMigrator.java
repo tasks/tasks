@@ -146,8 +146,8 @@ public class TagCaseMigrator {
     }
 
     @Deprecated
-    private int renameCaseSensitive(String oldTag, String newTag) { // Need this for tag case migration process
-        return renameHelper(oldTag, newTag, true);
+    private void renameCaseSensitive(String oldTag, String newTag) { // Need this for tag case migration process
+        renameHelper(oldTag, newTag, true);
     }
 
     @Deprecated

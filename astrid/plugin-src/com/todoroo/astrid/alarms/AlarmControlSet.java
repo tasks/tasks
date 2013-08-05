@@ -95,7 +95,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
         return null;
     }
 
-    private boolean addAlarm(Date alert) {
+    private void addAlarm(Date alert) {
         final View alertItem = LayoutInflater.from(activity).inflate(R.layout.alarm_edit_row, null);
         alertsContainer.addView(alertItem);
 
@@ -141,7 +141,5 @@ public final class AlarmControlSet extends TaskEditControlSet {
                 alertsContainer.removeView(alertItem);
             }
         });
-
-        return true;
     }
 }

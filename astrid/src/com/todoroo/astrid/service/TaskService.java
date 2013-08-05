@@ -215,10 +215,10 @@ public class TaskService {
         return newTask;
     }
 
-    public Task cloneReusableTask(Task task, String tagName, String tagUuid) {
+    public void cloneReusableTask(Task task, String tagName, String tagUuid) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
         if (newTask == null) {
-            return new Task();
+            return;
         }
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
@@ -232,7 +232,6 @@ public class TaskService {
         if (!RemoteModel.isUuidEmpty(tagUuid)) {
             TagService.getInstance().createLink(newTask, tagName, tagUuid);
         }
-        return newTask;
     }
 
     /**

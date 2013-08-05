@@ -144,7 +144,7 @@ public final class TagsControlSet extends PopupControlSet {
     /**
      * Adds a tag to the tag field
      */
-    boolean addTag(String tagName, boolean reuse) {
+    void addTag(String tagName, boolean reuse) {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         // check if already exists
@@ -153,7 +153,7 @@ public final class TagsControlSet extends PopupControlSet {
             View view = newTags.getChildAt(i);
             lastText = (TextView) view.findViewById(R.id.text1);
             if (lastText.getText().equals(tagName)) {
-                return false;
+                return;
             }
         }
 
@@ -224,8 +224,6 @@ public final class TagsControlSet extends PopupControlSet {
                 }
             }
         });
-
-        return true;
     }
 
     /**

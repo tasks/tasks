@@ -457,7 +457,7 @@ public class TasksXmlImporter {
             }
         }
 
-        private boolean parseSync() {
+        private void parseSync() {
             String service = xpp.getAttributeValue(null, BackupConstants.SYNC_ATTR_SERVICE);
             String remoteId = xpp.getAttributeValue(null, BackupConstants.SYNC_ATTR_REMOTE_ID);
             if (service != null && remoteId != null) {
@@ -473,20 +473,15 @@ public class TasksXmlImporter {
                 metadata.setValue(Metadata.VALUE3, taskId);
                 metadata.setValue(Metadata.VALUE4, syncOnComplete ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
                 metadataService.save(metadata);
-                return true;
             }
-            return false;
         }
 
-        private boolean parseAlert() {
-            // drop it
-            return false;
+        private void parseAlert() {
         }
 
-        private boolean parseTag() {
+        private void parseTag() {
             String tagName = xpp.getAttributeValue(null, BackupConstants.TAG_ATTR_NAME);
             tags.add(tagName);
-            return true;
         }
 
         private void saveTags() {

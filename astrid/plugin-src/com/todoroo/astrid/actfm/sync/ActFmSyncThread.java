@@ -149,7 +149,7 @@ public class ActFmSyncThread {
         return instance;
     }
 
-    public static ActFmSyncThread initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao,
+    public static void initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao,
                                                            TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao) {
         if (instance == null) {
             synchronized (ActFmSyncThread.class) {
@@ -170,7 +170,6 @@ public class ActFmSyncThread {
                 }
             }
         }
-        return instance;
     }
 
     private ActFmSyncThread(List<ClientToServerMessage<?>> messageQueue, Object syncMonitor) {

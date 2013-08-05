@@ -80,7 +80,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
      *
      * @param task task to create
      */
-    abstract protected TYPE create(TYPE task) throws IOException;
+    abstract protected void create(TYPE task) throws IOException;
 
     /**
      * Push variables from given task to the remote server, and read the newly

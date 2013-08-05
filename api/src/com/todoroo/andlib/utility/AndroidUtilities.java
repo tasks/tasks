@@ -665,14 +665,13 @@ public class AndroidUtilities {
      * @param args       arguments
      * @return method return value, or null if nothing was called or exception
      */
-    public static Object callApiMethod(int minSdk, Object receiver,
+    public static void callApiMethod(int minSdk, Object receiver,
                                        String methodName, Class<?>[] params, Object... args) {
         if (getSdkVersion() < minSdk) {
-            return null;
+            return;
         }
 
-        return AndroidUtilities.callMethod(receiver.getClass(),
-                receiver, methodName, params, args);
+        AndroidUtilities.callMethod(receiver.getClass(), receiver, methodName, params, args);
     }
 
     /**

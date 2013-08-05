@@ -1237,15 +1237,14 @@ class Entities {
          * @throws NullPointerException if the key is <code>null</code>.
          * @see #get(int)
          */
-        public Object put(int key, Object value) {
+        public void put(int key, Object value) {
             // Makes sure the key is not already in the hashtable.
             Entry tab[] = table;
             int index = (key & 0x7FFFFFFF) % tab.length;
             for (Entry e = tab[index]; e != null; e = e.next) {
                 if (e.hash == key) {
-                    Object old = e.value;
                     e.value = value;
-                    return old;
+                    return;
                 }
             }
 
@@ -1261,7 +1260,6 @@ class Entities {
             Entry e = new Entry(key, key, value, tab[index]);
             tab[index] = e;
             count++;
-            return null;
         }
 
         /**
