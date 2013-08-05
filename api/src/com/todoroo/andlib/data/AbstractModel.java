@@ -194,13 +194,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return clone;
     }
 
-    /**
-     * Check if this model has values that have been changed
-     */
-    public boolean isModified() {
-        return setValues.size() > 0;
-    }
-
     // --- data retrieval
 
     /**

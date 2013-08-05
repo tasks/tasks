@@ -312,16 +312,6 @@ public class AstridActivity extends SherlockFragmentActivity
 
     // --- fragment helpers
 
-    protected void removeFragment(String tag) {
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentByTag(tag);
-        if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.remove(fragment);
-            ft.commit();
-        }
-    }
-
     protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate, boolean replace) {
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);

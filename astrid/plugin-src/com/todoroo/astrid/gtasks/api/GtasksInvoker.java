@@ -35,7 +35,6 @@ public class GtasksInvoker {
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;
     private String token;
-    private JsonFactory jsonFactory;
 
     @Autowired
     ExceptionService exceptionService;
@@ -53,7 +52,7 @@ public class GtasksInvoker {
         this.token = authToken;
         accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
-        jsonFactory = new GsonFactory();
+        JsonFactory jsonFactory = new GsonFactory();
         service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, jsonFactory);
         service.setKey(API_KEY);
         service.setApplicationName("Astrid");
@@ -162,10 +161,6 @@ public class GtasksInvoker {
         } finally {
             log("Delete list, id: " + listId, null);
         }
-    }
-
-    public com.google.api.services.tasks.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
-        return getAllGtasksFromListId(list.getId(), includeDeleted, includeHidden, lastSyncDate);
     }
 
     public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
@@ -278,9 +273,5 @@ public class GtasksInvoker {
         } finally {
             log("Clear completed tasks, list id: " + listId, null);
         }
-    }
-
-    public JsonFactory getJsonFactory() {
-        return jsonFactory;
     }
 }

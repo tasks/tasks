@@ -56,7 +56,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -1097,24 +1096,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
      * @param item task that was completed
      */
     protected void onTaskCompleted() {
-    }
-
-    /**
-     * Comments button in action bar was clicked
-     */
-    protected void handleCommentsButtonClicked() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            Intent intent = new Intent(activity, CommentsActivity.class);
-            long id = 0;
-            TagData td = getActiveTagData();
-            if (td != null) {
-                id = td.getId();
-            }
-            intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, id);
-            startActivity(intent);
-            AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
-        }
     }
 
     @Override

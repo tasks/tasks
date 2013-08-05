@@ -48,10 +48,6 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
     private boolean suppressNextKeyEvent = false;
     private final boolean isTablet;
 
-    public void setMenuListener(MainMenuListener listener) {
-        this.mListener = listener;
-    }
-
     public MainMenuPopover(Context context, int layout, boolean isTablet, MainMenuListener listener) {
         super(context, layout);
 
@@ -130,15 +126,6 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         addFixedItems();
     }
 
-    public void setFixedItemVisibility(int index, int visibility, boolean top) {
-        LinearLayout container = top ? topFixed : bottomFixed;
-        if (index < 0 || index >= container.getChildCount()) {
-            return;
-        }
-
-        container.getChildAt(index).setVisibility(visibility);
-    }
-
     @Override
     protected int getArrowLeftMargin(View arrow) {
         return mRect.centerX() - arrow.getMeasuredWidth() / 2 - (int) (12 * metrics.density);
@@ -156,10 +143,6 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     public void addMenuItem(CharSequence title, Drawable image, Intent customIntent, int id) {
         addMenuItem(title, image, id, customIntent, content);
-    }
-
-    public void addSeparator() {
-        inflater.inflate(R.layout.fla_separator, content);
     }
 
     public void clear() {

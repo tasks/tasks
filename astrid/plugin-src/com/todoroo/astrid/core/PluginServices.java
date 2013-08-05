@@ -5,15 +5,12 @@
  */
 package com.todoroo.astrid.core;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.HistoryDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TagMetadataDao;
@@ -27,7 +24,6 @@ import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -206,30 +202,5 @@ public final class PluginServices {
 
     public static ActFmPreferenceService getActFmPreferenceService() {
         return getInstance().actFmPreferenceService;
-    }
-
-    public static GtasksPreferenceService getGtasksPreferenceService() {
-        return getInstance().gtasksPreferenceService;
-    }
-
-    // -- helpers
-
-    /**
-     * Find the corresponding metadata for this task
-     */
-    public static Metadata getMetadataByTaskAndWithKey(long taskId, String metadataKey) {
-        TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(Query.select(
-                Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(taskId, metadataKey)));
-        try {
-            if (cursor.getCount() > 0) {
-                cursor.moveToNext();
-                return new Metadata(cursor);
-            } else {
-                return null;
-            }
-        } finally {
-            cursor.close();
-        }
-
     }
 }

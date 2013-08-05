@@ -128,9 +128,4 @@ public class RepeatDetailExposer extends BroadcastReceiver {
 
         return r.getQuantityString(plural, rrule.getInterval(), rrule.getInterval());
     }
-
-    public String getPluginIdentifier() {
-        return RepeatsPlugin.IDENTIFIER;
-    }
-
 }

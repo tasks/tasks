@@ -5,7 +5,6 @@
  */
 package com.timsu.astrid.data.task;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,17 +17,13 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.data.LegacyAbstractController;
-import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * Controller for task-related operations
@@ -44,202 +39,12 @@ public class TaskController extends LegacyAbstractController {
     // --- task list operations
 
     /**
-     * Return a list of all active tasks with notifications
-     */
-    public HashSet<TaskModelForNotify> getTasksWithNotifications() {
-        HashSet<TaskModelForNotify> list = new HashSet<TaskModelForNotify>();
-        Cursor cursor = database.query(tasksTable, TaskModelForNotify.FIELD_LIST,
-                String.format("%s < %d AND (%s != 0 OR %s != 0)",
-                        AbstractTaskModel.PROGRESS_PERCENTAGE,
-                        AbstractTaskModel.COMPLETE_PERCENTAGE,
-                        AbstractTaskModel.NOTIFICATIONS,
-                        AbstractTaskModel.NOTIFICATION_FLAGS), null, null, null, null, null);
-
-        try {
-            if (cursor.getCount() == 0) {
-                return list;
-            }
-            do {
-                cursor.moveToNext();
-                list.add(new TaskModelForNotify(cursor));
-            } while (!cursor.isLast());
-
-            return list;
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
-     * Return a list of all active tasks with deadlines
-     */
-    public ArrayList<TaskModelForNotify> getTasksWithDeadlines() {
-        ArrayList<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
-        Cursor cursor = database.query(tasksTable, TaskModelForNotify.FIELD_LIST,
-                String.format("%s < %d AND (%s != 0 OR %s != 0)",
-                        AbstractTaskModel.PROGRESS_PERCENTAGE,
-                        AbstractTaskModel.COMPLETE_PERCENTAGE,
-                        AbstractTaskModel.DEFINITE_DUE_DATE,
-                        AbstractTaskModel.PREFERRED_DUE_DATE), null, null, null, null, null);
-
-        try {
-            if (cursor.getCount() == 0) {
-                return list;
-            }
-
-            do {
-                cursor.moveToNext();
-                list.add(new TaskModelForNotify(cursor));
-            } while (!cursor.isLast());
-
-            return list;
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
-     * Return a list of all of the tasks with progress < COMPLETE_PERCENTAGE
-     */
-    public Cursor getActiveTaskListCursor() {
-        return database.query(tasksTable, TaskModelForList.FIELD_LIST,
-                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null,
-                null, null);
-    }
-
-    /**
-     * Return a list of all of the tasks matching selection
-     */
-    public Cursor getMatchingTasksForProvider(String selection,
-                                              String[] selectionArgs) {
-        return database.query(tasksTable, TaskModelForProvider.FIELD_LIST,
-                selection, selectionArgs, null, null,
-                null, null);
-    }
-
-    /**
-     * Return a list of all tasks
-     */
-    public Cursor getAllTaskListCursor() {
-        return database.query(tasksTable, TaskModelForList.FIELD_LIST,
-                null, null, null, null, null, null);
-    }
-
-    /**
      * Return a list of all tasks
      */
     public Cursor getBackupTaskListCursor() {
         return database.query(tasksTable, TaskModelForXml.FIELD_LIST,
                 null, null, null, null,
                 null, null);
-    }
-
-    /**
-     * Delete all completed tasks with date < older than date
-     */
-    public int deleteCompletedTasksOlderThan(Date olderThanDate) {
-        return database.delete(tasksTable, String.format("`%s` >= '%d' AND `%s` <= '%d'",
-                AbstractTaskModel.PROGRESS_PERCENTAGE, AbstractTaskModel.COMPLETE_PERCENTAGE,
-                AbstractTaskModel.COMPLETION_DATE, olderThanDate.getTime()), null);
-    }
-
-    /**
-     * Create a list of tasks from the db cursor given
-     */
-    public ArrayList<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
-        ArrayList<TaskModelForList> list = new ArrayList<TaskModelForList>();
-
-        if (cursor.getCount() == 0) {
-            return list;
-        }
-
-        do {
-            cursor.moveToNext();
-            list.add(new TaskModelForList(cursor));
-        } while (!cursor.isLast());
-
-        return list;
-    }
-
-    /**
-     * Helper method to take a cursor pointing to a list of id's and generate
-     * a hashset
-     */
-    private HashSet<TaskIdentifier> createTaskIdentifierSet(Cursor cursor) {
-        HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
-        try {
-            if (cursor.getCount() == 0) {
-                return list;
-            }
-
-            do {
-                cursor.moveToNext();
-                list.add(new TaskIdentifier(cursor.getInt(
-                        cursor.getColumnIndexOrThrow(KEY_ROWID))));
-            } while (!cursor.isLast());
-
-            return list;
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
-     * Get identifiers for all tasks
-     */
-    public HashSet<TaskIdentifier> getAllTaskIdentifiers() {
-        Cursor cursor = database.query(tasksTable, new String[]{KEY_ROWID},
-                null, null, null, null, null, null);
-        return createTaskIdentifierSet(cursor);
-    }
-
-    /**
-     * Get identifiers for all non-completed tasks
-     */
-    public HashSet<TaskIdentifier> getActiveTaskIdentifiers() {
-        Cursor cursor = database.query(tasksTable, new String[]{KEY_ROWID},
-                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null, null, null);
-        return createTaskIdentifierSet(cursor);
-    }
-
-    /**
-     * Get identifiers for all non-completed, non-hidden tasks
-     */
-    public HashSet<TaskIdentifier> getActiveVisibleTaskIdentifiers() {
-        Cursor cursor = database.query(tasksTable, new String[]{KEY_ROWID},
-                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
-                        AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
-                        System.currentTimeMillis() + ")", null, null, null, null, null);
-        return createTaskIdentifierSet(cursor);
-    }
-
-
-    /**
-     * Create a weighted list of tasks from the db cursor given
-     */
-    public Cursor getTaskListCursorById(List<TaskIdentifier> idList) {
-
-        StringBuilder where = new StringBuilder();
-        for (int i = 0; i < idList.size(); i++) {
-            where.append(KEY_ROWID);
-            where.append("=");
-            where.append(idList.get(i).idAsString());
-            if (i < idList.size() - 1) {
-                where.append(" OR ");
-            }
-        }
-
-        // hack for empty arrays
-        if (idList.size() == 0) {
-            where.append("0");
-        }
-
-        return database.query(true, tasksTable,
-                TaskModelForList.FIELD_LIST, where.toString(), null, null,
-                null, null, null);
     }
 
     // --- single task operations
@@ -327,13 +132,6 @@ public class TaskController extends LegacyAbstractController {
 
         // task timer was updated, update notification bar
         if (values.containsKey(AbstractTaskModel.TIMER_START)) {
-            // show notification bar if timer was started
-//        	if(values.getAsLong(AbstractTaskModel.TIMER_START) != 0) {
-//        		ReminderService.showTimingNotification(context,
-//        				task.getTaskIdentifier(), task.getName());
-//        	} else {
-//        		ReminderService.clearAllNotifications(context, task.getTaskIdentifier());
-//        	}
         }
 
         // due date was updated, update calendar event
@@ -350,20 +148,8 @@ public class TaskController extends LegacyAbstractController {
                     ContentResolver cr = context.getContentResolver();
                     Uri uri = Uri.parse(uriAsString);
 
-//                    Integer estimated = null;
-//                    if(values.containsKey(AbstractTaskModel.ESTIMATED_SECONDS))
-////                        estimated = values.getAsInteger(AbstractTaskModel.ESTIMATED_SECONDS);
-//                    else { // read from event
-//                        Cursor event = cr.query(uri, new String[] {"dtstart", "dtend"},
-//                                null, null, null);
-//                        event.moveToFirst();
-////                        estimated = (event.getInt(1) - event.getInt(0))/1000;
-//                    }
-
                     // create new start and end date for this event
                     ContentValues newValues = new ContentValues();
-                    /*TaskEditActivity.createCalendarStartEndTimes(task.getPreferredDueDate(),
-                            task.getDefiniteDueDate(), estimated, newValues); TODO */
                     cr.update(uri, newValues, null, null);
                 }
             } catch (Exception e) {
@@ -396,12 +182,6 @@ public class TaskController extends LegacyAbstractController {
         // handle sync-on-complete
         if ((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0 &&
                 !duringSync) {
-//            Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
-//            synchronizer.synchronize(context, new SynchronizerListener() {
-//                public void onSynchronizerFinished(int numServicesSynced) {
-////                    TaskListSubActivity.shouldRefreshTaskList = true;
-//                }
-//            });
         }
 
         cursor.close();
@@ -412,9 +192,6 @@ public class TaskController extends LegacyAbstractController {
      * Clean up state from a task. Called when deleting or completing it
      */
     private void cleanupTask(TaskIdentifier taskId, boolean isRepeating) {
-        // delete notifications & alarms
-//        ReminderService.deleteAlarm(context, null, taskId.getId());
-
         // delete calendar event if not repeating
         if (!isRepeating) {
             try {
@@ -450,124 +227,6 @@ public class TaskController extends LegacyAbstractController {
     // --- fetching different models
 
     /**
-     * Creates a new task and returns the task identifier
-     */
-    public TaskModelForEdit createNewTaskForEdit() {
-        TaskModelForEdit task = new TaskModelForEdit();
-        task.setTaskIdentifier(null);
-
-        return task;
-    }
-
-    /**
-     * Returns a TaskModelForEdit corresponding to the given TaskIdentifier
-     */
-    public TaskModelForEdit fetchTaskForEdit(Activity activity, TaskIdentifier
-            taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForEdit.FIELD_LIST);
-        if (cursor == null) {
-            return null;
-        }
-        activity.startManagingCursor(cursor);
-        return new TaskModelForEdit(taskId, cursor);
-    }
-
-    /**
-     * Returns a TaskModelForList corresponding to the given TaskIdentifier
-     */
-    public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);
-        if (cursor == null) {
-            return null;
-        }
-        TaskModelForList model = new TaskModelForList(cursor);
-        cursor.close();
-        return model;
-    }
-
-    /**
-     * Returns a TaskModelForXml corresponding to the given TaskIdentifier
-     */
-    public TaskModelForXml fetchTaskForXml(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForXml.FIELD_LIST);
-        if (cursor == null) {
-            return null;
-        }
-        TaskModelForXml model = new TaskModelForXml(cursor);
-        cursor.close();
-        return model;
-    }
-
-    /* Attempts to return a TaskModelForXml for the given name and creation date */
-    public TaskModelForXml fetchTaskForXml(String name, Date creationDate) {
-        Cursor cursor;
-        try {
-            cursor = fetchTaskCursor(name, creationDate.getTime(),
-                    TaskModelForXml.FIELD_LIST);
-        } catch (SQLException e) {
-            return null;
-        }
-        if (cursor == null || cursor.getCount() == 0) {
-            return null;
-        }
-        TaskModelForXml model = new TaskModelForXml(cursor);
-        cursor.close();
-        return model;
-    }
-
-    /**
-     * Returns a TaskModelForReminder corresponding to the given TaskIdentifier
-     */
-    public TaskModelForReminder fetchTaskForReminder(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForReminder.FIELD_LIST);
-        TaskModelForReminder model = new TaskModelForReminder(cursor);
-        cursor.close();
-        return model;
-    }
-
-    /**
-     * Returns a TaskModelForSync corresponding to the given TaskIdentifier
-     */
-    public TaskModelForSync fetchTaskForSync(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForSync.FIELD_LIST);
-        TaskModelForSync model = new TaskModelForSync(cursor);
-        cursor.close();
-        return model;
-    }
-
-    /**
-     * Returns a TaskModelForView by name
-     */
-    public TaskModelForSync searchForTaskForSync(String name) throws SQLException {
-        Cursor cursor = database.query(true, tasksTable, TaskModelForSync.FIELD_LIST,
-                AbstractTaskModel.NAME + " = ? AND " +
-                        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE,
-                new String[]{name}, null, null, null, null);
-        try {
-            if (cursor == null || cursor.getCount() == 0) {
-                return null;
-            }
-            cursor.moveToFirst();
-            return new TaskModelForSync(cursor);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-
-    /**
-     * Returns a TaskModelForView corresponding to the given TaskIdentifier
-     */
-    public TaskModelForNotify fetchTaskForNotify(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForNotify.FIELD_LIST);
-        TaskModelForNotify model = new TaskModelForNotify(cursor);
-        cursor.close();
-        return model;
-    }
-
-    /**
      * Moves cursor to the task.
      * Don't forget to close the cursor when you're done.
      */
@@ -581,104 +240,6 @@ public class TaskController extends LegacyAbstractController {
 
         cursor.moveToFirst();
         return cursor;
-    }
-
-    /**
-     * Returns null if unsuccessful, otherwise moves cursor to the task.
-     * Don't forget to close the cursor when you're done.
-     */
-    private Cursor fetchTaskCursor(String name, long creationDate, String[] fieldList) {
-        // truncate millis
-        final String where = AbstractTaskModel.NAME + " = ? AND "
-                + AbstractTaskModel.CREATION_DATE + " LIKE ?";
-
-        String approximateCreationDate = creationDate / 1000 + "%";
-        Cursor cursor = database.query(true, tasksTable, fieldList,
-                where, new String[]{name, approximateCreationDate}, null, null, null, null);
-        if (cursor == null) {
-            throw new SQLException("Returned empty set!");
-        }
-
-        if (cursor.moveToFirst()) {
-            return cursor;
-        }
-        cursor.close();
-        return null;
-    }
-    // --- methods supporting individual features
-
-    /**
-     * Returns a TaskModelForView corresponding to the given TaskIdentifier
-     */
-    public int fetchTaskPostponeCount(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, new String[]{AbstractTaskModel.POSTPONE_COUNT});
-        try {
-            if (cursor == null || cursor.getCount() == 0) {
-                return 0;
-            }
-            cursor.moveToFirst();
-            return cursor.getInt(0);
-        } catch (Exception e) {
-            return 0;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-
-    public void updateAlarmForTask() throws SQLException {
-//        TaskModelForNotify task = fetchTaskForNotify(taskId);
-        AlertController alertController = new AlertController(context);
-        alertController.open();
-//        ReminderService.updateAlarm(context, this, alertController, task);
-        alertController.close();
-    }
-
-    public ArrayList<TaskModelForWidget> getTasksForWidget(String limit) {
-
-        Cursor cursor = database.query(tasksTable, TaskModelForWidget.FIELD_LIST,
-                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
-                        AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
-                        System.currentTimeMillis() + ")", null, null, null,
-                AbstractTaskModel.IMPORTANCE + " * " + 5 * 24 * 3600 * 1000L +
-                        " + CASE WHEN MAX(pdd, ddd) = 0 THEN " +
-                        (System.currentTimeMillis() + 7 * 24 * 3600 * 1000L) +
-                        " ELSE (CASE WHEN pdd = 0 THEN ddd ELSE pdd END) END ASC", limit);
-
-        try {
-            ArrayList<TaskModelForWidget> list = new ArrayList<TaskModelForWidget>();
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                list.add(new TaskModelForWidget(cursor));
-            }
-            return list;
-        } finally {
-            cursor.close();
-        }
-    }
-
-    public ArrayList<TaskModelForProvider> getTasksForProvider(String limit) {
-
-        Cursor cursor = database.query(tasksTable, TaskModelForProvider.FIELD_LIST,
-                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
-                        AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
-                        System.currentTimeMillis() + ")", null, null, null,
-                AbstractTaskModel.IMPORTANCE + " * " + 5 * 24 * 3600 * 1000L +
-                        " + CASE WHEN MAX(pdd, ddd) = 0 THEN " +
-                        (System.currentTimeMillis() + 7 * 24 * 3600 * 1000L) +
-                        " ELSE (CASE WHEN pdd = 0 THEN ddd ELSE pdd END) END ASC", limit);
-
-        try {
-            ArrayList<TaskModelForProvider> list = new ArrayList<TaskModelForProvider>();
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                list.add(new TaskModelForProvider(cursor));
-            }
-            return list;
-        } finally {
-            cursor.close();
-        }
     }
 
     // --- boilerplate

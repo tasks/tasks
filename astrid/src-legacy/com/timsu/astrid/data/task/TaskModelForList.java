@@ -143,10 +143,6 @@ public class TaskModelForList extends AbstractTaskModel {
         return super.getElapsedSeconds();
     }
 
-    public static int getCompletedPercentage() {
-        return COMPLETE_PERCENTAGE;
-    }
-
     @Override
     public Date getDefiniteDueDate() {
         return super.getDefiniteDueDate();
@@ -232,10 +228,6 @@ public class TaskModelForList extends AbstractTaskModel {
     @Override
     public void stopTimerAndUpdateElapsedTime() {
         super.stopTimerAndUpdateElapsedTime();
-    }
-
-    public static String getNameField() {
-        return NAME;
     }
 
     @Override

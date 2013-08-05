@@ -40,13 +40,4 @@ public enum Importance {
     public int getLabelResource() {
         return label;
     }
-
-    public int getColorResource() {
-        return color;
-    }
-
-    public int getTaskListColor() {
-        return taskListColor;
-    }
-
 }

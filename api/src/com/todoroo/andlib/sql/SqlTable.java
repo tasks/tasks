@@ -14,12 +14,4 @@ public class SqlTable extends DBObject<SqlTable> {
     public static SqlTable table(String table) {
         return new SqlTable(table);
     }
-
-
-    protected String fieldExpression(String fieldName) {
-        if (hasAlias()) {
-            return alias + "." + fieldName;
-        }
-        return expression + "." + fieldName;
-    }
 }

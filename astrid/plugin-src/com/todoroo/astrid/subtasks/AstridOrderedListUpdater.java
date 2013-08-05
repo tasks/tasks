@@ -190,10 +190,6 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    public void iterateOverList(OrderedListNodeVisitor visitor) {
-        applyToDescendantsHelper(treeRoot, visitor);
-    }
-
     public void indent(LIST list, Filter filter, String targetTaskId, int delta) {
         Node node = idToNode.get(targetTaskId);
         indentHelper(list, filter, node, delta);

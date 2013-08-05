@@ -279,9 +279,4 @@ public class ThemeService {
     public static int getTaskEditThemeColor() {
         return getDarkVsLight(R.color.task_edit_selected, R.color.blue_theme_color, true);
     }
-
-    public static void forceTheme(int theme) {
-        currentTheme = theme;
-    }
-
 }

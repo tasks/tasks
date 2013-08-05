@@ -36,7 +36,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -1080,18 +1079,6 @@ public class TaskAdapter extends CursorAdapter {
             long taskId = viewHolder.task.getId();
             fragment.onTaskListItemClicked(taskId, viewHolder.task.isEditable());
         }
-    }
-
-    /**
-     * Call me when the parent presses trackpad
-     */
-    public void onTrackpadPressed(View container) {
-        if (container == null) {
-            return;
-        }
-
-        final CheckBox completeBox = (CheckBox) container.findViewById(R.id.completeBox);
-        completeBox.performClick();
     }
 
     /**

@@ -196,29 +196,4 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         }
         return name;
     }
-
-    public static String thisUserName() {
-        JSONObject thisUser = thisUser();
-
-        String name = thisUser.optString("name");
-        if (!(TextUtils.isEmpty(name) || "null".equals(name))) {
-            return name;
-        }
-        String firstName = thisUser.optString("first_name");
-        boolean firstNameEmpty = TextUtils.isEmpty(firstName) || "null".equals(firstName);
-        String lastName = thisUser.optString("last_name");
-        boolean lastNameEmpty = TextUtils.isEmpty(lastName) || "null".equals(lastName);
-        if (firstNameEmpty && lastNameEmpty) {
-            return thisUser.optString("email");
-        }
-        StringBuilder nameBuilder = new StringBuilder();
-        if (!firstNameEmpty) {
-            nameBuilder.append(firstName).append(" ");
-        }
-        if (!lastNameEmpty) {
-            nameBuilder.append(lastName);
-        }
-        return nameBuilder.toString().trim();
-    }
-
 }

@@ -61,10 +61,6 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
         return uuid;
     }
 
-    public final long getPushedAt() {
-        return pushedAt;
-    }
-
     public final JSONObject serializeToJSON(MultipartEntity entity) {
         JSONObject json = new JSONObject();
         try {

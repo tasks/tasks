@@ -249,31 +249,6 @@ public abstract class LegacyAbstractModel {
         throw new UnsupportedOperationException("Could not read field " + field);
     }
 
-    protected Double retrieveDouble(String field) {
-        if (setValues.containsKey(field)) {
-            return setValues.getAsDouble(field);
-        }
-
-        if (values.containsKey(field)) {
-            return values.getAsDouble(field);
-        }
-
-        // if we have a database to hit, do that now
-        if (cursor != null) {
-            Double value = cursor.getDouble(getColumnIndex(field));
-            values.put(field, value);
-            return value;
-        }
-
-        // do we have defaults?
-        ContentValues defaults = getDefaultValues();
-        if (defaults != null && defaults.containsKey(field)) {
-            return defaults.getAsDouble(field);
-        }
-
-        throw new UnsupportedOperationException("Could not read field " + field);
-    }
-
     // --- retrieving composite objects
 
     protected Date retrieveDate(String field) {

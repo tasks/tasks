@@ -6,7 +6,6 @@
 package com.mdimension.jchronic;
 
 import com.mdimension.jchronic.handlers.Handler;
-import com.mdimension.jchronic.numerizer.Numerizer;
 import com.mdimension.jchronic.repeaters.Repeater;
 import com.mdimension.jchronic.tags.Grabber;
 import com.mdimension.jchronic.tags.Ordinal;
@@ -145,13 +144,6 @@ public class AstridChronic {
         normalizedText = normalizedText.replaceAll("\\b(hence|after|from)\\b", "future");
         normalizedText = AstridChronic.numericizeOrdinals(normalizedText);
         return normalizedText;
-    }
-
-    /**
-     * Convert number words to numbers (three => 3)
-     */
-    protected static String numericizeNumbers(String text) {
-        return Numerizer.numerize(text);
     }
 
     /**

@@ -14,8 +14,6 @@ import android.util.Log;
 
 import com.todoroo.astrid.api.R;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-
 /**
  * Exception handling utility class - reports and logs errors
  *
@@ -140,32 +138,5 @@ public class ExceptionService {
             }
         }
     }
-
-    /**
-     * Uncaught exception handler uses the exception utilities class to
-     * report errors
-     *
-     * @author Tim Su <tim@todoroo.com>
-     */
-    public static class TodorooUncaughtExceptionHandler implements UncaughtExceptionHandler {
-        private final UncaughtExceptionHandler defaultUEH;
-
-        @Autowired
-        protected ExceptionService exceptionService;
-
-        public TodorooUncaughtExceptionHandler() {
-            defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
-            DependencyInjectionService.getInstance().inject(this);
-        }
-
-        @Override
-        public void uncaughtException(Thread thread, Throwable ex) {
-            if (exceptionService != null) {
-                exceptionService.reportError("uncaught", ex); //$NON-NLS-1$
-            }
-            defaultUEH.uncaughtException(thread, ex);
-        }
-    }
-
 }
 

@@ -44,11 +44,6 @@ public class AstridDialog extends Dialog {
         return this;
     }
 
-    public AstridDialog setButtonColor(int color, int buttonIndex) {
-        buttons[buttonIndex].setBackgroundColor(color);
-        return this;
-    }
-
     public AstridDialog setButtonListener(View.OnClickListener listener, int buttonIndex) {
         buttons[buttonIndex].setOnClickListener(listener);
         return this;

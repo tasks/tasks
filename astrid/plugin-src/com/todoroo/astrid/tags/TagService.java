@@ -332,23 +332,6 @@ public final class TagService {
         return metadataDao.query(query);
     }
 
-    public TodorooCursor<TagData> getTagDataForTask(long taskId, Property<?>... properties) {
-        Criterion criterion = TagData.UUID.in(Query.select(TaskToTagMetadata.TAG_UUID)
-                .from(Metadata.TABLE)
-                .where(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                        Metadata.DELETION_DATE.eq(0),
-                        Metadata.TASK.eq(taskId))));
-
-        return tagDataService.query(Query.select(properties).where(criterion));
-    }
-
-    public TodorooCursor<TagData> getTagDataForTask(long taskId, Criterion additionalCriterion, Property<?>... properties) {
-        Criterion criterion = TagData.UUID.in(Query.select(TaskToTagMetadata.TAG_UUID).from(Metadata.TABLE).where(
-                Criterion.and(Metadata.DELETION_DATE.eq(0),
-                        MetadataCriteria.byTaskAndwithKey(taskId, TaskToTagMetadata.KEY))));
-        return tagDataService.query(Query.select(properties).where(Criterion.and(criterion, additionalCriterion)));
-    }
-
     /**
      * Return tags as a comma-separated list of strings
      *

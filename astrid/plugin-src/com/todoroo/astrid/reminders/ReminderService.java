@@ -176,10 +176,6 @@ public final class ReminderService {
         scheduler.createAlarm(task, NO_ALARM, TYPE_OVERDUE);
     }
 
-    public void clearAlarm(Task task, int type) {
-        scheduler.createAlarm(task, NO_ALARM, type);
-    }
-
     /**
      * Schedules alarms for a single task
      *

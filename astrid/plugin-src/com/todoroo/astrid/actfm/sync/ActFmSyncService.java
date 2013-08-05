@@ -16,7 +16,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,25 +48,6 @@ public final class ActFmSyncService {
     }
 
     // --- data fetch methods
-    public int fetchFeaturedLists(int serverTime) throws JSONException, IOException {
-        if (!checkForToken()) {
-            return 0;
-        }
-        JSONObject result = actFmInvoker.invoke("featured_lists",
-                "token", token, "modified_after", serverTime);
-        JSONArray featuredLists = result.getJSONArray("list");
-        if (featuredLists.length() > 0) {
-            Preferences.setBoolean(FeaturedListFilterExposer.PREF_SHOULD_SHOW_FEATURED_LISTS, true);
-        }
-
-        for (int i = 0; i < featuredLists.length(); i++) {
-            JSONObject featObject = featuredLists.getJSONObject(i);
-            tagDataService.saveFeaturedList(featObject);
-        }
-
-        return result.optInt("time", 0);
-    }
-
     public void setGCMRegistration(String regId) {
         try {
             String deviceId = GCMIntentService.getDeviceID();

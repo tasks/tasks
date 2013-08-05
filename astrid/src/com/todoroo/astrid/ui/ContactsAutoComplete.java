@@ -93,10 +93,6 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
 
     // --- getters and setters
 
-    public boolean isAllowMultiple() {
-        return allowMultiple;
-    }
-
     public String getSeperator() {
         return seperator;
     }
@@ -107,13 +103,4 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
             adapter.setCompleteSharedTags(value);
         }
     }
-
-    public void setAllowMultiple(boolean allowMultiple) {
-        this.allowMultiple = allowMultiple;
-    }
-
-    public void setSeperator(final String seperator) {
-        this.seperator = seperator;
-    }
-
 }

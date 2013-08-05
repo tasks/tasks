@@ -29,24 +29,8 @@ public abstract class PushRequest {
         return listId;
     }
 
-    public void setListId(String listId) {
-        this.listId = listId;
-    }
-
-    public Task getToPush() {
-        return toPush;
-    }
-
-    public void setToPush(Task toPush) {
-        this.toPush = toPush;
-    }
-
     public GtasksInvoker getService() {
         return service;
-    }
-
-    public void setService(GtasksInvoker service) {
-        this.service = service;
     }
 
     public Task push() throws IOException {

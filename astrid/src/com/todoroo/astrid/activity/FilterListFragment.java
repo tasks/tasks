@@ -126,15 +126,12 @@ public class FilterListFragment extends SherlockListFragment {
                 R.layout.filter_adapter_row, false);
     }
 
-    /* (non-Javadoc)
-     * @see com.todoroo.astrid.fragment.ExpandableListFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Activity activity = getActivity();
         int layout = getLayout(activity);
-        return (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
+        return activity.getLayoutInflater().inflate(layout, container, false);
     }
 
     protected int getLayout(Activity activity) {

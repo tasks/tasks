@@ -5,8 +5,6 @@
  */
 package com.timsu.astrid.data.enums;
 
-import android.content.res.Resources;
-
 import java.util.Date;
 
 public enum RepeatInterval {
@@ -47,14 +45,4 @@ public enum RepeatInterval {
     }
 
     abstract public void offsetDateBy(Date input, int number);
-
-    public static String[] getLabels(Resources r) {
-        int intervalCount = RepeatInterval.values().length;
-        String[] result = new String[intervalCount];
-
-        for (int i = 0; i < intervalCount; i++) {
-            result[i] = r.getString(RepeatInterval.values()[i].getLabelResource());
-        }
-        return result;
-    }
 }

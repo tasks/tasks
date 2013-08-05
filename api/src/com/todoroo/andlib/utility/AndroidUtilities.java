@@ -10,14 +10,9 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.NetworkInfo.State;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
@@ -25,7 +20,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -36,7 +30,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -49,8 +42,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
-import java.net.URL;
-import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -86,44 +77,6 @@ public class AndroidUtilities {
                 return false;
             }
         });
-    }
-
-    /**
-     * @return true if we're connected to the internet
-     */
-    public static boolean isConnected(Context context) {
-        ConnectivityManager manager = (ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manager.getActiveNetworkInfo();
-        if (info == null) {
-            return false;
-        }
-        if (info.getState() != State.CONNECTED) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Fetch the image specified by the given url
-     */
-    public static Bitmap fetchImage(URL url) throws IOException {
-        InputStream is = null;
-        try {
-            URLConnection conn = url.openConnection();
-            conn.connect();
-            is = conn.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is, 16384);
-            try {
-                return BitmapFactory.decodeStream(bis);
-            } finally {
-                bis.close();
-            }
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-        }
     }
 
     /**
@@ -167,24 +120,6 @@ public class AndroidUtilities {
             }
         } catch (Exception e) {
             getExceptionService().displayAndReportError(context,
-                    "start-external-intent-" + intent.toString(), //$NON-NLS-1$
-                    e);
-        }
-    }
-
-    /**
-     * Start the given intent, handling security exceptions if they arise
-     *
-     * @param activity
-     * @param intent
-     * @param requestCode
-     */
-    public static void startExternalIntentForResult(
-            Activity activity, Intent intent, int requestCode) {
-        try {
-            activity.startActivityForResult(intent, requestCode);
-        } catch (SecurityException e) {
-            getExceptionService().displayAndReportError(activity,
                     "start-external-intent-" + intent.toString(), //$NON-NLS-1$
                     e);
         }
@@ -251,19 +186,6 @@ public class AndroidUtilities {
     }
 
     // --- serialization
-
-    /**
-     * Rips apart a content value into two string arrays, keys and value
-     */
-    public static String[][] contentValuesToStringArrays(ContentValues source) {
-        String[][] result = new String[2][source.size()];
-        int i = 0;
-        for (Entry<String, Object> entry : source.valueSet()) {
-            result[0][i] = entry.getKey();
-            result[1][i++] = entry.getValue().toString();
-        }
-        return result;
-    }
 
     /**
      * Return index of value in array
@@ -542,57 +464,10 @@ public class AndroidUtilities {
     }
 
     /**
-     * Find a child view of a certain type
-     *
-     * @param view
-     * @param type
-     * @return first view (by DFS) if found, or null if none
-     */
-    public static <TYPE> TYPE findViewByType(View view, Class<TYPE> type) {
-        if (view == null) {
-            return null;
-        }
-        if (type.isInstance(view)) {
-            return (TYPE) view;
-        }
-        if (view instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) view;
-            for (int i = 0; i < group.getChildCount(); i++) {
-                TYPE v = findViewByType(group.getChildAt(i), type);
-                if (v != null) {
-                    return v;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
      * @return Android SDK version as an integer. Works on all versions
      */
     public static int getSdkVersion() {
         return Integer.parseInt(android.os.Build.VERSION.SDK);
-    }
-
-    /**
-     * Copy databases to a given folder. Useful for debugging
-     *
-     * @param folder
-     */
-    public static void copyDatabases(Context context, String folder) {
-        File folderFile = new File(folder);
-        if (!folderFile.exists()) {
-            folderFile.mkdir();
-        }
-        for (String db : context.databaseList()) {
-            File dbFile = context.getDatabasePath(db);
-            try {
-                copyFile(dbFile, new File(folderFile.getAbsolutePath() +
-                        File.separator + db));
-            } catch (Exception e) {
-                Log.e("ERROR", "ERROR COPYING DB " + db, e); //$NON-NLS-1$ //$NON-NLS-2$
-            }
-        }
     }
 
     /**
@@ -607,22 +482,6 @@ public class AndroidUtilities {
                 return Long.valueOf(o2.lastModified()).compareTo(o1.lastModified());
             }
         });
-    }
-
-    /**
-     * Search for the given value in the map, returning key if found
-     *
-     * @param map
-     * @param value
-     * @return null if not found, otherwise key
-     */
-    public static <KEY, VALUE> KEY findKeyInMap(Map<KEY, VALUE> map, VALUE value) {
-        for (Entry<KEY, VALUE> entry : map.entrySet()) {
-            if (entry.getValue().equals(value)) {
-                return entry.getKey();
-            }
-        }
-        return null;
     }
 
     /**
@@ -672,32 +531,6 @@ public class AndroidUtilities {
         }
 
         AndroidUtilities.callMethod(receiver.getClass(), receiver, methodName, params, args);
-    }
-
-    /**
-     * Call a static method via reflection if API level is at least minSdk
-     *
-     * @param minSdk     minimum sdk number (i.e. 8)
-     * @param className  fully qualified class to call method on
-     * @param methodName method name to call
-     * @param params     method parameter types
-     * @param args       arguments
-     * @return method return value, or null if nothing was called or exception
-     */
-
-    public static Object callApiStaticMethod(int minSdk, String className,
-                                             String methodName, Class<?>[] params, Object... args) {
-        if (getSdkVersion() < minSdk) {
-            return null;
-        }
-
-        try {
-            return AndroidUtilities.callMethod(Class.forName(className),
-                    null, methodName, params, args);
-        } catch (ClassNotFoundException e) {
-            getExceptionService().reportError("call-method", e);
-            return null;
-        }
     }
 
     /**
@@ -806,35 +639,6 @@ public class AndroidUtilities {
             return hashtext;
         } catch (Exception e) {
             return "";
-        }
-    }
-
-    /**
-     * Create an intent to a remote activity
-     *
-     * @param appPackage
-     * @param activityClass
-     * @return
-     */
-    public static Intent remoteIntent(String appPackage, String activityClass) {
-        Intent intent = new Intent();
-        intent.setClassName(appPackage, activityClass);
-        return intent;
-    }
-
-    /**
-     * Gets application signature
-     *
-     * @return application signature, or null if an error was encountered
-     */
-    public static String getSignature(Context context, String packageName) {
-        try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(packageName,
-                    PackageManager.GET_SIGNATURES);
-            return packageInfo.signatures[0].toCharsString();
-        } catch (Exception e) {
-            Log.e("AndroidUtilities", packageName + " is not installed");
-            return null;
         }
     }
 
@@ -1018,17 +822,6 @@ public class AndroidUtilities {
     public static int tryParseInt(String str, int defaultValue) {
         try {
             return Integer.parseInt(str);
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Tries to parse an int from a string, returning the default value on failure
-     */
-    public static long tryParseLong(String str, long defaultValue) {
-        try {
-            return Long.parseLong(str);
         } catch (NumberFormatException e) {
             return defaultValue;
         }

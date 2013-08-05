@@ -362,17 +362,6 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
             return value;
         }
 
-        public static int toSingleField(RepeatInfo repeatInfo) {
-            int repeat;
-            if (repeatInfo == null) {
-                repeat = 0;
-            } else {
-                repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
-                        repeatInfo.interval.ordinal();
-            }
-            return repeat;
-        }
-
         public static RepeatInfo fromSingleField(int repeat) {
             if (repeat == 0) {
                 return null;

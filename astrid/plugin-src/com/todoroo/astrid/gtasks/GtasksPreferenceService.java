@@ -31,10 +31,6 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
         return R.string.gtasks_GPr_interval_key;
     }
 
-    public boolean migrationHasOccurred() {
-        return Preferences.getBoolean(PREF_MIGRATION_HAS_OCCURRED, false);
-    }
-
     /**
      * GTasks user's default list id
      */

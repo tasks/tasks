@@ -300,23 +300,6 @@ public final class Task extends RemoteModel {
      */
     public static final String USER_ID_SELF = "0";
 
-    public static boolean isRealUserId(String userId) {
-        if (userId == null) {
-            return false;
-        }
-        return !(Task.USER_ID_SELF.equals(userId) ||
-                Task.USER_ID_UNASSIGNED.equals(userId) ||
-                Task.USER_ID_EMAIL.equals(userId) ||
-                Task.USER_ID_IGNORE.equals(userId));
-    }
-
-    public static boolean userIdIsEmail(String userId) {
-        if (userId == null) {
-            return false;
-        }
-        return userId.indexOf('@') >= 0;
-    }
-
     // --- notification flags
 
     /**

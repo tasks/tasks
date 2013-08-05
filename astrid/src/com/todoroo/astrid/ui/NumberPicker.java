@@ -211,14 +211,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         updateView();
     }
 
-    /**
-     * The speed (in milliseconds) at which the numbers will scroll when the the
-     * +/- buttons are longpressed. Default is 300ms.
-     */
-    public void setSpeed(long speed) {
-        mSpeed = speed;
-    }
-
     @Override
     public void onClick(View v) {
 

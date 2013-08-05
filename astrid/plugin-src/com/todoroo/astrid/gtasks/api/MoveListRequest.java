@@ -52,22 +52,4 @@ public class MoveListRequest extends PushRequest {
 
         toPush.setParent(newParent);
     }
-
-    public String getIdTaskToMove() {
-        return idTaskToMove;
-    }
-
-    public void setIdTaskToMove(String idTaskToMove) {
-        this.idTaskToMove = idTaskToMove;
-    }
-
-    public String getDstList() {
-        return dstList;
-    }
-
-    public void setDstList(String dstList) {
-        this.dstList = dstList;
-    }
-
-
 }

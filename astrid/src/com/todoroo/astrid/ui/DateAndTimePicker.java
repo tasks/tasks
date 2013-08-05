@@ -271,10 +271,6 @@ public class DateAndTimePicker extends LinearLayout {
         return timePicker.hasTime();
     }
 
-    public void setOnDateChangedListener(OnDateChangedListener listener) {
-        this.listener = listener;
-    }
-
     public boolean isAfterNow() {
         long dueDate = constructDueDate();
         return dueDate > DateUtilities.now();

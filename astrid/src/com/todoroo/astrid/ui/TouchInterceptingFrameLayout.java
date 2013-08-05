@@ -32,10 +32,6 @@ public class TouchInterceptingFrameLayout extends FrameLayout {
         return super.dispatchKeyEvent(event);
     }
 
-    public InterceptTouchListener getInterceptTouchListener() {
-        return mListener;
-    }
-
     public void setInterceptTouchListener(InterceptTouchListener mListener) {
         this.mListener = mListener;
     }

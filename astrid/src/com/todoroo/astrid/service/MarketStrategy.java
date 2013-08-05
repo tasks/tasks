@@ -20,29 +20,8 @@ public abstract class MarketStrategy {
 
     abstract public String strategyId();
 
-    /**
-     * @return if this market has power pack
-     */
-    public boolean includesPowerPack() {
-        return true;
-    }
-
-    /**
-     * @return if this market has locale plugin
-     */
-    public boolean includesLocalePlugin() {
-        return true;
-    }
-
     public int[] excludedSettings() {
         return null;
-    }
-
-    /**
-     * @return true if ideas tab should be shown
-     */
-    public boolean allowIdeasTab() {
-        return true;
     }
 
     /**
@@ -91,11 +70,6 @@ public abstract class MarketStrategy {
                             packageName));
         }
 
-        @Override
-        public boolean includesLocalePlugin() {
-            return false;
-        }
-
         /**
          * @return true if the device is a kindle fire and needs special treatment
          */
@@ -128,16 +102,6 @@ public abstract class MarketStrategy {
             return new Intent(Intent.ACTION_VIEW,
                     Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                             packageName));
-        }
-
-        @Override
-        public boolean includesLocalePlugin() {
-            return false;
-        }
-
-        @Override
-        public boolean allowIdeasTab() {
-            return false;
         }
 
         @Override

@@ -562,10 +562,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
     }
 
-    public int numberOfComments() {
-        return items.size();
-    }
-
     private static class NoteOrUpdate {
         private final String type;
         private final String picture;

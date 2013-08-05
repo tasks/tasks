@@ -48,15 +48,6 @@ public class SyncV2Service {
         return Collections.unmodifiableList(actives);
     }
 
-    public boolean hasActiveProvider() {
-        for (SyncV2Provider provider : providers) {
-            if (provider.isActive()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * Initiate synchronization of active tasks
      *

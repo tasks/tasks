@@ -68,13 +68,6 @@ public class VoiceInputAssistant {
     }
 
     /**
-     * @return the languageModel
-     */
-    public String getLanguageModel() {
-        return languageModel;
-    }
-
-    /**
      * Sets whether voice input will append into field
      */
     public void setAppend(boolean append) {
@@ -236,35 +229,6 @@ public class VoiceInputAssistant {
         }
 
         return result;
-    }
-
-    /**
-     * Can also be called from Fragment.onActivityResult to simply get the string result
-     * of the speech to text, or null if it couldn't be processed. Convenient when you
-     * don't have a bunch of UI elements to hook into.
-     *
-     * @param activityRequestCode
-     * @param resultCode
-     * @param data
-     * @return
-     */
-    public String getActivityResult(int activityRequestCode, int resultCode, Intent data) {
-        if (activityRequestCode == this.requestCode) {
-            if (resultCode == Activity.RESULT_OK) {
-                // Fill the quickAddBox-view with the string the recognizer thought it could have heard
-                ArrayList<String> match = data.getStringArrayListExtra(
-                        RecognizerIntent.EXTRA_RESULTS);
-                // make sure we only do this if there is SomeThing (tm) returned
-                if (match != null && match.size() > 0 && match.get(0).length() > 0) {
-                    String recognizedSpeech = match.get(0);
-                    recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                            recognizedSpeech.substring(1).toLowerCase();
-                    return recognizedSpeech;
-                }
-            }
-        }
-
-        return null;
     }
 
     public void configureMicrophoneButton(final Fragment fragment, final int prompt) {

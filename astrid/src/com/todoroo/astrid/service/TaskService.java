@@ -114,24 +114,6 @@ public class TaskService {
     }
 
     /**
-     * @param uuid
-     * @param properties
-     * @return item, or null if it doesn't exist
-     */
-    public Task fetchByUUID(String uuid, Property<?>... properties) {
-        TodorooCursor<Task> task = query(Query.select(properties).where(Task.UUID.eq(uuid)));
-        try {
-            if (task.getCount() > 0) {
-                task.moveToFirst();
-                return new Task(task);
-            }
-            return null;
-        } finally {
-            task.close();
-        }
-    }
-
-    /**
      * Mark the given task as completed and save it.
      *
      * @param item

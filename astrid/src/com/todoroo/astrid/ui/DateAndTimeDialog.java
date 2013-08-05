@@ -90,10 +90,6 @@ public class DateAndTimeDialog extends Dialog {
         });
     }
 
-    public long getSelectedDate() {
-        return dateAndTimePicker.constructDueDate();
-    }
-
     public void setSelectedDateAndTime(long date) {
         dateAndTimePicker.initializeWithDate(date);
     }

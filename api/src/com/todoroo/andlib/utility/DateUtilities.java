@@ -26,16 +26,6 @@ public class DateUtilities {
      * ====================================================================== */
 
     /**
-     * Convert unixtime into date
-     */
-    public static Date unixtimeToDate(long millis) {
-        if (millis == 0) {
-            return null;
-        }
-        return new Date(millis);
-    }
-
-    /**
      * Convert date into unixtime
      */
     public static long dateToUnixtime(Date date) {
@@ -231,14 +221,6 @@ public class DateUtilities {
     public static String getWeekdayShort(Date date) {
         return DateUtils.getDayOfWeekString(date.getDay() + Calendar.SUNDAY,
                 DateUtils.LENGTH_MEDIUM);
-    }
-
-    /**
-     * @return date format as getDateFormat with weekday
-     */
-
-    public static String getDateStringWithTimeAndWeekday(Context context, Date date) {
-        return getDateStringWithWeekday(date) + " " + getTimeString(context, date);
     }
 
     /**

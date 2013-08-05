@@ -160,8 +160,7 @@ public class ActFmInvoker {
      * @param getParameters Name/Value pairs. Values will be URL encoded.
      * @return response object
      */
-    public JSONObject post(String method, HttpEntity data, Object... getParameters) throws IOException,
-            ActFmServiceException {
+    public JSONObject post(String method, HttpEntity data, Object... getParameters) throws IOException {
         try {
             String request = createFetchUrl(null, method, getParameters);
 

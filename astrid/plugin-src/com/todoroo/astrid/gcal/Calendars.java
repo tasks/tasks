@@ -83,17 +83,6 @@ public class Calendars {
         return null;
     }
 
-    /**
-     * Return calendar package name
-     */
-    public static String getCalendarPackage() {
-        if (AndroidUtilities.getSdkVersion() >= 8) {
-            return "com.google.android.calendar";
-        } else {
-            return "com.android.calendar";
-        }
-    }
-
     // --- helper data structure
 
     /**
@@ -239,15 +228,6 @@ public class Calendars {
 
         listPreference.setValueIndex(currentSettingIndex);
         listPreference.setEnabled(true);
-    }
-
-    /**
-     * sets the default calendar for future use
-     *
-     * @param defaultCalendar default calendar id
-     */
-    public static void setDefaultCalendar(String defaultCalendar) {
-        Preferences.setString(R.string.gcal_p_default, defaultCalendar);
     }
 
     /**

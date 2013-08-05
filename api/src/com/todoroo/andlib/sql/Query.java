@@ -95,11 +95,6 @@ public final class Query {
         return this;
     }
 
-    public Query appendSelectFields(Property<?>... selectFields) {
-        this.fields.addAll(asList(selectFields));
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         return this == o || !(o == null || getClass() != o.getClass()) && this.toString().equals(o.toString());

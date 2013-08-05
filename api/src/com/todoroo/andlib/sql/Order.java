@@ -37,10 +37,6 @@ public class Order {
         secondaryExpressions.add(secondary);
     }
 
-    public void removeSecondaryExpression(Order secondary) {
-        secondaryExpressions.remove(secondary);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

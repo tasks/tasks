@@ -231,30 +231,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     }
 
     /**
-     * Reads a task and its metadata
-     *
-     * @param task
-     * @return
-     */
-    public TYPE readTaskAndMetadata(TodorooCursor<Task> taskCursor) {
-        Task task = new Task(taskCursor);
-
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        TodorooCursor<Metadata> metadataCursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
-                where(Criterion.and(MetadataCriteria.byTask(task.getId()),
-                        getMetadataCriteria())));
-        try {
-            for (metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
-                metadata.add(new Metadata(metadataCursor));
-            }
-        } finally {
-            metadataCursor.close();
-        }
-
-        return createContainerFromLocalTask(task, metadata);
-    }
-
-    /**
      * Reads metadata out of a task
      *
      * @return null if no metadata found

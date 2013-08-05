@@ -32,16 +32,6 @@ public class SyncDataController extends LegacyAbstractController {
     // --- updated tasks list
 
     /**
-     * Mark all updated tasks as finished synchronizing
-     */
-    public boolean clearUpdatedTaskList(int syncServiceId) throws SQLException {
-        ContentValues values = new ContentValues();
-        values.put(SyncMapping.UPDATED, 0);
-        return syncDatabase.update(syncTable, values,
-                SyncMapping.SYNC_SERVICE + " = " + syncServiceId, null) > 0;
-    }
-
-    /**
      * Indicate that this task's properties were updated
      */
     public void addToUpdatedList(TaskIdentifier taskId) throws SQLException {
@@ -134,39 +124,6 @@ public class SyncDataController extends LegacyAbstractController {
         } finally {
             cursor.close();
         }
-    }
-
-    /**
-     * Saves the given task to the database. Returns true on success.
-     */
-    public boolean saveSyncMapping(SyncMapping mapping) {
-        long newRow = syncDatabase.insert(syncTable, SyncMapping.TASK,
-                mapping.getMergedValues());
-
-        mapping.setId(newRow);
-
-        return newRow >= 0;
-    }
-
-    /**
-     * Deletes the given mapping. Returns true on success
-     */
-    public boolean deleteSyncMapping(SyncMapping mapping) {
-        // was never saved
-        if (mapping.getId() == 0) {
-            return false;
-        }
-
-        return syncDatabase.delete(syncTable, KEY_ROWID + "=" +
-                mapping.getId(), null) > 0;
-    }
-
-    /**
-     * Deletes the given mapping. Returns true on success
-     */
-    public boolean deleteAllMappings(int syncServiceId) {
-        return syncDatabase.delete(syncTable, SyncMapping.SYNC_SERVICE +
-                "=" + syncServiceId, null) > 0;
     }
 
     // --- boilerplate

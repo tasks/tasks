@@ -60,11 +60,6 @@ public class NameMaps {
         return TABLE_LOCAL_TO_SERVER.get(table);
     }
 
-    public static Table getLocalTableForServerName(String serverName) {
-        return TABLE_SERVER_TO_LOCAL.get(serverName);
-    }
-
-
     // --------------------------------
     // ---- Column name mappings -------
     // --------------------------------

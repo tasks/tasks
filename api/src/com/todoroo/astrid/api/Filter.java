@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 
 /**
@@ -222,13 +221,4 @@ public class Filter extends FilterListItem {
         }
 
     };
-
-    /**
-     * @param title
-     * @return a filter that matches nothing
-     */
-    public static Filter emptyFilter(String title) {
-        return new Filter(title, title,
-                new QueryTemplate().where(Criterion.none), null);
-    }
 }

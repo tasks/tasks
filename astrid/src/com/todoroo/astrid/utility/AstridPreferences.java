@@ -58,17 +58,6 @@ public class AstridPreferences {
 
     }
 
-    public static void resetToDefaults() {
-        AstridPreferenceSpec spec;
-        if (Constants.ASTRID_LITE) {
-            spec = new AstridLitePreferenceSpec();
-        } else {
-            spec = new AstridDefaultPreferenceSpec();
-        }
-
-        spec.resetDefaults();
-    }
-
     private static void setShowFriendsView() {
         // Show friends view if necessary
         boolean showFriends = false;

@@ -28,31 +28,6 @@ public class TagModelForView extends AbstractTagModel {
 
     public static final String HIDDEN_FROM_MAIN_LIST_PREFIX = "_";
 
-    /**
-     * Returns a TagModelForView object to represent "Untagged" tasks,
-     * whose Identifier is defined by the static final UNTAGGED_IDENTIFIER.
-     * <p/>
-     * Pass in a string to show the "Untagged" name in the desired language.
-     *
-     * @param untaggedLabel
-     * @return
-     */
-    public static TagModelForView getUntaggedModel(String untaggedLabel) {
-        UNTAGGED_TASKS = new TagModelForView(untaggedLabel);
-        UNTAGGED_TASKS.setTagIdentifier(UNTAGGED_IDENTIFIER);
-        return UNTAGGED_TASKS;
-    }
-
-    /**
-     * Returns the default/last-used TagModelForView representing "Untagged"
-     * tasks.  Set the localized name using getUntaggedModel(String...)
-     */
-    public static TagModelForView getUntaggedModel() {
-        UNTAGGED_TASKS.setTagIdentifier(UNTAGGED_IDENTIFIER);
-        return UNTAGGED_TASKS;
-    }
-
-
     // --- constructors
 
     /**
@@ -80,17 +55,5 @@ public class TagModelForView extends AbstractTagModel {
     @Override
     public String toString() {
         return getName();
-    }
-
-    public boolean shouldHideFromMainList() {
-        return getName().startsWith(HIDDEN_FROM_MAIN_LIST_PREFIX);
-    }
-
-    public void toggleHideFromMainList() {
-        if (shouldHideFromMainList()) {
-            setName(getName().substring(HIDDEN_FROM_MAIN_LIST_PREFIX.length()));
-        } else {
-            setName(HIDDEN_FROM_MAIN_LIST_PREFIX + getName());
-        }
     }
 }

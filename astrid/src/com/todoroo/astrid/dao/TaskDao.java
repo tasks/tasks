@@ -105,20 +105,6 @@ public class TaskDao extends RemoteModelDao<Task> {
         }
 
         /**
-         * @return tasks that are due within the next 24 hours
-         */
-        public static Criterion dueToday() {
-            return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(DateUtilities.ONE_DAY)));
-        }
-
-        /**
-         * @return tasks that are due within the next 72 hours
-         */
-        public static Criterion dueSoon() {
-            return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(3 * DateUtilities.ONE_DAY)));
-        }
-
-        /**
          * @return tasks that are not hidden at current time
          */
         public static Criterion isVisible() {

@@ -16,10 +16,8 @@ import com.timsu.astrid.data.alerts.Alert.AlertDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Controller for Tag-related operations
@@ -28,15 +26,6 @@ import java.util.Set;
 public class AlertController extends LegacyAbstractController {
 
     private SQLiteDatabase alertDatabase;
-
-    /**
-     * Get a cursor to tag identifiers
-     */
-    public Cursor getTaskAlertsCursor(TaskIdentifier taskId) throws SQLException {
-        return alertDatabase.query(alertsTable,
-                Alert.FIELD_LIST, Alert.TASK + " = ?",
-                new String[]{taskId.idAsString()}, null, null, null);
-    }
 
     /**
      * Get a list of alerts for the given task
@@ -55,31 +44,6 @@ public class AlertController extends LegacyAbstractController {
             do {
                 cursor.moveToNext();
                 list.add(new Alert(cursor).getDate());
-            } while (!cursor.isLast());
-
-            return list;
-        } finally {
-            cursor.close();
-        }
-    }
-
-
-    /**
-     * Get a list of alerts that are set for the future
-     */
-    public Set<TaskIdentifier> getTasksWithActiveAlerts() throws SQLException {
-        Set<TaskIdentifier> list = new HashSet<TaskIdentifier>();
-        Cursor cursor = alertDatabase.query(alertsTable,
-                Alert.FIELD_LIST, Alert.DATE + " > ?",
-                new String[]{Long.toString(System.currentTimeMillis())}, null, null, null);
-
-        try {
-            if (cursor.getCount() == 0) {
-                return list;
-            }
-            do {
-                cursor.moveToNext();
-                list.add(new Alert(cursor).getTask());
             } while (!cursor.isLast());
 
             return list;

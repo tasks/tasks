@@ -184,23 +184,4 @@ abstract public class SyncProviderUtilities {
         editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
         editor.commit();
     }
-
-    /**
-     * Reads the frequency, in seconds, auto-sync should occur.
-     *
-     * @return seconds duration, or 0 if not desired
-     */
-    public int getSyncAutoSyncFrequency() {
-        String value = getPrefs().getString(
-                ContextManager.getContext().getString(
-                        getSyncIntervalKey()), null);
-        if (value == null) {
-            return 0;
-        }
-        try {
-            return Integer.parseInt(value);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
 }

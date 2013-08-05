@@ -777,13 +777,6 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     }
 
-    public long getTaskIdInProgress() {
-        if (model != null && model.getId() > 0) {
-            return model.getId();
-        }
-        return getActivity().getIntent().getLongExtra(TOKEN_ID, -1);
-    }
-
     private void setIsNewTask(boolean isNewTask) {
         this.isNewTask = isNewTask;
         Activity activity = getActivity();
@@ -1342,27 +1335,6 @@ public final class TaskEditFragment extends SherlockFragment implements
             pagerParams.height = height;
             mPager.setLayoutParams(pagerParams);
         }
-    }
-
-    public static void setViewHeightBasedOnChildren(LinearLayout view) {
-
-        int totalHeight = 0;
-        int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
-                MeasureSpec.AT_MOST);
-        for (int i = 0; i < view.getChildCount(); i++) {
-            View listItem = view.getChildAt(i);
-            listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params == null) {
-            return;
-        }
-
-        params.height = totalHeight;
-        view.setLayoutParams(params);
-        view.requestLayout();
     }
 
     // Tab Page listener when page/tab changes

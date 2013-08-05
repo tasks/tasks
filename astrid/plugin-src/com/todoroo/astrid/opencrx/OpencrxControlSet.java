@@ -94,10 +94,6 @@ public class OpencrxControlSet extends PopupControlSet {
             return name;
         }
 
-        public String getCrxId() {
-            return crxId;
-        }
-
         @Override
         public String toString() {
             return name;
@@ -156,22 +152,6 @@ public class OpencrxControlSet extends PopupControlSet {
 
         public OpencrxContact(StoreObject userData) {
             this(userData.getValue(REMOTE_ID), "", userData.getValue(FIRST_NAME), userData.getValue(LAST_NAME), userData.getValue(CRX_ID)); //$NON-NLS-1$
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public String getFirstname() {
-            return firstname;
-        }
-
-        public String getLastname() {
-            return lastname;
-        }
-
-        public String getCrxId() {
-            return crxId;
         }
 
         public long getId() {
