@@ -7,6 +7,6 @@ To Do
 -----
 * Gradle
 * Widgets
-* Remove dead code
+* Remove dead code, old branches
 * Remove unused resources and preferences
 * Fix warnings
