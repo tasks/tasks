@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 
 import java.util.ArrayList;

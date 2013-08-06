@@ -29,7 +29,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;

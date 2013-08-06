@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;

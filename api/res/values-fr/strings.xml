@@ -156,7 +156,7 @@
     <string name="Sync_now_label">Sync now</string>
 
     <!-- Sync label subtitle -->
-    <string name="SyP_summary">Astrid.com, Tâches Google, données enregistrées, sauvegarde locale
+    <string name="SyP_summary">Tâches Google, données enregistrées, sauvegarde locale
     </string>
 
     <!-- Error msg when io exception  -->

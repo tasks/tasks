@@ -544,11 +544,11 @@ public class AndroidUtilities {
      * @return method return value, or null if nothing was called or exception
      */
 
-    public static Object callMethod(Class<?> cls, Object receiver,
+    public static void callMethod(Class<?> cls, Object receiver,
                                     String methodName, Class<?>[] params, Object... args) {
         try {
             Method method = cls.getMethod(methodName, params);
-            return method.invoke(receiver, args);
+            method.invoke(receiver, args);
         } catch (SecurityException e) {
             getExceptionService().reportError("call-method", e);
         } catch (NoSuchMethodException e) {
@@ -560,8 +560,6 @@ public class AndroidUtilities {
         } catch (InvocationTargetException e) {
             getExceptionService().reportError("call-method", e);
         }
-
-        return null;
     }
 
     /**

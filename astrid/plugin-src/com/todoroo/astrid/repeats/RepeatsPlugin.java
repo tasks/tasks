@@ -9,7 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
 

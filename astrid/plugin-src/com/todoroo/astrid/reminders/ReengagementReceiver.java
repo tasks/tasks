@@ -15,7 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;

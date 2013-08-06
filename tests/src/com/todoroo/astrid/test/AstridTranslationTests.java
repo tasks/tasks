@@ -8,7 +8,7 @@ package com.todoroo.astrid.test;
 
 import android.content.res.Resources;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.test.TranslationTests;
 
 import java.util.Locale;

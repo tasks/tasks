@@ -8,7 +8,7 @@ package com.todoroo.astrid.reminders;
 import android.app.Notification;
 import android.content.Intent;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;

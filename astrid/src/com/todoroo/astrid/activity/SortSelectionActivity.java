@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.core.SortHelper;
 
 /**

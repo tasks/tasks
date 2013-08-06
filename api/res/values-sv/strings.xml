@@ -155,7 +155,7 @@
     <string name="Sync_now_label">Sync now</string>
 
     <!-- Sync label subtitle -->
-    <string name="SyP_summary">Astrid.com, Google Aktiviteter, sparad data, lokal backup</string>
+    <string name="SyP_summary">Google Aktiviteter, sparad data, lokal backup</string>
 
     <!-- Error msg when io exception  -->
     <string name="SyP_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.

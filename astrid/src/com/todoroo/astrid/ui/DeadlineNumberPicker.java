@@ -8,7 +8,7 @@ package com.todoroo.astrid.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 public class DeadlineNumberPicker extends NumberPicker {
 

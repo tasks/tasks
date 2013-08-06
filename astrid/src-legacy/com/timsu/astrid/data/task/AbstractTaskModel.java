@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.enums.Importance;
@@ -110,12 +110,10 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
      */
     public static class TaskModelDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
-        Context context;
 
         public TaskModelDatabaseHelper(Context context, String databaseName, String tableName) {
             super(context, databaseName, null, VERSION);
             this.tableName = tableName;
-            this.context = context;
         }
 
         @Override
@@ -256,42 +254,6 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
     }
 
     // --- utility methods
-
-    /**
-     * Gets task color. Requires definiteDueDate and importance
-     *
-     * @param context
-     */
-    protected int getTaskColorResource(Context context) {
-        if (getDefiniteDueDate() != null && getDefiniteDueDate().getTime() <
-                System.currentTimeMillis()) {
-            return R.color.task_list_overdue;
-        } else {
-            return R.color.task_list_normal;
-        }
-    }
-
-    /**
-     * Checks whether task is done. Requires progressPercentage
-     */
-    protected boolean isTaskCompleted() {
-        return getProgressPercentage() >= COMPLETE_PERCENTAGE;
-    }
-
-    /**
-     * Stops the timer & increments elapsed time. Requires timerStart and
-     * elapsedSeconds
-     */
-    protected void stopTimerAndUpdateElapsedTime() {
-        if (getTimerStart() == null) {
-            return;
-        }
-
-        long start = getTimerStart().getTime();
-        setTimerStart(null);
-        long secondsElapsed = (System.currentTimeMillis() - start) / 1000;
-        setElapsedSeconds((int) (getElapsedSeconds() + secondsElapsed));
-    }
 
     protected void prefetchData(String[] fields) {
         for (String field : fields) {
@@ -614,10 +576,6 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
                     repeatInfo.interval.ordinal();
         }
         putIfChangedFromDatabase(REPEAT, repeat);
-    }
-
-    protected void setCalendarUri(String uri) {
-        putIfChangedFromDatabase(CALENDAR_URI, uri);
     }
 
     protected void setFlags(int flags) {

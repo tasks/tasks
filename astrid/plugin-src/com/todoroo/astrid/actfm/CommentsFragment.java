@@ -34,7 +34,7 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -266,8 +266,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
             TextView textView = (TextView) activityContainer.findViewById(R.id.no_activity_message);
             if (actFmPreferenceService.isLoggedIn()) {
                 textView.setText(activity.getString(R.string.ENA_no_comments));
-            } else {
-                textView.setText(activity.getString(R.string.UpS_no_activity_log_in));
             }
             listView.setVisibility(View.GONE);
         } else {

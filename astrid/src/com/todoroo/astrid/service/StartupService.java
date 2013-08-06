@@ -22,7 +22,7 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -241,10 +241,9 @@ public class StartupService {
 
                 // get and display update messages
                 if (finalLatestVersion != 0) {
-                    new UpdateMessageService(context).processUpdates();
+//                    disabled for now
+//                    new UpdateMessageService(context).processUpdates();
                 }
-
-                new PremiumUnlockService().checkForPremium();
 
                 checkForSubtasksUse();
                 checkForSwipeListsUse();

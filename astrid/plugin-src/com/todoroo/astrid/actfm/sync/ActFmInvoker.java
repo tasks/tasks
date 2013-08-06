@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.timsu.astrid.GCMIntentService;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
@@ -51,7 +51,7 @@ public class ActFmInvoker {
 
     private static final int API_VERSION = 7;
 
-    public static final boolean SYNC_DEBUG = Constants.DEBUG || true;
+    public static final boolean SYNC_DEBUG = true;
 
     @Autowired
     private RestClient restClient;
@@ -88,7 +88,7 @@ public class ActFmInvoker {
      * Authentication user with Act.fm server, returning a token
      */
     public JSONObject authenticate(String email, String firstName, String lastName, String provider,
-                                   String secret) throws ActFmServiceException, IOException {
+                                   String secret) throws IOException {
         JSONObject result = invoke(
                 "user_signin",
                 "email", email,
@@ -114,8 +114,7 @@ public class ActFmInvoker {
      * @param getParameters Name/Value pairs. Values will be URL encoded.
      * @return response object
      */
-    public JSONObject invoke(String method, Object... getParameters) throws IOException,
-            ActFmServiceException {
+    public JSONObject invoke(String method, Object... getParameters) throws IOException {
         return invokeWithApi(null, method, getParameters);
     }
 
@@ -126,8 +125,7 @@ public class ActFmInvoker {
      * @param getParameters Name/Value pairs. Values will be URL encoded.
      * @return response object
      */
-    public JSONObject invokeWithApi(String api, String method, Object... getParameters) throws IOException,
-            ActFmServiceException {
+    public JSONObject invokeWithApi(String api, String method, Object... getParameters) throws IOException {
         try {
             String request = createFetchUrl(api, method, getParameters);
 
@@ -186,8 +184,7 @@ public class ActFmInvoker {
         }
     }
 
-    public JSONObject postSync(String data, MultipartEntity entity, boolean changesHappened, String tok) throws IOException,
-            ActFmServiceException {
+    public JSONObject postSync(String data, MultipartEntity entity, boolean changesHappened, String tok) throws IOException {
         try {
             String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
 

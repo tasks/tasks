@@ -14,7 +14,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;

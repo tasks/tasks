@@ -1,6 +1,8 @@
 .idea/workspace.xml
 out/
 *~
+*.apk
+proguard_logs/
 .metadata
 *.class
 gen

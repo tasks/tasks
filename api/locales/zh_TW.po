@@ -248,8 +248,8 @@ msgstr "同步和備份"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr "Astrid.com，谷歌任務，已存數據，本地備份"
+msgid "Google Tasks, saved data, local backup"
+msgstr "谷歌任務，已存數據，本地備份"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"

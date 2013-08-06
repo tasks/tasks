@@ -24,7 +24,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.PlaybackExceptionHandler;
 import com.todoroo.andlib.data.TodorooCursor;

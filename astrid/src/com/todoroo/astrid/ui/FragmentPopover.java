@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 import java.util.List;
 

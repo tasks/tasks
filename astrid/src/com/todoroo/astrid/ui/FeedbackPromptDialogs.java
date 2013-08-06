@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.activity.AstridActivity;
 
 public class FeedbackPromptDialogs {

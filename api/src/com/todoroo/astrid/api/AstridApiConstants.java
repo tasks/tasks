@@ -26,7 +26,7 @@ public class AstridApiConstants {
     /**
      * Astrid app base package name
      */
-    public static final String ASTRID_PACKAGE = "com.timsu.astrid";
+    public static final String ASTRID_PACKAGE = "org.astrid";
 
     /**
      * Permission for reading tasks and receiving to GET_FILTERS intent

@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 

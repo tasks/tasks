@@ -8,7 +8,7 @@ package com.todoroo.andlib.test;
 
 import android.content.res.Resources;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;

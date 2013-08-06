@@ -13,7 +13,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;

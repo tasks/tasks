@@ -18,7 +18,7 @@ import android.text.Spannable;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;

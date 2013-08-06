@@ -8,7 +8,7 @@ package com.todoroo.astrid.service;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;

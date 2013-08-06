@@ -248,8 +248,8 @@ msgstr "Синхронізація"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr "Astrid.com, Google Tasks, збережні дані, локальна резервна копія"
+msgid "Google Tasks, saved data, local backup"
+msgstr "Google Tasks, збережні дані, локальна резервна копія"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"

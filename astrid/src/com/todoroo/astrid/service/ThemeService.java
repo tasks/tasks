@@ -10,7 +10,7 @@ import android.graphics.PixelFormat;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -34,14 +34,12 @@ public class ThemeService {
     public static final int FLAG_FORCE_LIGHT = 2;
     public static final int FLAG_INVERT = 3;
 
-    private static int currentTheme;
-
     // Widget config activities set this flag since they theme differently than the normal
     // filter list. In other cases this should be false
     private static boolean forceFilterInvert = false;
 
     public static void applyTheme(Activity activity) {
-        currentTheme = getTheme();
+        int currentTheme = getTheme();
         activity.setTheme(currentTheme);
 
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);

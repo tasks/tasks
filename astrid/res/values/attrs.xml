@@ -46,11 +46,6 @@
     <attr name="asFilterSelectedIcon" format="reference"/>
     <attr name="asTaskRowSelector" format="reference"/>
 
-    <declare-styleable name="ContactsAutoComplete">
-        <attr name="allowMultiple" format="boolean"/>
-        <attr name="completeTags" format="boolean"/>
-    </declare-styleable>
-
     <declare-styleable name="DateAndTimePicker">
         <attr name="shortcutLabels" format="reference"/>
     </declare-styleable>

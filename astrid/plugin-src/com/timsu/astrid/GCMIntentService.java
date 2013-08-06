@@ -9,6 +9,7 @@ import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.astrid.R;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMConstants;
 import com.google.android.gcm.GCMRegistrar;

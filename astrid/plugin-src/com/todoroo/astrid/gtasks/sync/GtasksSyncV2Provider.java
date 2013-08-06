@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.google.api.services.tasks.model.Tasks;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;

@@ -43,7 +43,7 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -695,7 +695,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
         initiateAutomaticSync();
 
-        showFeedbackPrompt();
+//        showFeedbackPrompt();
     }
 
     private void showFeedbackPrompt() {

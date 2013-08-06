@@ -129,11 +129,10 @@ public class SyncMapping extends LegacyAbstractModel {
         putIfChangedFromDatabase(LegacyAbstractController.KEY_ROWID, id);
     }
 
-    public long getId() {
+    public void getId() {
         try {
-            return retrieveLong(LegacyAbstractController.KEY_ROWID);
+            retrieveLong(LegacyAbstractController.KEY_ROWID);
         } catch (UnsupportedOperationException e) {
-            return 0;
         }
     }
 

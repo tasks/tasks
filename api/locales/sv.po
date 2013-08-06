@@ -248,7 +248,7 @@ msgstr "Synkronisering"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, saved data, local backup"
+msgid "Google Tasks, saved data, local backup"
 msgstr ""
 
 #. Error msg when io exception
