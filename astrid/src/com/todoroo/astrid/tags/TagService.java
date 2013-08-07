@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -39,6 +38,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+
+import org.astrid.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

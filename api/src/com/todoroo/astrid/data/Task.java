@@ -19,7 +19,8 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.R;
+
+import org.astrid.api.R;
 
 import java.util.Date;
 

@@ -14,7 +14,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -22,6 +21,8 @@ import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.Flags;
+
+import org.astrid.R;
 
 public class TaskListFragmentPager extends ViewPager {
 

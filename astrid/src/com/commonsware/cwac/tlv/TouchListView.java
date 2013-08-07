@@ -33,9 +33,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.ui.ErrorCatchingListView;
+
+import org.astrid.R;
 
 
 public class TouchListView extends ErrorCatchingListView {

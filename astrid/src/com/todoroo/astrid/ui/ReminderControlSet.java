@@ -17,10 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.astrid.R;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.astrid.R;
 
 import java.util.ArrayList;
 import java.util.List;

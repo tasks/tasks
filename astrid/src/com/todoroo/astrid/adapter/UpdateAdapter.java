@@ -29,7 +29,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -47,6 +46,7 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 
+import org.astrid.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

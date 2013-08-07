@@ -10,9 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.utility.Flags;
+
+import org.astrid.R;
 
 public class BackupActivity extends Activity {
 

@@ -9,9 +9,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import org.astrid.R;
 import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
+
+import org.astrid.R;
 
 public class RepeatsPlugin extends BroadcastReceiver {
 

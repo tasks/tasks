@@ -13,11 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.astrid.R;
 
 
 public class FilterShortcutActivity extends ListActivity {

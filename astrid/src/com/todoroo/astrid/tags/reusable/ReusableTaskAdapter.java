@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -17,6 +16,8 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
+
+import org.astrid.R;
 
 import java.util.concurrent.atomic.AtomicReference;
 

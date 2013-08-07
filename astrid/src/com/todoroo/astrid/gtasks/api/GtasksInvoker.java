@@ -15,12 +15,13 @@ import com.google.api.services.tasks.Tasks.TasksOperations.Move;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
+
+import org.astrid.R;
 
 import java.io.IOException;
 

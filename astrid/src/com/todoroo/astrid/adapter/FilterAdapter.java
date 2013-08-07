@@ -32,7 +32,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -56,6 +55,8 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import org.astrid.R;
 
 import java.util.HashMap;
 import java.util.List;

@@ -11,12 +11,13 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
+
+import org.astrid.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
-import org.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -25,6 +24,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+
+import org.astrid.R;
 
 public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$

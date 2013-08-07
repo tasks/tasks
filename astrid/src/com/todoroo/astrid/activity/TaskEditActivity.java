@@ -11,11 +11,12 @@ import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.astrid.R;
 
 public class TaskEditActivity extends AstridActivity {
     /**

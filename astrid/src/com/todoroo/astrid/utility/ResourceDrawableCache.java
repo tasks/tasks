@@ -3,8 +3,9 @@ package com.todoroo.astrid.utility;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+
+import org.astrid.R;
 
 /**
  * This class caches common images based on resource ID to avoid

@@ -17,12 +17,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.AstridTimePicker.TimePickerEnabledChangedListener;
 import com.todoroo.astrid.ui.CalendarView.OnSelectedDateListener;
+
+import org.astrid.R;
 
 import java.util.ArrayList;
 import java.util.Date;

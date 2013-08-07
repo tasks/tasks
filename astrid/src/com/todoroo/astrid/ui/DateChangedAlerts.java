@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -34,6 +33,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
+
+import org.astrid.R;
 
 import java.text.ParseException;
 import java.util.Date;

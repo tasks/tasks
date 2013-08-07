@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.aacenc.ContextManager;
 import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
@@ -25,6 +24,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
+
+import org.astrid.R;
 
 import java.io.IOException;
 import java.util.List;

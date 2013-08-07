@@ -9,7 +9,6 @@ package com.todoroo.astrid.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -18,6 +17,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
+
+import org.astrid.R;
 
 public class AstridPreferences {
 

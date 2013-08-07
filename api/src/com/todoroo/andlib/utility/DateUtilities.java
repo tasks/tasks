@@ -9,7 +9,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
-import com.todoroo.astrid.api.R;
+import org.astrid.api.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

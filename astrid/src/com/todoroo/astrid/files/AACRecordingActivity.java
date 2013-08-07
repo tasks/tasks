@@ -14,11 +14,12 @@ import android.view.View.OnClickListener;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.aacenc.AACRecorder;
 import com.todoroo.aacenc.AACRecorder.AACRecorderCallbacks;
 import com.todoroo.aacenc.AACToM4A;
 import com.todoroo.andlib.utility.DialogUtilities;
+
+import org.astrid.R;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;

@@ -13,10 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import org.astrid.R;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.EditDialogOkBackground;
+
+import org.astrid.R;
 
 // --- interface
 

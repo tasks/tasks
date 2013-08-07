@@ -15,7 +15,7 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.todoroo.astrid.api.R;
+import org.astrid.api.R;
 
 public class DialogUtilities {
 

@@ -6,9 +6,9 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 
+import org.astrid.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

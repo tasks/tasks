@@ -10,8 +10,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.astrid.R;
 
 import java.io.File;
 import java.io.FilenameFilter;

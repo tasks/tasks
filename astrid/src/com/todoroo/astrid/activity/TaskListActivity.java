@@ -26,7 +26,6 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -59,6 +58,8 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+
+import org.astrid.R;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 

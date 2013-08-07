@@ -18,8 +18,9 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.api.R;
 import com.todoroo.astrid.data.Task;
+
+import org.astrid.api.R;
 
 import java.io.IOException;
 import java.util.ArrayList;

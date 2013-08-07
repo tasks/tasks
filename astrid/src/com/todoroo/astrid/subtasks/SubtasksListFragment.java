@@ -9,12 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+
+import org.astrid.R;
 
 /**
  * Fragment for subtasks

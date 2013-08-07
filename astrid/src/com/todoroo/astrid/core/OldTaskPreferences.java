@@ -14,8 +14,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
-import com.timsu.astrid.GCMIntentService;
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -33,6 +31,8 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import org.astrid.R;
 
 /**
  * Displays the preference screen for users to manage their old tasks and events
@@ -135,7 +135,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         deleteDatabase(database.getName());
 
                         AstridPreferences.setPreferenceDefaults();
-                        GCMIntentService.unregister(OldTaskPreferences.this);
 
                         System.exit(0);
                     }

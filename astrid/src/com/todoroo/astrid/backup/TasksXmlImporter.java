@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.WindowManager.BadTokenException;
 
 import com.google.ical.values.RRule;
-import org.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -42,6 +41,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
 
+import org.astrid.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;

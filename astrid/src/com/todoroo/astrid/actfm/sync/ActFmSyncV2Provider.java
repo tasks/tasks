@@ -8,8 +8,6 @@ package com.todoroo.astrid.actfm.sync;
 import android.app.Activity;
 import android.content.DialogInterface;
 
-import com.timsu.astrid.GCMIntentService;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -20,6 +18,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
+import org.astrid.R;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -57,7 +56,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         actFmPreferenceService.setToken(null);
         actFmPreferenceService.clearLastSyncDate();
         ActFmPreferenceService.premiumLogout();
-        GCMIntentService.unregister(ContextManager.getContext());
 
         DialogUtilities.okCancelCustomDialog(activity,
                 activity.getString(R.string.actfm_logout_clear_tasks_title),
@@ -105,12 +103,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
      */
 
     public void updateUserStatus() {
-        if (Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION) != null) {
-            actFmSyncService.setGCMRegistration(Preferences.getStringValue(GCMIntentService.PREF_NEEDS_REGISTRATION));
-        } else if (Preferences.getBoolean(GCMIntentService.PREF_NEEDS_RETRY, false)) {
-            GCMIntentService.register(ContextManager.getContext());
-        }
-
         try {
             JSONObject status = actFmSyncService.invoke("user_status"); //$NON-NLS-1$
             if (status.has("id")) {

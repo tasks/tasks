@@ -3,7 +3,6 @@ package com.todoroo.astrid.actfm.sync.messages;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -33,6 +32,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import org.astrid.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

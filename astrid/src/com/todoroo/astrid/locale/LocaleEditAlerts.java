@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -25,6 +24,8 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.twofortyfouram.SharedResources;
+
+import org.astrid.R;
 
 /**
  * Activity to edit alerts from Locale

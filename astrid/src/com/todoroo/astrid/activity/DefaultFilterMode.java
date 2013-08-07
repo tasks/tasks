@@ -2,10 +2,11 @@ package com.todoroo.astrid.activity;
 
 import android.content.Context;
 
-import org.astrid.R;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.ui.MainMenuPopover;
+
+import org.astrid.R;
 
 public class DefaultFilterMode implements FilterModeSpec {
 

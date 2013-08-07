@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -35,6 +34,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
+import org.astrid.R;
 import org.json.JSONObject;
 
 public class ReengagementReceiver extends BroadcastReceiver {

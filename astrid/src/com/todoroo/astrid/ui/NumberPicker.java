@@ -23,8 +23,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.astrid.R;
 
 
 public class NumberPicker extends LinearLayout implements OnClickListener,

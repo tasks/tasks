@@ -14,10 +14,11 @@ import android.preference.ListPreference;
 import android.provider.CalendarContract;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+
+import org.astrid.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

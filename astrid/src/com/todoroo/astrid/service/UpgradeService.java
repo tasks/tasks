@@ -13,8 +13,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
-import com.timsu.astrid.GCMIntentService;
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -44,6 +42,8 @@ import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
+
+import org.astrid.R;
 
 
 public final class UpgradeService {
@@ -255,7 +255,6 @@ public final class UpgradeService {
                                     }
                                 }
                                 new AstridNewSyncMigrator().performMigration();
-                                new GCMIntentService.GCMMigration().performMigration(UpgradeActivity.this);
                             }
 
                             if (from < V4_6_2) {

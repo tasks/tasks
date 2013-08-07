@@ -13,11 +13,12 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
+
+import org.astrid.R;
 
 import java.io.File;
 import java.io.FileFilter;

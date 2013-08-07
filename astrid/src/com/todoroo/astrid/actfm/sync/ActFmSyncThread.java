@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -59,6 +58,7 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 
 import org.apache.http.entity.mime.MultipartEntity;
+import org.astrid.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

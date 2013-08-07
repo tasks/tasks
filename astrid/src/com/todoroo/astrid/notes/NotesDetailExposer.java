@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -21,6 +20,8 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+
+import org.astrid.R;
 
 /**
  * Exposes Task Detail for notes

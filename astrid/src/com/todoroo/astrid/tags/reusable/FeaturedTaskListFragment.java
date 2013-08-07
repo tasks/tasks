@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
@@ -33,6 +32,8 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
+
+import org.astrid.R;
 
 public class FeaturedTaskListFragment extends TagViewFragment {
 

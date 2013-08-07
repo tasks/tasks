@@ -15,9 +15,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="tests" />
-    <orderEntry type="module" module-name="api" />
-    <orderEntry type="module" module-name="astrid" />
+    <orderEntry type="module" module-name="tests" scope="PROVIDED" />
+    <orderEntry type="module" module-name="api" scope="PROVIDED" />
+    <orderEntry type="module" module-name="astrid" scope="PROVIDED" />
   </component>
 </module>
 

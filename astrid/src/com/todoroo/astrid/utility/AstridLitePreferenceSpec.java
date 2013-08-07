@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.BeastModePreferences;
@@ -13,6 +12,8 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec.PreferenceExtras;
+
+import org.astrid.R;
 
 public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
 

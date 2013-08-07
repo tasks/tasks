@@ -24,7 +24,6 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.PlaybackExceptionHandler;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -44,6 +43,8 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Constants;
+
+import org.astrid.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

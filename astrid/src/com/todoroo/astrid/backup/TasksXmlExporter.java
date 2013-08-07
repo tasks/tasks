@@ -13,7 +13,6 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -33,6 +32,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import org.astrid.R;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;

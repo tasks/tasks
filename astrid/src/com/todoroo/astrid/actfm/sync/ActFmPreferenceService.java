@@ -7,13 +7,13 @@ package com.todoroo.astrid.actfm.sync;
 
 import android.text.TextUtils;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
 
+import org.astrid.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 

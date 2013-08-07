@@ -8,8 +8,6 @@ package com.todoroo.astrid.actfm.sync;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.timsu.astrid.GCMIntentService;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
@@ -17,12 +15,12 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.utility.Constants;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
+import org.astrid.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -189,15 +187,6 @@ public class ActFmInvoker {
             String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
 
             Object[] params = {"token", tok, "data", data, "time", timeString};
-
-            if (changesHappened) {
-                String gcm = Preferences.getStringValue(GCMIntentService.PREF_REGISTRATION);
-                ActFmSyncThread.syncLog("Sending GCM token: " + gcm);
-                if (!TextUtils.isEmpty(gcm)) {
-                    params = AndroidUtilities.addToArray(Object.class, params, "gcm", gcm);
-                    entity.addPart("gcm", new StringBody(gcm));
-                }
-            }
 
             String request = createFetchUrl("api/" + API_VERSION, "synchronize", params);
             if (SYNC_DEBUG) {

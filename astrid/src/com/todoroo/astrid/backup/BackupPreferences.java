@@ -14,7 +14,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -22,6 +21,8 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+
+import org.astrid.R;
 
 import java.util.Date;
 

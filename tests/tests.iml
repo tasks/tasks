@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
+        <option name="PACK_TEST_CODE" value="true" />
         <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
     </facet>
@@ -15,8 +16,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="api" />
-    <orderEntry type="module" module-name="astrid" />
+    <orderEntry type="module" module-name="api" scope="PROVIDED" />
+    <orderEntry type="module" module-name="astrid" scope="PROVIDED" />
   </component>
 </module>
 

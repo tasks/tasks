@@ -17,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -25,6 +24,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
 import junit.framework.Assert;
+
+import org.astrid.R;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

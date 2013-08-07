@@ -15,7 +15,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.ical.values.RRule;
-import org.astrid.R;
 import com.timsu.astrid.utilities.LegacyTasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
@@ -42,6 +41,8 @@ import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
+
+import org.astrid.R;
 
 import java.util.Date;
 import java.util.HashMap;

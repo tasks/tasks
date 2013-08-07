@@ -21,8 +21,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
+
+import org.astrid.R;
 
 import java.io.File;
 import java.io.FilenameFilter;

@@ -23,7 +23,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.api.R;
+
+import org.astrid.api.R;
 
 import java.util.Date;
 import java.util.HashMap;

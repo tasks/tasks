@@ -14,13 +14,14 @@ import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+
+import org.astrid.R;
 
 import java.util.TimeZone;
 

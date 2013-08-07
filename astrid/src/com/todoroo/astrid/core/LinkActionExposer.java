@@ -18,13 +18,14 @@ import android.text.Spannable;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
+
+import org.astrid.R;
 
 import java.util.HashMap;
 import java.util.List;

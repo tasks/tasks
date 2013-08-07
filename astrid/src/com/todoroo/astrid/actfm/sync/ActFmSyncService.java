@@ -8,7 +8,6 @@ package com.todoroo.astrid.actfm.sync;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.timsu.astrid.GCMIntentService;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
@@ -43,36 +42,6 @@ public final class ActFmSyncService {
 
     public ActFmSyncService() {
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    // --- data fetch methods
-    public void setGCMRegistration(String regId) {
-        try {
-            String deviceId = GCMIntentService.getDeviceID();
-            String existingC2DM = Preferences.getStringValue(GCMIntentService.PREF_C2DM_REGISTRATION);
-
-            ArrayList<Object> params = new ArrayList<Object>();
-            params.add("gcm");
-            params.add(regId);
-            if (!TextUtils.isEmpty(deviceId)) {
-                params.add("device_id");
-                params.add(deviceId);
-            }
-            if (!TextUtils.isEmpty(existingC2DM)) { // Unregisters C2DM with the server for migration purposes
-                params.add("c2dm");
-                params.add(existingC2DM);
-            }
-
-            invoke("user_set_gcm", params.toArray(new Object[params.size()]));
-
-            Preferences.setString(GCMIntentService.PREF_REGISTRATION, regId);
-            Preferences.setString(GCMIntentService.PREF_C2DM_REGISTRATION, null);
-            Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, null);
-            Preferences.setBoolean(GCMIntentService.PREF_NEEDS_RETRY, false);
-        } catch (IOException e) {
-            Preferences.setString(GCMIntentService.PREF_NEEDS_REGISTRATION, regId);
-            Log.e("gcm", "error-gcm-register", e);
-        }
     }
 
     // --- generic invokation

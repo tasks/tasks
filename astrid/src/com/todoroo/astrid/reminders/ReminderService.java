@@ -14,7 +14,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.util.Log;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -28,6 +27,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
+
+import org.astrid.R;
 
 import java.util.Date;
 import java.util.Random;

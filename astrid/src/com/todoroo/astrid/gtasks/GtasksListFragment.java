@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
-import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -29,6 +28,8 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.subtasks.OrderedMetadataListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
+
+import org.astrid.R;
 
 public class GtasksListFragment extends SubtasksListFragment {
 

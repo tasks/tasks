@@ -37,7 +37,6 @@
     <orderEntry type="library" exported="" name="httpmime" level="project" />
     <orderEntry type="library" exported="" name="guava" level="project" />
     <orderEntry type="library" exported="" name="gson" level="project" />
-    <orderEntry type="library" exported="" name="gcm" level="project" />
     <orderEntry type="library" exported="" name="google-oauth-client" level="project" />
     <orderEntry type="library" exported="" name="google-http-client" level="project" />
     <orderEntry type="library" exported="" name="googleloginclient-helper" level="project" />

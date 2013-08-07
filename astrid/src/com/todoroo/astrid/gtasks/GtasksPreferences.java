@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -24,6 +23,8 @@ import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.tags.TagService;
+
+import org.astrid.R;
 
 /**
  * Displays synchronization preferences and an action panel so users can

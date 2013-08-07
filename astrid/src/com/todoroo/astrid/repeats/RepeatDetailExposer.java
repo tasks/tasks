@@ -13,10 +13,11 @@ import android.content.res.Resources;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
-import org.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+
+import org.astrid.R;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;

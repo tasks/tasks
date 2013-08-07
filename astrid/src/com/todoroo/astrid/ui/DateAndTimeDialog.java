@@ -13,8 +13,9 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
-import org.astrid.R;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.astrid.R;
 
 public class DateAndTimeDialog extends Dialog {
 

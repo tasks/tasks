@@ -22,7 +22,6 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -66,6 +65,8 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
+
+import org.astrid.R;
 
 import java.io.File;
 import java.util.List;

@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
@@ -18,6 +17,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.TaskService;
+
+import org.astrid.R;
 
 public class TaskCommentsFragment extends CommentsFragment {
 

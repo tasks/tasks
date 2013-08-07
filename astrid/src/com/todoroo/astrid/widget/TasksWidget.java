@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RemoteViews;
 
-import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -53,6 +52,8 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
+
+import org.astrid.R;
 
 public class TasksWidget extends AppWidgetProvider {
 

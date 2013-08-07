@@ -41,7 +41,6 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -55,6 +54,8 @@ import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import org.astrid.R;
 
 /**
  * Activity that displays a user's task lists and allows users

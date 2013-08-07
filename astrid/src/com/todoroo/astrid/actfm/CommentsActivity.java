@@ -12,10 +12,11 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
-import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.service.ThemeService;
+
+import org.astrid.R;
 
 public class CommentsActivity extends AstridActivity {
     @Override

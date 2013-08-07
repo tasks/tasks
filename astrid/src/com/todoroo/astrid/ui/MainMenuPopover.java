@@ -19,11 +19,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.TouchInterceptingFrameLayout.InterceptTouchListener;
 import com.todoroo.astrid.utility.AstridPreferences;
+
+import org.astrid.R;
 
 public class MainMenuPopover extends FragmentPopover implements InterceptTouchListener {
 

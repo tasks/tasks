@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -21,6 +20,8 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
+
+import org.astrid.R;
 
 import java.io.IOException;
 

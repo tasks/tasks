@@ -12,7 +12,6 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import org.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.sync.SyncMapping;
@@ -24,6 +23,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForXml;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 
+import org.astrid.R;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
