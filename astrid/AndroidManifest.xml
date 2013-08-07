@@ -153,12 +153,6 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
-        <!-- Legacy Task List shortcut activity -->
-        <activity android:name=".activities.TaskList">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- Activity that creates or edits tasks -->
         <activity
                 android:name="com.todoroo.astrid.activity.TaskEditActivity"
@@ -193,11 +187,6 @@
         <activity
                 android:name="com.todoroo.astrid.service.UpdateMessagePreference"
                 android:theme="@android:style/Theme"/>
-
-        <activity
-                android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
-                android:screenOrientation="portrait"/>
-
 
         <activity
                 android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
@@ -365,10 +354,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-        <activity
-                android:name="com.todoroo.astrid.tags.reusable.FeaturedListActivity"
-                android:windowSoftInputMode="stateHidden|adjustResize"/>
-
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
             <intent-filter>
@@ -397,18 +382,6 @@
         </service>
 
         <activity
-                android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
-                android:windowSoftInputMode="stateHidden|adjustResize"
-                android:theme="@style/Theme">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-                android:name="com.todoroo.astrid.actfm.TagCreateActivity"
-                android:theme="@android:style/Theme.Dialog"/>
-        <activity
                 android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
                 android:windowSoftInputMode="stateHidden"/>
         <activity
@@ -430,8 +403,6 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".GCMIntentService"/>
-
         <receiver android:name="com.todoroo.astrid.actfm.sync.ActFmSyncThread$NetworkStateChangedReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
@@ -448,7 +419,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksAuthTokenProvider"/>
         <activity
                 android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
                 android:theme="@style/Theme"
@@ -661,12 +631,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-        <activity
-                android:name="com.todoroo.astrid.reminders.NotificationWrapperActivity"
-                android:launchMode="singleTask"
-                android:finishOnTaskLaunch="true"
-                android:clearTaskOnLaunch="true">
-        </activity>
         <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService"/>
 
         <!-- other task actions -->
@@ -676,11 +640,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-
-        <activity
-                android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
-                android:windowSoftInputMode="stateHidden"
-                android:screenOrientation="portrait"></activity>
 
         <!-- Uses Library -->
         <uses-library
