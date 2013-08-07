@@ -53,9 +53,9 @@ public class Astrid2TaskProvider extends ContentProvider {
 
     private static final boolean LOGD = false;
 
-    public static final String AUTHORITY = "com.timsu.astrid.tasksprovider";
+    public static final String AUTHORITY = "org.astrid.tasksprovider";
 
-    public static final Uri CONTENT_URI = Uri.parse("content://com.timsu.astrid.tasksprovider");
+    public static final Uri CONTENT_URI = Uri.parse("content://org.astrid.tasksprovider");
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 

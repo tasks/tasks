@@ -21,7 +21,7 @@ public class AstridApiConstants {
     /**
      * Astrid broadcast base package name
      */
-    public static final String API_PACKAGE = "com.todoroo.astrid";
+    public static final String API_PACKAGE = "org.astrid";
 
     /**
      * Astrid app base package name

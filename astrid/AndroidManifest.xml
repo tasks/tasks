@@ -45,28 +45,28 @@
 
     <!-- for v2 tasks provider -->
     <permission
-            android:name="com.timsu.astrid.permission.READ_TASKS"
+            android:name="org.astrid.permission.READ_TASKS"
             android:permissionGroup="android.permission-group.MESSAGES"
             android:protectionLevel="normal"
             android:label="@string/read_permission_label"
             android:description="@string/read_permission_desc"/>
-    <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
+    <uses-permission android:name="org.astrid.permission.READ_TASKS"/>
 
     <!-- for reading data from add-ons or astrid via v3 content provider -->
     <permission
-            android:name="com.todoroo.astrid.READ"
+            android:name="org.astrid.READ"
             android:description="@string/read_permission_desc"
             android:protectionLevel="normal"
             android:label="@string/read_permission_label"/>
-    <uses-permission android:name="com.todoroo.astrid.READ"/>
+    <uses-permission android:name="org.astrid.READ"/>
 
     <!-- for writing data to add-ons or astrid via v3 content provider -->
     <permission
-            android:name="com.todoroo.astrid.WRITE"
+            android:name="org.astrid.WRITE"
             android:description="@string/write_permission_desc"
             android:protectionLevel="normal"
             android:label="@string/write_permission_label"/>
-    <uses-permission android:name="com.todoroo.astrid.WRITE"/>
+    <uses-permission android:name="org.astrid.WRITE"/>
 
     <!-- ========================================================== Metadata = -->
 
@@ -187,7 +187,7 @@
 
         <receiver android:name="com.todoroo.astrid.reminders.Notifications$ShowNotificationReceiver">
             <intent-filter>
-                <action android:name="com.timsu.astrid.IN_APP_NOTIFY"/>
+                <action android:name="org.astrid.IN_APP_NOTIFY"/>
             </intent-filter>
         </receiver>
 
@@ -205,7 +205,7 @@
 
         <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.FLUSH_DETAILS"/>
+                <action android:name="org.astrid.FLUSH_DETAILS"/>
             </intent-filter>
         </receiver>
 
@@ -217,7 +217,7 @@
 
         <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
             <intent-filter>
-                <action android:name="com.timsu.astrid.SHOW_REENGAGEMENT"/>
+                <action android:name="org.astrid.SHOW_REENGAGEMENT"/>
             </intent-filter>
         </receiver>
 
@@ -229,39 +229,39 @@
 
         <provider
                 android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
-                android:authorities="com.timsu.astrid.tasksprovider"
+                android:authorities="org.astrid.tasksprovider"
                 android:multiprocess="true"
                 android:grantUriPermissions="true"
-                android:readPermission="com.timsu.astrid.permission.READ_TASKS"/>
+                android:readPermission="org.astrid.permission.READ_TASKS"/>
 
         <provider
                 android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
-                android:authorities="com.todoroo.astrid"
+                android:authorities="org.astrid"
                 android:multiprocess="true"
                 android:grantUriPermissions="true"
-                android:readPermission="com.todoroo.astrid.READ"
-                android:writePermission="com.todoroo.astrid.WRITE"/>
+                android:readPermission="org.astrid.READ"
+                android:writePermission="org.astrid.WRITE"/>
 
         <provider
                 android:name="com.todoroo.astrid.provider.SqlContentProvider"
-                android:authorities="com.todoroo.astrid.private"
+                android:authorities="org.astrid.private"
                 android:multiprocess="true"
                 android:grantUriPermissions="true"
-                android:readPermission="com.todoroo.astrid.READ"
-                android:writePermission="com.todoroo.astrid.WRITE"/>
+                android:readPermission="org.astrid.READ"
+                android:writePermission="org.astrid.WRITE"/>
 
         <!-- ========================================================= Plugins = -->
 
         <!-- core -->
         <receiver android:name="com.todoroo.astrid.core.CorePlugin">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_ADDONS"/>
+                <action android:name="org.astrid.REQUEST_ADDONS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.core.CoreFilterExposer">
             <intent-filter android:priority="9000">
-                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <action android:name="org.astrid.REQUEST_FILTERS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -274,7 +274,7 @@
                     android:name="summary"
                     android:resource="@string/EPr_defaults_summary"/>
             <intent-filter>
-                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <action android:name="org.astrid.SETTINGS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -291,25 +291,25 @@
         <!-- tags -->
         <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_ADDONS"/>
+                <action android:name="org.astrid.REQUEST_ADDONS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.tags.TagFilterExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <action android:name="org.astrid.REQUEST_FILTERS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.tags.TagCustomFilterCriteriaExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA"/>
+                <action android:name="org.astrid.REQUEST_CUSTOM_FILTER_CRITERIA"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.tags.TagDetailExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <action android:name="org.astrid.REQUEST_DETAILS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -317,7 +317,7 @@
         <!-- custom filters -->
         <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
             <intent-filter android:priority="9000">
-                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <action android:name="org.astrid.REQUEST_FILTERS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -338,20 +338,20 @@
         <!-- Featured lists -->
         <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
             <intent-filter>
-                <action android:name="com.timsu.astrid.REQUEST_FEATURED_LISTS"/>
+                <action android:name="org.astrid.REQUEST_FEATURED_LISTS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.TASK_REPEATED"/>
+                <action android:name="org.astrid.TASK_REPEATED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.alarms.AlarmDetailExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <action android:name="org.astrid.REQUEST_DETAILS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -364,7 +364,7 @@
 
         <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.actfm.SYNC"/>
+                <action android:name="org.astrid.actfm.SYNC"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
@@ -403,13 +403,13 @@
 
         <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA"/>
+                <action android:name="org.astrid.REQUEST_CUSTOM_FILTER_CRITERIA"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <action android:name="org.astrid.REQUEST_FILTERS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -419,7 +419,7 @@
                 android:theme="@android:style/Theme.Dialog"/>
         <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <action android:name="org.astrid.REQUEST_DETAILS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -436,13 +436,13 @@
                     android:value="true"/>
 
             <intent-filter>
-                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <action android:name="org.astrid.SETTINGS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.gtasks.SYNC"/>
+                <action android:name="org.astrid.gtasks.SYNC"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </service>
@@ -456,19 +456,19 @@
         <!-- repeats -->
         <receiver android:name="com.todoroo.astrid.repeats.RepeatsPlugin">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_ADDONS"/>
+                <action android:name="org.astrid.REQUEST_ADDONS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
             <intent-filter android:priority="1">
-                <action android:name="com.todoroo.astrid.TASK_COMPLETED"/>
+                <action android:name="org.astrid.TASK_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.repeats.RepeatDetailExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <action android:name="org.astrid.REQUEST_DETAILS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -476,7 +476,7 @@
         <!-- calendar -->
         <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
             <intent-filter android:priority="2">
-                <action android:name="com.todoroo.astrid.TASK_COMPLETED"/>
+                <action android:name="org.astrid.TASK_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -487,7 +487,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.todoroo.astrid.SCHEDULE_CAL_REMINDERS"/>
+                <action android:name="org.astrid.SCHEDULE_CAL_REMINDERS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -513,7 +513,7 @@
                     android:name="category"
                     android:resource="@string/SyP_label"/>
             <intent-filter>
-                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <action android:name="org.astrid.SETTINGS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -532,7 +532,7 @@
                     android:name="category"
                     android:resource="@string/SyP_label"/>
             <intent-filter>
-                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <action android:name="org.astrid.SETTINGS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -571,20 +571,20 @@
         <!-- notes -->
         <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_DETAILS"/>
+                <action android:name="org.astrid.REQUEST_DETAILS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
 
         <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
             <intent-filter android:priority="10000">
-                <action android:name="com.todoroo.astrid.REQUEST_FILTERS"/>
+                <action android:name="org.astrid.REQUEST_FILTERS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.TASK_COMPLETED"/>
+                <action android:name="org.astrid.TASK_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -598,7 +598,7 @@
                     android:name="summary"
                     android:resource="@string/rmd_EPr_alerts_summary"/>
             <intent-filter>
-                <action android:name="com.todoroo.astrid.SETTINGS"/>
+                <action android:name="org.astrid.SETTINGS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -613,7 +613,7 @@
         <!-- other task actions -->
         <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">
             <intent-filter>
-                <action android:name="com.todoroo.astrid.REQUEST_ACTIONS"/>
+                <action android:name="org.astrid.REQUEST_ACTIONS"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
