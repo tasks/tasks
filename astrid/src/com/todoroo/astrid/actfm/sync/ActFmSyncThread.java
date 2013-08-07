@@ -281,13 +281,11 @@ public class ActFmSyncThread {
                 if (!messageBatch.isEmpty() && checkForToken()) {
                     JSONPayloadBuilder payload = new JSONPayloadBuilder();
                     MultipartEntity entity = new MultipartEntity();
-                    boolean containsChangesHappened = false;
                     for (int i = 0; i < messageBatch.size(); i++) {
                         ClientToServerMessage<?> message = messageBatch.get(i);
                         boolean success = payload.addMessage(message, entity);
                         if (success) {
                             if (message instanceof ChangesHappened) {
-                                containsChangesHappened = true;
                             }
                         } else {
                             messageBatch.remove(i);
@@ -307,7 +305,7 @@ public class ActFmSyncThread {
 
                     JSONArray errors = null;
                     try {
-                        JSONObject response = actFmInvoker.postSync(payload.closeAndReturnString(), entity, containsChangesHappened, token);
+                        JSONObject response = actFmInvoker.postSync(payload.closeAndReturnString(), entity, token);
                         // process responses
                         String time = response.optString("time");
                         JSONArray serverMessagesJson = response.optJSONArray("messages");

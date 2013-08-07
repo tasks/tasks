@@ -172,28 +172,4 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         Preferences.setBoolean(PREF_LOCAL_PREMIUM, false);
         Preferences.setBoolean(PREF_PREMIUM, false);
     }
-
-    @Override
-    public String getLoggedInUserName() {
-        String name = Preferences.getStringValue(PREF_NAME);
-        if (TextUtils.isEmpty(name)) {
-            String firstName = Preferences.getStringValue(PREF_FIRST_NAME);
-            if (!TextUtils.isEmpty(firstName)) {
-                name = firstName;
-            }
-
-            String lastName = Preferences.getStringValue(PREF_FIRST_NAME);
-            if (!TextUtils.isEmpty(lastName)) {
-                if (!TextUtils.isEmpty(name)) {
-                    name += " "; //$NON-NLS-1$
-                }
-                name += lastName;
-            }
-
-            if (name == null) {
-                name = ""; //$NON-NLS-1$
-            }
-        }
-        return name;
-    }
 }

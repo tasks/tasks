@@ -182,7 +182,7 @@ public class ActFmInvoker {
         }
     }
 
-    public JSONObject postSync(String data, MultipartEntity entity, boolean changesHappened, String tok) throws IOException {
+    public JSONObject postSync(String data, MultipartEntity entity, String tok) throws IOException {
         try {
             String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
 

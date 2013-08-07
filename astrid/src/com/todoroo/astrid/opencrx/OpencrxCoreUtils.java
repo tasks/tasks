@@ -127,9 +127,4 @@ public class OpencrxCoreUtils extends SyncProviderUtilities {
     public int getSyncIntervalKey() {
         return 0;
     }
-
-    @Override
-    public String getLoggedInUserName() {
-        return ""; //$NON-NLS-1$
-    }
 }

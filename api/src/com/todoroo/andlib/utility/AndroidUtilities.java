@@ -562,38 +562,6 @@ public class AndroidUtilities {
         }
     }
 
-    /**
-     * From Android MyTracks project (http://mytracks.googlecode.com/).
-     * Licensed under the Apache Public License v2
-     *
-     * @param activity
-     * @param id
-     * @return
-     */
-    public static CharSequence readFile(Context activity, int id) {
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(
-                    activity.getResources().openRawResource(id)));
-            String line;
-            StringBuilder buffer = new StringBuilder();
-            while ((line = in.readLine()) != null) {
-                buffer.append(line).append('\n');
-            }
-            return buffer;
-        } catch (IOException e) {
-            return ""; //$NON-NLS-1$
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    // Ignore
-                }
-            }
-        }
-    }
-
     public static String readInputStream(InputStream input) {
         BufferedReader in = null;
         try {

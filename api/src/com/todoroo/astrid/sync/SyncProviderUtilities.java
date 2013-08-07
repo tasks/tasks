@@ -71,11 +71,6 @@ abstract public class SyncProviderUtilities {
     }
 
     /**
-     * Returns something like "Logged in as: user@gmail.com"
-     */
-    abstract public String getLoggedInUserName();
-
-    /**
      * Sets the authentication token. Set to null to clear.
      */
     public void setToken(String setting) {

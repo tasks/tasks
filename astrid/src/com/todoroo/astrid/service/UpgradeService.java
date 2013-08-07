@@ -27,7 +27,6 @@ import com.todoroo.astrid.actfm.sync.EmptyTitleOutstandingEntryMigration;
 import com.todoroo.astrid.actfm.sync.messages.ConvertSelfUserIdsToZero;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -718,7 +717,6 @@ public final class UpgradeService {
             if (gtasksPreferenceService.isLoggedIn()) {
                 taskService.clearDetails(Criterion.all);
             }
-            Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
         }
         if (from >= V3_0_0 && from < V3_6_0) {
             newVersionString(changeLog, "3.6.0 (11/13/10)", new String[]{

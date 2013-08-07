@@ -50,11 +50,6 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     abstract public SyncProviderUtilities getUtilities();
 
     /**
-     * create a task container based on the given data
-     */
-    abstract public TYPE createContainerFromLocalTask(Task task, ArrayList<Metadata> metadata);
-
-    /**
      * @return criterion for matching all metadata keys that your provider synchronizes
      */
     abstract public Criterion getMetadataCriteria();

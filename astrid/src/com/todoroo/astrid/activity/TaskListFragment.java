@@ -268,18 +268,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     /**
-     * Convenience method for calling instantiateWithFilterAndExtras(Filter, Bundle, Class<?>) with
-     * TaskListFragment as the default component
-     *
-     * @param filter
-     * @param extras
-     * @return
-     */
-    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
-        return instantiateWithFilterAndExtras(filter, extras, null);
-    }
-
-    /**
      * Container Activity must implement this interface and we ensure that it
      * does during the onAttach() callback
      */

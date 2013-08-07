@@ -47,12 +47,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     }
 
     @Override
-    public GtasksTaskContainer createContainerFromLocalTask(Task task,
-                                                            ArrayList<Metadata> metadata) {
-        return new GtasksTaskContainer(task, metadata);
-    }
-
-    @Override
     public Criterion getLocalMatchCriteria(GtasksTaskContainer remoteTask) {
         return GtasksMetadata.ID.eq(remoteTask.gtaskMetadata.getValue(GtasksMetadata.ID));
     }

@@ -50,16 +50,10 @@ public class ContactListAdapter extends CursorAdapter {
             Email._ID, Email.CONTACT_ID, ContactsContract.Contacts.DISPLAY_NAME, Email.DATA
     };
 
-    private boolean completeSharedTags = false;
-
     public ContactListAdapter(Activity activity, Cursor c) {
         super(activity, c);
         mContent = activity.getContentResolver();
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    public void setCompleteSharedTags(boolean completeSharedTags) {
-        this.completeSharedTags = completeSharedTags;
     }
 
     @Override
@@ -155,21 +149,7 @@ public class ContactListAdapter extends CursorAdapter {
         Cursor peopleCursor = mContent.query(uri, PEOPLE_PROJECTION,
                 null, null, sort);
 
-        if (!completeSharedTags) {
-            return peopleCursor;
-        }
-
-        Criterion crit = Criterion.all;
-        if (constraint != null) {
-            crit = Functions.upper(TagData.NAME).like("%" + constraint.toString().toUpperCase() + "%");
-        } else {
-            crit = Criterion.none;
-        }
-        Cursor tagCursor = tagDataService.query(Query.select(TagData.ID, TagData.NAME, TagData.PICTURE, TagData.THUMB).
-                where(Criterion.and(TagData.USER_ID.eq(0), TagData.MEMBER_COUNT.gt(0),
-                        crit)).orderBy(Order.desc(TagData.NAME)));
-
-        return new MergeCursor(new Cursor[]{tagCursor, peopleCursor});
+        return peopleCursor;
     }
 
     private final ContentResolver mContent;

@@ -34,18 +34,6 @@ public abstract class MarketStrategy {
         return false;
     }
 
-    public static class NoMarketStrategy extends MarketStrategy {
-        @Override
-        public Intent generateMarketLink(String packageName) {
-            return null;
-        }
-
-        @Override
-        public String strategyId() {
-            return "no_market"; //$NON-NLS-1$
-        }
-    }
-
     public static class AndroidMarketStrategy extends MarketStrategy {
 
         @Override
