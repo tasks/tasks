@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
@@ -17,7 +16,6 @@ import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
 import org.astrid.R;
@@ -44,7 +42,6 @@ public class ActFmInvoker {
     private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
     private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
 
-    public static final String PROVIDER_GOOGLE = "google";
     public static final String PROVIDER_PASSWORD = "password";
 
     private static final int API_VERSION = 7;
@@ -137,40 +134,6 @@ public class ActFmInvoker {
             if (SYNC_DEBUG) {
                 AndroidUtilities.logJSONObject("act-fm-invoke-response", object);
             }
-            if (object.getString("status").equals("error")) {
-                throw new ActFmServiceException(object.getString("message"), object);
-            }
-            return object;
-        } catch (JSONException e) {
-            throw new IOException(e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Invokes API method using HTTP POST
-     *
-     * @param method        API method to invoke
-     * @param data          data to transmit
-     * @param getParameters Name/Value pairs. Values will be URL encoded.
-     * @return response object
-     */
-    public JSONObject post(String method, HttpEntity data, Object... getParameters) throws IOException {
-        try {
-            String request = createFetchUrl(null, method, getParameters);
-
-            if (SYNC_DEBUG) {
-                Log.e("act-fm-post", request);
-            }
-
-            String response = restClient.post(request, data);
-            JSONObject object = new JSONObject(response);
-
-            if (SYNC_DEBUG) {
-                AndroidUtilities.logJSONObject("act-fm-post-response", object);
-            }
-
             if (object.getString("status").equals("error")) {
                 throw new ActFmServiceException(object.getString("message"), object);
             }

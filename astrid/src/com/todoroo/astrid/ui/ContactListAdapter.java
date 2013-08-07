@@ -8,15 +8,12 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.MergeCursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.view.LayoutInflater;
@@ -27,12 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.TagDataService;
 
@@ -146,37 +138,9 @@ public class ContactListAdapter extends CursorAdapter {
         String filterParams = constraint == null ? "" : Uri.encode(constraint.toString());
         Uri uri = Uri.withAppendedPath(Email.CONTENT_FILTER_URI, filterParams);
         String sort = Email.TIMES_CONTACTED + " DESC LIMIT 20";
-        Cursor peopleCursor = mContent.query(uri, PEOPLE_PROJECTION,
-                null, null, sort);
 
-        return peopleCursor;
+        return mContent.query(uri, PEOPLE_PROJECTION, null, null, sort);
     }
 
     private final ContentResolver mContent;
-
-    /**
-     * debug method
-     */
-    public static void makeLotsOfContacts() {
-        ContentResolver cr = ContextManager.getContext().getContentResolver();
-        ContentValues personValues = new ContentValues();
-        ContentValues emailValues = new ContentValues();
-        for (int i = 0; i < 2000; i++) {
-            personValues.clear();
-            personValues.put(Contacts.People.NAME, "John " + i + " Doe");
-            Uri newPersonUri = cr.insert(Contacts.People.CONTENT_URI, personValues);
-            if (newPersonUri != null) {
-                emailValues.clear();
-                Uri emailUri = Uri.withAppendedPath(newPersonUri,
-                        Contacts.People.ContactMethods.CONTENT_DIRECTORY);
-                emailValues.put(Contacts.ContactMethods.KIND,
-                        Contacts.KIND_EMAIL);
-                emailValues.put(Contacts.ContactMethods.TYPE,
-                        Contacts.ContactMethods.TYPE_HOME);
-                emailValues.put(Contacts.ContactMethods.DATA,
-                        "john." + i + ".doe@test.com");
-                cr.insert(emailUri, emailValues);
-            }
-        }
-    }
 }

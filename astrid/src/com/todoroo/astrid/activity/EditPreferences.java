@@ -16,12 +16,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -34,7 +32,6 @@ import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
@@ -44,7 +41,6 @@ import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
-import com.todoroo.astrid.ui.ContactListAdapter;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
 import com.todoroo.astrid.utility.AstridLitePreferenceSpec;
@@ -176,8 +172,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 return true;
             }
         });
-
-        addDebugPreferences();
 
         addPreferenceListeners();
 
@@ -325,73 +319,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
 
         }
-    }
-
-
-    private void addDebugPreferences() {
-        if (!Constants.DEBUG) {
-            return;
-        }
-
-        PreferenceCategory group = new PreferenceCategory(this);
-        group.setTitle("DEBUG");
-        getPreferenceScreen().addPreference(group);
-
-        Preference preference = new Preference(this);
-        preference.setTitle("Flush detail cache");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                database.openForWriting();
-                Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(Criterion.all),
-                        Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
-        group.addPreference(preference);
-
-        preference = new Preference(this);
-        preference.setTitle("Make Lots of Tasks");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                database.openForWriting();
-                Task task = new Task();
-                for (int i = 0; i < 100; i++) {
-                    task.clear();
-                    task.setValue(Task.TITLE, Integer.toString(i));
-                    taskService.save(task);
-                }
-                DialogUtilities.okDialog(EditPreferences.this, "done", null);
-                return false;
-            }
-        });
-        group.addPreference(preference);
-
-        preference = new Preference(this);
-        preference.setTitle("Delete all tasks");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                database.openForWriting();
-                taskService.deleteWhere(Criterion.all);
-                DialogUtilities.okDialog(EditPreferences.this, "done", null);
-                return false;
-            }
-        });
-        group.addPreference(preference);
-
-        preference = new Preference(this);
-        preference.setTitle("Make lots of contacts");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                ContactListAdapter.makeLotsOfContacts();
-                DialogUtilities.okDialog(EditPreferences.this, "done", null);
-                return false;
-            }
-        });
-        group.addPreference(preference);
     }
 
     @Override
