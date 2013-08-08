@@ -71,7 +71,6 @@ import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
 
 import org.astrid.R;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

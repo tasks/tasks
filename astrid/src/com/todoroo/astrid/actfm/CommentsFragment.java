@@ -49,10 +49,7 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
 
 import org.astrid.R;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.List;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 

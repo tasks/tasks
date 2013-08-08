@@ -8,21 +8,11 @@ package com.todoroo.astrid.actfm.sync;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.utility.Pair;
-import com.todoroo.andlib.utility.Preferences;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.astrid.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.TimeZone;
 
 
@@ -101,125 +91,6 @@ public class ActFmInvoker {
      * @return response object
      */
     public JSONObject invoke(String method, Object... getParameters) throws IOException {
-        return invokeWithApi(null, method, getParameters);
+        return new JSONObject();
     }
-
-    /**
-     * Invokes API method using HTTP GET
-     *
-     * @param method        API method to invoke
-     * @param getParameters Name/Value pairs. Values will be URL encoded.
-     * @return response object
-     */
-    public JSONObject invokeWithApi(String api, String method, Object... getParameters) throws IOException {
-        try {
-            String request = createFetchUrl(api, method, getParameters);
-
-            String response = restClient.get(request);
-            JSONObject object = new JSONObject(response);
-
-            if (object.getString("status").equals("error")) {
-                throw new ActFmServiceException(object.getString("message"), object);
-            }
-            return object;
-        } catch (JSONException e) {
-            throw new IOException(e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Creates a URL for invoking an HTTP GET/POST on the given method
-     *
-     * @param method
-     * @param getParameters
-     * @return
-     * @throws UnsupportedEncodingException
-     * @throws NoSuchAlgorithmException
-     */
-    private String createFetchUrl(String api, String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        ArrayList<Pair<String, Object>> params = new ArrayList<Pair<String, Object>>();
-        for (int i = 0; i < getParameters.length; i += 2) {
-            if (getParameters[i + 1] instanceof ArrayList) {
-                ArrayList<?> list = (ArrayList<?>) getParameters[i + 1];
-                for (Object aList : list) {
-                    params.add(new Pair<String, Object>(getParameters[i].toString() + "[]",
-                            aList));
-                }
-            } else {
-                params.add(new Pair<String, Object>(getParameters[i].toString(), getParameters[i + 1]));
-            }
-        }
-        params.add(new Pair<String, Object>("app_id", APP_ID));
-        boolean syncMethod = "synchronize".equals(method);
-
-        if (!syncMethod) {
-            params.add(new Pair<String, Object>("time", System.currentTimeMillis() / 1000L));
-        }
-        if (token != null) {
-            boolean foundTokenKey = false;
-            for (Pair<String, Object> curr : params) {
-                if (curr.getLeft().equals("token")) {
-                    foundTokenKey = true;
-                    break;
-                }
-            }
-            if (!foundTokenKey) {
-                params.add(new Pair<String, Object>("token", token));
-            }
-        }
-
-        Collections.sort(params, new Comparator<Pair<String, Object>>() {
-            @Override
-            public int compare(Pair<String, Object> object1,
-                               Pair<String, Object> object2) {
-                int result = object1.getLeft().compareTo(object2.getLeft());
-                if (result == 0) {
-                    return object1.getRight().toString().compareTo(object2.getRight().toString());
-                }
-                return result;
-            }
-        });
-
-        String url = URL;
-        boolean customApi = false;
-        if (api != null) {
-            customApi = true;
-            url = url.replace("api", api);
-        }
-        if (Preferences.getBoolean(R.string.actfm_https_key, false)) {
-            url = "https:" + url;
-        } else {
-            url = "http:" + url;
-        }
-
-        StringBuilder requestBuilder = new StringBuilder(url);
-        if (!customApi) {
-            requestBuilder.append(API_VERSION).append("/");
-        }
-        requestBuilder.append(method).append('?');
-        StringBuilder sigBuilder = new StringBuilder(method);
-        for (Pair<String, Object> entry : params) {
-            if (entry.getRight() == null) {
-                continue;
-            }
-
-            String key = entry.getLeft();
-            String value = entry.getRight().toString();
-            String encoded = URLEncoder.encode(value, "UTF-8");
-
-            if (!syncMethod || "app_id".equals(key)) {
-                requestBuilder.append(key).append('=').append(encoded).append('&');
-            }
-
-            sigBuilder.append(key).append(value);
-        }
-
-        sigBuilder.append(APP_SECRET);
-        String signature = DigestUtils.md5Hex(sigBuilder.toString());
-        requestBuilder.append("sig").append('=').append(signature);
-        return requestBuilder.toString();
-    }
-
 }

@@ -22,7 +22,6 @@
     <orderEntry type="module" module-name="ActionBarSherlock" exported="" />
     <orderEntry type="module" module-name="api" exported="" />
     <orderEntry type="module" module-name="android-aac-enc" exported="" />
-    <orderEntry type="library" exported="" name="commons-codec" level="project" />
     <orderEntry type="library" exported="" name="CWAC-SackOfViewsAdapter" level="project" />
     <orderEntry type="library" exported="" name="framework" level="project" />
     <orderEntry type="library" exported="" name="rfc2445-4Mar2011" level="project" />
