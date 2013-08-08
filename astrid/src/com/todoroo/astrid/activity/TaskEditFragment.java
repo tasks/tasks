@@ -332,9 +332,6 @@ public final class TaskEditFragment extends SherlockFragment implements
         AstridActivity activity = (AstridActivity) getActivity();
 
         setUpUIComponents();
-        adjustInfoPopovers();
-
-        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
 
         overrideFinishAnim = false;
         if (activity != null) {
@@ -1245,13 +1242,6 @@ public final class TaskEditFragment extends SherlockFragment implements
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
         outState.putString(TASK_UUID, uuid);
-    }
-
-    private void adjustInfoPopovers() {
-        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
-        if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
-            Preferences.setBoolean(R.string.p_showed_lists_help, false);
-        }
     }
 
     /*

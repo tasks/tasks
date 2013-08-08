@@ -322,14 +322,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-        if (r.getString(R.string.p_account).equals(preference.getKey())) {
-            int title;
-            int summary;
-            title = R.string.account_type_title_not_logged_in;
-            summary = R.string.account_type_summary_not_logged_in;
-            preference.setTitle(title);
-            preference.setSummary(summary);
-        } else if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {
+        if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {
             try {
                 Integer valueInt = Integer.parseInt((String) value);
                 String[] titles = getResources().getStringArray(R.array.EPr_task_row_styles);
@@ -418,8 +411,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
         } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
                 R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
-        } else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
-                R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled)) {
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
         } else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {

@@ -52,14 +52,8 @@
     <!-- calendar reminders preference -->
     <string name="p_calendar_reminders">p_calendar_reminder</string>
 
-    <!-- show friends view preference -->
-    <string name="p_show_friends_view">show_friends_view</string>
-
     <!-- force tablets to use phone layout -->
     <string name="p_force_phone_layout">force_phone_layout</string>
-
-    <!-- account status section key -->
-    <string name="p_account">account</string>
 
     <!-- list view section key -->
     <string name="p_list_view">p_list_view</string>
@@ -348,9 +342,6 @@
 
     <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
 
-    <!-- use new contact picker setting -->
-    <string name="p_use_contact_picker">p_use_contact_picker</string>
-
     <!-- on calendar end at dealline if true, start at deadline if false -->
     <string name="p_end_at_deadline">p_end_at_deadline</string>
 
@@ -391,9 +382,6 @@
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_key_last_error">sync_last_error</string>
 
-    <!-- ===========================================================ACTFM == -->
-    <string name="actfm_https_key">actfmHttps</string>
-
     <!-- =========================================================== GTASKS == -->
 
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
@@ -406,17 +394,6 @@
 
     <!-- Anonymous usage statistics -->
     <string name="p_statistics">statistics</string>
-
-    <!-- ================================================= NEW USER EXPERIENCE -->
-    <!-- Preference Keys (do not translate) -->
-    <string name="p_showed_add_task_help">showed_add_task_help</string>
-    <string name="p_showed_tap_task_help">showed_tap_task_help</string>
-    <string name="p_showed_lists_help">showed_lists_help</string>
-    <string name="p_showed_list_settings_help">showed_list_settings_help</string>
-    <string name="p_showed_collaborators_help">showed_collaborators_help</string>
-    <string name="p_showed_when_shortcut">showed_when_shortcut</string>
-    <string name="p_showed_when_row">showed_when_row</string>
-    <string name="p_tutorial">tutorial</string>
 
     <!-- ============================================================ OTHER == -->
 

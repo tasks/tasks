@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -68,15 +67,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 showDeleteCompletedDialog();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.EPr_reset_sync_state));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showResetSyncStateDialog();
                 return true;
             }
         });
@@ -315,15 +305,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         });
                     }
                 }, null);
-    }
-
-    private void showResetSyncStateDialog() {
-        DialogUtilities.okCancelDialog(this, getString(R.string.EPr_reset_sync_state_detailed), new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ActFmSyncThread.clearTablePushedAtValues();
-            }
-        }, null);
     }
 
     protected void showResult(int resourceText, int result) {

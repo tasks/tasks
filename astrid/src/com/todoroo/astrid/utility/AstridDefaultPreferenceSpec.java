@@ -93,7 +93,6 @@ public class AstridDefaultPreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_fontSize, 16, ifUnset);
         setPreference(prefs, editor, r, R.string.p_showNotes, false, ifUnset);
 
-        setPreference(prefs, editor, r, R.string.p_use_contact_picker, true, ifUnset);
         setPreference(prefs, editor, r, R.string.p_field_missed_calls, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_end_at_deadline, true, ifUnset);

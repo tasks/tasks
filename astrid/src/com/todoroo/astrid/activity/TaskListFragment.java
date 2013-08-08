@@ -871,18 +871,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            if (!AstridPreferences.canShowPopover()) {
-                return;
-            }
-            quickAddBar.getQuickAddBox().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Activity activity = getActivity();
-                }
-            }, 1000);
-        }
     }
 
     /*

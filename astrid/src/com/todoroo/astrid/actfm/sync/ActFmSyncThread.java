@@ -19,7 +19,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
-import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.TaskListMetadataChangesHappened;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -158,14 +157,6 @@ public class ActFmSyncThread {
                 }
             });
             thread.start();
-        }
-    }
-
-    public static void clearTablePushedAtValues() {
-        String[] pushedAtPrefs = new String[]{NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS, NameMaps.PUSHED_AT_ACTIVITY,
-                NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA};
-        for (String key : pushedAtPrefs) {
-            Preferences.clear(key);
         }
     }
 

@@ -8,7 +8,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -31,7 +30,6 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-import org.astrid.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -439,7 +437,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
         @Override
         public void performChanges() {
-            Preferences.setBoolean(R.string.p_show_friends_view, true);
         }
     }
 

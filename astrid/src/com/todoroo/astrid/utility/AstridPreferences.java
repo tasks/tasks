@@ -9,13 +9,9 @@ package com.todoroo.astrid.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
 
 import org.astrid.R;
@@ -53,22 +49,8 @@ public class AstridPreferences {
 
         spec.setIfUnset();
 
-        setShowFriendsView();
-
         setShowFeaturedLists();
 
-    }
-
-    private static void setShowFriendsView() {
-        // Show friends view if necessary
-        boolean showFriends = false;
-        TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.ID).limit(1));
-        try {
-            showFriends = users.getCount() > 0;
-        } finally {
-            users.close();
-        }
-        Preferences.setBoolean(R.string.p_show_friends_view, showFriends);
     }
 
     private static void setShowFeaturedLists() {

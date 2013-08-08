@@ -103,8 +103,7 @@ public abstract class MarketStrategy {
                     R.string.gcal_p_default,
                     R.string.p_theme_widget,
                     R.string.p_voiceInputEnabled,
-                    R.string.p_voiceInputCreatesTask,
-                    R.string.p_use_contact_picker
+                    R.string.p_voiceInputCreatesTask
             };
         }
 
