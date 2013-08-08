@@ -8,13 +8,10 @@ package com.todoroo.astrid.actfm.sync;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
 import org.astrid.R;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +19,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,38 +116,6 @@ public class ActFmInvoker {
             String request = createFetchUrl(api, method, getParameters);
 
             String response = restClient.get(request);
-            JSONObject object = new JSONObject(response);
-
-            if (object.getString("status").equals("error")) {
-                throw new ActFmServiceException(object.getString("message"), object);
-            }
-            return object;
-        } catch (JSONException e) {
-            throw new IOException(e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public JSONObject postSync(String data, MultipartEntity entity, String tok) throws IOException {
-        try {
-            String timeString = DateUtilities.timeToIso8601(DateUtilities.now(), true);
-
-            Object[] params = {"token", tok, "data", data, "time", timeString};
-
-            String request = createFetchUrl("api/" + API_VERSION, "synchronize", params);
-            Charset chars;
-            try {
-                chars = Charset.forName("UTF-8");
-            } catch (Exception e) {
-                chars = null;
-            }
-
-            entity.addPart("token", new StringBody(tok));
-            entity.addPart("data", new StringBody(data, chars));
-            entity.addPart("time", new StringBody(timeString));
-
-            String response = restClient.post(request, entity);
             JSONObject object = new JSONObject(response);
 
             if (object.getString("status").equals("error")) {

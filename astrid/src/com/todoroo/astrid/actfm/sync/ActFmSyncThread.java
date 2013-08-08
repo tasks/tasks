@@ -1,14 +1,10 @@
 package com.todoroo.astrid.actfm.sync;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -24,8 +20,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
-import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
-import com.todoroo.astrid.actfm.sync.messages.ReplayTaskListMetadataOutstanding;
 import com.todoroo.astrid.actfm.sync.messages.TaskListMetadataChangesHappened;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -43,19 +37,11 @@ import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
-import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.widget.TasksWidget;
-
-import org.astrid.R;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -102,11 +88,7 @@ public class ActFmSyncThread {
     @Autowired
     private TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
 
-    private String token;
-
     private boolean syncMigration = false;
-
-    private boolean isTimeForBackgroundSync = false;
 
     private final NotificationManager notificationManager;
 
@@ -114,8 +96,6 @@ public class ActFmSyncThread {
 
     public static interface SyncMessageCallback {
         public void runOnSuccess();
-
-        public void runOnErrors(List<JSONArray> errors);
     }
 
     public static enum ModelType {
@@ -208,7 +188,6 @@ public class ActFmSyncThread {
     }
 
     public synchronized void setTimeForBackgroundSync(boolean isTimeForBackgroundSync) {
-        this.isTimeForBackgroundSync = isTimeForBackgroundSync;
         if (isTimeForBackgroundSync) {
             synchronized (monitor) {
                 monitor.notifyAll();
@@ -222,11 +201,7 @@ public class ActFmSyncThread {
             Intent refresh = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(refresh);
         }
-
-        @Override
-        public void runOnErrors(List<JSONArray> errors) {/**/}
     };
-
 
     private void sync() {
         try {
@@ -258,70 +233,6 @@ public class ActFmSyncThread {
         }
     }
 
-    private Map<Integer, List<JSONArray>> buildErrorMap(JSONArray errors) {
-        Map<Integer, List<JSONArray>> result = new HashMap<Integer, List<JSONArray>>();
-        if (errors != null) {
-            for (int i = 0; i < errors.length(); i++) {
-                JSONArray error = errors.optJSONArray(i);
-                if (error != null && error.length() > 0) {
-                    int index = error.optInt(0);
-                    List<JSONArray> errorList = result.get(index);
-                    if (errorList == null) {
-                        errorList = new LinkedList<JSONArray>();
-                        result.put(index, errorList);
-                    }
-                    errorList.add(error);
-                }
-            }
-        }
-        return result;
-    }
-
-    // Reapplies changes still in the outstanding tables to the local database
-    // Called after a batch has finished processing
-    private void replayOutstandingChanges(boolean afterErrors) {
-        new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, afterErrors).execute();
-        new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, afterErrors).execute();
-        new ReplayTaskListMetadataOutstanding(taskListMetadataDao, taskListMetadataOutstandingDao, afterErrors).execute();
-    }
-
-    private boolean timeForBackgroundSync() {
-        return isTimeForBackgroundSync;
-    }
-
-    private void setWidgetSuppression(boolean suppress) {
-        long date = suppress ? DateUtilities.now() : 0;
-        TasksWidget.suppressUpdateFlag = date;
-
-        if (date == 0) {
-            Context context = ContextManager.getContext();
-            if (context != null) {
-                TasksWidget.updateWidgets(context);
-            }
-        }
-    }
-
-    private JSONObject clientVersion = null;
-
-
-    private JSONObject getClientVersion() {
-        if (clientVersion == null) {
-            try {
-                PackageManager pm = ContextManager.getContext().getPackageManager();
-                PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
-                JSONObject message = new JSONObject();
-                message.put(ClientToServerMessage.TYPE_KEY, "ClientVersion");
-                message.put("platform", "android");
-                message.put("versionName", pi.versionName);
-                message.put("versionCode", pi.versionCode);
-                clientVersion = message;
-            } catch (Exception e) {
-                Log.e(ERROR_TAG, "Error getting client version", e);
-            }
-        }
-        return clientVersion;
-    }
-
     public void repopulateQueueFromOutstandingTables() {
         constructChangesHappenedFromOutstandingTable(Task.class, taskDao, taskOutstandingDao);
         constructChangesHappenedFromOutstandingTable(TagData.class, tagDataDao, tagOutstandingDao);
@@ -351,29 +262,6 @@ public class ActFmSyncThread {
         } finally {
             outstanding.close();
         }
-    }
-
-    private void setupNotification() {
-        try {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(ContextManager.getContext());
-            builder.setContentText(ContextManager.getString(R.string.actfm_sync_ongoing))
-                    .setContentTitle(ContextManager.getString(R.string.app_name))
-                    .setOngoing(true)
-                    .setSmallIcon(android.R.drawable.stat_notify_sync)
-                    .setContentIntent(PendingIntent.getActivity(ContextManager.getContext().getApplicationContext(), 0, new Intent(), 0));
-
-
-            notificationManager.notify(0, builder.getNotification());
-            notificationId = 0;
-        } catch (Exception e) {
-            Log.e(ERROR_TAG, "Exception creating notification", e); //$NON-NLS-1$
-        } catch (Error e) {
-            Log.e(ERROR_TAG, "Error creating notification", e); //$NON-NLS-1$
-        }
-    }
-
-    private boolean checkForToken() {
-        return false;
     }
 
     public static class NetworkStateChangedReceiver extends BroadcastReceiver {

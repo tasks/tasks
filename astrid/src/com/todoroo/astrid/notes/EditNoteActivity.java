@@ -146,9 +146,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 }
             }
         }
-
-        @Override
-        public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
     private static boolean respondToPicture = false;
@@ -493,9 +490,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     });
                 }
             }
-
-            @Override
-            public void runOnErrors(List<JSONArray> errors) {/**/}
         });
         new FetchHistory<Task>(taskDao, Task.HISTORY_FETCH_DATE, Task.HISTORY_HAS_MORE, NameMaps.TABLE_ID_TASKS,
                 task.getUuid(), task.getValue(Task.TITLE), task.getValue(Task.HISTORY_FETCH_DATE), 0, callback).execute();

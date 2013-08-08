@@ -321,9 +321,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
                 }
             }
         }
-
-        @Override
-        public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
     @Override
