@@ -156,19 +156,7 @@ public class CalendarAlarmListCreator extends Activity {
             @Override
             public void onClick(View v) {
                 // Set members json and save
-                if (!actFmPreferenceService.isLoggedIn()) {
-                    moreOptions.performClick();
-                    return;
-                } else {
-                    TagData tagData = new TagData();
-                    tagData.setValue(TagData.NAME, tagName);
-                    tagData.setValue(TagData.MEMBER_COUNT, emails.size());
-                    tagDataService.save(tagData);
-                    for (String email : emails) {
-                        tagMetadataDao.createMemberLink(tagData.getId(), tagData.getUuid(), email, false);
-                    }
-                    dismissWithAnimation();
-                }
+                moreOptions.performClick();
             }
         });
 

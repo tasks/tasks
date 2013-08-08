@@ -26,7 +26,6 @@ import com.todoroo.astrid.subtasks.OrderedMetadataListUpdater.OrderedListIterato
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.SyncMetadataService;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;

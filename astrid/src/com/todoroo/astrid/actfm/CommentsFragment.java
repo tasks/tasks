@@ -32,7 +32,6 @@ import android.widget.TextView.OnEditorActionListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -43,7 +42,6 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -220,7 +218,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
         });
 
         refreshUpdatesList();
-        refreshActivity(); // start a pull in the background
     }
 
     protected void resetPictureButton() {
@@ -264,9 +261,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
         if (cursor.getCount() == 0) {
             activityContainer.setVisibility(View.VISIBLE);
             TextView textView = (TextView) activityContainer.findViewById(R.id.no_activity_message);
-            if (actFmPreferenceService.isLoggedIn()) {
-                textView.setText(activity.getString(R.string.ENA_no_comments));
-            }
             listView.setVisibility(View.GONE);
         } else {
             activityContainer.setVisibility(View.GONE);
@@ -332,38 +326,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
         public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
-    protected void refreshActivity() {
-        if (actFmPreferenceService.isLoggedIn()) {
-            if (hasModel()) {
-                performFetch(doneRunnable);
-            } else {
-                doneRunnable.runOnSuccess();
-            }
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (menu.size() > 0) {
-            return;
-        }
-
-        MenuItem item;
-        boolean showCommentsRefresh = actFmPreferenceService.isLoggedIn();
-        if (showCommentsRefresh) {
-            Activity activity = getActivity();
-            if (activity instanceof TaskListActivity) {
-                TaskListActivity tla = (TaskListActivity) activity;
-                showCommentsRefresh = tla.getTaskEditFragment() == null;
-            }
-        }
-        if (showCommentsRefresh) {
-            item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.icn_menu_refresh_dark);
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle my own menus
@@ -371,7 +333,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
             case MENU_REFRESH_ID: {
 
-                refreshActivity();
                 return true;
             }
 

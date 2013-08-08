@@ -98,7 +98,7 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if (!gtasksPreferenceService.isLoggedIn() || actFmPreferenceService.isLoggedIn()) {
+        if (!gtasksPreferenceService.isLoggedIn()) {
             return null;
         }
 

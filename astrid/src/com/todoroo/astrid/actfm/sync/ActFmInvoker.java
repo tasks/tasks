@@ -5,12 +5,9 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import android.util.Log;
-
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
@@ -45,8 +42,6 @@ public class ActFmInvoker {
     public static final String PROVIDER_PASSWORD = "password";
 
     private static final int API_VERSION = 7;
-
-    public static final boolean SYNC_DEBUG = true;
 
     @Autowired
     private RestClient restClient;
@@ -124,16 +119,9 @@ public class ActFmInvoker {
         try {
             String request = createFetchUrl(api, method, getParameters);
 
-            if (SYNC_DEBUG) {
-                Log.e("act-fm-invoke", request);
-            }
-
             String response = restClient.get(request);
             JSONObject object = new JSONObject(response);
 
-            if (SYNC_DEBUG) {
-                AndroidUtilities.logJSONObject("act-fm-invoke-response", object);
-            }
             if (object.getString("status").equals("error")) {
                 throw new ActFmServiceException(object.getString("message"), object);
             }
@@ -152,9 +140,6 @@ public class ActFmInvoker {
             Object[] params = {"token", tok, "data", data, "time", timeString};
 
             String request = createFetchUrl("api/" + API_VERSION, "synchronize", params);
-            if (SYNC_DEBUG) {
-                Log.e("act-fm-post", request);
-            }
             Charset chars;
             try {
                 chars = Charset.forName("UTF-8");
@@ -168,10 +153,6 @@ public class ActFmInvoker {
 
             String response = restClient.post(request, entity);
             JSONObject object = new JSONObject(response);
-
-            if (SYNC_DEBUG) {
-                AndroidUtilities.logJSONObject("act-fm-post-response", object);
-            }
 
             if (object.getString("status").equals("error")) {
                 throw new ActFmServiceException(object.getString("message"), object);

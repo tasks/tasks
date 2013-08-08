@@ -212,18 +212,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
         setUpInterface();
         setUpListAdapter();
-
-        if (actFmPreferenceService.isLoggedIn()) {
-            long pushedAt = task.getValue(Task.USER_ACTIVITIES_PUSHED_AT);
-            if (DateUtilities.now() - pushedAt > DateUtilities.ONE_HOUR / 2) {
-                refreshData();
-            } else {
-                loadingText.setText(R.string.ENA_no_comments);
-                if (items.size() == 0) {
-                    loadingText.setVisibility(View.VISIBLE);
-                }
-            }
-        }
     }
 
 

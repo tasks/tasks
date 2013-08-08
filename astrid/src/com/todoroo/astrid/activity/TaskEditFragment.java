@@ -1111,10 +1111,6 @@ public final class TaskEditFragment extends SherlockFragment implements
     }
 
     private void createNewFileAttachment(String path, String fileName, String fileType) {
-        if (!ActFmPreferenceService.isPremiumUser()) {
-            return;
-        }
-
         TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
         taskAttachmentDao.createNew(attachment);
         filesControlSet.refreshMetadata();
@@ -1166,15 +1162,13 @@ public final class TaskEditFragment extends SherlockFragment implements
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item;
 
-        if (ActFmPreferenceService.isPremiumUser()) {
-            item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_attach));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_attach));
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-            item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-            item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_mic));
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+        item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_mic));
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         boolean useSaveAndCancel = Preferences.getBoolean(R.string.p_save_and_cancel, false);
 
@@ -1190,17 +1184,6 @@ public final class TaskEditFragment extends SherlockFragment implements
                 item.setIcon(ThemeService.getDrawable(R.drawable.ic_menu_save));
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             }
-        }
-
-        boolean wouldShowComments = actFmPreferenceService.isLoggedIn() && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null;
-        if (wouldShowComments && showEditComments) {
-            item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
-                    R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.icn_menu_refresh_dark);
-        } else if (wouldShowComments && !showEditComments) {
-            item = menu.add(Menu.NONE, MENU_SHOW_COMMENTS_ID, Menu.NONE, R.string.TEA_menu_comments);
-            item.setIcon(commentIcon);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
     }
 

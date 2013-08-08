@@ -115,9 +115,6 @@ public final class GtasksSyncService {
                 if (model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
                     return;
                 }
-                if (actFmPreferenceService.isLoggedIn()) {
-                    return;
-                }
                 if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync
                 {
                     return;
@@ -201,9 +198,6 @@ public final class GtasksSyncService {
         if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
             return;
         }
-        if (actFmPreferenceService.isLoggedIn()) {
-            return;
-        }
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
         {
             return;
@@ -223,9 +217,6 @@ public final class GtasksSyncService {
      * Synchronize with server when data changes
      */
     public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker, boolean sleep) throws IOException {
-        if (actFmPreferenceService.isLoggedIn()) {
-            return;
-        }
 
         if (sleep) {
             AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
@@ -335,9 +326,6 @@ public final class GtasksSyncService {
     }
 
     public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
-        if (actFmPreferenceService.isLoggedIn()) {
-            return;
-        }
         AndroidUtilities.sleepDeep(1000L);
 
         String taskId = model.getValue(GtasksMetadata.ID);

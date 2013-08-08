@@ -34,7 +34,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
@@ -164,34 +163,32 @@ public class FilesControlSet extends PopupControlSet {
 
             setupFileClickListener(name, m);
 
-            if (ActFmPreferenceService.isPremiumUser()) {
-                clearFile.setVisibility(View.VISIBLE);
-                clearFile.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface d, int which) {
-                                        if (RemoteModel.isValidUuid(m.getValue(TaskAttachment.UUID))) {
-                                            m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
-                                            taskAttachmentDao.saveExisting(m);
-                                        } else {
-                                            taskAttachmentDao.delete(m.getId());
-                                        }
-
-                                        if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                                            File f = new File(m.getValue(TaskAttachment.FILE_PATH));
-                                            f.delete();
-                                        }
-                                        files.remove(m);
-                                        refreshDisplayView();
-                                        finalList.removeView(fileRow);
+            clearFile.setVisibility(View.VISIBLE);
+            clearFile.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface d, int which) {
+                                    if (RemoteModel.isValidUuid(m.getValue(TaskAttachment.UUID))) {
+                                        m.setValue(TaskAttachment.DELETED_AT, DateUtilities.now());
+                                        taskAttachmentDao.saveExisting(m);
+                                    } else {
+                                        taskAttachmentDao.delete(m.getId());
                                     }
-                                }, null);
-                    }
-                });
-            }
+
+                                    if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                                        File f = new File(m.getValue(TaskAttachment.FILE_PATH));
+                                        f.delete();
+                                    }
+                                    files.remove(m);
+                                    refreshDisplayView();
+                                    finalList.removeView(fileRow);
+                                }
+                            }, null);
+                }
+            });
         }
     }
 

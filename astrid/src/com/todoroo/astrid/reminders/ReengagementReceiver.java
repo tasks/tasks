@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -35,7 +34,6 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
 import org.astrid.R;
-import org.json.JSONObject;
 
 public class ReengagementReceiver extends BroadcastReceiver {
 
@@ -74,16 +72,6 @@ public class ReengagementReceiver extends BroadcastReceiver {
         String title = Notifications.getRandomReminder(context.getResources().getStringArray(R.array.rmd_reengage_notif_titles));
         if (title.contains("%s")) { //$NON-NLS-1$
             String name = ""; //$NON-NLS-1$
-            if (actFmPreferenceService.isLoggedIn()) {
-                JSONObject thisUser = ActFmPreferenceService.thisUser();
-                name = thisUser.optString("first_name"); //$NON-NLS-1$
-                if (TextUtils.isEmpty(name)) {
-                    name = thisUser.optString("name"); //$NON-NLS-1$
-                }
-                if (TextUtils.isEmpty(name)) {
-                    name = context.getString(R.string.rmd_reengage_name_default);
-                }
-            }
             title = String.format(title, name);
         }
 

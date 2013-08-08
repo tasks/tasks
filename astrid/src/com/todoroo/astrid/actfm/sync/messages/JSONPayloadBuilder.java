@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
-import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-
 import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONObject;
 
@@ -25,9 +23,7 @@ public class JSONPayloadBuilder {
         try {
             temp.delete(0, temp.length());
             if (obj != null) {
-                temp.append(obj)
-                        .append(","); //$NON-NLS-1$
-                ActFmSyncThread.syncLog(temp.toString());
+                temp.append(obj).append(","); //$NON-NLS-1$
 
                 sb.append(temp);
 

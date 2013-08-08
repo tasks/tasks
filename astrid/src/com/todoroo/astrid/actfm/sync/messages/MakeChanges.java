@@ -9,7 +9,6 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.HistoryDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -297,10 +296,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
 
         private void uuidChanged(String fromUuid, String toUuid) {
-            if (ActFmInvoker.SYNC_DEBUG) {
-                Log.e(ERROR_TAG, "Task UUID collision -- old uuid: " + fromUuid + ", new uuid: " + toUuid);
-            }
-
             // Update reference from UserActivity to task uuid
             UserActivityDao activityDao = PluginServices.getUserActivityDao();
             UserActivity activityTemplate = new UserActivity();
@@ -403,10 +398,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
 
         private void uuidChanged(String fromUuid, String toUuid) {
-            if (ActFmInvoker.SYNC_DEBUG) {
-                Log.e(ERROR_TAG, "Tag UUID collision -- old uuid: " + fromUuid + ", new uuid: " + toUuid);
-            }
-
             UserActivityDao activityDao = PluginServices.getUserActivityDao();
             UserActivity activityTemplate = new UserActivity();
             activityTemplate.setValue(UserActivity.TARGET_ID, toUuid);

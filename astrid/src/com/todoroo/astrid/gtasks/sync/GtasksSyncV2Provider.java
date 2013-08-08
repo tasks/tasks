@@ -126,7 +126,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Override
     public boolean isActive() {
-        return gtasksPreferenceService.isLoggedIn() && !actFmPreferenceService.isLoggedIn();
+        return gtasksPreferenceService.isLoggedIn();
     }
 
     public static class GtasksImportTuple {
@@ -154,14 +154,10 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Override
     public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
         // TODO: Improve this logic. Should only be able to import from settings or something.
-        final boolean isImport = actFmPreferenceService.isLoggedIn();
-        if (isImport && !manual) {
-            return;
-        }
+        final boolean isImport = false;
 
         callback.started();
         callback.incrementMax(100);
-
 
         gtasksPreferenceService.recordSyncStart();
 
@@ -246,7 +242,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             return;
         }
 
-        final boolean isImport = actFmPreferenceService.isLoggedIn();
+        final boolean isImport = false;
 
         callback.started();
         callback.incrementMax(100);
@@ -378,9 +374,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void write(GtasksTaskContainer task) throws IOException {
         //  merge astrid dates with google dates
-        if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn()) {
-            titleMatchWithActFm(task.task);
-        }
 
         if (task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);

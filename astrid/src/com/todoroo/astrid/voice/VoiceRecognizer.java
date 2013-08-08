@@ -22,7 +22,6 @@ import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.astrid.R;
@@ -37,8 +36,7 @@ public class VoiceRecognizer {
     protected VoiceInputAssistant voiceInputAssistant;
 
     public static boolean speechRecordingAvailable(Context context) {
-        return ActFmPreferenceService.isPremiumUser() &&
-                AndroidUtilities.getSdkVersion() >= 8 &&
+        return AndroidUtilities.getSdkVersion() >= 8 &&
                 SpeechRecognizer.isRecognitionAvailable(context);
     }
 

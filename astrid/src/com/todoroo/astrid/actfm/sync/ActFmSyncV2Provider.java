@@ -78,7 +78,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     @Override
     public boolean isActive() {
-        return actFmPreferenceService.isLoggedIn();
+        return false;
     }
 
     // --- synchronize active tasks

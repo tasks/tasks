@@ -328,13 +328,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
         if (r.getString(R.string.p_account).equals(preference.getKey())) {
             int title;
             int summary;
-            if (!actFmPreferenceService.isLoggedIn()) {
-                title = R.string.account_type_title_not_logged_in;
-                summary = R.string.account_type_summary_not_logged_in;
-            } else {
-                title = R.string.actfm_account_info;
-                summary = R.string.actfm_account_info_summary;
-            }
+            title = R.string.account_type_title_not_logged_in;
+            summary = R.string.account_type_summary_not_logged_in;
             preference.setTitle(title);
             preference.setSummary(summary);
         } else if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {

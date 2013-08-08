@@ -111,10 +111,6 @@ public class AstridNewSyncMigrator {
                     tag.clear();
                     tag.readFromCursor(noTagData);
 
-                    if (ActFmInvoker.SYNC_DEBUG) {
-                        Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TaskToTagMetadata.TAG_NAME));
-                    }
-
                     newTagData.setValue(TagData.NAME, tag.getValue(TaskToTagMetadata.TAG_NAME));
                     tagDataService.save(newTagData);
                 } catch (Exception e) {
@@ -126,6 +122,7 @@ public class AstridNewSyncMigrator {
         } finally {
             if (noTagData != null) {
                 noTagData.close();
+
             }
         }
 
@@ -361,9 +358,6 @@ public class AstridNewSyncMigrator {
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     }
 
-                    if (!ActFmPreferenceService.isPremiumUser()) {
-                        attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                    }
                     taskAttachmentDao.createNew(attachment);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
@@ -461,21 +455,11 @@ public class AstridNewSyncMigrator {
                     m.clear(); // Need this since some properties may be null
                     m.readFromCursor(incompleteMetadata);
 
-                    if (ActFmInvoker.SYNC_DEBUG) {
-                        Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
-                    }
-
                     if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.isUuidEmpty(m.getValue(TaskToTagMetadata.TASK_UUID))) {
-                        if (ActFmInvoker.SYNC_DEBUG) {
-                            Log.w(LOG_TAG, "No task uuid");
-                        }
                         updateTaskUuid(m);
                     }
 
                     if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.isUuidEmpty(m.getValue(TaskToTagMetadata.TAG_UUID))) {
-                        if (ActFmInvoker.SYNC_DEBUG) {
-                            Log.w(LOG_TAG, "No tag uuid");
-                        }
                         updateTagUuid(m);
                     }
 
@@ -622,14 +606,8 @@ public class AstridNewSyncMigrator {
         long taskId = m.getValue(Metadata.TASK);
         Task task = taskDao.fetch(taskId, Task.UUID);
         if (task != null) {
-            if (ActFmInvoker.SYNC_DEBUG) {
-                Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.UUID));
-            }
             m.setValue(TaskToTagMetadata.TASK_UUID, task.getValue(Task.UUID));
         } else {
-            if (ActFmInvoker.SYNC_DEBUG) {
-                Log.w(LOG_TAG, "Task not found, deleting link");
-            }
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
     }
@@ -638,14 +616,8 @@ public class AstridNewSyncMigrator {
         String tag = m.getValue(TaskToTagMetadata.TAG_NAME);
         TagData tagData = tagDataService.getTagByName(tag, TagData.UUID);
         if (tagData != null) {
-            if (ActFmInvoker.SYNC_DEBUG) {
-                Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));
-            }
             m.setValue(TaskToTagMetadata.TAG_UUID, tagData.getValue(TagData.UUID));
         } else {
-            if (ActFmInvoker.SYNC_DEBUG) {
-                Log.w(LOG_TAG, "Tag not found, deleting link");
-            }
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
     }

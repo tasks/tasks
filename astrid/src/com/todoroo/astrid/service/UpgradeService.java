@@ -304,9 +304,7 @@ public final class UpgradeService {
         }
 
         if (from < V4_6_3) {
-            if (ActFmPreferenceService.isPremiumUser()) {
-                Preferences.clear(NameMaps.PUSHED_AT_TAGS);
-            }
+            Preferences.clear(NameMaps.PUSHED_AT_TAGS);
             Preferences.setLong(TaskListFragment.PREF_LAST_FEEDBACK_TIME, DateUtilities.now());
         }
     }

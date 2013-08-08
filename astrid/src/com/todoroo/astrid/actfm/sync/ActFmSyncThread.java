@@ -21,14 +21,11 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.actfm.sync.messages.ChangesHappened;
 import com.todoroo.astrid.actfm.sync.messages.ClientToServerMessage;
-import com.todoroo.astrid.actfm.sync.messages.JSONPayloadBuilder;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.actfm.sync.messages.ReplayOutstandingEntries;
 import com.todoroo.astrid.actfm.sync.messages.ReplayTaskListMetadataOutstanding;
-import com.todoroo.astrid.actfm.sync.messages.ServerToClientMessage;
 import com.todoroo.astrid.actfm.sync.messages.TaskListMetadataChangesHappened;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -52,25 +49,19 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.TaskListMetadataOutstanding;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget;
 
-import org.apache.http.entity.mime.MultipartEntity;
 import org.astrid.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ActFmSyncThread {
 
@@ -150,7 +141,7 @@ public class ActFmSyncThread {
     }
 
     public static void initializeSyncComponents(TaskDao taskDao, TagDataDao tagDataDao, UserActivityDao userActivityDao,
-                                                           TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao) {
+                                                TaskAttachmentDao taskAttachmentDao, TaskListMetadataDao taskListMetadataDao) {
         if (instance == null) {
             synchronized (ActFmSyncThread.class) {
                 if (instance == null) {
@@ -239,13 +230,11 @@ public class ActFmSyncThread {
 
     private void sync() {
         try {
-            int batchSize = 4;
-            List<ClientToServerMessage<?>> messageBatch = new ArrayList<ClientToServerMessage<?>>();
             while (true) {
                 synchronized (monitor) {
-                    while (pendingMessages.isEmpty() && !timeForBackgroundSync() || !actFmPreferenceService.isLoggedIn() || !syncMigration) {
+                    while (true) {
                         try {
-                            if ((pendingMessages.isEmpty() || !actFmPreferenceService.isLoggedIn()) && notificationId >= 0) {
+                            if (notificationId >= 0) {
                                 notificationManager.cancel(notificationId);
                                 notificationId = -1;
                             }
@@ -260,108 +249,6 @@ public class ActFmSyncThread {
                         }
                     }
                 }
-
-                boolean recordSyncSuccess = true;
-                if (timeForBackgroundSync()) {
-                    repopulateQueueFromOutstandingTables();
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TaskListMetadata.class, NameMaps.PUSHED_AT_TASK_LIST_METADATA), DEFAULT_REFRESH_RUNNABLE);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(Task.class, NameMaps.PUSHED_AT_TASKS), DEFAULT_REFRESH_RUNNABLE);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(TagData.class, NameMaps.PUSHED_AT_TAGS), DEFAULT_REFRESH_RUNNABLE);
-                    enqueueMessage(BriefMe.instantiateBriefMeForClass(User.class, NameMaps.PUSHED_AT_USERS), DEFAULT_REFRESH_RUNNABLE);
-                    setTimeForBackgroundSync(false);
-                }
-
-                while (messageBatch.size() < batchSize && !pendingMessages.isEmpty()) {
-                    ClientToServerMessage<?> message = pendingMessages.remove(0);
-                    if (message != null) {
-                        messageBatch.add(message);
-                    }
-                }
-
-                if (!messageBatch.isEmpty() && checkForToken()) {
-                    JSONPayloadBuilder payload = new JSONPayloadBuilder();
-                    MultipartEntity entity = new MultipartEntity();
-                    for (int i = 0; i < messageBatch.size(); i++) {
-                        ClientToServerMessage<?> message = messageBatch.get(i);
-                        boolean success = payload.addMessage(message, entity);
-                        if (success) {
-                            if (message instanceof ChangesHappened) {
-                            }
-                        } else {
-                            messageBatch.remove(i);
-                            i--;
-                        }
-
-                    }
-
-                    if (payload.getMessageCount() == 0) {
-                        messageBatch.clear();
-                        continue;
-                    }
-
-                    setupNotification();
-
-                    payload.addJSONObject(getClientVersion());
-
-                    JSONArray errors = null;
-                    try {
-                        JSONObject response = actFmInvoker.postSync(payload.closeAndReturnString(), entity, token);
-                        // process responses
-                        String time = response.optString("time");
-                        JSONArray serverMessagesJson = response.optJSONArray("messages");
-                        if (serverMessagesJson != null) {
-                            setWidgetSuppression(true);
-                            for (int i = 0; i < serverMessagesJson.length(); i++) {
-                                JSONObject serverMessageJson = serverMessagesJson.optJSONObject(i);
-                                if (serverMessageJson != null) {
-                                    ServerToClientMessage serverMessage = ServerToClientMessage.instantiateMessage(serverMessageJson);
-                                    if (serverMessage != null) {
-                                        serverMessage.processMessage(time);
-                                    } else {
-                                        syncLog("Index " + i + " unable to instantiate message " + serverMessageJson.toString());
-                                    }
-                                }
-                            }
-                            errors = response.optJSONArray("errors");
-                            boolean errorsExist = errors != null && errors.length() > 0;
-                            replayOutstandingChanges(errorsExist);
-                            setWidgetSuppression(false);
-                        }
-
-                        batchSize = Math.max(12, Math.min(batchSize, messageBatch.size()) * 2);
-
-                        if (recordSyncSuccess) {
-                            actFmPreferenceService.setLastError(null, null);
-                            actFmPreferenceService.recordSuccessfulSync();
-                        }
-                    } catch (IOException e) {
-                        Log.e(ERROR_TAG, "IOException", e);
-                        batchSize = Math.max(batchSize / 2, 1);
-                    }
-
-                    Set<SyncMessageCallback> callbacksExecutedThisLoop = new HashSet<SyncMessageCallback>();
-                    Map<Integer, List<JSONArray>> errorMap = buildErrorMap(errors);
-                    for (int i = 0; i < messageBatch.size(); i++) {
-                        ClientToServerMessage<?> message = messageBatch.get(i);
-                        try {
-                            SyncMessageCallback r = pendingCallbacks.remove(message);
-                            if (r != null && !callbacksExecutedThisLoop.contains(r)) {
-                                List<JSONArray> errorList = errorMap.get(i);
-                                if (errorList == null || errorList.isEmpty()) {
-                                    r.runOnSuccess();
-                                } else {
-                                    r.runOnErrors(errorList);
-                                }
-
-                                callbacksExecutedThisLoop.add(r);
-                            }
-                        } catch (Exception e) {
-                            Log.e(ERROR_TAG, "Unexpected exception executing sync callback", e);
-                        }
-                    }
-
-                    messageBatch.clear();
-                }
             }
         } catch (Exception e) {
             // In the worst case, restart thread if something goes wrong
@@ -369,7 +256,6 @@ public class ActFmSyncThread {
             thread = null;
             startSyncThread();
         }
-
     }
 
     private Map<Integer, List<JSONArray>> buildErrorMap(JSONArray errors) {
@@ -394,7 +280,6 @@ public class ActFmSyncThread {
     // Reapplies changes still in the outstanding tables to the local database
     // Called after a batch has finished processing
     private void replayOutstandingChanges(boolean afterErrors) {
-        syncLog("Replaying outstanding changes"); //$NON-NLS-1$
         new ReplayOutstandingEntries<Task, TaskOutstanding>(Task.class, NameMaps.TABLE_ID_TASKS, taskDao, taskOutstandingDao, afterErrors).execute();
         new ReplayOutstandingEntries<TagData, TagOutstanding>(TagData.class, NameMaps.TABLE_ID_TAGS, tagDataDao, tagOutstandingDao, afterErrors).execute();
         new ReplayTaskListMetadataOutstanding(taskListMetadataDao, taskListMetadataOutstandingDao, afterErrors).execute();
@@ -438,7 +323,6 @@ public class ActFmSyncThread {
     }
 
     public void repopulateQueueFromOutstandingTables() {
-        syncLog("Constructing queue from outstanding tables"); //$NON-NLS-1$
         constructChangesHappenedFromOutstandingTable(Task.class, taskDao, taskOutstandingDao);
         constructChangesHappenedFromOutstandingTable(TagData.class, tagDataDao, tagOutstandingDao);
         constructChangesHappenedFromOutstandingTable(UserActivity.class, userActivityDao, userActivityOutstandingDao);
@@ -489,17 +373,7 @@ public class ActFmSyncThread {
     }
 
     private boolean checkForToken() {
-        if (!actFmPreferenceService.isLoggedIn()) {
-            return false;
-        }
-        token = actFmPreferenceService.getToken();
-        return true;
-    }
-
-    public static void syncLog(String message) {
-        if (ActFmInvoker.SYNC_DEBUG) {
-            Log.e(ERROR_TAG, message);
-        }
+        return false;
     }
 
     public static class NetworkStateChangedReceiver extends BroadcastReceiver {

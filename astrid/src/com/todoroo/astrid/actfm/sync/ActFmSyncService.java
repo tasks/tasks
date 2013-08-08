@@ -5,12 +5,10 @@
  */
 package com.todoroo.astrid.actfm.sync;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.TagDataService;
@@ -19,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Service for synchronizing data on Astrid.com server with local.
@@ -67,11 +64,7 @@ public final class ActFmSyncService {
     }
 
     private boolean checkForToken() {
-        if (!actFmPreferenceService.isLoggedIn()) {
-            return false;
-        }
-        token = actFmPreferenceService.getToken();
-        return true;
+        return false;
     }
 
     // --- json reader helper
