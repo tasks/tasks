@@ -14,7 +14,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.TagMetadataDao;
@@ -41,9 +40,6 @@ public class CalendarAlarmListCreator extends Activity {
 
     @Autowired
     private TagDataService tagDataService;
-
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
     private TagMetadataDao tagMetadataDao;

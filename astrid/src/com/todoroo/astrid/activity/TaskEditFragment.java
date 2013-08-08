@@ -56,7 +56,6 @@ import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.CommentsActivity;
 import com.todoroo.astrid.actfm.TaskCommentsFragment;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskOutstandingDao;
@@ -205,9 +204,6 @@ public final class TaskEditFragment extends SherlockFragment implements
 
     @Autowired
     private TaskAttachmentDao taskAttachmentDao;
-
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
     private UserDao userDao;

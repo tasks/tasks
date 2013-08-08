@@ -10,7 +10,6 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -29,8 +28,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired
     private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
+
     @Autowired
     private TagService tagService;
 

@@ -23,7 +23,6 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -49,10 +48,9 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
 
     @Autowired
     private GtasksListService gtasksListService;
+
     @Autowired
     private GtasksPreferenceService gtasksPreferenceService;
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
 
     static {
         AstridDependencyInjector.initialize();

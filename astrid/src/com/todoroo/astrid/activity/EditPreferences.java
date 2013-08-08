@@ -29,7 +29,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -79,8 +78,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Autowired
     private TaskService taskService;
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
     private Database database;

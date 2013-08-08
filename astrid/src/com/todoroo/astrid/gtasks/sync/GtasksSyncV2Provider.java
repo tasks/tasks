@@ -18,7 +18,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -70,8 +69,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     MetadataDao metadataDao;
     @Autowired
     StoreObjectDao storeObjectDao;
-    @Autowired
-    ActFmPreferenceService actFmPreferenceService;
     @Autowired
     GtasksPreferenceService gtasksPreferenceService;
     @Autowired

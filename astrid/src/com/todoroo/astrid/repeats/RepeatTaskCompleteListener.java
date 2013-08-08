@@ -18,11 +18,9 @@ import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
@@ -39,9 +37,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
-
-    @Autowired
-    ActFmPreferenceService actFmPreferenceService;
 
     @Override
     public void onReceive(Context context, Intent intent) {

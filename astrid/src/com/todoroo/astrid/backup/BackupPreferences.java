@@ -14,13 +14,11 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 
 import org.astrid.R;
 
@@ -39,9 +37,6 @@ public class BackupPreferences extends TodorooPreferenceActivity {
     static final String PREF_BACKUP_LAST_ERROR = "backupError"; //$NON-NLS-1$
 
     private int statusColor = Color.BLACK;
-
-    @Autowired
-    private ActFmPreferenceService actFmPreferenceService;
 
     @Override
     public int getPreferenceResource() {

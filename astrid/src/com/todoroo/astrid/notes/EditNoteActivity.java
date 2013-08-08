@@ -43,7 +43,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
@@ -92,8 +91,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     @Autowired
     ActFmSyncService actFmSyncService;
-    @Autowired
-    ActFmPreferenceService actFmPreferenceService;
     @Autowired
     MetadataService metadataService;
     @Autowired
