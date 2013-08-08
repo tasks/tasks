@@ -38,7 +38,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread.SyncMessageCallback;
 import com.todoroo.astrid.actfm.sync.messages.NameMaps;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -76,11 +75,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     protected Resources resources;
 
-
-    @Autowired
-    ActFmSyncService actFmSyncService;
     @Autowired
     ActFmPreferenceService actFmPreferenceService;
+
     @Autowired
     UserActivityDao userActivityDao;
 

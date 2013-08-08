@@ -39,7 +39,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
@@ -90,9 +89,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     @Autowired
     TagDataService tagDataService;
-
-    @Autowired
-    ActFmSyncService actFmSyncService;
 
     @Autowired
     ActFmPreferenceService actFmPreferenceService;
@@ -427,7 +423,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                         user.readFromCursor(members);
                         try {
                             JSONObject userJson = new JSONObject();
-                            ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
+                            User.JsonHelper.jsonFromUser(userJson, user);
                             people.put(userJson);
                         } catch (JSONException e2) {
                             //
@@ -463,7 +459,7 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 if (u != null) {
                     try {
                         JSONObject owner = new JSONObject();
-                        ActFmSyncService.JsonHelper.jsonFromUser(owner, u);
+                        User.JsonHelper.jsonFromUser(owner, u);
                         owner.put("owner", true);
                         people.put(owner);
                     } catch (JSONException e2) {

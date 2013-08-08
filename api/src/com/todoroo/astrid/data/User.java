@@ -18,6 +18,9 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Data Model which represents a user.
  *
@@ -25,6 +28,16 @@ import com.todoroo.astrid.api.AstridApiConstants;
  */
 
 public final class User extends RemoteModel {
+
+    public static class JsonHelper {
+        public static void jsonFromUser(JSONObject json, User model) throws JSONException {
+            json.put("id", model.getValue(User.UUID));
+            json.put("name", model.getDisplayName());
+            json.put("email", model.getValue(User.EMAIL));
+            json.put("picture", model.getPictureUrl(User.PICTURE, RemoteModel.PICTURE_THUMB));
+            json.put("first_name", model.getValue(User.FIRST_NAME));
+        }
+    }
 
     // --- table and uri
 

@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -43,13 +42,12 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
     @Autowired
     TaskService taskService;
-    @Autowired
-    MetadataService metadataService;
-    @Autowired
-    Database database;
 
     @Autowired
-    ActFmSyncService actFmSyncService;
+    MetadataService metadataService;
+
+    @Autowired
+    Database database;
 
     ProgressDialog pd;
 

@@ -59,9 +59,6 @@ public class ActFmSyncThread {
     private Thread thread;
 
     @Autowired
-    private ActFmInvoker actFmInvoker;
-
-    @Autowired
     private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
