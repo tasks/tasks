@@ -200,7 +200,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
                                         emailIntent.setType("plain/text")
-                                                .putExtra(Intent.EXTRA_EMAIL, new String[]{"android-bugs@astrid.com"})
+                                                .putExtra(Intent.EXTRA_EMAIL, new String[]{"baker.alex@gmail.com"})
                                                 .putExtra(Intent.EXTRA_SUBJECT, service + " Sync Error")
                                                 .putExtra(Intent.EXTRA_TEXT, lastErrorFull);
                                         startActivity(Intent.createChooser(emailIntent, r.getString(R.string.sync_SPr_send_report)));
