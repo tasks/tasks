@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="UPDATE_PROPERTY_FILES" value="true" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/common-src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/plugin-src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src-legacy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="android-support-v41" level="project" />
+    <orderEntry type="library" exported="" name="google-api-services-tasks" level="project" />
+    <orderEntry type="module" module-name="GreenDroid" exported="" />
+    <orderEntry type="module" module-name="ViewPagerIndicator" exported="" />
+    <orderEntry type="module" module-name="ActionBarSherlock" exported="" />
+    <orderEntry type="module" module-name="api" exported="" />
+    <orderEntry type="module" module-name="android-aac-enc" exported="" />
+    <orderEntry type="library" exported="" name="commons-codec" level="project" />
+    <orderEntry type="library" exported="" name="CWAC-SackOfViewsAdapter" level="project" />
+    <orderEntry type="library" exported="" name="framework" level="project" />
+    <orderEntry type="library" exported="" name="rfc2445-4Mar2011" level="project" />
+    <orderEntry type="library" exported="" name="locale_platform" level="project" />
+    <orderEntry type="library" exported="" name="jsr305" level="project" />
+    <orderEntry type="library" exported="" name="jchronic" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-asl" level="project" />
+    <orderEntry type="library" exported="" name="httpmime" level="project" />
+    <orderEntry type="library" exported="" name="guava" level="project" />
+    <orderEntry type="library" exported="" name="gson" level="project" />
+    <orderEntry type="library" exported="" name="gcm" level="project" />
+    <orderEntry type="library" exported="" name="google-oauth-client" level="project" />
+    <orderEntry type="library" exported="" name="google-http-client" level="project" />
+    <orderEntry type="library" exported="" name="googleloginclient-helper" level="project" />
+    <orderEntry type="library" exported="" name="google-api-client" level="project" />
+    <orderEntry type="library" name="crittercism" level="project" />
+    <orderEntry type="library" name="findbugs-annotations" level="project" />
+    <orderEntry type="module" module-name="facebook" />
+  </component>
+</module>
+

@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Astrid" type="AndroidRunConfigurationType" factoryName="Android Application">
+    <module name="astrid" />
+    <option name="ACTIVITY_CLASS" value="" />
+    <option name="MODE" value="default_activity" />
+    <option name="DEPLOY" value="true" />
+    <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+    <option name="PREFERRED_AVD" value="" />
+    <option name="USE_COMMAND_LINE" value="true" />
+    <option name="COMMAND_LINE" value="" />
+    <option name="WIPE_USER_DATA" value="false" />
+    <option name="DISABLE_BOOT_ANIMATION" value="false" />
+    <option name="NETWORK_SPEED" value="full" />
+    <option name="NETWORK_LATENCY" value="none" />
+    <option name="CLEAR_LOGCAT" value="false" />
+    <RunnerSettings RunnerId="AndroidDebugRunner" />
+    <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+    <method />
+  </configuration>
+</component>

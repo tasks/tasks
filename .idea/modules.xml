@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/actionbarsherlock/library/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/actionbarsherlock/library/ActionBarSherlock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greendroid/GreenDroid/GreenDroid.iml" filepath="$PROJECT_DIR$/greendroid/GreenDroid/GreenDroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewPagerIndicator/library/ViewPagerIndicator.iml" filepath="$PROJECT_DIR$/viewPagerIndicator/library/ViewPagerIndicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-aac-enc/android-aac-enc.iml" filepath="$PROJECT_DIR$/android-aac-enc/android-aac-enc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/api.iml" filepath="$PROJECT_DIR$/api/api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/astrid/astrid.iml" filepath="$PROJECT_DIR$/astrid/astrid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/facebook/facebook/facebook.iml" filepath="$PROJECT_DIR$/facebook/facebook/facebook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tests-sync/tests-sync.iml" filepath="$PROJECT_DIR$/tests-sync/tests-sync.iml" />
+    </modules>
+  </component>
+</project>
+

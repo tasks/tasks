@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CWAC-SackOfViewsAdapter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/astrid/libs/CWAC-SackOfViewsAdapter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

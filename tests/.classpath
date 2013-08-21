@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry excluding="com/todoroo/astrid/legacy/data/|com/todoroo/astrid/legacy/data/alerts/|com/todoroo/astrid/legacy/data/enums/|com/todoroo/astrid/legacy/data/sync/|com/todoroo/astrid/legacy/data/tag/|com/todoroo/astrid/legacy/data/task/|com/todoroo/astrid/upgrade/" kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/astrid"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="output" path="bin/classes"/>
-</classpath>
