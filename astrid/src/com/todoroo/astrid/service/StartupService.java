@@ -25,7 +25,6 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -148,10 +147,6 @@ public class StartupService {
 
         // sets up context manager
         ContextManager.setContext(context);
-
-        if(!StatisticsService.dontCollectStatistics()) {
-            Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID);
-        }
 
         try {
             database.openForWriting();
@@ -344,9 +339,7 @@ public class StartupService {
                 File[] children = directory.listFiles();
                 AndroidUtilities.sortFilesByDateDesc(children);
                 if(children.length > 0) {
-                    StatisticsService.sessionStart(context);
                     TasksXmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
-                    StatisticsService.reportEvent(StatisticsConstants.LOST_TASKS_RESTORED);
                 }
             }
         } catch (Exception e) {
@@ -359,7 +352,6 @@ public class StartupService {
     private void checkForSubtasksUse() {
         if (!Preferences.getBoolean(PREF_SUBTASKS_CHECK, false)) {
             if (taskService.countTasks() > 3) {
-                StatisticsService.reportEvent(StatisticsConstants.SUBTASKS_HAS_TASKS);
                 checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
                         SubtasksMetadata.ORDER.gt(0)), StatisticsConstants.SUBTASKS_ORDER_USED);
                 checkMetadataStat(Criterion.and(MetadataCriteria.withKey(SubtasksMetadata.METADATA_KEY),
@@ -377,7 +369,6 @@ public class StartupService {
         if (!Preferences.getBoolean(PREF_SWIPE_CHECK, false)) {
             if (Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)
                     && Preferences.getBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, false)) {
-                StatisticsService.reportEvent(StatisticsConstants.SWIPE_USED);
             }
             Preferences.setBoolean(PREF_SWIPE_CHECK, true);
         }
@@ -388,7 +379,6 @@ public class StartupService {
     private void checkForVoiceRemindersUse() {
         if (!Preferences.getBoolean(PREF_VOICE_REMINDERS_CHECK, false)) {
             if (Preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)) {
-                StatisticsService.reportEvent(StatisticsConstants.VOICE_REMINDERS_ENABLED);
                 Preferences.setBoolean(PREF_VOICE_REMINDERS_CHECK, true);
             }
         }
@@ -398,7 +388,6 @@ public class StartupService {
         TodorooCursor<Metadata> sort = metadataService.query(Query.select(Metadata.ID).where(criterion).limit(1));
         try {
             if (sort.getCount() > 0) {
-                StatisticsService.reportEvent(statistic);
             }
         } finally {
             sort.close();

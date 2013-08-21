@@ -28,7 +28,6 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.twofortyfouram.SharedResources;
 
 /**
@@ -200,9 +199,6 @@ public final class LocaleEditAlerts extends ListActivity {
             .setPositiveButton(android.R.string.ok,
                     AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
             .show();
-            StatisticsService.reportEvent(StatisticsConstants.LOCALE_EDIT_ALERTS_NO_PLUGIN);
-        } else {
-            StatisticsService.reportEvent(StatisticsConstants.LOCALE_EDIT_ALERTS);
         }
     }
 
@@ -281,14 +277,12 @@ public final class LocaleEditAlerts extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
         adapter.registerRecevier();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
         adapter.unregisterRecevier();
     }
 
@@ -300,7 +294,6 @@ public final class LocaleEditAlerts extends ListActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        StatisticsService.sessionStop(this);
     }
 
     /**

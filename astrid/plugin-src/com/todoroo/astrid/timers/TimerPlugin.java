@@ -25,7 +25,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Constants;
 
 public class TimerPlugin extends BroadcastReceiver {
@@ -62,7 +61,6 @@ public class TimerPlugin extends BroadcastReceiver {
         if(start) {
             if(task.getValue(Task.TIMER_START) == 0) {
                 task.setValue(Task.TIMER_START, DateUtilities.now());
-                StatisticsService.reportEvent(StatisticsConstants.TIMER_START);
             }
         } else {
             if(task.getValue(Task.TIMER_START) > 0) {
@@ -70,7 +68,6 @@ public class TimerPlugin extends BroadcastReceiver {
                 task.setValue(Task.TIMER_START, 0L);
                 task.setValue(Task.ELAPSED_SECONDS,
                         task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
-                StatisticsService.reportEvent(StatisticsConstants.TIMER_STOP);
             }
         }
         PluginServices.getTaskService().save(task);

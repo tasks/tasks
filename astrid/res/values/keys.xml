@@ -412,11 +412,6 @@
   
     <string name="actfm_APr_interval_key">actfm_sync_freq</string>
 
-  <!-- ======================================================== POWERPACK == -->
-
-  <!-- Anonymous usage statistics -->
-  <string name="p_statistics">statistics</string>
-  
   <!-- ================================================= NEW USER EXPERIENCE -->
   <!-- Preference Keys (do not translate) -->
   <string name="p_showed_add_task_help">showed_add_task_help</string>

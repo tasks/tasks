@@ -39,7 +39,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
@@ -341,7 +340,6 @@ public class RepeatControlSet extends PopupControlSet {
             result = ""; //$NON-NLS-1$
         } else {
             if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                StatisticsService.reportEvent(StatisticsConstants.REPEAT_TASK_CREATE);
             }
 
             RRule rrule = new RRule();

@@ -17,7 +17,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 
 @SuppressWarnings("nls")
@@ -79,14 +78,12 @@ public class FilterShortcutActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
         adapter.registerRecevier();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
         adapter.unregisterRecevier();
     }
 
@@ -98,7 +95,6 @@ public class FilterShortcutActivity extends ListActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        StatisticsService.sessionStop(this);
     }
 
 }

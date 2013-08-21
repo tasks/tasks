@@ -79,7 +79,6 @@ import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
@@ -546,7 +545,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if (pictureButton != null) {
             pictureButton.setImageResource(cameraButton);
         }
-        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
         setUpListAdapter();
         for (UpdatesChangedListener l : listeners) {

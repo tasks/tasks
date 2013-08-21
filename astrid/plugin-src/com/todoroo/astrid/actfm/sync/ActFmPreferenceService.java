@@ -17,7 +17,6 @@ import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.service.PremiumUnlockService;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -121,7 +120,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     @Override
     protected void reportLastErrorImpl(String lastError, String type) {
-        StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_ERROR, "type", type); //$NON-NLS-1$
     }
 
     public synchronized static JSONObject thisUser() {

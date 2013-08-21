@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="findbugs-annotations">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/findbugs-annotations.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

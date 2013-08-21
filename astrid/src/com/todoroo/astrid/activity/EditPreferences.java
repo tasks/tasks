@@ -31,7 +31,6 @@ import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -56,7 +55,6 @@ import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.ui.ContactListAdapter;
@@ -136,7 +134,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             spec.resetDefaults();
-                            StatisticsService.reportEvent(statistic);
                             setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
                             finish();
                         }
@@ -288,7 +285,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         boolean hasPowerPack = addOnService.hasPowerPack();
         findPreference(getString(R.string.p_files_dir)).setEnabled(ActFmPreferenceService.isPremiumUser());
         findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
-        findPreference(getString(R.string.p_statistics)).setEnabled(hasPowerPack);
     }
 
     /** Show about dialog */
@@ -517,8 +513,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
                     String valueString = newValue.toString();
-                    StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "row-style", //$NON-NLS-1$
-                            "changed-to", valueString); //$NON-NLS-1$
                     Preference notes = findPreference(getString(R.string.p_showNotes));
                     Preference fullTitle = findPreference(getString(R.string.p_fullTaskTitle));
                     try {
@@ -588,10 +582,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 dir = r.getString(R.string.p_files_dir_desc_default);
             }
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
-        }
-        else if (booleanPreference(preference, value, R.string.p_statistics,
-                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
                     R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
             ;
@@ -718,28 +708,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
             });
         }
 
-        findPreference(getString(R.string.p_statistics)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Boolean value = (Boolean) newValue;
-                try {
-                    if (!value.booleanValue()) {
-                        Crittercism.setOptOutStatus(true);
-                    } else {
-                        Crittercism.setOptOutStatus(false);
-                    }
-                } catch (NullPointerException e) {
-                    return false;
-                }
-                return true;
-            }
-        });
-
         findPreference(getString(R.string.p_showNotes)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 updatePreferences(preference, newValue);
-                StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_NOTES_IN_ROW, "enabled", newValue.toString()); //$NON-NLS-1$
                 return true;
             }
         });
@@ -748,7 +720,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 updatePreferences(preference, newValue);
-                StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "full-title", "full-title", newValue.toString()); //$NON-NLS-1$ //$NON-NLS-2$
                 return true;
             }
         });
@@ -817,7 +788,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Override
     protected void onPause() {
-        StatisticsService.sessionPause();
         super.onPause();
     }
 
@@ -829,12 +799,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onStop() {
-        StatisticsService.sessionStop(this);
         super.onStop();
     }
 

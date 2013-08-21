@@ -8,7 +8,6 @@ package com.todoroo.astrid.backup;
 import java.io.File;
 
 import android.os.Environment;
-import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 
 /**
@@ -68,7 +67,6 @@ public class BackupConstants {
     /**
      * @return export directory for tasks, or null if no SD card
      */
-    @CheckForNull
     public static File defaultExportDirectory() {
         String storageState = Environment.getExternalStorageState();
         if (storageState.equals(Environment.MEDIA_MOUNTED)) {

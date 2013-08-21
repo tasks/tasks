@@ -52,7 +52,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -186,14 +185,12 @@ public class FilterListFragment extends SherlockListFragment {
 
     @Override
     public void onStop() {
-        StatisticsService.sessionStop(getActivity());
         super.onStop();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(getActivity());
         if(adapter != null) {
             adapter.registerRecevier();
         }
@@ -215,7 +212,6 @@ public class FilterListFragment extends SherlockListFragment {
 
     @Override
     public void onPause() {
-        StatisticsService.sessionPause();
         super.onPause();
         if(adapter != null) {
             adapter.unregisterRecevier();

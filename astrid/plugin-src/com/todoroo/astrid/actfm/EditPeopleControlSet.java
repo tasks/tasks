@@ -62,7 +62,6 @@ import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -714,9 +713,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             task.putTransitory(TaskService.TRANS_ASSIGNED, true);
 
             if (assignedView == assignedCustom) {
-                StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_EMAIL);
             } else if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF) {
-                StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_PICKER);
             }
 
             return true;

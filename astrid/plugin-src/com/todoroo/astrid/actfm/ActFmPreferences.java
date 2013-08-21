@@ -29,7 +29,6 @@ import com.todoroo.astrid.billing.BillingActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.PremiumUnlockService;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.Constants;
@@ -208,7 +207,6 @@ public class ActFmPreferences extends SyncProviderPreferences {
         } else {
             Intent intent = new Intent(this, BillingActivity.class);
             startActivity(intent);
-            StatisticsService.reportEvent(StatisticsConstants.PREMIUM_PAGE_VIEWED);
         }
     }
 

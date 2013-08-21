@@ -33,7 +33,6 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
 
     @Autowired Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
 	public TaskAttachmentDao() {
         super(TaskAttachment.class);
         DependencyInjectionService.getInstance().inject(this);

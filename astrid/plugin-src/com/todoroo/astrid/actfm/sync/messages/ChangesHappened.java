@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -186,7 +185,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
                 array.put(changeJson);
             } catch (JSONException e) {
                 Log.e(ERROR_TAG, "Error writing change to JSON", e);
-                Crittercism.logHandledException(e);
             }
         }
         return array;

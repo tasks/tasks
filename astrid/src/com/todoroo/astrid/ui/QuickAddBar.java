@@ -60,7 +60,6 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceRecognizer;
@@ -388,7 +387,6 @@ public class QuickAddBar extends LinearLayout {
 
             fragment.onTaskCreated(task);
 
-            StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
             return task;
         } catch (Exception e) {
             exceptionService.displayAndReportError(activity,

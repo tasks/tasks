@@ -48,7 +48,6 @@ public class TagMetadataDao extends DatabaseDao<TagMetadata> {
     @Autowired
     private Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
 	public TagMetadataDao() {
         super(TagMetadata.class);
         DependencyInjectionService.getInstance().inject(this);

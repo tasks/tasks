@@ -56,7 +56,6 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
-import com.todoroo.astrid.service.StatisticsService;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -408,8 +407,6 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
         resetPictureButton();
         refreshUpdatesList();
-
-        StatisticsService.reportEvent(commentAddStatistic());
     }
 
     @Override

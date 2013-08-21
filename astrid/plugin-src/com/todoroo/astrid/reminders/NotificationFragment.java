@@ -30,7 +30,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
 
 /**
@@ -62,7 +61,6 @@ public class NotificationFragment extends TaskListFragment {
 
     @Override
     protected void onTaskCompleted(Task item) {
-        StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_NOTIFICATION);
     }
 
     @Override

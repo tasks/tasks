@@ -23,7 +23,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 
 @SuppressWarnings("nls")
@@ -82,8 +81,6 @@ abstract public class WidgetConfigActivity extends ListActivity {
 
         Button button = (Button)findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
-
-        StatisticsService.reportEvent(StatisticsConstants.WIDGET_CONFIG);
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -114,14 +111,12 @@ abstract public class WidgetConfigActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
         adapter.registerRecevier();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
         adapter.unregisterRecevier();
     }
 
@@ -133,7 +128,6 @@ abstract public class WidgetConfigActivity extends ListActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        StatisticsService.sessionStop(this);
         ThemeService.setForceFilterInvert(false);
     }
 

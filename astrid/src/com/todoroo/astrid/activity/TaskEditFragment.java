@@ -93,7 +93,6 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
@@ -786,12 +785,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         if (model.getValue(Task.TITLE).length() == 0) {
-            StatisticsService.reportEvent(StatisticsConstants.CREATE_TASK);
 
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
-        } else {
-            StatisticsService.reportEvent(StatisticsConstants.EDIT_TASK);
         }
 
         setIsNewTask(model.getValue(Task.TITLE).length() == 0);
@@ -1340,7 +1336,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
 
         if (shouldSaveState) {
             save(true);
@@ -1350,7 +1345,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(getActivity());
         populateFields();
     }
 
@@ -1414,7 +1408,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onStop() {
         super.onStop();
-        StatisticsService.sessionStop(getActivity());
     }
 
     private void adjustInfoPopovers() {

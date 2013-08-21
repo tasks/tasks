@@ -36,7 +36,6 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
@@ -72,9 +71,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 PluginServices.getExceptionService().reportError("repeat-parse", e); //$NON-NLS-1$
                 return;
             }
-
-
-            StatisticsService.reportEvent(StatisticsConstants.V2_TASK_REPEAT);
 
             long oldDueDate = task.getValue(Task.DUE_DATE);
             long repeatUntil = task.getValue(Task.REPEAT_UNTIL);

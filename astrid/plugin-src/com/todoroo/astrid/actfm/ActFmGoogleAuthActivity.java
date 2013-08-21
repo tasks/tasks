@@ -30,7 +30,6 @@ import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountMa
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -163,19 +162,16 @@ public class ActFmGoogleAuthActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        StatisticsService.sessionStop(this);
     }
 
     private static final int REQUEST_AUTHENTICATE = 0;

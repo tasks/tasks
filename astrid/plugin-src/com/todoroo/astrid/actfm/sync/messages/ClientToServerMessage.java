@@ -4,7 +4,6 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -80,7 +79,6 @@ public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
                 return null;
             }
         } catch (JSONException e) {
-            Crittercism.logHandledException(e);
             return null;
         }
     }

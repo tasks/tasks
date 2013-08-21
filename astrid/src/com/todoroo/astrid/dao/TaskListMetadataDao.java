@@ -26,7 +26,6 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
 
     @Autowired Database database;
 
-    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
 	public TaskListMetadataDao() {
         super(TaskListMetadata.class);
         DependencyInjectionService.getInstance().inject(this);

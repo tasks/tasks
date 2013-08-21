@@ -58,7 +58,6 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
             int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_rmd_time_values), (String)value);
             if (index != -1 && index < r.getStringArray(R.array.EPr_rmd_time).length) {
                 // FIXME this does not fix the underlying cause of the ArrayIndexOutofBoundsException
-                // https://www.crittercism.com/developers/crash-details/e0886dbfcf9e78a21d9f2e2a385c4c13e2f6ad2132ac24a3fa811144
                 String setting = r.getStringArray(R.array.EPr_rmd_time)[index];
                 preference.setSummary(r.getString(R.string.rmd_EPr_rmd_time_desc, setting));
             }

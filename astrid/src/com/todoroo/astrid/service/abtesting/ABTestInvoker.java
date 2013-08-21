@@ -24,7 +24,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * Invoker for communicating with the Astrid Analytics server
@@ -51,21 +50,6 @@ public class ABTestInvoker {
     }
 
     public void reportAcquisition() {
-        if (!Preferences.getBoolean(PREF_REPORTED_ACQUISITION, false) &&
-                !StatisticsService.dontCollectStatistics()) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HttpEntity postData = createPostData(null);
-                        restClient.post(URL + ACQUISITION_METHOD, postData);
-                        Preferences.setBoolean(PREF_REPORTED_ACQUISITION, true);
-                    } catch (IOException e) {
-                        // Ignored
-                    }
-                }
-            }).start();
-        }
     }
 
     /**

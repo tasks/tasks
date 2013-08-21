@@ -18,7 +18,6 @@ abstract public class SyncV2Provider {
 
     public class SyncExceptionHandler {
         public void handleException(String tag, Exception e, String type) {
-            //TODO: When Crittercism supports it, report error to them
             getUtilities().setLastError(e.toString(), type);
 
             // occurs when application was closed
