@@ -14,7 +14,9 @@ import com.google.api.client.util.DateTime;
 public class GtasksApiUtilities {
 
     public static DateTime unixTimeToGtasksCompletionTime(long time) {
-        if (time < 0) return null;
+        if (time < 0) {
+            return null;
+        }
         return new DateTime(new Date(time), TimeZone.getDefault());
     }
 
@@ -25,7 +27,9 @@ public class GtasksApiUtilities {
 
 
     public static long gtasksCompletedTimeToUnixTime(DateTime gtasksCompletedTime, long defaultValue) {
-        if (gtasksCompletedTime == null) return defaultValue;
+        if (gtasksCompletedTime == null) {
+            return defaultValue;
+        }
         return gtasksCompletedTime.getValue();
     }
 
@@ -49,7 +53,9 @@ public class GtasksApiUtilities {
      * @return
      */
     public static DateTime unixTimeToGtasksDueDate(long time) {
-        if (time < 0) return null;
+        if (time < 0) {
+            return null;
+        }
         Date date = new Date(time);
         date.setHours(0);
         date.setMinutes(0);
@@ -66,7 +72,9 @@ public class GtasksApiUtilities {
 
     //Adjust for google's rounding
     public static long gtasksDueTimeToUnixTime(DateTime gtasksDueTime, long defaultValue) {
-        if (gtasksDueTime == null) return defaultValue;
+        if (gtasksDueTime == null) {
+            return defaultValue;
+        }
         try {
             long utcTime = gtasksDueTime.getValue(); //DateTime.parseRfc3339(gtasksDueTime).value;
             Date date = new Date(utcTime);

@@ -37,8 +37,9 @@ public class LegacyRepeatInfo {
     }
 
     public static LegacyRepeatInfo fromSingleField(int repeat) {
-        if(repeat == 0)
+        if(repeat == 0) {
             return null;
+        }
         int value = repeat >> REPEAT_VALUE_OFFSET;
         LegacyRepeatInterval interval = LegacyRepeatInterval.values()
         [repeat - (value << REPEAT_VALUE_OFFSET)];

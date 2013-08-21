@@ -76,10 +76,12 @@ public abstract class LegacyAbstractModel {
         if(!setValues.containsKey(field) && values.containsKey(field)) {
             String value = values.getAsString(field);
             if(value == null) {
-                if(newValue == null)
+                if(newValue == null) {
                     return;
-            } else if(value.equals(newValue))
+                }
+            } else if(value.equals(newValue)) {
                 return;
+            }
         }
         setValues.put(field, newValue);
     }
@@ -88,10 +90,12 @@ public abstract class LegacyAbstractModel {
         if(!setValues.containsKey(field) && values.containsKey(field)) {
             Long value = values.getAsLong(field);
             if(value == null) {
-                if(newValue == null)
+                if(newValue == null) {
                     return;
-            } else if(value.equals(newValue))
+                }
+            } else if(value.equals(newValue)) {
                 return;
+            }
         }
         setValues.put(field, newValue);
     }
@@ -100,10 +104,12 @@ public abstract class LegacyAbstractModel {
         if(!setValues.containsKey(field) && values.containsKey(field)) {
             Integer value = values.getAsInteger(field);
             if(value == null) {
-                if(newValue == null)
+                if(newValue == null) {
                     return;
-            } else if(value.equals(newValue))
+                }
+            } else if(value.equals(newValue)) {
                 return;
+            }
         }
         setValues.put(field, newValue);
     }
@@ -112,10 +118,12 @@ public abstract class LegacyAbstractModel {
         if(!setValues.containsKey(field) && values.containsKey(field)) {
             Double value = values.getAsDouble(field);
             if(value == null) {
-                if(newValue == null)
+                if(newValue == null) {
                     return;
-            } else if(value.equals(newValue))
+                }
+            } else if(value.equals(newValue)) {
                 return;
+            }
         }
         setValues.put(field, newValue);
     }
@@ -142,11 +150,13 @@ public abstract class LegacyAbstractModel {
     // --- data retrieval for the different object types
 
     protected String retrieveString(String field) {
-        if(setValues.containsKey(field))
+        if(setValues.containsKey(field)) {
             return setValues.getAsString(field);
+        }
 
-        if(values.containsKey(field))
+        if(values.containsKey(field)) {
             return values.getAsString(field);
+        }
 
         // if we have a database to hit, do that now
         if(cursor != null) {
@@ -157,18 +167,21 @@ public abstract class LegacyAbstractModel {
 
         // do we have defaults?
         ContentValues defaults = getDefaultValues();
-        if(defaults != null && defaults.containsKey(field))
+        if(defaults != null && defaults.containsKey(field)) {
             return defaults.getAsString(field);
+        }
 
         throw new UnsupportedOperationException("Could not read field " + field);
     }
 
     protected Integer retrieveInteger(String field) {
-        if(setValues.containsKey(field))
+        if(setValues.containsKey(field)) {
             return setValues.getAsInteger(field);
+        }
 
-        if(values.containsKey(field))
+        if(values.containsKey(field)) {
             return values.getAsInteger(field);
+        }
 
         // if we have a database to hit, do that now
         if(cursor != null) {
@@ -183,18 +196,21 @@ public abstract class LegacyAbstractModel {
 
         // do we have defaults?
         ContentValues defaults = getDefaultValues();
-        if(defaults != null && defaults.containsKey(field))
+        if(defaults != null && defaults.containsKey(field)) {
             return defaults.getAsInteger(field);
+        }
 
         throw new UnsupportedOperationException("Could not read field " + field);
     }
 
     protected Long retrieveLong(String field) {
-        if(setValues.containsKey(field))
+        if(setValues.containsKey(field)) {
             return setValues.getAsLong(field);
+        }
 
-        if(values.containsKey(field))
+        if(values.containsKey(field)) {
             return values.getAsLong(field);
+        }
 
         // if we have a database to hit, do that now
         if(cursor != null) {
@@ -205,18 +221,21 @@ public abstract class LegacyAbstractModel {
 
         // do we have defaults?
         ContentValues defaults = getDefaultValues();
-        if(defaults != null && defaults.containsKey(field))
+        if(defaults != null && defaults.containsKey(field)) {
             return defaults.getAsLong(field);
+        }
 
         throw new UnsupportedOperationException("Could not read field " + field);
     }
 
     protected Double retrieveDouble(String field) {
-        if(setValues.containsKey(field))
+        if(setValues.containsKey(field)) {
             return setValues.getAsDouble(field);
+        }
 
-        if(values.containsKey(field))
+        if(values.containsKey(field)) {
             return values.getAsDouble(field);
+        }
 
         // if we have a database to hit, do that now
         if(cursor != null) {
@@ -227,8 +246,9 @@ public abstract class LegacyAbstractModel {
 
         // do we have defaults?
         ContentValues defaults = getDefaultValues();
-        if(defaults != null && defaults.containsKey(field))
+        if(defaults != null && defaults.containsKey(field)) {
             return defaults.getAsDouble(field);
+        }
 
         throw new UnsupportedOperationException("Could not read field " + field);
     }
@@ -239,8 +259,9 @@ public abstract class LegacyAbstractModel {
         Long time;
         try {
             time = retrieveLong(field);
-            if(time == null || time == 0)
+            if(time == null || time == 0) {
                 return null;
+            }
         } catch (NullPointerException e) {
             return null;
         }

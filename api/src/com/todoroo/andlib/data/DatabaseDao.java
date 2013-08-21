@@ -54,8 +54,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     public DatabaseDao(Class<TYPE> modelClass) {
         DependencyInjectionService.getInstance().inject(this);
         this.modelClass = modelClass;
-        if(debug == null)
+        if(debug == null) {
             debug = false;
+        }
     }
 
     public DatabaseDao(Class<TYPE> modelClass, AbstractDatabase database) {
@@ -79,8 +80,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @param database
      */
     public void setDatabase(AbstractDatabase database) {
-        if(database == this.database)
+        if(database == this.database) {
             return;
+        }
         this.database = database;
         table = database.getTable(modelClass);
         outstandingTable = database.getOutstandingTable(modelClass);
@@ -116,8 +118,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
-        if(debug)
+        if(debug) {
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
+        }
         Cursor cursor = database.rawQuery(query.toString(), null);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
     }
@@ -132,8 +135,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> rawQuery(String selection, String[] selectionArgs, Property<?>... properties) {
         String[] fields = new String[properties.length];
-        for(int i = 0; i < properties.length; i++)
+        for(int i = 0; i < properties.length; i++) {
             fields[i] = properties[i].name;
+        }
         return new TodorooCursor<TYPE>(database.getDatabase().query(table.name,
                 fields, selection, selectionArgs, null, null, null),
                 properties);
@@ -158,8 +162,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     protected TYPE returnFetchResult(TodorooCursor<TYPE> cursor) {
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return null;
+            }
             Constructor<TYPE> constructor = modelClass.getConstructor(TodorooCursor.class);
             return constructor.newInstance(cursor);
         } catch (SecurityException e) {
@@ -231,8 +236,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 toUpdate.close();
             }
 
-            if (toUpdate.getCount() == 0)
+            if (toUpdate.getCount() == 0) {
                 return 0;
+            }
 
             synchronized (database) {
                 database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
@@ -280,7 +286,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             ContentValues values = item.getSetValues();
 
             if (values.size() == 0) // nothing changed
+            {
                 return true;
+            }
 
             return saveExisting(item);
         }
@@ -318,11 +326,15 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 result.set(op.makeChange());
                 if(result.get()) {
                     if (recordOutstanding && ((numOutstanding = createOutstandingEntries(item.getId(), values)) != -1)) // Create entries for setValues in outstanding table
+                    {
                         database.getDatabase().setTransactionSuccessful();
+                    }
                 }
             } finally {
                 if (recordOutstanding) // commit transaction
+                {
                     database.getDatabase().endTransaction();
+                }
             }
             if (result.get()) {
                 onModelUpdated(item, recordOutstanding && numOutstanding > 0);
@@ -351,8 +363,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 long newRow = database.insert(table.name,
                         AbstractModel.ID_PROPERTY.name, item.getMergedValues());
                 boolean result = newRow >= 0;
-                if (result)
+                if (result) {
                     item.setId(newRow);
+                }
                 return result;
             }
         };
@@ -372,7 +385,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     public boolean saveExisting(final TYPE item) {
         final ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) // nothing changed
+        {
             return true;
+        }
         DatabaseChangeOp update = new DatabaseChangeOp() {
             @Override
             public boolean makeChange() {

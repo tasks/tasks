@@ -29,8 +29,9 @@ public class DialogUtilities {
     public static void viewDialog(final Activity activity, final String text,
             final View view, final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
-        if(activity.isFinishing())
+        if(activity.isFinishing()) {
             return;
+        }
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
@@ -76,8 +77,9 @@ public class DialogUtilities {
      */
     public static void okDialog(final Activity activity, final String text,
             final DialogInterface.OnClickListener okListener) {
-        if(activity.isFinishing())
+        if(activity.isFinishing()) {
             return;
+        }
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
@@ -101,8 +103,9 @@ public class DialogUtilities {
     public static void okDialog(final Activity activity, final String title,
             final int icon, final CharSequence text,
             final DialogInterface.OnClickListener okListener) {
-        if(activity.isFinishing())
+        if(activity.isFinishing()) {
             return;
+        }
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
@@ -157,8 +160,9 @@ public class DialogUtilities {
             final int icon,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
-        if(activity.isFinishing())
+        if(activity.isFinishing()) {
             return;
+        }
 
         tryOnUiThread(activity, new Runnable() {
             public void run() {
@@ -217,8 +221,9 @@ public class DialogUtilities {
      * @param dialog
      */
     public static void dismissDialog(Activity activity, final Dialog dialog) {
-        if(dialog == null)
+        if(dialog == null) {
             return;
+        }
         tryOnUiThread(activity, new Runnable() {
             public void run() {
                 try {

@@ -78,8 +78,9 @@ public class AstridNewSyncMigrator {
 
     @SuppressWarnings("deprecation")
     public void performMigration() {
-        if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false))
+        if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false)) {
             return;
+        }
 
         // --------------
         // First ensure that a TagData object exists for each tag metadata
@@ -100,8 +101,9 @@ public class AstridNewSyncMigrator {
                     tag.clear();
                     tag.readFromCursor(noTagData);
 
-                    if (ActFmInvoker.SYNC_DEBUG)
+                    if (ActFmInvoker.SYNC_DEBUG) {
                         Log.w(LOG_TAG, "CREATING TAG DATA " + tag.getValue(TaskToTagMetadata.TAG_NAME));
+                    }
 
                     newTagData.setValue(TagData.NAME, tag.getValue(TaskToTagMetadata.TAG_NAME));
                     tagDataService.save(newTagData);
@@ -114,8 +116,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error creating tag data", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (noTagData != null)
+            if (noTagData != null) {
                 noTagData.close();
+            }
         }
 
         // --------------
@@ -131,8 +134,9 @@ public class AstridNewSyncMigrator {
                     td.readFromCursor(emergentTags);
                     String name = td.getValue(TagData.NAME);
                     tagDataDao.delete(td.getId());
-                    if (!TextUtils.isEmpty(name))
+                    if (!TextUtils.isEmpty(name)) {
                         metadataService.deleteWhere(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_NAME.eq(name)));
+                    }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error clearing emergent tags");
                     Crittercism.logHandledException(e);
@@ -141,8 +145,9 @@ public class AstridNewSyncMigrator {
         } catch (Exception e){
             Crittercism.logHandledException(e);
         } finally {
-            if (emergentTags != null)
+            if (emergentTags != null) {
                 emergentTags.close();
+            }
         }
 
         // --------------
@@ -171,16 +176,18 @@ public class AstridNewSyncMigrator {
             assertUUIDsExist(tasksQuery, new Task(), taskDao, taskOutstandingDao, new TaskOutstanding(), NameMaps.syncableProperties(NameMaps.TABLE_ID_TASKS), new UUIDAssertionExtras<Task>() {
                 @Override
                 public boolean shouldCreateOutstandingEntries(Task instance) {
-                    if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0)
+                    if (!instance.containsNonNullValue(Task.MODIFICATION_DATE) || instance.getValue(Task.LAST_SYNC) == 0) {
                         return RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
+                    }
 
                     return (instance.getValue(Task.LAST_SYNC) < instance.getValue(Task.MODIFICATION_DATE)) && RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING);
                 }
 
                 @Override
                 public void afterSave(Task instance, boolean createdOutstanding) {
-                    if (createdOutstanding)
+                    if (createdOutstanding) {
                         tasksThatNeedTagSync.add(instance.getId());
+                    }
                 }
             });
         } catch (Exception e) {
@@ -220,10 +227,11 @@ public class AstridNewSyncMigrator {
                         template.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
 
                         recurrence = recurrence.replaceAll("BYDAY=;", "");
-                        if (fromCompletion.equals(recurrence))
+                        if (fromCompletion.equals(recurrence)) {
                             recurrence = "";
-                        else if (repeatAfterCompletion)
+                        } else if (repeatAfterCompletion) {
                             recurrence = recurrence + fromCompletion;
+                        }
                         template.setValue(Task.RECURRENCE, recurrence);
 
                         template.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
@@ -238,8 +246,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error migrating recurrence", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (tasksWithRecurrence != null)
+            if (tasksWithRecurrence != null) {
                 tasksWithRecurrence.close();
+            }
         }
 
         // --------------
@@ -264,10 +273,11 @@ public class AstridNewSyncMigrator {
                         userActivity.setValue(UserActivity.TARGET_ID, update.getValue(Update.TASK).toString());
                     } else if (update.getValue(Update.TASK_LOCAL) > 0) {
                         Task local = taskDao.fetch(update.getValue(Update.TASK_LOCAL), Task.UUID);
-                        if (local != null && !RemoteModel.isUuidEmpty(local.getUuid()))
+                        if (local != null && !RemoteModel.isUuidEmpty(local.getUuid())) {
                             userActivity.setValue(UserActivity.TARGET_ID, local.getUuid());
-                        else
+                        } else {
                             setTarget = false;
+                        }
                     } else {
                         setTarget = false;
                     }
@@ -289,8 +299,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error migrating updates", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (updates != null)
+            if (updates != null) {
                 updates.close();
+            }
         }
 
 
@@ -321,8 +332,9 @@ public class AstridNewSyncMigrator {
                     m.readFromCursor(fmCursor);
 
                     Task task = taskDao.fetch(m.getValue(Metadata.TASK), Task.UUID);
-                    if (task == null || !RemoteModel.isValidUuid(task.getUuid()))
+                    if (task == null || !RemoteModel.isValidUuid(task.getUuid())) {
                         continue;
+                    }
 
                     Long oldRemoteId = m.getValue(FileMetadata.REMOTE_ID);
                     boolean synced = false;
@@ -331,23 +343,29 @@ public class AstridNewSyncMigrator {
                         attachment.setValue(TaskAttachment.UUID, Long.toString(oldRemoteId));
                     }
                     attachment.setValue(TaskAttachment.TASK_UUID, task.getUuid());
-                    if (m.containsNonNullValue(FileMetadata.NAME))
+                    if (m.containsNonNullValue(FileMetadata.NAME)) {
                         attachment.setValue(TaskAttachment.NAME, m.getValue(FileMetadata.NAME));
-                    if (m.containsNonNullValue(FileMetadata.URL))
+                    }
+                    if (m.containsNonNullValue(FileMetadata.URL)) {
                         attachment.setValue(TaskAttachment.URL, m.getValue(FileMetadata.URL));
-                    if (m.containsNonNullValue(FileMetadata.FILE_PATH))
+                    }
+                    if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
                         attachment.setValue(TaskAttachment.FILE_PATH, m.getValue(FileMetadata.FILE_PATH));
-                    if (m.containsNonNullValue(FileMetadata.FILE_TYPE))
+                    }
+                    if (m.containsNonNullValue(FileMetadata.FILE_TYPE)) {
                         attachment.setValue(TaskAttachment.CONTENT_TYPE, m.getValue(FileMetadata.FILE_TYPE));
-                    if (m.containsNonNullValue(FileMetadata.DELETION_DATE))
+                    }
+                    if (m.containsNonNullValue(FileMetadata.DELETION_DATE)) {
                         attachment.setValue(TaskAttachment.DELETED_AT, m.getValue(FileMetadata.DELETION_DATE));
+                    }
 
                     if (synced) {
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
                     }
 
-                    if (!ActFmPreferenceService.isPremiumUser())
+                    if (!ActFmPreferenceService.isPremiumUser()) {
                         attachment.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
+                    }
                     taskAttachmentDao.createNew(attachment);
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
@@ -359,8 +377,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error migrating task attachment metadata", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (fmCursor != null)
+            if (fmCursor != null) {
                 fmCursor.close();
+            }
         }
 
         // --------------
@@ -369,8 +388,9 @@ public class AstridNewSyncMigrator {
         TaskListMetadata tlm = new TaskListMetadata();
         try {
             String activeTasksOrder = Preferences.getStringValue(SubtasksUpdater.ACTIVE_TASKS_ORDER);
-            if (TextUtils.isEmpty(activeTasksOrder))
+            if (TextUtils.isEmpty(activeTasksOrder)) {
                 activeTasksOrder = "[]";
+            }
 
             activeTasksOrder = SubtasksHelper.convertTreeToRemoteIds(activeTasksOrder);
 
@@ -387,8 +407,9 @@ public class AstridNewSyncMigrator {
         try {
             tlm.clear();
             String todayTasksOrder = Preferences.getStringValue(SubtasksUpdater.TODAY_TASKS_ORDER);
-            if (TextUtils.isEmpty(todayTasksOrder))
+            if (TextUtils.isEmpty(todayTasksOrder)) {
                 todayTasksOrder = "[]";
+            }
 
             todayTasksOrder = SubtasksHelper.convertTreeToRemoteIds(todayTasksOrder);
 
@@ -427,8 +448,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error migrating tag ordering", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (allTagData != null)
+            if (allTagData != null) {
                 allTagData.close();
+            }
         }
 
         // --------------
@@ -447,23 +469,27 @@ public class AstridNewSyncMigrator {
                     m.clear(); // Need this since some properties may be null
                     m.readFromCursor(incompleteMetadata);
 
-                    if (ActFmInvoker.SYNC_DEBUG)
+                    if (ActFmInvoker.SYNC_DEBUG) {
                         Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TaskToTagMetadata.TAG_NAME));
+                    }
 
                     if (!m.containsNonNullValue(TaskToTagMetadata.TASK_UUID) || RemoteModel.isUuidEmpty(m.getValue(TaskToTagMetadata.TASK_UUID))) {
-                        if (ActFmInvoker.SYNC_DEBUG)
+                        if (ActFmInvoker.SYNC_DEBUG) {
                             Log.w(LOG_TAG, "No task uuid");
+                        }
                         updateTaskUuid(m);
                     }
 
                     if (!m.containsNonNullValue(TaskToTagMetadata.TAG_UUID) || RemoteModel.isUuidEmpty(m.getValue(TaskToTagMetadata.TAG_UUID))) {
-                        if (ActFmInvoker.SYNC_DEBUG)
+                        if (ActFmInvoker.SYNC_DEBUG) {
                             Log.w(LOG_TAG, "No tag uuid");
+                        }
                         updateTagUuid(m);
                     }
 
-                    if (m.getSetValues() != null && m.getSetValues().size() > 0)
+                    if (m.getSetValues() != null && m.getSetValues().size() > 0) {
                         metadataService.save(m);
+                    }
 
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error validating task to tag metadata", e);
@@ -475,8 +501,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error validating task to tag metadata", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (incompleteMetadata != null)
+            if (incompleteMetadata != null) {
                 incompleteMetadata.close();
+            }
         }
 
         // --------------
@@ -505,15 +532,17 @@ public class AstridNewSyncMigrator {
                     m.readFromCursor(tagsAdded);
                     Long deletionDate = m.getValue(Metadata.DELETION_DATE);
                     String tagUuid = m.getValue(TaskToTagMetadata.TAG_UUID);
-                    if (!RemoteModel.isValidUuid(tagUuid))
+                    if (!RemoteModel.isValidUuid(tagUuid)) {
                         continue;
+                    }
 
                     TaskOutstanding to = new TaskOutstanding();
                     to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, m.getValue(Metadata.TASK));
                     to.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
                     String addedOrRemoved = NameMaps.TAG_ADDED_COLUMN;
-                    if (deletionDate != null && deletionDate > 0)
+                    if (deletionDate != null && deletionDate > 0) {
                         addedOrRemoved = NameMaps.TAG_REMOVED_COLUMN;
+                    }
 
                     to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
                     to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
@@ -527,8 +556,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error creating tag_added outstanding entries", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (tagsAdded != null)
+            if (tagsAdded != null) {
                 tagsAdded.close();
+            }
         }
 
         Preferences.setBoolean(PREF_SYNC_MIGRATION, true);
@@ -567,8 +597,9 @@ public class AstridNewSyncMigrator {
                         createdOutstanding = true;
                         createOutstandingEntries(instance.getId(), dao, oeDao, oe, propertiesForOutstanding);
                     }
-                    if (extras != null)
+                    if (extras != null) {
                         extras.afterSave(instance, createdOutstanding);
+                    }
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Error asserting UUIDs", e);
                     Crittercism.logHandledException(e);
@@ -578,8 +609,9 @@ public class AstridNewSyncMigrator {
             Log.e(LOG_TAG, "Error asserting UUIDs", e);
             Crittercism.logHandledException(e);
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
     }
 
@@ -591,8 +623,9 @@ public class AstridNewSyncMigrator {
             oe.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, id);
             oe.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, property.name);
             Object value = instance.getValue(property);
-            if (value == null)
+            if (value == null) {
                 value = "";
+            }
             oe.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, value.toString());
             oe.setValue(OutstandingEntry.CREATED_AT_PROPERTY, now);
             oeDao.createNew(oe);
@@ -603,12 +636,14 @@ public class AstridNewSyncMigrator {
         long taskId = m.getValue(Metadata.TASK);
         Task task = taskDao.fetch(taskId, Task.UUID);
         if (task != null) {
-            if (ActFmInvoker.SYNC_DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG) {
                 Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.UUID));
+            }
             m.setValue(TaskToTagMetadata.TASK_UUID, task.getValue(Task.UUID));
         } else {
-            if (ActFmInvoker.SYNC_DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG) {
                 Log.w(LOG_TAG, "Task not found, deleting link");
+            }
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
     }
@@ -617,12 +652,14 @@ public class AstridNewSyncMigrator {
         String tag = m.getValue(TaskToTagMetadata.TAG_NAME);
         TagData tagData = tagDataService.getTagByName(tag, TagData.UUID);
         if (tagData != null) {
-            if (ActFmInvoker.SYNC_DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG) {
                 Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));
+            }
             m.setValue(TaskToTagMetadata.TAG_UUID, tagData.getValue(TagData.UUID));
         } else {
-            if (ActFmInvoker.SYNC_DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG) {
                 Log.w(LOG_TAG, "Tag not found, deleting link");
+            }
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
     }

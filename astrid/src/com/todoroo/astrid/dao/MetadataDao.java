@@ -95,16 +95,18 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         Long taskId = modelSetValues.getAsLong(Metadata.TASK.name);
         String tagUuid = modelSetValues.getAsString(TaskToTagMetadata.TAG_UUID.name);
         Long deletionDate = modelSetValues.getAsLong(Metadata.DELETION_DATE.name);
-        if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid))
+        if (taskId == null || taskId == AbstractModel.NO_ID || RemoteModel.isUuidEmpty(tagUuid)) {
             return -1;
+        }
 
         TaskOutstanding to = new TaskOutstanding();
         to.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, taskId);
         to.setValue(OutstandingEntry.CREATED_AT_PROPERTY, DateUtilities.now());
 
         String addedOrRemoved = NameMaps.TAG_ADDED_COLUMN;
-        if (deletionDate != null && deletionDate > 0)
+        if (deletionDate != null && deletionDate > 0) {
             addedOrRemoved = NameMaps.TAG_REMOVED_COLUMN;
+        }
 
         to.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, addedOrRemoved);
         to.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, tagUuid);
@@ -166,8 +168,9 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
     @Override
     public boolean persist(Metadata item) {
-        if(!item.containsValue(Metadata.CREATION_DATE))
+        if(!item.containsValue(Metadata.CREATION_DATE)) {
             item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
+        }
 
         boolean state = super.persist(item);
         if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {

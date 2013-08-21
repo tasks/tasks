@@ -139,8 +139,9 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                 @Override
                 public void run() {
                     Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, false);
-                    if (actFmPreferenceService.isLoggedIn())
+                    if (actFmPreferenceService.isLoggedIn()) {
                         actFmSyncService.updateUserSubscriptionStatus(null, null, null);
+                    }
                 }
             }.start();
         }
@@ -182,8 +183,9 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                 Log.d(TAG, "RestoreTransactions error: " + responseCode);
             }
         }
-        if (restoreTransactionsListener != null)
+        if (restoreTransactionsListener != null) {
             restoreTransactionsListener.restoreTransactionsResponse(responseCode);
+        }
     }
 
 }

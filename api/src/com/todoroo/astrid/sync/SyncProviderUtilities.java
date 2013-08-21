@@ -164,8 +164,9 @@ abstract public class SyncProviderUtilities {
         String value = getPrefs().getString(
                 ContextManager.getContext().getString(
                         getSyncIntervalKey()), null);
-        if (value == null)
+        if (value == null) {
             return 0;
+        }
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {

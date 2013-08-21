@@ -81,14 +81,16 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
     @Override
     public synchronized void findLocalMatch(GtasksTaskContainer remoteTask) {
-        if(remoteTask.task.getId() != Task.NO_ID)
+        if(remoteTask.task.getId() != Task.NO_ID) {
             return;
+        }
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
                 where(Criterion.and(MetadataCriteria.withKey(getMetadataKey()),
                         getLocalMatchCriteria(remoteTask))));
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return;
+            }
             cursor.moveToFirst();
             remoteTask.task.setId(cursor.get(Metadata.TASK));
             remoteTask.task.setUuid(taskDao.uuidFromLocalId(remoteTask.task.getId()));
@@ -116,14 +118,16 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     @Override
     protected TodorooCursor<Task> filterLocallyUpdated(TodorooCursor<Task> tasks, long lastSyncDate) {
         HashSet<Long> taskIds = new HashSet<Long>();
-        for(tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext())
+        for(tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
             taskIds.add(tasks.get(Task.ID));
+        }
 
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.TASK).where(
                 Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                 GtasksMetadata.LAST_SYNC.gt(lastSyncDate))));
-        for(metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext())
+        for(metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
             taskIds.remove(metadata.get(Metadata.TASK));
+        }
 
         return taskDao.query(Query.select(Task.ID).where(
                 Task.ID.in(taskIds.toArray(new Long[taskIds.size()]))));
@@ -154,8 +158,9 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long taskId = cursor.get(Metadata.TASK);
                 Metadata metadata = getTaskMetadata(taskId);
-                if(metadata == null)
+                if(metadata == null) {
                     continue;
+                }
                 iterator.processTask(taskId, metadata);
             }
 
@@ -198,7 +203,9 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);
-                if (t == null || t.isDeleted()) return;
+                if (t == null || t.isDeleted()) {
+                    return;
+                }
                 int currIndent = metadata.getValue(GtasksMetadata.INDENT).intValue();
                 long currParent = metadata.getValue(GtasksMetadata.PARENT_TASK);
 

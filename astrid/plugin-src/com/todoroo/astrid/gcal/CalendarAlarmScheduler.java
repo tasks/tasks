@@ -25,8 +25,9 @@ public class CalendarAlarmScheduler {
     public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 
     public static void scheduleAllCalendarAlarms(Context context) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true))
+        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true)) {
             return;
+        }
 
         ContentResolver cr = context.getContentResolver();
 
@@ -60,8 +61,9 @@ public class CalendarAlarmScheduler {
                     long alarmTime = start - DateUtilities.ONE_MINUTE * 15;
                     am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
 
-                    if (Constants.DEBUG)
+                    if (Constants.DEBUG) {
                         Log.w(TAG, "Scheduling calendar alarm for " + new Date(alarmTime));
+                    }
                 }
 
             }
@@ -73,8 +75,9 @@ public class CalendarAlarmScheduler {
             am.cancel(pendingReschedule);
             am.set(AlarmManager.RTC, DateUtilities.now() + DateUtilities.ONE_HOUR * 12, pendingReschedule);
         } finally {
-            if (events != null)
+            if (events != null) {
                 events.close();
+            }
         }
 
     }

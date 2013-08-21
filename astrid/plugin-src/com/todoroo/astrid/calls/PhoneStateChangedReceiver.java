@@ -41,8 +41,9 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
             String number = digitsOnly(intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER));
-            if (TextUtils.isEmpty(number))
+            if (TextUtils.isEmpty(number)) {
                 return;
+            }
 
             Preferences.setString(PREF_LAST_INCOMING_NUMBER, number);
         } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
@@ -81,8 +82,9 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                         }
                     }
                     try {
-                        if (calls == null)
+                        if (calls == null) {
                             return;
+                        }
                         if (calls.moveToFirst()) {
                             int numberIndex = calls.getColumnIndex(Calls.NUMBER);
                             String number = calls.getString(numberIndex);
@@ -121,8 +123,9 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     } catch (Exception e) {
                         Log.e("phone-state", "Unexpected exception in PhoneStateChangedReceiver", e);
                     } finally {
-                        if (calls != null)
+                        if (calls != null) {
                             calls.close();
+                        }
                     }
                 }
             }.start();
@@ -130,13 +133,15 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
     }
 
     private String digitsOnly(String number) {
-        if (number == null)
+        if (number == null) {
             return "";
+        }
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < number.length(); i++) {
             char c = number.charAt(i);
-            if (Character.isDigit(c))
+            if (Character.isDigit(c)) {
                 builder.append(c);
+            }
         }
         return builder.toString();
     }

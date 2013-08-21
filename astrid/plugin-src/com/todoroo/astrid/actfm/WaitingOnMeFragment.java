@@ -42,8 +42,9 @@ public class WaitingOnMeFragment extends TaskListFragment {
                 new OnCompletedTaskListener() {
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {
-                        if (newState == true)
+                        if (newState == true) {
                             onTaskCompleted(item);
+                        }
                     }
                 });
     }
@@ -61,10 +62,11 @@ public class WaitingOnMeFragment extends TaskListFragment {
             super.setTaskAppearance(viewHolder, task);
 
             TextView nameView = viewHolder.nameView;
-            if (task.getValue(WaitingOnMe.READ_AT) == 0 && task.getValue(WaitingOnMe.ACKNOWLEDGED) == 0)
+            if (task.getValue(WaitingOnMe.READ_AT) == 0 && task.getValue(WaitingOnMe.ACKNOWLEDGED) == 0) {
                 nameView.setTypeface(null, Typeface.BOLD);
-            else
+            } else {
                 nameView.setTypeface(null, 0);
+            }
         }
 
     }

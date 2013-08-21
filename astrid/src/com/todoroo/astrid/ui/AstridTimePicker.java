@@ -55,10 +55,11 @@ public class AstridTimePicker extends LinearLayout {
         hours = (NumberPicker) findViewById(R.id.hours);
         minutes = (NumberPicker) findViewById(R.id.minutes);
 
-        if (Preferences.getBoolean(R.string.p_time_increment, false))
+        if (Preferences.getBoolean(R.string.p_time_increment, false)) {
             minutes.setIncrementBy(5);
-        else
+        } else {
             minutes.setIncrementBy(1);
+        }
 
         setupButtonBackgrounds(context);
 
@@ -175,8 +176,9 @@ public class AstridTimePicker extends LinearLayout {
     }
 
     public void setHasTime(boolean hasTime, boolean setChecked) {
-        if (setChecked)
+        if (setChecked) {
             noTimeCheck.setChecked(!hasTime);
+        }
 
 
         if (noTimeCheck.isChecked()) {
@@ -194,8 +196,9 @@ public class AstridTimePicker extends LinearLayout {
             pmButton.setChecked(lastSelectionWasPm);
         }
 
-        if (listener != null)
+        if (listener != null) {
             listener.timePickerEnabledChanged(hasTime);
+        }
     }
 
     public boolean hasTime() {
@@ -203,8 +206,9 @@ public class AstridTimePicker extends LinearLayout {
     }
 
     public void forceNoTime() {
-        if (!noTimeCheck.isChecked())
+        if (!noTimeCheck.isChecked()) {
             noTimeCheck.performClick();
+        }
     }
 
     public void setHours(int hour) {
@@ -229,8 +233,9 @@ public class AstridTimePicker extends LinearLayout {
         int toReturn = hours.getCurrent();
         if (!is24Hour) {
             if (toReturn == 12) {
-                if (amButton.isChecked())
+                if (amButton.isChecked()) {
                     toReturn = 0;
+                }
             } else if (pmButton.isChecked()) {
                 toReturn += 12;
             }

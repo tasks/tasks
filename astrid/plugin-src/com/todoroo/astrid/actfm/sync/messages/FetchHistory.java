@@ -71,16 +71,18 @@ public class FetchHistory<TYPE extends RemoteModel> {
             @Override
             public void run() {
                 String token = actFmPreferenceService.getToken();
-                if (TextUtils.isEmpty(token) || TextUtils.isEmpty(uuid))
+                if (TextUtils.isEmpty(token) || TextUtils.isEmpty(uuid)) {
                     return;
+                }
 
                 ArrayList<Object> params = new ArrayList<Object>();
-                if (NameMaps.TABLE_ID_TASKS.equals(table))
+                if (NameMaps.TABLE_ID_TASKS.equals(table)) {
                     params.add("task_id");
-                else if (NameMaps.TABLE_ID_TAGS.equals(table))
+                } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
                     params.add("tag_id");
-                else
+                } else {
                     return;
+                }
 
                 params.add(uuid);
 
@@ -111,8 +113,9 @@ public class FetchHistory<TYPE extends RemoteModel> {
                                 history.setValue(History.UUID, historyJson.optString("id") + ":" + uuid);
 
                                 String userId = historyJson.optString("user_id");
-                                if (userId.equals(ActFmPreferenceService.userId()))
+                                if (userId.equals(ActFmPreferenceService.userId())) {
                                     userId = Task.USER_ID_SELF;
+                                }
                                 history.setValue(History.USER_UUID, historyJson.optString("user_id"));
                                 history.setValue(History.COLUMN, historyJson.optString("column"));
                                 history.setValue(History.OLD_VALUE, historyJson.optString("prev"));
@@ -145,8 +148,9 @@ public class FetchHistory<TYPE extends RemoteModel> {
                             try {
                                 template = dao.getModelClass().newInstance();
                                 template.setValue(historyTimeProperty, time);
-                                if (modifiedAfter == 0 || hasMore)
+                                if (modifiedAfter == 0 || hasMore) {
                                     template.setValue(historyHasMoreProperty, hasMore ? 1 : 0);
+                                }
                                 dao.update(RemoteModel.UUID_PROPERTY.eq(uuid), template);
                             } catch (InstantiationException e) {
                                 Log.e(ERROR_TAG, "Error instantiating model for recording time", e);
@@ -164,8 +168,9 @@ public class FetchHistory<TYPE extends RemoteModel> {
                             JSONObject userObj = users.optJSONObject(key);
                             if (userObj != null) {
                                 String userUuid = userObj.optString("id");
-                                if (RemoteModel.isUuidEmpty(uuid))
+                                if (RemoteModel.isUuidEmpty(uuid)) {
                                     continue;
+                                }
 
                                 User user = new User();
                                 user.setValue(User.FIRST_NAME, userObj.optString("first_name"));
@@ -185,8 +190,9 @@ public class FetchHistory<TYPE extends RemoteModel> {
                     Log.e(ERROR_TAG, "Error getting model history", e);
                 }
 
-                if (done != null)
+                if (done != null) {
                     done.runOnSuccess();
+                }
             }
         }).start();
     }

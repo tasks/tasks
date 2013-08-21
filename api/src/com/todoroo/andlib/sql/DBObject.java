@@ -32,13 +32,21 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         DBObject<?> dbObject = (DBObject<?>) o;
 
-        if (alias != null ? !alias.equals(dbObject.alias) : dbObject.alias != null) return false;
-        if (expression != null ? !expression.equals(dbObject.expression) : dbObject.expression != null) return false;
+        if (alias != null ? !alias.equals(dbObject.alias) : dbObject.alias != null) {
+            return false;
+        }
+        if (expression != null ? !expression.equals(dbObject.expression) : dbObject.expression != null) {
+            return false;
+        }
 
         return true;
     }
@@ -64,8 +72,9 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
             sb.append(SPACE).append(AS).append(SPACE).append(alias);
         } else {
             int pos = expression.indexOf('.');
-            if(pos > 0)
+            if(pos > 0) {
                 sb.append(SPACE).append(AS).append(SPACE).append(expression.substring(pos + 1));
+            }
         }
         return sb.toString();
     }

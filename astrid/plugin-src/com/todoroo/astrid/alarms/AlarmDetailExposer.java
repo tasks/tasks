@@ -31,12 +31,14 @@ public class AlarmDetailExposer extends BroadcastReceiver {
         ContextManager.setContext(context);
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if(taskId == -1) {
             return;
+        }
 
         String taskDetail = getTaskDetails(context, taskId);
-        if(taskDetail == null)
+        if(taskDetail == null) {
             return;
+        }
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
@@ -58,15 +60,18 @@ public class AlarmDetailExposer extends BroadcastReceiver {
                 }
             }
 
-            if(nextTime == -1)
+            if(nextTime == -1) {
                 return null;
+            }
             int flags = DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME;
             Date today = new Date();
             Date alarm = new Date(nextTime);
-            if(today.getYear() == alarm.getYear())
+            if(today.getYear() == alarm.getYear()) {
                 flags |= DateUtils.FORMAT_NO_YEAR;
-            if(alarm.getTime() - today.getTime() > DateUtilities.ONE_DAY)
+            }
+            if(alarm.getTime() - today.getTime() > DateUtilities.ONE_DAY) {
                 flags |= DateUtils.FORMAT_SHOW_DATE;
+            }
             CharSequence durationString = DateUtils.formatDateTime(context, nextTime,
                      flags);
             return "<img src='silk_clock'/> " + durationString; //$NON-NLS-1$

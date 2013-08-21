@@ -23,20 +23,24 @@ public class AlarmTaskRepeatListener extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if(taskId == -1) {
             return;
+        }
 
         long oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
-        if(oldDueDate == 0)
+        if(oldDueDate == 0) {
             oldDueDate = DateUtilities.now();
+        }
         long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, -1);
-        if(newDueDate <= 0 || newDueDate <= oldDueDate)
+        if(newDueDate <= 0 || newDueDate <= oldDueDate) {
             return;
+        }
 
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(taskId);
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return;
+            }
 
             Metadata metadata = new Metadata();
             LinkedHashSet<Long> alarms = new LinkedHashSet<Long>(cursor.getCount());

@@ -94,15 +94,17 @@ public class FeaturedTaskListFragment extends TagViewFragment {
         AsyncImageView imageView = (AsyncImageView) getView().findViewById(R.id.url_image);
         String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
         Bitmap bitmap = null;
-        if (TextUtils.isEmpty(imageUrl))
+        if (TextUtils.isEmpty(imageUrl)) {
             bitmap = tagData.getPictureBitmap(TagData.PICTURE);
+        }
         if (!TextUtils.isEmpty(imageUrl) || bitmap != null) {
             imageView.setVisibility(View.VISIBLE);
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.default_list_0));
-            if (bitmap != null)
+            if (bitmap != null) {
                 imageView.setImageBitmap(bitmap);
-            else
+            } else {
                 imageView.setUrl(imageUrl);
+            }
         } else {
             imageView.setVisibility(View.GONE);
         }

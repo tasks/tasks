@@ -107,8 +107,9 @@ public class TasksXmlExporter {
             progressDialog.setCancelable(false);
             progressDialog.setIndeterminate(false);
             progressDialog.show();
-            if(context instanceof Activity)
-                progressDialog.setOwnerActivity((Activity)context);
+            if(context instanceof Activity) {
+                progressDialog.setOwnerActivity((Activity) context);
+            }
         }
 
         new Thread(new Runnable() {
@@ -119,15 +120,17 @@ public class TasksXmlExporter {
                             exportType);
                     int tasks = taskService.countTasks();
 
-                    if(tasks > 0)
+                    if(tasks > 0) {
                         doTasksExport(output);
+                    }
 
                     Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE,
                             DateUtilities.now());
                     Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
 
-                    if (exportType == ExportType.EXPORT_TYPE_MANUAL)
+                    if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
                         onFinishExport(output);
+                    }
                 } catch (IOException e) {
                     switch(exportType) {
                     case EXPORT_TYPE_MANUAL:
@@ -144,8 +147,9 @@ public class TasksXmlExporter {
                         break;
                     }
                 } finally {
-                    if(runAfterExport != null)
+                    if(runAfterExport != null) {
                         runAfterExport.run();
+                    }
                 }
             }
         }).start();
@@ -224,9 +228,11 @@ public class TasksXmlExporter {
      */
     private void serializeModel(AbstractModel model, Property<?>[] properties, Property<?>... excludes) {
         outer: for(Property<?> property : properties) {
-            for(Property<?> exclude : excludes)
-                if(property.name.equals(exclude.name))
+            for(Property<?> exclude : excludes) {
+                if (property.name.equals(exclude.name)) {
                     continue outer;
+                }
+            }
 
             try {
                 property.accept(xmlWritingVisitor, model);
@@ -301,8 +307,9 @@ public class TasksXmlExporter {
         public Void visitString(Property<String> property, AbstractModel data) {
             try {
                 String value = data.getValue(property);
-                if(value == null)
+                if(value == null) {
                     return null;
+                }
                 xml.attribute(null, property.name, value);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
@@ -322,15 +329,16 @@ public class TasksXmlExporter {
             @Override
             public void run() {
 
-                if(exportCount == 0)
+                if(exportCount == 0) {
                     Toast.makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG).show();
-                else {
+                } else {
                     CharSequence text = String.format(context.getString(R.string.export_toast),
                             context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
                                     exportCount), outputFile);
                     Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                    if(progressDialog.isShowing() && context instanceof Activity)
+                    if(progressDialog.isShowing() && context instanceof Activity) {
                         DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                    }
                 }
             }
         });

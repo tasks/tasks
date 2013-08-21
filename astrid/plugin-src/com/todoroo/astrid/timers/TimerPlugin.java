@@ -52,10 +52,12 @@ public class TimerPlugin extends BroadcastReceiver {
     public static void updateTimer(Context context, Task task, boolean start) {
         // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
         // this is needed just for stopping a task
-        if (!task.containsNonNullValue(Task.TIMER_START))
+        if (!task.containsNonNullValue(Task.TIMER_START)) {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
-        if (task == null)
+        }
+        if (task == null) {
             return;
+        }
 
         if(start) {
             if(task.getValue(Task.TIMER_START) == 0) {

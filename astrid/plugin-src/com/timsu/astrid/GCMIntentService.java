@@ -66,8 +66,9 @@ public class GCMIntentService extends GCMBaseIntentService {
         if(AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
             //the following uses relection to get android.os.Build.SERIAL to avoid having to build with Gingerbread
             try {
-                if(!Build.UNKNOWN.equals(Build.SERIAL))
+                if(!Build.UNKNOWN.equals(Build.SERIAL)) {
                     id = Build.SERIAL;
+                }
             } catch(Exception e) {
                 // Ah well
             }
@@ -119,13 +120,15 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     protected void onMessage(Context context, Intent intent) {
         if (actFmPreferenceService.isLoggedIn()) {
-            if(intent.hasExtra("web_update"))
-                if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing())
+            if(intent.hasExtra("web_update")) {
+                if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing()) {
                     new ActFmSyncV2Provider().synchronizeActiveTasks(false, refreshOnlyCallback);
-                else
+                } else {
                     handleWebUpdate(intent);
-            else
+                }
+            } else {
                 handleMessage(intent);
+            }
         }
     }
 
@@ -174,12 +177,14 @@ public class GCMIntentService extends GCMBaseIntentService {
     private void handleMessage(Intent intent) {
         String message = intent.getStringExtra("alert");
         Context context = ContextManager.getContext();
-        if(TextUtils.isEmpty(message))
+        if(TextUtils.isEmpty(message)) {
             return;
+        }
 
         long lastNotification = Preferences.getLong(PREF_LAST_GCM, 0);
-        if(DateUtilities.now() - lastNotification < 5000L)
+        if(DateUtilities.now() - lastNotification < 5000L) {
             return;
+        }
         Preferences.setLong(PREF_LAST_GCM, DateUtilities.now());
         Intent notifyIntent = null;
         int notifId;
@@ -213,8 +218,9 @@ public class GCMIntentService extends GCMBaseIntentService {
             return;
         }
 
-        if (notifyIntent == null)
+        if (notifyIntent == null) {
             return;
+        }
 
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_C2DM);
@@ -228,10 +234,11 @@ public class GCMIntentService extends GCMBaseIntentService {
         Notification notification = new Notification(icon,
                 message, System.currentTimeMillis());
         String title;
-        if(intent.hasExtra("title"))
+        if(intent.hasExtra("title")) {
             title = "Astrid: " + intent.getStringExtra("title");
-        else
+        } else {
             title = ContextManager.getString(R.string.app_name);
+        }
         notification.setLatestEventInfo(ContextManager.getContext(), title,
                 message, pendingIntent);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -254,20 +261,26 @@ public class GCMIntentService extends GCMBaseIntentService {
     private int calculateIcon(Intent intent) {
         if(intent.hasExtra("type")) {
             String type = intent.getStringExtra("type");
-            if("f".equals(type))
+            if("f".equals(type)) {
                 return R.drawable.notif_c2dm_done;
-            if("s".equals(type))
+            }
+            if("s".equals(type)) {
                 return R.drawable.notif_c2dm_assign;
-            if("l".equals(type))
+            }
+            if("l".equals(type)) {
                 return R.drawable.notif_c2dm_assign;
+            }
         } else {
             String message = intent.getStringExtra("alert");
-            if(message.contains(" finished "))
+            if(message.contains(" finished ")) {
                 return R.drawable.notif_c2dm_done;
-            if(message.contains(" invited you to "))
+            }
+            if(message.contains(" invited you to ")) {
                 return R.drawable.notif_c2dm_assign;
-            if(message.contains(" sent you "))
+            }
+            if(message.contains(" sent you ")) {
                 return R.drawable.notif_c2dm_assign;
+            }
         }
         return R.drawable.notif_c2dm_msg;
     }
@@ -334,8 +347,9 @@ public class GCMIntentService extends GCMBaseIntentService {
                 update.setValue(UserActivity.ACTION, "tag_comment");
                 update.setValue(UserActivity.TARGET_NAME, intent.getStringExtra("title"));
                 String message = intent.getStringExtra("alert");
-                if(message.contains(":"))
+                if(message.contains(":")) {
                     message = message.substring(message.indexOf(':') + 2);
+                }
                 update.setValue(UserActivity.MESSAGE, message);
                 update.setValue(UserActivity.CREATED_AT, DateUtilities.now());
                 update.setValue(UserActivity.TARGET_ID, intent.getStringExtra("tag_id"));
@@ -361,14 +375,26 @@ public class GCMIntentService extends GCMBaseIntentService {
     private boolean shouldLaunchActivity(Intent intent) {
         if(intent.hasExtra("type")) {
             String type = intent.getStringExtra("type");
-            if("f".equals(type)) return true;
-            if("s".equals(type)) return false;
-            if("l".equals(type)) return false;
+            if("f".equals(type)) {
+                return true;
+            }
+            if("s".equals(type)) {
+                return false;
+            }
+            if("l".equals(type)) {
+                return false;
+            }
         } else {
             String message = intent.getStringExtra("alert");
-            if(message.contains(" finished ")) return true;
-            if(message.contains(" invited you to ")) return false;
-            if(message.contains(" sent you ")) return false;
+            if(message.contains(" finished ")) {
+                return true;
+            }
+            if(message.contains(" invited you to ")) {
+                return false;
+            }
+            if(message.contains(" sent you ")) {
+                return false;
+            }
         }
         return true;
     }

@@ -89,11 +89,13 @@ public class PersonViewFragment extends TaskListFragment {
     protected void setupQuickAddBar() {
         super.setupQuickAddBar();
         quickAddBar.setUsePeopleControl(false);
-        if (user != null)
+        if (user != null) {
             quickAddBar.getQuickAddBox().setHint(getString(R.string.TLA_quick_add_hint_assign, user.getDisplayName()));
+        }
 
-        if (extras.containsKey(EXTRA_HIDE_QUICK_ADD))
+        if (extras.containsKey(EXTRA_HIDE_QUICK_ADD)) {
             quickAddBar.setVisibility(View.GONE);
+        }
 
         // set listener for astrid icon
         emptyView.setOnClickListener(null);
@@ -103,17 +105,19 @@ public class PersonViewFragment extends TaskListFragment {
     private String getUserSubtitleText() {
         String status = user.getValue(User.STATUS);
         String userName = user.getDisplayName();
-        if (User.STATUS_PENDING.equals(status) || User.STATUS_REQUEST.equals(status))
+        if (User.STATUS_PENDING.equals(status) || User.STATUS_REQUEST.equals(status)) {
             return getString(R.string.actfm_friendship_pending, userName);
-        else if (User.STATUS_BLOCKED.equals(status) || User.STATUS_RENOUNCE.equals(status))
+        } else if (User.STATUS_BLOCKED.equals(status) || User.STATUS_RENOUNCE.equals(status)) {
             return getString(R.string.actfm_friendship_blocked, userName);
-        else if (User.STATUS_FRIENDS.equals(status) || User.STATUS_CONFIRM.equals(status))
+        } else if (User.STATUS_FRIENDS.equals(status) || User.STATUS_CONFIRM.equals(status)) {
             return getString(R.string.actfm_friendship_friends, userName);
-        else if (User.STATUS_OTHER_PENDING.equals(status))
+        } else if (User.STATUS_OTHER_PENDING.equals(status)) {
             return getString(R.string.actfm_friendship_other_pending, userName);
-        else if (User.STATUS_IGNORED.equals(status) || User.STATUS_IGNORE.equals(status))
+        } else if (User.STATUS_IGNORED.equals(status) || User.STATUS_IGNORE.equals(status)) {
             return getString(R.string.actfm_friendship_ignored, userName);
-        else return getString(R.string.actfm_friendship_no_status, userName);
+        } else {
+            return getString(R.string.actfm_friendship_no_status, userName);
+        }
 
     }
 
@@ -121,13 +125,16 @@ public class PersonViewFragment extends TaskListFragment {
         String status = user.getValue(User.STATUS);
         userStatusButton.setVisibility(View.VISIBLE);
         if (User.STATUS_CONFIRM.equals(status) || User.STATUS_IGNORE.equals(status) || User.STATUS_RENOUNCE.equals(status) || User.STATUS_REQUEST.equals(user)) // All the pending status options
+        {
             userStatusButton.setVisibility(View.GONE);
-        else if (TextUtils.isEmpty(status) || "null".equals(status)) //$NON-NLS-1$
+        } else if (TextUtils.isEmpty(status) || "null".equals(status)) //$NON-NLS-1$
+        {
             userStatusButton.setText(getString(R.string.actfm_friendship_connect));
-        else if (User.STATUS_OTHER_PENDING.equals(status))
+        } else if (User.STATUS_OTHER_PENDING.equals(status)) {
             userStatusButton.setText(getString(R.string.actfm_friendship_accept));
-        else
+        } else {
             userStatusButton.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -187,8 +194,9 @@ public class PersonViewFragment extends TaskListFragment {
 
     @Override
     protected void initiateAutomaticSyncImpl() {
-        if (!isCurrentTaskListFragment())
+        if (!isCurrentTaskListFragment()) {
             return;
+        }
         if (user != null) {
             long lastAutosync = user.getValue(User.LAST_AUTOSYNC);
 

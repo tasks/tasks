@@ -59,8 +59,9 @@ public class TitleParser {
                 result = true;
                 String tag = TitleParser.trimParenthesis(m.group(2));
                 String tagWithCase = tagService.getTagWithCase(tag);
-                if (!addedTags.contains(tagWithCase))
+                if (!addedTags.contains(tagWithCase)) {
                     tags.add(tagWithCase);
+                }
                 addedTags.add(tagWithCase);
             } else {
                 m = contextPattern.matcher(inputText);
@@ -68,8 +69,9 @@ public class TitleParser {
                     result = true;
                     String tag = TitleParser.trimParenthesis(m.group(2));
                     String tagWithCase = tagService.getTagWithCase(tag);
-                    if (!addedTags.contains(tagWithCase))
+                    if (!addedTags.contains(tagWithCase)) {
                         tags.add(tagWithCase);
+                    }
                     addedTags.add(tagWithCase);
                 } else{
                     break;
@@ -83,15 +85,19 @@ public class TitleParser {
 
     //helper method for priorityHelper. converts the string to a Task Importance
     private static int strToPriority(String priorityStr) {
-        if (priorityStr!=null)
+        if (priorityStr!=null) {
             priorityStr.toLowerCase().trim();
+        }
         int priority = Task.IMPORTANCE_DO_OR_DIE;
-        if ("0".equals(priorityStr) || "!0".equals(priorityStr) || "least".equals(priorityStr) ||  "lowest".equals(priorityStr))
+        if ("0".equals(priorityStr) || "!0".equals(priorityStr) || "least".equals(priorityStr) ||  "lowest".equals(priorityStr)) {
             priority = Task.IMPORTANCE_NONE;
-        if ("!".equals(priorityStr) || "!1".equals(priorityStr) || "bang".equals(priorityStr) || "1".equals(priorityStr) || "low".equals(priorityStr))
+        }
+        if ("!".equals(priorityStr) || "!1".equals(priorityStr) || "bang".equals(priorityStr) || "1".equals(priorityStr) || "low".equals(priorityStr)) {
             priority = Task.IMPORTANCE_SHOULD_DO;
-        if ("!!".equals(priorityStr) || "!2".equals(priorityStr) || "bang bang".equals(priorityStr) || "2".equals(priorityStr) || "high".equals(priorityStr))
+        }
+        if ("!!".equals(priorityStr) || "!2".equals(priorityStr) || "bang bang".equals(priorityStr) || "2".equals(priorityStr) || "high".equals(priorityStr)) {
             priority = Task.IMPORTANCE_MUST_DO;
+        }
         return priority;
     }
 
@@ -116,8 +122,9 @@ public class TitleParser {
                     int start = m.start() == 0 ? 0 : m.start() + 1;
                     inputText = inputText.substring(0, start) + inputText.substring(m.end());
 
-                } else
+                } else {
                     break;
+                }
             }
         }
         task.setValue(Task.TITLE, inputText.trim());
@@ -131,10 +138,12 @@ public class TitleParser {
             return time;
         }
         String text = amPmString.toLowerCase().trim();
-        if (text.equals ("am") || text.equals ("a.m") || text.equals("a"))
+        if (text.equals ("am") || text.equals ("a.m") || text.equals("a")) {
             time = Calendar.AM;
-        if (text.equals ("pm") || text.equals ("p.m") || text.equals("p"))
+        }
+        if (text.equals ("pm") || text.equals ("p.m") || text.equals("p")) {
             time = Calendar.PM;
+        }
         return time;
     }
 
@@ -147,10 +156,12 @@ public class TitleParser {
     }
 
     private static String stripParens(String s) {
-        if (s.startsWith("("))
+        if (s.startsWith("(")) {
             s = s.substring(1);
-        if (s.endsWith(")"))
+        }
+        if (s.endsWith(")")) {
             s = s.substring(0, s.length() - 1);
+        }
         return s;
     }
 
@@ -159,8 +170,9 @@ public class TitleParser {
     //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
     //Vague times (e.g. breakfast, night) are overridden by a set time (9 am, at 10, 17:00)
     private static boolean dayHelper(Task task ) {
-        if (task.containsNonNullValue(Task.DUE_DATE))
+        if (task.containsNonNullValue(Task.DUE_DATE)) {
             return false;
+        }
         String inputText = task.getValue(Task.TITLE);
         Calendar cal = null;
         Boolean containsSpecificTime = false;
@@ -241,8 +253,9 @@ public class TitleParser {
             dCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(match.group(4)));
             if (match.group(6) != null && !(match.group(6).trim()).equals("")) {
                 String yearString = match.group(6);
-                if(match.group(6).length() == 2)
+                if(match.group(6).length() == 2) {
                     yearString = "20" + match.group(6);
+                }
                 dCal.set(Calendar.YEAR, Integer.parseInt(yearString));
             }
 
@@ -313,12 +326,14 @@ public class TitleParser {
                 setCalendarToDefaultTime(timeCal);
                 timeCal.set(Calendar.HOUR, Integer.parseInt(m.group(2)));
 
-                if (m.group(3) != null && !m.group(3).trim().equals(""))
+                if (m.group(3) != null && !m.group(3).trim().equals("")) {
                     timeCal.set(Calendar.MINUTE, Integer.parseInt(m.group(3)));
-                else
+                } else {
                     timeCal.set(Calendar.MINUTE, 0);
-                if (Integer.parseInt(m.group(2)) <= 12)
+                }
+                if (Integer.parseInt(m.group(2)) <= 12) {
                     timeCal.set(Calendar.AM_PM, ampmToNumber(m.group(4)));
+                }
 
                 //sets it to the next occurrence of that hour if no am/pm is provided. doesn't include military time
                 if (Integer.parseInt(m.group(2))<= 12 && (m.group(4)==null || (m.group(4).trim()).equals(""))) {
@@ -347,8 +362,9 @@ public class TitleParser {
         }
 
         if(cal != null) { //if at least one of the above has been called, write to task. else do nothing.
-            if (!TextUtils.isEmpty(inputText))
+            if (!TextUtils.isEmpty(inputText)) {
                 task.setValue(Task.TITLE, inputText);
+            }
             if (containsSpecificTime) {
                 task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
             } else {
@@ -362,8 +378,9 @@ public class TitleParser {
 
     //Parses through the text and sets the frequency of the task.
     private static boolean repeatHelper(Task task) {
-        if (task.containsNonNullValue(Task.RECURRENCE))
+        if (task.containsNonNullValue(Task.RECURRENCE)) {
             return false;
+        }
         String inputText = task.getValue(Task.TITLE);
         HashMap<String, Frequency> repeatTimes = new HashMap<String, Frequency>();
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b" , Frequency.DAILY);
@@ -432,9 +449,9 @@ public class TitleParser {
         Matcher m = pattern.matcher(inputText);
         if (m.find() && m.group(1)!=null){
             String intervalStr = m.group(1);
-            if (wordsToNum.containsKey(intervalStr))
+            if (wordsToNum.containsKey(intervalStr)) {
                 interval = wordsToNum.get(intervalStr);
-            else {
+            } else {
                 try {
                     interval = Integer.parseInt(intervalStr);
                 } catch (NumberFormatException e) {

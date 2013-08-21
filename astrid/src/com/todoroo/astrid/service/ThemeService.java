@@ -55,27 +55,29 @@ public class ThemeService {
 
     public static int getWidgetTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme_widget);
-        if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference))
+        if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference)) {
             return getTheme();
-        else if (THEME_WIDGET_LEGACY.equals(preference))
+        } else if (THEME_WIDGET_LEGACY.equals(preference)) {
             return TasksWidget.THEME_LEGACY;
-        else
+        } else {
             return getStyleForSetting(preference);
+        }
     }
 
     private static int getStyleForSetting(String setting) {
-        if(THEME_BLACK.equals(setting))
+        if(THEME_BLACK.equals(setting)) {
             return R.style.Theme;
-        else if(THEME_TRANSPARENT.equals(setting))
+        } else if(THEME_TRANSPARENT.equals(setting)) {
             return R.style.Theme_Transparent;
-        else if(THEME_TRANSPARENT_WHITE.equals(setting))
+        } else if(THEME_TRANSPARENT_WHITE.equals(setting)) {
             return R.style.Theme_TransparentWhite;
-        else if (THEME_WHITE_RED.equals(setting))
+        } else if (THEME_WHITE_RED.equals(setting)) {
             return R.style.Theme_White;
-        else if (THEME_WHITE_ALT.equals(setting))
+        } else if (THEME_WHITE_ALT.equals(setting)) {
             return R.style.Theme_White_Alt;
-        else
+        } else {
             return R.style.Theme_White_Blue;
+        }
     }
 
     public static int getThemeColor() {
@@ -98,15 +100,17 @@ public class ThemeService {
         int themeSetting = getTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
-            if (ics)
+            if (ics) {
                 theme = R.style.TEA_Dialog_ICS;
-            else
+            } else {
                 theme = R.style.TEA_Dialog;
+            }
         } else {
-            if (ics)
+            if (ics) {
                 theme = R.style.TEA_Dialog_White_ICS;
-            else
+            } else {
                 theme = R.style.TEA_Dialog_White;
+            }
         }
         return theme;
     }
@@ -125,10 +129,11 @@ public class ThemeService {
     public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
             int theme = getTheme();
-            if (theme == R.style.Theme || theme == R.style.Theme_Transparent)
+            if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
                 return android.R.color.white;
-            else
+            } else {
                 return android.R.color.black;
+            }
         } else {
             return android.R.color.white;
         }
@@ -136,8 +141,9 @@ public class ThemeService {
 
     public static String getDialogTextColorString() {
         int color = getDialogTextColor();
-        if (color == android.R.color.white)
+        if (color == android.R.color.white) {
             return "white";
+        }
         return "black";
     }
 
@@ -154,10 +160,12 @@ public class ThemeService {
     }
 
     public static int getFilterThemeFlags() {
-        if (forceFilterInvert)
+        if (forceFilterInvert) {
             return ThemeService.FLAG_INVERT;
-        if (AstridPreferences.useTabletLayout(ContextManager.getContext()))
+        }
+        if (AstridPreferences.useTabletLayout(ContextManager.getContext())) {
             return ThemeService.FLAG_FORCE_LIGHT;
+        }
         return 0;
     }
 
@@ -179,8 +187,9 @@ public class ThemeService {
         }
 
         if (lightDrawable == R.drawable.icn_menu_refresh &&
-                AstridPreferences.useTabletLayout(ContextManager.getContext()))
+                AstridPreferences.useTabletLayout(ContextManager.getContext())) {
             return R.drawable.icn_menu_refresh_tablet;
+        }
 
         if (theme == R.style.Theme_White_Alt) {
             switch(lightDrawable) {
@@ -197,8 +206,9 @@ public class ThemeService {
             }
         }
 
-        if(!darkTheme)
+        if(!darkTheme) {
             return lightDrawable;
+        }
 
 
         switch(lightDrawable) {

@@ -39,8 +39,9 @@ public class TagController extends LegacyAbstractController {
             TagModelForView.FIELD_LIST, null, null, null, null, null, null);
 
         try {
-	        if(cursor.getCount() == 0)
-	            return list;
+	        if(cursor.getCount() == 0) {
+                return list;
+            }
 	        do {
 	            cursor.moveToNext();
 	            list.add(new TagModelForView(cursor));
@@ -57,8 +58,9 @@ public class TagController extends LegacyAbstractController {
     /** Get a list of all tags as an id => tag map */
     public HashMap<TagIdentifier, TagModelForView> getAllTagsAsMap() throws SQLException {
         HashMap<TagIdentifier, TagModelForView> map = new HashMap<TagIdentifier, TagModelForView>();
-        for(TagModelForView tag : getAllTags())
+        for(TagModelForView tag : getAllTags()) {
             map.put(tag.getTagIdentifier(), tag);
+        }
         return map;
     }
 
@@ -71,8 +73,9 @@ public class TagController extends LegacyAbstractController {
                 new String[] { taskId.idAsString() }, null, null, null);
 
         try {
-	        if(cursor.getCount() == 0)
-	            return list;
+	        if(cursor.getCount() == 0) {
+                return list;
+            }
 	        do {
 	            cursor.moveToNext();
 	            list.add(new TagToTaskMapping(cursor).getTag());
@@ -95,8 +98,9 @@ public class TagController extends LegacyAbstractController {
                 new String[] { tagId.idAsString() }, null, null, null);
 
         try {
-	        if(cursor.getCount() == 0)
-	            return list;
+	        if(cursor.getCount() == 0) {
+                return list;
+            }
 	        do {
 	            cursor.moveToNext();
 	            list.add(new TagToTaskMapping(cursor).getTask());
@@ -132,8 +136,9 @@ public class TagController extends LegacyAbstractController {
 
     	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         try {
-        	if(taskCursor.getCount() == 0)
-        		return list;
+        	if(taskCursor.getCount() == 0) {
+                return list;
+            }
 
         	do {
         		taskCursor.moveToNext();
@@ -152,8 +157,9 @@ public class TagController extends LegacyAbstractController {
         	taskDatabase.close();
         }
 
-        for(Long id : ids)
-        	list.add(new TaskIdentifier(id));
+        for(Long id : ids) {
+            list.add(new TaskIdentifier(id));
+        }
     	return list;
     }
 
@@ -161,8 +167,9 @@ public class TagController extends LegacyAbstractController {
     // --- single tag operations
 
     public TagIdentifier createTag(String name) throws SQLException {
-        if(name == null)
+        if(name == null) {
             throw new NullPointerException("Name can't be null");
+        }
 
         TagModelForView newTag = new TagModelForView(name);
         long row = tagDatabase.insertOrThrow(tagsTable, AbstractTagModel.NAME,
@@ -203,8 +210,9 @@ public class TagController extends LegacyAbstractController {
             }
             return null;
         } finally {
-            if(cursor != null)
+            if(cursor != null) {
                 cursor.close();
+            }
         }
     }
 
@@ -224,8 +232,9 @@ public class TagController extends LegacyAbstractController {
 
             throw new SQLException("Returned empty set!");
         } finally {
-            if(cursor != null)
+            if(cursor != null) {
                 cursor.close();
+            }
         }
     }
 
@@ -233,8 +242,9 @@ public class TagController extends LegacyAbstractController {
     public boolean deleteTag( TagIdentifier tagId)
             throws SQLException{
         if(tagToTaskMapDatabase.delete(tagTaskTable,
-                TagToTaskMapping.TAG + " = " + tagId.idAsString(), null) < 0)
+                TagToTaskMapping.TAG + " = " + tagId.idAsString(), null) < 0) {
             return false;
+        }
 
         int res = tagDatabase.delete(tagsTable,
                 KEY_ROWID + " = " + tagId.idAsString(), null);
@@ -308,9 +318,11 @@ public class TagController extends LegacyAbstractController {
     /** Closes database resource */
     @Override
     public void close() {
-        if(tagDatabase != null)
+        if(tagDatabase != null) {
             tagDatabase.close();
-        if(tagToTaskMapDatabase != null)
+        }
+        if(tagToTaskMapDatabase != null) {
             tagToTaskMapDatabase.close();
+        }
     }
 }

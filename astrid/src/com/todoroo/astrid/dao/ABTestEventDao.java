@@ -60,8 +60,9 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
                 .where(ABTestEvent.TEST_NAME.eq(testName)).orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
 
         try {
-            if (existing.getCount() == 0)
+            if (existing.getCount() == 0) {
                 return;
+            }
 
             existing.moveToLast();
             ABTestEvent item = new ABTestEvent(existing);
@@ -71,8 +72,9 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
             int currentTimeIntervalIndex = AndroidUtilities.indexOf(
                     ABTestEvent.TIME_INTERVALS, timeInterval);
 
-            if (lastRecordedTimeIntervalIndex < 0 || currentTimeIntervalIndex < 0)
+            if (lastRecordedTimeIntervalIndex < 0 || currentTimeIntervalIndex < 0) {
                 return;
+            }
 
             long now = DateUtilities.now();
             for (int i = lastRecordedTimeIntervalIndex + 1; i <= currentTimeIntervalIndex; i++) {
@@ -108,12 +110,15 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
                 String testName = event.getValue(ABTestEvent.TEST_NAME);
                 int timeInterval = -1;
                 long days = timeSinceBase / DateUtilities.ONE_DAY;
-                for(int i = 0; i < ABTestEvent.TIME_INTERVALS.length; i++)
-                    if(days >= ABTestEvent.TIME_INTERVALS[i])
+                for(int i = 0; i < ABTestEvent.TIME_INTERVALS.length; i++) {
+                    if (days >= ABTestEvent.TIME_INTERVALS[i]) {
                         timeInterval = ABTestEvent.TIME_INTERVALS[i];
+                    }
+                }
 
-                if (timeInterval > 0)
+                if (timeInterval > 0) {
                     createTestEventWithTimeInterval(testName, timeInterval);
+                }
             }
         } finally {
             allEvents.close();

@@ -208,17 +208,20 @@ public class ActFmSyncThread {
     public static void clearTablePushedAtValues() {
         String[] pushedAtPrefs = new String[] { NameMaps.PUSHED_AT_TASKS, NameMaps.PUSHED_AT_TAGS, NameMaps.PUSHED_AT_ACTIVITY,
                 NameMaps.PUSHED_AT_USERS, NameMaps.PUSHED_AT_TASK_LIST_METADATA, NameMaps.PUSHED_AT_WAITING_ON_ME };
-        for (String key : pushedAtPrefs)
+        for (String key : pushedAtPrefs) {
             Preferences.clear(key);
+        }
     }
 
     public synchronized void enqueueMessage(ClientToServerMessage<?> message, SyncMessageCallback callback) {
-        if (!RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES))
+        if (!RemoteModelDao.getOutstandingEntryFlag(RemoteModelDao.OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES)) {
             return;
+        }
         if (!pendingMessages.contains(message)) {
             pendingMessages.add(message);
-            if (callback != null)
+            if (callback != null) {
                 pendingCallbacks.put(message, callback);
+            }
             synchronized(monitor) {
                 monitor.notifyAll();
             }
@@ -227,10 +230,11 @@ public class ActFmSyncThread {
 
     public synchronized void setTimeForBackgroundSync(boolean isTimeForBackgroundSync) {
         this.isTimeForBackgroundSync = isTimeForBackgroundSync;
-        if (isTimeForBackgroundSync)
+        if (isTimeForBackgroundSync) {
             synchronized (monitor) {
                 monitor.notifyAll();
             }
+        }
     }
 
     public static final SyncMessageCallback DEFAULT_REFRESH_RUNNABLE = new SyncMessageCallback() {
@@ -260,8 +264,9 @@ public class ActFmSyncThread {
                             monitor.wait();
                             AndroidUtilities.sleepDeep(500L); // Wait briefly for large database operations to finish (e.g. adding a task with several tags may trigger a message before all saves are done--fix this?)
 
-                            if (!syncMigration)
+                            if (!syncMigration) {
                                 syncMigration = Preferences.getBoolean(AstridNewSyncMigrator.PREF_SYNC_MIGRATION, false);
+                            }
                         } catch (InterruptedException e) {
                             // Ignored
                         }
@@ -281,8 +286,9 @@ public class ActFmSyncThread {
 
                 while (messageBatch.size() < batchSize && !pendingMessages.isEmpty()) {
                     ClientToServerMessage<?> message = pendingMessages.remove(0);
-                    if (message != null)
+                    if (message != null) {
                         messageBatch.add(message);
+                    }
                 }
 
                 if (!messageBatch.isEmpty() && checkForToken()) {
@@ -293,8 +299,9 @@ public class ActFmSyncThread {
                         ClientToServerMessage<?> message = messageBatch.get(i);
                         boolean success = payload.addMessage(message, entity);
                         if (success) {
-                            if (message instanceof ChangesHappened)
+                            if (message instanceof ChangesHappened) {
                                 containsChangesHappened = true;
+                            }
                         } else {
                             messageBatch.remove(i);
                             i--;
@@ -355,10 +362,11 @@ public class ActFmSyncThread {
                             SyncMessageCallback r = pendingCallbacks.remove(message);
                             if (r != null && !callbacksExecutedThisLoop.contains(r)) {
                                 List<JSONArray> errorList = errorMap.get(i);
-                                if (errorList == null || errorList.isEmpty())
+                                if (errorList == null || errorList.isEmpty()) {
                                     r.runOnSuccess();
-                                else
+                                } else {
                                     r.runOnErrors(errorList);
+                                }
 
                                 callbacksExecutedThisLoop.add(r);
                             }
@@ -498,15 +506,17 @@ public class ActFmSyncThread {
     }
 
     private boolean checkForToken() {
-        if(!actFmPreferenceService.isLoggedIn())
+        if(!actFmPreferenceService.isLoggedIn()) {
             return false;
+        }
         token = actFmPreferenceService.getToken();
         return true;
     }
 
     public static void syncLog(String message) {
-        if (ActFmInvoker.SYNC_DEBUG)
+        if (ActFmInvoker.SYNC_DEBUG) {
             Log.e(ERROR_TAG, message);
+        }
     }
 
     public static class NetworkStateChangedReceiver extends BroadcastReceiver {

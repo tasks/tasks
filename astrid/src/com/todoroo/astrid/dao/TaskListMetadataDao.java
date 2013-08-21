@@ -35,11 +35,13 @@ public class TaskListMetadataDao extends RemoteModelDao<TaskListMetadata> {
 
     @Override
     protected boolean shouldRecordOutstandingEntry(String columnName, Object value) {
-        if (TaskListMetadata.FILTER.name.equals(columnName) || TaskListMetadata.TAG_UUID.name.equals(columnName))
+        if (TaskListMetadata.FILTER.name.equals(columnName) || TaskListMetadata.TAG_UUID.name.equals(columnName)) {
             return !RemoteModel.isUuidEmpty(value.toString());
+        }
 
-        if (TaskListMetadata.TASK_IDS.name.equals(columnName))
+        if (TaskListMetadata.TASK_IDS.name.equals(columnName)) {
             return !TaskListMetadata.taskIdsIsEmpty(value.toString());
+        }
 
         return NameMaps.shouldRecordOutstandingColumnForTable(NameMaps.TABLE_ID_TASK_LIST_METADATA, columnName);
     }

@@ -111,8 +111,9 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
      */
     public void correctMetadataForList(String listId) {
         StoreObject list = gtasksListService.getList(listId);
-        if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
+        if(list == GtasksListService.LIST_NOT_FOUND_OBJECT) {
             return;
+        }
 
         updateParentSiblingMapsFor(list);
 
@@ -124,13 +125,15 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
             public void processTask(long taskId, Metadata metadata) {
                 metadata.setValue(GtasksMetadata.ORDER, order.getAndAdd(1));
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
-                if(indent > previousIndent.get() + 1)
+                if(indent > previousIndent.get() + 1) {
                     indent = previousIndent.get() + 1;
+                }
                 metadata.setValue(GtasksMetadata.INDENT, indent);
 
                 Long parent = parents.get(taskId);
-                if(parent == null || parent < 0)
+                if(parent == null || parent < 0) {
                     parent = Task.NO_ID;
+                }
                 metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
 
                 PluginServices.getMetadataService().save(metadata);
@@ -155,8 +158,9 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                 Metadata curr = new Metadata();
                 for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
                     curr.readFromCursor(metadata);
-                    if(alreadyChecked.contains(curr.getValue(Metadata.TASK)))
+                    if(alreadyChecked.contains(curr.getValue(Metadata.TASK))) {
                         continue;
+                    }
 
                     curr.setValue(GtasksMetadata.INDENT, indentLevel);
                     curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
@@ -191,12 +195,14 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
                     } else {
                         // move up once for each indent
                         sibling = previousTask.get();
-                        for(int i = indent; i < previousIndent.get(); i++)
+                        for(int i = indent; i < previousIndent.get(); i++) {
                             sibling = parents.get(sibling);
-                        if(parents.containsKey(sibling))
+                        }
+                        if(parents.containsKey(sibling)) {
                             parent = parents.get(sibling);
-                        else
+                        } else {
                             parent = Task.NO_ID;
+                        }
                     }
                     parents.put(taskId, parent);
                     siblings.put(taskId, sibling);
@@ -206,8 +212,9 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<StoreObjec
 
                 previousTask.set(taskId);
                 previousIndent.set(indent);
-                if(!TextUtils.isEmpty(metadata.getValue(GtasksMetadata.ID)))
+                if(!TextUtils.isEmpty(metadata.getValue(GtasksMetadata.ID))) {
                     localToRemoteIdMap.put(taskId, metadata.getValue(GtasksMetadata.ID));
+                }
             }
         });
     }

@@ -14,8 +14,9 @@ public class ReplayTaskListMetadataOutstanding extends ReplayOutstandingEntries<
     @Override
     protected boolean shouldSaveModel(TaskListMetadata model) {
         if (model.containsNonNullValue(TaskListMetadata.TASK_IDS) &&
-                TaskListMetadata.taskIdsIsEmpty(model.getValue(TaskListMetadata.TASK_IDS)))
+                TaskListMetadata.taskIdsIsEmpty(model.getValue(TaskListMetadata.TASK_IDS))) {
             return false;
+        }
         return true;
     }
 

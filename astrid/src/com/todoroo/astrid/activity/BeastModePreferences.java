@@ -47,11 +47,13 @@ public class BeastModePreferences extends ListActivity {
      * @param c
      */
     public static void assertHideUntilSectionExists(Context c, long latestSetVersion) {
-        if (latestSetVersion == 0)
+        if (latestSetVersion == 0) {
             Preferences.setBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, true);
+        }
 
-        if (Preferences.getBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, false))
+        if (Preferences.getBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, false)) {
             return;
+        }
 
         String order = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
         String hideSectionPref = c.getString(R.string.TEA_ctrl_hide_section_pref);
@@ -60,8 +62,9 @@ public class BeastModePreferences extends ListActivity {
             String[] items = c.getResources().getStringArray(R.array.TEA_control_sets_prefs);
             StringBuilder builder = new StringBuilder();
             for (String item : items) {
-                if (item.equals(hideSectionPref))
+                if (item.equals(hideSectionPref)) {
                     continue;
+                }
                 builder.append(item);
                 builder.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
             }
@@ -78,11 +81,13 @@ public class BeastModePreferences extends ListActivity {
     }
 
     public static void setDefaultLiteModeOrder(Context context, boolean force) {
-        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force)
+        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force) {
             return;
+        }
 
-        if (force)
+        if (force) {
             Preferences.clear(BEAST_MODE_ORDER_PREF);
+        }
         ArrayList<String> list = constructOrderedControlList(context);
         String moreSeparator = context.getResources().getString(R.string.TEA_ctrl_more_pref);
         String hideSeparator = context.getResources().getString(R.string.TEA_ctrl_hide_section_pref);
@@ -99,10 +104,11 @@ public class BeastModePreferences extends ListActivity {
 
         list.remove(hideSeparator);
         moreIndex = list.indexOf(moreSeparator);
-        if (moreIndex >= 0)
+        if (moreIndex >= 0) {
             list.add(moreIndex, hideSeparator);
-        else
+        } else {
             list.add(hideSeparator);
+        }
 
         StringBuilder newSetting = new StringBuilder(30);
         for (String item : list) {
@@ -113,11 +119,13 @@ public class BeastModePreferences extends ListActivity {
     }
 
     public static void setDefaultOrder(Context context, boolean force) {
-        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force)
+        if (Preferences.getStringValue(BEAST_MODE_ORDER_PREF) != null && !force) {
             return;
+        }
 
-        if (force)
+        if (force) {
             Preferences.clear(BEAST_MODE_ORDER_PREF);
+        }
         ArrayList<String> list = constructOrderedControlList(context);
         StringBuilder newSetting = new StringBuilder(30);
         for (String item : list) {
@@ -184,10 +192,12 @@ public class BeastModePreferences extends ListActivity {
 
     private void resetToDefault() {
         String[] prefsArray = getResources().getStringArray(R.array.TEA_control_sets_prefs);
-        while (items.size() > 0)
+        while (items.size() > 0) {
             items.remove(0);
-        for (String s : prefsArray)
+        }
+        for (String s : prefsArray) {
             items.add(s);
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -218,13 +228,15 @@ public class BeastModePreferences extends ListActivity {
             }
         }
 
-        if (order == null)
+        if (order == null) {
             return list;
+        }
 
         itemsArray = context.getResources().getStringArray(R.array.TEA_control_sets_prefs);
         for (int i = 0; i < itemsArray.length; i++) {
-            if (!list.contains(itemsArray[i]))
+            if (!list.contains(itemsArray[i])) {
                 list.add(i, itemsArray[i]);
+            }
         }
         return list;
     }

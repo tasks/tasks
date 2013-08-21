@@ -212,10 +212,11 @@ public abstract class CommentsFragment extends SherlockListFragment {
         pictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (picture != null)
+                if (picture != null) {
                     ActFmCameraModule.showPictureLauncher(CommentsFragment.this, clearImage);
-                else
+                } else {
                     ActFmCameraModule.showPictureLauncher(CommentsFragment.this, null);
+                }
             }
         });
 
@@ -230,8 +231,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
     protected void refreshUpdatesList() {
         Activity activity = getActivity();
         View view = getView();
-        if (activity == null || view == null)
+        if (activity == null || view == null) {
             return;
+        }
 
         Cursor cursor = null;
         ListView listView = ((ListView) view.findViewById(android.R.id.list));
@@ -284,8 +286,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
             listView.setVisibility(View.VISIBLE);
         }
 
-        if (activity instanceof CommentsActivity)
+        if (activity instanceof CommentsActivity) {
             setLastViewed();
+        }
 
     }
 
@@ -302,8 +305,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
                     int historyCount = 0;
                     Cursor c = updateAdapter.getCursor();
                     for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-                        if (NameMaps.TABLE_ID_HISTORY.equals(c.getString(UpdateAdapter.TYPE_PROPERTY_INDEX)))
+                        if (NameMaps.TABLE_ID_HISTORY.equals(c.getString(UpdateAdapter.TYPE_PROPERTY_INDEX))) {
                             historyCount++;
+                        }
                     }
                     loadMoreHistory(historyCount, doneRunnable);
                 }
@@ -324,7 +328,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
         public void runOnSuccess() {
             synchronized (this) {
                 Activity activity = getActivity();
-                if (activity != null)
+                if (activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -332,6 +336,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
                             refreshUpdatesList();
                         }
                     });
+                }
             }
         }
 
@@ -351,8 +356,9 @@ public abstract class CommentsFragment extends SherlockListFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if(menu.size() > 0)
+        if(menu.size() > 0) {
             return;
+        }
 
         MenuItem item;
         boolean showCommentsRefresh = actFmPreferenceService.isLoggedIn();

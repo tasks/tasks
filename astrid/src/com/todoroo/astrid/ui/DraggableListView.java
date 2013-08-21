@@ -243,8 +243,9 @@ public class DraggableListView extends ListView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (mGestureDetector != null)
+        if (mGestureDetector != null) {
             mGestureDetector.onTouchEvent(ev);
+        }
 
         mTouchCurrentX = ev.getX();
         mTouchCurrentY = ev.getY();
@@ -259,17 +260,19 @@ public class DraggableListView extends ListView {
                 if (dragThread != null && mClickListener != null) {
                     dragThread.interrupt();
                     dragThread = null;
-                    if (action == MotionEvent.ACTION_UP)
+                    if (action == MotionEvent.ACTION_UP) {
                         mClickListener.onClick(viewAtPosition());
+                    }
                 }
 
                 else if (mSwipeListener != null &&
                             Math.abs(mTouchCurrentY - mTouchStartY) < MOVEMENT_THRESHOLD) {
                     int dragPos = pointToPosition((int)mTouchCurrentX, (int)mTouchCurrentY);
-                    if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
+                    if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD) {
                         mSwipeListener.swipeRight(dragPos);
-                    else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
+                    } else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD) {
                         mSwipeListener.swipeLeft(dragPos);
+                    }
                 }
             }
 
@@ -289,8 +292,9 @@ public class DraggableListView extends ListView {
             mTouchStartY = ev.getY();
 
         case MotionEvent.ACTION_MOVE:
-            if(mDragging)
+            if(mDragging) {
                 dragView(ev);
+            }
 
             // detect scrolling
             if(dragThread != null && (Math.abs(mTouchCurrentX - mTouchStartX) > MOVEMENT_THRESHOLD ||
@@ -302,8 +306,9 @@ public class DraggableListView extends ListView {
             break;
         }
 
-        if(mDragging)
+        if(mDragging) {
             return true;
+        }
 
         return super.onTouchEvent(ev);
     }
@@ -311,8 +316,9 @@ public class DraggableListView extends ListView {
     private View viewAtPosition() {
         int itemNum = pointToPosition((int) mTouchCurrentX, (int) mTouchCurrentY);
 
-        if (itemNum == AdapterView.INVALID_POSITION)
+        if (itemNum == AdapterView.INVALID_POSITION) {
             return null;
+        }
 
         return (View) getChildAt(itemNum - getFirstVisiblePosition());
     }
@@ -365,13 +371,15 @@ public class DraggableListView extends ListView {
         int y = (int) mTouchCurrentY;
         int itemNum = pointToPosition(x, y);
 
-        if (itemNum == AdapterView.INVALID_POSITION)
+        if (itemNum == AdapterView.INVALID_POSITION) {
             return false;
+        }
 
         View item = (View) getChildAt(itemNum - getFirstVisiblePosition());
 
-        if(!isDraggableRow(item))
+        if(!isDraggableRow(item)) {
             return false;
+        }
 
         mDragPoint = new Point(x - item.getLeft(), y - item.getTop());
         mCoordOffset = new Point((int)ev.getRawX() - x, (int)ev.getRawY() - y);
@@ -436,12 +444,13 @@ public class DraggableListView extends ListView {
 
         mWindowParams.y = y - mDragPoint.y + mCoordOffset.y;
 
-        if (mDragPos == mFirstDragPos && x > mTouchStartX + SWIPE_THRESHOLD)
+        if (mDragPos == mFirstDragPos && x > mTouchStartX + SWIPE_THRESHOLD) {
             mDragView.setPadding(30, 1, 0, 1);
-        else if (mDragPos == mFirstDragPos && x < mTouchStartX - SWIPE_THRESHOLD)
+        } else if (mDragPos == mFirstDragPos && x < mTouchStartX - SWIPE_THRESHOLD) {
             mDragView.setPadding(-30, 2, 0, 2);
-        else
+        } else {
             mDragView.setPadding(0, 0, 0, 0);
+        }
 
         mWindowManager.updateViewLayout(mDragView, mWindowParams);
 
@@ -449,8 +458,9 @@ public class DraggableListView extends ListView {
         if (itemnum >= 0) {
             if (ev.getAction() == MotionEvent.ACTION_DOWN
                     || itemnum != mDragPos) {
-                if (mDragListener != null)
+                if (mDragListener != null) {
                     mDragListener.drag(mDragPos, itemnum);
+                }
                 mDragPos = itemnum;
                 doExpansion();
             }
@@ -498,14 +508,16 @@ public class DraggableListView extends ListView {
 
         if(mDragging) {
             if (mSwipeListener != null && mDragPos == mFirstDragPos) {
-                if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
+                if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD) {
                     mSwipeListener.swipeRight(mFirstDragPos);
-                else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
+                } else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD) {
                     mSwipeListener.swipeLeft(mFirstDragPos);
+                }
             } else if(mDropListener != null && mDragPos != mFirstDragPos &&
                     mDragPos >= 0 && mDragPos < getCount()) {
-                if(mFirstDragPos < mDragPos)
+                if(mFirstDragPos < mDragPos) {
                     mDragPos++;
+                }
                 mDropListener.drop(mFirstDragPos, mDragPos);
             }
         }

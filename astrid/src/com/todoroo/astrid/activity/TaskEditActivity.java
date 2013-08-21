@@ -26,10 +26,11 @@ public class TaskEditActivity extends AstridActivity {
         ThemeService.applyTheme(this);
         ActionBar actionBar = getSupportActionBar();
         if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
-            if (ThemeService.getTheme() == R.style.Theme_White_Alt)
+            if (ThemeService.getTheme() == R.style.Theme_White_Alt) {
                 actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
-            else
+            } else {
                 actionBar.setLogo(R.drawable.ic_menu_save);
+            }
         } else {
             actionBar.setLogo(null);
         }
@@ -50,10 +51,11 @@ public class TaskEditActivity extends AstridActivity {
 	    ActionBar actionBar = getSupportActionBar();
 	    if (actionBar != null) {
 	        TextView title = ((TextView) actionBar.getCustomView().findViewById(R.id.title));
-	        if (ActFmPreferenceService.isPremiumUser())
-	            title.setText(""); //$NON-NLS-1$
-	        else
-	            title.setText(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
+	        if (ActFmPreferenceService.isPremiumUser()) {
+                title.setText(""); //$NON-NLS-1$
+            } else {
+                title.setText(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
+            }
 	    }
 	}
 
@@ -77,8 +79,9 @@ public class TaskEditActivity extends AstridActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         TaskEditFragment frag = (TaskEditFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-        if (frag != null && frag.isInLayout())
+        if (frag != null && frag.isInLayout()) {
             return frag.onKeyDown(keyCode);
+        }
         return super.onKeyDown(keyCode, event);
     }
 

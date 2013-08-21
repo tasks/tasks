@@ -56,8 +56,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public int getIndentForTask(String targetTaskId) {
         Node n = idToNode.get(targetTaskId);
-        if (n == null)
+        if (n == null) {
             return 0;
+        }
         return n.indent;
     }
 
@@ -91,8 +92,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String id = tasks.getString(0);
                 idsInQuery.add(id);
-                if (idToNode.containsKey(id))
+                if (idToNode.containsKey(id)) {
                     continue;
+                }
 
                 changedThings = true;
                 Node newNode = new Node(id, treeRoot, 0);
@@ -108,15 +110,17 @@ public abstract class AstridOrderedListUpdater<LIST> {
         } finally {
             tasks.close();
         }
-        if (changedThings)
+        if (changedThings) {
             writeSerialization(list, serializeTree(), false);
+        }
     }
 
     private void removeNodes(Set<String> idsToRemove) {
         for (String id : idsToRemove) {
             Node node = idToNode.get(id);
-            if (node == null)
+            if (node == null) {
                 continue;
+            }
 
             // Remove node from tree, put all children under parent
             Node parent = node.parent;
@@ -146,19 +150,22 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public static String buildOrderString(String[] ids) {
         StringBuilder builder = new StringBuilder();
-        if (ids.length == 0)
+        if (ids.length == 0) {
             return "(1)"; //$NON-NLS-1$
+        }
         for (int i = ids.length - 1; i >= 0; i--) {
             builder.append(Task.UUID.eq(ids[i]).toString());
-            if (i > 0)
+            if (i > 0) {
                 builder.append(", "); //$NON-NLS-1$
+            }
         }
         return builder.toString();
     }
 
     private void orderedIdHelper(Node node, List<String> ids) {
-        if (node != treeRoot)
+        if (node != treeRoot) {
             ids.add(node.uuid);
+        }
 
         for (Node child : node.children) {
             orderedIdHelper(child, ids);
@@ -167,8 +174,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public void applyToDescendants(String taskId, OrderedListNodeVisitor visitor) {
         Node n = idToNode.get(taskId);
-        if (n == null)
+        if (n == null) {
             return;
+        }
         applyToDescendantsHelper(n, visitor);
     }
 
@@ -190,19 +198,24 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     private void indentHelper(LIST list, Filter filter, Node node, int delta) {
-        if (node == null)
+        if (node == null) {
             return;
-        if (delta == 0)
+        }
+        if (delta == 0) {
             return;
+        }
         Node parent = node.parent;
-        if (parent == null)
+        if (parent == null) {
             return;
+        }
 
         if (delta > 0) {
             ArrayList<Node> siblings = parent.children;
             int index = siblings.indexOf(node);
             if (index <= 0) // Can't indent first child
+            {
                 return;
+            }
             Node newParent = siblings.get(index - 1);
             siblings.remove(index);
             node.parent = newParent;
@@ -210,12 +223,15 @@ public abstract class AstridOrderedListUpdater<LIST> {
             setNodeIndent(node, newParent.indent + 1);
         } else if (delta < 0) {
             if (parent == treeRoot) // Can't deindent a top level item
+            {
                 return;
+            }
 
             ArrayList<Node> siblings = parent.children;
             int index = siblings.indexOf(node);
-            if (index < 0)
+            if (index < 0) {
                 return;
+            }
 
             Node newParent = parent.parent;
             ArrayList<Node> newSiblings = newParent.children;
@@ -244,8 +260,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public void moveTo(LIST list, Filter filter, String targetTaskId, String beforeTaskId) {
         Node target = idToNode.get(targetTaskId);
-        if (target == null)
+        if (target == null) {
             return;
+        }
 
         if ("-1".equals(beforeTaskId)) { //$NON-NLS-1$
             moveToEndOfList(list, filter, target);
@@ -254,23 +271,27 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
         Node before = idToNode.get(beforeTaskId);
 
-        if (before == null)
+        if (before == null) {
             return;
+        }
 
-        if (isDescendantOf(before, target))
+        if (isDescendantOf(before, target)) {
             return;
+        }
 
         moveHelper(list, filter, target, before);
     }
 
     public void moveToParentOf(String moveThis, String toParentOfThis) {
         Node target = idToNode.get(toParentOfThis);
-        if (target == null)
+        if (target == null) {
             return;
+        }
 
         Node toMove = idToNode.get(moveThis);
-        if (toMove == null)
+        if (toMove == null) {
             return;
+        }
 
         Node newParent = target.parent;
         Node oldParent = toMove.parent;
@@ -289,12 +310,14 @@ public abstract class AstridOrderedListUpdater<LIST> {
         ArrayList<Node> newSiblings = newParent.children;
 
         int beforeIndex = newSiblings.indexOf(beforeThis);
-        if (beforeIndex < 0)
+        if (beforeIndex < 0) {
             return;
+        }
 
         int nodeIndex = oldSiblings.indexOf(moveThis);
-        if (nodeIndex < 0)
+        if (nodeIndex < 0) {
             return;
+        }
 
         moveThis.parent = newParent;
         setNodeIndent(moveThis, newParent.indent + 1);
@@ -312,8 +335,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
     private boolean isDescendantOf(Node desc, Node parent) {
         Node curr = desc;
         while (curr != treeRoot) {
-            if (curr == parent)
+            if (curr == parent) {
                 return true;
+            }
             curr = curr.parent;
         }
         return false;
@@ -330,8 +354,9 @@ public abstract class AstridOrderedListUpdater<LIST> {
     }
 
     public void onCreateTask(LIST list, Filter filter, String uuid) {
-        if (idToNode.containsKey(uuid) || !RemoteModel.isValidUuid(uuid))
+        if (idToNode.containsKey(uuid) || !RemoteModel.isValidUuid(uuid)) {
             return;
+        }
 
         Node newNode = new Node(uuid, treeRoot, 0);
         treeRoot.children.add(0, newNode);
@@ -342,15 +367,17 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public void onDeleteTask(LIST list, Filter filter, String taskId) {
         Node task = idToNode.get(taskId);
-        if (task == null)
+        if (task == null) {
             return;
+        }
 
         Node parent = task.parent;
         ArrayList<Node> siblings = parent.children;
         int index = siblings.indexOf(task);
 
-        if (index >= 0)
+        if (index >= 0) {
             siblings.remove(index);
+        }
         for (Node child : task.children) {
             child.parent = parent;
             siblings.add(index, child);
@@ -382,17 +409,20 @@ public abstract class AstridOrderedListUpdater<LIST> {
         for (int i = 1; i < children.length(); i++) {
             JSONArray subarray = children.optJSONArray(i);
             String uuid = RemoteModel.NO_UUID;
-            if (subarray == null)
+            if (subarray == null) {
                 uuid = children.getString(i);
-            else
+            } else {
                 uuid = subarray.getString(0);
+            }
 
             Node child = new Node(uuid, node, node.indent + 1);
-            if (subarray != null)
+            if (subarray != null) {
                 recursivelyBuildChildren(child, subarray, callback);
+            }
             node.children.add(child);
-            if (callback != null)
+            if (callback != null) {
                 callback.afterAddNode(child);
+            }
         }
     }
 

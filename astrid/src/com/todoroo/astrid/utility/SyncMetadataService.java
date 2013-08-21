@@ -101,11 +101,12 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
     public TodorooCursor<Task> getLocallyUpdated(Property<?>... properties) {
         TodorooCursor<Task> tasks;
         long lastSyncDate = getUtilities().getLastSyncDate();
-        if(lastSyncDate == 0)
+        if(lastSyncDate == 0) {
             tasks = taskDao.query(Query.select(Task.ID).where(Criterion.none));
-        else
+        } else {
             tasks = taskDao.query(Query.select(Task.ID).where(Criterion.and(TaskCriteria.ownedByMe(), Task.MODIFICATION_DATE.gt(lastSyncDate)))
                     .orderBy(Order.asc(Task.ID)));
+        }
         tasks = filterLocallyUpdated(tasks, lastSyncDate);
 
         return joinWithMetadata(tasks, true, properties);
@@ -156,8 +157,9 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
 
         while(true) {
             left.moveToNext();
-            if(left.isAfterLast())
+            if(left.isAfterLast()) {
                 break;
+            }
             long leftValue = left.getLong(0);
 
             // advance right until it is equal or bigger
@@ -166,13 +168,15 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
             }
 
             if(right.isAfterLast()) {
-                if(!both)
+                if(!both) {
                     matchingRows.add(leftValue);
+                }
                 continue;
             }
 
-            if((right.getLong(0) == leftValue) == both)
+            if((right.getLong(0) == leftValue) == both) {
                 matchingRows.add(leftValue);
+            }
         }
     }
 
@@ -181,14 +185,16 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
      * @param remoteTask
      */
     public void findLocalMatch(TYPE remoteTask) {
-        if(remoteTask.task.getId() != Task.NO_ID)
+        if(remoteTask.task.getId() != Task.NO_ID) {
             return;
+        }
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.TASK).
                 where(Criterion.and(MetadataCriteria.withKey(getMetadataKey()),
                         getLocalMatchCriteria(remoteTask))));
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return;
+            }
             cursor.moveToFirst();
             remoteTask.task.setId(cursor.get(Metadata.TASK));
         } finally {
@@ -238,8 +244,9 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, getMetadataKey())));
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return null;
+            }
             cursor.moveToFirst();
             return new Metadata(cursor);
         } finally {

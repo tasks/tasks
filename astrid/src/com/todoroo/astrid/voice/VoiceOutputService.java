@@ -62,11 +62,13 @@ public class VoiceOutputService {
 
     public static VoiceOutputAssistant getVoiceOutputInstance() {
         if(AndroidUtilities.getSdkVersion() >= MIN_TTS_VERSION) {
-            if (outputAssistant == null)
+            if (outputAssistant == null) {
                 outputAssistant = new Api6VoiceOutputAssistant();
+            }
         } else {
-            if(outputAssistant == null)
+            if(outputAssistant == null) {
                 outputAssistant = new NullVoiceOutputAssistant();
+            }
         }
 
         return outputAssistant;

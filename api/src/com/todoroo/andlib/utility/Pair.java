@@ -37,8 +37,9 @@ public class Pair<L, R> {
 
     @Override
     public final boolean equals(Object o) {
-        if (!(o instanceof Pair<?, ?>))
+        if (!(o instanceof Pair<?, ?>)) {
             return false;
+        }
 
         final Pair<?, ?> other = (Pair<?, ?>) o;
         return equal(getLeft(), other.getLeft()) && equal(getRight(), other.getRight());

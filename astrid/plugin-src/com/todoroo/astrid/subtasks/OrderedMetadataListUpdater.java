@@ -83,8 +83,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
      * Indent a task and all its children
      */
     public void indent(final Filter filter, final LIST list, final long targetTaskId, final int delta) {
-        if(list == null)
+        if(list == null) {
             return;
+        }
 
         beforeIndent(list);
 
@@ -96,8 +97,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         iterateThroughList(filter, list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
-                if(!metadata.isSaved())
+                if(!metadata.isSaved()) {
                     metadata = createEmptyMetadata(list, taskId);
+                }
                 int indent = metadata.containsNonNullValue(indentProperty()) ?
                         metadata.getValue(indentProperty()) : 0;
 
@@ -113,18 +115,19 @@ abstract public class OrderedMetadataListUpdater<LIST> {
                         if(parentProperty() != null) {
                             long newParent = computeNewParent(filter, list,
                                     taskId, indent + delta - 1);
-                            if (newParent == taskId)
+                            if (newParent == taskId) {
                                 metadata.setValue(parentProperty(), Task.NO_ID);
-                            else
+                            } else {
                                 metadata.setValue(parentProperty(), newParent);
+                            }
                         }
                         saveAndUpdateModifiedDate(metadata);
                     }
                 } else if(targetTaskIndent.get() > -1) {
                     // found first task that is not beneath target
-                    if(indent <= targetTaskIndent.get())
+                    if(indent <= targetTaskIndent.get()) {
                         targetTaskIndent.set(-1);
-                    else {
+                    } else {
                         metadata.setValue(indentProperty(), indent + delta);
                         saveAndUpdateModifiedDate(metadata);
                     }
@@ -133,8 +136,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
                     previousTask.set(taskId);
                 }
 
-                if(!metadata.isSaved())
+                if(!metadata.isSaved()) {
                     saveAndUpdateModifiedDate(metadata);
+                }
             }
 
         });
@@ -169,7 +173,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
             }
         });
 
-        if (lastPotentialParent.get() == Task.NO_ID) return Task.NO_ID;
+        if (lastPotentialParent.get() == Task.NO_ID) {
+            return Task.NO_ID;
+        }
         return lastPotentialParent.get();
     }
 
@@ -183,8 +189,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
      */
     public void moveTo(Filter filter, LIST list, final long targetTaskId,
             final long moveBeforeTaskId) {
-        if(list == null)
+        if(list == null) {
             return;
+        }
 
         Node root = buildTreeModel(filter, list);
         Node target = findNode(root, targetTaskId);
@@ -200,8 +207,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
                     int index = sibling.parent.children.indexOf(sibling);
 
                     if(target.parent == sibling.parent &&
-                            target.parent.children.indexOf(target) < index)
+                            target.parent.children.indexOf(target) < index) {
                         index--;
+                    }
 
                     target.parent.children.remove(target);
                     sibling.parent.children.add(index, target);
@@ -215,10 +223,12 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     }
 
     private boolean ancestorOf(Node ancestor, Node descendant) {
-        if(descendant.parent == ancestor)
+        if(descendant.parent == ancestor) {
             return true;
-        if(descendant.parent == null)
+        }
+        if(descendant.parent == null) {
             return false;
+        }
         return ancestorOf(ancestor, descendant.parent);
     }
 
@@ -236,8 +246,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     protected void traverseTreeAndWriteValues(LIST list, Node node, AtomicLong order, int indent) {
         if(node.taskId != Task.NO_ID) {
             Metadata metadata = getTaskMetadata(list, node.taskId);
-            if(metadata == null)
+            if(metadata == null) {
                 metadata = createEmptyMetadata(list, node.taskId);
+            }
             metadata.setValue(orderProperty(), order.getAndIncrement());
             metadata.setValue(indentProperty(), indent);
             boolean parentChanged = false;
@@ -247,8 +258,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
                 metadata.setValue(parentProperty(), node.parent.taskId);
             }
             saveAndUpdateModifiedDate(metadata);
-            if(parentChanged)
+            if(parentChanged) {
                 onMovedOrIndented(metadata);
+            }
         }
 
         for(Node child : node.children) {
@@ -257,12 +269,14 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     }
 
     protected Node findNode(Node node, long taskId) {
-        if(node.taskId == taskId)
+        if(node.taskId == taskId) {
             return node;
+        }
         for(Node child : node.children) {
             Node found = findNode(child, taskId);
-            if(found != null)
+            if(found != null) {
                 return found;
+            }
         }
         return null;
     }
@@ -306,8 +320,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     }
 
     protected void saveAndUpdateModifiedDate(Metadata metadata) {
-        if(metadata.getSetValues().size() == 0)
+        if(metadata.getSetValues().size() == 0) {
             return;
+        }
         PluginServices.getMetadataService().save(metadata);
     }
 
@@ -326,15 +341,18 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         Node root = buildTreeModel(filter, list);
         Node target = findNode(root, targetTaskId);
 
-        if(target != null)
-            for(Node child : target.children)
+        if(target != null) {
+            for (Node child : target.children) {
                 applyVisitor(child, visitor);
+            }
+        }
     }
 
     private void applyVisitor(Node node, OrderedListNodeVisitor visitor) {
         visitor.visitNode(node);
-        for(Node child : node.children)
+        for(Node child : node.children) {
             applyVisitor(child, visitor);
+        }
     }
 
     /**
@@ -344,8 +362,9 @@ abstract public class OrderedMetadataListUpdater<LIST> {
      * @param targetTaskId
      */
     public void onDeleteTask(Filter filter, LIST list, final long targetTaskId) {
-        if(list == null)
+        if(list == null) {
             return;
+        }
 
         Node root = buildTreeModel(filter, list);
         Node target = findNode(root, targetTaskId);
@@ -378,12 +397,15 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     @SuppressWarnings("nls")
     public void debugPrint(Node root, int depth) {
-        for(int i = 0; i < depth; i++) System.err.print(" + ");
+        for(int i = 0; i < depth; i++) {
+            System.err.print(" + ");
+        }
         System.err.format("%03d", root.taskId);
         System.err.print("\n");
 
-        for(int i = 0; i < root.children.size(); i++)
+        for(int i = 0; i < root.children.size(); i++) {
             debugPrint(root.children.get(i), depth + 1);
+        }
     }
 
 }

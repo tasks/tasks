@@ -106,21 +106,24 @@ public class Notifications extends BroadcastReceiver {
         Resources r = context.getResources();
         String reminder;
 
-        if(type == ReminderService.TYPE_ALARM)
+        if(type == ReminderService.TYPE_ALARM) {
             reminder = getRandomReminder(r.getStringArray(R.array.reminders_alarm));
-        else if(Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
-            if(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
+        } else if(Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
+            if(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) {
                 reminder = getRandomReminder(r.getStringArray(R.array.reminders_due));
-            else if(type == ReminderService.TYPE_SNOOZE)
+            } else if(type == ReminderService.TYPE_SNOOZE) {
                 reminder = getRandomReminder(r.getStringArray(R.array.reminders_snooze));
-            else
+            } else {
                 reminder = getRandomReminder(r.getStringArray(R.array.reminders));
-        } else
+            }
+        } else {
             reminder = ""; //$NON-NLS-1$
+        }
 
         synchronized(Notifications.class) {
-            if(notificationManager == null)
+            if(notificationManager == null) {
                 notificationManager = new AndroidNotificationManager(context);
+            }
         }
 
         if(!showTaskNotification(id, type, reminder)) {
@@ -152,34 +155,40 @@ public class Notifications extends BroadcastReceiver {
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
                         Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS, Task.USER_ID);
-            if(task == null)
+            if(task == null) {
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
+            }
 
         } catch (Exception e) {
             exceptionService.reportError("show-notif", e); //$NON-NLS-1$
             return false;
         }
 
-        if (!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+        if (!Preferences.getBoolean(R.string.p_rmd_enabled, true)) {
             return false;
+        }
         // you're done, or not yours - don't sound, do delete
-        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)))
+        if(task.isCompleted() || task.isDeleted() || !Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
             return false;
+        }
 
         // new task edit in progress
-        if(TextUtils.isEmpty(task.getValue(Task.TITLE)))
+        if(TextUtils.isEmpty(task.getValue(Task.TITLE))) {
             return false;
+        }
 
         // it's hidden - don't sound, don't delete
-        if(task.isHidden() && type == ReminderService.TYPE_RANDOM)
+        if(task.isHidden() && type == ReminderService.TYPE_RANDOM) {
             return true;
+        }
 
         // task due date was changed, but alarm wasn't rescheduled
         boolean dueInFuture = task.hasDueTime() && task.getValue(Task.DUE_DATE) > DateUtilities.now() ||
             !task.hasDueTime() && task.getValue(Task.DUE_DATE) - DateUtilities.now() > DateUtilities.ONE_DAY;
         if((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
-                (!task.hasDueDate() || dueInFuture))
+                (!task.hasDueDate() || dueInFuture)) {
             return true;
+        }
 
         // read properties
         String taskTitle = task.getValue(Task.TITLE);
@@ -229,10 +238,11 @@ public class Notifications extends BroadcastReceiver {
         inAppNotify.putExtra(EXTRAS_TEXT, text);
         inAppNotify.putExtra(EXTRAS_RING_TIMES, ringTimes);
 
-        if(forceNotificationManager)
+        if(forceNotificationManager) {
             new ShowNotificationReceiver().onReceive(ContextManager.getContext(), inAppNotify);
-        else
+        } else {
             context.sendOrderedBroadcast(inAppNotify, AstridApiConstants.PERMISSION_READ);
+        }
     }
 
     /**
@@ -277,12 +287,14 @@ public class Notifications extends BroadcastReceiver {
             String text, int ringTimes) {
         Context context = ContextManager.getContext();
 
-        if(notificationManager == null)
+        if(notificationManager == null) {
             notificationManager = new AndroidNotificationManager(context);
+        }
 
         // don't ring multiple times if random reminder
-        if(type == ReminderService.TYPE_RANDOM)
+        if(type == ReminderService.TYPE_RANDOM) {
             ringTimes = 1;
+        }
 
         // quiet hours? unless alarm clock
         boolean quietHours = (type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) ? false : isQuietHours();
@@ -319,8 +331,9 @@ public class Notifications extends BroadcastReceiver {
             notification.ledOnMS = 700;
             notification.ledARGB = Color.YELLOW;
         }
-        else
+        else {
             notification.defaults = Notification.DEFAULT_LIGHTS;
+        }
 
         AudioManager audioManager = (AudioManager)context.getSystemService(
                 Context.AUDIO_SERVICE);
@@ -391,17 +404,19 @@ public class Notifications extends BroadcastReceiver {
             }
         }
 
-        if(Constants.DEBUG)
+        if(Constants.DEBUG) {
             Log.w("Astrid", "Logging notification: " + text); //$NON-NLS-1$ //$NON-NLS-2$
+        }
 
         singleThreadVoicePool.submit(new NotificationRunnable(ringTimes, notificationId, notification, voiceReminder,
                 maxOutVolumeForMultipleRingReminders, audioManager, previousAlarmVolume, text));
-        if (forceNotificationManager)
+        if (forceNotificationManager) {
             try {
                 singleThreadVoicePool.awaitTermination(1000, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 //
             }
+        }
     }
 
     private static class NotificationRunnable implements Runnable {
@@ -437,15 +452,18 @@ public class Notifications extends BroadcastReceiver {
                 AndroidUtilities.sleepDeep(2000);
                 for(int i = 0; i < 50; i++) {
                     AndroidUtilities.sleepDeep(500);
-                    if(audioManager.getMode() != AudioManager.MODE_RINGTONE)
+                    if(audioManager.getMode() != AudioManager.MODE_RINGTONE) {
                         break;
+                    }
                 }
                 try {
                     // first reset the Alarm-volume to the value before it was eventually maxed out
-                    if (maxOutVolumeForMultipleRingReminders)
+                    if (maxOutVolumeForMultipleRingReminders) {
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousAlarmVolume, 0);
-                    if (voiceReminder)
+                    }
+                    if (voiceReminder) {
                         VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
+                    }
                 } catch (VerifyError e) {
                     // unavailable
                 }
@@ -464,11 +482,13 @@ public class Notifications extends BroadcastReceiver {
         if(quietHoursStart != -1 && quietHoursEnd != -1) {
             int hour = new Date().getHours();
             if(quietHoursStart <= quietHoursEnd) {
-                if(hour >= quietHoursStart && hour < quietHoursEnd)
+                if(hour >= quietHoursStart && hour < quietHoursEnd) {
                     return true;
+                }
             } else { // wrap across 24/hour boundary
-                if(hour >= quietHoursStart || hour < quietHoursEnd)
+                if(hour >= quietHoursStart || hour < quietHoursEnd) {
                     return true;
+                }
             }
         }
         return false;
@@ -481,12 +501,14 @@ public class Notifications extends BroadcastReceiver {
      *            whether to check if task has requisite properties
      */
     public static void cancelNotifications(long taskId) {
-        if(notificationManager == null)
-            synchronized(Notifications.class) {
-                if(notificationManager == null)
+        if(notificationManager == null) {
+            synchronized (Notifications.class) {
+                if (notificationManager == null) {
                     notificationManager = new AndroidNotificationManager(
                             ContextManager.getContext());
+                }
             }
+        }
 
         notificationManager.cancel((int)taskId);
     }

@@ -54,8 +54,9 @@ public enum RepeatInterval {
 	    int intervalCount = RepeatInterval.values().length;
 	    String[] result = new String[intervalCount];
 
-	    for(int i = 0; i < intervalCount; i++)
-	        result[i] = r.getString(RepeatInterval.values()[i].getLabelResource());
+	    for(int i = 0; i < intervalCount; i++) {
+            result[i] = r.getString(RepeatInterval.values()[i].getLabelResource());
+        }
 	    return result;
 	}
 }

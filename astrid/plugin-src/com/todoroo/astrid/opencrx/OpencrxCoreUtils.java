@@ -111,10 +111,11 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = OpencrxCoreUtils.getPrefs();
 
-        if (sharedPreferences != null)
+        if (sharedPreferences != null) {
             return sharedPreferences.getString(getIdentifier() + PREF_TOKEN, null) != null;
-        else
+        } else {
             return false;
+        }
     }
 
     @Override

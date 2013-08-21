@@ -133,15 +133,17 @@ public class GCalControlSet extends PopupControlSet {
     }
 
     public void resetCalendarSelector() {
-        if (calendarSelector != null)
+        if (calendarSelector != null) {
             calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
+        }
     }
 
     @SuppressWarnings("nls")
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        if (!task.hasDueDate())
+        if (!task.hasDueDate()) {
             return null;
+        }
 
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
                                         !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
@@ -179,16 +181,20 @@ public class GCalControlSet extends PopupControlSet {
 
                 // check if we need to update the item
                 ContentValues setValues = task.getSetValues();
-                if(setValues.containsKey(Task.TITLE.name))
+                if(setValues.containsKey(Task.TITLE.name)) {
                     updateValues.put("title", task.getValue(Task.TITLE));
-                if(setValues.containsKey(Task.NOTES.name))
+                }
+                if(setValues.containsKey(Task.NOTES.name)) {
                     updateValues.put("description", task.getValue(Task.NOTES));
-                if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name))
+                }
+                if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name)) {
                     GCalHelper.createStartAndEndDate(task, updateValues);
+                }
 
                 ContentResolver cr = activity.getContentResolver();
-                if(cr.update(calendarUri, updateValues, null, null) > 0)
+                if(cr.update(calendarUri, updateValues, null, null) > 0) {
                     return activity.getString(R.string.gcal_TEA_calendar_updated);
+                }
             } catch (Exception e) {
                 exceptionService.reportError("unable-to-update-calendar: " +  //$NON-NLS-1$
                         task.getValue(Task.CALENDAR_URI), e);
@@ -200,8 +206,9 @@ public class GCalControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     private void viewCalendarEvent() {
-        if(calendarUri == null)
+        if(calendarUri == null) {
             return;
+        }
 
         ContentResolver cr = activity.getContentResolver();
         Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
@@ -262,8 +269,9 @@ public class GCalControlSet extends PopupControlSet {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (calendarSelector == null)
+                if (calendarSelector == null) {
                     getView(); // Force load
+                }
                 if (!hasEvent) {
                     calendarSelector.performClick();
                 } else {

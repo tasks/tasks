@@ -107,8 +107,9 @@ public class HttpRestClient implements RestClient {
             public void process(
                     final HttpRequest request,
                     final HttpContext context) throws HttpException, IOException {
-                if (!request.containsHeader("Accept-Encoding"))
-                        request.addHeader("Accept-Encoding", "gzip");
+                if (!request.containsHeader("Accept-Encoding")) {
+                    request.addHeader("Accept-Encoding", "gzip");
+                }
             }
 
         });
@@ -192,8 +193,9 @@ public class HttpRestClient implements RestClient {
      * @throws IOException
      */
     public synchronized String get(String url) throws IOException {
-        if(debug)
+        if(debug) {
             Log.d("http-rest-client-get", url); //$NON-NLS-1$
+        }
 
         try {
             HttpGet httpGet = new HttpGet(url);
@@ -218,14 +220,16 @@ public class HttpRestClient implements RestClient {
      * @throws IOException
      */
     public synchronized String post(String url, HttpEntity data, Header... headers) throws IOException {
-        if(debug)
+        if(debug) {
             Log.d("http-rest-client-post", url + " | " + data); //$NON-NLS-1$ //$NON-NLS-2$
+        }
 
         try {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(data);
-            for(Header header : headers)
+            for(Header header : headers) {
                 httpPost.addHeader(header);
+            }
             HttpResponse response = getClient().execute(httpPost);
 
             return processHttpResponse(response);

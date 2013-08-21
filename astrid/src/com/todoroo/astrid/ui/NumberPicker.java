@@ -270,8 +270,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private int notifyChange(int current) {
         if (mListener != null) {
             return mListener.onChanged(this, mCurrent, current);
-        } else
+        } else {
             return current;
+        }
 
     }
 
@@ -304,8 +305,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             if ((val >= mStart) && (val <= mEnd)) {
                 mPrevious = mCurrent;
                 mCurrent = val;
-                if (notifyChange)
+                if (notifyChange) {
                     notifyChange(mCurrent);
+                }
             }
         }
         updateView();
@@ -412,8 +414,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
                 return result;
             }
 
-            if (getMaxDigits() > 0 && result.length() > getMaxDigits())
+            if (getMaxDigits() > 0 && result.length() > getMaxDigits()) {
                 return "";
+            }
 
             int val = getSelectedPos(result);
 

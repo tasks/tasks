@@ -47,8 +47,9 @@ public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose sync action
-        if(!gtasksPreferenceService.isLoggedIn())
+        if(!gtasksPreferenceService.isLoggedIn()) {
             return;
+        }
 
         Resources r = context.getResources();
 

@@ -34,10 +34,11 @@ public class EditNotesControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         String textToUse;
-        if (initialized)
+        if (initialized) {
             textToUse = editText.getText().toString();
-        else
+        } else {
             textToUse = model.getValue(Task.NOTES);
+        }
 
         if (TextUtils.isEmpty(textToUse)) {
             notesPreview.setText(R.string.TEA_notes_empty);

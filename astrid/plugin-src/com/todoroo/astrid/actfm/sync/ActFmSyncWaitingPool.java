@@ -31,8 +31,9 @@ public class ActFmSyncWaitingPool {
     private final Runnable delayMessageRunnable = new Runnable() {
         @Override
         public void run() {
-            if (pendingMessages.isEmpty())
+            if (pendingMessages.isEmpty()) {
                 return;
+            }
             AndroidUtilities.sleepDeep(WAIT_TIME);
             while (!pendingMessages.isEmpty()) {
                 ActFmSyncThread.getInstance().enqueueMessage(pendingMessages.remove(0), ActFmSyncThread.DEFAULT_REFRESH_RUNNABLE);

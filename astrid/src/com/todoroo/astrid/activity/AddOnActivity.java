@@ -120,36 +120,41 @@ public class AddOnActivity extends SherlockFragmentActivity {
 
     private void populate() {
         AddOn[] list = addOnService.getAddOns();
-        if(list == null)
+        if(list == null) {
             return;
+        }
 
         ArrayList<AddOn> installed = new ArrayList<AddOn>();
         ArrayList<AddOn> available = new ArrayList<AddOn>();
 
         for(AddOn addOn : list) {
             if (AddOnService.POWER_PACK_PACKAGE.equals(addOn.getPackageName())) {
-                if (addOnService.hasPowerPack())
+                if (addOnService.hasPowerPack()) {
                     installed.add(addOn);
-                else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
+                } else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null) {
                     available.add(addOn);
+                }
             } else {
-                if(addOnService.isInstalled(addOn))
+                if(addOnService.isInstalled(addOn)) {
                     installed.add(addOn);
-                else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
+                } else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null) {
                     available.add(addOn);
+                }
 
             }
         }
 
         ListView installedList = (ListView) installedView.findViewById(R.id.list);
         installedList.setAdapter(new AddOnAdapter(this, true, installed));
-        if(installed.size() > 0)
+        if(installed.size() > 0) {
             installedView.findViewById(R.id.empty).setVisibility(View.GONE);
+        }
 
         ListView availableList = (ListView) availableView.findViewById(R.id.list);
         availableList.setAdapter(new AddOnAdapter(this, false, available));
-        if(available.size() > 0)
+        if(available.size() > 0) {
             availableView.findViewById(R.id.empty).setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -167,8 +172,9 @@ public class AddOnActivity extends SherlockFragmentActivity {
                         AddOnActivity.class);
                 intent.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
                 activity.startActivity(intent);
-                if(finish)
+                if(finish) {
                     activity.finish();
+                }
             }
         };
     }

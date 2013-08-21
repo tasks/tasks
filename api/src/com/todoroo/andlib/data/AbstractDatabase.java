@@ -126,8 +126,9 @@ abstract public class AbstractDatabase {
      */
     public final Table getTable(Class<? extends AbstractModel> modelType) {
         for(Table table : getTables()) {
-            if(table.modelClass.equals(modelType))
+            if(table.modelClass.equals(modelType)) {
                 return table;
+            }
         }
         throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
     }
@@ -150,8 +151,9 @@ abstract public class AbstractDatabase {
 
     protected synchronized final void initializeHelper() {
         if(helper == null) {
-            if(ContextManager.getContext() == null)
+            if(ContextManager.getContext() == null) {
                 throw new NullPointerException("Null context creating database helper");
+            }
             helper = new DatabaseHelper(ContextManager.getContext(),
                     getName(), null, getVersion());
         }
@@ -164,8 +166,9 @@ abstract public class AbstractDatabase {
     public synchronized final void openForWriting() {
         initializeHelper();
 
-        if(database != null && !database.isReadOnly() && database.isOpen())
+        if(database != null && !database.isReadOnly() && database.isOpen()) {
             return;
+        }
 
         try {
             database = helper.getWritableDatabase();
@@ -192,8 +195,9 @@ abstract public class AbstractDatabase {
      */
     public synchronized final void openForReading() {
         initializeHelper();
-        if(database != null && database.isOpen())
+        if(database != null && database.isOpen()) {
             return;
+        }
         database = helper.getReadableDatabase();
     }
 
@@ -304,8 +308,9 @@ abstract public class AbstractDatabase {
                 sql.append("CREATE TABLE IF NOT EXISTS ").append(table.name).append('(').
                 append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
                 for(Property<?> property : table.getProperties()) {
-                    if(AbstractModel.ID_PROPERTY.name.equals(property.name))
+                    if(AbstractModel.ID_PROPERTY.name.equals(property.name)) {
                         continue;
+                    }
                     sql.append(',').append(property.accept(sqlVisitor, null));
                 }
                 sql.append(')');

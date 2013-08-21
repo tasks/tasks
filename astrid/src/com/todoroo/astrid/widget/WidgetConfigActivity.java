@@ -145,8 +145,9 @@ abstract public class WidgetConfigActivity extends ListActivity {
         if(filterListItem != null && filterListItem instanceof Filter) {
             sql = ((Filter)filterListItem).getSqlQuery();
             ContentValues values = ((Filter)filterListItem).valuesForNewTasks;
-            if(values != null)
+            if(values != null) {
                 contentValuesString = AndroidUtilities.contentValuesToSerializedString(values);
+            }
             title = ((Filter)filterListItem).title;
         }
 
@@ -159,9 +160,10 @@ abstract public class WidgetConfigActivity extends ListActivity {
             Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
                     flattenedName);
             String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
-            if (flattenedExtras != null)
+            if (flattenedExtras != null) {
                 Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
                         flattenedExtras);
+            }
         }
     }
 

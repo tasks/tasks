@@ -44,8 +44,9 @@ public class AlertController extends LegacyAbstractController {
                 new String[] { taskId.idAsString() }, null, null, null);
 
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return list;
+            }
             do {
                 cursor.moveToNext();
                 list.add(new Alert(cursor).getDate());
@@ -66,8 +67,9 @@ public class AlertController extends LegacyAbstractController {
                 new String[] { Long.toString(System.currentTimeMillis()) }, null, null, null);
 
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return list;
+            }
             do {
                 cursor.moveToNext();
                 list.add(new Alert(cursor).getTask());

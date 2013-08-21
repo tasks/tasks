@@ -49,8 +49,9 @@ public class MetadataService {
     public void cleanup() {
         TodorooCursor<Metadata> cursor = metadataDao.fetchDangling(Metadata.ID);
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return;
+            }
 
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
@@ -92,8 +93,9 @@ public class MetadataService {
      * @param metadata
      */
     public boolean save(Metadata metadata) {
-        if(!metadata.containsNonNullValue(Metadata.TASK))
+        if(!metadata.containsNonNullValue(Metadata.TASK)) {
             throw new IllegalArgumentException("metadata needs to be attached to a task: " + metadata.getMergedValues()); //$NON-NLS-1$
+        }
 
         return metadataDao.persist(metadata);
     }
@@ -117,7 +119,9 @@ public class MetadataService {
             ContentValues values = metadatum.getMergedValues();
             for(Entry<String, Object> entry : values.valueSet()) {
                 if(entry.getKey().startsWith("value")) //$NON-NLS-1$
+                {
                     values.put(entry.getKey(), entry.getValue().toString());
+                }
             }
             newMetadataValues.add(values);
         }
@@ -146,9 +150,9 @@ public class MetadataService {
                 if (callback != null) {
                     callback.beforeDeleteMetadata(item);
                 }
-                if (hardDelete)
+                if (hardDelete) {
                     metadataDao.delete(id);
-                else {
+                } else {
                     item.setValue(Metadata.DELETION_DATE, DateUtilities.now());
                     metadataDao.persist(item);
                 }

@@ -22,8 +22,9 @@ public class SyncUpgradePrompt {
     private static long lastPromptDate = -1;
 
     public static void showSyncUpgradePrompt(final Activity activity) {
-        if (lastPromptDate == -1)
+        if (lastPromptDate == -1) {
             lastPromptDate = Preferences.getLong(P_SYNC_UPGRADE_PROMPT, 0L);
+        }
 
         Dialog d = null;
         if (DateUtilities.now() - lastPromptDate > DateUtilities.ONE_WEEK * 3) {
@@ -69,8 +70,9 @@ public class SyncUpgradePrompt {
             }
         }
 
-        if (d != null)
+        if (d != null) {
             d.show();
+        }
     }
 
     private static void setLastPromptDate(long date) {
@@ -103,8 +105,9 @@ public class SyncUpgradePrompt {
             @Override
             public void onClick(View v) {
                 d.dismiss();
-                if (listener1 != null)
+                if (listener1 != null) {
                     listener1.run();
+                }
             }
         });
         b1.setBackgroundColor(activity.getResources().getColor(tv.data));
@@ -120,8 +123,9 @@ public class SyncUpgradePrompt {
                 @Override
                 public void onClick(View v) {
                     d.dismiss();
-                    if (listener2 != null)
+                    if (listener2 != null) {
                         listener2.run();
+                    }
                 }
             });
             b2.setBackgroundColor(activity.getResources().getColor(tv.data));

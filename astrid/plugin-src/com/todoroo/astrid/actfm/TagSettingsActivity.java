@@ -134,10 +134,11 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             params.height = LayoutParams.WRAP_CONTENT;
 
             DisplayMetrics metrics = getResources().getDisplayMetrics();
-            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT)
+            if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_HEIGHT) {
                 params.width = (3 * metrics.widthPixels) / 5;
-            else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH)
+            } else if ((metrics.widthPixels / metrics.density) >= AndroidUtilities.MIN_TABLET_WIDTH) {
                 params.width = (4 * metrics.widthPixels) / 5;
+            }
             getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
         }
 
@@ -181,16 +182,18 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog) {
             setTheme(ThemeService.getDialogTheme());
-            if (AndroidUtilities.getSdkVersion() < 14)
+            if (AndroidUtilities.getSdkVersion() < 14) {
                 requestWindowFeature(Window.FEATURE_NO_TITLE);
+            }
         } else {
             ThemeService.applyTheme(this);
             ActionBar actionBar = getSupportActionBar();
             if (Preferences.getBoolean(R.string.p_save_and_cancel, false)) {
-                if (ThemeService.getTheme() == R.style.Theme_White_Alt)
+                if (ThemeService.getTheme() == R.style.Theme_White_Alt) {
                     actionBar.setLogo(R.drawable.ic_menu_save_blue_alt);
-                else
+                } else {
                     actionBar.setLogo(R.drawable.ic_menu_save);
+                }
             } else {
                 actionBar.setLogo(null);
             }
@@ -318,8 +321,9 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         if (setBitmap != null) {
             JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(this, setBitmap);
-            if (pictureJson != null)
+            if (pictureJson != null) {
                 tagData.setValue(TagData.PICTURE, pictureJson.toString());
+            }
         }
 
         JSONArray members;
@@ -336,8 +340,9 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             DialogUtilities.okDialog(this, e.message, null);
             return;
         }
-        if (members == null)
+        if (members == null) {
             members = new JSONArray();
+        }
 
         if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
             if(newName.length() > 0 && oldName.length() == 0) {
@@ -394,7 +399,9 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
     }
 
     private void saveTagPictureLocally(Bitmap bitmap) {
-        if (bitmap == null) return;
+        if (bitmap == null) {
+            return;
+        }
         try {
             String tagPicture = RemoteModel.PictureHelper.getPictureHash(tagData);
             imageCache.put(tagPicture, bitmap);
@@ -438,13 +445,15 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
         String imageUrl = tagData.getPictureUrl(TagData.PICTURE, RemoteModel.PICTURE_MEDIUM);
         Bitmap imageBitmap = null;
-        if (TextUtils.isEmpty(imageUrl))
+        if (TextUtils.isEmpty(imageUrl)) {
             imageBitmap = tagData.getPictureBitmap(TagData.PICTURE);
+        }
 
-        if (imageBitmap != null)
+        if (imageBitmap != null) {
             picture.setImageBitmap(imageBitmap);
-        else
+        } else {
             picture.setUrl(imageUrl);
+        }
         if (!isNewTag) {
             ImageView shortcut = (ImageView) findViewById(R.id.create_shortcut);
             shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getUuid()));
@@ -599,22 +608,25 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             break;
         case android.R.id.home:
             saveSettings();
-            if (!isFinishing())
+            if (!isFinishing()) {
                 finish();
+            }
             break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void showDeleteDialog(TagData td) {
-        if(td == null)
+        if(td == null) {
             return;
+        }
 
         int string;
-        if (td.getValue(TagData.MEMBER_COUNT) > 0)
+        if (td.getValue(TagData.MEMBER_COUNT) > 0) {
             string = R.string.DLG_leave_this_shared_tag_question;
-        else
+        } else {
             string = R.string.DLG_delete_this_tag_question;
+        }
 
 
         DialogUtilities.okCancelDialog(this, getString(string, td.getValue(TagData.NAME)),

@@ -76,8 +76,9 @@ public class FragmentPopover extends QuickActionWidget {
 
     @Override
     public void show(View anchor) {
-        if (isShowing())
+        if (isShowing()) {
             return;
+        }
         super.show(anchor);
     }
 }

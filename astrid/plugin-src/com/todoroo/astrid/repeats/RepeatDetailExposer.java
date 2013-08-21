@@ -34,12 +34,14 @@ public class RepeatDetailExposer extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // get tags associated with this task
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1)
+        if(taskId == -1) {
             return;
+        }
 
         String taskDetail = getTaskDetails(context, taskId);
-        if(taskDetail == null)
+        if(taskDetail == null) {
             return;
+        }
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
@@ -51,8 +53,9 @@ public class RepeatDetailExposer extends BroadcastReceiver {
 
     public String getTaskDetails(Context context, long id) {
         Task task = PluginServices.getTaskService().fetchById(id, Task.RECURRENCE);
-        if(task == null)
+        if(task == null) {
             return null;
+        }
 
         Resources r = context.getResources();
 
@@ -77,8 +80,9 @@ public class RepeatDetailExposer extends BroadcastReceiver {
                     String[] weekdays = dfs.getShortWeekdays();
                     for(int i = 0; i < byDay.size(); i++) {
                         byDayString.append(weekdays[byDay.get(i).wday.javaDayNum]);
-                        if(i < byDay.size() - 1)
-                        byDayString.append(", "); //$NON-NLS-1$
+                        if(i < byDay.size() - 1) {
+                            byDayString.append(", "); //$NON-NLS-1$
+                        }
                     }
                     interval = r.getString(R.string.repeat_detail_byday).replace("$I",  //$NON-NLS-1$
                             interval).replace("$D", byDayString); //$NON-NLS-1$
@@ -86,10 +90,11 @@ public class RepeatDetailExposer extends BroadcastReceiver {
             }
 
             String detail;
-            if(task.repeatAfterCompletion())
+            if(task.repeatAfterCompletion()) {
                 detail = context.getString(R.string.repeat_detail_completion, interval);
-            else
+            } else {
                 detail = context.getString(R.string.repeat_detail_duedate, interval);
+            }
 
             return "<img src='silk_date'/> " + detail; //$NON-NLS-1$
         }

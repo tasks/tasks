@@ -33,15 +33,17 @@ public class SubtasksHelper {
         if(filter == null || CoreFilterExposer.isInbox(filter) || CoreFilterExposer.isTodayFilter(filter) || SubtasksHelper.isTagFilter(filter)) {
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            if(SortHelper.isManualSort(sortFlags))
+            if(SortHelper.isManualSort(sortFlags)) {
                 return true;
+            }
         }
         return false;
     }
 
     public static Class<?> subtasksClassForFilter(Filter filter) {
-        if (SubtasksHelper.isTagFilter(filter))
+        if (SubtasksHelper.isTagFilter(filter)) {
             return SubtasksTagListFragment.class;
+        }
         return SubtasksListFragment.class;
     }
 
@@ -50,7 +52,9 @@ public class SubtasksHelper {
             String className = ((FilterWithCustomIntent) filter).customTaskList.getClassName();
             if (TagViewFragment.class.getName().equals(className)
                     || SubtasksTagListFragment.class.getName().equals(className)) // Need to check this subclass because some shortcuts/widgets may have been saved with it
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -74,8 +78,9 @@ public class SubtasksHelper {
             query = query + String.format(" ORDER BY %s, %s, %s, %s",
                     Task.DELETION_DATE, Task.COMPLETION_DATE,
                     getOrderString(tagData, tlm), Task.CREATION_DATE);
-            if (limit > 0)
+            if (limit > 0) {
                 query = query + " LIMIT " + limit;
+            }
             query = query.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
 
@@ -86,12 +91,13 @@ public class SubtasksHelper {
 
     private static String getOrderString(TagData tagData, TaskListMetadata tlm) {
         String serialized;
-        if (tlm != null)
+        if (tlm != null) {
             serialized = tlm.getValue(TaskListMetadata.TASK_IDS);
-        else if (tagData != null)
+        } else if (tagData != null) {
             serialized = convertTreeToRemoteIds(tagData.getValue(TagData.TAG_ORDERING));
-        else
+        } else {
             serialized = "[]"; //$NON-NLS-1$
+        }
 
         return AstridOrderedListUpdater.buildOrderString(getStringIdArray(serialized));
     }
@@ -103,8 +109,9 @@ public class SubtasksHelper {
         String[] digitsOnly = serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : digitsOnly) {
             try {
-                if (!TextUtils.isEmpty(idString))
+                if (!TextUtils.isEmpty(idString)) {
                     ids.add(Long.parseLong(idString));
+                }
             } catch (NumberFormatException e) {
                 Log.e("widget-subtasks", "error parsing id " + idString, e);
             }
@@ -117,8 +124,9 @@ public class SubtasksHelper {
         ArrayList<String> ids = new ArrayList<String>();
         String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : values) {
-            if (!TextUtils.isEmpty(idString))
+            if (!TextUtils.isEmpty(idString)) {
                 ids.add(idString);
+            }
         }
         return ids.toArray(new String[ids.size()]);
     }

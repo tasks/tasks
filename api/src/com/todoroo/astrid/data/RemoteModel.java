@@ -78,22 +78,25 @@ abstract public class RemoteModel extends AbstractModel {
     abstract public String getUuid();
 
     protected String getUuidHelper(StringProperty uuid) {
-        if(setValues != null && setValues.containsKey(uuid.name))
+        if(setValues != null && setValues.containsKey(uuid.name)) {
             return setValues.getAsString(uuid.name);
-        else if(values != null && values.containsKey(uuid.name))
+        } else if(values != null && values.containsKey(uuid.name)) {
             return values.getAsString(uuid.name);
-        else
+        } else {
             return NO_UUID;
+        }
     }
 
     public void setUuid(String uuid) {
-        if (setValues == null)
+        if (setValues == null) {
             setValues = new ContentValues();
+        }
 
-        if(NO_UUID.equals(uuid))
+        if(NO_UUID.equals(uuid)) {
             clearValue(UUID_PROPERTY);
-        else
+        } else {
             setValues.put(UUID_PROPERTY_NAME, uuid);
+        }
     }
 
     public static boolean isUuidEmpty(String uuid) {
@@ -145,8 +148,9 @@ abstract public class RemoteModel extends AbstractModel {
                 File dir = context.getExternalFilesDir(PICTURES_DIRECTORY);
                 if (dir != null) {
                     File file = new File(dir + File.separator + DateUtilities.now() + ".jpg");
-                    if (file.exists())
+                    if (file.exists()) {
                         return null;
+                    }
 
                     try {
                         FileOutputStream fos = new FileOutputStream(file);
@@ -171,11 +175,14 @@ abstract public class RemoteModel extends AbstractModel {
 
         public static String getPictureUrl(String value, String size) {
             try {
-                if (value == null)
+                if (value == null) {
                     return null;
+                }
                 JSONObject pictureJson = new JSONObject(value);
                 if (pictureJson.has("path")) // Unpushed encoded bitmap //$NON-NLS-1$
+                {
                     return null;
+                }
                 return pictureJson.optString(size);
             } catch (JSONException e) {
                 return value;
@@ -185,8 +192,9 @@ abstract public class RemoteModel extends AbstractModel {
         @SuppressWarnings("nls")
         public static Bitmap getPictureBitmap(String value) {
             try {
-                if (value == null)
+                if (value == null) {
                     return null;
+                }
                 if (value.contains("path")) {
                     JSONObject pictureJson = new JSONObject(value);
                     if (pictureJson.has("path")) {

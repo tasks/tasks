@@ -66,21 +66,24 @@ public final class Table extends SqlTable {
      */
     @SuppressWarnings("nls")
     public Field field(Property<?> property) {
-        if(alias != null)
+        if(alias != null) {
             return Field.field(alias + "." + property.name);
+        }
         return Field.field(name + "." + property.name);
     }
 
     @Override
     public String toString() {
-        if(hasAlias())
+        if(hasAlias()) {
             return expression + " AS " + alias; //$NON-NLS-1$
+        }
         return expression;
     }
 
     public String name() {
-        if(hasAlias())
+        if(hasAlias()) {
             return alias;
+        }
         return name;
     }
 }

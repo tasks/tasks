@@ -26,10 +26,12 @@ public class NotesDecorationExposer implements TaskDecorationExposer {
 
     @Override
     public TaskDecoration expose(Task task) {
-        if(Preferences.getBoolean(R.string.p_showNotes, false))
+        if(Preferences.getBoolean(R.string.p_showNotes, false)) {
             return null;
-        if(task == null || !NotesPlugin.hasNotes(task))
+        }
+        if(task == null || !NotesPlugin.hasNotes(task)) {
             return null;
+        }
 
         Intent intent = new Intent(ContextManager.getContext(), EditNoteActivity.class);
         intent.setAction(EditNoteActivity.class.getName());

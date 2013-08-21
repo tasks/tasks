@@ -252,10 +252,11 @@ public final class TagData extends RemoteModel {
     /** Checks whether task is deleted. Will return false if DELETION_DATE not read */
     public boolean isDeleted() {
         // assume false if we didn't load deletion date
-        if(!containsValue(DELETION_DATE))
+        if(!containsValue(DELETION_DATE)) {
             return false;
-        else
+        } else {
             return getValue(DELETION_DATE) > 0;
+        }
     }
 
 }

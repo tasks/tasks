@@ -52,10 +52,11 @@ public class ReminderControlSet extends PopupControlSet {
     }
 
     public void addViewToBody(View v) {
-        if (remindersBody != null)
+        if (remindersBody != null) {
             remindersBody.addView(v, 0);
-        else
+        } else {
             extraViews.add(v);
+        }
 
     }
 
@@ -64,26 +65,30 @@ public class ReminderControlSet extends PopupControlSet {
         after.setChecked((flags &
                 Task.NOTIFY_AFTER_DEADLINE) > 0);
 
-        if((flags & Task.NOTIFY_MODE_NONSTOP) > 0)
+        if((flags & Task.NOTIFY_MODE_NONSTOP) > 0) {
             mode.setSelection(2);
-        else if((flags & Task.NOTIFY_MODE_FIVE) > 0)
+        } else if((flags & Task.NOTIFY_MODE_FIVE) > 0) {
             mode.setSelection(1);
-        else
+        } else {
             mode.setSelection(0);
+        }
     }
 
     public int getValue() {
         int value = 0;
-        if(during.isChecked())
+        if(during.isChecked()) {
             value |= Task.NOTIFY_AT_DEADLINE;
-        if(after.isChecked())
+        }
+        if(after.isChecked()) {
             value |= Task.NOTIFY_AFTER_DEADLINE;
+        }
 
         value &= ~(Task.NOTIFY_MODE_FIVE | Task.NOTIFY_MODE_NONSTOP);
-        if(mode.getSelectedItemPosition() == 2)
+        if(mode.getSelectedItemPosition() == 2) {
             value |= Task.NOTIFY_MODE_NONSTOP;
-        else if(mode.getSelectedItemPosition() == 1)
+        } else if(mode.getSelectedItemPosition() == 1) {
             value |= Task.NOTIFY_MODE_FIVE;
+        }
 
         return value;
     }
@@ -171,15 +176,17 @@ public class ReminderControlSet extends PopupControlSet {
         }
 
         int value;
-        if (initialized)
+        if (initialized) {
             value = getValue();
-        else
+        } else {
             value = model.getValue(Task.REMINDER_FLAGS);
+        }
 
         boolean appendedWhen = false;
         if ((value & Task.NOTIFY_AT_DEADLINE) > 0) {
-            if (reminderCount > 0)
+            if (reminderCount > 0) {
                 reminderString.append(" & "); //$NON-NLS-1$
+            }
 
             reminderString.append(activity.getString(R.string.TEA_reminder_when)).append(" "); //$NON-NLS-1$
             reminderString.append(activity.getString(R.string.TEA_reminder_due_short));
@@ -188,11 +195,13 @@ public class ReminderControlSet extends PopupControlSet {
         }
 
         if ((value & Task.NOTIFY_AFTER_DEADLINE) > 0 && reminderCount < 2) {
-            if (reminderCount > 0)
+            if (reminderCount > 0) {
                 reminderString.append(" & "); //$NON-NLS-1$
+            }
 
-            if (!appendedWhen)
+            if (!appendedWhen) {
                 reminderString.append(activity.getString(R.string.TEA_reminder_when)).append(" "); //$NON-NLS-1$
+            }
             reminderString.append(activity.getString(R.string.TEA_reminder_overdue_short));
             reminderCount++;
         }

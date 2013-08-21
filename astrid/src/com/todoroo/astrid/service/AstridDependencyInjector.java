@@ -143,11 +143,13 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
      * Install this service as the default Dependency Injector
      */
     public static void initialize() {
-        if(instance != null)
+        if(instance != null) {
             return;
+        }
         synchronized(AstridDependencyInjector.class) {
-            if(instance == null)
+            if(instance == null) {
                 instance = new AstridDependencyInjector();
+            }
             DependencyInjectionService.getInstance().addInjector(instance);
         }
     }

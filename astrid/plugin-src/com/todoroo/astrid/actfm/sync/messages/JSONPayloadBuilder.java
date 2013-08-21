@@ -46,8 +46,9 @@ public class JSONPayloadBuilder {
     }
 
     public String closeAndReturnString() {
-        if (messageCount > 0)
+        if (messageCount > 0) {
             sb.deleteCharAt(sb.length() - 1); // Remove final comma
+        }
         sb.append("]"); //$NON-NLS-1$
         return sb.toString();
     }

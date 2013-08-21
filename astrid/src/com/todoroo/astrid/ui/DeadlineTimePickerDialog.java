@@ -123,10 +123,11 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
                 mTimePicker.setEnabled(isChecked);
-                if(isChecked)
+                if(isChecked) {
                     updateTitle();
-                else
+                } else {
                     setTitle(R.string.TEA_urgency_none);
+                }
             }
         };
         mHasTime.setOnCheckedChangeListener(listener);

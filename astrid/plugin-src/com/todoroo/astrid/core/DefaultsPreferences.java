@@ -64,27 +64,28 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
                     R.array.EPr_default_reminders_mode_values, R.string.EPr_default_reminders_mode_desc);
         } else if(r.getString(R.string.p_rmd_default_random_hours).equals(preference.getKey())) {
             int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_reminder_random_hours), (String)value);
-            if(index <= 0)
+            if(index <= 0) {
                 preference.setSummary(r.getString(R.string.rmd_EPr_defaultRemind_desc_disabled));
-            else {
+            } else {
                 String setting = r.getStringArray(R.array.EPr_reminder_random)[index];
                 preference.setSummary(r.getString(R.string.rmd_EPr_defaultRemind_desc, setting));
             }
         } else if(r.getString(R.string.gcal_p_default).equals(preference.getKey())) {
             ListPreference listPreference = (ListPreference) preference;
             int index = AndroidUtilities.indexOf(listPreference.getEntryValues(), (String)value);
-            if(index <= 0)
+            if(index <= 0) {
                 preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc_disabled));
-            else {
+            } else {
                 String setting = listPreference.getEntries()[index].toString();
                 preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc, setting));
             }
         } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
             preference.setEnabled(Preferences.getBoolean(R.string.p_voiceInputEnabled, false));
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
-            else
+            } else {
                 preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_enabled);
+            }
         }
     }
 

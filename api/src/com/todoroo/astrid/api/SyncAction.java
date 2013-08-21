@@ -61,8 +61,9 @@ public class SyncAction implements Parcelable {
      */
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof SyncAction))
+        if(!(o instanceof SyncAction)) {
             return false;
+        }
         SyncAction other = (SyncAction) o;
         return label.equals(other.label) && intent.getTargetPackage().equals(other.intent.getTargetPackage());
     }

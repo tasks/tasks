@@ -268,8 +268,9 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
     /** Stops the timer & increments elapsed time. Requires timerStart and
      * elapsedSeconds */
     protected void stopTimerAndUpdateElapsedTime() {
-        if(getTimerStart() == null)
+        if(getTimerStart() == null) {
             return;
+        }
 
         long start = getTimerStart().getTime();
         setTimerStart(null);
@@ -279,44 +280,45 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     protected void prefetchData(String[] fields) {
         for(String field : fields) {
-            if(field.equals(NAME))
+            if(field.equals(NAME)) {
                 getName();
-            else if(field.equals(NOTES))
+            } else if(field.equals(NOTES)) {
                 getNotes();
-            else if(field.equals(PROGRESS_PERCENTAGE))
+            } else if(field.equals(PROGRESS_PERCENTAGE)) {
                 getProgressPercentage();
-            else if(field.equals(IMPORTANCE))
+            } else if(field.equals(IMPORTANCE)) {
                 getImportance();
-            else if(field.equals(ESTIMATED_SECONDS))
+            } else if(field.equals(ESTIMATED_SECONDS)) {
                 getEstimatedSeconds();
-            else if(field.equals(ELAPSED_SECONDS))
+            } else if(field.equals(ELAPSED_SECONDS)) {
                 getElapsedSeconds();
-            else if(field.equals(TIMER_START))
+            } else if(field.equals(TIMER_START)) {
                 getTimerStart();
-            else if(field.equals(DEFINITE_DUE_DATE))
+            } else if(field.equals(DEFINITE_DUE_DATE)) {
                 getDefiniteDueDate();
-            else if(field.equals(PREFERRED_DUE_DATE))
+            } else if(field.equals(PREFERRED_DUE_DATE)) {
                 getPreferredDueDate();
-            else if(field.equals(HIDDEN_UNTIL))
+            } else if(field.equals(HIDDEN_UNTIL)) {
                 getHiddenUntil();
-            else if(field.equals(BLOCKING_ON))
+            } else if(field.equals(BLOCKING_ON)) {
                 getBlockingOn();
-            else if(field.equals(POSTPONE_COUNT))
+            } else if(field.equals(POSTPONE_COUNT)) {
                 getPostponeCount();
-            else if(field.equals(NOTIFICATIONS))
+            } else if(field.equals(NOTIFICATIONS)) {
                 getNotificationIntervalSeconds();
-            else if(field.equals(CREATION_DATE))
+            } else if(field.equals(CREATION_DATE)) {
                 getCreationDate();
-            else if(field.equals(COMPLETION_DATE))
+            } else if(field.equals(COMPLETION_DATE)) {
                 getCompletionDate();
-            else if(field.equals(NOTIFICATION_FLAGS))
+            } else if(field.equals(NOTIFICATION_FLAGS)) {
                 getNotificationFlags();
-            else if(field.equals(LAST_NOTIFIED))
+            } else if(field.equals(LAST_NOTIFIED)) {
                 getLastNotificationDate();
-            else if(field.equals(REPEAT))
+            } else if(field.equals(REPEAT)) {
                 getRepeat();
-            else if(field.equals(FLAGS))
+            } else if(field.equals(FLAGS)) {
                 getFlags();
+            }
         }
     }
 
@@ -347,17 +349,19 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
         public static int toSingleField(RepeatInfo repeatInfo) {
             int repeat;
-            if(repeatInfo == null)
+            if(repeatInfo == null) {
                 repeat = 0;
-            else
+            } else {
                 repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
-                    repeatInfo.interval.ordinal();
+                        repeatInfo.interval.ordinal();
+            }
             return repeat;
         }
 
         public static RepeatInfo fromSingleField(int repeat) {
-            if(repeat == 0)
+            if(repeat == 0) {
                 return null;
+            }
             int value = repeat >> REPEAT_VALUE_OFFSET;
             RepeatInterval interval = RepeatInterval.values()
                 [repeat - (value << REPEAT_VALUE_OFFSET)];
@@ -421,8 +425,9 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     protected Importance getImportance() {
         Integer value = retrieveInteger(IMPORTANCE);
-        if(value == null)
+        if(value == null) {
             return null;
+        }
         return Importance.values()[value];
     }
 
@@ -451,8 +456,9 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
     }
 
     protected boolean isHidden() {
-        if(getHiddenUntil() == null)
+        if(getHiddenUntil() == null) {
             return false;
+        }
         return getHiddenUntil().getTime() > System.currentTimeMillis();
     }
 
@@ -466,8 +472,9 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     protected TaskIdentifier getBlockingOn() {
         Long value = retrieveLong(BLOCKING_ON);
-        if(value == null)
+        if(value == null) {
             return null;
+        }
         return new TaskIdentifier(value);
     }
 
@@ -489,8 +496,9 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     protected RepeatInfo getRepeat() {
         int repeat = retrieveInteger(REPEAT);
-        if(repeat == 0)
+        if(repeat == 0) {
             return null;
+        }
         int value = repeat >> REPEAT_VALUE_OFFSET;
         RepeatInterval interval = RepeatInterval.values()
             [repeat - (value << REPEAT_VALUE_OFFSET)];
@@ -500,10 +508,11 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     protected String getCalendarUri() {
         String uri = retrieveString(CALENDAR_URI);
-        if(uri != null && uri.length() == 0)
+        if(uri != null && uri.length() == 0) {
             return null;
-        else
+        } else {
             return uri;
+        }
     }
 
     protected int getFlags() {
@@ -524,8 +533,9 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
         putIfChangedFromDatabase(PROGRESS_PERCENTAGE, progressPercentage);
 
         if(getProgressPercentage() != progressPercentage &&
-                progressPercentage == COMPLETE_PERCENTAGE)
+                progressPercentage == COMPLETE_PERCENTAGE) {
             setCompletionDate(new Date());
+        }
     }
 
     protected void setImportance(Importance importance) {
@@ -557,10 +567,11 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
     }
 
     protected void setBlockingOn(TaskIdentifier blockingOn) {
-        if(blockingOn == null || blockingOn.equals(getTaskIdentifier()))
-            putIfChangedFromDatabase(BLOCKING_ON, (Integer)null);
-        else
+        if(blockingOn == null || blockingOn.equals(getTaskIdentifier())) {
+            putIfChangedFromDatabase(BLOCKING_ON, (Integer) null);
+        } else {
             putIfChangedFromDatabase(BLOCKING_ON, blockingOn.getId());
+        }
     }
 
     protected void setPostponeCount(int postponeCount) {
@@ -589,11 +600,12 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     protected void setRepeat(RepeatInfo repeatInfo) {
         int repeat;
-        if(repeatInfo == null)
+        if(repeatInfo == null) {
             repeat = 0;
-        else
+        } else {
             repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
-                repeatInfo.interval.ordinal();
+                    repeatInfo.interval.ordinal();
+        }
         putIfChangedFromDatabase(REPEAT, repeat);
     }
 
@@ -608,9 +620,10 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
     // --- utility methods
 
     protected void putDate(String fieldName, Date date) {
-        if(date == null)
+        if(date == null) {
             putIfChangedFromDatabase(fieldName, 0);
-        else
+        } else {
             putIfChangedFromDatabase(fieldName, date.getTime());
+        }
     }
 }

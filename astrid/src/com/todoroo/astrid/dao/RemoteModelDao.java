@@ -48,10 +48,11 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
         if (outstandingEntryFlag == -1) {
             synchronized (RemoteModelDao.class) {
                 int newValue = 0;
-                if (PluginServices.getActFmPreferenceService().isLoggedIn())
+                if (PluginServices.getActFmPreferenceService().isLoggedIn()) {
                     newValue = OUTSTANDING_ENTRY_FLAG_ENQUEUE_MESSAGES | OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING;
-                else if (PluginServices.getActFmPreferenceService().wasLoggedIn())
+                } else if (PluginServices.getActFmPreferenceService().wasLoggedIn()) {
                     newValue = OUTSTANDING_ENTRY_FLAG_RECORD_OUTSTANDING;
+                }
                 outstandingEntryFlag = newValue;
             }
         }
@@ -102,8 +103,9 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
     public long localIdFromUuid(String uuid) {
         TodorooCursor<RTYPE> cursor = query(Query.select(AbstractModel.ID_PROPERTY).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return AbstractModel.NO_ID;
+            }
             cursor.moveToFirst();
             return cursor.get(AbstractModel.ID_PROPERTY);
         } finally {
@@ -114,8 +116,9 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
     public String uuidFromLocalId(long localId) {
         TodorooCursor<RTYPE> cursor = query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
         try {
-            if (cursor.getCount() == 0)
+            if (cursor.getCount() == 0) {
                 return RemoteModel.NO_UUID;
+            }
             cursor.moveToFirst();
             return cursor.get(RemoteModel.UUID_PROPERTY);
         } finally {

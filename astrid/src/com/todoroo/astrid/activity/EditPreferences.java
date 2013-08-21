@@ -255,8 +255,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     public static void removeForbiddenPreferences(PreferenceScreen screen, Resources r) {
         int[] forbiddenPrefs = Constants.MARKET_STRATEGY.excludedSettings();
-        if (forbiddenPrefs == null)
+        if (forbiddenPrefs == null) {
             return;
+        }
         for (int i : forbiddenPrefs) {
             searchForAndRemovePreference(screen, r.getString(i));
         }
@@ -350,21 +351,24 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     resolveInfo.activityInfo.name);
 
             if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
-                    && AmazonMarketStrategy.isKindleFire())
+                    && AmazonMarketStrategy.isKindleFire()) {
                 continue;
+            }
 
             Preference preference = new Preference(this);
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
             Bundle metadata = resolveInfo.activityInfo.metaData;
             if (metadata != null) {
                 int resource = metadata.getInt("summary", 0); //$NON-NLS-1$
-                if (resource > 0)
+                if (resource > 0) {
                     preference.setSummary(resource);
+                }
             }
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
-                if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class))
+                if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class)) {
                     intentComponent = SyncProviderPreferences.class;
+                }
                 if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
                     final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
                     preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -383,26 +387,30 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
 
-            if(!categoryPreferences.containsKey(category))
+            if(!categoryPreferences.containsKey(category)) {
                 categoryPreferences.put(category, new ArrayList<Preference>());
+            }
             ArrayList<Preference> arrayList = categoryPreferences.get(category);
             arrayList.add(preference);
         }
 
         for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
             if (entry.getKey().equals(getString(R.string.app_name))) {
-                for(Preference preference : entry.getValue())
+                for(Preference preference : entry.getValue()) {
                     screen.addPreference(preference);
+                }
             } else {
                 PreferenceManager manager = getPreferenceManager();
                 PreferenceScreen header = manager.createPreferenceScreen(this);
                 header.setTitle(entry.getKey());
-                if (entry.getKey().equals(getString(R.string.SyP_label)))
+                if (entry.getKey().equals(getString(R.string.SyP_label))) {
                     header.setSummary(R.string.SyP_summary);
+                }
                 screen.addPreference(header);
 
-                for(Preference preference : entry.getValue())
+                for(Preference preference : entry.getValue()) {
                     header.addPreference(preference);
+                }
             }
 
 
@@ -411,8 +419,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @SuppressWarnings("nls")
     private void addDebugPreferences() {
-        if(!Constants.DEBUG)
+        if(!Constants.DEBUG) {
             return;
+        }
 
         PreferenceCategory group = new PreferenceCategory(this);
         group.setTitle("DEBUG");
@@ -519,29 +528,33 @@ public class EditPreferences extends TodorooPreferenceActivity {
             });
 
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
-            else
+            } else {
                 preference.setSummary(R.string.EPr_showNotes_desc_enabled);
+            }
             if((Boolean)value != Preferences.getBoolean(preference.getKey(), false)) {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
         } else if(r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
-            if (value != null && (Boolean) value)
+            if (value != null && (Boolean) value) {
                 preference.setSummary(R.string.EPr_fullTask_desc_enabled);
-            else
+            } else {
                 preference.setSummary(R.string.EPr_fullTask_desc_disabled);
+            }
         } else if (r.getString(R.string.p_theme).equals(preference.getKey())) {
             if(AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
                 int index = 0;
-                if(value instanceof String && !TextUtils.isEmpty((String)value))
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String)value);
-                if (index < 0)
+                if(value instanceof String && !TextUtils.isEmpty((String)value)) {
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String) value);
+                }
+                if (index < 0) {
                     index = 0;
+                }
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
@@ -551,10 +564,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
                 int index = 0;
-                if(value instanceof String && !TextUtils.isEmpty((String)value))
-                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String)value);
-                if (index < 0)
+                if(value instanceof String && !TextUtils.isEmpty((String)value)) {
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String) value);
+                }
+                if (index < 0) {
                     index = 0;
+                }
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes_widget)[index]));
             }
@@ -570,16 +585,21 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
         }
         else if (booleanPreference(preference, value, R.string.p_statistics,
-                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled));
-        else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
-                    R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled));
-        else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
-                    R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled));
-        else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
-                    R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled));
-        else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
-                    R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time));
-        else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
+                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled)) {
+            ;
+        } else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
+                    R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
+            ;
+        } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
+                    R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
+            ;
+        } else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
+                    R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled)) {
+            ;
+        } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
+                    R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
+            ;
+        } else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
@@ -600,16 +620,18 @@ public class EditPreferences extends TodorooPreferenceActivity {
              });
         }
         else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
-            else
+            } else {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
+            }
             onVoiceInputStatusChanged(preference, (Boolean)value);
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
-            else
+            } else {
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
+            }
             onVoiceReminderStatusChanged(preference, (Boolean)value);
         }
     }
@@ -617,10 +639,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
     protected boolean booleanPreference(Preference preference, Object value,
             int key, int disabledString, int enabledString) {
         if(getString(key).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean)value) {
                 preference.setSummary(disabledString);
-            else
+            } else {
                 preference.setSummary(enabledString);
+            }
             return true;
         }
         return false;
@@ -682,8 +705,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
             findPreference(getString(R.string.p_calendar_reminders)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue != null && ((Boolean) newValue))
+                    if (newValue != null && ((Boolean) newValue)) {
                         CalendarStartupReceiver.scheduleCalendarAlarms(EditPreferences.this, true);
+                    }
                     return true;
                 }
             });
@@ -728,8 +752,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private void onVoiceReminderStatusChanged(final Preference preference, boolean newValue) {
         try {
             VoiceOutputService.getVoiceOutputInstance();
-            if(newValue)
+            if(newValue) {
                 VoiceOutputService.getVoiceOutputInstance().checkIsTTSInstalled();
+            }
         } catch (VerifyError e) {
             // doesn't work :(
             preference.setEnabled(false);
@@ -738,11 +763,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     private void onVoiceInputStatusChanged(final Preference preference, boolean newValue) {
-        if(!newValue)
+        if(!newValue) {
             return;
+        }
         int[] excludedSettings = Constants.MARKET_STRATEGY.excludedSettings();
-        if (excludedSettings != null && AndroidUtilities.indexOf(excludedSettings, R.string.p_voiceInputEnabled) >= 0)
+        if (excludedSettings != null && AndroidUtilities.indexOf(excludedSettings, R.string.p_voiceInputEnabled) >= 0) {
             return;
+        }
 
         final Resources r = getResources();
         if (!VoiceRecognizer.voiceInputAvailable(this)) {

@@ -33,8 +33,9 @@ public final class GlobalEventReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent == null)
+        if(intent == null) {
             return;
+        }
 
         DependencyInjectionService.getInstance().inject(this);
 

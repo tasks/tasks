@@ -71,8 +71,9 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
 
         buildDrawingCache(true);
         Bitmap drawingCache = getDrawingCache();
-        if (drawingCache == null)
+        if (drawingCache == null) {
             return null;
+        }
         Bitmap b = Bitmap.createBitmap(getDrawingCache());
         setDrawingCacheEnabled(false); // clear drawing cache
         return b;
@@ -85,8 +86,9 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
             synchronized(AsyncImageView.class) {
                 if (imageCacheInstance == null) {
                     try {
-                        if (Looper.myLooper() == null)
+                        if (Looper.myLooper() == null) {
                             Looper.prepare();
+                        }
                     } catch (Exception e) {
                         // Ignore
                     }

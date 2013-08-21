@@ -58,8 +58,9 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
 
         Class<?> fragmentClass = FeaturedTaskListFragment.class;
         filter.customTaskList = new ComponentName(ContextManager.getContext(), fragmentClass);
-        if(tag.image != null)
+        if(tag.image != null) {
             filter.imageUrl = tag.image;
+        }
 
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);

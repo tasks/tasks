@@ -140,17 +140,19 @@ public class CalendarReminderActivity extends Activity {
 
         TextView dialogView = (TextView) findViewById(R.id.reminder_message);
         String speechText;
-        if (fromPostpone)
+        if (fromPostpone) {
             speechText = getString(R.string.CRA_speech_bubble_end, eventName);
-        else
+        } else {
             speechText = getString(R.string.CRA_speech_bubble_start, eventName);
+        }
 
         dialogView.setText(speechText);
 
         createListButton.setBackgroundColor(getResources().getColor(ThemeService.getThemeColor()));
 
-        if (fromPostpone)
+        if (fromPostpone) {
             postponeButton.setVisibility(View.GONE);
+        }
     }
 
     private void addListeners() {
@@ -166,13 +168,14 @@ public class CalendarReminderActivity extends Activity {
             }
         });
 
-        if (!fromPostpone)
+        if (!fromPostpone) {
             postponeButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     postpone();
                 }
             });
+        }
 
         createListButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -240,8 +243,9 @@ public class CalendarReminderActivity extends Activity {
         am.cancel(pendingIntent);
 
         long alarmTime = endTime + DateUtilities.ONE_MINUTE * 5;
-        if (Constants.DEBUG)
+        if (Constants.DEBUG) {
             Log.w(CalendarAlarmScheduler.TAG, "Scheduling calendar alarm for " + new Date(alarmTime));
+        }
         am.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         dismissButton.performClick();
     }

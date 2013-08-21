@@ -63,8 +63,9 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             @Override
             public void onChildViewAdded(View parent, View child) {
                 View view = findViewById(R.id.status);
-                if(view != null)
+                if(view != null) {
                     view.setBackgroundColor(statusColor);
+                }
             }
         });
 
@@ -104,10 +105,11 @@ public class BackupPreferences extends TodorooPreferenceActivity {
         // auto
         if (r.getString(R.string.backup_BPr_auto_key).equals(
                 preference.getKey())) {
-            if (value != null && !(Boolean)value)
+            if (value != null && !(Boolean)value) {
                 preference.setSummary(R.string.backup_BPr_auto_disabled);
-            else
+            } else {
                 preference.setSummary(R.string.backup_BPr_auto_enabled);
+            }
         }
 
         // status
@@ -143,8 +145,9 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             preference.setSummary(subtitle);
 
             View view = findViewById(R.id.status);
-            if(view != null)
+            if(view != null) {
                 view.setBackgroundColor(statusColor);
+            }
         }
 
     }

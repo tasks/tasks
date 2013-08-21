@@ -130,8 +130,9 @@ public final class PluginServices {
     private static PluginServices getInstance() {
         if(instance == null) {
             synchronized (PluginServices.class) {
-                if (instance == null)
+                if (instance == null) {
                     instance = new PluginServices();
+                }
             }
         }
         return instance;
@@ -248,8 +249,9 @@ public final class PluginServices {
             if(cursor.getCount() > 0) {
                 cursor.moveToNext();
                 return new Metadata(cursor);
-            } else
+            } else {
                 return null;
+            }
         } finally {
             cursor.close();
         }

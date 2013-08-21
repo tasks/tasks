@@ -116,8 +116,9 @@ public class GtasksLegacyMigrator {
 
                             // save the new id of the current list
                             // if it matches the listname of the current task
-                            if (list.getTitle() != null && list.getTitle().equals(originalListName))
+                            if (list.getTitle() != null && list.getTitle().equals(originalListName)) {
                                 originalListId = list.getId();
+                            }
 
                             if (taskAndListTitlesToRemoteTaskIds.containsKey(expectedKey)) {
                                 foundMatch = true;

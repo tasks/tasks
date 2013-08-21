@@ -89,8 +89,9 @@ public final class ABTestEventReportingService {
 
     private void pushAllUnreportedABTestEvents() {
         synchronized(ABTestEventReportingService.class) {
-            if (StatisticsService.dontCollectStatistics())
+            if (StatisticsService.dontCollectStatistics()) {
                 return;
+            }
             final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
                     .where(ABTestEvent.REPORTED.eq(0))
                     .orderBy(Order.asc(ABTestEvent.TEST_NAME), Order.asc(ABTestEvent.TIME_INTERVAL)));
@@ -117,10 +118,12 @@ public final class ABTestEventReportingService {
 
     private void reportUserActivation() {
         synchronized (ABTestEventReportingService.class) {
-            if (StatisticsService.dontCollectStatistics())
+            if (StatisticsService.dontCollectStatistics()) {
                 return;
-            if (Preferences.getBoolean(PREF_REPORTED_ACTIVATION, false) || !taskService.getUserActivationStatus())
+            }
+            if (Preferences.getBoolean(PREF_REPORTED_ACTIVATION, false) || !taskService.getUserActivationStatus()) {
                 return;
+            }
 
             final TodorooCursor<ABTestEvent> variants = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
                     .groupBy(ABTestEvent.TEST_NAME));
@@ -175,8 +178,9 @@ public final class ABTestEventReportingService {
         for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
             model.readFromCursor(events);
             if (!model.getValue(ABTestEvent.TEST_NAME).equals(lastTestKey)) {
-                if (testAcc != null)
+                if (testAcc != null) {
                     result.put(testAcc);
+                }
                 testAcc = jsonFromABTestEvent(model);
                 lastTestKey = model.getValue(ABTestEvent.TEST_NAME);
             } else {
@@ -188,8 +192,9 @@ public final class ABTestEventReportingService {
             }
 
         }
-        if (testAcc != null)
+        if (testAcc != null) {
             result.put(testAcc);
+        }
         return result;
     }
 
@@ -202,10 +207,11 @@ public final class ABTestEventReportingService {
             JSONObject event = new JSONObject();
             event.put(KEY_TEST, model.getValue(ABTestEvent.TEST_NAME));
             event.put(KEY_VARIANT, model.getValue(ABTestEvent.TEST_VARIANT));
-            if (model.getValue(ABTestEvent.ACTIVATED_USER) > 0)
+            if (model.getValue(ABTestEvent.ACTIVATED_USER) > 0) {
                 event.put(KEY_INITIAL, true);
-            else
+            } else {
                 event.put(KEY_ACTIVATION, true);
+            }
             result.put(event);
         }
         return result;

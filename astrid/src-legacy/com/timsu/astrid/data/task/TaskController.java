@@ -55,8 +55,9 @@ public class TaskController extends LegacyAbstractController {
                         AbstractTaskModel.NOTIFICATION_FLAGS), null, null, null, null, null);
 
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return list;
+            }
             do {
                 cursor.moveToNext();
                 list.add(new TaskModelForNotify(cursor));
@@ -79,8 +80,9 @@ public class TaskController extends LegacyAbstractController {
                         AbstractTaskModel.PREFERRED_DUE_DATE), null, null, null, null, null);
 
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return list;
+            }
 
             do {
                 cursor.moveToNext();
@@ -133,8 +135,9 @@ public class TaskController extends LegacyAbstractController {
     public ArrayList<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
         ArrayList<TaskModelForList> list = new ArrayList<TaskModelForList>();
 
-        if(cursor.getCount() == 0)
+        if(cursor.getCount() == 0) {
             return list;
+        }
 
         do {
             cursor.moveToNext();
@@ -149,8 +152,9 @@ public class TaskController extends LegacyAbstractController {
     private HashSet<TaskIdentifier> createTaskIdentifierSet(Cursor cursor) {
         HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return list;
+            }
 
             do {
                 cursor.moveToNext();
@@ -198,13 +202,15 @@ public class TaskController extends LegacyAbstractController {
             where.append(KEY_ROWID);
             where.append("=");
             where.append(idList.get(i).idAsString());
-            if(i < idList.size()-1)
+            if(i < idList.size()-1) {
                 where.append(" OR ");
+            }
         }
 
         // hack for empty arrays
-        if(idList.size() == 0)
+        if(idList.size() == 0) {
             where.append("0");
+        }
 
         return database.query(true, tasksTable,
                 TaskModelForList.FIELD_LIST, where.toString(), null, null,
@@ -215,8 +221,9 @@ public class TaskController extends LegacyAbstractController {
 
     /** Delete the given task */
     public boolean deleteTask(TaskIdentifier taskId) {
-        if(taskId == null)
+        if(taskId == null) {
             throw new UnsupportedOperationException("Cannot delete uncreated task!");
+        }
         long id = taskId.getId();
         cleanupTask(taskId, false);
 
@@ -244,7 +251,9 @@ public class TaskController extends LegacyAbstractController {
             ContentValues values = task.getSetValues();
 
             if(values.size() == 0) // nothing changed
+            {
                 return true;
+            }
 
             onTaskSave(task, values, duringSync);
 
@@ -420,8 +429,9 @@ public class TaskController extends LegacyAbstractController {
     public TaskModelForEdit fetchTaskForEdit(Activity activity, TaskIdentifier
             taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForEdit.FIELD_LIST);
-        if(cursor == null)
+        if(cursor == null) {
             return null;
+        }
         activity.startManagingCursor(cursor);
         TaskModelForEdit model = new TaskModelForEdit(taskId, cursor);
         return model;
@@ -430,8 +440,9 @@ public class TaskController extends LegacyAbstractController {
     /** Returns a TaskModelForList corresponding to the given TaskIdentifier */
     public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);
-        if(cursor == null)
+        if(cursor == null) {
             return null;
+        }
         TaskModelForList model = new TaskModelForList(cursor);
         cursor.close();
         return model;
@@ -440,8 +451,9 @@ public class TaskController extends LegacyAbstractController {
     /** Returns a TaskModelForXml corresponding to the given TaskIdentifier */
     public TaskModelForXml fetchTaskForXml(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForXml.FIELD_LIST);
-        if(cursor == null)
+        if(cursor == null) {
             return null;
+        }
         TaskModelForXml model = new TaskModelForXml(cursor);
         cursor.close();
         return model;
@@ -488,14 +500,16 @@ public class TaskController extends LegacyAbstractController {
                         AbstractTaskModel.COMPLETE_PERCENTAGE,
                 new String[] { name }, null, null, null, null);
         try {
-            if (cursor == null || cursor.getCount() == 0)
+            if (cursor == null || cursor.getCount() == 0) {
                 return null;
+            }
             cursor.moveToFirst();
             TaskModelForSync model = new TaskModelForSync(cursor);
             return model;
         } finally {
-            if(cursor != null)
+            if(cursor != null) {
                 cursor.close();
+            }
         }
     }
 
@@ -513,8 +527,9 @@ public class TaskController extends LegacyAbstractController {
         long id = taskId.getId();
         Cursor cursor = database.query(true, tasksTable, fieldList,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
-        if (cursor == null)
+        if (cursor == null) {
             throw new SQLException("Returned empty set!");
+        }
 
         cursor.moveToFirst();
         return cursor;
@@ -530,8 +545,9 @@ public class TaskController extends LegacyAbstractController {
         String approximateCreationDate = (creationDate / 1000) + "%";
         Cursor cursor = database.query(true, tasksTable, fieldList,
                 where, new String[] {name, approximateCreationDate}, null, null, null, null);
-        if (cursor == null)
+        if (cursor == null) {
             throw new SQLException("Returned empty set!");
+        }
 
         if (cursor.moveToFirst()) {
             return cursor;
@@ -545,15 +561,17 @@ public class TaskController extends LegacyAbstractController {
     public int fetchTaskPostponeCount(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, new String[] {AbstractTaskModel.POSTPONE_COUNT});
         try {
-            if (cursor == null || cursor.getCount() == 0)
+            if (cursor == null || cursor.getCount() == 0) {
                 return 0;
+            }
             cursor.moveToFirst();
             return cursor.getInt(0);
         } catch (Exception e) {
             return 0;
         } finally {
-            if(cursor != null)
+            if(cursor != null) {
                 cursor.close();
+            }
         }
     }
 
@@ -581,8 +599,9 @@ public class TaskController extends LegacyAbstractController {
 
     	try {
             ArrayList<TaskModelForWidget> list = new ArrayList<TaskModelForWidget>();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 list.add(new TaskModelForWidget(cursor));
+            }
             return list;
     	} finally {
     	    cursor.close();
@@ -603,8 +622,9 @@ public class TaskController extends LegacyAbstractController {
 
     	try {
             ArrayList<TaskModelForProvider> list = new ArrayList<TaskModelForProvider>();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 list.add(new TaskModelForProvider(cursor));
+            }
             return list;
     	} finally {
     	    cursor.close();

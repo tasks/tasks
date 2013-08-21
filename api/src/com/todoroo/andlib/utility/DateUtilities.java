@@ -27,15 +27,17 @@ public class DateUtilities {
 
     /** Convert unixtime into date */
     public static final Date unixtimeToDate(long millis) {
-        if(millis == 0)
+        if(millis == 0) {
             return null;
+        }
         return new Date(millis);
     }
 
     /** Convert date into unixtime */
     public static final long dateToUnixtime(Date date) {
-        if(date == null)
+        if(date == null) {
             return 0;
+        }
         return date.getTime();
     }
 
@@ -85,8 +87,9 @@ public class DateUtilities {
     static Boolean is24HourOverride = null;
 
     public static boolean is24HourFormat(Context context) {
-        if(is24HourOverride != null)
+        if(is24HourOverride != null) {
             return is24HourOverride;
+        }
 
         return DateFormat.is24HourFormat(context);
     }
@@ -134,12 +137,14 @@ public class DateUtilities {
         // united states, you are special
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
-                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
+                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {
             value = "'#' d'$'";
-        else
+        } else {
             value = "d'$' '#'";
-        if (includeYear)
+        }
+        if (includeYear) {
             value += ", yyyy";
+        }
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
             standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
         }else if ("ko".equals(Locale.getDefault().getLanguage())){
@@ -166,20 +171,24 @@ public class DateUtilities {
         Locale locale = Locale.getDefault();
         // united states, you are special
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
-                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
+                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {
             value = "'#' d";
-        else
+        } else {
             value = "d '#'";
+        }
 
         if (date.getYear() !=  (new Date()).getYear()) {
             value = value + "\nyyyy";
         }
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
+        {
             return new SimpleDateFormat(value).format(date).replace("#", month) + "\u65E5"; //$NON-NLS-1$
-        else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+        } else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+        {
             return new SimpleDateFormat(value).format(date).replace("#", month) + "\uC77C"; //$NON-NLS-1$
-        else
+        } else {
             return new SimpleDateFormat(value).format(date).replace("#", month);
+        }
     }
 
     /**
@@ -231,33 +240,40 @@ public class DateUtilities {
         long today = clearTime(new Date());
         long input = clearTime(new Date(date));
 
-        if(today == input)
+        if(today == input) {
             return context.getString(R.string.today).toLowerCase();
+        }
 
-        if(today + ONE_DAY == input)
+        if(today + ONE_DAY == input) {
             return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow).toLowerCase();
+        }
 
-        if(today == input + ONE_DAY)
+        if(today == input + ONE_DAY) {
             return context.getString(abbreviated ? R.string.yest : R.string.yesterday).toLowerCase();
+        }
 
         if(today + DateUtilities.ONE_WEEK >= input &&
-                today - DateUtilities.ONE_WEEK <= input)
+                today - DateUtilities.ONE_WEEK <= input) {
             return abbreviated ? DateUtilities.getWeekdayShort(new Date(date)) : DateUtilities.getWeekday(new Date(date));
+        }
 
         return DateUtilities.getDateStringHideYear(context, new Date(date));
     }
 
     public static boolean isEndOfMonth(Date d) {
         int date = d.getDate();
-        if (date < 28)
+        if (date < 28) {
             return false;
+        }
 
         int month = d.getMonth();
-        if (month == Calendar.FEBRUARY)
+        if (month == Calendar.FEBRUARY) {
             return date >= 28;
+        }
 
-        if (month == Calendar.APRIL || month == Calendar.JUNE || month == Calendar.SEPTEMBER || month == Calendar.NOVEMBER)
+        if (month == Calendar.APRIL || month == Calendar.JUNE || month == Calendar.SEPTEMBER || month == Calendar.NOVEMBER) {
             return date >= 30;
+        }
 
         return date >= 31;
     }
@@ -292,8 +308,9 @@ public class DateUtilities {
     }
 
     public static long parseIso8601(String iso8601String) throws ParseException {
-        if (iso8601String == null)
+        if (iso8601String == null) {
             return 0;
+        }
         String formatString;
         if (isoStringHasTime(iso8601String)) { // Time exists
             iso8601String = iso8601String.replace("Z", "+00:00"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -313,12 +330,14 @@ public class DateUtilities {
     }
 
     public static String timeToIso8601(long time, boolean includeTime) {
-        if (time == 0)
+        if (time == 0) {
             return null;
+        }
         Date date = new Date(time);
         String formatString = "yyyy-MM-dd'T'HH:mm:ssZ"; //$NON-NLS-1$
-        if (!includeTime)
+        if (!includeTime) {
             formatString = "yyyy-MM-dd"; //$NON-NLS-1$
+        }
         return new SimpleDateFormat(formatString).format(date);
     }
 

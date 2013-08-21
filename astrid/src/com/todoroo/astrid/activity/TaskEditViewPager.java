@@ -26,10 +26,12 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     public TaskEditViewPager(Context context, int tabStyleMask) {
         ArrayList<String> titleList = new ArrayList<String>();
-        if ((tabStyleMask & TAB_SHOW_ACTIVITY) > 0)
+        if ((tabStyleMask & TAB_SHOW_ACTIVITY) > 0) {
             titleList.add(context.getString(R.string.TEA_tab_activity));
-        if ((tabStyleMask & TAB_SHOW_MORE) > 0)
+        }
+        if ((tabStyleMask & TAB_SHOW_MORE) > 0) {
             titleList.add(context.getString(R.string.TEA_tab_more));
+        }
 
         titles = titleList.toArray(new String[titleList.size()]);
     }
@@ -37,10 +39,12 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
     public static int getPageForPosition(int position, int tabStyle) {
         int numOnesEncountered = 0;
         for (int i = 0; i <= 2; i++) {
-            if ((tabStyle & (1 << i)) > 0)
+            if ((tabStyle & (1 << i)) > 0) {
                 numOnesEncountered++;
-            if (numOnesEncountered == position + 1)
+            }
+            if (numOnesEncountered == position + 1) {
                 return 1 << i;
+            }
         }
         return -1;
     }

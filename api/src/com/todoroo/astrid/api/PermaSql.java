@@ -62,8 +62,9 @@ public final class PermaSql {
 
     /** Replace placeholder strings with actual */
     public static String replacePlaceholders(String value) {
-        if(value.contains(VALUE_NOW))
+        if(value.contains(VALUE_NOW)) {
             value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
+        }
         if(value.contains(VALUE_EOD) || value.contains(VALUE_EOD_DAY_AFTER) ||
                 value.contains(VALUE_EOD_NEXT_WEEK) || value.contains(VALUE_EOD_TOMORROW) ||
                 value.contains(VALUE_EOD_YESTERDAY) || value.contains(VALUE_EOD_NEXT_MONTH)) {

@@ -47,8 +47,9 @@ public class ReengagementReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+        if (!Preferences.getBoolean(R.string.p_rmd_enabled, true)) {
             return;
+        }
 
         DependencyInjectionService.getInstance().inject(this);
 
@@ -74,10 +75,12 @@ public class ReengagementReceiver extends BroadcastReceiver {
             if (actFmPreferenceService.isLoggedIn()) {
                 JSONObject thisUser = ActFmPreferenceService.thisUser();
                 name = thisUser.optString("first_name"); //$NON-NLS-1$
-                if (TextUtils.isEmpty(name))
+                if (TextUtils.isEmpty(name)) {
                     name = thisUser.optString("name"); //$NON-NLS-1$
-                if (TextUtils.isEmpty(name))
+                }
+                if (TextUtils.isEmpty(name)) {
                     name = context.getString(R.string.rmd_reengage_name_default);
+                }
             }
             title = String.format(title, name);
         }

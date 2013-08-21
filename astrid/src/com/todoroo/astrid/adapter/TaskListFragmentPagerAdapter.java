@@ -98,22 +98,26 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
     private Fragment getFragmentForFilter(Filter filter) {
         Bundle extras = getExtrasForFilter(filter);
         Class<?> customList = null;
-        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter))
+        if (SubtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
             customList = SubtasksHelper.subtasksClassForFilter(filter);
+        }
         return TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customList);
     }
 
     // Constructs extras corresponding to the specified filter that can be used as arguments to the fragment
     private Bundle getExtrasForFilter(Filter filter) {
         Bundle extras = null;
-        if (filter instanceof FilterWithCustomIntent)
+        if (filter instanceof FilterWithCustomIntent) {
             extras = ((FilterWithCustomIntent) filter).customExtras;
+        }
 
-        if (extras == null)
+        if (extras == null) {
             extras = new Bundle();
+        }
 
-        if (filter != null)
+        if (filter != null) {
             extras.putParcelable(TaskListFragment.TOKEN_FILTER, filter);
+        }
         return extras;
     }
 

@@ -112,8 +112,9 @@ public class FilesControlSet extends PopupControlSet {
                 cursor.close();
             }
             validateFiles();
-            if (initialized)
+            if (initialized) {
                 afterInflate();
+            }
         }
     }
 
@@ -258,8 +259,9 @@ public class FilesControlSet extends PopupControlSet {
 
                 MimeTypeMap map = MimeTypeMap.getSingleton();
                 String guessedType = map.getMimeTypeFromExtension(extension);
-                if (!TextUtils.isEmpty(guessedType))
+                if (!TextUtils.isEmpty(guessedType)) {
                     useType = guessedType;
+                }
                 if (useType != guessedType) {
                     m.setValue(TaskAttachment.CONTENT_TYPE, useType);
                     m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
@@ -300,8 +302,9 @@ public class FilesControlSet extends PopupControlSet {
             public void onClick(DialogInterface d, int which) {
                 Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
                 try {
-                    if (marketIntent == null)
+                    if (marketIntent == null) {
                         throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
+                    }
                     activity.startActivity(marketIntent);
                 } catch (ActivityNotFoundException anf) {
                     DialogUtilities.okDialog(activity,
@@ -414,10 +417,11 @@ public class FilesControlSet extends PopupControlSet {
         String type = getTypeString(m.getValue(TaskAttachment.NAME));
         nameView.setText(name);
 
-        if (TextUtils.isEmpty(type))
+        if (TextUtils.isEmpty(type)) {
             typeView.setVisibility(View.GONE);
-        else
+        } else {
             typeView.setText(type);
+        }
 
         parent.addView(row, lp);
     }
@@ -425,16 +429,18 @@ public class FilesControlSet extends PopupControlSet {
     private String getNameString(TaskAttachment metadata) {
         String name = metadata.getValue(TaskAttachment.NAME);
         int extension = name.lastIndexOf('.');
-        if (extension < 0)
+        if (extension < 0) {
             return name;
+        }
         return name.substring(0, extension);
     }
 
     @SuppressWarnings("nls")
     private String getTypeString(String name) {
         int extension = name.lastIndexOf('.');
-        if (extension < 0 || extension + 1 >= name.length())
+        if (extension < 0 || extension + 1 >= name.length()) {
             return "";
+        }
         return name.substring(extension + 1).toUpperCase();
 
     }

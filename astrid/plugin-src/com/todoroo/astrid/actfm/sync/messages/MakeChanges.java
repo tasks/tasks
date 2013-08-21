@@ -71,13 +71,15 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
     private static <T extends RemoteModel> void saveOrUpdateModelAfterChanges(RemoteModelDao<T> dao, T model, String oldUuid, String uuid, String serverTime, Criterion orCriterion) {
         Criterion uuidCriterion;
-        if (oldUuid == null)
+        if (oldUuid == null) {
             uuidCriterion = RemoteModel.UUID_PROPERTY.eq(uuid);
-        else
+        } else {
             uuidCriterion = RemoteModel.UUID_PROPERTY.eq(oldUuid);
+        }
 
-        if (orCriterion != null)
+        if (orCriterion != null) {
             uuidCriterion = Criterion.or(uuidCriterion, orCriterion);
+        }
 
         if (model.getSetValues() != null && model.getSetValues().size() > 0) {
             long pushedAt;
@@ -87,8 +89,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                 pushedAt = 0;
             }
 
-            if (pushedAt > 0)
+            if (pushedAt > 0) {
                 model.setValue(RemoteModel.PUSHED_AT_PROPERTY, pushedAt);
+            }
 
             model.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
             if (dao.update(uuidCriterion, model) <= 0) { // If update doesn't update rows. create a new model
@@ -116,8 +119,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
                     beforeSaveChanges(changes, model, uuid);
 
-                    if (model.getSetValues() != null && !model.getSetValues().containsKey(uuidProperty.name))
+                    if (model.getSetValues() != null && !model.getSetValues().containsKey(uuidProperty.name)) {
                         model.setValue(uuidProperty, uuid);
+                    }
 
                     saveOrUpdateModelAfterChanges(dao, model, oldUuid, uuid, serverTime, getMatchCriterion(model));
                     afterSaveChanges(changes, model, uuid, oldUuid);
@@ -133,36 +137,41 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
     private Criterion getMatchCriterion(TYPE model) {
         if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
-            if (model.getSetValues().containsKey(TaskListMetadata.FILTER.name))
+            if (model.getSetValues().containsKey(TaskListMetadata.FILTER.name)) {
                 return TaskListMetadata.FILTER.eq(model.getSetValues().getAsString(TaskListMetadata.FILTER.name));
-            else if (model.getSetValues().containsKey(TaskListMetadata.TAG_UUID.name))
+            } else if (model.getSetValues().containsKey(TaskListMetadata.TAG_UUID.name)) {
                 return TaskListMetadata.TAG_UUID.eq(model.getSetValues().getAsString(TaskListMetadata.TAG_UUID.name));
+            }
         }
         return null;
     }
 
     private void beforeSaveChanges(JSONObject changes, TYPE model, String uuid) {
         ChangeHooks beforeSaveChanges = null;
-        if (NameMaps.TABLE_ID_TASKS.equals(table))
+        if (NameMaps.TABLE_ID_TASKS.equals(table)) {
             beforeSaveChanges = new BeforeSaveTaskChanges(model, changes, uuid);
-        else if (NameMaps.TABLE_ID_TAGS.equals(table))
+        } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
             beforeSaveChanges = new BeforeSaveTagChanges(model, changes, uuid);
+        }
 
-        if (beforeSaveChanges != null)
+        if (beforeSaveChanges != null) {
             beforeSaveChanges.performChanges();
+        }
     }
 
     private void afterSaveChanges(JSONObject changes, TYPE model, String uuid, String oldUuid) {
         ChangeHooks afterSaveChanges = null;
-        if (NameMaps.TABLE_ID_TASKS.equals(table))
+        if (NameMaps.TABLE_ID_TASKS.equals(table)) {
             afterSaveChanges = new AfterSaveTaskChanges(model, changes, uuid, oldUuid);
-        else if (NameMaps.TABLE_ID_TAGS.equals(table))
+        } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
             afterSaveChanges = new AfterSaveTagChanges(model, changes, uuid, oldUuid);
-        else if (NameMaps.TABLE_ID_USERS.equals(table))
+        } else if (NameMaps.TABLE_ID_USERS.equals(table)) {
             afterSaveChanges = new AfterSaveUserChanges(model, changes, uuid);
+        }
 
-        if (afterSaveChanges != null)
+        if (afterSaveChanges != null) {
             afterSaveChanges.performChanges();
+        }
     }
 
     private abstract class ChangeHooks {
@@ -213,8 +222,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         public void performChanges() {
             JSONArray addMembers = changes.optJSONArray("member_added");
             boolean membersAdded = (addMembers != null && addMembers.length() > 0);
-            if (membersAdded)
+            if (membersAdded) {
                 model.setValue(TagData.MEMBERS, ""); // Clear this value for migration purposes
+            }
         }
     }
 
@@ -238,8 +248,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
                     changes.has(NameMaps.localPropertyToServerColumnName(NameMaps.TABLE_ID_TASKS, Task.COMPLETION_DATE))) {
                 Task t = PluginServices.getTaskDao().fetch(uuid, ReminderService.NOTIFICATION_PROPERTIES);
                 if (t != null) {
-                    if ((changes.has("task_repeated") && t.getValue(Task.DUE_DATE) > DateUtilities.now()) || t.getValue(Task.COMPLETION_DATE) > 0)
+                    if ((changes.has("task_repeated") && t.getValue(Task.DUE_DATE) > DateUtilities.now()) || t.getValue(Task.COMPLETION_DATE) > 0) {
                         Notifications.cancelNotifications(t.getId());
+                    }
                     ReminderService.getInstance().scheduleAlarm(t);
                 }
             }
@@ -248,12 +259,14 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             JSONArray removeTags = changes.optJSONArray("tag_removed");
             boolean tagsAdded = (addTags != null && addTags.length() > 0);
             boolean tagsRemoved = (removeTags != null && removeTags.length() > 0);
-            if (!tagsAdded && !tagsRemoved)
+            if (!tagsAdded && !tagsRemoved) {
                 return;
+            }
 
             long localId = AbstractModel.NO_ID;
-            if (tagsAdded || tagsRemoved)
+            if (tagsAdded || tagsRemoved) {
                 localId = getLocalId();
+            }
 
             if (tagsAdded) {
                 if (model.isSaved()) {
@@ -284,8 +297,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
 
         private void uuidChanged(String fromUuid, String toUuid) {
-            if (ActFmInvoker.SYNC_DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG) {
                 Log.e(ERROR_TAG, "Task UUID collision -- old uuid: " + fromUuid + ", new uuid: " + toUuid);
+            }
 
             // Update reference from UserActivity to task uuid
             UserActivityDao activityDao = PluginServices.getUserActivityDao();
@@ -359,8 +373,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             boolean membersRemoved = (removeMembers != null && removeMembers.length() > 0);
 
             long localId = AbstractModel.NO_ID;
-            if (membersAdded || membersRemoved)
+            if (membersAdded || membersRemoved) {
                 localId = getLocalId();
+            }
 
             if (membersAdded) {
                 for (int i = 0; i < addMembers.length(); i++) {
@@ -388,8 +403,9 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
         }
 
         private void uuidChanged(String fromUuid, String toUuid) {
-            if (ActFmInvoker.SYNC_DEBUG)
+            if (ActFmInvoker.SYNC_DEBUG) {
                 Log.e(ERROR_TAG, "Tag UUID collision -- old uuid: " + fromUuid + ", new uuid: " + toUuid);
+            }
 
             UserActivityDao activityDao = PluginServices.getUserActivityDao();
             UserActivity activityTemplate = new UserActivity();

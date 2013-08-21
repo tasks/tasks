@@ -48,8 +48,9 @@ public final class AlarmControlSet extends TaskEditControlSet {
         alertsContainer.removeAllViews();
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(model.getId());
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 addAlarm(new Date(cursor.get(AlarmFields.TIME)));
+            }
         } finally {
             cursor.close();
         }
@@ -71,8 +72,9 @@ public final class AlarmControlSet extends TaskEditControlSet {
 
     @Override
     public String writeToModel(Task task) {
-        if (initialized && pickerDialog != null)
+        if (initialized && pickerDialog != null) {
             pickerDialog.dismiss();
+        }
         return super.writeToModel(task);
     }
 
@@ -81,13 +83,15 @@ public final class AlarmControlSet extends TaskEditControlSet {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();
-            if(dateValue == null)
+            if(dateValue == null) {
                 continue;
+            }
             alarms.add(dateValue);
         }
 
-        if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms))
+        if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms)) {
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        }
 
         return null;
     }

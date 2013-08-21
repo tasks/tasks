@@ -112,8 +112,9 @@ public class Filter extends FilterListItem {
     }
 
     public String getSqlQuery() {
-        if (filterOverride != null)
+        if (filterOverride != null) {
             return filterOverride;
+        }
         return sqlQuery;
     }
 
@@ -156,23 +157,30 @@ public class Filter extends FilterListItem {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Filter other = (Filter) obj;
         if (sqlQuery == null) {
-            if (other.sqlQuery != null)
+            if (other.sqlQuery != null) {
                 return false;
-        } else if (!sqlQuery.equals(other.sqlQuery))
+            }
+        } else if (!sqlQuery.equals(other.sqlQuery)) {
             return false;
+        }
         if (title == null) {
-            if (other.title != null)
+            if (other.title != null) {
                 return false;
-        } else if (!title.equals(other.title))
+            }
+        } else if (!title.equals(other.title)) {
             return false;
+        }
         return true;
     }
 

@@ -125,8 +125,9 @@ public final class Query {
             visitLimitClause(sql);
         } else {
             if(groupBies.size() > 0 || orders.size() > 0 ||
-                    havings.size() > 0)
+                    havings.size() > 0) {
                 throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
+            }
             sql.append(queryTemplate);
         }
 
@@ -198,8 +199,9 @@ public final class Query {
 
     private void visitSelectClause(StringBuilder sql) {
         sql.append(SELECT).append(SPACE);
-        if(distinct)
+        if(distinct) {
             sql.append(DISTINCT).append(SPACE);
+        }
         if (fields.isEmpty()) {
             sql.append(ALL).append(SPACE);
             return;
@@ -211,8 +213,9 @@ public final class Query {
     }
 
     private void visitLimitClause(StringBuilder sql) {
-        if(limits > -1)
+        if(limits > -1) {
             sql.append(LIMIT).append(SPACE).append(limits).append(SPACE);
+        }
     }
 
     public SqlTable as(String alias) {
@@ -251,12 +254,14 @@ public final class Query {
     public Cursor queryContentResolver(ContentResolver cr, Uri baseUri) {
         Uri uri = baseUri;
 
-        if(joins.size() != 0)
+        if(joins.size() != 0) {
             throw new UnsupportedOperationException("can't perform join in content resolver query"); //$NON-NLS-1$
+        }
 
         String[] projection = new String[fields.size()];
-        for(int i = 0; i < projection.length; i++)
+        for(int i = 0; i < projection.length; i++) {
             projection[i] = fields.get(i).toString();
+        }
 
         StringBuilder groupByClause = new StringBuilder();
         StringBuilder selectionClause = new StringBuilder();
@@ -266,24 +271,30 @@ public final class Query {
                     selectionClause, orderClause, groupByClause);
         } else {
             if(groupBies.size() > 0) {
-                for (Field groupBy : groupBies)
+                for (Field groupBy : groupBies) {
                     groupByClause.append(SPACE).append(groupBy).append(COMMA);
-                if(groupByClause.length() > 0)
+                }
+                if(groupByClause.length() > 0) {
                     groupByClause.deleteCharAt(groupByClause.length() - 1);
+                }
             }
 
-            for (Criterion criterion : criterions)
+            for (Criterion criterion : criterions) {
                 selectionClause.append(criterion).append(SPACE);
+            }
 
-            for (Order order : orders)
+            for (Order order : orders) {
                 orderClause.append(SPACE).append(order).append(COMMA);
-            if(orderClause.length() > 0)
+            }
+            if(orderClause.length() > 0) {
                 orderClause.deleteCharAt(orderClause.length() - 1);
+            }
         }
 
-        if(groupByClause.length() > 0)
+        if(groupByClause.length() > 0) {
             uri = Uri.withAppendedPath(baseUri, AstridApiConstants.GROUP_BY_URI +
                     groupByClause.toString().trim());
+        }
         return cr.query(uri, projection, selectionClause.toString(), null,
                 orderClause.toString());
     }
@@ -299,18 +310,21 @@ public final class Query {
 
             Pattern where = Pattern.compile("WHERE (.*?)(LIMIT|HAVING|GROUP|ORDER|\\Z)");
             Matcher whereMatcher = where.matcher(queryTemplate);
-            if(whereMatcher.find())
+            if(whereMatcher.find()) {
                 selectionClause.append(whereMatcher.group(1).trim());
+            }
 
             Pattern group = Pattern.compile("GROUP BY (.*?)(LIMIT|HAVING|ORDER|\\Z)");
             Matcher groupMatcher = group.matcher(queryTemplate);
-            if(groupMatcher.find())
+            if(groupMatcher.find()) {
                 groupByClause.append(groupMatcher.group(1).trim());
+            }
 
             Pattern order = Pattern.compile("ORDER BY (.*?)(LIMIT|HAVING|\\Z)");
             Matcher orderMatcher = order.matcher(queryTemplate);
-            if(orderMatcher.find())
+            if(orderMatcher.find()) {
                 orderClause.append(orderMatcher.group(1).trim());
+            }
         }
 
     }

@@ -133,11 +133,12 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
                 viewHolder.market.setTag(new ButtonTag("market-" + item.getPackageName(), //$NON-NLS-1$
                         marketIntent));
                 Drawable icon = getIntentIcon(marketIntent);
-                if(icon == null)
+                if(icon == null) {
                     viewHolder.market.setImageResource(
                             android.R.drawable.stat_sys_download);
-                else
+                } else {
                     viewHolder.market.setImageDrawable(icon);
+                }
             }
         }
     }

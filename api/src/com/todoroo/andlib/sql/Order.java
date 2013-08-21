@@ -56,9 +56,10 @@ public class Order {
     }
 
     public Order reverse() {
-        if(orderType == OrderType.ASC)
+        if(orderType == OrderType.ASC) {
             return new Order(expression, OrderType.DESC);
-        else
+        } else {
             return new Order(expression, OrderType.ASC);
+        }
     }
 }

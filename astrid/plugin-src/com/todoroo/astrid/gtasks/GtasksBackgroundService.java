@@ -24,8 +24,9 @@ public class GtasksBackgroundService extends SyncV2BackgroundService {
 
     @Override
     protected SyncProviderUtilities getSyncUtilities() {
-        if(gtasksPreferenceService == null)
+        if(gtasksPreferenceService == null) {
             DependencyInjectionService.getInstance().inject(this);
+        }
         return gtasksPreferenceService;
     }
 

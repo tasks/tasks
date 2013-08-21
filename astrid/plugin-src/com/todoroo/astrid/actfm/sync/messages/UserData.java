@@ -24,8 +24,9 @@ public class UserData extends ServerToClientMessage {
         String uuid = json.optString("uuid");
         String email = json.optString("email");
 
-        if (TextUtils.isEmpty(uuid))
+        if (TextUtils.isEmpty(uuid)) {
             return;
+        }
 
         Task taskTemplate = new Task();
         taskTemplate.setValue(Task.USER_ID, uuid);

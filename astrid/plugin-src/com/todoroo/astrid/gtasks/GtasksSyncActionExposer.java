@@ -36,8 +36,9 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose sync action
-        if(!gtasksPreferenceService.isLoggedIn())
+        if(!gtasksPreferenceService.isLoggedIn()) {
             return;
+        }
 
         Intent syncIntent = new Intent(null, null,
                 context, GtasksBackgroundService.class);

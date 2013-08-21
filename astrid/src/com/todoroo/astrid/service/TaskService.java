@@ -183,8 +183,9 @@ public class TaskService {
      */
     public Task clone(Task task) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
-        if(newTask == null)
+        if(newTask == null) {
             return new Task();
+        }
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
         TodorooCursor<Metadata> cursor = metadataDao.query(
@@ -198,13 +199,16 @@ public class TaskService {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
 
-                    if(!metadata.containsNonNullValue(Metadata.KEY))
+                    if(!metadata.containsNonNullValue(Metadata.KEY)) {
                         continue;
+                    }
 
-                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
                         metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                    }
+                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
                         metadata.setValue(OpencrxCoreUtils.ACTIVITY_ID, 0L);
+                    }
 
                     metadata.setValue(Metadata.TASK, newId);
                     metadata.clearValue(Metadata.ID);
@@ -219,8 +223,9 @@ public class TaskService {
 
     public Task cloneReusableTask(Task task, String tagName, String tagUuid) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
-        if (newTask == null)
+        if (newTask == null) {
             return new Task();
+        }
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.UUID);
         newTask.clearValue(Task.USER);
@@ -243,9 +248,9 @@ public class TaskService {
      * @param model
      */
     public void delete(Task item) {
-        if(!item.isSaved())
+        if(!item.isSaved()) {
             return;
-        else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+        } else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
             taskOutstandingDao.deleteWhere(TaskOutstanding.ENTITY_ID_PROPERTY.eq(item.getId()));
             item.setId(Task.NO_ID);
@@ -275,8 +280,9 @@ public class TaskService {
         TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(Task.ID).where(TaskCriteria.hasNoTitle()));
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return;
+            }
 
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
@@ -298,25 +304,29 @@ public class TaskService {
     public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
             Property<?>... properties) {
         Criterion whereConstraint = null;
-        if(constraint != null)
+        if(constraint != null) {
             whereConstraint = Functions.upper(Task.TITLE).like("%" +
                     constraint.toString().toUpperCase() + "%");
+        }
 
         if(queryTemplate == null) {
-            if(whereConstraint == null)
+            if(whereConstraint == null) {
                 return taskDao.query(Query.selectDistinct(properties));
-            else
+            } else {
                 return taskDao.query(Query.selectDistinct(properties).where(whereConstraint));
+            }
         }
 
         String sql;
         if(whereConstraint != null) {
-            if(!queryTemplate.toUpperCase().contains("WHERE"))
+            if(!queryTemplate.toUpperCase().contains("WHERE")) {
                 sql = queryTemplate + " WHERE " + whereConstraint;
-            else
+            } else {
                 sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
-        } else
+            }
+        } else {
             sql = queryTemplate;
+        }
 
         sql = PermaSql.replacePlaceholders(sql);
 
@@ -324,18 +334,21 @@ public class TaskService {
     }
 
     public boolean getUserActivationStatus() {
-        if (Preferences.getBoolean(PREF_USER_ACTVATED, false))
+        if (Preferences.getBoolean(PREF_USER_ACTVATED, false)) {
             return true;
+        }
 
         TodorooCursor<Task> all = query(Query.select(Task.ID).limit(TOTAL_TASKS_FOR_ACTIVATION));
         try {
-            if (all.getCount() < TOTAL_TASKS_FOR_ACTIVATION)
+            if (all.getCount() < TOTAL_TASKS_FOR_ACTIVATION) {
                 return false;
+            }
 
             TodorooCursor<Task> completed = query(Query.select(Task.ID).where(TaskCriteria.completed()).limit(COMPLETED_TASKS_FOR_ACTIVATION));
             try {
-                if (completed.getCount() < COMPLETED_TASKS_FOR_ACTIVATION)
+                if (completed.getCount() < COMPLETED_TASKS_FOR_ACTIVATION) {
                     return false;
+                }
             } finally {
                 completed.close();
             }
@@ -474,8 +487,9 @@ public class TaskService {
         original.setId(itemId);
         Task clone = clone(original);
         String userId = clone.getValue(Task.USER_ID);
-        if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId))
+        if (!Task.USER_ID_SELF.equals(userId) && !ActFmPreferenceService.userId().equals(userId)) {
             clone.putTransitory(TRANS_ASSIGNED, true);
+        }
         clone.setValue(Task.CREATION_DATE, DateUtilities.now());
         clone.setValue(Task.COMPLETION_DATE, 0L);
         clone.setValue(Task.DELETION_DATE, 0L);
@@ -512,8 +526,9 @@ public class TaskService {
      * @return
      */
     public static Task createWithValues(Task task, ContentValues values, String title) {
-        if (title != null)
+        if (title != null) {
             task.setValue(Task.TITLE, title);
+        }
 
         ArrayList<String> tags = new ArrayList<String>();
         boolean quickAddMarkup = false;
@@ -530,26 +545,30 @@ public class TaskService {
             outer: for (Entry<String, Object> item : values.valueSet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
-                if (value instanceof String)
+                if (value instanceof String) {
                     value = PermaSql.replacePlaceholders((String) value);
+                }
 
-                for (Property<?> property : Metadata.PROPERTIES)
+                for (Property<?> property : Metadata.PROPERTIES) {
                     if (property.name.equals(key)) {
                         AndroidUtilities.putInto(forMetadata, key, value, true);
                         continue outer;
                     }
+                }
 
                 AndroidUtilities.putInto(forTask, key, value, true);
             }
             task.mergeWithoutReplacement(forTask);
         }
 
-        if (!Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID)))
+        if (!Task.USER_ID_SELF.equals(task.getValue(Task.USER_ID))) {
             task.putTransitory(TRANS_ASSIGNED, true);
+        }
 
         PluginServices.getTaskService().quickAdd(task, tags);
-        if (quickAddMarkup)
+        if (quickAddMarkup) {
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
+        }
 
         if (forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();
@@ -587,8 +606,9 @@ public class TaskService {
     private static Query queryForTask(Task task, String userTableAlias, Property<?>[] activityProperties, Property<?>[] userProperties) {
         Query result = Query.select(AndroidUtilities.addToArray(Property.class, activityProperties, userProperties))
                 .where(Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT), UserActivity.TARGET_ID.eq(task.getUuid()), UserActivity.DELETED_AT.eq(0)));
-        if (!TextUtils.isEmpty(userTableAlias))
+        if (!TextUtils.isEmpty(userTableAlias)) {
             result = result.join(Join.left(User.TABLE.as(userTableAlias), UserActivity.USER_UUID.eq(Field.field(userTableAlias + "." + User.UUID.name)))); //$NON-NLS-1$
+        }
         return result;
     }
 

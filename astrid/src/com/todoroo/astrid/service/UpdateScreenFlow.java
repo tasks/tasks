@@ -20,8 +20,9 @@ public class UpdateScreenFlow extends Activity {
         super.onCreate(savedInstanceState);
         screens = getIntent().getStringArrayListExtra(TOKEN_SCREENS);
         currIndex = 0;
-        if (screens.size() == 0)
+        if (screens.size() == 0) {
             finish();
+        }
 
         startActivityFromString(screens.get(0));
     }

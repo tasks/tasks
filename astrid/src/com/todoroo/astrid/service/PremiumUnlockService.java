@@ -19,13 +19,16 @@ public class PremiumUnlockService {
     }
 
     public void checkForPremium() {
-        if (Preferences.getBoolean(PREF_KILL_SWITCH, false))
+        if (Preferences.getBoolean(PREF_KILL_SWITCH, false)) {
             return;
+        }
 
         try {
             String response = restClient.get(PREM_SWITCH_URL).trim();
             if ("OFF".equals(response)) //$NON-NLS-1$
+            {
                 Preferences.setBoolean(PREF_KILL_SWITCH, true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

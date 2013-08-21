@@ -64,10 +64,11 @@ public class FileExplore extends Activity {
 
 		super.onCreate(savedInstanceState);
 
-		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
-		    path = new File(Environment.getExternalStorageDirectory().toString());
-		else
-		    path = Environment.getRootDirectory();
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            path = new File(Environment.getExternalStorageDirectory().toString());
+        } else {
+            path = Environment.getRootDirectory();
+        }
 
 		loadFileList();
 

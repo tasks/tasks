@@ -21,20 +21,21 @@ public class AcknowledgeChange extends ServerToClientMessage {
     public AcknowledgeChange(JSONObject json) {
         super(json);
         String table = json.optString("table"); //$NON-NLS-1$
-        if (NameMaps.TABLE_ID_TASKS.equals(table))
+        if (NameMaps.TABLE_ID_TASKS.equals(table)) {
             dao = PluginServices.getTaskOutstandingDao();
-        else if (NameMaps.TABLE_ID_TAGS.equals(table))
+        } else if (NameMaps.TABLE_ID_TAGS.equals(table)) {
             dao = PluginServices.getTagOutstandingDao();
-        else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table))
+        } else if (NameMaps.TABLE_ID_USER_ACTIVITY.equals(table)) {
             dao = PluginServices.getUserActivityOutstandingDao();
-        else if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table))
+        } else if (NameMaps.TABLE_ID_ATTACHMENTS.equals(table)) {
             dao = PluginServices.getTaskAttachmentOutstandingDao();
-        else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table))
+        } else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             dao = PluginServices.getTaskListMetadataOutstandingDao();
-        else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table))
+        } else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table)) {
             dao = PluginServices.getWaitingOnMeOutstandingDao();
-        else
+        } else {
             dao = null;
+        }
     }
 
     @Override
@@ -45,8 +46,9 @@ public class AcknowledgeChange extends ServerToClientMessage {
             for (int i = 0; i < idsArray.length(); i++) {
                 try {
                     Long id = idsArray.getLong(i);
-                    if (id <= 0)
+                    if (id <= 0) {
                         continue;
+                    }
 
                     idsList.add(id);
                 } catch (JSONException e) {

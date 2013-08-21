@@ -43,8 +43,9 @@ public class ReusableTaskAdapter extends TaskAdapter {
         }
 
         view.setTag(viewHolder);
-        for(int i = 0; i < view.getChildCount(); i++)
+        for(int i = 0; i < view.getChildCount(); i++) {
             view.getChildAt(i).setTag(viewHolder);
+        }
 
         viewHolder.clone.setOnClickListener(new OnClickListener() {
             @Override

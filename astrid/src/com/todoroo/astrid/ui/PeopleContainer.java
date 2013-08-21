@@ -79,15 +79,17 @@ public class PeopleContainer extends LinearLayout {
         for(int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             TextView matching = (TextView) view.findViewById(R.id.text1);
-            if(matching.getText().equals(person))
+            if(matching.getText().equals(person)) {
                 return matching;
+            }
         }
 
         final View tagItem = inflater.inflate(R.layout.contact_edit_row, null);
-        if(person.length() == 0)
+        if(person.length() == 0) {
             addView(tagItem, getChildCount());
-        else
+        } else {
             addView(tagItem);
+        }
         final ContactsAutoComplete textView = (ContactsAutoComplete)tagItem.
             findViewById(R.id.text1);
         textView.setText(person);
@@ -99,23 +101,25 @@ public class PeopleContainer extends LinearLayout {
         }
 
         final ImageButton removeButton = (ImageButton)tagItem.findViewById(R.id.button1);
-        if (hideRemove)
+        if (hideRemove) {
             removeButton.setVisibility(View.GONE);
-        else
-            removeButton.setOnClickListener(new View.OnClickListener() {
+        } else {
+            removeButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     TextView lastView = getLastTextView();
-                    if(lastView == textView && textView.getText().length() == 0)
+                    if (lastView == textView && textView.getText().length() == 0) {
                         return;
+                    }
 
-                    if(getChildCount() > 1)
+                    if (getChildCount() > 1) {
                         removeView(tagItem);
-                    else {
+                    } else {
                         textView.setText(""); //$NON-NLS-1$
                         textView.setEnabled(true);
                     }
                 }
             });
+        }
 
         final AsyncImageView imageView = (AsyncImageView)tagItem.
             findViewById(R.id.icon);
@@ -125,8 +129,9 @@ public class PeopleContainer extends LinearLayout {
             removeButton.setVisibility(View.GONE);
         } else {
             imageView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
-            if (!hideRemove)
+            if (!hideRemove) {
                 removeButton.setVisibility(View.VISIBLE);
+            }
         }
 
 
@@ -156,8 +161,9 @@ public class PeopleContainer extends LinearLayout {
                     removeButton.setVisibility(View.VISIBLE);
                 }
 
-                if(onAddNewPerson != null)
+                if(onAddNewPerson != null) {
                     onAddNewPerson.textChanged(s.toString());
+                }
             }
         });
 
@@ -165,8 +171,9 @@ public class PeopleContainer extends LinearLayout {
             @SuppressWarnings("nls")
             @Override
             public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-                if(actionId != EditorInfo.IME_NULL)
+                if(actionId != EditorInfo.IME_NULL) {
                     return false;
+                }
                 if(getLastTextView().getText().length() != 0) {
                     addPerson("", "", false);
                 }
@@ -185,8 +192,9 @@ public class PeopleContainer extends LinearLayout {
         for(int i = getChildCount() - 1; i >= 0; i--) {
             View lastItem = getChildAt(i);
             TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
-            if(lastText.isEnabled())
+            if(lastText.isEnabled()) {
                 return lastText;
+            }
         }
         return null;
     }
@@ -207,8 +215,9 @@ public class PeopleContainer extends LinearLayout {
             JSONObject person = PeopleContainer.createUserJson(textView);
             if(person != null) {
                 String email = person.optString("email"); //$NON-NLS-1$
-                if (email.indexOf('@') != -1)
+                if (email.indexOf('@') != -1) {
                     people.put(person);
+                }
             }
         }
         return people;
@@ -226,23 +235,28 @@ public class PeopleContainer extends LinearLayout {
             TextView textView = getTextView(i);
             String text = textView.getText().toString();
 
-            if(text.length() == 0)
+            if(text.length() == 0) {
                 continue;
+            }
 
-            if(text.indexOf('@') == -1 && textView.isEnabled())
+            if(text.indexOf('@') == -1 && textView.isEnabled()) {
                 throw new ParseSharedException(textView,
                         activity.getString(R.string.actfm_EPA_invalid_email, text));
+            }
             if (peopleAsJSON) {
                 JSONObject person = PeopleContainer.createUserJson(textView);
                 if (person != null) {
                     if (person.optBoolean("owner")) //$NON-NLS-1$
+                    {
                         continue;
+                    }
                     String email = person.optString("email");
                     Long id = person.optLong("id", -1);
                     if (!TextUtils.isEmpty(email) && !addedEmails.contains(email)) {
                         addedEmails.add(email);
-                        if (id > 0)
+                        if (id > 0) {
                             addedIds.add(id);
+                        }
                         peopleList.put(person);
                     } else if (id > 0 && !addedIds.contains(id)) {
                         addedIds.add(id);
@@ -254,8 +268,9 @@ public class PeopleContainer extends LinearLayout {
                 peopleList.put(text);
             }
         }
-        if(peopleList.length() > 0)
+        if(peopleList.length() > 0) {
             sharedWith.put("p", peopleList);
+        }
 
         return sharedWith;
     }
@@ -294,8 +309,9 @@ public class PeopleContainer extends LinearLayout {
                 name = person.getString("email");
             }
 
-            if (owner)
+            if (owner) {
                 name = name + " " + ContextManager.getString(R.string.actfm_list_owner);
+            }
 
             textView = addPerson(name, imageURL, hideRemove);
 
@@ -313,12 +329,14 @@ public class PeopleContainer extends LinearLayout {
      */
     @SuppressWarnings("nls")
     public static JSONObject createUserJson(TextView textView) {
-        if(textView.isEnabled() == false)
+        if(textView.isEnabled() == false) {
             return (JSONObject) textView.getTag();
+        }
 
         String text = textView.getText().toString().trim();
-        if(text.length() == 0)
+        if(text.length() == 0) {
             return null;
+        }
 
         JSONObject user = new JSONObject();
         int bracket = text.lastIndexOf('<');

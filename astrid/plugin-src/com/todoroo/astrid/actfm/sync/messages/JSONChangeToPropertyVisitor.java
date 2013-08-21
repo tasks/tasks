@@ -87,19 +87,22 @@ public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String
     public Void visitString(Property<String> property, String key) {
         try {
             String value = data.getString(key);
-            if ("null".equals(value))
+            if ("null".equals(value)) {
                 value = "";
-            else if (property.checkFlag(Property.PROP_FLAG_USER_ID) && ActFmPreferenceService.userId().equals(value))
+            } else if (property.checkFlag(Property.PROP_FLAG_USER_ID) && ActFmPreferenceService.userId().equals(value)) {
                 value = Task.USER_ID_SELF;
-            if (property.equals(Task.USER_ID))
+            }
+            if (property.equals(Task.USER_ID)) {
                 model.setValue(Task.USER, ""); // Clear this value for migration purposes
+            }
 
             model.setValue((StringProperty) property, value);
         } catch (JSONException e) {
             try {
                 JSONObject object = data.getJSONObject(key);
-                if (object != null)
+                if (object != null) {
                     model.setValue((StringProperty) property, object.toString());
+                }
             } catch (JSONException e2) {
                 Log.e(ERROR_TAG, "Error reading JSON value with key " + key + " from JSON " + data, e);
             }

@@ -69,16 +69,18 @@ abstract public class SyncV2BackgroundService extends Service {
 
     /** Start the actual synchronization */
     private void startSynchronization(final Context context) {
-        if(context == null || context.getResources() == null)
+        if(context == null || context.getResources() == null) {
             return;
+        }
 
         ContextManager.setContext(context);
 
-        if(!getSyncUtilities().isLoggedIn())
+        if(!getSyncUtilities().isLoggedIn()) {
             return;
+        }
 
         SyncV2Provider provider = getSyncProvider();
-        if (provider.isActive())
+        if (provider.isActive()) {
             provider.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
                 @Override
                 public void finished() {
@@ -86,6 +88,7 @@ abstract public class SyncV2BackgroundService extends Service {
                     context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 }
             });
+        }
     }
 
     @Override
@@ -163,10 +166,11 @@ abstract public class SyncV2BackgroundService extends Service {
         long lastSyncDate = getSyncUtilities().getLastSyncDate();
 
         // if user never synchronized, give them a full offset period before bg sync
-        if(lastSyncDate != 0)
+        if(lastSyncDate != 0) {
             return Math.max(0, lastSyncDate + interval - DateUtilities.now());
-        else
+        } else {
             return interval;
+        }
     }
 
 

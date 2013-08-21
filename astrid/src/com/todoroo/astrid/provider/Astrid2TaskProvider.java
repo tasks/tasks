@@ -110,8 +110,9 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		if (LOGD)
-			Log.d(TAG, "delete");
+		if (LOGD) {
+            Log.d(TAG, "delete");
+        }
 
 		return 0;
 	}
@@ -221,8 +222,9 @@ public class Astrid2TaskProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
-		if (LOGD)
-			Log.d(TAG, "query");
+		if (LOGD) {
+            Log.d(TAG, "query");
+        }
 
 		Cursor cursor;
 		switch (URI_MATCHER.match(uri)) {
@@ -245,8 +247,9 @@ public class Astrid2TaskProvider extends ContentProvider {
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
-		if (LOGD)
-			Log.d(TAG, "update");
+		if (LOGD) {
+            Log.d(TAG, "update");
+        }
 
       switch (URI_MATCHER.match(uri)) {
 
@@ -254,19 +257,24 @@ public class Astrid2TaskProvider extends ContentProvider {
             Task task = new Task();
 
             // map values
-            if(values.containsKey(NAME))
+            if(values.containsKey(NAME)) {
                 task.setValue(Task.TITLE, values.getAsString(NAME));
-            if(values.containsKey(PREFERRED_DUE_DATE))
+            }
+            if(values.containsKey(PREFERRED_DUE_DATE)) {
                 task.setValue(Task.DUE_DATE, values.getAsLong(PREFERRED_DUE_DATE));
-            if(values.containsKey(DEFINITE_DUE_DATE))
+            }
+            if(values.containsKey(DEFINITE_DUE_DATE)) {
                 task.setValue(Task.DUE_DATE, values.getAsLong(DEFINITE_DUE_DATE));
-            if(values.containsKey(IMPORTANCE))
+            }
+            if(values.containsKey(IMPORTANCE)) {
                 task.setValue(Task.IMPORTANCE, values.getAsInteger(IMPORTANCE));
+            }
             if(values.containsKey(COMPLETED)) {
                 task.setValue(Task.COMPLETION_DATE,
                         values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
-                if(task.isCompleted())
+                if(task.isCompleted()) {
                     StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_API2);
+                }
             }
 
             // map selection criteria
@@ -289,11 +297,13 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	public static void notifyDatabaseModification() {
 
-		if (LOGD)
-			Log.d(TAG, "notifyDatabaseModification");
+		if (LOGD) {
+            Log.d(TAG, "notifyDatabaseModification");
+        }
 
-		if(ctx == null)
-		    ctx = ContextManager.getContext();
+		if(ctx == null) {
+            ctx = ContextManager.getContext();
+        }
 		try {
 		    ctx.getContentResolver().notifyChange(CONTENT_URI, null);
 		} catch (Exception e) {

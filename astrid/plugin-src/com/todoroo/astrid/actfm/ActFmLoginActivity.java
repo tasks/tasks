@@ -196,11 +196,13 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         ContextManager.setContext(this);
 
         setContentView(getContentViewResource());
-        if(getTitleResource() != 0)
+        if(getTitleResource() != 0) {
             setTitle(getTitleResource());
+        }
 
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
+        }
 
         rand = new Random(DateUtilities.now());
 
@@ -297,14 +299,16 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     protected void initializeUI() {
         errors = (TextView) findViewById(R.id.error);
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
-        if(loginButton == null)
+        if(loginButton == null) {
             return;
+        }
 
         loginButton.setReadPermissions(Arrays.asList("email", "offline_access"));
 
         View googleLogin = findViewById(R.id.gg_login);
-        if(AmazonMarketStrategy.isKindleFire())
+        if(AmazonMarketStrategy.isKindleFire()) {
             googleLogin.setVisibility(View.GONE);
+        }
         googleLogin.setOnClickListener(googleListener);
 
         View fbLogin = findViewById(R.id.fb_login_dummy);
@@ -370,8 +374,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
             getCredentials(new OnGetCredentials() {
                 @Override
                 public void getCredentials(String[] accounts) {
-                    if (accounts != null && accounts.length > 0)
+                    if (accounts != null && accounts.length > 0) {
                         email.setText(accounts[0]);
+                    }
                 }
             });
 
@@ -414,8 +419,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
             getCredentials(new OnGetCredentials() {
                 @Override
                 public void getCredentials(String[] accounts) {
-                    if (accounts != null && accounts.length > 0)
+                    if (accounts != null && accounts.length > 0) {
                         email.setText(accounts[0]);
+                    }
                 }
             });
 
@@ -493,8 +499,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         char last = 'a';
         for (int i = 0; i < chars.length; i++) {
             char r = acceptable.charAt(rand.nextInt(acceptable.length()));
-            while (!checkSimilar(last, r))
+            while (!checkSimilar(last, r)) {
                 r = acceptable.charAt(rand.nextInt(acceptable.length()));
+            }
             last = r;
             chars[i] = r;
         }
@@ -511,8 +518,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                         || (oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0)
                         || (puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0);
 
-        if (match)
+        if (match) {
             return false;
+        }
         return true;
     }
 
@@ -571,9 +579,10 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     @SuppressWarnings("nls")
     public void authenticate(final String email, final String firstName, final String lastName, final String provider,
             final String secret) {
-        if (progressDialog == null)
+        if (progressDialog == null) {
             progressDialog = DialogUtilities.progressDialog(this,
                     getString(R.string.DLG_please_wait));
+        }
 
         new Thread() {
             @Override
@@ -849,8 +858,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE,
                 result.optString("picture"));
 
-        if (!result.optBoolean("new"))
+        if (!result.optBoolean("new")) {
             Toast.makeText(this, R.string.actfm_ALA_user_exists_sync_alert, Toast.LENGTH_LONG).show();
+        }
 
         ActFmPreferenceService.reloadThisUser();
 
@@ -885,12 +895,13 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     JSONObject result = ae.result;
                     if (result != null && result.has("code")) {
                         String code = result.optString("code");
-                        if ("user_exists".equals(code))
+                        if ("user_exists".equals(code)) {
                             message = getString(R.string.actfm_ALA_error_user_exists);
-                        else if ("incorrect_password".equals(code))
+                        } else if ("incorrect_password".equals(code)) {
                             message = getString(R.string.actfm_ALA_error_wrong_password);
-                        else if ("user_not_found".equals(code) || "missing_param".equals(code))
+                        } else if ("user_not_found".equals(code) || "missing_param".equals(code)) {
                             message = getString(R.string.actfm_ALA_error_user_not_found);
+                        }
                     }
                 }
                 errors.setText(message);
@@ -907,8 +918,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
         uiHelper.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_CANCELED)
+        if (resultCode == RESULT_CANCELED) {
             return;
+        }
 
         if (requestCode == REQUEST_CODE_GOOGLE_ACCOUNTS && data != null && credentialsListener != null) {
             String accounts[] = data.getStringArrayExtra(
@@ -935,8 +947,9 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 //            errors.setVisibility(View.GONE);
 //        }
         else if (requestCode == REQUEST_CODE_GOOGLE) {
-            if (data == null)
+            if (data == null) {
                 return;
+            }
             String email = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_EMAIL);
             String token = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_TOKEN);
             authenticate(email, email, "", "google", token);
@@ -951,11 +964,12 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
 
     public void getCredentials(OnGetCredentials onGetCredentials) {
         credentialsListener = onGetCredentials;
-        if (Integer.parseInt(Build.VERSION.SDK) >= 7)
+        if (Integer.parseInt(Build.VERSION.SDK) >= 7) {
             credentialsListener.getCredentials(ModernAuthManager.getAccounts(this));
-        else
+        } else {
             GoogleLoginServiceHelper.getAccount(this,
                     REQUEST_CODE_GOOGLE_ACCOUNTS, false);
+        }
     }
 
 }

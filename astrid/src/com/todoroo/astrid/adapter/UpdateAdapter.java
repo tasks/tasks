@@ -188,8 +188,9 @@ public class UpdateAdapter extends CursorAdapter {
 
     private static void readPreferenceToUser(User u, StringProperty prop, String prefKey) {
         String val = Preferences.getStringValue(prefKey);
-        if (val == null)
+        if (val == null) {
             val = ""; //$NON-NLS-1$
+        }
         u.setValue(prop, val);
     }
 
@@ -310,8 +311,9 @@ public class UpdateAdapter extends CursorAdapter {
             String pictureThumb = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_MEDIUM);
             String pictureFull = activity.getPictureUrl(UserActivity.PICTURE, RemoteModel.PICTURE_LARGE);
             Bitmap updateBitmap = null;
-            if (TextUtils.isEmpty(pictureThumb))
+            if (TextUtils.isEmpty(pictureThumb)) {
                 updateBitmap = activity.getPictureBitmap(UserActivity.PICTURE);
+            }
             setupImagePopupForCommentView(view, commentPictureView, pictureThumb, pictureFull, updateBitmap,
                     activity.getValue(UserActivity.MESSAGE), fragment, imageCache);
         }
@@ -369,10 +371,11 @@ public class UpdateAdapter extends CursorAdapter {
             final String message, final Fragment fragment, ImageCache imageCache) {
         if ((!TextUtils.isEmpty(pictureThumb) && !"null".equals(pictureThumb)) || updateBitmap != null) { //$NON-NLS-1$
             commentPictureView.setVisibility(View.VISIBLE);
-            if (updateBitmap != null)
+            if (updateBitmap != null) {
                 commentPictureView.setImageBitmap(updateBitmap);
-            else
+            } else {
                 commentPictureView.setUrl(pictureThumb);
+            }
 
             if (pictureThumb != null && imageCache.contains(pictureThumb) && updateBitmap == null) {
                 try {
@@ -391,10 +394,11 @@ public class UpdateAdapter extends CursorAdapter {
                     AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
                     imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                     imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
-                    if (updateBitmap != null)
+                    if (updateBitmap != null) {
                         imageView.setImageBitmap(updateBitmap);
-                    else
+                    } else {
                         imageView.setUrl(pictureFull);
+                    }
                     image.setView(imageView);
 
                     image.setMessage(message);
@@ -425,33 +429,38 @@ public class UpdateAdapter extends CursorAdapter {
         } else {
             userDisplay = user.getDisplayName(USER_NAME, USER_FIRST_NAME, USER_LAST_NAME);
         }
-        if (TextUtils.isEmpty(userDisplay))
+        if (TextUtils.isEmpty(userDisplay)) {
             userDisplay = context.getString(R.string.ENA_no_user);
+        }
         String targetName = activity.getValue(UserActivity.TARGET_NAME);
         String action = activity.getValue(UserActivity.ACTION);
         String message = activity.getValue(UserActivity.MESSAGE);
 
         int commentResource = 0;
         if (UserActivity.ACTION_TASK_COMMENT.equals(action)) {
-            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName))
+            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName)) {
                 commentResource = R.string.update_string_default_comment;
-            else
+            } else {
                 commentResource = R.string.update_string_task_comment;
+            }
         } else if (UserActivity.ACTION_TAG_COMMENT.equals(action)) {
-            if (fromView.equals(FROM_TAG_VIEW) || TextUtils.isEmpty(targetName))
+            if (fromView.equals(FROM_TAG_VIEW) || TextUtils.isEmpty(targetName)) {
                 commentResource = R.string.update_string_default_comment;
-            else
+            } else {
                 commentResource = R.string.update_string_tag_comment;
+            }
         }
 
-        if (commentResource == 0)
+        if (commentResource == 0) {
             return Html.fromHtml(String.format("%s %s", userDisplay, message)); //$NON-NLS-1$
+        }
 
         String original = context.getString(commentResource, userDisplay, targetName, message);
         int taskLinkIndex = original.indexOf(TARGET_LINK_PREFIX);
 
-        if (taskLinkIndex < 0)
+        if (taskLinkIndex < 0) {
             return Html.fromHtml(original);
+        }
 
         String[] components = original.split(" "); //$NON-NLS-1$
         SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -478,8 +487,9 @@ public class UpdateAdapter extends CursorAdapter {
             }
         }
 
-        if (htmlStringBuilder.length() > 0)
+        if (htmlStringBuilder.length() > 0) {
             builder.append(Html.fromHtml(htmlStringBuilder.toString()));
+        }
 
         return builder;
     }
@@ -517,18 +527,20 @@ public class UpdateAdapter extends CursorAdapter {
             if (History.COL_TAG_ADDED.equals(column) || History.COL_TAG_REMOVED.equals(column)) {
                 JSONArray tagObj = new JSONArray(newValue);
                 String tagName = tagObj.getString(1);
-                if (History.COL_TAG_ADDED.equals(column))
+                if (History.COL_TAG_ADDED.equals(column)) {
                     result = context.getString(R.string.history_tag_added, item, tagName);
-                else
+                } else {
                     result = context.getString(R.string.history_tag_removed, item, tagName);
+                }
 
             } else if (History.COL_ATTACHMENT_ADDED.equals(column) || History.COL_ATTACHMENT_REMOVED.equals(column)) {
                 JSONArray attachmentArray = new JSONArray(newValue);
                 String attachmentName = attachmentArray.getString(0);
-                if (History.COL_ATTACHMENT_ADDED.equals(column))
+                if (History.COL_ATTACHMENT_ADDED.equals(column)) {
                     result = context.getString(R.string.history_attach_added, attachmentName, item);
-                else
+                } else {
                     result = context.getString(R.string.history_attach_removed, attachmentName, item);
+                }
             } else if (History.COL_ACKNOWLEDGED.equals(column)) {
                 result = context.getString(R.string.history_acknowledged, item);
             } else if (History.COL_SHARED_WITH.equals(column) || History.COL_UNSHARED_WITH.equals(column)) {
@@ -538,24 +550,27 @@ public class UpdateAdapter extends CursorAdapter {
                 for (int i = 0; i < members.length(); i++) {
                     JSONObject m = members.getJSONObject(i);
                     memberList.append(userDisplay(context, userId, m));
-                    if (i != members.length() - 1)
+                    if (i != members.length() - 1) {
                         memberList.append(", ");
+                    }
                 }
 
-                if (History.COL_SHARED_WITH.equals(column))
+                if (History.COL_SHARED_WITH.equals(column)) {
                     result = context.getString(R.string.history_shared_with, item, memberList);
-                else
+                } else {
                     result = context.getString(R.string.history_unshared_with, item, memberList);
+                }
             } else if (History.COL_MEMBER_ADDED.equals(column) || History.COL_MEMBER_REMOVED.equals(column)) {
                 JSONObject userValue = new JSONObject(newValue);
-                if (history.getValue(History.USER_UUID).equals(userValue.optString("id")) && History.COL_MEMBER_REMOVED.equals(column))
+                if (history.getValue(History.USER_UUID).equals(userValue.optString("id")) && History.COL_MEMBER_REMOVED.equals(column)) {
                     result = context.getString(R.string.history_left_list, item);
-                else {
+                } else {
                     String userDisplay = userDisplay(context, history.getValue(History.USER_UUID), userValue);
-                    if (History.COL_MEMBER_ADDED.equals(column))
+                    if (History.COL_MEMBER_ADDED.equals(column)) {
                         result = context.getString(R.string.history_added_user, userDisplay, item);
-                    else
+                    } else {
                         result = context.getString(R.string.history_removed_user, userDisplay, item);
+                    }
                 }
             } else if (History.COL_COMPLETED_AT.equals(column)) {
                 if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
@@ -578,83 +593,94 @@ public class UpdateAdapter extends CursorAdapter {
                 int oldLength = AndroidUtilities.tryParseInt(oldValue, 0);
                 int newLength = AndroidUtilities.tryParseInt(newValue, 0);
 
-                if (oldLength > 0 && newLength > oldLength)
+                if (oldLength > 0 && newLength > oldLength) {
                     result = context.getString(R.string.history_added_description_characters, (newLength - oldLength), itemPosessive);
-                else if (newLength == 0)
+                } else if (newLength == 0) {
                     result = context.getString(R.string.history_removed_description, itemPosessive);
-                else if (oldLength > 0 && newLength < oldLength)
+                } else if (oldLength > 0 && newLength < oldLength) {
                     result = context.getString(R.string.history_removed_description_characters, (oldLength - newLength), itemPosessive);
-                else if (oldLength > 0 && oldLength == newLength)
+                } else if (oldLength > 0 && oldLength == newLength) {
                     result = context.getString(R.string.history_updated_description, itemPosessive);
+                }
             } else if (History.COL_PUBLIC.equals(column)) {
                 int value = AndroidUtilities.tryParseInt(newValue, 0);
-                if (value > 0)
+                if (value > 0) {
                     result = context.getString(R.string.history_made_public, item);
-                else
+                } else {
                     result = context.getString(R.string.history_made_private, item);
+                }
             } else if (History.COL_DUE.equals(column)) {
                 if (!TextUtils.isEmpty(oldValue) && !TextUtils.isEmpty(newValue)
-                        && !"null".equals(oldValue) && !"null".equals(newValue))
+                        && !"null".equals(oldValue) && !"null".equals(newValue)) {
                     result = context.getString(R.string.history_changed_due_date, itemPosessive, dateString(context, oldValue, newValue), dateString(context, newValue, oldValue));
-                else if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue))
+                } else if (!TextUtils.isEmpty(newValue) && !"null".equals(newValue)) {
                     result = context.getString(R.string.history_set_due_date, itemPosessive, dateString(context, newValue, DateUtilities.timeToIso8601(DateUtilities.now(), true)));
-                else
+                } else {
                     result = context.getString(R.string.history_removed_due_date, itemPosessive);
+                }
             } else if (History.COL_REPEAT.equals(column)) {
                 String repeatString = getRepeatString(context, newValue);
-                if (!TextUtils.isEmpty(repeatString))
+                if (!TextUtils.isEmpty(repeatString)) {
                     result = context.getString(R.string.history_changed_repeat, itemPosessive, repeatString);
-                else
+                } else {
                     result = context.getString(R.string.history_removed_repeat, itemPosessive);
+                }
             } else if (History.COL_TASK_REPEATED.equals(column)) {
                 result = context.getString(R.string.history_completed_repeating_task, item, dateString(context, newValue, oldValue));
             } else if (History.COL_TITLE.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
                     result = context.getString(R.string.history_title_changed, itemPosessive, oldValue, newValue);
-                else
+                } else {
                     result = context.getString(R.string.history_title_set, itemPosessive, newValue);
+                }
             } else if (History.COL_NAME.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
                     result = context.getString(R.string.history_name_changed, oldValue, newValue);
-                else
+                } else {
                     result = context.getString(R.string.history_name_set, newValue);
+                }
             } else if (History.COL_DESCRIPTION.equals(column)) {
-                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
                     result = context.getString(R.string.history_description_changed, oldValue, newValue);
-                else
+                } else {
                     result = context.getString(R.string.history_description_set, newValue);
+                }
             } else if (History.COL_PICTURE_ID.equals(column) || History.COL_DEFAULT_LIST_IMAGE_ID.equals(column)) {
                 result = context.getString(R.string.history_changed_list_picture);
             } else if (History.COL_IS_SILENT.equals(column)) {
                 int value = AndroidUtilities.tryParseInt(newValue, 0);
-                if (value > 0)
+                if (value > 0) {
                     result = context.getString(R.string.history_silenced, item);
-                else
+                } else {
                     result = context.getString(R.string.history_unsilenced, item);
+                }
             } else if (History.COL_IS_FAVORITE.equals(column)) {
                 int value = AndroidUtilities.tryParseInt(newValue, 0);
-                if (value > 0)
+                if (value > 0) {
                     result = context.getString(R.string.history_favorited, item);
-                else
+                } else {
                     result = context.getString(R.string.history_unfavorited, item);
+                }
             } else if (History.COL_USER_ID.equals(column)) {
                 String userId = history.getValue(History.USER_UUID);
                 JSONObject userValue = new JSONObject(newValue);
                 if (FROM_TAG_VIEW.equals(fromView) && !hasTask) {
-                    if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                    if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
                         result = context.getString(R.string.history_changed_list_owner, userDisplay(context, userId, userValue));
-                    else
+                    } else {
                         result = context.getString(R.string.history_created_this_list);
-                } else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue) && Task.USER_ID_UNASSIGNED.equals(userValue))
+                    }
+                } else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue) && Task.USER_ID_UNASSIGNED.equals(userValue)) {
                     result = context.getString(R.string.history_unassigned, item);
-                else if (Task.USER_ID_UNASSIGNED.equals(oldValue) && userValue.optString("id").equals(ActFmPreferenceService.userId()))
+                } else if (Task.USER_ID_UNASSIGNED.equals(oldValue) && userValue.optString("id").equals(ActFmPreferenceService.userId())) {
                     result = context.getString(R.string.history_claimed, item);
-                else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue))
+                } else if (!TextUtils.isEmpty(oldValue) && !"null".equals(oldValue)) {
                     result = context.getString(R.string.history_assigned_to, item, userDisplay(context, userId, userValue));
-                else if (!userValue.optString("id").equals(ActFmPreferenceService.userId()) && !Task.USER_ID_UNASSIGNED.equals(userValue.optString("id")))
+                } else if (!userValue.optString("id").equals(ActFmPreferenceService.userId()) && !Task.USER_ID_UNASSIGNED.equals(userValue.optString("id"))) {
                     result = context.getString(R.string.history_created_for, item, userDisplay(context, userId, userValue));
-                else
+                } else {
                     result = context.getString(R.string.history_created, item);
+                }
             } else {
                 result = context.getString(R.string.history_default, column, newValue);
             }
@@ -663,8 +689,9 @@ public class UpdateAdapter extends CursorAdapter {
             result = context.getString(R.string.history_default, column, newValue);
         }
 
-        if (TextUtils.isEmpty(result))
+        if (TextUtils.isEmpty(result)) {
             result = context.getString(R.string.history_default, column, newValue);
+        }
 
         String userDisplay;
         if (history.getValue(History.USER_UUID).equals(Task.USER_ID_SELF) || history.getValue(History.USER_UUID).equals(ActFmPreferenceService.userId())) {
@@ -687,8 +714,9 @@ public class UpdateAdapter extends CursorAdapter {
             time = DateUtilities.parseIso8601(value);
             Date date = new Date(time);
             String result = DateUtilities.getDateString(context, date, includeYear);
-            if (hasTime)
+            if (hasTime) {
                 result += ", " + DateUtilities.getTimeString(context, date, false); //$NON-NLS-1$
+            }
             return result;
         } catch (ParseException e) {
             return value;
@@ -712,8 +740,9 @@ public class UpdateAdapter extends CursorAdapter {
 
     @SuppressWarnings("nls")
     private static String getRepeatString(Context context, String value) {
-        if (TextUtils.isEmpty(value) || "null".equals(value))
+        if (TextUtils.isEmpty(value) || "null".equals(value)) {
             return null;
+        }
 
         try {
             JSONObject repeat = new JSONObject(value);
@@ -762,12 +791,13 @@ public class UpdateAdapter extends CursorAdapter {
                         public int compare(String lhs, String rhs) {
                             int lhIndex = AndroidUtilities.indexOf(SORTED_WEEKDAYS, lhs);
                             int rhIndex = AndroidUtilities.indexOf(SORTED_WEEKDAYS, rhs);
-                            if (lhIndex < rhIndex)
+                            if (lhIndex < rhIndex) {
                                 return -1;
-                            else if (lhIndex > rhIndex)
+                            } else if (lhIndex > rhIndex) {
                                 return 1;
-                            else
+                            } else {
                                 return 0;
+                            }
                         }
                     });
 
@@ -780,8 +810,9 @@ public class UpdateAdapter extends CursorAdapter {
                     result += (" " + context.getString(R.string.history_repeat_on, byDayDisplay.toString()));
                 }
 
-                if ("COMPLETION".equals(repeat.optString("from")))
+                if ("COMPLETION".equals(repeat.optString("from"))) {
                     result += (" " + context.getString(R.string.history_repeat_from_completion));
+                }
 
                 return result;
             } else {
@@ -798,13 +829,15 @@ public class UpdateAdapter extends CursorAdapter {
             String id = userJson.getString("id");
             String name = userJson.getString("name");
 
-            if (historyUserId.equals(id) && ActFmPreferenceService.userId().equals(id))
+            if (historyUserId.equals(id) && ActFmPreferenceService.userId().equals(id)) {
                 return context.getString(R.string.history_yourself);
-            else if (ActFmPreferenceService.userId().equals(id))
+            } else if (ActFmPreferenceService.userId().equals(id)) {
                 return context.getString(R.string.history_you);
-            else if (RemoteModel.isValidUuid(id))
+            } else if (RemoteModel.isValidUuid(id)) {
                 return name;
-            else return context.getString(R.string.history_a_deleted_user);
+            } else {
+                return context.getString(R.string.history_a_deleted_user);
+            }
         } catch (JSONException e) {
             return context.getString(R.string.ENA_no_user).toLowerCase();
         }
@@ -825,7 +858,9 @@ public class UpdateAdapter extends CursorAdapter {
                     @Override
                     public void onClick(View widget) {
                         if (activity != null) // TODO: This shouldn't happen, but sometimes does
+                        {
                             activity.onTaskListItemClicked(taskId);
+                        }
                     }
 
                     @Override

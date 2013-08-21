@@ -46,8 +46,9 @@ public class AlarmService {
     private static AlarmService instance = null;
 
     public static synchronized AlarmService getInstance() {
-        if(instance == null)
+        if(instance == null) {
             instance = new AlarmService();
+        }
         return instance;
     }
 
@@ -96,8 +97,9 @@ public class AlarmService {
             }
         }, true);
 
-        if(changed)
+        if(changed) {
             scheduleAlarms(taskId);
+        }
         return changed;
     }
 
@@ -184,8 +186,9 @@ public class AlarmService {
      */
     @SuppressWarnings("nls")
     private void scheduleAlarm(Metadata alarm) {
-        if(alarm == null)
+        if(alarm == null) {
             return;
+        }
 
         long taskId = alarm.getValue(Metadata.TASK);
 
@@ -194,12 +197,13 @@ public class AlarmService {
         PendingIntent pendingIntent = pendingIntentForAlarm(alarm, taskId);
 
         long time = alarm.getValue(AlarmFields.TIME);
-        if(time == 0 || time == NO_ALARM)
+        if(time == 0 || time == NO_ALARM) {
             am.cancel(pendingIntent);
-        else if(time > DateUtilities.now()) {
-            if(Constants.DEBUG)
+        } else if(time > DateUtilities.now()) {
+            if(Constants.DEBUG) {
                 Log.e("Astrid", "Alarm (" + taskId + ", " + ReminderService.TYPE_ALARM +
-                    ", " + alarm.getId() + ") set for " + new Date(time));
+                        ", " + alarm.getId() + ") set for " + new Date(time));
+            }
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
     }

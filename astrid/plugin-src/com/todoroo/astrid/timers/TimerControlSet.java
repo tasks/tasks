@@ -108,8 +108,9 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         public String getDisplayString() {
             int seconds = controlSet.getTimeDurationInSeconds();
-            if (seconds > 0)
+            if (seconds > 0) {
                 return DateUtils.formatElapsedTime(controlSet.getTimeDurationInSeconds());
+            }
             return null;
         }
     }
@@ -117,22 +118,25 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     @Override
     protected void refreshDisplayView() {
         String est = estimated.getDisplayString();
-        if (!TextUtils.isEmpty(est))
+        if (!TextUtils.isEmpty(est)) {
             est = activity.getString(R.string.TEA_timer_est, est);
+        }
         String elap = elapsed.getDisplayString();
-        if (!TextUtils.isEmpty(elap))
+        if (!TextUtils.isEmpty(elap)) {
             elap = activity.getString(R.string.TEA_timer_elap, elap);
+        }
 
         String toDisplay;
 
-        if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap))
+        if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap)) {
             toDisplay = est + ", " + elap; //$NON-NLS-1$
-        else if (!TextUtils.isEmpty(est))
+        } else if (!TextUtils.isEmpty(est)) {
             toDisplay = est;
-        else if (!TextUtils.isEmpty(elap))
+        } else if (!TextUtils.isEmpty(elap)) {
             toDisplay = elap;
-        else
+        } else {
             toDisplay = null;
+        }
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);

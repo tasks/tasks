@@ -44,8 +44,9 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
 
     private FilterListItem[] prepareFilters(Context context) {
         if(PluginServices.getTaskService().count(Query.select(Task.ID).
-                where(Task.TIMER_START.gt(0))) == 0)
+                where(Task.TIMER_START.gt(0))) == 0) {
             return null;
+        }
 
         Filter workingOn = createFilter(context);
 
@@ -69,8 +70,9 @@ public final class TimerFilterExposer extends BroadcastReceiver implements Astri
 
     @Override
     public FilterListItem[] getFilters() {
-        if (ContextManager.getContext() == null)
+        if (ContextManager.getContext() == null) {
             return null;
+        }
 
         return prepareFilters(ContextManager.getContext());
     }

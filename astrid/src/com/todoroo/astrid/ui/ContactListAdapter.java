@@ -109,17 +109,20 @@ public class ContactListAdapter extends CursorAdapter {
         protected Bitmap doInBackground(Uri... params) {
             uri = params[0];
             InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContent, uri);
-            if (input == null)
-                 return null;
+            if (input == null) {
+                return null;
+            }
             return BitmapFactory.decodeStream(input);
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            if (isCancelled())
+            if (isCancelled()) {
                 bitmap = null;
-            if(imageView != null && uri.equals(imageView.getTag()) && bitmap != null)
+            }
+            if(imageView != null && uri.equals(imageView.getTag()) && bitmap != null) {
                 imageView.setImageBitmap(bitmap);
+            }
         }
     }
 
@@ -128,8 +131,9 @@ public class ContactListAdapter extends CursorAdapter {
         if(cursor.getColumnIndex(Email.DATA) > -1) {
             int name = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
             int email = cursor.getColumnIndexOrThrow(Email.DATA);
-            if(cursor.isNull(name))
+            if(cursor.isNull(name)) {
                 return cursor.getString(email);
+            }
             return cursor.getString(name) + " <" + cursor.getString(email) +">";
         } else {
             int name = cursor.getColumnIndexOrThrow(TagData.NAME.name);
@@ -149,14 +153,16 @@ public class ContactListAdapter extends CursorAdapter {
         Cursor peopleCursor = mContent.query(uri, PEOPLE_PROJECTION,
                 null, null, sort);
 
-        if(!completeSharedTags)
+        if(!completeSharedTags) {
             return peopleCursor;
+        }
 
         Criterion crit = Criterion.all;
-        if(constraint != null)
+        if(constraint != null) {
             crit = Functions.upper(TagData.NAME).like("%" + constraint.toString().toUpperCase() + "%");
-        else
+        } else {
             crit = Criterion.none;
+        }
         Cursor tagCursor = tagDataService.query(Query.select(TagData.ID, TagData.NAME, TagData.PICTURE, TagData.THUMB).
                 where(Criterion.and(TagData.USER_ID.eq(0), TagData.MEMBER_COUNT.gt(0),
                         crit)).orderBy(Order.desc(TagData.NAME)));

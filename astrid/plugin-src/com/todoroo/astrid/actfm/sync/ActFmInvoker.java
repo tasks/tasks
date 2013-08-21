@@ -132,16 +132,19 @@ public class ActFmInvoker {
         try {
             String request = createFetchUrl(api, method, getParameters);
 
-            if (SYNC_DEBUG)
+            if (SYNC_DEBUG) {
                 Log.e("act-fm-invoke", request);
+            }
 
             String response = restClient.get(request);
             JSONObject object = new JSONObject(response);
 
-            if (SYNC_DEBUG)
+            if (SYNC_DEBUG) {
                 AndroidUtilities.logJSONObject("act-fm-invoke-response", object);
-            if(object.getString("status").equals("error"))
+            }
+            if(object.getString("status").equals("error")) {
                 throw new ActFmServiceException(object.getString("message"), object);
+            }
             return object;
         } catch (JSONException e) {
             throw new IOException(e.getMessage());
@@ -166,17 +169,20 @@ public class ActFmInvoker {
         try {
             String request = createFetchUrl(null, method, getParameters);
 
-            if (SYNC_DEBUG)
+            if (SYNC_DEBUG) {
                 Log.e("act-fm-post", request);
+            }
 
             String response = restClient.post(request, data);
             JSONObject object = new JSONObject(response);
 
-            if (SYNC_DEBUG)
+            if (SYNC_DEBUG) {
                 AndroidUtilities.logJSONObject("act-fm-post-response", object);
+            }
 
-            if(object.getString("status").equals("error"))
+            if(object.getString("status").equals("error")) {
                 throw new ActFmServiceException(object.getString("message"), object);
+            }
             return object;
         } catch (JSONException e) {
             throw new IOException(e.getMessage());
@@ -202,8 +208,9 @@ public class ActFmInvoker {
             }
 
             String request = createFetchUrl("api/" + API_VERSION, "synchronize", params);
-            if (SYNC_DEBUG)
+            if (SYNC_DEBUG) {
                 Log.e("act-fm-post", request);
+            }
             Charset chars;
             try {
                 chars = Charset.forName("UTF-8");
@@ -218,11 +225,13 @@ public class ActFmInvoker {
             String response = restClient.post(request, entity);
             JSONObject object = new JSONObject(response);
 
-            if (SYNC_DEBUG)
+            if (SYNC_DEBUG) {
                 AndroidUtilities.logJSONObject("act-fm-post-response", object);
+            }
 
-            if(object.getString("status").equals("error"))
+            if(object.getString("status").equals("error")) {
                 throw new ActFmServiceException(object.getString("message"), object);
+            }
             return object;
         } catch (JSONException e) {
             throw new IOException(e.getMessage());
@@ -244,17 +253,20 @@ public class ActFmInvoker {
         for(int i = 0; i < getParameters.length; i += 2) {
             if(getParameters[i+1] instanceof ArrayList) {
                 ArrayList<?> list = (ArrayList<?>) getParameters[i+1];
-                for(int j = 0; j < list.size(); j++)
+                for(int j = 0; j < list.size(); j++) {
                     params.add(new Pair<String, Object>(getParameters[i].toString() + "[]",
                             list.get(j)));
-            } else
-                params.add(new Pair<String, Object>(getParameters[i].toString(), getParameters[i+1]));
+                }
+            } else {
+                params.add(new Pair<String, Object>(getParameters[i].toString(), getParameters[i + 1]));
+            }
         }
         params.add(new Pair<String, Object>("app_id", APP_ID));
         boolean syncMethod = "synchronize".equals(method);
 
-        if (!syncMethod)
+        if (!syncMethod) {
             params.add(new Pair<String, Object>("time", System.currentTimeMillis() / 1000L));
+        }
         if(token != null) {
             boolean foundTokenKey = false;
             for (Pair<String, Object> curr : params) {
@@ -263,8 +275,9 @@ public class ActFmInvoker {
                     break;
                 }
             }
-            if (!foundTokenKey)
+            if (!foundTokenKey) {
                 params.add(new Pair<String, Object>("token", token));
+            }
         }
 
         Collections.sort(params, new Comparator<Pair<String, Object>>() {
@@ -272,8 +285,9 @@ public class ActFmInvoker {
             public int compare(Pair<String, Object> object1,
                     Pair<String, Object> object2) {
                 int result = object1.getLeft().compareTo(object2.getLeft());
-                if(result == 0)
+                if(result == 0) {
                     return object1.getRight().toString().compareTo(object2.getRight().toString());
+                }
                 return result;
             }
         });
@@ -284,26 +298,30 @@ public class ActFmInvoker {
             customApi = true;
             url = url.replace("api", api);
         }
-        if (Preferences.getBoolean(R.string.actfm_https_key, false))
+        if (Preferences.getBoolean(R.string.actfm_https_key, false)) {
             url = "https:" + url;
-        else
+        } else {
             url = "http:" + url;
+        }
 
         StringBuilder requestBuilder = new StringBuilder(url);
-        if (!customApi)
+        if (!customApi) {
             requestBuilder.append(API_VERSION).append("/");
+        }
         requestBuilder.append(method).append('?');
         StringBuilder sigBuilder = new StringBuilder(method);
         for(Pair<String, Object> entry : params) {
-            if(entry.getRight() == null)
+            if(entry.getRight() == null) {
                 continue;
+            }
 
             String key = entry.getLeft();
             String value = entry.getRight().toString();
             String encoded = URLEncoder.encode(value, "UTF-8");
 
-            if (!syncMethod || "app_id".equals(key))
+            if (!syncMethod || "app_id".equals(key)) {
                 requestBuilder.append(key).append('=').append(encoded).append('&');
+            }
 
             sigBuilder.append(key).append(value);
         }

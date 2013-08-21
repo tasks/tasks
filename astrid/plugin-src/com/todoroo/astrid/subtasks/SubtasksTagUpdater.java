@@ -15,8 +15,9 @@ public class SubtasksTagUpdater extends SubtasksFilterUpdater {
 
     @Override
     protected String getSerializedTree(TaskListMetadata list, Filter filter) {
-        if (isBeingFiltered.get())
+        if (isBeingFiltered.get()) {
             return "[]"; //$NON-NLS-1$
+        }
         return super.getSerializedTree(list, filter);
     }
 
@@ -29,8 +30,9 @@ public class SubtasksTagUpdater extends SubtasksFilterUpdater {
 
     @Override
     public int getIndentForTask(String targetTaskId) {
-        if (isBeingFiltered.get())
+        if (isBeingFiltered.get()) {
             return 0;
+        }
         return super.getIndentForTask(targetTaskId);
     }
 

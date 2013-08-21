@@ -59,15 +59,17 @@ public class GtasksMetadata {
         metadata.setValue(ID, ""); //$NON-NLS-1$
 
         String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
-        if(defaultList == null)
+        if(defaultList == null) {
             defaultList = "@default"; //$NON-NLS-1$
+        }
 
         metadata.setValue(LIST_ID, defaultList);
         metadata.setValue(PARENT_TASK, AbstractModel.NO_ID);
         metadata.setValue(INDENT, 0);
         metadata.setValue(ORDER, DateUtilities.now());
-        if(taskId > AbstractModel.NO_ID)
+        if(taskId > AbstractModel.NO_ID) {
             metadata.setValue(Metadata.TASK, taskId);
+        }
         return metadata;
     }
 

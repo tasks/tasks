@@ -163,8 +163,9 @@ public class TaskDao extends RemoteModelDao<Task> {
     @Override
     public boolean delete(long id) {
         boolean result = super.delete(id);
-        if(!result)
+        if(!result) {
             return false;
+        }
 
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
@@ -211,14 +212,16 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     @Override
     public boolean createNew(Task item) {
-        if(!item.containsValue(Task.CREATION_DATE))
+        if(!item.containsValue(Task.CREATION_DATE)) {
             item.setValue(Task.CREATION_DATE, DateUtilities.now());
+        }
         item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
 
         // set up task defaults
-        if(!item.containsValue(Task.IMPORTANCE))
+        if(!item.containsValue(Task.IMPORTANCE)) {
             item.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
+        }
         if(!item.containsValue(Task.DUE_DATE)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key,
                     Task.URGENCY_NONE);
@@ -266,16 +269,19 @@ public class TaskDao extends RemoteModelDao<Task> {
     @Override
     public boolean saveExisting(Task item) {
         ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0)
+        if(values == null || values.size() == 0) {
             return false;
+        }
         if(!TaskApiDao.insignificantChange(values)) {
             item.setValue(Task.DETAILS, null);
-            if(!values.containsKey(Task.MODIFICATION_DATE.name))
+            if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
                 item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+            }
         }
         boolean result = super.saveExisting(item);
-        if(result)
+        if(result) {
             afterSave(item, values);
+        }
         return result;
     }
 
@@ -311,8 +317,9 @@ public class TaskDao extends RemoteModelDao<Task> {
                     for (tasksWithUUID.moveToFirst();
                             !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
                         curr.readFromCursor(tasksWithUUID);
-                        if (curr.getId() == item.getId())
+                        if (curr.getId() == item.getId()) {
                             continue;
+                        }
 
                         compareAndMergeAfterConflict(curr, fetch(item.getId(),
                                 tasksWithUUID.getProperties()));
@@ -333,17 +340,20 @@ public class TaskDao extends RemoteModelDao<Task> {
     private void compareAndMergeAfterConflict(Task existing, Task newConflict) {
         boolean match = true;
         for (Property<?> p : SQL_CONSTRAINT_MERGE_PROPERTIES) {
-            if (p.equals(Task.ID))
+            if (p.equals(Task.ID)) {
                 continue;
-            if(existing.containsNonNullValue(p) != newConflict.containsNonNullValue(p))
+            }
+            if(existing.containsNonNullValue(p) != newConflict.containsNonNullValue(p)) {
                 match = false;
-            else if (existing.containsNonNullValue(p) &&
-                    !existing.getValue(p).equals(newConflict.getValue(p)))
+            } else if (existing.containsNonNullValue(p) &&
+                    !existing.getValue(p).equals(newConflict.getValue(p))) {
                 match = false;
+            }
         }
         if (!match) {
-            if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE)))
+            if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE))) {
                 newConflict.setValue(Task.CREATION_DATE, newConflict.getValue(Task.CREATION_DATE) + 1000L);
+            }
             newConflict.clearValue(Task.UUID);
             saveExisting(newConflict);
         } else {
@@ -357,19 +367,21 @@ public class TaskDao extends RemoteModelDao<Task> {
      * Astrid. Order matters here!
      */
     public static void afterSave(Task task, ContentValues values) {
-        if(values == null)
+        if(values == null) {
             return;
+        }
 
         task.markSaved();
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
+        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
             afterComplete(task, values);
-        else {
+        } else {
             if(values.containsKey(Task.DUE_DATE.name) ||
                     values.containsKey(Task.REMINDER_FLAGS.name) ||
                     values.containsKey(Task.REMINDER_PERIOD.name) ||
                     values.containsKey(Task.REMINDER_LAST.name) ||
-                    values.containsKey(Task.REMINDER_SNOOZE.name))
+                    values.containsKey(Task.REMINDER_SNOOZE.name)) {
                 ReminderService.getInstance().scheduleAlarm(task);
+            }
         }
 
         // run api save hooks
@@ -382,8 +394,9 @@ public class TaskDao extends RemoteModelDao<Task> {
      * @param values values that were updated
      */
     public static void broadcastTaskSave(Task task, ContentValues values) {
-        if(TaskApiDao.insignificantChange(values))
+        if(TaskApiDao.insignificantChange(values)) {
             return;
+        }
 
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
             Context context = ContextManager.getContext();

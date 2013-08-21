@@ -20,8 +20,9 @@ public class CalendarStartupReceiver extends BroadcastReceiver {
     }
 
     public static void scheduleCalendarAlarms(final Context context, boolean force) {
-        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true) && !force)
+        if (!Preferences.getBoolean(R.string.p_calendar_reminders, true) && !force) {
             return;
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {

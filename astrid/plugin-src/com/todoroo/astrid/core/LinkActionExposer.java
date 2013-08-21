@@ -38,15 +38,18 @@ import com.todoroo.astrid.notes.NotesAction;
 public class LinkActionExposer {
 
     public static TaskAction getActionsForTask(Context context, Task task, boolean hasAttachments, boolean hasNotes) {
-        if (task == null) return null;
+        if (task == null) {
+            return null;
+        }
 
         Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getValue(Task.TITLE));
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
         if(urlSpans.length == 0 && !hasNotes &&
-                !hasAttachments)
+                !hasAttachments) {
             return null;
+        }
 
         PackageManager pm = context.getPackageManager();
 
@@ -56,8 +59,9 @@ public class LinkActionExposer {
             int end = titleSpan.getSpanEnd(urlSpan);
             String text = titleSpan.subSequence(start, end).toString();
             TaskAction taskAction = createLinkAction(context, task.getId(), url, text, pm);
-            if (taskAction != null)
+            if (taskAction != null) {
                 return taskAction;
+            }
         }
 
         Resources r = context.getResources();
@@ -95,8 +99,9 @@ public class LinkActionExposer {
         }
 
         // no intents -> no item
-        else
+        else {
             return null;
+        }
 
         Resources r = context.getResources();
         Drawable icon;
@@ -108,8 +113,9 @@ public class LinkActionExposer {
             icon = getBitmapDrawable(R.drawable.action_web, r);
         }
 
-        if(text.length() > 15)
+        if(text.length() > 15) {
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
+        }
 
         TaskAction action = new TaskAction(text,
                 PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
@@ -119,9 +125,9 @@ public class LinkActionExposer {
     private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<Integer, BitmapDrawable>();
 
     private static BitmapDrawable getBitmapDrawable(int resId, Resources resources) {
-        if (IMAGE_CACHE.containsKey(resId))
+        if (IMAGE_CACHE.containsKey(resId)) {
             return IMAGE_CACHE.get(resId);
-        else {
+        } else {
             BitmapDrawable b = (BitmapDrawable) resources.getDrawable(resId);
             IMAGE_CACHE.put(resId, b);
             return b;

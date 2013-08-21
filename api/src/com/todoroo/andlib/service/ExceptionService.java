@@ -43,8 +43,9 @@ public class ExceptionService {
      * @param error Exception encountered. Message will be displayed to user
      */
     public void reportError(String name, Throwable error) {
-        if(errorReporters == null)
+        if(errorReporters == null) {
             return;
+        }
 
         for(ErrorReporter reporter : errorReporters) {
             try {
@@ -67,10 +68,11 @@ public class ExceptionService {
             final String messageToDisplay;
 
             // pretty up the message when displaying to user
-            if(error == null)
+            if(error == null) {
                 messageToDisplay = context.getString(R.string.DLG_error_generic);
-            else
+            } else {
                 messageToDisplay = context.getString(R.string.DLG_error, error);
+            }
 
             ((Activity)context).runOnUiThread(new Runnable() {
                 public void run() {
@@ -128,13 +130,15 @@ public class ExceptionService {
                 }
             }
 
-            if(tag == null)
+            if(tag == null) {
                 tag = "unknown-" + name; //$NON-NLS-1$
+            }
 
-            if(error == null)
+            if(error == null) {
                 Log.e(tag, "Exception: " + name); //$NON-NLS-1$
-            else
+            } else {
                 Log.e(tag, error.toString(), error);
+            }
         }
     }
 
@@ -157,8 +161,9 @@ public class ExceptionService {
         }
 
         public void uncaughtException(Thread thread, Throwable ex) {
-            if(exceptionService != null)
+            if(exceptionService != null) {
                 exceptionService.reportError("uncaught", ex); //$NON-NLS-1$
+            }
             defaultUEH.uncaughtException(thread, ex);
         }
     }

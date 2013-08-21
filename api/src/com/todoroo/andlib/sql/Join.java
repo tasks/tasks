@@ -44,8 +44,9 @@ public class Join {
         sb.append(joinType).append(SPACE).append(JOIN).append(SPACE).append(joinTable).append(SPACE).append(ON).append(SPACE).append("(");
         for (int i = 0; i < criterions.length; i++) {
             sb.append(criterions[i]);
-            if (i < criterions.length - 1)
+            if (i < criterions.length - 1) {
                 sb.append(SPACE).append(AND).append(SPACE);
+            }
         }
         sb.append(")");
         return sb.toString();

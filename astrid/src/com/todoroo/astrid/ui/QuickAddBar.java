@@ -198,8 +198,9 @@ public class QuickAddBar extends LinearLayout {
             public boolean onLongClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(),
                         false);
-                if (task == null)
+                if (task == null) {
                     return true;
+                }
 
                 mListener.onTaskListItemClicked(task.getId(), true);
                 return true;
@@ -293,8 +294,9 @@ public class QuickAddBar extends LinearLayout {
         }
 
         try {
-            if (title != null)
+            if (title != null) {
                 title = title.trim();
+            }
             boolean assignedToMe = usePeopleControl ? peopleControl.willBeAssignedToMe() : true;
             if (!assignedToMe && !actFmPreferenceService.isLoggedIn()) {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
@@ -319,11 +321,13 @@ public class QuickAddBar extends LinearLayout {
             }
 
             Task task = new Task();
-            if (title != null)
+            if (title != null) {
                 task.setValue(Task.TITLE, title); // need this for calendar
+            }
 
-            if (repeatControl.isRecurrenceSet())
+            if (repeatControl.isRecurrenceSet()) {
                 repeatControl.writeToModel(task);
+            }
             if (deadlineControl.isDeadlineSet()) {
                 task.clearValue(Task.HIDE_UNTIL);
                 deadlineControl.writeToModel(task);
@@ -348,11 +352,13 @@ public class QuickAddBar extends LinearLayout {
 
             addToCalendar(task, title);
 
-            if(!TextUtils.isEmpty(title))
+            if(!TextUtils.isEmpty(title)) {
                 fragment.showTaskEditHelpPopover();
+            }
 
-            if (activity instanceof TaskListActivity && !assignedToMe)
+            if (activity instanceof TaskListActivity && !assignedToMe) {
                 ((TaskListActivity) activity).taskAssignedTo(assignedTo, assignedEmail, assignedId);
+            }
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -410,8 +416,9 @@ public class QuickAddBar extends LinearLayout {
      * @return
      */
     public static Task basicQuickAddTask(String title) {
-        if (TextUtils.isEmpty(title))
+        if (TextUtils.isEmpty(title)) {
             return null;
+        }
 
         title = title.trim();
 
@@ -451,17 +458,19 @@ public class QuickAddBar extends LinearLayout {
             // if user wants, create the task directly (with defaultvalues)
             // after saying it
             Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
-            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
+            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false)) {
                 quickAddTask(quickAddBox.getText().toString(), true);
+            }
 
             // the rest of onActivityResult is totally unrelated to
             // voicerecognition, so bail out
             return true;
         } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT) {
-            if (resultCode == Activity.RESULT_OK)
+            if (resultCode == Activity.RESULT_OK) {
                 peopleControl.onActivityResult(requestCode, resultCode, data);
-            else
+            } else {
                 peopleControl.assignToMe();
+            }
             return true;
         }
 

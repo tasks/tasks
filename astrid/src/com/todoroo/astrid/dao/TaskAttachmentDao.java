@@ -51,8 +51,9 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
         if (modelSetValues.containsKey(TaskAttachment.CONTENT_TYPE.name)) {
             TaskAttachmentOutstanding m = new TaskAttachmentOutstanding();
             String path = modelSetValues.getAsString(TaskAttachment.FILE_PATH.name);
-            if (TextUtils.isEmpty(path))
+            if (TextUtils.isEmpty(path)) {
                 return -1;
+            }
             try {
                 JSONObject newFileHash = new JSONObject();
                 newFileHash.put("name", modelSetValues.getAsString(TaskAttachment.NAME.name)); //$NON-NLS-1$
@@ -70,7 +71,9 @@ public class TaskAttachmentDao extends RemoteModelDao<TaskAttachment> {
         }
         int result = super.createOutstandingEntries(modelId, modelSetValues);
         if (result < 0) // Error
+        {
             return result;
+        }
         return 1 + result;
     }
 

@@ -92,12 +92,15 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         ContentValues mergedValues = new ContentValues();
 
         ContentValues defaultValues = getDefaultValues();
-        if(defaultValues != null)
+        if(defaultValues != null) {
             mergedValues.putAll(defaultValues);
-        if(values != null)
+        }
+        if(values != null) {
             mergedValues.putAll(values);
-        if(setValues != null)
+        }
+        if(setValues != null) {
             mergedValues.putAll(setValues);
+        }
 
         return mergedValues;
     }
@@ -115,10 +118,11 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * saved - future saves will not need to write all the data as before.
      */
     public void markSaved() {
-        if(values == null)
+        if(values == null) {
             values = setValues;
-        else if(setValues != null)
+        } else if(setValues != null) {
             values.putAll(setValues);
+        }
         setValues = null;
     }
 
@@ -128,8 +132,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     @Override
     public boolean equals(Object other) {
-        if(other == null || other.getClass() !=  getClass())
+        if(other == null || other.getClass() !=  getClass()) {
             return false;
+        }
 
         return getMergedValues().equals(((AbstractModel)other).getMergedValues());
     }
@@ -159,10 +164,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
-        if(setValues != null)
+        if(setValues != null) {
             clone.setValues = new ContentValues(setValues);
-        if(values != null)
+        }
+        if(values != null) {
             clone.values = new ContentValues(values);
+        }
         return clone;
     }
 
@@ -177,8 +184,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * Reads all properties from the supplied cursor and store
      */
     public synchronized void readPropertiesFromCursor(TodorooCursor<? extends AbstractModel> cursor) {
-        if (values == null)
+        if (values == null) {
             values = new ContentValues();
+        }
 
         // clears user-set values
         setValues = null;
@@ -198,29 +206,28 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     public synchronized <TYPE> TYPE getValue(Property<TYPE> property) {
         Object value;
-        if(setValues != null && setValues.containsKey(property.getColumnName()))
+        if(setValues != null && setValues.containsKey(property.getColumnName())) {
             value = setValues.get(property.getColumnName());
-
-        else if(values != null && values.containsKey(property.getColumnName()))
+        } else if(values != null && values.containsKey(property.getColumnName())) {
             value = values.get(property.getColumnName());
-
-        else if(getDefaultValues().containsKey(property.getColumnName()))
+        } else if(getDefaultValues().containsKey(property.getColumnName())) {
             value = getDefaultValues().get(property.getColumnName());
-
-        else
+        } else {
             throw new UnsupportedOperationException(
-                "Model Error: Did not read property " + property.name); //$NON-NLS-1$
+                    "Model Error: Did not read property " + property.name); //$NON-NLS-1$
+        }
 
         // resolve properties that were retrieved with a different type than accessed
         try {
-            if(value instanceof String && property instanceof LongProperty)
-                return (TYPE) Long.valueOf((String)value);
-            else if(value instanceof String && property instanceof IntegerProperty)
-                return (TYPE) Integer.valueOf((String)value);
-            else if(value instanceof String && property instanceof DoubleProperty)
-                return (TYPE) Double.valueOf((String)value);
-            else if(value instanceof Integer && property instanceof LongProperty)
-                return (TYPE) Long.valueOf(((Number)value).longValue());
+            if(value instanceof String && property instanceof LongProperty) {
+                return (TYPE) Long.valueOf((String) value);
+            } else if(value instanceof String && property instanceof IntegerProperty) {
+                return (TYPE) Integer.valueOf((String) value);
+            } else if(value instanceof String && property instanceof DoubleProperty) {
+                return (TYPE) Double.valueOf((String) value);
+            } else if(value instanceof Integer && property instanceof LongProperty) {
+                return (TYPE) Long.valueOf(((Number) value).longValue());
+            }
             return (TYPE) value;
         } catch (NumberFormatException e) {
             return (TYPE) getDefaultValues().get(property.name);
@@ -235,22 +242,25 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     abstract public long getId();
 
     protected long getIdHelper(LongProperty id) {
-        if(setValues != null && setValues.containsKey(id.name))
+        if(setValues != null && setValues.containsKey(id.name)) {
             return setValues.getAsLong(id.name);
-        else if(values != null && values.containsKey(id.name))
+        } else if(values != null && values.containsKey(id.name)) {
             return values.getAsLong(id.name);
-        else
+        } else {
             return NO_ID;
+        }
     }
 
     public void setId(long id) {
-        if (setValues == null)
+        if (setValues == null) {
             setValues = new ContentValues();
+        }
 
-        if(id == NO_ID)
+        if(id == NO_ID) {
             clearValue(ID_PROPERTY);
-        else
+        } else {
             setValues.put(ID_PROPERTY_NAME, id);
+        }
     }
 
     /**
@@ -265,10 +275,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * @return true if setValues or values contains this property
      */
     public boolean containsValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.getColumnName()))
+        if(setValues != null && setValues.containsKey(property.getColumnName())) {
             return true;
-        if(values != null && values.containsKey(property.getColumnName()))
+        }
+        if(values != null && values.containsKey(property.getColumnName())) {
             return true;
+        }
         return false;
     }
 
@@ -278,10 +290,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      *         stored is not null
      */
     public boolean containsNonNullValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.getColumnName()))
+        if(setValues != null && setValues.containsKey(property.getColumnName())) {
             return setValues.get(property.getColumnName()) != null;
-        if(values != null && values.containsKey(property.getColumnName()))
+        }
+        if(values != null && values.containsKey(property.getColumnName())) {
             return values.get(property.getColumnName()) != null;
+        }
         return false;
     }
 
@@ -295,17 +309,20 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             Property<TYPE> property, TYPE newValue) {
 
     	// we've already decided to save it, so overwrite old value
-        if (setValues.containsKey(property.getColumnName()))
-        	return true;
+        if (setValues.containsKey(property.getColumnName())) {
+            return true;
+        }
 
         // values contains this key, we should check it out
         if(values != null && values.containsKey(property.getColumnName())) {
             TYPE value = getValue(property);
             if (value == null) {
-                if (newValue == null)
+                if (newValue == null) {
                     return false;
-            } else if (value.equals(newValue))
+                }
+            } else if (value.equals(newValue)) {
                 return false;
+            }
         }
 
         // otherwise, good to save
@@ -317,10 +334,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     public synchronized <TYPE> void setValue(Property<TYPE> property,
             TYPE value) {
-        if (setValues == null)
+        if (setValues == null) {
             setValues = new ContentValues();
-        if (!shouldSaveValue(property, value))
+        }
+        if (!shouldSaveValue(property, value)) {
             return;
+        }
 
         saver.save(property, setValues, value);
     }
@@ -329,8 +348,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * Merges content values with those coming from another source
      */
     public synchronized <TYPE> void mergeWith(ContentValues other) {
-        if (setValues == null)
+        if (setValues == null) {
             setValues = new ContentValues();
+        }
         setValues.putAll(other);
     }
 
@@ -339,11 +359,13 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * keeping the existing value if one already exists
      */
     public synchronized <TYPE> void mergeWithoutReplacement(ContentValues other) {
-        if (setValues == null)
+        if (setValues == null) {
             setValues = new ContentValues();
+        }
         for (Entry<String, Object> item : other.valueSet()) {
-            if (setValues.containsKey(item.getKey()))
+            if (setValues.containsKey(item.getKey())) {
                 continue;
+            }
             AndroidUtilities.putInto(setValues, item.getKey(), item.getValue(), true);
         }
     }
@@ -353,10 +375,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * @param property
      */
     public synchronized void clearValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.getColumnName()))
+        if(setValues != null && setValues.containsKey(property.getColumnName())) {
             setValues.remove(property.getColumnName());
-        if(values != null && values.containsKey(property.getColumnName()))
+        }
+        if(values != null && values.containsKey(property.getColumnName())) {
             values.remove(property.getColumnName());
+        }
     }
 
     /**
@@ -366,10 +390,11 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * @param value
      */
     public void setFlag(IntegerProperty property, int flag, boolean value) {
-        if(value)
+        if(value) {
             setValue(property, getValue(property) | flag);
-        else
+        } else {
             setValue(property, getValue(property) & ~flag);
+        }
     }
 
     /**
@@ -386,26 +411,30 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     // --- setting and retrieving flags
 
     public synchronized void putTransitory(String key, Object value) {
-        if(transitoryData == null)
+        if(transitoryData == null) {
             transitoryData = new HashMap<String, Object>();
+        }
         transitoryData.put(key, value);
     }
 
     public Object getTransitory(String key) {
-        if(transitoryData == null)
+        if(transitoryData == null) {
             return null;
+        }
         return transitoryData.get(key);
     }
 
     public Object clearTransitory(String key) {
-        if (transitoryData == null)
+        if (transitoryData == null) {
             return null;
+        }
         return transitoryData.remove(key);
     }
 
     public Set<String> getAllTransitoryKeys() {
-        if (transitoryData == null)
+        if (transitoryData == null) {
             return null;
+        }
         return transitoryData.keySet();
     }
 
@@ -427,19 +456,23 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     protected static Property<?>[] generateProperties(Class<? extends AbstractModel> cls) {
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>();
-        if(cls.getSuperclass() != AbstractModel.class)
+        if(cls.getSuperclass() != AbstractModel.class) {
             properties.addAll(Arrays.asList(generateProperties(
-                (Class<? extends AbstractModel>) cls.getSuperclass())));
+                    (Class<? extends AbstractModel>) cls.getSuperclass())));
+        }
 
         // a property is public, static & extends Property
         for(Field field : cls.getFields()) {
-            if((field.getModifiers() & Modifier.STATIC) == 0)
+            if((field.getModifiers() & Modifier.STATIC) == 0) {
                 continue;
-            if(!Property.class.isAssignableFrom(field.getType()))
+            }
+            if(!Property.class.isAssignableFrom(field.getType())) {
                 continue;
+            }
             try {
-                if(((Property<?>) field.get(null)).table == null)
+                if(((Property<?>) field.get(null)).table == null) {
                     continue;
+                }
                 properties.add((Property<?>) field.get(null));
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);
@@ -467,8 +500,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             // we don't allow null values, as they indicate unset properties
             // when the database was written
 
-            if(value != null)
+            if(value != null) {
                 property.accept(this, value);
+            }
         }
 
         public Void visitDouble(Property<Double> property, Object value) {

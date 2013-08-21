@@ -100,8 +100,9 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         if (simpleLogin != null && !TextUtils.isEmpty(email)) {
             initializeSimpleUI(email);
         } else {
-            if (mAdapter != null && mAdapter.layouts[mAdapter.layouts.length - 1] != getLoginPageLayout())
+            if (mAdapter != null && mAdapter.layouts[mAdapter.layouts.length - 1] != getLoginPageLayout()) {
                 mAdapter.changeLoginPage(getLoginPageLayout());
+            }
             super.initializeUI();
         }
     }
@@ -156,8 +157,9 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                                         }
                                     });
                                 } finally {
-                                    if (dismissDialog)
+                                    if (dismissDialog) {
                                         DialogUtilities.dismissDialog(WelcomeWalkthrough.this, pd);
+                                    }
                                 }
                             }
                         }.start();
@@ -222,11 +224,13 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                     }
                 };
                 View title = currentView.findViewById(R.id.welcome_walkthrough_title);
-                if (title != null)
+                if (title != null) {
                     title.setOnClickListener(done);
+                }
                 View image = currentView.findViewById(R.id.welcome_walkthrough_image);
-                if (image != null)
+                if (image != null) {
                     image.setOnClickListener(done);
+                }
             }
         }
         ((CirclePageIndicator) mIndicator).setVisibility(currentPage == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);

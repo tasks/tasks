@@ -93,8 +93,9 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
         if(specificDate > 0) {
             HideUntilValue[] updated = new HideUntilValue[values.length + 1];
-            for(int i = 0; i < values.length; i++)
-                updated[i+1] = values[i];
+            for(int i = 0; i < values.length; i++) {
+                updated[i + 1] = values[i];
+            }
             Date hideUntilAsDate = new Date(specificDate);
             if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
                 updated[0] = new HideUntilValue(DateUtilities.getDateString(activity, new Date(specificDate)),
@@ -178,8 +179,9 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                 Task.HIDE_UNTIL_NONE);
         selection = setting;
-        if (spinner != null)
+        if (spinner != null) {
             spinner.setSelection(selection);
+        }
         refreshDisplayView();
     }
 
@@ -189,7 +191,9 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             @Override
             public void onClick(View v) {
                 if (spinner == null) // Force load
+                {
                     getView();
+                }
                 spinner.performClick();
             }
         };
@@ -205,8 +209,9 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             image.setImageResource(R.drawable.tea_icn_hide_gray);
         } else {
             String display = value.toString();
-            if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME)
+            if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
                 display = display.toLowerCase();
+            }
 
             auxDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
             auxDisplay.setTextColor(themeColor);
@@ -270,16 +275,19 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
 
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        if(adapter == null || spinner == null)
+        if(adapter == null || spinner == null) {
             return null;
+        }
         HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
-        if(item == null)
+        if(item == null) {
             return null;
+        }
         long value = task.createHideUntil(item.setting, item.date);
         task.setValue(Task.HIDE_UNTIL, value);
 
-        if (value != 0)
+        if (value != 0) {
             return activity.getString(R.string.TEA_hideUntil_message, DateAndTimePicker.getDisplayString(activity, value, false, false, false));
+        }
         return null;
     }
 

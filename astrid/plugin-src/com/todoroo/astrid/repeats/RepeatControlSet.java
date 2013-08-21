@@ -112,16 +112,18 @@ public class RepeatControlSet extends PopupControlSet {
     private void setRepeatUntilValue(long newValue) {
         repeatUntilValue = newValue;
 
-        if (newValue == 0)
+        if (newValue == 0) {
             repeatUntil.setText(activity.getString(R.string.repeat_forever));
-        else
+        } else {
             repeatUntil.setText(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, newValue)));
+        }
     }
 
     protected void repeatValueClick() {
         int dialogValue = repeatValue;
-        if(dialogValue == 0)
+        if(dialogValue == 0) {
             dialogValue = 1;
+        }
 
         new NumberPickerDialog(activity, new OnNumberPickedListener() {
             @Override
@@ -156,8 +158,9 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     public void removeListener(RepeatChangedListener listener) {
-        if (listeners.contains(listener))
+        if (listeners.contains(listener)) {
             listeners.remove(listener);
+        }
     }
 
     @SuppressWarnings("nls")
@@ -165,8 +168,9 @@ public class RepeatControlSet extends PopupControlSet {
     public void readFromTask(Task task) {
         super.readFromTask(task);
         recurrence = model.sanitizedRecurrence();
-        if(recurrence == null)
+        if(recurrence == null) {
             recurrence = "";
+        }
 
         repeatUntilValue = model.getValue(Task.REPEAT_UNTIL);
 
@@ -217,8 +221,9 @@ public class RepeatControlSet extends PopupControlSet {
             date = new Date(model.getValue(Task.DUE_DATE));
 
             int dayOfWeek = date.getDay();
-            for(int i = 0; i < 7; i++)
+            for(int i = 0; i < 7; i++) {
                 daysOfWeek[i].setChecked(i == dayOfWeek);
+            }
         }
 
         // read recurrence rule
@@ -231,13 +236,16 @@ public class RepeatControlSet extends PopupControlSet {
                 interval.setSelection(intervalValue);
 
                 // clear all day of week checks, then update them
-                for(int i = 0; i < 7; i++)
+                for(int i = 0; i < 7; i++) {
                     daysOfWeek[i].setChecked(false);
+                }
 
                 for(WeekdayNum day : rrule.getByDay()) {
-                    for(int i = 0; i < 7; i++)
-                        if(daysOfWeek[i].getTag().equals(day.wday))
+                    for(int i = 0; i < 7; i++) {
+                        if (daysOfWeek[i].getTag().equals(day.wday)) {
                             daysOfWeek[i].setChecked(true);
+                        }
+                    }
                 }
 
                 // suppress first call to interval.onItemSelected
@@ -251,10 +259,11 @@ public class RepeatControlSet extends PopupControlSet {
         doRepeat = recurrence.length() > 0;
 
         // read flag
-        if(model.repeatAfterCompletion())
+        if(model.repeatAfterCompletion()) {
             type.setSelection(TYPE_COMPLETION_DATE);
-        else
+        } else {
             type.setSelection(TYPE_DUE_DATE);
+        }
 
         refreshDisplayView();
     }
@@ -327,9 +336,9 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     protected String writeToModelAfterInitialized(Task task) {
         String result;
-        if(!doRepeat)
+        if(!doRepeat) {
             result = ""; //$NON-NLS-1$
-        else {
+        } else {
             if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 StatisticsService.reportEvent(StatisticsConstants.REPEAT_TASK_CREATE);
             }
@@ -344,9 +353,11 @@ public class RepeatControlSet extends PopupControlSet {
                 rrule.setFreq(Frequency.WEEKLY);
 
                 ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
-                for(int i = 0; i < daysOfWeek.length; i++)
-                    if(daysOfWeek[i].isChecked())
-                        days.add(new WeekdayNum(0, (Weekday)daysOfWeek[i].getTag()));
+                for(int i = 0; i < daysOfWeek.length; i++) {
+                    if (daysOfWeek[i].isChecked()) {
+                        days.add(new WeekdayNum(0, (Weekday) daysOfWeek[i].getTag()));
+                    }
+                }
                 rrule.setByDay(days);
                 break;
             }
@@ -372,12 +383,15 @@ public class RepeatControlSet extends PopupControlSet {
         }
 
         if (!result.equals(task.getValue(Task.RECURRENCE).replaceAll("BYDAY=;", "")))  //$NON-NLS-1$//$NON-NLS-2$
+        {
             task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
+        }
         task.setValue(Task.RECURRENCE, result);
         task.setValue(Task.REPEAT_UNTIL, repeatUntilValue);
 
-        if(task.repeatAfterCompletion())
+        if(task.repeatAfterCompletion()) {
             type.setSelection(1);
+        }
 
         return null;
     }
@@ -415,18 +429,20 @@ public class RepeatControlSet extends PopupControlSet {
 
     private String getRepeatString(boolean useAbbrev) {
         int arrayResource;
-        if (useAbbrev)
+        if (useAbbrev) {
             arrayResource = R.array.repeat_interval_short;
-        else
+        } else {
             arrayResource = R.array.repeat_interval;
+        }
 
         String[] dates = activity.getResources().getStringArray(
                     arrayResource);
         String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
-        if (repeatUntilValue > 0)
+        if (repeatUntilValue > 0) {
             return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, false, useAbbrev, useAbbrev));
-        else
+        } else {
             return activity.getString(R.string.repeat_detail_duedate, date); // Every freq int
+        }
     }
 
     @Override

@@ -145,8 +145,9 @@ public class FilterListFragment extends SherlockListFragment {
         if (AstridPreferences.useTabletLayout(activity)) {
             adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
             return R.layout.filter_list_activity_3pane;
-        } else
+        } else {
             return R.layout.filter_list_activity;
+        }
     }
 
     @Override
@@ -159,16 +160,18 @@ public class FilterListFragment extends SherlockListFragment {
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
         newListButton = getView().findViewById(R.id.new_list_button);
 
-        if (newListButton != null)
+        if (newListButton != null) {
             newListButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = TagsPlugin.newTagDialog(getActivity());
                     getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
-                    if (!AstridPreferences.useTabletLayout(getActivity()))
+                    if (!AstridPreferences.useTabletLayout(getActivity())) {
                         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+                    }
                 }
             });
+        }
         setUpList();
     }
 
@@ -191,8 +194,9 @@ public class FilterListFragment extends SherlockListFragment {
     public void onResume() {
         super.onResume();
         StatisticsService.sessionStart(getActivity());
-        if(adapter != null)
+        if(adapter != null) {
             adapter.registerRecevier();
+        }
 
         // also load sync actions
         Activity activity = getActivity();
@@ -213,8 +217,9 @@ public class FilterListFragment extends SherlockListFragment {
     public void onPause() {
         StatisticsService.sessionPause();
         super.onPause();
-        if(adapter != null)
+        if(adapter != null) {
             adapter.unregisterRecevier();
+        }
         try {
             getActivity().unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException e) {
@@ -299,14 +304,16 @@ public class FilterListFragment extends SherlockListFragment {
         }
 
         for(int i = 0; i < item.contextMenuLabels.length; i++) {
-            if(item.contextMenuIntents.length <= i)
+            if(item.contextMenuIntents.length <= i) {
                 break;
+            }
             menuItem = menu.add(0, CONTEXT_MENU_INTENT, 0, item.contextMenuLabels[i]);
             menuItem.setIntent(item.contextMenuIntents[i]);
         }
 
-        if(menu.size() > 0)
+        if(menu.size() > 0) {
             menu.setHeaderTitle(item.listingTitle);
+        }
     }
 
     /**
@@ -316,15 +323,17 @@ public class FilterListFragment extends SherlockListFragment {
      * @param label
      */
     private static void createShortcut(Activity activity, Filter filter, Intent shortcutIntent, String label) {
-        if(label.length() == 0)
+        if(label.length() == 0) {
             return;
+        }
 
         String defaultImageId = filter.listingTitle;
         if (filter instanceof FilterWithUpdate) {
             FilterWithUpdate fwu = (FilterWithUpdate) filter;
             Bundle customExtras = fwu.customExtras;
-            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID))
+            if (customExtras != null && customExtras.containsKey(TagViewFragment.EXTRA_TAG_UUID)) {
                 defaultImageId = customExtras.getString(TagViewFragment.EXTRA_TAG_UUID);
+            }
         }
 
         Bitmap bitmap = superImposeListIcon(activity, filter.listingIcon, defaultImageId);
@@ -342,9 +351,10 @@ public class FilterListFragment extends SherlockListFragment {
 
     public static Bitmap superImposeListIcon(Activity activity, Bitmap listingIcon, String uuid) {
         Bitmap emblem = listingIcon;
-        if(emblem == null)
+        if(emblem == null) {
             emblem = ((BitmapDrawable) activity.getResources().getDrawable(
                     TagService.getDefaultImageIDForTag(uuid))).getBitmap();
+        }
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();
@@ -374,8 +384,9 @@ public class FilterListFragment extends SherlockListFragment {
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
                 final Intent shortcutIntent = item.getIntent();
                 FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
-                if(filter instanceof Filter)
-                    showCreateShortcutDialog(getActivity(), shortcutIntent, (Filter)filter);
+                if(filter instanceof Filter) {
+                    showCreateShortcutDialog(getActivity(), shortcutIntent, (Filter) filter);
+                }
 
                 return true;
             }
@@ -386,8 +397,9 @@ public class FilterListFragment extends SherlockListFragment {
             }
             default: {
                 TaskListFragment tasklist = (TaskListFragment) getActivity().getSupportFragmentManager().findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
-                if (tasklist != null && tasklist.isInLayout())
+                if (tasklist != null && tasklist.isInLayout()) {
                     return tasklist.onOptionsItemSelected(item);
+                }
             }
         }
         return false;
@@ -398,8 +410,9 @@ public class FilterListFragment extends SherlockListFragment {
         FrameLayout frameLayout = new FrameLayout(activity);
         frameLayout.setPadding(10, 0, 10, 0);
         final EditText editText = new EditText(activity);
-        if(filter.listingTitle == null)
+        if(filter.listingTitle == null) {
             filter.listingTitle = ""; //$NON-NLS-1$
+        }
         editText.setText(filter.listingTitle.
                 replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
         frameLayout.addView(editText, new FrameLayout.LayoutParams(
@@ -461,8 +474,9 @@ public class FilterListFragment extends SherlockListFragment {
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
+            if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction())) {
                 return;
+            }
 
             Activity activity = getActivity();
             if (activity != null) {

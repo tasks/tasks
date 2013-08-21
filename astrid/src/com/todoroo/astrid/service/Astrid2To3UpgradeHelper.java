@@ -117,8 +117,9 @@ public class Astrid2To3UpgradeHelper {
      * @param from
      */
     public void upgrade3To3_1(final Context context, final int from) {
-        if(!checkIfDatabaseExists(context, alertsTable))
+        if(!checkIfDatabaseExists(context, alertsTable)) {
             return;
+        }
 
         database.openForWriting();
         migrateAlarmsToMetadata();
@@ -134,16 +135,19 @@ public class Astrid2To3UpgradeHelper {
     public void upgrade2To3(final Context context, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)
-        if(from < 1 && checkIfDatabaseExists(context, database.getName()))
+        if(from < 1 && checkIfDatabaseExists(context, database.getName())) {
             return;
+        }
 
         // if you don't have a legacy task table, skip this step
-        if(!checkIfDatabaseExists(context, tasksTable))
+        if(!checkIfDatabaseExists(context, tasksTable)) {
             return;
+        }
 
         // else, if there's already a database table, clear it out (!!!)
-        if(checkIfDatabaseExists(context, database.getName()))
+        if(checkIfDatabaseExists(context, database.getName())) {
             context.deleteDatabase(database.getName());
+        }
         database.openForWriting();
 
         // initiate a backup
@@ -264,13 +268,14 @@ public class Astrid2To3UpgradeHelper {
             // special handling for due date
             if(property == Task.DUE_DATE) {
                 long preferredDueDate = data.cursor.getLong(data.cursor.getColumnIndex(LegacyTaskModel.PREFERRED_DUE_DATE));
-                if(value == 0)
+                if(value == 0) {
                     value = preferredDueDate;
-                else if(preferredDueDate != 0) {
+                } else if(preferredDueDate != 0) {
                     // had both absolute and preferred due dates. write
                     // preferred due date into notes field
-                    if(data.upgradeNotes == null)
+                    if(data.upgradeNotes == null) {
                         data.upgradeNotes = new StringBuilder();
+                    }
                     data.upgradeNotes.append("Goal Deadline: " +
                             DateUtilities.getDateString(ContextManager.getContext(),
                                     new Date(preferredDueDate)));
@@ -281,8 +286,9 @@ public class Astrid2To3UpgradeHelper {
             } else if(property == Task.COMPLETION_DATE) {
                 // check if the task was actually completed
                 int progress = data.cursor.getInt(data.cursor.getColumnIndex(LegacyTaskModel.PROGRESS_PERCENTAGE));
-                if(progress < 100)
+                if(progress < 100) {
                     value = 0;
+                }
             }
 
             data.model.setValue(property, value);
@@ -296,9 +302,9 @@ public class Astrid2To3UpgradeHelper {
 
             if(property == Task.RECURRENCE) {
                 LegacyRepeatInfo repeatInfo = LegacyRepeatInfo.fromSingleField(data.cursor.getInt(data.columnIndex));
-                if(repeatInfo == null)
+                if(repeatInfo == null) {
                     data.model.setValue(property, "");
-                else {
+                } else {
                     RRule rrule = repeatInfo.toRRule();
                     data.model.setValue(property, rrule.toIcal());
                 }
@@ -326,8 +332,9 @@ public class Astrid2To3UpgradeHelper {
             HashMap<String, Property<?>> propertyMap, TYPE model,
             DatabaseDao<TYPE> dao) {
 
-        if(!checkIfDatabaseExists(context, legacyTable))
+        if(!checkIfDatabaseExists(context, legacyTable)) {
             return;
+        }
 
         SQLiteDatabase upgradeDb = new Astrid2UpgradeHelper(context, legacyTable,
                 null, 1).getReadableDatabase();
@@ -346,9 +353,9 @@ public class Astrid2To3UpgradeHelper {
 
             // special tweak for adding upgrade notes to tasks
             if(container.upgradeNotes != null) {
-                if(container.model.getValue(Task.NOTES).length() == 0)
+                if(container.model.getValue(Task.NOTES).length() == 0) {
                     container.model.setValue(Task.NOTES, container.upgradeNotes.toString());
-                else {
+                } else {
                     container.model.setValue(Task.NOTES,
                             container.model.getValue(Task.NOTES) + "\n\n" +
                             container.upgradeNotes);
@@ -377,8 +384,9 @@ public class Astrid2To3UpgradeHelper {
         Context context = ContextManager.getContext();
 
         if(!checkIfDatabaseExists(context, tagsTable) ||
-                !checkIfDatabaseExists(context, tagTaskTable))
+                !checkIfDatabaseExists(context, tagTaskTable)) {
             return;
+        }
 
         SQLiteDatabase tagsDb = new Astrid2UpgradeHelper(context, tagsTable,
                 null, 1).getReadableDatabase();
@@ -391,8 +399,9 @@ public class Astrid2To3UpgradeHelper {
         try {
             mapCursor = tagTaskDb.rawQuery("SELECT tag, task FROM " + tagTaskTable +
                 " ORDER BY tag ASC", null);
-            if(tagCursor.getCount() == 0)
+            if(tagCursor.getCount() == 0) {
                 return;
+            }
 
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
@@ -408,8 +417,9 @@ public class Astrid2To3UpgradeHelper {
                 }
 
                 if(mapTagId == tagId) {
-                    if(tag == null)
+                    if(tag == null) {
                         tag = tagCursor.getString(1);
+                    }
                     long task = mapCursor.getLong(1);
                     metadata.setValue(Metadata.TASK, task);
                     metadata.setValue(Metadata.KEY, TaskToTagMetadata.KEY);
@@ -420,8 +430,9 @@ public class Astrid2To3UpgradeHelper {
             }
         } finally {
             tagCursor.close();
-            if(mapCursor != null)
+            if(mapCursor != null) {
                 mapCursor.close();
+            }
             tagsDb.close();
             tagTaskDb.close();
         }
@@ -433,8 +444,9 @@ public class Astrid2To3UpgradeHelper {
     private void migrateAlarmsToMetadata() {
         Context context = ContextManager.getContext();
 
-        if(!checkIfDatabaseExists(context, AlarmDatabase.NAME))
+        if(!checkIfDatabaseExists(context, AlarmDatabase.NAME)) {
             return;
+        }
 
         AlarmDatabase alarmsDatabase = new AlarmDatabase();
         DatabaseDao<TransitionalAlarm> dao = new DatabaseDao<TransitionalAlarm>(
@@ -442,8 +454,9 @@ public class Astrid2To3UpgradeHelper {
 
         TodorooCursor<TransitionalAlarm> cursor = dao.query(Query.select(TransitionalAlarm.PROPERTIES));
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
                 return;
+            }
 
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);

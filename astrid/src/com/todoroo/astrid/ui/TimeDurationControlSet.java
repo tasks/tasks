@@ -53,8 +53,9 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     }
 
     public void setTimeDuration(Integer timeDurationInSeconds) {
-        if(timeDurationInSeconds == null)
+        if(timeDurationInSeconds == null) {
             timeDurationInSeconds = 0;
+        }
 
         timeDuration = timeDurationInSeconds;
 
@@ -65,15 +66,17 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         }
 
         String prefix = "";
-        if (prefixResource != 0)
+        if (prefixResource != 0) {
             prefix = r.getString(prefixResource) + " ";
+        }
         timeButton.setText(prefix + DateUtils.formatElapsedTime(timeDuration));
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
         initialValues = new int[] { hours, minutes };
 
-        if (model != null)
+        if (model != null) {
             model.setValue(property, timeDuration);
+        }
     }
 
     /** Called when NumberPicker activity is completed */
@@ -100,8 +103,9 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
                 @Override
                 public int onChanged(NumberPicker picker, int oldVal, int newVal) {
                     if(newVal < 0) {
-                        if(hourPicker.getCurrent() == 0)
+                        if(hourPicker.getCurrent() == 0) {
                             return 0;
+                        }
                         hourPicker.setCurrent(hourPicker.getCurrent() - 1);
                         return 60 + newVal;
                     } else if(newVal > 59) {
@@ -113,8 +117,9 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
             });
         }
 
-        if(initialValues != null)
+        if(initialValues != null) {
             dialog.setInitialValues(initialValues);
+        }
 
         dialog.show();
     }

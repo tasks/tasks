@@ -63,8 +63,9 @@ public class GtasksListService {
      */
     public String getListName(String listId) {
         StoreObject list = getList(listId);
-        if(list != LIST_NOT_FOUND_OBJECT)
+        if(list != LIST_NOT_FOUND_OBJECT) {
             return list.getValue(GtasksList.NAME);
+        }
         return LIST_NOT_FOUND;
     }
 
@@ -93,8 +94,9 @@ public class GtasksListService {
         readLists();
 
         HashSet<Long> previousLists = new HashSet<Long>(lists.length);
-        for(StoreObject list : lists)
+        for(StoreObject list : lists) {
             previousLists.add(list.getId());
+        }
 
         List<TaskList> items = remoteLists.getItems();
         StoreObject[] newLists = new StoreObject[items.size()];
@@ -110,8 +112,9 @@ public class GtasksListService {
                 }
             }
 
-            if(local == null)
+            if(local == null) {
                 local = new StoreObject();
+            }
 
             local.setValue(StoreObject.TYPE, GtasksList.TYPE);
             local.setValue(GtasksList.REMOTE_ID, id);
@@ -135,7 +138,9 @@ public class GtasksListService {
         if (lists != null) {
             for (StoreObject list : lists) {
                 if (list.getValue(GtasksList.REMOTE_ID).equals(newList.getId())) //Sanity check--make sure it's actually a new list
+                {
                     return null;
+                }
             }
         }
         StoreObject local = new StoreObject();
@@ -159,9 +164,11 @@ public class GtasksListService {
 
     public StoreObject getList(String listId) {
         readLists();
-        for(StoreObject list : lists)
-            if(list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId))
+        for(StoreObject list : lists) {
+            if (list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId)) {
                 return list;
+            }
+        }
         return LIST_NOT_FOUND_OBJECT;
     }
 

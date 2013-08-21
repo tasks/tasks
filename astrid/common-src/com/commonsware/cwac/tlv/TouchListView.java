@@ -419,8 +419,9 @@ public class TouchListView extends ErrorCatchingListView {
 	private final Runnable longPressRunnable = new Runnable() {
 	    public void run() {
 	        AndroidUtilities.sleepDeep(1000L);
-	        if(Thread.currentThread().isInterrupted())
-	            return;
+	        if(Thread.currentThread().isInterrupted()) {
+                return;
+            }
 
 	        if(mDragView != null && mDragPos == mFirstDragPos &&
                     Math.abs(mDragCurrentX - mDragStartX) < 10) {
@@ -474,10 +475,11 @@ public class TouchListView extends ErrorCatchingListView {
                 if(mDragPos == mFirstDragPos &&
                         Math.abs(mDragCurrentX - mDragStartX) < 10) {
                     long pressTime = System.currentTimeMillis() - mDragStartTime;
-                    if(pressTime < 1000)
+                    if(pressTime < 1000) {
                         mClickListener.onClick(mOriginalView);
-                    else
+                    } else {
                         mClickListener.onLongClick(mOriginalView);
+                    }
                 }
             }
         }
