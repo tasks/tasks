@@ -43,7 +43,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.CommentsFragment;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.actfm.sync.SyncUpgradePrompt;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -58,7 +57,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
 import com.todoroo.astrid.people.PersonViewFragment;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -73,7 +71,6 @@ import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
@@ -541,10 +538,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false)) {
-            SyncUpgradePrompt.showSyncUpgradePrompt(this);
-        }
     }
 
     @Override

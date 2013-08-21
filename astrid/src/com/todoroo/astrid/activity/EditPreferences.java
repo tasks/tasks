@@ -67,7 +67,6 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.voice.VoiceRecognizer;
-import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -168,18 +167,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 showAbout();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.p_tutorial));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                Intent showWelcomeLogin = new Intent(EditPreferences.this, WelcomeWalkthrough.class);
-                showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
-                showWelcomeLogin.putExtra(WelcomeWalkthrough.TOKEN_MANUAL_SHOW, true);
-                startActivity(showWelcomeLogin);
                 return true;
             }
         });

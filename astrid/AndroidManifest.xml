@@ -644,11 +644,7 @@
       </intent-filter>
     </receiver>
     
-    <activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
-              android:windowSoftInputMode="stateHidden"
-              android:screenOrientation="portrait"></activity>
-    
-    <!-- Uses Library -->      
+    <!-- Uses Library -->
     <uses-library android:name="com.google.android.maps" android:required="false" />   
   
   </application>

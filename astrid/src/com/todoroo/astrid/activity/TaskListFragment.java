@@ -112,7 +112,6 @@ import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
-import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -690,17 +689,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
 
         setUpBackgroundJobs();
-
-        if (!Preferences.getBoolean(
-                WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false)) {
-            Preferences.setBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN,
-                    true);
-            Intent showWelcomeLogin = new Intent(getActivity(),
-                    WelcomeWalkthrough.class);
-            showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
-            startActivity(showWelcomeLogin);
-            return;
-        }
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             showTaskCreateHelpPopover();
