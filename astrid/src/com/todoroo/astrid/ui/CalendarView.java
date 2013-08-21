@@ -187,6 +187,7 @@ public class CalendarView extends View {
         });
 
         final OnTouchListener swipeTouchListener = new OnTouchListener() {
+            @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return swipeCalendarListener.onTouchEvent(event);
             }

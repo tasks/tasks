@@ -155,6 +155,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         gtasksPreferenceService.recordSyncStart();
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 callback.incrementProgress(50);
                 String authToken = getValidatedAuthToken();
@@ -240,6 +241,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         callback.incrementMax(100);
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 callback.incrementProgress(50);
                 try {

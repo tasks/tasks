@@ -102,6 +102,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
 
     private void getAuthToken(final Account a, final ProgressDialog pd) {
         AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
+            @Override
             public void run(final AccountManagerFuture<Bundle> future) {
                 new Thread() {
                     @Override

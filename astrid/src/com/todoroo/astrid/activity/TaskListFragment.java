@@ -1134,6 +1134,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             quickAddBar.hideKeyboard();
             getListView().postDelayed(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         if (taskAdapter != null && taskAdapter.getCount() > 0) {
@@ -1283,6 +1284,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
                 R.string.DLG_delete_this_task_question).setIcon(
                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                 android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onTaskDelete(task);
                         taskService.delete(task);

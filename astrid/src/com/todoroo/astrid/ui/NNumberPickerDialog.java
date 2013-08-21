@@ -99,6 +99,7 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
         }
     }
 
+    @Override
     public void onClick(DialogInterface dialog, int which) {
         if (mCallback != null) {
             int[] values = new int[pickers.size()];

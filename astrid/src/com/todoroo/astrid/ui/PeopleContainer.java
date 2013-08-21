@@ -105,6 +105,7 @@ public class PeopleContainer extends LinearLayout {
             removeButton.setVisibility(View.GONE);
         } else {
             removeButton.setOnClickListener(new OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     TextView lastView = getLastTextView();
                     if (lastView == textView && textView.getText().length() == 0) {

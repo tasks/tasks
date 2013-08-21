@@ -404,6 +404,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             loadMore.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
             loadMore.setBackgroundColor(Color.alpha(0));
             loadMore.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     // Perform action on click
                     commentItems += 10;

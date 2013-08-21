@@ -141,6 +141,7 @@ public class Filter extends FilterListItem {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -211,6 +212,7 @@ public class Filter extends FilterListItem {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Filter createFromParcel(Parcel source) {
             Filter item = new Filter();
             item.readFromParcel(source);
@@ -220,6 +222,7 @@ public class Filter extends FilterListItem {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Filter[] newArray(int size) {
             return new Filter[size];
         }

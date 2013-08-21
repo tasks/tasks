@@ -301,6 +301,7 @@ public abstract class CommentsFragment extends SherlockListFragment {
             footerView.setText(R.string.TEA_load_more);
             footerView.setBackgroundColor(Color.alpha(0));
             footerView.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     int historyCount = 0;
                     Cursor c = updateAdapter.getCursor();

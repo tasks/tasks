@@ -63,6 +63,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -70,6 +71,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(entryTitles);
         dest.writeStringArray(entryValues);
@@ -84,6 +86,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
         /**
          * {@inheritDoc}
          */
+        @Override
         public MultipleSelectCriterion createFromParcel(Parcel source) {
             MultipleSelectCriterion item = new MultipleSelectCriterion();
             item.entryTitles = source.createStringArray();
@@ -95,6 +98,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
         /**
          * {@inheritDoc}
          */
+        @Override
         public MultipleSelectCriterion[] newArray(int size) {
             return new MultipleSelectCriterion[size];
         }

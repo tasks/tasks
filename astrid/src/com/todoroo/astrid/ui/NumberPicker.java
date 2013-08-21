@@ -50,6 +50,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         final java.util.Formatter mFmt     = new java.util.Formatter(mBuilder);
         final Object[]            mArgs    = new Object[1];
 
+        @Override
         public String toString(int value) {
             mArgs[0] = value;
             mBuilder.delete(0, mBuilder.length());
@@ -65,6 +66,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     private final Handler  mHandler;
     private final Runnable mRunnable = new Runnable() {
+        @Override
         public void run() {
             if (mIncrement) {
                 changeCurrent(mCurrent + incrementBy, mSlideUpInAnimation, mSlideUpOutAnimation);
@@ -230,6 +232,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mSpeed = speed;
     }
 
+    @Override
     public void onClick(View v) {
 
         /*
@@ -313,6 +316,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         updateView();
     }
 
+    @Override
     public void onFocusChange(View v, boolean hasFocus) {
 
         /*
@@ -336,6 +340,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
      * We start the long click here but rely on the {@link NumberPickerButton}
      * to inform us when the long click has ended.
      */
+    @Override
     public boolean onLongClick(View v) {
 
         /*
@@ -369,6 +374,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final NumberPickerButton  mDecrementButton;
 
     class NumberPickerInputFilter implements InputFilter {
+        @Override
         public CharSequence filter(CharSequence source, int start, int end,
                 Spanned dest, int dstart, int dend) {
             if (mDisplayedValues == null) {
@@ -432,7 +438,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             }
         }
 
-		public int getInputType() {
+		@Override
+        public int getInputType() {
 			return 0;
 		}
     }

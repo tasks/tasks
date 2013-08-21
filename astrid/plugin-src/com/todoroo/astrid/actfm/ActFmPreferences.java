@@ -173,6 +173,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
             }
         } else if (r.getString(R.string.sync_SPr_forget_key).equals(preference.getKey())) {
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
                 public boolean onPreferenceClick(Preference p) {
                     DialogUtilities.okCancelDialog(ActFmPreferences.this,
                             r.getString(R.string.sync_forget_confirm), new OnClickListener() {

@@ -85,6 +85,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         addFixedItems();
     }
 
+    @Override
     public boolean didInterceptTouch(KeyEvent event) {
         int keyCode = event.getKeyCode();
         if (!suppressNextKeyEvent) {

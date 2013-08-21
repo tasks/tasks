@@ -1235,6 +1235,7 @@ public class Request {
 
         if (callbacks.size() > 0) {
             Runnable runnable = new Runnable() {
+                @Override
                 public void run() {
                     for (Pair<Callback, Response> pair : callbacks) {
                         pair.first.onCompleted(pair.second);
@@ -1673,6 +1674,7 @@ public class Request {
             }
         }
 
+        @Override
         public void writeString(String key, String value) throws IOException {
             writeContentDisposition(key, null, null);
             writeLine("%s", value);

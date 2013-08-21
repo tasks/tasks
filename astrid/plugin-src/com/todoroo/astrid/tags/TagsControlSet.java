@@ -207,6 +207,7 @@ public final class TagsControlSet extends PopupControlSet {
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 TextView lastView = getLastTextView();
                 if(lastView == textView && textView.getText().length() == 0) {

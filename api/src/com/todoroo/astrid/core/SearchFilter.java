@@ -40,6 +40,7 @@ public class SearchFilter extends FilterListItem {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -60,6 +61,7 @@ public class SearchFilter extends FilterListItem {
         /**
          * {@inheritDoc}
          */
+        @Override
         public SearchFilter createFromParcel(Parcel source) {
             SearchFilter item = new SearchFilter();
             item.readFromParcel(source);
@@ -69,6 +71,7 @@ public class SearchFilter extends FilterListItem {
         /**
          * {@inheritDoc}
          */
+        @Override
         public SearchFilter[] newArray(int size) {
             return new SearchFilter[size];
         }

@@ -80,11 +80,13 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     }
 
     /** Called when NumberPicker activity is completed */
+    @Override
     public void onNumbersPicked(int[] values) {
         setTimeDuration(values[0] * 3600 + values[1] * 60);
     }
 
     /** Called when time button is clicked */
+    @Override
     public void onClick(View v) {
         if(dialog == null) {
             dialog = new NNumberPickerDialog(activity, this,

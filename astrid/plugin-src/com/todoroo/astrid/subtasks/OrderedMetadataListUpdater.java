@@ -385,6 +385,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     public void debugPrint(Filter filter, LIST list) {
         iterateThroughList(filter, list, new OrderedListIterator() {
+            @Override
             public void processTask(long taskId, Metadata metadata) {
                 System.err.format("id %d: order %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
                         metadata.getValue(orderProperty()),

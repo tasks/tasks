@@ -15,6 +15,7 @@ import android.util.Log;
  */
 /* package */final class ExceptionHandler implements Thread.UncaughtExceptionHandler
 {
+    @Override
     public void uncaughtException(final Thread thread, final Throwable throwable)
     {
         /*

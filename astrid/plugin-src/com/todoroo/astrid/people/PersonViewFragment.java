@@ -227,6 +227,7 @@ public class PersonViewFragment extends TaskListFragment {
                     Activity activity = getActivity();
                     if (activity != null) {
                         activity.runOnUiThread(new Runnable() {
+                            @Override
                             public void run() {
                                 reloadUserData();
                                 refresh();

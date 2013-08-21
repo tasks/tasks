@@ -236,6 +236,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
         return (selection != null && selection.size() > 0) ? selection.iterator().next() : null;
     }
 
+    @Override
     public void setSettingsFromBundle(Bundle inState) {
         super.setSettingsFromBundle(inState);
         setPlacePickerSettingsFromBundle(inState);
@@ -313,6 +314,7 @@ public class PlacePickerFragment extends PickerFragment<GraphPlace> {
         }
     }
 
+    @Override
     void saveSettingsToBundle(Bundle outState) {
         super.saveSettingsToBundle(outState);
 

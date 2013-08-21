@@ -417,7 +417,8 @@ public class TouchListView extends ErrorCatchingListView {
 	}
 
 	private final Runnable longPressRunnable = new Runnable() {
-	    public void run() {
+	    @Override
+        public void run() {
 	        AndroidUtilities.sleepDeep(1000L);
 	        if(Thread.currentThread().isInterrupted()) {
                 return;
@@ -426,7 +427,8 @@ public class TouchListView extends ErrorCatchingListView {
 	        if(mDragView != null && mDragPos == mFirstDragPos &&
                     Math.abs(mDragCurrentX - mDragStartX) < 10) {
 	            post(new Runnable() {
-	                public void run() {
+	                @Override
+                    public void run() {
 	                    stopDragging(null);
 	                    mClickListener.onLongClick(mOriginalView);
 	                    invalidate();

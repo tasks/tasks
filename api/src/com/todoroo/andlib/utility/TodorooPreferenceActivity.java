@@ -82,6 +82,7 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
 
             if (preference.getOnPreferenceChangeListener() == null) {
                 preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
                     public boolean onPreferenceChange(Preference myPreference, Object newValue) {
                         updatePreferences(myPreference, newValue);
                         return true;

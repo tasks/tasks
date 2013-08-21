@@ -58,6 +58,7 @@ public class Addon implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -65,6 +66,7 @@ public class Addon implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(addon);
         dest.writeString(title);
@@ -79,6 +81,7 @@ public class Addon implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Addon createFromParcel(Parcel source) {
             return new Addon(source.readString(), source.readString(),
                     source.readString(), source.readString());
@@ -87,6 +90,7 @@ public class Addon implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public Addon[] newArray(int size) {
             return new Addon[size];
         };

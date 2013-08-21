@@ -48,6 +48,7 @@ public final class IntentFilter extends FilterListItem implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -69,6 +70,7 @@ public final class IntentFilter extends FilterListItem implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public IntentFilter createFromParcel(Parcel source) {
             IntentFilter item = new IntentFilter((PendingIntent) source.readParcelable(
                     PendingIntent.class.getClassLoader()));
@@ -79,6 +81,7 @@ public final class IntentFilter extends FilterListItem implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public IntentFilter[] newArray(int size) {
             return new IntentFilter[size];
         }

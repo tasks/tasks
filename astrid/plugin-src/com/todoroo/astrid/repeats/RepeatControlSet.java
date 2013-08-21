@@ -306,6 +306,7 @@ public class RepeatControlSet extends PopupControlSet {
 
         // set up listeners
         value.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 repeatValueClick();
             }

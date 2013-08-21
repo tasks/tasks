@@ -267,6 +267,7 @@ public class VoiceInputAssistant {
         if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
             voiceButton.setVisibility(View.VISIBLE);
             voiceButton.setOnClickListener(new OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     startVoiceRecognitionActivity(fragment, prompt);
                 }

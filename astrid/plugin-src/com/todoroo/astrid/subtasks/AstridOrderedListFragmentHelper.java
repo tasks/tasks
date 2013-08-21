@@ -80,6 +80,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         return tlv;
     }
 
+    @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
@@ -112,6 +113,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
     }
 
+    @Override
     public void beforeSetUpTaskList(Filter filter) {
         updater.initialize(list, filter);
     }
@@ -188,6 +190,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
     };
 
+    @Override
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
@@ -318,6 +321,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         this.list = list;
     }
 
+    @Override
     public void onCreateTask(Task task) {
         updater.onCreateTask(list, getFilter(), task.getUuid());
         fragment.reconstructCursor();
@@ -325,6 +329,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         fragment.selectCustomId(task.getId());
     }
 
+    @Override
     public void onDeleteTask(Task task) {
         updater.onDeleteTask(list, getFilter(), task.getUuid());
         taskAdapter.notifyDataSetInvalidated();

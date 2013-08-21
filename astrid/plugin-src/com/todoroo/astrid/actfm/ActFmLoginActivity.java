@@ -407,6 +407,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
     };
 
     protected final OnClickListener signInListener = new OnClickListener() {
+        @Override
         public void onClick(View v) {
             final LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
             body.setOrientation(LinearLayout.VERTICAL);
@@ -602,6 +603,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                         constructOutstandingTables();
                     }
                     runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
                             DialogUtilities.dismissDialog(ActFmLoginActivity.this, progressDialog);
                             progressDialog = null;
@@ -612,6 +614,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                     handleError(e);
                 } finally {
                     runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
                             if (progressDialog != null) {
                                 DialogUtilities.dismissDialog(ActFmLoginActivity.this, progressDialog);
@@ -813,6 +816,7 @@ public class ActFmLoginActivity extends SherlockFragmentActivity {
                 if (!TaskListMetadata.taskIdsIsEmpty(taskIds)) {
                     Node root = AstridOrderedListUpdater.buildTreeModel(taskIds, null);
                     SubtasksHelper.remapTree(root, uuidTaskMap, new TreeRemapHelper<String>() {
+                        @Override
                         public String getKeyFromOldUuid(String uuid) {
                             return uuid; // Old uuids are the keys
                         }

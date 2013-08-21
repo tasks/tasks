@@ -1745,6 +1745,7 @@ public final class LocalyticsSession
             {
                 mProvider.runBatchTransaction(new Runnable()
                 {
+                    @Override
                     public void run()
                     {
                         preUploadBuildBlobs();
@@ -1885,6 +1886,7 @@ public final class LocalyticsSession
                             {
                                 mProvider.runBatchTransaction(new Runnable()
                                 {
+                                    @Override
                                     public void run()
                                     {
                                         deleteBlobsAndSessions(mProvider);

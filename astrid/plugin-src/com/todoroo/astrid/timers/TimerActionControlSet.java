@@ -100,6 +100,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
             if (elapsed > DateUtilities.ONE_DAY) {
                 chronometer.setOnChronometerTickListener(new OnChronometerTickListener() {
+                    @Override
                     public void onChronometerTick(Chronometer cArg) {
                         long t = SystemClock.elapsedRealtime() - cArg.getBase();
                         cArg.setText(DateFormat.format("d'd' h:mm", t)); //$NON-NLS-1$

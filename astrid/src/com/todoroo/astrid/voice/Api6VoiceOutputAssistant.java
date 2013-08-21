@@ -42,6 +42,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
         this.context = ContextManager.getContext().getApplicationContext();
     }
 
+    @Override
     public void checkIsTTSInstalled() {
         if (!isTTSInitialized && context instanceof Activity) {
             Intent checkIntent = new Intent();
@@ -51,6 +52,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
         }
     }
 
+    @Override
     public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MY_DATA_CHECK_CODE) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
@@ -73,6 +75,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
         mTts = new TextToSpeech(context, (OnInitListener)this);
     }
 
+    @Override
     public void queueSpeak(String textToSpeak) {
         if (mTts != null && isTTSInitialized) {
             mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, ttsParams);
@@ -129,6 +132,7 @@ public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssi
     /**
      * Has to be called in onDestroy of the activity that uses this instance of VoiceOutputAssistant.
      */
+    @Override
     public void onDestroy() {
         if (mTts != null && isTTSInitialized) {
             mTts.shutdown();

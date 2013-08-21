@@ -185,6 +185,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
 
             // start next step in background thread
             new Thread(new Runnable() {
+                @Override
                 public void run() {
                     try {
                         initiateBackground();
@@ -274,6 +275,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                 }
                 return SENTINEL;
             }
+            @Override
             public int compare(TYPE o1, TYPE o2) {
                 int comparison = check(o1, o2, Task.DELETION_DATE);
                 if(comparison != SENTINEL) {

@@ -168,6 +168,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         // first-order preferences
         Preference preference = screen.findPreference(getString(R.string.p_about));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 showAbout();
                 return true;
@@ -430,6 +431,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         Preference preference = new Preference(this);
         preference.setTitle("Flush detail cache");
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
                 Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(Criterion.all),
@@ -442,6 +444,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         preference = new Preference(this);
         preference.setTitle("Make Lots of Tasks");
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
                 Task task = new Task();
@@ -459,6 +462,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         preference = new Preference(this);
         preference.setTitle("Delete all tasks");
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
                 taskService.deleteWhere(Criterion.all);
@@ -471,6 +475,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         preference = new Preference(this);
         preference.setTitle("Make lots of contacts");
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
             public boolean onPreferenceClick(Preference p) {
                 ContactListAdapter.makeLotsOfContacts();
                 DialogUtilities.okDialog(EditPreferences.this, "done", null);

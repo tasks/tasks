@@ -93,6 +93,7 @@ public class FilterWithCustomIntent extends Filter {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterWithCustomIntent createFromParcel(Parcel source) {
             FilterWithCustomIntent item = new FilterWithCustomIntent();
             item.readFromParcel(source);
@@ -102,6 +103,7 @@ public class FilterWithCustomIntent extends Filter {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterWithCustomIntent[] newArray(int size) {
             return new FilterWithCustomIntent[size];
         }

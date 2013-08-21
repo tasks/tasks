@@ -505,21 +505,25 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             }
         }
 
+        @Override
         public Void visitDouble(Property<Double> property, Object value) {
             store.put(property.getColumnName(), (Double) value);
             return null;
         }
 
+        @Override
         public Void visitInteger(Property<Integer> property, Object value) {
             store.put(property.getColumnName(), (Integer) value);
             return null;
         }
 
+        @Override
         public Void visitLong(Property<Long> property, Object value) {
             store.put(property.getColumnName(), (Long) value);
             return null;
         }
 
+        @Override
         public Void visitString(Property<String> property, Object value) {
             store.put(property.getColumnName(), (String) value);
             return null;
@@ -531,6 +535,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -538,6 +543,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(setValues, 0);
         dest.writeParcelable(values, 0);
@@ -566,6 +572,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public TYPE createFromParcel(Parcel source) {
             TYPE model;
             try {
@@ -583,6 +590,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public TYPE[] newArray(int size) {
             return (TYPE[]) Array.newInstance(cls, size);
         };

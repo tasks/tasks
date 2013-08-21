@@ -89,6 +89,7 @@ public class ModernAuthManager implements AuthManager {
    *        has been successfully fetched and is available via
    *        {@link #getAuthToken()}
    */
+  @Override
   @SuppressWarnings("nls")
   public void doLogin(final Runnable runnable, Object o) {
     this.whenFinished = runnable;
@@ -98,6 +99,7 @@ public class ModernAuthManager implements AuthManager {
     Account account = (Account) o;
     accountManager.getAuthToken(account, service, true,
             new AccountManagerCallback<Bundle>() {
+        @Override
         public void run(AccountManagerFuture<Bundle> future) {
           try {
             Bundle result = future.getResult();
@@ -147,6 +149,7 @@ public class ModernAuthManager implements AuthManager {
    *         the auth token, or False if there was an error or the request was
    *         canceled
    */
+  @Override
   @SuppressWarnings("nls")
   public boolean authResult(int resultCode, Intent results) {
     if (results != null) {
@@ -167,6 +170,7 @@ public class ModernAuthManager implements AuthManager {
    * @return The current auth token or null if no auth token has been
    *         fetched
    */
+  @Override
   public String getAuthToken() {
     return authToken;
   }
@@ -179,10 +183,12 @@ public class ModernAuthManager implements AuthManager {
    * @param runnable A {@link Runnable} to execute when a new auth token
    *        is successfully fetched
    */
+  @Override
   public void invalidateAndRefresh(final Runnable runnable) {
     this.whenFinished = runnable;
 
     activity.runOnUiThread(new Runnable() {
+      @Override
       public void run() {
         accountManager.invalidateAuthToken("com.google", authToken); //$NON-NLS-1$
         new AccountChooser().chooseAccount(activity,

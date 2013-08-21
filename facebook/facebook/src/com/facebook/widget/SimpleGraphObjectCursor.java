@@ -48,6 +48,7 @@ class SimpleGraphObjectCursor<T extends GraphObject> implements GraphObjectCurso
         this.fromCache |= fromCache;
     }
 
+    @Override
     public boolean isFromCache() {
         return fromCache;
     }
@@ -56,6 +57,7 @@ class SimpleGraphObjectCursor<T extends GraphObject> implements GraphObjectCurso
         this.fromCache = fromCache;
     }
 
+    @Override
     public boolean areMoreObjectsAvailable() {
         return moreObjectsAvailable;
     }

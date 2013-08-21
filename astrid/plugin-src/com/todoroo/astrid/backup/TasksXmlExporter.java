@@ -82,6 +82,7 @@ public class TasksXmlExporter {
 
     private void setProgress(final int taskNumber, final int total) {
         handler.post(new Runnable() {
+            @Override
             public void run() {
                 progressDialog.setMax(total);
                 progressDialog.setProgress(taskNumber);

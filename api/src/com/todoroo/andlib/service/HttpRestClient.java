@@ -104,6 +104,7 @@ public class HttpRestClient implements RestClient {
     @SuppressWarnings("nls")
     protected void actsAsGzippable(DefaultHttpClient client) {
         client.addRequestInterceptor(new HttpRequestInterceptor() {
+            @Override
             public void process(
                     final HttpRequest request,
                     final HttpContext context) throws HttpException, IOException {
@@ -115,6 +116,7 @@ public class HttpRestClient implements RestClient {
         });
 
         client.addResponseInterceptor(new HttpResponseInterceptor() {
+            @Override
             public void process(
                     final HttpResponse response,
                     final HttpContext context) throws HttpException, IOException {
@@ -192,6 +194,7 @@ public class HttpRestClient implements RestClient {
      * @return response, or null if there was no response
      * @throws IOException
      */
+    @Override
     public synchronized String get(String url) throws IOException {
         if(debug) {
             Log.d("http-rest-client-get", url); //$NON-NLS-1$
@@ -219,6 +222,7 @@ public class HttpRestClient implements RestClient {
      *            url-encoded data
      * @throws IOException
      */
+    @Override
     public synchronized String post(String url, HttpEntity data, Header... headers) throws IOException {
         if(debug) {
             Log.d("http-rest-client-post", url + " | " + data); //$NON-NLS-1$ //$NON-NLS-2$

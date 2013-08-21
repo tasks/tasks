@@ -604,6 +604,7 @@ public class LoginButton extends Button {
                     builder.setMessage(message)
                            .setCancelable(true)
                            .setPositiveButton(logout, new DialogInterface.OnClickListener() {
+                               @Override
                                public void onClick(DialogInterface dialog, int which) {
                                    openSession.closeAndClearTokenInformation();
                                }

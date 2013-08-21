@@ -124,6 +124,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 final GoogleAccountManager accountManager = new GoogleAccountManager(WelcomeWalkthrough.this);
                 Account a = accountManager.getAccountByName(e);
                 AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
+                    @Override
                     public void run(final AccountManagerFuture<Bundle> future) {
                         new Thread() {
                             @Override

@@ -410,6 +410,7 @@ public class TagViewFragment extends TaskListFragment {
                                             R.string.actfm_tag_not_authorized_leave_list,
                                             android.R.drawable.ic_dialog_alert,
                                             new DialogInterface.OnClickListener() {
+                                                @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     String oldUuid = tagData.getUuid();
                                                     tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());

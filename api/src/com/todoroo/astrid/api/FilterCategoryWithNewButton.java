@@ -78,6 +78,7 @@ public class FilterCategoryWithNewButton extends FilterCategory {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterCategoryWithNewButton createFromParcel(Parcel source) {
             FilterCategoryWithNewButton item = new FilterCategoryWithNewButton();
             item.readFromParcel(source);
@@ -102,6 +103,7 @@ public class FilterCategoryWithNewButton extends FilterCategory {
         /**
          * {@inheritDoc}
          */
+        @Override
         public FilterCategoryWithNewButton[] newArray(int size) {
             return new FilterCategoryWithNewButton[size];
         }

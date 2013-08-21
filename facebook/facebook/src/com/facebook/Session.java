@@ -1171,9 +1171,11 @@ public class Session implements Serializable {
             // Otherwise these callbacks could have been added to the queue before the SessionTracker
             // gets the ACTIVE_SESSION_SET action.
             Runnable runCallbacks = new Runnable() {
+                @Override
                 public void run() {
                     for (final StatusCallback callback : callbacks) {
                         Runnable closure = new Runnable() {
+                            @Override
                             public void run() {
                                 // This can be called inside a synchronized block.
                                 callback.call(Session.this, newState, exception);
@@ -1747,6 +1749,7 @@ public class Session implements Serializable {
          *                       notify regarding Session state changes.
          * @return the OpenRequest object to allow for chaining
          */
+        @Override
         public final OpenRequest setCallback(StatusCallback statusCallback) {
             super.setCallback(statusCallback);
             return this;
@@ -1760,6 +1763,7 @@ public class Session implements Serializable {
          *                      authorization.
          * @return the OpenRequest object to allow for chaining
          */
+        @Override
         public final OpenRequest setLoginBehavior(SessionLoginBehavior loginBehavior) {
             super.setLoginBehavior(loginBehavior);
             return this;
@@ -1774,6 +1778,7 @@ public class Session implements Serializable {
          *                    passed in, then a default value will be used.
          * @return the OpenRequest object to allow for chaining
          */
+        @Override
         public final OpenRequest setRequestCode(int requestCode) {
             super.setRequestCode(requestCode);
             return this;
@@ -1787,6 +1792,7 @@ public class Session implements Serializable {
          *                    represents basic permissions.
          * @return the OpenRequest object to allow for chaining
          */
+        @Override
         public final OpenRequest setPermissions(List<String> permissions) {
             super.setPermissions(permissions);
             return this;
@@ -1800,6 +1806,7 @@ public class Session implements Serializable {
          * @param defaultAudience A SessionDefaultAudience representing the default audience setting to request.
          * @return the OpenRequest object to allow for chaining
          */
+        @Override
         public final OpenRequest setDefaultAudience(SessionDefaultAudience defaultAudience) {
             super.setDefaultAudience(defaultAudience);
             return this;
@@ -1841,6 +1848,7 @@ public class Session implements Serializable {
          *                       notify regarding Session state changes.
          * @return the NewPermissionsRequest object to allow for chaining
          */
+        @Override
         public final NewPermissionsRequest setCallback(StatusCallback statusCallback) {
             super.setCallback(statusCallback);
             return this;
@@ -1854,6 +1862,7 @@ public class Session implements Serializable {
          *                      authorization.
          * @return the NewPermissionsRequest object to allow for chaining
          */
+        @Override
         public final NewPermissionsRequest setLoginBehavior(SessionLoginBehavior loginBehavior) {
             super.setLoginBehavior(loginBehavior);
             return this;
@@ -1868,6 +1877,7 @@ public class Session implements Serializable {
          *                    passed in, then a default value will be used.
          * @return the NewPermissionsRequest object to allow for chaining
          */
+        @Override
         public final NewPermissionsRequest setRequestCode(int requestCode) {
             super.setRequestCode(requestCode);
             return this;
@@ -1879,6 +1889,7 @@ public class Session implements Serializable {
          * @param defaultAudience A SessionDefaultAudience representing the default audience setting to request.
          * @return the NewPermissionsRequest object to allow for chaining
          */
+        @Override
         public final NewPermissionsRequest setDefaultAudience(SessionDefaultAudience defaultAudience) {
             super.setDefaultAudience(defaultAudience);
             return this;

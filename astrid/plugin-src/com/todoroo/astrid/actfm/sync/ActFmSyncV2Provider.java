@@ -97,6 +97,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             final SyncResultCallback callback) {
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
 
                 updateUserStatus();

@@ -66,6 +66,7 @@ public final class Settings {
     private static final ThreadFactory DEFAULT_THREAD_FACTORY = new ThreadFactory() {
         private final AtomicInteger counter = new AtomicInteger(0);
 
+        @Override
         public Thread newThread(Runnable runnable) {
             return new Thread(runnable, "FacebookSdk #" + counter.incrementAndGet());
         }

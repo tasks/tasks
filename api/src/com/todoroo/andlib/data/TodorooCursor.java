@@ -98,6 +98,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      */
     public static class CursorReadingVisitor implements PropertyVisitor<Object, TodorooCursor<?>> {
 
+        @Override
         public Object visitDouble(Property<Double> property,
                 TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
@@ -107,6 +108,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
             return cursor.getDouble(column);
         }
 
+        @Override
         public Object visitInteger(Property<Integer> property,
                 TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
@@ -116,6 +118,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
             return cursor.getInt(column);
         }
 
+        @Override
         public Object visitLong(Property<Long> property, TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);
             if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
@@ -124,6 +127,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
             return cursor.getLong(column);
         }
 
+        @Override
         public Object visitString(Property<String> property,
                 TodorooCursor<?> cursor) {
             int column = columnIndex(property, cursor);

@@ -231,6 +231,7 @@ public class StartupService {
 
         // perform startup activities in a background thread
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);

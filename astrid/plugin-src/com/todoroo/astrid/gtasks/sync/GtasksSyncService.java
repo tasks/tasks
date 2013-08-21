@@ -104,6 +104,7 @@ public final class GtasksSyncService {
         new OperationPushThread(operationQueue).start();
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
+            @Override
             public void onModelUpdated(final Task model, boolean outstandingEntries) {
                 if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
                     return;

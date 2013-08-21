@@ -73,6 +73,7 @@ public class SyncAction implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -80,6 +81,7 @@ public class SyncAction implements Parcelable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(label);
         dest.writeParcelable(intent, 0);
@@ -92,6 +94,7 @@ public class SyncAction implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public SyncAction createFromParcel(Parcel source) {
             return new SyncAction(source.readString(), (PendingIntent)source.readParcelable(
                     PendingIntent.class.getClassLoader()));
@@ -100,6 +103,7 @@ public class SyncAction implements Parcelable {
         /**
          * {@inheritDoc}
          */
+        @Override
         public SyncAction[] newArray(int size) {
             return new SyncAction[size];
         };

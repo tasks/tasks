@@ -143,6 +143,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
 
     }
 
+    @Override
     public void onClick(DialogInterface dialog, int which) {
         if (mCallback != null) {
             mTimePicker.clearFocus();
@@ -153,6 +154,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
         }
     }
 
+    @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         updateTitle();
     }
