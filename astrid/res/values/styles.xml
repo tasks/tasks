@@ -25,8 +25,6 @@
         <item name="asListDividerColor">#555555</item>
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
-        <item name="asCommentButtonImg">@drawable/comment_blue</item>
-        <item name="asFilledCommentButtonImg">@drawable/comment_blue_filled</item>
         <item name="asEditTextBackground">@null</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
@@ -103,8 +101,6 @@
         <item name="asListDividerColor">#dddddd</item>
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
-        <item name="asCommentButtonImg">@drawable/comment_red</item>
-        <item name="asFilledCommentButtonImg">@drawable/comment_red_filled</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asWomEditRowBackground">@drawable/wom_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
@@ -139,8 +135,6 @@
     <style name="Theme.White.Blue">
         <item name="asAddButtonImg">@drawable/plus_button_dark_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_dark_blue</item>
-        <item name="asCommentButtonImg">@drawable/comment_dark_blue</item>
-        <item name="asFilledCommentButtonImg">@drawable/comment_dark_blue_filled</item>
         <item name="asMainMenu">@drawable/menu_button_dark_blue</item>
         <item name="asPeopleMenu">@drawable/people_menu_button_dark_blue</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
@@ -165,8 +159,6 @@
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asPeopleMenu">@drawable/people_menu_button_blue</item>
-        <item name="asCommentButtonImg">@drawable/comment_blue_alt</item>
-        <item name="asFilledCommentButtonImg">@drawable/comment_blue_filled_alt</item>
         <item name="asMainMenu">@drawable/menu_button_blue_alt</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue_alt</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_alt</item>

@@ -35,8 +35,6 @@
   <attr name="asListsDisclosure" format="reference"/>
   <attr name="asAddButtonImg" format="reference" />
   <attr name="asMicButtonImg" format="reference" />
-  <attr name="asCommentButtonImg" format="reference" />
-  <attr name="asFilledCommentButtonImg" format="reference" />
   <attr name="asMainMenu" format="reference" />
   <attr name="asPeopleMenu" format="reference" />
   <attr name="asAbBackgroundColor" format="color"/>

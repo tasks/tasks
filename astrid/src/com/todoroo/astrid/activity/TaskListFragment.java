@@ -779,9 +779,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     // Subclasses should override this
     public void requestCommentCountUpdate() {
         TaskListActivity activity = (TaskListActivity) getActivity();
-        if (activity != null) {
-            activity.setCommentsCount(0);
-        }
     }
 
     @Override

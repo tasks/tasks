@@ -275,7 +275,6 @@ public class TagViewFragment extends TaskListFragment {
 
         if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
             extras.remove(TOKEN_START_ACTIVITY);
-            activity.showComments();
         }
     }
 
@@ -298,31 +297,10 @@ public class TagViewFragment extends TaskListFragment {
             tagData.setValue(TagData.TASK_COUNT, count);
             tagDataService.save(tagData);
         }
-
-        updateCommentCount();
     }
 
     @Override
     public void requestCommentCountUpdate() {
-        updateCommentCount();
-    }
-
-    private void updateCommentCount() {
-        if (tagData != null) {
-            long lastViewedComments = Preferences.getLong(CommentsFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), 0);
-            int unreadCount = 0;
-            TodorooCursor<UserActivity> commentCursor = tagDataService.getUserActivityWithExtraCriteria(tagData, UserActivity.CREATED_AT.gt(lastViewedComments));
-            try {
-                unreadCount = commentCursor.getCount();
-            } finally {
-                commentCursor.close();
-            }
-
-            TaskListActivity tla = (TaskListActivity) getActivity();
-            if (tla != null) {
-                tla.setCommentsCount(unreadCount);
-            }
-        }
     }
 
     // --------------------------------------------------------- refresh data
@@ -735,8 +713,6 @@ public class TagViewFragment extends TaskListFragment {
 
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
-
-        updateCommentCount();
     }
 
     @Override

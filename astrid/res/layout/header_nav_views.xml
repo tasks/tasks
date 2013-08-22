@@ -67,13 +67,5 @@
         style="@style/TextAppearance.ActionBar_ListsHeader"
         android:textSize="16sp"
         android:visibility="gone"/>
-    
-	<Button 
-	    android:id="@+id/comments"
-	    android:layout_width="51dip"
-	    android:layout_height="fill_parent"
-	    android:background="?attr/asCommentButtonImg"
-	    android:textColor="?attr/asTextColorInverse"
-	    android:paddingBottom="6dip"/>
 
 </LinearLayout>

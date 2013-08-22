@@ -183,11 +183,6 @@ public class TagCommentsFragment extends CommentsFragment {
         if(tagData != null && RemoteModel.isValidUuid(tagData.getValue(TagData.UUID))) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
             Activity activity = getActivity();
-            if (activity instanceof TaskListActivity) {
-                ((TaskListActivity) activity).setCommentsCount(0);
-            }
         }
     }
-
-
 }

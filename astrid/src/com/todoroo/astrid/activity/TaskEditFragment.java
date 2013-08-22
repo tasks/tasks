@@ -266,8 +266,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private boolean showEditComments;
 
-    private int commentIcon = R.drawable.comment_dark_blue;
-
     private int tabStyle = 0;
 
     private boolean moreSectionHasControls;
@@ -313,10 +311,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         showEditComments = Preferences.getBoolean(R.string.p_show_task_edit_comments, true);
 
-        TypedValue tv = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.asCommentButtonImg, tv, false);
-        commentIcon = tv.data;
-
         getActivity().setResult(Activity.RESULT_OK);
     }
 
@@ -353,10 +347,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 overrideFinishAnim = activity.getIntent().getBooleanExtra(
                         OVERRIDE_FINISH_ANIM, true);
             }
-        }
-
-        if (activity instanceof TaskListActivity) {
-            ((TaskListActivity) activity).setCommentsButtonVisibility(false);
         }
     }
 
@@ -1059,7 +1049,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     && model != null && model.isSaved()) {
                 taskService.delete(model);
             }
-            ((TaskListActivity) activity).setCommentsButtonVisibility(true);
         }
     }
 
@@ -1325,7 +1314,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             item.setIcon(R.drawable.icn_menu_refresh_dark);
         } else if (wouldShowComments && !showEditComments) {
             item = menu.add(Menu.NONE, MENU_SHOW_COMMENTS_ID, Menu.NONE, R.string.TEA_menu_comments);
-            item.setIcon(commentIcon);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
     }
