@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Astrid Emulator" type="AndroidRunConfigurationType" factoryName="Android Application">
+  <configuration default="false" name="Astrid USB" type="AndroidRunConfigurationType" factoryName="Android Application">
     <module name="astrid" />
     <option name="ACTIVITY_CLASS" value="" />
     <option name="MODE" value="default_activity" />
     <option name="DEPLOY" value="true" />
-    <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-    <option name="PREFERRED_AVD" value="N4" />
+    <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+    <option name="PREFERRED_AVD" value="" />
     <option name="USE_COMMAND_LINE" value="true" />
     <option name="COMMAND_LINE" value="" />
     <option name="WIPE_USER_DATA" value="false" />

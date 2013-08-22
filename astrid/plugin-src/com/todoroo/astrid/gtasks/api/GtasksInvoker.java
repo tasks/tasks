@@ -39,7 +39,7 @@ public class GtasksInvoker {
 
     @Autowired ExceptionService exceptionService;
 
-    private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; // non-production API key
+    private static final String API_KEY = "AIzaSyBXGYNWNQcfse4JS5gI9teTSKMzinWzL2M"; // non-production API key
 
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 

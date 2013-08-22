@@ -41,12 +41,7 @@ public class AddOnService {
 
     /** Checks whether power pack should be enabled */
     public boolean hasPowerPack() {
-        if (Preferences.getBoolean(PREF_OEM, false)) {
-            return true;
-        } else if(isInstalled(POWER_PACK_PACKAGE, true)) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     /** Checks whether locale plugin should be enabled */
