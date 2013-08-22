@@ -355,9 +355,6 @@
   <!-- whether custom filters are enabled -->
   <string name="p_use_filters">p_use_filters</string>
 
-  <!-- whether list members header should be shown -->
-  <string name="p_show_list_members">p_show_list_members</string>
-  
   <string-array name="EPr_default_addtocalendar_values">
     <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
     <item>-1</item>

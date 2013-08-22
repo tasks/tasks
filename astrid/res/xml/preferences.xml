@@ -152,11 +152,6 @@
 	            android:defaultValue="false"/>
 	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	            android:key="@string/p_show_list_members"
-	            android:title="@string/EPr_show_list_members_title"
-	            android:defaultValue="true"/>
-	        
-	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	            android:key="@string/p_voiceInputEnabled"
 	            android:title="@string/EPr_voiceInputEnabled_title"
 	            android:defaultValue="true" />
