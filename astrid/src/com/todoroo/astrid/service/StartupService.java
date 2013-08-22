@@ -255,8 +255,6 @@ public class StartupService {
 //                    new UpdateMessageService(context).processUpdates();
                 }
 
-                new PremiumUnlockService().checkForPremium();
-
                 checkForSubtasksUse();
                 checkForSwipeListsUse();
                 checkForVoiceRemindersUse();

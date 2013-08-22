@@ -14,7 +14,6 @@ import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.service.PremiumUnlockService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
 
