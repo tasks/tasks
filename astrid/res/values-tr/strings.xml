@@ -226,7 +226,7 @@
   <string name="actfm_ALA_title">Astrid.com \'a Hoşgeldiniz!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle görev paylaşımı yapmanızı sağlar.</string>
+  <string name="actfm_ALA_body">görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle görev paylaşımı yapmanızı sağlar.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
   <string name="actfm_ALA_fb_login">Facebook ile bağlan</string>

@@ -155,7 +155,7 @@
   <string name="Sync_now_label">Zsynchronizuj</string>  
 
   <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Zadania Google, zapisane dane, lokalna kopia zapasowa</string>  
+  <string name="SyP_summary">Zadania Google, zapisane dane, lokalna kopia zapasowa</string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem!</string>

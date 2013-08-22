@@ -155,7 +155,7 @@
   <string name="Sync_now_label">Sync now</string>  
 
   <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Attività Google, dati salvati, backup locale </string>  
+  <string name="SyP_summary">Attività Google, dati salvati, backup locale </string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">Errore di Connessione! Controlla la tua connessione Internet.</string>

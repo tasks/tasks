@@ -33,11 +33,5 @@
             android:title="@string/backup_BAc_label" 
             android:textSize="24sp"
             android:gravity="center"/>
-    
-    <com.todoroo.astrid.ui.MultilinePreference
-        android:key="@string/backup_BAc_cloud"
-        android:title="@string/backup_BAc_cloud"
-        android:textSize="24sp"
-        android:gravity="center" />
-            
-</PreferenceScreen>  
+
+</PreferenceScreen>

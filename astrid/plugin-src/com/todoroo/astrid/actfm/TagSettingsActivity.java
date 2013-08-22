@@ -348,27 +348,8 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 tagDataService.save(tagData);
             }
 
-            DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface d, int which) {
-                    startActivityForResult(new Intent(TagSettingsActivity.this, ActFmLoginActivity.class),
-                            REQUEST_ACTFM_LOGIN);
-                }
-            };
-
-            DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface d, int which) {
-
-                    tagMembers.removeAllViews();
-                    tagMembers.addPerson("", "", false); //$NON-NLS-1$
-                }
-            };
-            DialogUtilities.okCancelCustomDialog(TagSettingsActivity.this, getString(R.string.actfm_EPA_login_button),
-                    getString(R.string.actfm_TVA_login_to_share), R.string.actfm_EPA_login_button,
-                    R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
-                    okListener, cancelListener);
-
+            tagMembers.removeAllViews();
+            tagMembers.addPerson("", "", false); //$NON-NLS-1$
             return;
 
         }

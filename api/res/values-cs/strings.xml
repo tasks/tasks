@@ -72,7 +72,7 @@
   <string name="SyP_progress">Probíhá synchronizace Vašich úkolů...</string>
   <string name="SyP_progress_toast">Sychronizuji...</string>
   <string name="SyP_label">Synchronizace</string>
-  <string name="SyP_summary">Astrid.com, Google Tasks, uložená data, lokální záloha</string>
+  <string name="SyP_summary">Google Tasks, uložená data, lokální záloha</string>
   <string name="SyP_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
   <string name="sync_SPr_group_status">Stav</string>
   <string name="sync_SPr_status_subtitle">Stav: %s</string>

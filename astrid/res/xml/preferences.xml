@@ -8,22 +8,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_title">
 
-    <PreferenceScreen android:title="@string/EPr_account_title" 
-        android:key="@string/p_account"
-        android:summary="@string/actfm_account_info_summary"/>
-    
-    <PreferenceScreen android:title="@string/p_help" android:summary="@string/EPr_support_summary">
-	    <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />
-	    <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
-	    <PreferenceScreen android:title="@string/EPr_faq_title" android:key="@string/p_help"/>
-    </PreferenceScreen>
-    
-    <PreferenceScreen android:title="@string/EPr_share_astrid"
-        android:key="@string/EPr_share_astrid"
-        android:summary="@string/EPr_share_astrid_summary"/>
-    
-    <PreferenceCategory android:title="@string/EPr_title"/>
-    
     <PreferenceScreen
         android:title="@string/EPr_appearance_header"
         android:summary="@string/EPr_appearance_summary">

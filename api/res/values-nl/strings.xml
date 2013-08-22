@@ -155,7 +155,7 @@
   <string name="Sync_now_label">Nu synchroniseren</string>  
 
   <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, Google Taken, opgeslagen data, lokale back-up</string>  
+  <string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>

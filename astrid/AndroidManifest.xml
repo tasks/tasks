@@ -358,30 +358,10 @@
     </receiver>    
             
     <!-- actfm -->
-    <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity"
-              android:configChanges="keyboardHidden"/>
-    <activity android:name="com.facebook.LoginActivity" />
-    <activity android:name="com.todoroo.astrid.actfm.ActFmPreferences"
-              android:theme="@android:style/Theme"
-              android:label="@string/actfm_APr_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <meta-data android:name="syncAction"
-                 android:value="true" />
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <activity android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity" 
+      <activity android:name="com.facebook.LoginActivity" />
+      <activity android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity"
               android:theme="@style/Theme" android:configChanges="orientation|keyboardHidden"/>
-    <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.actfm.SYNC" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </service>
-    <activity android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
+      <activity android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
               android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
         <intent-filter>

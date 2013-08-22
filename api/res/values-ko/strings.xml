@@ -155,7 +155,7 @@
   <string name="Sync_now_label">지금 동기화하기</string>  
 
   <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com, 구글 일정, 저장한 자료, 로컬 백업</string>  
+  <string name="SyP_summary">구글 일정, 저장한 자료, 로컬 백업</string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>

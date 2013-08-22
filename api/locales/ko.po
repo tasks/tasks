@@ -248,8 +248,8 @@ msgstr "동기화 & 백업"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr "Astrid.com, 구글 일정, 저장한 자료, 로컬 백업"
+msgid "Google Tasks, saved data, local backup"
+msgstr "구글 일정, 저장한 자료, 로컬 백업"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"

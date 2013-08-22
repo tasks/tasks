@@ -29,7 +29,6 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncThread;
-import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.actfm.sync.messages.BriefMe;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -121,11 +120,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onMessage(Context context, Intent intent) {
         if (actFmPreferenceService.isLoggedIn()) {
             if(intent.hasExtra("web_update")) {
-                if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing()) {
-                    new ActFmSyncV2Provider().synchronizeActiveTasks(false, refreshOnlyCallback);
-                } else {
-                    handleWebUpdate(intent);
-                }
+                handleWebUpdate(intent);
             } else {
                 handleMessage(intent);
             }

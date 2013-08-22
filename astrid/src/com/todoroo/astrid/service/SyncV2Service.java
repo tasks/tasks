@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.sync.SyncResultCallback;
@@ -30,8 +29,7 @@ public class SyncV2Service {
      * for responding to sync requests through this new API.
      */
     private static final SyncV2Provider[] providers = new SyncV2Provider[] {
-            GtasksSyncV2Provider.getInstance(),
-            new ActFmSyncV2Provider(),
+            GtasksSyncV2Provider.getInstance()
     };
 
     /**

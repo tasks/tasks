@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 
 /**
@@ -74,14 +73,6 @@ public class BackupPreferences extends TodorooPreferenceActivity {
             public boolean onPreferenceClick(Preference preference) {
                 Intent intent = new Intent(BackupPreferences.this, BackupActivity.class);
                 startActivity(intent);
-                return false;
-            }
-        });
-
-        findPreference(getString(R.string.backup_BAc_cloud)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                initiateCloudBackup();
                 return false;
             }
         });
@@ -152,15 +143,4 @@ public class BackupPreferences extends TodorooPreferenceActivity {
         }
 
     }
-
-    private void initiateCloudBackup() {
-        if (actFmPreferenceService.isLoggedIn()) {
-            DialogUtilities.okDialog(this, getString(R.string.DLG_information_title), 0,
-                    getString(R.string.backup_BPr_cloud_already_logged_in), null);
-        } else {
-            Intent intent = new Intent(this, ActFmLoginActivity.class);
-            startActivity(intent);
-        }
-    }
-
 }

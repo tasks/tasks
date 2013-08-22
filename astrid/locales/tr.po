@@ -350,7 +350,7 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
-"Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle "
+"görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle "
 "görev paylaşımı yapmanızı sağlar."
 
 #. share login: Sharing Login FB Prompt

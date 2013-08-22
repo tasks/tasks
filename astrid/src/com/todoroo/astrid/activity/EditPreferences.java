@@ -15,21 +15,17 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -40,12 +36,9 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarStartupReceiver;
@@ -57,7 +50,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
-import com.todoroo.astrid.ui.ContactListAdapter;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.AstridDefaultPreferenceSpec;
 import com.todoroo.astrid.utility.AstridLitePreferenceSpec;
@@ -77,9 +69,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  */
 public class EditPreferences extends TodorooPreferenceActivity {
 
-    private static final String SUPPORT_URL = "http://astrid.helpshift.com/a/astrid/?p=android"; //$NON-NLS-1$
-
-    private static final int APPEARANCE_PREFERENCE = 4;
+    private static final int APPEARANCE_PREFERENCE = 0;
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;
@@ -162,41 +152,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         final Resources r = getResources();
 
         // first-order preferences
-        Preference preference = screen.findPreference(getString(R.string.p_about));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showAbout();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.p_help));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showSupport();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.p_account));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showAccountPrefs();
-                return true;
-            }
-        });
-
-        preference = screen.findPreference(getString(R.string.EPr_share_astrid));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showShareActivity();
-                return true;
-            }
-        });
 
         Preference beastMode = findPreference(getString(R.string.p_beastMode));
         beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -207,7 +162,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        preference = screen.findPreference(getString(R.string.p_files_dir));
+        Preference preference = screen.findPreference(getString(R.string.p_files_dir));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
@@ -217,8 +172,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 return true;
             }
         });
-
-        addDebugPreferences();
 
         addPreferenceListeners();
 
@@ -274,41 +227,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
         findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
     }
 
-    /** Show about dialog */
-    private void showAbout () {
-        String version = "unknown"; //$NON-NLS-1$
-        try {
-            version = getPackageManager().getPackageInfo(Constants.PACKAGE, 0).versionName;
-        } catch (NameNotFoundException e) {
-            // sadness
-        }
-        About.showAbout(this, version);
-    }
-
-    private void showSupport() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(SUPPORT_URL));
-        startActivity(intent);
-    }
-
     private void showBeastMode() {
         Intent intent = new Intent(this, BeastModePreferences.class);
         intent.setAction(AstridApiConstants.ACTION_SETTINGS);
-        startActivity(intent);
-    }
-
-    private void showAccountPrefs() {
-        if (actFmPreferenceService.isLoggedIn()) {
-            Intent intent = new Intent(this, ActFmPreferences.class);
-            intent.setAction(AstridApiConstants.ACTION_SETTINGS);
-            startActivityForResult(intent, REQUEST_CODE_SYNC);
-        } else {
-            Intent intent = new Intent(this, ActFmLoginActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    private void showShareActivity() {
-        Intent intent = new Intent(this, ShareActivity.class);
         startActivity(intent);
     }
 
@@ -401,90 +322,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
         }
     }
 
-    @SuppressWarnings("nls")
-    private void addDebugPreferences() {
-        if(!Constants.DEBUG) {
-            return;
-        }
-
-        PreferenceCategory group = new PreferenceCategory(this);
-        group.setTitle("DEBUG");
-        getPreferenceScreen().addPreference(group);
-
-        Preference preference = new Preference(this);
-        preference.setTitle("Flush detail cache");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                database.openForWriting();
-                Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(Criterion.all),
-                        Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
-        group.addPreference(preference);
-
-        preference = new Preference(this);
-        preference.setTitle("Make Lots of Tasks");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                database.openForWriting();
-                Task task = new Task();
-                for(int i = 0; i < 100; i++) {
-                    task.clear();
-                    task.setValue(Task.TITLE, Integer.toString(i));
-                    taskService.save(task);
-                }
-                DialogUtilities.okDialog(EditPreferences.this, "done", null);
-                return false;
-            }
-        });
-        group.addPreference(preference);
-
-        preference = new Preference(this);
-        preference.setTitle("Delete all tasks");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                database.openForWriting();
-                taskService.deleteWhere(Criterion.all);
-                DialogUtilities.okDialog(EditPreferences.this, "done", null);
-                return false;
-            }
-        });
-        group.addPreference(preference);
-
-        preference = new Preference(this);
-        preference.setTitle("Make lots of contacts");
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                ContactListAdapter.makeLotsOfContacts();
-                DialogUtilities.okDialog(EditPreferences.this, "done", null);
-                return false;
-            }
-        });
-        group.addPreference(preference);
-    }
-
     @Override
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-        if (r.getString(R.string.p_account).equals(preference.getKey())) {
-            int title;
-            int summary;
-            if (!actFmPreferenceService.isLoggedIn()) {
-                title = R.string.account_type_title_not_logged_in;
-                summary = R.string.account_type_summary_not_logged_in;
-            } else {
-                title = R.string.actfm_account_info;
-                summary = R.string.actfm_account_info_summary;
-            }
-            preference.setTitle(title);
-            preference.setSummary(summary);
-        } else if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {
+        if (r.getString(R.string.p_taskRowStyle_v2).equals(preference.getKey())) {
             try {
                 Integer valueInt = Integer.parseInt((String) value);
                 String[] titles = getResources().getStringArray(R.array.EPr_task_row_styles);
@@ -510,32 +352,34 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         e.printStackTrace();
                     }
                     return super.onPreferenceChange(p, newValue);
-                };
+                }
+
+                ;
             });
 
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value) {
+            if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
             } else {
                 preference.setSummary(R.string.EPr_showNotes_desc_enabled);
             }
-            if((Boolean)value != Preferences.getBoolean(preference.getKey(), false)) {
+            if ((Boolean) value != Preferences.getBoolean(preference.getKey(), false)) {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
-        } else if(r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
+        } else if (r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
             if (value != null && (Boolean) value) {
                 preference.setSummary(R.string.EPr_fullTask_desc_enabled);
             } else {
                 preference.setSummary(R.string.EPr_fullTask_desc_disabled);
             }
         } else if (r.getString(R.string.p_theme).equals(preference.getKey())) {
-            if(AndroidUtilities.getSdkVersion() < 5) {
+            if (AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
                 int index = 0;
-                if(value instanceof String && !TextUtils.isEmpty((String)value)) {
+                if (value instanceof String && !TextUtils.isEmpty((String) value)) {
                     index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String) value);
                 }
                 if (index < 0) {
@@ -545,12 +389,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
         } else if (r.getString(R.string.p_theme_widget).equals(preference.getKey())) {
-            if(AndroidUtilities.getSdkVersion() < 5) {
+            if (AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
                 int index = 0;
-                if(value instanceof String && !TextUtils.isEmpty((String)value)) {
+                if (value instanceof String && !TextUtils.isEmpty((String) value)) {
                     index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String) value);
                 }
                 if (index < 0) {
@@ -570,16 +414,16 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
             preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
         } else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
-                    R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
+                R.string.MCA_missed_calls_pref_desc_disabled, R.string.MCA_missed_calls_pref_desc_enabled)) {
             ;
         } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
-                    R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
+                R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
             ;
         } else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
-                    R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled)) {
+                R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled)) {
             ;
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
-                    R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
+                R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
             ;
         } else if (r.getString(R.string.p_swipe_lists_enabled).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
@@ -590,31 +434,29 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return super.onPreferenceChange(p, newValue);
                 }
             });
-        }
-        else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
-             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
-                 @Override
+        } else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
+                @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
                     Preference swipe = findPreference(getString(R.string.p_swipe_lists_enabled));
                     swipe.setEnabled((Boolean) newValue);
                     return super.onPreferenceChange(p, newValue);
                 }
-             });
-        }
-        else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value) {
+            });
+        } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+            if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
             } else {
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
             }
-            onVoiceInputStatusChanged(preference, (Boolean)value);
+            onVoiceInputStatusChanged(preference, (Boolean) value);
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value) {
+            if (value != null && !(Boolean) value) {
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
             } else {
                 preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
             }
-            onVoiceReminderStatusChanged(preference, (Boolean)value);
+            onVoiceReminderStatusChanged(preference, (Boolean) value);
         }
     }
 
@@ -772,25 +614,4 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         }
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
 }

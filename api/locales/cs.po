@@ -248,8 +248,8 @@ msgstr "Synchronizace"
 
 #. Sync label subtitle
 msgctxt "SyP_summary"
-msgid "Astrid.com, Google Tasks, saved data, local backup"
-msgstr "Astrid.com, Google Tasks, uložená data, lokální záloha"
+msgid "Google Tasks, saved data, local backup"
+msgstr "Google Tasks, uložená data, lokální záloha"
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"

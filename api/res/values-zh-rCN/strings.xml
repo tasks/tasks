@@ -155,7 +155,7 @@
   <string name="Sync_now_label">Sync now</string>  
 
   <!-- Sync label subtitle -->
-  <string name="SyP_summary">Astrid.com，谷歌任务，已存数据，本地备份</string>  
+  <string name="SyP_summary">谷歌任务，已存数据，本地备份</string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">连接错误！请检查您的因特网连接。</string>
