@@ -252,7 +252,7 @@ public class StartupService {
 
                 // get and display update messages
                 if (finalLatestVersion != 0) {
-                    new UpdateMessageService(context).processUpdates();
+//                    new UpdateMessageService(context).processUpdates();
                 }
 
                 new PremiumUnlockService().checkForPremium();

@@ -691,7 +691,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
         initiateAutomaticSync();
 
-        showFeedbackPrompt();
+//        showFeedbackPrompt();
     }
 
     private void showFeedbackPrompt() {
