@@ -408,7 +408,6 @@
   <string name="about_translators"></string>
   
   <string-array name="TEA_control_sets_beast">
-      <item >@string/TEA_control_who</item>
       <item >@string/TEA_control_when</item>
       <item >@string/TEA_control_importance</item>
       <item >@string/TEA_control_lists</item>
@@ -421,7 +420,6 @@
   </string-array>
   
   <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
-  <string name="TEA_ctrl_who_pref">TEA_ctrl_who_pref</string>
   <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
   <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
   <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
@@ -434,7 +432,6 @@
   <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string> <!-- Deprecated -->
       
   <string-array name="TEA_control_sets_prefs">
-      <item>@string/TEA_ctrl_who_pref</item>
       <item>@string/TEA_ctrl_when_pref</item>
       <item>@string/TEA_ctrl_importance_pref</item>
       <item>@string/TEA_ctrl_lists_pref</item>
