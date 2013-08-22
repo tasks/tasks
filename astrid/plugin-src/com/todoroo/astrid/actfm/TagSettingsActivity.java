@@ -104,7 +104,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     @Autowired TagMetadataDao tagMetadataDao;
 
-    private PeopleContainer tagMembers;
     private AsyncImageView picture;
     private EditText tagName;
     private EditText tagDescription;
@@ -213,7 +212,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             });
         }
 
-        tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
         tagDescription = (EditText) findViewById(R.id.tag_description);
         picture = (AsyncImageView) findViewById(R.id.picture);
@@ -314,33 +312,14 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             }
         }
 
-        JSONArray members;
-        try {
-            members = tagMembers.parseSharedWithAndTags(this, true).optJSONArray("p");
-        } catch (JSONException e) {
-            exceptionService.displayAndReportError(this, "save-people", e);
-            return;
-        } catch (ParseSharedException e) {
-            if(e.view != null) {
-                e.view.setTextColor(Color.RED);
-                e.view.requestFocus();
-            }
-            DialogUtilities.okDialog(this, e.message, null);
-            return;
-        }
-        if (members == null) {
-            members = new JSONArray();
-        }
+        JSONArray members = new JSONArray();
 
         if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
             if(newName.length() > 0 && oldName.length() == 0) {
                 tagDataService.save(tagData);
             }
 
-            tagMembers.removeAllViews();
-            tagMembers.addPerson("", "", false); //$NON-NLS-1$
             return;
-
         }
 
         int oldMemberCount = tagData.getValue(TagData.MEMBER_COUNT);
@@ -436,7 +415,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     @SuppressWarnings("nls")
     private void updateMembers(String peopleJson, String tagUuid) {
-        tagMembers.removeAllViews();
         JSONArray people = null;
         try {
             people = new JSONArray(peopleJson);
@@ -498,25 +476,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 }
             }
 
-        }
-
-        if (people != null) {
-            try {
-                tagMembers.fromJSONArray(people);
-            } catch (JSONException e) {
-                Log.e("tag-settings", "Error parsing tag members: " + people, e);
-            }
-        }
-
-        tagMembers.addPerson("", "", false); //$NON-NLS-1$
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if(tagMembers.getChildCount() > 1) {
-            JSONArray members = tagMembers.toJSONArray();
-            outState.putString(MEMBERS_IN_PROGRESS, members.toString());
         }
     }
 

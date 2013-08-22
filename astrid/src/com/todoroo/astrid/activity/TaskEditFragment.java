@@ -227,7 +227,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private ImageButton voiceAddNoteButton;
 
-    private EditPeopleControlSet peopleControlSet = null;
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
     private TagsControlSet tagsControlSet = null;
@@ -469,17 +468,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
                 tagsControlSet);
-
-        // EditPeopleControlSet relies on the "tags" transitory created by the
-        // TagsControlSet, so we put the tags control before the people control
-
-        peopleControlSet = new EditPeopleControlSet(getActivity(), this,
-                R.layout.control_set_assigned,
-                R.layout.control_set_default_display,
-                R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN);
-        controls.add(peopleControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
-                peopleControlSet);
 
         RepeatControlSet repeatControls = new RepeatControlSet(getActivity(),
                 R.layout.control_set_repeat,
@@ -958,39 +946,21 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
-        String processedToast = addDueTimeToToast(toast.toString());
-        boolean cancelFinish = peopleControlSet != null
-        && !peopleControlSet.saveSharingSettings(processedToast) && !onPause;
+        addDueTimeToToast(toast.toString());
 
         boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
         model.putTransitory(TaskService.TRANS_EDIT_SAVE, true);
         taskService.save(model);
 
-        if (!onPause && !cancelFinish) {
+        if (!onPause) {
             boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
-            boolean isAssignedToMe = peopleControlSet.isAssignedToMe();
             boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
                     && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
-            String assignedTo = peopleControlSet.getAssignedToString();
-            String assignedEmail = ""; //$NON-NLS-1$
-            String assignedId = Task.USER_ID_IGNORE;
             if (Task.userIdIsEmail(model.getValue(Task.USER_ID))) {
-                assignedEmail = model.getValue(Task.USER_ID);
             }
 
             if (taskEditActivity) {
                 Intent data = new Intent();
-                if (!isAssignedToMe) {
-                    data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
-                    data.putExtra(TOKEN_ASSIGNED_TO_DISPLAY, assignedTo);
-                    if (!TextUtils.isEmpty(assignedEmail)) {
-                        data.putExtra(TOKEN_ASSIGNED_TO_EMAIL, assignedEmail);
-                    }
-                    if (Task.isRealUserId(assignedId)) {
-                        ;
-                    }
-                        data.putExtra(TOKEN_ASSIGNED_TO_ID, assignedId);
-                }
                 if (showRepeatAlert) {
                     data.putExtra(TOKEN_NEW_REPEATING_TASK, model);
                 }
@@ -1001,9 +971,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 // Notify task list fragment in multi-column case
                 // since the activity isn't actually finishing
                 TaskListActivity tla = (TaskListActivity) getActivity();
-                if (!isAssignedToMe) {
-                    tla.taskAssignedTo(assignedTo, assignedEmail, assignedId);
-                } else if (showRepeatAlert) {
+                if (showRepeatAlert) {
                     DateChangedAlerts.showRepeatChangedDialog(tla, model);
                 }
 
@@ -1022,11 +990,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (title.getText().length() == 0 || !peopleControlSet.hasLoadedUI()) {
-                discardButtonClick();
-            } else {
-                saveButtonClick();
-            }
+            discardButtonClick();
             return true;
         }
         return false;
@@ -1369,9 +1333,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 attachImage(bitmap);
             }
         });
-
-        // respond to sharing logoin
-        peopleControlSet.onActivityResult(requestCode, resultCode, data);
 
         super.onActivityResult(requestCode, resultCode, data);
     }
