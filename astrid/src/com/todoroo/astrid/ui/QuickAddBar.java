@@ -334,7 +334,6 @@ public class QuickAddBar extends LinearLayout {
             addToCalendar(task, title);
 
             if(!TextUtils.isEmpty(title)) {
-                fragment.showTaskEditHelpPopover();
             }
 
             if (activity instanceof TaskListActivity && !assignedToMe) {

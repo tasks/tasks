@@ -88,7 +88,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
-import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagViewFragment extends TaskListFragment {
 
@@ -201,20 +200,6 @@ public class TagViewFragment extends TaskListFragment {
 
     protected int getTaskListBodyLayout() {
         return R.layout.task_list_body_tag;
-    }
-
-    private void showListSettingsPopover() {
-        if (!AstridPreferences.canShowPopover()) {
-            return;
-        }
-        if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-            Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
-            View tabView = getView().findViewById(R.id.members_edit);
-            if (tabView != null) {
-                HelpInfoPopover.showPopover(getActivity(), tabView,
-                        R.string.help_popover_list_settings, null);
-            }
-        }
     }
 
     @Override
@@ -751,7 +736,6 @@ public class TagViewFragment extends TaskListFragment {
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
 
-        showListSettingsPopover();
         updateCommentCount();
     }
 

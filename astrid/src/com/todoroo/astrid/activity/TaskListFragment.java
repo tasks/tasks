@@ -109,7 +109,6 @@ import com.todoroo.astrid.ui.FeedbackPromptDialogs;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.welcome.HelpInfoPopover;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -688,13 +687,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
 
         setUpBackgroundJobs();
 
-        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            showTaskCreateHelpPopover();
-        } else if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
-            showTaskEditHelpPopover();
-        } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
-            showListsHelp();
-        }
         refreshFilterCount();
 
         initiateAutomaticSync();
@@ -892,23 +884,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            if(!AstridPreferences.canShowPopover()) {
-                return;
-            }
-            quickAddBar.getQuickAddBox().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Activity activity = getActivity();
-                    if (activity != null) {
-                        HelpInfoPopover.showPopover(getActivity(), quickAddBar.getQuickAddBox(),
-                                R.string.help_popover_add_task, null);
-                        Preferences.setBoolean(R.string.p_showed_add_task_help, true);
-                    }
-                }
-            }, 1000);
-        }
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem,
@@ -1097,74 +1072,6 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
             if (currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
                 return;
-            }
-        }
-    }
-
-    private void showTaskCreateHelpPopover() {
-        if(!AstridPreferences.canShowPopover()) {
-            return;
-        }
-        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
-            HelpInfoPopover.showPopover(getActivity(), quickAddBar.getQuickAddBox(),
-                            R.string.help_popover_add_task, null);
-        }
-    }
-
-    public void showTaskEditHelpPopover() {
-        if(!AstridPreferences.canShowPopover()) {
-            return;
-        }
-        if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
-            quickAddBar.hideKeyboard();
-            getListView().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        if (taskAdapter != null && taskAdapter.getCount() > 0) {
-                            final View view = getListView().getChildAt(
-                                    getListView().getChildCount() - 1);
-                            if (view != null) {
-                                Activity activity = getActivity();
-                                if (activity != null) {
-                                    HelpInfoPopover.showPopover(getActivity(), view,
-                                            R.string.help_popover_tap_task, null);
-                                    Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
-                                }
-                            }
-                        }
-                    } catch (IllegalStateException e) {
-                        // Whoops, view is gone. Try again later
-                    }
-                }
-            }, 1000L);
-
-        }
-    }
-
-    private void showListsHelp() {
-        if(!AstridPreferences.canShowPopover()) {
-            return;
-        }
-        if (!Preferences.getBoolean(
-                R.string.p_showed_lists_help, false)) {
-            AstridActivity activity = (AstridActivity) getActivity();
-            if (activity != null) {
-                if (AstridPreferences.useTabletLayout(activity)) {
-                    FilterListFragment flf = activity.getFilterListFragment();
-                    if (flf != null) {
-                        flf.showAddListPopover();
-                    }
-                } else {
-                    ActionBar ab = activity.getSupportActionBar();
-                    View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
-                    HelpInfoPopover.showPopover(activity,
-                            anchor, R.string.help_popover_switch_lists, null);
-                }
-                Preferences.setBoolean(
-                        R.string.p_showed_lists_help,
-                        true);
             }
         }
     }

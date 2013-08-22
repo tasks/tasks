@@ -69,7 +69,6 @@ import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.ResourceDrawableCache;
-import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -173,8 +172,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
                 }
             }).start();
         }
-        showCollaboratorsPopover();
-
     }
 
     private void setupForDialogOrFullscreen() {
@@ -196,14 +193,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
             } else {
                 actionBar.setLogo(null);
             }
-        }
-    }
-
-    private void showCollaboratorsPopover() {
-        if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
-            View members = findViewById(R.id.members_container);
-            HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators, null);
-            Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
         }
     }
 

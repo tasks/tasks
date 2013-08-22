@@ -346,9 +346,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         AstridActivity activity = (AstridActivity) getActivity();
 
         setUpUIComponents();
-        adjustInfoPopovers();
-
-        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
 
         overrideFinishAnim = false;
         if (activity != null) {
@@ -1408,13 +1405,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onStop() {
         super.onStop();
-    }
-
-    private void adjustInfoPopovers() {
-        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
-        if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
-            Preferences.setBoolean(R.string.p_showed_lists_help, false);
-        }
     }
 
     /*
