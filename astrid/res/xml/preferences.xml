@@ -172,11 +172,7 @@
 	        android:key="@string/p_force_phone_layout"
 	        android:defaultValue="false"/>
         
-        <CheckBoxPreference
-	        android:key="@string/p_use_contact_picker"
-	        android:title="@string/EPr_use_contact_picker"/>
-        
-        <PreferenceScreen android:key="@string/p_configurations" 
+        <PreferenceScreen android:key="@string/p_configurations"
                           android:title="@string/EPr_configurations_title">
             <PreferenceScreen android:title="@string/EPr_config_default" android:key="@string/p_config_default" />
             <PreferenceScreen android:title="@string/EPr_config_lite" android:key="@string/p_config_lite"/>    

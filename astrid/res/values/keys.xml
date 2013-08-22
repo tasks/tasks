@@ -349,9 +349,6 @@
 
   <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
   
-  <!-- use new contact picker setting -->
-  <string name="p_use_contact_picker">p_use_contact_picker</string>
-  
   <!-- on calendar end at dealline if true, start at deadline if false -->
   <string name="p_end_at_deadline">p_end_at_deadline</string>
   

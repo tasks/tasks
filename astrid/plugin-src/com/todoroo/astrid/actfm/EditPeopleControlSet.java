@@ -293,11 +293,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
                     .put(CONTACT_CHOOSER_USER, true));
-            int contactsIndex = addUnassigned ? 2 : 1;
-            boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true) && contactPickerAvailable();
-            if (addContactPicker) {
-                coreUsers.add(contactsIndex, contactPickerUser);
-            }
 
             if (assignedIndex == 0) {
                 assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);

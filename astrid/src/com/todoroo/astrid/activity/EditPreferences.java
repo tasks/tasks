@@ -419,9 +419,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         } else if (booleanPreference(preference, value, R.string.p_calendar_reminders,
                 R.string.CRA_calendar_reminders_pref_desc_disabled, R.string.CRA_calendar_reminders_pref_desc_enabled)) {
             ;
-        } else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
-                R.string.EPr_use_contact_picker_desc_disabled, R.string.EPr_use_contact_picker_desc_enabled)) {
-            ;
         } else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                 R.string.EPr_cal_end_at_due_time, R.string.EPr_cal_start_at_due_time)) {
             ;
