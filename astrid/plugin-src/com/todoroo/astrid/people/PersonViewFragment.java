@@ -88,7 +88,6 @@ public class PersonViewFragment extends TaskListFragment {
     @Override
     protected void setupQuickAddBar() {
         super.setupQuickAddBar();
-        quickAddBar.setUsePeopleControl(false);
         if (user != null) {
             quickAddBar.getQuickAddBox().setHint(getString(R.string.TLA_quick_add_hint_assign, user.getDisplayName()));
         }
