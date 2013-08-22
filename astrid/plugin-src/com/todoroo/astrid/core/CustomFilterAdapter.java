@@ -22,7 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;

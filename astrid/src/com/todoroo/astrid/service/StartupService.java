@@ -25,7 +25,7 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;

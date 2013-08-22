@@ -18,7 +18,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;

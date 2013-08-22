@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;

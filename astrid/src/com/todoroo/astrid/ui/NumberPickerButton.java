@@ -11,7 +11,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.ImageButton;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 /**
  * This class exists purely to cancel long click events.

@@ -19,7 +19,7 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;

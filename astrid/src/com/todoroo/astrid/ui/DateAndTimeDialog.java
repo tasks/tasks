@@ -13,7 +13,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.service.ThemeService;
 
 public class DateAndTimeDialog extends Dialog {

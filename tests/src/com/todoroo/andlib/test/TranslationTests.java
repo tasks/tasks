@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import android.content.res.Resources;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 /**
  * Tests translations for consistency with the default values. You must

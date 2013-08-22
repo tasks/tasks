@@ -5,7 +5,7 @@
  */
 package com.timsu.astrid.data.enums;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 public enum Importance {
     // MOST IMPORTANT

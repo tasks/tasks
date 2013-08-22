@@ -19,7 +19,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.ical.values.RRule;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.timsu.astrid.utilities.LegacyTasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;

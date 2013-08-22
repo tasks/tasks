@@ -10,7 +10,7 @@ import android.graphics.PixelFormat;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;

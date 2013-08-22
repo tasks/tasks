@@ -15,7 +15,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.ui.CalendarView.OnSelectedDateListener;
 
 public class CalendarDialog extends Dialog implements OnClickListener, OnSelectedDateListener {

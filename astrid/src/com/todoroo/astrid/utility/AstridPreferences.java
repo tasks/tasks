@@ -9,7 +9,7 @@ package com.todoroo.astrid.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;

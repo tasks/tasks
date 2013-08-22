@@ -13,8 +13,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
-import com.timsu.astrid.GCMIntentService;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -259,7 +258,6 @@ public final class UpgradeService {
                                     }
                                 }
                                 new AstridNewSyncMigrator().performMigration();
-                                new GCMIntentService.GCMMigration().performMigration(UpgradeActivity.this);
                             }
 
                             if (from < V4_6_2) {

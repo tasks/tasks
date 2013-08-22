@@ -11,7 +11,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;

@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.aacenc.ContextManager;
 import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;

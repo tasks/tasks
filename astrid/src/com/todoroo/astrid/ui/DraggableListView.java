@@ -40,7 +40,7 @@ import com.commonsware.cwac.tlv.TouchListView.DragListener;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.astrid.utility.Flags;
 
 public class DraggableListView extends ListView {

@@ -14,8 +14,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
-import com.timsu.astrid.GCMIntentService;
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -132,7 +131,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         deleteDatabase(database.getName());
 
                         AstridPreferences.setPreferenceDefaults();
-                        GCMIntentService.unregister(OldTaskPreferences.this);
 
                         System.exit(0);
                     }

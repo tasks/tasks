@@ -8,7 +8,7 @@ package com.todoroo.astrid.subtasks;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;

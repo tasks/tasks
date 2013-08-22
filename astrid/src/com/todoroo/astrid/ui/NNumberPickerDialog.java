@@ -19,7 +19,7 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 
 /** Dialog box with an arbitrary number of number pickers */
 public class NNumberPickerDialog extends AlertDialog implements OnClickListener {

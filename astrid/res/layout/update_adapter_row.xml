@@ -5,7 +5,7 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+    xmlns:astrid="http://schemas.android.com/apk/res/org.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="55dip"

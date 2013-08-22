@@ -3,7 +3,7 @@ package com.todoroo.astrid.utility;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 
 /**

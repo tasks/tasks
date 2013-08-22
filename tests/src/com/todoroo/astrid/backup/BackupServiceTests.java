@@ -11,7 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;

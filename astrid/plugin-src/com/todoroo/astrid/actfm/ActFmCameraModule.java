@@ -22,7 +22,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
-import com.timsu.astrid.R;
+import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
