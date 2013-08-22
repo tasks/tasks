@@ -48,9 +48,6 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
-  <!-- show faces in reminders (aka social reminders) -->
-  <string name="p_rmd_social">p_rmd_social</string>
-
   <!-- field missed calls preference -->
   <string name="p_field_missed_calls">field_missed_calls</string>
   

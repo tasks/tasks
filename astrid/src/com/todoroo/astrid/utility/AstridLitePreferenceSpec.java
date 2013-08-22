@@ -92,7 +92,6 @@ public class AstridLitePreferenceSpec extends AstridPreferenceSpec {
         setPreference(prefs, editor, r, R.string.p_use_filters, false, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_show_list_members, false, ifUnset);
-        setPreference(prefs, editor, r, R.string.p_rmd_social, true, ifUnset);
 
         setPreference(prefs, editor, r, R.string.p_theme, ThemeService.THEME_WHITE_ALT, ifUnset);
 

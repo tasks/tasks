@@ -162,12 +162,6 @@ public class ReminderDialog extends Dialog {
     private void setupSpeechBubble(Activity activity, long taskId) {
         ((TextView) findViewById(R.id.reminder_message)).setText(
                 Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
-
-        if (Preferences.getBoolean(R.string.p_rmd_social, true)) {
-            Task task = new Task();
-            task.setId(taskId);
-            addFacesToReminder(activity, task);
-        }
     }
 
     private void addFacesToReminder(Activity activity, Task task) {
