@@ -53,9 +53,6 @@
   
   <!-- calendar reminders preference -->
   <string name="p_calendar_reminders">p_calendar_reminder</string>
-  
-  <!-- show friends view preference -->
-  <string name="p_show_friends_view">show_friends_view</string>
 
   <!-- force tablets to use phone layout -->
   <string name="p_force_phone_layout">force_phone_layout</string>
@@ -67,9 +64,7 @@
   <string name="p_filters_to_show">p_filters_to_show</string>
   <string name="p_show_my_tasks_filter">p_show_my_tasks_f</string>
   <string name="p_show_today_filter">p_show_today_f</string>
-  <string name="p_show_waiting_on_me_filter">p_show_waiting_on_me_f</string>
   <string name="p_show_recently_modified_filter">p_show_recently_modified_f</string>
-  <string name="p_show_ive_assigned_filter">p_show_assigned_f</string>
   <string name="p_show_not_in_list_filter">p_show_no_list_f</string>
   
   <!-- show quickadd controls -->
@@ -84,7 +79,6 @@
   <!-- menu items to show -->
   <string name="p_menu_items">p_menu_items</string>
   <string name="p_show_menu_search">p_show_menu_search</string>
-  <string name="p_show_menu_friends">p_show_menu_friends</string>
   <string name="p_show_menu_sync">p_show_menu_sync</string>
   <string name="p_show_menu_sort">p_show_menu_sort</string>
   

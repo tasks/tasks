@@ -448,7 +448,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
 
         @Override
         public void performChanges() {
-            Preferences.setBoolean(R.string.p_show_friends_view, true);
         }
     }
 

@@ -90,10 +90,6 @@
 	                android:title="@string/TLA_menu_search"
 	                android:defaultValue="true" />
 	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_menu_friends"
-	                android:title="@string/TLA_menu_friends"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	                android:key="@string/p_show_menu_sync"
 	                android:title="@string/TLA_menu_sync"
 	                android:defaultValue="true"/>
@@ -119,16 +115,8 @@
 	                android:title="@string/today"
 	                android:defaultValue="true"/>
 	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_waiting_on_me_filter"
-	                android:title="@string/BFE_waiting_on_me"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	                android:key="@string/p_show_recently_modified_filter"
 	                android:title="@string/BFE_Recent"
-	                android:defaultValue="true"/>
-	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	                android:key="@string/p_show_ive_assigned_filter"
-	                android:title="@string/BFE_Assigned"
 	                android:defaultValue="true"/>
 	            <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	                android:key="@string/p_show_not_in_list_filter"

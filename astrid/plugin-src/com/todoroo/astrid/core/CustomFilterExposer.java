@@ -100,10 +100,6 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 list.add(recent);
             }
 
-            if (Preferences.getBoolean(R.string.p_show_ive_assigned_filter, true)) {
-                list.add(getAssignedByMeFilter(r));
-            }
-
             if (useCustomFilters && cursor != null) {
                 StoreObject savedFilter = new StoreObject();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

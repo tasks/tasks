@@ -89,7 +89,6 @@ public class AstridPreferences {
         } finally {
             users.close();
         }
-        Preferences.setBoolean(R.string.p_show_friends_view, showFriends);
     }
 
     private static void setShowFeaturedLists() {
