@@ -39,7 +39,6 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.DueDateTimeMigrator;
-import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.subtasks.SubtasksMetadataMigration;
 import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -147,8 +146,6 @@ public final class UpgradeService {
     @Autowired MetadataService metadataService;
 
     @Autowired GtasksPreferenceService gtasksPreferenceService;
-
-    @Autowired ABChooser abChooser;
 
     @Autowired AddOnService addOnService;
 

@@ -63,9 +63,6 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTestInvoker;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.subtasks.SubtasksMetadata;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
@@ -117,12 +114,6 @@ public class StartupService {
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired GtasksSyncService gtasksSyncService;
-
-    @Autowired ABChooser abChooser;
-
-    @Autowired ABTests abTests;
-
-    @Autowired ABTestInvoker abTestInvoker;
 
     /**
      * bit to prevent multiple initializations
@@ -211,12 +202,6 @@ public class StartupService {
         upgradeService.performSecondaryUpgrade(context);
 
         final int finalLatestVersion = latestSetVersion;
-
-        abTests.externalInit(context);
-
-        abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
-
-        abTestInvoker.reportAcquisition();
 
         initializeDatabaseListeners();
         ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao, userActivityDao, taskAttachmentDao, taskListMetadataDao);

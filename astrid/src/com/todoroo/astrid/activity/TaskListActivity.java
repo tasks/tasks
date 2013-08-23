@@ -58,7 +58,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
 import com.todoroo.astrid.people.PersonViewFragment;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
@@ -95,8 +94,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public static final int FILTER_MODE_FEATURED = 2;
 
     public static final int REQUEST_CODE_RESTART = 10;
-
-    @Autowired private ABTestEventReportingService abTestEventReportingService;
 
     @Autowired private TagMetadataDao tagMetadataDao;
 
@@ -216,10 +213,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
-
-        // Have to call this here because sometimes StartupService
-        // isn't called (i.e. if the app was silently alive in the background)
-        abTestEventReportingService.trackUserRetention(this);
     }
 
     private void setupPagerAdapter() {
