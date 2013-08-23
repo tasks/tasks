@@ -15,14 +15,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.TimeZone;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.astrid.R;
@@ -315,8 +313,8 @@ public class ActFmInvoker {
         }
 
         sigBuilder.append(APP_SECRET);
-        String signature = DigestUtils.md5Hex(sigBuilder.toString());
-        requestBuilder.append("sig").append('=').append(signature);
+//        String signature = DigestUtils.md5Hex(sigBuilder.toString());
+//        requestBuilder.append("sig").append('=').append(signature);
         return requestBuilder.toString();
     }
 

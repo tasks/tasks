@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src-legacy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/proguard_logs" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -25,7 +26,6 @@
     <orderEntry type="module" module-name="ActionBarSherlock" exported="" />
     <orderEntry type="module" module-name="api" exported="" />
     <orderEntry type="module" module-name="android-aac-enc" exported="" />
-    <orderEntry type="library" exported="" name="commons-codec" level="project" />
     <orderEntry type="library" exported="" name="CWAC-SackOfViewsAdapter" level="project" />
     <orderEntry type="library" exported="" name="framework" level="project" />
     <orderEntry type="library" exported="" name="rfc2445-4Mar2011" level="project" />
@@ -36,7 +36,6 @@
     <orderEntry type="library" exported="" name="httpmime" level="project" />
     <orderEntry type="library" exported="" name="guava" level="project" />
     <orderEntry type="library" exported="" name="gson" level="project" />
-    <orderEntry type="library" exported="" name="gcm" level="project" />
     <orderEntry type="library" exported="" name="google-oauth-client" level="project" />
     <orderEntry type="library" exported="" name="google-http-client" level="project" />
     <orderEntry type="library" exported="" name="googleloginclient-helper" level="project" />

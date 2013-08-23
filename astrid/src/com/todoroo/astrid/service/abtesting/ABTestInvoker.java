@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -23,7 +22,6 @@ import org.json.JSONObject;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Invoker for communicating with the Astrid Analytics server
@@ -102,8 +100,8 @@ public class ABTestInvoker {
         }
 
         sigBuilder.append(API_SECRET);
-        String signature = DigestUtils.md5Hex(sigBuilder.toString());
-        params.add(new BasicNameValuePair("sig", signature));
+//        String signature = DigestUtils.md5Hex(sigBuilder.toString());
+//        params.add(new BasicNameValuePair("sig", signature));
 
         try {
             return new UrlEncodedFormEntity(params, HTTP.UTF_8);
