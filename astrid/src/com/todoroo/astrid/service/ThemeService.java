@@ -249,8 +249,6 @@ public class ThemeService {
             return R.drawable.filter_calendar_dark;
         case R.drawable.filter_inbox:
             return R.drawable.filter_inbox_dark;
-        case R.drawable.waiting_on_me:
-            return R.drawable.waiting_on_me_dark;
         case R.drawable.filter_pencil:
             return R.drawable.filter_pencil_dark;
         case R.drawable.filter_sliders:

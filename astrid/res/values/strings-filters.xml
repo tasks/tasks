@@ -13,9 +13,6 @@
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">My Tasks</string>
     
-    <!-- Waiting on me filter -->
-    <string name="BFE_waiting_on_me">Waiting On Me</string>
-        
     <!-- Search Filter -->
     
     <!-- slide 10b: Recently Modified -->

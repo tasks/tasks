@@ -9,7 +9,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.data.WaitingOnMe;
 
 public abstract class ServerToClientMessage {
 
@@ -64,8 +63,6 @@ public abstract class ServerToClientMessage {
             return new MakeChanges<TaskAttachment>(json, PluginServices.getTaskAttachmentDao());
         } else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             return new MakeChanges<TaskListMetadata>(json, PluginServices.getTaskListMetadataDao());
-        } else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table)) {
-            return new MakeChanges<WaitingOnMe>(json, PluginServices.getWaitingOnMeDao());
         } else {
             return null;
         }
@@ -85,8 +82,6 @@ public abstract class ServerToClientMessage {
             return new NowBriefed<TaskAttachment>(json, PluginServices.getTaskAttachmentDao());
         } else if (NameMaps.TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             return new NowBriefed<TaskListMetadata>(json, PluginServices.getTaskListMetadataDao());
-        } else if (NameMaps.TABLE_ID_WAITING_ON_ME.equals(table)) {
-            return new NowBriefed<WaitingOnMe>(json, PluginServices.getWaitingOnMeDao());
         } else {
             return null;
         }

@@ -53,7 +53,6 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.dao.WaitingOnMeDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -108,8 +107,6 @@ public class StartupService {
     @Autowired TaskAttachmentDao taskAttachmentDao;
 
     @Autowired TaskListMetadataDao taskListMetadataDao;
-
-    @Autowired WaitingOnMeDao waitingOnMeDao;
 
     @Autowired MetadataService metadataService;
 
@@ -222,7 +219,7 @@ public class StartupService {
         abTestInvoker.reportAcquisition();
 
         initializeDatabaseListeners();
-        ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao, userActivityDao, taskAttachmentDao, taskListMetadataDao, waitingOnMeDao);
+        ActFmSyncThread.initializeSyncComponents(taskDao, tagDataDao, userActivityDao, taskAttachmentDao, taskListMetadataDao);
 
         // perform startup activities in a background thread
         new Thread(new Runnable() {

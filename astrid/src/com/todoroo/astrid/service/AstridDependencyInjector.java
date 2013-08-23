@@ -31,8 +31,6 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
-import com.todoroo.astrid.dao.WaitingOnMeDao;
-import com.todoroo.astrid.dao.WaitingOnMeOutstandingDao;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -92,8 +90,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("taskAttachmentOutstandingDao", TaskAttachmentOutstandingDao.class);
         injectables.put("taskListMetadataDao", TaskListMetadataDao.class);
         injectables.put("taskListMetadataOutstandingDao", TaskListMetadataOutstandingDao.class);
-        injectables.put("waitingOnMeDao", WaitingOnMeDao.class);
-        injectables.put("waitingOnMeOutstandingDao", WaitingOnMeOutstandingDao.class);
 
         // com.todoroo.astrid.service
         injectables.put("taskService", TaskService.class);

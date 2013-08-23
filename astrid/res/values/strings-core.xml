@@ -940,18 +940,6 @@
   <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">Select tasks to view...</string>
   
-  <!-- ======================================================== Waiting on me -->
-
-  <string name="wom_commented">%s commented on your task.</string>
-  <string name="wom_mentioned">%s mentioned you.</string>
-  <string name="wom_assigned">%s assigned this to you.</string>
-  <string name="wom_raised_pri">%s raised the priority.</string>
-  <string name="wom_changed_due">%s changed the due date.</string>
-  <string name="wom_default">%s wants your attention.</string>
-  
-  <string name="wom_dismiss">Dismiss</string>
-  <string name="wom_acknowledge">I\'ve read this</string>
-
   <!-- ============================================================= About == -->
   
   <!-- slide 30h: Title of "About" option in settings -->

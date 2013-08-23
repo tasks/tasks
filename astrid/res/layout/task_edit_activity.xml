@@ -24,54 +24,6 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:padding="10dip" >
-            
-            <RelativeLayout 
-		        android:id="@+id/waiting_on_me"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-                android:layout_margin="3dip"
-		        android:layout_marginBottom="10dip"
-		        android:padding="10dip"
-		        android:visibility="gone"
-		        android:background="?attr/asWomEditRowBackground">
-		        <ImageView 
-		            android:id="@+id/wom_icon"
-	                android:layout_marginRight="10dip"
-    	            android:layout_width="20dip"
-	                android:layout_height="20dip"
-	                android:scaleType="fitCenter"/>
-		        
-		        <TextView 
-		            android:id="@+id/wom_message"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:layout_marginBottom="10dip"
-		            android:textStyle="bold"
-		            android:layout_toRightOf="@id/wom_icon"/>
-		        
-		        <TextView 
-		            android:id="@+id/wom_acknowledge"
-		            android:layout_width="wrap_content"
-		            android:layout_height="fill_parent" 
-		            android:layout_below="@id/wom_message"
-		            android:layout_marginRight="10dip"
-		            android:layout_alignLeft="@id/wom_message"
-		            android:padding="6dip"
-		            android:textColor="@android:color/white"
-		            android:text="@string/wom_acknowledge"/>
-		        
-		        <TextView 
-		            android:id="@+id/wom_dismiss"
-		            android:layout_width="wrap_content"
-		            android:layout_height="fill_parent" 
-		            android:layout_marginRight="5dip"
-		            android:layout_toRightOf="@id/wom_acknowledge"
-		            android:layout_below="@id/wom_message"
-		            android:padding="6dip"
-		            android:textColor="@android:color/white"
-		            android:text="@string/wom_dismiss"/>
-		        
-		    </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/title_controls"

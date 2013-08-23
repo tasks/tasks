@@ -27,8 +27,6 @@ import com.todoroo.astrid.dao.TaskOutstandingDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.dao.UserActivityOutstandingDao;
 import com.todoroo.astrid.dao.UserDao;
-import com.todoroo.astrid.dao.WaitingOnMeDao;
-import com.todoroo.astrid.dao.WaitingOnMeOutstandingDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AddOnService;
@@ -104,12 +102,6 @@ public final class PluginServices {
 
     @Autowired
     TaskListMetadataOutstandingDao taskListMetadataOutstandingDao;
-
-    @Autowired
-    WaitingOnMeDao waitingOnMeDao;
-
-    @Autowired
-    WaitingOnMeOutstandingDao waitingOnMeOutstandingDao;
 
     @Autowired
     ActFmPreferenceService actFmPreferenceService;
@@ -219,14 +211,6 @@ public final class PluginServices {
 
     public static TaskListMetadataOutstandingDao getTaskListMetadataOutstandingDao() {
         return getInstance().taskListMetadataOutstandingDao;
-    }
-
-    public static WaitingOnMeDao getWaitingOnMeDao() {
-        return getInstance().waitingOnMeDao;
-    }
-
-    public static WaitingOnMeOutstandingDao getWaitingOnMeOutstandingDao() {
-        return getInstance().waitingOnMeOutstandingDao;
     }
 
     public static ActFmPreferenceService getActFmPreferenceService() {

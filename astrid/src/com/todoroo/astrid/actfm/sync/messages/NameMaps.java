@@ -15,7 +15,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.data.WaitingOnMe;
 
 public class NameMaps {
 
@@ -33,7 +32,6 @@ public class NameMaps {
     public static final String TABLE_ID_HISTORY = "history";
     public static final String TABLE_ID_ATTACHMENTS = "task_attachments";
     public static final String TABLE_ID_TASK_LIST_METADATA = "task_list_metadata";
-    public static final String TABLE_ID_WAITING_ON_ME = "waiting_on_mes";
 
     private static final String PUSHED_AT_PREFIX = "pushed_at";
     public static final String PUSHED_AT_TASKS = PUSHED_AT_PREFIX + "_" + TABLE_ID_TASKS;
@@ -41,7 +39,6 @@ public class NameMaps {
     public static final String PUSHED_AT_USERS = PUSHED_AT_PREFIX + "_" + TABLE_ID_USERS;
     public static final String PUSHED_AT_ACTIVITY = PUSHED_AT_PREFIX + "_" + TABLE_ID_USER_ACTIVITY;
     public static final String PUSHED_AT_TASK_LIST_METADATA = PUSHED_AT_PREFIX + "_" + TABLE_ID_TASK_LIST_METADATA;
-    public static final String PUSHED_AT_WAITING_ON_ME = PUSHED_AT_PREFIX + "_" + TABLE_ID_WAITING_ON_ME;
 
     static {
         // Hardcoded local tables mapped to corresponding server names
@@ -53,7 +50,6 @@ public class NameMaps {
         TABLE_LOCAL_TO_SERVER.put(UserActivity.TABLE, TABLE_ID_USER_ACTIVITY);
         TABLE_LOCAL_TO_SERVER.put(TaskAttachment.TABLE, TABLE_ID_ATTACHMENTS);
         TABLE_LOCAL_TO_SERVER.put(TaskListMetadata.TABLE, TABLE_ID_TASK_LIST_METADATA);
-        TABLE_LOCAL_TO_SERVER.put(WaitingOnMe.TABLE, TABLE_ID_WAITING_ON_ME);
 
         // Reverse the mapping to construct the server to local map
         TABLE_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(TABLE_LOCAL_TO_SERVER);
@@ -93,8 +89,6 @@ public class NameMaps {
             return computeSyncableProperties(TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_ATTACHMENT_PROPERTIES_EXCLUDED);
         } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             return computeSyncableProperties(TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER.keySet(), TASK_LIST_METADATA_PROPERTIES_EXCLUDED);
-        } else if (TABLE_ID_WAITING_ON_ME.equals(table)) {
-            return computeSyncableProperties(WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER.keySet(), WAITING_ON_ME_PROPERTIES_EXCLUDED);
         }
         return null;
     }
@@ -333,45 +327,11 @@ public class NameMaps {
     }
 
     // ----------
-    // WaitingOnMe
-    // ----------
-    private static final Map<Property<?>, String> WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER;
-    private static final Map<String, Property<?>> WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES;
-    private static final Map<String, String> WAITING_ON_ME_COLUMNS_LOCAL_TO_SERVER;
-    private static final Map<String, Property<?>> WAITING_ON_ME_PROPERTIES_SERVER_TO_LOCAL;
-    private static final Set<String> WAITING_ON_ME_PROPERTIES_EXCLUDED;
-
-    private static void putWaitingOnMePropertyToServerName(Property<?> property, String serverName, boolean writeable) {
-        putPropertyToServerName(property, serverName, WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER, WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES,
-                WAITING_ON_ME_COLUMNS_LOCAL_TO_SERVER, WAITING_ON_ME_PROPERTIES_EXCLUDED, writeable);
-    }
-
-    static {
-        WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER = new HashMap<Property<?>, String>();
-        WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES = new HashMap<String, Property<?>>();
-        WAITING_ON_ME_COLUMNS_LOCAL_TO_SERVER = new HashMap<String, String>();
-        WAITING_ON_ME_PROPERTIES_EXCLUDED = new HashSet<String>();
-
-        putWaitingOnMePropertyToServerName(WaitingOnMe.UUID,            "uuid",            false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.WAITING_USER_ID, "waiting_user_id", false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.TASK_UUID,       "task_id",         false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.WAIT_TYPE,       "wait_type",       false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.CREATED_AT,      "created_at",      false);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.DELETED_AT,      "deleted_at",      true);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.READ_AT,         "read_at",         true);
-        putWaitingOnMePropertyToServerName(WaitingOnMe.ACKNOWLEDGED,    "acknowledged",    true);
-
-        // Reverse the mapping to construct the server to local map
-        WAITING_ON_ME_PROPERTIES_SERVER_TO_LOCAL = AndroidUtilities.reverseMap(WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER);
-    }
-
-
-    // ----------
     // Mapping helpers
     // ----------
 
     private static <A, B> B mapColumnName(String table, A col, Map<A, B> taskMap, Map<A, B> tagMap, Map<A, B> userMap,
-            Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap, Map<A, B> waitingOnMeMap) {
+            Map<A, B> userActivityMap, Map<A, B> taskAttachmentMap, Map<A, B> taskListMetadataMap) {
         Map<A, B> map = null;
         if (TABLE_ID_TASKS.equals(table)) {
             map = taskMap;
@@ -385,8 +345,6 @@ public class NameMaps {
             map = taskAttachmentMap;
         } else if (TABLE_ID_TASK_LIST_METADATA.equals(table)) {
             map = taskListMetadataMap;
-        } else if (TABLE_ID_WAITING_ON_ME.equals(table)) {
-            map = waitingOnMeMap;
         }
 
         if (map == null) {
@@ -421,10 +379,6 @@ public class NameMaps {
             if (TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
                 return !TASK_LIST_METADATA_PROPERTIES_EXCLUDED.contains(column);
             }
-        } else if (TABLE_ID_WAITING_ON_ME.equals(table)) {
-            if (WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES.containsKey(column)) {
-                return !WAITING_ON_ME_PROPERTIES_EXCLUDED.contains(column);
-            }
         }
         return false;
     }
@@ -432,29 +386,25 @@ public class NameMaps {
     public static String localPropertyToServerColumnName(String table, Property<?> localProperty) {
         return mapColumnName(table, localProperty, TASK_PROPERTIES_LOCAL_TO_SERVER, TAG_DATA_PROPERTIES_LOCAL_TO_SERVER,
                 USER_PROPERTIES_LOCAL_TO_SERVER, USER_ACTIVITY_PROPERTIES_LOCAL_TO_SERVER,
-                TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER, TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER,
-                WAITING_ON_ME_PROPERTIES_LOCAL_TO_SERVER);
+                TASK_ATTACHMENT_PROPERTIES_LOCAL_TO_SERVER, TASK_LIST_METADATA_PROPERTIES_LOCAL_TO_SERVER);
     }
 
     public static String localColumnNameToServerColumnName(String table, String localColumn) {
         return mapColumnName(table, localColumn, TASK_COLUMNS_LOCAL_TO_SERVER, TAG_DATA_COLUMNS_LOCAL_TO_SERVER,
                 USER_COLUMNS_LOCAL_TO_SERVER, USER_ACTIVITY_COLUMNS_LOCAL_TO_SERVER,
-                TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER, TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER,
-                WAITING_ON_ME_COLUMNS_LOCAL_TO_SERVER);
+                TASK_ATTACHMENT_COLUMNS_LOCAL_TO_SERVER, TASK_LIST_METADATA_COLUMNS_LOCAL_TO_SERVER);
     }
 
     public static Property<?> localColumnNameToProperty(String table, String localColumn) {
         return mapColumnName(table, localColumn, TASK_COLUMN_NAMES_TO_PROPERTIES, TAG_DATA_COLUMN_NAMES_TO_PROPERTIES,
                 USER_COLUMN_NAMES_TO_PROPERTIES, USER_ACTIVITY_COLUMN_NAMES_TO_PROPERTIES,
-                TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES, TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES,
-                WAITING_ON_ME_COLUMN_NAMES_TO_PROPERTIES);
+                TASK_ATTACHMENT_COLUMN_NAMES_TO_PROPERTIES, TASK_LIST_METADATA_COLUMN_NAMES_TO_PROPERTIES);
     }
 
     public static Property<?> serverColumnNameToLocalProperty(String table, String serverColumn) {
         return mapColumnName(table, serverColumn, TASK_PROPERTIES_SERVER_TO_LOCAL, TAG_DATA_PROPERTIES_SERVER_TO_LOCAL,
                 USER_PROPERTIES_SERVER_TO_LOCAL, USER_ACTIVITY_PROPERTIES_SERVER_TO_LOCAL,
-                TASK_ATTACHMENT_PROPERTIES_SERVER_TO_LOCAL, TASK_LIST_METADATA_PROPERTIES_SERVER_TO_LOCAL,
-                WAITING_ON_ME_PROPERTIES_SERVER_TO_LOCAL);
+                TASK_ATTACHMENT_PROPERTIES_SERVER_TO_LOCAL, TASK_LIST_METADATA_PROPERTIES_SERVER_TO_LOCAL);
     }
 
 }
