@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-@SuppressWarnings("nls")
 public class StatisticsConstants {
     public static final String EULA_ACCEPTED = "eula-accepted";
     public static final String ACTFM_TAG_COMMENT = "actfm-tag-comment";

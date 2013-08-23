@@ -111,7 +111,7 @@ public class DraggableListView extends ListView {
         this.mItemHeightNormal = itemHeightNormal;
     }
 
-    protected boolean isDraggableRow(@SuppressWarnings("unused") View view) {
+    protected boolean isDraggableRow(View view) {
         return true;
     }
 
@@ -550,14 +550,12 @@ public class DraggableListView extends ListView {
         this.dragndropBackgroundColor = color;
     }
 
-    @SuppressWarnings("nls")
     @Override
     final public void addHeaderView(View v, Object data, boolean isSelectable) {
         throw new RuntimeException(
                 "Headers are not supported with TouchListView");
     }
 
-    @SuppressWarnings("nls")
     @Override
     final public void addHeaderView(View v) {
         throw new RuntimeException(

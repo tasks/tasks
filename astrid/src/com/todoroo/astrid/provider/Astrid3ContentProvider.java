@@ -67,7 +67,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class Astrid3ContentProvider extends ContentProvider {
 
     static {

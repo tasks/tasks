@@ -65,7 +65,6 @@ public class FetchHistory<TYPE extends RemoteModel> {
         this.done = done;
     }
 
-    @SuppressWarnings("nls")
     public void execute() {
         new Thread(new Runnable() {
             @Override

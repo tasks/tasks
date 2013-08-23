@@ -8,7 +8,6 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 
-@SuppressWarnings("nls")
 public class TaskListMetadataOutstanding extends OutstandingEntry<TaskListMetadata> {
 
     /** table for this model */

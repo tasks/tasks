@@ -43,7 +43,7 @@ public class TagCaseMigrator {
     private final HashMap<String, Long> nameToRemoteId = new HashMap<String, Long>();
     private final HashMap<String, Integer> nameCountMap = new HashMap<String, Integer>();
 
-    public void performTagCaseMigration(@SuppressWarnings("unused") Context context) {
+    public void performTagCaseMigration(Context context) {
         if (!Preferences.getBoolean(PREF_CASE_MIGRATION_PERFORMED, false)) {
             TagService.Tag[] allTagData = TagService.getInstance().getGroupedTags(
                     TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);

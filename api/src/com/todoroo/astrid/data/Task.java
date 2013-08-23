@@ -29,7 +29,6 @@ import org.astrid.api.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public final class Task extends RemoteModel {
 
     // --- table and uri

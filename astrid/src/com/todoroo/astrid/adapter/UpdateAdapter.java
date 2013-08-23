@@ -494,7 +494,6 @@ public class UpdateAdapter extends CursorAdapter {
         return builder;
     }
 
-    @SuppressWarnings("nls")
     public static String getHistoryComment(final AstridActivity context, History history, User user, String linkColor, String fromView) {
         boolean hasTask = false;
         JSONArray taskAttrs = null;
@@ -735,10 +734,8 @@ public class UpdateAdapter extends CursorAdapter {
         INTERVAL_LABELS.put("MINUTELY", R.string.repeat_minutes); //$NON-NLS-1$
     }
 
-    @SuppressWarnings("nls")
     private static final String[] SORTED_WEEKDAYS = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
 
-    @SuppressWarnings("nls")
     private static String getRepeatString(Context context, String value) {
         if (TextUtils.isEmpty(value) || "null".equals(value)) {
             return null;
@@ -823,7 +820,6 @@ public class UpdateAdapter extends CursorAdapter {
         }
     }
 
-    @SuppressWarnings("nls")
     private static String userDisplay(Context context, String historyUserId, JSONObject userJson) {
         try {
             String id = userJson.getString("id");
@@ -843,7 +839,6 @@ public class UpdateAdapter extends CursorAdapter {
         }
     }
 
-    @SuppressWarnings("nls")
     private static final String[] PRIORITY_STRINGS = { "!!!", "!!", "!", "o" };
     private static String priorityString(int priority) {
         return PRIORITY_STRINGS[priority];

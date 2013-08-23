@@ -55,7 +55,6 @@ import com.todoroo.astrid.utility.Constants;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class UpdateMessageService {
 
     private static final String URL = "http://blog.astrid.com/updates";

@@ -11,7 +11,6 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.WaitingOnMe;
 
-@SuppressWarnings("nls")
 public abstract class ServerToClientMessage {
 
     public abstract void processMessage(String serverTime);

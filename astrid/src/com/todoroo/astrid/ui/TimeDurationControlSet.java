@@ -17,7 +17,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
-@SuppressWarnings("nls")
 public class TimeDurationControlSet implements OnNNumberPickedListener,
         View.OnClickListener {
 

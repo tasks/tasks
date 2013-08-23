@@ -21,7 +21,6 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
 
 /** Controller for Tag-related operations */
-@SuppressWarnings("nls")
 public class SyncDataController extends LegacyAbstractController {
 
     private SQLiteDatabase syncDatabase;

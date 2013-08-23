@@ -37,7 +37,6 @@ import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.ui.ErrorCatchingListView;
 
-@SuppressWarnings("nls")
 public class TouchListView extends ErrorCatchingListView {
 	private ImageView mDragView;
 	private View mOriginalView;

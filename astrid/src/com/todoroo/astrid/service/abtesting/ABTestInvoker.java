@@ -28,7 +28,6 @@ import com.todoroo.andlib.service.RestClient;
  * @author Sam
  *
  */
-@SuppressWarnings("nls")
 public class ABTestInvoker {
 
     /** NOTE: these values are development values and will not work on production */

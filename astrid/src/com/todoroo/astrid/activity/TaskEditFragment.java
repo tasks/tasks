@@ -724,7 +724,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      *
      * @param intent
      */
-    @SuppressWarnings("nls")
     protected void loadItem(Intent intent) {
         if (model != null) {
             // came from bundle
@@ -1169,7 +1168,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         createNewFileAttachment(path, name, type);
     }
 
-    @SuppressWarnings("nls")
     private void attachImage(Bitmap bitmap) {
 
         AtomicReference<String> nameRef = new AtomicReference<String>();

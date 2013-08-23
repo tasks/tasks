@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
-@SuppressWarnings("nls")
 public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";

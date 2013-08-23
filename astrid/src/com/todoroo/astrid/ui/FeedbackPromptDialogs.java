@@ -10,7 +10,6 @@ import com.todoroo.astrid.activity.AstridActivity;
 
 public class FeedbackPromptDialogs {
 
-    @SuppressWarnings("nls")
     public static void showFeedbackDialog(final AstridActivity activity, boolean positive) {
         final AstridDialog d = new AstridDialog(activity, false);
 

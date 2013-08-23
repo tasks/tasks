@@ -36,7 +36,6 @@ import java.io.Writer;
  * @since 2.0
  * @version $Id: StringEscapeUtils.java 2696 2007-06-20 13:24:53Z damencho $
  */
-@SuppressWarnings({"nls"})
 public class StringEscapeUtils {
 
     /**

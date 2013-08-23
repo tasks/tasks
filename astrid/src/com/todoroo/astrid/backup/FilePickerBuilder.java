@@ -16,7 +16,6 @@ import android.util.Log;
 import org.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-@SuppressWarnings("nls")
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
 
     public interface OnFilePickedListener {

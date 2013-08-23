@@ -28,7 +28,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class SqlContentProvider extends ContentProvider {
 
     // --- instance variables

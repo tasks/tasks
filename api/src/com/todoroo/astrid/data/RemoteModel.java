@@ -137,7 +137,6 @@ abstract public class RemoteModel extends AbstractModel {
             return String.format("cached::%s%s", tagData.getValue(TagData.NAME), tag_date);
         }
 
-        @SuppressWarnings("nls")
         public static JSONObject savePictureJson(Context context, Bitmap bitmap) {
             try {
                 String name = DateUtilities.now() + ".jpg";
@@ -189,7 +188,6 @@ abstract public class RemoteModel extends AbstractModel {
             }
         }
 
-        @SuppressWarnings("nls")
         public static Bitmap getPictureBitmap(String value) {
             try {
                 if (value == null) {

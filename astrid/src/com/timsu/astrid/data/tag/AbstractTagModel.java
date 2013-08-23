@@ -24,7 +24,6 @@ import com.timsu.astrid.data.LegacyAbstractModel;
  * @author timsu
  *
  */
-@SuppressWarnings("nls")
 public abstract class AbstractTagModel extends LegacyAbstractModel {
 
     /** Version number of this model */

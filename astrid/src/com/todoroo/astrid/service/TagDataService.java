@@ -108,7 +108,6 @@ public class TagDataService {
      * @param properties
      * @return
      */
-    @SuppressWarnings("nls")
     public TodorooCursor<TagData> fetchFiltered(String queryTemplate, CharSequence constraint,
             Property<?>... properties) {
         Criterion whereConstraint = null;
@@ -194,7 +193,6 @@ public class TagDataService {
         return userActivityDao.query(resultQuery);
     }
 
-    @SuppressWarnings("nls")
     public void saveFeaturedList(JSONObject featObject) throws JSONException {
         TodorooCursor<TagData> cursor = query(Query.select(TagData.PROPERTIES).where(
                 Criterion.and(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0), TagData.UUID.eq(featObject.get("id")))));

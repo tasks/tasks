@@ -20,7 +20,6 @@ import com.mdimension.jchronic.tags.TimeZone;
 import com.mdimension.jchronic.utils.Span;
 import com.mdimension.jchronic.utils.Token;
 
-@SuppressWarnings("nls")
 public class AstridChronic {
   public static final String VERSION = "0.2.3";
 
@@ -71,7 +70,6 @@ public class AstridChronic {
    *     will be made, and the first matching instance of that time will
    *     be used.
    */
-  @SuppressWarnings("unchecked")
   public static Span parse(String text, Options options) {
     // store now for later =)
     //_now = options.getNow();

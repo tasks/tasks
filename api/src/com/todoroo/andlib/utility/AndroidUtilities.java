@@ -411,7 +411,6 @@ public class AndroidUtilities {
         public void put(T object, String key, char type, String value) throws NumberFormatException;
     }
 
-    @SuppressWarnings("nls")
     private static <T> void fromSerialized(String string, T object, SerializedPut<T> putter) {
         String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
         for(int i = 0; i < pairs.length; i += 2) {
@@ -438,7 +437,6 @@ public class AndroidUtilities {
      * @param string
      * @return
      */
-    @SuppressWarnings("nls")
     public static ContentValues contentValuesFromString(String string) {
         if(string == null) {
             return null;
@@ -665,7 +663,6 @@ public class AndroidUtilities {
      * @param args arguments
      * @return method return value, or null if nothing was called or exception
      */
-    @SuppressWarnings("nls")
     public static Object callApiStaticMethod(int minSdk, String className,
             String methodName, Class<?>[] params, Object... args) {
         if(getSdkVersion() < minSdk) {
@@ -690,7 +687,6 @@ public class AndroidUtilities {
      * @param args arguments
      * @return method return value, or null if nothing was called or exception
      */
-    @SuppressWarnings("nls")
     public static Object callMethod(Class<?> cls, Object receiver,
             String methodName, Class<?>[] params, Object... args) {
         try {
@@ -771,7 +767,6 @@ public class AndroidUtilities {
      * @param input
      * @return
      */
-    @SuppressWarnings("nls")
     public static String md5(String input) {
         try {
             byte[] bytesOfMessage = input.getBytes("UTF-8");
@@ -1008,7 +1003,6 @@ public class AndroidUtilities {
      * @param file
      * @return
      */
-    @SuppressWarnings("nls")
     public static String getFileExtension(String file) {
         int index = file.lastIndexOf('.');
         String extension = "";
@@ -1024,7 +1018,6 @@ public class AndroidUtilities {
     /**
      * Logs a JSONObject using in a readable way
      */
-    @SuppressWarnings("nls")
     public static void logJSONObject(String tag, JSONObject object) {
         if (object == null) {
             Log.e(tag, "JSONOBject: null");

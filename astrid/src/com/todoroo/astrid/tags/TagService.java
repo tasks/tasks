@@ -53,7 +53,6 @@ import com.todoroo.astrid.service.TaskService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public final class TagService {
 
     public static final String TOKEN_TAG_SQL = "tagSql"; //$NON-NLS-1$

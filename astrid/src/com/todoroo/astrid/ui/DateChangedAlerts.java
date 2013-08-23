@@ -266,7 +266,6 @@ public class DateChangedAlerts {
     }
 
 
-    @SuppressWarnings("nls")
     private static Spanned constructSpeechBubbleTextForQuickAdd(Context context, Task task) {
         String[] priorityStrings = context.getResources().getStringArray(R.array.TLA_priority_strings);
         int[] colorsArray = new int[] { R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4 };
@@ -304,7 +303,6 @@ public class DateChangedAlerts {
         return context.getString(R.string.TLA_repeat_scheduled_speech_bubble, recurrence);
     }
 
-    @SuppressWarnings("nls")
     private static String getRelativeDateAndTimeString(Context context, long date) {
         String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
         if(Task.hasDueTime(date)) {
@@ -314,7 +312,6 @@ public class DateChangedAlerts {
         return dueString;
     }
 
-    @SuppressWarnings("nls")
     private static String getRecurrenceString(Context context, Task task) {
         try {
             RRule rrule = new RRule(task.sanitizedRecurrence());

@@ -113,7 +113,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
             new PriorityBlockingQueue<Runnable>());
 
     // ignored as SparseArray isn't thread-safe
-    @SuppressLint("UseSparseArrays")
     private final Map<Integer, Runnable> jobs = Collections
             .synchronizedMap(new HashMap<Integer, Runnable>());
 

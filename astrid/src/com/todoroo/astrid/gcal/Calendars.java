@@ -22,7 +22,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
-@SuppressWarnings("nls")
 public class Calendars {
 
     public static final String CALENDAR_CONTENT_CALENDARS = "calendars";

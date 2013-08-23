@@ -41,7 +41,6 @@ public class UpdateMessagePreference extends PreferenceActivity {
         }
     }
 
-    @SuppressWarnings("nls")
     private void addPreferenceFromJSON(JSONObject obj) {
         String type = obj.optString("type", null);
         String key = obj.optString("key", null);

@@ -18,7 +18,6 @@ import android.util.Log;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class BackupDateUtilities {
 
     private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";

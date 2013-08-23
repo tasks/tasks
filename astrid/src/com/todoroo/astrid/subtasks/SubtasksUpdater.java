@@ -30,7 +30,6 @@ public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
     }
 
     @Override
-    @SuppressWarnings("nls")
     public void applyToFilter(Filter filter) {
         String query = filter.getSqlQuery();
 

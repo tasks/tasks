@@ -22,7 +22,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
-@SuppressWarnings("nls")
 public class CalendarAlarmReceiver extends BroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;

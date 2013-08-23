@@ -11,7 +11,6 @@ import com.todoroo.astrid.dao.DaoReflectionHelpers;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;
 
-@SuppressWarnings("nls")
 public abstract class ClientToServerMessage<TYPE extends RemoteModel> {
 
     protected final Class<TYPE> modelClass;

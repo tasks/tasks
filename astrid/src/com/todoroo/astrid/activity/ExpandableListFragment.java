@@ -22,7 +22,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-@SuppressWarnings("nls")
 public class ExpandableListFragment extends Fragment
     implements OnCreateContextMenuListener,
     ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupCollapseListener,

@@ -99,7 +99,6 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         /** statistics for {@link FilterView} */
         public int start, end, max;
 
-        @SuppressWarnings("nls")
         public String getTitleFromCriterion() {
             if(criterion instanceof MultipleSelectCriterion) {
                 if(selectedIndex >= 0 && ((MultipleSelectCriterion)criterion).entryTitles != null &&
@@ -191,7 +190,6 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
      * Populate criteria list with built in and plugin criteria. The request is sent to every application
      * registered to listen for this broadcast. Each plugin can then add criteria to this activity.
      */
-    @SuppressWarnings("nls")
     private void populateCriteria() {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_CUSTOM_FILTER_CRITERIA);
         sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
@@ -387,7 +385,6 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         }
     }
 
-    @SuppressWarnings("nls")
     void saveAndView() {
         StringBuilder sql = new StringBuilder(" WHERE ");
         StringBuilder suggestedTitle = new StringBuilder();
@@ -456,7 +453,6 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
     /**
      * Recalculate all sizes
      */
-    @SuppressWarnings("nls")
     void updateList() {
         int max = 0, last = -1;
 
@@ -512,7 +508,6 @@ public class CustomFilterActivity extends SherlockFragmentActivity {
         adapter.notifyDataSetInvalidated();
     }
 
-    @SuppressWarnings("nls")
     private <V> V getNth(int index, Map<?,V> map) {
         int i = 0;
         for (V v : map.values()) {

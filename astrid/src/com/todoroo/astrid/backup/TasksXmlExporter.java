@@ -157,7 +157,6 @@ public class TasksXmlExporter {
     }
 
 
-    @SuppressWarnings("nls")
     private void doTasksExport(String output) throws IOException {
         File xmlFile = new File(output);
         xmlFile.createNewFile();

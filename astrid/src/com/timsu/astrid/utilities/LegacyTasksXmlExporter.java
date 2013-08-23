@@ -35,7 +35,6 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForXml;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 
-@SuppressWarnings({"nls", "deprecation"})
 public class LegacyTasksXmlExporter {
 
     private TaskController taskController;

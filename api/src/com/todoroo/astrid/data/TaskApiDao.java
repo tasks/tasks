@@ -89,7 +89,6 @@ public class TaskApiDao extends ContentResolverDao<Task> {
         }
 
         /** @return tasks that have a blank or null title */
-        @SuppressWarnings("nls")
         public static Criterion hasNoTitle() {
             return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
         }

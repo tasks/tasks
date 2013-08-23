@@ -396,7 +396,6 @@ abstract public class OrderedMetadataListUpdater<LIST> {
     }
 
 
-    @SuppressWarnings("nls")
     public void debugPrint(Node root, int depth) {
         for(int i = 0; i < depth; i++) {
             System.err.print(" + ");

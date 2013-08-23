@@ -17,7 +17,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.widget.TasksWidget;
 
-@SuppressWarnings("nls")
 public class ThemeService {
 
     public static final String THEME_WHITE = "white";

@@ -247,7 +247,6 @@ public class ActFmSyncThread {
         public void runOnErrors(List<JSONArray> errors) {/**/}
     };
 
-    @SuppressWarnings("nls")
     private void sync() {
         try {
             int batchSize = 4;
@@ -432,7 +431,6 @@ public class ActFmSyncThread {
 
     private JSONObject clientVersion = null;
 
-    @SuppressWarnings("nls")
     private JSONObject getClientVersion() {
         if (clientVersion == null) {
             try {

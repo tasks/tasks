@@ -53,7 +53,6 @@ public class NotesDetailExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @SuppressWarnings("nls")
     public String getTaskDetails(long id) {
         if(!Preferences.getBoolean(R.string.p_showNotes, false)) {
             return null;

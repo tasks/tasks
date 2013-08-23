@@ -297,7 +297,6 @@ public class TaskService {
      * @param filter
      * @return
      */
-    @SuppressWarnings("nls")
     public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
             Property<?>... properties) {
         Criterion whereConstraint = null;

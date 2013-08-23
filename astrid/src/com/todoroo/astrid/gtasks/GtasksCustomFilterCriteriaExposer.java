@@ -40,7 +40,6 @@ public class GtasksCustomFilterCriteriaExposer extends BroadcastReceiver {
         AstridDependencyInjector.initialize();
     }
 
-    @SuppressWarnings("nls")
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);

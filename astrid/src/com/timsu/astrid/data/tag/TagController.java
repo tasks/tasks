@@ -23,7 +23,6 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 /** Controller for Tag-related operations */
-@SuppressWarnings("nls")
 @Deprecated
 public class TagController extends LegacyAbstractController {
 

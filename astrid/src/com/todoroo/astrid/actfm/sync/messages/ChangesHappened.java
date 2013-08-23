@@ -40,7 +40,6 @@ import com.todoroo.astrid.data.UserActivityOutstanding;
 import com.todoroo.astrid.data.WaitingOnMe;
 import com.todoroo.astrid.data.WaitingOnMeOutstanding;
 
-@SuppressWarnings("nls")
 public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> extends ClientToServerMessage<TYPE> {
 
     private static final String ERROR_TAG = "actfm-changes-happened";

@@ -162,7 +162,6 @@ public class RepeatControlSet extends PopupControlSet {
         }
     }
 
-    @SuppressWarnings("nls")
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
@@ -212,7 +211,6 @@ public class RepeatControlSet extends PopupControlSet {
         refreshDisplayView();
     }
 
-    @SuppressWarnings("nls")
     @Override
     protected void readFromTaskOnInitialize() {
         Date date;

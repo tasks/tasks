@@ -22,7 +22,6 @@ import com.todoroo.astrid.data.Task;
 
 public class GCalTaskCompleteListener extends BroadcastReceiver {
 
-    @SuppressWarnings("nls")
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);

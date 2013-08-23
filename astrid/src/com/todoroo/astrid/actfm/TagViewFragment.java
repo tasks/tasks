@@ -438,7 +438,6 @@ public class TagViewFragment extends TaskListFragment {
     // --- receivers
 
     private final BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
-        @SuppressWarnings("nls")
         @Override
         public void onReceive(Context context, Intent intent) {
             if(!intent.hasExtra("tag_id")) {

@@ -13,7 +13,6 @@ import android.widget.RemoteViews;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@SuppressWarnings("nls")
 public class AstridApiConstants {
 
     // --- General Constants

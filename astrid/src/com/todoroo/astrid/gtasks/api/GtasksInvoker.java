@@ -30,7 +30,6 @@ import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
  * @author Sam Bosley
  *
  */
-@SuppressWarnings("nls")
 public class GtasksInvoker {
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;

@@ -12,7 +12,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 /** A data object backed by a database */
-@SuppressWarnings("nls")
 public abstract class LegacyAbstractModel {
 
     /* Data Source Ordering:

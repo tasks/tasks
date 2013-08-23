@@ -40,7 +40,6 @@ import org.astrid.R;
  * This is similar to the Android {@link TimePickerDialog} class
  * except allows users to specify "no specific time".
  */
-@SuppressWarnings("nls")
 public class DeadlineTimePickerDialog extends AlertDialog implements OnClickListener,
         OnTimeChangedListener {
 

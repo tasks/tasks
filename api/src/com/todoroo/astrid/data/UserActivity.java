@@ -11,7 +11,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
-@SuppressWarnings("nls")
 public class UserActivity extends RemoteModel {
 
  // --- table

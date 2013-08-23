@@ -15,7 +15,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.utility.Constants;
 
-@SuppressWarnings("nls")
 public class ReminderDebugContextActions {
 
     public static class WhenReminder implements TaskContextActionExposer {

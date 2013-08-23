@@ -40,7 +40,6 @@ public class ReminderSchedulingService extends Service {
         return START_NOT_STICKY;
     }
 
-    @SuppressWarnings("nls")
     private void scheduleReminders() {
         try {
             ReminderService.getInstance().scheduleAllAlarms();

@@ -41,7 +41,6 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-@SuppressWarnings("nls")
 public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage {
 
     private static final String ERROR_TAG = "actfm-make-changes";
@@ -217,7 +216,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             super(model, changes, uuid);
         }
 
-        @SuppressWarnings("deprecation")
         @Override
         public void performChanges() {
             JSONArray addMembers = changes.optJSONArray("member_added");
@@ -237,7 +235,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             this.oldUuid = oldUuid;
         }
 
-        @SuppressWarnings("null")
         @Override
         public void performChanges() {
             if (!TextUtils.isEmpty(oldUuid) && !oldUuid.equals(uuid)) {
@@ -332,7 +329,6 @@ public class MakeChanges<TYPE extends RemoteModel> extends ServerToClientMessage
             this.oldUuid = oldUuid;
         }
 
-        @SuppressWarnings("null")
         @Override
         public void performChanges() {
             if (!TextUtils.isEmpty(oldUuid) && !oldUuid.equals(uuid)) {

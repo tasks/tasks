@@ -39,7 +39,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 abstract public class AbstractDatabase {
 
 	// --- abstract methods

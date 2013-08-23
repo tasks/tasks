@@ -79,7 +79,6 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         }
     }
 
-    @SuppressWarnings({ "nls", "deprecation" })
     private static FilterWithCustomIntent filterFromUserData(User user) {
         String title = user.getDisplayName();
         if (TextUtils.isEmpty(title) || "null".equals(title)) {
@@ -117,7 +116,6 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         return filter;
     }
 
-    @SuppressWarnings("nls")
     public static FilterWithCustomIntent mySharedTasks(Context context) {
         TodorooCursor<TagData> tagsWithMembers = PluginServices.getTagDataService()
                 .query(Query.select(TagData.NAME).where(TagData.MEMBER_COUNT.gt(0)));

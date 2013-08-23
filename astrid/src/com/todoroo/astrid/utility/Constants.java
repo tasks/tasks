@@ -7,7 +7,6 @@ package com.todoroo.astrid.utility;
 
 import com.todoroo.astrid.service.MarketStrategy;
 
-@SuppressWarnings("nls")
 public final class Constants {
 
     // --- general application constants

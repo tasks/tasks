@@ -41,19 +41,15 @@ public final class LocaleEditAlerts extends ListActivity {
     // --- locale constants
 
     /** key name for filter title in bundle */
-    @SuppressWarnings("nls")
     public static final String KEY_FILTER_TITLE = "title";
 
     /** key name for filter SQL in bundle */
-    @SuppressWarnings("nls")
     public static final String KEY_SQL = "sql";
 
     /** key name for filter content-values in bundle */
-    @SuppressWarnings("nls")
     public static final String KEY_VALUES = "val";
 
     /** key name for interval (integer, # of seconds) */
-    @SuppressWarnings("nls")
     public static final String KEY_INTERVAL = "interval";
 
     // --- activity constants

@@ -274,7 +274,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
         }
     }
 
-    @SuppressWarnings("nls")
     private void saveSettings() {
         String oldName = tagData.getValue(TagData.NAME);
         String newName = tagName.getText().toString().trim();
@@ -413,7 +412,6 @@ public class TagSettingsActivity extends SherlockFragmentActivity {
 
     }
 
-    @SuppressWarnings("nls")
     private void updateMembers(String peopleJson, String tagUuid) {
         JSONArray people = null;
         try {

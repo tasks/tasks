@@ -322,7 +322,6 @@ public final class UpgradeService {
      * @param to
      * @return
      */
-    @SuppressWarnings("nls")
     public void showChangeLog(Context context, int from) {
         if(!(context instanceof Activity) || from == 0) {
             return;
@@ -796,7 +795,6 @@ public final class UpgradeService {
      * @param version
      * @param changes
      */
-    @SuppressWarnings("nls")
     private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
         if (Constants.ASTRID_LITE) {
             version = "0" + version.substring(1);
@@ -813,7 +811,6 @@ public final class UpgradeService {
     /**
      * Fixes task filter missing tasks bug, migrate PDV/RTM notes
      */
-    @SuppressWarnings("nls")
     private void upgrade3To3_7() {
         TodorooCursor<Task> t = taskService.query(Query.select(Task.ID, Task.DUE_DATE).where(Task.DUE_DATE.gt(0)));
         Task task = new Task();

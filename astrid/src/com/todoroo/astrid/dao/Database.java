@@ -43,7 +43,6 @@ import com.todoroo.astrid.widget.TasksWidget;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class Database extends AbstractDatabase {
 
     // --- constants

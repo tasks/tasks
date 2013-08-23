@@ -19,7 +19,6 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
 
-@SuppressWarnings("nls")
 public class FilterShortcutActivity extends ListActivity {
 
     private FilterAdapter adapter = null;

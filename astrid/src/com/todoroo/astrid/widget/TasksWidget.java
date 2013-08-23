@@ -169,7 +169,6 @@ public class TasksWidget extends AppWidgetProvider {
             return null;
         }
 
-        @SuppressWarnings("nls")
         public RemoteViews buildUpdate(Context context, int widgetId) {
             DependencyInjectionService.getInstance().inject(this);
 
@@ -335,7 +334,6 @@ public class TasksWidget extends AppWidgetProvider {
          * @param context
          * @return
          */
-        @SuppressWarnings("nls")
         private RemoteViews getThemedRemoteViews(Context context) {
             int theme = ThemeService.getWidgetTheme();
             String packageName = context.getPackageName();

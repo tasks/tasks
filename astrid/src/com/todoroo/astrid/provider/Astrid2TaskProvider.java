@@ -44,7 +44,6 @@ import com.todoroo.astrid.tags.TagService.Tag;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class Astrid2TaskProvider extends ContentProvider {
 
     static {

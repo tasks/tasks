@@ -72,7 +72,6 @@ public class FilterCategoryWithNewButton extends FilterCategory {
     /**
      * Parcelable creator
      */
-    @SuppressWarnings("hiding")
     public static final Parcelable.Creator<FilterCategoryWithNewButton> CREATOR = new Parcelable.Creator<FilterCategoryWithNewButton>() {
 
         /**

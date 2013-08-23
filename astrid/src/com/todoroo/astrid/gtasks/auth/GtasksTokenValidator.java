@@ -23,7 +23,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
-@SuppressWarnings("nls")
 public class GtasksTokenValidator {
 
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$

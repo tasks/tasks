@@ -51,7 +51,6 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-@SuppressWarnings("nls")
 public class AstridNewSyncMigrator {
 
     @Autowired private MetadataService metadataService;
@@ -75,7 +74,6 @@ public class AstridNewSyncMigrator {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    @SuppressWarnings("deprecation")
     public void performMigration() {
         if (Preferences.getBoolean(PREF_SYNC_MIGRATION, false)) {
             return;

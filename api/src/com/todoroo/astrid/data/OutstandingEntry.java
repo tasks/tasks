@@ -4,7 +4,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 
-@SuppressWarnings("nls")
 public abstract class OutstandingEntry<TYPE extends RemoteModel> extends AbstractModel {
 
     public static final String ENTITY_ID_PROPERTY_NAME = "entityId";

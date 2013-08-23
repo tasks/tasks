@@ -15,7 +15,6 @@ import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 
-@SuppressWarnings("nls")
 public class TaskModelForXml extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {

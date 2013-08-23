@@ -138,7 +138,6 @@ public final class GtasksSyncService {
             this.queue = queue;
         }
 
-        @SuppressWarnings("nls")
         @Override
         public void run() {
             while (true) {

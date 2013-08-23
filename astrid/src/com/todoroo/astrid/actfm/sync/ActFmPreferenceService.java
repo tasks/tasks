@@ -134,7 +134,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         populateUser();
     }
 
-    @SuppressWarnings("nls")
     private static void populateUser() {
         try {
             user.put("name", Preferences.getStringValue(PREF_NAME));
@@ -177,7 +176,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         return name;
     }
 
-    @SuppressWarnings("nls")
     public static String thisUserName() {
         JSONObject thisUser = thisUser();
 

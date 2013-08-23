@@ -17,7 +17,6 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.data.WaitingOnMe;
 
-@SuppressWarnings("nls")
 public class NameMaps {
 
     // --------------------------------

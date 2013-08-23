@@ -33,7 +33,6 @@ import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
-@SuppressWarnings("nls")
 public class ActFmInvoker {
 
     /** NOTE: these values are development values & will not work on production */

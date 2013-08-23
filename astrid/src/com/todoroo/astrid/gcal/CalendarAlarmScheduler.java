@@ -16,7 +16,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
-@SuppressWarnings("nls")
 public class CalendarAlarmScheduler {
 
     public static final String TAG = "calendar-alarm";

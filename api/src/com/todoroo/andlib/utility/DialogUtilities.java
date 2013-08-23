@@ -55,7 +55,6 @@ public class DialogUtilities {
      * @param html
      * @param title
      */
-    @SuppressWarnings("nls")
     public static void htmlDialog(Context context, String html, int title) {
         WebView webView = new WebView(context);
         webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);

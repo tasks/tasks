@@ -22,7 +22,6 @@ import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 
-@SuppressWarnings("nls")
 public class TitleParser {
 
     public static boolean parse(Task task, ArrayList<String> tags) {

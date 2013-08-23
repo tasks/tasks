@@ -108,11 +108,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
-    @SuppressWarnings("nls")
     private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '')"+ ", '  |  ')").as("tags");
-    @SuppressWarnings("nls")
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
-    @SuppressWarnings("nls")
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
     private static final StringProperty PICTURE = User.PICTURE.cloneAs(TaskListFragment.USER_IMAGE_JOIN, null);
@@ -562,7 +559,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-    @SuppressWarnings("nls")
     private void drawDetails(ViewHolder viewHolder, String details, float rightWidth) {
         SpannableStringBuilder prospective = new SpannableStringBuilder();
         SpannableStringBuilder actual = new SpannableStringBuilder();
@@ -726,7 +722,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final HashMap<Long, String> dateCache = new HashMap<Long, String>(8);
 
-    @SuppressWarnings("nls")
     private String formatDate(long date) {
         if(dateCache.containsKey(date)) {
             return dateCache.get(date);
@@ -871,7 +866,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         private final HashMap<Integer, Drawable> cache =
             new HashMap<Integer, Drawable>(3);
         @Override
-        @SuppressWarnings("nls")
         public Drawable getDrawable(String source) {
             int drawable = 0;
             if(source.equals("silk_clock")) {

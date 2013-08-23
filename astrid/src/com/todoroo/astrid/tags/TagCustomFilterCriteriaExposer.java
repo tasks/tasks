@@ -30,7 +30,6 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
 
-    @SuppressWarnings("nls")
     @Override
     public void onReceive(Context context, Intent intent) {
         Resources r = context.getResources();

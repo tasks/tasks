@@ -39,7 +39,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.TagDataService;
 
-@SuppressWarnings({"nls", "deprecation"})
 public class ContactListAdapter extends CursorAdapter {
 
     @Autowired TagDataService tagDataService;

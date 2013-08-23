@@ -37,7 +37,6 @@ import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
  *
  */
 @Deprecated
-@SuppressWarnings("nls")
 public class TaskController extends LegacyAbstractController {
 
     private SQLiteDatabase database;

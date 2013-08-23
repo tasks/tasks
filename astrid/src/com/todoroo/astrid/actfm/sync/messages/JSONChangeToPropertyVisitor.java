@@ -17,7 +17,6 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Task;
 
 
-@SuppressWarnings("nls")
 public class JSONChangeToPropertyVisitor implements PropertyVisitor<Void, String> {
 
     private static final String ERROR_TAG = "actfm-make-changes";

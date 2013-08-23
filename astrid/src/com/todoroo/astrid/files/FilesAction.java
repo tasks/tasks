@@ -19,7 +19,6 @@ public class FilesAction extends TaskAction {
 //    /**
 //     * Parcelable creator
 //     */
-//    @SuppressWarnings("hiding")
 //    public static final Parcelable.Creator<FilesAction> CREATOR = new Parcelable.Creator<FilesAction>() {
 //        /**
 //         * {@inheritDoc}

@@ -45,7 +45,6 @@ public class LocaleReceiver extends BroadcastReceiver {
         return "LOCALE:" + filterTitle + interval; //$NON-NLS-1$
     }
 
-    @SuppressWarnings("nls")
     @Override
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {

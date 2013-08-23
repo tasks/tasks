@@ -34,7 +34,6 @@ class About {
      *
      * @param activity For context.
      */
-    @SuppressWarnings("nls")
     public static void showAbout(final Activity activity, final String versionName) {
 
         Resources r = activity.getResources();

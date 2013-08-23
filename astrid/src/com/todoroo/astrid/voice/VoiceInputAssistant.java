@@ -39,7 +39,6 @@ import com.todoroo.astrid.utility.Constants;
  *
  * @author Arne Jans
  */
-@SuppressWarnings("nls")
 public class VoiceInputAssistant {
 
     /** requestcode for activityresult from voicerecognizer-intent */

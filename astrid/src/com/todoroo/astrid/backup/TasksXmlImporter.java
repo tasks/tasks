@@ -132,7 +132,6 @@ public class TasksXmlImporter {
         }).start();
     }
 
-    @SuppressWarnings("nls")
     private void performImport() throws IOException, XmlPullParserException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser xpp = factory.newPullParser();
@@ -246,7 +245,6 @@ public class TasksXmlImporter {
             }
         }
 
-        @SuppressWarnings("nls")
         private void parseTask() {
             taskCount++;
             setProgressMessage(context.getString(R.string.import_progress_read,
@@ -492,7 +490,6 @@ public class TasksXmlImporter {
             tags.clear();
         }
 
-        @SuppressWarnings("nls")
         private Task parseTask() {
             taskCount++;
             setProgressMessage(context.getString(R.string.import_progress_read,
@@ -553,7 +550,6 @@ public class TasksXmlImporter {
         }
 
         /** helper method to set field on a task */
-        @SuppressWarnings("nls")
         private final boolean setTaskField(Task task, String field, String value) {
             if(field.equals(LegacyTaskModel.ID)) {
                 // ignore

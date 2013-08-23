@@ -6,7 +6,6 @@
 package com.todoroo.astrid.legacy;
 
 /** Legacy task class */
-@SuppressWarnings("nls")
 abstract public class LegacyTaskModel {
 
     public static final String ID = "_id";

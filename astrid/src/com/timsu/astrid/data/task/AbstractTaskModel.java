@@ -27,7 +27,6 @@ import com.timsu.astrid.data.enums.RepeatInterval;
  * @author timsu
  *
  */
-@SuppressWarnings("nls")
 public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     /** Version number of this model */
@@ -140,7 +139,6 @@ public abstract class AbstractTaskModel extends LegacyAbstractModel {
         }
 
         @Override
-        @SuppressWarnings("fallthrough")
         public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");

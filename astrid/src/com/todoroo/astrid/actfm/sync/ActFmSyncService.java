@@ -30,7 +30,6 @@ import com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public final class ActFmSyncService {
 
     // --- instance variables

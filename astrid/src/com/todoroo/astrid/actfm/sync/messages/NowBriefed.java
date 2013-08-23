@@ -16,7 +16,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 
-@SuppressWarnings("nls")
 public class NowBriefed<TYPE extends RemoteModel> extends ServerToClientMessage {
 
     private static final String ERROR_TAG = "actfm-now-briefed";

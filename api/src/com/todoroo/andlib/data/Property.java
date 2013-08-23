@@ -28,7 +28,6 @@ import com.todoroo.andlib.sql.UnaryCriterion;
  * @param <TYPE>
  *            a database supported type, such as String or Integer
  */
-@SuppressWarnings("nls")
 public abstract class Property<TYPE> extends Field implements Cloneable {
 
     // --- implementation

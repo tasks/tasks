@@ -511,7 +511,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
 
-    @SuppressWarnings("nls")
     private void addComment(String message, String actionCode, String uuid, String title, boolean usePicture) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message) && usePicture) {

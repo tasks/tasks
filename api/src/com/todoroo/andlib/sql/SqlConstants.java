@@ -5,7 +5,6 @@
  */
 package com.todoroo.andlib.sql;
 
-@SuppressWarnings("nls")
 public final class SqlConstants {
     public static final String SELECT = "SELECT";
     public static final String DISTINCT = "DISTINCT";

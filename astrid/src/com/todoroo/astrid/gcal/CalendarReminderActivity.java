@@ -33,7 +33,6 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
 
-@SuppressWarnings("nls")
 public class CalendarReminderActivity extends Activity {
 
     public static final String TOKEN_NAMES = "names";
