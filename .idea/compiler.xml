@@ -8,7 +8,6 @@
       <directory url="file://$PROJECT_DIR$/tests/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/api/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/actionbarsherlock/library/gen" includeSubdirectories="true" />
-      <directory url="file://$PROJECT_DIR$/viewPagerIndicator/library/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/greendroid/GreenDroid/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/tests-sync/gen" includeSubdirectories="true" />
     </excludeFromCompile>

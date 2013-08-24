@@ -5,14 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,8 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources.Theme;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -45,7 +35,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -55,7 +44,6 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -77,7 +65,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileUtilities;
@@ -105,12 +92,20 @@ import com.todoroo.astrid.ui.NestableScrollView;
 import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
-import com.todoroo.astrid.ui.TaskEditMoreControls;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
-import com.viewpagerindicator.TabPageIndicator;
+
+import org.astrid.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -196,7 +191,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // --- services
 
     public static final int TAB_VIEW_UPDATES = 0;
-    public static final int TAB_VIEW_MORE = 1;
 
     @Autowired
     private ExceptionService exceptionService;
@@ -226,10 +220,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private FilesControlSet filesControlSet = null;
     private TimerActionControlSet timerAction;
     private EditText title;
-    private TaskEditMoreControls moreControls;
     private EditNoteActivity editNotes;
     private NestableViewPager mPager;
-    private TabPageIndicator mIndicator;
     private HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
@@ -259,8 +251,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private boolean showEditComments;
 
     private int tabStyle = 0;
-
-    private boolean moreSectionHasControls;
 
     /*
      * ======================================================================
@@ -366,10 +356,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
         }
 
-        if (moreSectionHasControls) {
-            tabStyle |= TaskEditViewPager.TAB_SHOW_MORE;
-        }
-
         if (editNotes == null) {
             instantiateEditNotes();
         } else {
@@ -395,15 +381,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         mPager = (NestableViewPager) getView().findViewById(R.id.pager);
         mPager.setAdapter(adapter);
 
-        mIndicator = (TabPageIndicator) getView().findViewById(
-                R.id.indicator);
-        mIndicator.setViewPager(mPager);
-        mIndicator.setOnPageChangeListener(this);
-
-        if (moreControls.getParent() != null && moreControls.getParent() != mPager) {
-            ((ViewGroup) moreControls.getParent()).removeView(moreControls);
-        }
-
         if (showEditComments) {
             commentsBar.setVisibility(View.VISIBLE);
         }
@@ -420,11 +397,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void setCurrentTab(int position) {
-        if(mIndicator == null) {
-            return;
-        }
-
-        mIndicator.setCurrentItem(position);
         mPager.setCurrentItem(position);
     }
 
@@ -437,8 +409,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.id.title_controls);
         LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(
                 getActivity()).inflate(R.layout.task_edit_when_controls, null);
-        moreControls = (TaskEditMoreControls) LayoutInflater.from(getActivity()).inflate(
-                R.layout.task_edit_more_controls, null);
 
         constructWhenDialog(whenDialogView);
 
@@ -588,17 +558,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.id.basic_controls);
         if (removeViews) {
             basicControls.removeAllViews();
-            moreControls.removeAllViews();
         }
 
         ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
-        String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
         LinearLayout section = basicControls;
-
-        moreSectionHasControls = false;
 
         Class<?> openControl = (Class<?>) getActivity().getIntent().getSerializableExtra(TOKEN_OPEN_CONTROL);
 
@@ -606,8 +572,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String item = itemOrder[i];
             if (item.equals(hideAlwaysTrigger)) {
                 break; // As soon as we hit the hide section, we're done
-            } else if (item.equals(moreSectionTrigger)) {
-                section = moreControls;
             } else {
                 View controlSet = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
@@ -617,13 +581,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
 
                 if (controlSet != null) {
-                    if ((i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger))) {
+                    if ((i + 1 >= itemOrder.length)) {
                         removeTeaSeparator(controlSet);
                     }
                     section.addView(controlSet);
-                    if (section == moreControls) {
-                        moreSectionHasControls = true;
-                    }
                 }
 
                 if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
@@ -1276,12 +1237,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         switch(tab) {
         case TaskEditViewPager.TAB_SHOW_ACTIVITY:
             return TAB_VIEW_UPDATES;
-        case TaskEditViewPager.TAB_SHOW_MORE:
-            return TAB_VIEW_MORE;
         }
 
         // error experienced
-        return TAB_VIEW_MORE;
+        return TAB_VIEW_UPDATES;
     }
 
     /**
@@ -1293,8 +1252,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public View getPageView(int position) {
         switch(getTabForPosition(position)) {
-        case TAB_VIEW_MORE:
-            return moreControls;
         case TAB_VIEW_UPDATES:
             return editNotes;
         }
@@ -1306,9 +1263,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         View view = null;
         switch(getTabForPosition(position)) {
-        case TAB_VIEW_MORE:
-            view = moreControls;
-            break;
         case TAB_VIEW_UPDATES:
             view = editNotes;
             break;

@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -14,23 +12,20 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import org.astrid.R;
-import com.viewpagerindicator.TitleProvider;
 
-public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
+import java.util.ArrayList;
+
+public class TaskEditViewPager extends PagerAdapter {
 
     private final String[] titles;
     public TaskEditFragment parent;
 
     public static final int TAB_SHOW_ACTIVITY = 1 << 0;
-    public static final int TAB_SHOW_MORE = 1 << 1;
 
     public TaskEditViewPager(Context context, int tabStyleMask) {
         ArrayList<String> titleList = new ArrayList<String>();
         if ((tabStyleMask & TAB_SHOW_ACTIVITY) > 0) {
             titleList.add(context.getString(R.string.TEA_tab_activity));
-        }
-        if ((tabStyleMask & TAB_SHOW_MORE) > 0) {
-            titleList.add(context.getString(R.string.TEA_tab_more));
         }
 
         titles = titleList.toArray(new String[titleList.size()]);
@@ -70,11 +65,6 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view.equals(object);
-    }
-
-    @Override
-    public String getTitle(int position) {
-        return titles[position];
     }
 
     @Override

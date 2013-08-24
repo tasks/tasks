@@ -22,7 +22,6 @@
     <orderEntry type="library" exported="" name="android-support-v41" level="project" />
     <orderEntry type="library" exported="" name="google-api-services-tasks" level="project" />
     <orderEntry type="module" module-name="GreenDroid" exported="" />
-    <orderEntry type="module" module-name="ViewPagerIndicator" exported="" />
     <orderEntry type="module" module-name="ActionBarSherlock" exported="" />
     <orderEntry type="module" module-name="api" exported="" />
     <orderEntry type="module" module-name="android-aac-enc" exported="" />

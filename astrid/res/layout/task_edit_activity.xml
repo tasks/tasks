@@ -58,11 +58,6 @@
                 android:orientation="vertical"
                 android:visibility="gone" >
 
-                <com.viewpagerindicator.TabPageIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@android:style/Widget.ProgressBar.Horizontal"

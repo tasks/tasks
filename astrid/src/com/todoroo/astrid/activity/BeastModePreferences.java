@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -23,8 +20,12 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
-import org.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
+
+import org.astrid.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BeastModePreferences extends ListActivity {
 
@@ -89,26 +90,15 @@ public class BeastModePreferences extends ListActivity {
             Preferences.clear(BEAST_MODE_ORDER_PREF);
         }
         ArrayList<String> list = constructOrderedControlList(context);
-        String moreSeparator = context.getResources().getString(R.string.TEA_ctrl_more_pref);
         String hideSeparator = context.getResources().getString(R.string.TEA_ctrl_hide_section_pref);
         String importancePref = context.getResources().getString(R.string.TEA_ctrl_importance_pref);
         String listsPref = context.getResources().getString(R.string.TEA_ctrl_lists_pref);
 
         list.remove(importancePref);
         list.remove(listsPref);
-        int moreIndex = list.indexOf(moreSeparator);
-        if (moreIndex >= 0) {
-            list.add(moreIndex + 1, listsPref);
-            list.add(moreIndex + 1, importancePref);
-        }
 
         list.remove(hideSeparator);
-        moreIndex = list.indexOf(moreSeparator);
-        if (moreIndex >= 0) {
-            list.add(moreIndex, hideSeparator);
-        } else {
-            list.add(hideSeparator);
-        }
+        list.add(hideSeparator);
 
         StringBuilder newSetting = new StringBuilder(30);
         for (String item : list) {
@@ -223,7 +213,9 @@ public class BeastModePreferences extends ListActivity {
         }
 
         for (String s : itemsArray) {
-            if (!s.equals(context.getString(R.string.TEA_ctrl_title_pref)) && !s.equals(context.getString(R.string.TEA_ctrl_share_pref))) {
+            if (!s.equals(context.getString(R.string.TEA_ctrl_title_pref)) &&
+                    !s.equals(context.getString(R.string.TEA_ctrl_share_pref)) &&
+                    !s.equals(context.getString(R.string.TEA_ctrl_more_pref))) {
                 list.add(s);
             }
         }

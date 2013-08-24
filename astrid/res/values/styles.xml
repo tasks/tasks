@@ -46,8 +46,6 @@
         <!-- actionbar-styling -->
         <item name="android:actionBarStyle">@style/AstridV11ActionBarStyle</item>
         <item name="actionBarStyle">@style/AstridActionBarStyle</item>
-        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
-        <item name="vpiTabTextStyle">@style/CustomTabPageIndicator.Text</item>
     </style>
     
     <style name="AstridV11ActionBarStyle" parent="@style/Widget.Sherlock.ActionBar">
@@ -532,31 +530,8 @@
         <item name="android:textColor">@color/widget_text_color_light</item>                                                                                                                                                   
     </style>
 
-    <!-- ========================================================= ViewPager == -->
-
-    <style name="CustomCirclePageIndicator">
-        <item name="fillColor">#333333</item>
-        <item name="strokeColor">#333333</item>
-        <item name="strokeWidth">2dp</item>
-        <item name="radius">5dp</item>
-        <item name="centered">true</item>
-        <item name="android:background">#333333</item>
-    </style> 
-    
-    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
-        <item name="android:background">?attr/asEditTabBackground</item>
-        <item name="android:paddingLeft">0dip</item>
-        <item name="android:paddingRight">0dip</item>
-    </style>
-    <style name="CustomTabPageIndicator.Text" parent="Widget.TabPageIndicator.Text">
-        <item name="android:textColor">?attr/asTextColor</item>                                                                                                                                                              
-        <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:layout_marginLeft">0dip</item>
-        <item name="android:layout_marginRight">0dip</item>
-    </style>
-    
     <!-- ========================================================= Premium == -->
+
     <style name="TextAppearance.Premium_Billing">
         <item name="android:textSize">14dip</item>                                                                                                                                                                    
         <item name="android:textColor">@android:color/black</item> 
