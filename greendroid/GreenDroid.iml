@@ -12,11 +12,12 @@
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
         <option name="LIBRARY_PROJECT" value="true" />
+        <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
     </facet>
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":api" />
+        <option name="GRADLE_PROJECT_PATH" value=":greendroid" />
       </configuration>
     </facet>
   </component>
@@ -69,6 +70,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 4.2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="actionbarsherlock" exported="" />
     <orderEntry type="library" exported="" scope="TEST" name="support-v4-18.0.0" level="project" />
   </component>
 </module>

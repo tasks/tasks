@@ -16,7 +16,7 @@
     </facet>
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":api" />
+        <option name="GRADLE_PROJECT_PATH" value=":actionbarsherlock" />
       </configuration>
     </facet>
   </component>

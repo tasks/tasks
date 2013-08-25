@@ -1,4 +1,7 @@
+.gradle
 .idea/workspace.xml
+.idea/gradle.xml
+build/
 out/
 proguard_logs/
 *.apk

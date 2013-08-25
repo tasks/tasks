@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jsr305">
+  <library name="httpmime-4.1.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/jsr305.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpmime-4.1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="gson">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/gson-1.7.1.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

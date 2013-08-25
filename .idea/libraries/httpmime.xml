@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="httpmime">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/httpmime-4.1.1.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

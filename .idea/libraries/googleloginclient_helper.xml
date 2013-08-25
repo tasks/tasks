@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="googleloginclient-helper">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/googleloginclient-helper.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/googleloginclient-helper.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

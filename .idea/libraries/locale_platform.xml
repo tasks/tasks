@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="locale_platform">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/locale_platform.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/locale_platform.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

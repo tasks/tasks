@@ -1,0 +1,5 @@
+include ':android-aac-enc'
+include ':actionbarsherlock'
+include ':greendroid'
+include ':api'
+include ':astrid'

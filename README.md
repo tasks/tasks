@@ -5,8 +5,10 @@ Requires [Android Studio](http://developer.android.com/sdk/installing/studio.htm
 
 To Do
 -----
-* Gradle
+* TeamCity
+* DropBox
 * Widgets
+* Translation workflow
 * Remove dead code, old branches
 * Remove unused resources and preferences
 * Fix warnings

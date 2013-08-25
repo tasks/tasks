@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="google-api-services-tasks-v1-1.3.0-beta-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/google-api-services-tasks-v1-1.3.0-beta-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

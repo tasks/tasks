@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jackson-core-asl">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/jackson-core-asl-1.6.7.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

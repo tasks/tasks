@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jsr305">
+  <library name="jchronic-0.2.3">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/jsr305.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jchronic-0.2.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

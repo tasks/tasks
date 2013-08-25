@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jchronic">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/astrid/libs/jchronic-0.2.3.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
