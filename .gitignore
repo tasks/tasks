@@ -1,12 +1,5 @@
-.gradle
 .idea
 *.iml
+.gradle
 build/
-out/
-proguard_logs/
 *.apk
-*~
-.DS_Store
-.metadata
-gen
-local.properties
