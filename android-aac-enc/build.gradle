@@ -21,8 +21,27 @@ android {
         minSdkVersion 7
         targetSdkVersion 17
     }
+
+    task jarNativeLib(type: Zip) {
+        destinationDir file("libs")
+        baseName 'libaac-encoder'
+        extension 'jar'
+        from fileTree(dir: 'libs/armeabi', include: 'libaac-encoder.so')
+        into 'lib/armeabi'
+    }
+
+    tasks.withType(Compile) {
+        compileTask -> compileTask.dependsOn(jarNativeLib)
+    }
+
+    task cleanNativeLib {
+        delete 'libs/libaac-encoder.jar'
+    }
+
+    clean.dependsOn 'cleanNativeLib'
 }
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
+    compile files('libs/libaac-encoder.jar')
 }

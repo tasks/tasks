@@ -29,18 +29,6 @@ android {
             proguardFile getDefaultProguardFile('proguard-android.txt')
         }
     }
-
-    task nativeLibsToJar(type: Zip) {
-        destinationDir file("libs")
-        baseName 'libaac-encoder'
-        extension 'jar'
-        from fileTree(dir: '../android-aac-enc/libs/armeabi', include: 'libaac-encoder.so')
-        into 'lib/armeabi'
-    }
-
-    tasks.withType(Compile) {
-        compileTask -> compileTask.dependsOn(nativeLibsToJar)
-    }
 }
 
 dependencies {
