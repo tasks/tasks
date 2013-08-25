@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="Astrid" pattern="src:*..*&amp;&amp;!src[ActionBarSherlock]:*..*&amp;&amp;!src[android-aac-enc]:*..*&amp;&amp;!src[GreenDroid]:*..*&amp;&amp;!src[tests]:*..*&amp;&amp;!src[tests-sync]:*..*" />
-</component>

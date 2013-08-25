@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="rfc2445-4Mar2011">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/rfc2445-4Mar2011.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

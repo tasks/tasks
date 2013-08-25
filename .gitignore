@@ -1,6 +1,6 @@
 .gradle
-.idea/workspace.xml
-.idea/gradle.xml
+.idea
+*.iml
 build/
 out/
 proguard_logs/

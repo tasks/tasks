@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="google-http-client-extensions-android2-1.6.0-beta">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/google-http-client-extensions-android2-1.6.0-beta.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
