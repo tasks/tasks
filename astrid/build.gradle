@@ -29,6 +29,18 @@ android {
             proguardFile getDefaultProguardFile('proguard-android.txt')
         }
     }
+
+    task nativeLibsToJar(type: Zip) {
+        destinationDir file("libs")
+        baseName 'libaac-encoder'
+        extension 'jar'
+        from fileTree(dir: '../android-aac-enc/libs/armeabi', include: 'libaac-encoder.so')
+        into 'lib/armeabi'
+    }
+
+    tasks.withType(Compile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
+    }
 }
 
 dependencies {
@@ -36,7 +48,7 @@ dependencies {
     compile project(":android-aac-enc")
     compile project(":greendroid")
     compile project(":api")
-    compile fileTree(dir: "../libs", includes: ["*.jar"])
+    compile fileTree(dir: "libs", includes: ["*.jar"])
 
     compile group: 'com.google.guava', name: 'guava', version: '11.0.1', transitive: false
     compile group: 'com.google.code.gson', name: 'gson', version: '1.7.1', transitive: false
@@ -51,5 +63,4 @@ dependencies {
     compile group: 'com.google.http-client', name: 'google-http-client-extensions-android3', version: '1.6.0-beta', transitive: false
     compile group: 'com.google.oauth-client', name: 'google-oauth-client', version: '1.6.0-beta', transitive: false
     compile group: 'com.google.oauth-client', name: 'google-oauth-client-extensions', version: '1.6.0-beta', transitive: false
-
 }
