@@ -6,22 +6,22 @@
 
 # concatenate astrid XML files
 catxml="`dirname $0`/catxml"
-rm -f astrid/res/values/strings.xml
-${catxml} astrid/res/values/strings*.xml > astrid/res/values/strings.xml
+rm -f astrid/src/main/res/values/strings.xml
+${catxml} astrid/src/main/res/values/strings*.xml > astrid/src/main/res/values/strings.xml
 
 # invoke a2po
-a2po $* --android astrid/res --gettext astrid/locales --groups strings --ignore-fuzzy --template android.pot
-a2po $* --android api/res --gettext api/locales --groups strings --ignore-fuzzy --template api.pot
+a2po $* --android astrid/src/main/res --gettext astrid/locales --groups strings --ignore-fuzzy --template android.pot
+a2po $* --android api/src/main/res --gettext api/locales --groups strings --ignore-fuzzy --template api.pot
 
-mv astrid/res/values-he/* astrid/res/values-iw 2> /dev/null
-mv api/res/values-he/* api/res/values-iw 2> /dev/null
-rmdir astrid/res/values-he api/res/values-he
+mv astrid/src/main/res/values-he/* astrid/src/main/res/values-iw 2> /dev/null
+mv api/src/main/res/values-he/* api/src/main/res/values-iw 2> /dev/null
+rmdir astrid/src/main/res/values-he api/src/main/res/values-he
 
 # remove unused lp translations
 UNUSED=( ar bg el en-rGB eo et eu fi fo gl hi hr hu id ka lt ml oc ro sk sl ta uk vi )
 for LANG in "${UNUSED[@]}"; do
-  rm -rf astrid/res/values-$LANG api/res/values-$LANG
+  rm -rf astrid/src/main/res/values-$LANG api/src/main/res/values-$LANG
 done
 
 # remove temporary
-rm -f astrid/res/values/strings.xml
+rm -f astrid/src/main/res/values/strings.xml
