@@ -22,12 +22,27 @@ android {
         targetSdkVersion 17
     }
 
+    signingConfigs {
+        release
+    }
+
     buildTypes {
         release {
             runProguard true
             proguardFile 'proguard.cfg'
             proguardFile getDefaultProguardFile('proguard-android.txt')
+            signingConfig signingConfigs.release
         }
+    }
+
+    if (project.hasProperty('keyAlias') &&
+            project.hasProperty('storeFile') &&
+            project.hasProperty('storePassword') &&
+            project.hasProperty('keyPassword')) {
+        android.signingConfigs.release.keyAlias = keyAlias
+        android.signingConfigs.release.storeFile = file(storeFile)
+        android.signingConfigs.release.storePassword = storePassword
+        android.signingConfigs.release.keyPassword = keyPassword
     }
 }
 
