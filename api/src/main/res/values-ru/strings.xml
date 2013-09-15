@@ -214,7 +214,7 @@
   <string name="sync_SPr_last_error">Отчёт о состоянии</string>
   
   <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Astrid</string>
+  <string name="sync_SPr_last_error_subtitle">Нажмите, чтобы отправить отчет команде Tasks</string>
   <!-- Sync: send error report button -->
   <string name="sync_SPr_send_report">Отправить отчет</string>
   

@@ -14,7 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
-import org.astrid.api.R;
+import org.tasks.api.R;
 
 /**
  * Exception handling utility class - reports and logs errors

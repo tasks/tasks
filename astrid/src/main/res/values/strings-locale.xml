@@ -9,10 +9,10 @@
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
+  <string name="locale_edit_alerts_title">Tasks Filter Alert</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
+  <string name="locale_edit_intro">Tasks will send you a reminder                                                                                                                                             
       when you have any tasks in the following filter:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
@@ -34,6 +34,6 @@
   <string name="locale_notification">You have $NUM matching: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Please install the Tasks Locale plugin!</string>        
      
 </resources>

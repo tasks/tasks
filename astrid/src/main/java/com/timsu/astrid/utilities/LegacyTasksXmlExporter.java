@@ -23,7 +23,7 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.sync.SyncMapping;

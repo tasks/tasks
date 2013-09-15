@@ -10,7 +10,7 @@ import java.util.Date;
 import android.app.Notification;
 import android.content.Intent;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;

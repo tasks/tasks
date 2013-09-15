@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -24,7 +19,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -40,7 +34,6 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import org.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -56,6 +49,12 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.AsyncImageView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.tasks.R;
+
+import java.util.List;
 
 import edu.mit.mobile.android.imagecache.ImageCache;
 
@@ -260,22 +259,11 @@ public abstract class CommentsFragment extends SherlockListFragment {
             populateListHeader(listHeader);
         }
 
-        View activityContainer = view.findViewById(R.id.no_activity_container);
-        if (cursor.getCount() == 0) {
-            activityContainer.setVisibility(View.VISIBLE);
-            TextView textView = (TextView)activityContainer.findViewById(R.id.no_activity_message);
-            textView.setText(activity.getString(R.string.ENA_no_comments));
-            listView.setVisibility(View.GONE);
-        }
-        else {
-            activityContainer.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-        }
+        listView.setVisibility(View.VISIBLE);
 
         if (activity instanceof CommentsActivity) {
             setLastViewed();
         }
-
     }
 
     private void addFooterToListView(ListView listView) {

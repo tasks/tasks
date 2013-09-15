@@ -133,13 +133,13 @@
   <string name="actfm_TVA_tag_name_hint">リスト名を記入してください</string>
   
   <!-- Tag settings: login prompt from share-->
-  <string name="actfm_TVA_login_to_share">リストを共有するためにはAstrid.comへのログインが必要です！ログインするか、プライベートリストに設定してください。</string>
+  <string name="actfm_TVA_login_to_share">リストを共有するためにはTasks.comへのログインが必要です！ログインするか、プライベートリストに設定してください。</string>
   
       
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
-  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+  <string name="actfm_EPA_intro">Use Tasks to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
     
   <!-- task sharing dialog: window title -->
     
@@ -182,7 +182,7 @@
   <string name="actfm_EPA_assign_header_members">リストメンバー</string>
 
   <!-- task sharing dialog: astrid friends section header -->
-  <string name="actfm_EPA_assign_header_friends">Astridユーザー</string>
+  <string name="actfm_EPA_assign_header_friends">Tasksユーザー</string>
 
   <!-- task sharing dialog: message hint -->
   
@@ -204,7 +204,7 @@
   <!-- task sharing dialog: tag not found (%s => tag) -->
   
   <!-- task sharing login prompt -->
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Tasks.com to share tasks!</string>
   
   <string name="actfm_EPA_login_button">ログイン</string>
   
@@ -226,7 +226,7 @@
   <string name="actfm_ALA_title">Asteroid.comにようこそ！</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
+  <string name="actfm_ALA_body">Tasks.com lets you access your tasks online,
   share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
@@ -308,7 +308,7 @@
   <string name="actfm_status_title_logged_in">Logged in as %s</string>    
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com</string>
+  <string name="actfm_APr_header">Tasks.com</string>
   
   <string name="actfm_https_title">HTTPS を使う</string>
   <string name="actfm_https_enabled">HTTPS有効(遅い)</string>
@@ -319,9 +319,9 @@
   <!-- text for notification when comments are received -->
     
   <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Astrid.com?</string>
+      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Tasks.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">アカウント タイプ</string>
@@ -345,21 +345,21 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
+  <string name="sync_upgr_both_title">Using Tasks.com + Google without Duplicates</string>
+  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Tasks. To avoid duplicates you can no longer sync with Tasks.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
+  <string name="sync_upgr_both_btn1">Stick with Tasks</string>
   <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
+  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
   <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
   
   <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
   <string name="sync_upgr_neither_btn1">今登録する</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
   
   <string name="actfm_logout_clear_tasks_title">Clear data?</string>
   <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
@@ -381,7 +381,7 @@
   
   <string name="EPr_reset_sync_state">Reset sync</string>
   <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
-  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -447,7 +447,7 @@
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     
-    <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
+    <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Tasks.com!</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -463,8 +463,8 @@
   <!-- backup activity export button -->
   <string name="backup_BAc_export">タスクのエクスポート</string>
   
-  <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
+  <!-- backup activity cloud (Tasks.com) option -->
+  <string name="backup_BAc_cloud">Click for free cloud backup on Tasks.com</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
@@ -513,7 +513,7 @@
   <!-- ================================================== AndroidManifest == -->
 
   <!-- slide 32k: Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Astridタスク</string>
+  <string name="app_name">Tasksタスク</string>
   
   <!-- permission title for READ_TASKS -->
   <string name="read_permission_label">タスクの読み込み</string>
@@ -541,8 +541,8 @@
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">時間 (時:分)</string>
   
-  <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid should to be updated to the latest
+  <!-- Dialog for Tasks having a critical update -->
+  <string name="DLG_please_update">Tasks should to be updated to the latest
   version in the Android market! Please do that before continuing, or wait a 
   few seconds.</string>
 
@@ -555,7 +555,7 @@
   <string name="DLG_decline">同意しない</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid 利用規定</string>
+  <string name="DLG_eula_title">Tasks 利用規定</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">お待ちください</string>
@@ -649,7 +649,7 @@
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
   
   <!-- Notification Volumne notification-->
-  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
+  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Tasks!</string>
   
   <!-- Notifications disabled warning -->
   <string name="TLA_notification_disabled">Reminders are disabled! You will not receive any reminders</string>
@@ -767,7 +767,7 @@
   
   <!-- =============================================== FilterListActivity == -->
   
-  <!-- Astrid Filter Shortcut -->    
+  <!-- Tasks Filter Shortcut -->    
   <string name="FSA_label">List or Filter</string>
 
   <!-- Filter List Activity Title -->    
@@ -1000,7 +1000,7 @@
   <string name="MCA_ignore_title">Ignore all missed calls?</string>
 
   <!-- Missed call: dialog to ignore all missed calls body -->
-  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Astrid stop asking you about them?</string>
+  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Tasks stop asking you about them?</string>
 
   <!-- Missed call: dialog to ignore all missed calls ignore all button -->
   <string name="MCA_ignore_all">Ignore all calls</string>
@@ -1012,8 +1012,8 @@
   <string name="MCA_missed_calls_pref_title">Field missed calls</string>
 
   <!-- slide 49c: Missed call: preference description -->
-  <string name="MCA_missed_calls_pref_desc_enabled">Astrid will notify you about missed calls and offer to remind you to call back</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Astrid will not notify you about missed calls</string>
+  <string name="MCA_missed_calls_pref_desc_enabled">Tasks will notify you about missed calls and offer to remind you to call back</string>
+  <string name="MCA_missed_calls_pref_desc_disabled">Tasks will not notify you about missed calls</string>
 
   <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
   <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
@@ -1047,7 +1047,7 @@
   <string name="CRA_ignore_title">Ignore all calendar events?</string>
 
   <!-- Calendar reminder: dialog to ignore all missed calls body -->
-  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Astrid stop asking you about them?</string>
+  <string name="CRA_ignore_body">You\'ve ignored several calendar events. Should Tasks stop asking you about them?</string>
 
   <!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
   <string name="CRA_ignore_all">Ignore all events</string>
@@ -1098,10 +1098,10 @@
   <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
 
   <!-- Calendar reminder: pref description disabled -->
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Tasks will not remind you about upcoming calendar events</string>
 
   <!-- Calendar reminder: pref description enabled -->
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
   
   <!-- Calendar reminder: share list title -->
   <string name="CRA_share_list_title">Share the list?</string>
@@ -1125,10 +1125,10 @@
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">Astrid の変更点</string>
+  <string name="UpS_changelog_title">Tasks の変更点</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">最新のAstridニュース</string>
+  <string name="UpS_updates_title">最新のTasksニュース</string>
   
   <!-- Updats No Activity to show for offline users -->
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -1136,11 +1136,11 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- slide 31g: Preference Window Title -->
-  <string name="EPr_title">Astrid: 設定</string>
+  <string name="EPr_title">Tasks: 設定</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Share Tasks</string>
 
-  <string name="EPr_share_astrid_summary">Share about Astrid on your favorite social network</string>
+  <string name="EPr_share_astrid_summary">Share about Tasks on your favorite social network</string>
   
   <!-- slide 46a -->
   <string name="EPr_deactivated">deactivated</string>
@@ -1304,7 +1304,7 @@
   <!-- Configurations -->
   <string name="EPr_configurations_title">Set configuration</string>
   <string name="EPr_config_default">Default</string>
-  <string name="EPr_config_lite">Astrid Lite</string>
+  <string name="EPr_config_lite">Tasks Lite</string>
   
   <!-- Dialog title when setting preference configuration -->
   <string name="EPr_config_dialog_title">Set configuration?</string>
@@ -1396,7 +1396,7 @@
   <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
   <!-- slide 47h-->
   <string name="EPr_manage_clear_all">Clear all data</string>
-  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
+  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Tasks?\n\nWarning: can\'t be undone!</string>
 
   <!-- slide 47f -->
   <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
@@ -1416,7 +1416,7 @@
   <string name="AOA_title">アドオン</string>
     
   <!-- Add-on Activity: author for internal authors  -->
-  <string name="AOA_internal_author">Astrid Team</string>
+  <string name="AOA_internal_author">Tasks Team</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
   <string name="AOA_tab_installed">インストール済</string>
@@ -1435,9 +1435,9 @@
   <string name="AOA_no_addons">Empty List!</string>
   
   <string name="AOA_ppack_title">Power Pack</string>
-  <string name="AOA_ppack_description">Support Astrid and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
-  <string name="AOA_locale_title">Astrid Locale Plugin</string>
-  <string name="AOA_locale_description">Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
+  <string name="AOA_ppack_description">Support Tasks and get more productive with the Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!</string>
+  <string name="AOA_locale_title">Tasks Locale Plugin</string>
+  <string name="AOA_locale_description">Allows Tasks to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -1462,12 +1462,12 @@
   <!-- ============================================================= About == -->
   
   <!-- slide 30h: Title of "About" option in settings -->
-  <string name="p_about">About Astrid</string>
+  <string name="p_about">About Tasks</string>
   
   <!-- About text (%s => current version)-->
   <string name="p_about_text">Current version: %s\n\n
 
-Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
+Tasks is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
   <string name="p_help">Support</string>
@@ -1480,7 +1480,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- ============================================================= Misc == -->
   
-  <string name="feedback_positive_title">Rate Astrid?</string>
+  <string name="feedback_positive_title">Rate Tasks?</string>
 
   <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 
@@ -1490,25 +1490,25 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
   
-  <string name="feedback_positive_button">Rate Astrid</string>
+  <string name="feedback_positive_button">Rate Tasks</string>
 
   <string name="feedback_negative_button">Leave feedback</string>
   
   <string name="feedback_not_now">Not now</string>
   
-  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
+  <string name="feedback_banner_text">How\'s Tasks working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">タスクキラー (%s) を使用中です。Astrid が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
+  <string name="task_killer_help">タスクキラー (%s) を使用中です。Tasks が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+  <string name="task_killer_help_ok">I Won\'t Kill Tasks!</string>
     
-  <!-- Astrid\'s Android Marketplace title. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
   
-  <!-- Astrid\'s Android Marketplace description. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
+Tasks is the much loved open-source todo list / task manager designed to help 
 you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
   </string>
   
@@ -1518,7 +1518,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings->Sync and backup->Manage old tasks->Clear all data) and restore
-      your tasks from a backup (Settings->Sync and backup->Backup->Import tasks) in Astrid.</string>
+      your tasks from a backup (Settings->Sync and backup->Backup->Import tasks) in Tasks.</string>
       
   <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   
@@ -1828,7 +1828,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">To view your tasks with indentation
     and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Astrid uses its own sort settings for tasks.</string>
+    By default, Tasks uses its own sort settings for tasks.</string>
 
     <!-- Sign In Button -->    
 
@@ -1875,7 +1875,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
 
     <!-- Error when authorization error happens in background sync -->
-    <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Astrid is running.</string>
+    <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Tasks is running.</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 
@@ -1923,7 +1923,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   
   <!-- slide 7b -->
-  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
+  <string name="welcome_login_tos_base">By using Tasks you agree to the</string>
   
   <string name="welcome_login_tos_link">Terms of Service</string>
   
@@ -1941,8 +1941,8 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <string name="welcome_login_confirm_later_cancel">No thanks</string>
   
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
-  For free, you get online backup, full synchronization with Astrid.com, the 
+  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Tasks! 
+  For free, you get online backup, full synchronization with Tasks.com, the 
   ability to add tasks via email, and you can even share task lists with friends!</string>
 
 
@@ -1956,10 +1956,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
+  <string name="locale_edit_alerts_title">Tasks Filter Alert</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
+  <string name="locale_edit_intro">Tasks will send you a reminder                                                                                                                                             
       when you have any tasks in the following filter:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
@@ -1981,7 +1981,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="locale_notification">$FILTER の検索結果: $NUM 件</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Astrid Locale plugin をインストールしてください</string>        
+  <string name="locale_plugin_required">Tasks Locale plugin をインストールしてください</string>        
      
 
 
@@ -2151,7 +2151,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Preference: User Statistics (disabled) -->
   <string name="EPr_statistics_desc_disabled">使用統計情報は送信されません</string>  
   <!-- slide 32f: Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">送られた使用統計情報は Astrid の改善に使用されます</string>
+  <string name="EPr_statistics_desc_enabled">送られた使用統計情報は Tasks の改善に使用されます</string>
       
 
 
@@ -2195,7 +2195,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="file_browser_up">Up</string>
     <string name="file_browser_title">Choose a file</string>
     <string name="dir_browser_title">Choose a directory</string>
-    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
+    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Tasks from accessing the SD card.</string>
     <string name="file_add_picture">Attach a picture</string>
     <string name="file_add_sdcard">Attach a file from your SD card</string>
     <string name="file_download_title">Download file?</string>
@@ -2223,7 +2223,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
      won\'t be able to make purchases.</string>
     <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
     <string name="subscriptions_not_supported_message">The Market billing
-     service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
+     service on this device does not support subscriptions at this time. You can subscribe to Tasks Premium at http://tasks.com/premium.</string>
     <string name="cannot_connect_title">Can\'t connect to Market</string>
     <string name="cannot_connect_message">This app cannot connect to Market.
      Your version of Market may be out of date.
@@ -2234,33 +2234,33 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     
     <string name="subscriptions_learn_more">Learn more</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
     <string name="kii_premium_abort">Special offer aborted</string>
     <string name="kii_premium_declined">Special offer declined</string>
     <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
     
     <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
+    <string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
     <string name="premium_offers_start">Get it free!</string>
     
-    <string name="premium_billing_title">Astridプレミアム</string>
+    <string name="premium_billing_title">Tasksプレミアム</string>
     <string name="premium_buy_month">1か月</string>
     <string name="premium_buy_year">1年</string>
     <string name="premium_description_header">Do more with premium!</string>
     <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
-    <string name="premium_description_2">Syncs files with astrid.com</string>
+    <string name="premium_description_2">Syncs files with tasks.com</string>
     <string name="premium_description_3">Add attachments via email</string>
     <string name="premium_description_4">Save voice recordings as audio files</string>
     <string name="premium_description_5">Preview upcoming features</string>
-    <string name="premium_description_6">Support the Astrid Team!</string>
+    <string name="premium_description_6">Support the Tasks Team!</string>
     <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
     <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
-    <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
-    <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
-    <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
-    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-    <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
+    <string name="premium_already_subscribed">You are already subscribed to Tasks Premium!</string>
+    <string name="premium_login_prompt">You need to have an Tasks.com account in order to subscribe to premium. Please log in or sign up.</string>
+    <string name="premium_success">Thanks for subscribing to Tasks Premium!</string>
+    <string name="premium_success_with_server_error">Thanks for subscribing to Tasks Premium! The new features will be unlocked for you on tasks.com soon, and should be available on your phone right away.</string>
+    <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit tasks.com/users/profile</string>
     <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
     <string name="premium_checking_for_purchases">Checking for purchases...</string>
     
@@ -2347,11 +2347,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
   <!-- Titles for user reengagement notifications -->
   <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
+    <item>A note from Tasks</item>
     <!-- %s -> first name -->
     <item>Memo for %s.</item> 
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
+    <item>Your Tasks digest</item>
+    <item>Reminders from Tasks</item>
   </string-array>
     
   <string name="rmd_reengage_name_default">あなた</string>
@@ -2373,7 +2373,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>I\'m Tasks! I\'m here to help you do more!</item>
     <item>You look busy! Let me take some of those tasks off of your plate.</item>
     <item>I can help you keep track of all of the details in your life.</item>
     <item>You\'re serious about getting more done? So am I!</item>
@@ -2440,9 +2440,9 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks will max out the volume for multiple-ring reminders</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system setting for the volume</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks will use the system setting for the volume</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">アラート時に振動する</string>
@@ -2452,7 +2452,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="rmd_EPr_vibrate_desc_false">通知するときに振動しません</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astridの通知</string>
+  <string name="rmd_EPr_nagging_title">Tasksの通知</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">通知画面に励ましメッセージを表示します</string>
   <!-- Reminder Preference: Nagging Description (false) -->
@@ -2593,7 +2593,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       <item>何時あなたに少し時間がありますか？</item>
       <item>あなたの当面の課題に入っています</item>
       <item>少しお時間ありますか？</item>
-      <item>Astridはここだよ！</item>
+      <item>Tasksはここだよ！</item>
       <item>こんにちは、ちょっと邪魔していい？</item>
       <item>ちょっとお時間よろしいですか？</item>
       <item>It\'s a great day to</item>
@@ -2622,7 +2622,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   </string-array>
   
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
       <item>あなたに贈り物があります。</item> 
       <item>これを過去のこととして忘れてしまう準備はできてる？</item>
       <item>これをやってしまいませんか？</item>
@@ -2653,7 +2653,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   </string-array>
 
   <string-array name="postpone_nags">
-      <!-- Astrid\'s nagging when user clicks postpone -->
+      <!-- Tasks\'s nagging when user clicks postpone -->
       <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
       <item>Doesn\'t being lazy get old sometimes?</item>
       <item>Somewhere, someone is depending on you to finish this!</item>
@@ -3067,9 +3067,9 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
   <!-- slide 38c: Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>    
   
   <!-- slide 32d: Preference Category: Voice Title -->
   <string name="EPr_voice_header">Voice input settings</string>
@@ -3086,7 +3086,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- slide 30a-->
   <string name="welcome_setting">チュートリアルを表示する</string>
   
-  <string name="welcome_title_1">Welcome to Astrid!</string>
+  <string name="welcome_title_1">Welcome to Tasks!</string>
 
   <!-- slide 2a -->
   <string name="welcome_title_2">リストを作る</string>
@@ -3127,7 +3127,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="welcome_body_6">タップしてメモを加える、\nリマインダーを設定する、\nそしてもっと！</string>
   <string name="welcome_body_7">Login</string>
   
-  <string name="welcome_body_7_return">Astridをタップして戻る</string>
+  <string name="welcome_body_7_return">Tasksをタップして戻る</string>
   
   <!-- slide 1c -->
   <string name="welcome_next">次へ</string>
@@ -3141,16 +3141,16 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 -->
 
     
-    <string name="widget_mini">- Astrid Mini -</string>
+    <string name="widget_mini">Tasks Mini</string>
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
-    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
-    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
-    <string name="PPW_widget_v11_label">- Astrid -</string>
-    <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-    <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
+    <string name="PPW_widget_42_label">Old Tasks 4x2</string>
+    <string name="PPW_widget_43_label">Old Tasks 4x3</string>
+    <string name="PPW_widget_44_label">Old Tasks 4x4</string>
+    <string name="PPW_widget_v11_label">- Tasks -</string>
+    <string name="PPW_widget_custom_label">Tasks Custom Launcher Premium</string>
+    <string name="PPW_widget_custom_launcherpro_label">Tasks Launcher Pro Premium</string>
     
     <string name="PPW_configure_title">Configure Widget</string>
     
@@ -3163,7 +3163,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="PPW_due">Due:</string>
     <string name="PPW_past_due">Past Due:</string>
     
-    <string name="PPW_old_astrid_notice">このウィジェットを使うためにはAstridのバージョン3.6以降が必要です。</string>
+    <string name="PPW_old_astrid_notice">このウィジェットを使うためにはTasksのバージョン3.6以降が必要です。</string>
     
     <string-array name="PPW_encouragements">
         <!-- general encouragements -->
@@ -3213,7 +3213,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="PPW_info_title">Free Power Pack!</string>
     <string name="PPW_info_signin">Sign in!</string>
     <string name="PPW_info_later">後で</string>
-    <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
+    <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Tasks.</string>
     <string name="PPW_check_button">Get the Power Pack for free!</string>
     <string name="PPW_check_share_lists">Share lists!</string>
     <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>

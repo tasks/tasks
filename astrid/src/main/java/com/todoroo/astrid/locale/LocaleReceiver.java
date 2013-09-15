@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;

@@ -133,7 +133,7 @@
   <string name="actfm_TVA_tag_name_hint">목록 이름을 입력하세요</string>
   
   <!-- Tag settings: login prompt from share-->
-  <string name="actfm_TVA_login_to_share">목록을 공유하려면 Astrid.com에 로그인해야 합니다! 로그인하거나 비공개 목록으로 만드세요.</string>
+  <string name="actfm_TVA_login_to_share">목록을 공유하려면 Tasks.com에 로그인해야 합니다! 로그인하거나 비공개 목록으로 만드세요.</string>
   
       
   <!-- ============================================ edit people dialog == -->
@@ -204,7 +204,7 @@
   <!-- task sharing dialog: tag not found (%s => tag) -->
   
   <!-- task sharing login prompt -->
-  <string name="actfm_EPA_login_to_share">일정을 공유하려면 Astrid.com 에 로그인해야 합니다!</string>
+  <string name="actfm_EPA_login_to_share">일정을 공유하려면 Tasks.com 에 로그인해야 합니다!</string>
   
   <string name="actfm_EPA_login_button">로그인</string>
   
@@ -223,10 +223,10 @@
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="actfm_ALA_title">Astrid.com 에 오신 것을 환영합니다!</string>
+  <string name="actfm_ALA_title">Tasks.com 에 오신 것을 환영합니다!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com 은 온라인에서 일정을 관리하고 공유하거나 일정을 위임할 수 있게 해 줍니다.</string>
+  <string name="actfm_ALA_body">Tasks.com 은 온라인에서 일정을 관리하고 공유하거나 일정을 위임할 수 있게 해 줍니다.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
   <string name="actfm_ALA_fb_login">페이스북에 연결하기</string>
@@ -307,7 +307,7 @@
   <string name="actfm_status_title_logged_in">%s 로 로그인 함</string>    
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com</string>
+  <string name="actfm_APr_header">Tasks.com</string>
   
   <string name="actfm_https_title">HTTPS 사용하기</string>
   <string name="actfm_https_enabled">HTTPS 사용함 (느림)</string>
@@ -318,9 +318,9 @@
   <!-- text for notification when comments are received -->
     
   <string name="actfm_dual_sync_warning">당신은 현재 구글 일정과 동기화하고 있습니다. 중복된 일정과 다른 동기화 문제를 피하기 위해, 
-당신이 Astrid.com과 동기화를 시작할 때 구글 일정은 더 이상 동기화되지 않을 것입니다. 
+당신이 Tasks.com과 동기화를 시작할 때 구글 일정은 더 이상 동기화되지 않을 것입니다. 
 그러나 구글 일정 설정에서 구글 일정을 여전히 가져올 수 있습니다. 또는 Gmail 의 구글 일정을 아스트리드의 Remind Me 크롬 확장으로 대체할 수 있습니다. 
-Astrid.com 과 동기화하시겠습니까?</string>
+Tasks.com 과 동기화하시겠습니까?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">계정 유형</string>
@@ -344,13 +344,13 @@ Astrid.com 과 동기화하시겠습니까?</string>
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">중복 없이 Astrid.com + 구글 이용하기</string>
-  <string name="sync_upgr_both_body">솔직히 구글 일정은 편리하지만 아스트리드만큼은 아닙니다. 중복을 피하기 위해 더이상 Astrid.com 에 동기화하면서 동시에 구글 일정에 백그라운드로 동기화할 수 없습니다. 구글 일정은 설정 →  백업 &amp; 동기화 항목에서 여전히 불러올 수 있습니다. 또는 구글 일정 만 동기화하도록 다운그레이드할 수 있습니다.</string>
+  <string name="sync_upgr_both_title">중복 없이 Tasks.com + 구글 이용하기</string>
+  <string name="sync_upgr_both_body">솔직히 구글 일정은 편리하지만 아스트리드만큼은 아닙니다. 중복을 피하기 위해 더이상 Tasks.com 에 동기화하면서 동시에 구글 일정에 백그라운드로 동기화할 수 없습니다. 구글 일정은 설정 →  백업 &amp; 동기화 항목에서 여전히 불러올 수 있습니다. 또는 구글 일정 만 동기화하도록 다운그레이드할 수 있습니다.</string>
   <string name="sync_upgr_both_btn1">아스트리드와 함께 갑시다</string>
   <string name="sync_upgr_both_btn2">구글 일정으로 다운그레이드하기</string>
   
   <string name="sync_upgr_gtasks_only_title">무료로 아스트리드 동기화로 업그레이드 하세요!</string>
-  <string name="sync_upgr_gtasks_only_body">Astrid.com 동기화로 당신이 가진 모든 기기와 Gmail에서 일정을 사용하세요. Astrid.com 동기화로 업그레이드 하세요 (구글 일정으로 언제든지 돌아갈 수 있지만 안 그럴 겁니다)!</string>
+  <string name="sync_upgr_gtasks_only_body">Tasks.com 동기화로 당신이 가진 모든 기기와 Gmail에서 일정을 사용하세요. Tasks.com 동기화로 업그레이드 하세요 (구글 일정으로 언제든지 돌아갈 수 있지만 안 그럴 겁니다)!</string>
   <string name="sync_upgr_gtasks_only_btn1">아스트리드 동기화로 업그레이드하기</string>
   <string name="sync_upgr_gtasks_only_btn2">구글 일정 계속 사용하기</string>
   
@@ -380,7 +380,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   
   <string name="EPr_reset_sync_state">동기화 초기화</string>
   <string name="EPr_reset_sync_state_summary">동기화 에러를 해결하기 위해 몇가지 로컬 자료를 초기화합니다</string>
-  <string name="EPr_reset_sync_state_detailed">동기화 에러를 해결하기 위해, 다음 동기화 때 당신의 일정과 목록은 Astrid.com 상에 존재하는 미러로 변경될 것입니다. 계속하시겠습니까?</string>
+  <string name="EPr_reset_sync_state_detailed">동기화 에러를 해결하기 위해, 다음 동기화 때 당신의 일정과 목록은 Tasks.com 상에 존재하는 미러로 변경될 것입니다. 계속하시겠습니까?</string>
   
 
 
@@ -446,7 +446,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     
-    <string name="backup_BPr_cloud_already_logged_in">Astrid.com에 이미 백업을 완료했습니다!</string>
+    <string name="backup_BPr_cloud_already_logged_in">Tasks.com에 이미 백업을 완료했습니다!</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -462,8 +462,8 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- backup activity export button -->
   <string name="backup_BAc_export">일정 내보내기</string>
   
-  <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">Astrid.com 의 무료 클라우드에 백업하려면 클릭하세요</string>
+  <!-- backup activity cloud (Tasks.com) option -->
+  <string name="backup_BAc_cloud">Tasks.com 의 무료 클라우드에 백업하려면 클릭하세요</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
@@ -543,7 +543,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">시간 (시 : 분)</string>
   
-  <!-- Dialog for Astrid having a critical update -->
+  <!-- Dialog for Tasks having a critical update -->
   <string name="DLG_please_update">안드로이드 마켓에서 아스트리드를 최신버전으로 
 업데이트해야 합니다! 계속하기 전에 업데이트하거나 
 잠시 기다려 주세요.</string>
@@ -557,7 +557,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="DLG_decline">거절합니다</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid 사용 약관</string>
+  <string name="DLG_eula_title">Tasks 사용 약관</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">기다려 주십시오</string>
@@ -654,7 +654,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="TLA_notification_volume_low">알림를 껐습니다. 아스트리드 알림 소리를 들을 수 없습니다!</string>
   
   <!-- Notifications disabled warning -->
-  <string name="TLA_notification_disabled">Astrid 알림을 사용하지 않습니다! 어떤 알림도 받을 수 없을 것입니다.</string>
+  <string name="TLA_notification_disabled">Tasks 알림을 사용하지 않습니다! 어떤 알림도 받을 수 없을 것입니다.</string>
   
   <string-array name="TLA_filters">
       <item>실행중</item>
@@ -744,7 +744,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid 스마트 정렬</string>
+  <string name="SSD_sort_auto">Tasks 스마트 정렬</string>
   
   <!-- slide 23e: Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">제목 순서</string>
@@ -769,7 +769,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   
   <!-- =============================================== FilterListActivity == -->
   
-  <!-- Astrid Filter Shortcut -->    
+  <!-- Tasks Filter Shortcut -->    
   <string name="FSA_label">목록이나 필터</string>
 
   <!-- Filter List Activity Title -->    
@@ -1127,7 +1127,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">Astrid 의 새로운 기능</string>
+  <string name="UpS_changelog_title">Tasks 의 새로운 기능</string>
   
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">최신 아스트리드 뉴스</string>
@@ -1436,7 +1436,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">목록이 없습니다!</string>
   
-  <string name="AOA_ppack_title">Astrid 파워 팩</string>
+  <string name="AOA_ppack_title">Tasks 파워 팩</string>
   <string name="AOA_ppack_description">아스트리드를 지원하고 파워 팩(4x2, 4x4 위젯, 음성입력)으로 일을 좀 더 효율적으로 하세요. 오늘 사용해 보세요!</string>
   <string name="AOA_locale_title">아스트리드 위치 플러그인</string>
   <string name="AOA_locale_description">아스트리드에서 위치 앱을 사용합니다. 위치 앱에서 설정한 필터 조건에 따라 알림을 보내줍니다. 위치 서비스를 사용합니다.</string>
@@ -1507,9 +1507,9 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- Task killer dialog ok button -->
   <string name="task_killer_help_ok">아스트리드를 강제로 종료하지 않습니다!</string>
     
-  <!-- Astrid\'s Android Marketplace title. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
   
-  <!-- Astrid\'s Android Marketplace description. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">아스트리드는 당신의 일정을 도와주는 오픈소스 일정/할일 관리 프로그램입니다. 
 일정의 완료 예정일을 알려 주거나, 태그, 동기화, 위치 플러그인, 위젯 등을 제공합니다.</string>
   
@@ -1941,7 +1941,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <string name="welcome_login_confirm_later_cancel">됐거든요</string>
   
   <string name="welcome_login_confirm_later_dialog">아스트리드를 잘 사용하기 위해 가입하세요! 
-무료로 온라인 백업, Astrid.com 에 전체 동기화, 이메일로 일정 추가하기 
+무료로 온라인 백업, Tasks.com 에 전체 동기화, 이메일로 일정 추가하기 
 그리고 친구들과 일정 목록을 공유할 수 있습니다!</string>
 
 
@@ -2203,7 +2203,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
     <string name="file_err_memory">이미지가 너무 커서 메모리에 올릴 수 없습니다</string>
     <string name="file_err_copy">첨부용 파일 복사 에러</string>
     <string name="file_err_download">파일 다운로드 에러</string>
-    <string name="file_err_no_directory">맙소사! 이 파일의 디렉토리가 없는 것 같습니다. Astrid 설정에서 파일을 저장할 디렉토리를 선택하세요.</string>
+    <string name="file_err_no_directory">맙소사! 이 파일의 디렉토리가 없는 것 같습니다. Tasks 설정에서 파일을 저장할 디렉토리를 선택하세요.</string>
     <string name="file_err_show">죄송하지만 이 기기는 아직 이 파일 형식을 지원하지 않습니다</string>
     
     <string name="file_dir_dialog_ok">이 디렉토리 사용</string>
@@ -2219,7 +2219,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
     <string name="billing_not_supported_title">구매할 수 없습니다.</string>
     <string name="billing_not_supported_message">현재 마켓의 과금 서비스를 이용할 수 없습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수 없습니다.</string>
     <string name="subscriptions_not_supported_title">정기 사용권을 구매할 수 없습니다.</string>
-    <string name="subscriptions_not_supported_message">현재 이 기기에서 마켓의 과금 서비스를 통해 정기 사용권을 구입할 수 없습니다. http://astrid.com/premium 에서 직접 Astrid 프리미엄 이용권을 구매할 수 있습니다.</string>
+    <string name="subscriptions_not_supported_message">현재 이 기기에서 마켓의 과금 서비스를 통해 정기 사용권을 구입할 수 없습니다. http://tasks.com/premium 에서 직접 Tasks 프리미엄 이용권을 구매할 수 있습니다.</string>
     <string name="cannot_connect_title">마켓에 접속할 수 없음</string>
     <string name="cannot_connect_message">이 앱은 마켓에 접속할 수 없습니다. 이 앱의 버전이 오래된 것 같습니다. 이 앱을 계속해서 사용할 수 있지만 구매할 수는 없을 것입니다.</string>
     
@@ -2242,18 +2242,18 @@ Astrid.com 과 동기화하시겠습니까?</string>
     <string name="premium_buy_year">1년</string>
     <string name="premium_description_header">프리미엄으로 더 많은 것을 하세요!</string>
     <string name="premium_description_1">할일에 파일 점부하기 \n(pdfs, doc, ppt…)</string>
-    <string name="premium_description_2">astrid.com 에 파일 동기화하기</string>
+    <string name="premium_description_2">tasks.com 에 파일 동기화하기</string>
     <string name="premium_description_3">이메일로 첨부파일 추가하기</string>
     <string name="premium_description_4">음성 노트를 오디오 파일로 저장하기</string>
     <string name="premium_description_5">곧 나올 기능 미리보기</string>
-    <string name="premium_description_6">Astrid 팀을 지원해 주세요!</string>
+    <string name="premium_description_6">Tasks 팀을 지원해 주세요!</string>
     <string name="premium_speech_bubble_1">프리미엄은 당신의 생산성을 높여 줄 것입니다!</string>
     <string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
     <string name="premium_already_subscribed">이미 아스트리드 프리미엄 이용권을 구매하였습니다.</string>
-    <string name="premium_login_prompt">프리미엄 이용권을 구매하려면 Astrid.com 계정이 필요합니다. 로그인하거나 가입해 주세요.</string>
+    <string name="premium_login_prompt">프리미엄 이용권을 구매하려면 Tasks.com 계정이 필요합니다. 로그인하거나 가입해 주세요.</string>
     <string name="premium_success">아스트리드 프리미엄 이용권 구매를 감사드립니다!</string>
-    <string name="premium_success_with_server_error">아스트리드 프리미엄 이용권 구매를 감사드립니다! Astrid.com에서 새로운 기능을 곧 사용할 수 있고, 이 기기에서는 즉시 사용할 수 있습니다.</string>
-    <string name="premium_verification_error">이 구글 플레이 계정으로 구매한 프리미엄 이용권은 다른 사용자에게 연결되어 있습니다. 당신의 계정에 추가적인 이메일을 연결하려면 astrid.com/users/profile 을 방문하세요.</string>
+    <string name="premium_success_with_server_error">아스트리드 프리미엄 이용권 구매를 감사드립니다! Tasks.com에서 새로운 기능을 곧 사용할 수 있고, 이 기기에서는 즉시 사용할 수 있습니다.</string>
+    <string name="premium_verification_error">이 구글 플레이 계정으로 구매한 프리미엄 이용권은 다른 사용자에게 연결되어 있습니다. 당신의 계정에 추가적인 이메일을 연결하려면 tasks.com/users/profile 을 방문하세요.</string>
     <string name="premium_check_for_purchases">프리미엄을 이미 구매하셨나요? 구글 플레이에서 구매 내역을 확인하려면 여기를 클릭하세요</string>
     <string name="premium_checking_for_purchases">구매 확인 중...</string>
     
@@ -2381,9 +2381,9 @@ Astrid.com 과 동기화하시겠습니까?</string>
   <!-- Reminder Preference: Reminders Enabled Title -->
   <string name="rmd_EPr_enabled_title">알림을 사용할까요?</string>
   <!-- Reminder Preference Reminders Enabled Description (true) -->
-  <string name="rmd_EPr_enabled_desc_true">Astrid 알림을 사용합니다 (이것이 보통)</string>
+  <string name="rmd_EPr_enabled_desc_true">Tasks 알림을 사용합니다 (이것이 보통)</string>
   <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">Astrid 알림을 사용하지 않습니다</string>  
+  <string name="rmd_EPr_enabled_desc_false">Tasks 알림을 사용하지 않습니다</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
@@ -2615,7 +2615,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   </string-array>
   
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
       <item>네가 할 일이 있어!</item> 
       <item>이거 끝내버릴 준비 됐어?</item>
       <item>왜 이 일을 끝내버리지 않는 거지?</item>
@@ -2646,7 +2646,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
   </string-array>
 
   <string-array name="postpone_nags">
-      <!-- Astrid\'s nagging when user clicks postpone -->
+      <!-- Tasks\'s nagging when user clicks postpone -->
       <item>네가 할일을 미루는 사람이라는 게 사실이 아니라고 말해줘!</item>
       <item>나이가 들어가는 것은 게으를 수가 없잖아?</item>
       <item>어딘가에서 누군가가 네가 이 일을 마치길 기다리고 있다구!</item>
@@ -2802,7 +2802,7 @@ Astrid.com 과 동기화하시겠습니까?</string>
 
     
   <!-- Subtasks Help Introduction -->
-  <string name="subtasks_help_title">Astrid에서 정렬하고 들여쓰기</string>
+  <string name="subtasks_help_title">Tasks에서 정렬하고 들여쓰기</string>
   <string name="subtasks_help_1">일정을 옮기려면 길게 누릅니다</string>
   <string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>
   <string name="subtasks_help_3">들여쓰기하려면 수평으로 드래그합니다</string>
@@ -3132,14 +3132,14 @@ Astrid.com 과 동기화하시겠습니까?</string>
 -->
 
     
-    <string name="widget_mini">- Astrid Mini -</string>
+    <string name="widget_mini">Tasks Mini</string>
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
-    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
-    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
-    <string name="PPW_widget_v11_label">- Astrid -</string>
+    <string name="PPW_widget_42_label">Old Tasks 4x2</string>
+    <string name="PPW_widget_43_label">Old Tasks 4x3</string>
+    <string name="PPW_widget_44_label">Old Tasks 4x4</string>
+    <string name="PPW_widget_v11_label">- Tasks -</string>
     <string name="PPW_widget_custom_label">아스트리드 사용자 런처 프리미엄</string>
     <string name="PPW_widget_custom_launcherpro_label">아스트리드 런쳐 프로 프리미엄</string>
     

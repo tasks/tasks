@@ -16,7 +16,7 @@ import android.text.TextUtils;
 import android.text.format.Time;
 import android.util.Log;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;

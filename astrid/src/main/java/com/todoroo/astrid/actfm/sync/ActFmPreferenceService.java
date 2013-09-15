@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.RemoteModel;

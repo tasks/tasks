@@ -95,7 +95,7 @@
   <string name="sync_SPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
   <string name="sync_SPr_logged_in_prefix">Přihlášen jako:</string>
   <string name="sync_SPr_last_error">Stavové hlášení</string>
-  <string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Astrid</string>
+  <string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Tasks</string>
   <string name="sync_SPr_send_report">Odeslat zprávu</string>
   <string name="sync_SPr_forget">Odhlásit se</string>
   <string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>

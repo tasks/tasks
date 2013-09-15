@@ -25,18 +25,18 @@
   <string name="actfm_TVA_tag_label">Listenavn</string>
   <string name="actfm_TVA_members_label">Delt med</string>
   <string name="actfm_TVA_tag_picture">Liste billede</string>
-  <string name="actfm_EPA_intro">Brug Astrid til at dele indkøbssedler, festplaner eller projektplaner og følg løbende med i, hvornår folk får afsluttet opgaver!</string>
+  <string name="actfm_EPA_intro">Brug Tasks til at dele indkøbssedler, festplaner eller projektplaner og følg løbende med i, hvornår folk får afsluttet opgaver!</string>
   <string name="actfm_EPA_assign_me">Mig</string>
   <string name="actfm_EPA_unassigned">Hvem som helst</string>
   <string name="actfm_EPA_share_with">Del med:</string>
   <string name="actfm_EPA_collaborators_header">Del med venner</string>
   <string name="actfm_EPA_message_body">Hjælp mig med at få opgaven færdig!</string>
   <string name="actfm_EPA_invalid_email">Forkert emailadresse: %s</string>
-  <string name="actfm_ALA_title">Velkommen til Astrid.com</string>
+  <string name="actfm_ALA_title">Velkommen til Tasks.com</string>
   <string name="actfm_ALA_email_label">E-mail</string>
   <string name="actfm_ALA_password_label">Adgangskode</string>
   <string name="actfm_ALA_signup_title">Opret ny brugerkonto</string>
-  <string name="actfm_ALA_login_title">Login på Astrid.com</string>
+  <string name="actfm_ALA_login_title">Login på Tasks.com</string>
   <string name="actfm_OLA_prompt">Forbind venligst til Google:</string>
   <string name="actfm_https_title">Brug HTTPS</string>
   <string name="actfm_https_enabled">HTTPS aktiveret (langsommere)</string>
@@ -70,19 +70,19 @@
   <string name="DLG_error_sdcard">Kan ikke få adgang til mappen: %s</string>
   <string name="DLG_error_sdcard_general">Kan ikke få adgang til dig SD-kort!</string>
   <string name="import_file_prompt">Vælg en fil for at gendanne</string>
-  <string name="app_name">Astrid Opgaver</string>
-  <string name="read_permission_label">Astrid Tilladelser</string>
+  <string name="app_name">Tasks Opgaver</string>
+  <string name="read_permission_label">Tasks Tilladelser</string>
   <string name="read_permission_desc">læs opgaver, vis opgavefiltre</string>
-  <string name="write_permission_label">Astrid Tilladelser</string>
+  <string name="write_permission_label">Tasks Tilladelser</string>
   <string name="write_permission_desc">opret nye opgaver, rediger eksisterende opgaver</string>
   <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
   <string name="DLG_delete_this_item_question">Slet dette element: %s?</string>
   <string name="DLG_upgrading">Opgraderer dine opgaver...</string>
   <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
-  <string name="DLG_please_update">Astrid bør opdateres til den seneste version på Android Market! Gør venligst dette før du fortsætter, eller vent nogle få sekunder.</string>
+  <string name="DLG_please_update">Tasks bør opdateres til den seneste version på Android Market! Gør venligst dette før du fortsætter, eller vent nogle få sekunder.</string>
   <string name="DLG_accept">Jeg accepterer</string>
   <string name="DLG_decline">Jeg accepterer ikke</string>
-  <string name="DLG_eula_title">Astrid Brugsbetingelser</string>
+  <string name="DLG_eula_title">Tasks Brugsbetingelser</string>
   <string name="DLG_loading">Indlæser...</string>
   <string name="WID_dateButtonUnset">Tryk for at indstille</string>
   <string name="TLA_menu_sort">Sorter &amp; skjulte</string>
@@ -112,7 +112,7 @@
   <string name="SSD_completed">Vis færdiggjorte opgaver</string>
   <string name="SSD_hidden">Vis skjulte opgaver</string>
   <string name="SSD_deleted">Vis slettede opgaver</string>
-  <string name="SSD_sort_auto">Astrid Intelligent sortering</string>
+  <string name="SSD_sort_auto">Tasks Intelligent sortering</string>
   <string name="SSD_sort_alpha">Efter titel</string>
   <string name="SSD_sort_due">Efter deadline</string>
   <string name="SSD_sort_importance">Efter vigtighed</string>
@@ -173,9 +173,9 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="UpS_changelog_title">Hvad er nyt i Astrid</string>
-  <string name="UpS_updates_title">Seneste Astrid-nyheder</string>
-  <string name="EPr_title">Astrid: Opsætning</string>
+  <string name="UpS_changelog_title">Hvad er nyt i Tasks</string>
+  <string name="UpS_updates_title">Seneste Tasks-nyheder</string>
+  <string name="EPr_title">Tasks: Opsætning</string>
   <string name="EPr_appearance_header">Udseende</string>
   <string name="EPr_fontSize_title">Opgavelistestørrelse</string>
   <string name="EPr_fontSize_desc">Skriftstørrelse på den centrale liste</string>
@@ -213,16 +213,16 @@
     <item>Old Style</item>
   </string-array>
   <string name="AOA_title">Tilføjelser</string>
-  <string name="AOA_internal_author">Astrid team</string>
+  <string name="AOA_internal_author">Tasks team</string>
   <string name="AOA_tab_installed">Installerede</string>
   <string name="AOA_tab_available">Tilgængelige</string>
   <string name="AOA_free">Gratis</string>
   <string name="AOA_no_addons">Tom liste!</string>
   <string name="TWi_loading">Indlæser...</string>
   <string name="WCA_title">Vælg opgaver der skal vises...</string>
-  <string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Astrid til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Astrid muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
-  <string name="task_killer_help_ok">Jeg vil ikke dræbe Astrid!</string>
-  <string name="marketplace_description">Astrid er den højtelskede open-source huskeliste / opgavehåndtering designet til at hjælpe dig med at få ting ordnet. Den har påmindelser, tags, synkronisering, Locale-plug-in, et widget og meget mere.</string>
+  <string name="task_killer_help">Det ser ud som om du bruger en app der kan dræbe processer (%s)! Hvis du kan, så tilføj Tasks til udelukkelseslisten så den ikke bliver dræbt. Ellers kan Tasks muligvis ikke fortælle dig hvornår dine opgaver tidsfrist er.\n</string>
+  <string name="task_killer_help_ok">Jeg vil ikke dræbe Tasks!</string>
+  <string name="marketplace_description">Tasks er den højtelskede open-source huskeliste / opgavehåndtering designet til at hjælpe dig med at få ting ordnet. Den har påmindelser, tags, synkronisering, Locale-plug-in, et widget og meget mere.</string>
   <string name="EPr_defaults_header">Standard for nye opgaver</string>
   <string name="EPr_default_urgency_title">Standard Deadline</string>
   <string name="EPr_default_urgency_desc">Nuværende: %s</string>
@@ -294,11 +294,11 @@
   <string name="gcal_completed_title">%s (fuldført)</string>
   <string name="gcal_GCP_default">Standardkalender</string>
   <string name="gtasks_GLA_body">Vær venlig at logge ind to Google Tasks-synkronisering (beta!). Google Apps for Domain understøttes i øjeblikket ikke, men vi arbejder på sagen!</string>
-  <string name="gtasks_GLA_further_help">For at vise dine opgaver med indryk og orden bevaret, skal du gå til Filtre-siden og vælge en Google Tasks-liste. Som standard bruger Astrid sin egen sorteringsopsætning til opgaver.</string>
+  <string name="gtasks_GLA_further_help">For at vise dine opgaver med indryk og orden bevaret, skal du gå til Filtre-siden og vælge en Google Tasks-liste. Som standard bruger Tasks sin egen sorteringsopsætning til opgaver.</string>
   <string name="gtasks_GLA_errorAuth_captcha">Du har muligvis støt på en captcha. Prøv at logge ind fra din standard browser, log da ind her igen:</string>
   <string name="gtasks_GPr_header">Google Tasks (beta!)</string>
-  <string name="locale_edit_alerts_title">Astrid filter alarm</string>
-  <string name="locale_edit_intro">Astrid vil sende dig en påmindelse når du har opgaver i det følgende filter:</string>
+  <string name="locale_edit_alerts_title">Tasks filter alarm</string>
+  <string name="locale_edit_intro">Tasks vil sende dig en påmindelse når du har opgaver i det følgende filter:</string>
   <string name="locale_interval_label">Begræns påmindelser til:</string>
   <string-array name="locale_interval">
     <item>en gang i timen</item>
@@ -309,7 +309,7 @@
     <item>ugentligt</item>
   </string-array>
   <string name="locale_notification">Du har $NUM der matcher: $FILTER</string>
-  <string name="locale_plugin_required">Installer venligst Astrid Locale-plugin!</string>
+  <string name="locale_plugin_required">Installer venligst Tasks Locale-plugin!</string>
   <string name="opencrx_FEx_dashboard">Arbejdsområder</string>
   <string name="opencrx_PDE_task_from">fra %s</string>
   <string name="opencrx_TEA_notes">Tilføj en kommentar</string>
@@ -323,7 +323,7 @@
   <string name="CFC_opencrx_in_workspace_text">I arbejdsområde: ?</string>
   <string name="CFC_opencrx_in_workspace_name">I arbejdsområde...</string>
   <string name="EPr_statistics_desc_disabled">Ingen data om brug vil blive rapporteret</string>
-  <string name="EPr_statistics_desc_enabled">Hjælp os med at forbedre Astrid ved at sende anonyme data om brug</string>
+  <string name="EPr_statistics_desc_enabled">Hjælp os med at forbedre Tasks ved at sende anonyme data om brug</string>
   <string name="TEA_reminder_due">når deadline er nået</string>
   <string name="TEA_reminder_overdue">når deadline er overskredet</string>
   <string name="TEA_reminder_mode_once">Ring en gang</string>
@@ -340,10 +340,10 @@
   <string name="rmd_NoA_done">Allerede udført!</string>
   <string name="rmd_NoA_snooze">Slumrefunktion...</string>
   <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
+    <item>A note from Tasks</item>
     <item>Memo for %s.</item>
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
+    <item>Your Tasks digest</item>
+    <item>Reminders from Tasks</item>
   </string-array>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -356,7 +356,7 @@
   </string-array>
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>I\'m Tasks! I\'m here to help you do more!</item>
     <item>You look busy! Let me take some of those tasks off of your plate.</item>
     <item>I can help you keep track of all of the details in your life.</item>
     <item>You\'re serious about getting more done? So am I!</item>
@@ -470,7 +470,7 @@
     <item>When you have a minute:</item>
     <item>On your agenda:</item>
     <item>Free for a moment?</item>
-    <item>Astrid here!</item>
+    <item>Tasks here!</item>
     <item>Hi! Can I bug you?</item>
     <item>A minute of your time?</item>
     <item>It\'s a great day to</item>
@@ -581,7 +581,7 @@
     <item>I love when you\'re productive!</item>
   </string-array>
   <string name="tag_settings_title">Settings:</string>
-  <string name="welcome_title_1">Velkommen til Astrid!</string>
+  <string name="welcome_title_1">Velkommen til Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
   <string name="PPW_configure_title">Konfigurer Widget</string>
   <string name="PPW_color">Widget farve</string>
@@ -589,7 +589,7 @@
   <string name="PPW_filter">Vælg filter</string>
   <string name="PPW_due">Forfalder:</string>
   <string name="PPW_past_due">Efter forfaldsdato:</string>
-  <string name="PPW_old_astrid_notice">Du skal mindste bruge version 3.6 af Astrid for at bruge denne widget. Beklager!</string>
+  <string name="PPW_old_astrid_notice">Du skal mindste bruge version 3.6 af Tasks for at bruge denne widget. Beklager!</string>
   <string-array name="PPW_encouragements">
     <item>Hi there!</item>
     <item>Har du tid til at færdiggøre noget?</item>

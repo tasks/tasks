@@ -21,7 +21,7 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import org.astrid.api.R;
+import org.tasks.api.R;
 
 /**
  * Data Model which represents a task users need to accomplish.

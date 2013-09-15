@@ -14,7 +14,7 @@ public final class Constants {
     /**
      * Application Package
      */
-    public static final String PACKAGE = "org.astrid";
+    public static final String PACKAGE = "org.tasks";
 
     /**
      * Whether this is an OEM installation

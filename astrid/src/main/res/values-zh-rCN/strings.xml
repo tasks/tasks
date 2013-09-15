@@ -223,10 +223,10 @@
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="actfm_ALA_title">欢迎光临 Astrid.com！</string>
+  <string name="actfm_ALA_title">欢迎光临 Tasks.com！</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com能让您轻松在线访问、共享和委托您的任务。</string>
+  <string name="actfm_ALA_body">Tasks.com能让您轻松在线访问、共享和委托您的任务。</string>
 
   <!-- share login: Sharing Login FB Prompt -->
   <string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
@@ -307,7 +307,7 @@
   <string name="actfm_status_title_logged_in">状态——已使用 %s 帐户登录</string>    
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com (清单小助理)</string>
+  <string name="actfm_APr_header">Tasks.com (清单小助理)</string>
   
   <string name="actfm_https_title">使用 HTTPS</string>
   <string name="actfm_https_enabled">开启 HTTPS （较慢）</string>
@@ -318,9 +318,9 @@
   <!-- text for notification when comments are received -->
     
   <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Astrid.com?</string>
+      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Tasks.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">帐号类型</string>
@@ -344,21 +344,21 @@
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Astrid.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Astrid. To avoid duplicates you can no longer sync with Astrid.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
+  <string name="sync_upgr_both_title">Using Tasks.com + Google without Duplicates</string>
+  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Tasks. To avoid duplicates you can no longer sync with Tasks.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
+  <string name="sync_upgr_both_btn1">Stick with Tasks</string>
   <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
+  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
   <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
   
   <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
   <string name="sync_upgr_neither_btn1">Sign up now</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
   
   <string name="actfm_logout_clear_tasks_title">Clear data?</string>
   <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
@@ -380,7 +380,7 @@
   
   <string name="EPr_reset_sync_state">Reset sync</string>
   <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
-  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -446,7 +446,7 @@
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     
-    <string name="backup_BPr_cloud_already_logged_in">您已经在Astrid.com上享有云备份</string>
+    <string name="backup_BPr_cloud_already_logged_in">您已经在Tasks.com上享有云备份</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -462,8 +462,8 @@
   <!-- backup activity export button -->
   <string name="backup_BAc_export">导出任务</string>
   
-  <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">访问Astrid.com免费获取云备份</string>
+  <!-- backup activity cloud (Tasks.com) option -->
+  <string name="backup_BAc_cloud">访问Tasks.com免费获取云备份</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
@@ -540,7 +540,7 @@
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">时间（小时:分钟）</string>
   
-  <!-- Dialog for Astrid having a critical update -->
+  <!-- Dialog for Tasks having a critical update -->
   <string name="DLG_please_update">清单小助理应该要从 Android 市场下载最新版本! 请继续前执行, 或稍等片刻。</string>
 
   <!-- Button for going to Market -->
@@ -764,7 +764,7 @@
   
   <!-- =============================================== FilterListActivity == -->
   
-  <!-- Astrid Filter Shortcut -->    
+  <!-- Tasks Filter Shortcut -->    
   <string name="FSA_label">清单小助理列表或过滤器</string>
 
   <!-- Filter List Activity Title -->    
@@ -1095,10 +1095,10 @@
   <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
 
   <!-- Calendar reminder: pref description disabled -->
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid will not remind you about upcoming calendar events</string>
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Tasks will not remind you about upcoming calendar events</string>
 
   <!-- Calendar reminder: pref description enabled -->
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid will remind you about upcoming calendar events and prompt you to prepare for them</string>
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
   
   <!-- Calendar reminder: share list title -->
   <string name="CRA_share_list_title">Share the list?</string>
@@ -1135,7 +1135,7 @@
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">清单小助理：设置</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Share Tasks</string>
 
   <string name="EPr_share_astrid_summary">在您喜欢的社交网站上分享清单小助理</string>
   
@@ -1301,7 +1301,7 @@
   <!-- Configurations -->
   <string name="EPr_configurations_title">Set configuration</string>
   <string name="EPr_config_default">Default</string>
-  <string name="EPr_config_lite">Astrid Lite</string>
+  <string name="EPr_config_lite">Tasks Lite</string>
   
   <!-- Dialog title when setting preference configuration -->
   <string name="EPr_config_dialog_title">Set configuration?</string>
@@ -1475,7 +1475,7 @@
   
   <!-- ============================================================= Misc == -->
   
-  <string name="feedback_positive_title">Rate Astrid?</string>
+  <string name="feedback_positive_title">Rate Tasks?</string>
 
   <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 
@@ -1485,13 +1485,13 @@
 
   <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
   
-  <string name="feedback_positive_button">Rate Astrid</string>
+  <string name="feedback_positive_button">Rate Tasks</string>
 
   <string name="feedback_negative_button">Leave feedback</string>
   
   <string name="feedback_not_now">Not now</string>
   
-  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
+  <string name="feedback_banner_text">How\'s Tasks working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 清单小助理加入到例外列表避免被杀死。否则 清单小助理可能无法通知您任务已到期。\n</string>
@@ -1499,9 +1499,9 @@
   <!-- Task killer dialog ok button -->
   <string name="task_killer_help_ok">我不要中止清单小助理!</string>
     
-  <!-- Astrid\'s Android Marketplace title. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
   
-  <!-- Astrid\'s Android Marketplace description. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">清单小助理是一款开源并深受人们喜爱的任务/列表管理器，旨在提高您处理事务的效率。清单小助理包含提醒、标签、同步、区域插件、小工具等众多功能。</string>
   
   <string name="DB_corrupted_title">数据库已经受损</string>
@@ -1925,7 +1925,7 @@
   
   <string name="welcome_login_confirm_later_cancel">不了，谢谢</string>
   
-  <string name="welcome_login_confirm_later_dialog">登录吧，充分利用清单小助理！无需任何费用，您就可以获得在线备份、和 Astrid.com 全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！</string>
+  <string name="welcome_login_confirm_later_dialog">登录吧，充分利用清单小助理！无需任何费用，您就可以获得在线备份、和 Tasks.com 全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！</string>
 
 
 <!-- 
@@ -2201,7 +2201,7 @@
     <string name="billing_not_supported_title">无法完成交易</string>
     <string name="billing_not_supported_message">付款服务暂时无法使用。您能继续使用这个应用软件，但是您无法成功购买。</string>
     <string name="subscriptions_not_supported_title">无法订阅服务。</string>
-    <string name="subscriptions_not_supported_message">此设备上的Market账单服务暂时无法支持购买。 您能在http://astrid.com/premium上购买清单小助理高级版本。</string>
+    <string name="subscriptions_not_supported_message">此设备上的Market账单服务暂时无法支持购买。 您能在http://tasks.com/premium上购买清单小助理高级版本。</string>
     <string name="cannot_connect_title">无法连接网上Market</string>
     <string name="cannot_connect_message">此应用程序无法连接Market。您的Market版本也许过低。您能继续使用此程序，但是您无法成功交易。</string>
     
@@ -2209,14 +2209,14 @@
     
     <string name="subscriptions_learn_more">了解更多</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
     <string name="kii_premium_abort">Special offer aborted</string>
     <string name="kii_premium_declined">Special offer declined</string>
     <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
     
     <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
+    <string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
     <string name="premium_offers_start">Get it free!</string>
     
     <string name="premium_billing_title">清单小助理高级版本</string>
@@ -2224,18 +2224,18 @@
     <string name="premium_buy_year">1 年</string>
     <string name="premium_description_header">使用高级版本完成更多事情</string>
     <string name="premium_description_1">附加文件到任务列表里</string>
-    <string name="premium_description_2">使用 astrid.com同步文件</string>
+    <string name="premium_description_2">使用 tasks.com同步文件</string>
     <string name="premium_description_3">通过邮件添加附件</string>
     <string name="premium_description_4">将语音消息另存为音频文件</string>
     <string name="premium_description_5">提前体验亮点</string>
     <string name="premium_description_6">支持清单小助理高级版本团队！</string>
     <string name="premium_speech_bubble_1">高级版本能够让您的效率升级！</string>
     <string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
-    <string name="premium_already_subscribed">您已经购买了清单小助理高级版本(Astrid Premium)！</string>
-    <string name="premium_login_prompt">为了成功购买高级版本，您需要一个Astrid.com的账户。 请在我们的网站上登录或者注册。</string>
-    <string name="premium_success">谢谢购买清单小助理高级版本(Astrid Premium)！</string>
-    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-    <string name="premium_verification_error">此Google Play 帐户的高级版本正与另一个用户连接。访问astrid.com/users/profile并连接您帐户的另一个电子邮箱。</string>
+    <string name="premium_already_subscribed">您已经购买了清单小助理高级版本(Tasks Premium)！</string>
+    <string name="premium_login_prompt">为了成功购买高级版本，您需要一个Tasks.com的账户。 请在我们的网站上登录或者注册。</string>
+    <string name="premium_success">谢谢购买清单小助理高级版本(Tasks Premium)！</string>
+    <string name="premium_success_with_server_error">Thanks for subscribing to Tasks Premium! The new features will be unlocked for you on tasks.com soon, and should be available on your phone right away.</string>
+    <string name="premium_verification_error">此Google Play 帐户的高级版本正与另一个用户连接。访问tasks.com/users/profile并连接您帐户的另一个电子邮箱。</string>
     <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
     <string name="premium_checking_for_purchases">Checking for purchases...</string>
     
@@ -2429,9 +2429,9 @@
   <!-- Reminder Preference: Nagging Title -->  
   <string name="rmd_EPr_nagging_title">清单小助理提醒</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid 提醒时会给你鼓励</string>
+  <string name="rmd_EPr_nagging_desc_true">Tasks 提醒时会给你鼓励</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid 不显示任何鼓励</string>
+  <string name="rmd_EPr_nagging_desc_false">Tasks 不显示任何鼓励</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">晚点提醒对话框 小时:分钟</string>
@@ -2568,7 +2568,7 @@
       <item>当您有时间：</item>
       <item>在您的议程：</item>
       <item>有空吗？</item>
-      <item>注意一下Astrid!</item>
+      <item>注意一下Tasks!</item>
       <item>可打扰一下吗？</item>
       <item>能借一分钟吗？</item>
       <item>重要的一天要</item>
@@ -2597,7 +2597,7 @@
   </string-array>
   
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
       <item>我有些事想麻烦您！</item> 
       <item>是时候该让这事成为过去了？</item>
       <item>为何不将其搞掂？</item>
@@ -2628,7 +2628,7 @@
   </string-array>
 
   <string-array name="postpone_nags">
-      <!-- Astrid\'s nagging when user clicks postpone -->
+      <!-- Tasks\'s nagging when user clicks postpone -->
       <item>别告诉我事实上你是会拖延的人！</item>
       <item>有时懒散会使人变老！</item>
       <item>有些人正在哪里等你完成这件事呢！</item>
@@ -2784,7 +2784,7 @@
 
     
   <!-- Subtasks Help Introduction -->
-  <string name="subtasks_help_title">在 Astrid 中排序并缩进</string>
+  <string name="subtasks_help_title">在 Tasks 中排序并缩进</string>
   <string name="subtasks_help_1">轻点并按住一项任务来移动它</string>
   <string name="subtasks_help_2">上下拖动以重新整理</string>
   <string name="subtasks_help_3">左右拖动以缩进</string>
@@ -3040,9 +3040,9 @@
   <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid在任务提醒时会以语音说出任务名称</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
   <!-- slide 38c: Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid在任务提醒时将会播放铃声</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>    
   
   <!-- slide 32d: Preference Category: Voice Title -->
   <string name="EPr_voice_header">语音输入设定</string>
@@ -3059,7 +3059,7 @@
   <!-- slide 30a-->
   <string name="welcome_setting">显示教程</string>
   
-  <string name="welcome_title_1">欢迎使用 Astrid！</string>
+  <string name="welcome_title_1">欢迎使用 Tasks！</string>
 
   <!-- slide 2a -->
   <string name="welcome_title_2">创建列表</string>
@@ -3114,14 +3114,14 @@
 -->
 
     
-    <string name="widget_mini">- Astrid Mini -</string>
+    <string name="widget_mini">Tasks Mini</string>
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
-    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
-    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
-    <string name="PPW_widget_v11_label">- Astrid -</string>
+    <string name="PPW_widget_42_label">Old Tasks 4x2</string>
+    <string name="PPW_widget_43_label">Old Tasks 4x3</string>
+    <string name="PPW_widget_44_label">Old Tasks 4x4</string>
+    <string name="PPW_widget_v11_label">- Tasks -</string>
     <string name="PPW_widget_custom_label">清单小助理自定义尊贵版</string>
     <string name="PPW_widget_custom_launcherpro_label">清单小助理专业尊贵版</string>
     

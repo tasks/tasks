@@ -223,10 +223,10 @@
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="actfm_ALA_title">ברוך הבא ל-Astrid.com!</string>
+  <string name="actfm_ALA_title">ברוך הבא ל-Tasks.com!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">אתר astrid.com מאפשר גישה מקוונת למשימות, ומאפשר לך לשתף אותן או להקצותן לאחרים</string>
+  <string name="actfm_ALA_body">אתר tasks.com מאפשר גישה מקוונת למשימות, ומאפשר לך לשתף אותן או להקצותן לאחרים</string>
 
   <!-- share login: Sharing Login FB Prompt -->
   <string name="actfm_ALA_fb_login">התחבר באמצעות פייסבוק</string>
@@ -307,7 +307,7 @@
   <string name="actfm_status_title_logged_in"> מצב - מחובר כ %s</string>    
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com</string>
+  <string name="actfm_APr_header">Tasks.com</string>
   
   <string name="actfm_https_title">השתמש ב־HTTPS</string>
   <string name="actfm_https_enabled">HTTPS מופעל (איטי יותר)</string>
@@ -318,9 +318,9 @@
   <!-- text for notification when comments are received -->
     
   <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Astrid.com?</string>
+      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Tasks.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">סוג חשבון</string>
@@ -345,7 +345,7 @@
   
   <!-- Sync upgrade messages -->
   <string name="sync_upgr_both_title">שימוש באסטריד ובגוגל ללא כפילויות</string>
-  <string name="sync_upgr_both_body">הבה נאמר את האמת.״משימות גוגל״ הוא מוצר נוח, אבל לא מגניב כמו אסטריד. כדי למנוע כפילויות, לא תוכל יותר לסנכרן ברקע בו זמנית  גם מול astrid.com   גם מול משימות גוגל. תוכל עדיין ליבא את משימות גוגל באמצעות הגדרות/גיבוי וסינכרון, או לשנמך את פעילותך לסנכרון מול גוגל בלבד.</string>
+  <string name="sync_upgr_both_body">הבה נאמר את האמת.״משימות גוגל״ הוא מוצר נוח, אבל לא מגניב כמו אסטריד. כדי למנוע כפילויות, לא תוכל יותר לסנכרן ברקע בו זמנית  גם מול tasks.com   גם מול משימות גוגל. תוכל עדיין ליבא את משימות גוגל באמצעות הגדרות/גיבוי וסינכרון, או לשנמך את פעילותך לסנכרון מול גוגל בלבד.</string>
   <string name="sync_upgr_both_btn1">השאר עם אסטריד</string>
   <string name="sync_upgr_both_btn2">שנמוך ל״משימות גוגל״</string>
   
@@ -380,7 +380,7 @@
   
   <string name="EPr_reset_sync_state">Reset sync</string>
   <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
-  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -446,7 +446,7 @@
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     
-    <string name="backup_BPr_cloud_already_logged_in">יש לך כבר גיבוי בענן באתר astrid.com</string>
+    <string name="backup_BPr_cloud_already_logged_in">יש לך כבר גיבוי בענן באתר tasks.com</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -462,8 +462,8 @@
   <!-- backup activity export button -->
   <string name="backup_BAc_export">ייצוא משימות</string>
   
-  <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">הקלק לגיבוי חינם בענן באתר astrid.com</string>
+  <!-- backup activity cloud (Tasks.com) option -->
+  <string name="backup_BAc_cloud">הקלק לגיבוי חינם בענן באתר tasks.com</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
@@ -540,7 +540,7 @@
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">זמן (שעות : דקות)</string>
   
-  <!-- Dialog for Astrid having a critical update -->
+  <!-- Dialog for Tasks having a critical update -->
   <string name="DLG_please_update">נדרש עדכון לתכנת אסטריד לגירסה האחרונה בחנות היישומים של גוגל. אנא עשה זאת לפני שתמשיך, או המתן מספר שניות.</string>
 
   <!-- Button for going to Market -->
@@ -552,7 +552,7 @@
   <string name="DLG_decline">אינני מסכים</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid תנאי שימוש</string>
+  <string name="DLG_eula_title">Tasks תנאי שימוש</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">נא המתן</string>
@@ -739,7 +739,7 @@
   <string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
   
   <!-- slide 23b: Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid מיון חכם</string>
+  <string name="SSD_sort_auto">Tasks מיון חכם</string>
   
   <!-- slide 23e: Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">ע״פ כותרת</string>
@@ -764,7 +764,7 @@
   
   <!-- =============================================== FilterListActivity == -->
   
-  <!-- Astrid Filter Shortcut -->    
+  <!-- Tasks Filter Shortcut -->    
   <string name="FSA_label">רשימת משימות או מַסְנֵן</string>
 
   <!-- Filter List Activity Title -->    
@@ -1125,7 +1125,7 @@
   <string name="UpS_changelog_title">מה חדש אצל אסטריד?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">חדשות Astrid אחרונות</string>
+  <string name="UpS_updates_title">חדשות Tasks אחרונות</string>
   
   <!-- Updats No Activity to show for offline users -->
   <string name="UpS_no_activity_log_in">התחבר כדי לראות דו״ח על\n\nהתקדמותך ועל הפעילות\n\nברשימות המשותפות.</string>
@@ -1475,7 +1475,7 @@
   
   <!-- ============================================================= Misc == -->
   
-  <string name="feedback_positive_title">Rate Astrid?</string>
+  <string name="feedback_positive_title">Rate Tasks?</string>
 
   <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 
@@ -1485,13 +1485,13 @@
 
   <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
   
-  <string name="feedback_positive_button">Rate Astrid</string>
+  <string name="feedback_positive_button">Rate Tasks</string>
 
   <string name="feedback_negative_button">Leave feedback</string>
   
   <string name="feedback_not_now">Not now</string>
   
-  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
+  <string name="feedback_banner_text">How\'s Tasks working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">ככל הנראה הנך משתמש ביישום אשר יכול להרוג תהליכים (%s)!
@@ -1501,9 +1501,9 @@
   <!-- Task killer dialog ok button -->
   <string name="task_killer_help_ok">אני לא אהרוג את אסטריד!</string>
     
-  <!-- Astrid\'s Android Marketplace title. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
   
-  <!-- Astrid\'s Android Marketplace description. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">אסטריד הינה תכנת קוד פתוח פופולרית לניהול משימות ומטלות אשר תוכננה כדי לסייע 
 לך לעשות יותר. התכנה כוללת תזכורות, תגיות, סנכרון, התאמה מקומית, חפיץ מסך, ועוד.</string>
   
@@ -1931,7 +1931,7 @@
   
   <string name="welcome_login_confirm_later_cancel">לא, תודה</string>
   
-  <string name="welcome_login_confirm_later_dialog">עליך להרשם כדי להפיק את המירב מאסטריד! תוכל לקבל גיבויים חינם, סינכרון מלא עם אתר astrid.com, אפשרות להוסיף משימות בדוא״ל, ואפילו אפשרות לשתף משימות עם חברים!</string>
+  <string name="welcome_login_confirm_later_dialog">עליך להרשם כדי להפיק את המירב מאסטריד! תוכל לקבל גיבויים חינם, סינכרון מלא עם אתר tasks.com, אפשרות להוסיף משימות בדוא״ל, ואפילו אפשרות לשתף משימות עם חברים!</string>
 
 
 <!-- 
@@ -2210,7 +2210,7 @@
 לא תוכל לבצע רכישות.</string>
     <string name="subscriptions_not_supported_title">לא ניתן לרכוש מִנּוּיִים</string>
     <string name="subscriptions_not_supported_message">שוק החיוב.
-השירות על התקן זה אינו תומך בְּמִנּוּיִים כעת. אתה מוזמן להרשם לשירותי הפרימיום של אסטריד בכתובת: http://astrid.com/premium</string>
+השירות על התקן זה אינו תומך בְּמִנּוּיִים כעת. אתה מוזמן להרשם לשירותי הפרימיום של אסטריד בכתובת: http://tasks.com/premium</string>
     <string name="cannot_connect_title">איני מצליחה להתחבר לחנות היישומים</string>
     <string name="cannot_connect_message">איני מצליחה להתחבר לחנות היישומים.
 יתכן והגירסה של חנות הישומים שברשותך איננה עדכנית.
@@ -2237,7 +2237,7 @@
     <string name="premium_description_header">עשה יותר בעזרת פרימיום!</string>
     <string name="premium_description_1">צרף קבצים למשימות
 (pdfs,doc,ppt...)</string>
-    <string name="premium_description_2">סינכרון קבצים עם אתר astrid.com</string>
+    <string name="premium_description_2">סינכרון קבצים עם אתר tasks.com</string>
     <string name="premium_description_3">הוסף צְרוּפוֹת דרך דוא״ל</string>
     <string name="premium_description_4">שמור הערה קולית כקובץ אודיו</string>
     <string name="premium_description_5">תצוגה מקדימה של פיצ\'רים עתידיים</string>
@@ -2245,10 +2245,10 @@
     <string name="premium_speech_bubble_1">חבילת הפרימיום תשדרג את הפרודוקטיביות שלך!</string>
     <string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
     <string name="premium_already_subscribed">הנך כבר מָנוּי על שירותי הפרימיום של אסטריד!</string>
-    <string name="premium_login_prompt">יש צורך בחשבון באתר astrid.com כדי להרשם לגירסת הפרימיום. אנא התחבר או הרשם.</string>
+    <string name="premium_login_prompt">יש צורך בחשבון באתר tasks.com כדי להרשם לגירסת הפרימיום. אנא התחבר או הרשם.</string>
     <string name="premium_success">תודה על הַמִּנּוּי לאסטריד פרימיום!</string>
-    <string name="premium_success_with_server_error">תודה על הַמִּנּוּי לאסטריד פרימיום! התכונות החדשות תיפתחנה לשימוש באתר astrid.com בקרוב, ותהיינה זמינות בטלפון שלך מיידית.</string>
-    <string name="premium_verification_error">מָנוּי הפרימיום לחשבון בחנות הישומים של גוג מחובר למשתמש אחר. בכדי לקשר כתובות דוא״ל נוספות לחשבונך,  בקר ב: astrid.com/users/profile</string>
+    <string name="premium_success_with_server_error">תודה על הַמִּנּוּי לאסטריד פרימיום! התכונות החדשות תיפתחנה לשימוש באתר tasks.com בקרוב, ותהיינה זמינות בטלפון שלך מיידית.</string>
+    <string name="premium_verification_error">מָנוּי הפרימיום לחשבון בחנות הישומים של גוג מחובר למשתמש אחר. בכדי לקשר כתובות דוא״ל נוספות לחשבונך,  בקר ב: tasks.com/users/profile</string>
     <string name="premium_check_for_purchases"> רכשת כבר את חבילת הפרימיום? הקלק כאן בכדי לבדוק את היסטורית הרכישות בחנות היישומים של גוגל</string>
     <string name="premium_checking_for_purchases">בודקת רכישות...</string>
     
@@ -2610,7 +2610,7 @@
   </string-array>
   
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
       <item>יש לי משהו בשבילך!</item> 
       <item>מוכן לשים את זה מאחוריך?</item>
       <item>למה שלא תגמור את זה וזהו?</item>
@@ -2641,7 +2641,7 @@
   </string-array>
 
   <string-array name="postpone_nags">
-      <!-- Astrid\'s nagging when user clicks postpone -->
+      <!-- Tasks\'s nagging when user clicks postpone -->
       <item>מי שדוחה משימות, הוא פשוט טיפוס דוחה!</item>
       <item>אתה לא מתעייף מלהיות עצלן כל כך?</item>
       <item>איפשהו, מישהו תלוי בכך שתגמור את המשימה הזו!</item>
@@ -3127,14 +3127,14 @@
 -->
 
     
-    <string name="widget_mini">- Astrid Mini -</string>
+    <string name="widget_mini">Tasks Mini</string>
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
-    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
-    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
-    <string name="PPW_widget_v11_label">- Astrid -</string>
+    <string name="PPW_widget_42_label">Old Tasks 4x2</string>
+    <string name="PPW_widget_43_label">Old Tasks 4x3</string>
+    <string name="PPW_widget_44_label">Old Tasks 4x4</string>
+    <string name="PPW_widget_v11_label">- Tasks -</string>
     <string name="PPW_widget_custom_label">משגר אסטריד פרימיום מותאם אישית</string>
     <string name="PPW_widget_custom_launcherpro_label">משגר אסטריד פרימיום פרו</string>
     

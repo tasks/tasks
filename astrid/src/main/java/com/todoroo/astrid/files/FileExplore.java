@@ -25,7 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 
 /**

@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import android.content.res.Resources;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.test.TranslationTests;
 
 public class AstridTranslationTests extends TranslationTests {

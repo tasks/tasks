@@ -8,7 +8,7 @@ package com.todoroo.astrid.service;
 import android.content.Intent;
 import android.net.Uri;
 
-import org.astrid.R;
+import org.tasks.R;
 
 public abstract class MarketStrategy {
 

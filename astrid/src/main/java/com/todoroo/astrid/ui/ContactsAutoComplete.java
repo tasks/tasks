@@ -12,7 +12,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
 
-import org.astrid.R;
+import org.tasks.R;
 
 public class ContactsAutoComplete extends AutoCompleteTextView {
 

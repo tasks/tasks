@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -143,7 +143,7 @@ public class AddOnService {
             list.add(new AddOn(false, true, r.getString(R.string.AOA_ppack_title), null,
                     r.getString(R.string.AOA_ppack_description),
                     POWER_PACK_PACKAGE,
-                    ((BitmapDrawable) r.getDrawable(R.drawable.icon_pp)).getBitmap()));
+                    ((BitmapDrawable) r.getDrawable(R.drawable.icon_48)).getBitmap()));
         }
 
         if(Constants.MARKET_STRATEGY.includesLocalePlugin()) {

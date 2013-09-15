@@ -133,13 +133,13 @@
   <string name="actfm_TVA_tag_name_hint">Inserisci il nome della lista</string>
   
   <!-- Tag settings: login prompt from share-->
-  <string name="actfm_TVA_login_to_share">Devi essere collegato ad Astrid.com per condividere le liste! Per favore effettua l\'accesso o rendi questa lista privata.</string>
+  <string name="actfm_TVA_login_to_share">Devi essere collegato ad Tasks.com per condividere le liste! Per favore effettua l\'accesso o rendi questa lista privata.</string>
   
       
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
-  <string name="actfm_EPA_intro">Usa Astrid per condividere liste della spesa, piani per una festa o progetti di gruppo e vedi subito quando qualcuno porta a termine il compito!</string>
+  <string name="actfm_EPA_intro">Usa Tasks per condividere liste della spesa, piani per una festa o progetti di gruppo e vedi subito quando qualcuno porta a termine il compito!</string>
     
   <!-- task sharing dialog: window title -->
     
@@ -182,7 +182,7 @@
   <string name="actfm_EPA_assign_header_members">Membri della Lista</string>
 
   <!-- task sharing dialog: astrid friends section header -->
-  <string name="actfm_EPA_assign_header_friends">Amici in Astrid</string>
+  <string name="actfm_EPA_assign_header_friends">Amici in Tasks</string>
 
   <!-- task sharing dialog: message hint -->
   
@@ -204,7 +204,7 @@
   <!-- task sharing dialog: tag not found (%s => tag) -->
   
   <!-- task sharing login prompt -->
-  <string name="actfm_EPA_login_to_share">Devi essere loggato in Astrid.com per condividere attività!</string>
+  <string name="actfm_EPA_login_to_share">Devi essere loggato in Tasks.com per condividere attività!</string>
   
   <string name="actfm_EPA_login_button">Accedi</string>
   
@@ -223,10 +223,10 @@
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="actfm_ALA_title">Benvenuto in Astrid.com!</string>
+  <string name="actfm_ALA_title">Benvenuto in Tasks.com!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Con Astrid.com puoi accedere alle tue attività online,
+  <string name="actfm_ALA_body">Con Tasks.com puoi accedere alle tue attività online,
 condividerle e delegarle ad altri.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
@@ -308,7 +308,7 @@ condividerle e delegarle ad altri.</string>
   <string name="actfm_status_title_logged_in">Stato: Loggato come %s</string>    
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com</string>
+  <string name="actfm_APr_header">Tasks.com</string>
   
   <string name="actfm_https_title">Utilizza HTTPS</string>
   <string name="actfm_https_enabled">HTTPS abilitato (più lento)</string>
@@ -319,9 +319,9 @@ condividerle e delegarle ad altri.</string>
   <!-- text for notification when comments are received -->
     
   <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Astrid.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Astrid\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Astrid.com?</string>
+      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
+      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
+      Are you sure you want to sync with Tasks.com?</string>
       
   <!-- account types -->
   <string name="actfm_account_type">Tipo di account</string>
@@ -345,21 +345,21 @@ condividerle e delegarle ad altri.</string>
   
   
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Usare Astrid.com + Google senza duplicati</string>
-  <string name="sync_upgr_both_body">Siamo onesti. Google Tasks è utile, ma non fico come Astrid. Per non avere più duplicati, non è più possibile sincronizzare Astrid.com e Google Tasks contemporaneamente nei due sensi. Puoi ancora importare le attività di Google Tasks da Impostazioni → Backup &amp; Sync, o tornare indietro alla sola sincronizzazione con Google Tasks.</string>
-  <string name="sync_upgr_both_btn1">Stick with Astrid</string>
+  <string name="sync_upgr_both_title">Usare Tasks.com + Google senza duplicati</string>
+  <string name="sync_upgr_both_body">Siamo onesti. Google Tasks è utile, ma non fico come Tasks. Per non avere più duplicati, non è più possibile sincronizzare Tasks.com e Google Tasks contemporaneamente nei due sensi. Puoi ancora importare le attività di Google Tasks da Impostazioni → Backup &amp; Sync, o tornare indietro alla sola sincronizzazione con Google Tasks.</string>
+  <string name="sync_upgr_both_btn1">Stick with Tasks</string>
   <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
   
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Astrid Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Astrid.com sync. Upgrade to Astrid.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Astrid Sync</string>
+  <string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
+  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
+  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
   <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
   
   <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Astrid sync to keep and access your tasks from anywhere.</string>
+  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
   <string name="sync_upgr_neither_btn1">Registrati ora</string>
   
-  <string name="sync_upgr_logged_out">You have been logged out of Astrid</string>
+  <string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
   
   <string name="actfm_logout_clear_tasks_title">Clear data?</string>
   <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
@@ -381,7 +381,7 @@ condividerle e delegarle ad altri.</string>
   
   <string name="EPr_reset_sync_state">Reset sync</string>
   <string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
-  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Astrid.com, which may help resolve sync errors. Do you wish to continue?</string>
+  <string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
   
 
 
@@ -447,7 +447,7 @@ condividerle e delegarle ad altri.</string>
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     
-    <string name="backup_BPr_cloud_already_logged_in">Hai già un backup cloud su Astrid.com!</string>
+    <string name="backup_BPr_cloud_already_logged_in">Hai già un backup cloud su Tasks.com!</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -463,8 +463,8 @@ condividerle e delegarle ad altri.</string>
   <!-- backup activity export button -->
   <string name="backup_BAc_export">Esporta compiti</string>
   
-  <!-- backup activity cloud (Astrid.com) option -->
-  <string name="backup_BAc_cloud">Clicca per un account cloud gratuito su Astrid.com</string>
+  <!-- backup activity cloud (Tasks.com) option -->
+  <string name="backup_BAc_cloud">Clicca per un account cloud gratuito su Tasks.com</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
@@ -513,16 +513,16 @@ condividerle e delegarle ad altri.</string>
   <!-- ================================================== AndroidManifest == -->
 
   <!-- slide 32k: Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Astrid Tasks</string>
+  <string name="app_name">Tasks</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="read_permission_label">Permessi Astrid</string>
+  <string name="read_permission_label">Permessi Tasks</string>
   
   <!-- permission description for READ_TASKS -->
   <string name="read_permission_desc">vedere i compiti, mostrare i filtri</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">Permessi Astrid</string>
+  <string name="write_permission_label">Permessi Tasks</string>
   
   <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">crea nuove attività, modifica le attività esistenti</string>
@@ -541,8 +541,8 @@ condividerle e delegarle ad altri.</string>
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
   
-  <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid dovrebbe essere aggiornato alla versione più recente disponibile su Android market! Si prega di farlo prima di proseguire, o attendere qualche secondo.</string>
+  <!-- Dialog for Tasks having a critical update -->
+  <string name="DLG_please_update">Tasks dovrebbe essere aggiornato alla versione più recente disponibile su Android market! Si prega di farlo prima di proseguire, o attendere qualche secondo.</string>
 
   <!-- Button for going to Market -->
 
@@ -553,7 +553,7 @@ condividerle e delegarle ad altri.</string>
   <string name="DLG_decline">Rifiuto</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Termini di Utilizzo di Astrid</string>
+  <string name="DLG_eula_title">Termini di Utilizzo di Tasks</string>
 
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Attendi, per piacere</string>
@@ -647,10 +647,10 @@ condividerle e delegarle ad altri.</string>
   <string name="TLA_quick_add_hint_assign">Aggiungi qualcosa per %s</string>
   
   <!-- Notification Volumne notification-->
-  <string name="TLA_notification_volume_low">Le notifiche sono mutate. Non dovresti essere più in grado di sentire Astrid!</string>
+  <string name="TLA_notification_volume_low">Le notifiche sono mutate. Non dovresti essere più in grado di sentire Tasks!</string>
   
   <!-- Notifications disabled warning -->
-  <string name="TLA_notification_disabled">I promemoria di Astrid sono disabilitati! Non riceverai nessun promemoria</string>
+  <string name="TLA_notification_disabled">I promemoria di Tasks sono disabilitati! Non riceverai nessun promemoria</string>
   
   <string-array name="TLA_filters">
       <item>Attivo</item>
@@ -765,8 +765,8 @@ condividerle e delegarle ad altri.</string>
   
   <!-- =============================================== FilterListActivity == -->
   
-  <!-- Astrid Filter Shortcut -->    
-  <string name="FSA_label">Lista Astrid o Filtra</string>
+  <!-- Tasks Filter Shortcut -->    
+  <string name="FSA_label">Lista Tasks o Filtra</string>
 
   <!-- Filter List Activity Title -->    
   
@@ -998,7 +998,7 @@ condividerle e delegarle ad altri.</string>
   <string name="MCA_ignore_title">Ignorare tutte le chiamate perse?</string>
 
   <!-- Missed call: dialog to ignore all missed calls body -->
-  <string name="MCA_ignore_body">Tu hai ignorato varie chiamate perse. Astrid dovrebbe smettere di chiedere a riguardo?</string>
+  <string name="MCA_ignore_body">Tu hai ignorato varie chiamate perse. Tasks dovrebbe smettere di chiedere a riguardo?</string>
 
   <!-- Missed call: dialog to ignore all missed calls ignore all button -->
   <string name="MCA_ignore_all">Ignora tutte le chiamate</string>
@@ -1010,8 +1010,8 @@ condividerle e delegarle ad altri.</string>
   <string name="MCA_missed_calls_pref_title">Campo chiamate perse</string>
 
   <!-- slide 49c: Missed call: preference description -->
-  <string name="MCA_missed_calls_pref_desc_enabled">Astrid ti notificherà per le chiamate perse e ti offrirà di ricordarti di richiamare</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Astrid non ti notificherà per le chiamate perse</string>
+  <string name="MCA_missed_calls_pref_desc_enabled">Tasks ti notificherà per le chiamate perse e ti offrirà di ricordarti di richiamare</string>
+  <string name="MCA_missed_calls_pref_desc_disabled">Tasks non ti notificherà per le chiamate perse</string>
 
   <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
   <string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
@@ -1045,7 +1045,7 @@ condividerle e delegarle ad altri.</string>
   <string name="CRA_ignore_title">Ignora tutti gli eventi del calendario?</string>
 
   <!-- Calendar reminder: dialog to ignore all missed calls body -->
-  <string name="CRA_ignore_body">Tu hai ignorato varie chiamate perse. Astrid dovrebbe smettere di chiedere a riguardo?</string>
+  <string name="CRA_ignore_body">Tu hai ignorato varie chiamate perse. Tasks dovrebbe smettere di chiedere a riguardo?</string>
 
   <!-- Calendar reminder: dialog to ignore all missed calls ignore all button -->
   <string name="CRA_ignore_all">Ignora tutti gli eventi</string>
@@ -1096,10 +1096,10 @@ condividerle e delegarle ad altri.</string>
   <string name="CRA_calendar_reminders_pref_title">Assistente del Calendario</string>
 
   <!-- Calendar reminder: pref description disabled -->
-  <string name="CRA_calendar_reminders_pref_desc_disabled">Astrid non ti avviserà dei prossimi eventi sul calendario</string>
+  <string name="CRA_calendar_reminders_pref_desc_disabled">Tasks non ti avviserà dei prossimi eventi sul calendario</string>
 
   <!-- Calendar reminder: pref description enabled -->
-  <string name="CRA_calendar_reminders_pref_desc_enabled">Astrid ti avviserà dei prossimi eventi sul calendario e ti chiederà di prepararti a questi</string>
+  <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks ti avviserà dei prossimi eventi sul calendario e ti chiederà di prepararti a questi</string>
   
   <!-- Calendar reminder: share list title -->
   <string name="CRA_share_list_title">Condividi la lista?</string>
@@ -1123,10 +1123,10 @@ condividerle e delegarle ad altri.</string>
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">Novità in Astrid?</string>
+  <string name="UpS_changelog_title">Novità in Tasks?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Ultime Novità di Astrid</string>
+  <string name="UpS_updates_title">Ultime Novità di Tasks</string>
   
   <!-- Updats No Activity to show for offline users -->
   <string name="UpS_no_activity_log_in">Effettua il login per vedere\nla storia del tuo avanzamento\ne le attività sulle liste condivise</string>
@@ -1134,11 +1134,11 @@ condividerle e delegarle ad altri.</string>
   <!-- ================================================== EditPreferences == -->
     
   <!-- slide 31g: Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferenze</string>
+  <string name="EPr_title">Tasks: Preferenze</string>
   
-  <string name="EPr_share_astrid">Share Astrid</string>
+  <string name="EPr_share_astrid">Share Tasks</string>
 
-  <string name="EPr_share_astrid_summary">Condividi Astrid nel tuo social network preferito</string>
+  <string name="EPr_share_astrid_summary">Condividi Tasks nel tuo social network preferito</string>
   
   <!-- slide 46a -->
   <string name="EPr_deactivated">disattivato</string>
@@ -1302,7 +1302,7 @@ condividerle e delegarle ad altri.</string>
   <!-- Configurations -->
   <string name="EPr_configurations_title">Set configuration</string>
   <string name="EPr_config_default">Default</string>
-  <string name="EPr_config_lite">Astrid Lite</string>
+  <string name="EPr_config_lite">Tasks Lite</string>
   
   <!-- Dialog title when setting preference configuration -->
   <string name="EPr_config_dialog_title">Set configuration?</string>
@@ -1394,7 +1394,7 @@ condividerle e delegarle ad altri.</string>
   <string name="EPr_manage_purge_deleted_summary">Attenzione! I compiti eliminati definitivamente non possono essere recuperati senza file di backup!</string>
   <!-- slide 47h-->
   <string name="EPr_manage_clear_all">Elimina tutti i dati</string>
-  <string name="EPr_manage_clear_all_message">Elimina tutti i programmi e tutte le impostazioni in Astrid?\n\nWarning: non può essere annullato!</string>
+  <string name="EPr_manage_clear_all_message">Elimina tutti i programmi e tutte le impostazioni in Tasks?\n\nWarning: non può essere annullato!</string>
 
   <!-- slide 47f -->
   <string name="EPr_manage_delete_completed_gcal">Elimina gli eventi del calendario in programmi completati</string>
@@ -1414,7 +1414,7 @@ condividerle e delegarle ad altri.</string>
   <string name="AOA_title">Componenti aggiuntivi</string>
     
   <!-- Add-on Activity: author for internal authors  -->
-  <string name="AOA_internal_author">Team Astrid</string>
+  <string name="AOA_internal_author">Team Tasks</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
   <string name="AOA_tab_installed">Installato</string>
@@ -1432,10 +1432,10 @@ condividerle e delegarle ad altri.</string>
   <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">Lista vuota!</string>
   
-  <string name="AOA_ppack_title">Astrid Power Pack</string>
-  <string name="AOA_ppack_description">Sostieni Astrid e diventa più produttivo con Astrid Power Pack. 4x2 e 4x4 di widgets e integrazione vocale. Provalo adesso!</string>
-  <string name="AOA_locale_title">Plugin Astrid per Locale</string>
-  <string name="AOA_locale_description">Consenti ad Astrid di usare l\'applicazione Locale per inviarti notifiche in base ai tuoi filtri. è richiesta l\'applicazione Locale.</string>
+  <string name="AOA_ppack_title">Tasks Power Pack</string>
+  <string name="AOA_ppack_description">Sostieni Tasks e diventa più produttivo con Tasks Power Pack. 4x2 e 4x4 di widgets e integrazione vocale. Provalo adesso!</string>
+  <string name="AOA_locale_title">Plugin Tasks per Locale</string>
+  <string name="AOA_locale_description">Consenti ad Tasks di usare l\'applicazione Locale per inviarti notifiche in base ai tuoi filtri. è richiesta l\'applicazione Locale.</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -1460,11 +1460,11 @@ condividerle e delegarle ad altri.</string>
   <!-- ============================================================= About == -->
   
   <!-- slide 30h: Title of "About" option in settings -->
-  <string name="p_about">Informazioni su Astrid</string>
+  <string name="p_about">Informazioni su Tasks</string>
   
   <!-- About text (%s => current version)-->
   <string name="p_about_text">Versione attuale: %s\n\n
-Astrid è un open-source ed è sostenuto con orgoglio da Todoroo, Inc.</string>
+Tasks è un open-source ed è sostenuto con orgoglio da Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
   <string name="p_help">Supporto</string>
@@ -1477,7 +1477,7 @@ Astrid è un open-source ed è sostenuto con orgoglio da Todoroo, Inc.</string>
   
   <!-- ============================================================= Misc == -->
   
-  <string name="feedback_positive_title">Rate Astrid?</string>
+  <string name="feedback_positive_title">Rate Tasks?</string>
 
   <string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
 
@@ -1487,29 +1487,29 @@ Astrid è un open-source ed è sostenuto con orgoglio da Todoroo, Inc.</string>
 
   <string name="feedback_activity_error">Oops! We weren\'t able to launch the market feedback section--it might not be available on your device.</string>
   
-  <string name="feedback_positive_button">Rate Astrid</string>
+  <string name="feedback_positive_button">Rate Tasks</string>
 
   <string name="feedback_negative_button">Leave feedback</string>
   
   <string name="feedback_not_now">Not now</string>
   
-  <string name="feedback_banner_text">How\'s Astrid working for you?</string>
+  <string name="feedback_banner_text">How\'s Tasks working for you?</string>
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">Sembra che si stia utilizzando un\'applicazione che può terminare i processi (%s)! Se è possibile, aggiungere Astrid all\'elenco di esclusione in modo che non venga terminato. Contrariamente, Astrid potrebbe non avvisarti quando le tue attività saranno compiute.\n</string>
+  <string name="task_killer_help">Sembra che si stia utilizzando un\'applicazione che può terminare i processi (%s)! Se è possibile, aggiungere Tasks all\'elenco di esclusione in modo che non venga terminato. Contrariamente, Tasks potrebbe non avvisarti quando le tue attività saranno compiute.\n</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">Voglio terminare Astrid!</string>
+  <string name="task_killer_help_ok">Voglio terminare Tasks!</string>
     
-  <!-- Astrid\'s Android Marketplace title. It never appears in the app itself. -->
+  <!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
   
-  <!-- Astrid\'s Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid è la lista / gestore di attività personali open-source che tutti amano, preparata per aiutarti a portare a termine le tue attività. Ti permette di impostare promemoria, etichette, di sincronizzare, ha un plugin per la localizzazione, un widget e molto altro.</string>
+  <!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
+  <string name="marketplace_description">Tasks è la lista / gestore di attività personali open-source che tutti amano, preparata per aiutarti a portare a termine le tue attività. Ti permette di impostare promemoria, etichette, di sincronizzare, ha un plugin per la localizzazione, un widget e molto altro.</string>
   
   <string name="DB_corrupted_title">Database corrotto</string>
   
   <string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
-Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni->Sincronizzazione e backup->Gestire tutti i dati->Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Astrid (Impostazioni->Sincronizzazione e backup->Backup->Importa task).</string>
+Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni->Sincronizzazione e backup->Gestire tutti i dati->Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni->Sincronizzazione e backup->Backup->Importa task).</string>
       
   <string name="market_unavailable">Sfortunatamente il market non è disponibile sul tuo sistema.</string>
   
@@ -1816,7 +1816,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
     <string name="gtasks_GLA_noaccounts">Non è disponibile nessun Google account con cui sincronizzarsi.</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">Per vedere le tue attività preservando indentazione e ordine, vai nella pagina dei filtri e seleziona una lista di Google Tasks. Di default, Astrid usa un suo ordine personale per ordinare le attività.</string>
+    <string name="gtasks_GLA_further_help">Per vedere le tue attività preservando indentazione e ordine, vai nella pagina dei filtri e seleziona una lista di Google Tasks. Di default, Tasks usa un suo ordine personale per ordinare le attività.</string>
 
     <!-- Sign In Button -->    
 
@@ -1863,7 +1863,7 @@ Prova ad autenticarti con un browser, poi torna e riprova:</string>
     <string name="gtasks_error_accountManager">Account non trovato--per favore fai logout e di nuovo login dalla configurazione di Google Tasks.</string>
 
     <!-- Error when authorization error happens in background sync -->
-    <string name="gtasks_error_background_sync_auth">Errore di autenticazione in background. Per favore prova ad avviare una sincronizzazione durante l\'esecuzione di Astrid.</string>
+    <string name="gtasks_error_background_sync_auth">Errore di autenticazione in background. Per favore prova ad avviare una sincronizzazione durante l\'esecuzione di Tasks.</string>
       
     <string name="gtasks_import_progress">Importing Google Tasks...</string>
 
@@ -1911,7 +1911,7 @@ Prova ad autenticarti con un browser, poi torna e riprova:</string>
   
   
   <!-- slide 7b -->
-  <string name="welcome_login_tos_base">Utilizzando Astrid accetti </string>
+  <string name="welcome_login_tos_base">Utilizzando Tasks accetti </string>
   
   <string name="welcome_login_tos_link">Termini di Servizio</string>
   
@@ -1929,8 +1929,8 @@ Prova ad autenticarti con un browser, poi torna e riprova:</string>
   
   <string name="welcome_login_confirm_later_cancel">No grazie</string>
   
-  <string name="welcome_login_confirm_later_dialog">Accedi per ottenere il massimo da Astrid!
-Gratuitamente, hai il backup online, la sincronizzazione completa con Astrid.com, la
+  <string name="welcome_login_confirm_later_dialog">Accedi per ottenere il massimo da Tasks!
+Gratuitamente, hai il backup online, la sincronizzazione completa con Tasks.com, la
 possibilità di aggiungere attività via email, e puoi anche condividere elenchi di attività con gli amici!</string>
 
 
@@ -1944,10 +1944,10 @@ possibilità di aggiungere attività via email, e puoi anche condividere elenchi
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Filtro Promemoria Astrid</string>
+  <string name="locale_edit_alerts_title">Filtro Promemoria Tasks</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid ti invierà un promemoria quando avrai qualsiasi attività nel seguente filtro:</string>
+  <string name="locale_edit_intro">Tasks ti invierà un promemoria quando avrai qualsiasi attività nel seguente filtro:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
       
@@ -1968,7 +1968,7 @@ possibilità di aggiungere attività via email, e puoi anche condividere elenchi
   <string name="locale_notification">Hai $NUM corrispondenti: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Installare il plugin di Localizzazione di Astrid!</string>        
+  <string name="locale_plugin_required">Installare il plugin di Localizzazione di Tasks!</string>        
      
 
 
@@ -2138,7 +2138,7 @@ possibilità di aggiungere attività via email, e puoi anche condividere elenchi
   <!-- Preference: User Statistics (disabled) -->
   <string name="EPr_statistics_desc_disabled">Nessun dato verrà inviato</string>  
   <!-- slide 32f: Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Aiutaci a migliorare Astrid inviando informazioni anonime sull\'utilizzo</string>
+  <string name="EPr_statistics_desc_enabled">Aiutaci a migliorare Tasks inviando informazioni anonime sull\'utilizzo</string>
       
 
 
@@ -2182,7 +2182,7 @@ possibilità di aggiungere attività via email, e puoi anche condividere elenchi
     <string name="file_browser_up">Su</string>
     <string name="file_browser_title">Scegli un file</string>
     <string name="dir_browser_title">Scegli una cartella</string>
-    <string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Astrid</string>
+    <string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>
     <string name="file_add_picture">Allega una foto</string>
     <string name="file_add_sdcard">Allega un file dalla tua scheda SD</string>
     <string name="file_download_title">Vuoi scaricare il file?</string>
@@ -2191,7 +2191,7 @@ possibilità di aggiungere attività via email, e puoi anche condividere elenchi
     <string name="file_err_memory">L\'immagine è troppo grande per la memoria disponibile</string>
     <string name="file_err_copy">Errore di copia dei file da allegare</string>
     <string name="file_err_download">Errore nel download del file</string>
-    <string name="file_err_no_directory">Whoops! Sembra che la directory non esista. Scegliere nelle Preferenze di Astrid una directory dove salvare i file .</string>
+    <string name="file_err_no_directory">Whoops! Sembra che la directory non esista. Scegliere nelle Preferenze di Tasks una directory dove salvare i file .</string>
     <string name="file_err_show">Spiacente, il sistema non supporta ancora questa tipologia di file</string>
     
     <string name="file_dir_dialog_ok">Utilizza questa directory</string>
@@ -2210,7 +2210,7 @@ del Market non è disponibile al momento. Puoi continuare ad usare questa app ma
 non potrai fare acquisti.</string>
     <string name="subscriptions_not_supported_title">Non è possibile acquistare abbonamenti</string>
     <string name="subscriptions_not_supported_message">Il servizio di fatturazione
-del Market su questo dispositivo non supporta gli abbonamenti al momento. Puoi abbonarti ad Astrid Premium tramite http://astrid.com/premium.</string>
+del Market su questo dispositivo non supporta gli abbonamenti al momento. Puoi abbonarti ad Tasks Premium tramite http://tasks.com/premium.</string>
     <string name="cannot_connect_title">Impossibile connettersi al Market</string>
     <string name="cannot_connect_message">Questa app non è in grado collegarsi al Market.
 La tua versione del Market potrebbe non essere aggiornata.
@@ -2221,33 +2221,33 @@ non potrai fare acquisti.</string>
     
     <string name="subscriptions_learn_more">Maggiori informazioni</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
     <string name="kii_premium_abort">Special offer aborted</string>
     <string name="kii_premium_declined">Special offer declined</string>
     <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
     
     <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
+    <string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
     <string name="premium_offers_start">Get it free!</string>
     
-    <string name="premium_billing_title">Astrid Premium</string>
+    <string name="premium_billing_title">Tasks Premium</string>
     <string name="premium_buy_month">1 Mese</string>
     <string name="premium_buy_year">1 Anno</string>
     <string name="premium_description_header">Fai di più con premium!</string>
     <string name="premium_description_1">Allega file (pdfs, doc, ppt... )</string>
-    <string name="premium_description_2">Sincronizza files con Astrid.com</string>
+    <string name="premium_description_2">Sincronizza files con Tasks.com</string>
     <string name="premium_description_3">Aggiungi allegati via mail</string>
     <string name="premium_description_4">Salva note vocali come file audio</string>
     <string name="premium_description_5">Anteprima delle prossime funzionalità</string>
-    <string name="premium_description_6">Sostieni il Team Astrid</string>
+    <string name="premium_description_6">Sostieni il Team Tasks</string>
     <string name="premium_speech_bubble_1">La versione Premium incrementerà la vostra produttività!</string>
     <string name="premium_speech_bubble_2">Sottoscrivi 1 anno e risparmia il 25%%!</string>
-    <string name="premium_already_subscribed">Sei già iscritto ad Astrid Premium!</string>
-    <string name="premium_login_prompt">È necessario disporre di un account Astrid.com per iscriversi alla versione Premium. Effettua il login o registrati.</string>
-    <string name="premium_success">Grazie per aver sottoscritto Astrid Premium!</string>
-    <string name="premium_success_with_server_error">Grazie per aver sottoscritto Astrid Premium! Le nuove funzionalità saranno presto sbloccate per te su Astrid.com e dovrebbero essere disponibili da subito sul tuo telefono.</string>
-    <string name="premium_verification_error">L\'abbonamento premium per questo account Google Play è collegato ad un altro utente. Per creare un collegamento e-mail aggiuntivo al tuo account, visita il sito astrid.com / utenti / profili</string>
+    <string name="premium_already_subscribed">Sei già iscritto ad Tasks Premium!</string>
+    <string name="premium_login_prompt">È necessario disporre di un account Tasks.com per iscriversi alla versione Premium. Effettua il login o registrati.</string>
+    <string name="premium_success">Grazie per aver sottoscritto Tasks Premium!</string>
+    <string name="premium_success_with_server_error">Grazie per aver sottoscritto Tasks Premium! Le nuove funzionalità saranno presto sbloccate per te su Tasks.com e dovrebbero essere disponibili da subito sul tuo telefono.</string>
+    <string name="premium_verification_error">L\'abbonamento premium per questo account Google Play è collegato ad un altro utente. Per creare un collegamento e-mail aggiuntivo al tuo account, visita il sito tasks.com / utenti / profili</string>
     <string name="premium_check_for_purchases">Hai già acquistato premium? Fai click qui per verificare lo storico degli acquisti su Google Play.</string>
     <string name="premium_checking_for_purchases">Controllo acquisti ...</string>
     
@@ -2334,11 +2334,11 @@ non potrai fare acquisti.</string>
 
   <!-- Titles for user reengagement notifications -->
   <string-array name="rmd_reengage_notif_titles">
-    <item>Nota da Astrid</item>
+    <item>Nota da Tasks</item>
     <!-- %s -> first name -->
     <item>Memo per %s</item> 
-    <item>Your Astrid digest</item>
-    <item>Promemoria da Astrid</item>
+    <item>Your Tasks digest</item>
+    <item>Promemoria da Tasks</item>
   </string-array>
     
   <string name="rmd_reengage_name_default">tu</string>
@@ -2360,7 +2360,7 @@ non potrai fare acquisti.</string>
   <!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Non vuoi organizzarti?</item>
-    <item>Sono Astrid! Sono qui ad aiutarti a fare di più!</item>
+    <item>Sono Tasks! Sono qui ad aiutarti a fare di più!</item>
     <item>Sembri impegnato! Fammi togliere alcune attività dal tuo carico di lavoro.</item>
     <item>Posso aiutarti a tenere traccia di tutti i dettagli nella tua vita.</item>
     <item>Sei serio sul volerne completare ancora? Allora anch\'io!</item>
@@ -2375,9 +2375,9 @@ non potrai fare acquisti.</string>
   <!-- Reminder Preference: Reminders Enabled Title -->
   <string name="rmd_EPr_enabled_title">I promemoria sono abilitati?</string>
   <!-- Reminder Preference Reminders Enabled Description (true) -->
-  <string name="rmd_EPr_enabled_desc_true">I promemoria di Astrid sono abilitati (impostazione di default)</string>
+  <string name="rmd_EPr_enabled_desc_true">I promemoria di Tasks sono abilitati (impostazione di default)</string>
   <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">I promemoria Astrid non appariranno mai sul tuo telefono</string>  
+  <string name="rmd_EPr_enabled_desc_false">I promemoria Tasks non appariranno mai sul tuo telefono</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
@@ -2427,23 +2427,23 @@ non potrai fare acquisti.</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
   <string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria "ring-multipli"</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid metterà il volume al massimo per i promemoria "ring-multipli"</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria "ring-multipli"</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid userà le impostazioni di sistema per il volume</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks userà le impostazioni di sistema per il volume</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibrazione telefono</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid vibrerà durante l\'invio di notifiche</string>
+  <string name="rmd_EPr_vibrate_desc_true">Tasks vibrerà durante l\'invio di notifiche</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid non vibrerà durante l\'invio di notifiche</string>
+  <string name="rmd_EPr_vibrate_desc_false">Tasks non vibrerà durante l\'invio di notifiche</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Promemoria Astrid</string>
+  <string name="rmd_EPr_nagging_title">Promemoria Tasks</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid si mostrerà per incoraggiarti durante i promemoria</string>
+  <string name="rmd_EPr_nagging_desc_true">Tasks si mostrerà per incoraggiarti durante i promemoria</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid non ti darà nessun messaggio di incoraggiamento</string>
+  <string name="rmd_EPr_nagging_desc_false">Tasks non ti darà nessun messaggio di incoraggiamento</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">Posticipa a HH:MM</string>
@@ -2580,7 +2580,7 @@ non potrai fare acquisti.</string>
       <item>Quando hai un minuto:</item>
       <item>Nella tua agenda:</item>
       <item>Sei libero per un momento?</item>
-      <item>Astrid è qui!</item>
+      <item>Tasks è qui!</item>
       <item>Ciao! Posso disturbarti?</item>
       <item>Un minuto del tuo tempo?</item>
       <item>È un gran giorno per</item>
@@ -2609,7 +2609,7 @@ non potrai fare acquisti.</string>
   </string-array>
   
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
       <item>Ho qualcosa per te!</item> 
       <item>Sei pronto a dimenticarti di questo?</item>
       <item>Perché non lo completi?</item>
@@ -2640,7 +2640,7 @@ non potrai fare acquisti.</string>
   </string-array>
 
   <string-array name="postpone_nags">
-      <!-- Astrid\'s nagging when user clicks postpone -->
+      <!-- Tasks\'s nagging when user clicks postpone -->
       <item>Non dirmi che sei uno che continua a posticipare!</item>
       <item>Non essere pigro fa invecchiare qualche volta?</item>
       <item>Da qualche parte, qualcuno dipende da te nel finire ciò!</item>
@@ -2796,7 +2796,7 @@ non potrai fare acquisti.</string>
 
     
   <!-- Subtasks Help Introduction -->
-  <string name="subtasks_help_title">Ordina e Indenta in Astrid</string>
+  <string name="subtasks_help_title">Ordina e Indenta in Tasks</string>
   <string name="subtasks_help_1">Tocca e tieni premuto per spostare un\'attività</string>
   <string name="subtasks_help_2">Trascina verticalmente per riordinare</string>
   <string name="subtasks_help_3">Trascina orizzontalmente per indentare</string>
@@ -3054,9 +3054,9 @@ non potrai fare acquisti.</string>
   <!-- slide 38f: Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid pronuncerà il nome dell\'attività durante i promemoria</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
   <!-- slide 38c: Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid emetterà una suoneria durante i promemoria</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks emetterà una suoneria durante i promemoria</string>    
   
   <!-- slide 32d: Preference Category: Voice Title -->
   <string name="EPr_voice_header">Impostazioni Voce</string>
@@ -3073,7 +3073,7 @@ non potrai fare acquisti.</string>
   <!-- slide 30a-->
   <string name="welcome_setting">Visualizza tutorial</string>
   
-  <string name="welcome_title_1">Benvenuto in Astrid!</string>
+  <string name="welcome_title_1">Benvenuto in Tasks!</string>
 
   <!-- slide 2a -->
   <string name="welcome_title_2">Crea Lista</string>
@@ -3114,7 +3114,7 @@ non potrai fare acquisti.</string>
   <string name="welcome_body_6">Tappa per aggiungere una nota\n aggiungere un promemoria\n e molto altro!</string>
   <string name="welcome_body_7">Accedi</string>
   
-  <string name="welcome_body_7_return">Fai tap su Astrid per tornare indietro</string>
+  <string name="welcome_body_7_return">Fai tap su Tasks per tornare indietro</string>
   
   <!-- slide 1c -->
   <string name="welcome_next">Successivo</string>
@@ -3128,16 +3128,16 @@ non potrai fare acquisti.</string>
 -->
 
     
-    <string name="widget_mini">- Astrid Mini -</string>
+    <string name="widget_mini">Tasks Mini</string>
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
-    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
-    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
-    <string name="PPW_widget_v11_label">- Astrid -</string>
-    <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-    <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
+    <string name="PPW_widget_42_label">Old Tasks 4x2</string>
+    <string name="PPW_widget_43_label">Old Tasks 4x3</string>
+    <string name="PPW_widget_44_label">Old Tasks 4x4</string>
+    <string name="PPW_widget_v11_label">- Tasks -</string>
+    <string name="PPW_widget_custom_label">Tasks Custom Launcher Premium</string>
+    <string name="PPW_widget_custom_launcherpro_label">Tasks Launcher Pro Premium</string>
     
     <string name="PPW_configure_title">Configura Widget</string>
     
@@ -3150,7 +3150,7 @@ non potrai fare acquisti.</string>
     <string name="PPW_due">Entro:</string>
     <string name="PPW_past_due">Già terminato:</string>
     
-    <string name="PPW_old_astrid_notice">Per usare questo widget ti serve almeno la versione 3.6 di Astrid. Mi dispiace!</string>
+    <string name="PPW_old_astrid_notice">Per usare questo widget ti serve almeno la versione 3.6 di Tasks. Mi dispiace!</string>
     
     <string-array name="PPW_encouragements">
         <!-- general encouragements -->
@@ -3197,11 +3197,11 @@ non potrai fare acquisti.</string>
     <string name="PPW_demo_title3">...segnala aggiunte e incoraggiamenti!</string>
     <string name="PPW_demo_title4">Tocca per maggiori informazioni!</string>
     
-    <string name="PPW_info_title">Astrid Power Pack gratis</string>
+    <string name="PPW_info_title">Tasks Power Pack gratis</string>
     <string name="PPW_info_signin">Accedi</string>
     <string name="PPW_info_later">Più tardi</string>
-    <string name="PPW_unlock_howto">Condividi le liste con gli amici! Ottieni il Power Pack gratuito quando 3 amici si iscrivono ad Astrid.</string>
-    <string name="PPW_check_button">Astrid Power Pack gratis!</string>
+    <string name="PPW_unlock_howto">Condividi le liste con gli amici! Ottieni il Power Pack gratuito quando 3 amici si iscrivono ad Tasks.</string>
+    <string name="PPW_check_button">Tasks Power Pack gratis!</string>
     <string name="PPW_check_share_lists">Condividi gli elenchi!</string>
     <string name="PPW_api_level">Spiacenti! Questo widget funziona solo con Android 3.0 o successivi.</string>
     

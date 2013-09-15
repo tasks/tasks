@@ -23,7 +23,7 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
-import org.astrid.R;
+import org.tasks.R;
 
 /**
  * Displays an About dialog.

@@ -33,7 +33,7 @@
   
   
   <!-- slide 7b -->
-  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
+  <string name="welcome_login_tos_base">By using Tasks you agree to the</string>
   
   <string name="welcome_login_tos_link">Terms of Service</string>
   
@@ -51,7 +51,7 @@
   
   <string name="welcome_login_confirm_later_cancel">No thanks</string>
   
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
-  For free, you get online backup, full synchronization with Astrid.com, the 
+  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Tasks! 
+  For free, you get online backup, full synchronization with Tasks.com, the 
   ability to add tasks via email, and you can even share task lists with friends!</string>
 </resources>

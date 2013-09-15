@@ -12,7 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;

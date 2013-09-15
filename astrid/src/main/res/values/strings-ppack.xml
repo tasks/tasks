@@ -17,6 +17,6 @@
   <!-- Preference: User Statistics (disabled) -->
   <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
   <!-- slide 32f: Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">Help us make Tasks better by sending anonymous usage data</string>
       
 </resources>

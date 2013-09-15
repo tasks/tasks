@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.service.ThemeService;
 

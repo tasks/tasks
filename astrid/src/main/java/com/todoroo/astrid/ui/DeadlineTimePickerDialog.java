@@ -33,7 +33,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 
-import org.astrid.R;
+import org.tasks.R;
 
 /**
  * A dialog that prompts the user for the time of day using a {@link TimePicker}.

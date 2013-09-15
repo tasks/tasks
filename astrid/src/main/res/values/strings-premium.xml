@@ -39,7 +39,7 @@
     <string name="file_browser_up">Up</string>
     <string name="file_browser_title">Choose a file</string>
     <string name="dir_browser_title">Choose a directory</string>
-    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
+    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Tasks from accessing the SD card.</string>
     <string name="file_add_picture">Attach a picture</string>
     <string name="file_add_sdcard">Attach a file from your SD card</string>
     <string name="file_download_title">Download file?</string>
@@ -67,7 +67,7 @@
      won\'t be able to make purchases.</string>
     <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
     <string name="subscriptions_not_supported_message">The Market billing
-     service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
+     service on this device does not support subscriptions at this time. You can subscribe to Tasks Premium at http://tasks.com/premium.</string>
     <string name="cannot_connect_title">Can\'t connect to Market</string>
     <string name="cannot_connect_message">This app cannot connect to Market.
      Your version of Market may be out of date.
@@ -78,33 +78,33 @@
     
     <string name="subscriptions_learn_more">Learn more</string>
     
-    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Astrid Premium is now unlocked.</string>
+    <string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
     <string name="kii_premium_abort">Special offer aborted</string>
     <string name="kii_premium_declined">Special offer declined</string>
     <string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
     
     <string name="premium_offers_title">Special Offer</string>
-    <string name="premium_offers_subtitle">Want one month of Astrid Premium for free?</string>
-    <string name="premium_offers_detail">To get one free month of Astrid Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
+    <string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
+    <string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
     <string name="premium_offers_start">Get it free!</string>
     
-    <string name="premium_billing_title">Astrid Premium</string>
+    <string name="premium_billing_title">Tasks Premium</string>
     <string name="premium_buy_month">1 Month</string>
     <string name="premium_buy_year">1 Year</string>
     <string name="premium_description_header">Do more with premium!</string>
     <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
-    <string name="premium_description_2">Syncs files with astrid.com</string>
+    <string name="premium_description_2">Syncs files with tasks.com</string>
     <string name="premium_description_3">Add attachments via email</string>
     <string name="premium_description_4">Save voice recordings as audio files</string>
     <string name="premium_description_5">Preview upcoming features</string>
-    <string name="premium_description_6">Support the Astrid Team!</string>
+    <string name="premium_description_6">Support the Tasks Team!</string>
     <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
     <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
-    <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
-    <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
-    <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
-    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
-    <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit astrid.com/users/profile</string>
+    <string name="premium_already_subscribed">You are already subscribed to Tasks Premium!</string>
+    <string name="premium_login_prompt">You need to have an Tasks.com account in order to subscribe to premium. Please log in or sign up.</string>
+    <string name="premium_success">Thanks for subscribing to Tasks Premium!</string>
+    <string name="premium_success_with_server_error">Thanks for subscribing to Tasks Premium! The new features will be unlocked for you on tasks.com soon, and should be available on your phone right away.</string>
+    <string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit tasks.com/users/profile</string>
     <string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
     <string name="premium_checking_for_purchases">Checking for purchases...</string>
     

@@ -20,12 +20,12 @@ public class AstridApiConstants {
     /**
      * Astrid broadcast base package name
      */
-    public static final String API_PACKAGE = "org.astrid";
+    public static final String API_PACKAGE = "org.tasks";
 
     /**
      * Astrid app base package name
      */
-    public static final String ASTRID_PACKAGE = "org.astrid";
+    public static final String ASTRID_PACKAGE = "org.tasks";
 
     /**
      * Permission for reading tasks and receiving to GET_FILTERS intent

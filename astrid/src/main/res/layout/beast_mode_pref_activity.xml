@@ -18,7 +18,7 @@
     
     <com.commonsware.cwac.tlv.TouchListView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tlv="http://schemas.android.com/apk/res/org.astrid"
+        xmlns:tlv="http://schemas.android.com/apk/res/org.tasks"
     
         android:id="@android:id/list"
         android:scrollbars="vertical"

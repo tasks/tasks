@@ -13,7 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {

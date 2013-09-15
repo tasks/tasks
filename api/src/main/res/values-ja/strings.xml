@@ -214,7 +214,7 @@
   <string name="sync_SPr_last_error">Status report</string>
   
   <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
+  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Tasks team</string>
   <!-- Sync: send error report button -->
   <string name="sync_SPr_send_report">Send report</string>
   

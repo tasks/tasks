@@ -9,7 +9,7 @@
   <!-- slide 30a-->
   <string name="welcome_setting">Show tutorial</string>
   
-  <string name="welcome_title_1">Welcome to Astrid!</string>
+  <string name="welcome_title_1">Welcome to Tasks!</string>
 
   <!-- slide 2a -->
   <string name="welcome_title_2">Make lists</string>
@@ -50,7 +50,7 @@
   <string name="welcome_body_6">Tap to add description,\nset reminders,\nand much more!</string>
   <string name="welcome_body_7">Login</string>
   
-  <string name="welcome_body_7_return">Tap Astrid to return.</string>
+  <string name="welcome_body_7_return">Tap Tasks to return.</string>
   
   <!-- slide 1c -->
   <string name="welcome_next">Next</string>

@@ -97,7 +97,7 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceRecognizer;
 
-import org.astrid.R;
+import org.tasks.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

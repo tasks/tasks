@@ -2,7 +2,7 @@ package com.todoroo.astrid.activity;
 
 import android.content.Context;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;

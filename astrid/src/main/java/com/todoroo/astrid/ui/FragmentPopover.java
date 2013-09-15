@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
-import org.astrid.R;
+import org.tasks.R;
 
 
 public class FragmentPopover extends QuickActionWidget {

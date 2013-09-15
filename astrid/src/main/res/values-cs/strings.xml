@@ -29,8 +29,8 @@
   <string name="actfm_TVA_tag_settings_label">Nastavení</string>
   <string name="actfm_TVA_tag_description_hint">Zde zadejte popis</string>
   <string name="actfm_TVA_tag_name_hint">Název seznamu</string>
-  <string name="actfm_TVA_login_to_share">Pro sdílení seznamů musíte být přihlášen k Astrid.com! Přihlašte se prosím, nebo tento seznam označte jako soukromý.</string>
-  <string name="actfm_EPA_intro">S pomocí Astrid sdílejte nákupní seznamy, nápady na party nebo týmové projekty a buďte okamžitě v obraze když druzí něco dokončí!</string>
+  <string name="actfm_TVA_login_to_share">Pro sdílení seznamů musíte být přihlášen k Tasks.com! Přihlašte se prosím, nebo tento seznam označte jako soukromý.</string>
+  <string name="actfm_EPA_intro">S pomocí Tasks sdílejte nákupní seznamy, nápady na party nebo týmové projekty a buďte okamžitě v obraze když druzí něco dokončí!</string>
   <string name="actfm_EPA_assign_label_long">Kdo to má udělat?</string>
   <string name="actfm_EPA_assign_me">Já</string>
   <string name="actfm_EPA_unassigned">Nepřiřazené</string>
@@ -41,15 +41,15 @@
   <string name="actfm_EPA_message_text">Uvítací zpráva:</string>
   <string name="actfm_EPA_message_body">Pomoz mi to dodělat!</string>
   <string name="actfm_EPA_assign_header_members">Členové seznamu</string>
-  <string name="actfm_EPA_assign_header_friends">Přátelé z Astrid</string>
+  <string name="actfm_EPA_assign_header_friends">Přátelé z Tasks</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
   <string name="actfm_EPA_invalid_email">Špatný E-mail: %s</string>
-  <string name="actfm_EPA_login_to_share">Pro sdílení úkolů musíte být přihlášen na Astrid.com!</string>
+  <string name="actfm_EPA_login_to_share">Pro sdílení úkolů musíte být přihlášen na Tasks.com!</string>
   <string name="actfm_EPA_login_button">Přihlásit se</string>
   <string name="actfm_EPA_dont_share_button">Nesdílet</string>
-  <string name="actfm_ALA_title">Vítejte v Astrid.com!</string>
-  <string name="actfm_ALA_body">Díky Astrid.com můžete k úkolům přistupovat online nebo je můžete sdílet s ostatníma.</string>
+  <string name="actfm_ALA_title">Vítejte v Tasks.com!</string>
+  <string name="actfm_ALA_body">Díky Tasks.com můžete k úkolům přistupovat online nebo je můžete sdílet s ostatníma.</string>
   <string name="actfm_ALA_fb_login">Přihlásit Facebookem</string>
   <string name="actfm_ALA_gg_login">Přihlásit Google účtem</string>
   <string name="actfm_ALA_firstname_label">Křestní jméno</string>
@@ -61,11 +61,11 @@
   <string name="actfm_feat_list_clone_success">Povedlo se!</string>
   <string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
   <string name="actfm_status_title_logged_in">Stav - přihlášen jako %s</string>
-  <string name="actfm_APr_header">Astrid.com</string>
+  <string name="actfm_APr_header">Tasks.com</string>
   <string name="actfm_https_title">Použít HTTPS</string>
   <string name="actfm_https_enabled">HTTPS povoleno (pomalejší)</string>
   <string name="actfm_https_disabled">HTTPS zakázáno (rychlejší)</string>
-  <string name="actfm_dual_sync_warning">Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s oběma službami může v některých případech vést k nečekaným důsledkům. Opravdu si přejete synchronizovat s Astrid.com?</string>
+  <string name="actfm_dual_sync_warning">Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s oběma službami může v některých případech vést k nečekaným důsledkům. Opravdu si přejete synchronizovat s Tasks.com?</string>
   <string name="actfm_account_basic">Zakladní</string>
   <string name="share_with_google">Sdílet na Google+</string>
   <string name="alarm_ACS_label">Alarmy</string>
@@ -98,19 +98,19 @@
   <string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
   <string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
   <string name="import_file_prompt">Zvolte soubor k obnově</string>
-  <string name="app_name">Astrid Úkoly</string>
-  <string name="read_permission_label">Astrid Práva</string>
+  <string name="app_name">Tasks Úkoly</string>
+  <string name="read_permission_label">Tasks Práva</string>
   <string name="read_permission_desc">zobrazit úkoly, zobrazit filtry úkolů</string>
-  <string name="write_permission_label">Astrid Práva</string>
+  <string name="write_permission_label">Tasks Práva</string>
   <string name="write_permission_desc">vytvořit nové úkoly, upravit existující úkoly</string>
   <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
   <string name="DLG_delete_this_item_question">Smazat tuto položku: %s?</string>
   <string name="DLG_upgrading">Obnovování vašich úkolů...</string>
   <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
-  <string name="DLG_please_update">Astrid by měl být aktualizován na poslední verzi z Android market! Prosím udělej to, než budeš pokračovat, nebo chvíli počkej.</string>
+  <string name="DLG_please_update">Tasks by měl být aktualizován na poslední verzi z Android market! Prosím udělej to, než budeš pokračovat, nebo chvíli počkej.</string>
   <string name="DLG_accept">Souhlasím</string>
   <string name="DLG_decline">Odmítám</string>
-  <string name="DLG_eula_title">Podmínky užívání programu Astrid</string>
+  <string name="DLG_eula_title">Podmínky užívání programu Tasks</string>
   <string name="DLG_please_wait">Čekejte prosím</string>
   <string name="DLG_loading">Nahrávám...</string>
   <string name="DLG_ok">OK</string>
@@ -133,8 +133,8 @@
   <string name="TLA_menu_support">Podpora</string>
   <string name="TLA_custom">Vlastní</string>
   <string name="TLA_quick_add_hint">Přidat úkol</string>
-  <string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Astrid!</string>
-  <string name="TLA_notification_disabled">Upomínky Astrid jsou vypnuté! Nedostanete žádná upozornění</string>
+  <string name="TLA_notification_volume_low">Upozornění jsou ztlumena. Neuslyšíte Tasks!</string>
+  <string name="TLA_notification_disabled">Upomínky Tasks jsou vypnuté! Nedostanete žádná upozornění</string>
   <string-array name="TLA_filters">
     <item>Aktivní</item>
     <item>Dnes</item>
@@ -166,7 +166,7 @@
   <string name="SSD_completed">Ukázat dokončené úkoly</string>
   <string name="SSD_hidden">Ukázat skryté úkoly</string>
   <string name="SSD_deleted">Ukázat smazané úkoly</string>
-  <string name="SSD_sort_auto">Astrid-chytré třídění</string>
+  <string name="SSD_sort_auto">Tasks-chytré třídění</string>
   <string name="SSD_sort_alpha">Podle názvu</string>
   <string name="SSD_sort_due">Podle data ukončení</string>
   <string name="SSD_sort_importance">Podle důležitosti</string>
@@ -174,7 +174,7 @@
   <string name="SSD_sort_reverse">Obrácené třídění</string>
   <string name="SSD_save_temp">Pouze jednou</string>
   <string name="SSD_save_always">Vždy</string>
-  <string name="FSA_label">Seznam nebo filtr Astrid</string>
+  <string name="FSA_label">Seznam nebo filtr Tasks</string>
   <string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
   <string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
   <string name="FLA_shortcut_dialog">Název zástupce:</string>
@@ -248,11 +248,11 @@
   <string name="MCA_add_task">Zavolat později</string>
   <string name="MCA_ignore">Ignorovat</string>
   <string name="MCA_ignore_title">Ignorovat všechny zmeškané hovory?</string>
-  <string name="MCA_ignore_body">Ignoroval jste několik zmeškaných hovorů. Má Astrid ignorovat všechny?</string>
+  <string name="MCA_ignore_body">Ignoroval jste několik zmeškaných hovorů. Má Tasks ignorovat všechny?</string>
   <string name="MCA_ignore_all">Ignorovat vše</string>
   <string name="MCA_ignore_this">Ignorovat pouze tento</string>
-  <string name="MCA_missed_calls_pref_desc_enabled">Astrid Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
-  <string name="MCA_missed_calls_pref_desc_disabled">Astrid Vás nebude upozorňovat na zmeškané hovory</string>
+  <string name="MCA_missed_calls_pref_desc_enabled">Tasks Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět</string>
+  <string name="MCA_missed_calls_pref_desc_disabled">Tasks Vás nebude upozorňovat na zmeškané hovory</string>
   <string name="MCA_task_title_name">Zavolat %1$s zpět v %2$s</string>
   <string name="MCA_task_title_no_name">Zavolat %s zpět</string>
   <string name="MCA_schedule_dialog_title">Zavolat %s zpět...</string>
@@ -264,10 +264,10 @@
     <item>To zvládnete!</item>
     <item>SMS můžete poslat vždycky...</item>
   </string-array>
-  <string name="UpS_changelog_title">Co je nového v Astrid?</string>
-  <string name="UpS_updates_title">Poslední \"Astrid\" novinky</string>
-  <string name="EPr_title">Astrid: Vlastnosti</string>
-  <string name="EPr_share_astrid">Řekněte o Astrid ostatním</string>
+  <string name="UpS_changelog_title">Co je nového v Tasks?</string>
+  <string name="UpS_updates_title">Poslední \"Tasks\" novinky</string>
+  <string name="EPr_title">Tasks: Vlastnosti</string>
+  <string name="EPr_share_astrid">Řekněte o Tasks ostatním</string>
   <string name="EPr_appearance_header">Vzhled</string>
   <string name="EPr_faq_title">FAQ</string>
   <string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
@@ -333,25 +333,25 @@
   <string name="EPr_manage_purge_deleted_status">Vymyzáno %d úkolů!</string>
   <string name="EPr_manage_purge_deleted_summary">Pozor! Vymazané úkoly nemohou být obnoveny bez souboru zálohy!</string>
   <string name="EPr_manage_clear_all">Smazat vše</string>
-  <string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení Astrid?\n\nPozor: nelze vzít zpět!</string>
+  <string name="EPr_manage_clear_all_message">Smazat všechny úkoly a nastavení Tasks?\n\nPozor: nelze vzít zpět!</string>
   <string name="EPr_manage_delete_completed_gcal">Smazat události v kalendáři pro hotové úkoly</string>
   <string name="EPr_manage_delete_completed_gcal_message">Opravdu chcete smazat všechny události pro dokončené úkoly?</string>
   <string name="EPr_manage_delete_completed_gcal_status">Smazáno %d událostí z kalendáře!</string>
   <string name="AOA_title">Doplňky</string>
-  <string name="AOA_internal_author">Astrid tým</string>
+  <string name="AOA_internal_author">Tasks tým</string>
   <string name="AOA_tab_installed">Nainstalováno</string>
   <string name="AOA_tab_available">K dispozici</string>
   <string name="AOA_free">Zdarma</string>
   <string name="AOA_no_addons">Prázdný seznam!</string>
   <string name="TWi_loading">Nahrávám...</string>
   <string name="WCA_title">Označte úkol pro zobrazení...</string>
-  <string name="p_about">O Astrid</string>
-  <string name="p_about_text">Současná verze: %s\n\n Astrid je open-source a je vytvořena Todoroo, Inc.</string>
+  <string name="p_about">O Tasks</string>
+  <string name="p_about_text">Současná verze: %s\n\n Tasks je open-source a je vytvořena Todoroo, Inc.</string>
   <string name="p_help">Podpora</string>
   <string name="p_forums">Diskuzní fóra</string>
-  <string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
-  <string name="task_killer_help_ok">Neukončím Astrid!</string>
-  <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace, lokalizace, widget a další.</string>
+  <string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Tasks do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
+  <string name="task_killer_help_ok">Neukončím Tasks!</string>
+  <string name="marketplace_description">Tasks je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace, lokalizace, widget a další.</string>
   <string name="DB_corrupted_title">Poškozená databáze</string>
   <string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
   <string name="EPr_default_urgency_desc">Aktuální: %s</string>
@@ -451,13 +451,13 @@
   <string name="gtasks_error_backend">V API služby Google Task (které je ve stadiu beta) byla v něm zjištěna chyba. Služba může být nedostupná, zkuste to později znovu.</string>
   <string name="gtasks_error_accountNotFound">Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu přihlaste.</string>
   <string name="gtasks_error_authRefresh">Nelze se přihlásit ke Google Tasks. Zkontrolujte prosím heslo ke svému účtu, nebo se zkuste znovu přihlásit.</string>
-  <string name="welcome_login_tos_base">Používáním Astrid souhlasíte s</string>
+  <string name="welcome_login_tos_base">Používáním Tasks souhlasíte s</string>
   <string name="welcome_login_confirm_later_title">Nechcete se přihlásit?</string>
   <string name="welcome_login_confirm_later_ok">Jasně!</string>
   <string name="welcome_login_confirm_later_cancel">Ne, díky</string>
-  <string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Astrid více! Zdarma získáte online zálohování, plnou synchronizaci s Astrid.com, možnost přidávat úkoly emailem a dokonce můžete sdílet seznamy úkolů s přáteli!</string>
-  <string name="locale_edit_alerts_title">Astrid Upozornění filtrů</string>
-  <string name="locale_edit_intro">Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:</string>
+  <string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Tasks více! Zdarma získáte online zálohování, plnou synchronizaci s Tasks.com, možnost přidávat úkoly emailem a dokonce můžete sdílet seznamy úkolů s přáteli!</string>
+  <string name="locale_edit_alerts_title">Tasks Upozornění filtrů</string>
+  <string name="locale_edit_intro">Tasks Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:</string>
   <string name="locale_interval_label">Omezit upozornění na:</string>
   <string-array name="locale_interval">
     <item>jednou za hodinu</item>
@@ -468,7 +468,7 @@
     <item>jednou týdně</item>
   </string-array>
   <string name="locale_notification">Máš $NUM se značkou $FILTER</string>
-  <string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Astrid Locale!</string>
+  <string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Tasks Locale!</string>
   <string name="opencrx_FEx_header">OpenCRX</string>
   <string name="opencrx_FEx_dashboard">Pracovní plochy</string>
   <string name="opencrx_FEx_responsible">Přiřazeno k</string>
@@ -499,7 +499,7 @@
   <string name="CFC_opencrx_assigned_to_text">Přiřazeno k: ?</string>
   <string name="CFC_opencrx_assigned_to_name">Přiřazeno k ...</string>
   <string name="EPr_statistics_desc_disabled">Nebudou oznámena žádná data o využití</string>
-  <string name="EPr_statistics_desc_enabled">Pomozte nám dělat Astrid lepší, anonymním odesláním dat o používání</string>
+  <string name="EPr_statistics_desc_enabled">Pomozte nám dělat Tasks lepší, anonymním odesláním dat o používání</string>
   <string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
   <string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
   <string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím znovu.</string>
@@ -517,7 +517,7 @@
   <string name="file_type_unhandled_title">Chybí aplikace</string>
   <string name="file_prefix_voice">Hlas</string>
   <string name="file_browser_up">O úroveň výš</string>
-  <string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Astrid nezabránil v přístupu k SD kartě.</string>
+  <string name="file_browser_err_permissions">Chyba oprávnění! Ujistěte se prosím, že jste Tasks nezabránil v přístupu k SD kartě.</string>
   <string name="file_add_picture">Připojit obrázek</string>
   <string name="file_add_sdcard">Připojit soubor z SD karty</string>
   <string name="file_download_title">Stáhnout soubor?</string>
@@ -549,10 +549,10 @@
   <string name="rmd_NoA_snooze">Později...</string>
   <string name="rmd_NoA_completed_toast">Hotovo! Gratuluji!</string>
   <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
+    <item>A note from Tasks</item>
     <item>Memo for %s.</item>
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
+    <item>Your Tasks digest</item>
+    <item>Reminders from Tasks</item>
   </string-array>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -565,7 +565,7 @@
   </string-array>
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>I\'m Tasks! I\'m here to help you do more!</item>
     <item>You look busy! Let me take some of those tasks off of your plate.</item>
     <item>I can help you keep track of all of the details in your life.</item>
     <item>You\'re serious about getting more done? So am I!</item>
@@ -583,9 +583,9 @@
   <string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
   <string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
   <string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
-  <string name="rmd_EPr_vibrate_desc_true">Astrid bude vibrovat při odesílání upozornění</string>
-  <string name="rmd_EPr_vibrate_desc_false">Astrid nebude vibrovat při odesílání upozornění</string>
-  <string name="rmd_EPr_nagging_desc_true">Astrid bude vypisovat povzbuzující zprávy během upozornění</string>
+  <string name="rmd_EPr_vibrate_desc_true">Tasks bude vibrovat při odesílání upozornění</string>
+  <string name="rmd_EPr_vibrate_desc_false">Tasks nebude vibrovat při odesílání upozornění</string>
+  <string name="rmd_EPr_nagging_desc_true">Tasks bude vypisovat povzbuzující zprávy během upozornění</string>
   <string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
   <string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
@@ -686,7 +686,7 @@
     <item>Když máš čas:</item>
     <item>Ve Tvém programu:</item>
     <item>Máš chvíli čas?</item>
-    <item>Tady je Astrid!</item>
+    <item>Tady je Tasks!</item>
     <item>Ahoj! Můžu Tě vyrušit?</item>
     <item>Minuta Tvého času?</item>
     <item>Je skvělý den na</item>
@@ -810,7 +810,7 @@
   <string name="TPl_notification">Aktivní časovače pro %s!</string>
   <string name="TFE_workingOn">Úkol je časován</string>
   <string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
-  <string name="welcome_title_1">Vítej v Astrid!</string>
+  <string name="welcome_title_1">Vítej v Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
   <string name="PPW_configure_title">Konfigurovat widget</string>
   <string name="PPW_color">Barva widgetu</string>
@@ -818,7 +818,7 @@
   <string name="PPW_disable_encouragements">Skrýt povzbuzování</string>
   <string name="PPW_filter">Vybrat filtr</string>
   <string name="PPW_due">Termín:</string>
-  <string name="PPW_old_astrid_notice">K používání tohoto widgetu potřebujete Astrid ve verzi 3.6 a vyšší!</string>
+  <string name="PPW_old_astrid_notice">K používání tohoto widgetu potřebujete Tasks ve verzi 3.6 a vyšší!</string>
   <string-array name="PPW_encouragements">
     <item>Nazdar!</item>
     <item>Máš čas něco dokončit?</item>

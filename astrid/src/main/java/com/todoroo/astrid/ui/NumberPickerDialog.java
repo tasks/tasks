@@ -12,7 +12,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import org.astrid.R;
+import org.tasks.R;
 
 public class NumberPickerDialog extends AlertDialog implements OnClickListener {
 

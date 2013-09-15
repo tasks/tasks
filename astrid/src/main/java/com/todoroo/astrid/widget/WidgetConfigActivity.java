@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.adapter.FilterAdapter;

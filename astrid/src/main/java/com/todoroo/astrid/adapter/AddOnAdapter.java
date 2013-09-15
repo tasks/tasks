@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.utility.Constants;
 

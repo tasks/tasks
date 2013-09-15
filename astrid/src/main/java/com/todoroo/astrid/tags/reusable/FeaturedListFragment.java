@@ -2,7 +2,7 @@ package com.todoroo.astrid.tags.reusable;
 
 import android.app.Activity;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.utility.AstridPreferences;

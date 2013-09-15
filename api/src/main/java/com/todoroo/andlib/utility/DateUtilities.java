@@ -16,7 +16,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
-import org.astrid.api.R;
+import org.tasks.api.R;
 
 
 public class DateUtilities {

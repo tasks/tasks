@@ -30,7 +30,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
-import org.astrid.R;
+import org.tasks.R;
 
 public class CalendarView extends View {
 

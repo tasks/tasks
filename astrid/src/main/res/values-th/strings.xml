@@ -29,7 +29,7 @@
   <string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
   <string name="DLG_accept">ฉันยอมรับ</string>
   <string name="DLG_decline">ฉันปฏิเสธ</string>
-  <string name="DLG_eula_title">เงื่อนไขการใช้งาน Astrid</string>
+  <string name="DLG_eula_title">เงื่อนไขการใช้งาน Tasks</string>
   <string name="DLG_loading">กำลังโหลด...</string>
   <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
   <string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
@@ -56,7 +56,7 @@
   <string name="SSD_completed">แสดงแผนงานที่เสร็จแล้ว</string>
   <string name="SSD_hidden">แสดงแผนงานที่ซ่อนไว้</string>
   <string name="SSD_deleted">แสดงแผนงานที่ถูกลบ</string>
-  <string name="SSD_sort_auto">จัดเรียงด้วย Astrid Smart</string>
+  <string name="SSD_sort_auto">จัดเรียงด้วย Tasks Smart</string>
   <string name="SSD_sort_alpha">ตามชื่อ</string>
   <string name="SSD_sort_importance">ตามความสำคัญ</string>
   <string name="SSD_sort_modified">ตามวันที่แก้ไขล่าสุด</string>
@@ -108,8 +108,8 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="UpS_changelog_title">มีอะไรใหม่ใน Astrid?</string>
-  <string name="UpS_updates_title">ข่าวล่าสุดของ Astrid</string>
+  <string name="UpS_changelog_title">มีอะไรใหม่ใน Tasks?</string>
+  <string name="UpS_updates_title">ข่าวล่าสุดของ Tasks</string>
   <string name="EPr_appearance_header">รูปโฉม</string>
   <string name="EPr_fontSize_desc">ขนาดฟอนต์บนหน้ารายการหลัก</string>
   <string name="EPr_showNotes_desc_enabled">บันทึกจะแสดงให้เห็นตลอดเวลา</string>
@@ -143,7 +143,7 @@
     <item>Transparent (Black Text)</item>
     <item>Old Style</item>
   </string-array>
-  <string name="AOA_internal_author">ทีมงาน Astrid</string>
+  <string name="AOA_internal_author">ทีมงาน Tasks</string>
   <string name="AOA_tab_installed">ติดตั้งแล้ว</string>
   <string name="AOA_tab_available">พร้อมใช้</string>
   <string name="AOA_free">ฟรี</string>
@@ -203,8 +203,8 @@
   <string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
   <string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
   <string name="gcal_GCP_default">ปฏิธินตั้งต้น</string>
-  <string name="locale_edit_alerts_title">คำเตือนตัวกรอง Astrid</string>
-  <string name="locale_edit_intro">Astrid จะช่วยเตือนความจำ เมื่อมีแผนงานอยู่เขตตัวกรองดังนี้:</string>
+  <string name="locale_edit_alerts_title">คำเตือนตัวกรอง Tasks</string>
+  <string name="locale_edit_intro">Tasks จะช่วยเตือนความจำ เมื่อมีแผนงานอยู่เขตตัวกรองดังนี้:</string>
   <string name="locale_interval_label">จำกัดการแจ้งเตือนไว้ที่:</string>
   <string-array name="locale_interval">
     <item>ชั่วโมงละครั้ง</item>
@@ -214,7 +214,7 @@
     <item>ทุกๆ 3 วัน</item>
     <item>สัปดาห์ละครั้ง</item>
   </string-array>
-  <string name="locale_plugin_required">กรุณาติดตั้ง Astrid Locale plugin!</string>
+  <string name="locale_plugin_required">กรุณาติดตั้ง Tasks Locale plugin!</string>
   <string name="opencrx_FEx_dashboard">พื้นที่ทำงาน</string>
   <string name="opencrx_FEx_responsible">มอบหมายให้กับ</string>
   <string name="opencrx_FEx_responsible_title">มอบหมายให้กับ \'%s\'</string>
@@ -245,10 +245,10 @@
   <string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
   <string name="rmd_NoA_snooze">หลับ..</string>
   <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
+    <item>A note from Tasks</item>
     <item>Memo for %s.</item>
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
+    <item>Your Tasks digest</item>
+    <item>Reminders from Tasks</item>
   </string-array>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -261,7 +261,7 @@
   </string-array>
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>I\'m Tasks! I\'m here to help you do more!</item>
     <item>You look busy! Let me take some of those tasks off of your plate.</item>
     <item>I can help you keep track of all of the details in your life.</item>
     <item>You\'re serious about getting more done? So am I!</item>
@@ -367,7 +367,7 @@
     <item>When you have a minute:</item>
     <item>On your agenda:</item>
     <item>Free for a moment?</item>
-    <item>Astrid here!</item>
+    <item>Tasks here!</item>
     <item>Hi! Can I bug you?</item>
     <item>A minute of your time?</item>
     <item>It\'s a great day to</item>
@@ -478,7 +478,7 @@
     <item>I love when you\'re productive!</item>
   </string-array>
   <string name="tag_settings_title">Settings:</string>
-  <string name="welcome_title_1">ยินดีต้อนรับสู่ Astrid!</string>
+  <string name="welcome_title_1">ยินดีต้อนรับสู่ Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
   <string-array name="PPW_encouragements">
     <item>Hi there!</item>

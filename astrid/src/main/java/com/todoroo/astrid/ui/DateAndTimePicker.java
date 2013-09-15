@@ -20,7 +20,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;

@@ -22,7 +22,7 @@ import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.todoroo.andlib.utility.Preferences;
 
-import org.astrid.R;
+import org.tasks.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

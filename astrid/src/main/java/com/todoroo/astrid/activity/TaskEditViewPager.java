@@ -11,7 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import org.astrid.R;
+import org.tasks.R;
 
 import java.util.ArrayList;
 

@@ -28,7 +28,7 @@ import android.util.Log;
 import android.view.WindowManager.BadTokenException;
 
 import com.google.ical.values.RRule;
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;

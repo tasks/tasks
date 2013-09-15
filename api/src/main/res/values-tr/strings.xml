@@ -214,7 +214,7 @@
   <string name="sync_SPr_last_error">Durum Raporu</string>
   
   <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Astrid takımına bildirmek için tıklayın</string>
+  <string name="sync_SPr_last_error_subtitle">Tasks takımına bildirmek için tıklayın</string>
   <!-- Sync: send error report button -->
   <string name="sync_SPr_send_report">Rapor Gönder</string>
   

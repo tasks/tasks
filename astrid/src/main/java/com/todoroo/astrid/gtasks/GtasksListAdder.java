@@ -15,7 +15,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;

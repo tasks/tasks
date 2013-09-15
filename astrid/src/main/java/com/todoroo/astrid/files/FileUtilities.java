@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import android.content.Context;
 import android.text.TextUtils;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.TaskAttachment;

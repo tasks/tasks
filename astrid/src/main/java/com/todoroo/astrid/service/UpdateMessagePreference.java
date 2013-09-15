@@ -10,7 +10,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.Preferences;
 
 public class UpdateMessagePreference extends PreferenceActivity {

@@ -80,11 +80,11 @@
 
   <!-- Titles for user reengagement notifications -->
   <string-array name="rmd_reengage_notif_titles">
-    <item>A note from Astrid</item>
+    <item>A note from Tasks</item>
     <!-- %s -> first name -->
     <item>Memo for %s.</item> 
-    <item>Your Astrid digest</item>
-    <item>Reminders from Astrid</item>
+    <item>Your Tasks digest</item>
+    <item>Reminders from Tasks</item>
   </string-array>
     
   <string name="rmd_reengage_name_default">you</string>
@@ -106,7 +106,7 @@
   <!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Don\'t you want to get organized?</item>
-    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>I\'m Tasks! I\'m here to help you do more!</item>
     <item>You look busy! Let me take some of those tasks off of your plate.</item>
     <item>I can help you keep track of all of the details in your life.</item>
     <item>You\'re serious about getting more done? So am I!</item>
@@ -173,23 +173,23 @@
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks will max out the volume for multiple-ring reminders</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system setting for the volume</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Tasks will use the system setting for the volume</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibrate on alert</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_true">Tasks will vibrate when sending notifications</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_false">Tasks will not vibrate when sending notifications</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid encouragements</string>
+  <string name="rmd_EPr_nagging_title">Tasks encouragements</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <string name="rmd_EPr_nagging_desc_true">Tasks will show up to give you an encouragement during reminders</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Tasks will not give you any encouragement messages</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">Snooze dialog HH:MM</string>
@@ -326,7 +326,7 @@
       <item>When you have a minute:</item>
       <item>On your agenda:</item>
       <item>Free for a moment?</item>
-      <item>Astrid here!</item>
+      <item>Tasks here!</item>
       <item>Hi! Can I bug you?</item>
       <item>A minute of your time?</item>
       <item>It\'s a great day to</item>
@@ -355,7 +355,7 @@
   </string-array>
   
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <!-- responses to reminder: Tasks says...  (user should answer yes or no)  -->
       <item>I\'ve got something for you!</item> 
       <item>Ready to put this in the past?</item>
       <item>Why don\'t you get this done?</item>
@@ -386,7 +386,7 @@
   </string-array>
 
   <string-array name="postpone_nags">
-      <!-- Astrid's nagging when user clicks postpone -->
+      <!-- Tasks's nagging when user clicks postpone -->
       <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
       <item>Doesn\'t being lazy get old sometimes?</item>
       <item>Somewhere, someone is depending on you to finish this!</item>

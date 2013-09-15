@@ -11,7 +11,7 @@ import android.view.KeyEvent;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;

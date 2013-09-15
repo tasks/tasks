@@ -214,7 +214,7 @@
   <string name="sync_SPr_last_error">状态报告</string>
   
   <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">点击给 Astrid 团队发送报告</string>
+  <string name="sync_SPr_last_error_subtitle">点击给 Tasks 团队发送报告</string>
   <!-- Sync: send error report button -->
   <string name="sync_SPr_send_report">发送报告</string>
   

@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;

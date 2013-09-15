@@ -6,16 +6,16 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <string name="widget_mini">- Astrid Mini -</string>
+    <string name="widget_mini">Tasks Mini</string>
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Old Astrid 4x2</string>
-    <string name="PPW_widget_43_label">Old Astrid 4x3</string>
-    <string name="PPW_widget_44_label">Old Astrid 4x4</string>
-    <string name="PPW_widget_v11_label">- Astrid -</string>
-    <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
-    <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
+    <string name="PPW_widget_42_label">Old Tasks 4x2</string>
+    <string name="PPW_widget_43_label">Old Tasks 4x3</string>
+    <string name="PPW_widget_44_label">Old Tasks 4x4</string>
+    <string name="PPW_widget_v11_label">- Tasks -</string>
+    <string name="PPW_widget_custom_label">Tasks Custom Launcher Premium</string>
+    <string name="PPW_widget_custom_launcherpro_label">Tasks Launcher Pro Premium</string>
     
     <string name="PPW_configure_title">Configure Widget</string>
     
@@ -29,7 +29,7 @@
     <string name="PPW_past_due">Past Due:</string>
     
     <string name="PPW_old_astrid_notice">You need at least version 3.6 of 
-    Astrid in order to use this widget. Sorry!</string>
+    Tasks in order to use this widget. Sorry!</string>
     
     <string-array name="PPW_encouragements">
         <!-- general encouragements -->
@@ -79,7 +79,7 @@
     <string name="PPW_info_title">Free Power Pack!</string>
     <string name="PPW_info_signin">Sign in!</string>
     <string name="PPW_info_later">Later</string>
-    <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
+    <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Tasks.</string>
     <string name="PPW_check_button">Get the Power Pack for free!</string>
     <string name="PPW_check_share_lists">Share lists!</string>
     <string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>

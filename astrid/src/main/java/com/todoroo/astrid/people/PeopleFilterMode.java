@@ -2,7 +2,7 @@ package com.todoroo.astrid.people;
 
 import android.content.Context;
 
-import org.astrid.R;
+import org.tasks.R;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.FilterModeSpec;
 import com.todoroo.astrid.activity.TaskListFragment;
