@@ -1,9 +1,4 @@
-Getting Started With Development
----------------
-
-Tasks is built with [the new Android build system](http://tools.android.com/tech-docs/new-build-system).
-
-You must install [Gradle](http://www.gradle.org/) and [Android Studio](http://developer.android.com/sdk/installing/studio.html). Eclipse is not yet supported by the new build system.
+Visit the wiki to [get started with development](https://github.com/abaker/astrid/wiki/Getting-Started-with-Development).
 
 To Do
 -----
