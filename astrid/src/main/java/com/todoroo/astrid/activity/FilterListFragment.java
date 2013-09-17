@@ -367,7 +367,7 @@ public class FilterListFragment extends SherlockListFragment {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(android.view.MenuItem item) {
         // called when context menu appears
         return onOptionsItemSelected(item);
     }

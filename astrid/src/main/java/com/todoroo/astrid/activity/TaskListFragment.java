@@ -1225,7 +1225,7 @@ public class TaskListFragment extends SherlockListFragment implements OnSortSele
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(item);
     }
 
