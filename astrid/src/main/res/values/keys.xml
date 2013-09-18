@@ -72,7 +72,10 @@
 
   <!-- show comments in task edit -->
   <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
-  
+
+  <!-- show caption of comments in task edit -->
+  <string name="p_show_caption_comments">p_show_caption_comments</string>
+
   <!-- show save and cancel buttons in task edit -->
   <string name="p_save_and_cancel">p_save_and_cancel</string>
   

@@ -434,10 +434,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
 
-
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
-                R.layout.update_adapter_row, parent, false);
+        View convertView;
+        if (Preferences.getBoolean(R.string.p_show_caption_comments, false)) {
+            convertView = ((Activity)getContext()).getLayoutInflater().inflate(
+                    R.layout.update_adapter_row, parent, false);
+        }
+        else {
+            convertView = ((Activity)getContext()).getLayoutInflater().inflate(
+                    R.layout.update_adapter_row_no_caption, parent, false);
+        }
 
         bindView(convertView, note);
         return convertView;
@@ -446,10 +452,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     /** Helper method to set the contents and visibility of each field */
     public synchronized void bindView(View view, NoteOrUpdate item) {
         // picture
-        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+        if (Preferences.getBoolean(R.string.p_show_caption_comments, false)) {
+            final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture);
             pictureView.setDefaultImageDrawable(ResourceDrawableCache.getImageDrawableFromId(resources, R.drawable.icn_default_person_image));
             pictureView.setUrl(item.picture);
-
         }
 
         // name
