@@ -1,61 +1,48 @@
 #!/usr/bin/env ruby
 # Script for invoking the GetLocalization tools
 # IMPORTANT: Right now, must be invoked from the project's root directory.
-# Usage: ./bin/getloc.rb [cmd] [platform] [lang]
+# Usage: ./bin/getloc.rb [cmd] [lang]
 # cmd: 'export' or 'import'
-# platform: 'android', 'ios', or 'web'
+
 # lang: Language code or 'master'
 
-LangException = Struct.new :platform, :platform_code, :getloc_code
-
-LANG_EXCEPTIONS = [
-  LangException.new(:ios, "zh-Hans", "zh-TW"),
-  LangException.new(:ios, "zh", "zh-CN")
-]
-
+PROJECT_NAME='tasks_android'
 
 # Converts astrid language codes to GetLocalization language codes (which don't use -r)
-def astrid_code_to_getloc_code(lang, platform)
-  result = lang.sub("-r", "-")
-  exception = LANG_EXCEPTIONS.find { |le| le.platform == platform and le.platform_code == lang }
-  exception ? exception.getloc_code : result
+def astrid_code_to_getloc_code(lang)
+  lang.sub("-r", "-")
 end
 
 # Inverse of the above function
-def getloc_code_to_astrid_code(lang, platform)
-  result = lang.sub("-", "-r")
-  exception = LANG_EXCEPTIONS.find { |le| le.platform == platform and le.getloc_code == lang }
-  exception ? exception.platform_code : result
+def getloc_code_to_astrid_code(lang)
+  lang.sub("-", "-r")
 end
 
 # Uploads files for the specified language to GetLocalization
 # tmp_files (Array): temporary strings files to use
 # lang (String): language code
-# platform (String): platform; one of 'android', 'ios', 'web'
 # src_files_block (lambda): Block for computing the source file list from the language code
-def export(tmp_files, lang, platform, src_files_block)
+def export(tmp_files, lang, src_files_block)
   src_files = src_files_block.call(lang)
   for i in 0...tmp_files.length
     %x(cp #{src_files[i]} #{tmp_files[i]}) if src_files[i] != tmp_files[i]
   end
-  
-  if platform == :android
-    tmp_files.each do |f|
-      %x(sed -i '' "s/\\\\\\'/'/g" #{f})
-    end
+
+  tmp_files.each do |f|
+    %x(sed -i '' "s/\\\\\\'/'/g" #{f})
   end
 
   if lang == "master"
     tmp_files.each do |f|
       puts "Updating master file #{f}"
-      %x(curl --form file=@#{f} --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/update-master/)
+      %x(curl --form file=@#{f} --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/update-master/)
     end
   else
-    lang_tmp = astrid_code_to_getloc_code(lang, platform)
+    lang_tmp = astrid_code_to_getloc_code(lang)
     tmp_files.each do |f|
       puts "Updating language file #{f}"
       name = File.basename(f)
-      %x(curl --form file=@#{f} --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/)
+      %x(curl --form file=@#{f} --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/translations/file/#{name}/#{lang_tmp}/)
     end
   end
 end
@@ -63,27 +50,26 @@ end
 # Downloads and imports files for the specified language
 # tmp_files (Array): temporary strings files to use
 # lang (String): language code
-# platform (String): platform; one of 'android', 'ios', or 'web'
 # dst_files_block (lambda): Block for computing the destination files list from the language code
-def import(tmp_files, lang, platform, dst_files_block)
+def import(tmp_files, lang, dst_files_block)
   if lang == "master"
     tmp_dir = File.dirname(tmp_files[0])
     tmp_all = File.join(tmp_dir, "all.zip")
     tmp_all_dir = File.join(tmp_dir, "all")
 
-    %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/zip/ -o #{tmp_all})
+    %x(curl --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/translations/zip/ -o #{tmp_all})
     %x(mkdir #{tmp_all_dir})
     %x(tar xzf #{tmp_all} -C #{tmp_all_dir})
 
     # Get all translations
     Dir.foreach(tmp_all_dir) do |l|
       if (l != "." && l != "..")
-        lang_local = getloc_code_to_astrid_code(l, platform)
+        lang_local = getloc_code_to_astrid_code(l)
         dst_files = dst_files_block.call(lang_local)
 
         for i in 0...tmp_files.length
           file = File.join(tmp_all_dir, l, File.basename(tmp_files[i]))
-          %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{file}) if platform == :android
+          %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{file})
           puts "Moving #{file} to #{dst_files[i]}"
           %x(mv #{file} #{dst_files[i]})
         end
@@ -92,12 +78,12 @@ def import(tmp_files, lang, platform, dst_files_block)
     %x(rm -rf #{tmp_all_dir})
     %x(rm #{tmp_all})
   else
-    lang_tmp = astrid_code_to_getloc_code(lang, platform)
+    lang_tmp = astrid_code_to_getloc_code(lang)
     dst_files = dst_files_block.call(lang)
     for i in 0...tmp_files.length
       name = File.basename(tmp_files[i])
-      %x(curl --user #{@user}:#{@password} https://api.getlocalization.com/astrid/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
-      %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{tmp_files[i]}) if platform == :android
+      %x(curl --user "#{@user}:#{@password}" https://api.getlocalization.com/#{PROJECT_NAME}/api/translations/file/#{name}/#{lang_tmp}/ -o #{tmp_files[i]})
+      %x(sed -i '' "s/\\([^\\\\\\]\\)'/\\1\\\\\\'/g" #{tmp_files[i]})
       puts "Moving #{tmp_files[i]} to #{dst_files[i]}"
       %x(mv #{tmp_files[i]} #{dst_files[i]})
     end
@@ -112,59 +98,31 @@ class Android
 
   def self.src_files(cmd, type)
     if cmd == :export && type == "master"
-      %x[./bin/catxml astrid/res/values/strings*.xml > #{self.tmp_files[0]}]
-      lambda { |l| ["translations/strings.xml", "api/res/values/strings.xml"] }
+      %x[./bin/catxml astrid/src/main/res/values/strings*.xml > #{self.tmp_files[0]}]
+      lambda { |l| ["translations/strings.xml", "api/src/main/res/values/strings.xml"] }
     else
-      lambda { |l| ["astrid/res/values-#{l}/strings.xml", "api/res/values-#{l}/strings.xml"] }
-    end
-  end
-end
-
-class IOS
-  def self.tmp_files
-    ["Resources/Localizable.strings"]
-  end
-
-  def self.src_files(cmd, type)
-    if cmd == :export && type == "master"
-      lambda { |l| ["Resources/Localizations/en.lproj/Localizable.strings"] }
-    else
-      lambda { |l| ["Resources/Localizations/#{l}.lproj/Localizable.strings"] }
+      lambda { |l| ["astrid/src/main/res/values-#{l}/strings.xml", "api/src/main/res/values-#{l}/strings.xml"] }
     end
   end
 end
 
 # Main function for invoking the GetLocalization tools
 # cmd (String): Command to invoke. Must be 'import' or 'export'
-# platform (String): Project platform. Must be 'android', 'ios', or 'web'
 # lang (String): Language code. Can also be 'master' to specify master files for export or all languages for import.
-def getloc(cmd, platform, lang)
+def getloc(cmd, lang)
   cmd = cmd.to_sym
-  platform = platform.to_sym
-  
-  @user = "sbosley"
-  @password = "ohSed4pe"
-  platform_class = nil
-  case platform
-  when :android
-    platform_class = Android 
-  when :ios
-    platform_class = IOS
-  when :web
-    puts "Web not yet supported."
-    return
-  else
-    puts "Platform #{platform} not recognized. Should be one of 'android', 'ios', or 'web'."
-    return
-  end
 
+  raise "must set GETLOC_USER and GETLOC_PASS environment variables" if ENV['GETLOC_USER'].nil? or ENV['GETLOC_PASS'].nil?
+  @user = ENV['GETLOC_USER']
+  @password = ENV['GETLOC_PASS']
+  platform_class = Android
   case cmd
   when :export
     puts "Exporting #{lang} files"
-    export(platform_class.tmp_files, lang, platform, platform_class.src_files(cmd, lang))
+    export(platform_class.tmp_files, lang, platform_class.src_files(cmd, lang))
   when :import
     puts "Importing #{lang} files"
-    import(platform_class.tmp_files, lang, platform, platform_class.src_files(cmd, lang))
+    import(platform_class.tmp_files, lang, platform_class.src_files(cmd, lang))
   else
     puts "Command #{cmd} not recognized. Should be one of 'export' or 'import'."
     return
@@ -173,7 +131,6 @@ def getloc(cmd, platform, lang)
   platform_class.tmp_files.each do |f|
     %x(rm -f #{f})
   end
- 
 end
 
 getloc(*ARGV)
