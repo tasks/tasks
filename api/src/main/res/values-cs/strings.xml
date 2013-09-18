@@ -1,116 +1,198 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-  <plurals name="DUt_years">
-    <item quantity="one">1 rok</item>
-    <item quantity="other">%d Roky</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 měsíc</item>
-    <item quantity="other">%d Měsíce</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 týden</item>
-    <item quantity="other">%d Týdny</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 den</item>
-    <item quantity="other">%d Dnů</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 pracovní den</item>
-    <item quantity="other">%d pracovních dnů</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 hodina</item>
-    <item quantity="other">%d hodin</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 minuta</item>
-    <item quantity="other">%d minut</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 vteřina</item>
-    <item quantity="other">%d vteřin</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 hod.</item>
-    <item quantity="other">%d hod.</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 min.</item>
-    <item quantity="other">%d min.</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 s</item>
-    <item quantity="other">%d s</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 úkol</item>
-    <item quantity="other">%d úkolů</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 osoba</item>
-    <item quantity="other">%d lidí</item>
-  </plurals>
-  <string name="today">Dnes</string>
-  <string name="tomorrow">Zítra</string>
-  <string name="yesterday">Včera</string>
-  <string name="tmrw">Zítra</string>
-  <string name="yest">Včera</string>
-  <string name="DLG_confirm_title">Potvrdit?</string>
-  <string name="DLG_question_title">Otázka:</string>
-  <string name="DLG_information_title">Informace</string>
-  <string name="DLG_error_title">Chyba!</string>
-  <string name="DLG_save">Uložit</string>
-  <string name="DLG_yes">Ano</string>
-  <string name="DLG_no">Ne</string>
-  <string name="DLG_close">Zavřít</string>
-  <string name="DLG_done">Hotovo</string>
-  <string name="DLG_error">Jejda, vypadá to, že se vyskytla chyba! Tady je co se stalo:\n\n%s</string>
-  <string name="DLG_error_generic">Jejda, vypadá to, že se vyskytla chyba!</string>
-  <string name="DLG_wait">Čekejte prosím...</string>
-  <string name="SyP_progress">Probíhá synchronizace Vašich úkolů...</string>
-  <string name="SyP_progress_toast">Sychronizuji...</string>
-  <string name="SyP_label">Synchronizace</string>
-  <string name="SyP_summary">Google Tasks, uložená data, lokální záloha</string>
-  <string name="SyP_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
-  <string name="sync_SPr_group_status">Stav</string>
-  <string name="sync_SPr_status_subtitle">Stav: %s</string>
-  <string name="sync_status_loggedout">Nepřihlášen</string>
-  <string name="sync_status_ongoing">Probíhá synchronizace...</string>
-  <string name="sync_status_success">Poslední synchronizace:\n%s</string>
-  <string name="sync_status_failed">Selhalo: %s</string>
-  <string name="sync_status_errors">Sync w/ chyby: %s</string>
-  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
-  <string name="sync_status_never">Nikdo nesynchronizováno!</string>
-  <string name="sync_SPr_group_options">Nastavení</string>
-  <string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
-  <string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>
-  <string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>
-  <string name="sync_SPr_bgwifi_title">Nastavení jen pro Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Synchronizovat na pozadí se bude pouze při zapnuté Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Synchronizovat na pozadí se bude vždy</string>
-  <string name="sync_SPr_group_actions">Akce</string>
-  <string name="sync_SPr_sync">Synchronizovat nyní</string>
-  <string name="sync_SPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
-  <string name="sync_SPr_logged_in_prefix">Přihlášen jako:</string>
-  <string name="sync_SPr_last_error">Stavové hlášení</string>
-  <string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Tasks</string>
-  <string name="sync_SPr_send_report">Odeslat zprávu</string>
-  <string name="sync_SPr_forget">Odhlásit se</string>
-  <string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
-  <string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
-  <string name="sync_error_offline">Během posledního pokusu o synchronizaci se službou %s nastal problém s připojením k síti. Zkuste to prosím později.</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>zakázat</item>
-    <item>každých patnáct minut</item>
-    <item>každých třicet minut</item>
-    <item>každou hodinu</item>
-    <item>každé tři hodiny</item>
-    <item>každých šest hodin</item>
-    <item>každých dvanáct hodin</item>
-    <item>každý den</item>
-    <item>každé tři dny</item>
-    <item>každý týden</item>
-  </string-array>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- ==================================================== Generic Units == -->
+	<plurals name="DUt_years">
+	<!-- plurals: years -->
+		<item quantity="one">1 rok</item>
+	<!-- plurals: years -->
+		<item quantity="other">%d Roky</item>
+	</plurals>
+	<plurals name="DUt_months">
+	<!-- plurals: months -->
+		<item quantity="one">1 měsíc</item>
+	<!-- plurals: months -->
+		<item quantity="other">%d Měsíce</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+	<!-- plurals: days -->
+		<item quantity="one">1 týden</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d Týdny</item>
+	</plurals>
+	<plurals name="DUt_days">
+	<!-- plurals: days -->
+		<item quantity="one">1 den</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d Dnů</item>
+	</plurals>
+	<plurals name="DUt_weekdays">
+	<!-- plurals: days -->
+		<item quantity="one">1 pracovní den</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d pracovních dnů</item>
+	</plurals>
+	<plurals name="DUt_hours">
+	<!-- plurals: hours -->
+		<item quantity="one">1 hodina</item>
+	<!-- plurals: hours -->
+		<item quantity="other">%d hodin</item>
+	</plurals>
+	<plurals name="DUt_minutes">
+	<!-- plurals: minutes -->
+		<item quantity="one">1 minuta</item>
+	<!-- plurals: minutes -->
+		<item quantity="other">%d minut</item>
+	</plurals>
+	<plurals name="DUt_seconds">
+	<!-- plurals: seconds -->
+		<item quantity="one">1 vteřina</item>
+	<!-- plurals: seconds -->
+		<item quantity="other">%d vteřin</item>
+	</plurals>
+	<plurals name="DUt_hoursShort">
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="one">1 hod.</item>
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="other">%d hod.</item>
+	</plurals>
+	<plurals name="DUt_minutesShort">
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="one">1 min.</item>
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="other">%d min.</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="one">1 s</item>
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="other">%d s</item>
+	</plurals>
+	<plurals name="Ntasks">
+	<!-- plurals: tasks -->
+		<item quantity="one">1 úkol</item>
+	<!-- plurals: tasks -->
+		<item quantity="other">%d úkolů</item>
+	</plurals>
+	<plurals name="Npeople">
+	<!-- plurals: people -->
+		<item quantity="one">1 osoba</item>
+	<!-- plurals: people -->
+		<item quantity="other">%d lidí</item>
+	</plurals>
+	<!-- slide 10a, 12c: today -->
+	<string name="today">Dnes</string>
+	<!-- tomorrow -->
+	<string name="tomorrow">Zítra</string>
+	<!-- yesterday -->
+	<string name="yesterday">Včera</string>
+	<!-- slide 12c: tomorrow, abbreviated -->
+	<string name="tmrw">Zítra</string>
+	<!-- slide 12c: yesterday, abbreviated -->
+	<string name="yest">Včera</string>
+	<!-- ================================================== Generic Dialogs == -->
+	<!-- confirmation dialog title -->
+	<string name="DLG_confirm_title">Potvrdit?</string>
+	<!-- question dialog title -->
+	<string name="DLG_question_title">Otázka:</string>
+	<!-- information dialog title -->
+	<string name="DLG_information_title">Informace</string>
+	<!-- error dialog title -->
+	<string name="DLG_error_title">Chyba!</string>
+	<!-- general dialog save-->
+	<string name="DLG_save">Uložit</string>
+	<!-- general dialog yes-->
+	<string name="DLG_yes">Ano</string>
+	<!-- general dialog no-->
+	<string name="DLG_no">Ne</string>
+	<!-- general dialog close-->
+	<string name="DLG_close">Zavřít</string>
+	<!-- general dialog done -->
+	<string name="DLG_done">Hotovo</string>
+	<!-- error dialog (%s => error message)-->
+	<string name="DLG_error">Jejda, vypadá to, že se vyskytla chyba! Tady je co se stalo:\n\n%s</string>
+	<!-- error dialog (no message indicated)-->
+	<string name="DLG_error_generic">Jejda, vypadá to, že se vyskytla chyba!</string>
+	<!-- Progress dialog shown when doing something slow -->
+	<string name="DLG_wait">Čekejte prosím...</string>
+	<!-- ====================================================== SyncProvider == -->
+	<!-- Sync Notification: message when sync service active -->
+	<string name="SyP_progress">Probíhá synchronizace Vašich úkolů...</string>
+	<!-- Sync Notification: toast when sync activated from activity -->
+	<string name="SyP_progress_toast">Sychronizuji...</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="SyP_label">Synchronizace</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="Sync_now_label">Sync now</string>
+	<!-- Sync label subtitle -->
+	<string name="SyP_summary">Google Tasks, uložená data, lokální záloha</string>
+	<!-- Error msg when io exception  -->
+	<string name="SyP_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
+	<!-- ================================================== SyncPreferences == -->
+	<!-- Status Group Label -->
+	<string name="sync_SPr_group_status">Stav</string>
+	<!-- Sync status subtitle, %s-> status message -->
+	<string name="sync_SPr_status_subtitle">Stav: %s</string>
+	<!-- Sync Status: log in -->
+	<string name="sync_status_loggedout">Nepřihlášen</string>
+	<!-- Status: ongoing -->
+	<string name="sync_status_ongoing">Probíhá synchronizace...</string>
+	<!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+	<string name="sync_status_success">Poslední synchronizace:\n%s</string>
+	<!-- Sync Status: failure status (%s -> last attempted sync date) -->
+	<string name="sync_status_failed">Selhalo: %s</string>
+	<!-- Sync Status: error status (%s -> last sync date) -->
+	<string name="sync_status_errors">Sync w/ chyby: %s</string>
+	<!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+	<string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
+	<!-- Sync Status: never sync\'d -->
+	<string name="sync_status_never">Nikdo nesynchronizováno!</string>
+	<!-- Options Group Label -->
+	<string name="sync_SPr_group_options">Možnosti</string>
+	<!-- Preference: Synchronization Interval Title -->
+	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
+	<!-- Preference: Synchronization Interval Description (when disabled) -->
+	<string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>
+	<!-- Preference: Synchronization Interval Description (%s => setting) -->
+	<string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>
+	<!-- Preference: Background Wifi Title -->
+	<string name="sync_SPr_bgwifi_title">Nastavení jen pro Wifi</string>
+	<!-- Preference: Background Wifi Description (enabled) -->
+	<string name="sync_SPr_bgwifi_desc_enabled">Synchronizovat na pozadí se bude pouze při zapnuté Wifi</string>
+	<!-- Preference: Background Wifi Description (disabled) -->
+	<string name="sync_SPr_bgwifi_desc_disabled">Synchronizovat na pozadí se bude vždy</string>
+	<!-- Actions Group Label  -->
+	<string name="sync_SPr_group_actions">Akce</string>
+	<!-- Synchronize Now Button -->
+	<string name="sync_SPr_sync">Synchronizovat nyní</string>
+	<!-- Synchronize Now Button if not logged in-->
+	<string name="sync_SPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
+	<!-- Sync: Prefix string before logged in identifier -->
+	<string name="sync_SPr_logged_in_prefix">Přihlášen jako:</string>
+	<!-- Sync: Last error -->
+	<string name="sync_SPr_last_error">Stavové hlášení</string>
+	<!-- Sync: last error click for more -->
+	<string name="sync_SPr_last_error_subtitle">Klepnutím odešlete zprávu týmu Tasks</string>
+	<!-- Sync: send error report button -->
+	<string name="sync_SPr_send_report">Odeslat zprávu</string>
+	<!-- Sync: Clear Data Title -->
+	<string name="sync_SPr_forget">Odhlásit se</string>
+	<!-- Sync: Clear Data Description -->
+	<string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
+	<!-- confirmation dialog for sync log out -->
+	<string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
+	<!-- Sync error: network connectivity problems. %s-> name of sync service-->
+	<string name="sync_error_offline">Během posledního pokusu o synchronizaci se službou %s nastal problém s připojením k síti. Zkuste to prosím později.</string>
+	<string-array name="sync_SPr_interval_entries">
+	<!-- sync_SPr_interval_entries: Synchronization Intervals -->
+		<item>zakázat</item>
+		<item>každých patnáct minut</item>
+		<item>každých třicet minut</item>
+		<item>každou hodinu</item>
+		<item>každé tři hodiny</item>
+		<item>každých šest hodin</item>
+		<item>každých dvanáct hodin</item>
+		<item>každý den</item>
+		<item>každé tři dny</item>
+		<item>každý týden</item>
+	</string-array>
 </resources>
