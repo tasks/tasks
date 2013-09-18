@@ -421,6 +421,11 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     public static Spanned getUpdateComment(final AstridActivity context, UserActivity activity, User user, String linkColor, String fromView) {
+        String message = activity.getValue(UserActivity.MESSAGE);
+        if (!Preferences.getBoolean(R.string.p_show_caption_comments, false)) {
+            return Html.fromHtml(message);
+        }
+
         String userDisplay;
         if (activity.getValue(UserActivity.USER_UUID).equals(Task.USER_ID_SELF)) {
             userDisplay = context.getString(R.string.update_string_user_self);
@@ -434,7 +439,6 @@ public class UpdateAdapter extends CursorAdapter {
         }
         String targetName = activity.getValue(UserActivity.TARGET_NAME);
         String action = activity.getValue(UserActivity.ACTION);
-        String message = activity.getValue(UserActivity.MESSAGE);
 
         int commentResource = 0;
         if (UserActivity.ACTION_TASK_COMMENT.equals(action)) {
