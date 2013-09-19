@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Information</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">Erreur !</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Enregistrer</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Oui</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">Non</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Fermer</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Fnalizado</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">Synchronisation en arrière-plan désactivée</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Actuellement configuré sur : %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Paramètre Wifi seul</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">La synchronisation en arrière-plan ne s\'effectue uniquement sous Wifi</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">La synchronisation en arrière-plan s\'effectuera toujours</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Actions</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Synchroniser maintenant</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Se connecter et synchroniser !</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Connecté en tant que :</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Rapport d\'état</string>
 	<!-- Sync: last error click for more -->

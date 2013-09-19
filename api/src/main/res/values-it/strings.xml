@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Informazione</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">Errore!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Salva</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Sì</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">No</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Chiudi</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Completata</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Unica Impostazione Wifi</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">La sincronizzazione in background avviene solo con rete Wifi attiva</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">La sincronizzazione in background avviene sempre</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Azioni</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Sincronizza ora</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Esegui l\'accesso &amp; Sincronizza!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Accesso come:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Status report</string>
 	<!-- Sync: last error click for more -->

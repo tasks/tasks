@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>Listeneinstellungen</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">Aufgaben von %s. Tippen zeigt alle.</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">Nicht zugewiesene Aufgaben. Tippen zeigt alle.</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">Privat: Tippen um die Liste zu editieren oder zu teilen</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Aktualisieren</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Liste</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">Geteilt mit</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">Teile mit jedem (eine Email-Adresse ist erforderlich)</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Listenbild</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">Beschreibung eingeben</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Vergebe einen Listennamen</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">Sie müssen bei Tasks.com eingeloggt sein um Listen zu teilen! Bitte loggen Sie sich ein oder machen Sie diese Liste privat.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">Benutze Tasks um Einkaufslisten, Party Pläne, oder Team Projekte zu teilen und sehe sofort wenn Arbeit erledigt wurde.</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">Wer soll das machen?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">Ich</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">Nicht zugewiesen</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">Wählen Sie einen Kontakt aus</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">Teilen mit:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Teilen</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">Liste: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">Einladungsnachricht</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">Hilf mir, das zu erledigen!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">Listenmitglieder</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">Freunde von Tasks</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Ungültige E-Mail: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">Sie müssen auf Tasks.com angemeldet sein, um Aufgaben zu teilen.</string>
-	<string name="actfm_EPA_login_button">Anmelden</string>
-	<string name="actfm_EPA_dont_share_button">Nicht teilen.</string>
 	<string name="actfm_EPA_add_person_to_list_title">Aufgabe zugewiesen</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Möchten Sie %2$s dieser Liste hinzufügen?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Zur Liste hinzufügen</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Nicht hinzufügen</string>
 	<string name="actfm_list_owner">(Besitzer)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">Willkommen bei Tasks.com!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">Tasks.com lässt Sie ihre Aufgaben online abrufen, teilen, und auf andere übertragen.</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">Mit Facebook verbinden</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">Mit Google verbinden</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Anmelden: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Nicht %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">Vorname</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">Nachname</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">E-Mail</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">Passwort</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">Registrieren</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">Anmelden</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Wählen Sie den zu verwendenden Google-Account aus:</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">Log dich bitte ein:</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">Der Benutzer existiert bereits. Bitte melden Sie sich an.</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">Das eingegebene Passwort ist nicht korrekt. Bitte versuchen Sie es erneut.</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">Passwort vergessen?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">Bitte E-Mail-Adresse eingeben</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">Passwortrücksetzung wurde an %s versendet</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">Die erste Synchronisation dauert etwas länger - Danke für deine Geduld!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">Kein Nutzer mit dieser email-Adresse. Bitte loggen Sie sich erneut ein!</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Liste kopieren</string>
 	<string name="actfm_feat_list_suffix">(Kopie)</string>
@@ -184,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">Aufgabe kopiert</string>
 	<string name="actfm_feat_list_clone_empty">Keine Aufgaben zum Kopieren vorhanden</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">Status - Angemeldet als %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">HTTPS benutzen</string>
-	<string name="actfm_https_enabled">HTTPS aktiviert (langsamer)</string>
-	<string name="actfm_https_disabled">HTTPS deaktiviert (schneller)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">Sie synchronisieren momentan mit Google Tasks. Um doppelte Aufgaben und andere Synchronisationsprobleme zu vermeiden, 
-wird Google Tasks nicht mehr synchronisieren, wenn Sie die Synchronisierung mit Tasks.com starten. Sie können immer noch Aufgaben aus Google Tasks und der Google Tasks Einstellungsseite importieren 
-oder Sie ersetzen Ihre Google Tasks in Gmail mit der Tasks Remind Me Chrome Extension. 
-Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">Konto-Typ</string>
-	<string name="actfm_account_info">Konto-Informationen</string>
-	<string name="actfm_account_info_summary">Status und Optionen</string>
-	<string name="account_type_title_not_logged_in">Kostenlos registrieren</string>
-	<string name="account_type_summary_not_logged_in">Online auf Aufgaben zugreifen, Listen teilen und Aufgaben übertragen</string>
-	<string name="actfm_account_premium">Premium</string>
-	<string name="actfm_account_basic">Standard</string>
 	<string name="actfm_inapp_billing">Auf Premium aufstocken</string>
 	<string name="actfm_inapp_billing_summary">Dateien anhängen, Sprachaufzeichnungen sichern, Premium Kundensupport und mehr</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">Gefällt mir auf Facebook</string>
-	<string name="share_with_twitter">Auf Twitter folgen</string>
-	<string name="share_with_google">Auf Google+ teilen</string>
-	<string name="share_speech_bubble">In dem du es deinen Freunden erzählst, hilfst du Anderen produktiver zu sein.</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Nutze Tasks.com und Google ohne Dubletten</string>
-	<string name="sync_upgr_both_body">Lass uns ehrlich sein: Google Tasks is bequem, aber nicht so cool wie Tasks. Um doppelte Einträge zu vermeiden, kannst du nicht mehr mit Tasks.com synchronisieren ...</string>
-	<string name="sync_upgr_both_btn1">Bleibe bei Tasks</string>
-	<string name="sync_upgr_both_btn2">Herunterstufen zu Google Tasks</string>
-	<string name="sync_upgr_gtasks_only_title">Gratis upgraden zu Tasks Sync!</string>
-	<string name="sync_upgr_gtasks_only_body">Zugang zu deinen Aufgaben von all deinen Geräten und von Gmail duch Tasks.com Sync. Zu Tasks sync upgraden (du kannst jederzeit zu Google Tasks zurückkehren ...)</string>
-	<string name="sync_upgr_gtasks_only_btn1">Upgraden zu Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Bei Google Tasks bleiben</string>
-	<string name="sync_upgr_neither_title">Synchronisation</string>
-	<string name="sync_upgr_neither_body">Gefährde deine To-do-Liste nicht! Deine Aufgaben mit der neuen und verbesserten Tasks-Synchronisation von überall erreichen und bearbeiten.</string>
-	<string name="sync_upgr_neither_btn1">Jetzt registrieren</string>
-	<string name="sync_upgr_logged_out">Du hast dich aus Tasks ausgeloggt</string>
-	<string name="actfm_logout_clear_tasks_title">Daten löschen?</string>
-	<string name="actfm_logout_clear_tasks_body">Möchtest du deine Aufgaben und Listen löschen?</string>
-	<string name="actfm_logout_clear_tasks_yes">Daten löschen</string>
-	<string name="actfm_logout_clear_tasks_no">Daten nicht löschen</string>
-	<string name="actfm_logged_in_different_user_title">Als anderer Nutzer einloggen</string>
-	<string name="actfm_logged_in_different_user_body">Möchtest Du die bestehenden Aufgaben auf Deinem Telefon vor der Synchronisation löschen?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Daten nicht löschen</string>
-	<string name="actfm_logged_in_different_user_clear_data">Alle Daten löschen</string>
-	<string name="actfm_logged_in_different_user_processing">Verarbeite vorhandene Daten ...</string>
 	<string name="actfm_tag_not_authorized_title">Nicht autorisiert!</string>
 	<string name="actfm_tag_not_authorized_body">Sie sind nicht mehr berechtigt, die Liste %s anzuzeigen (Sie wurden möglicherweise entfernt). Möchten Sie eine neue Liste mit dem gleichen Namen erstellen?</string>
 	<string name="actfm_tag_not_authorized_new_list">Neue Liste anlegen</string>
@@ -275,7 +151,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="backup_BPr_auto_enabled">Verwalte deine Backups</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">Cloud Backup auf Tasks.com ist bereits aktiviert.</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Backups verwalten</string>
@@ -285,8 +160,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">Klicke hier für kostenlose Sicherungen in der Cloud auf Tasks.com</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Importfehler</string>
@@ -329,17 +202,12 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">Tasks sollte auf die aktuellste Version im Android Market aktualisiert werden! Bitte tun Sie dies, bevor Sie fortfahren, oder warten Sie ein paar Sekunden.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Ich akzeptiere</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Ich akzeptiere nicht</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Tasks Nutzungsbedingungen</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">Bitte warten Sie</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">Ladevorgang…</string>
 	<!-- Dialog - dismiss -->
@@ -347,9 +215,7 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="DLG_ok">OK</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">Abbrechen</string>
-	<string name="DLG_more">Mehr</string>
 	<string name="DLG_undo">Rückgängig</string>
-	<string name="DLG_warning">Warnung</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Klicken zur Bestätigung</string>
@@ -447,8 +313,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Aufgabe löschen</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">Sortierung, Teilaufgaben und Versteckte</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Versteckte Aufgaben</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -512,8 +376,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="TEA_importance_label">Priorität</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Fälligkeitsdatum setzen</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Zugeordnet an %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">Zu einer bestimmten Zeit?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -542,8 +404,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Nicht speichern</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">Aufgabe löschen</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Kommentare aktualisieren</string>
 	<string name="TEA_menu_comments">Kommentare</string>
@@ -555,10 +415,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Aktivität</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">Details</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">Ideen</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -608,9 +464,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Wann ist das fällig?</string>
 	<string name="TEA_new_task">Neue Aufgabe</string>
-	<string name="WSV_click_to_load">Drück mich, um dir beim Lösen der Aufgabe zu helfen!</string>
-	<string name="WSV_not_online">Ich kann mehr erreichen, wenn ich eine Verbindung zum Internet habe. Bitte prüf deine Verbindung.</string>
-	<string name="TEA_contact_error">Sorry! Kann keine Email-Adresse für den ausgewählten Kontakt finden.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -713,25 +566,15 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="UpS_changelog_title">Was ist neu bei Tasks?</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Tasks Neuigkeiten</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">Wenn du dich einloggst, kann du den \nFortschritt deiner eigenen also auch \ngemeinsamer Aufgabenlisten einsehen.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Tasks: Einstellungen</string>
-	<string name="EPr_share_astrid">Tasks teilen</string>
-	<string name="EPr_share_astrid_summary">Erzähle von Tasks auf deinem bevorzugten sozialen Netzwerk</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">deaktiviert</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Themes, Widgets, Aufgabenzeilen, Bearbeitungsansicht</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">FAQ</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">Konto: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">Einführung, FAQ, über</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -760,10 +603,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_showNotes_desc_disabled">Beschreibung vom Eingabeschirm für Aufgaben erreichbar </string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Beschreibung werden immer angezegt</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">Kompakte Aufgabenzeile</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">Aufgabenzeilengröße an Titel anpassen</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -771,11 +610,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_fullTask_desc_enabled">Aufgabentitel werden vollständig angezeigt</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">Zwei Zeilen des Aufgabentitels werden angezeigt</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">Ideas Tab automatisch laden</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">Internetsuche für Ideas Tab wird ausgeführt, wenn Haken gesetzt ist</string>
-	<string name="EPr_ideaAuto_desc_disabled">Internetsuche für Ideas Tab wird nur durchgeführt, wenn vom Nutzer gewünscht</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
@@ -792,10 +626,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Filter nutzen</string>
 	<string name="EPr_use_filters_subtitle">Hiermit können Sie benutzerdefinierte Filter erstellen</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Zeige Mitglieder der gemeinsam genutzten Listen</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Einfachen Textboxen</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Erweiterte Einstellungen für Schnelleingabe</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -816,25 +646,11 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_theme_widget_title">Widget Theme</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">Verwende den Systemdialog für die Kontaktauswahl</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">Zeigt im Zuweisungsfeld für Aufgaben ein Symbol für den Systemdialog für Kontaktauswahl an</string>
-	<string name="EPr_use_contact_picker_desc_disabled">Das Symbol des Systemdialogs für Kontaktauswahl wird nicht angezeigt</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">Schalte Drittanbieter-Erweiterungen ein</string>
-	<string name="EPr_third_party_addons_desc_enabled">Erweiterungen anderer Anbieter werden aktiviert</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">Erweiterungen anderer Anbieter werden deaktiviert</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">Aufgabenideen</string>
-	<string name="EPr_ideas_tab_description">Holen Sie sich Vorschläge, um Aufgaben abzuschließen</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
 	<string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 	<string name="EPr_force_phone_layout">Telefon Layout nutzen</string>
-	<string name="EPr_show_featured_lists">Vorgeschlagene Listen anzeigen</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Einstellen</string>
 	<string name="EPr_config_default">Standard</string>
@@ -956,12 +772,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="p_about">Über Tasks</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Aktuelle Version: %s\n\n Tasks ist Open-Source und wird stolz von Todoroo, Inc. gepflegt.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">Hilfe</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">Forum</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">Premium</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Tasks bewerten?</string>
 	<string name="feedback_positive_body">Schön, dass ich helfen konnte. Gibst du mir eine 5-Sterne-Bewertung?</string>
@@ -976,9 +786,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="task_killer_help">Es scheint Sie benutzen eine Anwendung die Prozesse killen kann (%s)! Falls möglich setzen Sie Tasks auf die Liste der davon ausgenommenen Prozesse damit es nicht gekillt wird. Andernfalls kann Tasks Sie nicht über fällige Tasks informieren.\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Ich werde Tasks nicht killen!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">Tasks ist der beliebte Open-Source ToDo-Listen / Task-Manager, der Ihnen dabei hilft, Dinge zu erledigen. Er verfügt über Erinnerungen, Tags, Synchronisation, Locale Plug-In, ein Widget und vieles mehr.</string>
 	<string name="DB_corrupted_title">Fehler in der Datenbank</string>
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
@@ -1073,8 +880,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Filter löschen</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">Benutzerdefinierter Filter</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Benennen Sie den Filter, um ihn zu speichern …</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1171,11 +976,7 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">Bitte logge dich bei Google Tasks Sync (Beta!) ein. Nicht-migrierte Google Apps Accounts werden zur Zeit nicht unterstützt.</string>
 	<string name="gtasks_GLA_noaccounts">Keine verfügbaren Google Accounts zum synchronisieren.</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">Um deine Aufgaben mit Einrückung und Ordnung anzuzeigen, gehe auf die Filter-Seite und wähle eine Google Tasks Liste. Standartmässig benutzt Tasks seine eigenen Sortiereinstellungen.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1187,8 +988,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="gtasks_GLA_errorAuth">Anmeldefehler! Bitte Nutzernamen und Passwort in den Kontoeinstellungen des Telefons prüfen</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">Die Seite enthält möglicherweise ein CAPTCHA. Versuchen Sie das Anmelden über den Browser und probieren sie es dann noch einmal.</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Tasks</string>
@@ -1209,20 +1008,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Aufgabe hinzufügen</string>
 	<string name="gtasks_import_add_task_cancel">Aufgabe nicht hinzufügen</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">Beginnen Sie, indem Sie ein oder zwei Aufgaben hinzufügen</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">Aufgabe zur Bearbeitung und Freigabe anklicken</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">Liste uur Bearbeitung und Frage anklicken</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">Personen, mit denen Du Aufgaben\nteilst, können Dir dabei helfen,\nDeine Liste zu erstellen oder\nAufgaben abzuschließen</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">Hier tippen um eine neue Liste anzulegen</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">ZUm Hinzufügen einer Liste oder zum Wechsel zwischen Listen anklicken</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter Alarm</string>
@@ -1245,31 +1030,15 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Bitte installieren Sie das Tasks Locale Plug-In!</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">Arbeitsbereiche</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">Zugeordnet an</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">Zugeordnet an \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">von %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Einen Kommentar hinzufügen</string>
 	<string name="opencrx_creator_input_hint">Ersteller</string>
 	<string name="opencrx_contact_input_hint">Zugewiesen an</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Nicht syncronisieren)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Standart Aktivitätenersteller</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">Neue Aktivitäten werden erstellt durch: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">Neue Aktivitäten werden standartmässig nicht synchronisiert.</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX Server</string>
 	<!--  preference description for OpenCRX host -->
@@ -1294,69 +1063,27 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="opencrx_provider_summary">\"Zum Beispiel: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">Bei OpenCRX einloggen</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">Mit deinem OpenCRX Account anmelden</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">Anmelden</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">Anmelden</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">Passwort</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">Fehler: Alle Felder ausfüllen</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">Fehler: Login oder Password ist falsch!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s Aufgaben aktualisiert / Klicken Sie für Details</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">Verbindungsfehler! Überprüfe Deine Internetverbindung.</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">Login wurde nicht angegeben!</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">Kennwort wurde nicht angegeben!</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Aufgabe dieser Person zuordnen:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;Nicht zugeordnet&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Aufgabe diesem Ersteller zuordnen:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX-Steuerung</string>
-	<string name="CFC_opencrx_in_workspace_text">Im Arbeitsbereich: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">Im Arbeitsbereich …</string>
-	<string name="CFC_opencrx_assigned_to_text">Zugeordnet zu: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">Zugeordnet zu …</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Premium und verschiedene Einstellungen</string>
 	<string name="EPr_powerpack_summary">Verpasste Anruf Erinnerungen, Spracheingabe und Andere Einstellungen</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">Anonyme Nutzungsstatistiken</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">Nutzungsstatistik wird nicht übertragen</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">Helfen Sie uns, Tasks durch anonymisierte Nutzungsdaten besser zu machen</string>
 	<string name="speech_err_network">Netzwerkfehler! Spracherkennung benötigt eine Internetverbindung um zu funktionieren.</string>
 	<string name="speech_err_no_match">Entschuldigung! Ich konnte das nicht verstehen! Bitte versuchen Sie es erneut.</string>
 	<string name="speech_err_default">Tut uns leid, die Spracherkennung konnte das nicht verarbeiten. Bitte versuchen Sie es erneut.</string>
 	<string name="premium_attach_file">Datei anhängen</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
-	<string name="premium_no_files">Keine Dateien angehängt</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
 	<string name="audio_speak_now">Sprechen Sie jetzt!</string>
 	<string name="audio_encoding">Kodieren...</string>
 	<string name="audio_err_encoding">Fehler bei der Audiocodierung</string>
-	<string name="audio_err_playback">Tut uns leid, dieser Dateityp wird nicht unterstützt</string>
 	<string name="search_market_audio">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen Audio-Player von Google Play herunterladen?</string>
 	<string name="search_market_audio_title">Es wurde kein Audio-Player gefunden</string>
 	<string name="search_market_pdf">Dieser Dateityp kann nicht geöffnet werden. Möchten Sie einen PDF-Reader von Google Play herunterladen?</string>
@@ -1380,7 +1107,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="file_err_copy">Fehler beim Kopieren der angehängten Datei</string>
 	<string name="file_err_download">Fehler beim Herunterladen</string>
 	<string name="file_err_no_directory">Hoppla! Sieht aus wie die Dateien Verzeichnis nicht vorhanden ist. Bitte wählen Sie ein Verzeichnis, um Dateien in den Tasks-Einstellungen zu speichern.</string>
-	<string name="file_err_show">Tut uns leid, das System unterstützt diesen Dateityp nicht</string>
 	<string name="file_dir_dialog_ok">Verwenden Sie dieses Verzeichnis</string>
 	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="p_files_dir">Premium-Downloadverzeichnis</string>
@@ -1388,41 +1114,7 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="p_files_dir_desc">Aufgabe Anhänge gespeichert zu: %s</string>
 	<string name="p_files_dir_desc_default">Standard-Verzeichnis</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">Kauf war nicht möglich.</string>
-	<string name="billing_not_supported_message">Der Market-Abrechnungsdienst ist zur Zeit nicht verfügbar. Du kannst diese App weiterhin benutzen, aber Du kannst keine Einkäufe tätigen.</string>
-	<string name="subscriptions_not_supported_title">Abonnement konnte nicht gekauft werden.</string>
-	<string name="subscriptions_not_supported_message">Der Market-Abrechnungsdienst unterstützt zur Zeit keine Abonnements auf diesem Gerät. Du kannst Tasks Premium unter http://tasks.com/premium abonnieren.</string>
-	<string name="cannot_connect_title">Verbindung zum Market konnte nicht hergestellt werden.</string>
-	<string name="cannot_connect_message">Die App kann sich nicht mit dem Market verbinden. Deine Market-Version ist eventuell veraltet. Du kannst diese App weiterhin benutzen, aber Du kannst keine Einkäufe tätigen.</string>
-	<string name="restoring_transactions">Transaktionen werden wiederhergestellt.</string>
-	<string name="subscriptions_learn_more">Mehr erfahren</string>
-	<string name="kii_premium_success">Vielen Dank für die Teilnahme an diesem Angebot. Dein kostenloser Tasks Premium Monat ist nun freigeschaltet.</string>
-	<string name="kii_premium_abort">Vorgang abgebrochen</string>
-	<string name="kii_premium_declined">Vorgang abgelehnt</string>
-	<string name="kii_premium_error">Es trat ein Fehler auf. Bitte versuche es später erneut. </string>
-	<string name="premium_offers_title">Angebot</string>
-	<string name="premium_offers_subtitle">Möchtest Du einen kostenlosen Tasks Premium Monat?</string>
-	<string name="premium_offers_detail">Um einen kostenlosen Tasks Premium Monat zu erhalten, schauen Dir dieses Kurze Video von diesem Sponsor an. (Er wird außerdem nach Deiner E-Mail Adresse fragen.)</string>
-	<string name="premium_offers_start">Hole es Dir kostenlos!</string>
-	<string name="premium_billing_title">Tasks Premium</string>
-	<string name="premium_buy_month">Ein Monat</string>
-	<string name="premium_buy_year">Ein Jahr</string>
-	<string name="premium_description_header">Schaff noch mehr, mit der Premium Version!</string>
-	<string name="premium_description_1">Hänge Dateien an To-Do Listen an \n(PDF, DOC, PPT...)</string>
-	<string name="premium_description_2">Dateien my tasks.com synchronisieren</string>
-	<string name="premium_description_3">Füge Anhänge per E-Mail</string>
-	<string name="premium_description_4">Speichere Sprachnotizen als Audio-Dateien</string>
-	<string name="premium_description_5">Zukünftige Funktionen ansehen</string>
-	<string name="premium_description_6">Ünterstütze das Tasks Team!</string>
-	<string name="premium_speech_bubble_1">Premium wird deine Produktivität erhöhen!</string>
 	<string name="premium_speech_bubble_2">Bestell für ein Jahr und spare 25%%!</string>
-	<string name="premium_already_subscribed">Du hast bereits Tasks Premium!</string>
-	<string name="premium_login_prompt">Du brauchst einen Tasks.com Account um dich für Tasks Premium anzumelden. Bitte log dich ein oder registriere dich.</string>
-	<string name="premium_success">Vielen Dank für die Anmeldung bei Tasks Premium!</string>
-	<string name="premium_success_with_server_error">Vielen Dank für die Anmeldung bei Tasks Premium! Die neuen Funktionen werden bald für dich auf tasks.com verfügbar sein und sollten bereits jetzt auf deinem Handy funktionieren.</string>
-	<string name="premium_verification_error">Der Premium Account für dieses Google Play Konto ist mit einem anderen Benutzer verknüpft. Um weitere E-Mail-Adressen zu deinem Account hinzuzufügen, besuche tasks.com/users/profile</string>
-	<string name="premium_check_for_purchases">Schon mal Premium gekauft? Hier klicken um die Einkaufhistorie in Googe Play zu sehen.</string>
-	<string name="premium_checking_for_purchases">Prüfe Deine Einkäufe...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1537,12 +1229,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="rmd_EPr_persistent_desc_true">Benachrichtigungen müssen einzeln angesehen werden um sie zu löschen</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Erinnerungen können mit dem \"Alle Löschen\" Button gelöscht werden</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Soziale Förderung</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Die Erinnerung wird Zeigen, wer auf Dich bei geteilten Aufgaben zählt.</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Die Erinnerung wird nicht Zeigen, wer auf Dich bei geteilten Aufgaben zählt.</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1906,8 +1592,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="TEA_tags_left">Sie haben die geteilte Liste %1$s verlassen (betrifft %2$d Aufgaben)</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">Ich habe festgestellt, dass du änhliche Listen mit leicht unterschiedlichen Schreibweisen angelegt hast. Du hast sicherlich die gleiche Liste gemeint, daher habe ich sie zusammenführt. Keine Angst, deine Listen habe ich erhalten (z. B. Einkauf_1, Einkauf_2). Fallls du keine automatische Zusammenfassung wünschst, lösche die zusammengefügte neue Liste einfach.</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Listeneinstellungen</string>
 	<!-- Header for tag activity -->
@@ -2022,7 +1706,5 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">Sprachfunktionen</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

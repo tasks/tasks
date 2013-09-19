@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>Listinställningar</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">%ss uppgifter. Tryck för att se alla. </string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">Otilldelade uppgifter. Tryck för att se alla. </string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">Privat: tryck för att ändra eller dela lista</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Uppdatera</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Lista</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">Delad med</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">Dela med någon som har en e-postadress</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Listbild</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">Skriv en beskrivning här</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">Du måste vara inloggad på Tasks.com för att dela listor! Logga in eller gör listan privat.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">Använd Tasks för att dela inköpslistor, festplaner eller projekt och se direkt när folk får saker och ting gjort!</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">Vem ska göra det här?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">Tilldelad av mig till</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">Ej tilldelad</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">Välj en kontakt</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">Dela med:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Dela</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">Lista: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">Meddelande i inbjudan:</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">Hjälp mig få det här gjort!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">Listmedlemmar</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">Tasksvänner</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Felaktig e-postadress: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">Du måste vara inloggad på Tasks.com för att dela uppgifter!</string>
-	<string name="actfm_EPA_login_button">Logga in</string>
-	<string name="actfm_EPA_dont_share_button">Dela inte</string>
 	<string name="actfm_EPA_add_person_to_list_title">Uppgift tilldelad</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s är inte delad på denna lista. Vill du lägga till %2$s på denna lista?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Lägg till på lista</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Lägg inte till</string>
 	<string name="actfm_list_owner">(owner)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">Välkommen till Tasks.com!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">Tasks.com låter dig komma åt dina uppgifter via nätet, dela dem med andra och dela ut dem till andra.</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">Logga in med Facebook</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">Logga in med Facebook</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Logga in: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Inte %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">Förnamn</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">Efternamn</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">E-postadress</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">Lösenord</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">Registrera dig</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">Logga in på Tasks.com</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">Logga in:</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">Användaren finns redan - vänligen logga in istället.</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">Det angivna lösenordet var tyvärr felaktigt. Försök igen.</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">Glömt lösenordet?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">Ange din epostadress</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">Återställning av lösenordet har skickats till %s</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">Det finns ingen användare med den angivna epostadressen. Prova att registrera dig istället!</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Kopiera lista</string>
 	<string name="actfm_feat_list_suffix">(Kopiera)</string>
@@ -184,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">Uppgift kopierad</string>
 	<string name="actfm_feat_list_clone_empty">Ingen uppgift att kopiera</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">Status - inloggad som %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">Använd HTTPS</string>
-	<string name="actfm_https_enabled">HTTPS aktiverat (långsammare)</string>
-	<string name="actfm_https_disabled">HTTPS avaktiverat (snabbare)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">Kontotyp</string>
-	<string name="actfm_account_info">Kontoinformation</string>
-	<string name="actfm_account_info_summary">Status och alternativ</string>
-	<string name="account_type_title_not_logged_in">Registrera ett gratis konto</string>
-	<string name="account_type_summary_not_logged_in">Nå dina uppgifter online, dela listor och delegera</string>
-	<string name="actfm_account_premium">Premium</string>
-	<string name="actfm_account_basic">Grundläggande</string>
 	<string name="actfm_inapp_billing">Uppgradera till Premium</string>
 	<string name="actfm_inapp_billing_summary">Bifoga filer, röstbackup, premiumsupport &amp; mer</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">Gilla på Facebook</string>
-	<string name="share_with_twitter">Följ på Twitter</string>
-	<string name="share_with_google">Dela på Google+</string>
-	<string name="share_speech_bubble">Genom att Dela hjälper du andra att bli mer produktiva!</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Använda Tasks.com med Google utan dubletter</string>
-	<string name="sync_upgr_both_body">Låt oss vara ärdlig. Google Uppgifter är bekvänt men inte lika häftigt som Tasks. För att undvika dubletter så kan du inte längre synkronisera med Tasks.com och bakgrundssynkronisera med Google Uppgifter samtidigt. Du kan fortfarande importera dina Google Uppgifter genom att besöka Inställningar → Backup &amp; Sync, eller nedgradera till enbart Google Uppgiftersynkronisering</string>
-	<string name="sync_upgr_both_btn1">Behåll Tasks</string>
-	<string name="sync_upgr_both_btn2">Nedgradera till Google Uppgifter</string>
-	<string name="sync_upgr_gtasks_only_title">Uppgradera till Tasks Sync gratis!</string>
-	<string name="sync_upgr_gtasks_only_body">Få tillgång till dina uppgifter från alla dina enheter och från Gmail med Tasks.com Synk. Uppgradera till Tasks.com Synk (Du kan alltid gå tillbaka till Google Uppgifter - men du kommer inte att vilja!)</string>
-	<string name="sync_upgr_gtasks_only_btn1">Uppgradera till Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Behåll Google Uppgifter</string>
-	<string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-	<string name="sync_upgr_neither_body">Utsätt inte dina uppgifter för fara! Med nya och förbättrade Tasks sync får du tillgång till dina uppgifter var som helst ifrån.</string>
-	<string name="sync_upgr_neither_btn1">Registrera dig nu</string>
-	<string name="sync_upgr_logged_out">Du har loggats ut från Tasks</string>
-	<string name="actfm_logout_clear_tasks_title">Rensa data?</string>
-	<string name="actfm_logout_clear_tasks_body">Vill du radera dina uppgifter och data?</string>
-	<string name="actfm_logout_clear_tasks_yes">Radera data</string>
-	<string name="actfm_logout_clear_tasks_no">Behåll data</string>
-	<string name="actfm_logged_in_different_user_title">Loggar in som annan användare</string>
-	<string name="actfm_logged_in_different_user_body">Vill du radera nuvarande telefonuppgifter innan synkronisering?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Behåll data</string>
-	<string name="actfm_logged_in_different_user_clear_data">Radera alla data</string>
-	<string name="actfm_logged_in_different_user_processing">Bearbetar nuvarande data</string>
 	<string name="actfm_tag_not_authorized_title">Not authorized</string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">Create new list</string>
@@ -275,7 +151,6 @@
 	<string name="backup_BPr_auto_enabled">Säkerhetskopiering kommer att ske dagligen</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">Du har redan backup i molnet på Tasks.com!</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Hantera säkerhetskopior</string>
@@ -285,8 +160,6 @@
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Exportera uppgifter</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">Klicka för gratis backup i molnet på Tasks.com</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Importfel</string>
@@ -329,17 +202,12 @@
 	<string name="DLG_upgrading">Uppgraderar dina uppgifter...</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">Tasks bör uppdateras till senaste version i Android Market! Var god gör det innan du fortsätter, eller vänta några sekunder.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Jag godkänner</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Jag godkänner inte</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Tasks Användarvillkor</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">Vänta</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">Laddar...</string>
 	<!-- Dialog - dismiss -->
@@ -347,9 +215,7 @@
 	<string name="DLG_ok">OK</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">Avbryt</string>
-	<string name="DLG_more">Mer</string>
 	<string name="DLG_undo">Ångra</string>
-	<string name="DLG_warning">Varning</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
@@ -447,8 +313,6 @@
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Rensa uppgift</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">Sortering och Dolda Uppgifter</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Dolda uppgifter</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -512,8 +376,6 @@
 	<string name="TEA_importance_label">Prioritet</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Assigned to %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">Vid bestämd tid?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -542,8 +404,6 @@
 	<string name="TEA_menu_save">Spara ändringar</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Spara inte</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">Radera uppgift</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Uppdatera kommentarer</string>
 	<string name="TEA_menu_comments">Kommentarer</string>
@@ -555,10 +415,6 @@
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Aktivitet</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">Mer</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">Idéer</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -608,9 +464,6 @@
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
 	<string name="TEA_new_task">Ny uppgift</string>
-	<string name="WSV_click_to_load">Klicka på mig för att hitta sätt att få det här gjort!</string>
-	<string name="WSV_not_online">Jag kan göra mer när jag är uppkopplad. Kontrollera din internetförbindelse.</string>
-	<string name="TEA_contact_error">Tyvärr kunde vi inte hitta en mailadress till den valda kontakten.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -713,25 +566,15 @@
 	<string name="UpS_changelog_title">Vad är nytt i Tasks?</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Senaste Tasks nyheter</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">Logga in för att se hur\ndet går för dig och vad\nsom händer på delade listor.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Inställningar</string>
-	<string name="EPr_share_astrid">Dela Tasks</string>
-	<string name="EPr_share_astrid_summary">Dela på ditt sociala favoritnätverk</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">inaktiverad</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Utseende</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Teman, widgets, uppgiftsrader, redigeringsskärmen</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">Vanliga frågor och svar</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">Konto: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">Introduktion, FAQ, om</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Storlek på uppgiftslista</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -760,10 +603,6 @@
 	<string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">Kompakt uppgiftsrad</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">Anpassa rader efter uppgiftens titel</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -771,11 +610,6 @@
 	<string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">Ladda fliken Idéer automatiskt</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">Webbsökning till fliken Idéer utförs när du klickar på fliken</string>
-	<string name="EPr_ideaAuto_desc_disabled">Webbsökning till fliken Idéer utförs manuellt</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
@@ -792,10 +626,6 @@
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Use filters</string>
 	<string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Show list members in shared lists</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Simple text boxes</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -816,25 +646,11 @@
 	<string name="EPr_theme_widget_title">Widgettema</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">Använd kontaktväljare</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">Systemets funktion för att välja kontakter kommer att visas i fönstret för tilldelning av uppgifter</string>
-	<string name="EPr_use_contact_picker_desc_disabled">Systemets funktion för att välja kontakter kommer inte att visas</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">Tillåt tredjepartstillägg</string>
-	<string name="EPr_third_party_addons_desc_enabled">Tredjepartstillägg kommer att tillåtas</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">Tredjepartstillägg kommer att vara avstängda</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">Uppgiftsförslag</string>
-	<string name="EPr_ideas_tab_description">Få förslag som hjälper dig att slutföra uppgifter</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
 	<string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
 	<string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 	<string name="EPr_force_phone_layout">Använd telefonutseende</string>
-	<string name="EPr_show_featured_lists">Visa lista över funktioner</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">Default</string>
@@ -956,12 +772,6 @@
 	<string name="p_about">Om Tasks</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Aktuell version: %s\n\n Tasks är öppen programvara och underhålls av Todoroo, Inc.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">Stöd</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">Forum</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">Premium</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
@@ -976,9 +786,6 @@
 	<string name="task_killer_help">Det ser ut att du använder en app som kan avsluta processer (%s)! Om du kan, lägg till Tasks i exklusionslistan så att den inte avslutas. Annars kan det hända att Tasks inte meddelar när dina uppgifter förfaller.\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Jag önskar inte avsluta Tasks!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">Tasks är den mycket älskade Att-göra / Uppgiftshanteraren gjord med öppen källkod, designad för att hjälpa dig få saker gjorda. Den har påminnelser, taggar, synkroniserings, språktillägg, en widget med mera.</string>
 	<string name="DB_corrupted_title">Korrupt databas</string>
 	<string name="DB_corrupted_body">Oj! Det verkar som din databas är skadad.
 Om du ser detta felmeddelande ofta, föreslår vi att du tömmer all data
@@ -1077,8 +884,6 @@ och återställer dina aktuella uppgifter från en backup
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Radera filter</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">Egendefinierat filter</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Spara detta filter genom att ge det ett namn</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1175,11 +980,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_GTA_clear_completed">Rensa bort färdiga</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">Vänligen logga in på Google Tasks Sync (Beta!). Google Apps för domäner stöds för närvarande inte, vi arbetar på detta.</string>
 	<string name="gtasks_GLA_noaccounts">Inga tillgängliga Googlekonton att synkronisera med.</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">Om du vill visa dina uppgifter med indrag och ordning bevarad, gå till Filter sidan och välj en lista under Google Tasks. Som standard använder Tasks sin egen sortering för uppgifter.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1191,8 +992,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_GLA_errorAuth">Autentisering misslyckad! Kontrollera ditt användarnamn och lösenord i kontoinställningarna i din telefon</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">Du kan ha stött på en captcha. Prova att logga in från webbläsaren, kom sedan tillbaka och försök igen:</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Uppgifter</string>
@@ -1213,20 +1012,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">Börja med att lägga in en eller två uppgifter</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">Tryck på en uppgift för att redigera och dela</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">Tryck för att redigera eller dela den här listan</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">De du delar med kan hjälpa till att bygga upp din lista eller göra färdigt uppgifter</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">Lägg till en lista</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">Tryck för att lägga till eller byta lista</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks filteralarm</string>
@@ -1249,31 +1034,15 @@ och återställer dina aktuella uppgifter från en backup
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Var god installera Tasks Locale-tillägget</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">Arbetsytor</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">Tilldelad</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">Tilldelad \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">från %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Lägg till en kommentar</string>
 	<string name="opencrx_creator_input_hint">Upphovsman</string>
 	<string name="opencrx_contact_input_hint">Tilldelad</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(synkronisera inte)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">Nya aktiviteter skapas av: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">Nya aktiviteter synkroniseras som standard</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX-server</string>
 	<!--  preference description for OpenCRX host -->
@@ -1298,69 +1067,27 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="opencrx_provider_summary">\"Till exempel: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">Logga in på OpenCRX</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">Logga in på ditt OpenCRX-konto</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">Logga in</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">Logga in</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">Lösenord</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">Fel: fyll i alla fält</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">Fel användarnamn eller lösenord!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s uppgifter uppdaterade / klicka för ytterligare detaljer</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">Användarnamn ej angivet!</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">Lösenord specificerades inte!</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Tilldela denna uppgift följande person:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;Otilldelad&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Upphovsman som ska tilldelas uppgiften:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX-inställningar</string>
-	<string name="CFC_opencrx_in_workspace_text">I arbetsyta: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">I arbetsyta...</string>
-	<string name="CFC_opencrx_assigned_to_text">Tilldelad: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">Tilldelad...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Premium och övriga inställningar</string>
 	<string name="EPr_powerpack_summary">Påminnelser för missade samtal, röstinmatning samt övriga inställningar</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">Anonym användningsstatistik</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">Inga användningsdata rapporteras</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">Hjälp oss att förbättra Tasks genom att skicka anonym användningsstatistik</string>
 	<string name="speech_err_network">Nätverksfel! Taligenkänning kräver internetaccess för att fungera.</string>
 	<string name="speech_err_no_match">Ursäkta, jag förstod inte det där. Vänligen försök igen.</string>
 	<string name="speech_err_default">Taligenkänning misslyckades. Vänligen försök igen.</string>
 	<string name="premium_attach_file">Bifoga fil</string>
 	<string name="premium_record_audio">Spela in en anteckning</string>
-	<string name="premium_no_files">Inga filer bifogade</string>
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
 	<string name="audio_speak_now">Prata nu!</string>
 	<string name="audio_encoding">Omkodar...</string>
 	<string name="audio_err_encoding">Omkodning av ljudet misslyckades</string>
-	<string name="audio_err_playback">Tyvärr stöds inte detta ljudformat</string>
 	<string name="search_market_audio">Ingen spelare hittades för denna ljudtyp. Skulle du vilja ladda ned en ljudspelare från Google Play?</string>
 	<string name="search_market_audio_title">Ingen ljudspelare hittades</string>
 	<string name="search_market_pdf">Ingen PDF-läsare hittades. Skulle du vilja ladda ned en från Google Play?</string>
@@ -1384,7 +1111,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
 	<string name="file_err_download">Nedladdning av filen misslyckades</string>
 	<string name="file_err_no_directory">Ogiltig sökväg. Vänligen ange en sökväg för att spara filer i Taskss inställningar.</string>
-	<string name="file_err_show">Ledsen, systemet stödjer inte denna filtyp</string>
 	<string name="file_dir_dialog_ok">Använd denna mapp</string>
 	<string name="file_dir_dialog_default">Återställ till standard</string>
 	<string name="p_files_dir">Mapp för Premium-nedladdningar</string>
@@ -1392,44 +1118,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="p_files_dir_desc">Uppgiftens bifogade filer sparades till: %s</string>
 	<string name="p_files_dir_desc_default">Standardmapp</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">Köp kan inte genomföras</string>
-	<string name="billing_not_supported_message">Betaltjänsten är inte tillgänglig. Du kan fortsätta att använda appen, men du kan inte genomföra köp.</string>
-	<string name="subscriptions_not_supported_title">Prenumerationer kan ej köpas</string>
-	<string name="subscriptions_not_supported_message">Betaltjänsten på denna enhet stödjer inte prenumerationer i dagsläget. Du kan starta en prenumeration på Tasks Premium från http://tasks.com/premium</string>
-	<string name="cannot_connect_title">Kan inte ansluta till Market</string>
-	<string name="cannot_connect_message">Den här applikationen kan inte koppla upp sig mot Market.
-Din version av Market kan var för gammal.
-Du kan fortsätta använda applikationen men 
-kommer inte att kunna utföra köp.</string>
-	<string name="restoring_transactions">Återställer transaktioner</string>
-	<string name="subscriptions_learn_more">Lär dig mer</string>
-	<string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
-	<string name="kii_premium_abort">Special offer aborted</string>
-	<string name="kii_premium_declined">Special offer declined</string>
-	<string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
-	<string name="premium_offers_title">Special Offer</string>
-	<string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
-	<string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-	<string name="premium_offers_start">Get it free!</string>
-	<string name="premium_billing_title">Tasks Premium</string>
-	<string name="premium_buy_month">1 månad</string>
-	<string name="premium_buy_year">1 år</string>
-	<string name="premium_description_header">Gör mer med premium!</string>
-	<string name="premium_description_1">Koppla filer till dina att-göra \n(pdfs, doc, ppt...)</string>
-	<string name="premium_description_2">Synkroniserar filer med tasks.com</string>
-	<string name="premium_description_3">Lägg till bilagor via e-post</string>
-	<string name="premium_description_4">Spara röstinspelningar som ljudfiler</string>
-	<string name="premium_description_5">Ta del av kommande funktioner</string>
-	<string name="premium_description_6">Stöd Tasks-teamet!</string>
-	<string name="premium_speech_bubble_1">Premium kommer att boosta din produktivitet!</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
-	<string name="premium_already_subscribed">Du har redan en Tasks Premium prenumeration.</string>
-	<string name="premium_login_prompt">Du behöver ett Tasks.com-konto för att kunna prenumerera på premium. Vänligen logga in för att fortsätta.</string>
-	<string name="premium_success">Tack för att du prenumererar på Tasks Premium!</string>
-	<string name="premium_success_with_server_error">Tack för att du prenumererar på Tasks Premium! De nya funktionerna på Tasks.com kommer att låsas upp snart och direkt på din telefon.</string>
-	<string name="premium_verification_error">Premium abonemanget för detta Google Play kontot är kopplat till en annan användare. För att länka ytterligare e-postadresser till ditt konto, besök tasks.com/users/profile</string>
-	<string name="premium_check_for_purchases">Redan köpt premium? Klicka här för att kontrollera order historiken på Google Play.</string>
-	<string name="premium_checking_for_purchases">Kontrollerar köp...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1544,12 +1233,6 @@ kommer inte att kunna utföra köp.</string>
 	<string name="rmd_EPr_persistent_desc_true">Varsel måste ses individuellt för att kunna rensas</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Varsel kan rensas med \"Rensa alla\"-knappen</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Social encouragement</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1913,8 +1596,6 @@ kommer inte att kunna utföra köp.</string>
 	<string name="TEA_tags_left">Du lämnade listan %1$s. Det påverkar %2$d uppgifter</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">Bytte namn på %1$s till %2$s för %3$d uppgifter</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">Vi har märkt att du har några listor som har samma namn men som skiljer sig åt med stora och små bokstäver. Vi tror att du kan ha velat att de skulle vara samma lista, så vi har kombinerat dubbletterna. Var inte orolig, de ursprungliga listorna har fått nya namn med siffror (t.ex. Arbete_1, Arbete_2). Om du inte vill ha det så, kan du bara ta bort den nya kombinerade listan!</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Settings:</string>
 	<!-- Header for tag activity -->
@@ -2029,7 +1710,5 @@ kommer inte att kunna utföra köp.</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks kommer att spela en ringsignal vid påminnelse</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">Röstindata inställningar</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

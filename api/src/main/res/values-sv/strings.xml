@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Information</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">Fel!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Spara</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Ja</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">Nej</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Stäng</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Klar</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">Bakgrundssynkronisering är inaktiverad</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Aktuell inställning: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Endast Wi-Fi Inställning</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">Bakgrundssynkronisering sker endast när du är ansluten till Wi-Fi</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">Bakgrundssynkronisering sker alltid</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Åtgärder</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Synkronisera nu</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Logga in &amp; synkronisera!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Inloggad som:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Status rapport</string>
 	<!-- Sync: last error click for more -->

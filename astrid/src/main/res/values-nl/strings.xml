@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>Lijst Voorkeuren</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">Taken van %s</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">Nog niet toegewezen taken. Raak aan voor alles.</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">Privé: raak aan om te veranderen of om de lijst te delen</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Vernieuwen</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Lijst</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">Gedeeld met:</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">Deel met iedereen die een e-mailadres heeft</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">Type hier een beschrijving</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Geef de lijst een naam</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">Je moet bij Tasks.com zijn ingelogd om lijsten te delen! Log alsjeblieft in, of maak dit een privé lijst.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">Gebruik Tasks om boodschappenlijstjes, feestplanningen of projecten te delen en zie gelijk wanneer mensen hun taken voltooien!</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">Wie zou dit moeten doen?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">Ik</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">Niet toegewezen</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">Kies een contactpersoon</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">Deel met:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Delen</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">Lijst: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">Tekst voor uitnodiging:</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">Help mij dit gedaan te krijgen!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">Leden Lijst</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">Tasks Vrienden</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Ongeldig e-mailadres: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">Je moet ingelogd zijn op Tasks.com om taken te kunnen delen!</string>
-	<string name="actfm_EPA_login_button">Aanmelden</string>
-	<string name="actfm_EPA_dont_share_button">Niet delen</string>
 	<string name="actfm_EPA_add_person_to_list_title">Taak toegewezen</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s is niet gedeeld binnen deze lijst. Wil je %2$s aan deze lijst toevoegen?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Voeg toe aan lijst</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Niet toevoegen</string>
 	<string name="actfm_list_owner">(eigenaar)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">Welkom bij Tasks.com!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">Tasks.com geeft je online toegang tot je taken, delen en aan andren toekennen.</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">Verbind met Facebook</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">Verbind met Google</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Inloggen als: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Niet %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">Voornaam</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">Achternaam</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">E-mail</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">Wachtwoord</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">Aanmelden</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">Inloggen</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Selecteer de Google account die je wil gebruiken:</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">A.u.b. inloggen</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">Deze gebruiker bestaat al. A.u.b. inloggen</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">Sorry, dat wachtwoord was incorrect. Probeer het opnieuw.</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">Wachtwoord vergeten?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">Voer uw e-mailadres in</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">Link om uw wachtwoord opnieuw aan te maken is verstuurd naar \'%s\'</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">De eerste keer synchroniseren zal langer dan normaal duren. Dank je voor je geduld</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">Gebruiker is niet gevonden met dat e-mailadres. Meld je dus aan! </string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Kopiëer lijst</string>
 	<string name="actfm_feat_list_suffix">(Kopiéer)</string>
@@ -184,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">Taak gekopiéerd.</string>
 	<string name="actfm_feat_list_clone_empty">Geen taken om te kopiéren</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">Status - Ingelogd als %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">HTTPS gebruiken</string>
-	<string name="actfm_https_enabled">HTTPS ingeschakeld (langzamer)</string>
-	<string name="actfm_https_disabled">HTTPS uitgeschakeld (sneller)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">Je synchroniseert op het moment met Google Taken. Om duplicaat taken en andere synchronisatie problemen te voorkomen,
-zal Google Taken  niet langer synchroniseren als je begint te synchroniseren met Tasks.com. Je kunt nog wel steeds taken importeren van Google Taken via de Google Taken instellingen pagina,
-of Google Taken in Gmail vervangen met Tasks\'s herinner mij Chrome Extensie.
-Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">Type account</string>
-	<string name="actfm_account_info">Account gegevens</string>
-	<string name="actfm_account_info_summary">Status en opties</string>
-	<string name="account_type_title_not_logged_in">Meld je aan voor een gratis account</string>
-	<string name="account_type_summary_not_logged_in">Toegang tot online taken, deel lijsten en wijs ze toe</string>
-	<string name="actfm_account_premium">Premium</string>
-	<string name="actfm_account_basic">Basis</string>
 	<string name="actfm_inapp_billing">Upgrade naar Premium</string>
 	<string name="actfm_inapp_billing_summary">Voeg bestanden toe, Stem backup, premium onddrsteuning &amp; meer</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">Like op Facebook</string>
-	<string name="share_with_twitter">Volg op Twitter</string>
-	<string name="share_with_google">Deel op Google+</string>
-	<string name="share_speech_bubble">Door te delen, help je anderen meer productief te zijn</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Gebruik Tasks.com + Google zonder duplicaten</string>
-	<string name="sync_upgr_both_body">Laten we eerlijk zijn. Google Taken is gemakkelijk maar niet zo cool als Tasks. Om duplicaten te voorkomen kun je niet langer tegelijkertijd zowel Tasks.com als Google Taken synchroniseren. Je kunt nog wel je Google Taken importeren via Instelllingen → Backup &amp; Sync, of downgraden naar enkel synchronisatie met Google Taken.</string>
-	<string name="sync_upgr_both_btn1">Blijf bij Tasks</string>
-	<string name="sync_upgr_both_btn2">Downgrade naar Google Taken</string>
-	<string name="sync_upgr_gtasks_only_title">Upgrade gratis naar Tasks Sync!</string>
-	<string name="sync_upgr_gtasks_only_body">Toegang tot je taken op al je apparaten en op Gmail met Tasks.com sync. Upgrade naar Tasks.com Sync (je kunt altijd terug naar Google Taken - maar zul je niet willen)!</string>
-	<string name="sync_upgr_gtasks_only_btn1">Upgrade naar Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Blijf bij Google Taken</string>
-	<string name="sync_upgr_neither_title">Gratis backyp &amp; Sync!</string>
-	<string name="sync_upgr_neither_body">Loop geen risico met je to-do\'s! Nieuwe en verbeterde Tasks sync om je taken te bewaren en er overal toegang tot te hebben.</string>
-	<string name="sync_upgr_neither_btn1">Registreer nu</string>
-	<string name="sync_upgr_logged_out">Je bent uitgelogd uit Tasks</string>
-	<string name="actfm_logout_clear_tasks_title">Data wissen?</string>
-	<string name="actfm_logout_clear_tasks_body">Wil je jouw taken en lijsten wissen?</string>
-	<string name="actfm_logout_clear_tasks_yes">Data wissen</string>
-	<string name="actfm_logout_clear_tasks_no">Data behouden</string>
-	<string name="actfm_logged_in_different_user_title">Inloggen als een andere gebruiker</string>
-	<string name="actfm_logged_in_different_user_body">Wil je de bestaande telefoon taken verwijderen voor synchronisatie?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Data behouden</string>
-	<string name="actfm_logged_in_different_user_clear_data">Alle gegevens wissen</string>
-	<string name="actfm_logged_in_different_user_processing">Verwerken van bestaande data</string>
 	<string name="actfm_tag_not_authorized_title">Niet geautoriseerd</string>
 	<string name="actfm_tag_not_authorized_body">Je bent niet langer geautoriseerd om lijst %s te bekijken (wellicht ben je verwijderd). Wil je een nieuwe lijst aanmaken met dezelfde naam?</string>
 	<string name="actfm_tag_not_authorized_new_list">Maak een nieuwe lijst</string>
@@ -275,7 +151,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="backup_BPr_auto_enabled">Back-up dagelijks uitvoeren</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">Je hebt al cloud backup op Tasks.com!</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Back-ups beheren</string>
@@ -285,8 +160,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Taken exporteren</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">Klik voor gratis cloud backup op Tasks.com</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Importfout</string>
@@ -329,17 +202,12 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="DLG_upgrading">Taken bijwerken...</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">Er is een nieuwe versie van Tasks beschikbaar in de Android Market! Update Tasks voor u verder gaat, of wacht een paar seconden.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Accoord</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Afwijzen</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Tasks Algemene Voorwaarden</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">Even geduld a.u.b.</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">Laden…</string>
 	<!-- Dialog - dismiss -->
@@ -347,9 +215,7 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="DLG_ok">OK</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">Annuleren</string>
-	<string name="DLG_more">Meer</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
-	<string name="DLG_warning">Waarschuwing</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Klikken om in te stellen</string>
@@ -447,8 +313,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Taak opruimen</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">Sorteren en verborgen taken</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Verborgen Taken</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -512,8 +376,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="TEA_importance_label">Prioriteit</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Stel de einddatum in</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Toegewezen aan %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">Specifieke tijd?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -542,8 +404,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="TEA_menu_save">Wijzigingen opslaan</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Niet opslaan</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">Taak verwijderen</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Opmerkingen vernieuwen</string>
 	<string name="TEA_menu_comments">Opmerkingen</string>
@@ -555,10 +415,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Activiteit</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">Meer</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">Ideeën</string>
 	<string name="TEA_timer_est">Gesch. %s</string>
 	<string name="TEA_timer_elap">Verstreken %s</string>
 	<string-array name="TEA_urgency">
@@ -608,9 +464,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
 	<string name="TEA_new_task">Nieuwe Taak</string>
-	<string name="WSV_click_to_load">Klik hier om een manier te zoeken om dit af te krijgen!</string>
-	<string name="WSV_not_online">Ik kan meer als ik verbonden ben met internet. Controleer je internetverbinding.</string>
-	<string name="TEA_contact_error">Sorry! We konden geen e-mailadres vinden voor de geselecteerde contactpersoon.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -713,25 +566,15 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="UpS_changelog_title">Nieuw in Tasks</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Laatste Tasks nieuws</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">Log in om een geschiedenis\nvan je vooruitgang en activiteiten\nop gedeelde lijsten te bekijken.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Tasks: Instellingen</string>
-	<string name="EPr_share_astrid">Deel Tasks</string>
-	<string name="EPr_share_astrid_summary">Deel over Tasks op je favoriete sociale netwerk</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">uitgeschakeld</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Uiterlijk</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Thema\'s, widgets, taken, scherm aanpassen</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">FAQ (Veelgestelde Vragen)</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">Gebruikersnaam: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">Handleiding, veelgestelde vragen, over</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Taaklijst lettertypegrootte</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -760,10 +603,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="EPr_showNotes_desc_disabled">Omschrijving zal toegankelijk zijn vanaf het bewerk taak scherm</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Omschrijving zal altijd worden getoond</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">Compacte Taakrij</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">Comprimeer taak rijen zodat de titel past</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -771,11 +610,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">Ideeëntabblad Automatisch Laden</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">Zoekopdrachten voor ideeën tablad zullen worden weergeven wanneer er op de tab is geklikt</string>
-	<string name="EPr_ideaAuto_desc_disabled">Web zoekopdrachten voor Ideeëntabblad worden alleen uitgevoerd als daar handmatig om gevraagd wordt</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Origineel</item>
@@ -792,10 +626,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Gebruik filters</string>
 	<string name="EPr_use_filters_subtitle">Laat je eigen filters definieren</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Toon ledenlijst in gedeelde lijsten</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Eenvoudige tekst vakken</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Geavanceerde snel toevoegen controls</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -816,25 +646,11 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="EPr_theme_widget_title">Widget Thema</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Taakrij Weergave</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">Gebruik contact kiezer</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">De systeem contact optie is uitgeschakeld in het taak uitdeel venster</string>
-	<string name="EPr_use_contact_picker_desc_disabled">De systeem contact optie is uitgeschakeld</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">Machtig derde partijen add-ons</string>
-	<string name="EPr_third_party_addons_desc_enabled">Add-ons van derden worden ingeschakeld</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">Add-ons van derden worden uitgeschakeld</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">Taak ideeën</string>
-	<string name="EPr_ideas_tab_description">Krijg ideeën om je te helpen taken te voltooien</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Agenda item tijd</string>
 	<string name="EPr_cal_end_at_due_time">Agendai tem op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
 	<string name="EPr_force_phone_layout">Gebruik telefoon layout</string>
-	<string name="EPr_show_featured_lists">Laat aanbevolen lijsten zien</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Configuratie instellen</string>
 	<string name="EPr_config_default">Standaard</string>
@@ -956,12 +772,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="p_about">Over Tasks</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Huidige versie: %s\n\n Tasks is open-source en wordt onderhouden door Todoroo, Inc.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">Ondersteuning</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">Forums</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">Premium</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Beoordeel Tasks?</string>
 	<string name="feedback_positive_body">Fijn dat ik kon helpen! Heb je een momentje om ons een 5-ster waardering te geven?</string>
@@ -976,9 +786,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="task_killer_help">U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! Voeg Tasks indien mogelijk toe aan de lijst met uitgezonderde programma\'s. Als u dit niet doet kan Tasks u niet helpen met taken herinneren!\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Tasks niet afsluiten</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">Tasks is de geliefde open-source Takenbeheerder, ontworpen om je taken gedaan te krijgen. Tasks heeft functies als herinneringen, bundelen van taken, synchronisatie, LBS plug-ins, widgets en nog veel meer!</string>
 	<string name="DB_corrupted_title">Database Corrupt</string>
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
 	<string name="market_unavailable">Helaas is de Android Market niet beschikbaar voor jouw systeem.</string>
@@ -1073,8 +880,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Filter verwijderen</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">Aangepast filter</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Naam geven om op te slaan...</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1171,11 +976,7 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps voor Domeinen is op dit moment nog niet ondersteund, daar wordt aan gewerkt!</string>
 	<string name="gtasks_GLA_noaccounts">Geen Google account beschikbaar voor synchronisatie</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">Om taken met inspringing en behoud van volgorde weer te geven, gebruik de Filter pagina en selecteer een Google Takenlijst. Tasks gebruikt eigen instellingen om taken te sorteren.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1187,8 +988,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="gtasks_GLA_errorAuth">Authenticatiefout! Controleer je gebruikersnaam en wachtwoord in de accountinstellingen van je telefoon.</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">Er kan een captcha zijn getoond. Probeer in te loggen via de browser, kom dan terug en probeer het opnieuw:</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Taken (Beta!)</string>
@@ -1209,20 +1008,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="gtasks_import_dlg_title">Google Taken import</string>
 	<string name="gtasks_import_add_task_ok">Taak toevoegen</string>
 	<string name="gtasks_import_add_task_cancel">Taak niet toevoegen</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">Begin met het toevoegen van een paar taken</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">Klik op de taak om te wijzigen en delen</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">Klik om deze lijst te wijzigen en delen</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">Mensen waar je mee deelt kunnen je helpen bij het maken of voltooien van taken</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">Druk om een lijst toe te voegen</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">Klik om een lijst toe te voegen of een andere lijst te selecteren</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter waarschuwing</string>
@@ -1245,31 +1030,15 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Installeer de Tasks Locale plugin aub!</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">Werkbladen</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">Toegewezen Aan</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">Toegewezen Aan \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">van %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Commentaar toevoegen</string>
 	<string name="opencrx_creator_input_hint">Auteur</string>
 	<string name="opencrx_contact_input_hint">Toegewezen aan</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Niet synchroniseren)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Standaard Activiteit aanmaken</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">Nieuwe activiteiten zullen worden aangemaakt door: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">Nieuwe activiteiten worden standaard niet gesynchroniseerd</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX server</string>
 	<!--  preference description for OpenCRX host -->
@@ -1294,69 +1063,27 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="opencrx_provider_summary">\"Bijvoorbeeld: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">Aanmelden bij OpenCRX</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">Aanmelden met OpenCRX account</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">Aanmelden</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">Aanmelden</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">Wachtwoord</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">Fout: niet alle velden zijn ingevuld</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">Fout: Onjuiste gebruikersnaam of wachtwoord!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s taken bijgewerkt / klik voor details</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">Aanmelding niet gespecificeerd</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">Wachtwoord niet ingevoerd!</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Taak aan deze persoon toewijzen:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;Niemand&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Deze taak toewijzen aan deze auteur:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;Standaard&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
-	<string name="CFC_opencrx_in_workspace_text">In Workspace: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">In Workspace...</string>
-	<string name="CFC_opencrx_assigned_to_text">Toegewezen aan: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">Toegewezen aan...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Premium en diverse instellingen</string>
 	<string name="EPr_powerpack_summary">Gemiste oproepen herinneringen, spraakinvoer en diverse instellingen</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">Anonieme statistieken</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">Geen gebruikersgegevens doorgeven</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">Help ons Tasks nóg beter te maken door anoniem statistieken over uw gebruik met ons te delen</string>
 	<string name="speech_err_network">Netwerkfout! Spraakherkenning heeft een netwerkverbinding nodig.</string>
 	<string name="speech_err_no_match">Sorry, ik begrijp je niet! Probeer het opnieuw.</string>
 	<string name="speech_err_default">Sorry, spraakherkenning ondervond een fout. Graag opnieuw proberen.</string>
 	<string name="premium_attach_file">Een bestand bijvoegen</string>
 	<string name="premium_record_audio">Een notitie opnemen</string>
-	<string name="premium_no_files">Geen bestand bijgevoegd</string>
 	<string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
 	<string name="audio_recording_title">Bezig met opname</string>
 	<string name="audio_stop_recording">Opname stoppen</string>
 	<string name="audio_speak_now">Spreek nu!</string>
 	<string name="audio_encoding">Bezig met encoderen...</string>
 	<string name="audio_err_encoding">Fout bij encoderen audio</string>
-	<string name="audio_err_playback">Sorry, het systeem ondersteunt dit type audio-bestand niet</string>
 	<string name="search_market_audio">Geen mediaspeler gevonden die dit type audio-bestand ondersteunt. Wil je een mediaspeler downloaden via de Android Market?</string>
 	<string name="search_market_audio_title">Geen mediaspeler gevonden</string>
 	<string name="search_market_pdf">Geen PDF-lezer gevonden. Wil je een PDF-lezer downloaden via de Android Market?</string>
@@ -1380,7 +1107,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="file_err_download">Fout bij downloaden bestand</string>
 	<string name="file_err_no_directory">Oeps! Het ziet er naar uit dat de bestanden directory niet bestaat. Kies een directory om bestanden op te slaan in de Tasks Voorkeuren.</string>
-	<string name="file_err_show">Sorry, het systeem ondersteunt dit bestandstype niet</string>
 	<string name="file_dir_dialog_ok">Gebruik deze directory.</string>
 	<string name="file_dir_dialog_default">Stel opnieuw in naar standaardinstellingen</string>
 	<string name="p_files_dir">Premium downloads directory</string>
@@ -1388,43 +1114,7 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="p_files_dir_desc">Taak bijlagen opgeslagen op: %s</string>
 	<string name="p_files_dir_desc_default">Standaard directory</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">Kan geen aankopen doen.</string>
-	<string name="billing_not_supported_message">De Android Market facturering service is momenteel niet beschikbaar. Je kunt doorgaan om deze applicatie te gebruiken maar je kunt geen aankopen doen.</string>
-	<string name="subscriptions_not_supported_title">Kan geen abonnementen aanschaffen.</string>
-	<string name="subscriptions_not_supported_message">De Android Market facturering service werkt niet op dit toestel en ondersteunt momenteel geen abonnementen. Je kunt je aanmelden voor Tasks Premium via http://tasks.com/premium</string>
-	<string name="cannot_connect_title">Kan geen verbinding maken met Android Market</string>
-	<string name="cannot_connect_message">Deze applicatie kan geen verbinding maken met de Android Market.
-Jouw versie van de Market is wellicht verouderd.
-Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankopen doen.</string>
-	<string name="restoring_transactions">Herstelt transacties</string>
-	<string name="subscriptions_learn_more">Meer informatie</string>
-	<string name="kii_premium_success">Bedankt voor deelname aan deze aanbieding! Je maand gratis Tasks Premium is nu actief.</string>
-	<string name="kii_premium_abort">Speciale aanbieding afgebroken</string>
-	<string name="kii_premium_declined">Speciale aanbieding afgewezen</string>
-	<string name="kii_premium_error">Er was een fout tijdens het verwerken van deze aanbieding. Probeer het later opnieuw.</string>
-	<string name="premium_offers_title">Speciale aanbieding</string>
-	<string name="premium_offers_subtitle">Wil je één maand gratis Tasks Premium?</string>
-	<string name="premium_offers_detail">Om een maand gratis Tasks Premium te krijgen kun je een korte video bekijken van deze sponsor (Ze zullen je ook vragen om je e-mail adres.)</string>
-	<string name="premium_offers_start">Krijg het gratis!</string>
-	<string name="premium_billing_title">Tasks Premium</string>
-	<string name="premium_buy_month">1 maand</string>
-	<string name="premium_buy_year">1 jaar</string>
-	<string name="premium_description_header">Doe meer met Premium!</string>
-	<string name="premium_description_1">Voeg bestanden toe aan to-dos \n(pdfs, doc, ppt...)</string>
-	<string name="premium_description_2">Synchroniseer bestanden met tasks.com</string>
-	<string name="premium_description_3">Voeg bestanden toe via e-mail</string>
-	<string name="premium_description_4">Bewaar spraaknotities als audiobestanden</string>
-	<string name="premium_description_5">Bekijk nieuwe functies</string>
-	<string name="premium_description_6">Steun het Tasks Team!</string>
-	<string name="premium_speech_bubble_1">Premium leidt tot een hogere productiviteit! </string>
 	<string name="premium_speech_bubble_2">Bestel voor een jaar en bespaar 25%%!</string>
-	<string name="premium_already_subscribed">Je bent al aangemeld voor Tasks Premium!</string>
-	<string name="premium_login_prompt">Je hebt een Tasks.com account nodig om je in te schrijven voor Premium. Log in of registreer je.</string>
-	<string name="premium_success">Bedankt voor het aanmelden voor Tasks Premium!</string>
-	<string name="premium_success_with_server_error">Bedankt voor het aanmelden voor Tasks Premium! De nieuwe functies zullen snel toegankelijk worden voor je op tasks.com en zouden direct beschikbaar moeten zijn op je telefoon. </string>
-	<string name="premium_verification_error">Het premium abonnement voor deze Google Play account is verbonden aan een andere gebruiker. Bezoek tasks.com/users/profile om aanvullende e-mails aan jouw account toe te voegen</string>
-	<string name="premium_check_for_purchases">Al premium aangeschaft? Klik hier om de aankoop historie op Google Play te bekijken.</string>
-	<string name="premium_checking_for_purchases">Controleren op aankopen...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1539,12 +1229,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="rmd_EPr_persistent_desc_true">Herinneringen moeten individueel worden gewist</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Sociale aanmoediging</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Herinneringen zullen je laten zien wie er op je rekent voor gedeelde taken</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Herinneringen zullen je niet laten zien wie er op je rekent voor gedeelde taken</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1908,8 +1592,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="TEA_tags_left">Gedeelde lijst %1$s is verlaten, dit beïnvloed %2$d taken</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">Je had wat lijsten met dezelfde naam maar ander hoofdlettergebruik. We denken dat je steeds dezelfde lijst bedoelde, dus hebben we de duplicaten samengevoegd. Maar maak je geen zorgen: de oorspronkelijke lijsten zijn gewoonweg hernoemd met nummers op het einde (bijv. Boodschapen_1, Boodschappen_2). Als je dit niet wilt, kun je de nieuwe samengevoegde lijst eenvoudigweg verwijderen.</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Lijst instellingen</string>
 	<!-- Header for tag activity -->
@@ -2024,7 +1706,5 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">Spraakinstellingen</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

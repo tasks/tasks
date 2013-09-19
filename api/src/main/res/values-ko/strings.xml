@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">정보</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">에러!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">저장</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">예</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">아니요</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">닫기</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">마침</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">백그라운드 동기화를 사용하지 않습니다.</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">현재 설정: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">WiFi 설정</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">백그라운드 동기화는 WiFi 지역에서만 작동합니다.</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">백그라운드 동기화는 항상 작동합니다.</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">동작</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">지금 동기화하기</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">로그인 &amp; 동기화!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">로그인하기:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">상태 보고</string>
 	<!-- Sync: last error click for more -->

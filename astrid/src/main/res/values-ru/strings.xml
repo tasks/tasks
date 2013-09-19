@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>Настройки списка</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">Задачи %s. Нажмите, чтобы увидеть все.</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">Неназначенные задачи. Нажмите, чтобы увидеть все.</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">Приватный: нажмите, чтобы изменить или опубликовать список</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Обновить</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Список</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">Опубликовано для</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">Поделись с теми, у кого есть почтовый адрес</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Укажите фото:</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,103 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">Введите описание здесь</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Введите имя списка</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">Для публикации списков необходимо авторизоваться на Tasks.com! Пожалуйста авторизуйтесь или сделайте список персональным.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">Используйте Tasks для обмена списками покупок, планами или командными проектами и мгновенно следите за тем как люди доводят дела до конца.</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">Кто должен выполнить задачу?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">Мне</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">Не назначен</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">Выберите контакт</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">Поделиться с:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Поделиться</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">Список: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">Приглашение:</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">Помогите мне выполнить это!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">Список участников</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">Друзья Tasks</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Неверный адрес электронной почты: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">Вам нужно авторизоваться на Tasks.com, чтобы поделиться задачами!</string>
-	<string name="actfm_EPA_login_button">Войти</string>
-	<string name="actfm_EPA_dont_share_button">Не публиковать</string>
 	<string name="actfm_EPA_add_person_to_list_title">Задание назначено</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s не добавлен в этот список. Добавить %2$s в список?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Добавить в список</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Не добавлять</string>
 	<string name="actfm_list_owner">(владелец)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">Добро пожаловать на Tasks.com!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">Tasks.com позволяет вам получать доступ к своим задачам онлайн, 
-обмениваться ими и поручать их другим.</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">Подключиться к Facebook</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">Подключиться к Google</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Войти: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Не %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">Имя</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">Фамилия</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">Электронная почта</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">Пароль</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">Регистрация</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">Войти</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Выберите аккаунт Google, который вы хотите использовать:</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">Пожалуйста, войдите:</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">Пользователь уже существует. Пожалуйста, войдите.</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">Извините, неверный пароль. Попробуйте еще раз.</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">Забыли пароль?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">Введите Ваш email</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">Ссылка для сброса  пароля отправлена на %s</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">Пользователь с указанным email не найден. Попробуйте зарегестрироваться!</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Копировать список</string>
 	<string name="actfm_feat_list_suffix">(Копия)</string>
@@ -185,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">Задача скопирована</string>
 	<string name="actfm_feat_list_clone_empty">Нет задач для копирования</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">Статус - Вошел как %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">Использовать HTTPS</string>
-	<string name="actfm_https_enabled">HTTPS включен (медленнее)</string>
-	<string name="actfm_https_disabled">HTTPS отключен (быстрее)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">Тип учётной записи</string>
-	<string name="actfm_account_info">Данные учётной записи</string>
-	<string name="actfm_account_info_summary">Статус и опции</string>
-	<string name="account_type_title_not_logged_in">Бесплатная регистрация</string>
-	<string name="account_type_summary_not_logged_in">Доступ к задачам онлайн, делиться списками и делегировать</string>
-	<string name="actfm_account_premium">Премиум</string>
-	<string name="actfm_account_basic">Базовый</string>
 	<string name="actfm_inapp_billing">Перейти на Премиум</string>
 	<string name="actfm_inapp_billing_summary">Прикрепить файлы, голосовые резервные копии, премиальная поддержка и другое</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">Поддержать на Facebook</string>
-	<string name="share_with_twitter">Подписаться в Twitter\'e</string>
-	<string name="share_with_google">Поделиться в Google+</string>
-	<string name="share_speech_bubble">Поделившись, вы поможете другим быть более продуктивными!</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Использование Tasks.com + Google без Дубликатов</string>
-	<string name="sync_upgr_both_body">Давайте будем откровенны. Google Tasks удобен, но не так крут как Tasks.  Чтобы предотвратить создание дуликатов, Вам нет больше необходимости синхронизироваться с Tasks.com  и фоном с Google Tasks  в одно и то же время. Вам достаточно импортировать ваши задачи из  Google Tasks в Settings → Backup &amp; Sync, или откатится до синхронизации только с Google Tasks.</string>
-	<string name="sync_upgr_both_btn1">с Tasks</string>
-	<string name="sync_upgr_both_btn2">Откатить до Google Tasks</string>
-	<string name="sync_upgr_gtasks_only_title">Бесплатно обновить до Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_body">Доступ к Вашим задачам с любого устройства и из Gmail c Tasks.com sync. Обновитесь до Tasks.com Sync  (Вы всегда можете перейти обратно - но вряд ли захитите)!</string>
-	<string name="sync_upgr_gtasks_only_btn1">Обновить до Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Вместе с Google Tasks</string>
-	<string name="sync_upgr_neither_title">Бесплатный бэкап &amp; Sync!</string>
-	<string name="sync_upgr_neither_body">Не рискуйте безопасностью ваших заметок! Используйте новый улучшенный Tasks sync для хранения заметок откуда угодно. </string>
-	<string name="sync_upgr_neither_btn1">OK</string>
-	<string name="sync_upgr_logged_out">Вы вышли из системы</string>
-	<string name="actfm_logout_clear_tasks_title">Очистить данные?</string>
-	<string name="actfm_logout_clear_tasks_body">Вы хотите очистить ваши задачи и списки?</string>
-	<string name="actfm_logout_clear_tasks_yes">Очистить данные</string>
-	<string name="actfm_logout_clear_tasks_no">Сохранить данные</string>
-	<string name="actfm_logged_in_different_user_title">Войти как другой пользователь</string>
-	<string name="actfm_logged_in_different_user_body">Вы хотите удалить существующие телефонные задачи перед синхронизацией?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Сохранить данные</string>
-	<string name="actfm_logged_in_different_user_clear_data">Очистить все данные</string>
-	<string name="actfm_logged_in_different_user_processing">Обработка существующих данных...</string>
 	<string name="actfm_tag_not_authorized_title">Не авторизовано </string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">Создать новый список</string>
@@ -276,7 +151,6 @@
 	<string name="backup_BPr_auto_enabled">Резервное копирование будет производиться ежедневно</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">\"У вас уже есть резервная копия в облаке на  Tasks.com!\"</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Диспетчер резервных копий</string>
@@ -286,8 +160,6 @@
 	<string name="backup_BAc_import">Импортировать задачи</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Экспортировать задачи</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">\"Нажмите для бесплатного резервирования в облаке  Tasks.com\"</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Ошибка импорта</string>
@@ -330,19 +202,12 @@
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">Требуется обновить Tasks до
-самой свежей версии на Android Market! Пожалуйста, обновите перед тем, как идти дальше, 
-или подождите несколько секунд.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Принимаю</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Отказываюсь</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Условия использования Tasks</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">Подождите, пожалуйста</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">Загрузка...</string>
 	<!-- Dialog - dismiss -->
@@ -350,9 +215,7 @@
 	<string name="DLG_ok">ОК</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">Отмена</string>
-	<string name="DLG_more">еще</string>
 	<string name="DLG_undo">Отмена</string>
-	<string name="DLG_warning">Предупреждение</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Нажмите для установки</string>
@@ -450,8 +313,6 @@
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Очистить задачу</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">Сортировка и скрытые задачи</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Скрытые задачи</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -515,8 +376,6 @@
 	<string name="TEA_importance_label">Приоритет</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Assigned to %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">В указанное время?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -545,8 +404,6 @@
 	<string name="TEA_menu_save">Сохранить изменения</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Не сохранять</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">Удалить задачу</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Обновить комментарии</string>
 	<string name="TEA_menu_comments">Комментарии</string>
@@ -558,10 +415,6 @@
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Действия</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">Ещё</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">Идеи</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -611,9 +464,6 @@
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Когда это должно произойти?</string>
 	<string name="TEA_new_task">Новое задание</string>
-	<string name="WSV_click_to_load">Нажми меня для поиска решений этой задачи!</string>
-	<string name="WSV_not_online">Я способен на большее при подключении к Интернету. Пожалуйста, проверьте ваше подключение.</string>
-	<string name="TEA_contact_error">Простите, для выбранного контакта отсутствует адрес эл. почты.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -716,25 +566,15 @@
 	<string name="UpS_changelog_title">Что нового в Tasks?</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Последние новости Tasks</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">Войдите, чтобы увидеть\nсвой прогресс и активность\nв опубликованных списках.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Tasks: Настройки</string>
-	<string name="EPr_share_astrid">Поделиться Tasks</string>
-	<string name="EPr_share_astrid_summary">Расскажи про Tasks в любимой социальной сети</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">выключен</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Интерфейс</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Темы, виджеты, пункты списка, экран правки</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">часто задаваемые вопросы</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">Учётная запись: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">Учебник, FAQ, О программе</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Размер списка задач</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -763,10 +603,6 @@
 	<string name="EPr_showNotes_desc_disabled">Описание будет доступно на экране редактирования задачи</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Всегда показывать описание</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">Компактные строки задач</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">Сжать строки задач до высоты названий</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -774,11 +610,6 @@
 	<string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">Автозагрузка закладки Идеи</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">Веб-поиск для закладки Идеи будет выполняться при нажатии на закладку</string>
-	<string name="EPr_ideaAuto_desc_disabled">Веб-поиск для закладки Идеи будет выполняться только при вызове вручную</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Оригинальный</item>
@@ -795,10 +626,6 @@
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Использовать фильтры</string>
 	<string name="EPr_use_filters_subtitle">Позволяет создавать настраиваемые фильтры</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Отображать список участников в общих списках </string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Простые текстовые поля</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Расширенные возможности быстрого добавления</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -819,25 +646,11 @@
 	<string name="EPr_theme_widget_title">Тема виджета</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">Использовать системный выбор контактов</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">Опция \"системный выбор контактов\" будет показана в окне назначения задачи</string>
-	<string name="EPr_use_contact_picker_desc_disabled">Опция \"системный выбор контактов\" будет скрыта</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">Разрешить установку сторонних дополнений</string>
-	<string name="EPr_third_party_addons_desc_enabled">Сторонние дополнения будут включены</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">Сторонние дополнения будут отключены</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">Идеи по задаче</string>
-	<string name="EPr_ideas_tab_description">Взгляните на идеи, которые помогут вам выполнить задачи.</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Время события в календаре</string>
 	<string name="EPr_cal_end_at_due_time">Завершение события при наступлении срока</string>
 	<string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 	<string name="EPr_force_phone_layout">Использовать режим телефона</string>
-	<string name="EPr_show_featured_lists">Показывать рекомендуемые списки</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">По умолчанию</string>
@@ -959,12 +772,6 @@
 	<string name="p_about">О Tasks</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Текущая версия: %s\n\n Tasks имеет открытый исходный код и с гордостью поддерживается Todoroo, Inc.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">Поддержка</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">Форумы</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">Премиум</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
@@ -979,9 +786,6 @@
 	<string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Tasks в список исключений иначе возможны сложности с напоминаниями.\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Я не хочу убивать Tasks!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">Tasks - распространённый список задач с открытым исходным кодом призванный помочь Вам справиться с делами. В нём есть напоминания, метки, синхронизация, плагин Locale, виджет и многое другое.</string>
 	<string name="DB_corrupted_title">Поврежденная база данных</string>
 	<string name="DB_corrupted_body">Упс! Похоже, ваша база данных повреждена.
 Если вы получаете эту ошибку регулярно, рекомендуется стереть
@@ -1079,8 +883,6 @@
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Удалить фильтр</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">Собственный фильтр</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Задайте имя фильтра для его сохранения…</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1177,11 +979,7 @@
 	<string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">Пожалуйста, войдите в Google Tasks Sync (Beta!). Не переехавшие аккаунты Google Apps в данный момент не поддерживаются.</string>
 	<string name="gtasks_GLA_noaccounts">Нет доступных аккаунтов Google для синхронизации</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">Чтобы увидеть задачи с уровнями и порядком, перейдите в Фильтры и выберите список Задачи Google. По умолчанию, Tasks пользуется своими настройками сортировки.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1193,8 +991,6 @@
 	<string name="gtasks_GLA_errorAuth">Ошибка аутентификации! Пожалуйста, проверьте имя пользователя и пароль в меню управления аккаунтами телефона</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Извините, проблемы при обращении к серверам Google. Пожалуйста, попробуйте позже.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">Возможно вы столкнулись с каптчей. Попробуйте войти через браузер, затем вернуться и попробовать снова:</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Tasks</string>
@@ -1215,20 +1011,6 @@
 	<string name="gtasks_import_dlg_title">Импорт Google задач</string>
 	<string name="gtasks_import_add_task_ok">Добавить задание</string>
 	<string name="gtasks_import_add_task_cancel">Не добавляйте задачи</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">Начните с добавления одного или нескольких заданий</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">Нажмите на задачу, чтобы изменить или поделиться</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">Нажмите, чтобы изменить или поделиться списком</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">Люди, с которыми вы делитесь, могут помочь вам в составлении списка и выполнении задач</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">Нажмите, чтобы добавить список</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">Нажмите, чтобы добавить список или переключиться между списками</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Предупреждение фильтра Tasks</string>
@@ -1251,31 +1033,15 @@
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Пожалуйста, установите плагин Tasks Locale!</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">Рабочие области</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">Ответственный</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">Ответственный \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">от %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Добавить комментарий</string>
 	<string name="opencrx_creator_input_hint">Автор</string>
 	<string name="opencrx_contact_input_hint">Назначено на</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Не синхронизировано)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Напоминатель по умолчанию</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">Новые активности будут создаты к: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">Новые события не будут синхронизироваться по-умолчанию</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">сервер OpenCRX</string>
 	<!--  preference description for OpenCRX host -->
@@ -1300,69 +1066,27 @@
 	<string name="opencrx_provider_summary">\"Для примера: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">Войдите в openCRX</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">Войдите, используя ваш openCRX аккаунт</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">Войти</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">Вход</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">Пароль</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">Ошибка: заполните все поля</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">Ошибка: неверные имя пользователя или пароль!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s задач обновлено / кликните для подробностей</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">Имя пользователя не указано!</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">Не указан пароль!</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Назначить эту задачу этому человеку:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;Без назначения&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Назначить задачу этому автору:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;По умолчанию&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">Управление openCRX</string>
-	<string name="CFC_opencrx_in_workspace_text">в среде: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">в среде...</string>
-	<string name="CFC_opencrx_assigned_to_text">Присвоено: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">Присвоено ...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Премиум и другие настройки</string>
 	<string name="EPr_powerpack_summary">Напоминания о пропущенных звонках, голосовой ввод и другие настройки</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">Анонимная статистика</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">Данные об использовании не передаются</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">Помогите нам сделать Tasks лучше, отправляя анонимную статистику использования</string>
 	<string name="speech_err_network">Ошибка подключения! Для голосового распознавания требуется интернет соединение.</string>
 	<string name="speech_err_no_match">Извините, я не расслышал! Повторите, пожалуйста.</string>
 	<string name="speech_err_default">Извините, ошибка службы голосового распознавания. Попробуйте, еще раз.</string>
 	<string name="premium_attach_file">Прикрепить файл</string>
 	<string name="premium_record_audio">Записать заметку</string>
-	<string name="premium_no_files">Нет прикреплённых файлов.</string>
 	<string name="premium_remove_file_confirm">Вы уверены? Это не может быть отменено.</string>
 	<string name="audio_recording_title">Запись голоса.</string>
 	<string name="audio_stop_recording">Остановить запись</string>
 	<string name="audio_speak_now">Говорите!</string>
 	<string name="audio_encoding">Кодирование</string>
 	<string name="audio_err_encoding">Ошибка кодировки голоса.</string>
-	<string name="audio_err_playback">Извините, система не поддерживает этот тип аудио файла.</string>
 	<string name="search_market_audio">Не найден проигрыватель для этого типа аудио. Хотите скачать его с Google Plus?</string>
 	<string name="search_market_audio_title">Не найдено проигрывателя.</string>
 	<string name="search_market_pdf">Не найдена программа для просмотра PDF файлов. Хотите скачать её с Google Plus?</string>
@@ -1386,7 +1110,6 @@
 	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="file_err_download">Ошибка загрузки файла</string>
 	<string name="file_err_no_directory">Упс! Похоже, папка для хранения файлов не существует. Пожалуйста, укажите папку для хранения файлов в Настройках.</string>
-	<string name="file_err_show">Извините, система не поддерживает этот тип файлов.</string>
 	<string name="file_dir_dialog_ok">Использовать этот каталог</string>
 	<string name="file_dir_dialog_default">Сбросить на значения по умолчанию</string>
 	<string name="p_files_dir">Папка Премиум-загрузок</string>
@@ -1394,44 +1117,7 @@
 	<string name="p_files_dir_desc">Прикрепления к задаче сохранены в: %s</string>
 	<string name="p_files_dir_desc_default">Каталог по-умолчанию</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">Невозможно совершить покупку</string>
-	<string name="billing_not_supported_message">Биллинг временно недоступен. Вы можете продолжить использовать приложение, но не сможете делать заказы.</string>
-	<string name="subscriptions_not_supported_title">Не удалось приобрести подписку</string>
-	<string name="subscriptions_not_supported_message">Сервис платежей на этом устройстве не поддерживает подписок</string>
-	<string name="cannot_connect_title">Не удается подключиться к Market</string>
-	<string name="cannot_connect_message">Приложение не может соединиться с Market.
-Ваша версия Market можеть быть просрочена.
-Вы можете продолжить использовать приложение, но
-покупки не доступны.</string>
-	<string name="restoring_transactions">Идет восстановление транзакций</string>
-	<string name="subscriptions_learn_more">Узнать больше</string>
-	<string name="kii_premium_success">Спасибо, что приняли предложение ! Ваш бесплатный месяц Tasks Premium разблокирован.</string>
-	<string name="kii_premium_abort">Специальное предложение отменено</string>
-	<string name="kii_premium_declined">Специальное предложение отклонено</string>
-	<string name="kii_premium_error">Произошла ошибка при обработке. Пожалуйста повторите попытку позже.</string>
-	<string name="premium_offers_title">Специальное предложение</string>
-	<string name="premium_offers_subtitle">Хотите один месяц Premium бесплатно?</string>
-	<string name="premium_offers_detail">Чтобы получить бесплатный месяц, вы должны просмотреть видео от спонсора. Ему также потребуется Ваш email.</string>
-	<string name="premium_offers_start">Получи бесплатно !</string>
-	<string name="premium_billing_title">Tasks Премиум</string>
-	<string name="premium_buy_month">1 месяц</string>
-	<string name="premium_buy_year">1 год</string>
-	<string name="premium_description_header">Добейтесь большего с премиум подпиской!</string>
-	<string name="premium_description_1">Присоединять к заметкам файлы \n(pdf, doc, ppt…)</string>
-	<string name="premium_description_2">Синхронизировать файлы с tasks.com</string>
-	<string name="premium_description_3">Привязывать файлы по e-mail</string>
-	<string name="premium_description_4">Сохранять голосовые заметки как аудиофайлы</string>
-	<string name="premium_description_5">Знакомиться с ожидаемыми нововведениями</string>
-	<string name="premium_description_6">Поддержать команду Tasks!</string>
-	<string name="premium_speech_bubble_1">Премиум повысит вашу продуктивность!</string>
 	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
-	<string name="premium_already_subscribed">Вы уже подписаны на Tasks Premium</string>
-	<string name="premium_login_prompt">Чтобы оформить премиум подписку, необходима учетная запись на Tasks.com. Пожалуйста, войдите в свою учетную запись или создайте новую.</string>
-	<string name="premium_success">Спасибо за то, что подписались на Tasks Premium!</string>
-	<string name="premium_success_with_server_error">Спасибо за то, что оформили премиум подписку на Tasks! Новые возможности на tasks.com разблокируются в ближайшее время, на Вашем телефоне они должны быть доступны уже сейчас.</string>
-	<string name="premium_verification_error">Премиум подписка для этой учетной записи Google Play оформлена на другого пользователя. Привязать дополнительный email к своей учетной записи можно здесь: tasks.com/users/profile</string>
-	<string name="premium_check_for_purchases">Уже приобрели Premium? Нажмите здесь для проверки истории покупок в Google Play.</string>
-	<string name="premium_checking_for_purchases">Проверка покупок...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1546,12 +1232,6 @@
 	<string name="rmd_EPr_persistent_desc_true">Каждое уведомление должно быть просмотрено перед очисткой</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Уведомления можно очистить кнопкой \"Очистить все\"</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Поддержка от друзей</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1915,8 +1595,6 @@
 	<string name="TEA_tags_left">Вы покинули обший список %1$s, затронуло %2$d задач</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">Переименовано %1$s в %2$s для %3$d задач</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">\"Мы заметили, что у вас есть списки, которые имеют одинаковое имя с различной капитализации. Мы считаем, что вы, возможно, хотели бы, чтобы они были в  одном списке, поэтому мы объединили дубликаты. Не волнуйтесь:  списки просто переименованы с номерами (например, Shopping_1, Shopping_2). Если вы не хотите этого, вы можете просто удалить новый объединенный список!\"</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Настройки</string>
 	<!-- Header for tag activity -->
@@ -2031,7 +1709,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">Параметры голосового ввода</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

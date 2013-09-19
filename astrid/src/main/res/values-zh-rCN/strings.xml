@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>列表设置</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">%s的任务，点击查看全部</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">未指定的任务，点击查看全部</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">私有状态：点击以编辑或分享</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">刷新</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">列表名称：</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">合作者：</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">通过电子邮件分享</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">列表图片</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">在这里添加描述</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">添加列表名称</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">你需要登陆来分享列表，请登陆网站或者保持私有</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">使用清单小助理分享您的购物单，聚会和团队项目，就会发现人们可以迅速完成工作！</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">需要谁处理？</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">我</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">未分配</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">选择联系人</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">共享给：</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Share</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">列表：%s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">邀请信息：</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">帮我办好这事！</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">列表成员</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">清单小助理好友</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">电子邮箱无效： %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">你需要登陆来分享任务，请登陆网站或者保持私有。</string>
-	<string name="actfm_EPA_login_button">登录</string>
-	<string name="actfm_EPA_dont_share_button">不要分享</string>
 	<string name="actfm_EPA_add_person_to_list_title">任务已分配</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Would you like to add %2$s to this list?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">添加到列表</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">不要添加</string>
 	<string name="actfm_list_owner">(owner)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">欢迎光临 Tasks.com！</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">Tasks.com能让您轻松在线访问、共享和委托您的任务。</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">使用Google帐号登录</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Sign in: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Not %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">名字</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">姓氏</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">电子邮箱</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">密码</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">注册</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">登录</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">选择你要使用的Google账户</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">连接至 Google：</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">用户已经存在，请直接登录。</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">对不起，密码输入不对，请再试一次。</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">忘记密码？</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">请输入你的电子邮箱</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">密码重设已发送给%s</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">User not found by that email. Try signing up instead!</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">复制列表</string>
 	<string name="actfm_feat_list_suffix">（复制）</string>
@@ -184,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">任务已复制</string>
 	<string name="actfm_feat_list_clone_empty">无任务复制</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">状态——已使用 %s 帐户登录</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com (清单小助理)</string>
 	<string name="actfm_https_title">使用 HTTPS</string>
-	<string name="actfm_https_enabled">开启 HTTPS （较慢）</string>
-	<string name="actfm_https_disabled">关闭 HTTPS （更快）</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">帐号类型</string>
-	<string name="actfm_account_info">帐号信息</string>
-	<string name="actfm_account_info_summary">状态和选项</string>
-	<string name="account_type_title_not_logged_in">免费注册一个帐号</string>
-	<string name="account_type_summary_not_logged_in">进入在线任务，分享列表和指派任务</string>
-	<string name="actfm_account_premium">高级</string>
-	<string name="actfm_account_basic">一般</string>
 	<string name="actfm_inapp_billing">升级成高级用户</string>
 	<string name="actfm_inapp_billing_summary">附件，语音备份，高级支持和更多</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">在Facebook赞一个</string>
-	<string name="share_with_twitter">在Twitter关注我们</string>
-	<string name="share_with_google">在Google+分享</string>
-	<string name="share_speech_bubble">通过分享，您将会帮助其他人生活得更加有效率！</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Using Tasks.com + Google without Duplicates</string>
-	<string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Tasks. To avoid duplicates you can no longer sync with Tasks.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-	<string name="sync_upgr_both_btn1">Stick with Tasks</string>
-	<string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
-	<string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
-	<string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-	<string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
-	<string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-	<string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
-	<string name="sync_upgr_neither_btn1">Sign up now</string>
-	<string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
-	<string name="actfm_logout_clear_tasks_title">Clear data?</string>
-	<string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-	<string name="actfm_logout_clear_tasks_yes">Clear data</string>
-	<string name="actfm_logout_clear_tasks_no">Keep data</string>
-	<string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-	<string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-	<string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-	<string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
 	<string name="actfm_tag_not_authorized_title">Not authorized</string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">Create new list</string>
@@ -275,7 +151,6 @@
 	<string name="backup_BPr_auto_enabled">备份每天执行</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">您已经在Tasks.com上享有云备份</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">管理备份</string>
@@ -285,8 +160,6 @@
 	<string name="backup_BAc_import">导入任务</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">导出任务</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">访问Tasks.com免费获取云备份</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">导入错误</string>
@@ -329,17 +202,12 @@
 	<string name="DLG_upgrading">升级您的任务...</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">时间（小时:分钟）</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">清单小助理应该要从 Android 市场下载最新版本! 请继续前执行, 或稍等片刻。</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">接受</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">不接受</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">清单小助理使用条款</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">请稍候</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">载入中...</string>
 	<!-- Dialog - dismiss -->
@@ -347,9 +215,7 @@
 	<string name="DLG_ok">确定(O)</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">取消</string>
-	<string name="DLG_more">更多</string>
 	<string name="DLG_undo">撤消</string>
-	<string name="DLG_warning">系统提醒</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">点选</string>
@@ -447,8 +313,6 @@
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">清除任务</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">排序和隐藏任务</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">隐藏任务</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -512,8 +376,6 @@
 	<string name="TEA_importance_label">Priority</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Assigned to %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">于指定时间？</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -542,8 +404,6 @@
 	<string name="TEA_menu_save">保存更改</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">不保存</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">删除任务</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Refresh comments</string>
 	<string name="TEA_menu_comments">注释</string>
@@ -555,10 +415,6 @@
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">活动</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">细节</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">建议</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -608,9 +464,6 @@
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">这项活动定在什么时候呀？</string>
 	<string name="TEA_new_task">新建任务</string>
-	<string name="WSV_click_to_load">拍拍我，让我搜索一下完成这项任务的各种方法！</string>
-	<string name="WSV_not_online">连上互联网后我可以做更多事情。请检查一下您的网络连接呗。</string>
-	<string name="TEA_contact_error">不好意思！我们找不到所选联系人的电子邮件地址喔。</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -713,25 +566,15 @@
 	<string name="UpS_changelog_title">清单小助理有哪些最新功能？</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">清单小助理最新消息</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">登录查看您的活动进展情况 \n以及在各分享列表上的活动。</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">清单小助理：设置</string>
-	<string name="EPr_share_astrid">Share Tasks</string>
-	<string name="EPr_share_astrid_summary">在您喜欢的社交网站上分享清单小助理</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">禁用</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">外观</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">主题，小工具，任务栏，编辑屏幕列表</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">常见问题</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">帐号：%s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">指引，常见问题，关于我们</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">任务列表字体大小</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -760,10 +603,6 @@
 	<string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">压缩任务排列</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">压缩任务行，使它适应标题</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -771,11 +610,6 @@
 	<string name="EPr_fullTask_desc_enabled">将显示完整的任务标题</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">将显示任务标题的头两行</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">自动加载意见选项标签</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">点击标签后，网页将会搜索意见选项。</string>
-	<string name="EPr_ideaAuto_desc_disabled">只有手动请求后，网页将会搜索意见选项。</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
@@ -792,10 +626,6 @@
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Use filters</string>
 	<string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Show list members in shared lists</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Simple text boxes</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -816,25 +646,11 @@
 	<string name="EPr_theme_widget_title">小工具主题</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">任务栏</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">使用联系人选择程序</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">系统的联系人选择程序选项将在任务布置窗口中显示</string>
-	<string name="EPr_use_contact_picker_desc_disabled">将不会显示系统的联系人选择程序选项</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">允许第三方附加软件</string>
-	<string name="EPr_third_party_addons_desc_enabled">即将启用第三方附加软件</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">即将禁用第三方附加软件</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">任务意见</string>
-	<string name="EPr_ideas_tab_description">获取建议来帮助您完成多项任务</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
 	<string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
 	<string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 	<string name="EPr_force_phone_layout">使用手机布局</string>
-	<string name="EPr_show_featured_lists">显示特定列表</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">Default</string>
@@ -956,12 +772,6 @@
 	<string name="p_about">关于清单小助理</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">当前版本： %s\n\n清单小助理是由 Todoroo, Inc. 维护的开源软件。</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">支持</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">讨论区</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">高级</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
@@ -976,9 +786,6 @@
 	<string name="task_killer_help">似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 清单小助理加入到例外列表避免被杀死。否则 清单小助理可能无法通知您任务已到期。\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">我不要中止清单小助理!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">清单小助理是一款开源并深受人们喜爱的任务/列表管理器，旨在提高您处理事务的效率。清单小助理包含提醒、标签、同步、区域插件、小工具等众多功能。</string>
 	<string name="DB_corrupted_title">数据库已经受损</string>
 	<string name="DB_corrupted_body">啊喔！您有一个毁损的资料库。如果您经常看见这个错误出现，我们建议您清除所有数据（在设置-&gt;同步和备份-&amp;gt；管理旧任务-&gt;清楚所有数据）并在清单小助理备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）</string>
 	<string name="market_unavailable">非常抱歉，我们的软件无法在您的系统中成功运行。</string>
@@ -1073,8 +880,6 @@
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">删除筛选</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">自定义筛选</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">命名筛选并保存...</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1171,11 +976,7 @@
 	<string name="gtasks_GTA_clear_completed">清除已完成项</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">请登录到谷歌任务同步（Beta!）。目前不支持非迁移的“Google应用服务”帐户。</string>
 	<string name="gtasks_GLA_noaccounts">没有可用的Google帐户同步。</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">预览任务时若想保留缩进和排序，请到“筛选”页面选择 Google Tasks。清单小助理默认采用自有的任务排序设置。</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1187,8 +988,6 @@
 	<string name="gtasks_GLA_errorAuth">验证出错！请在您手机的帐户管理器中检查您的用户名和密码</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">您可能需要输入验证码。尝试从浏览器登陆后再回来重试：</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Tasks</string>
@@ -1209,20 +1008,6 @@
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">添加一两项任务来开始使用</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">轻点任务进行编辑和分享</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">轻点这里进行编辑或者分享这个列表</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">和您分享的人\n能帮助您建立您的列表或者一起完成任务</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">点击标签添加列表</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">轻点添加一个列表或者在列表间切换</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">清单小助理筛选警示</string>
@@ -1245,31 +1030,15 @@
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">请安装清单小助理本地插件！</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">打开CRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">任务区</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">指派给</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">指派给 \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">来自 %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">新增注释</string>
 	<string name="opencrx_creator_input_hint">创建者</string>
 	<string name="opencrx_contact_input_hint">指派给</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">打开CRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(不要同步)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">默认活动创建者</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">新活动将由 %s 创建</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">新活动默认不会被同步</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX 服务器</string>
 	<!--  preference description for OpenCRX host -->
@@ -1294,69 +1063,27 @@
 	<string name="opencrx_provider_summary">\"例如 \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">登录到 OpenCRX</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">用您的 OpenCRX 帐号登陆</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">登录</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">登录</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">密码</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">错误：请填充所有字段</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">错误：用户名或密码错误！</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">打开CRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s 任务已更新/点选检视细节</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">连接错误！请检查您的因特网连接。</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">用户名未指定！</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">密码未指定！</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">指派任务给此人:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;反指派&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">指派该任务给此创建者：</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;默认&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">打开CRX控制面板</string>
-	<string name="CFC_opencrx_in_workspace_text">在任务区: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">在任务区...</string>
-	<string name="CFC_opencrx_assigned_to_text">指派给：？</string>
-	<string name="CFC_opencrx_assigned_to_name">指派给...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">高级和其它设置</string>
 	<string name="EPr_powerpack_summary">未接电话提醒，语音输入和其它设置</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">匿名使用统计</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">不报告使用资料</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">传送匿名使用资料以协助我们改进清单小助理</string>
 	<string name="speech_err_network">网络出错！语音识别需要网络连接才能运作。</string>
 	<string name="speech_err_no_match">对不起，我听不明白喔！请再说一次吧。</string>
 	<string name="speech_err_default">对不起，语音识别遇到出错。请重新再试。</string>
 	<string name="premium_attach_file">附上一份文件</string>
 	<string name="premium_record_audio">录制一条便笺</string>
-	<string name="premium_no_files">没有附加文件</string>
 	<string name="premium_remove_file_confirm">您确定吗？无法恢复的喔</string>
 	<string name="audio_recording_title">正在录制音频</string>
 	<string name="audio_stop_recording">停止录制</string>
 	<string name="audio_speak_now">现在请讲！</string>
 	<string name="audio_encoding">正在编码……</string>
 	<string name="audio_err_encoding">音频编码出错</string>
-	<string name="audio_err_playback">对不起，系统不支持这种类型的音频文件</string>
 	<string name="search_market_audio">找不到播放器来处理这种音频类型。您想从安卓市场上下载一个音频播放器吗？</string>
 	<string name="search_market_audio_title">找不到音频播放器</string>
 	<string name="search_market_pdf">找不到 PDF 阅读器。您想从安卓市场上下载一个PDF 阅读器吗？</string>
@@ -1380,7 +1107,6 @@
 	<string name="file_err_copy">复制文件添加附件时出错</string>
 	<string name="file_err_download">下载文件时出错</string>
 	<string name="file_err_no_directory">糟糕！这个文件目录似乎并不存在。请在清单小助理设置中选择目录以存放文件。</string>
-	<string name="file_err_show">对不起，系统尚未支持这种类型的文件</string>
 	<string name="file_dir_dialog_ok">使用此目录</string>
 	<string name="file_dir_dialog_default">重设为默认值</string>
 	<string name="p_files_dir">高级下载设置</string>
@@ -1388,41 +1114,7 @@
 	<string name="p_files_dir_desc">将任务附件保存至：%s</string>
 	<string name="p_files_dir_desc_default">默认目录</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">无法完成交易</string>
-	<string name="billing_not_supported_message">付款服务暂时无法使用。您能继续使用这个应用软件，但是您无法成功购买。</string>
-	<string name="subscriptions_not_supported_title">无法订阅服务。</string>
-	<string name="subscriptions_not_supported_message">此设备上的Market账单服务暂时无法支持购买。 您能在http://tasks.com/premium上购买清单小助理高级版本。</string>
-	<string name="cannot_connect_title">无法连接网上Market</string>
-	<string name="cannot_connect_message">此应用程序无法连接Market。您的Market版本也许过低。您能继续使用此程序，但是您无法成功交易。</string>
-	<string name="restoring_transactions">恢复交易</string>
-	<string name="subscriptions_learn_more">了解更多</string>
-	<string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
-	<string name="kii_premium_abort">Special offer aborted</string>
-	<string name="kii_premium_declined">Special offer declined</string>
-	<string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
-	<string name="premium_offers_title">Special Offer</string>
-	<string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
-	<string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-	<string name="premium_offers_start">Get it free!</string>
-	<string name="premium_billing_title">清单小助理高级版本</string>
-	<string name="premium_buy_month">1 个月</string>
-	<string name="premium_buy_year">1 年</string>
-	<string name="premium_description_header">使用高级版本完成更多事情</string>
-	<string name="premium_description_1">附加文件到任务列表里</string>
-	<string name="premium_description_2">使用 tasks.com同步文件</string>
-	<string name="premium_description_3">通过邮件添加附件</string>
-	<string name="premium_description_4">将语音消息另存为音频文件</string>
-	<string name="premium_description_5">提前体验亮点</string>
-	<string name="premium_description_6">支持清单小助理高级版本团队！</string>
-	<string name="premium_speech_bubble_1">高级版本能够让您的效率升级！</string>
 	<string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
-	<string name="premium_already_subscribed">您已经购买了清单小助理高级版本(Tasks Premium)！</string>
-	<string name="premium_login_prompt">为了成功购买高级版本，您需要一个Tasks.com的账户。 请在我们的网站上登录或者注册。</string>
-	<string name="premium_success">谢谢购买清单小助理高级版本(Tasks Premium)！</string>
-	<string name="premium_success_with_server_error">Thanks for subscribing to Tasks Premium! The new features will be unlocked for you on tasks.com soon, and should be available on your phone right away.</string>
-	<string name="premium_verification_error">此Google Play 帐户的高级版本正与另一个用户连接。访问tasks.com/users/profile并连接您帐户的另一个电子邮箱。</string>
-	<string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-	<string name="premium_checking_for_purchases">Checking for purchases...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1537,12 +1229,6 @@
 	<string name="rmd_EPr_persistent_desc_true">提醒必须逐个清除</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">通知可经由点选“清除全部”清除</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Social encouragement</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1906,8 +1592,6 @@
 	<string name="TEA_tags_left">您离开了共享列表 %1$s，影响到 %2$d 个任务</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">%3$d 项任务由 %1$s 重命名为 %2$s。</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">我们留意到您有些列表的名称是相同的，只是大写的地方不同而已。我们认为您可能是打算将他们放在同一个列表，所以我们已经合并了这些重名列表。但不用担心：原来的列表仅仅用了数字来重命名（例如 Shopping_1、Shopping_2）。如果您不想这样，您可以直接删除新合并的列表！</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">设置：</string>
 	<!-- Header for tag activity -->
@@ -2022,7 +1706,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在任务提醒时会以语音说出任务名称</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">语音输入设定</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

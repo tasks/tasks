@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Informacja</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">Błąd!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Zapisz</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Tak</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">Nie</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Zamknij</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Ukończone</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">Synchronizacja w tle wyłączona</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Aktualnie ustawione na: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Tylko połączenie Wi-Fi</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">Synchronizacja w tle przebiega tylko poprzez Wi-Fi</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">Synchronizowanie w tle zawsze, niezależnie od rodzaju połączenia</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Działania</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Synchronizuj teraz</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Zaloguj &amp; Synchronizuj!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Zalogowany jako:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Raport statusu</string>
 	<!-- Sync: last error click for more -->

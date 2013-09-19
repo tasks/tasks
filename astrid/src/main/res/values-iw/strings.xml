@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>הגדרות רשימה</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">המשימות של %s. טְפַח כדי לראות הכל</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">משימות לא מוקצות. טְפַח כדי לקבל את כל המשימות.</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">פרטי: טְפַח כדי לערוך או לשתף</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">רַעְנֵן</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">רשימה</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">משותפת עם</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">שתף עם אי מי שיש לו כתובת דוא״ל</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">תמונת רשימה</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">הכנס תיאור כאן</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">הכנס שם רשימה</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">עליך להיות מחובר לאתר אסטריד בכדי לשתף רשימות. אנא התחבר או סמן רשימה זו כפרטית.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">השתמש באסטריד לשתף רשימות קניות, תכנוני מסיבות או פרויקטים ותדע מיד כשהמשימה בוצעה!</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">על מי להטיל את המשימה?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">עלי</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">לא מוטלת</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">בחר איש קשר</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">שתף עם:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">שתפי</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">רשימה: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">הזמנה</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">עזרי לי לבצע את זה!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">חברים ברשימה</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">שותפים באסטריד</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">פייסבוק</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">טוויטר</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">כתובת דוא״ל לא תקינה: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">עליך להתחבר לאתר אסטריד כדי לשתף משימות!</string>
-	<string name="actfm_EPA_login_button">התחברות</string>
-	<string name="actfm_EPA_dont_share_button">אל תשתפי</string>
 	<string name="actfm_EPA_add_person_to_list_title">משימה הוטלה</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s אינו שותף ברשימה זו. הֲתִּרְצֶה להוסיף את %2$s לרשימה זו?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">הוסף לרשימה</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">אל תוסיף</string>
 	<string name="actfm_list_owner">(owner)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">ברוך הבא ל-Tasks.com!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">אתר tasks.com מאפשר גישה מקוונת למשימות, ומאפשר לך לשתף אותן או להקצותן לאחרים</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">התחבר באמצעות פייסבוק</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">התחבר באמצעות גוגל</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">התחבר: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">לא %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">שם פרטי</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">שם משפחה</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">דוא״ל</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">סיסמא</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">הרשמה</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">התחברות</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">בחר חשבון גוגל</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">אנא התחבר למערכת</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">שם המשתמש כבר קיים. אולי תרצה להתחבר עם שם זה.</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">מצטערים, הסיסמא הזו אינה נכונה. אנא נסה שנית .</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">שכחת סיסמא?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">אנא הזן את הדוא״ל שלך </string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">איפוס ססמא נשלח ל-%s</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">לא רשום משתמש עם דוא״ל זה. נסה ליצור חשבון חדש.</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">העתקת רשימה</string>
 	<string name="actfm_feat_list_suffix">(העתק)</string>
@@ -184,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">משימה הועתקה</string>
 	<string name="actfm_feat_list_clone_empty">אין משימות להעתיק</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">מצב - מחובר כ %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">השתמש ב־HTTPS</string>
-	<string name="actfm_https_enabled">HTTPS מופעל (איטי יותר)</string>
-	<string name="actfm_https_disabled">HTTPS מָנוּעַ (מהיר יותר)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">סוג חשבון</string>
-	<string name="actfm_account_info">נתוני חשבון</string>
-	<string name="actfm_account_info_summary">מצב ואפשרויות</string>
-	<string name="account_type_title_not_logged_in">הרשמה ופתיחת חשבון חינם</string>
-	<string name="account_type_summary_not_logged_in">גישה מקוונת למשימות, שיתוף משימות והטלתן</string>
-	<string name="actfm_account_premium">פרימיום</string>
-	<string name="actfm_account_basic">בסיסי</string>
 	<string name="actfm_inapp_billing">שידרוג לפרימיום</string>
 	<string name="actfm_inapp_billing_summary">צרפ קבצים, גיבוי קולי, תמיכת פרימיום ועוד</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">לייק בפייסבוק</string>
-	<string name="share_with_twitter">עקוב בטוויטר</string>
-	<string name="share_with_google">שיתוף בגוגל+</string>
-	<string name="share_speech_bubble">ע\"י שיתוף, תעזור לאחרים להיות פּוֹרִיִּים יותר!</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">שימוש באסטריד ובגוגל ללא כפילויות</string>
-	<string name="sync_upgr_both_body">הבה נאמר את האמת.״משימות גוגל״ הוא מוצר נוח, אבל לא מגניב כמו אסטריד. כדי למנוע כפילויות, לא תוכל יותר לסנכרן ברקע בו זמנית  גם מול tasks.com   גם מול משימות גוגל. תוכל עדיין ליבא את משימות גוגל באמצעות הגדרות/גיבוי וסינכרון, או לשנמך את פעילותך לסנכרון מול גוגל בלבד.</string>
-	<string name="sync_upgr_both_btn1">השאר עם אסטריד</string>
-	<string name="sync_upgr_both_btn2">שנמוך ל״משימות גוגל״</string>
-	<string name="sync_upgr_gtasks_only_title">שדרג חינם לסנכרון מול אתר אסטריד</string>
-	<string name="sync_upgr_gtasks_only_body">קבל גישה למשימות שלך מכל המכשירים של, כולל מג\'ימייל,  בעזרת סינכרון מול אתר אסטריד. שדרג לסנכררון מול אתר אסטריד )תוכל תמיד לחזור ל״משימות גוגל״ אבל אני בטוח שלא תרצה לעשות זאת).</string>
-	<string name="sync_upgr_gtasks_only_btn1">שדרג לסנכרון מול אתר אסטריד</string>
-	<string name="sync_upgr_gtasks_only_btn2">השאר עם ״משימות גוגל״</string>
-	<string name="sync_upgr_neither_title">סינכרון וגיבוי חינם!</string>
-	<string name="sync_upgr_neither_body">אל תשים את משימותיך על קרן הצבי! הגיבוי החדש והמשופר מול אתר אסטריד יאפשר לך לשמור את משימותיך ולגשת אליהן מכל מקום.</string>
-	<string name="sync_upgr_neither_btn1">הרשם עכשו</string>
-	<string name="sync_upgr_logged_out">התנתקת מאסטריד</string>
-	<string name="actfm_logout_clear_tasks_title">לְהָסִיר את הנתונים?</string>
-	<string name="actfm_logout_clear_tasks_body">הֲתִּרְצֶה להסיר את המשימות והרשימות?</string>
-	<string name="actfm_logout_clear_tasks_yes">הסרת נתונים</string>
-	<string name="actfm_logout_clear_tasks_no">שמירת הנתונם</string>
-	<string name="actfm_logged_in_different_user_title">התחברות עם משתמש אחר</string>
-	<string name="actfm_logged_in_different_user_body">הֲתִּרְצֶה למחוק משימות שעל הטלפון טרם הסנכרון?</string>
-	<string name="actfm_logged_in_different_user_keep_data">שמירת הנתונם</string>
-	<string name="actfm_logged_in_different_user_clear_data">הסרת כל הנתונים</string>
-	<string name="actfm_logged_in_different_user_processing">מעבדת נתונים קיימים...</string>
 	<string name="actfm_tag_not_authorized_title">Not authorized</string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">צור רשימה חדשה</string>
@@ -275,7 +151,6 @@
 	<string name="backup_BPr_auto_enabled">הגיבוי יתבצע מדי יום</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">יש לך כבר גיבוי בענן באתר tasks.com</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">ניהול גיבויים</string>
@@ -285,8 +160,6 @@
 	<string name="backup_BAc_import">ייבוא משימות</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">ייצוא משימות</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">הקלק לגיבוי חינם בענן באתר tasks.com</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">שגיאת ייבוא</string>
@@ -329,17 +202,12 @@
 	<string name="DLG_upgrading">משדרגת את משימותיך...</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">זמן (שעות : דקות)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">נדרש עדכון לתכנת אסטריד לגירסה האחרונה בחנות היישומים של גוגל. אנא עשה זאת לפני שתמשיך, או המתן מספר שניות.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">אני מסכים</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">אינני מסכים</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Tasks תנאי שימוש</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">נא המתן</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">טוענת...</string>
 	<!-- Dialog - dismiss -->
@@ -347,9 +215,7 @@
 	<string name="DLG_ok">אישור</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">בטל</string>
-	<string name="DLG_more">עוד</string>
 	<string name="DLG_undo">בטל פעולה אחרונה</string>
-	<string name="DLG_warning">התראה</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">הקלק כדי לקבוע</string>
@@ -447,8 +313,6 @@
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">אַיֵּן משימה</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">מיון, תתי-משימות, ומשימות מוסתרות</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">משימות מוסתרות</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -512,8 +376,6 @@
 	<string name="TEA_importance_label">עדיפות</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Assigned to %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">בזמן מסויים?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -542,8 +404,6 @@
 	<string name="TEA_menu_save">שמירת השינויים</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">לא לשמור</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">מחיקת משימה</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">רַעְנֵן הערות</string>
 	<string name="TEA_menu_comments">הערות</string>
@@ -555,10 +415,6 @@
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">פעילות</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">פרטים</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">רעיונות</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -608,9 +464,6 @@
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">למתי?</string>
 	<string name="TEA_new_task">משימה חדשה</string>
-	<string name="WSV_click_to_load">טְפַח עלי כדי לחפש דרכים לבצע זאת!</string>
-	<string name="WSV_not_online">ביכולתי לעשות יותר למענך כאשר אני מחוברת לַמִּרְשֶׁתֶת. אנא בדוק את החיבור.</string>
-	<string name="TEA_contact_error">מצטערת, לא מצאתי את כתובת הדוא״ל עבור איש קשר זה.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -713,25 +566,15 @@
 	<string name="UpS_changelog_title">מה חדש אצל אסטריד?</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">חדשות Tasks אחרונות</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">התחבר כדי לראות דו״ח על\n\nהתקדמותך ועל הפעילות\n\nברשימות המשותפות.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">הגדרות אסטריד</string>
-	<string name="EPr_share_astrid">שיתוף אסטריד</string>
-	<string name="EPr_share_astrid_summary">ספר על אסטריד ברשתות חברתיות</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">מופסק</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">חזות</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">ערכות נושא, חֲפִיצִים, שורת משימות, ערוך מסך</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">שאלות נפוצות</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">חשבון: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">הדרכה, תשובות לשאלות נפוצות, אודות</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">אורך רשימת משימות</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -760,10 +603,6 @@
 	<string name="EPr_showNotes_desc_disabled">התיאור יהיה נגיש ממסך עריכת המשימה</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">התיאור יוצג תמיד</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">שורת משימות דחוסה</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">דחוס את שורות המשימות כך שיתאימו לכותרת.</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -771,11 +610,6 @@
 	<string name="EPr_fullTask_desc_enabled">כותרות משימה מלאות תוצגנה</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">טען אוטומטית את לשונית הרעיונות</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">חיפוש באינטרנט בעבור לשונית הרעיונות יופעל כשהלשונית תוקלק</string>
-	<string name="EPr_ideaAuto_desc_disabled">חיפוש באינטרנט עבור לשונית הרעיונות יעשה ידנית בלבד</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>מקורי</item>
@@ -792,10 +626,6 @@
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">השתמש בְּמַסְנְנִים</string>
 	<string name="EPr_use_filters_subtitle">מאפשר לך ליצור מַסְנְנִים מותאמים אישית</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">הצג חברים ברשימה ברשימות משותפות</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">תיבות טקסט פשוטות</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">בקרת הוספה מהירה מתקדם</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -816,25 +646,11 @@
 	<string name="EPr_theme_widget_title">ערכת חֲפִיץ מסך</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">חזות שורת המשימה</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">השתמש בבוחר אנשי הקשר</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">בוחר אנשי הקשר של המערכת יוצג בחלון הטלת משימה</string>
-	<string name="EPr_use_contact_picker_desc_disabled">בוחר אנשי הקשר של המערכת לא יוצג</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">אַפְשְׁרִי תוספי צד שלישי</string>
-	<string name="EPr_third_party_addons_desc_enabled">תוספי צד ג\' יאופשרו</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">תוספי צד ג\' יִמָּנְעוּ</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">רעיונות למשימה</string>
-	<string name="EPr_ideas_tab_description">קבל רעיונות שיסייעו לך לבצע משימות</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">משך אירוע יומן</string>
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
 	<string name="EPr_force_phone_layout">מקלדת טלפון</string>
-	<string name="EPr_show_featured_lists">הצג רשימות מועדפות</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">קביעת קונפיגורציה</string>
 	<string name="EPr_config_default">מחדל</string>
@@ -956,12 +772,6 @@
 	<string name="p_about">אודות אסטריד</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">גירסא נוכחית: %s\n אסטריד היא תכנת קוד פתוח המתוחזקת בגאווה ע״י Todoroo, Inc.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">תמיכה</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">פורומים</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">פרימיום</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
@@ -978,10 +788,6 @@
 אחרת , יתכן שאסטריד לא תוכל להודיע לך כאשר זמן היעד של המשימות שלך יגיע.</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">אני לא אהרוג את אסטריד!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">אסטריד הינה תכנת קוד פתוח פופולרית לניהול משימות ומטלות אשר תוכננה כדי לסייע 
-לך לעשות יותר. התכנה כוללת תזכורות, תגיות, סנכרון, התאמה מקומית, חפיץ מסך, ועוד.</string>
 	<string name="DB_corrupted_title">בסיס נתונים פגום</string>
 	<string name="DB_corrupted_body">הו לא! נראה כי בסיס הנתונים אינו תקין.
 אם אתה נתקל השגיאה זאת האופן תדיר, אנו מציעים שתמחק את כל הנתונים
@@ -1079,8 +885,6 @@
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">מַחֲקִי מַסְנֵן</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">מַסְנֵן מותאם אישית</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">בחר שם לַמַּסְנֵן כדי לשמור אותו...</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1177,11 +981,7 @@
 	<string name="gtasks_GTA_clear_completed">הסירי משימות שבוצעו</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">אנא התחבר לשירותי הסנכרון של ״משימות גוגל״. חשבונות של יישומי הרשת של גוגל אשר לא הומרו, אינם נתמכים כעת.</string>
 	<string name="gtasks_GLA_noaccounts">לא מצאתי חשבון גוגל לסנכרן איתו</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">כדי לראות את המשימות שלך מוזחות ובסדרן הנכון, לך למסך הַמַּסְנְנִים ובחר ברשימה של משימות גוגל. כברירת מחדל, אסטריד משתמשת בהגדרות המיון שלה עבור משימות.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1193,8 +993,6 @@
 	<string name="gtasks_GLA_errorAuth">האימות נכשל! אנא בדוק את שם המשתמש והסיסמא במנהל החשבונות של הטלפון שלך.</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">מצטערת, נתקלתי בבעיה בהתקשרות לשרתי גוגל. אנא נסה שוב מאוחר יותר.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">יתכן שנתקלת בקאפצ\'ה. אנא נסה להתחבר מהדפדפן, ואחר כך חזור לכאן ונסה שנית:</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">״משימות גוגל״</string>
@@ -1215,20 +1013,6 @@
 	<string name="gtasks_import_dlg_title">ייבוא ״משימות גוגל״</string>
 	<string name="gtasks_import_add_task_ok">הוסף משימה</string>
 	<string name="gtasks_import_add_task_cancel">אל תוסיף משימה</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">התחל ע״י הוספת משימה או שתיים</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">גע במשימה כדי לערוך ולשתף</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">טְפַח כדי לערוך או לשתף רשימה זו</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">אנשים שתשתף עימם יכולים לעזור\nלך לבנות את הרשימה או להשלים משימות.</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">טְפַח כדי להוסיף רשימה</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">טְפַח כדי להוסיף רשימה או לעבור בין רשימות</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">התראת מַסְנֵן של אסטריד</string>
@@ -1251,31 +1035,15 @@
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">אנא התקן את תוסף אסטריד להגדרות איזור</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">משטחי עבודה</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">הוטל על</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">הוטל על \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">נוצר ע״י %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">הוסף הערה</string>
 	<string name="opencrx_creator_input_hint">יוצר</string>
 	<string name="opencrx_contact_input_hint">הוטל על</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(אל תסנכרני)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">ברירת מחדל של יוצר פעילויות</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">פעילויות חדשות יווצרו ע״י: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">פעילויות חדשות לא תסונכרנה במחדל</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">שרת OpenCRX</string>
 	<!--  preference description for OpenCRX host -->
@@ -1300,69 +1068,27 @@
 	<string name="opencrx_provider_summary">\"לדוגמא: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">התחבר ל־OpenCRX</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">התחבר עם חשבון OpenCRX</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">התחבר</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">כניסה</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">סיסמא</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">שגיאה: מַלֵּא את כל השדות</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">שגיאה: שם משתמש או סיסמא אינם נכונים!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s משימות עודכנו / הקלק לפרטים נוספים</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">שגיאה בחיבור! בדוק את חיבור הרשת שלך</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">לא הקלדת שם משתמש</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">לא הקלדת סיסמא</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">הטל משימה זו על אדם זה:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;לא מוטלת&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">הטל משימה זו על היוצר:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;מחדל&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">הגדרות OpenCRX</string>
-	<string name="CFC_opencrx_in_workspace_text">במשטח עבודה: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">במשטח עבודה...</string>
-	<string name="CFC_opencrx_assigned_to_text">הוטל על: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">הוטל על...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">פרימיום והגדרות שונות</string>
 	<string name="EPr_powerpack_summary">תזכורת קולית הוחמצה, קלט קולי והגדרות כלליות</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">סטטיסטיקת שימוש אנונימית</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">נתוני שימוש לא ידווחו</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">עזור לנו לשפר את אסטריד ע״י שליחת נתוני שימוש אנונימיים</string>
 	<string name="speech_err_network">שגיאת חיבור! זיהוי דיבור דורש חיבור לאינטרנט.</string>
 	<string name="speech_err_no_match">סליחה, לא הבנתי! אנא נסה שוב.</string>
 	<string name="speech_err_default">סליחה, מזהה הדיבור נתקל בבעיה. אנא נסה שנית.</string>
 	<string name="premium_attach_file">צרף קובץ</string>
 	<string name="premium_record_audio">הקלד הערה</string>
-	<string name="premium_no_files">לא צורפו קבצים</string>
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
 	<string name="audio_speak_now">דַּבֵּר כעת!</string>
 	<string name="audio_encoding">מקודדת...</string>
 	<string name="audio_err_encoding">שגיאה בקידוד שֵׁמַע</string>
-	<string name="audio_err_playback">\"מצטערת, אך המערכת אינה תומכת בקבצי  שֵׁמַע מסוג זה\"</string>
 	<string name="search_market_audio">לא מצאתי נגן לסוג זה של קובץ שֵׁמַע. הֲתִּרְצֶה להוריד נגן מחנות גוגל?</string>
 	<string name="search_market_audio_title">לא נמצא נגן לקבצי שֵׁמַע</string>
 	<string name="search_market_pdf">לא מצאתי קורא קבצי PDF. הֲתִּרְצֶה להוריד קורא קבצי PDF מחנות היישומים?</string>
@@ -1386,7 +1112,6 @@
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="file_err_download">שגיאה בהורדת הקובץ</string>
 	<string name="file_err_no_directory">אווופס! נראה שהקבצים מהתיקייה לא קיימים. יש לבחור תיקייה לשמירת הקבצים אליה בהעדפות אסטריד.</string>
-	<string name="file_err_show">מצטערת, אך המערכת אינה תומכת עדיין בקבצים מסוג זה</string>
 	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
 	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>
 	<string name="p_files_dir">תיקיית הורדות פרימיום</string>
@@ -1394,48 +1119,7 @@
 	<string name="p_files_dir_desc">צְרוּפוֹת נשמרו בתיקיה %s</string>
 	<string name="p_files_dir_desc_default">תיקייית ברירת מחדל</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">לא ניתן לרכוש ישומים כעת</string>
-	<string name="billing_not_supported_message">שירות החיובים בחנות היישומים אינו זמין כעת.
-תוכל להמשיך ולהשתמש באסטריד, אך
-לא תוכל לבצע רכישות.</string>
-	<string name="subscriptions_not_supported_title">לא ניתן לרכוש מִנּוּיִים</string>
-	<string name="subscriptions_not_supported_message">שוק החיוב.
-השירות על התקן זה אינו תומך בְּמִנּוּיִים כעת. אתה מוזמן להרשם לשירותי הפרימיום של אסטריד בכתובת: http://tasks.com/premium</string>
-	<string name="cannot_connect_title">איני מצליחה להתחבר לחנות היישומים</string>
-	<string name="cannot_connect_message">איני מצליחה להתחבר לחנות היישומים.
-יתכן והגירסה של חנות הישומים שברשותך איננה עדכנית.
-תוכל להמשיך להשתמש באסטריד, אך
-לא תוכל לבצע רכישות.</string>
-	<string name="restoring_transactions">משחזר טרנזאקציות</string>
-	<string name="subscriptions_learn_more">מידע נוסף</string>
-	<string name="kii_premium_success">תודה על שנענית להצעה המיוחדת שלנו. מיד אפתח לחודש את הנעילה של אסריד פרימיום.</string>
-	<string name="kii_premium_abort">ההצעה המיוחדת בוטלה</string>
-	<string name="kii_premium_declined">סירבת להצעה המיוחדת</string>
-	<string name="kii_premium_error">הטיפול בעיבוד הצעה המיוחדת לא הצליח. אנא נסה שוב מאוחר יותר.</string>
-	<string name="premium_offers_title">הצעה מיוחדת</string>
-	<string name="premium_offers_subtitle">רוצה חודש של אסטריד פרימיום חינם?</string>
-	<string name="premium_offers_detail">כדי לקבל חודש חינם של אסטריד פרימיום, יהיה עליך לצפות בסירטון חסות קצר. (הם יבקשו את כתובת הדוא\"ל שלך</string>
-	<string name="premium_offers_start">קבל חינם!</string>
-	<string name="premium_billing_title">אסטריד פרימיום</string>
-	<string name="premium_buy_month">חודש</string>
-	<string name="premium_buy_year">שנה</string>
-	<string name="premium_description_header">עשה יותר בעזרת פרימיום!</string>
-	<string name="premium_description_1">צרף קבצים למשימות
-(pdfs,doc,ppt...)</string>
-	<string name="premium_description_2">סינכרון קבצים עם אתר tasks.com</string>
-	<string name="premium_description_3">הוסף צְרוּפוֹת דרך דוא״ל</string>
-	<string name="premium_description_4">שמור הערה קולית כקובץ אודיו</string>
-	<string name="premium_description_5">תצוגה מקדימה של פיצ\'רים עתידיים</string>
-	<string name="premium_description_6">תמוך בצוות של אסטריד!</string>
-	<string name="premium_speech_bubble_1">חבילת הפרימיום תשדרג את הפרודוקטיביות שלך!</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
-	<string name="premium_already_subscribed">הנך כבר מָנוּי על שירותי הפרימיום של אסטריד!</string>
-	<string name="premium_login_prompt">יש צורך בחשבון באתר tasks.com כדי להרשם לגירסת הפרימיום. אנא התחבר או הרשם.</string>
-	<string name="premium_success">תודה על הַמִּנּוּי לאסטריד פרימיום!</string>
-	<string name="premium_success_with_server_error">תודה על הַמִּנּוּי לאסטריד פרימיום! התכונות החדשות תיפתחנה לשימוש באתר tasks.com בקרוב, ותהיינה זמינות בטלפון שלך מיידית.</string>
-	<string name="premium_verification_error">מָנוּי הפרימיום לחשבון בחנות הישומים של גוג מחובר למשתמש אחר. בכדי לקשר כתובות דוא״ל נוספות לחשבונך,  בקר ב: tasks.com/users/profile</string>
-	<string name="premium_check_for_purchases">רכשת כבר את חבילת הפרימיום? הקלק כאן בכדי לבדוק את היסטורית הרכישות בחנות היישומים של גוגל</string>
-	<string name="premium_checking_for_purchases">בודקת רכישות...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1550,12 +1234,6 @@
 	<string name="rmd_EPr_persistent_desc_true">יש לצפות בכל התראה בנפרד כדי להסירה</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">כפתור «הָסִירִי הכל» יסיר את כל ההתראות</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">עידוד חברתי</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">התזכורות תראינה מי סומך עליך לביצוע משימות משותפות.</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">התזכורות לא תראינה מי סומך עליך לביצוע משימות משותפות.</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1919,8 +1597,6 @@
 	<string name="TEA_tags_left">\"עזבת את הרשימה המשותפת  %1$s,   %2$d משימות השתנו\"</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">\"החלפתי את  %1$s ב %2$s עבור %3$d משימות\"</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">\"שמתי לב שיש לך רשימות ששמן נבדל זו מזו רק בגודל האותיות הלועזיות. לדעתי, התכוונת לאותה רשימה, ועל כן מיזגתי את הרשימות. אם זה אינו מה שרצית, תוכל תמיד למחוק את הרשימה הממוזגת. לידיעתך, הרשימות המקומיות נשמרו תוך הוספת מספר לשמן (לדוגמא,  Shopping_1, Shopping_2).\"</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">הגדרות רשימה:</string>
 	<!-- Header for tag activity -->
@@ -2035,7 +1711,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">הגדרות קלט קולי</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

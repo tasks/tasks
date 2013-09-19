@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">信息</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">错误！</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">保存</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">确定</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">取消</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">关闭</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">完成</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">后台同步已关闭</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">目前同步间隔：%s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Wifi 才可使用的设置</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">使用 Wifi 才启动后台同步</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">总是使用后台同步</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">动作</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">现在同步</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">登陆并同步！</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">已经登录为：</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">状态报告</string>
 	<!-- Sync: last error click for more -->

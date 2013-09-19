@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Informace</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">Chyba!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Uložit</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Ano</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">Ne</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Zavřít</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Hotovo</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">Jejda, vypadá to, že se vyskytla chyba! Tady je co se stalo:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Nastavení jen pro Wifi</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">Synchronizovat na pozadí se bude pouze při zapnuté Wifi</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">Synchronizovat na pozadí se bude vždy</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Akce</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Synchronizovat nyní</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Přihlášen jako:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Stavové hlášení</string>
 	<!-- Sync: last error click for more -->

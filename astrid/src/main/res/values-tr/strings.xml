@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>Liste Ayarları</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">%s\'e ait görevler. Hepsi için dokunun.</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">Atanmamış görevler. Tümü için dokunun.</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">Özel: Paylaşmak veya düzenlemek için dokunun</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Yenile</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Liste İsmi:</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">Paylaşılanlar:</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">E-posta adresi olan herhangi biri ile paylaş</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Liste Resmi</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">Bir açıklama yazın</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">Liste paylaşmak için Tasks.com\'da oturum açmış olmalısınız! Lütfen oturum açın ya da bunu özel bir liste yapın.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">Alışveriş listelerinizi, parti planlarınızı ya da ekip projelerinizi paylaşmak için Tasks \'i kullanın ve kimlerin işleri tamamladığını anında görün!</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">Bunu kim yapmalı?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">Ben</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">Herhangi biri</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">Bir kişi seç</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">Şununla paylaş:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Share</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">Liste: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">Davet İletisi:</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">Bunu bitirmeme yardım et!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">Liste Üyeleri</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">Tasks Arkadaşları</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Geçersiz Mail: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">Görev paylaşabilmek için Tasks.com\'a kayıtlı olmalısınız!</string>
-	<string name="actfm_EPA_login_button">Giriş yap</string>
-	<string name="actfm_EPA_dont_share_button">Paylaşma</string>
 	<string name="actfm_EPA_add_person_to_list_title">Görev atandı</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s bu listede paylaşılmadı. %2$s bu listeye eklensin mi?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Listeye ekle</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Ekleme</string>
 	<string name="actfm_list_owner">(owner)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">Tasks.com \'a Hoşgeldiniz!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle görev paylaşımı yapmanızı sağlar.</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">Facebook ile bağlan</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">Google ile bağlan</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Sign in: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Not %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">Ad</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">Soyad</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">E-Posta</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">Parola</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">Üye Ol</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">Oturum Aç</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">Lütfen oturum açın:</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">Kullanıcı zaten mevcut. Bunun yerine lütfen giriş yapın.</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">Özür dileriz, bu şifre geçersiz. Lütfen tekrar deneyin.</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">Şifrenizi mi unuttunuz?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">Lütfen e-posta adresinizi giriniz</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">Şifre sıfırlayacı %s\'a gönderildi</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">Belirtilen e-posta adresine uyan kullanıcı bulunamadı. Üye olmayı deneyin!</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Listeyi kopyala</string>
 	<string name="actfm_feat_list_suffix">(Kopyala)</string>
@@ -184,56 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">Görev kopyalandı</string>
 	<string name="actfm_feat_list_clone_empty">Kopyalanmış görev bulunmuyor</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">Durum - Oturum açıldı: %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">HTTPS kullan</string>
-	<string name="actfm_https_enabled">HTTPS etkin (yavaş)</string>
-	<string name="actfm_https_disabled">HTTPS etkin değil (hızlı)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">Hesap Türü</string>
-	<string name="actfm_account_info">Hesap Bilgisi</string>
-	<string name="actfm_account_info_summary">Durum ve seçenekler</string>
-	<string name="account_type_title_not_logged_in">Ücretsiz bir hesap için üye ol</string>
-	<string name="account_type_summary_not_logged_in">Görevlerine çevrimiçi ulaş, listelerini paylaş ve atama yap</string>
-	<string name="actfm_account_premium">Premium</string>
-	<string name="actfm_account_basic">Temel</string>
 	<string name="actfm_inapp_billing">Premium\'a Yükselt</string>
 	<string name="actfm_inapp_billing_summary">Dosya ekle, ses yedekleri, premium destek ve fazlası</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">Facebook\'ta Beğen</string>
-	<string name="share_with_twitter">Twitter ile takip et</string>
-	<string name="share_with_google">Google+ ile paylaş</string>
-	<string name="share_speech_bubble">Paylaşım ile, diğerlerinin daha verimli olmasını sağlarsınız!</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Using Tasks.com + Google without Duplicates</string>
-	<string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Tasks. To avoid duplicates you can no longer sync with Tasks.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-	<string name="sync_upgr_both_btn1">Stick with Tasks</string>
-	<string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
-	<string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
-	<string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-	<string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
-	<string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-	<string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
-	<string name="sync_upgr_neither_btn1">Sign up now</string>
-	<string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
-	<string name="actfm_logout_clear_tasks_title">Clear data?</string>
-	<string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-	<string name="actfm_logout_clear_tasks_yes">Clear data</string>
-	<string name="actfm_logout_clear_tasks_no">Keep data</string>
-	<string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-	<string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-	<string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-	<string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
 	<string name="actfm_tag_not_authorized_title">Not authorized</string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">Create new list</string>
@@ -275,7 +151,6 @@
 	<string name="backup_BPr_auto_enabled">Günlük yedekleme yapılacak</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">Tasks.com üzerinde zaten bulut yedeklemeniz mevcut!</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Yedekleri Yönet</string>
@@ -285,8 +160,6 @@
 	<string name="backup_BAc_import">Görevleri İçe Aktar</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Görevleri Dışa Aktar</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">Tasks.com üzerinde ücretsiz bulut yedeklemenizi yapmak için tıklayın</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">İçe Aktarma Hatası</string>
@@ -329,17 +202,12 @@
 	<string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">Tasks Google Play\'deki en son sürüme yükseltilmelidir! Lütfen devam etmeden bunu yapın ya da bir kaç saniye bekleyin.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Kabul Et</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Reddet</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Tasks Kullanım Koşulları</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">Lütfen Bekleyin</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">Yükleniyor...</string>
 	<!-- Dialog - dismiss -->
@@ -347,9 +215,7 @@
 	<string name="DLG_ok">Tamam</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">Vazgeç</string>
-	<string name="DLG_more">Daha Fazla</string>
 	<string name="DLG_undo">Geri al</string>
-	<string name="DLG_warning">Uyarı</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
@@ -447,8 +313,6 @@
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Görevi Temizle</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">Sınıflama, Altgörevler ve Gizli</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Gizli Görevler</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -512,8 +376,6 @@
 	<string name="TEA_importance_label">Priority</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Assigned to %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">Belirli bir zamanda?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -542,8 +404,6 @@
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Kaydetme</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">Görevi Sil</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Refresh comments</string>
 	<string name="TEA_menu_comments">Yorumlar</string>
@@ -555,10 +415,6 @@
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Etkinlik</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">Ayrıntılar</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">Fikirler</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -608,9 +464,6 @@
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Son zamanı nedir?</string>
 	<string name="TEA_new_task">Yeni Görev</string>
-	<string name="WSV_click_to_load">Bunu yapmanın yollarını bulmak için bana dokunun!</string>
-	<string name="WSV_not_online">İnternete bağlanırsam daha fazlasını yapabilirim. Lütfen bağlantınızı denetleyin.</string>
-	<string name="TEA_contact_error">Üzgünüz! Seçilmiş kişi için bir e-posta adresi bulunamadı.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -713,25 +566,15 @@
 	<string name="UpS_changelog_title">Tasks\'te Yenilikler Neler?</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">En Son Tasks Haberleri</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">Paylaşılan listelerdeki etkinlik\nilerlemenizin kaydını görmek\niçin oturum açın.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Tasks: Ayarlar</string>
-	<string name="EPr_share_astrid">Share Tasks</string>
-	<string name="EPr_share_astrid_summary">Beğendiğiniz sosyal ağınızda Tasks\'ten bahsedin</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">devre dışı</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Görünüm</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">S.S.S.</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">Hesap: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">Tutorial, FAQ, about</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Görev Listesi Boyutu</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -760,10 +603,6 @@
 	<string name="EPr_showNotes_desc_disabled">Description will be accessible from the task edit screen</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">Sıkışık Görev Sırası</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">Başlığın sığması için görev sıralarını sıkıştır</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -771,11 +610,6 @@
 	<string name="EPr_fullTask_desc_enabled">Tüm görev başlığı gösterilecek</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">Fikirleri Kendiliğinden-Yükle Sekmesi</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">Fikirler için olan aramalar sekmesi, sekme tıklandığında belirecek</string>
-	<string name="EPr_ideaAuto_desc_disabled">Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle belirecek</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
@@ -792,10 +626,6 @@
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Use filters</string>
 	<string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Show list members in shared lists</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Simple text boxes</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -816,25 +646,11 @@
 	<string name="EPr_theme_widget_title">Bileşen Teması</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">Kişi seçiciyi kullan</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">Sistemin kişi seçici seçeneği görev atama penceresinde görüntülenecek</string>
-	<string name="EPr_use_contact_picker_desc_disabled">Sistem kişi seçici seçeneği görüntülenmeyecek</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">Üçüncü parti eklentileri etkinleştir</string>
-	<string name="EPr_third_party_addons_desc_enabled">Üçüncü taraf eklentiler etkin olacak</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">Üçüncü taraf eklentiler etkisiz olacak</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">Task ideas</string>
-	<string name="EPr_ideas_tab_description">Görevleri tamamlamak için fikir al</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
 	<string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
 	<string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
 	<string name="EPr_force_phone_layout">Telefon yerleşimini kullan</string>
-	<string name="EPr_show_featured_lists">Öne çıkan listeleri göster</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">Default</string>
@@ -956,12 +772,6 @@
 	<string name="p_about">Tasks Hakkında</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Güncel versiyon: %s\n\n Tasks açık kaynak kodlu olarak Todoroo, Inc tarafından gururla sürdürülmektedir.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">Destek</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">Forum</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">Premium</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
@@ -976,9 +786,6 @@
 	<string name="task_killer_help">Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! Mümkünse, Tasks\'i programın muafiyet listesine ekleyin ki kapatılamasın. Aksi takdirde, Tasks görevlerin tarihi geldiğinde size bildiremeyebilir.\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Tasks\'i Kapatmayacağım!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">Tasks çok sevilen, yapacaklarınızı yapmanıza yardım eden açık kaynak kodlu bir hatırlatma / görev yönetimi programıdır. Hatırlatmalar, etiketlemeler, senkronizasyon, Locale eklentisi, widget ve daha fazla özelliğe sahiptir.</string>
 	<string name="DB_corrupted_title">Bozuk Veritabanı</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
@@ -1076,8 +883,6 @@
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Süzgeci Sil</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">Özel Süzgeç</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Süzgeci kaydetmek için ad yazın...</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1174,11 +979,7 @@
 	<string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">Lütfen Google Görevler Eşleştirmesi\'ne (Beta!) giriş yapın. Taşınmamış Google Apps hesapları şu an desteklenmemektedir.</string>
 	<string name="gtasks_GLA_noaccounts">Eşleştirilecek Google hesabı mevcut değil.</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">Görevleri, sıralaması korunmuş ve girintili görebilmek için süzgeçler sayfasına gidin ve bir Google Görevler Listesine ekleyin. Öntanımlı olarak, Tasks görevler için kendi sınıflama ayarlarını kullanır.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1190,8 +991,6 @@
 	<string name="gtasks_GLA_errorAuth">Giriş başarısız! Lütfen kullanıcı ismi ve parolanızı telefondaki hesap yöneticisinden denetleyin</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">Doğrulama (CAPTCHA) ile karşılaşmış olabilirsiniz. İnternet gezgini ile giriş yapıp sonra tekrar buradan deneyin:</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
@@ -1212,20 +1011,6 @@
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">Birkaç görev ekleyerek işe başlayın</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">Değiştirmek veya paylaşmak için göreve dokunun</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">Değiştirmek veya paylaşmak için listeye dokunun</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">Görevlerinizi paylaştığınız insanlar liste\nyapmanıza ya da iş bitirmeye yardım edebilir</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">Bir listeye eklemek için dokun</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">Bir liste eklemek için ya da listeyi değiştirmek için dokunun</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Süzgeç Alarmı</string>
@@ -1248,31 +1033,15 @@
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Lütfen Tasks Locale eklentisini yükleyin!</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">Çalışma Alanları</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">Atanan</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">Atandı: \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">%s\'den</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Yorum Ekle</string>
 	<string name="opencrx_creator_input_hint">Oluşturan</string>
 	<string name="opencrx_contact_input_hint">Atanan:</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Eşleştirme Yapma)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Öntanımlı EtkinlikOluşturucu</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">Yeni etkinlikleri oluşturacak kişi: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">Yeni etkinlikler öntanımlı olarak eşleştirilmeyecek</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX sunucu</string>
 	<!--  preference description for OpenCRX host -->
@@ -1297,69 +1066,27 @@
 	<string name="opencrx_provider_summary">\"Örnek: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">OpenCRX\'e bağlan</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">OpenCRX hesabınız ile giriş yapın</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">Giriş Yap</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">Oturum Aç</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">Parola</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">Hata: Tüm alanları doldurun</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">Hata: kullanıcı adı ya da parola geçersiz!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s görev güncellendi / daha fazla bilgi için tıklayın</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">Bağlantı Hatası! Internet bağlantınızı kontrol edin.</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">Giriş seçimi yapılmadı!</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">Parola belirtilmemiş!</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Bu görevi şu kişiye ata:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;Atanmamış&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Bu görevi şu sahibe ata:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;Öntanımlı&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX Ayarları</string>
-	<string name="CFC_opencrx_in_workspace_text">Çalışma alanında: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">Çalışma alanında...</string>
-	<string name="CFC_opencrx_assigned_to_text">Atandı: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">Atandı...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
 	<string name="EPr_powerpack_summary">Çağrı hatırlatıcılar, ses girdileri ve çeşitli ayarlar</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">Anonim kullanım istatistikleri</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">Kullanım verisi raporlanmadı</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">Anonim kullanım istatistiklerini göndererek Tasks\'i geliştirmemize yardımcı olun</string>
 	<string name="speech_err_network">Ağ hatası! Konuşmanın tanınması çalışması için bir ağ bağlantısına gerek duyar.</string>
 	<string name="speech_err_no_match">Üzgünüm, bunu anlayamadım! Lütfen yeniden deneyin.</string>
 	<string name="speech_err_default">Üzgünüm, konuşma tanınma işlevi hata verdi. Lütfen yeniden deneyin.</string>
 	<string name="premium_attach_file">Bir dosya ekle</string>
 	<string name="premium_record_audio">Bir not kaydet</string>
-	<string name="premium_no_files">Ekli dosya yok</string>
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
 	<string name="audio_stop_recording">Kaydı Durdur</string>
 	<string name="audio_speak_now">Şimdi Konuşun!</string>
 	<string name="audio_encoding">Kodlanıyor...</string>
 	<string name="audio_err_encoding">Ses kodlanırken hata</string>
-	<string name="audio_err_playback">Üzgünüm, sistem bu ses dosyası biçimini desteklemiyor</string>
 	<string name="search_market_audio">Bu ses türünü çalan bir oynatıcı bulunamadı. Google Play\'den bir ses yürütücüsü indirmek iste misiniz?</string>
 	<string name="search_market_audio_title">Ses oynatıcı bulunamadı</string>
 	<string name="search_market_pdf">PDF okuyucu bulunamadı. Google Play\'den bir PDF okuyucu indirmek iste misiniz?</string>
@@ -1383,7 +1110,6 @@
 	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
 	<string name="file_err_download">Dosya indirilirken hata</string>
 	<string name="file_err_no_directory">Hobaa! Dosya dizini yok gibi görünüyor. Lütfen Tasks Tercihleri içinden dosyaların kaydedilmesi için bir dizin seçin.</string>
-	<string name="file_err_show">Üzgünüm, sistem henüz bu dosya türünü desteklemiyor</string>
 	<string name="file_dir_dialog_ok">Bu dizini kullan</string>
 	<string name="file_dir_dialog_default">Öntanımlı değere dön</string>
 	<string name="p_files_dir">Premium downloads directory</string>
@@ -1391,41 +1117,7 @@
 	<string name="p_files_dir_desc">Görev eklerinin kaydedildiği yer: %s</string>
 	<string name="p_files_dir_desc_default">Öntanımlı dizin</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">Satınalma yapılamıyor</string>
-	<string name="billing_not_supported_message">Market ödeme hizmeti şu an kullanılamıyor. Uygulamayı kullanmaya devam edebilirsiniz ama satınalma yapamayabilirsiniz.</string>
-	<string name="subscriptions_not_supported_title">Abonelikler satın alınamadı</string>
-	<string name="subscriptions_not_supported_message">Market ödeme hizmeti bu aygıt için abonelikleri desteklemiyor. Tasks Premium\'a şu adresten abone olabilirsiniz: http://tasks.com/premium.</string>
-	<string name="cannot_connect_title">Markete bağlanılamadı</string>
-	<string name="cannot_connect_message">Bu uygulama Market\'e bağlanamıyor. Market sürümünüz güncel olmayabilir. Uygulamayı kullanabilirsiniz ama satınalma işlemi yapamayabilirsiniz.</string>
-	<string name="restoring_transactions">İşlemler geri yükleniyor</string>
-	<string name="subscriptions_learn_more">Daha fazla bilgi</string>
-	<string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
-	<string name="kii_premium_abort">Special offer aborted</string>
-	<string name="kii_premium_declined">Special offer declined</string>
-	<string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
-	<string name="premium_offers_title">Special Offer</string>
-	<string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
-	<string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-	<string name="premium_offers_start">Get it free!</string>
-	<string name="premium_billing_title">Tasks Premium</string>
-	<string name="premium_buy_month">1 Ay</string>
-	<string name="premium_buy_year">1 Yıl</string>
-	<string name="premium_description_header">Premium ile daha fazlasını yapın!</string>
-	<string name="premium_description_1">Yapılacaklar listesine dosya ekle \n(pdf, doc, ppt…)</string>
-	<string name="premium_description_2">Tasks.com ile dosyaları eşitle</string>
-	<string name="premium_description_3">E-posta ile dosya ekle</string>
-	<string name="premium_description_4">Sesli notları ses dosyası olarak kaydet</string>
-	<string name="premium_description_5">Gelecek özelliklerin önizlemesi</string>
-	<string name="premium_description_6">Tasks takımını destekle!</string>
-	<string name="premium_speech_bubble_1">Premium hesap verimliliğinizi arttırır!</string>
 	<string name="premium_speech_bubble_2">Bir yıllık satın alın ve %%25 kâr yapın!</string>
-	<string name="premium_already_subscribed">Tasks Premium\'a zaten üyesiniz!</string>
-	<string name="premium_login_prompt">Premium üyelik için Tasks.com hesabınız olması gerekiyor. Lütfen üye olun ya da oturum açın.</string>
-	<string name="premium_success">Tasks Premium üyesi olduğunuz için teşekkür ederiz!</string>
-	<string name="premium_success_with_server_error">Tasks Premium üyesi olduğunuz için teşekkür ederiz! Yeni özelliker sizin için yakında tasks.com\'da açılacak ve hemen telefonunuzda kullanabileceksiniz.</string>
-	<string name="premium_verification_error">Premium üyelik, bu Google Play hesabı için başka bir kullanıcıya bağlı görünüyor. Hesabınıza ek e-postalar için ziyaret edin: tasks.com/users/profile</string>
-	<string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-	<string name="premium_checking_for_purchases">Checking for purchases...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1540,12 +1232,6 @@
 	<string name="rmd_EPr_persistent_desc_true">Bildirimlerin temizlenmesi için tek tek görüntülenmeleri gerekir.</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Bildirimler \"Tümünü Temizle\" düğmesiyle temizlenebilir</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Social encouragement</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1909,8 +1595,6 @@
 	<string name="TEA_tags_left">Paylaşılan %1$s listesinden çıktınız, %2$d görevi etkiliyor</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">%1$s yeniden %3$d görevleri için %2$s olarak isimlendirildi.</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">Farklı büyük harflere sahip aynı isimli listeler olduğunu farkettik. Belki de aynı isimli olması gerekir diye bunları birleştirdik. Merak etme, orjinallere birşey olmadı, sadece isimleri değişti. (Alışveriş listesi_1,Alışveriş listesi_2 vb) İstediğin bu değilse tek yapman gereken birleşmiş listeyi silmek!</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Liste Ayarları:</string>
 	<!-- Header for tag activity -->
@@ -2025,7 +1709,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks görev isimlerini görev hatırlatmaları sırasında söyleyecek</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks görev hatırlatmaları sırasında zil sesi çalacak</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">Ses Komutu Ayarları</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

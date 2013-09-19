@@ -51,22 +51,12 @@
 	<!-- Tab for showing setting -->
 		<item>Nastavení listu</item>
 	</string-array>
-	<!-- Tag View: filtered by assigned to user (%s => user name) -->
-	<string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-	<!-- Tag View: filter by unassigned tasks -->
-	<string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
-	<!-- Tag View: list is private, no members -->
-	<string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
 	<!-- Tag View Menu: refresh -->
 	<string name="actfm_TVA_menu_refresh">Obnovit</string>
 	<!-- Tag Settings: tag name label -->
 	<string name="actfm_TVA_tag_label">Název listu:</string>
 	<!-- Tag Settings: tag owner label -->
 	<!-- Tag Settings: tag owner value when there is no owner -->
-	<!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-	<string name="actfm_TVA_members_label">Spolupracovníci:</string>
-	<!-- Tag Settings: list collaborators hint -->
-	<string name="actfm_TVA_members_hint">Sdílet s kýmkoli, kdo má email</string>
 	<!-- Tag Settings: tag picture -->
 	<string name="actfm_TVA_tag_picture">Obrázek listu</string>
 	<!-- slide 25c/28b: Tag Settings: silence notifications label -->
@@ -80,102 +70,28 @@
 	<string name="actfm_TVA_tag_description_hint">Zde zadejte popis</string>
 	<!-- slide 25d: Tag Settings: list name hint -->
 	<string name="actfm_TVA_tag_name_hint">Název seznamu</string>
-	<!-- Tag settings: login prompt from share-->
-	<string name="actfm_TVA_login_to_share">Pro sdílení seznamů musíte být přihlášen k Tasks.com! Přihlašte se prosím, nebo tento seznam označte jako soukromý.</string>
 	<!-- ============================================ edit people dialog == -->
-	<!-- task sharing dialog: intro -->
-	<string name="actfm_EPA_intro">S pomocí Tasks sdílejte nákupní seznamy, nápady na party nebo týmové projekty a buďte okamžitě v obraze když druzí něco dokončí!</string>
 	<!-- task sharing dialog: window title -->
 	<!-- task sharing dialog: save button -->
 	<!-- task sharing dialog: assigned label -->
-	<!-- slide 18a: task sharing dialog: assigned label long version -->
-	<string name="actfm_EPA_assign_label_long">Kdo to má udělat?</string>
-	<!-- task sharing dialog: assigned to me -->
-	<string name="actfm_EPA_assign_me">Já</string>
-	<!-- task sharing dialog: anyone -->
-	<string name="actfm_EPA_unassigned">Nepřiřazené</string>
-	<!-- slide 18c: task sharing dialog: choose a contact -->
-	<string name="actfm_EPA_choose_contact">Vyberte kontakt</string>
 	<!-- task sharing dialog: custom email assignment -->
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_share_with">Přidat spolupracovníky:</string>
-	<!-- task sharing dialog: shared with label -->
-	<string name="actfm_EPA_collaborators_header">Sdílet s přáteli</string>
-	<!-- task sharing dialog: collaborator list name (%s => name of list) -->
-	<string name="actfm_EPA_list">Seznam: %s</string>
 	<!-- task sharing dialog: assigned hint -->
-	<!-- task sharing dialog: message label text -->
-	<string name="actfm_EPA_message_text">Uvítací zpráva:</string>
-	<!-- task sharing dialog: message body -->
-	<string name="actfm_EPA_message_body">Pomoz mi to dodělat!</string>
-	<!-- task sharing dialog: list members section header -->
-	<string name="actfm_EPA_assign_header_members">Členové seznamu</string>
-	<!-- task sharing dialog: astrid friends section header -->
-	<string name="actfm_EPA_assign_header_friends">Přátelé z Tasks</string>
 	<!-- task sharing dialog: message hint -->
 	<!-- task sharing dialog: message hint -->
-	<!-- task sharing dialog: share with Facebook -->
-	<string name="actfm_EPA_facebook">Facebook</string>
-	<!-- task sharing dialog: share with Twitter -->
-	<string name="actfm_EPA_twitter">Twitter</string>
 	<!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 	<!-- task sharing dialog: edit people settings saved -->
 	<!-- task sharing dialog: invalid email (%s => email) -->
 	<string name="actfm_EPA_invalid_email">Špatný E-mail: %s</string>
 	<!-- task sharing dialog: tag not found (%s => tag) -->
-	<!-- task sharing login prompt -->
-	<string name="actfm_EPA_login_to_share">Pro sdílení úkolů musíte být přihlášen na Tasks.com!</string>
-	<string name="actfm_EPA_login_button">Přihlásit se</string>
-	<string name="actfm_EPA_dont_share_button">Nesdílet</string>
 	<string name="actfm_EPA_add_person_to_list_title">Task assigned</string>
 	<string name="actfm_EPA_add_person_to_list">%1$s is not shared on this list. Would you like to add %2$s to this list?</string>
 	<string name="actfm_EPA_add_person_to_list_ok">Add to list</string>
 	<string name="actfm_EPA_add_person_to_list_cancel">Don\'t add</string>
 	<string name="actfm_list_owner">(owner)</string>
 	<!-- ========================================= sharing login activity == -->
-	<!-- share login: Title -->
-	<string name="actfm_ALA_title">Vítejte v Tasks.com!</string>
-	<!-- share login: Sharing Description -->
-	<string name="actfm_ALA_body">Díky Tasks.com můžete k úkolům přistupovat online nebo je můžete sdílet s ostatníma.</string>
-	<!-- share login: Sharing Login FB Prompt -->
-	<string name="actfm_ALA_fb_login">Přihlásit Facebookem</string>
-	<!-- share login: Sharing Login GG Prompt -->
-	<string name="actfm_ALA_gg_login">Přihlásit Google účtem</string>
-	<!-- share login: Quickly log in as <%s -> email> -->
-	<string name="actfm_quick_login">Sign in: %s</string>
-	<!-- share login: Reject quick login -->
-	<string name="actfm_quick_login_reject">Not %s?</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_firstname_label">Křestní jméno</string>
-	<!-- share login: Name -->
-	<string name="actfm_ALA_lastname_label">Příjmení</string>
-	<!-- share login: Email -->
-	<string name="actfm_ALA_email_label">Email</string>
 	<!-- share login: Username / Email -->
-	<!-- share login: Password -->
-	<string name="actfm_ALA_password_label">Heslo</string>
-	<!-- share login: Sign Up Title -->
-	<string name="actfm_ALA_signup_title">Sign Up</string>
-	<!-- share login: Login Title -->
-	<string name="actfm_ALA_login_title">Sign In</string>
 	<!-- share login: Google Auth title -->
 	<string name="actfm_GAA_title">Vyberte, který účet Google chcete použít:</string>
-	<!-- share login: OAUTH Login Prompt -->
-	<string name="actfm_OLA_prompt">Prosím připojte se do Googlu:</string>
-	<!-- Login error: user exists -->
-	<string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-	<!-- Login error: wrong password -->
-	<string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
-	<!-- Forgot password link -->
-	<string name="actfm_ALA_forgot_password">Forgot password?</string>
-	<!-- Forgot password email prompt -->
-	<string name="actfm_ALA_enter_email">Please enter your email</string>
-	<!-- Password reset sent (%s -> email) -->
-	<string name="actfm_ALA_reset_sent">Password reset sent to %s</string>
-	<!-- User already exists - first sync may be slow -->
-	<string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-	<!-- User not found -->
-	<string name="actfm_ALA_error_user_not_found">User not found by that email. Try signing up instead!</string>
 	<!-- ================================================ Featured Lists -->
 	<string name="actfm_feat_list_clone">Copy list</string>
 	<string name="actfm_feat_list_suffix">(Copy)</string>
@@ -184,53 +100,16 @@
 	<string name="actfm_feat_list_task_clone_success">Úkol zkopírován</string>
 	<string name="actfm_feat_list_clone_empty">No tasks to copy</string>
 	<!-- ================================================ Synchronization == -->
-	<!-- Indicates the logged in user name. %s -> user\'s name -->
-	<string name="actfm_status_title_logged_in">Stav - přihlášen jako %s</string>
 	<!-- Preferences Title: Act.fm -->
 	<string name="actfm_APr_header">Tasks.com</string>
 	<string name="actfm_https_title">Použít HTTPS</string>
-	<string name="actfm_https_enabled">HTTPS povoleno (pomalejší)</string>
-	<string name="actfm_https_disabled">HTTPS zakázáno (rychlejší)</string>
 	<!-- title for notification tray after synchronizing -->
 	<!-- text for notification when comments are received -->
-	<string name="actfm_dual_sync_warning">Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s oběma službami může v některých případech vést k nečekaným důsledkům. Opravdu si přejete synchronizovat s Tasks.com?</string>
 	<!-- account types -->
 	<string name="actfm_account_type">Account type</string>
-	<string name="actfm_account_info">Account info</string>
-	<string name="actfm_account_info_summary">Status and options</string>
-	<string name="account_type_title_not_logged_in">Sign up for a free account</string>
-	<string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
-	<string name="actfm_account_premium">Premium</string>
-	<string name="actfm_account_basic">Zakladní</string>
 	<string name="actfm_inapp_billing">Upgrade to Premium</string>
 	<string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
-	<!-- Sharing -->
-	<string name="share_with_facebook">Like on Facebook</string>
-	<string name="share_with_twitter">Follow on Twitter</string>
-	<string name="share_with_google">Sdílet na Google+</string>
-	<string name="share_speech_bubble">By sharing, you\'ll help others be more productive!</string>
 	<!-- Sync upgrade messages -->
-	<string name="sync_upgr_both_title">Using Tasks.com + Google without Duplicates</string>
-	<string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Tasks. To avoid duplicates you can no longer sync with Tasks.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-	<string name="sync_upgr_both_btn1">Stick with Tasks</string>
-	<string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
-	<string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
-	<string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-	<string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
-	<string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
-	<string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-	<string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
-	<string name="sync_upgr_neither_btn1">Sign up now</string>
-	<string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
-	<string name="actfm_logout_clear_tasks_title">Clear data?</string>
-	<string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-	<string name="actfm_logout_clear_tasks_yes">Clear data</string>
-	<string name="actfm_logout_clear_tasks_no">Keep data</string>
-	<string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-	<string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-	<string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-	<string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-	<string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
 	<string name="actfm_tag_not_authorized_title">Not authorized</string>
 	<string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>
 	<string name="actfm_tag_not_authorized_new_list">Create new list</string>
@@ -272,7 +151,6 @@
 	<string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
 	<!-- Preference screen restoring Tasks Help -->
 	<!-- Preference screen Restoring Tasks Help Dialog Text-->
-	<string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Tasks.com!</string>
 	<!-- ================================================= BackupActivity == -->
 	<!-- slide 48c: backup activity label -->
 	<string name="backup_BAc_label">Spravovat zálohy</string>
@@ -282,8 +160,6 @@
 	<string name="backup_BAc_import">Importovat úkoly</string>
 	<!-- backup activity export button -->
 	<string name="backup_BAc_export">Exportovat úkoly</string>
-	<!-- backup activity cloud (Tasks.com) option -->
-	<string name="backup_BAc_cloud">Click for free cloud backup on Tasks.com</string>
 	<!-- ============================================== Importer / Exporter == -->
 	<!-- Message displayed when error occurs -->
 	<string name="backup_TXI_error">Chyba v importu</string>
@@ -326,17 +202,12 @@
 	<string name="DLG_upgrading">Obnovování vašich úkolů...</string>
 	<!-- Title for dialog selecting a time (hours and minutes) -->
 	<string name="DLG_hour_minutes">Čas (hodin : minut)</string>
-	<!-- Dialog for Tasks having a critical update -->
-	<string name="DLG_please_update">Tasks by měl být aktualizován na poslední verzi z Android market! Prosím udělej to, než budeš pokračovat, nebo chvíli počkej.</string>
-	<!-- Button for going to Market -->
 	<!-- Button for accepting EULA -->
 	<string name="DLG_accept">Souhlasím</string>
 	<!-- Button for declining EULA -->
 	<string name="DLG_decline">Odmítám</string>
 	<!-- EULA title -->
 	<string name="DLG_eula_title">Podmínky užívání programu Tasks</string>
-	<!-- Progress Dialog generic text -->
-	<string name="DLG_please_wait">Čekejte prosím</string>
 	<!-- Dialog - loading -->
 	<string name="DLG_loading">Nahrávám...</string>
 	<!-- Dialog - dismiss -->
@@ -344,9 +215,7 @@
 	<string name="DLG_ok">OK</string>
 	<!-- slide 36g -->
 	<string name="DLG_cancel">Storno</string>
-	<string name="DLG_more">Další</string>
 	<string name="DLG_undo">Vrátit změny</string>
-	<string name="DLG_warning">Výstraha</string>
 	<!-- =============================================================== UI == -->
 	<!-- Label for DateButtons with no value -->
 	<string name="WID_dateButtonUnset">Klikni pro nastavení</string>
@@ -444,8 +313,6 @@
 	<!-- Context Item: purge task -->
 	<string name="TAd_contextPurgeTask">Smazat úkol</string>
 	<!-- ============================================== SortSelectionDialog == -->
-	<!-- slide 23a: Sort Selection: dialog title -->
-	<string name="SSD_title">Tříděné a skryté úkoly</string>
 	<!-- slide 23h:  Hidden: title -->
 	<string name="SSD_hidden_title">Skryté úkoly</string>
 	<!-- Hidden Task Selection: show completed tasks -->
@@ -509,8 +376,6 @@
 	<string name="TEA_importance_label">Důležitost</string>
 	<!-- Task due date hint -->
 	<string name="TEA_deadline_hint">Set due date</string>
-	<!-- Task assigned to string (%s -> assigned person name) -->
-	<string name="TEA_assigned_to">Assigned to %s</string>
 	<!-- Task urgency specific time checkbox -->
 	<string name="TEA_urgency_specific_time">V přesně daný čas?</string>
 	<!-- Task urgency specific time title when specific time false -->
@@ -539,8 +404,6 @@
 	<string name="TEA_menu_save">Uložit změny</string>
 	<!-- Menu: Don\'t Save -->
 	<string name="TEA_menu_discard">Neukládat</string>
-	<!-- Menu: Delete Task -->
-	<string name="TEA_menu_delete">Smazat úkol</string>
 	<!-- Menu: Task comments -->
 	<string name="TEA_menu_refresh_comments">Refresh comments</string>
 	<string name="TEA_menu_comments">Komentáře</string>
@@ -552,10 +415,6 @@
 	<!-- Toast: task was deleted -->
 	<!-- slide 15b: Task edit tab: activity -->
 	<string name="TEA_tab_activity">Činnost</string>
-	<!-- slide 15e:  Task edit tab: more editing settings -->
-	<string name="TEA_tab_more">Více</string>
-	<!-- slide 15d: Task edit tab: web services -->
-	<string name="TEA_tab_web">Tipy</string>
 	<string name="TEA_timer_est">Est. %s</string>
 	<string name="TEA_timer_elap">Elapsed %s</string>
 	<string-array name="TEA_urgency">
@@ -605,9 +464,6 @@
 	<!-- When controls dialog -->
 	<string name="TEA_when_dialog_title">Kdy je termín?</string>
 	<string name="TEA_new_task">Nový úkol</string>
-	<string name="WSV_click_to_load">Klepnutím vyhledáte jak na to!</string>
-	<string name="WSV_not_online">S připojením k internetu by to byla jiná káva. Zkontrolujte prosím spojení.</string>
-	<string name="TEA_contact_error">Mrzí mě to, ale nemohu najít email pro vybraný kontakt.</string>
 	<!-- ============================================= IntroductionActivity == -->
 	<!-- slide 1a: Introduction Window title -->
 	<!-- Button to agree to EULA -->
@@ -710,25 +566,15 @@
 	<string name="UpS_changelog_title">Co je nového v Tasks?</string>
 	<!-- Updates Window Title -->
 	<string name="UpS_updates_title">Poslední \"Tasks\" novinky</string>
-	<!-- Updats No Activity to show for offline users -->
-	<string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 31g: Preference Window Title -->
 	<string name="EPr_title">Tasks: Vlastnosti</string>
-	<string name="EPr_share_astrid">Řekněte o Tasks ostatním</string>
-	<string name="EPr_share_astrid_summary">Share about Tasks on your favorite social network</string>
 	<!-- slide 46a -->
 	<string name="EPr_deactivated">deactivated</string>
 	<!-- slide 30i: Preference Category: Appearance Title -->
 	<string name="EPr_appearance_header">Vzhled</string>
 	<!-- Preference Category: Appearance Summary -->
 	<string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
-	<!-- FAQ Preference title -->
-	<string name="EPr_faq_title">FAQ</string>
-	<!-- Account status preference (%s -> account type) -->
-	<string name="EPr_account_title">Account: %s</string>
-	<!-- Support preferences summary -->
-	<string name="EPr_support_summary">Tutorial, FAQ, about</string>
 	<!-- slide 34a: Preference: Task List Font Size Title -->
 	<string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
 	<!-- Preference: Filters to show pref screen title -->
@@ -757,10 +603,6 @@
 	<string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny v liště rychlého přístupu</string>
 	<!-- Preference: Task List Show Notes Description (enabled) -->
 	<string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
-	<!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-	<string name="EPr_compressTaskRows_title">Compact task row</string>
-	<!-- slide 34j -->
-	<string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
 	<!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
 	<!-- slide 34k-->
 	<!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -768,11 +610,6 @@
 	<string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
 	<!-- slide 34h -->
 	<string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>
-	<!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-	<string name="EPr_ideaAuto_title">Chování záložky Tipy</string>
-	<!-- slide 32c -->
-	<string name="EPr_ideaAuto_desc_enabled">Při klepnutí na záložky Tipy se spustí hledání na webu</string>
-	<string name="EPr_ideaAuto_desc_disabled">Web searches for ideas tab will be performed only when manually requested</string>
 	<!-- Preferences: task row style -->
 	<string-array name="EPr_task_row_styles">
 		<item>Original</item>
@@ -789,10 +626,6 @@
 	<!-- Preference: custom filters enabled -->
 	<string name="EPr_use_filters_title">Use filters</string>
 	<string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-	<!-- Preference: show list members in shared list -->
-	<string name="EPr_show_list_members_title">Show list members in shared lists</string>
-	<!-- Preference: simple input box style -->
-	<string name="EPr_simple_input_boxes">Simple text boxes</string>
 	<!-- Preference: simple input box style -->
 	<string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
 	<!-- Preference: don\'t show plus button until input present -->
@@ -813,25 +646,11 @@
 	<string name="EPr_theme_widget_title">Widget theme</string>
 	<!-- slide 30d/ 34f: Preference screen: all task row settings -->
 	<string name="EPr_taskRowPrefs_title">Vzhled řádku úkolu</string>
-	<!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-	<string name="EPr_use_contact_picker">Use contact picker</string>
-	<!-- slide 49b -->
-	<string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
-	<string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
-	<!-- slide 49i: Preferences: Third party addons -->
-	<string name="EPr_third_party_addons">Zapnout doplňky třetích stran</string>
-	<string name="EPr_third_party_addons_desc_enabled">Doplňky budou povolené</string>
-	<!-- slide 49d -->
-	<string name="EPr_third_party_addons_desc_disabled">Doplňky budou zakázané</string>
-	<!-- Preferences: ideas tab -->
-	<string name="EPr_ideas_tab_enabled">Task ideas</string>
-	<string name="EPr_ideas_tab_description">Nápady, které Vám mohou pomoci dokončit úkoly</string>
 	<!-- Preferences: calendar event start time -->
 	<string name="EPr_cal_end_or_start_at_due_time">Čas události v kalendáři</string>
 	<string name="EPr_cal_end_at_due_time">Událost v kalendáři končí splněním úkolu</string>
 	<string name="EPr_cal_start_at_due_time">Událost v kalendáři začíná splněním úkolu</string>
 	<string name="EPr_force_phone_layout">Use phone layout</string>
-	<string name="EPr_show_featured_lists">Show featured lists</string>
 	<!-- Configurations -->
 	<string name="EPr_configurations_title">Set configuration</string>
 	<string name="EPr_config_default">Default</string>
@@ -953,12 +772,6 @@
 	<string name="p_about">O Tasks</string>
 	<!-- About text (%s => current version)-->
 	<string name="p_about_text">Současná verze: %s\n\n Tasks je open-source a je vytvořena Todoroo, Inc.</string>
-	<!-- Title of "Help" option in settings -->
-	<string name="p_help">Podpora</string>
-	<!-- slide 30c: Title of "Forums" option in settings -->
-	<string name="p_forums">Diskuzní fóra</string>
-	<!-- Title of "Premium" option in settings -->
-	<string name="p_premium">Premium</string>
 	<!-- ============================================================= Misc == -->
 	<string name="feedback_positive_title">Rate Tasks?</string>
 	<string name="feedback_positive_body">Glad I\'m helpful! Got a moment to help us with a 5-star rating?</string>
@@ -973,9 +786,6 @@
 	<string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Tasks do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
 	<!-- Task killer dialog ok button -->
 	<string name="task_killer_help_ok">Neukončím Tasks!</string>
-	<!-- Tasks\'s Android Marketplace title. It never appears in the app itself. -->
-	<!-- Tasks\'s Android Marketplace description. It never appears in the app itself. -->
-	<string name="marketplace_description">Tasks je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace, lokalizace, widget a další.</string>
 	<string name="DB_corrupted_title">Poškozená databáze</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
@@ -1073,8 +883,6 @@
 	<!-- Saved Filters Context Menu: delete -->
 	<string name="BFE_Saved_delete">Smazat filtr</string>
 	<!-- =========================================== CustomFilterActivity == -->
-	<!-- slide 30d: Build Your Own Filter Activity Title-->
-	<string name="CFA_title">Vlastní filtr</string>
 	<!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
 	<string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
 	<!-- Filter Name default for copied filters (%s => old filter name) -->
@@ -1171,14 +979,7 @@
 	<string name="gtasks_GTA_clear_completed">Smazat hotové</string>
 	<!-- ============================================ GtasksLoginActivity == -->
 	<!-- Activity Title: Gtasks Login -->
-	<!-- Instructions: Gtasks login -->
-	<string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
-    accounts are currently unsupported.</string>
 	<string name="gtasks_GLA_noaccounts">Žádný dostupný účet Google pro synchronizaci</string>
-	<!-- Instructions: Gtasks further help -->
-	<string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Tasks uses its own sort settings for tasks.</string>
 	<!-- Sign In Button -->
 	<!-- E-mail Address Label -->
 	<!-- Password Label -->
@@ -1190,8 +991,6 @@
 	<string name="gtasks_GLA_errorAuth">Chyba při autentifikaci! Zkontrolujte prosím uživatelské jméno/heslo ve správci hesel svého mobilu</string>
 	<!-- Error Message when we receive an IO Exception -->
 	<string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->
-	<string name="gtasks_GLA_errorAuth_captcha">Pravděpodobně jste narazili na stránky chráněné Captchou. Zkuste se přihlásit pomocí prohlížeče a poté se vraťte sem a zkuste to znovu:</string>
 	<!-- ============================================== GtasksPreferences == -->
 	<!-- GTasks Preferences Title -->
 	<string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
@@ -1212,20 +1011,6 @@
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- NEW USER EXPERIENCE -->
-	<!-- help bubbles -->
-	<!-- slide 8c: Shown the first time a user sees the task list activity -->
-	<string name="help_popover_add_task">Start by adding a task or two</string>
-	<!-- Shown the first time a user adds a task to a list -->
-	<string name="help_popover_tap_task">Tap task to edit and share</string>
-	<!-- slide 14a: Shown the first time a user sees the list activity -->
-	<string name="help_popover_list_settings">Tap to edit or share this list</string>
-	<!-- slide 26c: Shown the first time a user sees the list settings tab -->
-	<string name="help_popover_collaborators">People you share with can help\nyou build your list or finish tasks</string>
-	<!-- Shown after user adds a task on tablet-->
-	<string name="help_popover_add_lists">Tap to add a list</string>
-	<!-- Shown after a user adds a task on phones -->
-	<string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Upozornění filtrů</string>
@@ -1248,31 +1033,15 @@
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Tasks Locale!</string>
 	<!-- ====================== Plugin Boilerplate ========================= -->
-	<!-- filters header: OpenCRX -->
-	<string name="opencrx_FEx_header">OpenCRX</string>
-	<!-- filter category for OpenCRX ActivityCreators -->
-	<string name="opencrx_FEx_dashboard">Pracovní plochy</string>
-	<!-- filter category for OpenCRX responsible person -->
-	<string name="opencrx_FEx_responsible">Přiřazeno k</string>
-	<!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-	<string name="opencrx_FEx_responsible_title">Přiřazeno k \'%s\'</string>
-	<!-- detail for showing tasks created by someone else (%s => person name) -->
-	<string name="opencrx_PDE_task_from">od %s</string>
 	<!-- replacement string for task edit "Notes" when using OpenCRX -->
 	<string name="opencrx_TEA_notes">Přidat komentář</string>
 	<string name="opencrx_creator_input_hint">Autor</string>
 	<string name="opencrx_contact_input_hint">Assigned to</string>
 	<!-- ==================================================== Preferences == -->
-	<!-- Preferences Title: OpenCRX -->
-	<string name="opencrx_PPr_header">OpenCRX</string>
 	<!-- creator title for tasks that are not synchronized -->
 	<string name="opencrx_no_creator">(Nesynchronizovat)</string>
 	<!-- preference title for default creator -->
 	<string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-	<!-- preference description for default creator (%s -> setting) -->
-	<string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
-	<!-- preference description for default dashboard (when set to \'not synchronized\') -->
-	<string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
 	<!--  OpenCRX host and segment group name -->
 	<string name="opencrx_group">OpenCRX server</string>
 	<!--  preference description for OpenCRX host -->
@@ -1297,69 +1066,27 @@
 	<string name="opencrx_provider_summary">\"Např.: \"<i>CRX</i></string>
 	<!--  default value for OpenCRX provider -->
 	<string name="opencrx_provider_default">CRX</string>
-	<!-- ================================================= Login Activity == -->
-	<!-- Activity Title: Opencrx Login -->
-	<string name="opencrx_PLA_title">Log In to OpenCRX</string>
-	<!-- Instructions: Opencrx login -->
-	<string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
-	<!-- Sign In Button -->
-	<string name="opencrx_PLA_signIn">Přihlásit se</string>
-	<!-- Login Label -->
-	<string name="opencrx_PLA_login">Login</string>
-	<!-- Password Label -->
-	<string name="opencrx_PLA_password">Heslo</string>
-	<!-- Error Message when fields aren\'t filled out -->
-	<string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
-	<!-- Error Message when we receive a HTTP 401 Unauthorized -->
-	<string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
-	<!-- ================================================ Synchronization == -->
-	<!-- title for notification tray after synchronizing -->
-	<string name="opencrx_notification_title">OpenCRX</string>
-	<!-- text for notification tray when synchronizing -->
-	<string name="opencrx_notification_text">%s úkolů zálohováno /pro více detailů klikněte</string>
-	<!-- Error msg when io exception  -->
-	<string name="opencrx_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
-	<!-- opencrx Login not specified-->
-	<string name="opencrx_MLA_email_empty">Login was not specified!</string>
-	<!-- opencrx password not specified-->
-	<string name="opencrx_MLA_password_empty">Nebylo určeno heslo!</string>
 	<!-- ================================================ labels for layout-elements == -->
 	<!-- label for task-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_task_assign_label">Přiřadit úkol k této osobě:</string>
-	<!-- Spinner-item for unassigned tasks on taskeditactivity -->
-	<string name="opencrx_TEA_task_unassigned">&lt;Nepřiřazeno&gt;</string>
 	<!-- label for dashboard-assignment spinner on taskeditactivity -->
 	<string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
-	<!-- Spinner-item for default dashboard on taskeditactivity -->
-	<string name="opencrx_TEA_dashboard_default">&lt;Výchozí&gt;</string>
 	<string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
-	<string name="CFC_opencrx_in_workspace_text">Na pracovní ploše: ?</string>
-	<string name="CFC_opencrx_in_workspace_name">Na pracovní ploše...</string>
-	<string name="CFC_opencrx_assigned_to_text">Přiřazeno k: ?</string>
-	<string name="CFC_opencrx_assigned_to_name">Přiřazeno k ...</string>
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
 	<string name="EPr_powerpack_summary">Missed call reminders, voice input and miscellaneous settings</string>
-	<!-- slide 32e: Preference: Anonymous User Statistics -->
-	<string name="EPr_statistics_title">Anonymous usage stats</string>
-	<!-- Preference: User Statistics (disabled) -->
-	<string name="EPr_statistics_desc_disabled">Nebudou oznámena žádná data o využití</string>
-	<!-- slide 32f: Preference: User Statistics (enabled) -->
-	<string name="EPr_statistics_desc_enabled">Pomozte nám dělat Tasks lepší, anonymním odesláním dat o používání</string>
 	<string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
 	<string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
 	<string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím znovu.</string>
 	<string name="premium_attach_file">Přiložit soubor</string>
 	<string name="premium_record_audio">Nahrát poznámku</string>
-	<string name="premium_no_files">Žádné přílohy</string>
 	<string name="premium_remove_file_confirm">Skutečně? Nebude cesty zpět</string>
 	<string name="audio_recording_title">Nahrávám zvuk</string>
 	<string name="audio_stop_recording">Ukončit záznam</string>
 	<string name="audio_speak_now">Hovořte!</string>
 	<string name="audio_encoding">Encoding...</string>
 	<string name="audio_err_encoding">Error encoding audio</string>
-	<string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
 	<string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
 	<string name="search_market_audio_title">No audio player found</string>
 	<string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
@@ -1383,7 +1110,6 @@
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
 	<string name="file_err_download">Chyba při stahování souboru</string>
 	<string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the preferences.</string>
-	<string name="file_err_show">Je nám líto, ale systém zatím tento typ souboru nepodporuje</string>
 	<string name="file_dir_dialog_ok">Use this directory</string>
 	<string name="file_dir_dialog_default">Reset to default</string>
 	<string name="p_files_dir">Premium downloads directory</string>
@@ -1391,47 +1117,7 @@
 	<string name="p_files_dir_desc">Task attachments saved to: %s</string>
 	<string name="p_files_dir_desc_default">Default directory</string>
 	<!-- in app billing -->
-	<string name="billing_not_supported_title">Can\'t make purchases</string>
-	<string name="billing_not_supported_message">The Market billing
-     service is not available at this time.  You can continue to use this app but you
-     won\'t be able to make purchases.</string>
-	<string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
-	<string name="subscriptions_not_supported_message">The Market billing
-     service on this device does not support subscriptions at this time. You can subscribe to Tasks Premium at http://tasks.com/premium.</string>
-	<string name="cannot_connect_title">Can\'t connect to Market</string>
-	<string name="cannot_connect_message">This app cannot connect to Market.
-     Your version of Market may be out of date.
-     You can continue to use this app but you
-     won\'t be able to make purchases.</string>
-	<string name="restoring_transactions">Restoring transactions</string>
-	<string name="subscriptions_learn_more">Learn more</string>
-	<string name="kii_premium_success">Thanks for participating in this offer! Your free month of Tasks Premium is now unlocked.</string>
-	<string name="kii_premium_abort">Special offer aborted</string>
-	<string name="kii_premium_declined">Special offer declined</string>
-	<string name="kii_premium_error">There was an error processing this offer. Please try again later.</string>
-	<string name="premium_offers_title">Special Offer</string>
-	<string name="premium_offers_subtitle">Want one month of Tasks Premium for free?</string>
-	<string name="premium_offers_detail">To get one free month of Tasks Premium, you can watch a short video by this sponsor. (They will also require your email address.)</string>
-	<string name="premium_offers_start">Get it free!</string>
-	<string name="premium_billing_title">Tasks Premium</string>
-	<string name="premium_buy_month">1 měsíc</string>
-	<string name="premium_buy_year">1 rok</string>
-	<string name="premium_description_header">Do more with premium!</string>
-	<string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
-	<string name="premium_description_2">Syncs files with tasks.com</string>
-	<string name="premium_description_3">Add attachments via email</string>
-	<string name="premium_description_4">Save voice recordings as audio files</string>
-	<string name="premium_description_5">Preview upcoming features</string>
-	<string name="premium_description_6">Support the Tasks Team!</string>
-	<string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
 	<string name="premium_speech_bubble_2">Order one year and save 25%!</string>
-	<string name="premium_already_subscribed">You are already subscribed to Tasks Premium!</string>
-	<string name="premium_login_prompt">You need to have an Tasks.com account in order to subscribe to premium. Please log in or sign up.</string>
-	<string name="premium_success">Thanks for subscribing to Tasks Premium!</string>
-	<string name="premium_success_with_server_error">Thanks for subscribing to Tasks Premium! The new features will be unlocked for you on tasks.com soon, and should be available on your phone right away.</string>
-	<string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit tasks.com/users/profile</string>
-	<string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
-	<string name="premium_checking_for_purchases">Checking for purchases...</string>
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1546,12 +1232,6 @@
 	<string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
 	<!-- Reminder Preference: Notification Persistence Description (false) -->
 	<string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
-	<!-- Reminder Preference: Social Reminders Title -->
-	<string name="rmd_EPr_social_title">Social encouragement</string>
-	<!-- Reminder Preference: Social Reminders Summary (enabled) -->
-	<string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
-	<!-- Reminder Preference: Social Reminders Summary (disabled) -->
-	<string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
 	<!-- Reminder Preference: Notification Icon Title -->
 	<!-- Reminder Preference: Notification Icon Description -->
 	<!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
@@ -1915,10 +1595,6 @@
 	<string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
 	<!-- Toast notification that a tag has been renamed (%1$s - old name, %2$s - new name, %3$d - # tasks) -->
 	<string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-	<!-- Tag case migration -->
-	<string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to 
-  be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you
-  can simply delete the new combined list!</string>
 	<!-- Header for tag settings -->
 	<string name="tag_settings_title">Settings:</string>
 	<!-- Header for tag activity -->
@@ -2033,7 +1709,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
 	<!-- slide 38c: Preference: Voice reminders description (false) -->
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
-	<!-- slide 32d: Preference Category: Voice Title -->
-	<string name="EPr_voice_header">Voice input settings</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

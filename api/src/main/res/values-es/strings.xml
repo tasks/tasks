@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Información</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">¡Error!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Guardar</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Sí</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">No</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Cerrar</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Terminado</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -126,7 +118,7 @@
 	<!-- Sync label subtitle -->
 	<string name="SyP_summary">Google Tasks, información guardada, copia de seguridad local</string>
 	<!-- Error msg when io exception  -->
-	<string name="SyP_ioerror">¡Error de conexión! Verifique su conexión a internet.</string>
+	<string name="SyP_ioerror">¡Error en la conexión! Compruebe su conexión de Internet.</string>
 	<!-- ================================================== SyncPreferences == -->
 	<!-- Status Group Label -->
 	<string name="sync_SPr_group_status">Estado</string>
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">Sincronización en segundo plano deshabilitada</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Actualmente configurado a: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Configuración solo wifi</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">La sincronización en segundo plano sólo funciona con el Wifi activado</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">La sincronización en segundo plano siempre funcionará</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Acciones</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Sincronizar ahora</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Iniciar sesión &amp; sincronizar!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Sesión iniciada como:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Reporte de estado</string>
 	<!-- Sync: last error click for more -->

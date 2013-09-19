@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">Informatie</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">Fout!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">Opslaan</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">Ja</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">Nee</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">Sluit</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">Gedaan</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">Alleen via WiFi</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">Achtergrond synchronisatie alleen met WiFi aan</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">Achtergrond synchronisatie altijd aan</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">Acties</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">Nu synchroniseren</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">Aanmelden &amp; Sync.</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">Aangemeld als:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">Statusrapport</string>
 	<!-- Sync: last error click for more -->

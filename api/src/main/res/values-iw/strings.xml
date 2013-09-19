@@ -98,16 +98,8 @@
 	<string name="DLG_information_title">פרטים</string>
 	<!-- error dialog title -->
 	<string name="DLG_error_title">שגיאה!</string>
-	<!-- general dialog save-->
-	<string name="DLG_save">שמור</string>
-	<!-- general dialog yes-->
-	<string name="DLG_yes">כן</string>
-	<!-- general dialog no-->
-	<string name="DLG_no">לא</string>
 	<!-- general dialog close-->
 	<string name="DLG_close">סגור</string>
-	<!-- general dialog done -->
-	<string name="DLG_done">בוצע</string>
 	<!-- error dialog (%s => error message)-->
 	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<!-- error dialog (no message indicated)-->
@@ -154,20 +146,10 @@
 	<string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>
 	<!-- Preference: Synchronization Interval Description (%s => setting) -->
 	<string name="sync_SPr_interval_desc">כרגע מוגדר ל: %s</string>
-	<!-- Preference: Background Wifi Title -->
-	<string name="sync_SPr_bgwifi_title">הגדרת WiFi בלבד</string>
-	<!-- Preference: Background Wifi Description (enabled) -->
-	<string name="sync_SPr_bgwifi_desc_enabled">סנכרון רקע מתרחש רק כאשר על WiFi</string>
-	<!-- Preference: Background Wifi Description (disabled) -->
-	<string name="sync_SPr_bgwifi_desc_disabled">סנכרון רקע יתבצע תמיד</string>
 	<!-- Actions Group Label  -->
 	<string name="sync_SPr_group_actions">פעולות</string>
 	<!-- Synchronize Now Button -->
 	<string name="sync_SPr_sync">מסנכרן כעת</string>
-	<!-- Synchronize Now Button if not logged in-->
-	<string name="sync_SPr_sync_log_in">התחבר וסנכרן!</string>
-	<!-- Sync: Prefix string before logged in identifier -->
-	<string name="sync_SPr_logged_in_prefix">מחובר לחשבון בתור:</string>
 	<!-- Sync: Last error -->
 	<string name="sync_SPr_last_error">דו\"ח מצב</string>
 	<!-- Sync: last error click for more -->
