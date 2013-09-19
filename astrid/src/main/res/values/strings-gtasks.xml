@@ -36,16 +36,7 @@
     
     <!-- Activity Title: Gtasks Login -->    
 
-    <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
-    accounts are currently unsupported.</string>
-    
     <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-
-    <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Tasks uses its own sort settings for tasks.</string>
 
     <!-- Sign In Button -->    
 
@@ -65,10 +56,6 @@
 
     <!-- Error Message when we receive an IO Exception -->    
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-    
-    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
-    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
-    Try logging in from the browser, then come back to try again:</string>
     
     <!-- ============================================== GtasksPreferences == -->
 

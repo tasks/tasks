@@ -31,7 +31,4 @@
   <!-- slide 38c: Preference: Voice reminders description (false) -->
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>    
   
-  <!-- slide 32d: Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice input settings</string>
-    
 </resources>

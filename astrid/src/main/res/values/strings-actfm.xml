@@ -82,15 +82,6 @@
     <item>List Settings</item>
   </string-array>
   
-  <!-- Tag View: filtered by assigned to user (%s => user name) -->
-  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-  
-  <!-- Tag View: filter by unassigned tasks -->
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
-
-  <!-- Tag View: list is private, no members -->
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
-
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
@@ -100,12 +91,6 @@
   <!-- Tag Settings: tag owner label -->
 
   <!-- Tag Settings: tag owner value when there is no owner -->
-
-  <!-- slide 26a and 27b: Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Shared With</string>
-  
-  <!-- Tag Settings: list collaborators hint -->
-  <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
 
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
@@ -126,69 +111,23 @@
   
   <!-- slide 25d: Tag Settings: list name hint -->
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-  
-  <!-- Tag settings: login prompt from share-->
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Tasks.com to share lists! Please log in or make this a private list.</string>
-  
       
   <!-- ============================================ edit people dialog == -->
 
-  <!-- task sharing dialog: intro -->
-  <string name="actfm_EPA_intro">Use Tasks to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-    
   <!-- task sharing dialog: window title -->
     
   <!-- task sharing dialog: save button -->
   
   <!-- task sharing dialog: assigned label -->
   
-  <!-- slide 18a: task sharing dialog: assigned label long version -->
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
-  
-  <!-- task sharing dialog: assigned to me -->
-  <string name="actfm_EPA_assign_me">Me</string>
-  
-  <!-- task sharing dialog: anyone -->
-  <string name="actfm_EPA_unassigned">Unassigned</string>
-  
-  <!-- slide 18c: task sharing dialog: choose a contact -->
-  <string name="actfm_EPA_choose_contact">Choose a contact</string>
-  
   <!-- task sharing dialog: custom email assignment -->
-  
-  <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Share with:</string>
-  
-  <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share</string>
-
-      <!-- task sharing dialog: collaborator list name (%s => name of list) -->
-  <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   
-  <!-- task sharing dialog: message label text -->
-  <string name="actfm_EPA_message_text">Invitation Message:</string>
-  
-  <!-- task sharing dialog: message body -->
-  <string name="actfm_EPA_message_body">Help me get this done!</string>
-  
-  <!-- task sharing dialog: list members section header -->
-  <string name="actfm_EPA_assign_header_members">List Members</string>
-
-  <!-- task sharing dialog: astrid friends section header -->
-  <string name="actfm_EPA_assign_header_friends">Tasks Friends</string>
-
   <!-- task sharing dialog: message hint -->
   
   <!-- task sharing dialog: message hint -->
   
-  <!-- task sharing dialog: share with Facebook -->
-  <string name="actfm_EPA_facebook">Facebook</string>
-  
-  <!-- task sharing dialog: share with Twitter -->
-  <string name="actfm_EPA_twitter">Twitter</string>
-
   <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
 
   <!-- task sharing dialog: edit people settings saved -->
@@ -197,13 +136,6 @@
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  
-  <!-- task sharing login prompt -->
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Tasks.com to share tasks!</string>
-  
-  <string name="actfm_EPA_login_button">Log in</string>
-  
-  <string name="actfm_EPA_dont_share_button">Don\'t share</string>
   
   <string name="actfm_EPA_add_person_to_list_title">Task assigned</string>
   
@@ -217,72 +149,11 @@
   
   <!-- ========================================= sharing login activity == -->
 
-  <!-- share login: Title -->
-  <string name="actfm_ALA_title">Welcome to Tasks.com!</string>
-
-  <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Tasks.com lets you access your tasks online,
-  share, and delegate with others.</string>
-
-  <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-
-  <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  
-  <!-- share login: Quickly log in as <%s -> email> -->
-  <string name="actfm_quick_login">Sign in: %s</string>
-
-  <!-- share login: Reject quick login -->
-  <string name="actfm_quick_login_reject">Not %s?</string>
-
-  <!-- share login: Name -->
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  
-  <!-- share login: Name -->
-  <string name="actfm_ALA_lastname_label">Last Name</string>
-
-  <!-- share login: Email -->
-  <string name="actfm_ALA_email_label">Email</string>
-
   <!-- share login: Username / Email -->
-
-  <!-- share login: Password -->
-  <string name="actfm_ALA_password_label">Password</string>
-
-  <!-- share login: Sign Up Title -->
-  <string name="actfm_ALA_signup_title">Sign Up</string>
-
-  <!-- share login: Login Title -->
-  <string name="actfm_ALA_login_title">Sign In</string>
 
   <!-- share login: Google Auth title -->
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>
 
-  <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Please log in:</string>
-  
-  <!-- Login error: user exists -->
-  <string name="actfm_ALA_error_user_exists">User already exists. Please sign in instead.</string>
-  
-  <!-- Login error: wrong password -->
-  <string name="actfm_ALA_error_wrong_password">Sorry, that password was incorrect. Please try again.</string>
-  
-  <!-- Forgot password link -->
-  <string name="actfm_ALA_forgot_password">Forgot password?</string>
-  
-  <!-- Forgot password email prompt -->
-  <string name="actfm_ALA_enter_email">Please enter your email</string>
-  
-  <!-- Password reset sent (%s -> email) -->
-  <string name="actfm_ALA_reset_sent">Password reset sent to %s</string>
-  
-  <!-- User already exists - first sync may be slow -->
-  <string name="actfm_ALA_user_exists_sync_alert">The first sync may take a bit--thanks for your patience!</string>
-  
-  <!-- User not found -->
-  <string name="actfm_ALA_error_user_not_found">User not found by that email. Try signing up instead!</string>
-  
   <!-- ================================================ Featured Lists -->
 
   <string name="actfm_feat_list_clone">Copy list</string>
@@ -299,73 +170,22 @@
   
   <!-- ================================================ Synchronization == -->
       
-  <!-- Indicates the logged in user name. %s -> user's name -->
-  <string name="actfm_status_title_logged_in">Logged in as %s</string>    
-      
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Tasks.com</string>
   
   <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
 
   <!-- title for notification tray after synchronizing -->
   
   <!-- text for notification when comments are received -->
     
-  <string name="actfm_dual_sync_warning">You currently synchronize with Google Tasks. To avoid duplicate tasks and other synchronization issues, 
-      Google Tasks will no longer synchronize when you start synchronizing with Tasks.com. You can still import tasks from Google Tasks from the Google Tasks settings page,
-      or replace Google Tasks in Gmail with Tasks\'s Remind Me Chrome Extension.  
-      Are you sure you want to sync with Tasks.com?</string>
-      
   <!-- account types -->
   <string name="actfm_account_type">Account type</string>
-  <string name="actfm_account_info">Account info</string>
-  <string name="actfm_account_info_summary">Status and options</string>
-  <string name="account_type_title_not_logged_in">Sign up for a free account</string>
-  <string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
-  
-  
-  <string name="actfm_account_premium">Premium</string>
-  <string name="actfm_account_basic">Basic</string>
   
   <string name="actfm_inapp_billing">Upgrade to Premium</string>
   <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
   
-  <!-- Sharing -->
-  <string name="share_with_facebook">Like on Facebook</string>
-  <string name="share_with_twitter">Follow on Twitter</string>
-  <string name="share_with_google">Share on Google+</string>
-  <string name="share_speech_bubble">By sharing, you\'ll help others be more productive!</string>
-  
-  
   <!-- Sync upgrade messages -->
-  <string name="sync_upgr_both_title">Using Tasks.com + Google without Duplicates</string>
-  <string name="sync_upgr_both_body">Let\'s be honest. Google Tasks is convenient but not as cool as Tasks. To avoid duplicates you can no longer sync with Tasks.com and background sync with Google Tasks at the same time. You can still import your Google Tasks by visiting Settings → Backup &amp; Sync, or downgrade to Google Tasks only sync</string>
-  <string name="sync_upgr_both_btn1">Stick with Tasks</string>
-  <string name="sync_upgr_both_btn2">Downgrade to Google Tasks</string>
-  
-  <string name="sync_upgr_gtasks_only_title">Upgrade to Tasks Sync for Free!</string>
-  <string name="sync_upgr_gtasks_only_body">Access your tasks from all your devices and from Gmail with Tasks.com sync. Upgrade to Tasks.com Sync (you can always go back to Google Tasks - but you won\'t want to)!</string>
-  <string name="sync_upgr_gtasks_only_btn1">Upgrade to Tasks Sync</string>
-  <string name="sync_upgr_gtasks_only_btn2">Stick with Google Tasks</string>
-  
-  <string name="sync_upgr_neither_title">Free backup &amp; Sync!</string>
-  <string name="sync_upgr_neither_body">Don\'t put your to-dos at risk! New and improved Tasks sync to keep and access your tasks from anywhere.</string>
-  <string name="sync_upgr_neither_btn1">Sign up now</string>
-  
-  <string name="sync_upgr_logged_out">You have been logged out of Tasks</string>
-  
-  <string name="actfm_logout_clear_tasks_title">Clear data?</string>
-  <string name="actfm_logout_clear_tasks_body">Would you like to clear your tasks and lists?</string>
-  <string name="actfm_logout_clear_tasks_yes">Clear data</string>
-  <string name="actfm_logout_clear_tasks_no">Keep data</string>
-  
-  <string name="actfm_logged_in_different_user_title">Logging in as different user</string>
-  <string name="actfm_logged_in_different_user_body">Would you like to delete existing phone tasks before syncing?</string>
-  <string name="actfm_logged_in_different_user_keep_data">Keep data</string>
-  <string name="actfm_logged_in_different_user_clear_data">Clear all data</string>
-  <string name="actfm_logged_in_different_user_processing">Processing existing data...</string>
   
   <string name="actfm_tag_not_authorized_title">Not authorized</string>
   <string name="actfm_tag_not_authorized_body">You are no longer authorized to view list %s (you may have been removed). Would you like to create a new list with the same name?</string>

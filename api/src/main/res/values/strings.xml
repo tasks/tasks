@@ -111,20 +111,8 @@
   <!-- error dialog title -->
   <string name="DLG_error_title">Error!</string>
   
-  <!-- general dialog save-->
-  <string name="DLG_save">Save</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">Yes</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">No</string>
-  
   <!-- general dialog close-->
   <string name="DLG_close">Close</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">Done</string>
   
   <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
@@ -187,23 +175,11 @@
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
   <string name="sync_SPr_interval_desc">Currently set to: %s</string>
   
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Wifi only setting</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-  
   <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">Actions</string>
 
   <!-- Synchronize Now Button -->    
   <string name="sync_SPr_sync">Synchronize now</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Log in &amp; synchronize!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Last error -->
   <string name="sync_SPr_last_error">Status report</string>

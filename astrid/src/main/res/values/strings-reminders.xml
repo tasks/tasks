@@ -153,15 +153,6 @@
   <!-- Reminder Preference: Notification Persistence Description (false) -->
   <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
 
-  <!-- Reminder Preference: Social Reminders Title -->
-  <string name="rmd_EPr_social_title">Social encouragement</string>
-  <!-- Reminder Preference: Social Reminders Summary (enabled) -->
-  <string name="rmd_EPr_social_summary_enabled">Reminders will show who is counting on you for shared tasks</string>
-  <!-- Reminder Preference: Social Reminders Summary (disabled) -->
-  <string name="rmd_EPr_social_summary_disabled">Reminders will not show who is counting on you for shared tasks</string>
-  
-  
-  
   <!-- Reminder Preference: Notification Icon Title -->
   <!-- Reminder Preference: Notification Icon Description -->
 

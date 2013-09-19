@@ -32,8 +32,6 @@
     
     <!-- Preference screen restoring Tasks Help -->
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    
-    <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Tasks.com!</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -49,9 +47,6 @@
   <!-- backup activity export button -->
   <string name="backup_BAc_export">Export tasks</string>
   
-  <!-- backup activity cloud (Tasks.com) option -->
-  <string name="backup_BAc_cloud">Click for free cloud backup on Tasks.com</string>
-    
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->

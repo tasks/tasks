@@ -32,13 +32,6 @@
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
   
-  <!-- Dialog for Tasks having a critical update -->
-  <string name="DLG_please_update">Tasks should to be updated to the latest
-  version in the Android market! Please do that before continuing, or wait a 
-  few seconds.</string>
-
-  <!-- Button for going to Market -->
-
   <!-- Button for accepting EULA -->
   <string name="DLG_accept">I Accept</string>
 
@@ -47,9 +40,6 @@
 
   <!-- EULA title -->
   <string name="DLG_eula_title">Terms Of Use</string>
-
-  <!-- Progress Dialog generic text -->
-  <string name="DLG_please_wait">Please Wait</string>
   
   <!-- Dialog - loading -->
   <string name="DLG_loading">Loading...</string>
@@ -61,11 +51,7 @@
   <!-- slide 36g -->
   <string name="DLG_cancel">Cancel</string>
   
-  <string name="DLG_more">More</string>
-  
   <string name="DLG_undo">Undo</string>
-  
-  <string name="DLG_warning">Warning</string>
   
   <!-- =============================================================== UI == -->
   
@@ -214,9 +200,6 @@
   
   <!-- ============================================== SortSelectionDialog == -->
   
-  <!-- slide 23a: Sort Selection: dialog title -->    
-  <string name="SSD_title">Sort, Subtasks, and Hidden</string>
-  
   <!-- slide 23h:  Hidden: title -->
   <string name="SSD_hidden_title">Hidden Tasks</string>
   
@@ -316,9 +299,6 @@
   <!-- Task due date hint -->
   <string name="TEA_deadline_hint">Set due date</string>
   
-  <!-- Task assigned to string (%s -> assigned person name) -->
-  <string name="TEA_assigned_to">Assigned to %s</string>
-  
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">At specific time?</string>
   
@@ -358,9 +338,6 @@
   <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard">Don\'t Save</string>
   
-  <!-- Menu: Delete Task -->
-  <string name="TEA_menu_delete">Delete Task</string>
-  
   <!-- Menu: Task comments -->
   <string name="TEA_menu_refresh_comments">Refresh comments</string>
 
@@ -378,12 +355,6 @@
   
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
-  
-  <!-- slide 15e:  Task edit tab: more editing settings -->
-  <string name="TEA_tab_more">Details</string>
-  
-  <!-- slide 15d: Task edit tab: web services -->
-  <string name="TEA_tab_web">Ideas</string>
   
   <string name="TEA_timer_est">Est. %s</string>
 
@@ -453,12 +424,6 @@
   
   
   <string name="TEA_new_task">New Task</string>
-  
-  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
-  
-  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
-  
-  <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -616,17 +581,10 @@
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">Latest Tasks News</string>
   
-  <!-- Updats No Activity to show for offline users -->
-  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
-  
   <!-- ================================================== EditPreferences == -->
     
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Settings</string>
-  
-  <string name="EPr_share_astrid">Share Tasks</string>
-
-  <string name="EPr_share_astrid_summary">Share about Tasks on your favorite social network</string>
   
   <!-- slide 46a -->
   <string name="EPr_deactivated">deactivated</string>
@@ -636,15 +594,6 @@
   
   <!-- Preference Category: Appearance Summary -->
   <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
-  
-  <!-- FAQ Preference title -->
-  <string name="EPr_faq_title">FAQ</string>
-  
-  <!-- Account status preference (%s -> account type) -->
-  <string name="EPr_account_title">Account: %s</string>
-
-  <!-- Support preferences summary -->
-  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
   
   <!-- slide 34a: Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task list size</string>
@@ -689,11 +638,6 @@
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Description will always be displayed</string>
   
-  <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-  <string name="EPr_compressTaskRows_title">Compact task row</string>
-  <!-- slide 34j -->
-  <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  
   <!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
   <!-- slide 34k-->
   
@@ -702,12 +646,6 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <!-- slide 34h -->
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-  
-  <!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-  <string name="EPr_ideaAuto_title">Auto-load ideas tab</string>
-  <!-- slide 32c -->
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for ideas tab will be performed when tab is clicked</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for ideas tab will be performed only when manually requested</string>
   
   <!-- Preferences: task row style -->
   <string-array name="EPr_task_row_styles">
@@ -728,12 +666,6 @@
   <!-- Preference: custom filters enabled -->
   <string name="EPr_use_filters_title">Use filters</string>
   <string name="EPr_use_filters_subtitle">Lets you create custom filters</string>
-
-  <!-- Preference: show list members in shared list -->
-  <string name="EPr_show_list_members_title">Show list members in shared lists</string>
-
-  <!-- Preference: simple input box style -->
-  <string name="EPr_simple_input_boxes">Simple text boxes</string>
 
   <!-- Preference: simple input box style -->
   <string name="EPr_show_quickadd_controls">Advanced quickadd controls</string>
@@ -762,22 +694,6 @@
   <!-- slide 30d/ 34f: Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task row appearance</string>
   
-  <!-- slide 49g: Preferences: use the system contact picker for task assignment -->
-  <string name="EPr_use_contact_picker">Use contact picker</string>
-  <!-- slide 49b -->
-  <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
-  <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
-
-  <!-- slide 49i: Preferences: Third party addons -->
-  <string name="EPr_third_party_addons">Enable third party add-ons</string>
-  <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
-  <!-- slide 49d -->
-  <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
-  
-  <!-- Preferences: ideas tab -->
-  <string name="EPr_ideas_tab_enabled">Task ideas</string>
-  <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
-  
   <!-- Preferences: calendar event start time -->
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
@@ -785,8 +701,6 @@
   
   <string name="EPr_force_phone_layout">Use phone layout</string>
 
-  <string name="EPr_show_featured_lists">Show featured lists</string>
-  
   <!-- Configurations -->
   <string name="EPr_configurations_title">Set configuration</string>
   <string name="EPr_config_default">Default</string>
@@ -943,15 +857,6 @@
 
 Tasks is open-source and proudly maintained by Todoroo, Inc.</string>
 
-  <!-- Title of "Help" option in settings -->
-  <string name="p_help">Support</string>
-  
-  <!-- slide 30c: Title of "Forums" option in settings -->
-  <string name="p_forums">Forums</string>
-  
-  <!-- Title of "Premium" option in settings -->
-  <string name="p_premium">Premium</string>
-  
   <!-- ============================================================= Misc == -->
   
   <string name="feedback_positive_title">Rate Tasks?</string>
@@ -982,14 +887,6 @@ Tasks might not let you know when your tasks are due.\n
   <!-- Task killer dialog ok button -->
   <string name="task_killer_help_ok">I Won\'t Kill Tasks!</string>
     
-  <!-- Tasks's Android Marketplace title. It never appears in the app itself. -->
-  
-  <!-- Tasks's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Tasks is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
-  </string>
-  
   <string name="DB_corrupted_title">Corrupted Database</string>
   
   <string name="DB_corrupted_body">

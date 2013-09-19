@@ -25,9 +25,6 @@
 
     <!-- =========================================== CustomFilterActivity == -->
     
-    <!-- slide 30d: Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
-    
     <!-- slide 30e: Filter Name edit box hint (if user types here, filter will be saved) -->
     <string name="CFA_filterName_hint">Name this filter to save it...</string>
     
