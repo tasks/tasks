@@ -1,246 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1 jaar</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d jaren</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1 maand</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d maanden</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1 week</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d weken</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1 dag</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d dagen</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">1 weekdag</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d weekdagen</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1 uur</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d uren</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1 minuut</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d minuten</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 seconde</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d seconden</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 u.</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d u.</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 m.</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d m.</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 s.</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d s.</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 taak</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d taken</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1 persoon</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d personen</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">Vandaag</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">Morgen</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">Gisteren</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">mrgn</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">gisteren</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">OK?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">Vraag:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">Informatie</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">Fout!</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">Opslaan</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">Ja</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">Nee</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">Sluit</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">Gedaan</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Er is een fout opgetreden!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Even geduld a.u.b.</string>
-
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Taken synchroniseren...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchroniseren…</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Synchronisatie</string>  
-
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Nu synchroniseren</string>  
-
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>  
-
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
-
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Status</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Niet aangemeld</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">Synchronisatie bezig...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Vorige:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Mislukt op: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Gesync. met fouten: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Gelukt op: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">Nooit gesynct!</string>
-
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Opties</string>
-
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Alleen via WiFi</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Achtergrond synchronisatie alleen met WiFi aan</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Achtergrond synchronisatie altijd aan</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">Acties</string>
-
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Nu synchroniseren</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Aanmelden &amp; Sync.</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">Aangemeld als:</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">Statusrapport</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Tasks team te versturen</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">Rapport verzenden</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Afmelden</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
-
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">Er was een probleem met de netwerkverbinding tijdens de laatste synchronisatie met %s. Probeer het a.u.b. later nog eens.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>uitschakelen</item>
-      <item>elke 15 min.</item>
-      <item>elke 30 min.</item>
-      <item>elk uur</item>
-      <item>elke 3 uur</item>
-      <item>elke 6 uur</item>
-      <item>elke 12 uur</item>
-      <item>elke dag</item>
-      <item>elke 3 dagen</item>
-      <item>elke week</item>
-  </string-array>    
-    
+	<!-- ==================================================== Generic Units == -->
+	<plurals name="DUt_years">
+	<!-- plurals: years -->
+		<item quantity="one">1 jaar</item>
+	<!-- plurals: years -->
+		<item quantity="other">%d jaren</item>
+	</plurals>
+	<plurals name="DUt_months">
+	<!-- plurals: months -->
+		<item quantity="one">1 maand</item>
+	<!-- plurals: months -->
+		<item quantity="other">%d maanden</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+	<!-- plurals: days -->
+		<item quantity="one">1 week</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d weken</item>
+	</plurals>
+	<plurals name="DUt_days">
+	<!-- plurals: days -->
+		<item quantity="one">1 dag</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d dagen</item>
+	</plurals>
+	<plurals name="DUt_weekdays">
+	<!-- plurals: days -->
+		<item quantity="one">1 weekdag</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d weekdagen</item>
+	</plurals>
+	<plurals name="DUt_hours">
+	<!-- plurals: hours -->
+		<item quantity="one">1 uur</item>
+	<!-- plurals: hours -->
+		<item quantity="other">%d uren</item>
+	</plurals>
+	<plurals name="DUt_minutes">
+	<!-- plurals: minutes -->
+		<item quantity="one">1 minuut</item>
+	<!-- plurals: minutes -->
+		<item quantity="other">%d minuten</item>
+	</plurals>
+	<plurals name="DUt_seconds">
+	<!-- plurals: seconds -->
+		<item quantity="one">1 seconde</item>
+	<!-- plurals: seconds -->
+		<item quantity="other">%d seconden</item>
+	</plurals>
+	<plurals name="DUt_hoursShort">
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="one">1 u.</item>
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="other">%d u.</item>
+	</plurals>
+	<plurals name="DUt_minutesShort">
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="one">1 m.</item>
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="other">%d m.</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="one">1 s.</item>
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="other">%d s.</item>
+	</plurals>
+	<plurals name="Ntasks">
+	<!-- plurals: tasks -->
+		<item quantity="one">1 taak</item>
+	<!-- plurals: tasks -->
+		<item quantity="other">%d taken</item>
+	</plurals>
+	<plurals name="Npeople">
+	<!-- plurals: people -->
+		<item quantity="one">1 persoon</item>
+	<!-- plurals: people -->
+		<item quantity="other">%d personen</item>
+	</plurals>
+	<!-- slide 10a, 12c: today -->
+	<string name="today">Vandaag</string>
+	<!-- tomorrow -->
+	<string name="tomorrow">Morgen</string>
+	<!-- yesterday -->
+	<string name="yesterday">Gisteren</string>
+	<!-- slide 12c: tomorrow, abbreviated -->
+	<string name="tmrw">mrgn</string>
+	<!-- slide 12c: yesterday, abbreviated -->
+	<string name="yest">gisteren</string>
+	<!-- ================================================== Generic Dialogs == -->
+	<!-- confirmation dialog title -->
+	<string name="DLG_confirm_title">OK?</string>
+	<!-- question dialog title -->
+	<string name="DLG_question_title">Vraag:</string>
+	<!-- information dialog title -->
+	<string name="DLG_information_title">Informatie</string>
+	<!-- error dialog title -->
+	<string name="DLG_error_title">Fout!</string>
+	<!-- general dialog save-->
+	<string name="DLG_save">Opslaan</string>
+	<!-- general dialog yes-->
+	<string name="DLG_yes">Ja</string>
+	<!-- general dialog no-->
+	<string name="DLG_no">Nee</string>
+	<!-- general dialog close-->
+	<string name="DLG_close">Sluit</string>
+	<!-- general dialog done -->
+	<string name="DLG_done">Gedaan</string>
+	<!-- error dialog (%s => error message)-->
+	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
+	<!-- error dialog (no message indicated)-->
+	<string name="DLG_error_generic">Er is een fout opgetreden!</string>
+	<!-- Progress dialog shown when doing something slow -->
+	<string name="DLG_wait">Even geduld a.u.b.</string>
+	<!-- ====================================================== SyncProvider == -->
+	<!-- Sync Notification: message when sync service active -->
+	<string name="SyP_progress">Taken synchroniseren...</string>
+	<!-- Sync Notification: toast when sync activated from activity -->
+	<string name="SyP_progress_toast">Synchroniseren…</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="SyP_label">Synchronisatie</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="Sync_now_label">Nu synchroniseren</string>
+	<!-- Sync label subtitle -->
+	<string name="SyP_summary">Google Taken, opgeslagen data, lokale back-up</string>
+	<!-- Error msg when io exception  -->
+	<string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
+	<!-- ================================================== SyncPreferences == -->
+	<!-- Status Group Label -->
+	<string name="sync_SPr_group_status">Status</string>
+	<!-- Sync status subtitle, %s-> status message -->
+	<string name="sync_SPr_status_subtitle">Status: %s</string>
+	<!-- Sync Status: log in -->
+	<string name="sync_status_loggedout">Niet aangemeld</string>
+	<!-- Status: ongoing -->
+	<string name="sync_status_ongoing">Synchronisatie bezig...</string>
+	<!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+	<string name="sync_status_success">Vorige:\n%s</string>
+	<!-- Sync Status: failure status (%s -> last attempted sync date) -->
+	<string name="sync_status_failed">Mislukt op: %s</string>
+	<!-- Sync Status: error status (%s -> last sync date) -->
+	<string name="sync_status_errors">Gesync. met fouten: %s</string>
+	<!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+	<string name="sync_status_failed_subtitle">Gelukt op: %s</string>
+	<!-- Sync Status: never sync\'d -->
+	<string name="sync_status_never">Nooit gesynct!</string>
+	<!-- Options Group Label -->
+	<string name="sync_SPr_group_options">Opties</string>
+	<!-- Preference: Synchronization Interval Title -->
+	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
+	<!-- Preference: Synchronization Interval Description (when disabled) -->
+	<string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
+	<!-- Preference: Synchronization Interval Description (%s => setting) -->
+	<string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
+	<!-- Preference: Background Wifi Title -->
+	<string name="sync_SPr_bgwifi_title">Alleen via WiFi</string>
+	<!-- Preference: Background Wifi Description (enabled) -->
+	<string name="sync_SPr_bgwifi_desc_enabled">Achtergrond synchronisatie alleen met WiFi aan</string>
+	<!-- Preference: Background Wifi Description (disabled) -->
+	<string name="sync_SPr_bgwifi_desc_disabled">Achtergrond synchronisatie altijd aan</string>
+	<!-- Actions Group Label  -->
+	<string name="sync_SPr_group_actions">Acties</string>
+	<!-- Synchronize Now Button -->
+	<string name="sync_SPr_sync">Nu synchroniseren</string>
+	<!-- Synchronize Now Button if not logged in-->
+	<string name="sync_SPr_sync_log_in">Aanmelden &amp; Sync.</string>
+	<!-- Sync: Prefix string before logged in identifier -->
+	<string name="sync_SPr_logged_in_prefix">Aangemeld als:</string>
+	<!-- Sync: Last error -->
+	<string name="sync_SPr_last_error">Statusrapport</string>
+	<!-- Sync: last error click for more -->
+	<string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Tasks team te versturen</string>
+	<!-- Sync: send error report button -->
+	<string name="sync_SPr_send_report">Rapport verzenden</string>
+	<!-- Sync: Clear Data Title -->
+	<string name="sync_SPr_forget">Afmelden</string>
+	<!-- Sync: Clear Data Description -->
+	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
+	<!-- confirmation dialog for sync log out -->
+	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
+	<!-- Sync error: network connectivity problems. %s-> name of sync service-->
+	<string name="sync_error_offline">Er was een probleem met de netwerkverbinding tijdens de laatste synchronisatie met %s. Probeer het a.u.b. later nog eens.</string>
+	<string-array name="sync_SPr_interval_entries">
+	<!-- sync_SPr_interval_entries: Synchronization Intervals -->
+		<item>uitschakelen</item>
+		<item>elke 15 min.</item>
+		<item>elke 30 min.</item>
+		<item>elk uur</item>
+		<item>elke 3 uur</item>
+		<item>elke 6 uur</item>
+		<item>elke 12 uur</item>
+		<item>elke dag</item>
+		<item>elke 3 dagen</item>
+		<item>elke week</item>
+	</string-array>
 </resources>
