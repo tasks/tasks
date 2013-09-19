@@ -404,7 +404,6 @@
   <string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
   <string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
   <string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
-  <string name="welcome_login_confirm_later_cancel">No, gràcies</string>
   <string name="locale_edit_alerts_title">Tasks alerta de filtre</string>
   <string name="locale_edit_intro">Tasks l\'hi enviarà una notificació quan tingui qualsevol tasca al següent filtre:</string>
   <string name="locale_interval_label">Limitar notificacions a:</string>
@@ -726,6 +725,4 @@
   <string name="TFE_workingOn">Tasques sent cronometrades</string>
   <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
   <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
-  <string name="welcome_title_1">Benvingut a Tasks</string>
-  <string name="welcome_body_5">and much more!</string>
 </resources>

@@ -1227,19 +1227,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="help_popover_add_lists">Lägg till en lista</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Tryck för att lägga till eller byta lista</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Genom att använda Tasks godkänner du</string>
-	<string name="welcome_login_tos_link">Villkor för användning</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Registrera dig</string>
-	<string name="welcome_sign_in">Logga in</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Senare</string>
-	<string name="welcome_login_confirm_later_title">Om du skulle ta och logga in?</string>
-	<string name="welcome_login_confirm_later_ok">Jag ska göra det!</string>
-	<string name="welcome_login_confirm_later_cancel">Nej tack</string>
-	<string name="welcome_login_confirm_later_dialog">Logga in för att få ut så mycket som möjligt av Tasks! Utan kostnad får du säkerhetskopia via nätet, full synkronisering med Tasks.com, möjlighet att lägga till uppgifter via e-post, och du kan till och med dela uppgiftslistor med vänner!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks filteralarm</string>
@@ -2044,37 +2031,5 @@ kommer inte att kunna utföra köp.</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks kommer att spela en ringsignal vid påminnelse</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Röstindata inställningar</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Visa handledning</string>
-	<string name="welcome_title_1">Välkommen till Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Göra listor</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Byta mellan listor</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Dela listor</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Dela upp uppgifter</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Ange detaljer</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Anslut nu\nför att starta!</string>
-	<string name="welcome_title_7_return">Det var det!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">Den perfekta att göra-listan\nsom funkar bra med vänner</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Utmärkt för alla listor:\natt läsa, att titta på, att köpa, att besöka</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Tryck på listans namn\nför att se alla dina listor</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Dela listor med \nkompisarna\neller din älskling!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Klicka för att göra anteckningar,\nställa in påminnelser,\noch mycket annat!</string>
-	<string name="welcome_body_7">Logga in</string>
-	<string name="welcome_body_7_return">Klicka på Tasks för att återvända.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Nästa</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

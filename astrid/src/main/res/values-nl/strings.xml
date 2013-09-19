@@ -1223,19 +1223,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="help_popover_add_lists">Druk om een lijst toe te voegen</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Klik om een lijst toe te voegen of een andere lijst te selecteren</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Door Tasks te gebruiken ga je akkoord met de</string>
-	<string name="welcome_login_tos_link">\"Algemene Voorwaarden\"</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Registreren</string>
-	<string name="welcome_sign_in">Aanmelden</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Later</string>
-	<string name="welcome_login_confirm_later_title">Waarom log je niet in?</string>
-	<string name="welcome_login_confirm_later_ok">Ik doe het!</string>
-	<string name="welcome_login_confirm_later_cancel">Nee, bedankt</string>
-	<string name="welcome_login_confirm_later_dialog">Log in om het meeste uit Tasks te halen! Je krijgt gratis online backup, synchronisatie met Tasks.com, de mogelijkheid om taken toe te voegen via e-mail en lijsten te delen met vrienden!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter waarschuwing</string>
@@ -2039,37 +2026,5 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Spraakinstellingen</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Laat handleiding zien</string>
-	<string name="welcome_title_1">Welkom bij Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Maak lijsten</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Wissel lijsten</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Deel lijsten</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Verdeel taken</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Details verstrekken</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Maak nu verbinding\nom te beginnen!</string>
-	<string name="welcome_title_7_return">Dat is het!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">De perfecte persoonlijke to-do lijst \ndie geweldig werkt met vrienden.</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Perfect voor elke lijst:\nlezen, kijken, kopen, bezoeken!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Klik op de lijst titel \nom al je lijsten te zien.</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Deel lijsten met \nvrienden, huisgenoten,\nof je vriend(in).</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Klik om notities toe te voegen,\nherinneringen in te stellen,\nen nog veel meer!</string>
-	<string name="welcome_body_7">Aanmelden</string>
-	<string name="welcome_body_7_return">Klik Tasks om terug te gaan.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Verder</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

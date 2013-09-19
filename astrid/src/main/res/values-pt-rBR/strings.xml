@@ -1223,19 +1223,6 @@
 	<string name="help_popover_add_lists">Toque para adicionar uma lista</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Toque para inserir uma lista ou trocar entre listas</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Ao usar Tasks você aceita os</string>
-	<string name="welcome_login_tos_link">Termos do serviço</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Cadastre-se</string>
-	<string name="welcome_sign_in">Autenticar</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Depois</string>
-	<string name="welcome_login_confirm_later_title">Porque não se conectar?</string>
-	<string name="welcome_login_confirm_later_ok">Eu farei!</string>
-	<string name="welcome_login_confirm_later_cancel">Não, obrigado</string>
-	<string name="welcome_login_confirm_later_dialog">Conecte-se para obter mais do Tasks! É de graça, você tem backup online, sincronização completa com Tasks.com e possibilidade de adicionar tarefas via email, podendo inclusive compartilhar com seus amigos!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Filtro de Alerta do Tasks</string>
@@ -2037,37 +2024,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks irá tocar um som durante o lembrete</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Configuração de entrada de voz</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Mostrar tutorial</string>
-	<string name="welcome_title_1">Bem vindo ao Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Criar listas</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Troque entre listas</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Compartilhar listas</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Dividir tarefas</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Adicione detalhes</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Conecte-se agora\npara iniciar!</string>
-	<string name="welcome_title_7_return">Pronto!!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">A perfeita lista de tarefas que\nfunciona muito bem com amigos</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Ótimo para qualquer lista:\nler, assistir, comprar, visitar!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Toque para adicionar notas,\nconfigurar lembretes,\ne muito mais!</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Compartilhe suas listas com \namigos, colegas,\nou seu amor!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">Nunca queira saber\nquem está trazendo a sobremesa!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Toque para inserir notas,\ndefinir lembretes,\ne muito mais!</string>
-	<string name="welcome_body_7">Nome de acesso</string>
-	<string name="welcome_body_7_return">Toque no Tasks para retornar.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Próximo</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

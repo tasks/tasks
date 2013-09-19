@@ -1229,19 +1229,6 @@
 	<string name="help_popover_add_lists">Нажмите, чтобы добавить список</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Нажмите, чтобы добавить список или переключиться между списками</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Используя Tasks, вы согласны с</string>
-	<string name="welcome_login_tos_link">Условия предоставления услуг</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Зарегистрироваться</string>
-	<string name="welcome_sign_in">Войти</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Позже</string>
-	<string name="welcome_login_confirm_later_title">Почему бы не войти?</string>
-	<string name="welcome_login_confirm_later_ok">Я сделаю это!</string>
-	<string name="welcome_login_confirm_later_cancel">Спасибо, не надо</string>
-	<string name="welcome_login_confirm_later_dialog">Войдите, чтобы получить максимум от Tasks! Бесплатно вы получите онлайн резервирование, полную синхронизацию с Tasks.com, возможность добавлять задачи по почте и даже делиться своими списками задач с друзьями!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Предупреждение фильтра Tasks</string>
@@ -2046,37 +2033,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Параметры голосового ввода</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Показать справку</string>
-	<string name="welcome_title_1">Добро пожаловать в Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Создать списки</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Переходите между списками</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Поделиться списками</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Распределить задания</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Предоставить подробности</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Подключиться сейчас\nчтобы начать!</string>
-	<string name="welcome_title_7_return">Вот именно!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">Лучший персональный менеджер задач,\nв нем удобно работать с друзьями</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Удобен для любого списка:\nчто почитать, посмотреть, купить, посетить!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Нажми на название списка,\nчтобы увидеть все свои списки</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Поделитесь списками с\nдрузьями, соседями\nили любимым человеком!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">Никогда не интересовались, кто\nприносит Вам десерт?</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Нажмите чтобы добавить заметки,\nустановить напоминания,\nи многое другое!</string>
-	<string name="welcome_body_7">Вход</string>
-	<string name="welcome_body_7_return">Нажмите Tasks, чтобы вернуться назад.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Далее</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

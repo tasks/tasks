@@ -1226,19 +1226,6 @@
 	<string name="help_popover_add_lists">Tap to add a list</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Používáním Tasks souhlasíte s</string>
-	<string name="welcome_login_tos_link">Terms of Service</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Sign up</string>
-	<string name="welcome_sign_in">Log in</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Later</string>
-	<string name="welcome_login_confirm_later_title">Nechcete se přihlásit?</string>
-	<string name="welcome_login_confirm_later_ok">Jasně!</string>
-	<string name="welcome_login_confirm_later_cancel">Ne, díky</string>
-	<string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Tasks více! Zdarma získáte online zálohování, plnou synchronizaci s Tasks.com, možnost přidávat úkoly emailem a dokonce můžete sdílet seznamy úkolů s přáteli!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Upozornění filtrů</string>
@@ -2048,37 +2035,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Voice input settings</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Show tutorial</string>
-	<string name="welcome_title_1">Vítej v Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Make lists</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Switch between lists</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Share lists</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Divvy up tasks</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Provide details</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Connect now\nto get started!</string>
-	<string name="welcome_title_7_return">That\'s it!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">The perfect personal to-do list \nthat works great with friends</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Great for any list:\nread, watch, buy, visit!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Tap the list title \nto see all your lists</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Tap to add description,\nset reminders,\nand much more!</string>
-	<string name="welcome_body_7">Login</string>
-	<string name="welcome_body_7_return">Tap Tasks to return.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Next</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

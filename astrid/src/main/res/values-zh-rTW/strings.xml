@@ -1223,19 +1223,6 @@
 	<string name="help_popover_add_lists">點擊標籤添加列表</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">輕點添加一個列表或者在列表間切換</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">您使用Tasks 就表明您同意所有</string>
-	<string name="welcome_login_tos_link">服務條款</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Sign up</string>
-	<string name="welcome_sign_in">登入</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">稍後</string>
-	<string name="welcome_login_confirm_later_title">為什麼不登錄呢？</string>
-	<string name="welcome_login_confirm_later_ok">我會的！</string>
-	<string name="welcome_login_confirm_later_cancel">不了，謝謝</string>
-	<string name="welcome_login_confirm_later_dialog">登錄吧，充分利用Tasks！無需任何費用，您就可以獲得在線備份、和Tasks.com 全面同步、可以通過電子郵件添加任務工作、而且您甚至可以和朋友們一起分享任務工作列表呢！</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks 篩選警示</string>
@@ -2037,37 +2024,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在工作提醒時將會播放鈴聲</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">語音輸入設定</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">顯示教程</string>
-	<string name="welcome_title_1">歡迎使用Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">創建列表</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">在列表間切換</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">分享列表</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">分攤任務工作</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">提供詳情</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">現在就聯網 \n開始使用吧！</string>
-	<string name="welcome_title_7_return">搞定！</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">完美的個人任務工作列表 \n和朋友們互動超級好用</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">任何列表都超牛：\n閱讀、觀看、購買、訪問都是超強的！</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">輕點列表標題 \n查看您所有的列表</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">和朋友、室友、\n或者您的愛人 \n分享精彩繽紛的列表吧！</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">不用猜想誰會 \n帶甜點來喔！</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">輕點即可添加便箋 \n設置提示還有更多功能呢！</string>
-	<string name="welcome_body_7">登陸</string>
-	<string name="welcome_body_7_return">拍拍 Tasks 返回。</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">下一步</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

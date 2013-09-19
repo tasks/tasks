@@ -1229,19 +1229,6 @@
 	<string name="help_popover_add_lists">טְפַח כדי להוסיף רשימה</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">טְפַח כדי להוסיף רשימה או לעבור בין רשימות</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">בשימוש בתכנת אסטריד אתה מסכים ל</string>
-	<string name="welcome_login_tos_link">תנאי שימוש</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">הרשם</string>
-	<string name="welcome_sign_in">התחברות</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">מאוחר יותר</string>
-	<string name="welcome_login_confirm_later_title">מדוע לא תתחבר כעת?</string>
-	<string name="welcome_login_confirm_later_ok">אעשה זאת!</string>
-	<string name="welcome_login_confirm_later_cancel">לא, תודה</string>
-	<string name="welcome_login_confirm_later_dialog">עליך להרשם כדי להפיק את המירב מאסטריד! תוכל לקבל גיבויים חינם, סינכרון מלא עם אתר tasks.com, אפשרות להוסיף משימות בדוא״ל, ואפילו אפשרות לשתף משימות עם חברים!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">התראת מַסְנֵן של אסטריד</string>
@@ -2050,37 +2037,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">הגדרות קלט קולי</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">הציגי מדריך</string>
-	<string name="welcome_title_1">ברוך בואך לאסטריד!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">הכנת רשימות</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">מעבר בין רשימות</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">שַׁתְּפִי רשימות</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">חלוקת משימות בין חברים</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">הוסף פרטים</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">התחבר כעת\nכדי להתחיל!</string>
-	<string name="welcome_title_7_return">זהו זה!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">המנהלת האישית המושלמת של רשימת המשימות אשר עובדת מצויין עם שותפים</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">מעולה לכל סוגי הרשימות:\nרשימת קריאה, רשימת קניות, רשימת ביקורים ורשימת מעקב!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">טְפַח על כותרת הרשימה \nכדי לראות את כל הרשימות</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">שתף רשימות עם חברים,\nשותפים, וגם עם אהובתך</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">איתי תוכל להיות תמיד\nבטוח מי יביא קינוח!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">גע כדי להוסיף הערות, לקבוע\nתזכורות, ועוד הרבה יותר!</string>
-	<string name="welcome_body_7">התחבר</string>
-	<string name="welcome_body_7_return">טְפַח על אסטריד כדי לחזור</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">הבא</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

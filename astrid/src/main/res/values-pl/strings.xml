@@ -1224,19 +1224,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="help_popover_add_lists">Puknij, aby dodać listę</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Puknij, aby dodać listę lub się między nimi przełączać</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Używając Tasks zgadzasz się na</string>
-	<string name="welcome_login_tos_link">Regulamin usługi</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Zarejestruj się</string>
-	<string name="welcome_sign_in">Zaloguj się</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Później</string>
-	<string name="welcome_login_confirm_later_title">Czemu by się nie zalogować?</string>
-	<string name="welcome_login_confirm_later_ok">Zrobię to!</string>
-	<string name="welcome_login_confirm_later_cancel">Nie, dzięki</string>
-	<string name="welcome_login_confirm_later_dialog">Zaloguj się by wyciągnąć z Tasks jeszcze więcej! Za darmo otrzymasz kopię zapasową online, pełną synchronizację z Tasks.com, możliwość dodawania zadań przez e-mail i będziesz mógł dzielić się swoimi listami zadań ze znajomymi!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Filtr powiadomienia Tasks</string>
@@ -2044,37 +2031,5 @@ ale nie będziesz mógł robić zakupów.</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks będzie uruchamiał dzwonek podczas przypomnienia zadania</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Ustawienia poleceń głosowych</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Pokaż tutorial</string>
-	<string name="welcome_title_1">Witaj w Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Stwórz listy</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Przęłącz między listami</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Udostępnij listy</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Divvy up tasks</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Dodaj szczegóły</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Połącz się,\naby zacząć</string>
-	<string name="welcome_title_7_return">To wszystko!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">Doskonała osobista lista do-zrobienia \ndziała wspaniale z przyjaciółmi</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Idealne do każdej listy:\nczytaj, oglądaj, kupuj, odwiedź!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Klepnij tytuł listy \by zobaczyć wszystkie twoje listy</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Udustępnij listy z\nprzyjaciółmi, lokatorami \nlub swoją sympatią!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Klepnij aby dodać notatki,\nustawić przypomnienia,\ni wiele więcej!</string>
-	<string name="welcome_body_7">Zaloguj</string>
-	<string name="welcome_body_7_return">Klepnij Tasks by wrócić.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Dalej</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

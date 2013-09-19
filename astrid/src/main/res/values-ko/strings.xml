@@ -1238,21 +1238,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="help_popover_add_lists">목록을 추가하려면 누리기</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">목록을 추가하거나 목록 간에 전환하려면 누르세요</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">아스트리드 사용시 다음에 동의합니다:</string>
-	<string name="welcome_login_tos_link">서비스 약관</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">가입하기</string>
-	<string name="welcome_sign_in">로그인</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">나중에</string>
-	<string name="welcome_login_confirm_later_title">로그인하세요!</string>
-	<string name="welcome_login_confirm_later_ok">난 하고 말 꺼야!</string>
-	<string name="welcome_login_confirm_later_cancel">됐거든요</string>
-	<string name="welcome_login_confirm_later_dialog">아스트리드를 잘 사용하기 위해 가입하세요! 
-무료로 온라인 백업, Tasks.com 에 전체 동기화, 이메일로 일정 추가하기 
-그리고 친구들과 일정 목록을 공유할 수 있습니다!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">아스트리드 필터 경고</string>
@@ -2055,37 +2040,5 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">음성 입력 설정</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">사용 지침 보기</string>
-	<string name="welcome_title_1">아스트리드 사용을 환영합니다!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">목록 만들기</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">목록 간 전환</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">목록 공유하기</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">일정 분배하기</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">상세내용 입력하기</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">시작하려면\n지금 접속하세요!</string>
-	<string name="welcome_title_7_return">그거에요!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">친구와 협업 가능한 \n완벽한 개인 비서</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">어떤 목록이든 최고:\n독서, 시청, 구매, 방문!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">모든 목록을 보려면 \n목록 제목을 누르세요</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">목록을 친구, 동료나\n애인과 공유해 보세요!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">누구인지 궁금해하지 마세요\n디저트를 가져오세요!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">설명이나 알림 등을 \n추가하려면 누르세요!</string>
-	<string name="welcome_body_7">로그인</string>
-	<string name="welcome_body_7_return">돌아가려면 아스트리드를 누르세요.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">다음</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

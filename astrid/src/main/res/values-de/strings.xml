@@ -1223,19 +1223,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="help_popover_add_lists">Hier tippen um eine neue Liste anzulegen</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">ZUm Hinzufügen einer Liste oder zum Wechsel zwischen Listen anklicken</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Mit der Nutzung von Tasks stimmst du zu den</string>
-	<string name="welcome_login_tos_link">Nutzungsbestimmungen</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Registrieren</string>
-	<string name="welcome_sign_in">Anmelden</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Später</string>
-	<string name="welcome_login_confirm_later_title">Warum meldest du dich nicht an?</string>
-	<string name="welcome_login_confirm_later_ok">Ich mach\'s!</string>
-	<string name="welcome_login_confirm_later_cancel">Kein Interesse</string>
-	<string name="welcome_login_confirm_later_dialog">\"Melde dich an, um alles aus Tasks rauszuholen! Gratis, du kannst mit Tasks.com synchronisieren, Aufgaben per email hinzufügen  und du kannst sogar Aufgaben mit Freunden teilen!\"</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter Alarm</string>
@@ -2037,37 +2024,5 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Sprachfunktionen</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Tutorial anzeigen</string>
-	<string name="welcome_title_1">Willkommen zu Tasks</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Erstelle Listen</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Zwischen Listen wechseln</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Teile Listen</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Verteile Aufgaben</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Details angeben</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Jetzt verbinden\num anzufangen!</string>
-	<string name="welcome_title_7_return">Fertig!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">Die perfekte Aufgabenverwaltung - \nperfekt für die Zusammenarbeit mit anderen geeignet</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">In Listen erfassen: \nzu lesen, zu sehen, zu kaufen, zu besuchen!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Teilen Sie Listen mit\nFreunden, Mitbewohnern\noder Ihrem Partner!</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Listen freigeben für\nFreunde, Haushaltshilfen\noder deine/deinen Liebsten!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Zum Hinzufügen von Notizen anklicken\nErinnerungen einstellen\nund vieles mehr!</string>
-	<string name="welcome_body_7">Anmelden</string>
-	<string name="welcome_body_7_return">Berühren Sie Tasks\num zurückzukehren.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Weiter</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

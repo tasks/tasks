@@ -1236,21 +1236,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="help_popover_add_lists">Tap to add a list</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">By using Tasks you agree to the</string>
-	<string name="welcome_login_tos_link">Terms of Service</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">登録する</string>
-	<string name="welcome_sign_in">ログイン</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">後で</string>
-	<string name="welcome_login_confirm_later_title">Why not sign in?</string>
-	<string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
-	<string name="welcome_login_confirm_later_cancel">No thanks</string>
-	<string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Tasks! 
-  For free, you get online backup, full synchronization with Tasks.com, the 
-  ability to add tasks via email, and you can even share task lists with friends!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter Alert</string>
@@ -2061,37 +2046,5 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Voice input settings</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">チュートリアルを表示する</string>
-	<string name="welcome_title_1">Welcome to Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">リストを作る</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Switch between lists</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">リストをシェアする</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">タスクを分担する</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">詳細を提供する</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Connect now\nto get started!</string>
-	<string name="welcome_title_7_return">そういうことです！</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">The perfect personal to-do list \nthat works great with friends</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Great for any list:\nread, watch, buy, visit!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Tap the list title \nto see all your lists</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">誰かなんて気にしないで　\nデザートを持って来ます</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">タップしてメモを加える、\nリマインダーを設定する、\nそしてもっと！</string>
-	<string name="welcome_body_7">Login</string>
-	<string name="welcome_body_7_return">Tasksをタップして戻る</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">次へ</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

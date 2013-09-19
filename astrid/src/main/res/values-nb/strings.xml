@@ -586,6 +586,4 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp oppgaver ved påminnelse</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks vil spille en ringetone ved påminnelse</string>
   <string name="EPr_voice_header">Taleinndatainnstillinger</string>
-  <string name="welcome_title_1">Velkommen til Tasks!</string>
-  <string name="welcome_body_5">and much more!</string>
 </resources>

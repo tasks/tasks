@@ -1226,19 +1226,6 @@
 	<string name="help_popover_add_lists">Bir listeye eklemek için dokun</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Bir liste eklemek için ya da listeyi değiştirmek için dokunun</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Tasksi kullanarak kabul ettiğiniz metin:</string>
-	<string name="welcome_login_tos_link">Kullanım Şartları</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Sign up</string>
-	<string name="welcome_sign_in">Giriş yap</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Sonra</string>
-	<string name="welcome_login_confirm_later_title">Neden giriş yapmıyorsun?</string>
-	<string name="welcome_login_confirm_later_ok">Yapacağım!</string>
-	<string name="welcome_login_confirm_later_cancel">Hayır, teşekkürler</string>
-	<string name="welcome_login_confirm_later_dialog">Tasksden mümkün olduğunca faydalanmak için giriş yapın. Ücretsiz olarak çevirimiçi yedekleme, Tasks.com ile senkronizasyon, email ile görev ekleme ve arkadaşlar ile görev listesi paylaşma özelliklerine ulaşın.</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Süzgeç Alarmı</string>
@@ -2040,37 +2027,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks görev hatırlatmaları sırasında zil sesi çalacak</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Ses Komutu Ayarları</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Öğreticiyi göster</string>
-	<string name="welcome_title_1">Tasks\'e Hoş geldiniz!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Liste hazırla</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Listeler arası geçiş yap</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Liste paylaş</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Görevleri böl</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Detay gir</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Başlamak için\nşimdi bağlanın!</string>
-	<string name="welcome_title_7_return">İşte budur!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">Arkadaşlarla kullanımı harika \nkişisel hatırlatma listesi</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Her liste için harika:\noku, izle, satın al, ziyaret et!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Listelerinizi görmek için liste başlığına tıklayın</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Listeleri\narkadaşlarla, evdekilerle,\nveya sevdiklerinizle paylaşın!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">Tatlıyı kim getiriyor diye\ndüşünmenize gerek kalmadı!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Not eklemek,\nhatırlatma kurmak,\nve daha fazlası için dokunun!</string>
-	<string name="welcome_body_7">Oturum Aç</string>
-	<string name="welcome_body_7_return">Geri dönmek için Tasks\'e dokunun.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">İleri</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

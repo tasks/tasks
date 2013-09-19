@@ -1227,21 +1227,6 @@ Prova ad autenticarti con un browser, poi torna e riprova:</string>
 	<string name="help_popover_add_lists">Seleziona per aggiungere un elenco</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Seleziona per aggiungere un elenco o passa ad un altro elenco</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Utilizzando Tasks accetti </string>
-	<string name="welcome_login_tos_link">Termini di Servizio</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Registrati</string>
-	<string name="welcome_sign_in">Accedi</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Più tardi</string>
-	<string name="welcome_login_confirm_later_title">Perchè non autenticato?</string>
-	<string name="welcome_login_confirm_later_ok">Lo farò!</string>
-	<string name="welcome_login_confirm_later_cancel">No grazie</string>
-	<string name="welcome_login_confirm_later_dialog">Accedi per ottenere il massimo da Tasks!
-Gratuitamente, hai il backup online, la sincronizzazione completa con Tasks.com, la
-possibilità di aggiungere attività via email, e puoi anche condividere elenchi di attività con gli amici!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Filtro Promemoria Tasks</string>
@@ -2051,37 +2036,5 @@ non potrai fare acquisti.</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks emetterà una suoneria durante i promemoria</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Impostazioni Voce</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Visualizza tutorial</string>
-	<string name="welcome_title_1">Benvenuto in Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Crea Lista</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Cambio tra liste</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Condividi le liste!</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Spartisci le attività</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Fornisci dettagli</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Collegati adesso per iniziare!</string>
-	<string name="welcome_title_7_return">Fatto!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">La to-do list personale perfetta\nche funziona anche tra amici</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Perfetto per qualsiasi lista: letture, film, acquisti, luoghi da visitare!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Tappa sul titolo \n per vedere tutte le tue liste</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Condividi le tue liste con\namici, coinquilini\n o il tuo amore!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Tappa per aggiungere una nota\n aggiungere un promemoria\n e molto altro!</string>
-	<string name="welcome_body_7">Accedi</string>
-	<string name="welcome_body_7_return">Fai tap su Tasks per tornare indietro</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Successivo</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

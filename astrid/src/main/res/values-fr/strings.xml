@@ -1223,19 +1223,6 @@
 	<string name="help_popover_add_lists">Appuyez pour ajouter une liste</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Appuyez pour ajouter une liste ou passer d\'une liste à l\'autre.</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">En utilisant Tasks vous acceptez que</string>
-	<string name="welcome_login_tos_link">Conditions d\'utilisation</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">S\'inscrire</string>
-	<string name="welcome_sign_in">Connectez-vous</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Plus tard</string>
-	<string name="welcome_login_confirm_later_title">Pourquoi ne pas s\'enregistrer ?</string>
-	<string name="welcome_login_confirm_later_ok">Je vais le faire !</string>
-	<string name="welcome_login_confirm_later_cancel">Non merci</string>
-	<string name="welcome_login_confirm_later_dialog">\"Connectez-vous pour tirer le maximum d\'Tasks!  Cela comprend la sauvegarde en ligne, la syncronisation complète avec le serveur Tasks.com, la possibilité d\'ajout de taches par courriel, et même de partager des listes de taches avec ses amis et tout cela gratuitement!\"</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Filtre d\'alertes Tasks</string>
@@ -2037,37 +2024,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks sonnera pendant les rappels</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Paramètres de l\'entrée voix</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Regarder le didactitiel</string>
-	<string name="welcome_title_1">Bienvenue dans Tasks !</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Créez des listes</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Changer de liste</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Partagez des listes</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Divisez les tâches</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Apportez des détails</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">Connectez vous maintenant\npour commencer</string>
-	<string name="welcome_title_7_return">C\'est tout</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">Le gestionnaire de tâche personnel parfait\nqui marche bien avec les amis</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">Parfait pour tous les types de listes :\nLisez, regardez, achetez, visitez !</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Appuyez sur le titre de la liste\npour voir toutes vos listes</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">Partagez les listes avec\ndes amis, colocataires,\nou votre chéri(e) !</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">and much more!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Appuyez pour ajouter des notes,\nmettre des rappels,\net bien plus !</string>
-	<string name="welcome_body_7">Identifiant</string>
-	<string name="welcome_body_7_return">Appuyez sur Tasks pour revenir.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Suivant</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

@@ -1228,21 +1228,6 @@ Intenta acceder desde el navegador, a continuación vuelve a reintentarlo nuevam
 	<string name="help_popover_add_lists">Presiona para agregar una lista</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">Toca para agregar una lista o cambiar entre listas</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">Al usar Tasks estás de acuerdo con el</string>
-	<string name="welcome_login_tos_link">Términos del servicio</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Registrarse</string>
-	<string name="welcome_sign_in">Iniciar sesión</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">Más tarde</string>
-	<string name="welcome_login_confirm_later_title">¿Por qué no iniciar sesión?</string>
-	<string name="welcome_login_confirm_later_ok">¡Lo haré!</string>
-	<string name="welcome_login_confirm_later_cancel">No gracias</string>
-	<string name="welcome_login_confirm_later_dialog">¡Inicia sesión para aprovechar Tasks al máximo!
-Es gratis, obtienes copias de seguridad en línea, sincronización completa con Tasks.com,
-podrás agregar tareas vía correo electrónico, e incluso compartir listas de tareas con tus amigos!</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Alerta de filtro Tasks</string>
@@ -2047,37 +2032,5 @@ no le será posible hacer compras.</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks reproducirá un tono durante los recordatorios</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Configuración de Ingreso por Voz</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">Mostrar tutorial</string>
-	<string name="welcome_title_1">¡Bienvenido a Tasks!</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">Hacer listas</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">Alternar entre listas</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">Compartir listas</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">Repartir tareas</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">Proporcionar detalles</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">¡Conectarse ahora\npara comenzar!</string>
-	<string name="welcome_title_7_return">¡Eso es todo!</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">El administrador personal de tareas perfecto \nque funciona maravillosamente con tus amigos</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">¡Excelente para cualquier lista:\nlea, observe, compre, visite!</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">Toque el título de la lista \npara ver todas tus listas</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">¡Comparte listas con\namigos, compañeros\no con tu amor!</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">¡Nunca te preguntes quién \ntraerá el postre!</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">Pulse aquí para añadir notas, recordatorios \n, \ny mucho más!</string>
-	<string name="welcome_body_7">Iniciar sesión</string>
-	<string name="welcome_body_7_return">Toque para volver a Tasks.</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">Siguiente</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>

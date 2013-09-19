@@ -1223,19 +1223,6 @@
 	<string name="help_popover_add_lists">点击标签添加列表</string>
 	<!-- Shown after a user adds a task on phones -->
 	<string name="help_popover_switch_lists">轻点添加一个列表或者在列表间切换</string>
-	<!-- Login activity -->
-	<!-- slide 7b -->
-	<string name="welcome_login_tos_base">您使用清单小助理就表明您同意所有</string>
-	<string name="welcome_login_tos_link">服务条款</string>
-	<!-- slide 7e -->
-	<string name="welcome_login_pw">Sign up</string>
-	<string name="welcome_sign_in">登录</string>
-	<!-- slide 7f -->
-	<string name="welcome_login_later">稍后</string>
-	<string name="welcome_login_confirm_later_title">为什么不登录呢？</string>
-	<string name="welcome_login_confirm_later_ok">我会的！</string>
-	<string name="welcome_login_confirm_later_cancel">不了，谢谢</string>
-	<string name="welcome_login_confirm_later_dialog">登录吧，充分利用清单小助理！无需任何费用，您就可以获得在线备份、和 Tasks.com 全面同步、可以通过电子邮件添加任务、而且您甚至可以和朋友们一起分享任务列表呢！</string>
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">清单小助理筛选警示</string>
@@ -2037,37 +2024,5 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在任务提醒时将会播放铃声</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">语音输入设定</string>
-	<!-- slide 30a-->
-	<string name="welcome_setting">显示教程</string>
-	<string name="welcome_title_1">欢迎使用 Tasks！</string>
-	<!-- slide 2a -->
-	<string name="welcome_title_2">创建列表</string>
-	<!-- slide 3a-->
-	<string name="welcome_title_3">在列表间切换</string>
-	<!-- slide 4a -->
-	<string name="welcome_title_4">分享列表</string>
-	<!-- slide 5a -->
-	<string name="welcome_title_5">分配任务</string>
-	<!-- slide 6a -->
-	<string name="welcome_title_6">提供详情</string>
-	<!-- slide 7a -->
-	<string name="welcome_title_7">现在就联网 \n开始使用吧！</string>
-	<string name="welcome_title_7_return">搞定！</string>
-	<!-- slide 1b -->
-	<string name="welcome_body_1">完美的个人任务列表\n您可以尽情与朋友互动</string>
-	<!-- slide 2b-->
-	<string name="welcome_body_2">任何列表都超牛：\n阅读、观看、购买、访问都是超强的！</string>
-	<!-- slide 3b -->
-	<string name="welcome_body_3">轻点列表标题 \n查看您所有的列表</string>
-	<!-- slide 4b -->
-	<string name="welcome_body_4">和朋友、室友、\n或者亲密的人\n一起分享精彩缤纷的列表吧！</string>
-	<!-- slide 5b -->
-	<string name="welcome_body_5">不用猜想谁会 \n带甜点来喔！</string>
-	<!-- slide 6b-->
-	<string name="welcome_body_6">轻点即可添加便笺 \n设置提示还有更多功能呢！</string>
-	<string name="welcome_body_7">登陆</string>
-	<string name="welcome_body_7_return">拍拍清单小助理返回。</string>
-	<!-- slide 1c -->
-	<string name="welcome_next">下一步</string>
 	<string name="widget_mini">Tasks Mini</string>
 </resources>
