@@ -1,246 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">שנה</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d שנים</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">חודש</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d חודשים</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">שבוע אחד</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d שבועות</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">יום אחד</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d ימים</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">יום עבודה אחד</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d ימי עבודה</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">שעה אחת</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d שעות</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">דקה אחת</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d דקות</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">שנייה אחת</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d שניות</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">שעה</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d שע\'</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">דקה</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d דק׳</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">שנייה</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d שנ\'</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">משימה אחת</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d משימות</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">שותף אחד</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d שותפים</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">היום</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">מחר</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">אתמול</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">מחר</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">אתמול</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">האם לאשר?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">שאלה:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">פרטים</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">שגיאה!</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">שמור</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">כן</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">לא</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">סגור</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">בוצע</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">אוּפְּס, נראה שארעה שגיאה!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">אנא המתן...</string>
-
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">מסנכרן את המשימות שלך...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">מסנכרנת...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">סינכרון וגיבוי</string>  
-
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">סנכרני כעת</string>  
-
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">אתר אסטריד, ״משימות גוגל״, מידע שמור, גיבוי מקומי</string>  
-
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">שגיאה בחיבור! בדוק את חיבור הַמִּרְשֶׁתֶת שלך</string>
-
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">מצב</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">מצב: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">לא מחובר</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">הסינכרון מתבצע</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">סנכרון אחרון:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">נכשל ב: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">סנכרון עם שגיאות: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">סנכרון מוצלח אחרון: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">לעולם לא סונכרן!</string>
-
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">אפשרויות</string>
-
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">סנכרון ברקע</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">כרגע מוגדר ל: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">הגדרת WiFi בלבד</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">סנכרון רקע מתרחש רק כאשר על WiFi</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">סנכרון רקע יתבצע תמיד</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">פעולות</string>
-
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">מסנכרן כעת</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in"> התחבר וסנכרן!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">מחובר לחשבון בתור:</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">דו"ח מצב</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">הקלק כדי לשלוח דוח לצוות של אסטריד</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">שלח דו"ח</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">התנתק</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
-
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">נתקלתי בבעית חיבור לרשת בזמן הסינכרון האחרון עם %s. אנא נסה מאוחר יותר.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>מִנְעִי</item>
-      <item>כל רבע שעה</item>
-      <item>כל חצי שעה</item>
-      <item>כל שעה</item>
-      <item>כל שלוש שעות</item>
-      <item>כל שש שעות</item>
-      <item>כל שתים עשרה שעות</item>
-      <item>כל יום</item>
-      <item>כל שלושה ימים</item>
-      <item>כל שבוע</item>
-  </string-array>    
-    
+	<!-- ==================================================== Generic Units == -->
+	<plurals name="DUt_years">
+	<!-- plurals: years -->
+		<item quantity="one">שנה</item>
+	<!-- plurals: years -->
+		<item quantity="other">%d שנים</item>
+	</plurals>
+	<plurals name="DUt_months">
+	<!-- plurals: months -->
+		<item quantity="one">חודש</item>
+	<!-- plurals: months -->
+		<item quantity="other">%d חודשים</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+	<!-- plurals: days -->
+		<item quantity="one">שבוע אחד</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d שבועות</item>
+	</plurals>
+	<plurals name="DUt_days">
+	<!-- plurals: days -->
+		<item quantity="one">יום אחד</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d ימים</item>
+	</plurals>
+	<plurals name="DUt_weekdays">
+	<!-- plurals: days -->
+		<item quantity="one">יום עבודה אחד</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d ימי עבודה</item>
+	</plurals>
+	<plurals name="DUt_hours">
+	<!-- plurals: hours -->
+		<item quantity="one">שעה אחת</item>
+	<!-- plurals: hours -->
+		<item quantity="other">%d שעות</item>
+	</plurals>
+	<plurals name="DUt_minutes">
+	<!-- plurals: minutes -->
+		<item quantity="one">דקה אחת</item>
+	<!-- plurals: minutes -->
+		<item quantity="other">%d דקות</item>
+	</plurals>
+	<plurals name="DUt_seconds">
+	<!-- plurals: seconds -->
+		<item quantity="one">שנייה אחת</item>
+	<!-- plurals: seconds -->
+		<item quantity="other">%d שניות</item>
+	</plurals>
+	<plurals name="DUt_hoursShort">
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="one">שעה</item>
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="other">%d שע\'</item>
+	</plurals>
+	<plurals name="DUt_minutesShort">
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="one">דקה</item>
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="other">%d דק׳</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="one">שנייה</item>
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="other">%d שנ\'</item>
+	</plurals>
+	<plurals name="Ntasks">
+	<!-- plurals: tasks -->
+		<item quantity="one">משימה אחת</item>
+	<!-- plurals: tasks -->
+		<item quantity="other">%d משימות</item>
+	</plurals>
+	<plurals name="Npeople">
+	<!-- plurals: people -->
+		<item quantity="one">שותף אחד</item>
+	<!-- plurals: people -->
+		<item quantity="other">%d שותפים</item>
+	</plurals>
+	<!-- slide 10a, 12c: today -->
+	<string name="today">היום</string>
+	<!-- tomorrow -->
+	<string name="tomorrow">מחר</string>
+	<!-- yesterday -->
+	<string name="yesterday">אתמול</string>
+	<!-- slide 12c: tomorrow, abbreviated -->
+	<string name="tmrw">מחר</string>
+	<!-- slide 12c: yesterday, abbreviated -->
+	<string name="yest">אתמול</string>
+	<!-- ================================================== Generic Dialogs == -->
+	<!-- confirmation dialog title -->
+	<string name="DLG_confirm_title">האם לאשר?</string>
+	<!-- question dialog title -->
+	<string name="DLG_question_title">שאלה:</string>
+	<!-- information dialog title -->
+	<string name="DLG_information_title">פרטים</string>
+	<!-- error dialog title -->
+	<string name="DLG_error_title">שגיאה!</string>
+	<!-- general dialog save-->
+	<string name="DLG_save">שמור</string>
+	<!-- general dialog yes-->
+	<string name="DLG_yes">כן</string>
+	<!-- general dialog no-->
+	<string name="DLG_no">לא</string>
+	<!-- general dialog close-->
+	<string name="DLG_close">סגור</string>
+	<!-- general dialog done -->
+	<string name="DLG_done">בוצע</string>
+	<!-- error dialog (%s => error message)-->
+	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
+	<!-- error dialog (no message indicated)-->
+	<string name="DLG_error_generic">אוּפְּס, נראה שארעה שגיאה!</string>
+	<!-- Progress dialog shown when doing something slow -->
+	<string name="DLG_wait">אנא המתן...</string>
+	<!-- ====================================================== SyncProvider == -->
+	<!-- Sync Notification: message when sync service active -->
+	<string name="SyP_progress">מסנכרן את המשימות שלך...</string>
+	<!-- Sync Notification: toast when sync activated from activity -->
+	<string name="SyP_progress_toast">מסנכרנת...</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="SyP_label">סינכרון וגיבוי</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="Sync_now_label">סנכרני כעת</string>
+	<!-- Sync label subtitle -->
+	<string name="SyP_summary">אתר אסטריד, ״משימות גוגל״, מידע שמור, גיבוי מקומי</string>
+	<!-- Error msg when io exception  -->
+	<string name="SyP_ioerror">שגיאה בחיבור! בדוק את חיבור הרשת שלך</string>
+	<!-- ================================================== SyncPreferences == -->
+	<!-- Status Group Label -->
+	<string name="sync_SPr_group_status">מצב</string>
+	<!-- Sync status subtitle, %s-> status message -->
+	<string name="sync_SPr_status_subtitle">מצב: %s</string>
+	<!-- Sync Status: log in -->
+	<string name="sync_status_loggedout">לא מחובר</string>
+	<!-- Status: ongoing -->
+	<string name="sync_status_ongoing">הסינכרון מתבצע</string>
+	<!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+	<string name="sync_status_success">סנכרון אחרון:\n%s</string>
+	<!-- Sync Status: failure status (%s -> last attempted sync date) -->
+	<string name="sync_status_failed">נכשל ב: %s</string>
+	<!-- Sync Status: error status (%s -> last sync date) -->
+	<string name="sync_status_errors">סנכרון עם שגיאות: %s</string>
+	<!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+	<string name="sync_status_failed_subtitle">סנכרון מוצלח אחרון: %s</string>
+	<!-- Sync Status: never sync\'d -->
+	<string name="sync_status_never">לעולם לא סונכרן!</string>
+	<!-- Options Group Label -->
+	<string name="sync_SPr_group_options">אפשרויות</string>
+	<!-- Preference: Synchronization Interval Title -->
+	<string name="sync_SPr_interval_title">סנכרון ברקע</string>
+	<!-- Preference: Synchronization Interval Description (when disabled) -->
+	<string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>
+	<!-- Preference: Synchronization Interval Description (%s => setting) -->
+	<string name="sync_SPr_interval_desc">כרגע מוגדר ל: %s</string>
+	<!-- Preference: Background Wifi Title -->
+	<string name="sync_SPr_bgwifi_title">הגדרת WiFi בלבד</string>
+	<!-- Preference: Background Wifi Description (enabled) -->
+	<string name="sync_SPr_bgwifi_desc_enabled">סנכרון רקע מתרחש רק כאשר על WiFi</string>
+	<!-- Preference: Background Wifi Description (disabled) -->
+	<string name="sync_SPr_bgwifi_desc_disabled">סנכרון רקע יתבצע תמיד</string>
+	<!-- Actions Group Label  -->
+	<string name="sync_SPr_group_actions">פעולות</string>
+	<!-- Synchronize Now Button -->
+	<string name="sync_SPr_sync">מסנכרן כעת</string>
+	<!-- Synchronize Now Button if not logged in-->
+	<string name="sync_SPr_sync_log_in">התחבר וסנכרן!</string>
+	<!-- Sync: Prefix string before logged in identifier -->
+	<string name="sync_SPr_logged_in_prefix">מחובר לחשבון בתור:</string>
+	<!-- Sync: Last error -->
+	<string name="sync_SPr_last_error">דו\"ח מצב</string>
+	<!-- Sync: last error click for more -->
+	<string name="sync_SPr_last_error_subtitle">הקלק כדי לשלוח דוח לצוות של אסטריד</string>
+	<!-- Sync: send error report button -->
+	<string name="sync_SPr_send_report">שלח דו\"ח</string>
+	<!-- Sync: Clear Data Title -->
+	<string name="sync_SPr_forget">התנתק</string>
+	<!-- Sync: Clear Data Description -->
+	<string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
+	<!-- confirmation dialog for sync log out -->
+	<string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
+	<!-- Sync error: network connectivity problems. %s-> name of sync service-->
+	<string name="sync_error_offline">נתקלתי בבעית חיבור לרשת בזמן הסינכרון האחרון עם %s. אנא נסה מאוחר יותר.</string>
+	<string-array name="sync_SPr_interval_entries">
+	<!-- sync_SPr_interval_entries: Synchronization Intervals -->
+		<item>מִנְעִי</item>
+		<item>כל רבע שעה</item>
+		<item>כל חצי שעה</item>
+		<item>כל שעה</item>
+		<item>כל שלוש שעות</item>
+		<item>כל שש שעות</item>
+		<item>כל שתים עשרה שעות</item>
+		<item>כל יום</item>
+		<item>כל שלושה ימים</item>
+		<item>כל שבוע</item>
+	</string-array>
 </resources>

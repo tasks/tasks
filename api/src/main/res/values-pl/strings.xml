@@ -1,246 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1 rok</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d lat</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1 miesiąc</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d miesięcy</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1 tydzień</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d tygodni</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1 dzień</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d dni</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
-    <item quantity="one">1 dzień roboczy</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d dni roboczych</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1 godzina</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d godzin</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1 minuta</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d minut</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 sekunda</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d sekund</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 godz.</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d godz.</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 min.</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d min.</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 sek.</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d sek.</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 zadanie</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d zadań</item>
-  </plurals>
-  <plurals name="Npeople">
-    <!-- plurals: people -->
-    <item quantity="one">1 osoba</item>
-    <!-- plurals: people -->
-    <item quantity="other">%d osób</item>
-  </plurals>
-  
-  <!-- slide 10a, 12c: today -->
-  <string name="today">Dzisiaj</string>
-  
-  <!-- tomorrow -->
-  <string name="tomorrow">Jutro</string>
-  
-  <!-- yesterday -->
-  <string name="yesterday">Wczoraj</string>
-  
-  <!-- slide 12c: tomorrow, abbreviated -->
-  <string name="tmrw">jtr</string>
-  
-  <!-- slide 12c: yesterday, abbreviated -->
-  <string name="yest">wcz</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Potwierdzić?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">Pytanie:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">Informacja</string>
-  
-  <!-- error dialog title -->
-  <string name="DLG_error_title">Błąd!</string>
-  
-  <!-- general dialog save-->
-  <string name="DLG_save">Zapisz</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">Tak</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">Nie</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">Zamknij</string>
-  
-  <!-- general dialog done -->
-  <string name="DLG_done">Ukończone</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Ups! Wygląda na to, że wystąpił jakiś błąd!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Proszę czekać...</string>
-
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synchronizowanie Twoich zadań...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchronizacja...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Synchronizacja</string>  
-
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="Sync_now_label">Zsynchronizuj</string>  
-
-  <!-- Sync label subtitle -->
-  <string name="SyP_summary">Zadania Google, zapisane dane, lokalna kopia zapasowa</string>  
-
-  <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem!</string>
-
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Stan</string>
-  
-  <!-- Sync status subtitle, %s-> status message -->
-  <string name="sync_SPr_status_subtitle">Status: %s</string>
-  <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Niezalogowany</string>
-  <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">Synchronizacja trwa...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Ostatnia synchronizacja:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Nieudana: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Synch w/ Błędy: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Ostatnia udana synchronizacja: %s</string>
-  <!-- Sync Status: never sync\'d -->    
-  <string name="sync_status_never">Nigdy nie synchronizowano!</string>
-
-  <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Opcje</string>
-
-  <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">Synchronizacja w tle</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Synchronizacja w tle wyłączona</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Aktualnie ustawione na: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Tylko połączenie Wi-Fi</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Synchronizacja w tle przebiega tylko poprzez Wi-Fi</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Synchronizowanie w tle zawsze, niezależnie od rodzaju połączenia</string>
-  
-  <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">Działania</string>
-
-  <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Synchronizuj teraz</string>
-  <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Zaloguj &amp; Synchronizuj!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
-  <string name="sync_SPr_logged_in_prefix">Zalogowany jako:</string>
-  
-  <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">Raport statusu</string>
-  
-  <!-- Sync: last error click for more -->
-  <string name="sync_SPr_last_error_subtitle">Kliknij by wysłać raport do zespłu Tasks</string>
-  <!-- Sync: send error report button -->
-  <string name="sync_SPr_send_report">Wyślij raport</string>
-  
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Wyloguj</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Czyści wszystkie dane synchronizacji</string>
-
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Wyloguj / wyczyść dane synchronizacji?</string>
-  
-  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">Wystąpił problem łączenia się z siecią w trakcie ostatniej synchronizacji z %s. Spróbuj później.</string>
-  
-  <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>Wyłączone</item>
-      <item>co 15 minut</item>
-      <item>co 30 minut</item>
-      <item>co godzinę</item>
-      <item>co 3 godziny</item>
-      <item>co 6 godzin</item>
-      <item>co 12 godzin</item>
-      <item>raz dziennie</item>
-      <item>co 3 dni</item>
-      <item>co tydzień</item>
-  </string-array>    
-    
+	<!-- ==================================================== Generic Units == -->
+	<plurals name="DUt_years">
+	<!-- plurals: years -->
+		<item quantity="one">1 rok</item>
+	<!-- plurals: years -->
+		<item quantity="other">%d lat</item>
+	</plurals>
+	<plurals name="DUt_months">
+	<!-- plurals: months -->
+		<item quantity="one">1 miesiąc</item>
+	<!-- plurals: months -->
+		<item quantity="other">%d miesięcy</item>
+	</plurals>
+	<plurals name="DUt_weeks">
+	<!-- plurals: days -->
+		<item quantity="one">1 tydzień</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d tygodni</item>
+	</plurals>
+	<plurals name="DUt_days">
+	<!-- plurals: days -->
+		<item quantity="one">1 dzień</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d dni</item>
+	</plurals>
+	<plurals name="DUt_weekdays">
+	<!-- plurals: days -->
+		<item quantity="one">1 dzień roboczy</item>
+	<!-- plurals: days -->
+		<item quantity="other">%d dni roboczych</item>
+	</plurals>
+	<plurals name="DUt_hours">
+	<!-- plurals: hours -->
+		<item quantity="one">1 godzina</item>
+	<!-- plurals: hours -->
+		<item quantity="other">%d godzin</item>
+	</plurals>
+	<plurals name="DUt_minutes">
+	<!-- plurals: minutes -->
+		<item quantity="one">1 minuta</item>
+	<!-- plurals: minutes -->
+		<item quantity="other">%d minut</item>
+	</plurals>
+	<plurals name="DUt_seconds">
+	<!-- plurals: seconds -->
+		<item quantity="one">1 sekunda</item>
+	<!-- plurals: seconds -->
+		<item quantity="other">%d sekund</item>
+	</plurals>
+	<plurals name="DUt_hoursShort">
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="one">1 godz.</item>
+	<!-- plurals: hours (abbreviated) -->
+		<item quantity="other">%d godz.</item>
+	</plurals>
+	<plurals name="DUt_minutesShort">
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="one">1 min.</item>
+	<!-- plurals: minutes (abbreviated) -->
+		<item quantity="other">%d min.</item>
+	</plurals>
+	<plurals name="DUt_secondsShort">
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="one">1 sek.</item>
+	<!-- plurals: seconds (abbreviated) -->
+		<item quantity="other">%d sek.</item>
+	</plurals>
+	<plurals name="Ntasks">
+	<!-- plurals: tasks -->
+		<item quantity="one">1 zadanie</item>
+	<!-- plurals: tasks -->
+		<item quantity="other">%d zadań</item>
+	</plurals>
+	<plurals name="Npeople">
+	<!-- plurals: people -->
+		<item quantity="one">1 osoba</item>
+	<!-- plurals: people -->
+		<item quantity="other">%d osób</item>
+	</plurals>
+	<!-- slide 10a, 12c: today -->
+	<string name="today">Dzisiaj</string>
+	<!-- tomorrow -->
+	<string name="tomorrow">Jutro</string>
+	<!-- yesterday -->
+	<string name="yesterday">Wczoraj</string>
+	<!-- slide 12c: tomorrow, abbreviated -->
+	<string name="tmrw">jtr</string>
+	<!-- slide 12c: yesterday, abbreviated -->
+	<string name="yest">wcz</string>
+	<!-- ================================================== Generic Dialogs == -->
+	<!-- confirmation dialog title -->
+	<string name="DLG_confirm_title">Potwierdzić?</string>
+	<!-- question dialog title -->
+	<string name="DLG_question_title">Pytanie:</string>
+	<!-- information dialog title -->
+	<string name="DLG_information_title">Informacja</string>
+	<!-- error dialog title -->
+	<string name="DLG_error_title">Błąd!</string>
+	<!-- general dialog save-->
+	<string name="DLG_save">Zapisz</string>
+	<!-- general dialog yes-->
+	<string name="DLG_yes">Tak</string>
+	<!-- general dialog no-->
+	<string name="DLG_no">Nie</string>
+	<!-- general dialog close-->
+	<string name="DLG_close">Zamknij</string>
+	<!-- general dialog done -->
+	<string name="DLG_done">Ukończone</string>
+	<!-- error dialog (%s => error message)-->
+	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
+	<!-- error dialog (no message indicated)-->
+	<string name="DLG_error_generic">Ups! Wygląda na to, że wystąpił jakiś błąd!</string>
+	<!-- Progress dialog shown when doing something slow -->
+	<string name="DLG_wait">Proszę czekać...</string>
+	<!-- ====================================================== SyncProvider == -->
+	<!-- Sync Notification: message when sync service active -->
+	<string name="SyP_progress">Synchronizowanie Twoich zadań...</string>
+	<!-- Sync Notification: toast when sync activated from activity -->
+	<string name="SyP_progress_toast">Synchronizacja...</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="SyP_label">Synchronizacja</string>
+	<!-- Sync Label: used in menu to denote synchronization -->
+	<string name="Sync_now_label">Zsynchronizuj</string>
+	<!-- Sync label subtitle -->
+	<string name="SyP_summary">Zadania Google, zapisane dane, lokalna kopia zapasowa</string>
+	<!-- Error msg when io exception  -->
+	<string name="SyP_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem!</string>
+	<!-- ================================================== SyncPreferences == -->
+	<!-- Status Group Label -->
+	<string name="sync_SPr_group_status">Stan</string>
+	<!-- Sync status subtitle, %s-> status message -->
+	<string name="sync_SPr_status_subtitle">Status: %s</string>
+	<!-- Sync Status: log in -->
+	<string name="sync_status_loggedout">Niezalogowany</string>
+	<!-- Status: ongoing -->
+	<string name="sync_status_ongoing">Synchronizacja trwa...</string>
+	<!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
+	<string name="sync_status_success">Ostatnia synchronizacja:\n%s</string>
+	<!-- Sync Status: failure status (%s -> last attempted sync date) -->
+	<string name="sync_status_failed">Nieudana: %s</string>
+	<!-- Sync Status: error status (%s -> last sync date) -->
+	<string name="sync_status_errors">Synch w/ Błędy: %s</string>
+	<!-- Sync Status: error subtitle (%s -> last successful sync date) -->
+	<string name="sync_status_failed_subtitle">Ostatnia udana synchronizacja: %s</string>
+	<!-- Sync Status: never sync\'d -->
+	<string name="sync_status_never">Nigdy nie synchronizowano!</string>
+	<!-- Options Group Label -->
+	<string name="sync_SPr_group_options">Opcje</string>
+	<!-- Preference: Synchronization Interval Title -->
+	<string name="sync_SPr_interval_title">Synchronizacja w tle</string>
+	<!-- Preference: Synchronization Interval Description (when disabled) -->
+	<string name="sync_SPr_interval_desc_disabled">Synchronizacja w tle wyłączona</string>
+	<!-- Preference: Synchronization Interval Description (%s => setting) -->
+	<string name="sync_SPr_interval_desc">Aktualnie ustawione na: %s</string>
+	<!-- Preference: Background Wifi Title -->
+	<string name="sync_SPr_bgwifi_title">Tylko połączenie Wi-Fi</string>
+	<!-- Preference: Background Wifi Description (enabled) -->
+	<string name="sync_SPr_bgwifi_desc_enabled">Synchronizacja w tle przebiega tylko poprzez Wi-Fi</string>
+	<!-- Preference: Background Wifi Description (disabled) -->
+	<string name="sync_SPr_bgwifi_desc_disabled">Synchronizowanie w tle zawsze, niezależnie od rodzaju połączenia</string>
+	<!-- Actions Group Label  -->
+	<string name="sync_SPr_group_actions">Działania</string>
+	<!-- Synchronize Now Button -->
+	<string name="sync_SPr_sync">Synchronizuj teraz</string>
+	<!-- Synchronize Now Button if not logged in-->
+	<string name="sync_SPr_sync_log_in">Zaloguj &amp; Synchronizuj!</string>
+	<!-- Sync: Prefix string before logged in identifier -->
+	<string name="sync_SPr_logged_in_prefix">Zalogowany jako:</string>
+	<!-- Sync: Last error -->
+	<string name="sync_SPr_last_error">Raport statusu</string>
+	<!-- Sync: last error click for more -->
+	<string name="sync_SPr_last_error_subtitle">Kliknij by wysłać raport do zespłu Tasks</string>
+	<!-- Sync: send error report button -->
+	<string name="sync_SPr_send_report">Wyślij raport</string>
+	<!-- Sync: Clear Data Title -->
+	<string name="sync_SPr_forget">Wyloguj</string>
+	<!-- Sync: Clear Data Description -->
+	<string name="sync_SPr_forget_description">Czyści wszystkie dane synchronizacji</string>
+	<!-- confirmation dialog for sync log out -->
+	<string name="sync_forget_confirm">Wyloguj / wyczyść dane synchronizacji?</string>
+	<!-- Sync error: network connectivity problems. %s-> name of sync service-->
+	<string name="sync_error_offline">Wystąpił problem łączenia się z siecią w trakcie ostatniej synchronizacji z %s. Spróbuj później.</string>
+	<string-array name="sync_SPr_interval_entries">
+	<!-- sync_SPr_interval_entries: Synchronization Intervals -->
+		<item>Wyłączone</item>
+		<item>co 15 minut</item>
+		<item>co 30 minut</item>
+		<item>co godzinę</item>
+		<item>co 3 godziny</item>
+		<item>co 6 godzin</item>
+		<item>co 12 godzin</item>
+		<item>raz dziennie</item>
+		<item>co 3 dni</item>
+		<item>co tydzień</item>
+	</string-array>
 </resources>
