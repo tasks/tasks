@@ -242,11 +242,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="EPr_reset_sync_state">동기화 초기화</string>
 	<string name="EPr_reset_sync_state_summary">동기화 에러를 해결하기 위해 몇가지 로컬 자료를 초기화합니다</string>
 	<string name="EPr_reset_sync_state_detailed">동기화 에러를 해결하기 위해, 다음 동기화 때 당신의 일정과 목록은 Tasks.com 상에 존재하는 미러로 변경될 것입니다. 계속하시겠습니까?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">알람</string>
@@ -256,11 +251,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<!-- reminders related to alarm -->
 		<item>알람!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -322,11 +312,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="DLG_error_sdcard_general">SD 카드에 접근할 수 없습니다!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">복원할 파일을 선택하세요</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">아스트리드 일정</string>
@@ -1009,11 +994,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 아스트리드의 백업에서 당신의 일정을 복구하시기 바랍니다. 
 (설정-&gt;동기화 &amp; 백업-&gt;백업-&gt;일정 불러오기)</string>
 	<string name="market_unavailable">이 기기에서 마켓을 사용할 수 없습니다.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">새 일정 기본값</string>
 	<string name="EPr_defaults_summary">우선순위, 마감일, 달력에 추가하기</string>
@@ -1091,11 +1071,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1166,11 +1141,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="CFC_title_contains_name">제목이 다음을 포함...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1192,11 +1162,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="gcal_completed_title">%s (완료)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">기본 달력</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">구글 일정 (Goodle Tasks)</string>
@@ -1259,11 +1224,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="gtasks_import_dlg_title">구글 일정 가져오기</string>
 	<string name="gtasks_import_add_task_ok">일정 추가하기</string>
 	<string name="gtasks_import_add_task_cancel">일정 추가하지 않기</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1293,11 +1253,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="welcome_login_confirm_later_dialog">아스트리드를 잘 사용하기 위해 가입하세요! 
 무료로 온라인 백업, Tasks.com 에 전체 동기화, 이메일로 일정 추가하기 
 그리고 친구들과 일정 목록을 공유할 수 있습니다!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">아스트리드 필터 경고</string>
@@ -1320,11 +1275,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="locale_notification">$NUM 개의 일정이 일치합니다: $FILTER</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">아스트리드 위치 플러그인을 설치하세요!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX (고객관리)</string>
@@ -1415,11 +1365,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="CFC_opencrx_in_workspace_name">작업공간에서...</string>
 	<string name="CFC_opencrx_assigned_to_text">할당된 사람: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">다음 사람에게 할당됨...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">프리미엄과 기타 설정</string>
@@ -1430,11 +1375,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="EPr_statistics_desc_disabled">사용 정보는 보고하지 않습니다.</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">익명 사용 자료 전송으로 아스트리드를 더욱 발전시킬 수 있도록 도와주세요.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">네트워크 에러! 음성인식이 동작하려면 네트워크 연결이 필요합니다.</string>
 	<string name="speech_err_no_match">죄송하지만 알아듣지 못했습니다! 다시 말해 주세요.</string>
 	<string name="speech_err_default">죄송하지만 음성 인식에 에러가 발생했습니다. 다시 시도해 주세요.</string>
@@ -1514,11 +1454,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="premium_verification_error">이 구글 플레이 계정으로 구매한 프리미엄 이용권은 다른 사용자에게 연결되어 있습니다. 당신의 계정에 추가적인 이메일을 연결하려면 tasks.com/users/profile 을 방문하세요.</string>
 	<string name="premium_check_for_purchases">프리미엄을 이미 구매하셨나요? 구글 플레이에서 구매 내역을 확인하려면 여기를 클릭하세요</string>
 	<string name="premium_checking_for_purchases">구매 확인 중...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1855,11 +1790,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 		<item>지난번에도 그렇게 변명하지 않았니?</item>
 		<item>그렇게 하면 네가 네 삶을 계획하고 준비하는 걸 도와줄 수가 없어...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">일정 반복하기</string>
@@ -1953,21 +1883,11 @@ Tasks.com 과 동기화하시겠습니까?</string>
 		<item>네가 자랑스럽다!</item>
 		<item>네가 열매를 많이 맺으면 나는 기뻐!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Tasks에서 정렬하고 들여쓰기</string>
 	<string name="subtasks_help_1">일정을 옮기려면 길게 누릅니다</string>
 	<string name="subtasks_help_2">재배열하려면 수직으로 드래그합니다</string>
 	<string name="subtasks_help_3">들여쓰기하려면 수평으로 드래그합니다</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2027,11 +1947,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="tag_delete_button">목록 삭제하기</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">이 목록 탈퇴하기</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2048,11 +1963,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="TEA_timer_comment_stopped">이 일정 중지:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">소요 시간:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2115,11 +2025,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="history_repeat_from_completion">완료 후</string>
 	<string name="history_acknowledged">%s 를 열람했습니다</string>
 	<string name="history_default">%1$s 를 %2$s 로 변경했습니다</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">일정을 만들려면 말하세요</string>
 	<string name="voice_edit_title_prompt">일정 제목을 말하세요</string>
@@ -2150,11 +2055,6 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">일정 알림기간 동안 벨소리를 울려줍니다</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">음성 입력 설정</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">사용 지침 보기</string>
 	<string name="welcome_title_1">아스트리드 사용을 환영합니다!</string>
@@ -2187,75 +2087,5 @@ Tasks.com 과 동기화하시겠습니까?</string>
 	<string name="welcome_body_7_return">돌아가려면 아스트리드를 누르세요.</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">다음</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">아스트리드 사용자 런처 프리미엄</string>
-	<string name="PPW_widget_custom_launcherpro_label">아스트리드 런쳐 프로 프리미엄</string>
-	<string name="PPW_configure_title">위젯 설정하기</string>
-	<string name="PPW_color">위젯 색상</string>
-	<string name="PPW_enable_calendar">달력 이벤트 보여주기</string>
-	<string name="PPW_disable_encouragements">격려문구 숨기기</string>
-	<string name="PPW_show_dates">완료 예정일 보기</string>
-	<string name="PPW_filter">필터 선택하기</string>
-	<string name="PPW_due">마감일:</string>
-	<string name="PPW_past_due">이전 마감일:</string>
-	<string name="PPW_old_astrid_notice">이 위젯을 사용하려면 최소한 
-3.6 이상의 아스트리드가 필요합니다!</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>안녕!</item>
-		<item>무언가 마무리할 시간이 있어?</item>
-		<item>이야, 오늘 너 정말 멋져 보인다!</item>
-		<item>오늘 뭔가 끝내주는 걸 해보자구!</item>
-		<item>오늘 나를 자랑스럽게 해 다오!</item>
-		<item>오늘은 어때?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>좋은 아침!</item>
-		<item>좋은 오후!</item>
-		<item>좋은 저녁!</item>
-		<item>밤 늦게?</item>
-		<item>아직 이르지만, 일을 끝내버리자구!</item>
-		<item>오후의 차 한잔, 어때?</item>
-		<item>저녁을 즐기라구!</item>
-		<item>알겠지만 잠은 건강에 좋은 거야!</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>벌써 %d 일정을 마쳤구나!</item>
-		<item>생활 점수: %d 일정을 마쳤습니다</item>
-		<item>웃어봐! 이미 %d 일정을 마쳤으니까!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">완료하지 않은 일정이 매우 많습니다! 완료할까요?</string>
-	<string-array name="PPW_colors">
-		<item>검정색</item>
-		<item>흰색</item>
-		<item>파란색</item>
-		<item>반투명</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">이 위젯은 파워팩 구매자만 사용할 수 있습니다!</string>
-	<string name="PPW_widget_dlg_ok">미리보기</string>
-	<string name="PPW_demo_title1">%s 항목은 여기서 시작합니다</string>
-	<string name="PPW_demo_title2">파워팩은 프리미엄 위젯을 포함합니다...</string>
-	<string name="PPW_demo_title3">...음성 추가와 좋은 느낌!</string>
-	<string name="PPW_demo_title4">더 알고 싶으면 누르세요!</string>
-	<string name="PPW_info_title">무료 파워팩!</string>
-	<string name="PPW_info_signin">로그인 하세요!</string>
-	<string name="PPW_info_later">나중에</string>
-	<string name="PPW_unlock_howto">친구와 목록을 공유하세요! 세 친구가 아스트리드에 가입하면 무료 파워팩을 사용할 수 있습니다.</string>
-	<string name="PPW_check_button">무료로 파워팩 얻기!</string>
-	<string name="PPW_check_share_lists">공유 목록!</string>
-	<string name="PPW_api_level">죄송하지만 이 위젯은 안드로이드 3.0 이상에서만 사용할 수 있습니다.</string>
-	<string name="EPr_widget_enabled_title">위젯 켜기/끄기</string>
-	<string name="PPW_restart_for_enabled_state">이 변경은 스마트폰을 재시작해야 효과가 있습니다.</string>
 </resources>

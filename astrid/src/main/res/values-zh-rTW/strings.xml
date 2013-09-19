@@ -242,11 +242,6 @@
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">警示</string>
@@ -256,11 +251,6 @@
 	<!-- reminders related to alarm -->
 		<item>警示!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -319,11 +309,6 @@
 	<string name="DLG_error_sdcard_general">無法存取您的SD卡!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">選取欲還原的檔案</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks工作</string>
@@ -997,11 +982,6 @@
 	<string name="DB_corrupted_title">數據庫已經受損</string>
 	<string name="DB_corrupted_body">啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&amp;gt；管理舊任務工作-&gt;清楚所有數據）並在Tasks備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）</string>
 	<string name="market_unavailable">非常抱歉，我們的軟件無法在您的系統中成功運行。</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">工作預設值</string>
 	<string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
@@ -1079,11 +1059,6 @@
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1154,11 +1129,6 @@
 	<string name="CFC_title_contains_name">主旨含...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">主旨含: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1180,11 +1150,6 @@
 	<string name="gcal_completed_title">%s （已完成）</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">預設行事曆</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google 工作表</string>
@@ -1244,11 +1209,6 @@
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1276,11 +1236,6 @@
 	<string name="welcome_login_confirm_later_ok">我會的！</string>
 	<string name="welcome_login_confirm_later_cancel">不了，謝謝</string>
 	<string name="welcome_login_confirm_later_dialog">登錄吧，充分利用Tasks！無需任何費用，您就可以獲得在線備份、和Tasks.com 全面同步、可以通過電子郵件添加任務工作、而且您甚至可以和朋友們一起分享任務工作列表呢！</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks 篩選警示</string>
@@ -1302,11 +1257,6 @@
 	<string name="locale_notification">您有 $NUM 符合: $FILTER</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">請安裝Tasks地區插件</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">打開CRX</string>
@@ -1397,11 +1347,6 @@
 	<string name="CFC_opencrx_in_workspace_name">在任務工作區...</string>
 	<string name="CFC_opencrx_assigned_to_text">指派給：？</string>
 	<string name="CFC_opencrx_assigned_to_name">指派給...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">高級和其它設置</string>
@@ -1412,11 +1357,6 @@
 	<string name="EPr_statistics_desc_disabled">不報告使用資料</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">傳送匿名使用資料以協助我們改進Tasks</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">網絡出錯！語音識別需要網絡連接才能運作。</string>
 	<string name="speech_err_no_match">對不起，我聽不明白喔！請再說一次吧。</string>
 	<string name="speech_err_default">對不起，語音識別遇到出錯。請重新再試。</string>
@@ -1496,11 +1436,6 @@
 	<string name="premium_verification_error">此Google Play 帳戶的高級版本正與另一個用戶連接。訪問tasks.com/users/profile並連接您帳戶的另一個電子郵箱。</string>
 	<string name="premium_check_for_purchases">您已經購買過尊貴版了嗎？按這裡到Google Play 確認您的購買歷史。</string>
 	<string name="premium_checking_for_purchases">Checking for purchases...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1837,11 +1772,6 @@
 		<item>上次你用過這藉口吧?</item>
 		<item>假如你這樣,我無法協助你...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">重複工作</string>
@@ -1935,21 +1865,11 @@
 		<item>我真為您驕傲啊！</item>
 		<item>每次您能做那麼多事情的時候，我都愛死您了！</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">在 Tasks 中排序並縮進</string>
 	<string name="subtasks_help_1">輕點並按住一項任務工作來移動它</string>
 	<string name="subtasks_help_2">垂直拖動以重新整理</string>
 	<string name="subtasks_help_3">水平拖動以縮進</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2009,11 +1929,6 @@
 	<string name="tag_delete_button">刪除列表</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">離開這份列表</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2030,11 +1945,6 @@
 	<string name="TEA_timer_comment_stopped">已經停止了這項任務工作：</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">已經花費時間：</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2097,11 +2007,6 @@
 	<string name="history_repeat_from_completion">after completion</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">請說話以建立工作</string>
 	<string name="voice_edit_title_prompt">請說話以設定工作主旨</string>
@@ -2132,11 +2037,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks在工作提醒時將會播放鈴聲</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">語音輸入設定</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">顯示教程</string>
 	<string name="welcome_title_1">歡迎使用Tasks!</string>
@@ -2169,74 +2069,5 @@
 	<string name="welcome_body_7_return">拍拍 Tasks 返回。</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">下一步</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks 自定義高級版本</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks 專業高級版本</string>
-	<string name="PPW_configure_title">配置小工具</string>
-	<string name="PPW_color">小工具顏色</string>
-	<string name="PPW_enable_calendar">顯示日曆事件</string>
-	<string name="PPW_disable_encouragements">隱藏打氣助威語</string>
-	<string name="PPW_show_dates">顯示截止日期</string>
-	<string name="PPW_filter">選擇過濾器</string>
-	<string name="PPW_due">到期日：</string>
-	<string name="PPW_past_due">逾期未完成：</string>
-	<string name="PPW_old_astrid_notice">最低限度您也需要Tasks 的3.6 版本才能使用這個小工具。不好意思！</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>嘿，您好！</item>
-		<item>有時間搞定一些事兒嗎？</item>
-		<item>天啊，您今天挺溫雅的嘛！</item>
-		<item>今天做點大事兒吧！</item>
-		<item>今天來讓我為您驕傲一下吧！</item>
-		<item>您今天好嗎？</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>早上好！</item>
-		<item>下午好！</item>
-		<item>晚上好！</item>
-		<item>昨晚？</item>
-		<item>現在很早，來搞定一些事兒吧！</item>
-		<item>去下午茶，好嗎？</item>
-		<item>好好享受這個夜晚！</item>
-		<item>睡眠對您是有好處的，知道不！</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>您已經完成了 %d 項任務工作啦！</item>
-		<item>生活評分：已經完成了%d 項任務工作</item>
-		<item>笑一笑唄！您已經完成了%d 項任務工作啦！</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
-	<string-array name="PPW_colors">
-		<item>黑色</item>
-		<item>白色</item>
-		<item>藍色</item>
-		<item>半透明</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">這種小工具只提供給PowerPack 所有者呀！</string>
-	<string name="PPW_widget_dlg_ok">預覽</string>
-	<string name="PPW_demo_title1">%s 上的小工具將會放到這裡</string>
-	<string name="PPW_demo_title2">Power Pack 包含尊貴版小工具（Premium Widgets）……</string>
-	<string name="PPW_demo_title3">…語音添加、感覺很棒！</string>
-	<string name="PPW_demo_title4">輕點一下，了解更多！</string>
-	<string name="PPW_info_title">免費的 Power Pack！</string>
-	<string name="PPW_info_signin">登錄！</string>
-	<string name="PPW_info_later">稍後</string>
-	<string name="PPW_unlock_howto">和朋友們分享列表吧！當有三位朋友來Tasks 註冊，您就可以開啟免費的Power Pack 了。</string>
-	<string name="PPW_check_button">來免費獲取 Power Pack 吧！</string>
-	<string name="PPW_check_share_lists">來分享列表吧！</string>
-	<string name="PPW_api_level">對不起！此工具只支持安桌3.0及以上版本。</string>
-	<string name="EPr_widget_enabled_title">允許／不允許小工具運行</string>
-	<string name="PPW_restart_for_enabled_state">您也許需要重啟您的手機來支持新設定的運行。</string>
 </resources>

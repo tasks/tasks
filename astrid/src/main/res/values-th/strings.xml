@@ -480,33 +480,4 @@
   <string name="tag_settings_title">Settings:</string>
   <string name="welcome_title_1">ยินดีต้อนรับสู่ Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string-array name="PPW_encouragements">
-    <item>Hi there!</item>
-    <item>Have time to finish something?</item>
-    <item>Gosh, you are looking suave today!</item>
-    <item>Do something great today!</item>
-    <item>Make me proud today!</item>
-    <item>How are you doing today?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>Good morning!</item>
-    <item>Good afternoon!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>It\'s early, get something done!</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
-    <item>Sleep is good for you, you know!</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>You\'ve already completed %d tasks!</item>
-    <item>Score in life: %d tasks completed</item>
-    <item>Smile! You\'ve already finished %d tasks!</item>
-  </string-array>
-  <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>White</item>
-    <item>Blue</item>
-    <item>Translucent</item>
-  </string-array>
 </resources>

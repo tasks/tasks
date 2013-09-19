@@ -588,42 +588,4 @@
   <string name="EPr_voice_header">Taleinndatainnstillinger</string>
   <string name="welcome_title_1">Velkommen til Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string name="PPW_configure_title">Konfigurer widget</string>
-  <string name="PPW_color">Fargen til widget</string>
-  <string name="PPW_enable_calendar">Vis kalenderhendelser</string>
-  <string name="PPW_disable_encouragements">Skjul oppmuntringer</string>
-  <string name="PPW_filter">Velg filter</string>
-  <string name="PPW_due">Forfall:</string>
-  <string name="PPW_past_due">Forfalt:</string>
-  <string name="PPW_old_astrid_notice">Du behøver minst versjon 3.6 av Tasks for å bruke denne widget. Beklager!</string>
-  <string-array name="PPW_encouragements">
-    <item>Hei du!</item>
-    <item>Har du tid til å gjøre noe ferdig?</item>
-    <item>Oi, du ser sofistikert ut i dag!</item>
-    <item>Gjør noe fantastisk i dag!</item>
-    <item>Gjør meg stolt i dag!</item>
-    <item>Hvordan står det til i dag?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>God morgen!</item>
-    <item>God ettermiddag!</item>
-    <item>God kveld!</item>
-    <item>Sen kveld?</item>
-    <item>Det er tidlig, få gjort noe!</item>
-    <item>Litt ettermiddagste kanskje?</item>
-    <item>Nyt kvelden!</item>
-    <item>Søvn er bra for deg, vet du!</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>Du har allerede avsluttet %d oppgaver!</item>
-    <item>Poeng i livet: %d oppgaver avsluttet</item>
-    <item>Smil! du har allerede avsluttet %d oppgaver!</item>
-  </string-array>
-  <string name="PPW_encouragements_none_completed">Du har ikke gjort ferdig noen oppgaver ennå! Skal vi?</string>
-  <string-array name="PPW_colors">
-    <item>Svart</item>
-    <item>Hvit</item>
-    <item>Blå</item>
-    <item>Gjennomskinnelig</item>
-  </string-array>
 </resources>

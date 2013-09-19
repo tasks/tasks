@@ -242,11 +242,6 @@
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">התראות</string>
@@ -256,11 +251,6 @@
 	<!-- reminders related to alarm -->
 		<item>התראה!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -319,11 +309,6 @@
 	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">נא לבחור קובץ לשחזור</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">משימות אסטריד</string>
@@ -1003,11 +988,6 @@
 (הגדרות-&gt;סינכרון וגיבוי-&gt;ניהול משימות ישנות-&gt;הסרת כל הנתונים) ושחזר את המשימות
 מגיבוי (הגדרות-&gt;סנכרון וגיבוי-&gt;גיבוי-&gt;יבא משימות).</string>
 	<string name="market_unavailable">לרוע המזל חנות היישומים אינה זמינה</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
 	<string name="EPr_defaults_summary">עדיפות, מועד יעד, הוספה ליומן</string>
@@ -1085,11 +1065,6 @@
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1160,11 +1135,6 @@
 	<string name="CFC_title_contains_name">כותרת מכילה...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">כותרת מכילה: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1186,11 +1156,6 @@
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">ברירת מחדל ליומן</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">״משימות גוגל״</string>
@@ -1250,11 +1215,6 @@
 	<string name="gtasks_import_dlg_title">ייבוא ״משימות גוגל״</string>
 	<string name="gtasks_import_add_task_ok">הוסף משימה</string>
 	<string name="gtasks_import_add_task_cancel">אל תוסיף משימה</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1282,11 +1242,6 @@
 	<string name="welcome_login_confirm_later_ok">אעשה זאת!</string>
 	<string name="welcome_login_confirm_later_cancel">לא, תודה</string>
 	<string name="welcome_login_confirm_later_dialog">עליך להרשם כדי להפיק את המירב מאסטריד! תוכל לקבל גיבויים חינם, סינכרון מלא עם אתר tasks.com, אפשרות להוסיף משימות בדוא״ל, ואפילו אפשרות לשתף משימות עם חברים!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">התראת מַסְנֵן של אסטריד</string>
@@ -1308,11 +1263,6 @@
 	<string name="locale_notification">יש לך $NUM המתאימים: $FILTER</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">אנא התקן את תוסף אסטריד להגדרות איזור</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1403,11 +1353,6 @@
 	<string name="CFC_opencrx_in_workspace_name">במשטח עבודה...</string>
 	<string name="CFC_opencrx_assigned_to_text">הוטל על: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">הוטל על...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">פרימיום והגדרות שונות</string>
@@ -1418,11 +1363,6 @@
 	<string name="EPr_statistics_desc_disabled">נתוני שימוש לא ידווחו</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">עזור לנו לשפר את אסטריד ע״י שליחת נתוני שימוש אנונימיים</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">שגיאת חיבור! זיהוי דיבור דורש חיבור לאינטרנט.</string>
 	<string name="speech_err_no_match">סליחה, לא הבנתי! אנא נסה שוב.</string>
 	<string name="speech_err_default">סליחה, מזהה הדיבור נתקל בבעיה. אנא נסה שנית.</string>
@@ -1509,11 +1449,6 @@
 	<string name="premium_verification_error">מָנוּי הפרימיום לחשבון בחנות הישומים של גוג מחובר למשתמש אחר. בכדי לקשר כתובות דוא״ל נוספות לחשבונך,  בקר ב: tasks.com/users/profile</string>
 	<string name="premium_check_for_purchases">רכשת כבר את חבילת הפרימיום? הקלק כאן בכדי לבדוק את היסטורית הרכישות בחנות היישומים של גוגל</string>
 	<string name="premium_checking_for_purchases">בודקת רכישות...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1850,11 +1785,6 @@
 		<item>זה לא היה בדיוק אותו התירוץ בו השתמש בפעם הקודמת שדחית ?</item>
 		<item>אני ממש לא יכולה לעזור לך לארגן את החיים שלך, אם תעשה זאת...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">משימות חוזרות</string>
@@ -1948,21 +1878,11 @@
 		<item>אני כל כך גֵּאָה בְּךָ!</item>
 		<item>אני אוהבת שאתה פּוֹרֶה!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">מיין והזח באסטריד</string>
 	<string name="subtasks_help_1">גע והחזק כדי להעביר משימה</string>
 	<string name="subtasks_help_2">גרור אנכית כדי לארגן מחדש</string>
 	<string name="subtasks_help_3">גרור אופקית כדי להזיח</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2022,11 +1942,6 @@
 	<string name="tag_delete_button">מחיקת רשימה</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">עזוב רשימה זו</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2043,11 +1958,6 @@
 	<string name="TEA_timer_comment_stopped">הפסק ביצוע של משימה זו:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">זמן שהושקע:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2110,11 +2020,6 @@
 	<string name="history_repeat_from_completion">אחרי ביצוע</string>
 	<string name="history_acknowledged">הציג את %s</string>
 	<string name="history_default">שינה את %1$s ל %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">דַּבֵּר כדי ליצור משימה</string>
 	<string name="voice_edit_title_prompt">דַּבֵּר כדי לקבוע את כותרת המשימה</string>
@@ -2145,11 +2050,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">אסטריד תשמיע נְעִימוֹן במתן תזכורות למשימות</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">הגדרות קלט קולי</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">הציגי מדריך</string>
 	<string name="welcome_title_1">ברוך בואך לאסטריד!</string>
@@ -2182,74 +2082,5 @@
 	<string name="welcome_body_7_return">טְפַח על אסטריד כדי לחזור</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">הבא</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">משגר אסטריד פרימיום מותאם אישית</string>
-	<string name="PPW_widget_custom_launcherpro_label">משגר אסטריד פרימיום פרו</string>
-	<string name="PPW_configure_title">הגדרות חֲפִיץ מסך</string>
-	<string name="PPW_color">צבע חֲפִיץ מסך</string>
-	<string name="PPW_enable_calendar">הצג מאורעות יומן</string>
-	<string name="PPW_disable_encouragements">הסתר קריאות עידוד</string>
-	<string name="PPW_show_dates">להציג תאריכי יעד?</string>
-	<string name="PPW_filter">בחר מַסְנֵן</string>
-	<string name="PPW_due">למתי:</string>
-	<string name="PPW_past_due">באיחור:</string>
-	<string name="PPW_old_astrid_notice">מצטערת, אך עליך להשתמש בגירסא 3.6 לפחות כדי להשתמש בְּחֲפִיץ מסך זה!</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>שלום!</item>
-		<item>אולי יש לך זמן כדי לגמור משהו?</item>
-		<item>אתה נראה כל כך מוצלח היום יקירי!</item>
-		<item>עשה משהו גדול היום!</item>
-		<item>תן לי להתגאות בְּךָ היום!</item>
-		<item>מה שלומך היום?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>בוקר טוב!</item>
-		<item>אחר-צהריים טובים!</item>
-		<item>ערב טוב!</item>
-		<item>מאוחר בלילה?</item>
-		<item>מוקדם כעת, אולי תעשה משהו?</item>
-		<item>אולי כוס תה של אחרי-הצהריים?</item>
-		<item>ערב נעים!</item>
-		<item>אתה הרי יודע ששינה תיטיב עמך!</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>בצעת כבר %d משימות</item>
-		<item>תוצאה בחיים: %d משימות בוצעו</item>
-		<item>חַיֵּךְ! גמרת כבר %d משימות!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">לא סיימת יותר מדי משימות עדיין! שנתחיל?</string>
-	<string-array name="PPW_colors">
-		<item>שחור</item>
-		<item>לבן</item>
-		<item>כחול</item>
-		<item>שקוף למחצה</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">חֲפִיץ מסך זה זמין רק למי שיש לו חֲבִילַת הַכֹּחַ</string>
-	<string name="PPW_widget_dlg_ok">תצוגה מקדימה</string>
-	<string name="PPW_demo_title1">פריטים ב־%s יגיעו לכאן</string>
-	<string name="PPW_demo_title2">חבילת הַכֹּחַ כוללת גם חֲפִיצֵי מסך מתקדמים...</string>
-	<string name="PPW_demo_title3">ותן הרגשה טובה!</string>
-	<string name="PPW_demo_title4">טְפַח כדי ללמוד עוד</string>
-	<string name="PPW_info_title">חבילת כֹּחַ חינם!</string>
-	<string name="PPW_info_signin">התחבר!</string>
-	<string name="PPW_info_later">מאוחר יותר</string>
-	<string name="PPW_unlock_howto">שתף רשימות עם חברים! ושחרר את הנעילה של חבילת הַכֹּחַ של אסטריד כאשר שלושה חברים ירשמו לאסטריד</string>
-	<string name="PPW_check_button">קבל את חבילת הַכֹּחַ חינם!</string>
-	<string name="PPW_check_share_lists">שתף רשימות!</string>
-	<string name="PPW_api_level">סליחה! היישומון נתמך בגירסת אנדרואיד 3.0 ומעלה בלבד.</string>
-	<string name="EPr_widget_enabled_title">אַפְשְׁרִי\חִסְמִי חֲפִיצִים</string>
-	<string name="PPW_restart_for_enabled_state">ייתכן ותזדקק לאתחל את מכשיר הפלאפון שברשותך על מנת לגרום לשינוי להשפיע.</string>
 </resources>

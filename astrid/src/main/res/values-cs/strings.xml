@@ -239,11 +239,6 @@
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Alarmy</string>
@@ -253,11 +248,6 @@
 	<!-- reminders related to alarm -->
 		<item>Budík!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -316,11 +306,6 @@
 	<string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Zvolte soubor k obnově</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks Úkoly</string>
@@ -997,11 +982,6 @@
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="market_unavailable">Unfortunately the market is not available for your system.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
 	<string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
@@ -1079,11 +1059,6 @@
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1154,11 +1129,6 @@
 	<string name="CFC_title_contains_name">Název obsahuje...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Obsahuje název: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1180,11 +1150,6 @@
 	<string name="gcal_completed_title">%s (dokončeno)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Výchozí kalendář</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google úkoly</string>
@@ -1247,11 +1212,6 @@
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1279,11 +1239,6 @@
 	<string name="welcome_login_confirm_later_ok">Jasně!</string>
 	<string name="welcome_login_confirm_later_cancel">Ne, díky</string>
 	<string name="welcome_login_confirm_later_dialog">Přihlašte se a získejte z Tasks více! Zdarma získáte online zálohování, plnou synchronizaci s Tasks.com, možnost přidávat úkoly emailem a dokonce můžete sdílet seznamy úkolů s přáteli!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Upozornění filtrů</string>
@@ -1305,11 +1260,6 @@
 	<string name="locale_notification">Máš $NUM se značkou $FILTER</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Tasks Locale!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1400,11 +1350,6 @@
 	<string name="CFC_opencrx_in_workspace_name">Na pracovní ploše...</string>
 	<string name="CFC_opencrx_assigned_to_text">Přiřazeno k: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">Přiřazeno k ...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
@@ -1415,11 +1360,6 @@
 	<string name="EPr_statistics_desc_disabled">Nebudou oznámena žádná data o využití</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">Pomozte nám dělat Tasks lepší, anonymním odesláním dat o používání</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení.</string>
 	<string name="speech_err_no_match">Je mi líto, ale nerozuměla jsem! Zkuste to znovu.</string>
 	<string name="speech_err_default">Rozpoznávání řeči narazilo na problém. Zkuste to prosím znovu.</string>
@@ -1505,11 +1445,6 @@
 	<string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit tasks.com/users/profile</string>
 	<string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
 	<string name="premium_checking_for_purchases">Checking for purchases...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1846,11 +1781,6 @@
 		<item>Nepoužil jsi stejnou omluvu i posledně?</item>
 		<item>Nemůžu Ti pomoci organizovat tvůj život, když tohle děláš...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Opakování úkolů</string>
@@ -1944,21 +1874,11 @@
 		<item>I\'m so proud of you!</item>
 		<item>I love when you\'re productive!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Sort and Indent</string>
 	<string name="subtasks_help_1">Tap and hold to move a task</string>
 	<string name="subtasks_help_2">Drag vertically to rearrange</string>
 	<string name="subtasks_help_3">Drag horizontally to indent</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2020,11 +1940,6 @@
 	<string name="tag_delete_button">Delete list</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Leave this list</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2041,11 +1956,6 @@
 	<string name="TEA_timer_comment_stopped">stopped doing this task:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Time spent:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2108,11 +2018,6 @@
 	<string name="history_repeat_from_completion">after completion</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 	<string name="voice_edit_title_prompt">Speak to set task title</string>
@@ -2143,11 +2048,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Voice input settings</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">Show tutorial</string>
 	<string name="welcome_title_1">Vítej v Tasks!</string>
@@ -2180,74 +2080,5 @@
 	<string name="welcome_body_7_return">Tap Tasks to return.</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">Next</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks Custom Launcher Premium</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks Launcher Pro Premium</string>
-	<string name="PPW_configure_title">Konfigurovat widget</string>
-	<string name="PPW_color">Barva widgetu</string>
-	<string name="PPW_enable_calendar">Zobrazit události v kalendáři</string>
-	<string name="PPW_disable_encouragements">Skrýt povzbuzování</string>
-	<string name="PPW_show_dates">Show due dates</string>
-	<string name="PPW_filter">Vybrat filtr</string>
-	<string name="PPW_due">Termín:</string>
-	<string name="PPW_past_due">Past Due:</string>
-	<string name="PPW_old_astrid_notice">K používání tohoto widgetu potřebujete Tasks ve verzi 3.6 a vyšší!</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>Nazdar!</item>
-		<item>Máš čas něco dokončit?</item>
-		<item>Gosh, you are looking suave today!</item>
-		<item>Udělej dnes něco velkého</item>
-		<item>Ať jsem na Tebe dneska hrdý!</item>
-		<item>Jak se dneska máš?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>Dobré ráno!</item>
-		<item>Krásné odpoledne!</item>
-		<item>Dobrý večer!</item>
-		<item>Pozdě v noci?</item>
-		<item>Ještě je brzo, tak něco rychle udělej!</item>
-		<item>Že by čas na polední čaj?</item>
-		<item>Užij si večer!</item>
-		<item>Spánek je pro Tobe dobrý, víš to?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>Už jsi dokončil %d úkolů!</item>
-		<item>Životní skóre: %d úkolů dokončeno!</item>
-		<item>Usměj se! Už jsi dokončil %d úkolů!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">Ještě jsi nedokončil žádný úkol! Začneme?</string>
-	<string-array name="PPW_colors">
-		<item>Černá</item>
-		<item>Bílá</item>
-		<item>Modrá</item>
-		<item>Průhledný</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
-	<string name="PPW_widget_dlg_ok">Preview</string>
-	<string name="PPW_demo_title1">Items on %s will go here</string>
-	<string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
-	<string name="PPW_demo_title3">...voice add and good feelings!</string>
-	<string name="PPW_demo_title4">Tap to learn more!</string>
-	<string name="PPW_info_title">Free Power Pack!</string>
-	<string name="PPW_info_signin">Sign in!</string>
-	<string name="PPW_info_later">Later</string>
-	<string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Tasks.</string>
-	<string name="PPW_check_button">Get the Power Pack for free!</string>
-	<string name="PPW_check_share_lists">Share lists!</string>
-	<string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-	<string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
-	<string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>

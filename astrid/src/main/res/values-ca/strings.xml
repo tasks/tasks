@@ -728,42 +728,4 @@
   <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
   <string name="welcome_title_1">Benvingut a Tasks</string>
   <string name="welcome_body_5">and much more!</string>
-  <string name="PPW_configure_title">Configurar Widget</string>
-  <string name="PPW_color">Color del widget</string>
-  <string name="PPW_enable_calendar">Mostra events del calendari</string>
-  <string name="PPW_disable_encouragements">Ocultar estímuls</string>
-  <string name="PPW_filter">Escollir el filtre</string>
-  <string name="PPW_due">Venciment:</string>
-  <string name="PPW_past_due">Vençuda:</string>
-  <string-array name="PPW_encouragements">
-    <item>Hi there!</item>
-    <item>Tens temps d\'acabar una cosa?</item>
-    <item>Vaja, se\'l veu molt tranquil avui!</item>
-    <item>Do something great today!</item>
-    <item>Make me proud today!</item>
-    <item>How are you doing today?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>Good morning!</item>
-    <item>Good afternoon!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>It\'s early, get something done!</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
-    <item>Sleep is good for you, you know!</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>Ja heu completat %d tasques!</item>
-    <item>Puntuació al joc de la vida: %d tasques completades</item>
-    <item>Smile! You\'ve already finished %d tasks!</item>
-  </string-array>
-  <string name="PPW_encouragements_none_completed">Encara no heu completat cap tasca. Comencem a fer-ho?</string>
-  <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>White</item>
-    <item>Blue</item>
-    <item>Translucent</item>
-  </string-array>
-  <string name="PPW_info_later">Més tard</string>
 </resources>

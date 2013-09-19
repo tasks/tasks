@@ -243,11 +243,6 @@
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">アラーム</string>
@@ -257,11 +252,6 @@
 	<!-- reminders related to alarm -->
 		<item>アラーム</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -320,11 +310,6 @@
 	<string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">復元に使うファイルを選択してください</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasksタスク</string>
@@ -1006,11 +991,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="market_unavailable">Unfortunately the market is not available for your system.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">タスクのデフォルト設定</string>
 	<string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
@@ -1088,11 +1068,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1163,11 +1138,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="CFC_title_contains_name">タイトル中の語句</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">タイトルに ? を含む</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1189,11 +1159,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="gcal_completed_title">%s（完了）</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Default Calendar</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google Tasks</string>
@@ -1257,11 +1222,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1291,11 +1251,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Tasks! 
   For free, you get online backup, full synchronization with Tasks.com, the 
   ability to add tasks via email, and you can even share task lists with friends!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter Alert</string>
@@ -1318,11 +1273,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="locale_notification">$FILTER の検索結果: $NUM 件</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Tasks Locale plugin をインストールしてください</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1413,11 +1363,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="CFC_opencrx_in_workspace_name">In workspace...</string>
 	<string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
@@ -1428,11 +1373,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="EPr_statistics_desc_disabled">使用統計情報は送信されません</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">送られた使用統計情報は Tasks の改善に使用されます</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
 	<string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
 	<string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
@@ -1518,11 +1458,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="premium_verification_error">The premium subscription for this Google Play account is connected to a different user. To link additional emails to your account, visit tasks.com/users/profile</string>
 	<string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
 	<string name="premium_checking_for_purchases">Checking for purchases...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1859,11 +1794,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 		<item>Didn\'t you make that excuse last time?</item>
 		<item>I can\'t help you organize your life if you do that...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Repeating Tasks</string>
@@ -1957,21 +1887,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 		<item>I\'m so proud of you!</item>
 		<item>I love when you\'re productive!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Sort and Indent</string>
 	<string name="subtasks_help_1">Tap and hold to move a task</string>
 	<string name="subtasks_help_2">Drag vertically to rearrange</string>
 	<string name="subtasks_help_3">Drag horizontally to indent</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2033,11 +1953,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="tag_delete_button">Delete list</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Leave this list</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2054,11 +1969,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="TEA_timer_comment_stopped">stopped doing this task:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Time spent:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2121,11 +2031,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="history_repeat_from_completion">after completion</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Speak to create a task</string>
 	<string name="voice_edit_title_prompt">Speak to set task title</string>
@@ -2156,11 +2061,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks will sound a ringtone during task reminders</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Voice input settings</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">チュートリアルを表示する</string>
 	<string name="welcome_title_1">Welcome to Tasks!</string>
@@ -2193,74 +2093,5 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	<string name="welcome_body_7_return">Tasksをタップして戻る</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">次へ</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks Custom Launcher Premium</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks Launcher Pro Premium</string>
-	<string name="PPW_configure_title">Configure Widget</string>
-	<string name="PPW_color">Widget color</string>
-	<string name="PPW_enable_calendar">Show calendar events</string>
-	<string name="PPW_disable_encouragements">Hide encouragements</string>
-	<string name="PPW_show_dates">Show due dates</string>
-	<string name="PPW_filter">Select Filter</string>
-	<string name="PPW_due">Due:</string>
-	<string name="PPW_past_due">Past Due:</string>
-	<string name="PPW_old_astrid_notice">このウィジェットを使うためにはTasksのバージョン3.6以降が必要です。</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>Hi there!</item>
-		<item>Have time to finish something?</item>
-		<item>Gosh, you are looking suave today!</item>
-		<item>Do something great today!</item>
-		<item>Make me proud today!</item>
-		<item>How are you doing today?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>Good morning!</item>
-		<item>Good afternoon!</item>
-		<item>Good evening!</item>
-		<item>Late night?</item>
-		<item>It\'s early, get something done!</item>
-		<item>Afternoon tea, perhaps?</item>
-		<item>Enjoy the evening!</item>
-		<item>Sleep is good for you, you know!</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>You\'ve already completed %d tasks!</item>
-		<item>Score in life: %d tasks completed</item>
-		<item>Smile! You\'ve already finished %d tasks!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
-	<string-array name="PPW_colors">
-		<item>Black</item>
-		<item>White</item>
-		<item>Blue</item>
-		<item>Translucent</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
-	<string name="PPW_widget_dlg_ok">Preview</string>
-	<string name="PPW_demo_title1">Items on %s will go here</string>
-	<string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
-	<string name="PPW_demo_title3">...voice add and good feelings!</string>
-	<string name="PPW_demo_title4">Tap to learn more!</string>
-	<string name="PPW_info_title">Free Power Pack!</string>
-	<string name="PPW_info_signin">Sign in!</string>
-	<string name="PPW_info_later">後で</string>
-	<string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Tasks.</string>
-	<string name="PPW_check_button">Get the Power Pack for free!</string>
-	<string name="PPW_check_share_lists">Share lists!</string>
-	<string name="PPW_api_level">Sorry! This widget is only supported on Android 3.0 or higher.</string>
-	<string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
-	<string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>

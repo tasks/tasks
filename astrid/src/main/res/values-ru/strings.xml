@@ -243,11 +243,6 @@
 	<string name="EPr_reset_sync_state">Сброс синхронизации</string>
 	<string name="EPr_reset_sync_state_summary">Сбросьте некоторые данные, чтобы разрешить проблему синхронизации</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Напоминания</string>
@@ -257,11 +252,6 @@
 	<!-- reminders related to alarm -->
 		<item>Напоминание!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -320,11 +310,6 @@
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks</string>
@@ -1003,11 +988,6 @@
 все данные (Параметры-&gt;Синхронизация-&gt;Управление старыми задачами-&gt;Очистить все данные) и восстановить
 задачи из резервной копии (Параметры-&gt;Синхронизация-&gt;Резервные копии-&gt;Импортировать задачи)</string>
 	<string name="market_unavailable">К сожалению, этот магазин недоступен для вашей системы.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
 	<string name="EPr_defaults_summary">Приоритет, срок выполнения, добавить в календарь</string>
@@ -1085,11 +1065,6 @@
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1160,11 +1135,6 @@
 	<string name="CFC_title_contains_name">Название содержит...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Название содержит: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1186,11 +1156,6 @@
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Календарь по умолчанию</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Задачи Google</string>
@@ -1250,11 +1215,6 @@
 	<string name="gtasks_import_dlg_title">Импорт Google задач</string>
 	<string name="gtasks_import_add_task_ok">Добавить задание</string>
 	<string name="gtasks_import_add_task_cancel">Не добавляйте задачи</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1282,11 +1242,6 @@
 	<string name="welcome_login_confirm_later_ok">Я сделаю это!</string>
 	<string name="welcome_login_confirm_later_cancel">Спасибо, не надо</string>
 	<string name="welcome_login_confirm_later_dialog">Войдите, чтобы получить максимум от Tasks! Бесплатно вы получите онлайн резервирование, полную синхронизацию с Tasks.com, возможность добавлять задачи по почте и даже делиться своими списками задач с друзьями!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Предупреждение фильтра Tasks</string>
@@ -1308,11 +1263,6 @@
 	<string name="locale_notification">Число соответствий $FILTER: $NUM</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Пожалуйста, установите плагин Tasks Locale!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1403,11 +1353,6 @@
 	<string name="CFC_opencrx_in_workspace_name">в среде...</string>
 	<string name="CFC_opencrx_assigned_to_text">Присвоено: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">Присвоено ...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Премиум и другие настройки</string>
@@ -1418,11 +1363,6 @@
 	<string name="EPr_statistics_desc_disabled">Данные об использовании не передаются</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">Помогите нам сделать Tasks лучше, отправляя анонимную статистику использования</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">Ошибка подключения! Для голосового распознавания требуется интернет соединение.</string>
 	<string name="speech_err_no_match">Извините, я не расслышал! Повторите, пожалуйста.</string>
 	<string name="speech_err_default">Извините, ошибка службы голосового распознавания. Попробуйте, еще раз.</string>
@@ -1505,11 +1445,6 @@
 	<string name="premium_verification_error">Премиум подписка для этой учетной записи Google Play оформлена на другого пользователя. Привязать дополнительный email к своей учетной записи можно здесь: tasks.com/users/profile</string>
 	<string name="premium_check_for_purchases">Уже приобрели Premium? Нажмите здесь для проверки истории покупок в Google Play.</string>
 	<string name="premium_checking_for_purchases">Проверка покупок...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1846,11 +1781,6 @@
 		<item>Разве ты за это не извинялся в прошлый раз?</item>
 		<item>Я ничем не смогу помочь, если ты так поступаешь…</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Повторяющиеся задачи</string>
@@ -1944,21 +1874,11 @@
 		<item>Я так горжусь Вами!</item>
 		<item>Я люблю когда Вы плодотворны!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Сортировка и отступ в Tasks</string>
 	<string name="subtasks_help_1">Нажмите и удерживайте, чтобы переместить задачу</string>
 	<string name="subtasks_help_2">Перетащите вертикально, чтобы перестроить</string>
 	<string name="subtasks_help_3">Перетащите горизонтально для отступа</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2018,11 +1938,6 @@
 	<string name="tag_delete_button">Удалить список</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Не удалять</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2039,11 +1954,6 @@
 	<string name="TEA_timer_comment_stopped">зада завершилась:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Времени потрачено:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2106,11 +2016,6 @@
 	<string name="history_repeat_from_completion">после завершения</string>
 	<string name="history_acknowledged">просмотрен %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Говорите чтобы создать задачу</string>
 	<string name="voice_edit_title_prompt">Произнесите название задачи</string>
@@ -2141,11 +2046,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Параметры голосового ввода</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">Показать справку</string>
 	<string name="welcome_title_1">Добро пожаловать в Tasks!</string>
@@ -2178,74 +2078,5 @@
 	<string name="welcome_body_7_return">Нажмите Tasks, чтобы вернуться назад.</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">Далее</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks Custom Launcher Premium</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks Launcher Pro Premium</string>
-	<string name="PPW_configure_title">Настройка виджета</string>
-	<string name="PPW_color">Цвет виджета</string>
-	<string name="PPW_enable_calendar">Показать календарное событие</string>
-	<string name="PPW_disable_encouragements">Скрыть поддержку</string>
-	<string name="PPW_show_dates">Отображать даты</string>
-	<string name="PPW_filter">Выберите фильтр</string>
-	<string name="PPW_due">Срок:</string>
-	<string name="PPW_past_due">Прошлый срок:</string>
-	<string name="PPW_old_astrid_notice">Вам необходим ка минимум Tasks 3.6 чтобы использовать этот виджет. Извините!</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>Привет все!</item>
-		<item>Есть время завершить кое-что?</item>
-		<item>Черт возьми, ты хорош сегодня!</item>
-		<item>Сделай что-то великое сегодня!</item>
-		<item>Я буду гордиться тобой сегодня!</item>
-		<item>Что ты сделаешь сегодня?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>Доброе утро!</item>
-		<item>Добрый день!</item>
-		<item>Добрый вечер!</item>
-		<item>Не слишком поздно?</item>
-		<item>Уже можно что-то выполнить!</item>
-		<item>Чашечку чаю?</item>
-		<item>Наслаждайтесь вечером!</item>
-		<item>Сон полезен вам, вы знаете!</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>Вы завершили %d задач(и)!</item>
-		<item>Текущий счет: %d задач выполнено</item>
-		<item>Улыбнитесь! Выполнено %d задач(и)!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
-	<string-array name="PPW_colors">
-		<item>Черный</item>
-		<item>Белый</item>
-		<item>Голубой</item>
-		<item>Прозрачный</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">Этот виджет доступен только для владельцев PowerPack!</string>
-	<string name="PPW_widget_dlg_ok">Предпросмотр</string>
-	<string name="PPW_demo_title1">Записи от %s будут идти здесь</string>
-	<string name="PPW_demo_title2">Power Pack включает премиум-виджеты...</string>
-	<string name="PPW_demo_title3">... добавьте голосовую заметку и приятных ощущений!</string>
-	<string name="PPW_demo_title4">Нажми и узнай больше!</string>
-	<string name="PPW_info_title">Бесплатный Power Pack!</string>
-	<string name="PPW_info_signin">Войди!</string>
-	<string name="PPW_info_later">Позже</string>
-	<string name="PPW_unlock_howto">Опубликуй списки для друзей! Получи бесплатный Power Pack когда 3 друга зарегистрируются в Tasks.</string>
-	<string name="PPW_check_button">Получи Power Pack бесплатно!</string>
-	<string name="PPW_check_share_lists">Опубликовать списки!</string>
-	<string name="PPW_api_level">Извините. Этот виджет поддерживается на версии Android 3.0 и выше.</string>
-	<string name="EPr_widget_enabled_title">Включить/Отключить Виджеты</string>
-	<string name="PPW_restart_for_enabled_state">Возможно Вам придется перезагрузить телефон, чтобы изменение вступило в силу.</string>
 </resources>

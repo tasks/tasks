@@ -242,11 +242,6 @@
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Resets some local data to help resolve sync errors</string>
 	<string name="EPr_reset_sync_state_detailed">The next time you sync, your tasks and lists will be changed to mirror what exists on Tasks.com, which may help resolve sync errors. Do you wish to continue?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Alarmlar</string>
@@ -256,11 +251,6 @@
 	<!-- reminders related to alarm -->
 		<item>Alarm!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -319,11 +309,6 @@
 	<string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Geri Alınacak Bir Dosya Seçin</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks Görevleri</string>
@@ -1000,11 +985,6 @@
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="market_unavailable">Ne yazık ki market sisteminiz için kullanılabilir değil.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">Yeni Görev Öntanımlıları</string>
 	<string name="EPr_defaults_summary">Priority, due date, add to calendar</string>
@@ -1082,11 +1062,6 @@
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1157,11 +1132,6 @@
 	<string name="CFC_title_contains_name">Başlık şunu içersin...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Başlık şunu içersin:?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1183,11 +1153,6 @@
 	<string name="gcal_completed_title">%s (tamamlandı)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Öntanımlı Takvim</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google Görevleri</string>
@@ -1247,11 +1212,6 @@
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Add task</string>
 	<string name="gtasks_import_add_task_cancel">Don\'t add task</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1279,11 +1239,6 @@
 	<string name="welcome_login_confirm_later_ok">Yapacağım!</string>
 	<string name="welcome_login_confirm_later_cancel">Hayır, teşekkürler</string>
 	<string name="welcome_login_confirm_later_dialog">Tasksden mümkün olduğunca faydalanmak için giriş yapın. Ücretsiz olarak çevirimiçi yedekleme, Tasks.com ile senkronizasyon, email ile görev ekleme ve arkadaşlar ile görev listesi paylaşma özelliklerine ulaşın.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Süzgeç Alarmı</string>
@@ -1305,11 +1260,6 @@
 	<string name="locale_notification">$FILTER konumunda $NUM var</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Lütfen Tasks Locale eklentisini yükleyin!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1400,11 +1350,6 @@
 	<string name="CFC_opencrx_in_workspace_name">Çalışma alanında...</string>
 	<string name="CFC_opencrx_assigned_to_text">Atandı: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">Atandı...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Advanced settings</string>
@@ -1415,11 +1360,6 @@
 	<string name="EPr_statistics_desc_disabled">Kullanım verisi raporlanmadı</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">Anonim kullanım istatistiklerini göndererek Tasks\'i geliştirmemize yardımcı olun</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">Ağ hatası! Konuşmanın tanınması çalışması için bir ağ bağlantısına gerek duyar.</string>
 	<string name="speech_err_no_match">Üzgünüm, bunu anlayamadım! Lütfen yeniden deneyin.</string>
 	<string name="speech_err_default">Üzgünüm, konuşma tanınma işlevi hata verdi. Lütfen yeniden deneyin.</string>
@@ -1499,11 +1439,6 @@
 	<string name="premium_verification_error">Premium üyelik, bu Google Play hesabı için başka bir kullanıcıya bağlı görünüyor. Hesabınıza ek e-postalar için ziyaret edin: tasks.com/users/profile</string>
 	<string name="premium_check_for_purchases">Already purchased premium? Click here to check Google Play for purchase history.</string>
 	<string name="premium_checking_for_purchases">Checking for purchases...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1840,11 +1775,6 @@
 		<item>Son seferinde de bahanen yok muydu?</item>
 		<item>Bunu yapmaya devam edersen hayatını organize edemem</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Tekrarlanan Görevler</string>
@@ -1938,21 +1868,11 @@
 		<item>Seninle gurur duyuyorum!</item>
 		<item>Verimli olduğun zaman seni çok seviyorum!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Tasks\'te Sınıflandırma ve Giritili Yazma</string>
 	<string name="subtasks_help_1">Bir görevi taşımak için dokunup sürükleyin</string>
 	<string name="subtasks_help_2">Yeniden sıralamak için dikine sürükle</string>
 	<string name="subtasks_help_3">Girintili yazmak için yatay sürükle</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2012,11 +1932,6 @@
 	<string name="tag_delete_button">Listeyi sil</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Bu listeyi bırak</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2033,11 +1948,6 @@
 	<string name="TEA_timer_comment_stopped">bu görevden vazgeç:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Harcanan zaman:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2100,11 +2010,6 @@
 	<string name="history_repeat_from_completion">after completion</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Yeni görev için konuş</string>
 	<string name="voice_edit_title_prompt">Görev başlığı için konuş</string>
@@ -2135,11 +2040,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks görev hatırlatmaları sırasında zil sesi çalacak</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Ses Komutu Ayarları</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">Öğreticiyi göster</string>
 	<string name="welcome_title_1">Tasks\'e Hoş geldiniz!</string>
@@ -2172,74 +2072,5 @@
 	<string name="welcome_body_7_return">Geri dönmek için Tasks\'e dokunun.</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">İleri</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks Özel Başlatıcı Premium</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks Başlatıcı Pro Premium</string>
-	<string name="PPW_configure_title">Bileşeni Yapılandır</string>
-	<string name="PPW_color">Bileşen Rengi</string>
-	<string name="PPW_enable_calendar">Takvim olaylarını göster</string>
-	<string name="PPW_disable_encouragements">Teşvikleri gizle</string>
-	<string name="PPW_show_dates">Son tarihleri göster</string>
-	<string name="PPW_filter">Süzgeç Seç</string>
-	<string name="PPW_due">Son:</string>
-	<string name="PPW_past_due">Gecikmiş:</string>
-	<string name="PPW_old_astrid_notice">Bu bileşeni kullanmak için Tasks\'in son sürümü olan 3.6\'ya ihtiyacınız var. Üzgünüm!</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>Selamlar!</item>
-		<item>Bir şeyler bitirmek için vaktin var mı?</item>
-		<item>Vay canına, bugün kendinden çok emin görünüyorsun!</item>
-		<item>Bugün kendin için ne yaptın!</item>
-		<item>Bugün beni gururlandır!</item>
-		<item>Bugün nasılsın?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>Günaydın!</item>
-		<item>İyi günler!</item>
-		<item>İyi akşamlar!</item>
-		<item>Zor gece?</item>
-		<item>Hâlâ erken, bir şeyler yapabilirsin!</item>
-		<item>Öğle çayına ne dersin?</item>
-		<item>Gecenin tadını çıkar!</item>
-		<item>Uyku senin için güzel bir şey, biliyorsun!</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>Şimdiye kadar %d görev tamamladınız!</item>
-		<item>Hayatının sayısı: %d görev bitti</item>
-		<item>Gülümse! Şimdiye kadar %d görev bitti!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">You haven\'t completed very many tasks yet! Shall we?</string>
-	<string-array name="PPW_colors">
-		<item>Siyah</item>
-		<item>Beyaz</item>
-		<item>Mavi</item>
-		<item>Yarı saydam</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">Bu bileşen yalnızca PowerPack sahipleri tarafından kullanılabilir!</string>
-	<string name="PPW_widget_dlg_ok">Önizleme</string>
-	<string name="PPW_demo_title1">%s üzerindeki öğeler buraya gelecek</string>
-	<string name="PPW_demo_title2">Güç Paketi Ücretli Bileşenleri içermektedir...</string>
-	<string name="PPW_demo_title3">...ses ekle ve iyi hisset!</string>
-	<string name="PPW_demo_title4">Daha çok öğrenmek için dokunun!</string>
-	<string name="PPW_info_title">Ücretsiz Güç Paketi!</string>
-	<string name="PPW_info_signin">Oturum aç!</string>
-	<string name="PPW_info_later">Sonra</string>
-	<string name="PPW_unlock_howto">Listeleri arkadaşlarınızla paylaşın! Güç Paketi, 3 arkadaşınız Tasks\'le oturum açtığında ücretsiz olacak.</string>
-	<string name="PPW_check_button">Güç Paketi\'ni ücretsiz alın!</string>
-	<string name="PPW_check_share_lists">Listeleri paylaş!</string>
-	<string name="PPW_api_level">Üzgünüz! Bu bileşen yalnızca Andorid 3.0 ya da üzerinde çalışıyor.</string>
-	<string name="EPr_widget_enabled_title">Bileşenleri Etkinleştir/Etkisizleştir</string>
-	<string name="PPW_restart_for_enabled_state">Bu değişikliğin etkin olabilmesi için telefonunuzu yeniden başlatmanız gerekebilir.</string>
 </resources>

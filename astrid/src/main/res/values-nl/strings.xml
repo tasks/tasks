@@ -242,11 +242,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="EPr_reset_sync_state">Reset sync</string>
 	<string name="EPr_reset_sync_state_summary">Reset sommige lokale data om synchronisatie te proberen te herstellen</string>
 	<string name="EPr_reset_sync_state_detailed">De volgende keer dat je synchroniseert, zullen je taken en lijsten veranderen in overeenstemming met de data die aanwezig is Tasks.com, wat synchronisatie fouten kan herstellen. Wil je doorgaan?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Herinneringen</string>
@@ -256,11 +251,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- reminders related to alarm -->
 		<item>Voeg Alarm toe</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -319,11 +309,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Selecteer een back-up om te herstellen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks Taken</string>
@@ -997,11 +982,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="DB_corrupted_title">Database Corrupt</string>
 	<string name="DB_corrupted_body">Oh oh! Het lijkt erop dat je een corrupte database hebt. Als je deze error vaker ziet raden we je aan alle data te verwijderen (Instellingen-&gt;Beheer Alle Taken-&gt;Wis alle data) en je taken uit een backup te herstellen (Instellingen-&gt;Backup-&gt;Importeer Taken) in Tasks.</string>
 	<string name="market_unavailable">Helaas is de Android Market niet beschikbaar voor jouw systeem.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
 	<string name="EPr_defaults_summary">Prioriteit, eind datum, toevoegen aan agenda</string>
@@ -1079,11 +1059,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1154,11 +1129,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="CFC_title_contains_name">Naam bevat...</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Naam bevat: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1180,11 +1150,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Standaard agenda</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google Taken</string>
@@ -1244,11 +1209,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="gtasks_import_dlg_title">Google Taken import</string>
 	<string name="gtasks_import_add_task_ok">Taak toevoegen</string>
 	<string name="gtasks_import_add_task_cancel">Taak niet toevoegen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1276,11 +1236,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="welcome_login_confirm_later_ok">Ik doe het!</string>
 	<string name="welcome_login_confirm_later_cancel">Nee, bedankt</string>
 	<string name="welcome_login_confirm_later_dialog">Log in om het meeste uit Tasks te halen! Je krijgt gratis online backup, synchronisatie met Tasks.com, de mogelijkheid om taken toe te voegen via e-mail en lijsten te delen met vrienden!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter waarschuwing</string>
@@ -1302,11 +1257,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Installeer de Tasks Locale plugin aub!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1397,11 +1347,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="CFC_opencrx_in_workspace_name">In Workspace...</string>
 	<string name="CFC_opencrx_assigned_to_text">Toegewezen aan: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">Toegewezen aan...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Premium en diverse instellingen</string>
@@ -1412,11 +1357,6 @@ Weet je zeker dat je wilt synchroniseren met Tasks.com?</string>
 	<string name="EPr_statistics_desc_disabled">Geen gebruikersgegevens doorgeven</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">Help ons Tasks nóg beter te maken door anoniem statistieken over uw gebruik met ons te delen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">Netwerkfout! Spraakherkenning heeft een netwerkverbinding nodig.</string>
 	<string name="speech_err_no_match">Sorry, ik begrijp je niet! Probeer het opnieuw.</string>
 	<string name="speech_err_default">Sorry, spraakherkenning ondervond een fout. Graag opnieuw proberen.</string>
@@ -1498,11 +1438,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="premium_verification_error">Het premium abonnement voor deze Google Play account is verbonden aan een andere gebruiker. Bezoek tasks.com/users/profile om aanvullende e-mails aan jouw account toe te voegen</string>
 	<string name="premium_check_for_purchases">Al premium aangeschaft? Klik hier om de aankoop historie op Google Play te bekijken.</string>
 	<string name="premium_checking_for_purchases">Controleren op aankopen...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1839,11 +1774,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 		<item>Gebruikte je die smoes vorige keer niet al?</item>
 		<item>Ik kan je niet helpen als je me blijft negeren...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Herhalende taken</string>
@@ -1937,21 +1867,11 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 		<item>Ik ben zo trots op je!</item>
 		<item>Ik hou ervan wanneer je productief bent!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Sorteren en inspringen in Tasks</string>
 	<string name="subtasks_help_1">Druk en sleep om een taak te verplaatsen</string>
 	<string name="subtasks_help_2">Sleep verticaal om te herschikken</string>
 	<string name="subtasks_help_3">Sleep horizontaal om in te springen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2011,11 +1931,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="tag_delete_button">Lijst verwijderen</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Verlaat Deze Lijst</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2032,11 +1947,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="TEA_timer_comment_stopped">taak gestopt:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Gebruikte tijd:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2099,11 +2009,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="history_repeat_from_completion">na voltooing</string>
 	<string name="history_acknowledged">%s bekeken</string>
 	<string name="history_default">%1$s veranderd in %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Spreek om taak te maken</string>
 	<string name="voice_edit_title_prompt">Spreek titel van taak in</string>
@@ -2134,11 +2039,6 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Spraakinstellingen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">Laat handleiding zien</string>
 	<string name="welcome_title_1">Welkom bij Tasks!</string>
@@ -2171,75 +2071,5 @@ Je kunt doorgaan met het gebruiken van deze applicatie maar je kunt geen aankope
 	<string name="welcome_body_7_return">Klik Tasks om terug te gaan.</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">Verder</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks Gepersonaliseerd Startscherm Premium</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks Startscherm Pro Premium</string>
-	<string name="PPW_configure_title">Widget instellen</string>
-	<string name="PPW_color">Widget kleur</string>
-	<string name="PPW_enable_calendar">Agenda items weergeven</string>
-	<string name="PPW_disable_encouragements">Motiverend commentaar verbergen</string>
-	<string name="PPW_show_dates">Toon deadlines</string>
-	<string name="PPW_filter">Filter selecteren</string>
-	<string name="PPW_due">Einddatum:</string>
-	<string name="PPW_past_due">Verlopen:</string>
-	<string name="PPW_old_astrid_notice">Sorry! Je hebt tenminste versie 3.6 van 
-Tasks nodig om deze widget te gebruiken.</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>Hee, hallo!</item>
-		<item>Tijd over?</item>
-		<item>Goh, je ziet er goed uit vandaag!</item>
-		<item>Bereik iets moois vandaag!</item>
-		<item>Maak me blij!</item>
-		<item>Hoe gaat het met je?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>Goedemorgen!</item>
-		<item>Goedemiddag!</item>
-		<item>Goedenavond!</item>
-		<item>Laat geworden?</item>
-		<item>Het is vroeg, krijg iets gedaan!</item>
-		<item>Kopje thee misschien?</item>
-		<item>Geniet van de avond!</item>
-		<item>Slaap is goed voor je!</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>Er zijn al %d taken voltooid!</item>
-		<item>Totaal: %d taken voltooid</item>
-		<item>Voel je goed! Je hebt al %d taken af!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">Je hebt nog niet veel taken afgerond! Zullen we?</string>
-	<string-array name="PPW_colors">
-		<item>Zwart</item>
-		<item>Wit</item>
-		<item>Blauw</item>
-		<item>Doorzichtig</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">Deze widget is alleen beschikbaar met het Power Pack!</string>
-	<string name="PPW_widget_dlg_ok">Voorbeeld</string>
-	<string name="PPW_demo_title1">Onderdelen over %s gaan hier naartoe</string>
-	<string name="PPW_demo_title2">Power Pack heeft Premium Widgets</string>
-	<string name="PPW_demo_title3">...geluidsopname toegevoegd en goede gevoelens</string>
-	<string name="PPW_demo_title4">Klik voor meer informatie!</string>
-	<string name="PPW_info_title">Gratis Power Pack!</string>
-	<string name="PPW_info_signin">Log in!</string>
-	<string name="PPW_info_later">Later</string>
-	<string name="PPW_unlock_howto">Deel lijsten met vrienden! Krijg een gratis Power Pack als 3 vrienden zich aanmelden voor Tasks.</string>
-	<string name="PPW_check_button">Krijg het Power Pack gratis!</string>
-	<string name="PPW_check_share_lists">Deel lijsten!</string>
-	<string name="PPW_api_level">Sorry! Deze widget wordt alleen ondersteund op Android 3.0 of hoger. </string>
-	<string name="EPr_widget_enabled_title">Widgets In-/Uitschakelen</string>
-	<string name="PPW_restart_for_enabled_state">Je moet misschien je telefoon opnieuw opstarten voordat deze aanpassing effect heeft.</string>
 </resources>

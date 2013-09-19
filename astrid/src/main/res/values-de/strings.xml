@@ -242,11 +242,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_reset_sync_state">Synchronisation zurücksetzen</string>
 	<string name="EPr_reset_sync_state_summary">Setzt einige lokale Daten zur Behebung von Synchronisations-Fehlern zurück</string>
 	<string name="EPr_reset_sync_state_detailed">Bei der nächsten Synchronisation werden deine Aufgaben und Listen denjenigen auf Tasks.com angeglichen. Das behebt Synchronisationsfehler. Möchtest du damit beginen?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task Edit Activity: Container Label -->
 	<string name="alarm_ACS_label">Alarme</string>
@@ -256,11 +251,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- reminders related to alarm -->
 		<item>Alarm!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in backup plug-in -->
 	<!-- ================================================= BackupPreferences == -->
 	<!-- slide 33c/48d: Backup Preferences Title -->
@@ -319,11 +309,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="DLG_error_sdcard_general">SD-Karte konnte nicht geöffnet werden!</string>
 	<!-- Backup: File Selector dialog for import -->
 	<string name="import_file_prompt">Wählen Sie eine Datei zum Wiederherstellen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== AndroidManifest == -->
 	<!-- slide 32k: Application Name (shown on home screen & in launcher) -->
 	<string name="app_name">Tasks Aufgaben</string>
@@ -997,11 +982,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="DB_corrupted_title">Fehler in der Datenbank</string>
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="market_unavailable">Leider ist der Market nicht für dein System verfügbar.</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 32g: Preference Category: Defaults Title -->
 	<string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
 	<string name="EPr_defaults_summary">Priorität, Fälligkeitsdatum, in Kalender eintragen</string>
@@ -1079,11 +1059,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<!-- addtocalendar: labels for "Task Defaults" preference item. -->
 		<item>@string/EPr_deactivated</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in filter plug-in -->
 	<!-- ================================================= Filter Exposer == -->
 	<!-- Active Tasks Filter -->
@@ -1154,11 +1129,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="CFC_title_contains_name">Titel enthält …</string>
 	<!-- Criteria: title_contains - text (? -> user input) -->
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Error message for adding to calendar  -->
@@ -1180,11 +1150,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
 	<!-- System Default Calendar (displayed if we can\'t figure out calendars)  -->
 	<string name="gcal_GCP_default">Standardkalender</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ============================================================= UI == -->
 	<!-- filters header: GTasks -->
 	<string name="gtasks_FEx_header">Google Tasks</string>
@@ -1244,11 +1209,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="gtasks_import_dlg_title">Google Tasks Import</string>
 	<string name="gtasks_import_add_task_ok">Aufgabe hinzufügen</string>
 	<string name="gtasks_import_add_task_cancel">Aufgabe nicht hinzufügen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- NEW USER EXPERIENCE -->
 	<!-- help bubbles -->
 	<!-- slide 8c: Shown the first time a user sees the task list activity -->
@@ -1276,11 +1236,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="welcome_login_confirm_later_ok">Ich mach\'s!</string>
 	<string name="welcome_login_confirm_later_cancel">Kein Interesse</string>
 	<string name="welcome_login_confirm_later_dialog">\"Melde dich an, um alles aus Tasks rauszuholen! Gratis, du kannst mit Tasks.com synchronisieren, Aufgaben per email hinzufügen  und du kannst sogar Aufgaben mit Freunden teilen!\"</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in locale plug-in -->
 	<!-- Locale Alert Editing Window Title -->
 	<string name="locale_edit_alerts_title">Tasks Filter Alarm</string>
@@ -1302,11 +1257,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>
 	<!-- Locale Plugin was not found, it is required -->
 	<string name="locale_plugin_required">Bitte installieren Sie das Tasks Locale Plug-In!</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ====================== Plugin Boilerplate ========================= -->
 	<!-- filters header: OpenCRX -->
 	<string name="opencrx_FEx_header">OpenCRX</string>
@@ -1397,11 +1347,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="CFC_opencrx_in_workspace_name">Im Arbeitsbereich …</string>
 	<string name="CFC_opencrx_assigned_to_text">Zugeordnet zu: ?</string>
 	<string name="CFC_opencrx_assigned_to_name">Zugeordnet zu …</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- ================================================== EditPreferences == -->
 	<!-- slide 32j: Preference Category: Power Pack -->
 	<string name="EPr_powerpack_header">Premium und verschiedene Einstellungen</string>
@@ -1412,11 +1357,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_statistics_desc_disabled">Nutzungsstatistik wird nicht übertragen</string>
 	<!-- slide 32f: Preference: User Statistics (enabled) -->
 	<string name="EPr_statistics_desc_enabled">Helfen Sie uns, Tasks durch anonymisierte Nutzungsdaten besser zu machen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="speech_err_network">Netzwerkfehler! Spracherkennung benötigt eine Internetverbindung um zu funktionieren.</string>
 	<string name="speech_err_no_match">Entschuldigung! Ich konnte das nicht verstehen! Bitte versuchen Sie es erneut.</string>
 	<string name="speech_err_default">Tut uns leid, die Spracherkennung konnte das nicht verarbeiten. Bitte versuchen Sie es erneut.</string>
@@ -1496,11 +1436,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="premium_verification_error">Der Premium Account für dieses Google Play Konto ist mit einem anderen Benutzer verknüpft. Um weitere E-Mail-Adressen zu deinem Account hinzuzufügen, besuche tasks.com/users/profile</string>
 	<string name="premium_check_for_purchases">Schon mal Premium gekauft? Hier klicken um die Einkaufhistorie in Googe Play zu sehen.</string>
 	<string name="premium_checking_for_purchases">Prüfe Deine Einkäufe...</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in reminders plug-in -->
 	<!-- =============================================== task edit activity == -->
 	<!-- Task Edit: Reminder group label -->
@@ -1837,11 +1772,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 		<item>Hab ich die Entschuldigung nicht schon letztes mal gehört?</item>
 		<item>Ich kann dir nicht helfen dein Leben zu organisieren, wenn du das tust...</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in repeat plug-in -->
 	<!-- repeating plugin name -->
 	<string name="repeat_plugin">Wiederkehrende Aufgaben</string>
@@ -1935,21 +1865,11 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 		<item>Ich bin stolz auf Sie!</item>
 		<item>Es gefällt mir, wenn Sie produktiv sind!</item>
 	</string-array>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Subtasks Help Introduction -->
 	<string name="subtasks_help_title">Sortieren und einrücken in Tasks</string>
 	<string name="subtasks_help_1">Drücken und halten, um Aufgabe zu verschieben</string>
 	<string name="subtasks_help_2">Sortieren ändern durch Ziehen nach oben oder unten</string>
 	<string name="subtasks_help_3">Zum Einrücken waagerecht ziehen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in tag plug-in -->
 	<!-- =============================================== Task Edit Controls == -->
 	<!-- Tags label -->
@@ -2009,11 +1929,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="tag_delete_button">Liste löschen</string>
 	<!-- slide 28d: Leave button for tag settings -->
 	<string name="tag_leave_button">Diese Liste verlassen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Resources for built-in timers plug-in -->
 	<!-- Task List: Start Timer button -->
 	<!-- Task List: Stop Timer button -->
@@ -2030,11 +1945,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
 	<!-- Edit Notes: comment to notify how long was spent on task -->
 	<string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
 	<!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
     Please do not translate this part of the string. -->
@@ -2097,11 +2007,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="history_repeat_from_completion">nach abschluss</string>
 	<string name="history_acknowledged">viewed %s</string>
 	<string name="history_default">changed %1$s to %2$s</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- Voice Add Prompt Text -->
 	<string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
 	<string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>
@@ -2132,11 +2037,6 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="EPr_voiceRemindersEnabled_desc_disabled">Tasks wird bei der Erinnerung einen Klingelton abspielen</string>
 	<!-- slide 32d: Preference Category: Voice Title -->
 	<string name="EPr_voice_header">Sprachfunktionen</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<!-- slide 30a-->
 	<string name="welcome_setting">Tutorial anzeigen</string>
 	<string name="welcome_title_1">Willkommen zu Tasks</string>
@@ -2169,74 +2069,5 @@ Sind Sie sicher, dass Sie mit Tasks.com synchronisieren möchten?</string>
 	<string name="welcome_body_7_return">Berühren Sie Tasks\num zurückzukehren.</string>
 	<!-- slide 1c -->
 	<string name="welcome_next">Weiter</string>
-	<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
 	<string name="widget_mini">Tasks Mini</string>
-	<!-- Resources for power pack widget -->
-	<string name="PPW_widget_42_label">Old Tasks 4x2</string>
-	<string name="PPW_widget_43_label">Old Tasks 4x3</string>
-	<string name="PPW_widget_44_label">Old Tasks 4x4</string>
-	<string name="PPW_widget_v11_label">- Tasks -</string>
-	<string name="PPW_widget_custom_label">Tasks Premium für Custom Launcher</string>
-	<string name="PPW_widget_custom_launcherpro_label">Tasks Premium für Launcher Pro</string>
-	<string name="PPW_configure_title">Widget konfigurieren</string>
-	<string name="PPW_color">Widget-Farbe</string>
-	<string name="PPW_enable_calendar">Kalendereinträge anzeigen</string>
-	<string name="PPW_disable_encouragements">Ermutigungen verstecken</string>
-	<string name="PPW_show_dates">Zeige Fälligkeitsdatum</string>
-	<string name="PPW_filter">Filter auswählen</string>
-	<string name="PPW_due">Fällig:</string>
-	<string name="PPW_past_due">Überfällig:</string>
-	<string name="PPW_old_astrid_notice">Sie benötigen mindestens Tasks 3.6, um dieses Widget verwenden zu können. Tut uns leid!</string>
-	<string-array name="PPW_encouragements">
-	<!-- general encouragements -->
-		<item>Hallo!</item>
-		<item>Haben Sie Zeit etwas abzuschliessen?</item>
-		<item>Donnerwetter, Sie sehen charmant aus heute!</item>
-		<item>Mache heute etwas Grossartiges!</item>
-		<item>Mach mich heute stolz!</item>
-		<item>Wie geht es dir heute?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_tod">
-	<!-- encouragements based on time of day -->
-		<item>Guten Morgen!</item>
-		<item>Schönen Nachmittag!</item>
-		<item>Guten Abend!</item>
-		<item>Spät in der Nacht?</item>
-		<item>Es ist früh, fangen Sie mit etwas an!</item>
-		<item>Vielleicht ein Nachmittagstee?</item>
-		<item>Einen schönen Abend!</item>
-		<item>Schlaf ist gut für dich, weisst du?</item>
-	</string-array>
-	<string-array name="PPW_encouragements_completed">
-	<!-- encouragements based on tasks completed (%d => completed) -->
-		<item>Es wurden bereits %d Tasks erledigt!</item>
-		<item>Lebenspunktzahl: %d Aufgaben erledigt</item>
-		<item>Freu dich! %d Aufgaben hast du schon erledigt!</item>
-	</string-array>
-	<string name="PPW_encouragements_none_completed">Sie haben noch nicht sehr viele Aufgaben abgeschlossen! Sollen wir beginnen?</string>
-	<string-array name="PPW_colors">
-		<item>Schwarz</item>
-		<item>Weiss</item>
-		<item>Blau</item>
-		<item>Durchscheinend</item>
-	</string-array>
-	<string name="PPW_widget_dlg_text">Dieses Widget steht nur für Käufer des PowerPacks zur Verfügung!</string>
-	<string name="PPW_widget_dlg_ok">Vorschau</string>
-	<string name="PPW_demo_title1">Eintragungen zu %s werden hier abgelegt</string>
-	<string name="PPW_demo_title2">Das Powerpack umfasst auch Premium-Widgets …</string>
-	<string name="PPW_demo_title3">… Aufgaben per Sprache hinzufügen und gut fühlen!</string>
-	<string name="PPW_demo_title4">Anllicken um mehr zu erfahren!</string>
-	<string name="PPW_info_title">Kostenloses Power</string>
-	<string name="PPW_info_signin">Melde dich an!</string>
-	<string name="PPW_info_later">Später</string>
-	<string name="PPW_unlock_howto">Listen mit andren teilen! Du kannst das kostenlose Powerpack freischalten, wenn sich 3 deiner Freunde bei Tasks angemeldet haben.</string>
-	<string name="PPW_check_button">Du kannst das Power Pack kostenlos bekommen!</string>
-	<string name="PPW_check_share_lists">Listen freigeben!</string>
-	<string name="PPW_api_level">Es tut uns leid, aber für dieses Widget wird Android 3.0 oder höher benötigt.</string>
-	<string name="EPr_widget_enabled_title">Aktiviere/Deaktiviere Widgets</string>
-	<string name="PPW_restart_for_enabled_state">Es kann sein, dass das Telefon neu gestartet werden muss, damit diese Änderung wirksam wird.</string>
 </resources>

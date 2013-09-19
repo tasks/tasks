@@ -496,37 +496,4 @@
   <string name="tag_settings_title">Settings:</string>
   <string name="welcome_title_1">Bem-vindo ao Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string-array name="PPW_encouragements">
-    <item>Hi there!</item>
-    <item>Have time to finish something?</item>
-    <item>Gosh, you are looking suave today!</item>
-    <item>Do something great today!</item>
-    <item>Make me proud today!</item>
-    <item>How are you doing today?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>Good morning!</item>
-    <item>Boa tarde!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>É cedo, faça alguma coisa!</item>
-    <item>Chá da tarde, talvez?</item>
-    <item>Aproveite a noite!</item>
-    <item>Sleep is good for you, you know!</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>You\'ve already completed %d tasks!</item>
-    <item>Score in life: %d tasks completed</item>
-    <item>sorria! Já completou as tarefas do %d</item>
-  </string-array>
-  <string-array name="PPW_colors">
-    <item>Preto</item>
-    <item>Branco</item>
-    <item>Azul</item>
-    <item>Translúcido</item>
-  </string-array>
-  <string name="PPW_widget_dlg_ok">Pré-visualizar</string>
-  <string name="PPW_check_button">Obtenha o Power Pack grátis!</string>
-  <string name="PPW_check_share_lists">Partilhar Listas!</string>
-  <string name="PPW_restart_for_enabled_state">Pode ser necessário reiniciar o telefone para que esta alteração surta efeito</string>
 </resources>

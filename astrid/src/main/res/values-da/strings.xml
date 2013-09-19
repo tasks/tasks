@@ -583,40 +583,4 @@
   <string name="tag_settings_title">Settings:</string>
   <string name="welcome_title_1">Velkommen til Tasks!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string name="PPW_configure_title">Konfigurer Widget</string>
-  <string name="PPW_color">Widget farve</string>
-  <string name="PPW_enable_calendar">Vis kalenderbegivenheder</string>
-  <string name="PPW_filter">Vælg filter</string>
-  <string name="PPW_due">Forfalder:</string>
-  <string name="PPW_past_due">Efter forfaldsdato:</string>
-  <string name="PPW_old_astrid_notice">Du skal mindste bruge version 3.6 af Tasks for at bruge denne widget. Beklager!</string>
-  <string-array name="PPW_encouragements">
-    <item>Hi there!</item>
-    <item>Har du tid til at færdiggøre noget?</item>
-    <item>Gosh, you are looking suave today!</item>
-    <item>Lav noget godt i dag!</item>
-    <item>Gør mig stolt i dag!</item>
-    <item>Hvordan har du det i dag?</item>
-  </string-array>
-  <string-array name="PPW_encouragements_tod">
-    <item>Good morning!</item>
-    <item>Good afternoon!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>It\'s early, get something done!</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
-    <item>Sleep is good for you, you know!</item>
-  </string-array>
-  <string-array name="PPW_encouragements_completed">
-    <item>You\'ve already completed %d tasks!</item>
-    <item>Score in life: %d tasks completed</item>
-    <item>Smile! You\'ve already finished %d tasks!</item>
-  </string-array>
-  <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>White</item>
-    <item>Blue</item>
-    <item>Translucent</item>
-  </string-array>
 </resources>
